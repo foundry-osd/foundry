@@ -24,7 +24,6 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
     }
 
     /// <inheritdoc />
-    /// <inheritdoc />
     public override string Name => DeploymentStepNames.ConfigureOobeSettings;
 
     /// <inheritdoc />
@@ -55,6 +54,7 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
                     context.RuntimeState.Oobe,
                     context.Request.OperatingSystem.Architecture,
                     workingDirectory,
+                    context.RuntimeState.WorkspaceRoot,
                     cancellationToken)
                 .ConfigureAwait(false);
         }

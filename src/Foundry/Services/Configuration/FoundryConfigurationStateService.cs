@@ -10,6 +10,8 @@ using Foundry.Services.Autopilot;
 using Foundry.Telemetry;
 using Foundry.Utilities.Security;
 using Serilog;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using AppSettingsService = Foundry.Services.Settings.IAppSettingsService;
 
 namespace Foundry.Services.Configuration;
@@ -18,8 +20,8 @@ namespace Foundry.Services.Configuration;
 /// Maintains the user-facing Foundry configuration state and generates deploy/connect payloads from it.
 /// </summary>
 /// <remarks>
-/// Secrets that should not be persisted are kept in <see cref="INetworkSecretStateService"/> and are only merged
-/// when a provisioning bundle is generated.
+/// Secrets that should not be persisted are kept in <see cref="INetworkSecretStateService"/> and
+/// <see cref="IOobeAccountSecretStateService"/> and are only merged when a provisioning bundle is generated.
 /// </remarks>
 internal sealed class FoundryConfigurationStateService : IFoundryConfigurationStateService
 {
@@ -28,6 +30,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private readonly IConnectConfigurationGenerator connectConfigurationGenerator;
     private readonly INetworkSecretStateService networkSecretStateService;
     private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
+    private readonly IOobeAccountSecretStateService oobeAccountSecretStateService;
     private readonly IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState;
     private readonly AppSettingsService appSettingsService;
     private readonly ILogger logger;
@@ -38,6 +41,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         IConnectConfigurationGenerator connectConfigurationGenerator,
         INetworkSecretStateService networkSecretStateService,
         IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
+        IOobeAccountSecretStateService oobeAccountSecretStateService,
         IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState,
         AppSettingsService appSettingsService,
         ILogger logger)
@@ -47,6 +51,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         this.connectConfigurationGenerator = connectConfigurationGenerator;
         this.networkSecretStateService = networkSecretStateService;
         this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
+        this.oobeAccountSecretStateService = oobeAccountSecretStateService;
         this.autopilotHardwareHashSessionState = autopilotHardwareHashSessionState;
         this.appSettingsService = appSettingsService;
         this.logger = logger.ForContext<FoundryConfigurationStateService>();
@@ -77,16 +82,30 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
                 return false;
             }
 
+            if (!oobeAccountSecretStateService.Validate(Current.Customization.Oobe).IsValid)
+            {
+                return false;
+            }
+
             try
             {
-                byte[]? deploymentSecretsKey = Current.Autopilot.IsEnabled &&
+                byte[]? deploymentSecretsKey = Current.General.DeploymentProtection.IsEnabled ||
+                                               Current.Autopilot.IsEnabled &&
                                                Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
                     ? AesGcmEncryption.GenerateKey()
+                    : null;
+                DeployProtectionSettings? protectionSettings = Current.General.DeploymentProtection.IsEnabled
+                    ? new DeployProtectionSettings
+                    {
+                        IsEnabled = true
+                    }
                     : null;
 
                 try
                 {
-                    _ = GenerateDeployConfigurationJson(deploymentSecretsKey: deploymentSecretsKey);
+                    _ = GenerateDeployConfigurationJson(
+                        deploymentSecretsKey: deploymentSecretsKey,
+                        protectionSettings: protectionSettings);
                     return true;
                 }
                 finally
@@ -180,6 +199,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public void UpdateCustomization(CustomizationSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
+        oobeAccountSecretStateService.Update(settings.Oobe);
         Current = Current with { Customization = SanitizeCustomizationForPersistence(settings) };
         Save();
         StateChanged?.Invoke(this, EventArgs.Empty);
@@ -210,9 +230,16 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         DeployProtectionSettings? protectionSettings = null)
     {
         FoundryConfigurationDocument document = CreateDocumentForDeployGeneration(telemetryOverride);
+        OobeAccountConfigurationValidationResult validation = oobeAccountSecretStateService.Validate(document.Customization.Oobe);
+        if (!validation.IsValid)
+        {
+            throw new InvalidOperationException("OOBE local account password confirmation is invalid.");
+        }
+
+        using OobeAccountSecretState oobeAccountSecretState = CreateOobeAccountSecretStateForDeployGeneration(document.Customization.Oobe);
 
         return deployConfigurationGenerator.Serialize(
-            deployConfigurationGenerator.Generate(document, deploymentSecretsKey, protectionSettings));
+            deployConfigurationGenerator.Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState));
     }
 
     /// <inheritdoc />
@@ -259,6 +286,61 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             Autopilot = CreateAutopilotSettingsForValidation(Current.Autopilot),
             Telemetry = telemetryOverride ?? Current.Telemetry
         };
+    }
+
+    private OobeAccountSecretState CreateOobeAccountSecretStateForDeployGeneration(OobeSettings settings)
+    {
+        var state = new OobeAccountSecretState();
+
+        if (!settings.IsEnabled)
+        {
+            return state;
+        }
+
+        char[] administratorPassword = oobeAccountSecretStateService.GetAdministratorPasswordCopy();
+        try
+        {
+            state.SetAdministratorPassword(administratorPassword);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(administratorPassword.AsSpan()));
+        }
+
+        char[] administratorConfirmation = oobeAccountSecretStateService.GetAdministratorConfirmationCopy();
+        try
+        {
+            state.SetAdministratorConfirmation(administratorConfirmation);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(administratorConfirmation.AsSpan()));
+        }
+
+        foreach (OobeAdditionalAccountSettings account in settings.AdditionalAccounts)
+        {
+            char[] password = oobeAccountSecretStateService.GetAdditionalAccountPasswordCopy(account.Id);
+            try
+            {
+                state.SetAdditionalAccountPassword(account.Id, password);
+            }
+            finally
+            {
+                CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+            }
+
+            char[] confirmation = oobeAccountSecretStateService.GetAdditionalAccountConfirmationCopy(account.Id);
+            try
+            {
+                state.SetAdditionalAccountConfirmation(account.Id, confirmation);
+            }
+            finally
+            {
+                CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(confirmation.AsSpan()));
+            }
+        }
+
+        return state;
     }
 
     private AutopilotSettings CreateAutopilotSettingsForValidation(AutopilotSettings settings)

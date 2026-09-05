@@ -76,6 +76,11 @@ public sealed record ConfigurationOverviewContext
     public bool IsDeploymentProtectionSecretReady { get; init; }
 
     /// <summary>
+    /// Gets a value indicating whether OOBE local account secrets are valid for the current persisted configuration.
+    /// </summary>
+    public bool IsOobeAccountConfigurationReady { get; init; } = true;
+
+    /// <summary>
     /// Gets a value indicating whether the active Autopilot provisioning mode is valid.
     /// </summary>
     public bool IsAutopilotConfigurationReady { get; init; }
@@ -142,9 +147,10 @@ public static class ConfigurationOverviewEvaluator
             [ConfigurationOverviewItem.DeploymentCompletion] = IsDefaultCompletion(general)
                 ? ConfigurationOverviewState.Default
                 : ConfigurationOverviewState.Configured,
-            [ConfigurationOverviewItem.DeploymentProtection] = EvaluateEnabledFeature(
+            [ConfigurationOverviewItem.DeploymentProtection] = EvaluateDeploymentProtection(
                 general.DeploymentProtection.IsEnabled,
-                context.IsDeploymentProtectionSecretReady),
+                context.IsDeploymentProtectionSecretReady,
+                OobeAccountConfigurationValidator.RequiresProtectedMedia(customization.Oobe)),
             [ConfigurationOverviewItem.DriverOptions] = EvaluateDrivers(general, context.IsCustomDriverConfigurationReady),
             [ConfigurationOverviewItem.EthernetDot1x] = EvaluateNetworkTransport(
                 configuration.Network.Dot1x.IsEnabled,
@@ -155,7 +161,11 @@ public static class ConfigurationOverviewEvaluator
             [ConfigurationOverviewItem.OperatingSystemSelection] = EvaluateOptionalFeature(
                 configuration.OperatingSystemSelection.IsEnabled),
             [ConfigurationOverviewItem.MachineNaming] = EvaluateMachineNaming(customization.MachineNaming),
-            [ConfigurationOverviewItem.Oobe] = EvaluateOptionalFeature(customization.Oobe.IsEnabled),
+            [ConfigurationOverviewItem.Oobe] = EvaluateOobe(
+                customization.Oobe,
+                configuration.Autopilot,
+                context.IsOobeAccountConfigurationReady,
+                general.DeploymentProtection.IsEnabled),
             [ConfigurationOverviewItem.OptionalFeatures] = EvaluateOptionalFeature(
                 customization.WindowsOptionalFeatures.IsEnabled &&
                 (customization.WindowsOptionalFeatures.EnabledFeatureIds.Count > 0 ||
@@ -195,6 +205,18 @@ public static class ConfigurationOverviewEvaluator
                 ? ConfigurationOverviewState.Configured
                 : ConfigurationOverviewState.NeedsAttention;
 
+    private static ConfigurationOverviewState EvaluateDeploymentProtection(
+        bool isEnabled,
+        bool isReady,
+        bool isRequired) =>
+        !isEnabled
+            ? isRequired
+                ? ConfigurationOverviewState.NeedsAttention
+                : ConfigurationOverviewState.Disabled
+            : isReady
+                ? ConfigurationOverviewState.Configured
+                : ConfigurationOverviewState.NeedsAttention;
+
     private static ConfigurationOverviewState EvaluateOptionalFeature(bool isEnabled) =>
         isEnabled ? ConfigurationOverviewState.Configured : ConfigurationOverviewState.Disabled;
 
@@ -211,6 +233,30 @@ public static class ConfigurationOverviewEvaluator
             : MachineNamingValidator.Validate(settings).IsValid
                 ? ConfigurationOverviewState.Configured
                 : ConfigurationOverviewState.NeedsAttention;
+
+    private static ConfigurationOverviewState EvaluateOobe(
+        OobeSettings settings,
+        AutopilotSettings autopilot,
+        bool isSecretStateReady,
+        bool isDeploymentProtectionEnabled) =>
+        !settings.IsEnabled
+            ? ConfigurationOverviewState.Disabled
+            : OobeAccountConfigurationValidator.Validate(settings).IsValid &&
+              isSecretStateReady &&
+              (!OobeAccountConfigurationValidator.RequiresProtectedMedia(settings) || isDeploymentProtectionEnabled) &&
+              IsOobeCompatibleWithAutopilot(autopilot, settings)
+                ? ConfigurationOverviewState.Configured
+                : ConfigurationOverviewState.NeedsAttention;
+
+    private static bool IsOobeCompatibleWithAutopilot(AutopilotSettings autopilot, OobeSettings oobe)
+    {
+        if (!autopilot.IsEnabled)
+        {
+            return true;
+        }
+
+        return oobe.AdditionalAccounts.Count == 0;
+    }
 
     private static NetworkSettings CreateEthernetOnlyNetwork(NetworkSettings settings) => settings with
     {

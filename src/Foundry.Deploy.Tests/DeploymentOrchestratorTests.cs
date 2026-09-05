@@ -174,6 +174,19 @@ public sealed class DeploymentOrchestratorTests
             AutopilotHardwareHashUpload = new DeployAutopilotHardwareHashUploadSettings
             {
                 DefaultGroupTag = "Sales"
+            },
+            Oobe = new DeployOobeSettings
+            {
+                IsEnabled = true,
+                EnableAdministratorAccount = true,
+                AdditionalAccounts =
+                [
+                    new DeployOobeAdditionalAccountSettings
+                    {
+                        Id = "account-1",
+                        UserName = "PrivateTelemetryUser"
+                    }
+                ]
             }
         }, TestContext.Current.CancellationToken);
 
@@ -198,6 +211,13 @@ public sealed class DeploymentOrchestratorTests
         Assert.Equal("hardware_hash_upload", telemetryEvent.Properties["deploy_autopilot_provisioning_mode"]);
         Assert.Equal("planned", telemetryEvent.Properties["deploy_autopilot_hash_upload_state"]);
         Assert.True((bool)telemetryEvent.Properties["deploy_autopilot_hash_group_tag_selected"]!);
+        Assert.True((bool)telemetryEvent.Properties["deploy_oobe_enabled"]!);
+        Assert.True((bool)telemetryEvent.Properties["deploy_oobe_administrator_enabled"]!);
+        Assert.Equal(1, telemetryEvent.Properties["deploy_oobe_additional_account_count"]);
+        Assert.True((bool)telemetryEvent.Properties["deploy_oobe_account_creation_skipped"]!);
+        Assert.DoesNotContain(
+            telemetryEvent.Properties.Values,
+            value => value?.ToString()?.Contains("PrivateTelemetryUser", StringComparison.Ordinal) == true);
         Assert.False(telemetryEvent.Properties.ContainsKey("success"));
         Assert.False(telemetryEvent.Properties.ContainsKey("autopilot_enabled"));
     }

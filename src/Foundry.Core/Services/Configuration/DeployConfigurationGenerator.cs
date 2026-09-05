@@ -2,6 +2,9 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
@@ -18,7 +21,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     /// <inheritdoc />
     public FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document)
     {
-        return Generate(document, deploymentSecretsKey: null, protectionSettings: null);
+        return Generate(document, deploymentSecretsKey: null, protectionSettings: null, oobeAccountSecretState: null);
     }
 
     /// <summary>
@@ -29,7 +32,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     /// <returns>Reduced Foundry.Deploy configuration document.</returns>
     public FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document, byte[]? deploymentSecretsKey)
     {
-        return Generate(document, deploymentSecretsKey, protectionSettings: null);
+        return Generate(document, deploymentSecretsKey, protectionSettings: null, oobeAccountSecretState: null);
     }
 
     /// <summary>
@@ -44,9 +47,22 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         byte[]? deploymentSecretsKey,
         DeployProtectionSettings? protectionSettings)
     {
+        return Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState: null);
+    }
+
+    /// <inheritdoc />
+    public FoundryDeployConfigurationDocument Generate(
+        FoundryConfigurationDocument document,
+        byte[]? deploymentSecretsKey,
+        DeployProtectionSettings? protectionSettings,
+        OobeAccountSecretState? oobeAccountSecretState)
+    {
         ArgumentNullException.ThrowIfNull(document);
         AutopilotConfigurationValidator.ThrowIfNotReady(document.Autopilot, DateTimeOffset.UtcNow);
         MachineNamingValidator.ThrowIfInvalid(document.Customization.MachineNaming);
+        OobeAccountConfigurationValidator.ThrowIfInvalid(document.Customization.Oobe, oobeAccountSecretState);
+        ThrowIfAutopilotConflictsWithOobeAccounts(document.Autopilot, document.Customization.Oobe);
+        ThrowIfOobePasswordsRequireProtectedMedia(document.Customization.Oobe, protectionSettings, deploymentSecretsKey);
 
         return new FoundryDeployConfigurationDocument
         {
@@ -104,7 +120,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                     Casing = document.Customization.MachineNaming.Casing,
                     AllowEditingDuringDeployment = document.Customization.MachineNaming.AllowEditingDuringDeployment
                 },
-                Oobe = MapOobeSettings(document.Customization.Oobe),
+                Oobe = MapOobeSettings(document.Customization.Oobe, deploymentSecretsKey, oobeAccountSecretState),
                 AppxRemoval = MapAppxRemovalSettings(document.Customization.AppxRemoval),
                 WindowsOptionalFeatures = MapWindowsOptionalFeatureSettings(document.Customization.WindowsOptionalFeatures),
                 AiComponentRemoval = MapAiComponentRemovalSettings(
@@ -210,16 +226,63 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         return string.IsNullOrWhiteSpace(trimmed) ? null : trimmed;
     }
 
-    private static DeployOobeSettings MapOobeSettings(OobeSettings settings)
+    private static void ThrowIfAutopilotConflictsWithOobeAccounts(AutopilotSettings autopilot, OobeSettings oobe)
+    {
+        if (!autopilot.IsEnabled || !oobe.IsEnabled)
+        {
+            return;
+        }
+
+        if (oobe.AdditionalAccounts.Count == 0)
+        {
+            return;
+        }
+
+        throw new InvalidOperationException("Autopilot cannot be combined with additional OOBE local accounts.");
+    }
+
+    private static void ThrowIfOobePasswordsRequireProtectedMedia(
+        OobeSettings settings,
+        DeployProtectionSettings? protectionSettings,
+        byte[]? deploymentSecretsKey)
+    {
+        if (!OobeAccountConfigurationValidator.RequiresProtectedMedia(settings))
+        {
+            return;
+        }
+
+        if (protectionSettings?.IsEnabled != true)
+        {
+            throw new InvalidOperationException("Protected deployment media is required when OOBE local account passwords are configured.");
+        }
+
+        if (deploymentSecretsKey is not { Length: > 0 })
+        {
+            throw new InvalidOperationException("OOBE local account password generation requires a Deploy secret key.");
+        }
+    }
+
+    private static DeployOobeSettings MapOobeSettings(
+        OobeSettings settings,
+        byte[]? deploymentSecretsKey,
+        OobeAccountSecretState? oobeAccountSecretState)
     {
         if (!settings.IsEnabled)
         {
             return new DeployOobeSettings();
         }
 
+        (bool administratorPasswordIsBlank, SecretEnvelope? administratorPasswordSecret) =
+            CreateAccountPassword(
+                settings.EnableAdministratorAccount,
+                settings.UseAdministratorPassword,
+                deploymentSecretsKey,
+                oobeAccountSecretState?.GetAdministratorPasswordCopy());
+
         return new DeployOobeSettings
         {
             IsEnabled = true,
+            EnableAdministratorAccount = settings.EnableAdministratorAccount,
             SkipLicenseTerms = settings.SkipLicenseTerms,
             DiagnosticDataLevel = MapDiagnosticDataLevel(settings.DiagnosticDataLevel),
             HidePrivacySetup = settings.HidePrivacySetup,
@@ -227,8 +290,90 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             AllowAdvertisingId = settings.AllowAdvertisingId,
             AllowOnlineSpeechRecognition = settings.AllowOnlineSpeechRecognition,
             AllowInkingAndTypingDiagnostics = settings.AllowInkingAndTypingDiagnostics,
-            LocationAccess = MapLocationAccess(settings.LocationAccess)
+            LocationAccess = MapLocationAccess(settings.LocationAccess),
+            AdministratorPasswordIsBlank = administratorPasswordIsBlank,
+            AdministratorPasswordSecret = administratorPasswordSecret,
+            AdditionalAccounts = settings.AdditionalAccounts
+                .Select(account => CreateAdditionalAccount(account, deploymentSecretsKey, oobeAccountSecretState))
+                .ToArray()
         };
+    }
+
+    private static DeployOobeAdditionalAccountSettings CreateAdditionalAccount(
+        OobeAdditionalAccountSettings account,
+        byte[]? deploymentSecretsKey,
+        OobeAccountSecretState? oobeAccountSecretState)
+    {
+        (bool passwordIsBlank, SecretEnvelope? passwordSecret) =
+            CreateAccountPassword(
+                isProvisioned: true,
+                usePassword: account.UsePassword,
+                deploymentSecretsKey,
+                oobeAccountSecretState?.GetAdditionalAccountPasswordCopy(account.Id));
+
+        return new DeployOobeAdditionalAccountSettings
+        {
+            Id = account.Id,
+            UserName = account.UserName,
+            Type = account.Type,
+            PasswordIsBlank = passwordIsBlank,
+            PasswordSecret = passwordSecret
+        };
+    }
+
+    private static (bool IsBlank, SecretEnvelope? Secret) CreateAccountPassword(
+        bool isProvisioned,
+        bool usePassword,
+        byte[]? deploymentSecretsKey,
+        char[]? password)
+    {
+        if (!isProvisioned)
+        {
+            if (password is not null)
+            {
+                CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+            }
+
+            return (false, null);
+        }
+
+        if (!usePassword)
+        {
+            if (password is not null)
+            {
+                CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+            }
+
+            return (true, null);
+        }
+
+        char[] effectivePassword = password ?? [];
+        try
+        {
+            if (effectivePassword.Length == 0)
+            {
+                throw new InvalidOperationException("An OOBE account password was configured but is unavailable in the current session.");
+            }
+
+            byte[] plaintextBytes = Encoding.UTF8.GetBytes(effectivePassword);
+            try
+            {
+                return (
+                    false,
+                    MediaSecretEnvelopeProtector.EncryptBytes(
+                        plaintextBytes,
+                        deploymentSecretsKey!,
+                        MediaSecretEnvelopeProtector.DeploymentKeyId));
+            }
+            finally
+            {
+                CryptographicOperations.ZeroMemory(plaintextBytes);
+            }
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(effectivePassword.AsSpan()));
+        }
     }
 
     private static DeployOobeDiagnosticDataLevel MapDiagnosticDataLevel(OobeDiagnosticDataLevel value)

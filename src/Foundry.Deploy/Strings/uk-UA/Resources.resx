@@ -12,337 +12,301 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
-  <data name="App.WindowTitle" xml:space="preserve"><value>Foundry Deploy</value></data>
-  <data name="About.Title" xml:space="preserve"><value>Про Foundry Deploy</value></data>
-  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy — це досвід розгортання WinPE для Foundry.</value></data>
-  <data name="About.DescriptionLine2" xml:space="preserve"><value>Це програмне забезпечення надається як є. Перегляньте налаштування розгортання перед використанням.</value></data>
-  <data name="About.Footer" xml:space="preserve"><value>Авторське право (c) 2026 Foundry Project. Ліцензовано згідно з ліцензією MIT.</value></data>
-  <data name="Menu.Theme" xml:space="preserve"><value>_Тема</value></data>
-  <data name="Menu.Language" xml:space="preserve"><value>_Мова</value></data>
-  <data name="Menu.Tools" xml:space="preserve"><value>_Інструменти</value></data>
-  <data name="Menu.Debug" xml:space="preserve"><value>_Debug</value></data>
-  <data name="Menu.About" xml:space="preserve"><value>_Про</value></data>
-  <data name="Theme.System" xml:space="preserve"><value>система</value></data>
-  <data name="Theme.Light" xml:space="preserve"><value>світло</value></data>
-  <data name="Theme.Dark" xml:space="preserve"><value>Темний</value></data>
-  <data name="Tools.OpenLogFile" xml:space="preserve"><value>Відкрити файл журналу</value></data>
-  <data name="Preparation.ComputerName" xml:space="preserve"><value>Ім'я комп'ютера</value></data>
-  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 символів. A–Z, a–z, 0–9 і лише дефіс.</value></data>
-  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>Ім’я комп’ютера має містити від 1 до 15 дійсних символів (літери, цифри або дефіс).</value></data>
-  <data name="Preparation.TargetDisk" xml:space="preserve"><value>Цільовий диск</value></data>
-  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>Виберіть цільовий диск. Невідповідні диски блокуються.</value></data>
-  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>Застосуйте оновлення прошивки</value></data>
-  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>Профіль</value></data>
-  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>На цьому носії не знайдено вбудованих профілів Autopilot.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>надання профілю JSON</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>Zero-touch завантаження апаратного хешу</value></data>
-  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>Інтерактивне завантаження апаратного хешу</value></data>
-  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>Статус завантаження апаратного хешу</value></data>
-  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>Готовий до завантаження апаратного хешу</value></data>
-  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>Завантаження апаратного хешу недоступне</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>Відсутня необхідна інформація про сертифікат. Розгортання можна продовжити без завантаження апаратного хешу.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>Термін дії сертифіката Autopilot минув. Розгортання можна продовжити без завантаження апаратного хешу.</value></data>
-  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>ID орендаря</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>Термін дії сертифіката</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>Тег групи</value></data>
-  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>Виявлення обладнання...</value></data>
-  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>Помилка виявлення обладнання.</value></data>
-  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>Помилка виявлення обладнання: {0}</value></data>
-  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | Потужність: {2} | Прошивка: {3}</value></data>
-  <data name="Preparation.PowerBattery" xml:space="preserve"><value>Акумулятор</value></data>
-  <data name="Preparation.PowerAc" xml:space="preserve"><value>AC</value></data>
-  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>Не вдалося знайти цільовий диск: {0}</value></data>
-  <data name="Catalog.Version" xml:space="preserve"><value>Версія</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>Оновлення Windows</value></data>
-  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (Найновіше)</value></data>
-  <data name="Catalog.Language" xml:space="preserve"><value>Мова</value></data>
-  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>Ліцензійний канал</value></data>
-  <data name="Catalog.EditionTarget" xml:space="preserve"><value>Edition (Target)</value></data>
-  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>Архітектура: {0}</value></data>
-  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>Завантажено каталоги: {0} записи операційної системи, {1} пакети драйверів.</value></data>
-  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>Помилка завантаження каталогу: {0}</value></data>
-  <data name="DriverPack.Source" xml:space="preserve"><value>Джерело драйвера</value></data>
-  <data name="DriverPack.Model" xml:space="preserve"><value>Модель</value></data>
-  <data name="DriverPack.Version" xml:space="preserve"><value>Версія</value></data>
-  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.Oem" xml:space="preserve"><value>OEM</value></data>
-  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: немає відповідної моделі чи версії</value></data>
-  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (+{1} моделі)</value></data>
-  <data name="Summary.Title" xml:space="preserve"><value>Підсумок розгортання</value></data>
-  <data name="Summary.TargetDisk" xml:space="preserve"><value>Цільовий диск</value></data>
-  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>Диск не вибрано</value></data>
-  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>Операційна система</value></data>
-  <data name="Summary.NoSelection" xml:space="preserve"><value>Без вибору</value></data>
-  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>Додаткові функції Windows</value></data>
-  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot Профіль</value></data>
-  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>тег групи Autopilot</value></data>
-  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>Ні Autopilot</value></data>
-  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>профіль JSON</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>Zero-touch завантаження апаратного хешу</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>Дійсний сертифікат</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>Термін дії сертифіката закінчився</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>Відсутня інформація про сертифікат</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>Немає стандартного тегу групи</value></data>
-  <data name="Debug.DeploymentPages" xml:space="preserve"><value>Сторінки розгортання</value></data>
-  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>Сторінка прогресу</value></data>
-  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>Сторінка успіху</value></data>
-  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>Сторінка помилки</value></data>
-  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>Попередній перегляд налагодження: не вдалося застосувати DISM, оскільки цільовий розділ доступний лише для читання.
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Deploy — це досвід розгортання WinPE для Foundry.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Це програмне забезпечення надається як є. Перегляньте налаштування розгортання перед використанням.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Авторське право (c) 2026 Foundry Project. Ліцензовано згідно з ліцензією MIT.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Про Foundry Deploy</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Deploy</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Deploy</value>
+  </data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve">
+    <value>Деталі конфігурації</value>
+  </data>
+  <data name="Autopilot.Description" xml:space="preserve">
+    <value>Перегляньте параметри підготовки Autopilot для цього пристрою.</value>
+  </data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
+    <value>Під час розгортання завантажує апаратний хеш цього пристрою до Windows Autopilot.</value>
+  </data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
+    <value>Додає автономний профіль Autopilot до інсталяції Windows.</value>
+  </data>
+  <data name="Autopilot.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve">
+    <value>Рекомендовано повторно створити завантажувальний образ</value>
+  </data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
+    <value>Цей завантажувальний образ використовує старіший формат конфігурації Foundry OSD. Створіть його повторно, щоб забезпечити сумісність із найновішими функціями.</value>
+  </data>
+  <data name="Catalog.ArchitectureFormat" xml:space="preserve">
+    <value>Архітектура: {0}</value>
+  </data>
+  <data name="Catalog.EditionTarget" xml:space="preserve">
+    <value>Edition (Target)</value>
+  </data>
+  <data name="Catalog.Language" xml:space="preserve">
+    <value>Мова</value>
+  </data>
+  <data name="Catalog.LicenseChannel" xml:space="preserve">
+    <value>Ліцензійний канал</value>
+  </data>
+  <data name="Catalog.LoadFailedFormat" xml:space="preserve">
+    <value>Помилка завантаження каталогу: {0}</value>
+  </data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve">
+    <value>Завантажено каталоги: {0} записи операційної системи, {1} пакети драйверів.</value>
+  </data>
+  <data name="Catalog.Media" xml:space="preserve">
+    <value>Оновлення Windows</value>
+  </data>
+  <data name="Catalog.MediaLatestFormat" xml:space="preserve">
+    <value>{0} (Найновіше)</value>
+  </data>
+  <data name="Catalog.Version" xml:space="preserve">
+    <value>Версія</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="Common.Copy" xml:space="preserve">
+    <value>Копіювати</value>
+  </data>
+  <data name="Common.Deploy" xml:space="preserve">
+    <value>Розгорнути</value>
+  </data>
+  <data name="Common.Detected" xml:space="preserve">
+    <value>Виявлено</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>Вимкнено</value>
+  </data>
+  <data name="Common.Edit" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>Увімкнено</value>
+  </data>
+  <data name="Common.Next" xml:space="preserve">
+    <value>Далі</value>
+  </data>
+  <data name="Common.No" xml:space="preserve">
+    <value>немає</value>
+  </data>
+  <data name="Common.None" xml:space="preserve">
+    <value>Жодного</value>
+  </data>
+  <data name="Common.NotAvailable" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="Common.Previous" xml:space="preserve">
+    <value>Попередній</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>Недоступний</value>
+  </data>
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>Невідомий</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Версія: {0}</value>
+  </data>
+  <data name="Common.Yes" xml:space="preserve">
+    <value>так</value>
+  </data>
+  <data name="Debug.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve">
+    <value>Zero-touch завантаження апаратного хешу</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve">
+    <value>Термін дії сертифіката закінчився</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve">
+    <value>Відсутня інформація про сертифікат</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve">
+    <value>Немає стандартного тегу групи</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve">
+    <value>Дійсний сертифікат</value>
+  </data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve">
+    <value>профіль JSON</value>
+  </data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
+    <value>Ні Autopilot</value>
+  </data>
+  <data name="Debug.DeploymentPages" xml:space="preserve">
+    <value>Сторінки розгортання</value>
+  </data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve">
+    <value>Сторінка помилки</value>
+  </data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve">
+    <value>Попередній перегляд налагодження: не вдалося застосувати DISM, оскільки цільовий розділ доступний лише для читання.
 
 ErrorCode=0x80070005
 Подробиці: доступ заборонено під час монтування образу до цільового шляху.
-Дія: перевірте атрибути диска та повторіть розгортання.</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>Рекомендовано повторно створити завантажувальний образ</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>Цей завантажувальний образ використовує старіший формат конфігурації Foundry OSD. Створіть його повторно, щоб забезпечити сумісність із найновішими функціями.</value></data>
-  <data name="Common.VersionFormat" xml:space="preserve"><value>Версія: {0}</value></data>
-  <data name="Common.Previous" xml:space="preserve"><value>Попередній</value></data>
-  <data name="Common.Next" xml:space="preserve"><value>Далі</value></data>
-  <data name="Common.Deploy" xml:space="preserve"><value>Розгорнути</value></data>
-  <data name="Common.NotAvailable" xml:space="preserve"><value>N/A</value></data>
-  <data name="Common.Unavailable" xml:space="preserve"><value>Недоступний</value></data>
-  <data name="Common.None" xml:space="preserve"><value>Жодного</value></data>
-  <data name="Common.Unknown" xml:space="preserve"><value>Невідомий</value></data>
-  <data name="Common.Detected" xml:space="preserve"><value>Виявлено</value></data>
-  <data name="Common.Yes" xml:space="preserve"><value>так</value></data>
-  <data name="Common.No" xml:space="preserve"><value>немає</value></data>
-  <data name="Common.Enabled" xml:space="preserve"><value>Увімкнено</value></data>
-  <data name="Common.Disabled" xml:space="preserve"><value>Вимкнено</value></data>
-  <data name="Progress.Networking" xml:space="preserve"><value>Мережа</value></data>
-  <data name="Progress.StartTime" xml:space="preserve"><value>Час початку</value></data>
-  <data name="Progress.ElapsedTime" xml:space="preserve"><value>Час, що минув</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>Розгортання завершено</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>Цей комп’ютер перезавантажиться через {0}s.</value></data>
-  <data name="Success.RebootNow" xml:space="preserve"><value>Перезавантаження</value></data>
-  <data name="Error.Title" xml:space="preserve"><value>Помилка розгортання</value></data>
-  <data name="Error.FailedStepFormat" xml:space="preserve"><value>Невдалий крок: {0}</value></data>
-  <data name="Splash.Welcome" xml:space="preserve"><value>Ласкаво просимо</value></data>
-  <data name="Splash.InitializingComponents" xml:space="preserve"><value>Ініціалізація компонентів...</value></data>
-  <data name="Splash.StartDeployment" xml:space="preserve"><value>Розпочати розгортання</value></data>
-  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>Диск {0} | {1} | {2} | {3}{4}</value></data>
-  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
-  <data name="Disk.UnknownSize" xml:space="preserve"><value>Невідомий розмір</value></data>
-  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>Заблоковано: системний диск</value></data>
-  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>Заблоковано: завантажувальний диск</value></data>
-  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>Заблоковано: лише для читання</value></data>
-  <data name="Disk.BlockedOffline" xml:space="preserve"><value>Заблоковано: офлайн</value></data>
-  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>НАЛАДУВАННЯ ВІРТУАЛЬНОЇ ЦІЛІ</value></data>
-  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>Цільового диска {0} більше немає.</value></data>
-  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>Цільовий диск {0} заблоковано: {1}</value></data>
-  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>Підтвердити стирання диска</value></data>
-  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>Це призведе до видалення всіх даних на вибраному диску та встановлення вибраної операційної системи.
-
-Диск: {0}
-Модель: {1}
-Автобус: {2}
-Розмір: {3}
-
-Операційна система: {4}
-
-Продовжити розгортання?</value></data>
-  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>Очікування розгортання...</value></data>
-  <data name="Status.WaitingForProgress" xml:space="preserve"><value>В очікуванні прогресу...</value></data>
-  <data name="Status.PreparingDeployment" xml:space="preserve"><value>Підготовка до розгортання...</value></data>
-  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>Розгортання скасовано.</value></data>
-  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>Інша операція вже виконується.</value></data>
-  <data name="Status.StartingStep" xml:space="preserve"><value>Початковий крок...</value></data>
-  <data name="Status.StartingStepFormat" xml:space="preserve"><value>Починаючи з {0}.</value></data>
-  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>Запуск {0}...</value></data>
-  <data name="Status.StepCompleted" xml:space="preserve"><value>Крок завершено.</value></data>
-  <data name="Status.StepFailed" xml:space="preserve"><value>Крок не вдався.</value></data>
-  <data name="Status.StepSkipped" xml:space="preserve"><value>Крок пропущено.</value></data>
-  <data name="Status.InProgress" xml:space="preserve"><value>В процесі...</value></data>
-  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>Крок:? з?</value></data>
-  <data name="Status.StepCounterFormat" xml:space="preserve"><value>Крок: {0} з {1}</value></data>
-  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>Помилка wpeutil.exe із кодом виходу {0}. {1}</value></data>
-  <data name="Status.SystemReboot" xml:space="preserve"><value>Перезавантаження системи</value></data>
-  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>Виконуваний файл wpeutil.exe, необхідний для перезавантаження, не знайдено.</value></data>
-  <data name="Status.UnknownStep" xml:space="preserve"><value>Невідомий крок</value></data>
-  <data name="Status.NoErrorDetails" xml:space="preserve"><value>Деталі помилки не надано.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>Збір змінних</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>Ініціалізація розгортання</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>Перевірка конфігурації</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>Перевірка кешу</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>Підготовка диска</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>Завантаження операційної системи</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>Застосування операційної системи</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>Налаштування імені комп’ютера</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>Налаштування OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>Налаштування відновлення Windows</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>Завантаження драйверів</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>Розпакування драйверів</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>Підготовка налаштувань</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>Застосування драйверів</value></data>
-  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>Застосування драйверів відновлення</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>Завантаження прошивки</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>Застосування прошивки</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>Запечатування розділу відновлення</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>Підготовка Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>Завершення розгортання</value></data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>Збір змінних розгортання...</value></data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>Збір контексту розгортання...</value></data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>Змінні розгортання зібрано.</value></data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>Зібрані змінні розгортання (симуляція).</value></data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>Ініціалізація робочої області розгортання...</value></data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>Створення папок робочої області...</value></data>
-  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>Завершення розгортання...</value></data>
-  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>Прибирання тимчасового робочого місця...</value></data>
-  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>Написання підсумку розгортання...</value></data>
-  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>Записування журналів завершення...</value></data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>Робоча область ініціалізована.</value></data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>Робоча область ініціалізована (симуляція).</value></data>
-  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>Перевірка цільової конфігурації...</value></data>
-  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>Перевірка цільового диска...</value></data>
-  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>Виявлення профілю обладнання...</value></data>
-  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>Операційна система URL відсутня.</value></data>
-  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>Потрібно вказати номер цільового диска.</value></data>
-  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>Цільова конфігурація перевірена.</value></data>
-  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>Перевірена цільова конфігурація (симуляція).</value></data>
-  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>Перевірка кешу розгортання...</value></data>
-  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>Вирішення розташування кешу...</value></data>
-  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>Перевірка конфлікту кеш-диска...</value></data>
-  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>Стратегію кешу вирішено.</value></data>
-  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>Вирішено стратегію кешу (симуляція).</value></data>
-  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>Підготовка макета цільового диска...</value></data>
-  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>Розбиття цільового диска...</value></data>
-  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>Підготовка цільової робочої області...</value></data>
-  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>Створення імітованих розділів...</value></data>
-  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>Готовий макет цільового диска.</value></data>
-  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>Підготовлений макет цільового диска (моделювання).</value></data>
-  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>Макет цільового диска не підготовлено.</value></data>
-  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>Завантаження образу операційної системи...</value></data>
-  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>Перевірка кешу...</value></data>
-  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>Готовий образ операційної системи (симуляція).</value></data>
-  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>Образ операційної системи не завантажено.</value></data>
-  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>Образ операційної системи завантажено.</value></data>
-  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>Образ операційної системи вилучено з кешу.</value></data>
-  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>Застосування образу операційної системи...</value></data>
-  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>Перевірка зображення...</value></data>
-  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>Застосування зображення...</value></data>
-  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>Налаштування завантаження...</value></data>
-  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>Перевірка зображення...</value></data>
-  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>Застосовано образ операційної системи.</value></data>
-  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>Застосований образ операційної системи (симуляція).</value></data>
-  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>Налаштування імені цільового комп’ютера...</value></data>
-  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>Введення назви автономного комп’ютера...</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>Цільовий розділ Windows недоступний.</value></data>
-  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>Індекс застосованого образу Windows недоступний.</value></data>
-  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>Ім’я цільового комп’ютера налаштовано.</value></data>
-  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>Ім’я цільового комп’ютера налаштоване (симуляція).</value></data>
-  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>Налаштування офлайн вимкнено.</value></data>
-  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>Налаштування автономних налаштувань...</value></data>
-  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>Запис параметрів за замовчуванням для першого запуску...</value></data>
-  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>Налаштування видалення компонента AI...</value></data>
-  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>Написання офлайн-політик AI...</value></data>
-  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>Налаштування офлайн налаштовано.</value></data>
-  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>Налаштування в автономному режимі (симуляція).</value></data>
-  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>Налаштування параметрів OOBE...</value></data>
-  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>Запис параметрів конфіденційності за умовчанням для першого запуску...</value></data>
-  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>Налаштування середовища відновлення...</value></data>
-  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>Підготовка середовища відновлення Windows...</value></data>
-  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>Розділ відновлення недоступний.</value></data>
-  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>Налаштовано середовище відновлення.</value></data>
-  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>Налаштоване середовище відновлення (симуляція).</value></data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>Сценарії налаштування до OOBE не потрібні.</value></data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>Постановка налаштувань до OOBE...</value></data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>Поетапні налаштування до OOBE.</value></data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>Поетапні налаштування до OOBE (симуляція).</value></data>
-  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>Пакет драйверів вимкнено (не вибрано).</value></data>
-  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>Завантажувати пакет драйверів не потрібно.</value></data>
-  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>Завантаження пакета драйверів...</value></data>
-  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>Підготовка завантаження...</value></data>
-  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>Вибрано режим пакета драйверів OEM, але пакет драйверів не надано.</value></data>
-  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>Пакет драйверів завантажено.</value></data>
-  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>Пакет драйверів завантажено (симуляція).</value></data>
-  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>Пакет драйверів вилучено з кешу.</value></data>
-  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>Витяг пакета драйверів...</value></data>
-  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>Пакет драйверів не завантажено.</value></data>
-  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>Пакет драйверів вилучено.</value></data>
-  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>Вилучено пакет драйверів (симуляція).</value></data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>Пакет драйверів підготовлений для першого завантаження.</value></data>
-  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>Операції з пакетом драйверів не потрібні.</value></data>
-  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>Непідтримуваний режим встановлення пакета драйверів.</value></data>
-  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>Немає вилученого вмісту драйвера INF.</value></data>
-  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>Вихідний вміст пакета драйверів недоступний для етапу першого завантаження.</value></data>
-  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog не створив вміст драйвера.</value></data>
-  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>Надійшов запит на проміжне встановлення пакета драйверів першого завантаження без підтримуваної команди.</value></data>
-  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>Застосування пакета драйверів...</value></data>
-  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>Застосування драйверів Windows...</value></data>
-  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>Встановлення WinRE...</value></data>
-  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>Застосування драйверів WinRE...</value></data>
-  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>Демонтування WinRE...</value></data>
-  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>Пакет постановок...</value></data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>Оновлення сценарію налаштування першого завантаження...</value></data>
-  <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}: {1}%</value></data>
-  <data name="StepProgress.Downloading" xml:space="preserve"><value>Завантаження</value></data>
-  <data name="StepProgress.Extracting" xml:space="preserve"><value>Видобуток</value></data>
-  <data name="StepProgress.Applying" xml:space="preserve"><value>Подача заявки</value></data>
-  <data name="StepProgress.Staging" xml:space="preserve"><value>Постановка</value></data>
-  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>{0} завантажено</value></data>
-  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>Застосовано пакет драйверів.</value></data>
-  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>Застосовано пакет драйверів (симуляція).</value></data>
-  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>Завантаження оновлення мікропрограми...</value></data>
-  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>Підготовка пошуку Microsoft Update Catalog...</value></data>
-  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>Оновлення мікропрограми вимкнено.</value></data>
-  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>Оновлення мікропрограми вимкнено для віртуальних машин.</value></data>
-  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>Оновлення мікропрограми пропускаються, коли пристрій працює від акумулятора.</value></data>
-  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>Ідентифікатор апаратного забезпечення мікропрограми системи недоступний.</value></data>
-  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>Оновлення мікропрограми завантажено.</value></data>
-  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>Оновлення мікропрограми завантажено (симуляція).</value></data>
-  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>Немає витягнутого вмісту прошивки.</value></data>
-  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>Розпакований вміст мікропрограми не містить файлів INF.</value></data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>Застосування оновлення мікропрограми...</value></data>
-  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>Введення вмісту прошивки в офлайн Windows...</value></data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>Застосовано оновлення мікропрограми.</value></data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>Застосовано оновлення мікропрограми (симуляція).</value></data>
-  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>Герметизація розділу відновлення...</value></data>
-  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>Видалення літери диска відновлення...</value></data>
-  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>Розділ відновлення запечатано.</value></data>
-  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>Розділ відновлення запечатано (симуляція).</value></data>
-  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot вимкнено.</value></data>
-  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>Autopilot увімкнено, але профіль не вибрано.</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>Цільовий розділ Windows недоступний для проміжної обробки Autopilot.</value></data>
-  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>Не вдалося вирішити цільовий каталог Autopilot.</value></data>
-  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>Постановка профілю Autopilot...</value></data>
-  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>Копіювання AutopilotConfigurationFile.json...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>Написання змодельованого маніфесту Autopilot...</value></data>
-  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>Запис апаратного хешу Autopilot...</value></data>
-  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>Виконується OA3Tool...</value></data>
-  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>Завантаження апаратного хешу Autopilot...</value></data>
-  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>Підготовка імпорту Microsoft Graph...</value></data>
-  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>Надсилання запиту на імпорт до Microsoft Graph...</value></data>
-  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>Очікування видимості пристрою Autopilot...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>Перевірка Windows Autopilot пристроїв (залишилося {0})...</value></data>
-  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>Оновлення наявного пристрою Autopilot...</value></data>
-  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>Оновлення тегу групи Windows Autopilot у Microsoft Graph...</value></data>
-  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>Очікування оновлення тегу групи Autopilot...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>Перевірка тегу групи Windows Autopilot (залишилося {0})...</value></data>
-  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>Підготовка завантаження хешу апаратного забезпечення Autopilot...</value></data>
-  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>Розшифровка медіасертифіката...</value></data>
-  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>Автентифікація завантаження хешу апаратного забезпечення Autopilot...</value></data>
-  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>Запит маркера Microsoft Graph...</value></data>
-  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>Імпорт хешу обладнання в Microsoft Graph...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>Написання змодельованого хеш-маніфесту Autopilot...</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>Цільовий розділ Windows недоступний для завантаження апаратного хешу Autopilot.</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Autopilot Завантаження хешу апаратного забезпечення пропущено, оскільки термін дії вбудованого сертифіката минув.</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot Завантаження хешу апаратного забезпечення пропущено, оскільки необхідна інформація медіасертифікату неповна.</value></data>
-  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>Хеш апаратного забезпечення Autopilot імпортований і видимий на пристроях Windows Autopilot.</value></data>
-  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>Імпортований пристрій Autopilot не з’явився в пристроях Windows Autopilot до закінчення часу очікування.</value></data>
-  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Оновлення тегу групи пристроїв Windows Autopilot не було підтверджено до закінчення часу очікування.</value></data>
-  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot Завантаження апаратного хешу підготовлено для симуляції.</value></data>
-  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot Підготовлено завантаження хешу апаратного забезпечення (симуляція).</value></data>
-  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>Вибраний файл профілю Autopilot не знайдено: {0}</value></data>
-  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot Помилка апаратного захоплення хешу: {0}</value></data>
-  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot Не вдалося імпортувати хеш апаратного забезпечення: {0}</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot завантаження апаратного хешу пропущено: {0}</value></data>
-  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot профіль поставлений.</value></data>
-  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Поетапний профіль Autopilot (симуляція).</value></data>
+Дія: перевірте атрибути диска та повторіть розгортання.</value>
+  </data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve">
+    <value>Сторінка прогресу</value>
+  </data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve">
+    <value>Сторінка успіху</value>
+  </data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve">
+    <value>Продовжити</value>
+  </data>
+  <data name="DeploymentAccess.Description" xml:space="preserve">
+    <value>Введіть пароль технічного спеціаліста, щоб продовжити.</value>
+  </data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve">
+    <value>Потрібен пароль</value>
+  </data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve">
+    <value>Пароль неправильний. Спробуйте ще раз.</value>
+  </data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve">
+    <value>Пароль розгортання</value>
+  </data>
+  <data name="DeploymentAccess.Title" xml:space="preserve">
+    <value>Захищене розгортання</value>
+  </data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve">
+    <value>Показати або приховати пароль</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>Виберіть, куди експортувати діагностику Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>Не вдалося експортувати діагностику. Перевірте журнал для отримання подробиць.</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>Не вдалося експортувати діагностику</value>
+  </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>Експортувати діагностику...</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>Експортувати необроблені журнали</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>Експортувати необроблену діагностику...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>Експортувати необроблену діагностику?</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>Необроблені журнали можуть містити облікові дані, ідентифікатори, шляхи, назви мереж та інші чутливі дані. Експортуйте їх лише за явним запитом від довіреної контактної особи служби підтримки.</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>Діагностику експортовано до:
+{0}</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>Діагностику експортовано</value>
+  </data>
+  <data name="Disk.BlockedBootDisk" xml:space="preserve">
+    <value>Заблоковано: завантажувальний диск</value>
+  </data>
+  <data name="Disk.BlockedOffline" xml:space="preserve">
+    <value>Заблоковано: офлайн</value>
+  </data>
+  <data name="Disk.BlockedReadOnly" xml:space="preserve">
+    <value>Заблоковано: лише для читання</value>
+  </data>
+  <data name="Disk.BlockedSystemDisk" xml:space="preserve">
+    <value>Заблоковано: системний диск</value>
+  </data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve">
+    <value>НАЛАДУВАННЯ ВІРТУАЛЬНОЇ ЦІЛІ</value>
+  </data>
+  <data name="Disk.DisplayLabelFormat" xml:space="preserve">
+    <value>Диск {0} | {1} | {2} | {3}{4}</value>
+  </data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve">
+    <value>Цільовий диск {0} заблоковано: {1}</value>
+  </data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve">
+    <value>Цільового диска {0} більше немає.</value>
+  </data>
+  <data name="Disk.UnknownSize" xml:space="preserve">
+    <value>Невідомий розмір</value>
+  </data>
+  <data name="Disk.WarningSuffixFormat" xml:space="preserve">
+    <value>| {0}</value>
+  </data>
+  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
+    <value>Microsoft Update Catalog</value>
+  </data>
+  <data name="DriverPack.Model" xml:space="preserve">
+    <value>Модель</value>
+  </data>
+  <data name="DriverPack.MultiModelFormat" xml:space="preserve">
+    <value>{0} (+{1} моделі)</value>
+  </data>
+  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve">
+    <value>{0}: немає відповідної моделі чи версії</value>
+  </data>
+  <data name="DriverPack.Oem" xml:space="preserve">
+    <value>OEM</value>
+  </data>
+  <data name="DriverPack.Source" xml:space="preserve">
+    <value>Джерело драйвера</value>
+  </data>
+  <data name="DriverPack.Version" xml:space="preserve">
+    <value>Версія</value>
+  </data>
+  <data name="Drivers.Description" xml:space="preserve">
+    <value>Виберіть джерело драйверів і, за потреби, відповідні модель і версію.</value>
+  </data>
+  <data name="Drivers.Title" xml:space="preserve">
+    <value>Драйвери пристроїв</value>
+  </data>
+  <data name="Error.FailedStepFormat" xml:space="preserve">
+    <value>Невдалий крок: {0}</value>
+  </data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
+    <value>Відомості про помилку</value>
+  </data>
+  <data name="Error.Title" xml:space="preserve">
+    <value>Помилка розгортання</value>
+  </data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve">
+    <value>Переглянути відомості про помилку</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>арабська (Саудівська Аравія)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
     <value>Болгарська (Болгарія)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Китайська спрощена (Китай)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Китайська традиційна (Тайвань)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Хорватська (Хорватія)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
     <value>Чеська (Чехія)</value>
@@ -350,23 +314,14 @@ ErrorCode=0x80070005
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>датська (Данія)</value>
   </data>
-  <data name="Language.GermanGermany" xml:space="preserve">
-    <value>німецька (Німеччина)</value>
-  </data>
-  <data name="Language.GreekGreece" xml:space="preserve">
-    <value>грецька (Греція)</value>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>голландська (Нідерланди)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>англійська (Великобританія)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
     <value>англійська (Сполучені Штати)</value>
-  </data>
-  <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>Іспанська (Іспанія)</value>
-  </data>
-  <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>іспанська (Мексика)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
     <value>естонська (Естонія)</value>
@@ -380,11 +335,14 @@ ErrorCode=0x80070005
   <data name="Language.FrenchFrance" xml:space="preserve">
     <value>французька (Франція)</value>
   </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>німецька (Німеччина)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>грецька (Греція)</value>
+  </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
     <value>іврит (Ізраїль)</value>
-  </data>
-  <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>Хорватська (Хорватія)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
     <value>угорська (Угорщина)</value>
@@ -398,17 +356,14 @@ ErrorCode=0x80070005
   <data name="Language.KoreanKorea" xml:space="preserve">
     <value>Корейська (Корея)</value>
   </data>
-  <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>литовська (Литва)</value>
-  </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
     <value>латиська (Латвія)</value>
   </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>литовська (Литва)</value>
+  </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
     <value>норвезька букмаль (Норвегія)</value>
-  </data>
-  <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>голландська (Нідерланди)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>польська (Польща)</value>
@@ -425,14 +380,20 @@ ErrorCode=0x80070005
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>російська (Росія)</value>
   </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Сербська латиниця (Сербія)</value>
+  </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>словацька (Словаччина)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
     <value>словенська (Словенія)</value>
   </data>
-  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>Сербська латиниця (Сербія)</value>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>іспанська (Мексика)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Іспанська (Іспанія)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
     <value>шведська (Швеція)</value>
@@ -446,23 +407,644 @@ ErrorCode=0x80070005
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Українська (Україна)</value>
   </data>
-  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>Китайська спрощена (Китай)</value>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve">
+    <value>Це призведе до видалення всіх даних на вибраному диску та встановлення вибраної операційної системи.
+
+Диск: {0}
+Модель: {1}
+Автобус: {2}
+Розмір: {3}
+
+Операційна система: {4}
+
+Продовжити розгортання?</value>
   </data>
-  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>Китайська традиційна (Тайвань)</value>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve">
+    <value>Підтвердити стирання диска</value>
   </data>
-  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
-    <value>Готується помічник реєстрації Autopilot...</value>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_Про</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_Debug</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_Мова</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_Тема</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>_Інструменти</value>
+  </data>
+  <data name="OperatingSystem.Description" xml:space="preserve">
+    <value>Виберіть випуск Windows, мову, редакцію та канал ліцензування.</value>
+  </data>
+  <data name="OperatingSystem.Title" xml:space="preserve">
+    <value>Операційна система</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
+    <value>Термін дії сертифіката</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
+    <value>Термін дії сертифіката Autopilot минув. Розгортання можна продовжити без завантаження апаратного хешу.</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
+    <value>Тег групи</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
+    <value>Відсутня необхідна інформація про сертифікат. Розгортання можна продовжити без завантаження апаратного хешу.</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
+    <value>Готовий до завантаження апаратного хешу</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
+    <value>ID орендаря</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
+    <value>Завантаження апаратного хешу недоступне</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
+    <value>Статус завантаження апаратного хешу</value>
+  </data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
+    <value>Zero-touch завантаження апаратного хешу</value>
+  </data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
+    <value>Інтерактивне завантаження апаратного хешу</value>
+  </data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
+    <value>надання профілю JSON</value>
+  </data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve">
+    <value>Профіль</value>
+  </data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve">
+    <value>На цьому носії не знайдено вбудованих профілів Autopilot.</value>
+  </data>
+  <data name="Preparation.ComputerName" xml:space="preserve">
+    <value>Ім'я комп'ютера</value>
+  </data>
+  <data name="Preparation.ComputerNameHint" xml:space="preserve">
+    <value>1-15 символів. A–Z, a–z, 0–9 і лише дефіс.</value>
+  </data>
+  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve">
+    <value>Ім’я комп’ютера має містити від 1 до 15 дійсних символів (літери, цифри або дефіс).</value>
+  </data>
+  <data name="Preparation.DetectingHardware" xml:space="preserve">
+    <value>Виявлення обладнання...</value>
+  </data>
+  <data name="Preparation.FirmwareUpdates" xml:space="preserve">
+    <value>Застосуйте оновлення прошивки</value>
+  </data>
+  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve">
+    <value>Помилка виявлення обладнання.</value>
+  </data>
+  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve">
+    <value>Помилка виявлення обладнання: {0}</value>
+  </data>
+  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve">
+    <value>{0} | TPM: {1} | Потужність: {2} | Прошивка: {3}</value>
+  </data>
+  <data name="Preparation.PowerAc" xml:space="preserve">
+    <value>AC</value>
+  </data>
+  <data name="Preparation.PowerBattery" xml:space="preserve">
+    <value>Акумулятор</value>
+  </data>
+  <data name="Preparation.TargetDisk" xml:space="preserve">
+    <value>Цільовий диск</value>
+  </data>
+  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve">
+    <value>Не вдалося знайти цільовий диск: {0}</value>
+  </data>
+  <data name="Preparation.TargetDiskHint" xml:space="preserve">
+    <value>Виберіть цільовий диск. Невідповідні диски блокуються.</value>
+  </data>
+  <data name="Progress.ElapsedTime" xml:space="preserve">
+    <value>Час, що минув</value>
+  </data>
+  <data name="Progress.Networking" xml:space="preserve">
+    <value>Мережа</value>
+  </data>
+  <data name="Progress.RingAutomationName" xml:space="preserve">
+    <value>Загальний прогрес розгортання</value>
+  </data>
+  <data name="Progress.Session" xml:space="preserve">
+    <value>Сеанс</value>
+  </data>
+  <data name="Progress.StartTime" xml:space="preserve">
+    <value>Час початку</value>
+  </data>
+  <data name="Progress.Timeline" xml:space="preserve">
+    <value>Кроки</value>
+  </data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve">
+    <value>Кроки розгортання</value>
+  </data>
+  <data name="Splash.InitializingComponents" xml:space="preserve">
+    <value>Ініціалізація компонентів...</value>
+  </data>
+  <data name="Splash.StartDeployment" xml:space="preserve">
+    <value>Розпочати розгортання</value>
+  </data>
+  <data name="Splash.Welcome" xml:space="preserve">
+    <value>Ласкаво просимо</value>
+  </data>
+  <data name="Status.AnotherOperationRunning" xml:space="preserve">
+    <value>Інша операція вже виконується.</value>
+  </data>
+  <data name="Status.DeploymentCancelled" xml:space="preserve">
+    <value>Розгортання скасовано.</value>
+  </data>
+  <data name="Status.InProgress" xml:space="preserve">
+    <value>В процесі...</value>
+  </data>
+  <data name="Status.NoErrorDetails" xml:space="preserve">
+    <value>Деталі помилки не надано.</value>
+  </data>
+  <data name="Status.PreparingDeployment" xml:space="preserve">
+    <value>Підготовка до розгортання...</value>
+  </data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve">
+    <value>Виконуваний файл wpeutil.exe, необхідний для перезавантаження, не знайдено.</value>
+  </data>
+  <data name="Status.StartingStep" xml:space="preserve">
+    <value>Початковий крок...</value>
+  </data>
+  <data name="Status.StartingStepFormat" xml:space="preserve">
+    <value>Починаючи з {0}.</value>
+  </data>
+  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
+    <value>Запуск {0}...</value>
+  </data>
+  <data name="Status.StepCompleted" xml:space="preserve">
+    <value>Крок завершено.</value>
+  </data>
+  <data name="Status.StepCounterFormat" xml:space="preserve">
+    <value>Крок: {0} з {1}</value>
+  </data>
+  <data name="Status.StepCounterUnknown" xml:space="preserve">
+    <value>Крок:? з?</value>
+  </data>
+  <data name="Status.StepFailed" xml:space="preserve">
+    <value>Крок не вдався.</value>
+  </data>
+  <data name="Status.StepSkipped" xml:space="preserve">
+    <value>Крок пропущено.</value>
+  </data>
+  <data name="Status.SystemReboot" xml:space="preserve">
+    <value>Перезавантаження системи</value>
+  </data>
+  <data name="Status.UnknownStep" xml:space="preserve">
+    <value>Невідомий крок</value>
+  </data>
+  <data name="Status.WaitingForDeployment" xml:space="preserve">
+    <value>Очікування розгортання...</value>
+  </data>
+  <data name="Status.WaitingForProgress" xml:space="preserve">
+    <value>В очікуванні прогресу...</value>
+  </data>
+  <data name="Status.WpeUtilFailureFormat" xml:space="preserve">
+    <value>Помилка wpeutil.exe із кодом виходу {0}. {1}</value>
+  </data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve">
+    <value>Застосування драйверів</value>
+  </data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
+    <value>Застосування прошивки</value>
+  </data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
+    <value>Застосування операційної системи</value>
+  </data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
+    <value>Застосування драйверів відновлення</value>
+  </data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve">
+    <value>Налаштування OOBE</value>
+  </data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
+    <value>Налаштування відновлення Windows</value>
+  </data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
+    <value>Налаштування імені комп’ютера</value>
+  </data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
+    <value>Налаштування додаткових компонентів</value>
+  </data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve">
+    <value>Завантаження драйверів</value>
+  </data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
+    <value>Завантаження прошивки</value>
+  </data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
+    <value>Завантаження операційної системи</value>
+  </data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve">
+    <value>Розпакування драйверів</value>
+  </data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
+    <value>Завершення розгортання</value>
+  </data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
+    <value>Збір змінних</value>
+  </data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
+    <value>Ініціалізація розгортання</value>
+  </data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
+    <value>Підготовка диска</value>
+  </data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve">
+    <value>Підготовка Autopilot</value>
+  </data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve">
+    <value>Перевірка кешу</value>
+  </data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve">
+    <value>Запечатування розділу відновлення</value>
+  </data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve">
+    <value>Підготовка налаштувань</value>
+  </data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
+    <value>Перевірка конфігурації</value>
+  </data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
+    <value>Застосування пакета драйверів...</value>
+  </data>
+  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
+    <value>Застосування оновлення мікропрограми...</value>
+  </data>
+  <data name="StepMessage.ApplyingImage" xml:space="preserve">
+    <value>Застосування зображення...</value>
+  </data>
+  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
+    <value>Застосування образу операційної системи...</value>
+  </data>
+  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
+    <value>Застосування драйверів WinRE...</value>
+  </data>
+  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve">
+    <value>Застосування драйверів Windows...</value>
+  </data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>Застосування змін функцій...</value>
+  </data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
+    <value>Автентифікація завантаження хешу апаратного забезпечення Autopilot...</value>
+  </data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
+    <value>Запис апаратного хешу Autopilot...</value>
+  </data>
+  <data name="StepMessage.CheckingCache" xml:space="preserve">
+    <value>Перевірка кешу...</value>
+  </data>
+  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
+    <value>Перевірка конфлікту кеш-диска...</value>
+  </data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
+    <value>Перевірка Windows Autopilot пристроїв (залишилося {0})...</value>
+  </data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve">
+    <value>Перевірка тегу групи Windows Autopilot (залишилося {0})...</value>
+  </data>
+  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
+    <value>Прибирання тимчасового робочого місця...</value>
+  </data>
+  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
+    <value>Збір контексту розгортання...</value>
+  </data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
+    <value>Налаштування видалення компонента AI...</value>
+  </data>
+  <data name="StepMessage.ConfiguringBoot" xml:space="preserve">
+    <value>Налаштування завантаження...</value>
+  </data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve">
+    <value>Налаштування автономних налаштувань...</value>
+  </data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve">
+    <value>Налаштування параметрів OOBE...</value>
+  </data>
+  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve">
+    <value>Налаштування середовища відновлення...</value>
+  </data>
+  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve">
+    <value>Налаштування імені цільового комп’ютера...</value>
+  </data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve">
+    <value>Налаштування додаткових функцій Windows...</value>
+  </data>
+  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
+    <value>Копіювання AutopilotConfigurationFile.json...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Копіюються файли інтерактивної реєстрації...</value>
   </data>
+  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
+    <value>Створення імітованих розділів...</value>
+  </data>
+  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
+    <value>Створення папок робочої області...</value>
+  </data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
+    <value>Розшифровка медіасертифіката...</value>
+  </data>
+  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
+    <value>Виявлення профілю обладнання...</value>
+  </data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
+    <value>Завантаження пакета драйверів...</value>
+  </data>
+  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve">
+    <value>Завантаження оновлення мікропрограми...</value>
+  </data>
+  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
+    <value>Завантаження образу операційної системи...</value>
+  </data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
+    <value>Витяг пакета драйверів...</value>
+  </data>
+  <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
+    <value>Завершення розгортання...</value>
+  </data>
+  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
+    <value>Збір змінних розгортання...</value>
+  </data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
+    <value>Імпорт хешу обладнання в Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
+    <value>Ініціалізація робочої області розгортання...</value>
+  </data>
+  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
+    <value>Введення вмісту прошивки в офлайн Windows...</value>
+  </data>
+  <data name="StepMessage.InspectingImage" xml:space="preserve">
+    <value>Перевірка зображення...</value>
+  </data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
+    <value>Перевірка станів функцій...</value>
+  </data>
+  <data name="StepMessage.MountingWinRe" xml:space="preserve">
+    <value>Встановлення WinRE...</value>
+  </data>
+  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve">
+    <value>Розбиття цільового диска...</value>
+  </data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
+    <value>Підготовка завантаження хешу апаратного забезпечення Autopilot...</value>
+  </data>
+  <data name="StepMessage.PreparingDownload" xml:space="preserve">
+    <value>Підготовка завантаження...</value>
+  </data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve">
+    <value>Підготовка імпорту Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve">
+    <value>Підготовка пошуку Microsoft Update Catalog...</value>
+  </data>
+  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve">
+    <value>Підготовка макета цільового диска...</value>
+  </data>
+  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve">
+    <value>Підготовка цільової робочої області...</value>
+  </data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve">
+    <value>Підготовка відповідних медіаджерел налаштування...</value>
+  </data>
+  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve">
+    <value>Підготовка середовища відновлення Windows...</value>
+  </data>
+  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve">
+    <value>Видалення літери диска відновлення...</value>
+  </data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve">
+    <value>Запит маркера Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve">
+    <value>Вирішення розташування кешу...</value>
+  </data>
+  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve">
+    <value>Перевірка кешу розгортання...</value>
+  </data>
+  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve">
+    <value>Перевірка цільового диска...</value>
+  </data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
+    <value>Виконується OA3Tool...</value>
+  </data>
+  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
+    <value>Герметизація розділу відновлення...</value>
+  </data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>Імітація змін функцій...</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
+    <value>Постановка профілю Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>Готується помічник реєстрації Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingPackage" xml:space="preserve">
+    <value>Пакет постановок...</value>
+  </data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
+    <value>Постановка налаштувань до OOBE...</value>
+  </data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
+    <value>Надсилання запиту на імпорт до Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.UnmountingWinRe" xml:space="preserve">
+    <value>Демонтування WinRE...</value>
+  </data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
+    <value>Оновлення наявного пристрою Autopilot...</value>
+  </data>
+  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
+    <value>Оновлення сценарію налаштування першого завантаження...</value>
+  </data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
+    <value>Оновлення тегу групи Windows Autopilot у Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
+    <value>Завантаження апаратного хешу Autopilot...</value>
+  </data>
+  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
+    <value>Перевірка цільової конфігурації...</value>
+  </data>
+  <data name="StepMessage.VerifyingImage" xml:space="preserve">
+    <value>Перевірка зображення...</value>
+  </data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
+    <value>Очікування видимості пристрою Autopilot...</value>
+  </data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
+    <value>Очікування оновлення тегу групи Autopilot...</value>
+  </data>
+  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
+    <value>Записування журналів завершення...</value>
+  </data>
+  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve">
+    <value>Написання підсумку розгортання...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
+    <value>Написання змодельованого хеш-маніфесту Autopilot...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
+    <value>Написання змодельованого маніфесту Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
     <value>Записується маніфест інтерактивної реєстрації для пробного запуску...</value>
   </data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
-    <value>Цільовий розділ Windows недоступний для підготовки інтерактивного помічника реєстрації Autopilot.</value>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve">
+    <value>Запис параметрів за замовчуванням для першого запуску...</value>
+  </data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve">
+    <value>Запис параметрів конфіденційності за умовчанням для першого запуску...</value>
+  </data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve">
+    <value>Написання офлайн-політик AI...</value>
+  </data>
+  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve">
+    <value>Введення назви автономного комп’ютера...</value>
+  </data>
+  <data name="StepProgress.Applying" xml:space="preserve">
+    <value>Подача заявки</value>
+  </data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>Застосування змін функцій</value>
+  </data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve">
+    <value>{0} завантажено</value>
+  </data>
+  <data name="StepProgress.Downloading" xml:space="preserve">
+    <value>Завантаження</value>
+  </data>
+  <data name="StepProgress.Extracting" xml:space="preserve">
+    <value>Видобуток</value>
+  </data>
+  <data name="StepProgress.PercentFormat" xml:space="preserve">
+    <value>{0}: {1}%</value>
+  </data>
+  <data name="StepProgress.Staging" xml:space="preserve">
+    <value>Постановка</value>
+  </data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
+    <value>Індекс застосованого образу Windows недоступний.</value>
+  </data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve">
+    <value>Імпортований пристрій Autopilot не з’явився в пристроях Windows Autopilot до закінчення часу очікування.</value>
+  </data>
+  <data name="StepResult.AutopilotDisabled" xml:space="preserve">
+    <value>Autopilot вимкнено.</value>
+  </data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve">
+    <value>Оновлення тегу групи пристроїв Windows Autopilot не було підтверджено до закінчення часу очікування.</value>
+  </data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
+    <value>Хеш апаратного забезпечення Autopilot імпортований і видимий на пристроях Windows Autopilot.</value>
+  </data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
+    <value>Autopilot Помилка апаратного захоплення хешу: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
+    <value>Autopilot Не вдалося імпортувати хеш апаратного забезпечення: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
+    <value>Autopilot Завантаження апаратного хешу підготовлено для симуляції.</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
+    <value>Autopilot Підготовлено завантаження хешу апаратного забезпечення (симуляція).</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
+    <value>Autopilot Завантаження хешу апаратного забезпечення пропущено, оскільки термін дії вбудованого сертифіката минув.</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
+    <value>Autopilot завантаження апаратного хешу пропущено: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
+    <value>Autopilot Завантаження хешу апаратного забезпечення пропущено, оскільки необхідна інформація медіасертифікату неповна.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
+    <value>Autopilot увімкнено, але профіль не вибрано.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
+    <value>Autopilot профіль поставлений.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
+    <value>Поетапний профіль Autopilot (симуляція).</value>
+  </data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
+    <value>Стратегію кешу вирішено.</value>
+  </data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
+    <value>Вирішено стратегію кешу (симуляція).</value>
+  </data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
+    <value>Надійшов запит на проміжне встановлення пакета драйверів першого завантаження без підтримуваної команди.</value>
+  </data>
+  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
+    <value>Змінні розгортання зібрано.</value>
+  </data>
+  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
+    <value>Зібрані змінні розгортання (симуляція).</value>
+  </data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve">
+    <value>Застосовано пакет драйверів.</value>
+  </data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve">
+    <value>Застосовано пакет драйверів (симуляція).</value>
+  </data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve">
+    <value>Пакет драйверів вимкнено (не вибрано).</value>
+  </data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve">
+    <value>Пакет драйверів завантажено.</value>
+  </data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve">
+    <value>Пакет драйверів завантажено (симуляція).</value>
+  </data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve">
+    <value>Пакет драйверів вилучено.</value>
+  </data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve">
+    <value>Вилучено пакет драйверів (симуляція).</value>
+  </data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
+    <value>Пакет драйверів не завантажено.</value>
+  </data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
+    <value>Пакет драйверів підготовлений для першого завантаження.</value>
+  </data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
+    <value>Пакет драйверів вилучено з кешу.</value>
+  </data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
+    <value>Вихідний вміст пакета драйверів недоступний для етапу першого завантаження.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
+    <value>Застосовано оновлення мікропрограми.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
+    <value>Застосовано оновлення мікропрограми (симуляція).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
+    <value>Оновлення мікропрограми завантажено.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
+    <value>Оновлення мікропрограми завантажено (симуляція).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
+    <value>Оновлення мікропрограми вимкнено.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve">
+    <value>Оновлення мікропрограми вимкнено для віртуальних машин.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve">
+    <value>Оновлення мікропрограми пропускаються, коли пристрій працює від акумулятора.</value>
   </data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
     <value>Інтерактивний помічник реєстрації Autopilot підготовлено.</value>
@@ -470,154 +1052,448 @@ ErrorCode=0x80070005
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>Інтерактивний помічник реєстрації Autopilot підготовлено (симуляція).</value>
   </data>
-  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>Вийміть завантажувальний носій, а потім виберіть «Перезавантажити».</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>Налаштування додаткових компонентів</value></data>
-  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>Налаштування додаткових функцій Windows...</value></data>
-  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>Перевірка станів функцій...</value></data>
-  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>Підготовка відповідних медіаджерел налаштування...</value></data>
-  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Застосування змін функцій...</value></data>
-  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Імітація змін функцій...</value></data>
-  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>Застосування змін функцій</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>Конфігурацію додаткових функцій Windows вимкнено.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>Конфігурація додаткових функцій Windows недійсна.</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>Налаштовано додаткові функції Windows ({0} змінено, {1} уже задоволено, {2} недоступно).</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>Змодельовано конфігурацію додаткових функцій Windows ({0} дій).</value></data>
-  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>Додаткова функція Windows &quot;{0}&quot; має вилучене корисне навантаження та не підтримує локальне відображення джерела.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>Помилка перевірки додаткової функції Windows для &quot;{0}&quot;.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>Відповідне джерело NetFx3 недоступне. {0}</value></data>
-  <data name="Common.Cancel" xml:space="preserve"><value>Скасувати</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>Захищене розгортання</value></data>
-  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>Потрібен пароль</value></data>
-  <data name="DeploymentAccess.Description" xml:space="preserve"><value>Введіть пароль технічного спеціаліста, щоб продовжити.</value></data>
-  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>Пароль розгортання</value></data>
-  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>Продовжити</value></data>
-  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>Показати або приховати пароль</value></data>
-  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>Пароль неправильний. Спробуйте ще раз.</value></data>
-  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>Цільовий пристрій</value></data>
-  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>Операційна система</value></data>
-  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>Драйвери пристроїв</value></data>
-  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Wizard.Step.Summary" xml:space="preserve"><value>Підсумок</value></data>
-  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>Етапи налаштування розгортання</value></data>
-  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>Повернутися до резюме</value></data>
-  <data name="Common.Edit" xml:space="preserve"><value>Редагувати</value></data>
-  <data name="Common.Copy" xml:space="preserve"><value>Копіювати</value></data>
-  <data name="Common.Close" xml:space="preserve"><value>Закрити</value></data>
-  <data name="TargetDevice.Title" xml:space="preserve"><value>Цільовий пристрій</value></data>
-  <data name="TargetDevice.Firmware" xml:space="preserve"><value>Оновлення мікропрограми</value></data>
-  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>Недоступно на віртуальних машинах</value></data>
-  <data name="OperatingSystem.Title" xml:space="preserve"><value>Операційна система</value></data>
-  <data name="Drivers.Title" xml:space="preserve"><value>Драйвери пристроїв</value></data>
-  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>Деталі конфігурації</value></data>
-  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>Цільовий пристрій</value></data>
-  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>Операційна система</value></data>
-  <data name="Summary.Category.Drivers" xml:space="preserve"><value>Драйвери пристроїв</value></data>
-  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>Налаштування Windows</value></data>
-  <data name="Summary.Category.Network" xml:space="preserve"><value>Мережа</value></data>
-  <data name="Summary.Category.Completion" xml:space="preserve"><value>Завершення</value></data>
-  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>Не налаштовано</value></data>
-  <data name="Summary.Status.Configured" xml:space="preserve"><value>Налаштовано</value></data>
-  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>Без змін</value></data>
-  <data name="Summary.Release" xml:space="preserve"><value>Версія</value></data>
-  <data name="Summary.Edition" xml:space="preserve"><value>Редакція</value></data>
-  <data name="Summary.Architecture" xml:space="preserve"><value>Архітектура системи</value></data>
-  <data name="Summary.Language" xml:space="preserve"><value>Мова</value></data>
-  <data name="Summary.LicenseChannel" xml:space="preserve"><value>Ліцензійний канал</value></data>
-  <data name="Summary.Build" xml:space="preserve"><value>Збірка</value></data>
-  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
-  <data name="Summary.AppxRemoval" xml:space="preserve"><value>Видалення AppX</value></data>
-  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>Видалення компонента ШІ</value></data>
-  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>Роумінг мережевих профілів</value></data>
-  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>Автоматичний перезапуск</value></data>
-  <data name="Summary.ManualRestart" xml:space="preserve"><value>Перезапуск вручну</value></data>
-  <data name="Summary.RestartDelay" xml:space="preserve"><value>Затримка перезапуску</value></data>
-  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} секунд</value></data>
-  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>Вибраний цільовий диск буде стерто, коли розпочнеться розгортання.</value></data>
-  <data name="Progress.Session" xml:space="preserve"><value>Сеанс</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>Кроки</value></data>
-  <data name="Progress.RingAutomationName" xml:space="preserve"><value>Загальний прогрес розгортання</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>Кроки розгортання</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>Переглянути відомості про помилку</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>Відомості про помилку</value></data>
-  <data name="TargetDevice.Description" xml:space="preserve"><value>Виберіть ім’я комп’ютера й цільовий диск, а потім перегляньте відомості про виявлене обладнання.</value></data>
-  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>Параметри розгортання</value></data>
-  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>Інвентаризація пристрою</value></data>
-  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>Ідентифікація пристрою</value></data>
-  <data name="TargetDevice.Platform" xml:space="preserve"><value>Платформа</value></data>
-  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>Виробник</value></data>
-  <data name="TargetDevice.Model" xml:space="preserve"><value>Модель</value></data>
-  <data name="TargetDevice.Product" xml:space="preserve"><value>Продукт</value></data>
-  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>Серійний номер</value></data>
-  <data name="TargetDevice.Architecture" xml:space="preserve"><value>Архітектура</value></data>
-  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
-  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>Джерело живлення</value></data>
-  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>Стан мікропрограми</value></data>
-  <data name="OperatingSystem.Description" xml:space="preserve"><value>Виберіть випуск Windows, мову, редакцію та канал ліцензування.</value></data>
-  <data name="Drivers.Description" xml:space="preserve"><value>Виберіть джерело драйверів і, за потреби, відповідні модель і версію.</value></data>
-  <data name="Autopilot.Description" xml:space="preserve"><value>Перегляньте параметри підготовки Autopilot для цього пристрою.</value></data>
-  <data name="Summary.Description" xml:space="preserve"><value>Перегляньте вибрані параметри перед початком розгортання.</value></data>
-  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>Додає автономний профіль Autopilot до інсталяції Windows.</value></data>
-  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>Під час розгортання завантажує апаратний хеш цього пристрою до Windows Autopilot.</value></data>
-  <data name="Summary.Status" xml:space="preserve"><value>Стан</value></data>
-  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>Метод підготовки</value></data>
-  <data name="Summary.WarningDetails" xml:space="preserve"><value>Відомості про попередження</value></data>
-  <data name="Summary.DiagnosticData" xml:space="preserve"><value>Діагностичні дані</value></data>
-  <data name="Summary.LocationAccess" xml:space="preserve"><value>Доступ до розташування</value></data>
-  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>Пропустити умови ліцензії</value></data>
-  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>Приховати налаштування конфіденційності</value></data>
-  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>Персоналізовані можливості</value></data>
-  <data name="Summary.AdvertisingId" xml:space="preserve"><value>Рекламний ідентифікатор</value></data>
-  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>Розпізнавання мовлення в Інтернеті</value></data>
-  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>Діагностика рукописного вводу та введення тексту</value></data>
-  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>Видалення програм і ШІ</value></data>
-  <data name="Summary.TotalConfigured" xml:space="preserve"><value>Усього настроєно</value></data>
-  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>Увімкнуті компоненти</value></data>
-  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>Вимкнуті компоненти</value></data>
-  <data name="Summary.WiredDot1x" xml:space="preserve"><value>Дротовий 802.1X</value></data>
-  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
-  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>Матеріал закритого ключа</value></data>
-  <data name="Summary.Included" xml:space="preserve"><value>Включено</value></data>
-  <data name="Summary.NotIncluded" xml:space="preserve"><value>Не включено</value></data>
-  <data name="Summary.RestartBehavior" xml:space="preserve"><value>Поведінка перезапуску</value></data>
-  <data name="Summary.Automatic" xml:space="preserve"><value>Автоматично</value></data>
-  <data name="Summary.Manual" xml:space="preserve"><value>Вручну</value></data>
-  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>Обовязкові</value></data>
-  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>Необовязкові</value></data>
-  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>Вимкнуто</value></data>
-  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>Керується користувачем</value></data>
-  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>Примусово вимкнуто</value></data>
-  <data name="Diagnostics.ExportMenu" xml:space="preserve">
-    <value>Експортувати діагностику...</value>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
+    <value>Microsoft Update Catalog не створив вміст драйвера.</value>
   </data>
-  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>Інвентарний тег</value></data>
-  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>UUID системи</value></data>
-  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
-    <value>Експортувати необроблену діагностику...</value>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
+    <value>Завантажувати пакет драйверів не потрібно.</value>
   </data>
-  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
-    <value>Експортувати необроблену діагностику?</value>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve">
+    <value>Операції з пакетом драйверів не потрібні.</value>
   </data>
-  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
-    <value>Необроблені журнали можуть містити облікові дані, ідентифікатори, шляхи, назви мереж та інші чутливі дані. Експортуйте їх лише за явним запитом від довіреної контактної особи служби підтримки.</value>
+  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve">
+    <value>Немає витягнутого вмісту прошивки.</value>
   </data>
-  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
-    <value>Експортувати необроблені журнали</value>
+  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
+    <value>Немає вилученого вмісту драйвера INF.</value>
   </data>
-  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
-    <value>Виберіть, куди експортувати діагностику Foundry</value>
+  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
+    <value>Розпакований вміст мікропрограми не містить файлів INF.</value>
   </data>
-  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
-    <value>Діагностику експортовано</value>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
+    <value>Сценарії налаштування до OOBE не потрібні.</value>
   </data>
-  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
-    <value>Діагностику експортовано до:&#xA;{0}</value>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
+    <value>Вибрано режим пакета драйверів OEM, але пакет драйверів не надано.</value>
   </data>
-  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
-    <value>Не вдалося експортувати діагностику</value>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve">
+    <value>Налаштування офлайн налаштовано.</value>
   </data>
-  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
-    <value>Не вдалося експортувати діагностику. Перевірте журнал для отримання подробиць.</value>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve">
+    <value>Налаштування в автономному режимі (симуляція).</value>
+  </data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve">
+    <value>Налаштування офлайн вимкнено.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve">
+    <value>Застосовано образ операційної системи.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve">
+    <value>Застосований образ операційної системи (симуляція).</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
+    <value>Образ операційної системи завантажено.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
+    <value>Образ операційної системи не завантажено.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
+    <value>Готовий образ операційної системи (симуляція).</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
+    <value>Образ операційної системи вилучено з кешу.</value>
+  </data>
+  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
+    <value>Операційна система URL відсутня.</value>
+  </data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
+    <value>Поетапні налаштування до OOBE.</value>
+  </data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
+    <value>Поетапні налаштування до OOBE (симуляція).</value>
+  </data>
+  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
+    <value>Налаштовано середовище відновлення.</value>
+  </data>
+  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve">
+    <value>Налаштоване середовище відновлення (симуляція).</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve">
+    <value>Розділ відновлення запечатано.</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve">
+    <value>Розділ відновлення запечатано (симуляція).</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve">
+    <value>Розділ відновлення недоступний.</value>
+  </data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
+    <value>Вибраний файл профілю Autopilot не знайдено: {0}</value>
+  </data>
+  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
+    <value>Ідентифікатор апаратного забезпечення мікропрограми системи недоступний.</value>
+  </data>
+  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve">
+    <value>Не вдалося вирішити цільовий каталог Autopilot.</value>
+  </data>
+  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve">
+    <value>Ім’я цільового комп’ютера налаштовано.</value>
+  </data>
+  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve">
+    <value>Ім’я цільового комп’ютера налаштоване (симуляція).</value>
+  </data>
+  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve">
+    <value>Цільова конфігурація перевірена.</value>
+  </data>
+  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve">
+    <value>Перевірена цільова конфігурація (симуляція).</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve">
+    <value>Макет цільового диска не підготовлено.</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve">
+    <value>Готовий макет цільового диска.</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve">
+    <value>Підготовлений макет цільового диска (моделювання).</value>
+  </data>
+  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve">
+    <value>Потрібно вказати номер цільового диска.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve">
+    <value>Цільовий розділ Windows недоступний.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
+    <value>Цільовий розділ Windows недоступний для проміжної обробки Autopilot.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
+    <value>Цільовий розділ Windows недоступний для завантаження апаратного хешу Autopilot.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>Цільовий розділ Windows недоступний для підготовки інтерактивного помічника реєстрації Autopilot.</value>
+  </data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
+    <value>Непідтримуваний режим встановлення пакета драйверів.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
+    <value>Конфігурацію додаткових функцій Windows вимкнено.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve">
+    <value>Конфігурація додаткових функцій Windows недійсна.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve">
+    <value>Відповідне джерело NetFx3 недоступне. {0}</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve">
+    <value>Додаткова функція Windows "{0}" має вилучене корисне навантаження та не підтримує локальне відображення джерела.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve">
+    <value>Помилка перевірки додаткової функції Windows для "{0}".</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve">
+    <value>Налаштовано додаткові функції Windows ({0} змінено, {1} уже задоволено, {2} недоступно).</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
+    <value>Змодельовано конфігурацію додаткових функцій Windows ({0} дій).</value>
+  </data>
+  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
+    <value>Робоча область ініціалізована.</value>
+  </data>
+  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
+    <value>Робоча область ініціалізована (симуляція).</value>
+  </data>
+  <data name="Success.Completed" xml:space="preserve">
+    <value>Розгортання завершено</value>
+  </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve">
+    <value>Вийміть завантажувальний носій, а потім виберіть «Перезавантажити».</value>
+  </data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve">
+    <value>Цей комп’ютер перезавантажиться через {0}s.</value>
+  </data>
+  <data name="Success.RebootNow" xml:space="preserve">
+    <value>Перезавантаження</value>
+  </data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
+    <value>Додаткові локальні облікові записи</value>
+  </data>
+  <data name="Summary.AdvertisingId" xml:space="preserve">
+    <value>Рекламний ідентифікатор</value>
+  </data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve">
+    <value>Видалення компонента ШІ</value>
+  </data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve">
+    <value>Видалення програм і ШІ</value>
+  </data>
+  <data name="Summary.AppxRemoval" xml:space="preserve">
+    <value>Видалення AppX</value>
+  </data>
+  <data name="Summary.Architecture" xml:space="preserve">
+    <value>Архітектура системи</value>
+  </data>
+  <data name="Summary.Automatic" xml:space="preserve">
+    <value>Автоматично</value>
+  </data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve">
+    <value>Автоматичний перезапуск</value>
+  </data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve">
+    <value>тег групи Autopilot</value>
+  </data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve">
+    <value>Autopilot Профіль</value>
+  </data>
+  <data name="Summary.Build" xml:space="preserve">
+    <value>Збірка</value>
+  </data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve">
+    <value>Вбудований обліковий запис адміністратора</value>
+  </data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Summary.Category.Completion" xml:space="preserve">
+    <value>Завершення</value>
+  </data>
+  <data name="Summary.Category.Drivers" xml:space="preserve">
+    <value>Драйвери пристроїв</value>
+  </data>
+  <data name="Summary.Category.Network" xml:space="preserve">
+    <value>Мережа</value>
+  </data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve">
+    <value>Операційна система</value>
+  </data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve">
+    <value>Цільовий пристрій</value>
+  </data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve">
+    <value>Налаштування Windows</value>
+  </data>
+  <data name="Summary.Description" xml:space="preserve">
+    <value>Перегляньте вибрані параметри перед початком розгортання.</value>
+  </data>
+  <data name="Summary.DiagnosticData" xml:space="preserve">
+    <value>Діагностичні дані</value>
+  </data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve">
+    <value>Вимкнуто</value>
+  </data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve">
+    <value>Необовязкові</value>
+  </data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve">
+    <value>Обовязкові</value>
+  </data>
+  <data name="Summary.Edition" xml:space="preserve">
+    <value>Редакція</value>
+  </data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve">
+    <value>Вимкнуті компоненти</value>
+  </data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve">
+    <value>Увімкнуті компоненти</value>
+  </data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve">
+    <value>Приховати налаштування конфіденційності</value>
+  </data>
+  <data name="Summary.Included" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve">
+    <value>Діагностика рукописного вводу та введення тексту</value>
+  </data>
+  <data name="Summary.Language" xml:space="preserve">
+    <value>Мова</value>
+  </data>
+  <data name="Summary.LicenseChannel" xml:space="preserve">
+    <value>Ліцензійний канал</value>
+  </data>
+  <data name="Summary.LocationAccess" xml:space="preserve">
+    <value>Доступ до розташування</value>
+  </data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
+    <value>Примусово вимкнуто</value>
+  </data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
+    <value>Керується користувачем</value>
+  </data>
+  <data name="Summary.Manual" xml:space="preserve">
+    <value>Вручну</value>
+  </data>
+  <data name="Summary.ManualRestart" xml:space="preserve">
+    <value>Перезапуск вручну</value>
+  </data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve">
+    <value>Роумінг мережевих профілів</value>
+  </data>
+  <data name="Summary.NoDiskSelected" xml:space="preserve">
+    <value>Диск не вибрано</value>
+  </data>
+  <data name="Summary.NoSelection" xml:space="preserve">
+    <value>Без вибору</value>
+  </data>
+  <data name="Summary.NotIncluded" xml:space="preserve">
+    <value>Не включено</value>
+  </data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve">
+    <value>Розпізнавання мовлення в Інтернеті</value>
+  </data>
+  <data name="Summary.Oobe" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve">
+    <value>Матеріал закритого ключа</value>
+  </data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve">
+    <value>Метод підготовки</value>
+  </data>
+  <data name="Summary.Release" xml:space="preserve">
+    <value>Версія</value>
+  </data>
+  <data name="Summary.RestartBehavior" xml:space="preserve">
+    <value>Поведінка перезапуску</value>
+  </data>
+  <data name="Summary.RestartDelay" xml:space="preserve">
+    <value>Затримка перезапуску</value>
+  </data>
+  <data name="Summary.SecondsFormat" xml:space="preserve">
+    <value>{0} секунд</value>
+  </data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve">
+    <value>Операційна система</value>
+  </data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve">
+    <value>Пропустити створення облікового запису</value>
+  </data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve">
+    <value>Пропустити умови ліцензії</value>
+  </data>
+  <data name="Summary.Status" xml:space="preserve">
+    <value>Стан</value>
+  </data>
+  <data name="Summary.Status.Configured" xml:space="preserve">
+    <value>Налаштовано</value>
+  </data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve">
+    <value>Без змін</value>
+  </data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve">
+    <value>Не налаштовано</value>
+  </data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve">
+    <value>Персоналізовані можливості</value>
+  </data>
+  <data name="Summary.TargetDisk" xml:space="preserve">
+    <value>Цільовий диск</value>
+  </data>
+  <data name="Summary.Title" xml:space="preserve">
+    <value>Підсумок розгортання</value>
+  </data>
+  <data name="Summary.TotalConfigured" xml:space="preserve">
+    <value>Усього настроєно</value>
+  </data>
+  <data name="Summary.WarningDetails" xml:space="preserve">
+    <value>Відомості про попередження</value>
+  </data>
+  <data name="Summary.Wifi" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve">
+    <value>Додаткові функції Windows</value>
+  </data>
+  <data name="Summary.WiredDot1x" xml:space="preserve">
+    <value>Дротовий 802.1X</value>
+  </data>
+  <data name="TargetDevice.Architecture" xml:space="preserve">
+    <value>Архітектура</value>
+  </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve">
+    <value>Інвентарний тег</value>
+  </data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve">
+    <value>Параметри розгортання</value>
+  </data>
+  <data name="TargetDevice.Description" xml:space="preserve">
+    <value>Виберіть ім’я комп’ютера й цільовий диск, а потім перегляньте відомості про виявлене обладнання.</value>
+  </data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve">
+    <value>Ідентифікація пристрою</value>
+  </data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve">
+    <value>Інвентаризація пристрою</value>
+  </data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve">
+    <value>Вибраний цільовий диск буде стерто, коли розпочнеться розгортання.</value>
+  </data>
+  <data name="TargetDevice.Firmware" xml:space="preserve">
+    <value>Оновлення мікропрограми</value>
+  </data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve">
+    <value>Стан мікропрограми</value>
+  </data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve">
+    <value>Недоступно на віртуальних машинах</value>
+  </data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve">
+    <value>Виробник</value>
+  </data>
+  <data name="TargetDevice.Model" xml:space="preserve">
+    <value>Модель</value>
+  </data>
+  <data name="TargetDevice.Platform" xml:space="preserve">
+    <value>Платформа</value>
+  </data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve">
+    <value>Джерело живлення</value>
+  </data>
+  <data name="TargetDevice.Product" xml:space="preserve">
+    <value>Продукт</value>
+  </data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve">
+    <value>Серійний номер</value>
+  </data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve">
+    <value>UUID системи</value>
+  </data>
+  <data name="TargetDevice.Title" xml:space="preserve">
+    <value>Цільовий пристрій</value>
+  </data>
+  <data name="TargetDevice.Tpm" xml:space="preserve">
+    <value>TPM</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Темний</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>світло</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>система</value>
+  </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>Відкрити файл журналу</value>
+  </data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve">
+    <value>Повернутися до резюме</value>
+  </data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve">
+    <value>Драйвери пристроїв</value>
+  </data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve">
+    <value>Операційна система</value>
+  </data>
+  <data name="Wizard.Step.Summary" xml:space="preserve">
+    <value>Підсумок</value>
+  </data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve">
+    <value>Цільовий пристрій</value>
+  </data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve">
+    <value>Етапи налаштування розгортання</value>
   </data>
 </root>

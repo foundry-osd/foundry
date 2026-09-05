@@ -18,6 +18,7 @@ internal sealed class UnattendDocumentService
     public const string NamespaceUri = "urn:schemas-microsoft-com:unattend";
 
     private const string UnattendFileName = "unattend.xml";
+    private const string DeploymentComponentName = "Microsoft-Windows-Deployment";
     private const string ShellSetupComponentName = "Microsoft-Windows-Shell-Setup";
     private const string ShellSetupPublicKeyToken = "31bf3856ad364e35";
     private const string ShellSetupLanguage = "neutral";
@@ -46,6 +47,23 @@ internal sealed class UnattendDocumentService
     /// </summary>
     public XElement EnsureShellSetupComponent(XDocument document, string passName, string processorArchitecture)
     {
+        return EnsureComponent(document, passName, processorArchitecture, ShellSetupComponentName);
+    }
+
+    /// <summary>
+    /// Ensures the Windows Deployment component exists in the requested unattend pass.
+    /// </summary>
+    public XElement EnsureDeploymentComponent(XDocument document, string passName, string processorArchitecture)
+    {
+        return EnsureComponent(document, passName, processorArchitecture, DeploymentComponentName);
+    }
+
+    private static XElement EnsureComponent(
+        XDocument document,
+        string passName,
+        string processorArchitecture,
+        string componentName)
+    {
         XElement root = EnsureUnattendRoot(document);
         XElement settings = root
             .Elements(Namespace + "settings")
@@ -59,7 +77,7 @@ internal sealed class UnattendDocumentService
 
         XElement component = settings
             .Elements(Namespace + "component")
-            .FirstOrDefault(element => string.Equals((string?)element.Attribute("name"), ShellSetupComponentName, StringComparison.OrdinalIgnoreCase))
+            .FirstOrDefault(element => string.Equals((string?)element.Attribute("name"), componentName, StringComparison.OrdinalIgnoreCase))
             ?? new XElement(Namespace + "component");
 
         if (component.Parent is null)
@@ -67,7 +85,7 @@ internal sealed class UnattendDocumentService
             settings.Add(component);
         }
 
-        component.SetAttributeValue("name", ShellSetupComponentName);
+        component.SetAttributeValue("name", componentName);
         component.SetAttributeValue("processorArchitecture", NormalizeProcessorArchitecture(processorArchitecture));
         component.SetAttributeValue("publicKeyToken", ShellSetupPublicKeyToken);
         component.SetAttributeValue("language", ShellSetupLanguage);

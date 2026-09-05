@@ -139,6 +139,7 @@ public sealed class PrepareTargetDiskLayoutStepTests
             DeployOobeSettings settings,
             string processorArchitecture,
             string workingDirectory,
+            string workspaceRootPath,
             CancellationToken cancellationToken = default)
         {
             throw new NotSupportedException();

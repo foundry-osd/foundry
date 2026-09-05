@@ -34,6 +34,295 @@
                 HorizontalContentAlignment="Stretch"
                 IsEnabled="{x:Bind ViewModel.IsOobeEnabled, Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                    <wct:SettingsExpander
+                        Description="{x:Bind ViewModel.OobeAccountsDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.OobeAccountsHeader, Mode=OneWay}">
+                        <wct:SettingsExpander.HeaderIcon>
+                            <FontIcon Glyph="&#xE77B;" />
+                        </wct:SettingsExpander.HeaderIcon>
+                        <Border
+                            Margin="{ThemeResource FoundrySettingsExpanderTrailingAffordanceMargin}"
+                            Padding="8,4"
+                            AutomationProperties.Name="{x:Bind ViewModel.OobeAccountsNeedsAttentionText, Mode=OneWay}"
+                            Background="{ThemeResource FoundryStatusBlockedBrush}"
+                            CornerRadius="12"
+                            IsHitTestVisible="False"
+                            Visibility="{x:Bind ViewModel.OobeAccountsNeedsAttentionVisibility, Mode=OneWay}">
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <FontIcon
+                                    FontSize="10"
+                                    Foreground="{ThemeResource FoundryStatusBlockedForegroundBrush}"
+                                    Glyph="&#xE711;" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource FoundryStatusBlockedForegroundBrush}"
+                                    Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                    Text="{x:Bind ViewModel.OobeAccountsNeedsAttentionText, Mode=OneWay}" />
+                            </StackPanel>
+                        </Border>
+                        <wct:SettingsExpander.Items>
+                            <Border
+                                Padding="{ThemeResource FoundryDefaultContentPadding}"
+                                Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{ThemeResource FoundryCardCornerRadius}">
+                                <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
+                                    <InfoBar
+                                        Title="{x:Bind ViewModel.OobeAccountsNeedsAttentionText, Mode=OneWay}"
+                                        IsClosable="False"
+                                        IsOpen="True"
+                                        Message="{x:Bind ViewModel.OobeAccountPasswordDescription, Mode=OneWay}"
+                                        Severity="Error"
+                                        Visibility="{x:Bind ViewModel.OobeAccountDeploymentProtectionRequiredVisibility, Mode=OneWay}" />
+
+                                    <ContentControl
+                                        HorizontalContentAlignment="Stretch"
+                                        IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}"
+                                        IsTabStop="False">
+                                        <StackPanel Spacing="{ThemeResource FoundrySpace16}">
+                                            <Grid ColumnSpacing="{ThemeResource FoundryPageHeaderColumnSpacing}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                                                    <TextBlock
+                                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                        Text="{x:Bind ViewModel.OobeAdministratorAccountLabel, Mode=OneWay}"
+                                                        TextWrapping="WrapWholeWords" />
+                                                    <TextBlock
+                                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                        Text="{x:Bind ViewModel.OobeAdministratorAccountDescription, Mode=OneWay}"
+                                                        TextWrapping="WrapWholeWords" />
+                                                </StackPanel>
+                                                <ToggleSwitch x:Name="AdministratorAccountToggle"
+                                                    Grid.Column="1"
+                                                    VerticalAlignment="Center"
+                                                    behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                                                    AutomationProperties.Name="{x:Bind ViewModel.OobeAdministratorAccountLabel, Mode=OneWay}"
+                                                    IsOn="{x:Bind ViewModel.EnableAdministratorAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Toggled="AdministratorAccountToggle_Toggled" />
+                                            </Grid>
+
+                                            <Grid
+                                                ColumnSpacing="{ThemeResource FoundryPageHeaderColumnSpacing}"
+                                                Visibility="{x:Bind ViewModel.EnableAdministratorAccount, Mode=OneWay}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                                                    <TextBlock
+                                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                        Text="{x:Bind ViewModel.OobeAccountPasswordLabel, Mode=OneWay}"
+                                                        TextWrapping="WrapWholeWords" />
+                                                    <TextBlock
+                                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                        Text="{x:Bind ViewModel.OobeAccountPasswordDescription, Mode=OneWay}"
+                                                        TextWrapping="WrapWholeWords" />
+                                                </StackPanel>
+                                                <ToggleSwitch x:Name="AdministratorPasswordToggle"
+                                                    Grid.Column="1"
+                                                    VerticalAlignment="Center"
+                                                    behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                                                    AutomationProperties.Name="{x:Bind ViewModel.OobeAccountPasswordLabel, Mode=OneWay}"
+                                                    IsOn="{x:Bind ViewModel.UseAdministratorPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Toggled="AdministratorPasswordToggle_Toggled" />
+                                            </Grid>
+
+                                            <StackPanel
+                                                Width="{ThemeResource FoundryWideInputMinWidth}"
+                                                HorizontalAlignment="Left"
+                                                Spacing="{ThemeResource FoundrySettingsSectionSpacing}"
+                                                Visibility="{x:Bind ViewModel.EnableAdministratorAccount, Mode=OneWay}">
+                                                <PasswordBox x:Name="AdministratorPasswordBox"
+                                                    AutomationProperties.Name="{x:Bind ViewModel.OobePasswordPlaceholder, Mode=OneWay}"
+                                                    IsEnabled="{x:Bind ViewModel.UseAdministratorPassword, Mode=OneWay}"
+                                                    Loaded="AdministratorPasswordBox_Loaded"
+                                                    PasswordChanged="AdministratorPasswordBox_PasswordChanged"
+                                                    PlaceholderText="{x:Bind ViewModel.OobePasswordPlaceholder, Mode=OneWay}" />
+                                                <PasswordBox x:Name="AdministratorConfirmationBox"
+                                                    AutomationProperties.Name="{x:Bind ViewModel.OobeConfirmationPlaceholder, Mode=OneWay}"
+                                                    IsEnabled="{x:Bind ViewModel.UseAdministratorPassword, Mode=OneWay}"
+                                                    Loaded="AdministratorConfirmationBox_Loaded"
+                                                    PasswordChanged="AdministratorConfirmationBox_PasswordChanged"
+                                                    PlaceholderText="{x:Bind ViewModel.OobeConfirmationPlaceholder, Mode=OneWay}" />
+                                                <TextBlock
+                                                    Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                                    Text="{x:Bind ViewModel.OobeAdministratorValidationMessage, Mode=OneWay}"
+                                                    TextWrapping="WrapWholeWords"
+                                                    Visibility="{x:Bind ViewModel.OobeAdministratorValidationVisibility, Mode=OneWay}" />
+                                            </StackPanel>
+
+                                            <Rectangle
+                                                Height="1"
+                                                AutomationProperties.AccessibilityView="Raw"
+                                                Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                                            <Grid ColumnSpacing="{ThemeResource FoundryPageHeaderColumnSpacing}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                                                    <TextBlock
+                                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                        Text="{x:Bind ViewModel.OobeAdditionalAccountsLabel, Mode=OneWay}"
+                                                        TextWrapping="WrapWholeWords" />
+                                                    <TextBlock
+                                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                        Text="{x:Bind ViewModel.OobeAdditionalAccountsEmpty, Mode=OneWay}"
+                                                        TextWrapping="WrapWholeWords"
+                                                        Visibility="{x:Bind ViewModel.OobeAdditionalAccountsEmptyVisibility, Mode=OneWay}" />
+                                                </StackPanel>
+                                                <Button
+                                                    Grid.Column="1"
+                                                    MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                                    VerticalAlignment="Center"
+                                                    Command="{x:Bind ViewModel.AddOobeAdditionalAccountCommand}"
+                                                    Content="{x:Bind ViewModel.OobeAdditionalAccountsAddButton, Mode=OneWay}"
+                                                    IsEnabled="{x:Bind ViewModel.AreOobeAdditionalAccountControlsAvailable, Mode=OneWay}" />
+                                            </Grid>
+
+                                            <InfoBar
+                                                IsClosable="False"
+                                                IsOpen="True"
+                                                Message="{x:Bind ViewModel.OobeAdditionalAccountsBlockedMessage, Mode=OneWay}"
+                                                Severity="Warning"
+                                                Visibility="{x:Bind ViewModel.OobeAdditionalAccountsBlockedVisibility, Mode=OneWay}" />
+
+                                            <ItemsControl
+                                                HorizontalContentAlignment="Stretch"
+                                                ItemsSource="{x:Bind ViewModel.OobeAdditionalAccounts, Mode=OneWay}"
+                                                Visibility="{x:Bind ViewModel.HasAdditionalOobeAccounts, Mode=OneWay}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemContainerStyle>
+                                                    <Style TargetType="ContentPresenter">
+                                                        <Setter
+                                                            Property="HorizontalContentAlignment"
+                                                            Value="Stretch" />
+                                                    </Style>
+                                                </ItemsControl.ItemContainerStyle>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate x:DataType="viewModels:OobeAdditionalAccountEntryViewModel">
+                                                        <Border
+                                                            Padding="{ThemeResource FoundryCompactContentPadding}"
+                                                            HorizontalAlignment="Stretch"
+                                                            Background="{ThemeResource ControlFillColorSecondaryBrush}"
+                                                            CornerRadius="{ThemeResource FoundryControlCornerRadius}">
+                                                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*" />
+                                                                    <ColumnDefinition Width="Auto" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
+                                                                    <TextBlock
+                                                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                                        Text="{x:Bind UserName, Mode=OneWay}"
+                                                                        TextWrapping="WrapWholeWords" />
+                                                                    <TextBlock
+                                                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                                                        Text="{x:Bind AccountTypeDisplayName, Mode=OneWay}"
+                                                                        TextWrapping="WrapWholeWords" />
+                                                                </StackPanel>
+                                                                <StackPanel
+                                                                    Grid.Column="1"
+                                                                    VerticalAlignment="Center"
+                                                                    Orientation="Horizontal"
+                                                                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                                    <Button
+                                                                        Command="{x:Bind EditCommand, Mode=OneWay}"
+                                                                        Content="{x:Bind EditText, Mode=OneWay}" />
+                                                                    <Button
+                                                                        Command="{x:Bind RemoveCommand, Mode=OneWay}"
+                                                                        Content="{x:Bind RemoveText, Mode=OneWay}" />
+                                                                </StackPanel>
+                                                            </Grid>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+
+                                            <TextBlock
+                                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                                Text="{x:Bind ViewModel.OobeAdditionalAccountsValidationMessage, Mode=OneWay}"
+                                                TextWrapping="WrapWholeWords"
+                                                Visibility="{x:Bind ViewModel.OobeAdditionalAccountsValidationVisibility, Mode=OneWay}" />
+
+                                            <InfoBar
+                                                IsClosable="False"
+                                                IsOpen="True"
+                                                Message="{x:Bind ViewModel.OobeNoAdministratorWarning, Mode=OneWay}"
+                                                Severity="Warning"
+                                                Visibility="{x:Bind ViewModel.OobeNoAdministratorWarningVisibility, Mode=OneWay}" />
+
+                                            <Rectangle
+                                                Height="1"
+                                                AutomationProperties.AccessibilityView="Raw"
+                                                Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid VerticalAlignment="Center">
+                                                    <FontIcon
+                                                        FontSize="{ThemeResource FoundryIconSizeSmall}"
+                                                        Foreground="{ThemeResource SystemFillColorAttentionBrush}"
+                                                        Glyph="&#xE946;"
+                                                        Visibility="{x:Bind ViewModel.OobeAdditionalAccountsEmptyVisibility, Mode=OneWay}" />
+                                                    <FontIcon
+                                                        FontSize="{ThemeResource FoundryIconSizeSmall}"
+                                                        Foreground="{ThemeResource SystemFillColorSuccessBrush}"
+                                                        Glyph="&#xE73E;"
+                                                        Visibility="{x:Bind ViewModel.HasAdditionalOobeAccounts, Mode=OneWay}" />
+                                                </Grid>
+                                                <StackPanel
+                                                    Grid.Column="1"
+                                                    Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                                                    <TextBlock
+                                                        Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                                        Text="{x:Bind ViewModel.OobeSkipUserAccountCreationLabel, Mode=OneWay}"
+                                                        TextWrapping="WrapWholeWords" />
+                                                    <TextBlock
+                                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                        Text="{x:Bind ViewModel.OobeSkipUserAccountCreationEffectiveDescription, Mode=OneWay}"
+                                                        TextWrapping="WrapWholeWords" />
+                                                </StackPanel>
+                                            </Grid>
+
+                                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <FontIcon
+                                                    VerticalAlignment="Top"
+                                                    FontSize="{ThemeResource FoundryIconSizeSmall}"
+                                                    Foreground="{ThemeResource SystemFillColorCautionBrush}"
+                                                    Glyph="&#xE72E;" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                    Text="{x:Bind ViewModel.OobeAccountsSecurityWarning, Mode=OneWay}"
+                                                    TextWrapping="WrapWholeWords" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </ContentControl>
+                                </StackPanel>
+                            </Border>
+                        </wct:SettingsExpander.Items>
+                    </wct:SettingsExpander>
+
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.OobeSkipLicenseTermsDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.OobeSkipLicenseTermsLabel, Mode=OneWay}"

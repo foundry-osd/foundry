@@ -3,10 +3,15 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Foundry.Core.Models.Configuration;
 using Foundry.Deploy.Models.Configuration;
+using Foundry.Deploy.Services.Autopilot;
+using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Deployment.Unattend;
 using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
@@ -27,24 +32,33 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
     private const string RecoveryPartitionAttributes = "0x8000000000000001";
     private const string WinReImageFileName = "winre.wim";
+    private const string AdministratorActivationDescription = "Enable built-in Administrator account";
+    private const string AdministratorActivationCommand =
+        "powershell.exe -NoProfile -NonInteractive -Command \"Get-LocalUser|Where-Object SID -like '*-500'|Enable-LocalUser -ErrorAction Stop\"";
     private readonly IProcessRunner _processRunner;
     private readonly ILogger<WindowsDeploymentService> _logger;
     private readonly UnattendDocumentService _unattendDocumentService;
     private readonly OobePolicyRegistryWriter _oobePolicyRegistryWriter;
     private readonly AiComponentRemovalRegistryWriter _aiComponentRemovalRegistryWriter;
+    private readonly IDeploymentSecretKeyProvider? _deploymentSecretKeyProvider;
 
     /// <summary>
     /// Initializes a Windows deployment service.
     /// </summary>
     /// <param name="processRunner">The process runner used for diskpart, DISM, bcdboot, and winrecfg.</param>
     /// <param name="logger">The logger used for deployment diagnostics.</param>
-    public WindowsDeploymentService(IProcessRunner processRunner, ILogger<WindowsDeploymentService> logger)
+    /// <param name="deploymentSecretKeyProvider">The provider used to decrypt account passwords at the unattend-writing boundary.</param>
+    public WindowsDeploymentService(
+        IProcessRunner processRunner,
+        ILogger<WindowsDeploymentService> logger,
+        IDeploymentSecretKeyProvider? deploymentSecretKeyProvider = null)
     {
         _processRunner = processRunner;
         _logger = logger;
         _unattendDocumentService = new UnattendDocumentService();
         _oobePolicyRegistryWriter = new OobePolicyRegistryWriter(processRunner);
         _aiComponentRemovalRegistryWriter = new AiComponentRemovalRegistryWriter(processRunner);
+        _deploymentSecretKeyProvider = deploymentSecretKeyProvider;
     }
 
     /// <inheritdoc />
@@ -389,6 +403,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         DeployOobeSettings settings,
         string processorArchitecture,
         string workingDirectory,
+        string workspaceRootPath,
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(settings);
@@ -426,6 +441,20 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             RemoveElement(oobeElement, unattendNamespace, "ProtectYourPC");
         }
 
+        SetElementValue(
+            oobeElement,
+            unattendNamespace,
+            "HideOnlineAccountScreens",
+            ShouldHideOnlineAccountScreens(settings) ? "true" : "false");
+
+        await ApplyOobeAccountsAsync(
+            document,
+            component,
+            settings,
+            processorArchitecture,
+            workspaceRootPath,
+            cancellationToken).ConfigureAwait(false);
+
         _unattendDocumentService.Save(windowsPartitionRoot, document);
 
         await _oobePolicyRegistryWriter
@@ -437,6 +466,243 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             windowsPartitionRoot,
             settings.DiagnosticDataLevel,
             settings.LocationAccess);
+    }
+
+    private async Task ApplyOobeAccountsAsync(
+        XDocument document,
+        XElement oobeSystemComponent,
+        DeployOobeSettings settings,
+        string processorArchitecture,
+        string workspaceRootPath,
+        CancellationToken cancellationToken)
+    {
+        byte[]? deploymentKey = null;
+        try
+        {
+            if (RequiresDeploymentKey(settings))
+            {
+                if (_deploymentSecretKeyProvider is null)
+                {
+                    throw new InvalidOperationException("A deployment secret key provider is required for OOBE account passwords.");
+                }
+
+                if (string.IsNullOrWhiteSpace(workspaceRootPath))
+                {
+                    throw new ArgumentException("Deployment workspace root is required for encrypted OOBE account passwords.", nameof(workspaceRootPath));
+                }
+
+                deploymentKey = await _deploymentSecretKeyProvider.ReadAsync(workspaceRootPath, cancellationToken).ConfigureAwait(false);
+            }
+
+            WriteUserAccounts(oobeSystemComponent, settings, deploymentKey);
+            if (settings.EnableAdministratorAccount)
+            {
+                WriteAdministratorActivation(document, processorArchitecture);
+            }
+            else
+            {
+                RemoveAdministratorActivation(document);
+            }
+        }
+        finally
+        {
+            if (deploymentKey is not null)
+            {
+                CryptographicOperations.ZeroMemory(deploymentKey);
+            }
+        }
+    }
+
+    private static bool RequiresDeploymentKey(DeployOobeSettings settings) =>
+        settings.AdministratorPasswordSecret is not null ||
+        settings.AdditionalAccounts.Any(account => account.PasswordSecret is not null);
+
+    private static bool ShouldHideOnlineAccountScreens(DeployOobeSettings settings) =>
+        settings.AdditionalAccounts.Count > 0;
+
+    private static void WriteUserAccounts(
+        XElement component,
+        DeployOobeSettings settings,
+        byte[]? deploymentKey)
+    {
+        XNamespace ns = UnattendDocumentService.Namespace;
+        XNamespace wcm = "http://schemas.microsoft.com/WMIConfig/2002/State";
+        XElement userAccounts = component.Element(ns + "UserAccounts") ?? new XElement(ns + "UserAccounts");
+
+        if (settings.EnableAdministratorAccount)
+        {
+            char[] password = DecryptPassword(settings.AdministratorPasswordIsBlank, settings.AdministratorPasswordSecret, deploymentKey);
+            try
+            {
+                userAccounts.Element(ns + "AdministratorPassword")?.Remove();
+                userAccounts.Add(CreatePasswordElement(ns, "AdministratorPassword", password, "AdministratorPassword"));
+            }
+            finally
+            {
+                CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+            }
+        }
+        if (settings.AdditionalAccounts.Count > 0)
+        {
+            XElement localAccounts = userAccounts.Element(ns + "LocalAccounts") ?? new XElement(ns + "LocalAccounts");
+            foreach (DeployOobeAdditionalAccountSettings account in settings.AdditionalAccounts)
+            {
+                char[] password = DecryptPassword(account.PasswordIsBlank, account.PasswordSecret, deploymentKey);
+                try
+                {
+                    localAccounts.Elements(ns + "LocalAccount")
+                        .Where(element => string.Equals(
+                            element.Element(ns + "Name")?.Value,
+                            account.UserName,
+                            StringComparison.OrdinalIgnoreCase))
+                        .Remove();
+                    localAccounts.Add(
+                        new XElement(ns + "LocalAccount",
+                            new XAttribute(wcm + "action", "add"),
+                            CreatePasswordElement(ns, "Password", password, "Password"),
+                            new XElement(ns + "Description", account.UserName),
+                            new XElement(ns + "DisplayName", account.UserName),
+                            new XElement(ns + "Group", account.Type == OobeAccountType.Administrator ? "Administrators" : "Users"),
+                            new XElement(ns + "Name", account.UserName)));
+                }
+                finally
+                {
+                    CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+                }
+            }
+
+            if (localAccounts.Parent is null)
+            {
+                userAccounts.Add(localAccounts);
+            }
+        }
+        if (userAccounts.Parent is null && userAccounts.Elements().Any())
+        {
+            component.Add(userAccounts);
+        }
+    }
+
+    private static char[] DecryptPassword(
+        bool isBlank,
+        Foundry.Deploy.Models.Configuration.SecretEnvelope? secret,
+        byte[]? deploymentKey)
+    {
+        if (isBlank)
+        {
+            return [];
+        }
+
+        if (secret is null || deploymentKey is null)
+        {
+            throw new InvalidOperationException("An encrypted OOBE account password is missing.");
+        }
+
+        return DeployMediaSecretEnvelopeProtector.DecryptDeployChars(secret, deploymentKey);
+    }
+
+    private static XElement CreatePasswordElement(
+        XNamespace ns,
+        string elementName,
+        ReadOnlySpan<char> password,
+        string hiddenValueSuffix)
+    {
+        if (password.IsEmpty)
+        {
+            return new XElement(ns + elementName,
+                new XElement(ns + "Value", string.Empty),
+                new XElement(ns + "PlainText", "true"));
+        }
+
+        return new XElement(ns + elementName,
+            new XElement(ns + "Value", EncodeHiddenUnattendPassword(password, hiddenValueSuffix)),
+            new XElement(ns + "PlainText", "false"));
+    }
+
+    private static string EncodeHiddenUnattendPassword(ReadOnlySpan<char> password, string suffix)
+    {
+        char[] value = new char[password.Length + suffix.Length];
+        byte[]? bytes = null;
+        try
+        {
+            password.CopyTo(value);
+            suffix.AsSpan().CopyTo(value.AsSpan(password.Length));
+            bytes = Encoding.Unicode.GetBytes(value);
+            return Convert.ToBase64String(bytes);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(value.AsSpan()));
+            if (bytes is not null)
+            {
+                CryptographicOperations.ZeroMemory(bytes);
+            }
+        }
+    }
+
+    private void WriteAdministratorActivation(XDocument document, string processorArchitecture)
+    {
+        XNamespace ns = UnattendDocumentService.Namespace;
+        XNamespace wcm = "http://schemas.microsoft.com/WMIConfig/2002/State";
+        XElement component = _unattendDocumentService.EnsureDeploymentComponent(document, "specialize", processorArchitecture);
+        XElement runSynchronous = component.Element(ns + "RunSynchronous") ?? new XElement(ns + "RunSynchronous");
+        runSynchronous.Elements(ns + "RunSynchronousCommand")
+            .Where(IsAdministratorActivationCommand)
+            .Remove();
+        int order = runSynchronous.Elements(ns + "RunSynchronousCommand")
+            .Select(element => int.TryParse(element.Element(ns + "Order")?.Value, out int value) ? value : 0)
+            .DefaultIfEmpty()
+            .Max() + 1;
+        runSynchronous.Add(
+            new XElement(ns + "RunSynchronousCommand",
+                new XAttribute(wcm + "action", "add"),
+                new XElement(ns + "Description", AdministratorActivationDescription),
+                new XElement(ns + "Order", order),
+                new XElement(ns + "Path", AdministratorActivationCommand)));
+        if (runSynchronous.Parent is null)
+        {
+            component.Add(runSynchronous);
+        }
+    }
+
+    private static void RemoveAdministratorActivation(XDocument document)
+    {
+        XNamespace ns = UnattendDocumentService.Namespace;
+        XElement? component = FindDeploymentComponent(document, "specialize");
+        if (component is null)
+        {
+            return;
+        }
+
+        XElement? runSynchronous = component.Element(ns + "RunSynchronous");
+        runSynchronous?.Elements(ns + "RunSynchronousCommand")
+            .Where(IsAdministratorActivationCommand)
+            .Remove();
+        if (runSynchronous is not null && !runSynchronous.Elements().Any())
+        {
+            runSynchronous.Remove();
+        }
+    }
+
+    private static bool IsAdministratorActivationCommand(XElement element) =>
+        string.Equals(
+            element.Element(UnattendDocumentService.Namespace + "Description")?.Value,
+            AdministratorActivationDescription,
+            StringComparison.Ordinal);
+
+    private static XElement? FindDeploymentComponent(XDocument document, string passName)
+    {
+        XNamespace ns = UnattendDocumentService.Namespace;
+        return document.Root?
+            .Elements(ns + "settings")
+            .FirstOrDefault(element => string.Equals(
+                element.Attribute("pass")?.Value,
+                passName,
+                StringComparison.OrdinalIgnoreCase))?
+            .Elements(ns + "component")
+            .FirstOrDefault(element => string.Equals(
+                element.Attribute("name")?.Value,
+                "Microsoft-Windows-Deployment",
+                StringComparison.OrdinalIgnoreCase));
     }
 
     /// <inheritdoc />

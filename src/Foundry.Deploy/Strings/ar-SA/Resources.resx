@@ -12,337 +12,301 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="App.Name" xml:space="preserve"><value>Foundry Deploy</value></data>
-  <data name="App.WindowTitle" xml:space="preserve"><value>Foundry Deploy</value></data>
-  <data name="About.Title" xml:space="preserve"><value>حول Foundry Deploy</value></data>
-  <data name="About.DescriptionLine1" xml:space="preserve"><value>Foundry Deploy هي تجربة النشر WinPE لـ Foundry.</value></data>
-  <data name="About.DescriptionLine2" xml:space="preserve"><value>يتم توفير هذا البرنامج كما هو. قم بمراجعة إعدادات النشر الخاصة بك قبل الاستخدام.</value></data>
-  <data name="About.Footer" xml:space="preserve"><value>حقوق الطبع والنشر (ج) 2026 Foundry Project. مرخص بموجب ترخيص MIT.</value></data>
-  <data name="Menu.Theme" xml:space="preserve"><value>_الموضوع</value></data>
-  <data name="Menu.Language" xml:space="preserve"><value>_اللغة</value></data>
-  <data name="Menu.Tools" xml:space="preserve"><value>_الأدوات</value></data>
-  <data name="Menu.Debug" xml:space="preserve"><value>_تصحيح</value></data>
-  <data name="Menu.About" xml:space="preserve"><value>_حول</value></data>
-  <data name="Theme.System" xml:space="preserve"><value>النظام</value></data>
-  <data name="Theme.Light" xml:space="preserve"><value>ضوء</value></data>
-  <data name="Theme.Dark" xml:space="preserve"><value>الظلام</value></data>
-  <data name="Tools.OpenLogFile" xml:space="preserve"><value>فتح ملف السجل</value></data>
-  <data name="Preparation.ComputerName" xml:space="preserve"><value>اسم الكمبيوتر</value></data>
-  <data name="Preparation.ComputerNameHint" xml:space="preserve"><value>1-15 حرفا. A-Z، وa-z، و0-9، والواصلة فقط.</value></data>
-  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve"><value>يجب أن يحتوي اسم الكمبيوتر على من 1 إلى 15 حرفًا صالحًا (أحرف أو أرقام أو واصلة).</value></data>
-  <data name="Preparation.TargetDisk" xml:space="preserve"><value>القرص المستهدف</value></data>
-  <data name="Preparation.TargetDiskHint" xml:space="preserve"><value>حدد القرص الهدف. يتم حظر الأقراص غير المؤهلة.</value></data>
-  <data name="Preparation.FirmwareUpdates" xml:space="preserve"><value>تطبيق تحديثات البرامج الثابتة</value></data>
-  <data name="Preparation.AutopilotProfile" xml:space="preserve"><value>الملف الشخصي</value></data>
-  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve"><value>لم يتم العثور على ملفات تعريف Autopilot مضمنة على هذه الوسائط.</value></data>
-  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve"><value>JSON توفير الملف الشخصي</value></data>
-  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve"><value>تحميل تجزئة الأجهزة بطريقة Zero-touch</value></data>
-  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve"><value>تحميل تفاعلي لتجزئة الأجهزة</value></data>
-  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve"><value>حالة تحميل تجزئة الأجهزة</value></data>
-  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve"><value>جاهز لتحميل تجزئة الأجهزة</value></data>
-  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve"><value>تحميل تجزئة الأجهزة غير متاح</value></data>
-  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve"><value>معلومات الشهادة المطلوبة مفقودة. يمكن أن يستمر النشر بدون تحميل تجزئة الأجهزة.</value></data>
-  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve"><value>انتهت صلاحية شهادة Autopilot. يمكن أن يستمر النشر بدون تحميل تجزئة الأجهزة.</value></data>
-  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve"><value>معرف المستأجر</value></data>
-  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve"><value>انتهاء صلاحية الشهادة</value></data>
-  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve"><value>علامة المجموعة</value></data>
-  <data name="Preparation.DetectingHardware" xml:space="preserve"><value>الكشف عن الأجهزة...</value></data>
-  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve"><value>فشل الكشف عن الأجهزة.</value></data>
-  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve"><value>فشل الكشف عن الأجهزة: {0}</value></data>
-  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve"><value>{0} | TPM: {1} | القوة: {2} | البرامج الثابتة: {3}</value></data>
-  <data name="Preparation.PowerBattery" xml:space="preserve"><value>البطارية</value></data>
-  <data name="Preparation.PowerAc" xml:space="preserve"><value>تكييف</value></data>
-  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve"><value>فشل اكتشاف القرص الهدف: {0}</value></data>
-  <data name="Catalog.Version" xml:space="preserve"><value>الإصدار</value></data>
-  <data name="Catalog.Media" xml:space="preserve"><value>تحديث Windows</value></data>
-  <data name="Catalog.MediaLatestFormat" xml:space="preserve"><value>{0} (الأحدث)</value></data>
-  <data name="Catalog.Language" xml:space="preserve"><value>اللغة</value></data>
-  <data name="Catalog.LicenseChannel" xml:space="preserve"><value>قناة الترخيص</value></data>
-  <data name="Catalog.EditionTarget" xml:space="preserve"><value>الطبعة (الهدف)</value></data>
-  <data name="Catalog.ArchitectureFormat" xml:space="preserve"><value>الهندسة المعمارية: {0}</value></data>
-  <data name="Catalog.LoadedFormat" xml:space="preserve"><value>الكتالوجات المحملة: {0} إدخالات نظام التشغيل، {1} حزم برامج التشغيل.</value></data>
-  <data name="Catalog.LoadFailedFormat" xml:space="preserve"><value>فشل تحميل الكتالوج: {0}</value></data>
-  <data name="DriverPack.Source" xml:space="preserve"><value>مصدر السائق</value></data>
-  <data name="DriverPack.Model" xml:space="preserve"><value>نموذج</value></data>
-  <data name="DriverPack.Version" xml:space="preserve"><value>الإصدار</value></data>
-  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve"><value>Microsoft Update Catalog</value></data>
-  <data name="DriverPack.Oem" xml:space="preserve"><value>تصنيع المعدات الأصلية</value></data>
-  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve"><value>{0}: لا يوجد نموذج أو إصدار مطابق</value></data>
-  <data name="DriverPack.MultiModelFormat" xml:space="preserve"><value>{0} (نماذج +{1})</value></data>
-  <data name="Summary.Title" xml:space="preserve"><value>ملخص النشر</value></data>
-  <data name="Summary.TargetDisk" xml:space="preserve"><value>القرص المستهدف</value></data>
-  <data name="Summary.NoDiskSelected" xml:space="preserve"><value>لم يتم تحديد أي قرص</value></data>
-  <data name="Summary.SelectedOperatingSystem" xml:space="preserve"><value>نظام التشغيل</value></data>
-  <data name="Summary.NoSelection" xml:space="preserve"><value>لا يوجد اختيار</value></data>
-  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve"><value>ميزات Windows الاختيارية</value></data>
-  <data name="Summary.AutopilotProfile" xml:space="preserve"><value>Autopilot الملف الشخصي</value></data>
-  <data name="Summary.AutopilotGroupTag" xml:space="preserve"><value>Autopilot علامة المجموعة</value></data>
-  <data name="Debug.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve"><value>لا Autopilot</value></data>
-  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve"><value>JSON الملف الشخصي</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve"><value>تحميل zero-touch لتجزئة الأجهزة</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve"><value>شهادة صالحة</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve"><value>شهادة منتهية الصلاحية</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve"><value>معلومات الشهادة مفقودة</value></data>
-  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve"><value>لا توجد علامة مجموعة افتراضية</value></data>
-  <data name="Debug.DeploymentPages" xml:space="preserve"><value>صفحات النشر</value></data>
-  <data name="Debug.ProgressPageCommand" xml:space="preserve"><value>صفحة التقدم</value></data>
-  <data name="Debug.SuccessPageCommand" xml:space="preserve"><value>صفحة النجاح</value></data>
-  <data name="Debug.ErrorPageCommand" xml:space="preserve"><value>صفحة الخطأ</value></data>
-  <data name="Debug.ErrorPreviewMessage" xml:space="preserve"><value>معاينة التصحيح: فشل تطبيق DISM لأن القسم الهدف للقراءة فقط.
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Foundry Deploy هي تجربة النشر WinPE لـ Foundry.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>يتم توفير هذا البرنامج كما هو. قم بمراجعة إعدادات النشر الخاصة بك قبل الاستخدام.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>حقوق الطبع والنشر (ج) 2026 Foundry Project. مرخص بموجب ترخيص MIT.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>حول Foundry Deploy</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Deploy</value>
+  </data>
+  <data name="App.WindowTitle" xml:space="preserve">
+    <value>Foundry Deploy</value>
+  </data>
+  <data name="Autopilot.ConfigurationDetails" xml:space="preserve">
+    <value>تفاصيل التكوين</value>
+  </data>
+  <data name="Autopilot.Description" xml:space="preserve">
+    <value>راجع إعدادات توفير Autopilot لهذا الجهاز.</value>
+  </data>
+  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
+    <value>يحمّل تجزئة أجهزة هذا الجهاز إلى Windows Autopilot أثناء النشر.</value>
+  </data>
+  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
+    <value>يضيف ملف تعريف Autopilot غير متصل إلى تثبيت Windows.</value>
+  </data>
+  <data name="Autopilot.Title" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="BootMedia.UpdateRecommended" xml:space="preserve">
+    <value>يوصى بإعادة إنشاء صورة التمهيد</value>
+  </data>
+  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
+    <value>تستخدم صورة التمهيد هذه تنسيق تكوين أقدم لـ Foundry OSD. أعد إنشاءها لضمان التوافق مع أحدث الميزات.</value>
+  </data>
+  <data name="Catalog.ArchitectureFormat" xml:space="preserve">
+    <value>الهندسة المعمارية: {0}</value>
+  </data>
+  <data name="Catalog.EditionTarget" xml:space="preserve">
+    <value>الطبعة (الهدف)</value>
+  </data>
+  <data name="Catalog.Language" xml:space="preserve">
+    <value>اللغة</value>
+  </data>
+  <data name="Catalog.LicenseChannel" xml:space="preserve">
+    <value>قناة الترخيص</value>
+  </data>
+  <data name="Catalog.LoadFailedFormat" xml:space="preserve">
+    <value>فشل تحميل الكتالوج: {0}</value>
+  </data>
+  <data name="Catalog.LoadedFormat" xml:space="preserve">
+    <value>الكتالوجات المحملة: {0} إدخالات نظام التشغيل، {1} حزم برامج التشغيل.</value>
+  </data>
+  <data name="Catalog.Media" xml:space="preserve">
+    <value>تحديث Windows</value>
+  </data>
+  <data name="Catalog.MediaLatestFormat" xml:space="preserve">
+    <value>{0} (الأحدث)</value>
+  </data>
+  <data name="Catalog.Version" xml:space="preserve">
+    <value>الإصدار</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="Common.Copy" xml:space="preserve">
+    <value>نسخ</value>
+  </data>
+  <data name="Common.Deploy" xml:space="preserve">
+    <value>نشر</value>
+  </data>
+  <data name="Common.Detected" xml:space="preserve">
+    <value>تم الكشف عنها</value>
+  </data>
+  <data name="Common.Disabled" xml:space="preserve">
+    <value>معطل</value>
+  </data>
+  <data name="Common.Edit" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="Common.Enabled" xml:space="preserve">
+    <value>ممكّن</value>
+  </data>
+  <data name="Common.Next" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="Common.No" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="Common.None" xml:space="preserve">
+    <value>لا شيء</value>
+  </data>
+  <data name="Common.NotAvailable" xml:space="preserve">
+    <value>لا يوجد</value>
+  </data>
+  <data name="Common.Previous" xml:space="preserve">
+    <value>السابق</value>
+  </data>
+  <data name="Common.Unavailable" xml:space="preserve">
+    <value>غير متاح</value>
+  </data>
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>غير معروف</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>الإصدار: {0}</value>
+  </data>
+  <data name="Common.Yes" xml:space="preserve">
+    <value>نعم</value>
+  </data>
+  <data name="Debug.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload" xml:space="preserve">
+    <value>تحميل zero-touch لتجزئة الأجهزة</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ExpiredCertificate" xml:space="preserve">
+    <value>شهادة منتهية الصلاحية</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.MissingCertificateMetadata" xml:space="preserve">
+    <value>معلومات الشهادة مفقودة</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.NoDefaultGroupTag" xml:space="preserve">
+    <value>لا توجد علامة مجموعة افتراضية</value>
+  </data>
+  <data name="Debug.Autopilot.HardwareHashUpload.ValidCertificate" xml:space="preserve">
+    <value>شهادة صالحة</value>
+  </data>
+  <data name="Debug.Autopilot.JsonProfile" xml:space="preserve">
+    <value>JSON الملف الشخصي</value>
+  </data>
+  <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
+    <value>لا Autopilot</value>
+  </data>
+  <data name="Debug.DeploymentPages" xml:space="preserve">
+    <value>صفحات النشر</value>
+  </data>
+  <data name="Debug.ErrorPageCommand" xml:space="preserve">
+    <value>صفحة الخطأ</value>
+  </data>
+  <data name="Debug.ErrorPreviewMessage" xml:space="preserve">
+    <value>معاينة التصحيح: فشل تطبيق DISM لأن القسم الهدف للقراءة فقط.
 
 رمز الخطأ = 0x80070005
 التفاصيل: تم رفض الوصول أثناء تثبيت الصورة على المسار المستهدف.
-الإجراء: تحقق من سمات القرص وأعد محاولة النشر.</value></data>
-  <data name="BootMedia.UpdateRecommended" xml:space="preserve"><value>يوصى بإعادة إنشاء صورة التمهيد</value></data>
-  <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve"><value>تستخدم صورة التمهيد هذه تنسيق تكوين أقدم لـ Foundry OSD. أعد إنشاءها لضمان التوافق مع أحدث الميزات.</value></data>
-  <data name="Common.VersionFormat" xml:space="preserve"><value>الإصدار: {0}</value></data>
-  <data name="Common.Previous" xml:space="preserve"><value>السابق</value></data>
-  <data name="Common.Next" xml:space="preserve"><value>التالي</value></data>
-  <data name="Common.Deploy" xml:space="preserve"><value>نشر</value></data>
-  <data name="Common.NotAvailable" xml:space="preserve"><value>لا يوجد</value></data>
-  <data name="Common.Unavailable" xml:space="preserve"><value>غير متاح</value></data>
-  <data name="Common.None" xml:space="preserve"><value>لا شيء</value></data>
-  <data name="Common.Unknown" xml:space="preserve"><value>غير معروف</value></data>
-  <data name="Common.Detected" xml:space="preserve"><value>تم الكشف عنها</value></data>
-  <data name="Common.Yes" xml:space="preserve"><value>نعم</value></data>
-  <data name="Common.No" xml:space="preserve"><value>لا</value></data>
-  <data name="Common.Enabled" xml:space="preserve"><value>ممكّن</value></data>
-  <data name="Common.Disabled" xml:space="preserve"><value>معطل</value></data>
-  <data name="Progress.Networking" xml:space="preserve"><value>الشبكات</value></data>
-  <data name="Progress.StartTime" xml:space="preserve"><value>وقت البدء</value></data>
-  <data name="Progress.ElapsedTime" xml:space="preserve"><value>الوقت المنقضي</value></data>
-  <data name="Success.Completed" xml:space="preserve"><value>اكتمل النشر</value></data>
-  <data name="Success.RebootCountdownFormat" xml:space="preserve"><value>سيتم إعادة تشغيل هذا الكمبيوتر خلال {0}s.</value></data>
-  <data name="Success.RebootNow" xml:space="preserve"><value>إعادة التشغيل</value></data>
-  <data name="Error.Title" xml:space="preserve"><value>فشل النشر</value></data>
-  <data name="Error.FailedStepFormat" xml:space="preserve"><value>الخطوة الفاشلة: {0}</value></data>
-  <data name="Splash.Welcome" xml:space="preserve"><value>مرحبًا</value></data>
-  <data name="Splash.InitializingComponents" xml:space="preserve"><value>تهيئة المكونات...</value></data>
-  <data name="Splash.StartDeployment" xml:space="preserve"><value>بدء النشر</value></data>
-  <data name="Disk.DisplayLabelFormat" xml:space="preserve"><value>القرص {0} | {1} | {2} | {3}{4}</value></data>
-  <data name="Disk.WarningSuffixFormat" xml:space="preserve"><value>| {0}</value></data>
-  <data name="Disk.UnknownSize" xml:space="preserve"><value>حجم غير معروف</value></data>
-  <data name="Disk.BlockedSystemDisk" xml:space="preserve"><value>محظور: قرص النظام</value></data>
-  <data name="Disk.BlockedBootDisk" xml:space="preserve"><value>محظور: قرص التمهيد</value></data>
-  <data name="Disk.BlockedReadOnly" xml:space="preserve"><value>محظور: للقراءة فقط</value></data>
-  <data name="Disk.BlockedOffline" xml:space="preserve"><value>محظور: غير متصل</value></data>
-  <data name="Disk.DebugVirtualTarget" xml:space="preserve"><value>تصحيح الهدف الظاهري</value></data>
-  <data name="Disk.TargetMissingFormat" xml:space="preserve"><value>القرص الهدف {0} لم يعد موجودًا.</value></data>
-  <data name="Disk.TargetBlockedFormat" xml:space="preserve"><value>القرص الهدف {0} محظور: {1}</value></data>
-  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve"><value>تأكيد مسح القرص</value></data>
-  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve"><value>سيؤدي هذا إلى مسح جميع البيانات الموجودة على القرص المحدد وتثبيت نظام التشغيل المحدد.
-
-القرص: {0}
-الموديل: {1}
-الحافلة: {2}
-الحجم: {3}
-
-نظام التشغيل: {4}
-
-هل تريد الاستمرار في النشر؟</value></data>
-  <data name="Status.WaitingForDeployment" xml:space="preserve"><value>في انتظار النشر...</value></data>
-  <data name="Status.WaitingForProgress" xml:space="preserve"><value>في انتظار التقدم...</value></data>
-  <data name="Status.PreparingDeployment" xml:space="preserve"><value>جارٍ التحضير للنشر...</value></data>
-  <data name="Status.DeploymentCancelled" xml:space="preserve"><value>تم إلغاء النشر.</value></data>
-  <data name="Status.AnotherOperationRunning" xml:space="preserve"><value>هناك عملية أخرى قيد التشغيل بالفعل.</value></data>
-  <data name="Status.StartingStep" xml:space="preserve"><value>خطوة البداية...</value></data>
-  <data name="Status.StartingStepFormat" xml:space="preserve"><value>البدء {0}.</value></data>
-  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve"><value>البدء {0}...</value></data>
-  <data name="Status.StepCompleted" xml:space="preserve"><value>اكتملت الخطوة.</value></data>
-  <data name="Status.StepFailed" xml:space="preserve"><value>فشلت الخطوة.</value></data>
-  <data name="Status.StepSkipped" xml:space="preserve"><value>تم تخطي الخطوة.</value></data>
-  <data name="Status.InProgress" xml:space="preserve"><value>قيد التقدم...</value></data>
-  <data name="Status.StepCounterUnknown" xml:space="preserve"><value>الخطوة: ؟ ل ؟</value></data>
-  <data name="Status.StepCounterFormat" xml:space="preserve"><value>الخطوة: {0} من {1}</value></data>
-  <data name="Status.WpeUtilFailureFormat" xml:space="preserve"><value>فشل wpeutil.exe مع رمز الخروج {0}. {1}</value></data>
-  <data name="Status.SystemReboot" xml:space="preserve"><value>إعادة تشغيل النظام</value></data>
-  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve"><value>لم يتم العثور على الملف القابل للتنفيذ لإعادة التشغيل "wpeutil.exe".</value></data>
-  <data name="Status.UnknownStep" xml:space="preserve"><value>خطوة غير معروفة</value></data>
-  <data name="Status.NoErrorDetails" xml:space="preserve"><value>لم يتم تقديم تفاصيل الخطأ.</value></data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve"><value>جمع المتغيرات</value></data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve"><value>تهيئة النشر</value></data>
-  <data name="Step.ValidateTargetConfiguration" xml:space="preserve"><value>التحقق من التكوين</value></data>
-  <data name="Step.ResolveCacheStrategy" xml:space="preserve"><value>فحص ذاكرة التخزين المؤقت</value></data>
-  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve"><value>إعداد القرص</value></data>
-  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve"><value>تنزيل نظام التشغيل</value></data>
-  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve"><value>تطبيق نظام التشغيل</value></data>
-  <data name="Step.ConfigureTargetComputerName" xml:space="preserve"><value>تعيين اسم الكمبيوتر</value></data>
-  <data name="Step.ConfigureOobeSettings" xml:space="preserve"><value>تهيئة OOBE</value></data>
-  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve"><value>تهيئة استرداد Windows</value></data>
-  <data name="Step.DownloadDriverPack" xml:space="preserve"><value>تنزيل برامج التشغيل</value></data>
-  <data name="Step.ExtractDriverPack" xml:space="preserve"><value>استخراج برامج التشغيل</value></data>
-  <data name="Step.StagePreOobeCustomization" xml:space="preserve"><value>تجهيز التخصيصات</value></data>
-  <data name="Step.ApplyDriverPack" xml:space="preserve"><value>تطبيق برامج التشغيل</value></data>
-  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve"><value>تطبيق برامج تشغيل الاسترداد</value></data>
-  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve"><value>تنزيل البرنامج الثابت</value></data>
-  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve"><value>تطبيق البرنامج الثابت</value></data>
-  <data name="Step.SealRecoveryPartition" xml:space="preserve"><value>ختم قسم الاسترداد</value></data>
-  <data name="Step.ProvisionAutopilot" xml:space="preserve"><value>تجهيز Autopilot</value></data>
-  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve"><value>إنهاء النشر</value></data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve"><value>جارٍ جمع متغيرات النشر...</value></data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve"><value>جارٍ جمع سياق النشر...</value></data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve"><value>تم جمع متغيرات النشر.</value></data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve"><value>تم جمع متغيرات النشر (المحاكاة).</value></data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve"><value>جارٍ تهيئة مساحة عمل النشر...</value></data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve"><value>جارٍ إنشاء مجلدات مساحة العمل...</value></data>
-  <data name="StepMessage.FinalizingDeployment" xml:space="preserve"><value>الانتهاء من النشر...</value></data>
-  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve"><value>تنظيف مساحة العمل المؤقتة...</value></data>
-  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve"><value>جاري كتابة ملخص النشر...</value></data>
-  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve"><value>كتابة سجلات الإكمال...</value></data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve"><value>تمت تهيئة مساحة العمل.</value></data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve"><value>تمت تهيئة مساحة العمل (المحاكاة).</value></data>
-  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve"><value>التحقق من صحة تكوين الهدف...</value></data>
-  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve"><value>جارٍ إعادة التحقق من القرص الهدف...</value></data>
-  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve"><value>يتم الكشف عن ملف تعريف الأجهزة...</value></data>
-  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve"><value>نظام التشغيل URL مفقود.</value></data>
-  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve"><value>رقم القرص الهدف مطلوب.</value></data>
-  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve"><value>تم التحقق من صحة تكوين الهدف.</value></data>
-  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve"><value>تم التحقق من صحة تكوين الهدف (المحاكاة).</value></data>
-  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve"><value>جارٍ التحقق من ذاكرة التخزين المؤقت للنشر...</value></data>
-  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve"><value>جارٍ حل موقع ذاكرة التخزين المؤقت...</value></data>
-  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve"><value>جارٍ التحقق من تعارض قرص ذاكرة التخزين المؤقت...</value></data>
-  <data name="StepResult.CacheStrategyResolved" xml:space="preserve"><value>تم حل استراتيجية ذاكرة التخزين المؤقت.</value></data>
-  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve"><value>تم حل استراتيجية ذاكرة التخزين المؤقت (المحاكاة).</value></data>
-  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve"><value>جارٍ تحضير تخطيط القرص الهدف...</value></data>
-  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve"><value>تقسيم القرص الهدف...</value></data>
-  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve"><value>جارٍ تحضير مساحة العمل المستهدفة...</value></data>
-  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve"><value>جارٍ إنشاء أقسام محاكاة...</value></data>
-  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve"><value>تم إعداد تخطيط القرص الهدف.</value></data>
-  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve"><value>تم إعداد تخطيط القرص المستهدف (المحاكاة).</value></data>
-  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve"><value>لم يتم إعداد تخطيط القرص الهدف.</value></data>
-  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve"><value>جارٍ تنزيل صورة نظام التشغيل...</value></data>
-  <data name="StepMessage.CheckingCache" xml:space="preserve"><value>جارٍ التحقق من ذاكرة التخزين المؤقت...</value></data>
-  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve"><value>صورة نظام التشغيل جاهزة (محاكاة).</value></data>
-  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve"><value>لم يتم تنزيل صورة نظام التشغيل.</value></data>
-  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve"><value>تم تنزيل صورة نظام التشغيل</value></data>
-  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve"><value>تم حل صورة نظام التشغيل من ذاكرة التخزين المؤقت.</value></data>
-  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve"><value>جارٍ تطبيق صورة نظام التشغيل...</value></data>
-  <data name="StepMessage.InspectingImage" xml:space="preserve"><value>جارٍ فحص الصورة...</value></data>
-  <data name="StepMessage.ApplyingImage" xml:space="preserve"><value>جارٍ تطبيق الصورة...</value></data>
-  <data name="StepMessage.ConfiguringBoot" xml:space="preserve"><value>تكوين التمهيد...</value></data>
-  <data name="StepMessage.VerifyingImage" xml:space="preserve"><value>جارٍ التحقق من الصورة...</value></data>
-  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve"><value>تم تطبيق صورة نظام التشغيل.</value></data>
-  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve"><value>تم تطبيق صورة نظام التشغيل (المحاكاة).</value></data>
-  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve"><value>يتم الآن تكوين اسم الكمبيوتر الهدف...</value></data>
-  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve"><value>كتابة اسم الكمبيوتر غير المتصل...</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve"><value>قسم الهدف Windows غير متوفر.</value></data>
-  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve"><value>فهرس صورة Windows المطبقة غير متوفر.</value></data>
-  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve"><value>تم تكوين اسم الكمبيوتر الهدف.</value></data>
-  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve"><value>تم تكوين اسم الكمبيوتر الهدف (المحاكاة).</value></data>
-  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve"><value>تم تعطيل التخصيص في وضع عدم الاتصال.</value></data>
-  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve"><value>جارٍ تكوين التخصيصات دون اتصال...</value></data>
-  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve"><value>كتابة الإعدادات الافتراضية للتشغيل الأول...</value></data>
-  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve"><value>جارٍ تكوين إزالة مكونات الذكاء الاصطناعي...</value></data>
-  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve"><value>كتابة سياسات الذكاء الاصطناعي دون الاتصال بالإنترنت...</value></data>
-  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve"><value>تم تكوين التخصيص دون اتصال.</value></data>
-  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve"><value>تم تكوين التخصيص دون اتصال (المحاكاة).</value></data>
-  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve"><value>تكوين إعدادات OOBE...</value></data>
-  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve"><value>كتابة إعدادات الخصوصية الافتراضية التي يتم تشغيلها لأول مرة...</value></data>
-  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve"><value>تكوين بيئة الاسترداد...</value></data>
-  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve"><value>تحضير Windows بيئة الاسترداد...</value></data>
-  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve"><value>قسم الاسترداد غير متوفر.</value></data>
-  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve"><value>تم تكوين بيئة الاسترداد.</value></data>
-  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve"><value>تم تكوين بيئة الاسترداد (المحاكاة).</value></data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve"><value>ليست هناك حاجة إلى برامج نصية لتخصيص ما قبل OOBE.</value></data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve"><value>الإعداد المرحلي لتخصيصات ما قبل OOBE...</value></data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve"><value>تم تنظيم تخصيصات ما قبل OOBE.</value></data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve"><value>تم تنظيم تخصيصات ما قبل OOBE (المحاكاة).</value></data>
-  <data name="StepResult.DriverPackDisabled" xml:space="preserve"><value>تم تعطيل حزمة برامج التشغيل (لم يتم تحديد أي منها).</value></data>
-  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve"><value>لا يلزم تنزيل حزمة برامج التشغيل.</value></data>
-  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve"><value>جارٍ تنزيل حزمة برامج التشغيل...</value></data>
-  <data name="StepMessage.PreparingDownload" xml:space="preserve"><value>جاري التحضير للتحميل...</value></data>
-  <data name="StepResult.OemDriverPackMissing" xml:space="preserve"><value>تم تحديد وضع حزمة برنامج تشغيل OEM ولكن لم يتم توفير حزمة برنامج تشغيل.</value></data>
-  <data name="StepResult.DriverPackDownloaded" xml:space="preserve"><value>تم تنزيل حزمة برامج التشغيل.</value></data>
-  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve"><value>تم تنزيل حزمة برامج التشغيل (المحاكاة).</value></data>
-  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve"><value>تم حل حزمة برنامج التشغيل من ذاكرة التخزين المؤقت.</value></data>
-  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve"><value>جارٍ استخراج حزمة برامج التشغيل...</value></data>
-  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve"><value>لم يتم تنزيل حزمة برنامج التشغيل.</value></data>
-  <data name="StepResult.DriverPackExtracted" xml:space="preserve"><value>تم استخراج حزمة برنامج التشغيل.</value></data>
-  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve"><value>تم استخراج حزمة برنامج التشغيل (المحاكاة).</value></data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve"><value>حزمة برامج التشغيل مُجهزة لتثبيت التمهيد الأول.</value></data>
-  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve"><value>لا يلزم تشغيل حزمة برنامج التشغيل.</value></data>
-  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve"><value>وضع تثبيت حزمة برنامج التشغيل غير مدعوم.</value></data>
-  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve"><value>لا يتوفر أي محتوى لبرنامج تشغيل INF المستخرج.</value></data>
-  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve"><value>محتوى مصدر حزمة برنامج التشغيل غير متوفر للتشغيل المرحلي الأول.</value></data>
-  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve"><value>Microsoft Update Catalog لم ينتج محتوى برنامج التشغيل.</value></data>
-  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve"><value>تم طلب التدريج المرحلي لحزمة برنامج التشغيل للتمهيد الأول بدون أمر مدعوم.</value></data>
-  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve"><value>جارٍ تطبيق حزمة برامج التشغيل...</value></data>
-  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve"><value>تطبيق برامج التشغيل Windows...</value></data>
-  <data name="StepMessage.MountingWinRe" xml:space="preserve"><value>جارٍ تركيب WinRE...</value></data>
-  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve"><value>جارٍ تطبيق برامج تشغيل WinRE...</value></data>
-  <data name="StepMessage.UnmountingWinRe" xml:space="preserve"><value>جارٍ إلغاء تحميل WinRE...</value></data>
-  <data name="StepMessage.StagingPackage" xml:space="preserve"><value>حزمة التدريج...</value></data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve"><value>جارٍ تحديث البرنامج النصي لإعداد التمهيد الأول...</value></data>
-  <data name="StepProgress.PercentFormat" xml:space="preserve"><value>{0}: {1}%</value></data>
-  <data name="StepProgress.Downloading" xml:space="preserve"><value>جارٍ التنزيل</value></data>
-  <data name="StepProgress.Extracting" xml:space="preserve"><value>استخراج</value></data>
-  <data name="StepProgress.Applying" xml:space="preserve"><value>التقديم</value></data>
-  <data name="StepProgress.Staging" xml:space="preserve"><value>التدريج</value></data>
-  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve"><value>تم التحميل {0}</value></data>
-  <data name="StepResult.DriverPackApplied" xml:space="preserve"><value>تم تطبيق حزمة برامج التشغيل.</value></data>
-  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve"><value>تم تطبيق حزمة برامج التشغيل (المحاكاة).</value></data>
-  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve"><value>جارٍ تنزيل تحديث البرنامج الثابت...</value></data>
-  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve"><value>جارٍ تحضير البحث Microsoft Update Catalog...</value></data>
-  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve"><value>تم تعطيل تحديثات البرامج الثابتة.</value></data>
-  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve"><value>تم تعطيل تحديثات البرامج الثابتة للأجهزة الافتراضية.</value></data>
-  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve"><value>يتم تخطي تحديثات البرامج الثابتة أثناء تشغيل الجهاز باستخدام طاقة البطارية.</value></data>
-  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve"><value>معرف جهاز البرنامج الثابت للنظام غير متوفر.</value></data>
-  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve"><value>تم تنزيل تحديث البرنامج الثابت.</value></data>
-  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve"><value>تم تنزيل تحديث البرنامج الثابت (المحاكاة).</value></data>
-  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve"><value>لا يتوفر أي محتوى للبرنامج الثابت المستخرج.</value></data>
-  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve"><value>لا يحتوي محتوى البرنامج الثابت المستخرج على أي ملفات INF.</value></data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve"><value>جارٍ تطبيق تحديث البرنامج الثابت...</value></data>
-  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve"><value>إدخال محتوى البرنامج الثابت في وضع عدم الاتصال Windows...</value></data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve"><value>تم تطبيق تحديث البرامج الثابتة.</value></data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve"><value>تم تطبيق تحديث البرنامج الثابت (المحاكاة).</value></data>
-  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve"><value>جارٍ إغلاق قسم الاسترداد...</value></data>
-  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve"><value>جارٍ إزالة حرف محرك أقراص الاسترداد...</value></data>
-  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve"><value>قسم الاسترداد مختوم.</value></data>
-  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve"><value>قسم الاسترداد مختوم (محاكاة).</value></data>
-  <data name="StepResult.AutopilotDisabled" xml:space="preserve"><value>Autopilot معطل.</value></data>
-  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve"><value>تم تمكين Autopilot ولكن لم يتم تحديد ملف تعريف.</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve"><value>قسم الهدف Windows غير متاح للتدريج Autopilot.</value></data>
-  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve"><value>فشل في حل الدليل Autopilot الهدف.</value></data>
-  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve"><value>التدريج Autopilot الملف الشخصي...</value></data>
-  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve"><value>جارٍ نسخ AutopilotConfigurationFile.json...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve"><value>محاكاة كتابة البيان Autopilot...</value></data>
-  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve"><value>يتم الآن التقاط تجزئة الأجهزة Autopilot...</value></data>
-  <data name="StepMessage.RunningOa3Tool" xml:space="preserve"><value>تشغيل OA3Tool...</value></data>
-  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve"><value>جارٍ تحميل تجزئة الأجهزة Autopilot...</value></data>
-  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve"><value>جارٍ تحضير Microsoft Graph للاستيراد...</value></data>
-  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve"><value>إرسال طلب الاستيراد إلى Microsoft Graph...</value></data>
-  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve"><value>في انتظار رؤية الجهاز Autopilot...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve"><value>جارٍ التحقق من الأجهزة Windows Autopilot ({0} المتبقية)...</value></data>
-  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve"><value>جارٍ تحديث الجهاز Autopilot الموجود...</value></data>
-  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve"><value>تحديث علامة المجموعة Windows Autopilot في Microsoft Graph...</value></data>
-  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve"><value>في انتظار تحديث علامة المجموعة Autopilot...</value></data>
-  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve"><value>جارٍ التحقق من علامة المجموعة Windows Autopilot ({0} المتبقية)...</value></data>
-  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve"><value>جارٍ تحضير Autopilot لتحميل تجزئة الأجهزة...</value></data>
-  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve"><value>جارٍ فك تشفير شهادة الوسائط...</value></data>
-  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve"><value>جارٍ مصادقة تحميل تجزئة الأجهزة Autopilot...</value></data>
-  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve"><value>جارٍ طلب الرمز المميز Microsoft Graph...</value></data>
-  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve"><value>جارٍ استيراد تجزئة الأجهزة إلى Microsoft Graph...</value></data>
-  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve"><value>تمت محاكاة كتابة بيان التجزئة Autopilot...</value></data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve"><value>قسم الهدف Windows غير متاح لتحميل تجزئة الأجهزة Autopilot.</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve"><value>Autopilot تم تخطي تحميل تجزئة الأجهزة بسبب انتهاء صلاحية الشهادة المضمنة.</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve"><value>Autopilot تم تخطي تحميل تجزئة الأجهزة لأن معلومات شهادة الوسائط المطلوبة غير كاملة.</value></data>
-  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve"><value>تم استيراد تجزئة الأجهزة Autopilot وأصبحت مرئية في أجهزة Windows Autopilot.</value></data>
-  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve"><value>لم يظهر جهاز Autopilot المستورد في أجهزة Windows Autopilot قبل انتهاء المهلة.</value></data>
-  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve"><value>Windows Autopilot لم يتم تأكيد تحديث علامة مجموعة الأجهزة قبل انتهاء المهلة.</value></data>
-  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve"><value>Autopilot تم إعداد تحميل تجزئة الأجهزة للمحاكاة.</value></data>
-  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve"><value>Autopilot تم إعداد تحميل تجزئة الأجهزة (محاكاة).</value></data>
-  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve"><value>لم يتم العثور على ملف التعريف Autopilot المحدد: {0}</value></data>
-  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve"><value>Autopilot فشل التقاط تجزئة الأجهزة: {0}</value></data>
-  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve"><value>Autopilot فشل استيراد تجزئة الأجهزة: {0}</value></data>
-  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve"><value>Autopilot تم تخطي تحميل تجزئة الأجهزة: {0}</value></data>
-  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve"><value>Autopilot تم تنظيم الملف الشخصي.</value></data>
-  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve"><value>Autopilot تم تنظيم الملف الشخصي (محاكاة).</value></data>
+الإجراء: تحقق من سمات القرص وأعد محاولة النشر.</value>
+  </data>
+  <data name="Debug.ProgressPageCommand" xml:space="preserve">
+    <value>صفحة التقدم</value>
+  </data>
+  <data name="Debug.SuccessPageCommand" xml:space="preserve">
+    <value>صفحة النجاح</value>
+  </data>
+  <data name="DeploymentAccess.Continue" xml:space="preserve">
+    <value>متابعة</value>
+  </data>
+  <data name="DeploymentAccess.Description" xml:space="preserve">
+    <value>أدخل كلمة مرور الفني للمتابعة.</value>
+  </data>
+  <data name="DeploymentAccess.Heading" xml:space="preserve">
+    <value>كلمة المرور مطلوبة</value>
+  </data>
+  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve">
+    <value>كلمة المرور غير صحيحة. حاول مرة أخرى.</value>
+  </data>
+  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve">
+    <value>كلمة مرور النشر</value>
+  </data>
+  <data name="DeploymentAccess.Title" xml:space="preserve">
+    <value>النشر المحمي</value>
+  </data>
+  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve">
+    <value>إظهار كلمة المرور أو إخفاؤها</value>
+  </data>
+  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
+    <value>اختر مكان تصدير تشخيصات Foundry</value>
+  </data>
+  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
+    <value>تعذر تصدير التشخيصات. تحقق من السجل للحصول على التفاصيل.</value>
+  </data>
+  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
+    <value>فشل تصدير التشخيصات</value>
+  </data>
+  <data name="Diagnostics.ExportMenu" xml:space="preserve">
+    <value>تصدير التشخيصات...</value>
+  </data>
+  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
+    <value>تصدير السجلات الخام</value>
+  </data>
+  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
+    <value>تصدير التشخيصات الخام...</value>
+  </data>
+  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
+    <value>تصدير التشخيصات الخام؟</value>
+  </data>
+  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
+    <value>قد تحتوي السجلات الخام على بيانات اعتماد ومعرفات ومسارات وأسماء شبكات وبيانات حساسة أخرى. قم بتصديرها فقط عند طلب ذلك صراحةً من جهة دعم موثوقة.</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
+    <value>تم تصدير التشخيصات إلى:
+{0}</value>
+  </data>
+  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
+    <value>تم تصدير التشخيصات</value>
+  </data>
+  <data name="Disk.BlockedBootDisk" xml:space="preserve">
+    <value>محظور: قرص التمهيد</value>
+  </data>
+  <data name="Disk.BlockedOffline" xml:space="preserve">
+    <value>محظور: غير متصل</value>
+  </data>
+  <data name="Disk.BlockedReadOnly" xml:space="preserve">
+    <value>محظور: للقراءة فقط</value>
+  </data>
+  <data name="Disk.BlockedSystemDisk" xml:space="preserve">
+    <value>محظور: قرص النظام</value>
+  </data>
+  <data name="Disk.DebugVirtualTarget" xml:space="preserve">
+    <value>تصحيح الهدف الظاهري</value>
+  </data>
+  <data name="Disk.DisplayLabelFormat" xml:space="preserve">
+    <value>القرص {0} | {1} | {2} | {3}{4}</value>
+  </data>
+  <data name="Disk.TargetBlockedFormat" xml:space="preserve">
+    <value>القرص الهدف {0} محظور: {1}</value>
+  </data>
+  <data name="Disk.TargetMissingFormat" xml:space="preserve">
+    <value>القرص الهدف {0} لم يعد موجودًا.</value>
+  </data>
+  <data name="Disk.UnknownSize" xml:space="preserve">
+    <value>حجم غير معروف</value>
+  </data>
+  <data name="Disk.WarningSuffixFormat" xml:space="preserve">
+    <value>| {0}</value>
+  </data>
+  <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
+    <value>Microsoft Update Catalog</value>
+  </data>
+  <data name="DriverPack.Model" xml:space="preserve">
+    <value>نموذج</value>
+  </data>
+  <data name="DriverPack.MultiModelFormat" xml:space="preserve">
+    <value>{0} (نماذج +{1})</value>
+  </data>
+  <data name="DriverPack.NoMatchingModelVersionFormat" xml:space="preserve">
+    <value>{0}: لا يوجد نموذج أو إصدار مطابق</value>
+  </data>
+  <data name="DriverPack.Oem" xml:space="preserve">
+    <value>تصنيع المعدات الأصلية</value>
+  </data>
+  <data name="DriverPack.Source" xml:space="preserve">
+    <value>مصدر السائق</value>
+  </data>
+  <data name="DriverPack.Version" xml:space="preserve">
+    <value>الإصدار</value>
+  </data>
+  <data name="Drivers.Description" xml:space="preserve">
+    <value>اختر مصدر برامج التشغيل، وعند الحاجة، الطراز والإصدار المطابقين.</value>
+  </data>
+  <data name="Drivers.Title" xml:space="preserve">
+    <value>برامج تشغيل الأجهزة</value>
+  </data>
+  <data name="Error.FailedStepFormat" xml:space="preserve">
+    <value>الخطوة الفاشلة: {0}</value>
+  </data>
+  <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
+    <value>تفاصيل الخطأ</value>
+  </data>
+  <data name="Error.Title" xml:space="preserve">
+    <value>فشل النشر</value>
+  </data>
+  <data name="Error.ViewTechnicalDetails" xml:space="preserve">
+    <value>عرض تفاصيل الخطأ</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>العربية (المملكة العربية السعودية)</value>
   </data>
   <data name="Language.BulgarianBulgaria" xml:space="preserve">
     <value>البلغارية (بلغاريا)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>الصينية المبسطة (الصين)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>الصينية التقليدية (تايوان)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>الكرواتية (كرواتيا)</value>
   </data>
   <data name="Language.CzechCzechia" xml:space="preserve">
     <value>التشيكية (التشيك)</value>
@@ -350,23 +314,14 @@
   <data name="Language.DanishDenmark" xml:space="preserve">
     <value>الدنماركية (الدنمارك)</value>
   </data>
-  <data name="Language.GermanGermany" xml:space="preserve">
-    <value>الألمانية (ألمانيا)</value>
-  </data>
-  <data name="Language.GreekGreece" xml:space="preserve">
-    <value>اليونانية (اليونان)</value>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>الهولندية (هولندا)</value>
   </data>
   <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
     <value>الإنجليزية (المملكة المتحدة)</value>
   </data>
   <data name="Language.EnglishUnitedStates" xml:space="preserve">
     <value>الإنجليزية (الولايات المتحدة)</value>
-  </data>
-  <data name="Language.SpanishSpain" xml:space="preserve">
-    <value>الإسبانية (إسبانيا)</value>
-  </data>
-  <data name="Language.SpanishMexico" xml:space="preserve">
-    <value>الإسبانية (المكسيك)</value>
   </data>
   <data name="Language.EstonianEstonia" xml:space="preserve">
     <value>الإستونية (إستونيا)</value>
@@ -380,11 +335,14 @@
   <data name="Language.FrenchFrance" xml:space="preserve">
     <value>الفرنسية (فرنسا)</value>
   </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>الألمانية (ألمانيا)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>اليونانية (اليونان)</value>
+  </data>
   <data name="Language.HebrewIsrael" xml:space="preserve">
     <value>العبرية (إسرائيل)</value>
-  </data>
-  <data name="Language.CroatianCroatia" xml:space="preserve">
-    <value>الكرواتية (كرواتيا)</value>
   </data>
   <data name="Language.HungarianHungary" xml:space="preserve">
     <value>المجرية (المجر)</value>
@@ -398,17 +356,14 @@
   <data name="Language.KoreanKorea" xml:space="preserve">
     <value>الكورية (كوريا)</value>
   </data>
-  <data name="Language.LithuanianLithuania" xml:space="preserve">
-    <value>الليتوانية (ليتوانيا)</value>
-  </data>
   <data name="Language.LatvianLatvia" xml:space="preserve">
     <value>اللاتفية (لاتفيا)</value>
   </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>الليتوانية (ليتوانيا)</value>
+  </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
     <value>النرويجية البوكمال (النرويج)</value>
-  </data>
-  <data name="Language.DutchNetherlands" xml:space="preserve">
-    <value>الهولندية (هولندا)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>البولندية (بولندا)</value>
@@ -425,14 +380,20 @@
   <data name="Language.RussianRussia" xml:space="preserve">
     <value>الروسية (روسيا)</value>
   </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>اللاتينية الصربية (صربيا)</value>
+  </data>
   <data name="Language.SlovakSlovakia" xml:space="preserve">
     <value>السلوفاكية (سلوفاكيا)</value>
   </data>
   <data name="Language.SlovenianSlovenia" xml:space="preserve">
     <value>السلوفينية (سلوفينيا)</value>
   </data>
-  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
-    <value>اللاتينية الصربية (صربيا)</value>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>الإسبانية (المكسيك)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>الإسبانية (إسبانيا)</value>
   </data>
   <data name="Language.SwedishSweden" xml:space="preserve">
     <value>السويدية (السويد)</value>
@@ -446,23 +407,644 @@
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>الأوكرانية (أوكرانيا)</value>
   </data>
-  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
-    <value>الصينية المبسطة (الصين)</value>
+  <data name="Launch.ConfirmDiskEraseMessageFormat" xml:space="preserve">
+    <value>سيؤدي هذا إلى مسح جميع البيانات الموجودة على القرص المحدد وتثبيت نظام التشغيل المحدد.
+
+القرص: {0}
+الموديل: {1}
+الحافلة: {2}
+الحجم: {3}
+
+نظام التشغيل: {4}
+
+هل تريد الاستمرار في النشر؟</value>
   </data>
-  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
-    <value>الصينية التقليدية (تايوان)</value>
+  <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve">
+    <value>تأكيد مسح القرص</value>
   </data>
-  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
-    <value>جارٍ تجهيز مساعد تسجيل Autopilot...</value>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_حول</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_تصحيح</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_اللغة</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_الموضوع</value>
+  </data>
+  <data name="Menu.Tools" xml:space="preserve">
+    <value>_الأدوات</value>
+  </data>
+  <data name="OperatingSystem.Description" xml:space="preserve">
+    <value>اختر إصدار Windows واللغة والنسخة وقناة الترخيص.</value>
+  </data>
+  <data name="OperatingSystem.Title" xml:space="preserve">
+    <value>نظام التشغيل</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
+    <value>انتهاء صلاحية الشهادة</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashExpiredMessage" xml:space="preserve">
+    <value>انتهت صلاحية شهادة Autopilot. يمكن أن يستمر النشر بدون تحميل تجزئة الأجهزة.</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
+    <value>علامة المجموعة</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
+    <value>معلومات الشهادة المطلوبة مفقودة. يمكن أن يستمر النشر بدون تحميل تجزئة الأجهزة.</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashReadyStatus" xml:space="preserve">
+    <value>جاهز لتحميل تجزئة الأجهزة</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashTenantId" xml:space="preserve">
+    <value>معرف المستأجر</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashUnavailableStatus" xml:space="preserve">
+    <value>تحميل تجزئة الأجهزة غير متاح</value>
+  </data>
+  <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
+    <value>حالة تحميل تجزئة الأجهزة</value>
+  </data>
+  <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
+    <value>تحميل تجزئة الأجهزة بطريقة Zero-touch</value>
+  </data>
+  <data name="Preparation.AutopilotModeInteractiveHardwareHashUpload" xml:space="preserve">
+    <value>تحميل تفاعلي لتجزئة الأجهزة</value>
+  </data>
+  <data name="Preparation.AutopilotModeJsonProfile" xml:space="preserve">
+    <value>JSON توفير الملف الشخصي</value>
+  </data>
+  <data name="Preparation.AutopilotProfile" xml:space="preserve">
+    <value>الملف الشخصي</value>
+  </data>
+  <data name="Preparation.AutopilotProfilesMissing" xml:space="preserve">
+    <value>لم يتم العثور على ملفات تعريف Autopilot مضمنة على هذه الوسائط.</value>
+  </data>
+  <data name="Preparation.ComputerName" xml:space="preserve">
+    <value>اسم الكمبيوتر</value>
+  </data>
+  <data name="Preparation.ComputerNameHint" xml:space="preserve">
+    <value>1-15 حرفا. A-Z، وa-z، و0-9، والواصلة فقط.</value>
+  </data>
+  <data name="Preparation.ComputerNameValidationMessage" xml:space="preserve">
+    <value>يجب أن يحتوي اسم الكمبيوتر على من 1 إلى 15 حرفًا صالحًا (أحرف أو أرقام أو واصلة).</value>
+  </data>
+  <data name="Preparation.DetectingHardware" xml:space="preserve">
+    <value>الكشف عن الأجهزة...</value>
+  </data>
+  <data name="Preparation.FirmwareUpdates" xml:space="preserve">
+    <value>تطبيق تحديثات البرامج الثابتة</value>
+  </data>
+  <data name="Preparation.HardwareDetectionFailed" xml:space="preserve">
+    <value>فشل الكشف عن الأجهزة.</value>
+  </data>
+  <data name="Preparation.HardwareDetectionFailedFormat" xml:space="preserve">
+    <value>فشل الكشف عن الأجهزة: {0}</value>
+  </data>
+  <data name="Preparation.HardwareSummaryFormat" xml:space="preserve">
+    <value>{0} | TPM: {1} | القوة: {2} | البرامج الثابتة: {3}</value>
+  </data>
+  <data name="Preparation.PowerAc" xml:space="preserve">
+    <value>تكييف</value>
+  </data>
+  <data name="Preparation.PowerBattery" xml:space="preserve">
+    <value>البطارية</value>
+  </data>
+  <data name="Preparation.TargetDisk" xml:space="preserve">
+    <value>القرص المستهدف</value>
+  </data>
+  <data name="Preparation.TargetDiskDiscoveryFailedFormat" xml:space="preserve">
+    <value>فشل اكتشاف القرص الهدف: {0}</value>
+  </data>
+  <data name="Preparation.TargetDiskHint" xml:space="preserve">
+    <value>حدد القرص الهدف. يتم حظر الأقراص غير المؤهلة.</value>
+  </data>
+  <data name="Progress.ElapsedTime" xml:space="preserve">
+    <value>الوقت المنقضي</value>
+  </data>
+  <data name="Progress.Networking" xml:space="preserve">
+    <value>الشبكات</value>
+  </data>
+  <data name="Progress.RingAutomationName" xml:space="preserve">
+    <value>تقدم النشر الإجمالي</value>
+  </data>
+  <data name="Progress.Session" xml:space="preserve">
+    <value>جلسة النشر</value>
+  </data>
+  <data name="Progress.StartTime" xml:space="preserve">
+    <value>وقت البدء</value>
+  </data>
+  <data name="Progress.Timeline" xml:space="preserve">
+    <value>الخطوات</value>
+  </data>
+  <data name="Progress.TimelineAutomationName" xml:space="preserve">
+    <value>خطوات النشر</value>
+  </data>
+  <data name="Splash.InitializingComponents" xml:space="preserve">
+    <value>تهيئة المكونات...</value>
+  </data>
+  <data name="Splash.StartDeployment" xml:space="preserve">
+    <value>بدء النشر</value>
+  </data>
+  <data name="Splash.Welcome" xml:space="preserve">
+    <value>مرحبًا</value>
+  </data>
+  <data name="Status.AnotherOperationRunning" xml:space="preserve">
+    <value>هناك عملية أخرى قيد التشغيل بالفعل.</value>
+  </data>
+  <data name="Status.DeploymentCancelled" xml:space="preserve">
+    <value>تم إلغاء النشر.</value>
+  </data>
+  <data name="Status.InProgress" xml:space="preserve">
+    <value>قيد التقدم...</value>
+  </data>
+  <data name="Status.NoErrorDetails" xml:space="preserve">
+    <value>لم يتم تقديم تفاصيل الخطأ.</value>
+  </data>
+  <data name="Status.PreparingDeployment" xml:space="preserve">
+    <value>جارٍ التحضير للنشر...</value>
+  </data>
+  <data name="Status.RequiredRebootExecutableMissing" xml:space="preserve">
+    <value>لم يتم العثور على الملف القابل للتنفيذ لإعادة التشغيل "wpeutil.exe".</value>
+  </data>
+  <data name="Status.StartingStep" xml:space="preserve">
+    <value>خطوة البداية...</value>
+  </data>
+  <data name="Status.StartingStepFormat" xml:space="preserve">
+    <value>البدء {0}.</value>
+  </data>
+  <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
+    <value>البدء {0}...</value>
+  </data>
+  <data name="Status.StepCompleted" xml:space="preserve">
+    <value>اكتملت الخطوة.</value>
+  </data>
+  <data name="Status.StepCounterFormat" xml:space="preserve">
+    <value>الخطوة: {0} من {1}</value>
+  </data>
+  <data name="Status.StepCounterUnknown" xml:space="preserve">
+    <value>الخطوة: ؟ ل ؟</value>
+  </data>
+  <data name="Status.StepFailed" xml:space="preserve">
+    <value>فشلت الخطوة.</value>
+  </data>
+  <data name="Status.StepSkipped" xml:space="preserve">
+    <value>تم تخطي الخطوة.</value>
+  </data>
+  <data name="Status.SystemReboot" xml:space="preserve">
+    <value>إعادة تشغيل النظام</value>
+  </data>
+  <data name="Status.UnknownStep" xml:space="preserve">
+    <value>خطوة غير معروفة</value>
+  </data>
+  <data name="Status.WaitingForDeployment" xml:space="preserve">
+    <value>في انتظار النشر...</value>
+  </data>
+  <data name="Status.WaitingForProgress" xml:space="preserve">
+    <value>في انتظار التقدم...</value>
+  </data>
+  <data name="Status.WpeUtilFailureFormat" xml:space="preserve">
+    <value>فشل wpeutil.exe مع رمز الخروج {0}. {1}</value>
+  </data>
+  <data name="Step.ApplyDriverPack" xml:space="preserve">
+    <value>تطبيق برامج التشغيل</value>
+  </data>
+  <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
+    <value>تطبيق البرنامج الثابت</value>
+  </data>
+  <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
+    <value>تطبيق نظام التشغيل</value>
+  </data>
+  <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
+    <value>تطبيق برامج تشغيل الاسترداد</value>
+  </data>
+  <data name="Step.ConfigureOobeSettings" xml:space="preserve">
+    <value>تهيئة OOBE</value>
+  </data>
+  <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
+    <value>تهيئة استرداد Windows</value>
+  </data>
+  <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
+    <value>تعيين اسم الكمبيوتر</value>
+  </data>
+  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
+    <value>تهيئة الميزات الاختيارية</value>
+  </data>
+  <data name="Step.DownloadDriverPack" xml:space="preserve">
+    <value>تنزيل برامج التشغيل</value>
+  </data>
+  <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
+    <value>تنزيل البرنامج الثابت</value>
+  </data>
+  <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
+    <value>تنزيل نظام التشغيل</value>
+  </data>
+  <data name="Step.ExtractDriverPack" xml:space="preserve">
+    <value>استخراج برامج التشغيل</value>
+  </data>
+  <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
+    <value>إنهاء النشر</value>
+  </data>
+  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
+    <value>جمع المتغيرات</value>
+  </data>
+  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
+    <value>تهيئة النشر</value>
+  </data>
+  <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
+    <value>إعداد القرص</value>
+  </data>
+  <data name="Step.ProvisionAutopilot" xml:space="preserve">
+    <value>تجهيز Autopilot</value>
+  </data>
+  <data name="Step.ResolveCacheStrategy" xml:space="preserve">
+    <value>فحص ذاكرة التخزين المؤقت</value>
+  </data>
+  <data name="Step.SealRecoveryPartition" xml:space="preserve">
+    <value>ختم قسم الاسترداد</value>
+  </data>
+  <data name="Step.StagePreOobeCustomization" xml:space="preserve">
+    <value>تجهيز التخصيصات</value>
+  </data>
+  <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
+    <value>التحقق من التكوين</value>
+  </data>
+  <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
+    <value>جارٍ تطبيق حزمة برامج التشغيل...</value>
+  </data>
+  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
+    <value>جارٍ تطبيق تحديث البرنامج الثابت...</value>
+  </data>
+  <data name="StepMessage.ApplyingImage" xml:space="preserve">
+    <value>جارٍ تطبيق الصورة...</value>
+  </data>
+  <data name="StepMessage.ApplyingOperatingSystemImage" xml:space="preserve">
+    <value>جارٍ تطبيق صورة نظام التشغيل...</value>
+  </data>
+  <data name="StepMessage.ApplyingWinReDrivers" xml:space="preserve">
+    <value>جارٍ تطبيق برامج تشغيل WinRE...</value>
+  </data>
+  <data name="StepMessage.ApplyingWindowsDrivers" xml:space="preserve">
+    <value>تطبيق برامج التشغيل Windows...</value>
+  </data>
+  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>جارٍ تطبيق تغييرات الميزات...</value>
+  </data>
+  <data name="StepMessage.AuthenticatingAutopilotHardwareHashUpload" xml:space="preserve">
+    <value>جارٍ مصادقة تحميل تجزئة الأجهزة Autopilot...</value>
+  </data>
+  <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
+    <value>يتم الآن التقاط تجزئة الأجهزة Autopilot...</value>
+  </data>
+  <data name="StepMessage.CheckingCache" xml:space="preserve">
+    <value>جارٍ التحقق من ذاكرة التخزين المؤقت...</value>
+  </data>
+  <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
+    <value>جارٍ التحقق من تعارض قرص ذاكرة التخزين المؤقت...</value>
+  </data>
+  <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
+    <value>جارٍ التحقق من الأجهزة Windows Autopilot ({0} المتبقية)...</value>
+  </data>
+  <data name="StepMessage.CheckingWindowsAutopilotGroupTagFormat" xml:space="preserve">
+    <value>جارٍ التحقق من علامة المجموعة Windows Autopilot ({0} المتبقية)...</value>
+  </data>
+  <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
+    <value>تنظيف مساحة العمل المؤقتة...</value>
+  </data>
+  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
+    <value>جارٍ جمع سياق النشر...</value>
+  </data>
+  <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
+    <value>جارٍ تكوين إزالة مكونات الذكاء الاصطناعي...</value>
+  </data>
+  <data name="StepMessage.ConfiguringBoot" xml:space="preserve">
+    <value>تكوين التمهيد...</value>
+  </data>
+  <data name="StepMessage.ConfiguringOfflineCustomizations" xml:space="preserve">
+    <value>جارٍ تكوين التخصيصات دون اتصال...</value>
+  </data>
+  <data name="StepMessage.ConfiguringOobeSettings" xml:space="preserve">
+    <value>تكوين إعدادات OOBE...</value>
+  </data>
+  <data name="StepMessage.ConfiguringRecoveryEnvironment" xml:space="preserve">
+    <value>تكوين بيئة الاسترداد...</value>
+  </data>
+  <data name="StepMessage.ConfiguringTargetComputerName" xml:space="preserve">
+    <value>يتم الآن تكوين اسم الكمبيوتر الهدف...</value>
+  </data>
+  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve">
+    <value>تكوين ميزات Windows الاختيارية...</value>
+  </data>
+  <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
+    <value>جارٍ نسخ AutopilotConfigurationFile.json...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>جارٍ نسخ ملفات التسجيل التفاعلي...</value>
   </data>
+  <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
+    <value>جارٍ إنشاء أقسام محاكاة...</value>
+  </data>
+  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
+    <value>جارٍ إنشاء مجلدات مساحة العمل...</value>
+  </data>
+  <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
+    <value>جارٍ فك تشفير شهادة الوسائط...</value>
+  </data>
+  <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
+    <value>يتم الكشف عن ملف تعريف الأجهزة...</value>
+  </data>
+  <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
+    <value>جارٍ تنزيل حزمة برامج التشغيل...</value>
+  </data>
+  <data name="StepMessage.DownloadingFirmwareUpdate" xml:space="preserve">
+    <value>جارٍ تنزيل تحديث البرنامج الثابت...</value>
+  </data>
+  <data name="StepMessage.DownloadingOperatingSystemImage" xml:space="preserve">
+    <value>جارٍ تنزيل صورة نظام التشغيل...</value>
+  </data>
+  <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
+    <value>جارٍ استخراج حزمة برامج التشغيل...</value>
+  </data>
+  <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
+    <value>الانتهاء من النشر...</value>
+  </data>
+  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
+    <value>جارٍ جمع متغيرات النشر...</value>
+  </data>
+  <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
+    <value>جارٍ استيراد تجزئة الأجهزة إلى Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
+    <value>جارٍ تهيئة مساحة عمل النشر...</value>
+  </data>
+  <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
+    <value>إدخال محتوى البرنامج الثابت في وضع عدم الاتصال Windows...</value>
+  </data>
+  <data name="StepMessage.InspectingImage" xml:space="preserve">
+    <value>جارٍ فحص الصورة...</value>
+  </data>
+  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve">
+    <value>جارٍ فحص حالات الميزات...</value>
+  </data>
+  <data name="StepMessage.MountingWinRe" xml:space="preserve">
+    <value>جارٍ تركيب WinRE...</value>
+  </data>
+  <data name="StepMessage.PartitioningTargetDisk" xml:space="preserve">
+    <value>تقسيم القرص الهدف...</value>
+  </data>
+  <data name="StepMessage.PreparingAutopilotHardwareHashUpload" xml:space="preserve">
+    <value>جارٍ تحضير Autopilot لتحميل تجزئة الأجهزة...</value>
+  </data>
+  <data name="StepMessage.PreparingDownload" xml:space="preserve">
+    <value>جاري التحضير للتحميل...</value>
+  </data>
+  <data name="StepMessage.PreparingMicrosoftGraphImport" xml:space="preserve">
+    <value>جارٍ تحضير Microsoft Graph للاستيراد...</value>
+  </data>
+  <data name="StepMessage.PreparingMicrosoftUpdateCatalogLookup" xml:space="preserve">
+    <value>جارٍ تحضير البحث Microsoft Update Catalog...</value>
+  </data>
+  <data name="StepMessage.PreparingTargetDiskLayout" xml:space="preserve">
+    <value>جارٍ تحضير تخطيط القرص الهدف...</value>
+  </data>
+  <data name="StepMessage.PreparingTargetWorkspace" xml:space="preserve">
+    <value>جارٍ تحضير مساحة العمل المستهدفة...</value>
+  </data>
+  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve">
+    <value>جارٍ تحضير مصادر وسائط الإعداد المطابقة...</value>
+  </data>
+  <data name="StepMessage.PreparingWindowsRecoveryEnvironment" xml:space="preserve">
+    <value>تحضير Windows بيئة الاسترداد...</value>
+  </data>
+  <data name="StepMessage.RemovingRecoveryDriveLetter" xml:space="preserve">
+    <value>جارٍ إزالة حرف محرك أقراص الاسترداد...</value>
+  </data>
+  <data name="StepMessage.RequestingMicrosoftGraphToken" xml:space="preserve">
+    <value>جارٍ طلب الرمز المميز Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.ResolvingCacheLocation" xml:space="preserve">
+    <value>جارٍ حل موقع ذاكرة التخزين المؤقت...</value>
+  </data>
+  <data name="StepMessage.ResolvingCacheStrategy" xml:space="preserve">
+    <value>جارٍ التحقق من ذاكرة التخزين المؤقت للنشر...</value>
+  </data>
+  <data name="StepMessage.RevalidatingTargetDisk" xml:space="preserve">
+    <value>جارٍ إعادة التحقق من القرص الهدف...</value>
+  </data>
+  <data name="StepMessage.RunningOa3Tool" xml:space="preserve">
+    <value>تشغيل OA3Tool...</value>
+  </data>
+  <data name="StepMessage.SealingRecoveryPartition" xml:space="preserve">
+    <value>جارٍ إغلاق قسم الاسترداد...</value>
+  </data>
+  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>محاكاة تغييرات الميزات...</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotProfile" xml:space="preserve">
+    <value>التدريج Autopilot الملف الشخصي...</value>
+  </data>
+  <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
+    <value>جارٍ تجهيز مساعد تسجيل Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingPackage" xml:space="preserve">
+    <value>حزمة التدريج...</value>
+  </data>
+  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
+    <value>الإعداد المرحلي لتخصيصات ما قبل OOBE...</value>
+  </data>
+  <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
+    <value>إرسال طلب الاستيراد إلى Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.UnmountingWinRe" xml:space="preserve">
+    <value>جارٍ إلغاء تحميل WinRE...</value>
+  </data>
+  <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
+    <value>جارٍ تحديث الجهاز Autopilot الموجود...</value>
+  </data>
+  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
+    <value>جارٍ تحديث البرنامج النصي لإعداد التمهيد الأول...</value>
+  </data>
+  <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
+    <value>تحديث علامة المجموعة Windows Autopilot في Microsoft Graph...</value>
+  </data>
+  <data name="StepMessage.UploadingAutopilotHardwareHash" xml:space="preserve">
+    <value>جارٍ تحميل تجزئة الأجهزة Autopilot...</value>
+  </data>
+  <data name="StepMessage.ValidatingTargetConfiguration" xml:space="preserve">
+    <value>التحقق من صحة تكوين الهدف...</value>
+  </data>
+  <data name="StepMessage.VerifyingImage" xml:space="preserve">
+    <value>جارٍ التحقق من الصورة...</value>
+  </data>
+  <data name="StepMessage.WaitingForAutopilotDeviceVisibility" xml:space="preserve">
+    <value>في انتظار رؤية الجهاز Autopilot...</value>
+  </data>
+  <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
+    <value>في انتظار تحديث علامة المجموعة Autopilot...</value>
+  </data>
+  <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
+    <value>كتابة سجلات الإكمال...</value>
+  </data>
+  <data name="StepMessage.WritingDeploymentSummary" xml:space="preserve">
+    <value>جاري كتابة ملخص النشر...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunAutopilotHashManifest" xml:space="preserve">
+    <value>تمت محاكاة كتابة بيان التجزئة Autopilot...</value>
+  </data>
+  <data name="StepMessage.WritingDryRunAutopilotManifest" xml:space="preserve">
+    <value>محاكاة كتابة البيان Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingDryRunInteractiveRegistrationManifest" xml:space="preserve">
     <value>جارٍ كتابة بيان التسجيل التفاعلي للتشغيل التجريبي...</value>
   </data>
-  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
-    <value>قسم Windows الهدف غير متوفر لتجهيز مساعد تسجيل Autopilot التفاعلي.</value>
+  <data name="StepMessage.WritingFirstRunDefaults" xml:space="preserve">
+    <value>كتابة الإعدادات الافتراضية للتشغيل الأول...</value>
+  </data>
+  <data name="StepMessage.WritingFirstRunPrivacyDefaults" xml:space="preserve">
+    <value>كتابة إعدادات الخصوصية الافتراضية التي يتم تشغيلها لأول مرة...</value>
+  </data>
+  <data name="StepMessage.WritingOfflineAiPolicies" xml:space="preserve">
+    <value>كتابة سياسات الذكاء الاصطناعي دون الاتصال بالإنترنت...</value>
+  </data>
+  <data name="StepMessage.WritingOfflineComputerName" xml:space="preserve">
+    <value>كتابة اسم الكمبيوتر غير المتصل...</value>
+  </data>
+  <data name="StepProgress.Applying" xml:space="preserve">
+    <value>التقديم</value>
+  </data>
+  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve">
+    <value>تطبيق تغييرات الميزات</value>
+  </data>
+  <data name="StepProgress.DownloadedBytesFormat" xml:space="preserve">
+    <value>تم التحميل {0}</value>
+  </data>
+  <data name="StepProgress.Downloading" xml:space="preserve">
+    <value>جارٍ التنزيل</value>
+  </data>
+  <data name="StepProgress.Extracting" xml:space="preserve">
+    <value>استخراج</value>
+  </data>
+  <data name="StepProgress.PercentFormat" xml:space="preserve">
+    <value>{0}: {1}%</value>
+  </data>
+  <data name="StepProgress.Staging" xml:space="preserve">
+    <value>التدريج</value>
+  </data>
+  <data name="StepResult.AppliedWindowsImageIndexUnavailable" xml:space="preserve">
+    <value>فهرس صورة Windows المطبقة غير متوفر.</value>
+  </data>
+  <data name="StepResult.AutopilotDeviceVisibilityTimedOut" xml:space="preserve">
+    <value>لم يظهر جهاز Autopilot المستورد في أجهزة Windows Autopilot قبل انتهاء المهلة.</value>
+  </data>
+  <data name="StepResult.AutopilotDisabled" xml:space="preserve">
+    <value>Autopilot معطل.</value>
+  </data>
+  <data name="StepResult.AutopilotGroupTagUpdateTimedOut" xml:space="preserve">
+    <value>Windows Autopilot لم يتم تأكيد تحديث علامة مجموعة الأجهزة قبل انتهاء المهلة.</value>
+  </data>
+  <data name="StepResult.AutopilotHardwareHashImportedVisible" xml:space="preserve">
+    <value>تم استيراد تجزئة الأجهزة Autopilot وأصبحت مرئية في أجهزة Windows Autopilot.</value>
+  </data>
+  <data name="StepResult.AutopilotHashCaptureFailedFormat" xml:space="preserve">
+    <value>Autopilot فشل التقاط تجزئة الأجهزة: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashImportFailedFormat" xml:space="preserve">
+    <value>Autopilot فشل استيراد تجزئة الأجهزة: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadPreparedDryRun" xml:space="preserve">
+    <value>Autopilot تم إعداد تحميل تجزئة الأجهزة للمحاكاة.</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadPreparedSimulation" xml:space="preserve">
+    <value>Autopilot تم إعداد تحميل تجزئة الأجهزة (محاكاة).</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedExpiredCertificate" xml:space="preserve">
+    <value>Autopilot تم تخطي تحميل تجزئة الأجهزة بسبب انتهاء صلاحية الشهادة المضمنة.</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedFormat" xml:space="preserve">
+    <value>Autopilot تم تخطي تحميل تجزئة الأجهزة: {0}</value>
+  </data>
+  <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
+    <value>Autopilot تم تخطي تحميل تجزئة الأجهزة لأن معلومات شهادة الوسائط المطلوبة غير كاملة.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
+    <value>تم تمكين Autopilot ولكن لم يتم تحديد ملف تعريف.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileStaged" xml:space="preserve">
+    <value>Autopilot تم تنظيم الملف الشخصي.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileStagedSimulation" xml:space="preserve">
+    <value>Autopilot تم تنظيم الملف الشخصي (محاكاة).</value>
+  </data>
+  <data name="StepResult.CacheStrategyResolved" xml:space="preserve">
+    <value>تم حل استراتيجية ذاكرة التخزين المؤقت.</value>
+  </data>
+  <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
+    <value>تم حل استراتيجية ذاكرة التخزين المؤقت (المحاكاة).</value>
+  </data>
+  <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
+    <value>تم طلب التدريج المرحلي لحزمة برنامج التشغيل للتمهيد الأول بدون أمر مدعوم.</value>
+  </data>
+  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
+    <value>تم جمع متغيرات النشر.</value>
+  </data>
+  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
+    <value>تم جمع متغيرات النشر (المحاكاة).</value>
+  </data>
+  <data name="StepResult.DriverPackApplied" xml:space="preserve">
+    <value>تم تطبيق حزمة برامج التشغيل.</value>
+  </data>
+  <data name="StepResult.DriverPackAppliedSimulation" xml:space="preserve">
+    <value>تم تطبيق حزمة برامج التشغيل (المحاكاة).</value>
+  </data>
+  <data name="StepResult.DriverPackDisabled" xml:space="preserve">
+    <value>تم تعطيل حزمة برامج التشغيل (لم يتم تحديد أي منها).</value>
+  </data>
+  <data name="StepResult.DriverPackDownloaded" xml:space="preserve">
+    <value>تم تنزيل حزمة برامج التشغيل.</value>
+  </data>
+  <data name="StepResult.DriverPackDownloadedSimulation" xml:space="preserve">
+    <value>تم تنزيل حزمة برامج التشغيل (المحاكاة).</value>
+  </data>
+  <data name="StepResult.DriverPackExtracted" xml:space="preserve">
+    <value>تم استخراج حزمة برنامج التشغيل.</value>
+  </data>
+  <data name="StepResult.DriverPackExtractedSimulation" xml:space="preserve">
+    <value>تم استخراج حزمة برنامج التشغيل (المحاكاة).</value>
+  </data>
+  <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
+    <value>لم يتم تنزيل حزمة برنامج التشغيل.</value>
+  </data>
+  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
+    <value>حزمة برامج التشغيل مُجهزة لتثبيت التمهيد الأول.</value>
+  </data>
+  <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
+    <value>تم حل حزمة برنامج التشغيل من ذاكرة التخزين المؤقت.</value>
+  </data>
+  <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
+    <value>محتوى مصدر حزمة برنامج التشغيل غير متوفر للتشغيل المرحلي الأول.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
+    <value>تم تطبيق تحديث البرامج الثابتة.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
+    <value>تم تطبيق تحديث البرنامج الثابت (المحاكاة).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
+    <value>تم تنزيل تحديث البرنامج الثابت.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
+    <value>تم تنزيل تحديث البرنامج الثابت (المحاكاة).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
+    <value>تم تعطيل تحديثات البرامج الثابتة.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesDisabledForVirtualMachines" xml:space="preserve">
+    <value>تم تعطيل تحديثات البرامج الثابتة للأجهزة الافتراضية.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdatesSkippedOnBattery" xml:space="preserve">
+    <value>يتم تخطي تحديثات البرامج الثابتة أثناء تشغيل الجهاز باستخدام طاقة البطارية.</value>
   </data>
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStaged" xml:space="preserve">
     <value>تم تجهيز مساعد تسجيل Autopilot التفاعلي.</value>
@@ -470,154 +1052,448 @@
   <data name="StepResult.InteractiveAutopilotRegistrationAssistantStagedSimulation" xml:space="preserve">
     <value>تم تجهيز مساعد تسجيل Autopilot التفاعلي (محاكاة).</value>
   </data>
-  <data name="Success.ManualRebootInstruction" xml:space="preserve"><value>أزل وسائط التمهيد، ثم حدد إعادة التشغيل.</value></data>
-  <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve"><value>تهيئة الميزات الاختيارية</value></data>
-  <data name="StepMessage.ConfiguringWindowsOptionalFeatures" xml:space="preserve"><value>تكوين ميزات Windows الاختيارية...</value></data>
-  <data name="StepMessage.InspectingWindowsOptionalFeatureStates" xml:space="preserve"><value>جارٍ فحص حالات الميزات...</value></data>
-  <data name="StepMessage.PreparingWindowsOptionalFeatureSources" xml:space="preserve"><value>جارٍ تحضير مصادر وسائط الإعداد المطابقة...</value></data>
-  <data name="StepMessage.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>جارٍ تطبيق تغييرات الميزات...</value></data>
-  <data name="StepMessage.SimulatingWindowsOptionalFeatureChanges" xml:space="preserve"><value>محاكاة تغييرات الميزات...</value></data>
-  <data name="StepProgress.ApplyingWindowsOptionalFeatureChanges" xml:space="preserve"><value>تطبيق تغييرات الميزات</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve"><value>تم تعطيل تكوين الميزات الاختيارية لنظام التشغيل Windows.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve"><value>تكوين ميزة Windows الاختيارية غير صالح.</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve"><value>تم تكوين ميزات Windows الاختيارية ({0} تم تغييرها، {1} مستوفاة بالفعل، {2} غير متاحة).</value></data>
-  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve"><value>تمت محاكاة تكوين ميزات Windows الاختيارية ({0} إجراءً).</value></data>
-  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve"><value>تحتوي ميزة Windows الاختيارية &#39;{0}&#39; على حمولة تمت إزالتها ولا يوجد تعيين مصدر محلي مدعوم.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve"><value>فشل التحقق من الميزات الاختيارية لنظام التشغيل Windows لـ &#39;{0}&#39;.</value></data>
-  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve"><value>مصدر NetFx3 المطابق غير متوفر. {0}</value></data>
-  <data name="Common.Cancel" xml:space="preserve"><value>إلغاء</value></data>
-  <data name="DeploymentAccess.Title" xml:space="preserve"><value>النشر المحمي</value></data>
-  <data name="DeploymentAccess.Heading" xml:space="preserve"><value>كلمة المرور مطلوبة</value></data>
-  <data name="DeploymentAccess.Description" xml:space="preserve"><value>أدخل كلمة مرور الفني للمتابعة.</value></data>
-  <data name="DeploymentAccess.PasswordPlaceholder" xml:space="preserve"><value>كلمة مرور النشر</value></data>
-  <data name="DeploymentAccess.Continue" xml:space="preserve"><value>متابعة</value></data>
-  <data name="DeploymentAccess.TogglePasswordVisibility" xml:space="preserve"><value>إظهار كلمة المرور أو إخفاؤها</value></data>
-  <data name="DeploymentAccess.InvalidPassword" xml:space="preserve"><value>كلمة المرور غير صحيحة. حاول مرة أخرى.</value></data>
-  <data name="Wizard.Step.TargetDevice" xml:space="preserve"><value>الجهاز المستهدف</value></data>
-  <data name="Wizard.Step.OperatingSystem" xml:space="preserve"><value>نظام التشغيل</value></data>
-  <data name="Wizard.Step.Drivers" xml:space="preserve"><value>برامج تشغيل الأجهزة</value></data>
-  <data name="Wizard.Step.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Wizard.Step.Summary" xml:space="preserve"><value>ملخص</value></data>
-  <data name="Wizard.StepperAutomationName" xml:space="preserve"><value>خطوات إعداد النشر</value></data>
-  <data name="Wizard.ReturnToSummary" xml:space="preserve"><value>العودة إلى الملخص</value></data>
-  <data name="Common.Edit" xml:space="preserve"><value>تحرير</value></data>
-  <data name="Common.Copy" xml:space="preserve"><value>نسخ</value></data>
-  <data name="Common.Close" xml:space="preserve"><value>إغلاق</value></data>
-  <data name="TargetDevice.Title" xml:space="preserve"><value>الجهاز المستهدف</value></data>
-  <data name="TargetDevice.Description" xml:space="preserve"><value>اختر اسم الكمبيوتر والقرص الهدف، ثم راجع الأجهزة المكتشفة.</value></data>
-  <data name="TargetDevice.DeploymentSettings" xml:space="preserve"><value>إعدادات النشر</value></data>
-  <data name="TargetDevice.DeviceInventory" xml:space="preserve"><value>معلومات الجهاز</value></data>
-  <data name="TargetDevice.DeviceIdentity" xml:space="preserve"><value>هوية الجهاز</value></data>
-  <data name="TargetDevice.Platform" xml:space="preserve"><value>النظام الأساسي</value></data>
-  <data name="TargetDevice.Manufacturer" xml:space="preserve"><value>الشركة المصنعة</value></data>
-  <data name="TargetDevice.Model" xml:space="preserve"><value>الطراز</value></data>
-  <data name="TargetDevice.Product" xml:space="preserve"><value>المنتج</value></data>
-  <data name="TargetDevice.SerialNumber" xml:space="preserve"><value>الرقم التسلسلي</value></data>
-  <data name="TargetDevice.Architecture" xml:space="preserve"><value>البنية</value></data>
-  <data name="TargetDevice.Tpm" xml:space="preserve"><value>TPM</value></data>
-  <data name="TargetDevice.PowerSource" xml:space="preserve"><value>مصدر الطاقة</value></data>
-  <data name="TargetDevice.FirmwareStatus" xml:space="preserve"><value>حالة البرنامج الثابت</value></data>
-  <data name="TargetDevice.Firmware" xml:space="preserve"><value>تحديثات البرامج الثابتة</value></data>
-  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve"><value>غير متوفر على الأجهزة الافتراضية</value></data>
-  <data name="OperatingSystem.Title" xml:space="preserve"><value>نظام التشغيل</value></data>
-  <data name="OperatingSystem.Description" xml:space="preserve"><value>اختر إصدار Windows واللغة والنسخة وقناة الترخيص.</value></data>
-  <data name="Drivers.Title" xml:space="preserve"><value>برامج تشغيل الأجهزة</value></data>
-  <data name="Drivers.Description" xml:space="preserve"><value>اختر مصدر برامج التشغيل، وعند الحاجة، الطراز والإصدار المطابقين.</value></data>
-  <data name="Autopilot.Title" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Autopilot.Description" xml:space="preserve"><value>راجع إعدادات توفير Autopilot لهذا الجهاز.</value></data>
-  <data name="Autopilot.ConfigurationDetails" xml:space="preserve"><value>تفاصيل التكوين</value></data>
-  <data name="Summary.Category.TargetDevice" xml:space="preserve"><value>الجهاز المستهدف</value></data>
-  <data name="Summary.Category.OperatingSystem" xml:space="preserve"><value>نظام التشغيل</value></data>
-  <data name="Summary.Category.Drivers" xml:space="preserve"><value>برامج تشغيل الأجهزة</value></data>
-  <data name="Summary.Category.Autopilot" xml:space="preserve"><value>Autopilot</value></data>
-  <data name="Summary.Category.WindowsCustomization" xml:space="preserve"><value>تخصيص Windows</value></data>
-  <data name="Summary.Category.Network" xml:space="preserve"><value>الشبكة</value></data>
-  <data name="Summary.Category.Completion" xml:space="preserve"><value>الانتهاء</value></data>
-  <data name="Summary.Description" xml:space="preserve"><value>راجع اختياراتك قبل بدء النشر.</value></data>
-  <data name="Summary.Status.NotConfigured" xml:space="preserve"><value>لم يتم تكوينه</value></data>
-  <data name="Summary.Status.Configured" xml:space="preserve"><value>تم التهيئة</value></data>
-  <data name="Summary.Status.NoChanges" xml:space="preserve"><value>لا توجد تغييرات</value></data>
-  <data name="Summary.Release" xml:space="preserve"><value>الإصدار</value></data>
-  <data name="Summary.Edition" xml:space="preserve"><value>إصدار نظام التشغيل</value></data>
-  <data name="Summary.Architecture" xml:space="preserve"><value>بنية النظام</value></data>
-  <data name="Summary.Language" xml:space="preserve"><value>اللغة</value></data>
-  <data name="Summary.LicenseChannel" xml:space="preserve"><value>قناة الترخيص</value></data>
-  <data name="Summary.Build" xml:space="preserve"><value>Build</value></data>
-  <data name="Summary.Oobe" xml:space="preserve"><value>OOBE</value></data>
-  <data name="Summary.AppxRemoval" xml:space="preserve"><value>إزالة AppX</value></data>
-  <data name="Summary.AiComponentRemoval" xml:space="preserve"><value>إزالة مكون الذكاء الاصطناعي</value></data>
-  <data name="Summary.NetworkProfileRoaming" xml:space="preserve"><value>تجوال ملف تعريف الشبكة</value></data>
-  <data name="Summary.AutomaticRestart" xml:space="preserve"><value>إعادة التشغيل التلقائي</value></data>
-  <data name="Summary.ManualRestart" xml:space="preserve"><value>إعادة التشغيل اليدوي</value></data>
-  <data name="Summary.RestartDelay" xml:space="preserve"><value>تأخير إعادة التشغيل</value></data>
-  <data name="Summary.SecondsFormat" xml:space="preserve"><value>{0} ثانية</value></data>
-  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve"><value>سيتم مسح القرص الهدف المحدد عند بدء النشر.</value></data>
-  <data name="Progress.Session" xml:space="preserve"><value>جلسة النشر</value></data>
-  <data name="Progress.Timeline" xml:space="preserve"><value>الخطوات</value></data>
-  <data name="Progress.RingAutomationName" xml:space="preserve"><value>تقدم النشر الإجمالي</value></data>
-  <data name="Progress.TimelineAutomationName" xml:space="preserve"><value>خطوات النشر</value></data>
-  <data name="Error.ViewTechnicalDetails" xml:space="preserve"><value>عرض تفاصيل الخطأ</value></data>
-  <data name="Error.TechnicalDetailsTitle" xml:space="preserve"><value>تفاصيل الخطأ</value></data>
-  <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve"><value>يضيف ملف تعريف Autopilot غير متصل إلى تثبيت Windows.</value></data>
-  <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve"><value>يحمّل تجزئة أجهزة هذا الجهاز إلى Windows Autopilot أثناء النشر.</value></data>
-  <data name="Summary.Status" xml:space="preserve"><value>الحالة</value></data>
-  <data name="Summary.ProvisioningMethod" xml:space="preserve"><value>طريقة التزويد</value></data>
-  <data name="Summary.WarningDetails" xml:space="preserve"><value>تفاصيل التحذير</value></data>
-  <data name="Summary.DiagnosticData" xml:space="preserve"><value>بيانات التشخيص</value></data>
-  <data name="Summary.LocationAccess" xml:space="preserve"><value>الوصول إلى الموقع</value></data>
-  <data name="Summary.SkipLicenseTerms" xml:space="preserve"><value>تخطي شروط الترخيص</value></data>
-  <data name="Summary.HidePrivacySetup" xml:space="preserve"><value>إخفاء إعداد الخصوصية</value></data>
-  <data name="Summary.TailoredExperiences" xml:space="preserve"><value>تجارب مخصصة</value></data>
-  <data name="Summary.AdvertisingId" xml:space="preserve"><value>معرف الإعلان</value></data>
-  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve"><value>التعرف على الكلام عبر الإنترنت</value></data>
-  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve"><value>تشخيص الكتابة بالحبر والكتابة</value></data>
-  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve"><value>إزالة التطبيق والذكاء الاصطناعي</value></data>
-  <data name="Summary.TotalConfigured" xml:space="preserve"><value>إجمالي التكوين</value></data>
-  <data name="Summary.FeaturesEnabled" xml:space="preserve"><value>تم تمكين الميزات</value></data>
-  <data name="Summary.FeaturesDisabled" xml:space="preserve"><value>الميزات معطلة</value></data>
-  <data name="Summary.WiredDot1x" xml:space="preserve"><value>سلكي 802.1X</value></data>
-  <data name="Summary.Wifi" xml:space="preserve"><value>Wi-Fi</value></data>
-  <data name="Summary.PrivateKeyMaterial" xml:space="preserve"><value>مواد المفتاح الخاص</value></data>
-  <data name="Summary.Included" xml:space="preserve"><value>مشمولة</value></data>
-  <data name="Summary.NotIncluded" xml:space="preserve"><value>غير مشمولة</value></data>
-  <data name="Summary.RestartBehavior" xml:space="preserve"><value>سلوك إعادة التشغيل</value></data>
-  <data name="Summary.Automatic" xml:space="preserve"><value>تلقائي</value></data>
-  <data name="Summary.Manual" xml:space="preserve"><value>يدوي</value></data>
-  <data name="Summary.DiagnosticData.Required" xml:space="preserve"><value>مطلوب</value></data>
-  <data name="Summary.DiagnosticData.Optional" xml:space="preserve"><value>اختياري</value></data>
-  <data name="Summary.DiagnosticData.Off" xml:space="preserve"><value>إيقاف</value></data>
-  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve"><value>يتم التحكم فيه بواسطة المستخدم</value></data>
-  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve"><value>إجباري</value></data>
-  <data name="Diagnostics.ExportMenu" xml:space="preserve">
-    <value>تصدير التشخيصات...</value>
+  <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
+    <value>Microsoft Update Catalog لم ينتج محتوى برنامج التشغيل.</value>
   </data>
-  <data name="TargetDevice.AssetTag" xml:space="preserve"><value>علامة الأصل</value></data>
-  <data name="TargetDevice.SystemUuid" xml:space="preserve"><value>معرّف UUID للنظام</value></data>
-  <data name="Diagnostics.ExportRawMenu" xml:space="preserve">
-    <value>تصدير التشخيصات الخام...</value>
+  <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
+    <value>لا يلزم تنزيل حزمة برامج التشغيل.</value>
   </data>
-  <data name="Diagnostics.ExportRawTitle" xml:space="preserve">
-    <value>تصدير التشخيصات الخام؟</value>
+  <data name="StepResult.NoDriverPackOperationRequired" xml:space="preserve">
+    <value>لا يلزم تشغيل حزمة برنامج التشغيل.</value>
   </data>
-  <data name="Diagnostics.ExportRawWarning" xml:space="preserve">
-    <value>قد تحتوي السجلات الخام على بيانات اعتماد ومعرفات ومسارات وأسماء شبكات وبيانات حساسة أخرى. قم بتصديرها فقط عند طلب ذلك صراحةً من جهة دعم موثوقة.</value>
+  <data name="StepResult.NoExtractedFirmwarePayload" xml:space="preserve">
+    <value>لا يتوفر أي محتوى للبرنامج الثابت المستخرج.</value>
   </data>
-  <data name="Diagnostics.ExportRawConfirm" xml:space="preserve">
-    <value>تصدير السجلات الخام</value>
+  <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
+    <value>لا يتوفر أي محتوى لبرنامج تشغيل INF المستخرج.</value>
   </data>
-  <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
-    <value>اختر مكان تصدير تشخيصات Foundry</value>
+  <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
+    <value>لا يحتوي محتوى البرنامج الثابت المستخرج على أي ملفات INF.</value>
   </data>
-  <data name="Diagnostics.ExportSucceededTitle" xml:space="preserve">
-    <value>تم تصدير التشخيصات</value>
+  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
+    <value>ليست هناك حاجة إلى برامج نصية لتخصيص ما قبل OOBE.</value>
   </data>
-  <data name="Diagnostics.ExportSucceededMessageFormat" xml:space="preserve">
-    <value>تم تصدير التشخيصات إلى:&#xA;{0}</value>
+  <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
+    <value>تم تحديد وضع حزمة برنامج تشغيل OEM ولكن لم يتم توفير حزمة برنامج تشغيل.</value>
   </data>
-  <data name="Diagnostics.ExportFailedTitle" xml:space="preserve">
-    <value>فشل تصدير التشخيصات</value>
+  <data name="StepResult.OfflineCustomizationConfigured" xml:space="preserve">
+    <value>تم تكوين التخصيص دون اتصال.</value>
   </data>
-  <data name="Diagnostics.ExportFailedMessage" xml:space="preserve">
-    <value>تعذر تصدير التشخيصات. تحقق من السجل للحصول على التفاصيل.</value>
+  <data name="StepResult.OfflineCustomizationConfiguredSimulation" xml:space="preserve">
+    <value>تم تكوين التخصيص دون اتصال (المحاكاة).</value>
+  </data>
+  <data name="StepResult.OfflineCustomizationDisabled" xml:space="preserve">
+    <value>تم تعطيل التخصيص في وضع عدم الاتصال.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageApplied" xml:space="preserve">
+    <value>تم تطبيق صورة نظام التشغيل.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageAppliedSimulation" xml:space="preserve">
+    <value>تم تطبيق صورة نظام التشغيل (المحاكاة).</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageDownloaded" xml:space="preserve">
+    <value>تم تنزيل صورة نظام التشغيل</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageNotDownloaded" xml:space="preserve">
+    <value>لم يتم تنزيل صورة نظام التشغيل.</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageReadySimulation" xml:space="preserve">
+    <value>صورة نظام التشغيل جاهزة (محاكاة).</value>
+  </data>
+  <data name="StepResult.OperatingSystemImageResolvedFromCache" xml:space="preserve">
+    <value>تم حل صورة نظام التشغيل من ذاكرة التخزين المؤقت.</value>
+  </data>
+  <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
+    <value>نظام التشغيل URL مفقود.</value>
+  </data>
+  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
+    <value>تم تنظيم تخصيصات ما قبل OOBE.</value>
+  </data>
+  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
+    <value>تم تنظيم تخصيصات ما قبل OOBE (المحاكاة).</value>
+  </data>
+  <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
+    <value>تم تكوين بيئة الاسترداد.</value>
+  </data>
+  <data name="StepResult.RecoveryEnvironmentConfiguredSimulation" xml:space="preserve">
+    <value>تم تكوين بيئة الاسترداد (المحاكاة).</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionSealed" xml:space="preserve">
+    <value>قسم الاسترداد مختوم.</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionSealedSimulation" xml:space="preserve">
+    <value>قسم الاسترداد مختوم (محاكاة).</value>
+  </data>
+  <data name="StepResult.RecoveryPartitionUnavailable" xml:space="preserve">
+    <value>قسم الاسترداد غير متوفر.</value>
+  </data>
+  <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
+    <value>لم يتم العثور على ملف التعريف Autopilot المحدد: {0}</value>
+  </data>
+  <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
+    <value>معرف جهاز البرنامج الثابت للنظام غير متوفر.</value>
+  </data>
+  <data name="StepResult.TargetAutopilotDirectoryUnavailable" xml:space="preserve">
+    <value>فشل في حل الدليل Autopilot الهدف.</value>
+  </data>
+  <data name="StepResult.TargetComputerNameConfigured" xml:space="preserve">
+    <value>تم تكوين اسم الكمبيوتر الهدف.</value>
+  </data>
+  <data name="StepResult.TargetComputerNameConfiguredSimulation" xml:space="preserve">
+    <value>تم تكوين اسم الكمبيوتر الهدف (المحاكاة).</value>
+  </data>
+  <data name="StepResult.TargetConfigurationValidated" xml:space="preserve">
+    <value>تم التحقق من صحة تكوين الهدف.</value>
+  </data>
+  <data name="StepResult.TargetConfigurationValidatedSimulation" xml:space="preserve">
+    <value>تم التحقق من صحة تكوين الهدف (المحاكاة).</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutNotPrepared" xml:space="preserve">
+    <value>لم يتم إعداد تخطيط القرص الهدف.</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutPrepared" xml:space="preserve">
+    <value>تم إعداد تخطيط القرص الهدف.</value>
+  </data>
+  <data name="StepResult.TargetDiskLayoutPreparedSimulation" xml:space="preserve">
+    <value>تم إعداد تخطيط القرص المستهدف (المحاكاة).</value>
+  </data>
+  <data name="StepResult.TargetDiskNumberRequired" xml:space="preserve">
+    <value>رقم القرص الهدف مطلوب.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailable" xml:space="preserve">
+    <value>قسم الهدف Windows غير متوفر.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilot" xml:space="preserve">
+    <value>قسم الهدف Windows غير متاح للتدريج Autopilot.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForAutopilotHashUpload" xml:space="preserve">
+    <value>قسم الهدف Windows غير متاح لتحميل تجزئة الأجهزة Autopilot.</value>
+  </data>
+  <data name="StepResult.TargetWindowsPartitionUnavailableForInteractiveAutopilotRegistration" xml:space="preserve">
+    <value>قسم Windows الهدف غير متوفر لتجهيز مساعد تسجيل Autopilot التفاعلي.</value>
+  </data>
+  <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
+    <value>وضع تثبيت حزمة برنامج التشغيل غير مدعوم.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
+    <value>تم تعطيل تكوين الميزات الاختيارية لنظام التشغيل Windows.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureConfigurationInvalid" xml:space="preserve">
+    <value>تكوين ميزة Windows الاختيارية غير صالح.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureMatchingSourceUnavailableFormat" xml:space="preserve">
+    <value>مصدر NetFx3 المطابق غير متوفر. {0}</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureRemovedPayloadFormat" xml:space="preserve">
+    <value>تحتوي ميزة Windows الاختيارية '{0}' على حمولة تمت إزالتها ولا يوجد تعيين مصدر محلي مدعوم.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeatureVerificationFailedFormat" xml:space="preserve">
+    <value>فشل التحقق من الميزات الاختيارية لنظام التشغيل Windows لـ '{0}'.</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeaturesConfiguredFormat" xml:space="preserve">
+    <value>تم تكوين ميزات Windows الاختيارية ({0} تم تغييرها، {1} مستوفاة بالفعل، {2} غير متاحة).</value>
+  </data>
+  <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
+    <value>تمت محاكاة تكوين ميزات Windows الاختيارية ({0} إجراءً).</value>
+  </data>
+  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
+    <value>تمت تهيئة مساحة العمل.</value>
+  </data>
+  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
+    <value>تمت تهيئة مساحة العمل (المحاكاة).</value>
+  </data>
+  <data name="Success.Completed" xml:space="preserve">
+    <value>اكتمل النشر</value>
+  </data>
+  <data name="Success.ManualRebootInstruction" xml:space="preserve">
+    <value>أزل وسائط التمهيد، ثم حدد إعادة التشغيل.</value>
+  </data>
+  <data name="Success.RebootCountdownFormat" xml:space="preserve">
+    <value>سيتم إعادة تشغيل هذا الكمبيوتر خلال {0}s.</value>
+  </data>
+  <data name="Success.RebootNow" xml:space="preserve">
+    <value>إعادة التشغيل</value>
+  </data>
+  <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
+    <value>الحسابات المحلية الإضافية</value>
+  </data>
+  <data name="Summary.AdvertisingId" xml:space="preserve">
+    <value>معرف الإعلان</value>
+  </data>
+  <data name="Summary.AiComponentRemoval" xml:space="preserve">
+    <value>إزالة مكون الذكاء الاصطناعي</value>
+  </data>
+  <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve">
+    <value>إزالة التطبيق والذكاء الاصطناعي</value>
+  </data>
+  <data name="Summary.AppxRemoval" xml:space="preserve">
+    <value>إزالة AppX</value>
+  </data>
+  <data name="Summary.Architecture" xml:space="preserve">
+    <value>بنية النظام</value>
+  </data>
+  <data name="Summary.Automatic" xml:space="preserve">
+    <value>تلقائي</value>
+  </data>
+  <data name="Summary.AutomaticRestart" xml:space="preserve">
+    <value>إعادة التشغيل التلقائي</value>
+  </data>
+  <data name="Summary.AutopilotGroupTag" xml:space="preserve">
+    <value>Autopilot علامة المجموعة</value>
+  </data>
+  <data name="Summary.AutopilotProfile" xml:space="preserve">
+    <value>Autopilot الملف الشخصي</value>
+  </data>
+  <data name="Summary.Build" xml:space="preserve">
+    <value>Build</value>
+  </data>
+  <data name="Summary.BuiltInAdministrator" xml:space="preserve">
+    <value>حساب المسؤول المضمن</value>
+  </data>
+  <data name="Summary.Category.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Summary.Category.Completion" xml:space="preserve">
+    <value>الانتهاء</value>
+  </data>
+  <data name="Summary.Category.Drivers" xml:space="preserve">
+    <value>برامج تشغيل الأجهزة</value>
+  </data>
+  <data name="Summary.Category.Network" xml:space="preserve">
+    <value>الشبكة</value>
+  </data>
+  <data name="Summary.Category.OperatingSystem" xml:space="preserve">
+    <value>نظام التشغيل</value>
+  </data>
+  <data name="Summary.Category.TargetDevice" xml:space="preserve">
+    <value>الجهاز المستهدف</value>
+  </data>
+  <data name="Summary.Category.WindowsCustomization" xml:space="preserve">
+    <value>تخصيص Windows</value>
+  </data>
+  <data name="Summary.Description" xml:space="preserve">
+    <value>راجع اختياراتك قبل بدء النشر.</value>
+  </data>
+  <data name="Summary.DiagnosticData" xml:space="preserve">
+    <value>بيانات التشخيص</value>
+  </data>
+  <data name="Summary.DiagnosticData.Off" xml:space="preserve">
+    <value>إيقاف</value>
+  </data>
+  <data name="Summary.DiagnosticData.Optional" xml:space="preserve">
+    <value>اختياري</value>
+  </data>
+  <data name="Summary.DiagnosticData.Required" xml:space="preserve">
+    <value>مطلوب</value>
+  </data>
+  <data name="Summary.Edition" xml:space="preserve">
+    <value>إصدار نظام التشغيل</value>
+  </data>
+  <data name="Summary.FeaturesDisabled" xml:space="preserve">
+    <value>الميزات معطلة</value>
+  </data>
+  <data name="Summary.FeaturesEnabled" xml:space="preserve">
+    <value>تم تمكين الميزات</value>
+  </data>
+  <data name="Summary.HidePrivacySetup" xml:space="preserve">
+    <value>إخفاء إعداد الخصوصية</value>
+  </data>
+  <data name="Summary.Included" xml:space="preserve">
+    <value>مشمولة</value>
+  </data>
+  <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve">
+    <value>تشخيص الكتابة بالحبر والكتابة</value>
+  </data>
+  <data name="Summary.Language" xml:space="preserve">
+    <value>اللغة</value>
+  </data>
+  <data name="Summary.LicenseChannel" xml:space="preserve">
+    <value>قناة الترخيص</value>
+  </data>
+  <data name="Summary.LocationAccess" xml:space="preserve">
+    <value>الوصول إلى الموقع</value>
+  </data>
+  <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
+    <value>إجباري</value>
+  </data>
+  <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
+    <value>يتم التحكم فيه بواسطة المستخدم</value>
+  </data>
+  <data name="Summary.Manual" xml:space="preserve">
+    <value>يدوي</value>
+  </data>
+  <data name="Summary.ManualRestart" xml:space="preserve">
+    <value>إعادة التشغيل اليدوي</value>
+  </data>
+  <data name="Summary.NetworkProfileRoaming" xml:space="preserve">
+    <value>تجوال ملف تعريف الشبكة</value>
+  </data>
+  <data name="Summary.NoDiskSelected" xml:space="preserve">
+    <value>لم يتم تحديد أي قرص</value>
+  </data>
+  <data name="Summary.NoSelection" xml:space="preserve">
+    <value>لا يوجد اختيار</value>
+  </data>
+  <data name="Summary.NotIncluded" xml:space="preserve">
+    <value>غير مشمولة</value>
+  </data>
+  <data name="Summary.OnlineSpeechRecognition" xml:space="preserve">
+    <value>التعرف على الكلام عبر الإنترنت</value>
+  </data>
+  <data name="Summary.Oobe" xml:space="preserve">
+    <value>OOBE</value>
+  </data>
+  <data name="Summary.PrivateKeyMaterial" xml:space="preserve">
+    <value>مواد المفتاح الخاص</value>
+  </data>
+  <data name="Summary.ProvisioningMethod" xml:space="preserve">
+    <value>طريقة التزويد</value>
+  </data>
+  <data name="Summary.Release" xml:space="preserve">
+    <value>الإصدار</value>
+  </data>
+  <data name="Summary.RestartBehavior" xml:space="preserve">
+    <value>سلوك إعادة التشغيل</value>
+  </data>
+  <data name="Summary.RestartDelay" xml:space="preserve">
+    <value>تأخير إعادة التشغيل</value>
+  </data>
+  <data name="Summary.SecondsFormat" xml:space="preserve">
+    <value>{0} ثانية</value>
+  </data>
+  <data name="Summary.SelectedOperatingSystem" xml:space="preserve">
+    <value>نظام التشغيل</value>
+  </data>
+  <data name="Summary.SkipAccountCreation" xml:space="preserve">
+    <value>تخطي إنشاء الحساب</value>
+  </data>
+  <data name="Summary.SkipLicenseTerms" xml:space="preserve">
+    <value>تخطي شروط الترخيص</value>
+  </data>
+  <data name="Summary.Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="Summary.Status.Configured" xml:space="preserve">
+    <value>تم التهيئة</value>
+  </data>
+  <data name="Summary.Status.NoChanges" xml:space="preserve">
+    <value>لا توجد تغييرات</value>
+  </data>
+  <data name="Summary.Status.NotConfigured" xml:space="preserve">
+    <value>لم يتم تكوينه</value>
+  </data>
+  <data name="Summary.TailoredExperiences" xml:space="preserve">
+    <value>تجارب مخصصة</value>
+  </data>
+  <data name="Summary.TargetDisk" xml:space="preserve">
+    <value>القرص المستهدف</value>
+  </data>
+  <data name="Summary.Title" xml:space="preserve">
+    <value>ملخص النشر</value>
+  </data>
+  <data name="Summary.TotalConfigured" xml:space="preserve">
+    <value>إجمالي التكوين</value>
+  </data>
+  <data name="Summary.WarningDetails" xml:space="preserve">
+    <value>تفاصيل التحذير</value>
+  </data>
+  <data name="Summary.Wifi" xml:space="preserve">
+    <value>Wi-Fi</value>
+  </data>
+  <data name="Summary.WindowsOptionalFeatures" xml:space="preserve">
+    <value>ميزات Windows الاختيارية</value>
+  </data>
+  <data name="Summary.WiredDot1x" xml:space="preserve">
+    <value>سلكي 802.1X</value>
+  </data>
+  <data name="TargetDevice.Architecture" xml:space="preserve">
+    <value>البنية</value>
+  </data>
+  <data name="TargetDevice.AssetTag" xml:space="preserve">
+    <value>علامة الأصل</value>
+  </data>
+  <data name="TargetDevice.DeploymentSettings" xml:space="preserve">
+    <value>إعدادات النشر</value>
+  </data>
+  <data name="TargetDevice.Description" xml:space="preserve">
+    <value>اختر اسم الكمبيوتر والقرص الهدف، ثم راجع الأجهزة المكتشفة.</value>
+  </data>
+  <data name="TargetDevice.DeviceIdentity" xml:space="preserve">
+    <value>هوية الجهاز</value>
+  </data>
+  <data name="TargetDevice.DeviceInventory" xml:space="preserve">
+    <value>معلومات الجهاز</value>
+  </data>
+  <data name="TargetDevice.DiskEraseNotice" xml:space="preserve">
+    <value>سيتم مسح القرص الهدف المحدد عند بدء النشر.</value>
+  </data>
+  <data name="TargetDevice.Firmware" xml:space="preserve">
+    <value>تحديثات البرامج الثابتة</value>
+  </data>
+  <data name="TargetDevice.FirmwareStatus" xml:space="preserve">
+    <value>حالة البرنامج الثابت</value>
+  </data>
+  <data name="TargetDevice.FirmwareUnavailableVirtualMachine" xml:space="preserve">
+    <value>غير متوفر على الأجهزة الافتراضية</value>
+  </data>
+  <data name="TargetDevice.Manufacturer" xml:space="preserve">
+    <value>الشركة المصنعة</value>
+  </data>
+  <data name="TargetDevice.Model" xml:space="preserve">
+    <value>الطراز</value>
+  </data>
+  <data name="TargetDevice.Platform" xml:space="preserve">
+    <value>النظام الأساسي</value>
+  </data>
+  <data name="TargetDevice.PowerSource" xml:space="preserve">
+    <value>مصدر الطاقة</value>
+  </data>
+  <data name="TargetDevice.Product" xml:space="preserve">
+    <value>المنتج</value>
+  </data>
+  <data name="TargetDevice.SerialNumber" xml:space="preserve">
+    <value>الرقم التسلسلي</value>
+  </data>
+  <data name="TargetDevice.SystemUuid" xml:space="preserve">
+    <value>معرّف UUID للنظام</value>
+  </data>
+  <data name="TargetDevice.Title" xml:space="preserve">
+    <value>الجهاز المستهدف</value>
+  </data>
+  <data name="TargetDevice.Tpm" xml:space="preserve">
+    <value>TPM</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>الظلام</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>ضوء</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>النظام</value>
+  </data>
+  <data name="Tools.OpenLogFile" xml:space="preserve">
+    <value>فتح ملف السجل</value>
+  </data>
+  <data name="Wizard.ReturnToSummary" xml:space="preserve">
+    <value>العودة إلى الملخص</value>
+  </data>
+  <data name="Wizard.Step.Autopilot" xml:space="preserve">
+    <value>Autopilot</value>
+  </data>
+  <data name="Wizard.Step.Drivers" xml:space="preserve">
+    <value>برامج تشغيل الأجهزة</value>
+  </data>
+  <data name="Wizard.Step.OperatingSystem" xml:space="preserve">
+    <value>نظام التشغيل</value>
+  </data>
+  <data name="Wizard.Step.Summary" xml:space="preserve">
+    <value>ملخص</value>
+  </data>
+  <data name="Wizard.Step.TargetDevice" xml:space="preserve">
+    <value>الجهاز المستهدف</value>
+  </data>
+  <data name="Wizard.StepperAutomationName" xml:space="preserve">
+    <value>خطوات إعداد النشر</value>
   </data>
 </root>

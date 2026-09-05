@@ -17,6 +17,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
     private readonly IFoundryConfigurationStateService configurationStateService;
     private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
     private readonly INetworkSecretStateService networkSecretStateService;
+    private readonly IOobeAccountSecretStateService oobeAccountSecretStateService;
     private readonly IWinPeLanguageDiscoveryService languageDiscoveryService;
     private ConfigurationOverviewEvaluation? cachedEvaluation;
 
@@ -25,18 +26,21 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
         IFoundryConfigurationStateService configurationStateService,
         IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
         INetworkSecretStateService networkSecretStateService,
+        IOobeAccountSecretStateService oobeAccountSecretStateService,
         IWinPeLanguageDiscoveryService languageDiscoveryService)
     {
         this.adkService = adkService;
         this.configurationStateService = configurationStateService;
         this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
         this.networkSecretStateService = networkSecretStateService;
+        this.oobeAccountSecretStateService = oobeAccountSecretStateService;
         this.languageDiscoveryService = languageDiscoveryService;
 
         adkService.StatusChanged += OnAdkStatusChanged;
         configurationStateService.StateChanged += OnUnderlyingStateChanged;
         deploymentProtectionSecretStateService.Changed += OnUnderlyingStateChanged;
         networkSecretStateService.Changed += OnUnderlyingStateChanged;
+        oobeAccountSecretStateService.Changed += OnUnderlyingStateChanged;
     }
 
     public event EventHandler? Changed;
@@ -59,6 +63,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
                 IsCustomDriverConfigurationReady = IsCustomDriverConfigurationReady(configuration.General),
                 IsDeploymentProtectionSecretReady = !configuration.General.DeploymentProtection.IsEnabled ||
                     deploymentProtectionSecretStateService.IsValid,
+                IsOobeAccountConfigurationReady = oobeAccountSecretStateService.Validate(configuration.Customization.Oobe).IsValid,
                 IsAutopilotConfigurationReady = configurationStateService.IsAutopilotConfigurationReady
             });
             return cachedEvaluation;
