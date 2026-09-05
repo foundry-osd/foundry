@@ -60,16 +60,11 @@
                                 Spacing="{ThemeResource FoundryInlineControlSpacing}">
                                 <Button
                                     Command="{x:Bind ViewModel.ImportFilesCommand}"
-                                    Content="{x:Bind ViewModel.ImportLabel, Mode=OneWay}" />
-                                <Button
-                                    Command="{x:Bind ViewModel.RefreshFileCommand}"
-                                    Content="{x:Bind ViewModel.RefreshLabel, Mode=OneWay}" />
+                                    Content="{x:Bind ViewModel.ImportLabel, Mode=OneWay}"
+                                    Style="{StaticResource AccentButtonStyle}" />
                                 <Button
                                     Command="{x:Bind ViewModel.RefreshSourcesCommand}"
                                     Content="{x:Bind ViewModel.CheckSourcesLabel, Mode=OneWay}" />
-                                <Button
-                                    Command="{x:Bind ViewModel.RemoveFileCommand}"
-                                    Content="{x:Bind ViewModel.RemoveLabel, Mode=OneWay}" />
                                 <ProgressRing
                                     Width="{ThemeResource FoundryIconSizeDefault}"
                                     Height="{ThemeResource FoundryIconSizeDefault}"
@@ -83,77 +78,123 @@
                                 ItemsSource="{x:Bind ViewModel.Files}"
                                 SelectedItem="{x:Bind ViewModel.SelectedFile, Mode=TwoWay}"
                                 SelectionMode="Single">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter
+                                            Property="HorizontalContentAlignment"
+                                            Value="Stretch" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="viewModels:UnattendFileEntryViewModel">
-                                        <StackPanel
+                                        <Grid
                                             Padding="0,8"
-                                            Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                                            ColumnSpacing="{ThemeResource FoundryPageHeaderColumnSpacing}"
+                                            RowSpacing="{ThemeResource FoundryTextGroupSpacing}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="2*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
                                             <TextBlock
                                                 FontWeight="SemiBold"
                                                 Style="{StaticResource FoundryBodyTextBlockStyle}"
                                                 Text="{x:Bind DisplayName}"
                                                 TextWrapping="Wrap" />
                                             <TextBlock
+                                                Grid.Row="1"
                                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                 Style="{StaticResource FoundryCaptionTextBlockStyle}"
                                                 Text="{x:Bind SourcePath}"
-                                                TextWrapping="Wrap" />
+                                                TextTrimming="CharacterEllipsis"
+                                                ToolTipService.ToolTip="{x:Bind SourcePath}" />
                                             <TextBlock
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                 Style="{StaticResource FoundryCaptionTextBlockStyle}"
                                                 Text="{x:Bind ArchitectureText}" />
                                             <TextBlock
+                                                Grid.Column="1"
                                                 Style="{StaticResource FoundryBodyTextBlockStyle}"
                                                 Text="{x:Bind ValidationMessage}"
                                                 TextWrapping="Wrap" />
-                                        </StackPanel>
+                                        </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-
-                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition
-                                        Width="*"
-                                        MaxWidth="{ThemeResource FoundrySettingsControlMaxWidth}" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBox
-                                    Header="{x:Bind ViewModel.DisplayNameLabel, Mode=OneWay}"
-                                    IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
-                                    MaxLength="120"
-                                    Text="{x:Bind ViewModel.RenameText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Button
-                                    Grid.Column="1"
-                                    VerticalAlignment="Bottom"
-                                    Command="{x:Bind ViewModel.RenameFileCommand}"
-                                    Content="{x:Bind ViewModel.RenameLabel, Mode=OneWay}" />
-                            </Grid>
                         </StackPanel>
                     </wct:SettingsCard>
 
                     <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        ContentAlignment="Vertical"
+                        Header="{x:Bind ViewModel.DisplayNameLabel, Mode=OneWay}"
+                        IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                        <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition
+                                        Width="*"
+                                        MaxWidth="{ThemeResource FoundrySettingsControlMaxWidth}" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox
+                                    AutomationProperties.Name="{x:Bind ViewModel.DisplayNameLabel, Mode=OneWay}"
+                                    MaxLength="120"
+                                    Text="{x:Bind ViewModel.RenameText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <Button
+                                    Command="{x:Bind ViewModel.RenameFileCommand}"
+                                    Content="{x:Bind ViewModel.RenameLabel, Mode=OneWay}" />
+                                <Button
+                                    Command="{x:Bind ViewModel.RefreshFileCommand}"
+                                    Content="{x:Bind ViewModel.RefreshLabel, Mode=OneWay}" />
+                                <Button
+                                    Command="{x:Bind ViewModel.RemoveFileCommand}"
+                                    Content="{x:Bind ViewModel.RemoveLabel, Mode=OneWay}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </wct:SettingsCard>
+
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        ContentAlignment="Vertical"
                         Description="{x:Bind ViewModel.DefaultDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.DefaultLabel, Mode=OneWay}"
                         IsEnabled="{x:Bind ViewModel.CanImport, Mode=OneWay}">
-                        <ComboBox
-                            Width="{ThemeResource FoundryWideInputMinWidth}"
-                            AutomationProperties.Name="{x:Bind ViewModel.DefaultLabel, Mode=OneWay}"
-                            ItemsSource="{x:Bind ViewModel.DefaultOptions}"
-                            SelectedItem="{x:Bind ViewModel.SelectedDefault, Mode=TwoWay}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate x:DataType="viewModels:UnattendDefaultOption">
-                                    <TextBlock Text="{x:Bind DisplayName}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
+                        <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition
+                                        Width="*"
+                                        MaxWidth="{ThemeResource FoundrySettingsControlMaxWidth}" />
+                                </Grid.ColumnDefinitions>
+                                <ComboBox
+                                    HorizontalAlignment="Stretch"
+                                    AutomationProperties.Name="{x:Bind ViewModel.DefaultLabel, Mode=OneWay}"
+                                    ItemsSource="{x:Bind ViewModel.DefaultOptions}"
+                                    SelectedItem="{x:Bind ViewModel.SelectedDefault, Mode=TwoWay}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate x:DataType="viewModels:UnattendDefaultOption">
+                                            <TextBlock Text="{x:Bind DisplayName}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Grid>
+                            <TextBlock
+                                MaxWidth="{ThemeResource FoundryContentMaxWidth}"
+                                HorizontalAlignment="Left"
+                                Style="{StaticResource FoundryBodyTextBlockStyle}"
+                                Text="{x:Bind ViewModel.OwnershipDescription, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
                     </wct:SettingsCard>
-
-                    <TextBlock
-                        MaxWidth="{ThemeResource FoundryContentMaxWidth}"
-                        HorizontalAlignment="Left"
-                        Style="{StaticResource FoundryBodyTextBlockStyle}"
-                        Text="{x:Bind ViewModel.OwnershipDescription, Mode=OneWay}"
-                        TextWrapping="Wrap" />
                     <TextBlock
                         MaxWidth="{ThemeResource FoundryContentMaxWidth}"
                         HorizontalAlignment="Left"
