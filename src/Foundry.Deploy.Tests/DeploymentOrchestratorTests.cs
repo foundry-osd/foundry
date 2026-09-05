@@ -23,11 +23,13 @@ public sealed class DeploymentOrchestratorTests
         [
             DeploymentStepNames.GatherDeploymentVariables,
             DeploymentStepNames.InitializeDeploymentWorkspace,
+            DeploymentStepNames.ValidateCustomUnattend,
             DeploymentStepNames.ValidateTargetConfiguration,
             DeploymentStepNames.ResolveCacheStrategy,
             DeploymentStepNames.PrepareTargetDiskLayout,
             DeploymentStepNames.DownloadOperatingSystemImage,
             DeploymentStepNames.ApplyOperatingSystemImage,
+            DeploymentStepNames.StageCustomUnattend,
             DeploymentStepNames.DownloadDriverPack,
             DeploymentStepNames.ExtractDriverPack,
             DeploymentStepNames.ApplyDriverPack,

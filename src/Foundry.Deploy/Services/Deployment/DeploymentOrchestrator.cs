@@ -352,6 +352,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 LogsDirectoryPath = ResolveLogsDirectory(executionContext, runtimeState)
             };
         }
+        finally
+        {
+            executionContext?.Dispose();
+        }
     }
 
     private Task TrackDeploymentCompletedAsync(
