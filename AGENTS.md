@@ -18,6 +18,8 @@ Task execution:
 
 Instruction handling:
 - Follow applicable system and developer instructions; within those boundaries, explicit user instructions take precedence over skill guidance and repository defaults
+- For agent workflow defaults, follow current official OpenAI guidance for the model in use over conflicting repository or skill preferences, within the system, developer, and explicit user instructions above
+- Apply guidance relevant to the task; distinguish official recommendations from local implementation choices and preserve product contracts, architecture, and security constraints
 - Read relevant repository and skill instructions before applying them, and resolve conflicts using the current task context
 - If a skill or repository instruction blocks progress, identify the exact file and instruction, explain its relevance, and distinguish an explicit requirement from an interpretation
 
@@ -136,7 +138,7 @@ Logging rules:
 - Persist WinPE logs best-effort without allowing persistence failures to replace the primary application outcome
 - Export sanitized support bundles by default without modifying source logs; raw export must require an explicit sensitive-data warning
 - Fail closed when a source cannot be sanitized, and publish support archives atomically only after manifest and summary generation succeeds
-- Add logging only from the main agent, not from subagents
+- Apply these logging rules to all changes, including delegated work; the main agent reviews logging behavior during integration
 
 Documentation rules:
 - Update docs and README files when behavior, packaging, install paths, release assets, or user-facing workflows change
@@ -151,10 +153,13 @@ Documentation rules:
 - Prefer accurate comments over more comments
 
 Format and verification rules:
-- Before opening or updating a pull request, run `scripts\Test-FoundryFormat.ps1` from the repository root
-- If the format check fails, run `scripts\Format-Foundry.ps1`, review the resulting diff, and rerun `scripts\Test-FoundryFormat.ps1`
+- Before opening or updating a pull request that changes application code, XAML, resources, or formatting configuration, run `scripts\Test-FoundryFormat.ps1` from the repository root
+- For documentation-only or instruction-only changes, review the affected prose and links and run `git diff --check`; skip application formatting and runtime tests
+- For other changes, such as scripts or workflows, run checks appropriate to the affected files
+- If formatting fails in changed files, run `scripts\Format-Foundry.ps1`, review its output, retain only relevant edits, and rerun `scripts\Test-FoundryFormat.ps1`
+- If formatting fails solely on unchanged baseline files, report the failure without reformatting unrelated files
 - Treat `scripts\Test-FoundryFormat.ps1` as the source of truth for formatting checks
-- Include the format check result in pull request testing notes
+- Include the format check result in pull request testing notes, or explain why it was skipped for the change scope
 
 Git, worktree, and pull request rules:
 - Follow Conventional Commits for all commit messages
@@ -186,12 +191,11 @@ Git, worktree, and pull request rules:
 - Treat local ARM64 validation as required only for architecture-sensitive changes; both x64 and ARM64 CI checks remain blocking
 
 Subagent rules:
-- Use subagents when explicitly requested or when two or more independent read-only questions can be investigated in parallel while the main agent makes useful progress
-- Give each subagent a bounded question and clear scope, avoid duplicate exploration, and integrate its findings before deciding on changes
-- Use subagents only for read-only code exploration and analysis
-- Do not use subagents to modify files
-- Do not use subagents to write, add, or refactor logs
-- The main agent is responsible for all code edits, logging changes, commits, pushes, and pull requests
+- Delegate bounded, independent analysis, implementation, or verification tasks when parallel work materially improves delivery and the main agent can continue useful work
+- Keep simple or tightly coupled tasks local; do not delegate solely to increase agent count
+- Assign explicit file or module ownership for edits, avoid overlapping work, and tell subagents to preserve other contributors' changes
+- Give each subagent the relevant task context and acceptance criteria; avoid duplicate exploration
+- The main agent reviews and integrates delegated changes and owns final verification, commits, pushes, and pull requests
 
 Output rules:
 - Lead with the outcome and use plain, concise English
