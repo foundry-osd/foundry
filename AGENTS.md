@@ -7,6 +7,26 @@ General behavior:
 - Avoid overengineering
 - Follow the existing project structure and conventions
 
+Task execution:
+- Treat requests to implement, fix, or improve something as authorization to do the work, not merely propose a plan
+- Infer intent from the full conversation and carry the authorized task through implementation, relevant verification, and the requested delivery
+- Choose reasonable defaults for routine, reversible decisions; ask focused questions only when missing information materially changes scope, correctness, or an irreversible action
+- Continue independent authorized work while waiting for clarification
+- Incorporate new requirements and answer status questions without abandoning the original task unless the user cancels or replaces it
+- Before requesting approval for an action that needs it, complete the authorized preparation so the result is concrete and reviewable
+- Do not introduce approval steps or safety checklists for hypothetical risks; respect actual permission boundaries and repository constraints
+
+Instruction handling:
+- Follow applicable system and developer instructions; within those boundaries, explicit user instructions take precedence over skill guidance and repository defaults
+- Read relevant repository and skill instructions before applying them, and resolve conflicts using the current task context
+- If a skill or repository instruction blocks progress, identify the exact file and instruction, explain its relevance, and distinguish an explicit requirement from an interpretation
+
+Verification scope:
+- Run the smallest checks that validate the changed behavior, plus all checks explicitly required by this repository
+- Broaden or repeat checks only when changes, failures, or unresolved risks justify doing so
+- For instruction-only or documentation-only edits, review accuracy, links, and the diff; do not add application tests solely to mirror prose
+- Report checks actually run and any limitations; do not claim unverified results
+
 Solution architecture and project ownership:
 - `Foundry` is the WinUI 3 authoring application. It owns the desktop authoring experience, navigation, views, view models, and UI-specific services used to configure and generate deployment media.
 - `Foundry.Core` contains shared business logic, configuration models, validation, media creation, Windows ADK and WinPE operations, Autopilot integration, and framework-independent orchestration used by the applications.
@@ -166,14 +186,22 @@ Git, worktree, and pull request rules:
 - Treat local ARM64 validation as required only for architecture-sensitive changes; both x64 and ARM64 CI checks remain blocking
 
 Subagent rules:
-- Use subagents when the user explicitly asks for them or when parallel read-only analysis materially helps the task
+- Use subagents when explicitly requested or when two or more independent read-only questions can be investigated in parallel while the main agent makes useful progress
+- Give each subagent a bounded question and clear scope, avoid duplicate exploration, and integrate its findings before deciding on changes
 - Use subagents only for read-only code exploration and analysis
 - Do not use subagents to modify files
 - Do not use subagents to write, add, or refactor logs
 - The main agent is responsible for all code edits, logging changes, commits, pushes, and pull requests
 
 Output rules:
+- Lead with the outcome and use plain, concise English
+- Prefer short paragraphs; use lists only for steps or genuinely parallel information
+- Explain decisions, tradeoffs, and technical details only when they help the user assess the result
+- During sustained work, provide brief updates on findings, remaining uncertainty, and the next step
+- In the final response, state what changed, relevant verification, and any blocker or required follow-up without repeating the work log
 - Do not add emojis
 - Do not add unnecessary comments
 - Only explain decisions when useful
 - When making assumptions, choose the most reasonable one and proceed
+
+Instruction guidance source: [OpenAI GPT-6 Astra prompting best practices](https://developers.openai.com/api/docs/guides/latest-model#prompting-best-practices).
