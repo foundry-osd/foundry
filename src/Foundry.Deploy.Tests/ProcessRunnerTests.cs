@@ -11,6 +11,23 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class ProcessRunnerTests
 {
+    [Theory]
+    [InlineData("dism.exe", "dism.exe")]
+    [InlineData("DISM.EXE", "dism.exe")]
+    [InlineData("powershell.exe", "WindowsPowerShell/v1.0/powershell.exe")]
+    public void ResolveSystemTool_UsesTheInstalledToolValidatedByPreflight(string name, string relativePath)
+    {
+        Assert.Equal(Path.Combine(Environment.SystemDirectory, relativePath.Replace('/', Path.DirectorySeparatorChar)),
+            RuntimeProcessRunner.ResolveSystemTool(name));
+    }
+
+    [Fact]
+    public void ResolveSystemTool_PreservesExplicitAppliedImageToolPath()
+    {
+        string path = Path.Combine(Path.GetTempPath(), "offline", "Windows", "System32", "bcdboot.exe");
+        Assert.Equal(path, RuntimeProcessRunner.ResolveSystemTool(path));
+    }
+
     [Fact]
     public async Task RunAsync_PreservesArgumentBoundaries()
     {

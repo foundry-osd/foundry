@@ -24,6 +24,22 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+        DeploymentPreflightResult? preflight = context.RuntimeState.ImagePreflight;
+        if (preflight is null || preflight.Selection != context.Request.OperatingSystem)
+        {
+            throw new InvalidOperationException("Image acquisition requires preflight for the same operating system selection.");
+        }
+        if (preflight.Level == ImagePreflightLevel.CompleteImageVerified)
+        {
+            if (preflight.Image is null || string.IsNullOrWhiteSpace(preflight.VerifiedImagePath) || !File.Exists(preflight.VerifiedImagePath))
+                throw new IOException("The preflight image is no longer available. Restart deployment preflight.");
+            context.RuntimeState.DownloadedOperatingSystemPath = preflight.VerifiedImagePath;
+            return DeploymentStepResult.Succeeded("Preflight image reused; integrity will be checked again before applying it.");
+        }
+        if (preflight.Level != ImagePreflightLevel.TargetBackedMetadataOnly)
+            throw new InvalidOperationException("Image preflight level is invalid.");
+
         ArtifactIdentity artifact = ArtifactIntegrityPolicy.FromOperatingSystem(context.Request.OperatingSystem);
         const string stepMessage = "Downloading OS image...";
 
@@ -31,8 +47,10 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
             stepMessage,
             "Checking cache...",
             DeploymentOperationNames.DownloadOperatingSystemImage);
+        string targetCache = context.ResolveTargetPayloadCacheRoot("OperatingSystems")
+            ?? throw new InvalidOperationException("Target storage must be prepared before constrained image acquisition.");
         PayloadCachePlacement placement = await _placement.ResolveAsync(artifact,
-            context.ResolveOperatingSystemCacheRoot(), context.ResolveTargetPayloadCacheRoot("OperatingSystems"), cancellationToken).ConfigureAwait(false);
+            targetCache, null, cancellationToken).ConfigureAwait(false);
         IProgress<DownloadProgress> osDownloadProgress = context.CreateDownloadProgressReporter(
             "OS image",
             DeploymentOperationNames.DownloadOperatingSystemImage);

@@ -110,6 +110,9 @@ public sealed record DeploymentRuntimeState
     /// </summary>
     public string? DownloadedOperatingSystemPath { get; set; }
 
+    /// <summary>Records checks completed before erasure, including any target-storage constraint.</summary>
+    public DeploymentPreflightResult? ImagePreflight { get; set; }
+
     /// <summary>
     /// Gets or sets the image index applied from the downloaded OS package.
     /// </summary>

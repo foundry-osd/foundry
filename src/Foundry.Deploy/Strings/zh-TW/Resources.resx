@@ -425,6 +425,9 @@
   <data name="Launch.ConfirmDiskEraseTitle" xml:space="preserve">
     <value>確認磁碟清除</value>
   </data>
+  <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
+    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+  </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_關於</value>
   </data>
@@ -655,6 +658,9 @@
   </data>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>初始化部署</value>
+  </data>
+  <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
+    <value>Check image prerequisites</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>準備磁碟</value>

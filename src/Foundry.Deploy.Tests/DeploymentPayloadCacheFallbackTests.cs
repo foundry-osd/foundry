@@ -16,6 +16,24 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentPayloadCacheFallbackTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task DownloadOperatingSystemImageStep_RejectsMissingOrStalePreflight(bool stale)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using DeploymentStepExecutionContext context = CreateExecutionContext(workspace);
+        var downloads = new CapturingArtifactDownloadService();
+        context.RuntimeState.ImagePreflight = stale
+            ? context.RuntimeState.ImagePreflight! with { Selection = context.Request.OperatingSystem with { SourceId = "replacement" } }
+            : null;
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() => new DownloadOperatingSystemImageStep(downloads,
+            new PayloadCachePlacementService(downloads, new TestStorageProbe())).ExecuteAsync(context, TestContext.Current.CancellationToken));
+
+        Assert.Null(downloads.Artifact);
+    }
+
     [Fact]
     public async Task DownloadDriverPackStep_CatalogCompletionLogOmitsDownloadQuery()
     {
@@ -61,7 +79,7 @@ public sealed class DeploymentPayloadCacheFallbackTests
     }
 
     [Fact]
-    public async Task DownloadOperatingSystemImageStep_WhenUsbCacheHasEnoughSpace_UsesUsbCache()
+    public async Task DownloadOperatingSystemImageStep_WhenPreflightCompleted_ReusesImageWithoutAnotherAcquisition()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         var downloadService = new CapturingArtifactDownloadService();
@@ -70,12 +88,19 @@ public sealed class DeploymentPayloadCacheFallbackTests
             operatingSystemSizeBytes: 1);
         var step = new DownloadOperatingSystemImageStep(downloadService, new PayloadCachePlacementService(downloadService, new TestStorageProbe()));
 
+        string imagePath = Path.Combine(workspace.WorkspaceRoot, "verified.esd");
+        await File.WriteAllTextAsync(imagePath, "fixture", TestContext.Current.CancellationToken);
+        context.RuntimeState.ImagePreflight = new DeploymentPreflightResult(ImagePreflightLevel.CompleteImageVerified,
+            80L * 1024 * 1024 * 1024, imagePath,
+            new WindowsImageInfo(1, "Professional", "x64", new Version(10, 0, 26100, 1), "en-US", 20L * 1024 * 1024 * 1024), null)
+        { Selection = context.Request.OperatingSystem };
+
         DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
 
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
-        Assert.Equal(
-            Path.Combine(workspace.UsbCacheRoot, "Cache", "OperatingSystems", downloadService.Artifact!.CacheKey, "install.wim"),
-            downloadService.DestinationPath);
+        Assert.Null(downloadService.Artifact);
+        Assert.Null(downloadService.DestinationPath);
+        Assert.Equal(imagePath, context.RuntimeState.DownloadedOperatingSystemPath);
     }
 
     [Fact]
@@ -153,6 +178,9 @@ public sealed class DeploymentPayloadCacheFallbackTests
 
         var runtimeState = new DeploymentRuntimeState
         {
+            ImagePreflight = new DeploymentPreflightResult(ImagePreflightLevel.TargetBackedMetadataOnly,
+                90L * 1024 * 1024 * 1024, null, null, "test constraint")
+            { Selection = request.OperatingSystem },
             WorkspaceRoot = workspace.WorkspaceRoot,
             HardwareProfile = new HardwareProfile(),
             Mode = DeploymentMode.Usb,

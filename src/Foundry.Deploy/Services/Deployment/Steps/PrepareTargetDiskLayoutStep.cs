@@ -34,10 +34,20 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
             "Preparing target disk layout...",
             "Revalidating target disk...",
             DeploymentOperationNames.ValidateTargetDisk);
-        (_, DeploymentStepResult? validationFailure) = await context.TryGetValidatedTargetDiskAsync(cancellationToken).ConfigureAwait(false);
+        (TargetDiskInfo? targetDisk, DeploymentStepResult? validationFailure) = await context.TryGetValidatedTargetDiskAsync(cancellationToken).ConfigureAwait(false);
         if (validationFailure is not null)
         {
             return validationFailure;
+        }
+
+        DeploymentPreflightResult? preflight = context.RuntimeState.ImagePreflight;
+        if (preflight is null || preflight.Selection != context.Request.OperatingSystem ||
+            !HasPreflightEvidence(preflight) ||
+            preflight.RequiredTargetBytes <= 0 || targetDisk is null ||
+            targetDisk.SizeBytes < (ulong)preflight.RequiredTargetBytes)
+        {
+            return DeploymentStepResult.Failed("Image prerequisites and target capacity must be validated before disk preparation.",
+                DeploymentFailure.Guard(DeploymentOperationNames.ValidateTarget, DeploymentFailureReasons.InvalidState, "image_preflight_required"));
         }
 
         context.EmitCurrentStepIndeterminate(
@@ -71,6 +81,14 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
 
         return DeploymentStepResult.Succeeded("Target disk layout prepared.");
     }
+
+    private static bool HasPreflightEvidence(DeploymentPreflightResult preflight) => preflight.Level switch
+    {
+        ImagePreflightLevel.CompleteImageVerified => preflight.Image is { Index: > 0, ExpandedSizeBytes: > 0 } &&
+            !string.IsNullOrWhiteSpace(preflight.VerifiedImagePath) && File.Exists(preflight.VerifiedImagePath),
+        ImagePreflightLevel.TargetBackedMetadataOnly => !string.IsNullOrWhiteSpace(preflight.ConstraintReason),
+        _ => false
+    };
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {

@@ -24,6 +24,7 @@ public static partial class DeploymentUiTextLocalizer
             "Initialize deployment workspace" => LocalizationText.GetString("Step.InitializeDeploymentWorkspace"),
             "Validate target configuration" => LocalizationText.GetString("Step.ValidateTargetConfiguration"),
             "Resolve cache strategy" => LocalizationText.GetString("Step.ResolveCacheStrategy"),
+            "Preflight operating system image" => LocalizationText.GetString("Step.PreflightOperatingSystemImage"),
             "Prepare target disk layout" => LocalizationText.GetString("Step.PrepareTargetDiskLayout"),
             "Download operating system image" => LocalizationText.GetString("Step.DownloadOperatingSystemImage"),
             "Validate custom answer file" => LocalizationText.GetString("Step.ValidateCustomUnattend"),

@@ -48,6 +48,8 @@ Connect preserves Wi-Fi names and passwords exactly, including case and surround
 
 Cached payloads are rechecked before reuse. Downloads replace existing files only after validation, and downloaded driver installers require a valid signature from the expected publisher. A verified cached file can be reused from read-only media without reserving space for another download.
 
+Deployment checks image compatibility and capacity before erasing the selected disk whenever independent storage can hold the verified image. If only target storage is available, the confirmation warns that download or image-validation failures can occur after erasure. Foundry first checks authenticated catalog metadata, source availability and conservative capacity, then verifies the acquired image before applying it. The image is protected against writes and deletion during native inspection and application. Capacity includes the existing EFI, MSR and recovery partitions, Windows space, a 16 GiB working reserve and known target payloads; unknown expanded image size uses a conservative 64 GiB estimate.
+
 Automatic OEM driver selection requires a matching manufacturer, model or documented machine type, architecture, exact Windows release, and an established system-pack role. Unmatched or ambiguous entries require an explicit model and version choice; verify their applicability before deployment. Manual selection retains package integrity and publisher checks.
 
 ## What you can configure

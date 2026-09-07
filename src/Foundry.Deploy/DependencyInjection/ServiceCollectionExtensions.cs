@@ -114,11 +114,15 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IMicrosoftUpdateCatalogDriverService, MicrosoftUpdateCatalogDriverService>();
         services.AddSingleton<IMicrosoftUpdateCatalogFirmwareService, MicrosoftUpdateCatalogFirmwareService>();
         services.AddSingleton<IArtifactDownloadService, ArtifactDownloadService>();
+        services.AddSingleton<IArtifactAvailabilityProbe, ArtifactAvailabilityProbe>();
         services.AddSingleton<IVolumeStorageProbe, VolumeStorageProbe>();
         services.AddSingleton<PayloadCachePlacementService>();
         services.AddSingleton<IDriverPackStrategyResolver, DriverPackStrategyResolver>();
         services.AddSingleton<IDriverPackExtractionService, DriverPackExtractionService>();
-        services.AddSingleton<IWindowsDeploymentService, WindowsDeploymentService>();
+        services.AddSingleton<WindowsDeploymentService>();
+        services.AddSingleton<IWindowsDeploymentService>(sp => sp.GetRequiredService<WindowsDeploymentService>());
+        services.AddSingleton<IWindowsImageInspectionService>(sp => sp.GetRequiredService<WindowsDeploymentService>());
+        services.AddSingleton<DeploymentPreflightService>();
         services.AddSingleton<ISetupCompleteScriptService, SetupCompleteScriptService>();
         services.AddSingleton<IPreOobeScriptProvisioningService, PreOobeScriptProvisioningService>();
         services.AddSingleton<PreOobeScriptDefinitionBuilder>();
@@ -162,6 +166,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStep, GatherDeploymentVariablesStep>();
         services.AddSingleton<IDeploymentStep, InitializeDeploymentWorkspaceStep>();
         services.AddSingleton<IDeploymentStep, PrepareTargetDiskLayoutStep>();
+        services.AddSingleton<IDeploymentStep, PreflightOperatingSystemImageStep>();
         services.AddSingleton<IDeploymentStep, ProvisionAutopilotStep>();
         services.AddSingleton<IDeploymentStep, ResolveCacheStrategyStep>();
         services.AddSingleton<IDeploymentStep, SealRecoveryPartitionStep>();

@@ -19,6 +19,100 @@ namespace Foundry.Deploy.Tests;
 public sealed class WindowsDeploymentServiceTests
 {
     [Fact]
+    public async Task InspectImageAsync_ReturnsMatchingImageWithoutRequiringSetupMediaMetadata()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "image.esd");
+        await File.WriteAllTextAsync(imagePath, "owned fixture", TestContext.Current.CancellationToken);
+        var runner = CreateInspectionRunner(WindowsImageInfoParserTests.Detail);
+        IWindowsImageInspectionService service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
+        WindowsImageInfo image = await service.InspectImageAsync(imagePath, ImageSelection(), workspace.RootPath, TestContext.Current.CancellationToken);
+        Assert.Equal(4, image.Index);
+        Assert.Equal(new Version(10, 0, 26100, 1000), image.Version);
+        Assert.Equal(3, runner.Calls.Count);
+        Assert.All(runner.Calls, call => Assert.Contains("/Get-ImageInfo", call, StringComparison.Ordinal));
+    }
+
+    [Theory]
+    [InlineData("Edition : Professional", "Edition : Core")]
+    [InlineData("Architecture : x64", "Architecture : x86")]
+    [InlineData("Version : 10.0.26100", "Version : 10.0.26200")]
+    [InlineData("Version : 10.0.26100", "Version : 11.0.26100")]
+    [InlineData("ServicePack Build : 1000", "ServicePack Build : 1001")]
+    [InlineData("en-US (Default)", "fr-FR (Default)")]
+    [InlineData("Index : 4", "Index : 9")]
+    public async Task InspectImageAsync_RejectsMismatchedActualImage(string original, string replacement)
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "image.esd");
+        await File.WriteAllTextAsync(imagePath, "owned fixture", TestContext.Current.CancellationToken);
+        var runner = CreateInspectionRunner(WindowsImageInfoParserTests.Detail.Replace(original, replacement, StringComparison.Ordinal));
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
+        Exception? error = await Record.ExceptionAsync(() => service.InspectImageAsync(imagePath, ImageSelection(), workspace.RootPath, TestContext.Current.CancellationToken));
+        Assert.True(error is InvalidDataException or InvalidOperationException);
+        Assert.DoesNotContain(runner.Calls, call => call.Contains("/Apply-Image", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task InspectImageAsync_RejectsTruncatedSelectedDetails()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "image.esd");
+        await File.WriteAllTextAsync(imagePath, "owned fixture", TestContext.Current.CancellationToken);
+        var runner = CreateInspectionRunner(WindowsImageInfoParserTests.Detail, truncated: true);
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
+        await Assert.ThrowsAsync<InvalidDataException>(() => service.InspectImageAsync(imagePath, ImageSelection(), workspace.RootPath, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task InspectImageAsync_PropagatesCallerCancellationBeforeInvokingRunner()
+    {
+        using var cancelled = new CancellationTokenSource();
+        cancelled.Cancel();
+        var runner = CreateInspectionRunner(WindowsImageInfoParserTests.Detail);
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.InspectImageAsync("unused.esd", ImageSelection(), "unused", cancelled.Token));
+        Assert.Empty(runner.Calls);
+    }
+
+    private static Foundry.Deploy.Models.OperatingSystemCatalogItem ImageSelection() => new()
+    {
+        Edition = "Pro",
+        Architecture = "AMD64",
+        BuildMajor = 26100,
+        BuildUbr = 1000,
+        LanguageCode = "en-US"
+    };
+
+    [Theory]
+    [InlineData("Index : 4\nIndex : 4")]
+    [InlineData("Index : 2147483648")]
+    [InlineData("Index : -1")]
+    public async Task InspectImageAsync_RejectsInvalidIndexSummary(string summary)
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "image.esd");
+        await File.WriteAllTextAsync(imagePath, "owned fixture", TestContext.Current.CancellationToken);
+        var runner = new RecordingProcessRunner { Result = new ProcessExecutionResult { ExitCode = 0, StandardOutput = summary } };
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
+        await Assert.ThrowsAsync<InvalidDataException>(() => service.InspectImageAsync(imagePath, ImageSelection(), workspace.RootPath, TestContext.Current.CancellationToken));
+        Assert.Single(runner.Calls);
+    }
+
+    private static RecordingProcessRunner CreateInspectionRunner(string detail, bool truncated = false) => new()
+    {
+        ResultFactory = arguments => arguments.Contains("/Index:4", StringComparison.Ordinal)
+            ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = detail, StandardOutputTruncated = truncated }
+            : new ProcessExecutionResult
+            {
+                ExitCode = 0,
+                StandardOutput = arguments.Contains("/Index:1", StringComparison.Ordinal)
+                ? "Index : 1\nName : Windows Setup Media\nEdition : <undefined>\nArchitecture : <undefined>"
+                : "Index : 1\nName : Windows Setup Media\nIndex : 4\nName : Windows OS"
+            }
+    };
+
+    [Fact]
     public async Task ResolveImageIndexAsync_PassesImagePathToRealChild()
     {
         using var workspace = new TemporaryWorkspace();

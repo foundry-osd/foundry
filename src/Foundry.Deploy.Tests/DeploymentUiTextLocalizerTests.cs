@@ -19,6 +19,7 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
         { DeploymentStepNames.InitializeDeploymentWorkspace, "Initialize deployment" },
         { DeploymentStepNames.ValidateTargetConfiguration, "Validate configuration" },
         { DeploymentStepNames.ResolveCacheStrategy, "Check cache" },
+        { DeploymentStepNames.PreflightOperatingSystemImage, "Check image prerequisites" },
         { DeploymentStepNames.PrepareTargetDiskLayout, "Prepare disk" },
         { DeploymentStepNames.DownloadOperatingSystemImage, "Download operating system" },
         { DeploymentStepNames.ApplyOperatingSystemImage, "Apply operating system" },

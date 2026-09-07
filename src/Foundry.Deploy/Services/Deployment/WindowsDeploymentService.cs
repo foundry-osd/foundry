@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -11,6 +12,7 @@ using Foundry.Utilities.Hardware;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Foundry.Core.Models.Configuration;
+using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Security;
@@ -26,7 +28,7 @@ namespace Foundry.Deploy.Services.Deployment;
 /// <summary>
 /// Performs destructive disk layout, offline Windows image servicing, boot configuration, and WinRE operations.
 /// </summary>
-public sealed class WindowsDeploymentService : IWindowsDeploymentService
+public sealed class WindowsDeploymentService : IWindowsDeploymentService, IWindowsImageInspectionService
 {
     private static readonly TimeSpan MetadataExecutionTimeout = TimeSpan.FromMinutes(2);
     private static readonly TimeSpan NativeExecutionTimeout = TimeSpan.FromHours(4);
@@ -136,6 +138,28 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string workingDirectory,
         CancellationToken cancellationToken = default)
     {
+        return (await ResolveImageMetadataAsync(imagePath, requestedEdition, workingDirectory, cancellationToken).ConfigureAwait(false)).Index;
+    }
+
+    public async Task<WindowsImageInfo> InspectImageAsync(string imagePath, OperatingSystemCatalogItem selection,
+        string workingDirectory, CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(selection);
+        ImageIndexMetadata metadata = await ResolveImageMetadataAsync(imagePath, selection.Edition, workingDirectory, cancellationToken).ConfigureAwait(false);
+        WindowsImageInfo image = WindowsImageInfoParser.Parse(metadata.Output, metadata.Index);
+        if (!image.Architecture.Equals(WindowsImageInfoParser.NormalizeArchitecture(selection.Architecture), StringComparison.Ordinal) ||
+            image.Version.Major != 10 || image.Version.Minor != 0 ||
+            selection.BuildMajor <= 0 || selection.BuildUbr < 0 ||
+            image.Version.Build != selection.BuildMajor || image.Version.Revision != selection.BuildUbr ||
+            string.IsNullOrWhiteSpace(selection.LanguageCode) || !image.DefaultLanguage.Equals(selection.LanguageCode, StringComparison.OrdinalIgnoreCase))
+            throw new InvalidDataException("The Windows image identity does not match the selected catalog image.");
+        return image;
+    }
+
+    private async Task<ImageIndexMetadata> ResolveImageMetadataAsync(string imagePath, string requestedEdition,
+        string workingDirectory, CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
         if (!File.Exists(imagePath))
         {
             throw new FileNotFoundException("Operating system image was not found.", imagePath);
@@ -197,7 +221,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             }
 
             detailedExecution.EnsureCompleteOutput();
-            imageMetadata.Add(new ImageIndexMetadata(imageIndex, ParseEditionId(detailedExecution.StandardOutput)));
+            imageMetadata.Add(new ImageIndexMetadata(imageIndex, WindowsImageInfoParser.ReadEdition(detailedExecution.StandardOutput), detailedExecution.StandardOutput));
         }
 
         ImageIndexMetadata[] matches = imageMetadata
@@ -217,7 +241,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         int resolvedIndex = matches[0].Index;
         _logger.LogInformation("Resolved OS image index {ImageIndex} for ImagePath={ImagePath}", resolvedIndex, imagePath);
-        return resolvedIndex;
+        return matches[0];
     }
 
     /// <inheritdoc />
@@ -1685,18 +1709,15 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             return [];
         }
 
-        return Regex.Matches(output, @"^\s*Index\s*:\s*(\d+)\s*$", RegexOptions.IgnoreCase | RegexOptions.Multiline)
-            .Select(match => int.Parse(match.Groups[1].Value))
-            .Distinct()
-            .ToArray();
-    }
-
-    private static string ParseEditionId(string output)
-    {
-        string editionId = ParseImageProperty(output, "Edition ID");
-        return !string.IsNullOrWhiteSpace(editionId)
-            ? editionId
-            : ParseImageProperty(output, "Edition");
+        var indexes = new List<int>();
+        foreach (Match match in Regex.Matches(output, @"^[\t ]*Index[\t ]*:[\t ]*([^\r\n]*)\r?$", RegexOptions.IgnoreCase | RegexOptions.Multiline))
+        {
+            if (!int.TryParse(match.Groups[1].Value.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out int index) ||
+                index < 1 || indexes.Contains(index))
+                throw new InvalidDataException("The image index list is invalid or ambiguous.");
+            indexes.Add(index);
+        }
+        return indexes;
     }
 
     private static string ParseImageProperty(string output, string propertyName)
@@ -1708,7 +1729,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         return match.Success ? match.Groups[1].Value.Trim() : string.Empty;
     }
 
-    private sealed record ImageIndexMetadata(int Index, string EditionId);
+    private sealed record ImageIndexMetadata(int Index, string EditionId, string Output);
 
     private sealed record WindowsOptionalFeatureWorkItem(
         DeployWindowsOptionalFeatureAction Action,

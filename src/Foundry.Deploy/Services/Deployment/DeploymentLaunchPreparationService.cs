@@ -149,6 +149,8 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             sizeGiB,
             operatingSystem.DisplayLabel);
 
+        message += Environment.NewLine + Environment.NewLine + LocalizationText.GetString("Launch.ImagePreflightStorageWarning");
+
         if (request.UsesCustomUnattend)
         {
             message += Environment.NewLine + Environment.NewLine + request.Unattend!.File.DisplayName + Environment.NewLine +

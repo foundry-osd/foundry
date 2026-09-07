@@ -77,6 +77,7 @@ public sealed class DeploymentOrchestratorTests
             DeploymentStepNames.ValidateFirstBootExecution,
             DeploymentStepNames.ValidateTargetConfiguration,
             DeploymentStepNames.ResolveCacheStrategy,
+            DeploymentStepNames.PreflightOperatingSystemImage,
             DeploymentStepNames.PrepareTargetDiskLayout,
             DeploymentStepNames.DownloadOperatingSystemImage,
             DeploymentStepNames.ApplyOperatingSystemImage,

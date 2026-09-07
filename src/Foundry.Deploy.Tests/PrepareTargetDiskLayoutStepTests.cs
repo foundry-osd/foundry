@@ -15,6 +15,41 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class PrepareTargetDiskLayoutStepTests
 {
+    [Theory]
+    [InlineData("missing")]
+    [InlineData("selection")]
+    [InlineData("capacity")]
+    [InlineData("level")]
+    [InlineData("constraint")]
+    [InlineData("image")]
+    [InlineData("removed")]
+    public async Task ExecuteAsync_WhenPreflightIsInvalid_DoesNotPartition(string failure)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var service = new FakeWindowsDeploymentService(workspace);
+        using DeploymentStepExecutionContext context = CreateExecutionContext(workspace, DeploymentMode.Iso);
+        context.RuntimeState.ImagePreflight = failure switch
+        {
+            "missing" => null,
+            "selection" => context.RuntimeState.ImagePreflight! with { Selection = new OperatingSystemCatalogItem { SourceId = "different" } },
+            "level" => context.RuntimeState.ImagePreflight! with { Level = (ImagePreflightLevel)100 },
+            "constraint" => context.RuntimeState.ImagePreflight! with { ConstraintReason = null },
+            "image" => context.RuntimeState.ImagePreflight! with { Level = ImagePreflightLevel.CompleteImageVerified },
+            "removed" => context.RuntimeState.ImagePreflight! with
+            {
+                Level = ImagePreflightLevel.CompleteImageVerified,
+                VerifiedImagePath = Path.Combine(workspace.WorkspaceRoot, "missing.esd"),
+                Image = new WindowsImageInfo(1, "Professional", "x64", new Version(10, 0, 26100, 1), "en-US", 100)
+            },
+            _ => context.RuntimeState.ImagePreflight! with { RequiredTargetBytes = long.MaxValue }
+        };
+
+        DeploymentStepResult result = await new PrepareTargetDiskLayoutStep(service).ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal("image_preflight_required", result.Failure?.Code);
+        Assert.Equal(0, service.PrepareCalls);
+    }
+
     [Fact]
     public async Task ExecuteAsync_WhenIsoMode_PreparesTargetWorkspaceWithoutEagerPayloadCacheFolders()
     {
@@ -125,6 +160,9 @@ public sealed class PrepareTargetDiskLayoutStepTests
 
         var runtimeState = new DeploymentRuntimeState
         {
+            ImagePreflight = new DeploymentPreflightResult(ImagePreflightLevel.TargetBackedMetadataOnly,
+                90L * 1024 * 1024 * 1024, null, null, "test constraint")
+            { Selection = request.OperatingSystem },
             HardwareProfile = new HardwareProfile { FirmwareType = firmware },
             WorkspaceRoot = workspace.WorkspaceRoot,
             Mode = mode,

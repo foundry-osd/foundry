@@ -27,7 +27,7 @@ public sealed class ProcessRunner : IProcessRunner
         CancellationToken cancellationToken = default, TimeSpan? executionTimeout = null)
     {
         ProcessExecutionRequest request = ProcessExecutionRequest.FromRawArguments(
-            fileName,
+            ResolveSystemTool(fileName),
             arguments,
             workingDirectory) with
         { ExecutionTimeout = executionTimeout ?? DefaultExecutionTimeout };
@@ -62,7 +62,7 @@ public sealed class ProcessRunner : IProcessRunner
         ArgumentNullException.ThrowIfNull(arguments);
 
         string[] argumentList = [.. arguments];
-        var request = new ProcessExecutionRequest(fileName, argumentList, workingDirectory)
+        var request = new ProcessExecutionRequest(ResolveSystemTool(fileName), argumentList, workingDirectory)
         {
             ExecutionTimeout = executionTimeout ?? DefaultExecutionTimeout,
             OnOutputData = WrapCallback(onOutputData),
@@ -123,4 +123,12 @@ public sealed class ProcessRunner : IProcessRunner
             }
         };
     }
+
+    /// <summary>Uses the same installed Windows tools checked by preflight, without searching writable directories.</summary>
+    internal static string ResolveSystemTool(string fileName) => fileName.ToLowerInvariant() switch
+    {
+        "dism.exe" => global::System.IO.Path.Combine(Environment.SystemDirectory, "dism.exe"),
+        "powershell.exe" => global::System.IO.Path.Combine(Environment.SystemDirectory, "WindowsPowerShell", "v1.0", "powershell.exe"),
+        _ => fileName
+    };
 }

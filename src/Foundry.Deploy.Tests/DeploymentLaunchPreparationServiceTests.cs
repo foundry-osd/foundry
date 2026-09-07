@@ -281,6 +281,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
             Assert.Contains("Disque : 3", shell.LastConfirmationMessage);
             Assert.Contains("Taille : Taille inconnue", shell.LastConfirmationMessage);
             Assert.Contains("Continuer le déploiement ?", shell.LastConfirmationMessage);
+            Assert.Contains("after this disk has been erased", shell.LastConfirmationMessage);
         }
         finally
         {
