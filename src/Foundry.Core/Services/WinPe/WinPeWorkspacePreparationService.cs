@@ -85,6 +85,8 @@ public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparatio
                 AssetProvisioning = options.AssetProvisioning,
                 RuntimePayloadProvisioning = options.RuntimePayloadProvisioning,
                 PreparedRuntime = options.PreparedRuntime,
+                MediaManifest = options.MediaManifest,
+                VerifiedCatalogDocuments = options.VerifiedCatalogDocuments,
                 WinReCacheDirectoryPath = options.WinReCacheDirectoryPath,
                 WinReCatalogUri = options.WinReCatalogUri,
                 DownloadProgress = options.DownloadProgress,

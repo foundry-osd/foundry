@@ -9,6 +9,8 @@ using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Utilities.IO;
+using Foundry.Deploy.Services.Networking;
+using Foundry.Deploy.Services.Startup;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
@@ -17,15 +19,17 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
     private readonly IMicrosoftUpdateCatalogDriverService _microsoftUpdateCatalogDriverService;
     private readonly IArtifactDownloadService _artifactDownloadService;
     private readonly PayloadCachePlacementService _placement;
+    private readonly DeploymentNetworkPolicy _networkPolicy;
 
     public DownloadDriverPackStep(
         IMicrosoftUpdateCatalogDriverService microsoftUpdateCatalogDriverService,
         IArtifactDownloadService artifactDownloadService,
-        PayloadCachePlacementService? placement = null)
+        PayloadCachePlacementService? placement = null, DeploymentNetworkPolicy? networkPolicy = null)
     {
         _microsoftUpdateCatalogDriverService = microsoftUpdateCatalogDriverService;
         _artifactDownloadService = artifactDownloadService;
         _placement = placement ?? new PayloadCachePlacementService(artifactDownloadService, new VolumeStorageProbe());
+        _networkPolicy = networkPolicy ?? new(false);
     }
 
     public override string Name => DeploymentStepNames.DownloadDriverPack;
@@ -42,6 +46,7 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
 
             case DriverPackSelectionKind.MicrosoftUpdateCatalog:
             {
+                _networkPolicy.ThrowIfNetworkUnavailable();
                 HardwareProfile hardwareProfile = context.RuntimeState.HardwareProfile
                     ?? throw new InvalidOperationException("Hardware profile is unavailable for Microsoft Update Catalog lookup.");
                 string rawDirectory = context.ResolveWorkspaceTempPath("DriverPack", "MicrosoftUpdateCatalog", "Raw");
@@ -92,10 +97,14 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
                 ArtifactIdentity artifact = ArtifactIntegrityPolicy.FromDriverPack(driverPack);
                 string manufacturer = DeploymentStepExecutionContext.SanitizePathSegment(driverPack.Manufacturer);
                 string? targetRoot = context.ResolveTargetPayloadCacheRoot("DriverPacks");
+                string preferredRoot = _networkPolicy.OfflineOnly
+                    ? Path.Combine(DeploymentOfflineWorkflow.CacheBase(context.Request.CacheRootPath), "Cache", "DriverPacks")
+                    : context.ResolveDriverPackCacheRoot();
                 context.EmitCurrentStepIndeterminate("Downloading driver pack...", "Checking cache...", DeploymentOperationNames.DownloadDriverPack);
                 PayloadCachePlacement placement = await _placement.ResolveAsync(artifact,
-                    Path.Combine(context.ResolveDriverPackCacheRoot(), manufacturer),
-                    targetRoot is null ? null : Path.Combine(targetRoot, manufacturer), cancellationToken).ConfigureAwait(false);
+                    Path.Combine(preferredRoot, manufacturer),
+                    _networkPolicy.OfflineOnly || targetRoot is null ? null : Path.Combine(targetRoot, manufacturer), cancellationToken,
+                    cacheOnly: _networkPolicy.OfflineOnly).ConfigureAwait(false);
                 IProgress<DownloadProgress> driverPackDownloadProgress = context.CreateDownloadProgressReporter(
                     "Driver pack",
                     DeploymentOperationNames.DownloadDriverPack);

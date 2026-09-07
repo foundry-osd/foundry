@@ -14,6 +14,21 @@ namespace Foundry.Core.Tests.Media;
 public sealed class MediaOperationCoordinatorTests
 {
     [Fact]
+    public async Task OsOnlySnapshotPreservesMediaCreationAndReportsMissingOptionalOem()
+    {
+        using var temporary = new TemporaryDirectory();
+        var services = new FakeServices();
+        services.ContinueBuild.SetResult();
+        WinPeResult<MediaOperationResult> result = await services.CreateCoordinator().RunAsync(CreateRequest(temporary.Path),
+            cancellationToken: TestContext.Current.CancellationToken);
+        Assert.True(result.IsSuccess);
+        Assert.Single(result.Value!.Warnings);
+        Assert.NotNull(services.Preparation!.RuntimePayloadProvisioning);
+        Assert.Single(services.Preparation.MediaManifest!.Applications);
+        Assert.Equal("operating-systems", Assert.Single(services.Preparation.MediaManifest.CatalogSnapshots).Id);
+    }
+
+    [Fact]
     public async Task RunAsync_RejectsConcurrentRequestBeforeSecondBuild()
     {
         using var temporary = new TemporaryDirectory();
@@ -173,7 +188,13 @@ public sealed class MediaOperationCoordinatorTests
         public WinPePreparedRuntimePayloads? Prepared { get; private set; }
 
         public MediaOperationCoordinator CreateCoordinator() => new(this, this, this, this, null!, this, this,
-            new DeployConfigurationGenerator(), (_, _) => WinPeResult<WinPeToolPaths>.Success(new()));
+            new DeployConfigurationGenerator(), (_, _) => WinPeResult<WinPeToolPaths>.Success(new()), _ =>
+            {
+                byte[] bytes = System.Text.Encoding.UTF8.GetBytes("<Catalog />");
+                string hash = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(bytes));
+                return Task.FromResult<IReadOnlyList<Foundry.Core.Services.Catalog.VerifiedCatalogDocument>>([
+                    new("operating-systems", bytes, hash, "sha256:" + hash.ToLowerInvariant(), Foundry.Core.Services.Catalog.VerifiedCatalogSources.GetUri("operating-systems"), DateTimeOffset.UtcNow)]);
+            });
 
         public async Task<WinPeResult<WinPeBuildArtifact>> BuildAsync(WinPeBuildOptions options, CancellationToken token)
         {
@@ -199,7 +220,7 @@ public sealed class MediaOperationCoordinatorTests
         public Task<WinPeResult<WinPePreparedRuntimePayloads>> PrepareAsync(WinPeRuntimePayloadProvisioningOptions options,
             IProgress<WinPeDownloadProgress>? progress = null, CancellationToken cancellationToken = default)
         {
-            Prepared = new WinPePreparedRuntimePayloads(Guid.NewGuid(), []);
+            Prepared = new WinPePreparedRuntimePayloads(Guid.NewGuid(), [new("Foundry.Connect", "win-x64", options.WorkingDirectoryPath, WinPeProvisioningSource.Debug, null, null, [new("Foundry.Connect.exe", 1, new string('A', 64))])]);
             return Task.FromResult(WinPeResult<WinPePreparedRuntimePayloads>.Success(Prepared));
         }
         public Task<WinPeResult> ValidatePreparedAsync(WinPePreparedRuntimePayloads prepared, CancellationToken token = default) => throw new NotSupportedException();

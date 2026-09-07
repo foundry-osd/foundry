@@ -9,6 +9,8 @@ namespace Foundry.Core.Services.WinPe;
 /// </summary>
 public sealed record WinPeWorkspacePreparationOptions
 {
+    public WinPeMediaManifest? MediaManifest { get; init; }
+    public IReadOnlyList<Foundry.Core.Services.Catalog.VerifiedCatalogDocument> VerifiedCatalogDocuments { get; init; } = [];
     /// <summary>
     /// Gets the build artifact created by <see cref="IWinPeBuildService"/>.
     /// </summary>

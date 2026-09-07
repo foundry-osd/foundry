@@ -38,6 +38,8 @@ public static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        if (Services.Startup.DeploymentOfflineReadinessCommand.IsRequested(args))
+            return Services.Startup.DeploymentOfflineReadinessCommand.RunAsync(args).GetAwaiter().GetResult();
         string startupLogFilePath = FoundryDeployLogging.ResolveStartupLogFilePath();
         IHost? host = null;
         ITelemetryService? telemetryService = null;
@@ -82,7 +84,8 @@ public static class Program
             host = BuildHost(args);
             telemetryService = host.Services.GetRequiredService<ITelemetryService>();
             remoteDiagnosticsService = host.Services.GetRequiredService<IRemoteDiagnosticsService>();
-            InitializeRemoteDiagnostics(host.Services, remoteDiagnosticsService);
+            if (!args.Contains("--offline", StringComparer.OrdinalIgnoreCase))
+                InitializeRemoteDiagnostics(host.Services, remoteDiagnosticsService);
 
             App app = host.Services.GetRequiredService<App>();
             app.DispatcherUnhandledException += OnDispatcherUnhandledException;
@@ -150,12 +153,13 @@ public static class Program
 
     private static IHost BuildHost(string[] args)
     {
-        HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
+        bool offlineOnly = args.Contains("--offline", StringComparer.OrdinalIgnoreCase);
+        HostApplicationBuilder builder = Host.CreateApplicationBuilder(args.Where(argument => !argument.Equals("--offline", StringComparison.OrdinalIgnoreCase)).ToArray());
 
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog(dispose: false);
 
-        builder.Services.AddFoundryDeployApplicationServices();
+        builder.Services.AddFoundryDeployApplicationServices(offlineOnly);
 
         return builder.Build();
     }

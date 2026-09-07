@@ -8,4 +8,11 @@ namespace Foundry.Deploy.Services.Catalog;
 
 public sealed record DeploymentCatalogSnapshot(
     IReadOnlyList<OperatingSystemCatalogItem> OperatingSystems,
-    IReadOnlyList<DriverPackCatalogItem> DriverPacks);
+    IReadOnlyList<DriverPackCatalogItem> DriverPacks)
+{
+    public CatalogSnapshot<OperatingSystemCatalogItem>? OperatingSystemSnapshot { get; init; }
+    public CatalogSnapshot<DriverPackCatalogItem>? DriverPackSnapshot { get; init; }
+    public string? OperatingSystemFailure { get; init; }
+    public string? DriverPackFailure { get; init; }
+    public bool CanContinue { get; init; }
+}

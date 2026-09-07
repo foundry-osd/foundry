@@ -2,65 +2,44 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.Catalog;
+using Foundry.Deploy.Services.Networking;
 using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
 using Foundry.Deploy.Services.Download;
 using Foundry.Utilities.Networking;
-using System.Net.Http;
 using System.Xml.Linq;
 using Foundry.Deploy.Models;
-using Foundry.Deploy.Services.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Catalog;
 
 public sealed class DriverPackCatalogService : IDriverPackCatalogService
 {
-    private const string CatalogUri = "https://raw.githubusercontent.com/foundry-osd/catalog/refs/heads/main/Cache/DriverPack/DriverPack_Unified.xml";
-    private static readonly HttpClient HttpClient = AcquisitionHttpClientFactory.Create(TimeSpan.FromSeconds(20));
-    private readonly ILogger<DriverPackCatalogService> _logger;
-
-    public DriverPackCatalogService(ILogger<DriverPackCatalogService> logger)
+    private readonly VerifiedCatalogSnapshotAcquirer acquirer;
+    private readonly DeploymentNetworkPolicy policy;
+    public DriverPackCatalogService(ILogger<DriverPackCatalogService> logger) : this(logger, new()) { }
+    public DriverPackCatalogService(ILogger<DriverPackCatalogService> logger, VerifiedCatalogSnapshotAcquirer acquirer, DeploymentNetworkPolicy? policy = null)
     {
-        _logger = logger;
+        this.acquirer = acquirer;
+        this.policy = policy ?? new(false);
     }
 
     public async Task<IReadOnlyList<DriverPackCatalogItem>> GetCatalogAsync(CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Fetching driver pack catalog from {CatalogUri}.", CatalogUri);
-        try
-        {
-            string xmlContent = await HttpTextFetcher
-                .GetStringWithRetryAsync(
-                    HttpClient,
-                    CatalogUri,
-                    _logger,
-                    "Driver pack catalog download",
-                    cancellationToken)
-                .ConfigureAwait(false);
-            string revision = CatalogContentIdentity.Calculate(xmlContent);
-            XDocument document = CatalogContentIdentity.ParseXml(xmlContent);
-
-            DriverPackCatalogItem[] items = document
-                .Descendants("DriverPack")
-                .Select(element => ParseItem(element) with { CatalogRevision = revision })
-                .Where(item => !string.IsNullOrWhiteSpace(item.DownloadUrl))
-                .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
-                .ThenBy(item => item.Manufacturer, StringComparer.OrdinalIgnoreCase)
-                .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
-                .ToArray();
-
-            _logger.LogInformation("Loaded {ItemCount} driver pack catalog entries.", items.Length);
-            return items;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError("Driver pack catalog load failed. FailureType={FailureType}", ex.GetType().Name);
-            throw;
-        }
+        policy.ThrowIfNetworkUnavailable();
+        var document = await acquirer.AcquireAsync(VerifiedCatalogSources.DriverPacks, VerifiedCatalogSources.GetUri(VerifiedCatalogSources.DriverPacks), cancellationToken).ConfigureAwait(false);
+        return ParseVerified(document);
     }
 
+    internal static IReadOnlyList<DriverPackCatalogItem> ParseVerified(VerifiedCatalogDocument document)
+        => VerifiedCatalogContent.Parse(document).Descendants("DriverPack")
+            .Select(element => ParseItem(element) with { CatalogRevision = document.Revision })
+            .Where(item => !string.IsNullOrWhiteSpace(item.DownloadUrl))
+            .OrderByDescending(item => item.ReleaseDate ?? DateTimeOffset.MinValue)
+            .ThenBy(item => item.Manufacturer, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase).ToArray();
     internal static DriverPackCatalogItem ParseItem(XElement driverPack)
     {
         XElement? osInfo = driverPack.Element("OsInfo");

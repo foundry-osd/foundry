@@ -4,10 +4,18 @@
 
 using Foundry.Core.Models.Configuration;
 
+using Foundry.Core.Services.Catalog;
+
 namespace Foundry.Core.Services.WinPe;
 
 public sealed record WinPeMountedImageAssetProvisioningOptions
 {
+    /// <summary>Gets boot-pinned identities captured from verified runtime and catalog preparation.</summary>
+    public WinPeMediaManifest? MediaManifest { get; init; }
+
+    /// <summary>Gets the exact authenticated catalog documents matching the manifest descriptors.</summary>
+    public IReadOnlyList<VerifiedCatalogDocument> VerifiedCatalogDocuments { get; init; } = [];
+
     public string MountedImagePath { get; init; } = string.Empty;
     public WinPeArchitecture Architecture { get; init; } = WinPeArchitecture.X64;
     public string BootstrapScriptContent { get; init; } = string.Empty;

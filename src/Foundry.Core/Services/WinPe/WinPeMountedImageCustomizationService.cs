@@ -161,7 +161,10 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                     options.AssetProvisioning with
                     {
                         MountedImagePath = session.MountDirectoryPath,
-                        Architecture = artifact.Architecture
+                        Architecture = artifact.Architecture,
+                        MediaManifest = options.MediaManifest ?? options.AssetProvisioning.MediaManifest,
+                        VerifiedCatalogDocuments = options.MediaManifest is not null
+                            ? options.VerifiedCatalogDocuments : options.AssetProvisioning.VerifiedCatalogDocuments
                     },
                     cancellationToken).ConfigureAwait(false);
 
@@ -171,10 +174,13 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                 }
             }
 
-            if (options.RuntimePayloadProvisioning is not null)
+            if (options.RuntimePayloadProvisioning is not null || options.PreparedRuntime is not null)
             {
                 ReportProgress(options.Progress, 85, "Provisioning Foundry runtime payloads.");
-                WinPeRuntimePayloadProvisioningOptions destinations = options.RuntimePayloadProvisioning with
+                WinPeRuntimePayloadProvisioningOptions destinations = (options.RuntimePayloadProvisioning ?? new()
+                {
+                    WorkingDirectoryPath = artifact.WorkingDirectoryPath
+                }) with
                 {
                     MountedImagePath = session.MountDirectoryPath,
                     Architecture = artifact.Architecture
@@ -188,6 +194,18 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                 {
                     return await FailWithDiscardAsync(runtimePayloadResult.Error!, session, cancellationToken).ConfigureAwait(false);
                 }
+            }
+
+            WinPeMediaManifest? manifest = options.MediaManifest ?? options.AssetProvisioning?.MediaManifest;
+            if (manifest is not null)
+            {
+                WinPeMediaManifestStore.Validate(manifest, artifact.Architecture.ToDotnetRuntimeIdentifier(), options.PreparedRuntime?.MediaId);
+                if (options.PreparedRuntime is null || options.AssetProvisioning is null)
+                    throw new InvalidDataException("A media manifest requires prepared runtime and boot asset placement.");
+                foreach (WinPeRuntimeApplicationManifest application in manifest.Applications)
+                    await WinPeMediaManifestStore.ValidateRuntimeAsync(manifest, application.ApplicationName,
+                        Path.Combine(session.MountDirectoryPath, "Foundry", "Runtime", application.ApplicationName,
+                            application.RuntimeIdentifier), cancellationToken).ConfigureAwait(false);
             }
 
             ReportProgress(options.Progress, 88, "Verifying installed boot capabilities.");

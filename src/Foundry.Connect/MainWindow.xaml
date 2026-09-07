@@ -232,6 +232,12 @@
                                 Content="{Binding Strings[Action.Continue]}"
                                 Style="{DynamicResource AccentButtonStyle}"
                                 Visibility="{Binding CanContinueBootstrap, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <Button
+                                Margin="0,8,0,0"
+                                HorizontalAlignment="Right"
+                                Command="{Binding ContinueOfflineCommand}"
+                                Content="{Binding Strings[Action.ContinueOffline]}"
+                                Visibility="{Binding CanContinueOffline, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <TextBlock
                                 Margin="0,8,0,0"
                                 HorizontalAlignment="Right"

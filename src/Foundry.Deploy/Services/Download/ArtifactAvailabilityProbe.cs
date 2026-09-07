@@ -7,6 +7,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http.Headers;
 using Foundry.Deploy.Services.Http;
+using Foundry.Deploy.Services.Networking;
 using Foundry.Utilities.Networking;
 
 namespace Foundry.Deploy.Services.Download;
@@ -16,10 +17,12 @@ public sealed class ArtifactAvailabilityProbe : IArtifactAvailabilityProbe
 {
     private readonly HttpClient? httpClient;
     private readonly TimeSpan timeout = TimeSpan.FromSeconds(30);
+    private readonly DeploymentNetworkPolicy networkPolicy;
 
     /// <summary>Creates a probe using the validated production transport.</summary>
-    public ArtifactAvailabilityProbe() { }
-    internal ArtifactAvailabilityProbe(HttpClient httpClient, TimeSpan? timeout = null)
+    public ArtifactAvailabilityProbe(DeploymentNetworkPolicy? networkPolicy = null) => this.networkPolicy = networkPolicy ?? new(false);
+    internal ArtifactAvailabilityProbe(HttpClient httpClient, TimeSpan? timeout = null, DeploymentNetworkPolicy? networkPolicy = null)
+        : this(networkPolicy)
     {
         this.httpClient = httpClient;
         this.timeout = timeout ?? TimeSpan.FromSeconds(30);
@@ -30,6 +33,7 @@ public sealed class ArtifactAvailabilityProbe : IArtifactAvailabilityProbe
     {
         ArtifactIntegrityPolicy.Validate(artifact);
         cancellationToken.ThrowIfCancellationRequested();
+        networkPolicy.ThrowIfNetworkUnavailable();
         Uri source = artifact.Kind == "OperatingSystemImage" &&
             Path.GetExtension(artifact.FileName).Equals(".esd", StringComparison.OrdinalIgnoreCase)
             ? new Uri(WindowsUpdateContentUrl.Normalize(artifact.SourceUri.AbsoluteUri)) : artifact.SourceUri;

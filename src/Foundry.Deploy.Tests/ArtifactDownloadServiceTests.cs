@@ -15,6 +15,37 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class ArtifactDownloadServiceTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task OfflineCacheMissNeverRequestsOrPublishes(bool corrupt)
+    {
+        using TempDirectory temp = new();
+        string path = Path.Combine(temp.Path, "install.esd");
+        if (corrupt) await File.WriteAllBytesAsync(path, [9], TestContext.Current.CancellationToken);
+        var handler = new StaticHttpMessageHandler([1, 2, 3]);
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, new HttpClient(handler),
+            networkPolicy: new(true));
+        await Assert.ThrowsAsync<InvalidOperationException>(() => service.DownloadAsync(CreateArtifact([1, 2, 3]), path, TestContext.Current.CancellationToken));
+        Assert.Equal(0, handler.RequestCount);
+        if (corrupt) Assert.Equal(new byte[] { 9 }, await File.ReadAllBytesAsync(path, TestContext.Current.CancellationToken));
+        else Assert.False(File.Exists(path));
+    }
+
+    [Fact]
+    public async Task OfflineVerifiedCacheRemainsUsableWithoutHttp()
+    {
+        using TempDirectory temp = new();
+        string path = Path.Combine(temp.Path, "install.esd");
+        await File.WriteAllBytesAsync(path, [1, 2, 3], TestContext.Current.CancellationToken);
+        var handler = new StaticHttpMessageHandler([9]);
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, new HttpClient(handler), networkPolicy: new(true));
+        ArtifactDownloadResult result = await service.DownloadAsync(CreateArtifact([1, 2, 3]), path, TestContext.Current.CancellationToken);
+        Assert.False(result.Downloaded);
+        Assert.Equal(0, handler.RequestCount);
+        Assert.Single(Directory.EnumerateFiles(temp.Path));
+    }
+
     [Fact]
     public async Task DownloadAsync_HashlessVendorIsFreshAndSignatureCheckedBeforePublication()
     {

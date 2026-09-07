@@ -30,6 +30,9 @@
   <data name="Action.Continue" xml:space="preserve">
     <value>Continuă</value>
   </data>
+  <data name="Action.ContinueOffline" xml:space="preserve">
+    <value>Browse offline content</value>
+  </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Deconectați-vă</value>
   </data>

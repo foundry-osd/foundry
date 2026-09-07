@@ -2,12 +2,12 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.Catalog;
+using Foundry.Deploy.Services.Networking;
 using System.Globalization;
 using System.IO;
-using System.Net.Http;
 using System.Xml.Linq;
 using Foundry.Deploy.Models;
-using Foundry.Deploy.Services.Http;
 using Foundry.Deploy.Services.Download;
 using Foundry.Utilities.Networking;
 using System.Security.Cryptography;
@@ -18,63 +18,36 @@ namespace Foundry.Deploy.Services.Catalog;
 public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogService
 {
     private const int SupportedSchemaVersion = 4;
-    private const string CatalogUri = "https://raw.githubusercontent.com/foundry-osd/catalog/refs/heads/main/Cache/OS/OperatingSystem.xml";
-    private static readonly HttpClient HttpClient = AcquisitionHttpClientFactory.Create(TimeSpan.FromSeconds(20));
-    private readonly ILogger<OperatingSystemCatalogService> _logger;
-
-    public OperatingSystemCatalogService(ILogger<OperatingSystemCatalogService> logger)
+    private readonly VerifiedCatalogSnapshotAcquirer acquirer;
+    private readonly DeploymentNetworkPolicy policy;
+    public OperatingSystemCatalogService(ILogger<OperatingSystemCatalogService> logger) : this(logger, new()) { }
+    public OperatingSystemCatalogService(ILogger<OperatingSystemCatalogService> logger, VerifiedCatalogSnapshotAcquirer acquirer, DeploymentNetworkPolicy? policy = null)
     {
-        _logger = logger;
+        this.acquirer = acquirer;
+        this.policy = policy ?? new(false);
     }
 
     public async Task<IReadOnlyList<OperatingSystemCatalogItem>> GetCatalogAsync(CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Fetching operating system catalog from {CatalogUri}.", CatalogUri);
-        try
-        {
-            string xmlContent = await HttpTextFetcher
-                .GetStringWithRetryAsync(
-                    HttpClient,
-                    CatalogUri,
-                    _logger,
-                    "Operating system catalog download",
-                    cancellationToken)
-                .ConfigureAwait(false);
-            IReadOnlyList<OperatingSystemCatalogItem> parsedItems = ParseCatalog(xmlContent);
-
-            OperatingSystemCatalogItem[] items = parsedItems
-                .Where(OperatingSystemSupportMatrix.IsSupported)
-                .OrderByDescending(item => item.BuildMajor)
-                .ThenByDescending(item => item.BuildUbr)
-                .ThenBy(item => item.Architecture, StringComparer.OrdinalIgnoreCase)
-                .ThenBy(item => item.LanguageCode, StringComparer.OrdinalIgnoreCase)
-                .ThenBy(item => item.Edition, StringComparer.OrdinalIgnoreCase)
-                .ToArray();
-
-            int filteredCount = parsedItems.Count - items.Length;
-            if (filteredCount > 0)
-            {
-                _logger.LogInformation(
-                    "Filtered {FilteredCount} unsupported operating system entries. SupportedScope=Windows {WindowsRelease} {ReleaseIds}",
-                    filteredCount,
-                    OperatingSystemSupportMatrix.SupportedWindowsRelease,
-                    string.Join(", ", OperatingSystemSupportMatrix.ReleaseSearchOrder));
-            }
-
-            _logger.LogInformation("Loaded {ItemCount} operating system catalog entries.", items.Length);
-            return items;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError("Operating system catalog load failed. FailureType={FailureType}", ex.GetType().Name);
-            throw;
-        }
+        policy.ThrowIfNetworkUnavailable();
+        var document = await acquirer.AcquireAsync(VerifiedCatalogSources.OperatingSystems, VerifiedCatalogSources.GetUri(VerifiedCatalogSources.OperatingSystems), cancellationToken).ConfigureAwait(false);
+        return ParseVerified(document);
     }
 
+    internal static IReadOnlyList<OperatingSystemCatalogItem> ParseVerified(VerifiedCatalogDocument document)
+        => ParseDocument(VerifiedCatalogContent.Parse(document), document.Revision)
+            .Where(OperatingSystemSupportMatrix.IsSupported)
+            .OrderByDescending(item => item.BuildMajor).ThenByDescending(item => item.BuildUbr)
+            .ThenBy(item => item.Architecture, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.LanguageCode, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.Edition, StringComparer.OrdinalIgnoreCase).ToArray();
     internal static IReadOnlyList<OperatingSystemCatalogItem> ParseCatalog(string xmlContent)
     {
-        string revision = CatalogContentIdentity.Calculate(xmlContent);
-        XDocument document = CatalogContentIdentity.ParseXml(xmlContent);
+        return ParseDocument(CatalogContentIdentity.ParseXml(xmlContent), CatalogContentIdentity.Calculate(xmlContent));
+    }
+
+    private static IReadOnlyList<OperatingSystemCatalogItem> ParseDocument(XDocument document, string revision)
+    {
         XElement root = document.Root
             ?? throw new InvalidDataException("Operating system catalog root element is missing.");
         if (!int.TryParse(root.Attribute("schemaVersion")?.Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int schemaVersion) ||

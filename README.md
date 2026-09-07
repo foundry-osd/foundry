@@ -58,6 +58,10 @@ Autopilot registration confirms the current import's hardware identity and autho
 
 This build has no qualified WinPE OA3 capture combination. Certificate-based hardware-hash upload therefore warns before erasure and is skipped without blocking Windows installation or switching authentication modes. Select the full-Windows interactive registration workflow on a supported edition when capture is required. Internal wireless hardware requires full-Windows capture; OA3 output parsing alone does not establish hash quality or tool compatibility.
 
+New media embeds Connect and a runtime/catalog manifest in `boot.wim`. Bootstrap checks every runtime file, matches USB cache storage to the authored medium, and rechecks the copied runtime before executing it from RAM. Writable cache markers identify the medium; they do not authenticate files. This protection assumes the authored boot image itself is trusted.
+
+When a verified local Deploy runtime and operating-system catalog are available, Connect offers **Browse offline content**. This opens the wizard without granting deployment readiness. Before erasure, Deploy checks the current selected image, OEM package and customization files, rejects online-only actions and requires payload storage outside the target disk. Offline cache misses never trigger downloads. Catalog status shows its revision and age; refreshing the medium is required to make newly fetched catalogs eligible offline.
+
 ## What you can configure
 
 - **Deployment content** — Windows release, language, edition, licensing channel, drivers, and optional firmware.

@@ -5,6 +5,7 @@
 using System.IO;
 using Foundry.Deploy.Models;
 using Foundry.Utilities.Storage;
+using Foundry.Deploy.Services.Networking;
 
 namespace Foundry.Deploy.Services.Runtime;
 
@@ -15,27 +16,36 @@ public sealed class DeploymentRuntimeContextService : IDeploymentRuntimeContextS
     private const string RuntimeFolderName = "Runtime";
     private readonly IVolumeDiscovery _volumeDiscovery;
     private readonly Func<string, string?> _environmentVariableReader;
+    private readonly DeploymentNetworkPolicy _networkPolicy;
 
     public DeploymentRuntimeContextService()
         : this(new WindowsVolumeDiscovery())
     {
     }
 
-    public DeploymentRuntimeContextService(IVolumeDiscovery volumeDiscovery)
-        : this(volumeDiscovery, Environment.GetEnvironmentVariable)
+    public DeploymentRuntimeContextService(IVolumeDiscovery volumeDiscovery, DeploymentNetworkPolicy? networkPolicy = null)
+        : this(volumeDiscovery, Environment.GetEnvironmentVariable, networkPolicy)
     {
     }
 
     internal DeploymentRuntimeContextService(
         IVolumeDiscovery volumeDiscovery,
-        Func<string, string?> environmentVariableReader)
+        Func<string, string?> environmentVariableReader, DeploymentNetworkPolicy? networkPolicy = null)
     {
         _volumeDiscovery = volumeDiscovery;
         _environmentVariableReader = environmentVariableReader;
+        _networkPolicy = networkPolicy ?? new(false);
     }
 
     public DeploymentRuntimeContext Resolve()
     {
+        if (_networkPolicy.OfflineOnly)
+        {
+            string? associated = _environmentVariableReader("FOUNDRY_VERIFIED_CACHE_ROOT");
+            return !string.IsNullOrWhiteSpace(associated) && Path.IsPathFullyQualified(associated)
+                ? new(DeploymentMode.Usb, Path.Combine(associated, RuntimeFolderName))
+                : new(DeploymentMode.Iso, null);
+        }
         if (TryResolveDeploymentModeFromEnvironment(out DeploymentMode modeFromEnvironment))
         {
             string? usbRoot = modeFromEnvironment == DeploymentMode.Usb

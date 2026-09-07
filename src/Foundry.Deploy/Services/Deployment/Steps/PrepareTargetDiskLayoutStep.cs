@@ -5,16 +5,26 @@
 using System.IO;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Logging;
+using Foundry.Deploy.Services.Networking;
+using Foundry.Deploy.Services.Startup;
+using Foundry.Deploy.Services.Hardware;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
 public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
 {
     private readonly IWindowsDeploymentService _windowsDeploymentService;
+    private readonly DeploymentNetworkPolicy _networkPolicy;
+    private readonly DeploymentOfflineWorkflow? _offlineWorkflow;
+    private readonly ITargetDiskService? _disks;
 
-    public PrepareTargetDiskLayoutStep(IWindowsDeploymentService windowsDeploymentService)
+    public PrepareTargetDiskLayoutStep(IWindowsDeploymentService windowsDeploymentService, DeploymentNetworkPolicy? networkPolicy = null,
+        DeploymentOfflineWorkflow? offlineWorkflow = null, ITargetDiskService? disks = null)
     {
         _windowsDeploymentService = windowsDeploymentService;
+        _networkPolicy = networkPolicy ?? new(false);
+        _offlineWorkflow = offlineWorkflow;
+        _disks = disks;
     }
 
     public override string Name => DeploymentStepNames.PrepareTargetDiskLayout;
@@ -48,6 +58,19 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         {
             return DeploymentStepResult.Failed("Image prerequisites and target capacity must be validated before disk preparation.",
                 DeploymentFailure.Guard(DeploymentOperationNames.ValidateTarget, DeploymentFailureReasons.InvalidState, "image_preflight_required"));
+        }
+
+        if (_networkPolicy.OfflineOnly)
+        {
+            if (_offlineWorkflow is null || _disks is null)
+                return OfflineFailure("Offline readiness validation is unavailable.");
+            string cacheRoot = DeploymentOfflineWorkflow.CacheBase(context.Request.CacheRootPath);
+            bool onBootRamDrive = string.Equals(Path.GetPathRoot(cacheRoot), @"X:\", StringComparison.OrdinalIgnoreCase);
+            int? cacheDisk = onBootRamDrive ? null : await _disks.GetDiskNumberForPathAsync(cacheRoot, cancellationToken).ConfigureAwait(false);
+            if (!onBootRamDrive && (cacheDisk is null || cacheDisk == targetDisk.DiskNumber))
+                return OfflineFailure("Offline payloads must remain on identified storage outside the disk being erased.");
+            DeploymentOfflineReadinessResult readiness = await _offlineWorkflow.EvaluateAsync(context.Request, cancellationToken).ConfigureAwait(false);
+            if (!readiness.CanContinue) return OfflineFailure(string.Join(" ", readiness.BlockingReasons));
         }
 
         context.EmitCurrentStepIndeterminate(
@@ -89,6 +112,9 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         ImagePreflightLevel.TargetBackedMetadataOnly => !string.IsNullOrWhiteSpace(preflight.ConstraintReason),
         _ => false
     };
+
+    private static DeploymentStepResult OfflineFailure(string message) => DeploymentStepResult.Failed(message,
+        DeploymentFailure.Guard(DeploymentOperationNames.ValidateTarget, DeploymentFailureReasons.InvalidState, "offline_readiness_required"));
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {

@@ -86,6 +86,7 @@ public sealed class DeploymentWizardContext : IDisposable
         ArgumentNullException.ThrowIfNull(snapshot);
 
         OperatingSystemCatalog.ApplyCatalog(snapshot.OperatingSystems);
+        OperatingSystemCatalog.ApplySnapshotStatus(snapshot);
         DriverPackSelection.ReplaceCatalog(snapshot.DriverPacks);
         RefreshDriverPackSelectionContext();
     }

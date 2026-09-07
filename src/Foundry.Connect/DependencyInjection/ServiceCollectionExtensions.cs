@@ -32,6 +32,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainWindowViewModel>();
         services.AddSingleton(args ?? Array.Empty<string>());
+        services.AddSingleton(OfflineReadinessHint.Read(args ?? []));
 
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton<IApplicationLifetimeService, ApplicationLifetimeService>();

@@ -20,11 +20,9 @@ $Owner = 'foundry-osd'
 $Repository = 'foundry'
 $ReleaseApiBaseUrl = "https://api.github.com/repos/$Owner/$Repository/releases"
 $EmbeddedConnectConfigurationPath = Join-Path $WinPeRoot 'Config\foundry.connect.config.json'
-$EmbeddedDeployArchivePath = Join-Path $WinPeRoot 'Seed\Foundry.Deploy.zip'
+
 $EmbeddedDeployConfigurationPath = Join-Path $WinPeRoot 'Config\foundry.deploy.config.json'
-$EmbeddedConnectProvisioningSourcePath = Join-Path $WinPeRoot 'Config\foundry.connect.provisioning-source.txt'
-$EmbeddedDeployProvisioningSourcePath = Join-Path $WinPeRoot 'Config\foundry.deploy.provisioning-source.txt'
-$SevenZipToolsPath = Join-Path $WinPeRoot 'Tools\7zip'
+
 $TimeZoneMapPath = Join-Path $WinPeRoot 'Config\iana-windows-timezones.json'
 $DefaultWinPeTimeZoneId = 'UTC'
 
@@ -439,36 +437,423 @@ function Ensure-ServiceRunning {
 
 #region Runtime And Filesystem Helpers
 
-function Get-UsbCacheRuntimeRoot {
-    foreach ($drive in [System.IO.DriveInfo]::GetDrives()) {
-        if (-not $drive.IsReady) {
-            continue
-        }
-
-        $rootPath = $drive.RootDirectory.FullName
-
-        try {
-            if ([string]::Equals($drive.VolumeLabel, 'Foundry Cache', [System.StringComparison]::OrdinalIgnoreCase)) {
-                return Join-Path $rootPath 'Runtime'
-            }
-        }
-        catch {
-            # Ignore drives that do not expose a readable volume label.
-        }
-
+function Resolve-TrustedRelativePath {
+    param([string]$RootPath, [string]$RelativePath)
+    if ([string]::IsNullOrWhiteSpace($RelativePath) -or [IO.Path]::IsPathRooted($RelativePath) -or
+        $RelativePath -match '[<>:"|?*\x00-\x1F]') { throw 'Unsafe runtime path.' }
+    foreach ($segment in ($RelativePath -split '[/\\]')) {
+        if (-not $segment -or $segment -in @('.','..') -or $segment.TrimEnd(' ','.') -cne $segment -or
+            $segment -match '^(?i:CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\.|$)') { throw 'Unsafe runtime path.' }
     }
+    $root = [IO.Path]::GetFullPath($RootPath).TrimEnd('\','/') + [IO.Path]::DirectorySeparatorChar
+    $path = [IO.Path]::GetFullPath([IO.Path]::Combine($root, $RelativePath.Replace('/', '\')))
+    if (-not $path.StartsWith($root, [StringComparison]::OrdinalIgnoreCase)) { throw 'Runtime path escapes root.' }
+    return $path
+}
 
-    return $null
+function Get-BootstrapFileAttributes {
+    param([string]$Path)
+    return [IO.File]::GetAttributes($Path)
+}
+
+function Assert-NoReparsePath {
+    param([string]$Path)
+    $current = [IO.Path]::GetFullPath($Path)
+    while (-not [string]::IsNullOrEmpty($current)) {
+        if (([IO.File]::Exists($current) -or [IO.Directory]::Exists($current)) -and
+            (((Get-BootstrapFileAttributes $current) -band [IO.FileAttributes]::ReparsePoint) -ne 0)) { throw 'Reparse runtime path rejected.' }
+        $current = [IO.Path]::GetDirectoryName($current)
+    }
+}
+
+function Get-CompleteRuntimeFiles {
+    param([string]$RootPath)
+    Assert-NoReparsePath $RootPath
+    $pending = [Collections.Generic.Stack[string]]::new()
+    $pending.Push([IO.Path]::GetFullPath($RootPath))
+    while ($pending.Count -gt 0) {
+        foreach ($path in [IO.Directory]::EnumerateFileSystemEntries($pending.Pop())) {
+            $attributes = Get-BootstrapFileAttributes $path
+            if (($attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { throw 'Reparse runtime entry rejected.' }
+            if (($attributes -band [IO.FileAttributes]::Directory) -ne 0) { $pending.Push($path) }
+            else { Write-Output $path }
+        }
+    }
+}
+
+function Open-VerifiedRuntimeFiles {
+    param([string]$RootPath, $ExpectedFiles)
+    $opened = [Collections.Generic.List[object]]::new()
+    try {
+        $expected = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+        foreach ($entry in $ExpectedFiles) {
+            $path = Resolve-TrustedRelativePath $RootPath ([string]$entry.relativePath)
+            if (-not $expected.Add($path) -or [string]$entry.sha256 -notmatch '^[0-9a-fA-F]{64}$' -or
+                $null -eq $entry.length -or [long]$entry.length -lt 0) { throw 'Invalid runtime identity.' }
+            Assert-NoReparsePath $path
+            $stream = [IO.File]::Open($path, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+            $opened.Add(@{Stream=$stream;Entry=$entry})
+            if ($stream.Length -ne [long]$entry.length) { throw 'Runtime length mismatch.' }
+            $sha = [Security.Cryptography.SHA256]::Create()
+            try { $hash = [BitConverter]::ToString($sha.ComputeHash($stream)).Replace('-','') }
+            finally { $sha.Dispose() }
+            if (-not [string]::Equals($hash,[string]$entry.sha256,[StringComparison]::OrdinalIgnoreCase)) { throw 'Runtime digest mismatch.' }
+            $stream.Position = 0
+        }
+        if ($expected.Count -eq 0) { throw 'Runtime identity is empty.' }
+        $actual = @(Get-CompleteRuntimeFiles $RootPath)
+        if ($actual.Count -ne $expected.Count) { throw 'Unexpected runtime file set.' }
+        foreach ($path in $actual) { if (-not $expected.Contains($path)) { throw 'Unexpected runtime file.' } }
+        return ,$opened
+    }
+    catch { foreach ($item in $opened) { $item.Stream.Dispose() }; throw }
+}
+
+function Test-RuntimeFiles {
+    param([string]$RootPath, $ExpectedFiles)
+    try {
+        $opened = Open-VerifiedRuntimeFiles $RootPath $ExpectedFiles
+        foreach ($item in $opened) { $item.Stream.Dispose() }
+        return $true
+    }
+    catch { return $false }
+}
+
+function Copy-VerifiedRuntimeToRam {
+    param([string]$SourceRoot, $ExpectedFiles, [string]$DestinationRoot, [string]$ApplicationName)
+    if ($ApplicationName -notin @('Foundry.Connect','Foundry.Deploy')) { throw 'Unknown runtime application.' }
+    Assert-NoReparsePath $DestinationRoot
+    if ([IO.Directory]::Exists($DestinationRoot) -or [IO.File]::Exists($DestinationRoot)) { throw 'Runtime destination already exists.' }
+    $opened = Open-VerifiedRuntimeFiles $SourceRoot $ExpectedFiles
+    try {
+        $null = [IO.Directory]::CreateDirectory($DestinationRoot)
+        foreach ($item in $opened) {
+            $path = Resolve-TrustedRelativePath $DestinationRoot ([string]$item.Entry.relativePath)
+            $null = [IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($path))
+            $output = [IO.File]::Open($path,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
+            try { $item.Stream.CopyTo($output); $output.Flush() } finally { $output.Dispose() }
+        }
+        if (-not (Test-RuntimeFiles $DestinationRoot $ExpectedFiles)) { throw 'Copied runtime failed verification.' }
+        $executable = Resolve-TrustedRelativePath $DestinationRoot ($ApplicationName + '.exe')
+        if (-not [IO.File]::Exists($executable)) { throw 'Required application host is missing.' }
+        return [IO.FileInfo]::new($executable)
+    }
+    finally { foreach ($item in $opened) { $item.Stream.Dispose() } }
+}
+
+function Read-TrustedMediaManifest {
+    param([string]$Path, [string]$RuntimeIdentifier)
+    Assert-NoReparsePath $Path
+    $file = [IO.FileInfo]::new($Path)
+    if (-not $file.Exists -or $file.Length -gt 8MB) { throw 'Trusted media manifest is unavailable.' }
+    $manifest = [IO.File]::ReadAllText($Path) | ConvertFrom-Json
+    $id = [Guid]::Empty
+    if ($manifest.version -ne 1 -or -not [Guid]::TryParse([string]$manifest.mediaId,[ref]$id) -or $id -eq [Guid]::Empty -or
+        [string]$manifest.runtimeIdentifier -cne $RuntimeIdentifier -or $manifest.target -notin @('Iso','UsbCreate','UsbUpdate')) { throw 'Trusted media identity is invalid.' }
+    $names = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+    foreach ($application in $manifest.applications) {
+        if ($application.applicationName -notin @('Foundry.Connect','Foundry.Deploy') -or -not $names.Add([string]$application.applicationName) -or
+            [string]$application.runtimeIdentifier -cne $RuntimeIdentifier -or $application.source -notin @('Release','Debug') -or @($application.files).Count -eq 0) { throw 'Trusted runtime declaration is invalid.' }
+        if (@($application.files | Where-Object { $_.relativePath -ceq ($application.applicationName + '.exe') }).Count -ne 1) { throw 'Trusted application host is missing.' }
+    }
+    if (-not $names.Contains('Foundry.Connect')) { throw 'Trusted Connect declaration is missing.' }
+    return $manifest
+}
+
+function Test-StableUsbIdentity {
+    param($Expected, $Actual)
+    if ($null -eq $Expected -or $null -eq $Actual -or [uint64]$Expected.size -eq 0 -or [uint64]$Expected.size -ne [uint64]$Actual.size -or
+        ([string]::IsNullOrWhiteSpace([string]$Expected.uniqueId) -and [string]::IsNullOrWhiteSpace([string]$Expected.serialNumber))) { return $false }
+    foreach ($field in @('uniqueId','serialNumber','busType','friendlyName')) {
+        if (-not [string]::Equals(([string]$Expected.$field).Trim(),([string]$Actual.$field).Trim(),[StringComparison]::OrdinalIgnoreCase)) { return $false }
+    }
+    return $true
+}
+
+function Get-BootstrapVolumeCandidates {
+    $records = @()
+    foreach ($volume in @(Get-Volume -ErrorAction Stop)) {
+        if (-not $volume.DriveLetter) { continue }
+        $root = [string]$volume.DriveLetter + ':\'
+        try {
+            $markerPath = Join-Path $root 'Foundry\Config\foundry.media.marker.json'
+            Assert-NoReparsePath $markerPath
+            $markerInfo = [IO.FileInfo]::new($markerPath)
+            if (-not $markerInfo.Exists -or $markerInfo.Length -gt 4096) { continue }
+            $marker = [IO.File]::ReadAllText($markerPath) | ConvertFrom-Json
+            if ($marker.version -ne 1) { continue }
+            $disk = Get-Partition -DriveLetter $volume.DriveLetter -ErrorAction Stop | Get-Disk -ErrorAction Stop
+            if (@($disk).Count -ne 1) { continue }
+            $records += @{RootPath=$root;Label=[string]$volume.FileSystemLabel;DiskNumber=$disk.Number;DiskIdentity=$disk;MediaId=$marker.mediaId;RuntimeIdentifier=$marker.runtimeIdentifier}
+        }
+        catch { continue }
+    }
+    return $records
+}
+
+function Get-UsbCacheRuntimeRoot {
+    param($MediaManifest = $script:TrustedMediaManifest, $Volumes)
+    if ($null -eq $MediaManifest -or $MediaManifest.target -eq 'Iso') { return $null }
+    if ($null -eq $Volumes) { $Volumes = @(Get-BootstrapVolumeCandidates) }
+    $matches = @()
+    foreach ($volume in $Volumes) {
+        if ($volume.Label -ine 'Foundry Cache' -or [string]$volume.MediaId -ine [string]$MediaManifest.mediaId -or
+            [string]$volume.RuntimeIdentifier -cne [string]$MediaManifest.runtimeIdentifier -or
+            -not (Test-StableUsbIdentity $MediaManifest.intendedUsbIdentity $volume.DiskIdentity)) { continue }
+        $boots = @($Volumes | Where-Object {
+            $_.Label -ieq 'BOOT' -and $_.DiskNumber -eq $volume.DiskNumber -and
+            [string]$_.MediaId -ieq [string]$MediaManifest.mediaId -and [string]$_.RuntimeIdentifier -ceq [string]$MediaManifest.runtimeIdentifier -and
+            (Test-StableUsbIdentity $MediaManifest.intendedUsbIdentity $_.DiskIdentity)
+        })
+        if ($boots.Count -eq 1) { $matches += $volume }
+    }
+    if ($matches.Count -ne 1) { return $null }
+    return Join-Path $matches[0].RootPath 'Runtime'
+}
+
+function Resolve-PinnedRuntime {
+    param([string]$ApplicationName, $MediaManifest, [string]$CacheRuntimeRoot, [string]$EmbeddedRuntimeRoot, [string]$RamRoot)
+    $application = @($MediaManifest.applications | Where-Object { $_.applicationName -ceq $ApplicationName })
+    if ($application.Count -ne 1) { throw 'Requested runtime is not pinned by this media.' }
+    $relative = $ApplicationName + '/' + [string]$MediaManifest.runtimeIdentifier
+    foreach ($sourceRoot in @($CacheRuntimeRoot, $EmbeddedRuntimeRoot)) {
+        if ([string]::IsNullOrWhiteSpace($sourceRoot)) { continue }
+        try {
+            $source = Resolve-TrustedRelativePath $sourceRoot $relative
+            $destination = Join-Path $RamRoot ($ApplicationName + '-' + [Guid]::NewGuid().ToString('N'))
+            $executable = Copy-VerifiedRuntimeToRam $source $application[0].files $destination $ApplicationName
+            $script:ExecutionIdentities[$executable.DirectoryName] = $application[0].files
+            return $executable
+        }
+        catch { Write-Log 'Runtime candidate failed pinned file validation; trying the embedded fallback.' -Level Warning }
+    }
+    throw 'No verified runtime is available.'
+}
+
+function Read-OfflineReadinessEnvelope {
+    param([string]$Path, [string]$Nonce, $MediaManifest, [string]$ConfigurationPath, [string]$ExpectedEnvelopeDigest = '')
+    Assert-NoReparsePath $Path
+    $file = [IO.FileInfo]::new($Path)
+    if (-not $file.Exists -or $file.Length -le 0 -or $file.Length -gt 65536) { throw 'Offline readiness envelope is unavailable.' }
+    $stream = [IO.File]::Open($Path,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read)
+    try {
+        if ($stream.Length -gt 65536) { throw 'Offline readiness envelope exceeds its limit.' }
+        $sha = [Security.Cryptography.SHA256]::Create()
+        try { $digest = [BitConverter]::ToString($sha.ComputeHash($stream)).Replace('-','') } finally { $sha.Dispose() }
+        if ($ExpectedEnvelopeDigest -and $digest -ine $ExpectedEnvelopeDigest) { throw 'Offline readiness envelope was replaced.' }
+        $stream.Position = 0
+        $reader = [IO.StreamReader]::new($stream,[Text.Encoding]::UTF8,$true,4096,$true)
+        try { $envelope = $reader.ReadToEnd() | ConvertFrom-Json } finally { $reader.Dispose() }
+    }
+    finally { $stream.Dispose() }
+    if ($envelope.Version -ne 1 -or [string]$envelope.Nonce -cne $Nonce -or
+        [string]$envelope.RuntimeIdentifier -cne [string]$MediaManifest.runtimeIdentifier -or
+        [string]$envelope.Result.MediaId -ine [string]$MediaManifest.mediaId -or
+        $envelope.CanBrowse -isnot [bool] -or $envelope.Result.CanContinue -isnot [bool] -or [string]$envelope.Result.ConfigurationDigest -notmatch '^[0-9a-fA-F]{64}$' -or
+        [string]$envelope.Result.ConfigurationDigest -ine (Get-FileSha256 $ConfigurationPath)) { throw 'Offline readiness is not bound to this run.' }
+    if ($envelope.Result.CanContinue -and (-not $envelope.CanBrowse -or @($envelope.Result.BlockingReasons).Count -ne 0)) { throw 'Offline readiness is contradictory.' }
+    if ($envelope.CanBrowse) {
+        if ($null -eq $envelope.Result.CatalogRevisions.'operating-systems') { throw 'Offline browsing lacks required evidence.' }
+        foreach ($property in $envelope.Result.CatalogRevisions.PSObject.Properties) {
+            $expected = @($MediaManifest.catalogSnapshots | Where-Object { $_.id -ceq $property.Name })
+            if ($expected.Count -ne 1 -or [string]$expected[0].revision -cne [string]$property.Value) { throw 'Offline catalog revision is not pinned.' }
+        }
+    }
+    return @{Envelope=$envelope;Digest=$digest;Path=$Path;Nonce=$Nonce}
+}
+
+function ConvertTo-BootstrapArgument {
+    param([AllowEmptyString()][string]$Value)
+    return '"' + [regex]::Replace([regex]::Replace($Value,'(\\*)"','$1$1\"'),'(\\+)$','$1$1') + '"'
+}
+
+function Invoke-OfflineReadinessChild {
+    param([IO.FileInfo]$Executable, [string]$ConfigurationPath, [string]$ResultPath, [string]$Nonce)
+    $start = [Diagnostics.ProcessStartInfo]::new()
+    $start.FileName = $Executable.FullName
+    $start.WorkingDirectory = $Executable.DirectoryName
+    $start.UseShellExecute = $false
+    $start.CreateNoWindow = $true
+    $start.Arguments = (@('--check-offline-readiness','--config',$ConfigurationPath,'--result',$ResultPath,'--nonce',$Nonce) | ForEach-Object { ConvertTo-BootstrapArgument $_ }) -join ' '
+    $process = [Diagnostics.Process]::new()
+    $process.StartInfo = $start
+    $started = $false; $confirmed = $false
+    try {
+        if (-not (Test-RuntimeFiles $Executable.DirectoryName $script:ExecutionIdentities[$Executable.DirectoryName])) { throw 'Readiness RAM runtime changed before launch.' }
+        if (-not $process.Start()) { throw 'Offline readiness process did not start.' }
+        $started = $true
+        if (-not $process.WaitForExit(600000)) {
+            $process.Kill()
+            if (-not $process.WaitForExit(30000)) { throw 'Offline readiness process requires recovery.' }
+            $confirmed = $true
+            throw 'Offline readiness timed out.'
+        }
+        $confirmed = $true
+        return $process.ExitCode
+    }
+    catch {
+        if ($started -and -not $confirmed) {
+            try { if (-not $process.HasExited) { $process.Kill() }; $confirmed = $process.WaitForExit(30000) } catch { $confirmed = $false }
+            if (-not $confirmed) { $_.Exception.Data['ProcessRootExitConfirmed'] = $false }
+        }
+        throw
+    }
+    finally { $process.Dispose() }
+}
+
+function New-OfflineReadinessHandoff {
+    param([IO.FileInfo]$Executable, [string]$ConfigurationPath, $MediaManifest, [string]$RamRoot)
+    $nonce = [Guid]::NewGuid().ToString('D')
+    $directory = Join-Path $RamRoot ('readiness-' + [Guid]::NewGuid().ToString('N'))
+    Assert-NoReparsePath $directory
+    $null = [IO.Directory]::CreateDirectory($directory)
+    $path = Join-Path $directory 'readiness.json'
+    $exitCode = Invoke-OfflineReadinessChild $Executable $ConfigurationPath $path $nonce
+    if ($exitCode -notin @(0,2)) { throw 'Offline readiness evaluation failed.' }
+    $result = Read-OfflineReadinessEnvelope $path $nonce $MediaManifest $ConfigurationPath
+    if (($exitCode -eq 0) -ne $result.Envelope.Result.CanContinue) { throw 'Offline readiness exit disagrees with its result.' }
+    return $result
+}
+
+function Expand-AuthenticatedRuntimeArchive {
+    param([string]$ArchivePath, [string]$ExpectedSha256, [string]$DestinationRoot, [string]$ApplicationName)
+    Add-Type -AssemblyName System.IO.Compression
+    Assert-NoReparsePath $ArchivePath
+    Assert-NoReparsePath $DestinationRoot
+    if ([IO.Directory]::Exists($DestinationRoot)) { throw 'Archive destination already exists.' }
+    $stream = [IO.File]::Open($ArchivePath,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read)
+    $archive = $null
+    try {
+        $sha = [Security.Cryptography.SHA256]::Create()
+        try { $digest = [BitConverter]::ToString($sha.ComputeHash($stream)).Replace('-','') } finally { $sha.Dispose() }
+        Assert-ExpectedSha256 $digest $ExpectedSha256 'runtime archive'
+        $stream.Position = 0
+        $archive = [IO.Compression.ZipArchive]::new($stream,[IO.Compression.ZipArchiveMode]::Read,$true)
+        $paths = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+        $expanded = 0L
+        foreach ($entry in $archive.Entries) {
+            $relative = $entry.FullName.TrimEnd('/','\')
+            $path = Resolve-TrustedRelativePath $DestinationRoot $relative
+            if (-not $paths.Add($path) -or (($entry.ExternalAttributes -shr 16) -band 0xF000) -eq 0xA000 -or
+                ($entry.ExternalAttributes -band 0x400) -ne 0) { throw 'Unsafe runtime archive entry.' }
+            $expanded += $entry.Length
+            if ($expanded -gt 10GB -or $archive.Entries.Count -gt 100000) { throw 'Runtime archive exceeds extraction limits.' }
+        }
+        $null = [IO.Directory]::CreateDirectory($DestinationRoot)
+        foreach ($entry in $archive.Entries) {
+            $path = Resolve-TrustedRelativePath $DestinationRoot $entry.FullName.TrimEnd('/','\')
+            if ($entry.FullName.EndsWith('/') -or $entry.FullName.EndsWith('\')) { $null = [IO.Directory]::CreateDirectory($path); continue }
+            $null = [IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($path))
+            $input = $entry.Open()
+            $output = [IO.File]::Open($path,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
+            try {
+                $buffer = New-Object byte[] 65536
+                while (($count = $input.Read($buffer,0,$buffer.Length)) -gt 0) {
+                    if ($output.Length + $count -gt $entry.Length) { throw 'Runtime entry exceeded its declared length.' }
+                    $output.Write($buffer,0,$count)
+                }
+                if ($output.Length -ne $entry.Length) { throw 'Runtime entry length mismatch.' }
+            }
+            finally { $input.Dispose(); $output.Dispose() }
+        }
+        $root = [IO.Path]::GetFullPath($DestinationRoot).TrimEnd('\','/') + '\'
+        $files = @(foreach ($path in Get-CompleteRuntimeFiles $DestinationRoot) {
+            @{relativePath=$path.Substring($root.Length).Replace('\','/');length=([IO.FileInfo]$path).Length;sha256=(Get-FileSha256 $path)}
+        })
+        if (@($files | Where-Object { $_.relativePath -ceq ($ApplicationName + '.exe') }).Count -ne 1 -or
+            -not (Test-RuntimeFiles $DestinationRoot $files)) { throw 'Authenticated runtime is incomplete.' }
+        return ,$files
+    }
+    finally { if ($null -ne $archive) { $archive.Dispose() }; $stream.Dispose() }
+}
+
+function Publish-VerifiedRuntimeCache {
+    param([IO.FileInfo]$Executable, $Files, [string]$ApplicationName, [string]$RuntimeIdentifier)
+    $selected = $script:SelectedUsbRuntimeRoot
+    if ([string]::IsNullOrWhiteSpace($selected)) { return }
+    if ((Get-UsbCacheRuntimeRoot -MediaManifest $script:TrustedMediaManifest) -ine $selected) { throw 'USB association changed before publication.' }
+    $destination = Get-RuntimeCacheRoot -BootstrapRoot $selected -ApplicationName $ApplicationName -RuntimeIdentifier $RuntimeIdentifier
+    Assert-NoReparsePath $destination
+    if ([IO.Directory]::Exists($destination)) { $null = @(Get-CompleteRuntimeFiles $destination) }
+    $stage = $destination + '.staging-' + [Guid]::NewGuid().ToString('N')
+    $retain = $false
+    try {
+        $null = Copy-VerifiedRuntimeToRam $Executable.DirectoryName $Files $stage $ApplicationName
+        if ((Get-UsbCacheRuntimeRoot -MediaManifest $script:TrustedMediaManifest) -ine $selected) { throw 'USB association changed before publication.' }
+        Promote-StagedCache $stage $destination
+    }
+    catch { $retain = $_.Exception.Data['PublicationRecoveryRequired'] -eq $true; throw }
+    finally { if (-not $retain -and [IO.Directory]::Exists($stage)) { [IO.Directory]::Delete($stage,$true) } }
+}
+
+function Resolve-AuthenticatedRuntime {
+    param([string]$ApplicationName, [string]$RuntimeIdentifier, [string]$RamRoot, [hashtable]$Headers, [IO.FileInfo]$Fallback)
+    $application = @($script:TrustedMediaManifest.applications | Where-Object { $_.applicationName -ceq $ApplicationName })
+    if ($application.Count -eq 1 -and $application[0].source -eq 'Debug') {
+        if ($null -eq $Fallback) { throw 'Authored debug runtime is unavailable.' }
+        $override = Get-ArchiveOverridePath $ApplicationName
+        if (-not [string]::IsNullOrWhiteSpace($override)) {
+            $archivePath = Join-Path $RamRoot ([Guid]::NewGuid().ToString('N') + '.zip')
+            try {
+                if (Test-HttpUrl $override) { throw 'Debug overrides require a local archive matching the authored files.' }
+                Assert-NoReparsePath $override
+                $input = [IO.File]::Open($override,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read)
+                try {
+                    $output = [IO.File]::Open($archivePath,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
+                    try { $input.CopyTo($output) } finally { $output.Dispose() }
+                }
+                finally { $input.Dispose() }
+                $digest = Get-FileSha256 $archivePath
+                $expectedDigest = Get-ArchiveOverrideSha256 $ApplicationName
+                if ($expectedDigest) { Assert-ExpectedSha256 $digest $expectedDigest 'authored debug archive' }
+                $destination = Join-Path $RamRoot ($ApplicationName + '-debug-' + [Guid]::NewGuid().ToString('N'))
+                $null = Expand-AuthenticatedRuntimeArchive $archivePath $digest $destination $ApplicationName
+                if (-not (Test-RuntimeFiles $destination $application[0].files)) { throw 'Debug override does not match the authored runtime.' }
+                $script:ExecutionIdentities[$destination] = $application[0].files
+                return [IO.FileInfo]::new((Join-Path $destination ($ApplicationName + '.exe')))
+            }
+            catch { Write-Log 'Debug archive override was rejected; using the authored runtime.' -Level Warning }
+            finally { if ([IO.File]::Exists($archivePath)) { [IO.File]::Delete($archivePath) } }
+        }
+        return $Fallback
+    }
+    try {
+        $release = Invoke-WithRetry -MaxAttempts 3 -Action { Invoke-RestMethod -Uri (Resolve-ReleaseApiUrl -ReleaseTagOverride (Get-ReleaseTagOverride $ApplicationName)) -Headers $Headers -Method Get -TimeoutSec 30 -MaximumRedirection 0 }
+        $name = Resolve-ReleaseAssetName $ApplicationName $RuntimeIdentifier
+        $assets = @($release.assets | Where-Object { $_.name -ceq $name })
+        if ($assets.Count -ne 1) { throw 'Exact runtime release asset is unavailable.' }
+        $asset = $assets[0]
+        $digest = Get-ReleaseAssetSha256 $asset
+        if ($digest -notmatch '^[0-9a-fA-F]{64}$' -or [long]$asset.size -le 0) { throw 'Authenticated runtime identity is missing.' }
+        $archivePath = Join-Path $RamRoot ([Guid]::NewGuid().ToString('N') + '.zip')
+        $destination = Join-Path $RamRoot ($ApplicationName + '-release-' + [Guid]::NewGuid().ToString('N'))
+        try {
+            $null = Save-WebFile ([string]$asset.browser_download_url) $archivePath $digest ([long]$asset.size)
+            $files = Expand-AuthenticatedRuntimeArchive $archivePath $digest $destination $ApplicationName
+            $executable = [IO.FileInfo]::new((Join-Path $destination ($ApplicationName + '.exe')))
+            $script:ExecutionIdentities[$destination] = $files
+            try { Publish-VerifiedRuntimeCache $executable $files $ApplicationName $RuntimeIdentifier }
+            catch { Write-Log 'Runtime cache publication failed; using the verified RAM runtime.' -Level Warning }
+            return $executable
+        }
+        finally { if ([IO.File]::Exists($archivePath)) { [IO.File]::Delete($archivePath) } }
+    }
+    catch {
+        if ($null -eq $Fallback) { throw }
+        Write-Log 'Runtime update unavailable; using the boot-pinned RAM runtime.' -Level Warning
+        return $Fallback
+    }
 }
 
 function Copy-BootstrapLogsToCache {
     $targetDirectory = $null
     try {
-        $usbRuntimeRoot = Get-UsbCacheRuntimeRoot
+        $usbRuntimeRoot = $script:SelectedUsbRuntimeRoot
         if ([string]::IsNullOrWhiteSpace($usbRuntimeRoot)) {
             Write-Log 'Skipping bootstrap log persistence because no Foundry Cache volume is available.' -Level Debug -Component 'LogPersistence'
             return
         }
+        if ((Get-UsbCacheRuntimeRoot -MediaManifest $script:TrustedMediaManifest) -ine $usbRuntimeRoot) { return }
 
         $sourceDirectory = Split-Path -Path $LogPath -Parent
         if (-not (Test-Path -Path $sourceDirectory -PathType Container)) {
@@ -542,28 +927,6 @@ function Ensure-Directory {
     }
 }
 
-function Remove-DirectoryIfPresent {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$Path
-    )
-
-    if (Test-Path -Path $Path -PathType Container) {
-        Remove-Item -Path $Path -Recurse -Force
-    }
-}
-
-function Remove-FileIfPresent {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$Path
-    )
-
-    if (Test-Path -Path $Path -PathType Leaf) {
-        Remove-Item -Path $Path -Force
-    }
-}
-
 function Get-ApplicationBootstrapRoot {
     param(
         [Parameter(Mandatory = $true)]
@@ -590,211 +953,115 @@ function Get-RuntimeCacheRoot {
     return Join-Path (Get-ApplicationBootstrapRoot -BootstrapRoot $BootstrapRoot -ApplicationName $ApplicationName) $RuntimeIdentifier
 }
 
-function Get-StagingRoot {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$RuntimeCacheRoot
-    )
-
-    return "$RuntimeCacheRoot.staging"
-}
-
-function Get-TemporaryArchivePath {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$BootstrapRoot,
-        [Parameter(Mandatory = $true)]
-        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
-        [string]$ApplicationName,
-        [Parameter(Mandatory = $true)]
-        [string]$AssetName
-    )
-
-    return Join-Path (Get-ApplicationBootstrapRoot -BootstrapRoot $BootstrapRoot -ApplicationName $ApplicationName) "$AssetName.download"
-}
-
-function Get-ManifestPath {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$RootPath
-    )
-
-    return Join-Path $RootPath 'manifest'
-}
-
-function Get-ExecutablePath {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$RootPath,
-        [Parameter(Mandatory = $true)]
-        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
-        [string]$ApplicationName
-    )
-
-    switch ($ApplicationName) {
-        'Foundry.Connect' { return Join-Path $RootPath 'Foundry.Connect.exe' }
-        'Foundry.Deploy' { return Join-Path $RootPath 'Foundry.Deploy.exe' }
-    }
-}
 #endregion
 
 #region Network And Time Helpers
 
-function Test-CommandCurlExe {
-    [CmdletBinding()]
-    param ()
-
-    if (Get-Command 'curl.exe' -ErrorAction SilentlyContinue) {
-        return $true
-    }
-    else {
-        return $false
-    }
+function New-BootstrapWebRequest {
+    param([Uri]$Uri)
+    return [Net.HttpWebRequest]::Create($Uri)
 }
 
 function Save-WebFile {
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$SourceUrl,
-        [Parameter(Mandatory = $true)]
-        [string]$DestinationPath
-    )
-
-    $DestinationDirectory = Split-Path -Path $DestinationPath -Parent
-    $DestinationName = Split-Path -Path $DestinationPath -Leaf
-
-    if ([string]::IsNullOrWhiteSpace($DestinationDirectory) -or [string]::IsNullOrWhiteSpace($DestinationName)) {
-        throw "Could not resolve DestinationDirectory or DestinationName from '$DestinationPath'."
-    }
-
-    if (-not (Test-Path "$DestinationDirectory")) {
-        New-Item -Path "$DestinationDirectory" -ItemType Directory -Force -ErrorAction Stop | Out-Null
-    }
-
-    # Validate the target directory up front so transport failures are not masked by local IO issues.
-    $DestinationNewItem = New-Item -Path (Join-Path $DestinationDirectory "$(Get-Random).txt") -ItemType File
-
-    if (Test-Path $DestinationNewItem.FullName) {
-        $DestinationDirectory = $DestinationNewItem | Select-Object -ExpandProperty Directory
-        Remove-Item -Path $DestinationNewItem.FullName -Force | Out-Null
-    }
-    else {
-        Write-Log "Unable to write to destination directory '$DestinationDirectory'." -Level Error -ConsoleMessage 'Unable to write to the destination directory.'
-        return $null
-    }
-
-    $DestinationDirectoryItem = (Get-Item $DestinationDirectory -Force).FullName
-    $DestinationFullName = Join-Path $DestinationDirectoryItem $DestinationName
-
-    $SourceUrl = [Uri]::EscapeUriString($SourceUrl.Replace('%', '~')).Replace('~', '%')
-    $proxyAddress = $null
-
+    param([string]$SourceUrl, [string]$DestinationPath, [string]$ExpectedSha256, [long]$ExpectedLength,
+        [int]$OverallTimeoutSeconds = 900, [int]$NoProgressTimeoutSeconds = 30)
+    if ($ExpectedSha256 -notmatch '^[0-9a-fA-F]{64}$' -or $ExpectedLength -le 0 -or
+        $OverallTimeoutSeconds -le 0 -or $OverallTimeoutSeconds -gt 900 -or
+        $NoProgressTimeoutSeconds -le 0 -or $NoProgressTimeoutSeconds -gt 30) { throw 'A bounded authenticated download identity is required.' }
+    Assert-NoReparsePath $DestinationPath
+    $directory = [IO.Path]::GetDirectoryName([IO.Path]::GetFullPath($DestinationPath))
+    $null = [IO.Directory]::CreateDirectory($directory)
+    $temporary = Join-Path $directory ([Guid]::NewGuid().ToString('N') + '.partial')
+    $clock = [Diagnostics.Stopwatch]::StartNew()
     try {
-        $defaultProxy = [System.Net.WebRequest]::DefaultWebProxy
-        if ($null -ne $defaultProxy) {
-            $proxyAddress = $defaultProxy.Address
-        }
-    }
-    catch {
-        $proxyAddress = $null
-    }
-
-    # Use curl.exe for file payloads and keep WebClient only as a compatibility fallback.
-    $UseWebClient = $false
-    if ($null -ne $proxyAddress) {
-        $UseWebClient = $true
-    }
-    elseif (!(Test-CommandCurlExe)) {
-        $UseWebClient = $true
-    }
-
-    $safeSourceUrl = Format-LogUri -Value $SourceUrl
-    if ($UseWebClient -eq $true) {
-        $transportReason = if ($null -ne $proxyAddress) {
-            "a proxy for '$(Format-LogUri -Value ([string]$proxyAddress))' is configured"
-        }
-        else {
-            'curl.exe is unavailable'
-        }
-
-        Write-Log "Downloading from '$safeSourceUrl' to '$DestinationFullName' with System.Net.WebClient because $transportReason." -Level Debug
-        [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls1
-        $WebClient = New-Object System.Net.WebClient
-        $WebClient.DownloadFile($SourceUrl, $DestinationFullName)
-        $WebClient.Dispose()
-    }
-    else {
-        $remoteLength = 0L
-        $remoteAcceptsRanges = $false
-
-        # A HEAD request gives us header-only metadata for logging and download resume decisions.
-        try {
-            Write-Log "Requesting remote headers from '$safeSourceUrl'." -Level Debug
-            $remote = Invoke-WebRequest -UseBasicParsing -Method Head -Uri $SourceUrl -ErrorAction Stop
-            $contentLengthHeader = [string]($remote.Headers.'Content-Length' | Select-Object -First 1)
-            $acceptRangesHeader = [string]($remote.Headers.'Accept-Ranges' | Select-Object -First 1)
-
-            if (-not [string]::IsNullOrWhiteSpace($contentLengthHeader)) {
-                [Int64]::TryParse($contentLengthHeader, [ref]$remoteLength) | Out-Null
+        for ($attempt = 0; $attempt -lt 3; $attempt++) {
+            $request = $null; $response = $null; $input = $null; $output = $null
+            try {
+                $uri = [Uri]$SourceUrl
+                for ($redirect = 0; $redirect -le 5; $redirect++) {
+                    if ($uri.Scheme -cne 'https' -or $uri.UserInfo -or $uri.Fragment) { throw 'Only authenticated HTTPS downloads are supported.' }
+                    $remaining = $OverallTimeoutSeconds * 1000 - $clock.ElapsedMilliseconds
+                    if ($remaining -le 0) { throw 'Runtime download deadline expired.' }
+                    $request = New-BootstrapWebRequest $uri
+                    $request.AllowAutoRedirect = $false
+                    $request.Timeout = [int][Math]::Min(30000, $remaining)
+                    $request.ReadWriteTimeout = [int][Math]::Min($NoProgressTimeoutSeconds * 1000, $remaining)
+                    $request.UserAgent = 'FoundryBootstrap/1.0'
+                    $pending = $request.BeginGetResponse($null, $null)
+                    if (-not $pending.AsyncWaitHandle.WaitOne($request.Timeout)) {
+                        $request.Abort()
+                        if ($pending.IsCompleted) { try { $null = $request.EndGetResponse($pending) } catch {} }
+                        throw [TimeoutException]::new('Runtime download header deadline expired.')
+                    }
+                    $response = $request.EndGetResponse($pending)
+                    if ([int]$response.StatusCode -in @(301,302,303,307,308)) {
+                        if ($redirect -eq 5 -or [string]::IsNullOrWhiteSpace([string]$response.Headers['Location'])) { throw 'Invalid runtime download redirect.' }
+                        $uri = [Uri]::new($uri,[string]$response.Headers['Location'])
+                        $response.Dispose(); $response = $null; $request.Abort(); $request = $null
+                        continue
+                    }
+                    if ([int]$response.StatusCode -ne 200) { throw 'Runtime download status is not successful.' }
+                    break
+                }
+                if ($response.ContentLength -ge 0 -and $response.ContentLength -ne $ExpectedLength) { throw 'Runtime archive length mismatch.' }
+                $input = $response.GetResponseStream()
+                if (-not $input.CanTimeout) { throw 'Runtime transport cannot enforce a read deadline.' }
+                $output = [IO.File]::Open($temporary,[IO.FileMode]::Create,[IO.FileAccess]::Write,[IO.FileShare]::None)
+                $buffer = New-Object byte[] 65536
+                $received = 0L
+                while ($true) {
+                    $remaining = $OverallTimeoutSeconds * 1000 - $clock.ElapsedMilliseconds
+                    if ($remaining -le 0) { throw [TimeoutException]::new('Runtime download deadline expired.') }
+                    if ($input.CanTimeout) { $input.ReadTimeout = [int][Math]::Min($remaining,$NoProgressTimeoutSeconds * 1000) }
+                    $count = $input.Read($buffer,0,$buffer.Length)
+                    if ($count -eq 0) { break }
+                    $received += $count
+                    if ($received -gt $ExpectedLength) { throw 'Runtime archive exceeded its expected length.' }
+                    $output.Write($buffer,0,$count)
+                }
+                $output.Dispose(); $output = $null
+                if ($received -ne $ExpectedLength) { throw 'Runtime archive is truncated.' }
+                Assert-ExpectedSha256 (Get-FileSha256 $temporary) $ExpectedSha256 'runtime archive'
+                if ($clock.Elapsed.TotalSeconds -ge $OverallTimeoutSeconds) { throw [TimeoutException]::new('Runtime download deadline expired.') }
+                if ([IO.File]::Exists($DestinationPath)) { [IO.File]::Replace($temporary,$DestinationPath,[NullString]::Value) }
+                else { [IO.File]::Move($temporary,$DestinationPath) }
+                return [IO.FileInfo]::new($DestinationPath)
             }
-
-            $remoteAcceptsRanges = [string]::Equals($acceptRangesHeader, 'bytes', [System.StringComparison]::OrdinalIgnoreCase)
-            Write-Log "HEAD probe for '$safeSourceUrl' returned Content-Length='$contentLengthHeader' and Accept-Ranges='$acceptRangesHeader'." -Level Debug
-        }
-        catch {
-            Write-Log "HEAD probe for '$safeSourceUrl' failed: $($_.Exception.Message). Continuing with a direct curl.exe download." -Level Warning -ConsoleMessage 'Header probe failed. Continuing with a direct download.'
-        }
-
-        Write-Log "Downloading from '$safeSourceUrl' to '$DestinationFullName' with curl.exe." -Level Debug
-        & curl.exe --fail --location --progress-bar --show-error --output $DestinationFullName --url $SourceUrl
-        if ($LASTEXITCODE -ne 0) {
-            throw "curl.exe failed with exit code $LASTEXITCODE."
-        }
-
-        $localExists = $false
-        if (Test-Path $DestinationFullName) {
-            $localExists = $true
-        }
-
-        $RetryDelaySeconds = 1
-        $MaxRetryCount = 10
-        $RetryCount = 0
-        while (
-            $localExists `
-                -and ($remoteLength -gt 0) `
-                -and ((Get-Item $DestinationFullName).Length -lt $remoteLength) `
-                -and $remoteAcceptsRanges `
-                -and ($RetryCount -lt $MaxRetryCount)
-        ) {
-            # Only retry with resume when the server explicitly advertises byte ranges.
-            Write-Log "Download is incomplete for '$DestinationFullName'. Retrying with curl.exe resume in $RetryDelaySeconds second(s)." -Level Warning -ConsoleMessage 'Download incomplete. Retrying...'
-            Start-Sleep -Seconds $RetryDelaySeconds
-            $RetryDelaySeconds *= 2
-            $RetryCount += 1
-            & curl.exe --fail --location --progress-bar --show-error --continue-at - --output $DestinationFullName --url $SourceUrl
-            if ($LASTEXITCODE -ne 0) {
-                throw "curl.exe resume failed with exit code $LASTEXITCODE."
+            catch {
+                $retry = $false; $delay = [Math]::Pow(2,$attempt)
+                $cause = $_.Exception
+                while ($null -ne $cause) {
+                    if ($cause -is [TimeoutException]) { $retry = $true }
+                    if ($cause -is [Net.WebException]) {
+                        $retry = $cause.Status -in @([Net.WebExceptionStatus]::Timeout,[Net.WebExceptionStatus]::ConnectFailure,[Net.WebExceptionStatus]::ConnectionClosed,[Net.WebExceptionStatus]::ReceiveFailure,[Net.WebExceptionStatus]::SendFailure,[Net.WebExceptionStatus]::NameResolutionFailure)
+                        if ($null -ne $cause.Response) {
+                            try {
+                                $retry = [int]$cause.Response.StatusCode -in @(408,429,500,502,503,504)
+                                $seconds = 0.0
+                                if ([double]::TryParse([string]$cause.Response.Headers['Retry-After'],[ref]$seconds)) { $delay = [Math]::Max($delay,$seconds) }
+                                else {
+                                    $date = [DateTimeOffset]::MinValue
+                                    if ([DateTimeOffset]::TryParse([string]$cause.Response.Headers['Retry-After'],[ref]$date)) { $delay = [Math]::Max($delay,($date-[DateTimeOffset]::UtcNow).TotalSeconds) }
+                                }
+                            } finally { $cause.Response.Dispose() }
+                        }
+                        break
+                    }
+                    $cause = $cause.InnerException
+                }
+                if (-not $retry -or $attempt -eq 2 -or $clock.Elapsed.TotalSeconds + $delay -ge $OverallTimeoutSeconds) { throw }
             }
+            finally {
+                if ($null -ne $request) { $request.Abort() }
+                if ($null -ne $input) { $input.Dispose() }
+                if ($null -ne $output) { $output.Dispose() }
+                if ($null -ne $response) { $response.Dispose() }
+            }
+            Start-Sleep -Milliseconds ([int]($delay * 1000))
         }
-
-        if ($localExists -and ($remoteLength -gt 0) -and ((Get-Item $DestinationFullName).Length -lt $remoteLength)) {
-            Write-Log "Download remained incomplete for '$DestinationFullName' after $RetryCount resume attempt(s)." -Level Error -ConsoleMessage 'Download remained incomplete.'
-            return $null
-        }
     }
-
-    if (Test-Path $DestinationFullName) {
-        $downloadedFile = Get-Item $DestinationFullName -Force
-        Write-Log "Download completed: '$DestinationFullName' ($($downloadedFile.Length) bytes)." -ConsoleMessage "Download completed ($(Format-FileSize -Bytes $downloadedFile.Length))."
-        return $downloadedFile
-    }
-    else {
-        Write-Log "Download failed because '$DestinationFullName' was not created." -Level Error -ConsoleMessage 'Download failed.'
-        return $null
-    }
+    finally { if ([IO.File]::Exists($temporary)) { [IO.File]::Delete($temporary) } }
 }
-
 function Start-WinPeWirelessServiceIfSupported {
     [CmdletBinding()]
     param ()
@@ -840,7 +1107,7 @@ function Sync-WinPeInternetDateTime {
     foreach ($probeUrl in $probeUrls) {
         try {
             Write-Log "Requesting internet time from '$(Format-LogUri -Value $probeUrl)'." -Level Debug
-            $response = Invoke-WebRequest -UseBasicParsing -Method Head -Uri $probeUrl -ErrorAction Stop
+            $response = Invoke-WebRequest -UseBasicParsing -Method Head -Uri $probeUrl -TimeoutSec 10 -MaximumRedirection 0 -ErrorAction Stop
             $dateHeader = [string]($response.Headers['Date'] | Select-Object -First 1)
 
             if (-not [string]::IsNullOrWhiteSpace($dateHeader)) {
@@ -1184,41 +1451,17 @@ function Set-WinPeTimeZone {
 
 #region Archive Integrity Helpers
 
-function Copy-LocalArchive {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$SourcePath,
-        [Parameter(Mandatory = $true)]
-        [string]$DestinationPath
-    )
-
-    if (-not (Test-Path -Path $SourcePath -PathType Leaf)) {
-        throw "Override archive path not found: '$SourcePath'."
-    }
-
-    Remove-FileIfPresent -Path $DestinationPath
-    Copy-Item -Path $SourcePath -Destination $DestinationPath -Force
-}
-
-function Copy-LocalArchiveToTemporaryPath {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$SourcePath,
-        [Parameter(Mandatory = $true)]
-        [string]$DestinationPath
-    )
-
-    Copy-LocalArchive -SourcePath $SourcePath -DestinationPath $DestinationPath
-    return $DestinationPath
-}
-
 function Get-FileSha256 {
     param(
         [Parameter(Mandatory = $true)]
         [string]$Path
     )
 
-    return (Get-FileHash -Path $Path -Algorithm SHA256).Hash.ToUpperInvariant()
+    Assert-NoReparsePath $Path
+    $stream = [IO.File]::Open($Path,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read)
+    $sha = [Security.Cryptography.SHA256]::Create()
+    try { return [BitConverter]::ToString($sha.ComputeHash($stream)).Replace('-','') }
+    finally { $sha.Dispose(); $stream.Dispose() }
 }
 
 function Get-ReleaseAssetSha256 {
@@ -1265,137 +1508,6 @@ function Assert-ExpectedSha256 {
 
 #region Archive Staging And Cache Helpers
 
-function Ensure-7ZipTooling {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$RuntimeIdentifier
-    )
-
-    $runtimeFolder = switch ($RuntimeIdentifier) {
-        'win-x64' { 'x64' }
-        'win-arm64' { 'arm64' }
-        Default { throw "Unsupported runtime '$RuntimeIdentifier' for 7-Zip tools." }
-    }
-
-    $runtimeExecutable = Join-Path (Join-Path $SevenZipToolsPath $runtimeFolder) '7za.exe'
-    if (Test-Path -Path $runtimeExecutable -PathType Leaf) {
-        return $runtimeExecutable
-    }
-
-    throw "7-Zip executable was not provisioned in this image. Expected path: '$runtimeExecutable'."
-}
-
-function Expand-ZipVia7Zip {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$ArchivePath,
-        [Parameter(Mandatory = $true)]
-        [string]$DestinationPath,
-        [Parameter(Mandatory = $true)]
-        [string]$RuntimeIdentifier
-    )
-
-    $sevenZipExecutable = Ensure-7ZipTooling -RuntimeIdentifier $RuntimeIdentifier
-    Ensure-Directory -Path $DestinationPath
-
-    $outputArgument = "-o$DestinationPath"
-    & $sevenZipExecutable x -y $outputArgument $ArchivePath | Out-Null
-    if ($LASTEXITCODE -ne 0) {
-        throw "7-Zip extraction failed with exit code $LASTEXITCODE."
-    }
-}
-
-function Read-Manifest {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$ManifestPath
-    )
-
-    if (-not (Test-Path -Path $ManifestPath -PathType Leaf)) {
-        return $null
-    }
-
-    $data = @{}
-    foreach ($line in Get-Content -Path $ManifestPath) {
-        if ([string]::IsNullOrWhiteSpace($line)) {
-            continue
-        }
-
-        $separatorIndex = $line.IndexOf('=')
-        if ($separatorIndex -lt 1) {
-            continue
-        }
-
-        $key = $line.Substring(0, $separatorIndex).Trim()
-        $value = $line.Substring($separatorIndex + 1).Trim()
-        if (-not [string]::IsNullOrWhiteSpace($key)) {
-            $data[$key] = $value
-        }
-    }
-
-    if ($data.Count -eq 0) {
-        return $null
-    }
-
-    return $data
-}
-
-function Write-Manifest {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$ManifestPath,
-        [string]$Tag,
-        [string]$Version,
-        [Parameter(Mandatory = $true)]
-        [string]$AssetName,
-        [Parameter(Mandatory = $true)]
-        [string]$ArchiveSha256
-    )
-
-    $updatedUtc = [DateTime]::UtcNow.ToString('o', [System.Globalization.CultureInfo]::InvariantCulture)
-    $lines = @(
-        "Tag=$Tag",
-        "Version=$Version",
-        "Asset=$AssetName",
-        "ArchiveSha256=$ArchiveSha256",
-        "UpdatedUtc=$updatedUtc"
-    )
-
-    $lines | Out-File -FilePath $ManifestPath -Encoding utf8
-}
-
-function Get-ExecutableVersion {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$ExecutablePath
-    )
-
-    if (-not (Test-Path -Path $ExecutablePath -PathType Leaf)) {
-        return $null
-    }
-
-    $version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($ExecutablePath).FileVersion
-    if ([string]::IsNullOrWhiteSpace($version)) {
-        return $null
-    }
-
-    return $version.Trim()
-}
-
-function Get-ReleaseVersion {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$Tag
-    )
-
-    $normalizedTag = $Tag.Trim()
-    if ($normalizedTag.StartsWith('v', [System.StringComparison]::OrdinalIgnoreCase)) {
-        return $normalizedTag.Substring(1)
-    }
-
-    return $normalizedTag
-}
-
 function Resolve-ReleaseApiUrl {
     param(
         [string]$ReleaseTagOverride
@@ -1407,97 +1519,6 @@ function Resolve-ReleaseApiUrl {
 
     $encodedTag = [System.Uri]::EscapeDataString($ReleaseTagOverride)
     return "$ReleaseApiBaseUrl/tags/$encodedTag"
-}
-
-function Get-ReleaseAsset {
-    param(
-        [Parameter(Mandatory = $true)]
-        $Release,
-        [Parameter(Mandatory = $true)]
-        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
-        [string]$ApplicationName,
-        [Parameter(Mandatory = $true)]
-        [string]$AssetName
-    )
-
-    $asset = $Release.assets | Where-Object { $_.name -eq $AssetName } | Select-Object -First 1
-    if ($null -eq $asset) {
-        throw "No $ApplicationName asset named '$AssetName' was found in release '$($Release.tag_name)'."
-    }
-
-    return $asset
-}
-
-function Resolve-CachedExecutable {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$RuntimeCacheRoot,
-        [Parameter(Mandatory = $true)]
-        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
-        [string]$ApplicationName
-    )
-
-    $executablePath = Get-ExecutablePath -RootPath $RuntimeCacheRoot -ApplicationName $ApplicationName
-    if (-not (Test-Path -Path $executablePath -PathType Leaf)) {
-        throw "No cached $ApplicationName executable is available in '$RuntimeCacheRoot'."
-    }
-
-    return Get-Item -Path $executablePath
-}
-
-function Test-CacheCurrent {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$RuntimeCacheRoot,
-        [Parameter(Mandatory = $true)]
-        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
-        [string]$ApplicationName,
-        [Parameter(Mandatory = $true)]
-        [string]$AssetName,
-        [Parameter(Mandatory = $true)]
-        [string]$ReleaseTag,
-        [Parameter(Mandatory = $true)]
-        [string]$ReleaseVersion,
-        [Parameter(Mandatory = $true)]
-        $Asset
-    )
-
-    $executablePath = Get-ExecutablePath -RootPath $RuntimeCacheRoot -ApplicationName $ApplicationName
-    if (-not (Test-Path -Path $executablePath -PathType Leaf)) {
-        return $false
-    }
-
-    $manifest = Read-Manifest -ManifestPath (Get-ManifestPath -RootPath $RuntimeCacheRoot)
-    if ($null -ne $manifest) {
-        # Prefer manifest comparisons because they remain stable even when executable version metadata is absent.
-        $manifestAsset = [string]$manifest['Asset']
-        if (-not [string]::Equals($manifestAsset, $AssetName, [System.StringComparison]::OrdinalIgnoreCase)) {
-            return $false
-        }
-
-        $expectedSha256 = Get-ReleaseAssetSha256 -Asset $Asset
-        if (-not [string]::IsNullOrWhiteSpace($expectedSha256)) {
-            $manifestSha256 = [string]$manifest['ArchiveSha256']
-            return [string]::Equals($manifestSha256, $expectedSha256, [System.StringComparison]::OrdinalIgnoreCase)
-        }
-
-        $manifestTag = [string]$manifest['Tag']
-        if (-not [string]::IsNullOrWhiteSpace($manifestTag)) {
-            return [string]::Equals($manifestTag, $ReleaseTag, [System.StringComparison]::OrdinalIgnoreCase)
-        }
-
-        $manifestVersion = [string]$manifest['Version']
-        if (-not [string]::IsNullOrWhiteSpace($manifestVersion)) {
-            return [string]::Equals($manifestVersion, $ReleaseVersion, [System.StringComparison]::OrdinalIgnoreCase)
-        }
-    }
-
-    $cachedVersion = Get-ExecutableVersion -ExecutablePath $executablePath
-    if ([string]::IsNullOrWhiteSpace($cachedVersion)) {
-        return $false
-    }
-
-    return [string]::Equals($cachedVersion, $ReleaseVersion, [System.StringComparison]::OrdinalIgnoreCase)
 }
 
 function Promote-StagedCache {
@@ -1544,120 +1565,10 @@ function Promote-StagedCache {
     }
 }
 
-function Update-CacheFromArchiveFile {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$ArchivePath,
-        [Parameter(Mandatory = $true)]
-        [string]$BootstrapRoot,
-        [Parameter(Mandatory = $true)]
-        [string]$RuntimeCacheRoot,
-        [Parameter(Mandatory = $true)]
-        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
-        [string]$ApplicationName,
-        [Parameter(Mandatory = $true)]
-        [string]$RuntimeIdentifier,
-        [Parameter(Mandatory = $true)]
-        [string]$AssetName,
-        [string]$Tag,
-        [string]$Version,
-        [string]$ArchiveSha256
-    )
 
-    $retainStaging = $false
-    $stagingRoot = (Get-StagingRoot -RuntimeCacheRoot $RuntimeCacheRoot) + "-" + [Guid]::NewGuid().ToString("N")
-    Remove-DirectoryIfPresent -Path $stagingRoot
-
-    try {
-        # Extract into a staging directory first so the active cache remains valid until promotion succeeds.
-        Ensure-Directory -Path $stagingRoot
-        Expand-ZipVia7Zip -ArchivePath $ArchivePath -DestinationPath $stagingRoot -RuntimeIdentifier $RuntimeIdentifier
-
-        $stagedExecutablePath = Get-ExecutablePath -RootPath $stagingRoot -ApplicationName $ApplicationName
-        if (-not (Test-Path -Path $stagedExecutablePath -PathType Leaf)) {
-            throw "The extracted $ApplicationName cache does not contain '$([System.IO.Path]::GetFileName($stagedExecutablePath))'."
-        }
-
-        $resolvedVersion = $Version
-        if ([string]::IsNullOrWhiteSpace($resolvedVersion)) {
-            $resolvedVersion = Get-ExecutableVersion -ExecutablePath $stagedExecutablePath
-        }
-
-        if ([string]::IsNullOrWhiteSpace($ArchiveSha256)) {
-            $ArchiveSha256 = Get-FileSha256 -Path $ArchivePath
-        }
-
-        Write-Manifest `
-            -ManifestPath (Get-ManifestPath -RootPath $stagingRoot) `
-            -Tag $Tag `
-            -Version $resolvedVersion `
-            -AssetName $AssetName `
-            -ArchiveSha256 $ArchiveSha256
-
-        Promote-StagedCache -StagingRoot $stagingRoot -RuntimeCacheRoot $RuntimeCacheRoot
-        return Resolve-CachedExecutable -RuntimeCacheRoot $RuntimeCacheRoot -ApplicationName $ApplicationName
-    }
-    catch {
-        $retainStaging = $_.Exception.Data['PublicationRecoveryRequired'] -eq $true
-        throw
-    }
-    finally {
-        if (-not $retainStaging) {
-            Remove-FileIfPresent -Path $ArchivePath
-            Remove-DirectoryIfPresent -Path $stagingRoot
-        }
-    }
-}
 #endregion
 
 #region Release Resolution Helpers
-
-function Get-EmbeddedArchivePath {
-    param(
-        [Parameter(Mandatory = $true)]
-        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
-        [string]$ApplicationName
-    )
-
-    switch ($ApplicationName) {
-        'Foundry.Connect' { return '' }
-        'Foundry.Deploy' { return $EmbeddedDeployArchivePath }
-    }
-}
-
-function Get-EmbeddedProvisioningSourcePath {
-    param(
-        [Parameter(Mandatory = $true)]
-        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
-        [string]$ApplicationName
-    )
-
-    switch ($ApplicationName) {
-        'Foundry.Connect' { return $EmbeddedConnectProvisioningSourcePath }
-        'Foundry.Deploy' { return $EmbeddedDeployProvisioningSourcePath }
-    }
-}
-
-function Get-EmbeddedProvisioningSource {
-    param(
-        [Parameter(Mandatory = $true)]
-        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
-        [string]$ApplicationName
-    )
-
-    $sourcePath = Get-EmbeddedProvisioningSourcePath -ApplicationName $ApplicationName
-    if (-not (Test-Path -Path $sourcePath -PathType Leaf)) {
-        return ''
-    }
-
-    try {
-        return (Get-Content -Path $sourcePath -Raw -ErrorAction Stop).Trim().ToLowerInvariant()
-    }
-    catch {
-        Write-Log "Failed to read embedded provisioning source for $ApplicationName from '$sourcePath': $($_.Exception.Message)." -Level Warning
-        return ''
-    }
-}
 
 function Get-ReleaseTagOverride {
     param(
@@ -1710,259 +1621,18 @@ function Get-ArchiveOverrideSha256 {
     return $value.Trim()
 }
 
-function Resolve-ApplicationFallbackExecutable {
-    param(
-        [Parameter(Mandatory = $true)]
-        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
-        [string]$ApplicationName,
-        [Parameter(Mandatory = $true)]
-        [string]$BootstrapRoot,
-        [Parameter(Mandatory = $true)]
-        [string]$RuntimeCacheRoot,
-        [Parameter(Mandatory = $true)]
-        [string]$RuntimeIdentifier,
-        [Parameter(Mandatory = $true)]
-        [string]$AssetName,
-        [Parameter(Mandatory = $true)]
-        [string]$DownloadPath,
-        [string]$EmbeddedArchivePath,
-        [Parameter(Mandatory = $true)]
-        [string]$EmbeddedFallbackReason
-    )
-
-    try {
-        return Resolve-CachedExecutable -RuntimeCacheRoot $RuntimeCacheRoot -ApplicationName $ApplicationName
-    }
-    catch {
-        if ([string]::IsNullOrWhiteSpace($EmbeddedArchivePath) -or -not (Test-Path -Path $EmbeddedArchivePath -PathType Leaf)) {
-            throw
-        }
-
-        Write-Log `
-            "Falling back to the embedded $ApplicationName archive $EmbeddedFallbackReason." `
-            -Level Warning `
-            -ConsoleMessage "${ApplicationName}: using embedded archive as fallback."
-
-        $archiveSha256 = Get-FileSha256 -Path $EmbeddedArchivePath
-        $temporaryArchivePath = Copy-LocalArchiveToTemporaryPath `
-            -SourcePath $EmbeddedArchivePath `
-            -DestinationPath $DownloadPath
-
-        return Update-CacheFromArchiveFile `
-            -ArchivePath $temporaryArchivePath `
-            -BootstrapRoot $BootstrapRoot `
-            -RuntimeCacheRoot $RuntimeCacheRoot `
-            -ApplicationName $ApplicationName `
-            -RuntimeIdentifier $RuntimeIdentifier `
-            -AssetName $AssetName `
-            -Tag '' `
-            -Version '' `
-            -ArchiveSha256 $archiveSha256
-    }
-}
-
-function Resolve-ApplicationExecutable {
-    param(
-        [Parameter(Mandatory = $true)]
-        [ValidateSet('Foundry.Connect', 'Foundry.Deploy')]
-        [string]$ApplicationName,
-        [Parameter(Mandatory = $true)]
-        [string]$BootstrapRoot,
-        [Parameter(Mandatory = $true)]
-        [string]$RuntimeIdentifier,
-        [Parameter(Mandatory = $true)]
-        [hashtable]$Headers,
-        [switch]$SkipReleaseLookup
-    )
-
-    $applicationBootstrapRoot = Get-ApplicationBootstrapRoot -BootstrapRoot $BootstrapRoot -ApplicationName $ApplicationName
-    Ensure-Directory -Path $applicationBootstrapRoot
-
-    $assetName = Resolve-ReleaseAssetName -ApplicationName $ApplicationName -RuntimeIdentifier $RuntimeIdentifier
-    $runtimeCacheRoot = Get-RuntimeCacheRoot -BootstrapRoot $BootstrapRoot -ApplicationName $ApplicationName -RuntimeIdentifier $RuntimeIdentifier
-    $downloadPath = Get-TemporaryArchivePath -BootstrapRoot $BootstrapRoot -ApplicationName $ApplicationName -AssetName $assetName
-    $releaseTagOverride = Get-ReleaseTagOverride -ApplicationName $ApplicationName
-    $archiveOverride = Get-ArchiveOverridePath -ApplicationName $ApplicationName
-    $archiveOverrideSha256 = Get-ArchiveOverrideSha256 -ApplicationName $ApplicationName
-    $embeddedArchivePath = Get-EmbeddedArchivePath -ApplicationName $ApplicationName
-    $hasEmbeddedArchiveFallback = -not [string]::IsNullOrWhiteSpace($embeddedArchivePath) -and (Test-Path -Path $embeddedArchivePath -PathType Leaf)
-    $releaseLookupFallbackDescription = if ($hasEmbeddedArchiveFallback) { 'the existing cache or embedded archive' } else { 'the existing cache' }
-    $executable = $null
-
-    if ($SkipReleaseLookup -and [string]::IsNullOrWhiteSpace($archiveOverride) -and $hasEmbeddedArchiveFallback) {
-        $archiveOverride = $embeddedArchivePath
-        Write-Log "Using embedded $ApplicationName archive from '$embeddedArchivePath'." -ConsoleMessage "${ApplicationName}: using embedded archive."
-    }
-
-    if (-not [string]::IsNullOrWhiteSpace($archiveOverride)) {
-        if (-not [string]::IsNullOrWhiteSpace($releaseTagOverride)) {
-            Write-Log `
-                "$ApplicationName archive override is set; ignoring release tag override '$releaseTagOverride'." `
-                -Level Warning `
-                -ConsoleMessage "${ApplicationName}: archive override is set; release tag override ignored."
-        }
-
-        if (Test-HttpUrl -Value $archiveOverride) {
-            Write-Log `
-                "Starting $ApplicationName override archive download from '$archiveOverride'." `
-                -ConsoleMessage "${ApplicationName}: downloading override archive..."
-
-            Save-WebFile -SourceUrl $archiveOverride -DestinationPath $downloadPath | Out-Null
-        }
-        else {
-            Write-Log `
-                "Copying $ApplicationName override archive from '$archiveOverride'." `
-                -ConsoleMessage "${ApplicationName}: using local override archive."
-
-            Copy-LocalArchive -SourcePath $archiveOverride -DestinationPath $downloadPath
-        }
-
-        $archiveSha256 = Get-FileSha256 -Path $downloadPath
-        Assert-ExpectedSha256 -ActualSha256 $archiveSha256 -ExpectedSha256 $archiveOverrideSha256 -Context "$ApplicationName override archive"
-
-        Write-Log `
-            "Refreshing $ApplicationName cache for runtime '$RuntimeIdentifier' from override archive." `
-            -ConsoleMessage "${ApplicationName}: refreshing cache..."
-
-        $executable = Update-CacheFromArchiveFile `
-            -ArchivePath $downloadPath `
-            -BootstrapRoot $BootstrapRoot `
-            -RuntimeCacheRoot $runtimeCacheRoot `
-            -ApplicationName $ApplicationName `
-            -RuntimeIdentifier $RuntimeIdentifier `
-            -AssetName $assetName `
-            -Tag '' `
-            -Version '' `
-            -ArchiveSha256 $archiveSha256
-    }
-    elseif ($SkipReleaseLookup) {
-        $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot -ApplicationName $ApplicationName
-    }
-    else {
-        $releaseApiUrl = Resolve-ReleaseApiUrl -ReleaseTagOverride $releaseTagOverride
-        $release = $null
-
-        try {
-            Write-Log "Resolving $ApplicationName release metadata from '$(Format-LogUri -Value $releaseApiUrl)'." -Level Debug
-            $release = Invoke-WithRetry -Action { Invoke-RestMethod -Uri $releaseApiUrl -Headers $Headers -Method Get }
-        }
-        catch {
-            Write-Log `
-                "Failed to resolve $ApplicationName release metadata: $($_.Exception.Message). Falling back to $releaseLookupFallbackDescription." `
-                -Level Warning `
-                -ConsoleMessage "${ApplicationName}: release lookup failed. Falling back."
-
-            $executable = Resolve-ApplicationFallbackExecutable `
-                -ApplicationName $ApplicationName `
-                -BootstrapRoot $BootstrapRoot `
-                -RuntimeCacheRoot $runtimeCacheRoot `
-                -RuntimeIdentifier $RuntimeIdentifier `
-                -AssetName $assetName `
-                -DownloadPath $downloadPath `
-                -EmbeddedArchivePath $embeddedArchivePath `
-                -EmbeddedFallbackReason 'because no cached executable was available'
-        }
-
-        if ($null -eq $executable) {
-            $asset = Get-ReleaseAsset -Release $release -ApplicationName $ApplicationName -AssetName $assetName
-            $releaseTag = [string]$release.tag_name
-            $releaseVersion = Get-ReleaseVersion -Tag $releaseTag
-
-            Write-Log `
-                "Using $ApplicationName release tag '$releaseTag' and asset '$($asset.name)'." `
-                -ConsoleMessage "${ApplicationName}: release $releaseTag"
-            Write-Log `
-                "Selected $ApplicationName asset '$($asset.name)' for runtime '$RuntimeIdentifier'." `
-                -ConsoleMessage "${ApplicationName}: asset $($asset.name)"
-
-            if (Test-CacheCurrent `
-                    -RuntimeCacheRoot $runtimeCacheRoot `
-                    -ApplicationName $ApplicationName `
-                    -AssetName $assetName `
-                    -ReleaseTag $releaseTag `
-                    -ReleaseVersion $releaseVersion `
-                    -Asset $asset) {
-                Write-Log `
-                    "The cached $ApplicationName content for '$RuntimeIdentifier' is already current." `
-                    -ConsoleMessage "${ApplicationName}: cache is current."
-
-                $executable = Resolve-CachedExecutable -RuntimeCacheRoot $runtimeCacheRoot -ApplicationName $ApplicationName
-            }
-            else {
-                try {
-                    Write-Log `
-                        "Starting $ApplicationName release asset download from '$($asset.browser_download_url)'." `
-                        -ConsoleMessage "${ApplicationName}: downloading $($asset.name)..."
-
-                    Save-WebFile -SourceUrl $asset.browser_download_url -DestinationPath $downloadPath | Out-Null
-
-                    $archiveSha256 = Get-FileSha256 -Path $downloadPath
-                    $expectedSha256 = Get-ReleaseAssetSha256 -Asset $asset
-                    if (-not [string]::IsNullOrWhiteSpace($expectedSha256)) {
-                        Assert-ExpectedSha256 `
-                            -ActualSha256 $archiveSha256 `
-                            -ExpectedSha256 $expectedSha256 `
-                            -Context "$ApplicationName release asset '$($asset.name)'"
-                    }
-                    elseif (-not [string]::IsNullOrWhiteSpace([string]$asset.digest)) {
-                        Write-Log `
-                            "$ApplicationName release asset digest '$($asset.digest)' is not a supported SHA256 value. Continuing without digest validation." `
-                            -Level Warning `
-                            -ConsoleMessage "${ApplicationName}: digest format is unsupported. Continuing without digest validation."
-                    }
-                    else {
-                        Write-Log `
-                            "No $ApplicationName release asset digest was provided. Continuing without digest validation." `
-                            -Level Warning `
-                            -ConsoleMessage "${ApplicationName}: no release digest was provided. Continuing without digest validation."
-                    }
-
-                    Write-Log `
-                        "Refreshing $ApplicationName cache for runtime '$RuntimeIdentifier'." `
-                        -ConsoleMessage "${ApplicationName}: refreshing cache..."
-
-                    $executable = Update-CacheFromArchiveFile `
-                        -ArchivePath $downloadPath `
-                        -BootstrapRoot $BootstrapRoot `
-                        -RuntimeCacheRoot $runtimeCacheRoot `
-                        -ApplicationName $ApplicationName `
-                        -RuntimeIdentifier $RuntimeIdentifier `
-                        -AssetName $assetName `
-                        -Tag $releaseTag `
-                        -Version $releaseVersion `
-                        -ArchiveSha256 $archiveSha256
-                }
-                catch {
-                    Write-Log `
-                        "Failed to refresh the $ApplicationName cache: $($_.Exception.Message). Falling back to $releaseLookupFallbackDescription." `
-                        -Level Warning `
-                        -ConsoleMessage "${ApplicationName}: cache refresh failed. Falling back."
-
-                    $executable = Resolve-ApplicationFallbackExecutable `
-                        -ApplicationName $ApplicationName `
-                        -BootstrapRoot $BootstrapRoot `
-                        -RuntimeCacheRoot $runtimeCacheRoot `
-                        -RuntimeIdentifier $RuntimeIdentifier `
-                        -AssetName $assetName `
-                        -DownloadPath $downloadPath `
-                        -EmbeddedArchivePath $embeddedArchivePath `
-                        -EmbeddedFallbackReason 'because the cache could not be refreshed'
-                }
-            }
-        }
-    }
-
-    return Resolve-SingleExecutable -Candidate $executable
-}
-
 function Start-DeployExecutable {
     param(
         [Parameter(Mandatory = $true)]
-        [System.IO.FileInfo]$Executable
+        [System.IO.FileInfo]$Executable,
+        [switch]$Offline
     )
 
     Write-Log "Launching '$($Executable.FullName)'." -Component 'Process' -ConsoleMessage 'Foundry.Deploy: launching...'
-    $process = Start-Process -FilePath $Executable.FullName -WorkingDirectory $Executable.DirectoryName -PassThru
+    if (-not (Test-RuntimeFiles $Executable.DirectoryName $script:ExecutionIdentities[$Executable.DirectoryName])) { throw 'Deploy RAM runtime changed before launch.' }
+    $arguments = @('--config', $EmbeddedDeployConfigurationPath)
+    if ($Offline) { $arguments += '--offline' }
+    $process = Start-Process -FilePath $Executable.FullName -WorkingDirectory $Executable.DirectoryName -ArgumentList (($arguments | ForEach-Object { ConvertTo-BootstrapArgument $_ }) -join ' ') -PassThru
     Write-Log "Foundry.Deploy handoff completed. ProcessId=$($process.Id)." -Component 'Process'
 }
 
@@ -1970,7 +1640,9 @@ function Invoke-ConnectExecutable {
     param(
         [Parameter(Mandatory = $true)]
         [System.IO.FileInfo]$Executable,
-        [string]$ConfigurationPath
+        [string]$ConfigurationPath,
+        [string]$OfflineReadinessPath,
+        [string]$OfflineNonce
     )
 
     $argumentList = @()
@@ -1982,10 +1654,12 @@ function Invoke-ConnectExecutable {
         Write-Log "Launching '$($Executable.FullName)' without an external configuration file." -ConsoleMessage 'Foundry.Connect: launching...'
     }
 
+    if (-not [string]::IsNullOrWhiteSpace($OfflineReadinessPath)) { $argumentList += @('--offline-readiness', $OfflineReadinessPath, '--offline-nonce', $OfflineNonce) }
+    if (-not (Test-RuntimeFiles $Executable.DirectoryName $script:ExecutionIdentities[$Executable.DirectoryName])) { throw 'Connect RAM runtime changed before launch.' }
     $process = Start-Process `
         -FilePath $Executable.FullName `
         -WorkingDirectory $Executable.DirectoryName `
-        -ArgumentList $argumentList `
+        -ArgumentList (($argumentList | ForEach-Object { ConvertTo-BootstrapArgument $_ }) -join ' ') `
         -Wait `
         -PassThru
 
@@ -1993,189 +1667,74 @@ function Invoke-ConnectExecutable {
     return $process.ExitCode
 }
 
-function Resolve-SingleExecutable {
-    param(
-        [Parameter(Mandatory = $true)]
-        $Candidate
-    )
 
-    $candidates = @($Candidate)
-    $fileInfo = $candidates | Where-Object { $_ -is [System.IO.FileInfo] } | Select-Object -Last 1
-    if ($null -ne $fileInfo) {
-        return $fileInfo
-    }
-
-    $pathCandidate = $candidates | Where-Object { $_ -is [string] -and -not [string]::IsNullOrWhiteSpace($_) } | Select-Object -Last 1
-    if ($null -ne $pathCandidate -and (Test-Path -Path $pathCandidate -PathType Leaf)) {
-        return Get-Item -Path $pathCandidate
-    }
-
-    $typeName = if ($null -eq $Candidate) { '<null>' } else { $Candidate.GetType().FullName }
-    throw "Could not resolve an executable from value of type '$typeName'."
-}
 #endregion
 
 #region Bootstrap Execution
-
+$script:SelectedUsbRuntimeRoot = $null
+$script:ExecutionIdentities = @{}
+$handoff = $null
 try {
     Ensure-Directory -Path $WinPeRoot
     Write-ConsoleBanner -Title 'Foundry Bootstrap'
-    Write-Log "Foundry bootstrap started. SessionId=$DiagnosticSessionId, LogFilePath='$LogPath'." -Component 'Lifecycle'
-
-    Write-ConsoleSection -Title 'Runtime'
-
-    # USB cache media takes precedence; otherwise the ISO-backed runtime directory is used.
-    $usbRuntimeRoot = Get-UsbCacheRuntimeRoot
-    if (-not [string]::IsNullOrWhiteSpace($usbRuntimeRoot)) {
-        $bootstrapRoot = $usbRuntimeRoot
-        $deploymentMode = 'Usb'
-        $cacheRoot = Split-Path -Path $usbRuntimeRoot -Parent
-        $env:FOUNDRY_DIAGNOSTIC_PERSISTENCE_DIRECTORY = Join-Path $cacheRoot (Join-Path 'Logs' $DiagnosticSessionId)
-    }
-    else {
-        $bootstrapRoot = Join-Path $WinPeRoot 'Runtime'
-        $deploymentMode = 'Iso'
-        Remove-Item Env:\FOUNDRY_DIAGNOSTIC_PERSISTENCE_DIRECTORY -ErrorAction SilentlyContinue
-    }
-
-    Ensure-Directory -Path $bootstrapRoot
-
-    Write-Log "Bootstrap root resolved to '$bootstrapRoot'." -ConsoleMessage "Runtime root: $bootstrapRoot"
-    Write-Log "Deployment mode resolved to '$deploymentMode'." -ConsoleMessage "Deployment mode: $deploymentMode"
-
-    $env:FOUNDRY_DEPLOYMENT_MODE = $deploymentMode
     $runtimeIdentifier = Get-TargetRuntimeIdentifier
-    Write-Log "Runtime identifier resolved to '$runtimeIdentifier'." -ConsoleMessage "Runtime identifier: $runtimeIdentifier"
-
-    $headers = @{
-        'User-Agent' = 'FoundryBootstrap/1.0'
-        'Accept'     = 'application/vnd.github+json'
+    $script:TrustedMediaManifest = Read-TrustedMediaManifest (Join-Path $WinPeRoot 'Config\foundry.media.manifest.json') $runtimeIdentifier
+    $script:SelectedUsbRuntimeRoot = Get-UsbCacheRuntimeRoot -MediaManifest $script:TrustedMediaManifest
+    $deploymentMode = if ($script:TrustedMediaManifest.target -eq 'Iso') { 'Iso' } else { 'Usb' }
+    $env:FOUNDRY_DEPLOYMENT_MODE = $deploymentMode
+    $env:FOUNDRY_VERIFIED_CACHE_ROOT = $null
+    $env:FOUNDRY_DIAGNOSTIC_PERSISTENCE_DIRECTORY = $null
+    if ($script:SelectedUsbRuntimeRoot) {
+        $env:FOUNDRY_VERIFIED_CACHE_ROOT = Split-Path -Path $script:SelectedUsbRuntimeRoot -Parent
+        $env:FOUNDRY_DIAGNOSTIC_PERSISTENCE_DIRECTORY = Join-Path $env:FOUNDRY_VERIFIED_CACHE_ROOT (Join-Path 'Logs' $DiagnosticSessionId)
     }
-
-    Write-ConsoleSection -Title 'Network services'
+    $ramRoot = Join-Path $WinPeRoot ('Sessions\' + [Guid]::NewGuid().ToString('N'))
+    Ensure-Directory $ramRoot
+    $embeddedRuntime = Join-Path $WinPeRoot 'Runtime'
+    $connectExecutable = Resolve-PinnedRuntime 'Foundry.Connect' $script:TrustedMediaManifest $script:SelectedUsbRuntimeRoot $embeddedRuntime $ramRoot
+    $deployExecutable = $null
+    try { $deployExecutable = Resolve-PinnedRuntime 'Foundry.Deploy' $script:TrustedMediaManifest $script:SelectedUsbRuntimeRoot $embeddedRuntime $ramRoot }
+    catch { Write-Log 'A boot-pinned Deploy runtime is unavailable; offline continuation cannot be offered.' -Level Warning }
+    if ($null -ne $deployExecutable) {
+        Write-Log 'Checking local deployment content before offering offline continuation.'
+        try { $handoff = New-OfflineReadinessHandoff $deployExecutable $EmbeddedDeployConfigurationPath $script:TrustedMediaManifest $ramRoot }
+        catch {
+            if ($_.Exception.Data['ProcessRootExitConfirmed'] -eq $false) { throw }
+            Write-Log 'Local content readiness could not be confirmed; offline continuation is unavailable.' -Level Warning
+        }
+    }
     [void](Ensure-ServiceRunning -ServiceName 'dot3svc' -FriendlyName 'Wired AutoConfig')
     Start-WinPeWirelessServiceIfSupported
-
-    $connectProvisioningSource = Get-EmbeddedProvisioningSource -ApplicationName 'Foundry.Connect'
-    $deployProvisioningSource = Get-EmbeddedProvisioningSource -ApplicationName 'Foundry.Deploy'
-    $skipConnectReleaseLookup = $connectProvisioningSource -eq 'debug'
-    $skipDeployReleaseLookup = $deployProvisioningSource -eq 'debug'
-
-    Write-Log "Foundry.Connect provisioning source is '$connectProvisioningSource'." -Level Debug
-    Write-Log "Foundry.Deploy provisioning source is '$deployProvisioningSource'." -Level Debug
-
-    Write-ConsoleSection -Title 'Foundry.Connect'
-
-    $connectExecutable = $null
-    if ($skipConnectReleaseLookup) {
-        $connectExecutable = Resolve-ApplicationExecutable `
-            -ApplicationName 'Foundry.Connect' `
-            -BootstrapRoot $bootstrapRoot `
-            -RuntimeIdentifier $runtimeIdentifier `
-            -Headers $headers `
-            -SkipReleaseLookup
+    $connectArguments = @{Executable=$connectExecutable;ConfigurationPath=$EmbeddedConnectConfigurationPath}
+    if ($null -ne $handoff) { $connectArguments.OfflineReadinessPath=$handoff.Path; $connectArguments.OfflineNonce=$handoff.Nonce }
+    $connectExitCode = Invoke-ConnectExecutable @connectArguments
+    if ($connectExitCode -eq 23) {
+        if ($null -eq $handoff -or $null -eq $deployExecutable) { throw 'Offline continuation was not established for this run.' }
+        $current = Read-OfflineReadinessEnvelope $handoff.Path $handoff.Nonce $script:TrustedMediaManifest $EmbeddedDeployConfigurationPath $handoff.Digest
+        if (-not $current.Envelope.CanBrowse) { throw 'Offline browsing is unavailable.' }
+        Start-DeployExecutable -Executable $deployExecutable -Offline
     }
-    else {
-        try {
-            $connectExecutable = Resolve-ApplicationExecutable `
-                -ApplicationName 'Foundry.Connect' `
-                -BootstrapRoot $bootstrapRoot `
-                -RuntimeIdentifier $runtimeIdentifier `
-                -Headers $headers `
-                -SkipReleaseLookup
-        }
-        catch {
-            Write-Log `
-                "No cached Foundry.Connect runtime was available before launch: $($_.Exception.Message). Resolving release content now." `
-                -Level Warning `
-                -ConsoleMessage 'Foundry.Connect: cache missing. Resolving release content.'
-
-            $connectExecutable = Resolve-ApplicationExecutable `
-                -ApplicationName 'Foundry.Connect' `
-                -BootstrapRoot $bootstrapRoot `
-                -RuntimeIdentifier $runtimeIdentifier `
-                -Headers $headers
-        }
+    elseif ($connectExitCode -eq 0) {
+        Sync-WinPeInternetDateTime -ThresholdMinutes 5
+        Set-WinPeTimeZone -FallbackTimeZoneId $DefaultWinPeTimeZoneId
+        $headers = @{'User-Agent'='FoundryBootstrap/1.0';'Accept'='application/vnd.github+json'}
+        $null = Resolve-AuthenticatedRuntime 'Foundry.Connect' $runtimeIdentifier $ramRoot $headers $connectExecutable
+        $deployExecutable = Resolve-AuthenticatedRuntime 'Foundry.Deploy' $runtimeIdentifier $ramRoot $headers $deployExecutable
+        Start-DeployExecutable -Executable $deployExecutable
     }
-
-    $connectExitCode = Invoke-ConnectExecutable `
-        -Executable $connectExecutable `
-        -ConfigurationPath $EmbeddedConnectConfigurationPath
-
-    if ($connectExitCode -ne 0) {
-        switch ($connectExitCode) {
-            20 {
-                throw 'Foundry.Connect was closed by the operator. Bootstrap will not continue.'
-            }
-            default {
-                throw "Foundry.Connect exited with code $connectExitCode."
-            }
-        }
-    }
-
-    Write-Log 'Foundry.Connect completed successfully.' -ConsoleMessage 'Foundry.Connect: completed successfully.'
-
-    Write-ConsoleSection -Title 'System preparation'
-    Write-Log "System preparation started. UtcNow='$([DateTime]::UtcNow.ToString('o', [System.Globalization.CultureInfo]::InvariantCulture))', TimeZone='$(Get-CurrentWinPeTimeZoneId)'." -Component 'SystemTime'
-    Sync-WinPeInternetDateTime -ThresholdMinutes 5
-    Set-WinPeTimeZone -FallbackTimeZoneId $DefaultWinPeTimeZoneId
-    Write-Log "System preparation finished. UtcNow='$([DateTime]::UtcNow.ToString('o', [System.Globalization.CultureInfo]::InvariantCulture))', TimeZone='$(Get-CurrentWinPeTimeZoneId)'." -Component 'SystemTime'
-
-    Write-ConsoleSection -Title 'Runtime cache'
-
-    if ($skipConnectReleaseLookup) {
-        Write-Log `
-            'Skipping Foundry.Connect cache verification because the provisioned runtime is debug.' `
-            -ConsoleMessage 'Foundry.Connect: debug runtime detected. Skipping update check.'
-    }
-    elseif ($deploymentMode -ne 'Usb') {
-        Write-Log `
-            'Skipping Foundry.Connect cache verification because the deployment mode is ISO.' `
-            -ConsoleMessage 'Foundry.Connect: update check skipped in ISO mode.'
-    }
-    else {
-        try {
-            [void](Resolve-ApplicationExecutable `
-                -ApplicationName 'Foundry.Connect' `
-                -BootstrapRoot $bootstrapRoot `
-                -RuntimeIdentifier $runtimeIdentifier `
-                -Headers $headers)
-
-            Write-Log `
-                'Foundry.Connect cache verification completed.' `
-                -ConsoleMessage 'Foundry.Connect: cache verification completed.'
-        }
-        catch {
-            Write-Log `
-                "Foundry.Connect cache verification failed: $($_.Exception.Message). Continuing with the cached bootstrap content." `
-                -Level Warning `
-                -ConsoleMessage 'Foundry.Connect: cache verification failed. Continuing.'
-        }
-    }
-
-    Write-ConsoleSection -Title 'Foundry.Deploy'
-
-    $deployExecutable = Resolve-ApplicationExecutable `
-        -ApplicationName 'Foundry.Deploy' `
-        -BootstrapRoot $bootstrapRoot `
-        -RuntimeIdentifier $runtimeIdentifier `
-        -Headers $headers `
-        -SkipReleaseLookup:$skipDeployReleaseLookup
-
-    Start-DeployExecutable -Executable $deployExecutable
-
-    Write-ConsoleSection -Title 'Completed'
-    Write-Log 'Foundry bootstrap completed successfully.' -ConsoleMessage 'Foundry bootstrap completed successfully.'
+    elseif ($connectExitCode -eq 20) { throw 'Foundry.Connect was closed by the operator. Bootstrap will not continue.' }
+    else { throw "Foundry.Connect exited with code $connectExitCode." }
+    Write-Log 'Foundry bootstrap completed successfully.'
 }
 catch {
     Write-Log "Foundry bootstrap failed: $($_.Exception.Message)" -Level Fatal -Component 'Lifecycle' -ConsoleMessage 'Foundry bootstrap failed.'
     $script:BootstrapExitCode = 1
 }
 finally {
+    if ($null -ne $handoff -and [IO.File]::Exists($handoff.Path)) {
+        try { [IO.File]::Delete($handoff.Path); [IO.Directory]::Delete([IO.Path]::GetDirectoryName($handoff.Path),$false) } catch {}
+    }
     Copy-BootstrapLogsToCache
 }
-
-if ($script:BootstrapExitCode -eq 1) {
-    exit 1
-}
+if ($script:BootstrapExitCode -eq 1) { exit 1 }
 #endregion

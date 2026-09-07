@@ -7,4 +7,7 @@ using Foundry.Core.Services.WinPe;
 namespace Foundry.Core.Services.Media;
 
 public sealed record MediaOperationResult(Guid OperationId, MediaOperationTarget Target,
-    string? IsoOutputPath = null, WinPeUsbProvisionResult? UsbResult = null);
+    string? IsoOutputPath = null, WinPeUsbProvisionResult? UsbResult = null)
+{
+    public IReadOnlyList<string> Warnings { get; init; } = [];
+}

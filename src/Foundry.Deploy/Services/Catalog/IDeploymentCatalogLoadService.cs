@@ -7,4 +7,5 @@ namespace Foundry.Deploy.Services.Catalog;
 public interface IDeploymentCatalogLoadService
 {
     Task<DeploymentCatalogSnapshot> LoadAsync();
+    Task<DeploymentCatalogSnapshot> LoadAsync(CatalogLoadRequest request, CancellationToken cancellationToken = default);
 }

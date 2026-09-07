@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Services.Catalog;
 
 namespace Foundry.Core.Services.Media;
 
@@ -21,6 +22,7 @@ public sealed class MediaOperationCoordinator
     private readonly IConnectConfigurationGenerator connectGenerator;
     private readonly IDeployConfigurationGenerator deployGenerator;
     private readonly Func<string?, WinPeArchitecture, WinPeResult<WinPeToolPaths>> resolveTools;
+    private readonly Func<CancellationToken, Task<IReadOnlyList<VerifiedCatalogDocument>>> acquireCatalogs;
     private readonly object sync = new();
     private CancellationTokenSource? cancellation;
     private Task<WinPeResult<MediaOperationResult>>? activeOperation;
@@ -44,7 +46,8 @@ public sealed class MediaOperationCoordinator
         IWinPeIsoMediaService isoService, IWinPeUsbMediaService usbService,
         IWinPeEmbeddedAssetService embeddedAssets, IConnectConfigurationGenerator connectGenerator,
         IDeployConfigurationGenerator deployGenerator,
-        Func<string?, WinPeArchitecture, WinPeResult<WinPeToolPaths>> resolveTools)
+        Func<string?, WinPeArchitecture, WinPeResult<WinPeToolPaths>> resolveTools,
+        Func<CancellationToken, Task<IReadOnlyList<VerifiedCatalogDocument>>>? acquireCatalogs = null)
     {
         this.buildService = buildService;
         this.preparationService = preparationService;
@@ -55,6 +58,7 @@ public sealed class MediaOperationCoordinator
         this.connectGenerator = connectGenerator;
         this.deployGenerator = deployGenerator;
         this.resolveTools = resolveTools;
+        this.acquireCatalogs = acquireCatalogs ?? AcquireCatalogsAsync;
     }
 
     public bool IsRunning { get { lock (sync) { return activeOperation is { IsCompleted: false }; } } }
@@ -127,6 +131,7 @@ public sealed class MediaOperationCoordinator
         WinPePreparedRuntimePayloads? runtime = null;
         WinPeResult<MediaOperationResult> result;
         WinPeDiagnostic? cleanupWarning = null;
+        IReadOnlyList<string> warnings = [];
         try
         {
             token.ThrowIfCancellationRequested();
@@ -158,6 +163,12 @@ public sealed class MediaOperationCoordinator
                 UsbCacheRootPath = string.Empty
             };
             runtime = Value(await runtimeService.PrepareAsync(runtimeOptions, downloadProgress, token).ConfigureAwait(false));
+            IReadOnlyList<VerifiedCatalogDocument> catalogs = await acquireCatalogs(token).ConfigureAwait(false);
+            if (!catalogs.Any(catalog => catalog.Id == VerifiedCatalogSources.DriverPacks))
+                warnings = ["The optional OEM catalog snapshot is unavailable. Offline OEM selection requires refreshing this medium; online catalog loading remains available."];
+            WinPeMediaManifest manifest = WinPeMediaManifestStore.Create(runtime, request.Target,
+                request.Target == MediaOperationTarget.Iso ? null : CreateUsbOptions(options, runtimeOptions, runtime, downloadProgress, mediaProgress).ExpectedDisk,
+                catalogs);
             FoundryConnectProvisioningBundle connect = connectGenerator.CreateProvisioningBundle(
                 request.Configuration.ConnectDocument with { Telemetry = request.ConnectTelemetry },
                 Path.Combine(lease.WorkingDirectoryPath, "Provisioning"));
@@ -174,9 +185,11 @@ public sealed class MediaOperationCoordinator
                     DriverVendors = options.DriverVendors,
                     CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
                     WinPeLanguage = options.WinPeLanguage,
-                    AssetProvisioning = CreateAssets(request, options, tools, connect),
-                    RuntimePayloadProvisioning = request.Target == MediaOperationTarget.Iso ? runtimeOptions : null,
+                    AssetProvisioning = CreateAssets(request, options, tools, connect) with { MediaManifest = manifest, VerifiedCatalogDocuments = catalogs },
+                    RuntimePayloadProvisioning = runtimeOptions,
                     PreparedRuntime = runtime,
+                    MediaManifest = manifest,
+                    VerifiedCatalogDocuments = catalogs,
                     WinReCacheDirectoryPath = request.WinReCacheDirectoryPath,
                     Progress = preparationProgress,
                     DownloadProgress = downloadProgress,
@@ -273,9 +286,9 @@ public sealed class MediaOperationCoordinator
             }
         }
 
-        if (result.IsSuccess && cleanupWarning is not null)
+        if (result.IsSuccess)
         {
-            result = WinPeResult<MediaOperationResult>.SuccessWithCleanup(result.Value!, cleanupWarning);
+            result = WinPeResult<MediaOperationResult>.SuccessWithCleanup(result.Value! with { Warnings = warnings }, cleanupWarning);
         }
         completion.TrySetResult(result);
     }
@@ -337,6 +350,25 @@ public sealed class MediaOperationCoordinator
             DownloadProgress = download,
             Progress = progress
         };
+    }
+
+    private static async Task<IReadOnlyList<VerifiedCatalogDocument>> AcquireCatalogsAsync(CancellationToken token)
+    {
+        var acquirer = new VerifiedCatalogSnapshotAcquirer();
+        Task<VerifiedCatalogDocument> operatingSystems = acquirer.AcquireAsync(VerifiedCatalogSources.OperatingSystems, VerifiedCatalogSources.GetUri(VerifiedCatalogSources.OperatingSystems), token);
+        Task<VerifiedCatalogDocument?> drivers = AcquireOptionalDriversAsync(acquirer, token);
+        await Task.WhenAll(new Task[] { operatingSystems, drivers }).ConfigureAwait(false);
+        return drivers.Result is { } available ? [operatingSystems.Result, available] : [operatingSystems.Result];
+    }
+
+    private static async Task<VerifiedCatalogDocument?> AcquireOptionalDriversAsync(VerifiedCatalogSnapshotAcquirer acquirer, CancellationToken token)
+    {
+        try { return await acquirer.AcquireAsync(VerifiedCatalogSources.DriverPacks, VerifiedCatalogSources.GetUri(VerifiedCatalogSources.DriverPacks), token).ConfigureAwait(false); }
+        catch (Exception error) when (error is System.Net.Http.HttpRequestException or IOException or TimeoutException or System.Xml.XmlException)
+        {
+            token.ThrowIfCancellationRequested();
+            return null;
+        }
     }
 
     private static bool HasUncertainNativeOwnership(Exception? error)

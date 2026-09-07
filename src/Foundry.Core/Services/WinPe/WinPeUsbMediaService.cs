@@ -341,6 +341,11 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             }
         }
 
+        if (options.PreparedRuntime is not null)
+        {
+            await WriteAssociationMarkerAsync(bootRootPath, options.PreparedRuntime, cancellationToken).ConfigureAwait(false);
+            await WriteAssociationMarkerAsync(cacheRootPath, options.PreparedRuntime, cancellationToken).ConfigureAwait(false);
+        }
         ReportProgress(options.Progress, 100, "USB media completed.");
         return WinPeResult<WinPeUsbProvisionResult>.Success(provisionedUsb);
     }
@@ -501,6 +506,11 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         }
 
         ReportProgress(options.Progress, 100, "USB boot partition updated.");
+        if (options.PreparedRuntime is not null)
+        {
+            await WriteAssociationMarkerAsync(bootRootPath, options.PreparedRuntime, cancellationToken).ConfigureAwait(false);
+            await WriteAssociationMarkerAsync(_resolveVolumeRoot(layout.CacheVolumePath), options.PreparedRuntime, cancellationToken).ConfigureAwait(false);
+        }
         return WinPeResult<WinPeUsbProvisionResult>.Success(layout);
     }
 
@@ -622,6 +632,19 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "Cache", "OperatingSystems"));
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "Cache", "DriverPacks"));
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "Cache", "Firmware"));
+    }
+
+    private static async Task WriteAssociationMarkerAsync(string volumeRoot, WinPePreparedRuntimePayloads prepared, CancellationToken token)
+    {
+        string directory = Path.Combine(volumeRoot, "Foundry", "Config");
+        Directory.CreateDirectory(directory);
+        string json = System.Text.Json.JsonSerializer.Serialize(new
+        {
+            version = 1,
+            mediaId = prepared.MediaId,
+            runtimeIdentifier = prepared.Applications.Select(application => application.RuntimeIdentifier).Distinct(StringComparer.Ordinal).Single()
+        });
+        await File.WriteAllTextAsync(Path.Combine(directory, "foundry.media.marker.json"), json, token).ConfigureAwait(false);
     }
 
     internal static WinPeRuntimePayloadProvisioningOptions CreateUsbRuntimePayloadOptions(

@@ -52,6 +52,15 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
         try
         {
+            options = options with
+            {
+                VerifiedCatalogDocuments = options.VerifiedCatalogDocuments.Select(document => document with
+                { Content = document.Content.ToArray() }).ToArray()
+            };
+            if (options.MediaManifest is not null)
+                WinPeMediaManifestStore.Validate(options.MediaManifest, options.Architecture.ToDotnetRuntimeIdentifier());
+            else if (options.VerifiedCatalogDocuments.Count != 0)
+                throw new InvalidDataException("Catalog documents require a trusted media manifest.");
             string mountedImagePath = Path.GetFullPath(options.MountedImagePath);
             string system32Path = Path.Combine(mountedImagePath, "Windows", "System32");
             string foundryRootPath = Path.Combine(mountedImagePath, "Foundry");
@@ -75,6 +84,10 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             ProvisionBundledSevenZip(mountedImagePath, options);
             await WriteStartnetAsync(system32Path, cancellationToken).ConfigureAwait(false);
             await WriteConfigurationAssetsAsync(mountedImagePath, foundryConfigPath, options, cancellationToken).ConfigureAwait(false);
+
+            if (options.MediaManifest is not null)
+                await WinPeMediaManifestStore.StageAsync(options.MediaManifest, options.VerifiedCatalogDocuments,
+                    mountedImagePath, cancellationToken).ConfigureAwait(false);
 
             return WinPeResult.Success();
         }

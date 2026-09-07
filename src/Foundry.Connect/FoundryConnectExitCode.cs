@@ -9,5 +9,6 @@ public enum FoundryConnectExitCode
     Success = 0,
     UserAborted = 20,
     StartupFailure = 21,
-    ConfigurationFailure = 22
+    ConfigurationFailure = 22,
+    OfflineSuccess = 23
 }

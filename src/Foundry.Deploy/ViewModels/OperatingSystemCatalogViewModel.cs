@@ -60,6 +60,20 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
     private OperatingSystemCatalogItem? selectedOperatingSystem;
 
     [ObservableProperty]
+    private string catalogStatus = string.Empty;
+
+    public void ApplySnapshotStatus(DeploymentCatalogSnapshot snapshot)
+    {
+        CatalogSnapshot<OperatingSystemCatalogItem>? catalog = snapshot.OperatingSystemSnapshot;
+        CatalogStatus = catalog is null ? snapshot.OperatingSystemFailure ?? string.Empty :
+            Services.Localization.LocalizationText.Format("Catalog.SnapshotStatusFormat",
+                Services.Localization.LocalizationText.GetString(catalog.IsOffline ? "Catalog.OfflineSource" : "Catalog.OnlineSource"),
+                catalog.RetrievedUtc.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+                Math.Max(0, (DateTimeOffset.UtcNow - catalog.RetrievedUtc).Days), catalog.Revision);
+        if (!string.IsNullOrWhiteSpace(snapshot.DriverPackFailure)) CatalogStatus += Environment.NewLine + snapshot.DriverPackFailure;
+    }
+
+    [ObservableProperty]
     private string effectiveOsArchitecture;
 
     [ObservableProperty]

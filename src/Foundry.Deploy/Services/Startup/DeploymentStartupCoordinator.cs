@@ -13,6 +13,7 @@ using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Deploy.Services.Networking;
 using Foundry.Deploy.Services.System;
 using Microsoft.Extensions.Logging;
 
@@ -30,6 +31,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
     private readonly IDeploymentCatalogLoadService _deploymentCatalogLoadService;
     private readonly IAutopilotGroupTagDiscoveryService _autopilotGroupTagDiscoveryService;
     private readonly ILogger<DeploymentStartupCoordinator> _logger;
+    private readonly DeploymentNetworkPolicy _networkPolicy;
 
     public DeploymentStartupCoordinator(
         IDeployConfigurationService deployConfigurationService,
@@ -39,7 +41,8 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         ITargetDiskService targetDiskService,
         IDeploymentCatalogLoadService deploymentCatalogLoadService,
         IAutopilotGroupTagDiscoveryService autopilotGroupTagDiscoveryService,
-        ILogger<DeploymentStartupCoordinator> logger)
+        ILogger<DeploymentStartupCoordinator> logger,
+        DeploymentNetworkPolicy? networkPolicy = null)
     {
         _deployConfigurationService = deployConfigurationService;
         _autopilotProfileCatalogService = autopilotProfileCatalogService;
@@ -49,6 +52,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         _deploymentCatalogLoadService = deploymentCatalogLoadService;
         _autopilotGroupTagDiscoveryService = autopilotGroupTagDiscoveryService;
         _logger = logger;
+        _networkPolicy = networkPolicy ?? new(false);
     }
 
     public async Task<DeploymentStartupSnapshot> InitializeAsync(DeploymentStartupRequest request)
@@ -58,14 +62,14 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         DeployConfigurationLoadResult deployConfigLoadResult = _deployConfigurationService.LoadOptional();
         IReadOnlyList<AutopilotProfileCatalogItem> autopilotProfiles = _autopilotProfileCatalogService.LoadAvailableProfiles();
         string cacheRootPath = ResolveCacheRootPath(request.RuntimeContext, request.IsDebugSafeMode);
-        FoundryDeployConfigurationDocument? deployConfigurationDocument = deployConfigLoadResult.Document is null
+        FoundryDeployConfigurationDocument? deployConfigurationDocument = _networkPolicy.OfflineOnly ? deployConfigLoadResult.Document : deployConfigLoadResult.Document is null
             ? null
             : await RefreshAutopilotGroupTagsAsync(deployConfigLoadResult.Document, cacheRootPath).ConfigureAwait(false);
 
         Task<string> computerNameTask = ResolveComputerNameAsync(request.FallbackComputerName);
         Task<HardwareLoadResult> hardwareTask = LoadHardwareAsync();
         Task<TargetDiskLoadResult> targetDisksTask = LoadTargetDisksAsync();
-        Task<DeploymentCatalogSnapshot> catalogTask = _deploymentCatalogLoadService.LoadAsync();
+        Task<DeploymentCatalogSnapshot> catalogTask = _deploymentCatalogLoadService.LoadAsync(new(_networkPolicy.OfflineOnly, false));
 
         await Task.WhenAll(computerNameTask, hardwareTask, targetDisksTask, catalogTask).ConfigureAwait(false);
 

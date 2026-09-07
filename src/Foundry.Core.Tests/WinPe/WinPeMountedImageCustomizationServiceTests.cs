@@ -3,11 +3,51 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Services.Catalog;
+using Foundry.Core.Services.Media;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeMountedImageCustomizationServiceTests
 {
+    [Fact]
+    public async Task CustomizeAsync_UnverifiedEmbeddedRuntimeFailsBeforeCommit()
+    {
+        using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        byte[] xml = Encoding.UTF8.GetBytes("<catalog schemaVersion=\"4\" />");
+        string digest = Convert.ToHexString(SHA256.HashData(xml)).ToLowerInvariant();
+        var catalog = new VerifiedCatalogDocument(VerifiedCatalogSources.OperatingSystems, xml, digest,
+            "sha256:" + digest, VerifiedCatalogSources.GetUri(VerifiedCatalogSources.OperatingSystems), DateTimeOffset.UtcNow);
+        using var prepared = new WinPePreparedRuntimePayloads(Guid.NewGuid(),
+            [new("Foundry.Connect", "win-x64", temp.RootPath, WinPeProvisioningSource.Release, "v1", new string('a', 64),
+                [new("Foundry.Connect.exe", 1, new string('b', 64))])]);
+        WinPeMediaManifest manifest = WinPeMediaManifestStore.Create(prepared, MediaOperationTarget.Iso, null, [catalog]);
+        var runner = new FakeCustomizationRunner();
+        var assets = new FakeAssetProvisioningService();
+        var service = new WinPeMountedImageCustomizationService(runner, new FakeDriverInjectionService(),
+            new FakeInternationalizationService(), assets, new FakeRuntimePayloadProvisioningService(),
+            new FakeWinRePreparationService(), AcceptCapabilities);
+
+        WinPeResult result = await service.CustomizeAsync(new()
+        {
+            Artifact = temp.Artifact,
+            Tools = temp.Tools,
+            WinPeLanguage = "en-US",
+            PreparedRuntime = prepared,
+            MediaManifest = manifest,
+            VerifiedCatalogDocuments = [catalog],
+            AssetProvisioning = new() { BootstrapScriptContent = "bootstrap", IanaWindowsTimeZoneMapJson = "{}" }
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Same(manifest, Assert.Single(assets.Options).MediaManifest);
+        Assert.Same(catalog, Assert.Single(assets.Options[0].VerifiedCatalogDocuments));
+        Assert.DoesNotContain(runner.Executions, execution => execution.Arguments.Contains("/Commit", StringComparison.Ordinal));
+        Assert.Contains(runner.Executions, execution => execution.Arguments.Contains("/Discard", StringComparison.Ordinal));
+    }
+
     [Fact]
     public async Task CustomizeAsync_ForStandardBootImage_MountsInjectsInternationalizesAndCommits()
     {
@@ -188,8 +228,10 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         Assert.DoesNotContain(runner.Executions, execution => execution.Arguments.Contains("/Commit", StringComparison.Ordinal));
     }
 
-    [Fact]
-    public async Task CustomizeAsync_WhenRuntimeIsPrepared_PlacesSamePayloadWithoutAcquisition()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task CustomizeAsync_WhenRuntimeIsPrepared_PlacesSamePayloadWithoutAcquisition(bool provideDestinations)
     {
         using TempWinPeArtifact temp = TempWinPeArtifact.Create();
         using var prepared = new WinPePreparedRuntimePayloads(Guid.NewGuid(), []);
@@ -207,7 +249,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             Artifact = temp.Artifact,
             Tools = temp.Tools,
             WinPeLanguage = "en-US",
-            RuntimePayloadProvisioning = destinations,
+            RuntimePayloadProvisioning = provideDestinations ? destinations : null,
             PreparedRuntime = prepared
         }, TestContext.Current.CancellationToken);
 
@@ -215,7 +257,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         Assert.Same(prepared, Assert.Single(runtime.PreparedPayloads));
         Assert.Equal(temp.Artifact.MountDirectoryPath, Assert.Single(runtime.Options).MountedImagePath);
         Assert.Equal(temp.Artifact.Architecture, runtime.Options[0].Architecture);
-        Assert.Same(destinations.Connect, runtime.Options[0].Connect);
+        if (provideDestinations) Assert.Same(destinations.Connect, runtime.Options[0].Connect);
         Assert.Empty(runtime.DownloadProgressItems);
         Assert.False(prepared.IsDisposed);
     }

@@ -20,7 +20,7 @@ public sealed class PayloadCachePlacementService(IArtifactDownloadService downlo
     private const long UnknownSizeInitialCapacity = 64L * 1024 * 1024;
 
     public async Task<PayloadCachePlacement> ResolveAsync(ArtifactIdentity artifact, string preferredRoot,
-        string? targetRoot, CancellationToken cancellationToken = default)
+        string? targetRoot, CancellationToken cancellationToken = default, bool cacheOnly = false)
     {
         ArtifactIntegrityPolicy.Validate(artifact);
         ArgumentException.ThrowIfNullOrWhiteSpace(preferredRoot);
@@ -46,6 +46,7 @@ public sealed class PayloadCachePlacementService(IArtifactDownloadService downlo
             }
         }
 
+        if (cacheOnly) throw new IOException("The selected offline payload is missing or invalid. Reconnect and restart in online mode to acquire it.");
         long requiredBytes = artifact.Integrity.SizeBytes ?? UnknownSizeInitialCapacity;
         foreach (string root in roots)
         {

@@ -12,6 +12,16 @@ namespace Foundry.Deploy.Tests;
 public sealed class PayloadCachePlacementServiceTests
 {
     [Fact]
+    public async Task OfflineMissDoesNotProbeWritableStorage()
+    {
+        var probe = new StorageProbe(new VolumeStorageStatus(true, true, 100));
+        var service = new PayloadCachePlacementService(new CacheLookup(false), probe);
+        await Assert.ThrowsAsync<IOException>(() => service.ResolveAsync(CreateArtifact(10), "owned-fixture", null,
+            TestContext.Current.CancellationToken, cacheOnly: true));
+        Assert.Equal(0, probe.Calls);
+    }
+
+    [Fact]
     public async Task VerifiedReadOnlyCacheHit_DoesNotProbeCapacityOrWrite()
     {
         ArtifactIdentity artifact = CreateArtifact(6L * 1024 * 1024 * 1024);

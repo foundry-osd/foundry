@@ -11,6 +11,25 @@ namespace Foundry.Deploy.Tests;
 public sealed class OperatingSystemCatalogServiceTests
 {
     [Fact]
+    public void ParseVerified_PreservesExactEncodedByteRevisionInArtifactIdentity()
+    {
+        const string xml = """
+            <OperatingSystemCatalog schemaVersion="4">
+              <Sources><Source id="source" build="26200.1" buildMajor="26200" buildUbr="1" mediaDate="2026-07-10" /></Sources>
+              <Items><Item><sourceId>source</sourceId><windowsRelease>11</windowsRelease><releaseId>25H2</releaseId>
+              <architecture>x64</architecture><edition>Pro</edition><fileName>image.wim</fileName><url>https://example.test/image.wim</url></Item></Items>
+            </OperatingSystemCatalog>
+            """;
+        byte[] bytes = System.Text.Encoding.Unicode.GetPreamble().Concat(System.Text.Encoding.Unicode.GetBytes(xml)).ToArray();
+        string hash = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(bytes));
+        var document = new Foundry.Core.Services.Catalog.VerifiedCatalogDocument("operating-systems", bytes, hash, "sha256:" + hash.ToLowerInvariant(),
+            Foundry.Core.Services.Catalog.VerifiedCatalogSources.GetUri("operating-systems"), DateTimeOffset.UtcNow);
+        var item = Assert.Single(OperatingSystemCatalogService.ParseVerified(document));
+        Assert.Equal(document.Revision, item.CatalogRevision);
+        Assert.NotEqual(CatalogContentIdentity.Calculate(xml), item.CatalogRevision);
+    }
+
+    [Fact]
     public void ParseCatalog_JoinsMediaDateFromSchemaVersionFourSource()
     {
         const string xml = """

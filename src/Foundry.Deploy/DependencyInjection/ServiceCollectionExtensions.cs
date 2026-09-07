@@ -5,6 +5,9 @@
 using System.Globalization;
 using System.Net.Http;
 using System.Runtime.InteropServices;
+using Foundry.Deploy.Services.Networking;
+using Foundry.Core.Services.Catalog;
+using Foundry.Core.Services.WinPe;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Autopilot;
@@ -43,8 +46,11 @@ public static class ServiceCollectionExtensions
 {
     private const string DeploymentModeEnvironmentVariable = "FOUNDRY_DEPLOYMENT_MODE";
 
-    public static IServiceCollection AddFoundryDeployApplicationServices(this IServiceCollection services)
+    public static IServiceCollection AddFoundryDeployApplicationServices(this IServiceCollection services, bool offlineOnly = false)
     {
+        services.AddSingleton(new DeploymentNetworkPolicy(offlineOnly));
+        services.AddSingleton<VerifiedCatalogSnapshotAcquirer>();
+        services.AddSingleton<DeploymentOfflineWorkflow>();
         services.AddSingleton<App>();
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainWindowViewModel>();
@@ -81,7 +87,7 @@ public static class ServiceCollectionExtensions
                 !string.IsNullOrWhiteSpace(options.InstallId),
                 options.HostUrl);
 
-            if (!options.CanSend)
+            if (offlineOnly || !options.CanSend)
             {
                 logger.LogDebug("Telemetry service disabled for Foundry.Deploy because runtime options are incomplete or disabled.");
                 return new NullTelemetryService();
@@ -108,7 +114,19 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ITargetDiskService, TargetDiskService>();
         services.AddSingleton<IOperatingSystemCatalogService, OperatingSystemCatalogService>();
         services.AddSingleton<IDriverPackCatalogService, DriverPackCatalogService>();
-        services.AddSingleton<IDeploymentCatalogLoadService, DeploymentCatalogLoadService>();
+        services.AddSingleton<IDeploymentCatalogLoadService>(sp =>
+        {
+            CatalogSnapshotStore? store = null;
+            string path = System.IO.Path.Combine(DeploymentOfflineWorkflow.TrustedRoot, WinPeMediaManifestStore.RelativePath);
+            if (System.IO.File.Exists(path))
+            {
+                WinPeMediaManifest manifest = WinPeMediaManifestStore.ReadAsync(path).GetAwaiter().GetResult();
+                WinPeMediaManifestStore.Validate(manifest, DeploymentOfflineWorkflow.RuntimeIdentifier);
+                store = new CatalogSnapshotStore(DeploymentOfflineWorkflow.TrustedRoot, manifest,
+                    offlineOnly ? null : System.IO.Path.Combine(DeploymentOfflineWorkflow.TrustedRoot, "Foundry", "Cache", "CatalogCandidates"));
+            }
+            return new DeploymentCatalogLoadService(sp.GetRequiredService<VerifiedCatalogSnapshotAcquirer>(), store, sp.GetRequiredService<DeploymentNetworkPolicy>());
+        });
         services.AddSingleton<IDriverPackSelectionService, DriverPackSelectionService>();
         services.AddSingleton<IMicrosoftUpdateCatalogClient, MicrosoftUpdateCatalogClient>();
         services.AddSingleton<IMicrosoftUpdateCatalogDriverService, MicrosoftUpdateCatalogDriverService>();

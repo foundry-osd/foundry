@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using Foundry.Deploy.Services.Http;
+using Foundry.Deploy.Services.Networking;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
 
@@ -27,15 +28,17 @@ public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
 
     private readonly ILogger<MicrosoftUpdateCatalogClient> _logger;
     private readonly HttpClient _httpClient;
+    private readonly DeploymentNetworkPolicy _networkPolicy;
 
-    public MicrosoftUpdateCatalogClient(ILogger<MicrosoftUpdateCatalogClient> logger) : this(logger, DefaultHttpClient)
+    public MicrosoftUpdateCatalogClient(ILogger<MicrosoftUpdateCatalogClient> logger, DeploymentNetworkPolicy? networkPolicy = null) : this(logger, DefaultHttpClient, networkPolicy)
     {
     }
 
-    internal MicrosoftUpdateCatalogClient(ILogger<MicrosoftUpdateCatalogClient> logger, HttpClient httpClient)
+    internal MicrosoftUpdateCatalogClient(ILogger<MicrosoftUpdateCatalogClient> logger, HttpClient httpClient, DeploymentNetworkPolicy? networkPolicy = null)
     {
         _logger = logger;
         _httpClient = httpClient;
+        _networkPolicy = networkPolicy ?? new(false);
     }
 
     public async Task<bool> IsAvailableAsync(CancellationToken cancellationToken = default)
@@ -224,6 +227,7 @@ public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
 
     private Task<string> SendStringAsync(string requestUri, string operationName, CancellationToken cancellationToken)
     {
+        _networkPolicy.ThrowIfNetworkUnavailable();
         return HttpTextFetcher.SendStringWithRetryAsync(_httpClient, () =>
         {
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -235,6 +239,7 @@ public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
     private Task<string> SendFormAsync(string requestUri, IReadOnlyList<KeyValuePair<string, string>> formValues,
         string operationName, CancellationToken cancellationToken)
     {
+        _networkPolicy.ThrowIfNetworkUnavailable();
         return HttpTextFetcher.SendStringWithRetryAsync(_httpClient, () =>
         {
             var request = new HttpRequestMessage(HttpMethod.Post, requestUri) { Content = new FormUrlEncodedContent(formValues) };

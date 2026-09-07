@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using Foundry.Core.Services.Security;
 using Foundry.Deploy.Services.Http;
+using Foundry.Deploy.Services.Networking;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Security;
 using Microsoft.Extensions.Logging;
@@ -20,16 +21,18 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
     private readonly HttpClient? _httpClient;
     private readonly ILogger<ArtifactDownloadService> _logger;
     private readonly Func<string, IReadOnlySet<string>, CancellationToken, Task> _verifySignature;
+    private readonly DeploymentNetworkPolicy _networkPolicy;
 
-    public ArtifactDownloadService(ILogger<ArtifactDownloadService> logger)
+    public ArtifactDownloadService(ILogger<ArtifactDownloadService> logger, DeploymentNetworkPolicy? networkPolicy = null)
     {
         _logger = logger;
         _verifySignature = AuthenticodeVerifier.VerifyAsync;
+        _networkPolicy = networkPolicy ?? new(false);
     }
 
     internal ArtifactDownloadService(ILogger<ArtifactDownloadService> logger, HttpClient httpClient,
-        Func<string, IReadOnlySet<string>, CancellationToken, Task>? verifySignature = null)
-        : this(logger)
+        Func<string, IReadOnlySet<string>, CancellationToken, Task>? verifySignature = null, DeploymentNetworkPolicy? networkPolicy = null)
+        : this(logger, networkPolicy)
     {
         _httpClient = httpClient;
         _verifySignature = verifySignature ?? AuthenticodeVerifier.VerifyAsync;
@@ -95,6 +98,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
             return cached;
         }
 
+        _networkPolicy.ThrowIfNetworkUnavailable();
         Uri effectiveSource = artifact.Kind == "OperatingSystemImage" &&
             Path.GetExtension(artifact.FileName).Equals(".esd", StringComparison.OrdinalIgnoreCase)
             ? new Uri(WindowsUpdateContentUrl.Normalize(artifact.SourceUri.AbsoluteUri)) : artifact.SourceUri;

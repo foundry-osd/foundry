@@ -12,11 +12,49 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Services.Catalog;
+using Foundry.Core.Services.Media;
 
 namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeMountedImageAssetProvisioningServiceTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task ProvisionAsync_StagesOnlyCatalogBytesMatchingTrustedManifest(bool corruptCatalog)
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        byte[] xml = Encoding.UTF8.GetBytes("<catalog schemaVersion=\"4\" />");
+        string digest = Convert.ToHexString(SHA256.HashData(xml)).ToLowerInvariant();
+        var catalog = new VerifiedCatalogDocument(VerifiedCatalogSources.OperatingSystems, xml, digest,
+            "sha256:" + digest, VerifiedCatalogSources.GetUri(VerifiedCatalogSources.OperatingSystems), DateTimeOffset.UtcNow);
+        using var prepared = new WinPePreparedRuntimePayloads(Guid.NewGuid(),
+            [new("Foundry.Connect", "win-x64", image.RootPath, WinPeProvisioningSource.Release, "v1", new string('a', 64),
+                [new("Foundry.Connect.exe", 1, new string('b', 64))])]);
+        WinPeMediaManifest manifest = WinPeMediaManifestStore.Create(prepared, MediaOperationTarget.Iso, null, [catalog]);
+        if (corruptCatalog) xml[0] ^= 1;
+
+        WinPeResult result = await new WinPeMountedImageAssetProvisioningService().ProvisionAsync(new()
+        {
+            MountedImagePath = image.MountedImagePath,
+            BootstrapScriptContent = "bootstrap",
+            IanaWindowsTimeZoneMapJson = "{}",
+            MediaManifest = manifest,
+            VerifiedCatalogDocuments = [catalog]
+        }, TestContext.Current.CancellationToken);
+
+        Assert.Equal(!corruptCatalog, result.IsSuccess);
+        string path = Path.Combine(image.MountedImagePath, WinPeMediaManifestStore.RelativePath);
+        Assert.Equal(!corruptCatalog, File.Exists(path));
+        if (!corruptCatalog)
+        {
+            Assert.Equal(manifest.MediaId, (await WinPeMediaManifestStore.ReadAsync(path, TestContext.Current.CancellationToken)).MediaId);
+            Assert.Equal(xml, await File.ReadAllBytesAsync(Path.Combine(image.MountedImagePath,
+                VerifiedCatalogSources.GetRelativePath(catalog.Id)), TestContext.Current.CancellationToken));
+        }
+    }
+
     [Theory]
     [InlineData("curl")]
     [InlineData("7za")]

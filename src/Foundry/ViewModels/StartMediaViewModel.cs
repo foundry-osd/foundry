@@ -562,6 +562,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     usbResult.CacheDriveLetter);
             }
 
+            if (mediaResult.Value!.Warnings.Count > 0)
+                successMessage += Environment.NewLine + string.Join(Environment.NewLine, mediaResult.Value.Warnings);
             terminalStatus = successMessage ?? localizationService.GetString("StartMedia.Operation.Completed");
             operationProgressService.Complete(terminalStatus);
             success = true;

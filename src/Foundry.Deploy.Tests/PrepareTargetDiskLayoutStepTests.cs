@@ -15,6 +15,18 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class PrepareTargetDiskLayoutStepTests
 {
+    [Fact]
+    public async Task OfflineRunRequiresFreshReadinessEvenAfterImagePreflight()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var service = new FakeWindowsDeploymentService(workspace);
+        using DeploymentStepExecutionContext context = CreateExecutionContext(workspace, DeploymentMode.Iso);
+        DeploymentStepResult result = await new PrepareTargetDiskLayoutStep(service, new(true))
+            .ExecuteAsync(context, TestContext.Current.CancellationToken);
+        Assert.Equal("offline_readiness_required", result.Failure?.Code);
+        Assert.Equal(0, service.PrepareCalls);
+    }
+
     [Theory]
     [InlineData("missing")]
     [InlineData("selection")]

@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.Catalog;
+
 namespace Foundry.Core.Services.WinPe;
 
 /// <summary>
@@ -9,6 +11,12 @@ namespace Foundry.Core.Services.WinPe;
 /// </summary>
 public sealed record WinPeMountedImageCustomizationOptions
 {
+    /// <summary>Gets boot-pinned identities captured from verified runtime and catalog preparation.</summary>
+    public WinPeMediaManifest? MediaManifest { get; init; }
+
+    /// <summary>Gets the exact authenticated catalog documents matching the manifest descriptors.</summary>
+    public IReadOnlyList<VerifiedCatalogDocument> VerifiedCatalogDocuments { get; init; } = [];
+
     /// <summary>
     /// Gets the WinPE build artifact containing workspace paths.
     /// </summary>

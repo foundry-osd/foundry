@@ -21,6 +21,7 @@ using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Logging;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Theme;
+using Foundry.Connect.Services.Runtime;
 using Foundry.Connect.Views;
 using Foundry.Localization;
 using Foundry.Telemetry;
@@ -64,6 +65,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly SemaphoreSlim _successfulExitGate = new(1, 1);
     private readonly CancellationTokenSource _disposeCts = new();
     private readonly bool _isAutoCloseEnabled;
+    private readonly OfflineReadinessHint _offlineReadiness;
 
     private CancellationTokenSource? _countdownCts;
     private bool _isInitialized;
@@ -171,7 +173,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         INetworkBootstrapService networkBootstrapService,
         INetworkStatusService networkStatusService,
         ITelemetryService telemetryService,
-        ILogger<MainWindowViewModel> logger)
+        ILogger<MainWindowViewModel> logger,
+        OfflineReadinessHint? offlineReadiness = null)
         : base(localizationService)
     {
         _themeService = themeService;
@@ -183,6 +186,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _networkStatusService = networkStatusService;
         _telemetryService = telemetryService;
         _logger = logger;
+        _offlineReadiness = offlineReadiness ?? new(false);
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
         _isAutoCloseEnabled = !Debugger.IsAttached;
         LayoutMode = NetworkLayoutMode.EthernetOnly;
@@ -270,6 +274,16 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// Gets a value indicating whether automatic bootstrap can continue to deployment.
     /// </summary>
     public bool CanContinueBootstrap => HasInternetAccess && !_applicationLifetimeService.IsExitRequested;
+
+    public bool CanContinueOffline => _offlineReadiness.CanBrowse && !_applicationLifetimeService.IsExitRequested;
+
+    [RelayCommand(CanExecute = nameof(CanContinueOffline))]
+    private void ContinueOffline()
+    {
+        if (!CanContinueOffline) return;
+        CancelCountdown();
+        _applicationLifetimeService.Exit(FoundryConnectExitCode.OfflineSuccess);
+    }
 
     /// <summary>
     /// Gets a value indicating whether the current Wi-Fi connection matches the provisioned profile.

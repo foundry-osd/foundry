@@ -198,6 +198,12 @@ public static class ArtifactIntegrityPolicy
 
     private static void ValidateToken(string value, string name)
     {
+        if (name == nameof(ArtifactIdentity.CatalogRevision) && value is { Length: 71 } &&
+            value.StartsWith("sha256:", StringComparison.Ordinal) &&
+            value.AsSpan(7).ToArray().All(ch => ch is >= '0' and <= '9' or >= 'a' and <= 'f'))
+        {
+            return;
+        }
         if (string.IsNullOrWhiteSpace(value) || value.Length > 512 || value != value.Trim() || value is "." or ".." ||
             value.Any(ch => char.IsControl(ch) || "<>:\"/\\|?*".Contains(ch)))
         {

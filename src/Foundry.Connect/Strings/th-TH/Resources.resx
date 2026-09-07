@@ -30,6 +30,9 @@
   <data name="Action.Continue" xml:space="preserve">
     <value>ดำเนินการต่อ</value>
   </data>
+  <data name="Action.ContinueOffline" xml:space="preserve">
+    <value>Browse offline content</value>
+  </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>ตัดการเชื่อมต่อ</value>
   </data>
