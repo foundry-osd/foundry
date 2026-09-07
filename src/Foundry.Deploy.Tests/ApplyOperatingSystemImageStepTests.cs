@@ -19,6 +19,9 @@ public sealed class ApplyOperatingSystemImageStepTests
 {
     [Theory]
     [InlineData("missing-preflight")]
+    [InlineData("missing-layout")]
+    [InlineData("different-layout-disk")]
+    [InlineData("different-layout-number")]
     [InlineData("changed-selection")]
     [InlineData("corrupt")]
     [InlineData("missing-file")]
@@ -104,6 +107,7 @@ public sealed class ApplyOperatingSystemImageStepTests
             {
                 WorkspaceRoot = _workspace.WorkspaceRoot,
                 Mode = DeploymentMode.Iso,
+                TargetLayout = failure == "missing-layout" ? null : new DeploymentTargetLayout { DiskIdentity = failure == "different-layout-disk" ? request.ConfirmedTargetDisk! with { UniqueId = "another-device" } : request.ConfirmedTargetDisk, DiskNumber = failure == "different-layout-number" ? 8 : 9, WindowsPartitionRoot = _workspace.WindowsRoot, SystemPartitionRoot = _workspace.SystemRoot, RecoveryPartitionRoot = _workspace.RecoveryRoot, RecoveryPartitionLetter = 'R' },
                 TargetWindowsPartitionRoot = _workspace.WindowsRoot,
                 TargetSystemPartitionRoot = _workspace.SystemRoot,
                 TargetFoundryRoot = Path.Combine(_workspace.WindowsRoot, "Foundry"),
@@ -112,11 +116,12 @@ public sealed class ApplyOperatingSystemImageStepTests
                 { Selection = failure == "changed-selection" ? selection with { Edition = "Home" } : selection }
             };
             Context = new DeploymentStepExecutionContext(request, state, [], new FakeOperationProgressService(), new FakeDeploymentLogService(), new FakeTargetDiskService([]), _ => { });
-            IWindowsDeploymentService service = DispatchProxy.Create<IWindowsDeploymentService, NativeProxy>();
+            IWindowsImagingService service = DispatchProxy.Create<IWindowsImagingService, NativeProxy>();
+            IBootRecoveryService boot = DispatchProxy.Create<IBootRecoveryService, NativeProxy>();
             Native = (NativeProxy)service;
             Native.OnApply = () => AssertLocked("apply");
             Native.CancelPostCheck = failure == "cancel-postcheck";
-            Step = new ApplyOperatingSystemImageStep(service, this, this, this);
+            Step = new ApplyOperatingSystemImageStep(service, boot, this, this, this);
         }
         private void AssertLocked(string stage)
         {

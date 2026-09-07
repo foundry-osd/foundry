@@ -15,6 +15,7 @@ using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Networking;
 using Foundry.Deploy.Services.System;
+using Foundry.Deploy.Services.Deployment;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Startup;
@@ -66,7 +67,8 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
             ? null
             : await RefreshAutopilotGroupTagsAsync(deployConfigLoadResult.Document, cacheRootPath).ConfigureAwait(false);
 
-        Task<string> computerNameTask = ResolveComputerNameAsync(request.FallbackComputerName);
+        Task<string> computerNameTask = ResolveComputerNameAsync(_offlineWindowsComputerNameService, request.FallbackComputerName,
+            DeploymentStepExecutionContext.ResolveWorkspaceRoot(request.IsDebugSafeMode), _logger);
         Task<HardwareLoadResult> hardwareTask = LoadHardwareAsync();
         Task<TargetDiskLoadResult> targetDisksTask = LoadTargetDisksAsync();
         Task<DeploymentCatalogSnapshot> catalogTask = _deploymentCatalogLoadService.LoadAsync(new(_networkPolicy.OfflineOnly, false));
@@ -103,11 +105,19 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         };
     }
 
-    private async Task<string> ResolveComputerNameAsync(string fallbackComputerName)
+    internal static async Task<string> ResolveComputerNameAsync(IOfflineWindowsComputerNameService computerNames,
+        string fallbackComputerName, string workspaceRoot, ILogger logger)
     {
+        var recoveryJournal = new DeploymentRecoveryJournal(workspaceRoot);
+        if (recoveryJournal.Read() is not null)
+        {
+            logger.LogWarning("Offline name inspection skipped because native recovery is required before deployment.");
+            return fallbackComputerName;
+        }
+
         try
         {
-            string? resolvedName = await _offlineWindowsComputerNameService
+            string? resolvedName = await computerNames
                 .TryGetOfflineComputerNameAsync()
                 .ConfigureAwait(false);
 
@@ -117,7 +127,21 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, "Failed to load offline Windows computer name during startup.");
+            for (Exception? current = ex; current is not null; current = current.InnerException)
+            {
+                if (current.Data["FoundryRecoveryDiagnostic"] is not RecoveryResourceDiagnostic diagnostic) continue;
+                try { recoveryJournal.Write(diagnostic); }
+                catch (Exception persistenceError)
+                {
+                    ex.Data["FoundryRecoveryPersistenceFailure"] = persistenceError;
+                    global::System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex).Throw();
+                }
+                logger.LogWarning("Offline name inspection retained unresolved native recovery state; deployment remains blocked.");
+                if (ex is OperationCanceledException) throw;
+                return fallbackComputerName;
+            }
+            if (ex is OperationCanceledException) throw;
+            logger.LogWarning(ex, "Failed to load offline Windows computer name during startup.");
             return fallbackComputerName;
         }
     }

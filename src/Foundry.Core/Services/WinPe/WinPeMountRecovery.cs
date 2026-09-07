@@ -81,7 +81,9 @@ public static class WinPeMountRecovery
         }
     }
 
-    internal static bool ParseOwnedMount(string output, string imagePath, string mountPath)
+    /// <summary>Validates a complete English DISM inventory and resolves one exact owned image/mount pair.</summary>
+    /// <exception cref="InvalidDataException">Inventory is incomplete, ambiguous, or conflicts with the owned pair.</exception>
+    public static bool ParseOwnedMount(string output, string imagePath, string mountPath)
     {
         if (output.Length > 1024 * 1024)
             throw new InvalidDataException("Mounted image inventory exceeds the supported size.");

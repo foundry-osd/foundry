@@ -92,8 +92,11 @@ internal sealed class DriverApplicationStepTestFixture : IDisposable
     }
 }
 
-internal sealed class RecordingDriverApplicationService : IWindowsDeploymentService
+internal sealed class RecordingDriverApplicationService : IWindowsImagingService, IBootRecoveryService
 {
+    public RecoveryResourceDiagnostic? RecoveryDiagnostic => null;
+    public Task<WindowsImageInfo> InspectImageAsync(string path, Foundry.Deploy.Models.OperatingSystemCatalogItem selection, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+
     public int WindowsApplyCount { get; private set; }
 
     public int RecoveryApplyCount { get; private set; }
@@ -110,7 +113,6 @@ internal sealed class RecordingDriverApplicationService : IWindowsDeploymentServ
         return Task.CompletedTask;
     }
 
-    public Task<DeploymentTargetLayout> PrepareTargetDiskAsync(TargetDiskIdentity expectedDisk, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
     public Task<int> ResolveImageIndexAsync(string imagePath, string requestedEdition, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
@@ -118,19 +120,15 @@ internal sealed class RecordingDriverApplicationService : IWindowsDeploymentServ
 
     public Task<string?> GetAppliedWindowsEditionAsync(string windowsPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
-    public Task ConfigureBootAsync(string windowsPartitionRoot, string systemPartitionRoot, int operatingSystemBuildMajor, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+    public Task ConfigureBootAsync(DeploymentTargetLayout retainedLayout, string windowsPartitionRoot, string systemPartitionRoot, int operatingSystemBuildMajor, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
-    public Task ConfigureOfflineComputerNameAsync(string windowsPartitionRoot, string computerName, string processorArchitecture, string? defaultTimeZoneId = null, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
-    public Task ConfigureOfflineOobeAsync(string windowsPartitionRoot, DeployOobeSettings settings, string processorArchitecture, string workingDirectory, string workspaceRootPath, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
-    public Task ConfigureOfflineAiComponentRemovalAsync(string windowsPartitionRoot, DeployAiComponentRemovalSettings settings, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
-    public Task<WindowsOptionalFeatureServicingResult> ConfigureOfflineWindowsOptionalFeaturesAsync(string setupMediaImagePath, string windowsPartitionRoot, int appliedImageIndex, DeployWindowsOptionalFeatureSettings settings, string scratchDirectory, string sourceExtractionDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? progress = null, Action? onInspectionStarted = null, Action? onSourcePreparationStarted = null, Action? onServicingStarted = null) => throw new NotSupportedException();
 
     public Task ConfigureRecoveryEnvironmentAsync(string windowsPartitionRoot, string recoveryPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
-    public Task SealRecoveryPartitionAsync(string recoveryPartitionRoot, char recoveryPartitionLetter, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+    public Task SealRecoveryPartitionAsync(DeploymentTargetLayout retainedLayout, string recoveryPartitionRoot, char recoveryPartitionLetter, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 }
 
 internal sealed class DriverApplicationLogService : IDeploymentLogService

@@ -117,6 +117,10 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     /// <param name="context">The deployment request.</param>
     /// <returns>The workspace root path.</returns>
     public static string ResolveWorkspaceRoot(DeploymentContext context)
+        => ResolveWorkspaceRoot(context.IsDryRun);
+
+    /// <summary>Uses the same runtime workspace during startup and deployment admission.</summary>
+    internal static string ResolveWorkspaceRoot(bool isDryRun)
     {
         bool hasWinPeDrive = Directory.Exists(WinPeDriveRoot);
         if (hasWinPeDrive)
@@ -125,7 +129,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
             return WinPeRoot;
         }
 
-        string modeFolder = context.IsDryRun ? DryRunWorkspaceFolderName : RuntimeWorkspaceFolderName;
+        string modeFolder = isDryRun ? DryRunWorkspaceFolderName : RuntimeWorkspaceFolderName;
         return Path.Combine(Path.GetTempPath(), "Foundry", modeFolder);
     }
 

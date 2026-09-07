@@ -27,6 +27,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     private readonly IReadOnlyList<IDeploymentStep> _steps;
     private readonly ITelemetryService _telemetryService;
     private readonly ILogger<DeploymentOrchestrator> _logger;
+    private readonly Func<DeploymentContext, string> _resolveWorkspaceRoot;
+    private RecoveryResourceDiagnostic? _recoveryDiagnostic;
 
     /// <summary>
     /// Initializes the deployment orchestrator and validates the registered step sequence.
@@ -38,7 +40,21 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         IEnumerable<IDeploymentStep> steps,
         ITelemetryService telemetryService,
         ILogger<DeploymentOrchestrator> logger)
+        : this(operationProgressService, deploymentLogService, targetDiskService, steps, telemetryService,
+            logger, DeploymentStepExecutionContext.ResolveWorkspaceRoot)
     {
+    }
+
+    internal DeploymentOrchestrator(
+        IOperationProgressService operationProgressService,
+        IDeploymentLogService deploymentLogService,
+        ITargetDiskService targetDiskService,
+        IEnumerable<IDeploymentStep> steps,
+        ITelemetryService telemetryService,
+        ILogger<DeploymentOrchestrator> logger,
+        Func<DeploymentContext, string> resolveWorkspaceRoot)
+    {
+        _resolveWorkspaceRoot = resolveWorkspaceRoot;
         _operationProgressService = operationProgressService;
         _deploymentLogService = deploymentLogService;
         _targetDiskService = targetDiskService;
@@ -145,7 +161,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         var runtimeState = new DeploymentRuntimeState
         {
             OperationId = operationId,
-            WorkspaceRoot = DeploymentStepExecutionContext.ResolveWorkspaceRoot(context),
+            WorkspaceRoot = _resolveWorkspaceRoot(context),
             Mode = context.Mode,
             IsDryRun = context.IsDryRun,
             RequestedCacheRootPath = context.CacheRootPath,
@@ -176,11 +192,19 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
         DeploymentStepExecutionContext? executionContext = null;
         Func<Task>? captureOutcome = null;
-        using var nativeDiagnostics = new Foundry.Core.Services.Diagnostics.DismDiagnosticScope(
-            Path.Combine(runtimeState.WorkspaceRoot, "Logs"));
+        Foundry.Core.Services.Diagnostics.DismDiagnosticScope? nativeDiagnostics = null;
 
         try
         {
+            var recoveryJournal = new DeploymentRecoveryJournal(runtimeState.WorkspaceRoot);
+            _recoveryDiagnostic ??= recoveryJournal.Read();
+            if (_recoveryDiagnostic is not null)
+            {
+                runtimeState.RecoveryDiagnostic = _recoveryDiagnostic;
+                throw new InvalidOperationException("Manual recovery is required before another deployment. Review State/deployment-recovery.json and resolve the recorded native resource before clearing that record.");
+            }
+
+            nativeDiagnostics = new Foundry.Core.Services.Diagnostics.DismDiagnosticScope(Path.Combine(runtimeState.WorkspaceRoot, "Logs"));
             _logger.LogInformation("Deployment workspace root resolved to '{WorkspaceRoot}'.", runtimeState.WorkspaceRoot);
             executionContext = new DeploymentStepExecutionContext(
                 context,
@@ -266,13 +290,14 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 IsSuccess = true,
                 Message = "Deployment orchestration completed.",
                 LogsDirectoryPath = ResolveLogsDirectory(executionContext),
-                DismDiagnosticLogPath = nativeDiagnostics.CapturedLogPath,
+                DismDiagnosticLogPath = nativeDiagnostics?.CapturedLogPath,
                 PreOobeDirectoryPath = string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot) ? null :
                     Path.Combine(runtimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "PreOobe")
             };
         }
-        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested)
         {
+            RetainRecoveryDiagnostic(ex, runtimeState);
             _operationProgressService.Fail("Deployment cancelled.");
             string failedStepName = ResolveFailedStepName(runtimeState);
             DeploymentFailure cancellationFailure = new(
@@ -311,15 +336,16 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return new DeploymentResult
             {
                 IsSuccess = false,
-                Message = "Deployment cancelled.",
+                Message = DescribeRecoveryRequirement("Deployment cancelled.", runtimeState),
                 LogsDirectoryPath = ResolveLogsDirectory(executionContext, runtimeState),
-                DismDiagnosticLogPath = nativeDiagnostics.CapturedLogPath,
+                DismDiagnosticLogPath = nativeDiagnostics?.CapturedLogPath,
                 PreOobeDirectoryPath = string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot) ? null :
                     Path.Combine(runtimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "PreOobe")
             };
         }
         catch (Exception ex)
         {
+            RetainRecoveryDiagnostic(ex, runtimeState);
             DeploymentFailure failure = DeploymentFailureClassifier.Classify(
                 ex,
                 runtimeState.CurrentOperation);
@@ -357,9 +383,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return new DeploymentResult
             {
                 IsSuccess = false,
-                Message = ex.Message,
+                Message = DescribeRecoveryRequirement(ex.Message, runtimeState),
                 LogsDirectoryPath = ResolveLogsDirectory(executionContext, runtimeState),
-                DismDiagnosticLogPath = nativeDiagnostics.CapturedLogPath,
+                DismDiagnosticLogPath = nativeDiagnostics?.CapturedLogPath,
                 PreOobeDirectoryPath = string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot) ? null :
                     Path.Combine(runtimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "PreOobe")
             };
@@ -367,11 +393,51 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         finally
         {
             executionContext?.Dispose();
+            nativeDiagnostics?.Dispose();
             if (captureOutcome is not null)
             {
                 try { await captureOutcome().ConfigureAwait(false); }
                 catch (Exception error) { _logger.LogDebug(error, "Optional deployment telemetry was dropped."); }
             }
+        }
+    }
+
+    private static string DescribeRecoveryRequirement(string primaryMessage, DeploymentRuntimeState runtimeState)
+        => runtimeState.RecoveryDiagnostic is null ? primaryMessage : primaryMessage +
+            " Manual recovery is required. Review State/deployment-recovery.json before retrying.";
+
+    private void RetainRecoveryDiagnostic(Exception exception, DeploymentRuntimeState runtimeState)
+    {
+        RecoveryResourceDiagnostic? diagnostic = null;
+        bool nativeTerminationUncertain = false;
+        for (Exception? current = exception; current is not null; current = current.InnerException)
+        {
+            if (current.Data["FoundryRecoveryDiagnostic"] is RecoveryResourceDiagnostic ownedResource)
+            {
+                diagnostic = ownedResource;
+                break;
+            }
+
+            nativeTerminationUncertain |= current.Data["ProcessRootExitConfirmed"] is false ||
+                current.Data["ProcessTreeTerminationConfirmed"] is false;
+        }
+
+        if (diagnostic is null && nativeTerminationUncertain)
+        {
+            diagnostic = new(RecoveryResourceState.RecoveryRequired, "Native process", runtimeState.WorkspaceRoot,
+                null, "native_process_termination_unconfirmed");
+        }
+        if (diagnostic is null) return;
+
+        _recoveryDiagnostic = diagnostic;
+        runtimeState.RecoveryDiagnostic = diagnostic;
+        try
+        {
+            new DeploymentRecoveryJournal(runtimeState.WorkspaceRoot).Write(diagnostic);
+        }
+        catch (Exception persistenceError) when (persistenceError is IOException or UnauthorizedAccessException)
+        {
+            _logger.LogError(persistenceError, "Native recovery state could not be persisted. Further deployment remains blocked in this process.");
         }
     }
 

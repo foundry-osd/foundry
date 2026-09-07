@@ -18,6 +18,56 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentOrchestratorTests
 {
     [Theory]
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    public async Task RunAsync_UnresolvedNativeCleanupPersistsRecoveryAndBlocksRetries(bool cancelled, bool uncertainProcess)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using var cancellation = new CancellationTokenSource();
+        var diagnostic = uncertainProcess
+            ? new RecoveryResourceDiagnostic(RecoveryResourceState.RecoveryRequired, "Native process", workspace.RootPath, null, "native_process_termination_unconfirmed")
+            : new RecoveryResourceDiagnostic(RecoveryResourceState.RecoveryRequired,
+                "RegistryHive", @"HKLM\FoundrySynthetic_owned", Path.Combine(workspace.RootPath, "SYSTEM"), "hive_cleanup_unresolved");
+        var failureStep = new RecoveryFailingStep(DeploymentStepNames.ExecutionOrder[0], diagnostic, cancelled ? cancellation : null, uncertainProcess);
+        IDeploymentStep[] steps = DeploymentStepNames.ExecutionOrder
+            .Select(name => name == failureStep.Name ? (IDeploymentStep)failureStep : new SucceedingStep(name)).ToArray();
+        var logs = new FakeDeploymentLogService();
+        DeploymentOrchestrator CreateOrchestrator() => new(new FakeOperationProgressService(), logs,
+            new FakeTargetDiskService(), steps, new RecordingTelemetryService(),
+            NullLogger<DeploymentOrchestrator>.Instance, _ => workspace.RootPath);
+        var request = new DeploymentContext
+        {
+            OperatingSystem = new(),
+            IsDryRun = true,
+            Mode = DeploymentMode.Iso,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "SYNTHETIC",
+            DriverPackSelectionKind = DriverPackSelectionKind.None
+        };
+        DeploymentOrchestrator orchestrator = CreateOrchestrator();
+
+        DeploymentResult failed = await orchestrator.RunAsync(request, cancellation.Token);
+        Assert.False(failed.IsSuccess);
+        Assert.StartsWith(cancelled ? "Deployment cancelled." : "Synthetic primary failure.", failed.Message);
+        Assert.Contains("Manual recovery is required", failed.Message);
+        Assert.Contains(logs.RecoveryDiagnostics, item => item == diagnostic);
+        Assert.Equal(diagnostic, new DeploymentRecoveryJournal(workspace.RootPath).Read());
+
+        string evidence = Path.Combine(workspace.RootPath, "Logs", "Foundry.Dism.log");
+        File.WriteAllText(evidence, "preserved evidence");
+        foreach (DeploymentOrchestrator retry in new[] { orchestrator, CreateOrchestrator() })
+        {
+            DeploymentResult blocked = await retry.RunAsync(request, TestContext.Current.CancellationToken);
+            Assert.False(blocked.IsSuccess);
+            Assert.Contains("Manual recovery is required", blocked.Message);
+        }
+        Assert.Equal(1, failureStep.ExecutionCount);
+        Assert.Equal("preserved evidence", File.ReadAllText(evidence));
+    }
+
+    [Theory]
     [InlineData(true)]
     [InlineData(false)]
     public async Task RunAsync_OptionalCaptureFailurePreservesOutcome(bool succeeds)
@@ -609,6 +659,24 @@ public sealed class DeploymentOrchestratorTests
         }
     }
 
+    private sealed class RecoveryFailingStep(string name, RecoveryResourceDiagnostic diagnostic,
+        CancellationTokenSource? cancellation, bool uncertainProcess) : IDeploymentStep
+    {
+        public string Name { get; } = name;
+        public int ExecutionCount { get; private set; }
+
+        public Task<DeploymentStepResult> ExecuteAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+        {
+            ExecutionCount++;
+            cancellation?.Cancel();
+            Exception error = cancellation is null ? new IOException("Synthetic primary failure.") : new OperationCanceledException(cancellationToken);
+            if (uncertainProcess) error.Data["ProcessTreeTerminationConfirmed"] = false;
+            else error.Data["FoundryRecoveryDiagnostic"] = diagnostic;
+            error.Data["FoundryCleanupFailure"] = new IOException("Synthetic cleanup failure.");
+            return Task.FromException<DeploymentStepResult>(error);
+        }
+    }
+
     private sealed class FailingStep(string name) : IDeploymentStep
     {
         public string Name { get; } = name;
@@ -700,6 +768,7 @@ public sealed class DeploymentOrchestratorTests
     private sealed class FakeDeploymentLogService : IDeploymentLogService
     {
         public List<DeploymentStateSnapshot> SavedStates { get; } = [];
+        public List<RecoveryResourceDiagnostic> RecoveryDiagnostics { get; } = [];
 
         public bool ThrowOnSave { get; init; }
 
@@ -741,6 +810,7 @@ public sealed class DeploymentOrchestratorTests
 
             if (state is DeploymentRuntimeState runtimeState)
             {
+                if (runtimeState.RecoveryDiagnostic is { } recovery) RecoveryDiagnostics.Add(recovery);
                 SavedStates.Add(new DeploymentStateSnapshot(
                     runtimeState.CurrentOperation,
                     runtimeState.LastFailureStep,

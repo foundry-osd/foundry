@@ -9,18 +9,19 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 
 public sealed class SealRecoveryPartitionStep : DeploymentStepBase
 {
-    private readonly IWindowsDeploymentService _windowsDeploymentService;
+    private readonly IBootRecoveryService _bootRecoveryService;
 
-    public SealRecoveryPartitionStep(IWindowsDeploymentService windowsDeploymentService)
+    public SealRecoveryPartitionStep(IBootRecoveryService bootRecoveryService)
     {
-        _windowsDeploymentService = windowsDeploymentService;
+        _bootRecoveryService = bootRecoveryService;
     }
 
     public override string Name => DeploymentStepNames.SealRecoveryPartition;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetRecoveryPartitionRoot) ||
+        if (context.RuntimeState.TargetLayout is null ||
+            string.IsNullOrWhiteSpace(context.RuntimeState.TargetRecoveryPartitionRoot) ||
             !context.RuntimeState.TargetRecoveryPartitionLetter.HasValue)
         {
             return CreateMissingRecoveryPartitionFailure();
@@ -31,8 +32,9 @@ public sealed class SealRecoveryPartitionStep : DeploymentStepBase
         Directory.CreateDirectory(workingDirectory);
 
         context.EmitCurrentStepIndeterminate("Sealing recovery partition...", "Removing recovery drive letter...", DeploymentOperationNames.SealRecovery);
-        await _windowsDeploymentService
+        await _bootRecoveryService
             .SealRecoveryPartitionAsync(
+                context.RuntimeState.TargetLayout,
                 context.RuntimeState.TargetRecoveryPartitionRoot,
                 context.RuntimeState.TargetRecoveryPartitionLetter.Value,
                 workingDirectory,

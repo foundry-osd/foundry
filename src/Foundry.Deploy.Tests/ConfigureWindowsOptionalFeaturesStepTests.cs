@@ -217,7 +217,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
             Enable = enable
         };
 
-    private sealed class RecordingWindowsDeploymentService : IWindowsDeploymentService
+    private sealed class RecordingWindowsDeploymentService : IOfflineWindowsSettingsService
     {
         public int ConfigureOptionalFeaturesCallCount { get; private set; }
         public DeployWindowsOptionalFeatureSettings? Settings { get; private set; }
@@ -260,18 +260,9 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
             return Task.FromResult(Result);
         }
 
-        public Task<DeploymentTargetLayout> PrepareTargetDiskAsync(TargetDiskIdentity expectedDisk, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
-        public Task<int> ResolveImageIndexAsync(string imagePath, string requestedEdition, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
-        public Task ApplyImageAsync(string imagePath, int imageIndex, string windowsPartitionRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? progress = null) => throw new NotSupportedException();
-        public Task<string?> GetAppliedWindowsEditionAsync(string windowsPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
         public Task ConfigureOfflineComputerNameAsync(string windowsPartitionRoot, string computerName, string processorArchitecture, string? defaultTimeZoneId = null, CancellationToken cancellationToken = default) => throw new NotSupportedException();
         public Task ConfigureOfflineOobeAsync(string windowsPartitionRoot, DeployOobeSettings settings, string processorArchitecture, string workingDirectory, string workspaceRootPath, CancellationToken cancellationToken = default) => throw new NotSupportedException();
         public Task ConfigureOfflineAiComponentRemovalAsync(string windowsPartitionRoot, DeployAiComponentRemovalSettings settings, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
-        public Task ConfigureRecoveryEnvironmentAsync(string windowsPartitionRoot, string recoveryPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
-        public Task SealRecoveryPartitionAsync(string recoveryPartitionRoot, char recoveryPartitionLetter, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
-        public Task ApplyOfflineDriversAsync(string windowsPartitionRoot, string driverRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? progress = null) => throw new NotSupportedException();
-        public Task ApplyRecoveryDriversAsync(string recoveryPartitionRoot, string driverRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? mountProgress = null, IProgress<double>? applyProgress = null, IProgress<double>? unmountProgress = null, Action? onMountStarted = null, Action? onApplyStarted = null, Action? onUnmountStarted = null) => throw new NotSupportedException();
-        public Task ConfigureBootAsync(string windowsPartitionRoot, string systemPartitionRoot, int operatingSystemBuildMajor, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
     }
 
     private sealed class FakeDeploymentLogService : IDeploymentLogService

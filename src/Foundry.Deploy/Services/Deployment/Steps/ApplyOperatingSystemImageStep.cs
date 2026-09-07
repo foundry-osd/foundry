@@ -13,16 +13,18 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 
 public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
 {
-    private readonly IWindowsDeploymentService _windowsDeploymentService;
+    private readonly IWindowsImagingService _imagingService;
     private readonly IWindowsImageInspectionService _inspection;
+    private readonly IBootRecoveryService _bootRecovery;
     private readonly IArtifactDownloadService _artifacts;
     private readonly IVolumeStorageProbe _storage;
 
-    public ApplyOperatingSystemImageStep(IWindowsDeploymentService windowsDeploymentService,
-        IWindowsImageInspectionService inspection, IArtifactDownloadService artifacts, IVolumeStorageProbe storage)
+    public ApplyOperatingSystemImageStep(IWindowsImagingService imagingService,
+        IBootRecoveryService bootRecovery, IWindowsImageInspectionService inspection, IArtifactDownloadService artifacts, IVolumeStorageProbe storage)
     {
-        _windowsDeploymentService = windowsDeploymentService;
+        _imagingService = imagingService;
         _inspection = inspection;
+        _bootRecovery = bootRecovery;
         _artifacts = artifacts;
         _storage = storage;
     }
@@ -37,7 +39,12 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
             return GuardFailure("The image preflight does not match the selected operating system.", "image_preflight_changed");
         if (context.Request.ConfirmedTargetDisk is null)
             return GuardFailure("The confirmed target disk is unavailable.", "missing_confirmed_target");
-        if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot) ||
+        if (context.RuntimeState.TargetLayout is null ||
+            context.RuntimeState.TargetLayout.DiskIdentity != context.Request.ConfirmedTargetDisk ||
+            context.RuntimeState.TargetLayout.DiskNumber != context.Request.ConfirmedTargetDisk.DiskNumber ||
+            context.RuntimeState.TargetLayout.WindowsPartitionRoot != context.RuntimeState.TargetWindowsPartitionRoot ||
+            context.RuntimeState.TargetLayout.SystemPartitionRoot != context.RuntimeState.TargetSystemPartitionRoot ||
+            string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot) ||
             string.IsNullOrWhiteSpace(context.RuntimeState.TargetSystemPartitionRoot))
         {
             return DeploymentStepResult.Failed(
@@ -103,7 +110,7 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
 
         await lease.RunAsync(async () =>
         {
-            await _windowsDeploymentService.ApplyImageAsync(
+            await _imagingService.ApplyImageAsync(
                 imagePath,
                 imageIndex,
                 context.RuntimeState.TargetWindowsPartitionRoot,
@@ -119,8 +126,9 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
             applyStepMessage,
             "Configuring boot...",
             DeploymentOperationNames.ConfigureBoot);
-        await _windowsDeploymentService
+        await _bootRecovery
             .ConfigureBootAsync(
+                context.RuntimeState.TargetLayout ?? throw new InvalidOperationException("The retained target layout is unavailable."),
                 context.RuntimeState.TargetWindowsPartitionRoot,
                 context.RuntimeState.TargetSystemPartitionRoot,
                 context.Request.OperatingSystem.BuildMajor,
@@ -134,7 +142,7 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
             DeploymentOperationNames.VerifyOperatingSystemEdition);
         try
         {
-            string? appliedEdition = await _windowsDeploymentService
+            string? appliedEdition = await _imagingService
                 .GetAppliedWindowsEditionAsync(context.RuntimeState.TargetWindowsPartitionRoot, workingDirectory, cancellationToken)
                 .ConfigureAwait(false);
 

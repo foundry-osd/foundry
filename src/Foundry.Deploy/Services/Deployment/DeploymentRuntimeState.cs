@@ -15,6 +15,9 @@ namespace Foundry.Deploy.Services.Deployment;
 /// </summary>
 public sealed record DeploymentRuntimeState
 {
+    /// <summary>Retains the exact owned native resource requiring manual recovery before another deployment.</summary>
+    public RecoveryResourceDiagnostic? RecoveryDiagnostic { get; set; }
+
     /// <summary>
     /// Gets the UTC time when deployment started.
     /// </summary>

@@ -13,14 +13,14 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 /// </summary>
 public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
 {
-    private readonly IWindowsDeploymentService _windowsDeploymentService;
+    private readonly IOfflineWindowsSettingsService _settingsService;
 
     /// <summary>
     /// Initializes a deployment step that writes first-run defaults to the offline Windows installation.
     /// </summary>
-    public ConfigureOobeSettingsStep(IWindowsDeploymentService windowsDeploymentService)
+    public ConfigureOobeSettingsStep(IOfflineWindowsSettingsService settingsService)
     {
-        _windowsDeploymentService = windowsDeploymentService;
+        _settingsService = settingsService;
     }
 
     /// <inheritdoc />
@@ -48,7 +48,7 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
         if (shouldConfigureOobe)
         {
             context.EmitCurrentStepIndeterminate("Configuring OOBE settings...", "Writing first-run privacy defaults...", DeploymentOperationNames.WriteOobeRegistry);
-            await _windowsDeploymentService
+            await _settingsService
                 .ConfigureOfflineOobeAsync(
                     context.RuntimeState.TargetWindowsPartitionRoot,
                     context.RuntimeState.Oobe,
@@ -62,7 +62,7 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
         if (shouldConfigureAiPolicies)
         {
             context.EmitCurrentStepIndeterminate("Configuring AI component removal...", "Writing offline AI policies...", DeploymentOperationNames.WriteAiPolicyRegistry);
-            await _windowsDeploymentService
+            await _settingsService
                 .ConfigureOfflineAiComponentRemovalAsync(
                     context.RuntimeState.TargetWindowsPartitionRoot,
                     context.RuntimeState.AiComponentRemoval,

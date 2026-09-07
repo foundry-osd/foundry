@@ -8,155 +8,69 @@ using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
+using Foundry.Deploy.Services.Deployment.Unattend;
 
 namespace Foundry.Deploy.Services.Hardware;
 
+/// <summary>Reads existing Windows names using one uniquely owned, reconciled offline hive.</summary>
 public sealed class OfflineWindowsComputerNameService : IOfflineWindowsComputerNameService
 {
-    private const string TempHiveKeyName = "FOUNDRY_OFFLINE_SYSTEM";
-    private const string TempHiveKeyPath = @"HKLM\" + TempHiveKeyName;
-
-    private readonly IProcessRunner _processRunner;
+    private readonly OfflineRegistryWriter _hives;
     private readonly ILogger<OfflineWindowsComputerNameService> _logger;
+    private readonly Func<IEnumerable<string>> _candidateHives;
+    private readonly Func<string, string?> _readComputerName;
 
-    public OfflineWindowsComputerNameService(
-        IProcessRunner processRunner,
-        ILogger<OfflineWindowsComputerNameService> logger)
+    public OfflineWindowsComputerNameService(IProcessRunner processRunner, ILogger<OfflineWindowsComputerNameService> logger)
+        : this(processRunner, logger, () => GetCandidateDriveLetters()
+            .Select(drive => $@"{drive}:\Windows\System32\config\SYSTEM").Where(File.Exists), ReadComputerName)
+    { }
+
+    internal OfflineWindowsComputerNameService(IProcessRunner processRunner, ILogger<OfflineWindowsComputerNameService> logger,
+        Func<IEnumerable<string>> candidateHives, Func<string, string?> readComputerName)
     {
-        _processRunner = processRunner;
+        _hives = new(processRunner);
         _logger = logger;
+        _candidateHives = candidateHives;
+        _readComputerName = readComputerName;
     }
 
     public async Task<string?> TryGetOfflineComputerNameAsync(CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Scanning drive letters for an existing Windows installation.");
-
-        foreach (char drive in GetCandidateDriveLetters())
+        foreach (string hivePath in _candidateHives())
         {
             cancellationToken.ThrowIfCancellationRequested();
-
-            string hivePath = $@"{drive}:\Windows\System32\config\SYSTEM";
-            if (!File.Exists(hivePath))
+            string? name = null;
+            try
             {
+                await _hives.WithLoadedHiveAsync(@"HKLM\FoundryOfflineSystem", hivePath, Path.GetTempPath(), (hive, token) =>
+                {
+                    token.ThrowIfCancellationRequested();
+                    name = _readComputerName(hive.MountName);
+                    return Task.CompletedTask;
+                }, cancellationToken).ConfigureAwait(false);
+            }
+            catch (Exception error) when (error is not OperationCanceledException && !error.Data.Contains("FoundryRecoveryDiagnostic"))
+            {
+                _logger.LogWarning("Unable to read an existing Windows computer name. ErrorType={ErrorType}", error.GetType().Name);
                 continue;
             }
-
-            _logger.LogInformation("Found potential Windows installation at {Drive}:\\. Attempting to read computer name.", drive);
-
-            string? name = await TryReadComputerNameFromHiveAsync(hivePath, cancellationToken)
-                .ConfigureAwait(false);
-
-            if (!string.IsNullOrWhiteSpace(name))
-            {
-                _logger.LogInformation(
-                    "Resolved offline computer name from {Drive}:\\. ComputerName={ComputerName}",
-                    drive,
-                    name);
-                return name;
-            }
+            if (string.IsNullOrWhiteSpace(name)) continue;
+            string normalized = ComputerNameRules.Normalize(name);
+            if (ComputerNameRules.IsValid(normalized)) return normalized;
         }
-
-        _logger.LogInformation("No offline Windows installation computer name found.");
         return null;
     }
 
-    private async Task<string?> TryReadComputerNameFromHiveAsync(string hivePath, CancellationToken cancellationToken)
+    private static string? ReadComputerName(string mountName)
     {
-        bool hiveLoaded = false;
-
-        try
+        string subkey = mountName[(mountName.IndexOf('\\') + 1)..];
+        string controlSet = "ControlSet001";
+        using (RegistryKey? select = Registry.LocalMachine.OpenSubKey($@"{subkey}\Select"))
         {
-            ProcessExecutionResult loadResult = await _processRunner
-                .RunAsync("reg.exe", ["load", TempHiveKeyPath, hivePath], Path.GetTempPath(), cancellationToken, TimeSpan.FromMinutes(2))
-                .ConfigureAwait(false);
-
-            if (!loadResult.IsSuccess)
-            {
-                _logger.LogWarning(
-                    "Failed to load offline hive at {HivePath}. ExitCode={ExitCode}",
-                    hivePath,
-                    loadResult.ExitCode);
-                return null;
-            }
-
-            hiveLoaded = true;
-
-            string controlSetName = ResolveCurrentControlSetName();
-            string subKeyPath = $@"{TempHiveKeyName}\{controlSetName}\Control\ComputerName\ComputerName";
-
-            using RegistryKey? key = Registry.LocalMachine.OpenSubKey(subKeyPath);
-            if (key is null)
-            {
-                _logger.LogDebug("Computer name registry key not found at {SubKeyPath}.", subKeyPath);
-                return null;
-            }
-
-            string? rawName = key.GetValue("ComputerName") as string;
-            if (string.IsNullOrWhiteSpace(rawName))
-            {
-                return null;
-            }
-
-            string normalized = ComputerNameRules.Normalize(rawName);
-            return ComputerNameRules.IsValid(normalized) ? normalized : null;
+            if (select?.GetValue("Current") is int current && current > 0) controlSet = $"ControlSet{current:D3}";
         }
-        catch (Exception ex) when (ex is not OperationCanceledException)
-        {
-            _logger.LogWarning(ex, "Error reading computer name from offline hive at {HivePath}.", hivePath);
-            return null;
-        }
-        finally
-        {
-            if (hiveLoaded)
-            {
-                await TryUnloadHiveAsync(cancellationToken).ConfigureAwait(false);
-            }
-        }
-    }
-
-    /// <summary>
-    /// Reads the current control set number from the loaded offline hive's Select key,
-    /// falling back to ControlSet001 if it cannot be determined.
-    /// </summary>
-    private static string ResolveCurrentControlSetName()
-    {
-        try
-        {
-            using RegistryKey? selectKey = Registry.LocalMachine.OpenSubKey($@"{TempHiveKeyName}\Select");
-            if (selectKey?.GetValue("Current") is int currentSet && currentSet > 0)
-            {
-                return $"ControlSet{currentSet:D3}";
-            }
-        }
-        catch
-        {
-            // Fall through to default.
-        }
-
-        return "ControlSet001";
-    }
-
-    private async Task TryUnloadHiveAsync(CancellationToken cancellationToken)
-    {
-        try
-        {
-            // Give the GC a chance to release any open handles on the hive before unloading.
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-
-            ProcessExecutionResult unloadResult = await _processRunner
-                .RunAsync("reg.exe", ["unload", TempHiveKeyPath], Path.GetTempPath(), cancellationToken, TimeSpan.FromMinutes(2))
-                .ConfigureAwait(false);
-
-            if (!unloadResult.IsSuccess)
-            {
-                _logger.LogWarning("Failed to unload offline hive. ExitCode={ExitCode}", unloadResult.ExitCode);
-            }
-        }
-        catch (Exception ex) when (ex is not OperationCanceledException)
-        {
-            _logger.LogWarning(ex, "Error while unloading offline hive.");
-        }
+        using RegistryKey? key = Registry.LocalMachine.OpenSubKey($@"{subkey}\{controlSet}\Control\ComputerName\ComputerName");
+        return key?.GetValue("ComputerName") as string;
     }
 
     /// <summary>

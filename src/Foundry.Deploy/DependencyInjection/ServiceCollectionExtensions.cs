@@ -139,7 +139,11 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDriverPackExtractionService, DriverPackExtractionService>();
         services.AddSingleton<WindowsDeploymentService>();
         services.AddSingleton<IWindowsDeploymentService>(sp => sp.GetRequiredService<WindowsDeploymentService>());
-        services.AddSingleton<IWindowsImageInspectionService>(sp => sp.GetRequiredService<WindowsDeploymentService>());
+        services.AddSingleton<WindowsImagingService>();
+        services.AddSingleton<IWindowsImagingService>(sp => sp.GetRequiredService<WindowsImagingService>());
+        services.AddSingleton<IWindowsImageInspectionService>(sp => sp.GetRequiredService<WindowsImagingService>());
+        services.AddSingleton<IBootRecoveryService, BootRecoveryService>();
+        services.AddSingleton<IOfflineWindowsSettingsService, OfflineWindowsSettingsService>();
         services.AddSingleton<DeploymentPreflightService>();
         services.AddSingleton<ISetupCompleteScriptService, SetupCompleteScriptService>();
         services.AddSingleton<IPreOobeScriptProvisioningService, PreOobeScriptProvisioningService>();

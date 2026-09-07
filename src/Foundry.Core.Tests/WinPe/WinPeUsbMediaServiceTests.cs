@@ -18,6 +18,49 @@ public sealed class WinPeUsbMediaServiceTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
+    public async Task UsbPopulation_MarkerFailureNeverReportsCompletion(bool update)
+    {
+        using var workspace = new TemporaryDirectory();
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(workspace.Path, WinPeArchitecture.X64);
+        string media = Path.Combine(workspace.Path, "media");
+        string boot = Path.Combine(workspace.Path, "boot");
+        string cache = Path.Combine(workspace.Path, "cache");
+        CreateVerifiedBootPartition(media, WinPeArchitecture.X64);
+        var progress = new RecordingProgress
+        {
+            OnReport = report =>
+            {
+                if (report.Percent != 92) return;
+                Directory.CreateDirectory(Path.Combine(cache, "Foundry"));
+                File.WriteAllText(Path.Combine(cache, "Foundry", "Config"), "block marker directory");
+            }
+        };
+        string layout = JsonSerializer.Serialize(TestLayout);
+        var outputs = new List<string> { JsonSerializer.Serialize(ConfirmedDisk), layout };
+        outputs.AddRange(Enumerable.Repeat(layout, 8));
+        var runner = new FakeSequenceRunner(outputs.ToArray());
+        var service = new WinPeUsbMediaService(runner, new FakeRuntimePayloadProvisioningService(),
+            volume => volume == BootVolumePath ? boot : volume == CacheVolumePath ? cache : throw new InvalidOperationException());
+        var options = new UsbOutputOptions
+        {
+            TargetDiskNumber = 9,
+            ExpectedDisk = ConfirmedDisk,
+            PreparedRuntime = prepared,
+            RuntimePayloadProvisioning = new(),
+            Progress = progress
+        };
+        var artifact = new WinPeBuildArtifact { WorkingDirectoryPath = workspace.Path, MediaDirectoryPath = media };
+        var tools = new WinPeToolPaths { PowerShellPath = "must-not-run.exe" };
+        WinPeResult<WinPeUsbProvisionResult> result = update
+            ? await service.UpdateBootPartitionAsync(options, artifact, tools, false, TestContext.Current.CancellationToken)
+            : await service.ProvisionAndPopulateAsync(options, artifact, tools, false, TestContext.Current.CancellationToken);
+        Assert.False(result.IsSuccess);
+        Assert.DoesNotContain(progress.Reports, report => report.Percent == 100);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
     public async Task UsbOperation_RejectsUnpreparedRuntimeBeforeAnyNativeCall(bool update)
     {
         using var workspace = new TemporaryDirectory();
@@ -869,6 +912,8 @@ public sealed class WinPeUsbMediaServiceTests
         string mediaRoot = Path.Combine(temporary.Path, "media");
         Directory.CreateDirectory(bootRoot);
         Directory.CreateDirectory(cacheRoot);
+        string preservedCachePath = Path.Combine(cacheRoot, "preserve.txt");
+        File.WriteAllText(preservedCachePath, "existing-cache");
         CreateVerifiedBootPartition(mediaRoot, WinPeArchitecture.X64);
         string ResolveTestRoot(string volume) => volume switch
         {
@@ -914,7 +959,7 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.DoesNotContain(runner.Executions, execution => execution.Arguments.Contains("Clear-Disk", StringComparison.Ordinal));
         Assert.DoesNotContain(runner.Executions, execution => execution.Arguments.Contains("Foundry Cache", StringComparison.Ordinal));
         Assert.Contains(progress.Reports, report => report is { Percent: 35, Status: "Formatting BOOT partition." });
-        Assert.DoesNotContain(progress.Reports, report => report.Status.Contains("cache", StringComparison.OrdinalIgnoreCase));
+        Assert.Equal("existing-cache", File.ReadAllText(preservedCachePath));
     }
 
     [Fact]

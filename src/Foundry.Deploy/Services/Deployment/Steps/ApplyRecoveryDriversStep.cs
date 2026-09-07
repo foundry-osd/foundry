@@ -11,7 +11,7 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 /// <summary>
 /// Applies extracted INF drivers to the configured Windows recovery environment.
 /// </summary>
-public sealed class ApplyRecoveryDriversStep(IWindowsDeploymentService windowsDeploymentService) : DeploymentStepBase
+public sealed class ApplyRecoveryDriversStep(IBootRecoveryService bootRecoveryService) : DeploymentStepBase
 {
     public override string Name => DeploymentStepNames.ApplyRecoveryDrivers;
 
@@ -61,7 +61,7 @@ public sealed class ApplyRecoveryDriversStep(IWindowsDeploymentService windowsDe
         IProgress<double> applyProgress = context.CreateStepPercentProgressReporter(stepMessage, "Applying WinRE drivers");
         IProgress<double> unmountProgress = context.CreateStepPercentProgressReporter(stepMessage, "Unmounting WinRE");
 
-        await windowsDeploymentService
+        await bootRecoveryService
             .ApplyRecoveryDriversAsync(
                 context.RuntimeState.TargetRecoveryPartitionRoot!,
                 driverRoot,

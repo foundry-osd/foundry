@@ -9,11 +9,11 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 
 public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
 {
-    private readonly IWindowsDeploymentService _windowsDeploymentService;
+    private readonly IOfflineWindowsSettingsService _settingsService;
 
-    public ConfigureTargetComputerNameStep(IWindowsDeploymentService windowsDeploymentService)
+    public ConfigureTargetComputerNameStep(IOfflineWindowsSettingsService settingsService)
     {
-        _windowsDeploymentService = windowsDeploymentService;
+        _settingsService = settingsService;
     }
 
     public override string Name => DeploymentStepNames.ConfigureTargetComputerName;
@@ -31,7 +31,7 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
         }
 
         context.EmitCurrentStepIndeterminate("Configuring target computer name...", "Writing offline computer name...", DeploymentOperationNames.ConfigureComputerName);
-        await _windowsDeploymentService
+        await _settingsService
             .ConfigureOfflineComputerNameAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot,
                 context.RuntimeState.TargetComputerName,
@@ -61,7 +61,7 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
         }
 
         context.EmitCurrentStepIndeterminate("Configuring target computer name...", "Writing offline computer name...", DeploymentOperationNames.ConfigureComputerName);
-        await _windowsDeploymentService
+        await _settingsService
             .ConfigureOfflineComputerNameAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot,
                 context.RuntimeState.TargetComputerName,

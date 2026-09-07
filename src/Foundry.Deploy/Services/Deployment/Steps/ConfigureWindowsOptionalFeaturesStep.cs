@@ -13,11 +13,11 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 /// </summary>
 public sealed class ConfigureWindowsOptionalFeaturesStep : DeploymentStepBase
 {
-    private readonly IWindowsDeploymentService _windowsDeploymentService;
+    private readonly IOfflineWindowsSettingsService _settingsService;
 
-    public ConfigureWindowsOptionalFeaturesStep(IWindowsDeploymentService windowsDeploymentService)
+    public ConfigureWindowsOptionalFeaturesStep(IOfflineWindowsSettingsService settingsService)
     {
-        _windowsDeploymentService = windowsDeploymentService;
+        _settingsService = settingsService;
     }
 
     public override string Name => DeploymentStepNames.ConfigureWindowsOptionalFeatures;
@@ -75,7 +75,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStep : DeploymentStepBase
 
         const string stepMessage = "Configuring Windows optional features...";
         IProgress<double> progress = context.CreateStepPercentProgressReporter(stepMessage, "Applying feature changes");
-        WindowsOptionalFeatureServicingResult result = await _windowsDeploymentService
+        WindowsOptionalFeatureServicingResult result = await _settingsService
             .ConfigureOfflineWindowsOptionalFeaturesAsync(
                 imagePath,
                 context.RuntimeState.TargetWindowsPartitionRoot,

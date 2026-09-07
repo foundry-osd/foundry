@@ -11,7 +11,7 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 /// <summary>
 /// Applies extracted INF drivers to the offline Windows image.
 /// </summary>
-public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploymentService) : DeploymentStepBase
+public sealed class ApplyDriverPackStep(IWindowsImagingService imagingService) : DeploymentStepBase
 {
     public override string Name => DeploymentStepNames.ApplyDriverPack;
 
@@ -59,7 +59,7 @@ public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploym
 
         context.EmitCurrentStepIndeterminate(stepMessage, "Applying Windows drivers...", DeploymentOperationNames.ApplyDriverPack);
         IProgress<double> progress = context.CreateStepPercentProgressReporter(stepMessage, "Applying Windows drivers");
-        await windowsDeploymentService
+        await imagingService
             .ApplyOfflineDriversAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot!,
                 driverRoot,

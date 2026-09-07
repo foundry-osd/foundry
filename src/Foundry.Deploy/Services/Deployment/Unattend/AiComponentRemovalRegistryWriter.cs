@@ -5,7 +5,6 @@
 using System.IO;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.System;
-using Microsoft.Win32;
 using static Foundry.Deploy.Services.Deployment.Unattend.OfflineRegistryWriter;
 
 namespace Foundry.Deploy.Services.Deployment.Unattend;
@@ -18,7 +17,6 @@ internal sealed class AiComponentRemovalRegistryWriter
     private const string SoftwareHiveMount = @"HKLM\FoundrySoftware";
     private const string SystemHiveMount = @"HKLM\FoundrySystem";
     private const string DefaultUserHiveMount = @"HKU\FoundryDefault";
-    private const string SystemHiveKeyName = "FoundrySystem";
 
     private readonly OfflineRegistryWriter _registryWriter;
 
@@ -172,12 +170,12 @@ internal sealed class AiComponentRemovalRegistryWriter
         }
     }
 
-    private static Task ApplySystemPoliciesAsync(
+    private static async Task ApplySystemPoliciesAsync(
         OfflineRegistryHive hive,
         CancellationToken cancellationToken)
     {
-        string controlSetName = ResolveCurrentControlSetName();
-        return hive.AddDwordAsync(
+        string controlSetName = await hive.ReadCurrentControlSetAsync(cancellationToken).ConfigureAwait(false);
+        await hive.AddDwordAsync(
             $@"{controlSetName}\Services\WSAIFabricSvc",
             "Start",
             3,
@@ -206,21 +204,4 @@ internal sealed class AiComponentRemovalRegistryWriter
         }
     }
 
-    private static string ResolveCurrentControlSetName()
-    {
-        try
-        {
-            using RegistryKey? selectKey = Registry.LocalMachine.OpenSubKey($@"{SystemHiveKeyName}\Select");
-            if (selectKey?.GetValue("Current") is int currentSet && currentSet > 0)
-            {
-                return $"ControlSet{currentSet:D3}";
-            }
-        }
-        catch
-        {
-            // Fall through to the Windows default control set.
-        }
-
-        return "ControlSet001";
-    }
 }

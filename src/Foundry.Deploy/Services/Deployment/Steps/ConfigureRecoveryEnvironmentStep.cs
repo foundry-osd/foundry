@@ -9,11 +9,11 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 
 public sealed class ConfigureRecoveryEnvironmentStep : DeploymentStepBase
 {
-    private readonly IWindowsDeploymentService _windowsDeploymentService;
+    private readonly IBootRecoveryService _bootRecoveryService;
 
-    public ConfigureRecoveryEnvironmentStep(IWindowsDeploymentService windowsDeploymentService)
+    public ConfigureRecoveryEnvironmentStep(IBootRecoveryService bootRecoveryService)
     {
-        _windowsDeploymentService = windowsDeploymentService;
+        _bootRecoveryService = bootRecoveryService;
     }
 
     public override string Name => DeploymentStepNames.ConfigureRecoveryEnvironment;
@@ -32,7 +32,7 @@ public sealed class ConfigureRecoveryEnvironmentStep : DeploymentStepBase
         Directory.CreateDirectory(workingDirectory);
 
         context.EmitCurrentStepIndeterminate("Configuring recovery environment...", "Preparing Windows Recovery Environment...", DeploymentOperationNames.ConfigureRecovery);
-        await _windowsDeploymentService
+        await _bootRecoveryService
             .ConfigureRecoveryEnvironmentAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot,
                 context.RuntimeState.TargetRecoveryPartitionRoot,

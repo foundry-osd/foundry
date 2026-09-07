@@ -21,12 +21,13 @@ public sealed class PreparedDeploymentLifecycleTests
         try
         {
             var runner = new LifecycleRunner(false, truncatePreparationOutput: true);
+            var boot = new BootRecoveryService(runner, NullLogger<BootRecoveryService>.Instance, new WindowsImagingService(runner, NullLogger<WindowsImagingService>.Instance), _ => true);
             var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance,
                 () => WindowsFirmwareType.Uefi, _ => Assert.Fail("Partition attributes must not be changed after incomplete output."));
             var expected = new TargetDiskIdentity(9, "confirmed-disk", "confirmed-serial", 137438953472, "NVMe");
 
             await Assert.ThrowsAsync<InvalidDataException>(() => service.PrepareTargetDiskAsync(expected, directory, TestContext.Current.CancellationToken));
-            await Assert.ThrowsAsync<InvalidOperationException>(() => service.ConfigureBootAsync(VolumePathDiagnosticTests.WindowsRoot,
+            await Assert.ThrowsAsync<ArgumentNullException>(() => boot.ConfigureBootAsync(null!, VolumePathDiagnosticTests.WindowsRoot,
                 VolumePathDiagnosticTests.SystemRoot, 26200, directory, TestContext.Current.CancellationToken));
             Assert.Equal(["prepare"], runner.Events);
         }
@@ -43,12 +44,13 @@ public sealed class PreparedDeploymentLifecycleTests
         try
         {
             var runner = new LifecycleRunner(false, failBoot: true);
+            var boot = new BootRecoveryService(runner, NullLogger<BootRecoveryService>.Instance, new WindowsImagingService(runner, NullLogger<WindowsImagingService>.Instance), _ => true);
             var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance,
-                () => WindowsFirmwareType.Uefi, _ => { }, fileExists: _ => true);
+                () => WindowsFirmwareType.Uefi, _ => { });
             DeploymentTargetLayout layout = await service.PrepareTargetDiskAsync(
                 new TargetDiskIdentity(9, "confirmed-disk", "confirmed-serial", 137438953472, "NVMe"), directory, TestContext.Current.CancellationToken);
-            DeploymentProcessException failure = await Assert.ThrowsAsync<DeploymentProcessException>(() => service.ConfigureBootAsync(
-                layout.WindowsPartitionRoot, layout.SystemPartitionRoot, 26200, directory, TestContext.Current.CancellationToken));
+            DeploymentProcessException failure = await Assert.ThrowsAsync<DeploymentProcessException>(() => boot.ConfigureBootAsync(
+                layout, layout.WindowsPartitionRoot, layout.SystemPartitionRoot, 26200, directory, TestContext.Current.CancellationToken));
             VolumePathDiagnosticTests.AssertNoIdentifiers(failure.Message);
             Assert.Contains("ExitCode: 13", failure.Message, StringComparison.Ordinal);
             Assert.Contains("bcdboot.exe", failure.Message, StringComparison.Ordinal);
@@ -67,20 +69,21 @@ public sealed class PreparedDeploymentLifecycleTests
         try
         {
             var runner = new LifecycleRunner(rejectRecovery);
+            var boot = new BootRecoveryService(runner, NullLogger<BootRecoveryService>.Instance, new WindowsImagingService(runner, NullLogger<WindowsImagingService>.Instance), _ => true);
             var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance,
                 () => WindowsFirmwareType.Uefi, partition =>
                 {
                     Assert.Equal(VolumePathDiagnosticTests.RecoveryRoot, partition.VolumeRoot);
                     Assert.Equal(5368709120UL, partition.Size);
                     runner.Events.Add("native-attributes");
-                }, fileExists: _ => true);
+                });
             var expected = new TargetDiskIdentity(9, "confirmed-disk", "confirmed-serial", 137438953472, "NVMe");
             if (rejectRecovery)
             {
                 await Assert.ThrowsAsync<DeploymentProcessException>(() => service.PrepareTargetDiskAsync(expected, directory, TestContext.Current.CancellationToken));
-                await Assert.ThrowsAsync<InvalidOperationException>(() => service.ConfigureBootAsync(VolumePathDiagnosticTests.WindowsRoot,
+                await Assert.ThrowsAsync<ArgumentNullException>(() => boot.ConfigureBootAsync(null!, VolumePathDiagnosticTests.WindowsRoot,
                     VolumePathDiagnosticTests.SystemRoot, 26200, directory, TestContext.Current.CancellationToken));
-                await Assert.ThrowsAsync<InvalidOperationException>(() => service.SealRecoveryPartitionAsync(VolumePathDiagnosticTests.RecoveryRoot,
+                await Assert.ThrowsAsync<ArgumentNullException>(() => boot.SealRecoveryPartitionAsync(null!, VolumePathDiagnosticTests.RecoveryRoot,
                     'R', directory, TestContext.Current.CancellationToken));
                 Assert.Equal(["prepare", "validate-recovery"], runner.Events);
                 return;
@@ -88,8 +91,8 @@ public sealed class PreparedDeploymentLifecycleTests
             DeploymentTargetLayout layout = await service.PrepareTargetDiskAsync(expected, directory, TestContext.Current.CancellationToken);
             Assert.Same(expected, layout.DiskIdentity);
             Assert.Equal(VolumePathDiagnosticTests.WindowsRoot, layout.WindowsPartitionRoot);
-            await service.ConfigureBootAsync(layout.WindowsPartitionRoot, layout.SystemPartitionRoot, 26200, directory, TestContext.Current.CancellationToken);
-            await service.SealRecoveryPartitionAsync(layout.RecoveryPartitionRoot, layout.RecoveryPartitionLetter, directory, TestContext.Current.CancellationToken);
+            await boot.ConfigureBootAsync(layout, layout.WindowsPartitionRoot, layout.SystemPartitionRoot, 26200, directory, TestContext.Current.CancellationToken);
+            await boot.SealRecoveryPartitionAsync(layout, layout.RecoveryPartitionRoot, layout.RecoveryPartitionLetter, directory, TestContext.Current.CancellationToken);
             Assert.Equal(["prepare", "validate-recovery", "native-attributes", "validate-windows", "validate-system", "bcdboot", "seal-recovery"], runner.Events);
             Assert.Equal(new[] { Path.Combine(VolumePathDiagnosticTests.WindowsRoot, "Windows"), "/s", "S:", "/f", "UEFI", "/c", "/bootex", "/v" }, runner.BootArguments);
             Assert.Equal(Path.Combine(VolumePathDiagnosticTests.WindowsRoot, "Windows", "System32", "bcdboot.exe"), runner.BootExecutable);

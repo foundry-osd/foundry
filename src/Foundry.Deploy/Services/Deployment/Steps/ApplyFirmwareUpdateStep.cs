@@ -9,11 +9,11 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 
 public sealed class ApplyFirmwareUpdateStep : DeploymentStepBase
 {
-    private readonly IWindowsDeploymentService _windowsDeploymentService;
+    private readonly IWindowsImagingService _imagingService;
 
-    public ApplyFirmwareUpdateStep(IWindowsDeploymentService windowsDeploymentService)
+    public ApplyFirmwareUpdateStep(IWindowsImagingService imagingService)
     {
-        _windowsDeploymentService = windowsDeploymentService;
+        _imagingService = imagingService;
     }
 
     public override string Name => DeploymentStepNames.ApplyFirmwareUpdate;
@@ -50,7 +50,7 @@ public sealed class ApplyFirmwareUpdateStep : DeploymentStepBase
         context.EmitCurrentStepIndeterminate(stepMessage, "Injecting firmware payload into offline Windows...", DeploymentOperationNames.ApplyFirmware);
         IProgress<double> progress = context.CreateStepPercentProgressReporter(stepMessage, "Applying");
 
-        await _windowsDeploymentService
+        await _imagingService
             .ApplyOfflineDriversAsync(
                 context.RuntimeState.TargetWindowsPartitionRoot,
                 firmwareRoot,

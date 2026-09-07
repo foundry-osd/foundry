@@ -228,7 +228,7 @@ public sealed class UnattendRuntimeTests
     {
         using var fixture = new Fixture();
         var runner = new RecordingProcessRunner();
-        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new OfflineWindowsSettingsService(runner, NullLogger<OfflineWindowsSettingsService>.Instance);
         using DeploymentStepExecutionContext context = fixture.CreateContext();
         context.RuntimeState.Oobe = new DeployOobeSettings { IsEnabled = true, EnableAdministratorAccount = true, AdministratorPasswordSecret = new() };
         context.RuntimeState.AiComponentRemoval = new DeployAiComponentRemovalSettings { IsEnabled = true, DisableRecall = true };
@@ -451,8 +451,25 @@ public sealed class UnattendRuntimeTests
     }
     private sealed class RecordingProcessRunner : IProcessRunner
     {
+        private bool hiveLoaded;
+        private ProcessExecutionResult ResolveResult(string fileName, string arguments)
+        {
+            if (fileName.EndsWith("powershell.exe", StringComparison.OrdinalIgnoreCase) && arguments.Contains("-EncodedCommand", StringComparison.Ordinal))
+            {
+                string script = Encoding.Unicode.GetString(Convert.FromBase64String(arguments.Split(' ')[^1]));
+                return new()
+                {
+                    ExitCode = 0,
+                    StandardOutput = script.Contains("FOUNDRY_CONTROL_SET", StringComparison.Ordinal)
+                    ? "FOUNDRY_CONTROL_SET:1" : hiveLoaded ? "FOUNDRY_HIVE_PRESENT" : "FOUNDRY_HIVE_ABSENT"
+                };
+            }
+            if (arguments.StartsWith("LOAD ", StringComparison.Ordinal)) hiveLoaded = true;
+            if (arguments.StartsWith("UNLOAD ", StringComparison.Ordinal)) hiveLoaded = false;
+            return new() { ExitCode = 0 };
+        }
         public List<string> Arguments { get; } = [];
-        public Task<ProcessExecutionResult> RunAsync(string fileName, string arguments, string workingDirectory, CancellationToken cancellationToken = default, TimeSpan? executionTimeout = null) { Arguments.Add(arguments); return Task.FromResult(new ProcessExecutionResult { ExitCode = 0 }); }
+        public Task<ProcessExecutionResult> RunAsync(string fileName, string arguments, string workingDirectory, CancellationToken cancellationToken = default, TimeSpan? executionTimeout = null) { Arguments.Add(arguments); return Task.FromResult(ResolveResult(fileName, arguments)); }
         public Task<ProcessExecutionResult> RunAsync(string fileName, IEnumerable<string> arguments, string workingDirectory, CancellationToken cancellationToken = default, TimeSpan? executionTimeout = null) => RunAsync(fileName, string.Join(" ", arguments), workingDirectory, cancellationToken);
         public Task<ProcessExecutionResult> RunAsync(string fileName, IEnumerable<string> arguments, string workingDirectory, Action<string>? onOutputData, Action<string>? onErrorData, CancellationToken cancellationToken = default, TimeSpan? executionTimeout = null) => RunAsync(fileName, arguments, workingDirectory, cancellationToken);
     }

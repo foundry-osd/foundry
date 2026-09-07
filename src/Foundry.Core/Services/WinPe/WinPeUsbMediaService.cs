@@ -261,95 +261,9 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<WinPeUsbProvisionResult>.Failure(provisioningResult.Error!);
         }
 
-        WinPeUsbProvisionResult provisionedUsb = provisioningResult.Value!;
-        WinPeResult copyLayoutValidation = await ValidatePopulationLayoutAsync(options.ExpectedDisk!, provisionedUsb, tools, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
-        if (!copyLayoutValidation.IsSuccess)
-        {
-            return WinPeResult<WinPeUsbProvisionResult>.Failure(copyLayoutValidation.Error!);
-        }
-
-        string bootRootPath = _resolveVolumeRoot(provisionedUsb.BootVolumePath);
-        string cacheRootPath = _resolveVolumeRoot(provisionedUsb.CacheVolumePath);
-        ReportProgress(options.Progress, 55, "Copying WinPE media to USB.");
-        WinPeResult copyResult = await CopyMediaAsync(
-            content,
-            bootRootPath,
-            cancellationToken).ConfigureAwait(false);
-        if (!copyResult.IsSuccess)
-        {
-            return WinPeResult<WinPeUsbProvisionResult>.Failure(copyResult.Error!);
-        }
-
-        if (useBootEx)
-        {
-            ReportProgress(options.Progress, 70, "Validating USB boot files.");
-            WinPeResult bootFilesLayoutValidation = await ValidatePopulationLayoutAsync(options.ExpectedDisk!, provisionedUsb, tools, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
-            if (!bootFilesLayoutValidation.IsSuccess)
-            {
-                return WinPeResult<WinPeUsbProvisionResult>.Failure(bootFilesLayoutValidation.Error!);
-            }
-
-
-        }
-
-        ReportProgress(options.Progress, 78, "Verifying USB boot media.");
-        WinPeResult verificationResult = VerifyBootArtifacts(bootRootPath, artifact.Architecture);
-        if (!verificationResult.IsSuccess)
-        {
-            return WinPeResult<WinPeUsbProvisionResult>.Failure(verificationResult.Error!);
-        }
-
-        WinPeResult bootLayoutResult = VerifyBootPartitionLayout(bootRootPath);
-        if (!bootLayoutResult.IsSuccess)
-        {
-            return WinPeResult<WinPeUsbProvisionResult>.Failure(bootLayoutResult.Error!);
-        }
-
-        ReportProgress(options.Progress, 85, "Preparing USB cache partition.");
-        WinPeResult cacheLayoutValidation = await ValidatePopulationLayoutAsync(options.ExpectedDisk!, provisionedUsb, tools, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
-        if (!cacheLayoutValidation.IsSuccess)
-        {
-            return WinPeResult<WinPeUsbProvisionResult>.Failure(cacheLayoutValidation.Error!);
-        }
-
-        InitializeCachePartitionDirectories(cacheRootPath);
-
-        if (options.RuntimePayloadProvisioning is not null)
-        {
-            ReportProgress(options.Progress, 92, "Provisioning USB runtime payloads.");
-            WinPeResult runtimeLayoutValidation = await ValidatePopulationLayoutAsync(options.ExpectedDisk!, provisionedUsb, tools, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
-            if (!runtimeLayoutValidation.IsSuccess)
-            {
-                return WinPeResult<WinPeUsbProvisionResult>.Failure(runtimeLayoutValidation.Error!);
-            }
-
-            WinPeResult runtimePayloadResult = await _runtimePayloadProvisioningService.ProvisionPreparedAsync(
-                options.PreparedRuntime!,
-                CreateUsbRuntimePayloadOptions(options.RuntimePayloadProvisioning, artifact, cacheRootPath),
-                cancellationToken).ConfigureAwait(false);
-
-            if (!runtimePayloadResult.IsSuccess)
-            {
-                return WinPeResult<WinPeUsbProvisionResult>.Failure(runtimePayloadResult.Error! with
-                {
-                    Message = "Failed to provision USB runtime payloads.",
-                    Details = "Unable to populate CACHE/Runtime.",
-                    Command = null,
-                    ErrorSummary = null,
-                    Exception = null
-                });
-            }
-        }
-
-        if (options.PreparedRuntime is not null)
-        {
-            await WriteAssociationMarkerAsync(bootRootPath, options.PreparedRuntime, cancellationToken).ConfigureAwait(false);
-            await WriteAssociationMarkerAsync(cacheRootPath, options.PreparedRuntime, cancellationToken).ConfigureAwait(false);
-        }
-        ReportProgress(options.Progress, 100, "USB media completed.");
-        return WinPeResult<WinPeUsbProvisionResult>.Success(provisionedUsb);
+        return await PopulateValidatedLayoutAsync(options, artifact, tools, provisioningResult.Value!, content,
+            useBootEx, "USB media completed.", cancellationToken).ConfigureAwait(false);
     }
-
     private async Task<WinPeResult<WinPeUsbProvisionResult>> UpdateBootPartitionCoreAsync(
         UsbOutputOptions options,
         WinPeBuildArtifact artifact,
@@ -427,7 +341,14 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<WinPeUsbProvisionResult>.Failure(formatResult.Error!);
         }
 
-        layout = formatResult.Value!;
+        return await PopulateValidatedLayoutAsync(options, artifact, tools, formatResult.Value!, content,
+            useBootEx, "USB boot partition updated.", cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<WinPeResult<WinPeUsbProvisionResult>> PopulateValidatedLayoutAsync(
+        UsbOutputOptions options, WinPeBuildArtifact artifact, WinPeToolPaths tools, WinPeUsbProvisionResult layout,
+        WinPeBootContentPreflightResult content, bool useBootEx, string completedStatus, CancellationToken cancellationToken)
+    {
         WinPeResult copyLayoutValidation = await ValidatePopulationLayoutAsync(options.ExpectedDisk!, layout, tools, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
         if (!copyLayoutValidation.IsSuccess)
         {
@@ -435,6 +356,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         }
 
         string bootRootPath = _resolveVolumeRoot(layout.BootVolumePath);
+        string cacheRootPath = _resolveVolumeRoot(layout.CacheVolumePath);
         ReportProgress(options.Progress, 55, "Copying WinPE media to USB.");
         WinPeResult copyResult = await CopyMediaAsync(
             content,
@@ -447,7 +369,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 
         if (useBootEx)
         {
-            ReportProgress(options.Progress, 75, "Validating USB boot files.");
+            ReportProgress(options.Progress, 70, "Validating USB boot files.");
             WinPeResult bootFilesLayoutValidation = await ValidatePopulationLayoutAsync(options.ExpectedDisk!, layout, tools, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
             if (!bootFilesLayoutValidation.IsSuccess)
             {
@@ -457,7 +379,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 
         }
 
-        ReportProgress(options.Progress, 90, "Verifying USB boot media.");
+        ReportProgress(options.Progress, 78, "Verifying USB boot media.");
         WinPeResult verificationResult = VerifyBootArtifacts(bootRootPath, artifact.Architecture);
         if (!verificationResult.IsSuccess)
         {
@@ -470,17 +392,18 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<WinPeUsbProvisionResult>.Failure(bootLayoutResult.Error!);
         }
 
+        ReportProgress(options.Progress, 85, "Preparing USB cache partition.");
+        WinPeResult cacheLayoutValidation = await ValidatePopulationLayoutAsync(options.ExpectedDisk!, layout, tools, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
+        if (!cacheLayoutValidation.IsSuccess)
+        {
+            return WinPeResult<WinPeUsbProvisionResult>.Failure(cacheLayoutValidation.Error!);
+        }
+
+        InitializeCachePartitionDirectories(cacheRootPath);
+
         if (options.RuntimePayloadProvisioning is not null)
         {
-            string cacheRootPath = _resolveVolumeRoot(layout.CacheVolumePath);
             ReportProgress(options.Progress, 92, "Provisioning USB runtime payloads.");
-            WinPeResult cacheLayoutValidation = await ValidatePopulationLayoutAsync(options.ExpectedDisk!, layout, tools, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
-            if (!cacheLayoutValidation.IsSuccess)
-            {
-                return WinPeResult<WinPeUsbProvisionResult>.Failure(cacheLayoutValidation.Error!);
-            }
-
-            InitializeCachePartitionDirectories(cacheRootPath);
             WinPeResult runtimeLayoutValidation = await ValidatePopulationLayoutAsync(options.ExpectedDisk!, layout, tools, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
             if (!runtimeLayoutValidation.IsSuccess)
             {
@@ -505,12 +428,12 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             }
         }
 
-        ReportProgress(options.Progress, 100, "USB boot partition updated.");
         if (options.PreparedRuntime is not null)
         {
             await WriteAssociationMarkerAsync(bootRootPath, options.PreparedRuntime, cancellationToken).ConfigureAwait(false);
-            await WriteAssociationMarkerAsync(_resolveVolumeRoot(layout.CacheVolumePath), options.PreparedRuntime, cancellationToken).ConfigureAwait(false);
+            await WriteAssociationMarkerAsync(cacheRootPath, options.PreparedRuntime, cancellationToken).ConfigureAwait(false);
         }
+        ReportProgress(options.Progress, 100, completedStatus);
         return WinPeResult<WinPeUsbProvisionResult>.Success(layout);
     }
 
