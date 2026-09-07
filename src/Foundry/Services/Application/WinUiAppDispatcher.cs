@@ -64,6 +64,9 @@ public sealed class WinUiAppDispatcher : IAppDispatcher
 
     private static DispatcherQueue GetDispatcherQueue()
     {
-        return App.MainWindow.DispatcherQueue ?? DispatcherQueue.GetForCurrentThread();
+        // Window construction can dispatch work before OnLaunched assigns MainWindow.
+        return App.MainWindow?.DispatcherQueue
+            ?? DispatcherQueue.GetForCurrentThread()
+            ?? throw new InvalidOperationException("The WinUI dispatcher queue is not available on this thread.");
     }
 }
