@@ -23,4 +23,6 @@ public sealed record DeploymentResult
     /// Gets the directory that contains deployment logs.
     /// </summary>
     public string LogsDirectoryPath { get; init; } = string.Empty;
+    public string? DismDiagnosticLogPath { get; init; }
+    public string? PreOobeDirectoryPath { get; init; }
 }

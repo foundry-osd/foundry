@@ -29,7 +29,7 @@ public sealed class SupportBundleExporterTests
             ApplicationVersion = "1.2.3",
             SessionId = "ABC12345",
             DestinationDirectoryPath = destinationPath,
-            LogFilePaths = [sourcePath],
+            Sources = [new(sourcePath, "Foundry.log", SupportBundleSourceFormat.ApplicationText, true)],
             Summary = new Dictionary<string, string> { ["Mode"] = "USB" }
         }, TestContext.Current.CancellationToken);
 
@@ -59,7 +59,7 @@ public sealed class SupportBundleExporterTests
             ApplicationVersion = "1.0.0",
             SessionId = "ABC12345",
             DestinationDirectoryPath = Path.Combine(tempDirectory.Path, "export"),
-            LogFilePaths = [sourcePath]
+            Sources = [new(sourcePath, "Foundry.log", SupportBundleSourceFormat.ApplicationText, true)]
         }, TestContext.Current.CancellationToken);
 
         using ZipArchive archive = ZipFile.OpenRead(result.ArchivePath);
@@ -81,7 +81,7 @@ public sealed class SupportBundleExporterTests
             ApplicationVersion = "1.0.0",
             SessionId = "ABC12345",
             DestinationDirectoryPath = Path.Combine(tempDirectory.Path, "export"),
-            LogFilePaths = [sourcePath],
+            Sources = [new(sourcePath, "Foundry.log", SupportBundleSourceFormat.ApplicationText, true)],
             PrivacyMode = SupportBundlePrivacyMode.Raw
         }, TestContext.Current.CancellationToken);
 
@@ -98,13 +98,13 @@ public sealed class SupportBundleExporterTests
         string destinationPath = Path.Combine(tempDirectory.Path, "export");
         var exporter = new SupportBundleExporter();
 
-        await Assert.ThrowsAsync<FileNotFoundException>(() => exporter.ExportAsync(new SupportBundleRequest
+        await Assert.ThrowsAsync<IOException>(() => exporter.ExportAsync(new SupportBundleRequest
         {
             ApplicationName = "Foundry",
             ApplicationVersion = "1.0.0",
             SessionId = "ABC12345",
             DestinationDirectoryPath = destinationPath,
-            LogFilePaths = [missingPath]
+            Sources = [new(missingPath, "missing.log", SupportBundleSourceFormat.ApplicationText, true)]
         }, TestContext.Current.CancellationToken));
 
         Assert.Empty(Directory.EnumerateFiles(destinationPath, "*.zip", SearchOption.TopDirectoryOnly));
@@ -124,7 +124,7 @@ public sealed class SupportBundleExporterTests
             ApplicationVersion = "1.0.0",
             SessionId = "ABC12345",
             DestinationDirectoryPath = Path.Combine(tempDirectory.Path, "export"),
-            LogFilePaths = [missingPath],
+            Sources = [new(missingPath, "missing.log", SupportBundleSourceFormat.ApplicationText, true)],
             PrivacyMode = SupportBundlePrivacyMode.Raw
         }, TestContext.Current.CancellationToken);
 
@@ -154,7 +154,7 @@ public sealed class SupportBundleExporterTests
             ApplicationVersion = "1.0.0",
             SessionId = "ABC12345",
             DestinationDirectoryPath = Path.Combine(tempDirectory.Path, "export"),
-            LogFilePaths = [sourcePath]
+            Sources = [new(sourcePath, "Foundry.log", SupportBundleSourceFormat.ApplicationText, true)]
         }, TestContext.Current.CancellationToken);
 
         using ZipArchive archive = ZipFile.OpenRead(result.ArchivePath);
@@ -184,7 +184,7 @@ public sealed class SupportBundleExporterTests
             ApplicationVersion = "1.0.0",
             SessionId = "ABC12345",
             DestinationDirectoryPath = Path.Combine(tempDirectory.Path, "export"),
-            LogFilePaths = [],
+            Sources = [],
             PrivacyMode = SupportBundlePrivacyMode.Raw,
             Summary = new Dictionary<string, string>
             {
@@ -218,7 +218,7 @@ public sealed class SupportBundleExporterTests
             ApplicationVersion = "1.0.0",
             SessionId = "ABC12345",
             DestinationDirectoryPath = Path.Combine(tempDirectory.Path, "export"),
-            LogFilePaths = [firstPath, secondPath]
+            Sources = [new(firstPath, "Foundry.log", SupportBundleSourceFormat.ApplicationText, true), new(secondPath, "Foundry-2.log", SupportBundleSourceFormat.ApplicationText, true)]
         }, TestContext.Current.CancellationToken);
 
         using ZipArchive archive = ZipFile.OpenRead(result.ArchivePath);
@@ -226,7 +226,7 @@ public sealed class SupportBundleExporterTests
         using JsonDocument manifest = JsonDocument.Parse(manifestJson);
         JsonElement[] includedFiles = manifest.RootElement.GetProperty("includedFiles").EnumerateArray().ToArray();
         Assert.Equal(2, includedFiles.Length);
-        Assert.All(includedFiles, item => Assert.Equal("Foundry.log", item.GetProperty("sourceFileName").GetString()));
+        Assert.Equal("Foundry.log", includedFiles[0].GetProperty("sourceFileName").GetString());
         Assert.Equal("Foundry.log", includedFiles[0].GetProperty("archiveEntryName").GetString());
         Assert.Equal("Foundry-2.log", includedFiles[1].GetProperty("archiveEntryName").GetString());
     }

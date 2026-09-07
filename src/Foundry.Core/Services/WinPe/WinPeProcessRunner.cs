@@ -91,6 +91,7 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
             ProcessExecutionResult result = await _processRunner
                 .RunAsync(request, cancellationToken)
                 .ConfigureAwait(false);
+            Foundry.Core.Services.Diagnostics.DismDiagnosticScope.Record(request.FileName, result);
             return WinPeProcessExecution.FromProcessExecutionResult(result);
         }
         catch (ProcessStartException ex) when (ex.InnerException is Win32Exception or InvalidOperationException)

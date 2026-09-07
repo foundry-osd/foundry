@@ -42,7 +42,7 @@ public static partial class DiagnosticContentSanitizer
         string sanitized = value;
         sanitized = UriPattern().Replace(sanitized, static match => SanitizeUriText(match.Value));
         sanitized = BearerTokenPattern().Replace(sanitized, "Bearer <redacted>");
-        sanitized = SensitivePropertyPattern().Replace(sanitized, "$1=<redacted>");
+        sanitized = SensitivePropertyPattern().Replace(sanitized, static match => match.Groups[1].Value + "=<redacted>" + string.Concat(match.Value.Where(static character => character is '\r' or '\n')));
         sanitized = TargetComputerNameMessagePattern().Replace(sanitized, "$1<redacted>");
         sanitized = WindowsUserPathPattern().Replace(sanitized, "$1<redacted>");
         sanitized = EmailAddressPattern().Replace(sanitized, "<redacted:email>");
@@ -77,7 +77,7 @@ public static partial class DiagnosticContentSanitizer
     [GeneratedRegex("\\bBearer\\s+[^\\s,;|}]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex BearerTokenPattern();
 
-    [GeneratedRegex("\\b(Authorization|ApiKey|AccessToken|RefreshToken|Token|Password|Passphrase|Secret|ClientSecret|PrivateKey|MediaSecretKey|TenantId|Application(?:Object)?Id|DeviceId|Serial(?:Number)?|HardwareHash|(?:Target)?ComputerName|GroupTag|Ssid|MacAddress|IpAddress)\\s*[=:]\\s*(?:\\\"[^\\\"]*\\\"|'[^']*'|[^\\s,;|}]+)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
+    [GeneratedRegex("""\b(Authorization|ApiKey|AccessToken|RefreshToken|Token|Password|Passphrase|Secret|ClientSecret|PrivateKey|MediaSecretKey|TenantId|Application(?:Object)?Id|DeviceId|ImportId|Serial(?:Number)?|HardwareHash|(?:Target)?ComputerName|(?:Expected)?GroupTag|Ssid|MacAddress|IpAddress)["']?\s*[=:]\s*(?:"(?:\\[\s\S]|[^"\\])*"|'(?:\\[\s\S]|[^'\\])*'|[^\s,;|}]+)""", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, 1000)]
     private static partial Regex SensitivePropertyPattern();
 
     [GeneratedRegex("\\b(Target computer name (?:configured|resolved|selected)\\s*:\\s*)[^\\s.,;|}]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]

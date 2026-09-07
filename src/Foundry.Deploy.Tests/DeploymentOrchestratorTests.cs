@@ -18,6 +18,32 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentOrchestratorTests
 {
     [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task RunAsync_OptionalCaptureFailurePreservesOutcome(bool succeeds)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var progress = new FakeOperationProgressService();
+        var telemetry = new RecordingTelemetryService { FailCapture = true };
+        var orchestrator = new DeploymentOrchestrator(progress, new FakeDeploymentLogService(),
+            new FakeTargetDiskService(), CreateSteps(Path.Combine(workspace.RootPath, "TargetWindows"))
+                .Select(step => succeeds && step is FailingStep ? new SucceedingStep(step.Name) : step),
+            telemetry, NullLogger<DeploymentOrchestrator>.Instance);
+        DeploymentResult result = await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "SYNTHETIC",
+            OperatingSystem = new(),
+            DriverPackSelectionKind = DriverPackSelectionKind.None
+        }, TestContext.Current.CancellationToken);
+        Assert.Equal(succeeds, result.IsSuccess);
+        Assert.DoesNotContain("capture failure", result.Message);
+        Assert.Single(telemetry.Events);
+    }
+
+    [Theory]
     [InlineData(false, "native")]
     [InlineData(true, "custom")]
     public async Task RunAsync_ReportsActualUnattendModeWithoutNativeOobeUsageOrFileMetadata(bool useCustom, string expectedMode)
@@ -858,6 +884,8 @@ public sealed class DeploymentOrchestratorTests
 
     private sealed class RecordingTelemetryService : ITelemetryService
     {
+        public void SetEnabled(bool enabled) { }
+        public bool FailCapture { get; init; }
         public List<TelemetryEvent> Events { get; } = [];
 
         public Task TrackAsync(
@@ -866,6 +894,7 @@ public sealed class DeploymentOrchestratorTests
             CancellationToken cancellationToken = default)
         {
             Events.Add(new TelemetryEvent(eventName, new Dictionary<string, object?>(properties)));
+            if (FailCapture) throw new IOException("Synthetic optional capture failure.");
             return Task.CompletedTask;
         }
 

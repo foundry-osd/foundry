@@ -95,7 +95,11 @@ public static class Program
             programLogger.Information("Entering WPF run loop.");
             int exitCode = app.Run(mainWindow);
             programLogger.Debug("Flushing Foundry.Connect telemetry events.");
-            telemetryService.FlushAsync().GetAwaiter().GetResult();
+            using (var telemetryDeadline = new CancellationTokenSource(TimeSpan.FromSeconds(2)))
+            {
+                try { telemetryService.FlushAsync(telemetryDeadline.Token).GetAwaiter().GetResult(); }
+                catch (Exception error) { programLogger.Debug(error, "Optional telemetry shutdown ended without delivery."); }
+            }
             programLogger.Debug("Foundry.Connect telemetry flush completed.");
 
             programLogger.Information(

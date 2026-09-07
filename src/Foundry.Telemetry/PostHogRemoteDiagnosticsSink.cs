@@ -24,33 +24,26 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     private const int MaximumEventsPerFingerprintWindow = 5;
     private static readonly TimeSpan FingerprintWindow = TimeSpan.FromMinutes(1);
     private readonly object _gate = new();
-    private readonly Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, IRemoteDiagnosticsExporter> _exporterFactory;
+    private readonly Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, TelemetryConsentGeneration, IRemoteDiagnosticsExporter> _exporterFactory;
     private readonly int _queueCapacity;
     private readonly TimeProvider _timeProvider;
     private ConditionalWeakTable<Exception, ExceptionDedupeState> _seenExceptions = new();
     private readonly Dictionary<string, FingerprintWindowState> _fingerprints = new(StringComparer.Ordinal);
-    private Channel<QueuedRemoteDiagnosticRecord>? _channel;
-    private IRemoteDiagnosticsExporter? _exporter;
-    private RemoteDiagnosticsContext? _context;
-    private Task _worker = Task.CompletedTask;
-    private int _accepting;
-    private int _stopping;
+    private readonly List<DiagnosticsSession> _retiring = [];
+    private DiagnosticsSession? _current;
+    private bool _stopping;
     private int _disposed;
-    private int _consentGeneration;
     private long _droppedRecordCount;
 
-    /// <summary>
-    /// Initializes a production PostHog diagnostics service.
-    /// </summary>
     public PostHogRemoteDiagnosticsSink()
-        : this(static (options, context) => new PostHogDiagnosticsExporter(options, context), DefaultQueueCapacity)
-    {
-    }
+        : this(static (options, context, generation) => new PostHogDiagnosticsExporter(options, context, generation), DefaultQueueCapacity) { }
 
-    internal PostHogRemoteDiagnosticsSink(
-        Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, IRemoteDiagnosticsExporter> exporterFactory,
-        int queueCapacity = DefaultQueueCapacity,
-        TimeProvider? timeProvider = null)
+    internal PostHogRemoteDiagnosticsSink(Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, IRemoteDiagnosticsExporter> exporterFactory,
+        int queueCapacity = DefaultQueueCapacity, TimeProvider? timeProvider = null)
+        : this((options, context, _) => exporterFactory(options, context), queueCapacity, timeProvider) { }
+
+    internal PostHogRemoteDiagnosticsSink(Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, TelemetryConsentGeneration, IRemoteDiagnosticsExporter> exporterFactory,
+        int queueCapacity = DefaultQueueCapacity, TimeProvider? timeProvider = null)
     {
         ArgumentNullException.ThrowIfNull(exporterFactory);
         ArgumentOutOfRangeException.ThrowIfLessThan(queueCapacity, 1);
@@ -61,174 +54,141 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
 
     internal long DroppedRecordCount => Interlocked.Read(ref _droppedRecordCount);
 
-    /// <inheritdoc />
     public void Configure(RemoteDiagnosticsOptions options, RemoteDiagnosticsContext context)
     {
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(context);
-        if (!options.CanSend || Volatile.Read(ref _stopping) != 0)
-        {
-            Disable();
-            return;
-        }
-
+        if (!options.CanSend) { Disable(); return; }
         lock (_gate)
         {
-            if (Volatile.Read(ref _stopping) != 0)
-            {
-                return;
-            }
-
-            if (_exporter is not null)
-            {
-                Volatile.Write(ref _accepting, 1);
-                return;
-            }
-
+            if (_stopping || _disposed != 0 || _current is not null) return;
+            _retiring.RemoveAll(session => session.Retirement.IsCompleted);
+            if (_retiring.Count >= 8) return;
+            var generation = new TelemetryConsentGeneration();
             try
             {
-                _exporter = _exporterFactory(options, context);
-                _context = context;
-                _channel = Channel.CreateBounded<QueuedRemoteDiagnosticRecord>(new BoundedChannelOptions(_queueCapacity)
-                {
-                    FullMode = BoundedChannelFullMode.Wait,
-                    SingleReader = true,
-                    SingleWriter = false,
-                    AllowSynchronousContinuations = false
-                });
-                _worker = ProcessQueueAsync(_channel.Reader, _exporter);
-                Volatile.Write(ref _accepting, 1);
+                var session = new DiagnosticsSession(generation, _exporterFactory(options, context, generation), context, _queueCapacity);
+                _current = session;
+                session.Worker = Task.Run(() => ProcessQueueAsync(session));
             }
-#pragma warning disable CA1031 // Diagnostics transport must never affect application startup.
-            catch (Exception ex)
-#pragma warning restore CA1031
+            catch (Exception error)
             {
-                Debug.WriteLine($"Remote diagnostics configuration failed: {ex.GetType().Name}");
-                _exporter = null;
-                _context = null;
-                _channel = null;
-                Volatile.Write(ref _accepting, 0);
+                generation.Dispose();
+                Debug.WriteLine($"Remote diagnostics configuration failed: {error.GetType().Name}");
             }
         }
     }
 
-    /// <inheritdoc />
     public void Disable()
     {
         lock (_gate)
         {
-            Volatile.Write(ref _accepting, 0);
-            Interlocked.Increment(ref _consentGeneration);
+            if (_current is { } session)
+            {
+                _current = null;
+                Retire(session);
+            }
             _fingerprints.Clear();
             _seenExceptions = new ConditionalWeakTable<Exception, ExceptionDedupeState>();
         }
     }
 
-    /// <inheritdoc />
     public void Emit(LogEvent logEvent)
     {
         ArgumentNullException.ThrowIfNull(logEvent);
-        if (Volatile.Read(ref _stopping) != 0 || !ShouldExport(logEvent))
-        {
-            return;
-        }
-
+        if (!ShouldExport(logEvent)) return;
         try
         {
             lock (_gate)
             {
-                Channel<QueuedRemoteDiagnosticRecord>? channel = _channel;
-                RemoteDiagnosticsContext? context = _context;
-                if (Volatile.Read(ref _accepting) == 0 || channel is null || context is null)
-                {
-                    return;
-                }
-
-                if (logEvent.Exception is not null && !TryAcquireException(logEvent.Exception, GetScalarText(logEvent, "OperationId")))
-                {
-                    return;
-                }
-
-                if (!TryAcquireFingerprint(logEvent))
-                {
-                    Interlocked.Increment(ref _droppedRecordCount);
-                    return;
-                }
-
-                RemoteDiagnosticRecord record = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(logEvent, context);
-                var queuedRecord = new QueuedRemoteDiagnosticRecord(
-                    Volatile.Read(ref _consentGeneration),
-                    record);
-                if (!channel.Writer.TryWrite(queuedRecord))
-                {
-                    Interlocked.Increment(ref _droppedRecordCount);
-                }
+                if (_stopping || _current is not { } session) return;
+                if (logEvent.Exception is not null && !TryAcquireException(logEvent.Exception, GetScalarText(logEvent, "OperationId"))) return;
+                if (!TryAcquireFingerprint(logEvent)) { Interlocked.Increment(ref _droppedRecordCount); return; }
+                RemoteDiagnosticRecord record = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(logEvent, session.Context);
+                if (!session.Channel.Writer.TryWrite(record)) Interlocked.Increment(ref _droppedRecordCount);
             }
         }
-#pragma warning disable CA1031 // Logging must be fail-safe for every application call site.
-        catch (Exception ex)
-#pragma warning restore CA1031
-        {
-            Debug.WriteLine($"Remote diagnostics enqueue failed: {ex.GetType().Name}");
-        }
+        catch (Exception error) { Debug.WriteLine($"Remote diagnostics enqueue failed: {error.GetType().Name}"); }
     }
 
-    /// <inheritdoc />
     public async Task FlushAsync(CancellationToken cancellationToken)
     {
+        DiagnosticsSession? session;
         lock (_gate)
         {
-            Volatile.Write(ref _accepting, 0);
+            _stopping = true;
+            session = _current;
+            if (session is not null)
+            {
+                session.Channel.Writer.TryComplete();
+                session.Flush ??= Task.Run(async () =>
+                {
+                    await session.Worker.ConfigureAwait(false);
+                    await session.Exporter.FlushAsync(cancellationToken).ConfigureAwait(false);
+                });
+            }
         }
-        if (Interlocked.Exchange(ref _stopping, 1) == 0)
-        {
-            _channel?.Writer.TryComplete();
-        }
-
-        await _worker.WaitAsync(cancellationToken).ConfigureAwait(false);
-        if (_exporter is not null)
-        {
-            await _exporter.FlushAsync(cancellationToken).ConfigureAwait(false);
-        }
-    }
-
-    /// <inheritdoc />
-    public async ValueTask DisposeAsync()
-    {
-        if (Interlocked.Exchange(ref _disposed, 1) != 0)
-        {
-            return;
-        }
-
-        using var cancellation = new CancellationTokenSource(TimeSpan.FromSeconds(2));
         try
         {
-            await FlushAsync(cancellation.Token).ConfigureAwait(false);
+            if (session is not null)
+            {
+                await session.Flush!.WaitAsync(cancellationToken).ConfigureAwait(false);
+            }
         }
-        catch (OperationCanceledException)
+        finally
         {
+            lock (_gate)
+            {
+                if (ReferenceEquals(_current, session)) _current = null;
+                if (session is not null) Retire(session);
+            }
         }
+        Task[] retiring;
+        lock (_gate) retiring = _retiring.Select(item => item.Retirement).ToArray();
+        await Task.WhenAll(retiring).WaitAsync(cancellationToken).ConfigureAwait(false);
+    }
 
-        if (_exporter is not null)
+    public async ValueTask DisposeAsync()
+    {
+        if (Interlocked.Exchange(ref _disposed, 1) != 0) return;
+        using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(2));
+        try { await FlushAsync(deadline.Token).ConfigureAwait(false); }
+        catch (Exception error) { Debug.WriteLine($"Remote diagnostics shutdown abandoned: {error.GetType().Name}"); }
+    }
+
+    public void Dispose() => DisposeAsync().AsTask().GetAwaiter().GetResult();
+
+    private void Retire(DiagnosticsSession session)
+    {
+        if (session.IsRetiring) return;
+        session.IsRetiring = true;
+        session.Generation.Revoke();
+        session.Channel.Writer.TryComplete();
+        Task cancellation = session.Stop.CancelAsync();
+        session.Retirement = Task.Run(async () =>
         {
             try
             {
-                await _exporter.DisposeAsync().ConfigureAwait(false);
+                try { await cancellation.ConfigureAwait(false); }
+                catch (Exception error) { Debug.WriteLine($"Diagnostics cancellation callback failed: {error.GetType().Name}"); }
+                try
+                {
+                    await session.Worker.ConfigureAwait(false);
+                    if (session.Flush is not null) await session.Flush.ConfigureAwait(false);
+                }
+                catch (Exception error) { Debug.WriteLine($"Diagnostics flush ended: {error.GetType().Name}"); }
+                await session.Generation.WaitForDrainAsync().ConfigureAwait(false);
+                await session.Exporter.DisposeAsync().ConfigureAwait(false);
             }
-#pragma warning disable CA1031 // Diagnostics transport disposal must not affect application shutdown.
-            catch (Exception ex)
-#pragma warning restore CA1031
+            catch (Exception error) { Debug.WriteLine($"Remote diagnostics retirement failed: {error.GetType().Name}"); }
+            finally
             {
-                Debug.WriteLine($"Remote diagnostics disposal failed: {ex.GetType().Name}");
+                session.Generation.Dispose();
+                session.Stop.Dispose();
             }
-        }
+        });
+        _retiring.Add(session);
     }
-
-    /// <summary>
-    /// Releases transport resources for synchronous host disposal.
-    /// </summary>
-    public void Dispose() => DisposeAsync().AsTask().GetAwaiter().GetResult();
-
     private static bool ShouldExport(LogEvent logEvent)
     {
         if (HasTrueScalar(logEvent, "RemoteDiagnosticsInternal"))
@@ -296,37 +256,41 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
         }
     }
 
-    private async Task ProcessQueueAsync(
-        ChannelReader<QueuedRemoteDiagnosticRecord> reader,
-        IRemoteDiagnosticsExporter exporter)
+    private async Task ProcessQueueAsync(DiagnosticsSession session)
     {
-        await foreach (QueuedRemoteDiagnosticRecord queuedRecord in reader.ReadAllAsync().ConfigureAwait(false))
+        try
         {
-            if (queuedRecord.ConsentGeneration != Volatile.Read(ref _consentGeneration))
+            await foreach (RemoteDiagnosticRecord record in session.Channel.Reader.ReadAllAsync(session.Stop.Token).ConfigureAwait(false))
             {
-                Interlocked.Increment(ref _droppedRecordCount);
-                continue;
+                session.Stop.Token.ThrowIfCancellationRequested();
+                try { await session.Exporter.ExportAsync(record, session.Stop.Token).ConfigureAwait(false); }
+                catch (OperationCanceledException) when (session.Stop.IsCancellationRequested) { break; }
+                catch (Exception error) { Debug.WriteLine($"Remote diagnostics export failed: {error.GetType().Name}"); }
             }
-
-            try
-            {
-                await exporter.ExportAsync(queuedRecord.Record, CancellationToken.None).ConfigureAwait(false);
-            }
-#pragma warning disable CA1031 // A failed export must not stop later records from draining.
-            catch (Exception ex)
-#pragma warning restore CA1031
-            {
-                Debug.WriteLine($"Remote diagnostics export failed: {ex.GetType().Name}");
-            }
+        }
+        catch (OperationCanceledException) when (session.Stop.IsCancellationRequested) { }
+        finally
+        {
+            while (session.Channel.Reader.TryRead(out _)) Interlocked.Increment(ref _droppedRecordCount);
         }
     }
 
+    private sealed class DiagnosticsSession(TelemetryConsentGeneration generation, IRemoteDiagnosticsExporter exporter,
+        RemoteDiagnosticsContext context, int capacity)
+    {
+        public TelemetryConsentGeneration Generation { get; } = generation;
+        public IRemoteDiagnosticsExporter Exporter { get; } = exporter;
+        public RemoteDiagnosticsContext Context { get; } = context;
+        public CancellationTokenSource Stop { get; } = new();
+        public Channel<RemoteDiagnosticRecord> Channel { get; } = System.Threading.Channels.Channel.CreateBounded<RemoteDiagnosticRecord>(new BoundedChannelOptions(capacity)
+        { FullMode = BoundedChannelFullMode.Wait, SingleReader = true, AllowSynchronousContinuations = false });
+        public Task Worker { get; set; } = Task.CompletedTask;
+        public Task? Flush { get; set; }
+        public Task Retirement { get; set; } = Task.CompletedTask;
+        public bool IsRetiring { get; set; }
+    }
+
     private sealed record FingerprintWindowState(DateTimeOffset StartedAt, int Count);
-
-    private sealed record QueuedRemoteDiagnosticRecord(
-        int ConsentGeneration,
-        RemoteDiagnosticRecord Record);
-
     private sealed class ExceptionDedupeState
     {
         public HashSet<string> OperationIds { get; } = new(StringComparer.Ordinal);
@@ -347,17 +311,22 @@ internal sealed class PostHogDiagnosticsExporter : IRemoteDiagnosticsExporter
     private readonly Serilog.ILogger _logExporter;
     private readonly IPostHogEventClient _eventClient;
     private readonly PostHogExceptionTracker _exceptionTracker;
-    private int _logExporterDisposed;
+    private readonly object _shutdownGate = new();
+    private Task? _logShutdown;
+    private Task? _eventFlush;
     private int _disposed;
 
-    public PostHogDiagnosticsExporter(RemoteDiagnosticsOptions options, RemoteDiagnosticsContext context)
+    public PostHogDiagnosticsExporter(RemoteDiagnosticsOptions options, RemoteDiagnosticsContext context,
+        TelemetryConsentGeneration generation, Func<string, HttpMessageHandler>? handlerFactory = null)
     {
+        handlerFactory ??= static _ => new SocketsHttpHandler { AllowAutoRedirect = false, ActivityHeadersPropagator = null };
         string logsEndpoint = options.HostUrl.TrimEnd('/') + "/i/v1/logs";
         _logExporter = new LoggerConfiguration()
             .WriteTo.OpenTelemetry(configuration =>
             {
                 configuration.LogsEndpoint = logsEndpoint;
                 configuration.Protocol = OtlpProtocol.HttpProtobuf;
+                configuration.HttpMessageHandler = new ConsentHttpMessageHandler(generation, handlerFactory("logs"));
                 configuration.Headers = new Dictionary<string, string>(StringComparer.Ordinal)
                 {
                     ["Authorization"] = $"Bearer {options.ProjectToken}"
@@ -386,7 +355,7 @@ internal sealed class PostHogDiagnosticsExporter : IRemoteDiagnosticsExporter
             MaxBatchSize = 50,
             FlushAt = 20,
             FlushInterval = TimeSpan.FromSeconds(5)
-        }));
+        }), httpClientFactory: new DiagnosticsHttpClientFactory(generation, handlerFactory));
         _eventClient = new PostHogEventClient(postHogClient);
         _exceptionTracker = new PostHogExceptionTracker(_eventClient, options.InstallId);
     }
@@ -436,8 +405,10 @@ internal sealed class PostHogDiagnosticsExporter : IRemoteDiagnosticsExporter
 
     public async Task FlushAsync(CancellationToken cancellationToken)
     {
-        await Task.Run(DisposeLogExporter).WaitAsync(cancellationToken).ConfigureAwait(false);
-        await _eventClient.FlushAsync().WaitAsync(cancellationToken).ConfigureAwait(false);
+        await GetLogShutdown().WaitAsync(cancellationToken).ConfigureAwait(false);
+        Task eventFlush;
+        lock (_shutdownGate) eventFlush = _eventFlush ??= _eventClient.FlushAsync();
+        await eventFlush.WaitAsync(cancellationToken).ConfigureAwait(false);
     }
 
     public async ValueTask DisposeAsync()
@@ -447,15 +418,27 @@ internal sealed class PostHogDiagnosticsExporter : IRemoteDiagnosticsExporter
             return;
         }
 
-        DisposeLogExporter();
-        await _eventClient.DisposeAsync().ConfigureAwait(false);
+        try
+        {
+            await GetLogShutdown().ConfigureAwait(false);
+            Task? flush;
+            lock (_shutdownGate) flush = _eventFlush;
+            if (flush is not null) await flush.ConfigureAwait(false);
+        }
+        finally { await _eventClient.DisposeAsync().ConfigureAwait(false); }
     }
 
-    private void DisposeLogExporter()
+    private Task GetLogShutdown()
     {
-        if (Interlocked.Exchange(ref _logExporterDisposed, 1) == 0 && _logExporter is IDisposable disposable)
+        lock (_shutdownGate)
         {
-            disposable.Dispose();
+            return _logShutdown ??= Task.Run(() => (_logExporter as IDisposable)?.Dispose());
         }
+    }
+
+    private sealed class DiagnosticsHttpClientFactory(TelemetryConsentGeneration generation, Func<string, HttpMessageHandler> handlerFactory) : IHttpClientFactory
+    {
+        public HttpClient CreateClient(string name) => new(new ConsentHttpMessageHandler(generation, handlerFactory("exceptions")))
+        { Timeout = Timeout.InfiniteTimeSpan };
     }
 }

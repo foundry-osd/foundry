@@ -61,7 +61,9 @@ public sealed class DeploymentExecutionService : IDeploymentExecutionService
             {
                 IsSuccess = result.IsSuccess,
                 Message = result.Message,
-                LogsDirectoryPath = result.LogsDirectoryPath
+                LogsDirectoryPath = result.LogsDirectoryPath,
+                DismDiagnosticLogPath = result.DismDiagnosticLogPath,
+                PreOobeDirectoryPath = result.PreOobeDirectoryPath
             };
         }
         catch (Exception ex)

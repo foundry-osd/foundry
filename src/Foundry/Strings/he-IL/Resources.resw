@@ -2376,13 +2376,13 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>שלח יומנים מנוקים ופרטי חריגות כדי לסייע באבחון תקלות. סודות ומזהים ישירים אינם נכללים.</value>
+    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>הפעלת אבחון מרחוק</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>שלח נתוני טלמטריית שימוש אנונימיים כדי לעזור בשיפור Foundry. סודות ומזהים ישירים של המכשיר, כולל מספרים סידוריים וגיבובי חומרה, אינם נכללים. הטלמטריה משתמשת במזהה התקנה אנונימי ועשויה לכלול את יצרן המכשיר והדגם שלו.</value>
+    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>אפשר טלמטריה</value>

@@ -14,19 +14,24 @@ public sealed partial class SettingsPageViewModel : ObservableObject
     private readonly IFoundryConfigurationStateService foundryConfigurationStateService;
     private readonly IRemoteDiagnosticsService remoteDiagnosticsService;
     private readonly TelemetryContext telemetryContext;
+    private readonly ITelemetryService telemetryService;
+    private bool restoringPreference = true;
 
     public SettingsPageViewModel(
         IAppSettingsService appSettingsService,
         IFoundryConfigurationStateService foundryConfigurationStateService,
         IRemoteDiagnosticsService remoteDiagnosticsService,
-        TelemetryContext telemetryContext)
+        TelemetryContext telemetryContext,
+        ITelemetryService telemetryService)
     {
         this.appSettingsService = appSettingsService;
         this.foundryConfigurationStateService = foundryConfigurationStateService;
         this.remoteDiagnosticsService = remoteDiagnosticsService;
         this.telemetryContext = telemetryContext;
+        this.telemetryService = telemetryService;
         IsTelemetryEnabled = appSettingsService.Current.Telemetry.IsEnabled;
         IsRemoteDiagnosticsEnabled = appSettingsService.Current.Telemetry.IsRemoteDiagnosticsEnabled;
+        restoringPreference = false;
     }
 
     [ObservableProperty]
@@ -37,18 +42,39 @@ public sealed partial class SettingsPageViewModel : ObservableObject
 
     partial void OnIsTelemetryEnabledChanged(bool value)
     {
+        if (restoringPreference) return;
+        bool previous = appSettingsService.Current.Telemetry.IsEnabled;
         appSettingsService.Current.Telemetry.IsEnabled = value;
-        appSettingsService.Save();
+        try { appSettingsService.Save(); }
+        catch
+        {
+            appSettingsService.Current.Telemetry.IsEnabled = previous;
+            restoringPreference = true;
+            try { IsTelemetryEnabled = previous; }
+            finally { restoringPreference = false; }
+            return;
+        }
+        telemetryService.SetEnabled(value);
         foundryConfigurationStateService.UpdateTelemetry(CreateTelemetrySettings());
     }
 
     partial void OnIsRemoteDiagnosticsEnabledChanged(bool value)
     {
+        if (restoringPreference) return;
+        bool previous = appSettingsService.Current.Telemetry.IsRemoteDiagnosticsEnabled;
         appSettingsService.Current.Telemetry.IsRemoteDiagnosticsEnabled = value;
-        appSettingsService.Save();
+        try { appSettingsService.Save(); }
+        catch
+        {
+            appSettingsService.Current.Telemetry.IsRemoteDiagnosticsEnabled = previous;
+            restoringPreference = true;
+            try { IsRemoteDiagnosticsEnabled = previous; }
+            finally { restoringPreference = false; }
+            return;
+        }
         TelemetrySettings settings = CreateTelemetrySettings();
-        foundryConfigurationStateService.UpdateTelemetry(settings);
         RemoteDiagnosticsLifecycle.Initialize(remoteDiagnosticsService, settings, telemetryContext);
+        foundryConfigurationStateService.UpdateTelemetry(settings);
     }
 
     private TelemetrySettings CreateTelemetrySettings()

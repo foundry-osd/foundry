@@ -175,6 +175,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         };
 
         DeploymentStepExecutionContext? executionContext = null;
+        Func<Task>? captureOutcome = null;
+        using var nativeDiagnostics = new Foundry.Core.Services.Diagnostics.DismDiagnosticScope(
+            Path.Combine(runtimeState.WorkspaceRoot, "Logs"));
 
         try
         {
@@ -247,7 +250,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 failure: null,
                 stopwatch.Elapsed,
                 cancelled: false);
-            await TrackDeploymentCompletedAsync(
+            captureOutcome = () => TrackDeploymentCompletedAsync(
                 operationId,
                 context,
                 runtimeState,
@@ -256,13 +259,16 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 failedStepName: null,
                 failure: null,
                 stopwatch.Elapsed,
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None);
 
             return new DeploymentResult
             {
                 IsSuccess = true,
                 Message = "Deployment orchestration completed.",
-                LogsDirectoryPath = ResolveLogsDirectory(executionContext)
+                LogsDirectoryPath = ResolveLogsDirectory(executionContext),
+                DismDiagnosticLogPath = nativeDiagnostics.CapturedLogPath,
+                PreOobeDirectoryPath = string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot) ? null :
+                    Path.Combine(runtimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "PreOobe")
             };
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
@@ -291,7 +297,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 failure: null,
                 stopwatch.Elapsed,
                 cancelled: true);
-            await TrackDeploymentCompletedAsync(
+            captureOutcome = () => TrackDeploymentCompletedAsync(
                 operationId,
                 context,
                 runtimeState,
@@ -300,13 +306,16 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 failedStepName,
                 failure: null,
                 stopwatch.Elapsed,
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None);
 
             return new DeploymentResult
             {
                 IsSuccess = false,
                 Message = "Deployment cancelled.",
-                LogsDirectoryPath = ResolveLogsDirectory(executionContext, runtimeState)
+                LogsDirectoryPath = ResolveLogsDirectory(executionContext, runtimeState),
+                DismDiagnosticLogPath = nativeDiagnostics.CapturedLogPath,
+                PreOobeDirectoryPath = string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot) ? null :
+                    Path.Combine(runtimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "PreOobe")
             };
         }
         catch (Exception ex)
@@ -334,7 +343,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 failure,
                 stopwatch.Elapsed,
                 cancelled: false);
-            await TrackDeploymentCompletedAsync(
+            captureOutcome = () => TrackDeploymentCompletedAsync(
                 operationId,
                 context,
                 runtimeState,
@@ -343,22 +352,30 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 failedStepName,
                 failure,
                 stopwatch.Elapsed,
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None);
 
             return new DeploymentResult
             {
                 IsSuccess = false,
                 Message = ex.Message,
-                LogsDirectoryPath = ResolveLogsDirectory(executionContext, runtimeState)
+                LogsDirectoryPath = ResolveLogsDirectory(executionContext, runtimeState),
+                DismDiagnosticLogPath = nativeDiagnostics.CapturedLogPath,
+                PreOobeDirectoryPath = string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot) ? null :
+                    Path.Combine(runtimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "PreOobe")
             };
         }
         finally
         {
             executionContext?.Dispose();
+            if (captureOutcome is not null)
+            {
+                try { await captureOutcome().ConfigureAwait(false); }
+                catch (Exception error) { _logger.LogDebug(error, "Optional deployment telemetry was dropped."); }
+            }
         }
     }
 
-    private Task TrackDeploymentCompletedAsync(
+    private async Task TrackDeploymentCompletedAsync(
         string operationId,
         DeploymentContext context,
         DeploymentRuntimeState? runtimeState,
@@ -443,7 +460,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             properties["deploy_driver_pack_vendor"],
             properties["deploy_driver_pack_model"]);
 
-        return _telemetryService.TrackAsync(TelemetryEvents.DeploySessionFinished, properties, cancellationToken);
+        try { await _telemetryService.TrackAsync(TelemetryEvents.DeploySessionFinished, properties, cancellationToken).ConfigureAwait(false); }
+        catch (Exception error) { _logger.LogDebug(error, "Optional deployment telemetry was dropped."); }
     }
 
     private void LogTerminalOutcome(

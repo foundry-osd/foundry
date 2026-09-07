@@ -206,7 +206,11 @@ namespace Foundry
             isShuttingDown = true;
             AppLogger.Information("Foundry WinUI shutdown started.");
             AppLogger.Debug("Flushing Foundry telemetry events.");
-            GetService<ITelemetryService>().FlushAsync().GetAwaiter().GetResult();
+            using (var telemetryDeadline = new CancellationTokenSource(TimeSpan.FromSeconds(2)))
+            {
+                try { GetService<ITelemetryService>().FlushAsync(telemetryDeadline.Token).GetAwaiter().GetResult(); }
+                catch (Exception error) { AppLogger.Debug(error, "Optional telemetry shutdown ended without delivery."); }
+            }
             AppLogger.Debug("Foundry telemetry flush completed.");
             ShutdownRemoteDiagnostics();
             Host.Dispose();

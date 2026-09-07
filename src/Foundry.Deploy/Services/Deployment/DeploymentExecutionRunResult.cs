@@ -9,4 +9,6 @@ public sealed record DeploymentExecutionRunResult
     public required bool IsSuccess { get; init; }
     public required string Message { get; init; }
     public string LogsDirectoryPath { get; init; } = string.Empty;
+    public string? DismDiagnosticLogPath { get; init; }
+    public string? PreOobeDirectoryPath { get; init; }
 }

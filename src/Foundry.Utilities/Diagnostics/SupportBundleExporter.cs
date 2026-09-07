@@ -5,230 +5,179 @@
 using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace Foundry.Utilities.Diagnostics;
 
-/// <summary>
-/// Creates an atomic, manifest-driven diagnostic archive from flushed log snapshots.
-/// </summary>
+/// <summary>Creates bounded, sanitized diagnostic snapshots and publishes archives atomically.</summary>
 public sealed partial class SupportBundleExporter(TimeProvider? timeProvider = null)
 {
-    private static readonly JsonSerializerOptions JsonOptions = new()
-    {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        WriteIndented = true
-    };
-
+    private const int MaximumFileBytes = 10 * 1024 * 1024;
+    private const long MaximumTotalBytes = 40L * 1024 * 1024;
+    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true };
     private readonly TimeProvider _timeProvider = timeProvider ?? TimeProvider.System;
 
-    /// <summary>
-    /// Creates a temporary archive and publishes it only after every selected source has been processed.
-    /// </summary>
-    public async Task<SupportBundleResult> ExportAsync(
-        SupportBundleRequest request,
-        CancellationToken cancellationToken = default)
+    /// <summary>Publishes an archive only after all required sources and metadata are processed.</summary>
+    public async Task<SupportBundleResult> ExportAsync(SupportBundleRequest request, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
-        ArgumentException.ThrowIfNullOrWhiteSpace(request.ApplicationName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(request.ApplicationVersion);
-        ArgumentException.ThrowIfNullOrWhiteSpace(request.SessionId);
+        ArgumentNullException.ThrowIfNull(request.Sources);
+        cancellationToken.ThrowIfCancellationRequested();
+        string application = SafeMetadata(request.ApplicationName, 128);
+        string version = SafeMetadata(request.ApplicationVersion, 128);
+        string session = SafeMetadata(request.SessionId, 128);
         ArgumentException.ThrowIfNullOrWhiteSpace(request.DestinationDirectoryPath);
-        ArgumentNullException.ThrowIfNull(request.LogFilePaths);
-
         Directory.CreateDirectory(request.DestinationDirectoryPath);
-        DateTimeOffset exportedAtUtc = _timeProvider.GetUtcNow();
-        string safeApplicationName = SanitizeFileName(request.ApplicationName);
-        string archiveName = $"FoundrySupport-{safeApplicationName}-{exportedAtUtc:yyyyMMddTHHmmssZ}.zip";
-        string archivePath = ResolveAvailablePath(request.DestinationDirectoryPath, archiveName);
+        var timestamp = _timeProvider.GetUtcNow();
+        string archivePath = ResolveAvailablePath(request.DestinationDirectoryPath, $"FoundrySupport-{timestamp:yyyyMMddTHHmmssZ}");
         string temporaryPath = archivePath + $".{Guid.NewGuid():N}.tmp";
-        var includedFiles = new List<SupportBundleIncludedFile>();
-        var omittedFiles = new List<SupportBundleOmission>();
-
+        var included = new List<IncludedSource>();
+        var omissions = new List<OmittedSource>();
+        long totalBytes = 0;
+        if (!Enum.IsDefined(request.PrivacyMode)) { throw new ArgumentException("Unsupported support privacy mode."); }
+        if (request.Sources.Count > 32)
+        {
+            if (request.PrivacyMode == SupportBundlePrivacyMode.Sanitized && request.Sources.Skip(32).Any(static source => source.Required))
+            { throw new IOException("Required diagnostic sources exceed the supported source count."); }
+            omissions.Add(new(33, "source-33-and-later", "source_count_limit"));
+        }
         try
         {
-            await using (FileStream archiveStream = new(
-                temporaryPath,
-                FileMode.CreateNew,
-                FileAccess.ReadWrite,
-                FileShare.None,
-                65536,
-                FileOptions.Asynchronous))
-            using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, leaveOpen: false))
+            await using (var stream = new FileStream(temporaryPath, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None, 65536, FileOptions.Asynchronous))
+            using (var archive = new ZipArchive(stream, ZipArchiveMode.Create))
             {
-                var usedEntryNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                int sourceIndex = 0;
-                foreach (string sourcePath in request.LogFilePaths)
+                var usedNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                int index = 0;
+                foreach (var source in request.Sources.Take(32))
                 {
-                    sourceIndex++;
+                    index++;
                     cancellationToken.ThrowIfCancellationRequested();
-                    string sourceName = Path.GetFileName(sourcePath);
                     try
                     {
-                        string content = await ReadSharedTextAsync(sourcePath, cancellationToken).ConfigureAwait(false);
-                        if (request.PrivacyMode == SupportBundlePrivacyMode.Sanitized)
+                        ValidateSource(source, usedNames);
+                        SupportBundleSourcePolicy.RejectReparseChain(source.Path);
+                        await using var input = new FileStream(source.Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 65536, FileOptions.Asynchronous | FileOptions.SequentialScan);
+                        long remainingBytes = MaximumTotalBytes - totalBytes;
+                        long snapshotLength = input.Length;
+                        if (snapshotLength > MaximumFileBytes || snapshotLength > remainingBytes) { throw new IOException("source_byte_limit"); }
+                        totalBytes += snapshotLength;
+                        byte[] snapshot = await ReadBoundedSnapshotAsync(input, remainingBytes, cancellationToken, snapshotLength).ConfigureAwait(false);
+                        SupportBundleSourcePolicy.RejectReparseChain(source.Path);
+                        string content = DecodeText(snapshot);
+                        if (source.Format == SupportBundleSourceFormat.ActionResultJson || request.PrivacyMode == SupportBundlePrivacyMode.Sanitized)
                         {
-                            content = DiagnosticContentSanitizer.SanitizeMultiline(content, int.MaxValue);
+                            content = source.Format == SupportBundleSourceFormat.ActionResultJson
+                                ? ActionResultSanitizer.Sanitize(content)
+                                : DiagnosticContentSanitizer.SanitizeMultiline(content, int.MaxValue);
                         }
-
-                        string publishedSourceName = request.PrivacyMode == SupportBundlePrivacyMode.Sanitized
-                            ? DiagnosticContentSanitizer.Sanitize(sourceName, int.MaxValue)
-                            : sourceName;
-                        string entryName = ResolveEntryName(usedEntryNames, publishedSourceName);
-                        await WriteTextEntryAsync(archive, $"logs/{entryName}", content, cancellationToken).ConfigureAwait(false);
-                        includedFiles.Add(new SupportBundleIncludedFile(sourceIndex, publishedSourceName, entryName));
+                        string directory = source.Format == SupportBundleSourceFormat.ActionResultJson ? "results" : "logs";
+                        await WriteEntryAsync(archive, $"{directory}/{source.ArchiveName}", content, cancellationToken).ConfigureAwait(false);
+                        included.Add(new(index, source.ArchiveName, source.ArchiveName));
                     }
-                    catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or NotSupportedException)
+                    catch (Exception error) when (error is IOException or UnauthorizedAccessException or ArgumentException or NotSupportedException or JsonException or RegexMatchTimeoutException)
                     {
-                        if (request.PrivacyMode == SupportBundlePrivacyMode.Sanitized)
+                        if (source.Required && request.PrivacyMode == SupportBundlePrivacyMode.Sanitized)
                         {
-                            throw;
+                            throw new IOException($"Required diagnostic source {index} could not be safely exported.");
                         }
-
-                        omittedFiles.Add(new SupportBundleOmission(sourceIndex, sourceName, ex.GetType().Name));
+                        omissions.Add(new(index, $"source-{index}", "source_unavailable_or_unsupported"));
                     }
                 }
-
-                IReadOnlyDictionary<string, string> summary = request.Summary.ToDictionary(
-                    static item => DiagnosticContentSanitizer.Sanitize(item.Key, int.MaxValue),
-                    static item => DiagnosticContentSanitizer.Sanitize(item.Value, int.MaxValue),
-                    StringComparer.OrdinalIgnoreCase);
-
-                await WriteJsonEntryAsync(archive, "summary.json", summary, cancellationToken).ConfigureAwait(false);
-                var manifest = new SupportBundleManifest(
-                    request.ApplicationName,
-                    request.ApplicationVersion,
-                    request.SessionId,
-                    exportedAtUtc,
-                    request.PrivacyMode.ToString(),
-                    request.PrivacyMode == SupportBundlePrivacyMode.Raw
+                if (request.Summary.Count > 32) { throw new IOException("Diagnostic summary exceeds its supported bounds."); }
+                var summary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                foreach (var pair in request.Summary)
+                {
+                    if (!summary.TryAdd(SafeMetadata(pair.Key, 128), SafeMetadata(pair.Value, 2048))) { throw new IOException("Diagnostic summary contains duplicate keys."); }
+                }
+                await WriteEntryAsync(archive, "summary.json", JsonSerializer.Serialize(summary, JsonOptions), cancellationToken).ConfigureAwait(false);
+                var manifest = new
+                {
+                    ApplicationName = application,
+                    ApplicationVersion = version,
+                    SessionId = session,
+                    ExportedAtUtc = timestamp,
+                    PrivacyMode = request.PrivacyMode.ToString(),
+                    PrivacyNotice = request.PrivacyMode == SupportBundlePrivacyMode.Raw
                         ? "Raw logs may contain sensitive or identifying information."
-                        : "Sensitive identifiers, credentials, query strings, email addresses, and user profile names were redacted.",
-                    includedFiles,
-                    omittedFiles);
-                await WriteJsonEntryAsync(archive, "manifest.json", manifest, cancellationToken).ConfigureAwait(false);
+                        : "Known sensitive fields in supported diagnostic text were redacted. Action results include only validated diagnostic fields. Unsupported sources are omitted; text sanitation cannot identify every possible secret.",
+                    IncludedFiles = included,
+                    OmittedFiles = omissions
+                };
+                await WriteEntryAsync(archive, "manifest.json", JsonSerializer.Serialize(manifest, JsonOptions), cancellationToken).ConfigureAwait(false);
             }
-
+            cancellationToken.ThrowIfCancellationRequested();
             File.Move(temporaryPath, archivePath);
-            return new SupportBundleResult(
-                archivePath,
-                includedFiles.Select(static file => file.ArchiveEntryName).ToArray(),
-                omittedFiles.Select(static omission => omission.FileName).ToArray());
+            return new(archivePath, included.Select(x => x.ArchiveEntryName).ToArray(), omissions.Select(x => x.FileName).ToArray());
         }
         finally
         {
-            if (File.Exists(temporaryPath))
-            {
-                try
-                {
-                    File.Delete(temporaryPath);
-                }
-                catch (IOException)
-                {
-                }
-                catch (UnauthorizedAccessException)
-                {
-                }
-            }
+            try { File.Delete(temporaryPath); }
+            catch (IOException) { }
+            catch (UnauthorizedAccessException) { }
         }
     }
 
-    private static async Task<string> ReadSharedTextAsync(string path, CancellationToken cancellationToken)
+    private static void ValidateSource(SupportBundleSource source, HashSet<string> names)
     {
-        await using FileStream stream = new(
-            path,
-            FileMode.Open,
-            FileAccess.Read,
-            FileShare.ReadWrite | FileShare.Delete,
-            65536,
-            FileOptions.Asynchronous | FileOptions.SequentialScan);
-        using var reader = new StreamReader(stream, Encoding.UTF8, detectEncodingFromByteOrderMarks: true);
-        return await reader.ReadToEndAsync(cancellationToken).ConfigureAwait(false);
-    }
-
-    private static async Task WriteTextEntryAsync(
-        ZipArchive archive,
-        string entryName,
-        string content,
-        CancellationToken cancellationToken)
-    {
-        ZipArchiveEntry entry = archive.CreateEntry(entryName, CompressionLevel.Optimal);
-        await using Stream stream = entry.Open();
-        await using var writer = new StreamWriter(stream, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
-        await writer.WriteAsync(content.AsMemory(), cancellationToken).ConfigureAwait(false);
-    }
-
-    private static Task WriteJsonEntryAsync<T>(
-        ZipArchive archive,
-        string entryName,
-        T value,
-        CancellationToken cancellationToken)
-    {
-        string json = JsonSerializer.Serialize(value, JsonOptions);
-        return WriteTextEntryAsync(archive, entryName, json, cancellationToken);
-    }
-
-    private static string ResolveEntryName(HashSet<string> usedEntryNames, string sourceName)
-    {
-        string safeName = SanitizeFileName(string.IsNullOrWhiteSpace(sourceName) ? "diagnostic.log" : sourceName);
-        if (usedEntryNames.Add(safeName))
+        ArgumentNullException.ThrowIfNull(source);
+        string name = source.ArchiveName;
+        if (name is null || name.Length > 96 || !ArchiveNamePattern().IsMatch(name) || name.Contains("..", StringComparison.Ordinal) || !names.Add(name))
+        { throw new IOException("invalid_archive_name"); }
+        string extension = Path.GetExtension(source.Path);
+        string archiveExtension = Path.GetExtension(name);
+        bool valid = source.Format switch
         {
-            return safeName;
-        }
-
-        string baseName = Path.GetFileNameWithoutExtension(safeName);
-        string extension = Path.GetExtension(safeName);
-        for (int suffix = 2; ; suffix++)
-        {
-            string candidate = $"{baseName}-{suffix}{extension}";
-            if (usedEntryNames.Add(candidate))
-            {
-                return candidate;
-            }
-        }
+            SupportBundleSourceFormat.ApplicationText or SupportBundleSourceFormat.NativeText => IsText(extension) && IsText(archiveExtension),
+            SupportBundleSourceFormat.ActionResultJson => extension.Equals(".json", StringComparison.OrdinalIgnoreCase) && archiveExtension.Equals(".json", StringComparison.OrdinalIgnoreCase),
+            _ => false
+        };
+        if (!valid || !Path.IsPathFullyQualified(source.Path)) { throw new IOException("unsupported_source"); }
     }
 
-    private static string ResolveAvailablePath(string destinationDirectoryPath, string archiveName)
+    private static bool IsText(string extension) => extension.Equals(".log", StringComparison.OrdinalIgnoreCase) || extension.Equals(".txt", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>Reads only the initial bounded length and rejects changed lengths rather than following a growing log.</summary>
+    internal static async Task<byte[]> ReadBoundedSnapshotAsync(Stream stream, long remainingBytes, CancellationToken token, long? expectedLength = null)
     {
-        string candidate = Path.Combine(destinationDirectoryPath, archiveName);
-        if (!File.Exists(candidate))
-        {
-            return candidate;
-        }
-
-        string baseName = Path.GetFileNameWithoutExtension(archiveName);
-        for (int suffix = 2; ; suffix++)
-        {
-            candidate = Path.Combine(destinationDirectoryPath, $"{baseName}-{suffix}.zip");
-            if (!File.Exists(candidate))
-            {
-                return candidate;
-            }
-        }
+        long length = expectedLength ?? stream.Length;
+        if (stream.Length != length) { throw new IOException("source_changed_during_snapshot"); }
+        if (length > MaximumFileBytes || length > remainingBytes || length < 0) { throw new IOException("source_byte_limit"); }
+        byte[] bytes = new byte[(int)length];
+        await stream.ReadExactlyAsync(bytes, token).ConfigureAwait(false);
+        if (stream.Length != length) { throw new IOException("source_changed_during_snapshot"); }
+        return bytes;
     }
 
-    private static string SanitizeFileName(string value)
+    private static string DecodeText(byte[] bytes)
     {
-        var invalidCharacters = Path.GetInvalidFileNameChars().ToHashSet();
-        var builder = new StringBuilder(value.Length);
-        foreach (char character in value.Trim())
-        {
-            builder.Append(invalidCharacters.Contains(character) || char.IsWhiteSpace(character) ? '-' : character);
-        }
-
-        return builder.Length == 0 ? "Foundry" : builder.ToString();
+        using var stream = new MemoryStream(bytes, writable: false);
+        using var reader = new StreamReader(stream, new UTF8Encoding(false, true), detectEncodingFromByteOrderMarks: true);
+        return reader.ReadToEnd();
     }
 
-    private sealed record SupportBundleManifest(
-        string ApplicationName,
-        string ApplicationVersion,
-        string SessionId,
-        DateTimeOffset ExportedAtUtc,
-        string PrivacyMode,
-        string PrivacyNotice,
-        IReadOnlyList<SupportBundleIncludedFile> IncludedFiles,
-        IReadOnlyList<SupportBundleOmission> OmittedFiles);
+    private static string SafeMetadata(string value, int maximumLength)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(value);
+        if (value.Length > maximumLength) { throw new IOException("Diagnostic metadata exceeds its supported bounds."); }
+        return DiagnosticContentSanitizer.Sanitize(value, maximumLength);
+    }
 
-    private sealed record SupportBundleIncludedFile(int SourceIndex, string SourceFileName, string ArchiveEntryName);
+    private static async Task WriteEntryAsync(ZipArchive archive, string name, string content, CancellationToken token)
+    {
+        await using var stream = archive.CreateEntry(name, CompressionLevel.Optimal).Open();
+        await using var writer = new StreamWriter(stream, new UTF8Encoding(false));
+        await writer.WriteAsync(content.AsMemory(), token).ConfigureAwait(false);
+    }
 
-    private sealed record SupportBundleOmission(int SourceIndex, string FileName, string Reason);
+    private static string ResolveAvailablePath(string root, string name)
+    {
+        string candidate = Path.Combine(root, name + ".zip");
+        for (int suffix = 2; File.Exists(candidate); suffix++) { candidate = Path.Combine(root, $"{name}-{suffix}.zip"); }
+        return candidate;
+    }
+
+    [GeneratedRegex(@"^[A-Za-z0-9][A-Za-z0-9_.-]*$", RegexOptions.CultureInvariant)]
+    private static partial Regex ArchiveNamePattern();
+    private sealed record IncludedSource(int SourceIndex, string SourceFileName, string ArchiveEntryName);
+    private sealed record OmittedSource(int SourceIndex, string FileName, string Reason);
 }

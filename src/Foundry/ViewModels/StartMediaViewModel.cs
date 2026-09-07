@@ -1248,7 +1248,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             properties["boot_media_connect_runtime_payload_source"],
             properties["boot_media_deploy_runtime_payload_source"]);
 
-        await telemetryService.TrackAsync(TelemetryEvents.OsdBootMediaFinished, properties, cancellationToken);
+        try { await telemetryService.TrackAsync(TelemetryEvents.OsdBootMediaFinished, properties, cancellationToken); }
+        catch (Exception error) { logger.Debug(error, "Optional media telemetry was dropped."); }
         logger.Debug("Media telemetry event queued. Target={Target}, Success={Success}.", properties["boot_media_target"], success);
     }
 

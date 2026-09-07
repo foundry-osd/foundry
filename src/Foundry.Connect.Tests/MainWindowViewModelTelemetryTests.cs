@@ -26,6 +26,19 @@ namespace Foundry.Connect.Tests;
 public sealed class MainWindowViewModelTelemetryTests
 {
     [Fact]
+    public async Task ContinueBootstrapCommand_OptionalCaptureFailurePreservesSuccessfulExit()
+    {
+        var telemetry = new RecordingTelemetryService { FailCapture = true };
+        var lifetime = new RecordingApplicationLifetimeService(telemetry);
+        using MainWindowViewModel viewModel = CreateViewModel(telemetry,
+            new QueueNetworkStatusService(CreateReadySnapshot()), lifetime);
+        await viewModel.InitializeAsync();
+        viewModel.ContinueBootstrapCommand.Execute(null);
+        Assert.Equal(FoundryConnectExitCode.Success, lifetime.ExitCode);
+        Assert.Single(telemetry.Events);
+    }
+
+    [Fact]
     public async Task InitializeAsync_WhenNetworkIsReady_DoesNotTrackSessionReadyImmediately()
     {
         var telemetry = new RecordingTelemetryService();
@@ -418,6 +431,8 @@ public sealed class MainWindowViewModelTelemetryTests
 
     private sealed class RecordingTelemetryService : ITelemetryService
     {
+        public void SetEnabled(bool enabled) { }
+        public bool FailCapture { get; init; }
         public List<TelemetryEvent> Events { get; } = [];
 
         public bool CallsCompletedBeforeExit { get; private set; }
@@ -428,6 +443,7 @@ public sealed class MainWindowViewModelTelemetryTests
         {
             Events.Add(new TelemetryEvent(eventName, new Dictionary<string, object?>(properties)));
             CallsCompletedBeforeExit = !HasExitHappened;
+            if (FailCapture) throw new IOException("Synthetic optional capture failure.");
             return Task.CompletedTask;
         }
 

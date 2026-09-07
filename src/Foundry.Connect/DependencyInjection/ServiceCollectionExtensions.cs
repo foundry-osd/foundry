@@ -53,14 +53,8 @@ public static class ServiceCollectionExtensions
                 !string.IsNullOrWhiteSpace(options.InstallId),
                 options.HostUrl);
 
-            if (!options.CanSend)
-            {
-                logger.LogDebug("Telemetry service disabled for Foundry.Connect because runtime options are incomplete or disabled.");
-                return new NullTelemetryService();
-            }
-
             return new PostHogTelemetryService(
-                new HttpClient(),
+                generation => new HttpClient(new ConsentHttpMessageHandler(generation, new HttpClientHandler())),
                 options,
                 sp.GetRequiredService<TelemetryContext>(),
                 logger);

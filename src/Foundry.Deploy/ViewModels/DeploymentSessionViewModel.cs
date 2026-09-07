@@ -50,6 +50,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     private int _activeStepIndex;
     private int _plannedStepCount;
     private string _lastLogsDirectoryPath = string.Empty;
+    private string? _lastDismDiagnosticLogPath;
+    private string? _lastPreOobeDirectoryPath;
     private bool _isDeploymentInProgress;
     private bool _isRebootInProgress;
     private bool _isDisposed;
@@ -198,6 +200,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     {
         _isDeploymentInProgress = true;
         _lastLogsDirectoryPath = string.Empty;
+        _lastDismDiagnosticLogPath = null;
+        _lastPreOobeDirectoryPath = null;
         ClearFailureDetails();
         _plannedStepCount = plannedStepCount;
         _activeStepIndex = 0;
@@ -243,6 +247,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     public void ApplyExecutionRunResult(DeploymentExecutionRunResult executionRunResult)
     {
         ArgumentNullException.ThrowIfNull(executionRunResult);
+        _lastDismDiagnosticLogPath = executionRunResult.DismDiagnosticLogPath;
+        _lastPreOobeDirectoryPath = executionRunResult.PreOobeDirectoryPath;
 
         if (executionRunResult.IsSuccess)
         {
@@ -393,7 +399,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
                     persistenceResult.FailedFileCount);
             }
 
-            string[] logFilePaths = EnumerateSupportLogFiles();
+            IReadOnlyList<SupportBundleSource> sources = EnumerateSupportSources();
             SupportBundleResult result = await new SupportBundleExporter().ExportAsync(
                 new SupportBundleRequest
                 {
@@ -401,7 +407,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
                     ApplicationVersion = FoundryDeployApplicationInfo.Version,
                     SessionId = DiagnosticSessionContext.CurrentSessionId,
                     DestinationDirectoryPath = destinationDirectoryPath,
-                    LogFilePaths = logFilePaths,
+                    Sources = sources,
                     PrivacyMode = privacyMode,
                     Summary = new Dictionary<string, string>
                     {
@@ -468,16 +474,31 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
                ?? throw new IOException("No ready external volume is available for the diagnostic export.");
     }
 
-    private string[] EnumerateSupportLogFiles()
+    private IReadOnlyList<SupportBundleSource> EnumerateSupportSources()
     {
-        string? activeDirectoryPath = Path.GetDirectoryName(FoundryDeployLogging.CurrentLogFilePath);
-        return new[] { activeDirectoryPath, _lastLogsDirectoryPath }
-            .Where(static path => !string.IsNullOrWhiteSpace(path) && Directory.Exists(path))
-            .SelectMany(static path => Directory.GetFiles(path!, "Foundry*.log", SearchOption.TopDirectoryOnly))
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .ToArray();
+        List<SupportBundleSource> sources = [];
+        string? activeRoot = Path.GetDirectoryName(FoundryDeployLogging.CurrentLogFilePath);
+        if (!string.IsNullOrWhiteSpace(activeRoot))
+        {
+            sources.AddRange(SupportBundleSourcePolicy.CreateRollingLogs(activeRoot, "FoundryDeploy.log", "deploy"));
+            sources.AddRange(SupportBundleSourcePolicy.CreateRollingLogs(activeRoot, "FoundryConnect.log", "connect"));
+            sources.AddRange(SupportBundleSourcePolicy.CreateRollingLogs(activeRoot, "FoundryBootstrap.log", "bootstrap", SupportBundleSourceFormat.NativeText));
+        }
+        if (!string.IsNullOrWhiteSpace(_lastLogsDirectoryPath) && !string.Equals(activeRoot, _lastLogsDirectoryPath, StringComparison.OrdinalIgnoreCase))
+            sources.AddRange(SupportBundleSourcePolicy.CreateRollingLogs(_lastLogsDirectoryPath, "FoundryDeploy.log", "persisted-deploy"));
+        if (_lastDismDiagnosticLogPath is not null)
+            sources.Add(SupportBundleSourcePolicy.CreateOwned(Path.GetDirectoryName(_lastDismDiagnosticLogPath)!,
+                Path.GetFileName(_lastDismDiagnosticLogPath), "dism-console.log", SupportBundleSourceFormat.NativeText));
+        if (_lastPreOobeDirectoryPath is not null)
+        {
+            string ownedRoot = Path.GetDirectoryName(_lastPreOobeDirectoryPath)!;
+            sources.Add(SupportBundleSourcePolicy.CreateOwned(ownedRoot, Path.Combine("PreOobe", "results.json"),
+                "pre-oobe-results.json", SupportBundleSourceFormat.ActionResultJson));
+            sources.Add(SupportBundleSourcePolicy.CreateOwned(ownedRoot, Path.Combine("Logs", "PreOobe", "Remove-AppX.transcript.log"),
+                "appx-transcript.log", SupportBundleSourceFormat.NativeText));
+        }
+        return sources;
     }
-
     private static string ResolveSuggestedExportDirectory(string? externalExportDirectory)
     {
         try

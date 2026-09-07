@@ -94,7 +94,11 @@ public static class Program
             MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
             int exitCode = app.Run(mainWindow);
             programLogger.Debug("Flushing Foundry.Deploy telemetry events.");
-            telemetryService.FlushAsync().GetAwaiter().GetResult();
+            using (var telemetryDeadline = new CancellationTokenSource(TimeSpan.FromSeconds(2)))
+            {
+                try { telemetryService.FlushAsync(telemetryDeadline.Token).GetAwaiter().GetResult(); }
+                catch (Exception error) { programLogger.Debug(error, "Optional telemetry shutdown ended without delivery."); }
+            }
             programLogger.Debug("Foundry.Deploy telemetry flush completed.");
 
             programLogger.Information("Foundry.Deploy exited with code {ExitCode}.", exitCode);

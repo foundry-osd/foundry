@@ -178,8 +178,8 @@ public sealed class PostHogTelemetryServiceTests
     [Fact]
     public async Task TrackAsync_WhenHttpCaptureFails_DoesNotThrow()
     {
-        using var httpClient = new HttpClient(new RecordingHttpMessageHandler { ThrowOnSend = true });
-        var service = CreateService(httpClient);
+        var handler = new RecordingHttpMessageHandler { ThrowOnSend = true };
+        using var service = CreateService(handler);
 
         await service.TrackAsync(TelemetryEvents.OsdBootMediaFinished, new Dictionary<string, object?> { ["boot_media_target"] = "iso" });
     }
@@ -188,9 +188,8 @@ public sealed class PostHogTelemetryServiceTests
     public async Task TrackAsync_WhenTelemetryDisabled_DoesNotSend()
     {
         var handler = new RecordingHttpMessageHandler();
-        using var httpClient = new HttpClient(handler);
         var options = new TelemetryOptions(false, TelemetryDefaults.PostHogEuHost, "project-token", "install-id");
-        var service = CreateService(httpClient, options);
+        using var service = CreateService(handler, options);
 
         await service.TrackAsync(TelemetryEvents.OsdBootMediaFinished, new Dictionary<string, object?> { ["boot_media_target"] = "iso" });
 
@@ -201,8 +200,7 @@ public sealed class PostHogTelemetryServiceTests
     public async Task TrackAsync_SendsCapturePayloadWithoutClientTimestamp()
     {
         var handler = new RecordingHttpMessageHandler();
-        using var httpClient = new HttpClient(handler);
-        var service = CreateService(httpClient);
+        using var service = CreateService(handler);
 
         await service.TrackAsync(
             TelemetryEvents.OsdBootMediaFinished,
@@ -215,6 +213,7 @@ public sealed class PostHogTelemetryServiceTests
                 ["ssid"] = "CorpWifi"
             });
 
+        await service.FlushAsync(TestContext.Current.CancellationToken);
         Assert.Equal("https://eu.i.posthog.com/i/v0/e/", handler.RequestUri?.ToString());
 
         JsonElement root = handler.ReadJson();
@@ -250,8 +249,7 @@ public sealed class PostHogTelemetryServiceTests
     public async Task TrackAsync_WhenEventNameIsUnknown_DoesNotSend()
     {
         var handler = new RecordingHttpMessageHandler();
-        using var httpClient = new HttpClient(handler);
-        var service = CreateService(httpClient);
+        using var service = CreateService(handler);
 
         await service.TrackAsync("unknown_event", new Dictionary<string, object?> { ["success"] = true });
 
@@ -262,8 +260,7 @@ public sealed class PostHogTelemetryServiceTests
     public async Task TrackAsync_ForConnectSessionReady_AddsEventSpecificRuntimeContext()
     {
         var handler = new RecordingHttpMessageHandler();
-        using var httpClient = new HttpClient(handler);
-        var service = CreateService(httpClient);
+        using var service = CreateService(handler);
 
         await service.TrackAsync(
             TelemetryEvents.ConnectSessionReady,
@@ -273,6 +270,7 @@ public sealed class PostHogTelemetryServiceTests
                 ["connect_runtime_payload_source"] = "unknown"
             });
 
+        await service.FlushAsync(TestContext.Current.CancellationToken);
         JsonElement properties = handler.ReadJson().GetProperty("properties");
         Assert.Equal(TelemetryBootMediaTargets.Usb, properties.GetProperty("boot_media_target").GetString());
         Assert.Equal(TelemetryRuntimePayloadSources.None, properties.GetProperty("connect_runtime_payload_source").GetString());
@@ -284,8 +282,7 @@ public sealed class PostHogTelemetryServiceTests
     public async Task TrackAsync_ForDeploySessionFinished_AddsEventSpecificRuntimeContext()
     {
         var handler = new RecordingHttpMessageHandler();
-        using var httpClient = new HttpClient(handler);
-        var service = CreateService(httpClient);
+        using var service = CreateService(handler);
 
         await service.TrackAsync(
             TelemetryEvents.DeploySessionFinished,
@@ -295,6 +292,7 @@ public sealed class PostHogTelemetryServiceTests
                 ["deploy_runtime_payload_source"] = "unknown"
             });
 
+        await service.FlushAsync(TestContext.Current.CancellationToken);
         JsonElement properties = handler.ReadJson().GetProperty("properties");
         Assert.Equal(TelemetryBootMediaTargets.Usb, properties.GetProperty("boot_media_target").GetString());
         Assert.Equal(TelemetryRuntimePayloadSources.None, properties.GetProperty("deploy_runtime_payload_source").GetString());
@@ -306,8 +304,7 @@ public sealed class PostHogTelemetryServiceTests
     public async Task FlushAsync_DoesNotSendAdditionalRequests()
     {
         var handler = new RecordingHttpMessageHandler();
-        using var httpClient = new HttpClient(handler);
-        var service = CreateService(httpClient);
+        using var service = CreateService(handler);
 
         await service.FlushAsync();
 
@@ -323,7 +320,7 @@ public sealed class PostHogTelemetryServiceTests
         await service.FlushAsync();
     }
 
-    private static PostHogTelemetryService CreateService(HttpClient httpClient, TelemetryOptions? options = null)
+    private static PostHogTelemetryService CreateService(HttpMessageHandler handler, TelemetryOptions? options = null)
     {
         options ??= new TelemetryOptions(true, TelemetryDefaults.PostHogEuHost, "project-token", "install-id");
         var context = new TelemetryContext(
@@ -337,7 +334,7 @@ public sealed class PostHogTelemetryServiceTests
             "en-US",
             "session-id");
 
-        return new PostHogTelemetryService(httpClient, options, context);
+        return new PostHogTelemetryService(generation => new HttpClient(new ConsentHttpMessageHandler(generation, handler)), options, context);
     }
 
     private sealed class RecordingHttpMessageHandler : HttpMessageHandler

@@ -9,6 +9,9 @@ namespace Foundry.Telemetry;
 /// </summary>
 public interface ITelemetryService
 {
+    /// <summary>Changes capture admission. Disable permanently revokes the current HTTP generation; re-enable uses fresh transport.</summary>
+    /// <remarks>No send is newly admitted after disable. Already admitted requests cancel best-effort and may have reached the server.</remarks>
+    void SetEnabled(bool enabled);
     /// <summary>
     /// Captures a telemetry event after applying the shared privacy allowlist.
     /// </summary>
@@ -19,7 +22,7 @@ public interface ITelemetryService
     Task TrackAsync(string eventName, IReadOnlyDictionary<string, object?> properties, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Flushes queued telemetry when the host is about to exit or a final workflow event should be sent promptly.
+    /// Drains optional telemetry only at host shutdown, bounded by the caller token and a two-second maximum.
     /// </summary>
     /// <param name="cancellationToken">Token used by callers to stop waiting for the best-effort flush.</param>
     /// <returns>A task that completes when the best-effort flush finishes or is abandoned.</returns>

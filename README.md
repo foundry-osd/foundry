@@ -120,3 +120,7 @@ Code contributions are welcome. Read the [contributing guide](CONTRIBUTING.md) b
 ---
 
 Foundry is available under the [MIT License](LICENSE). Anonymous usage telemetry and remote error diagnostics are enabled by default and can be disabled independently in Settings. See [Telemetry and privacy](https://docs.foundryosd.com/reference/telemetry-and-privacy), [Third-Party Notices](THIRD_PARTY_NOTICES.md), and the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+Telemetry consent applies to the running application after a successful settings save. Turning either setting off discards its queued data and prevents new HTTP sends; cancellation of a request already admitted is best-effort and cannot recall transmitted data. Product events use a bounded memory queue and do not wait for network delivery during operation completion. Shutdown gives optional telemetry a two-second delivery budget.
+
+Support bundles include an explicit inventory of application logs and available operation-owned DISM console output, bootstrap logs, and typed first-boot results. Sanitized export removes supported sensitive fields and omits unsupported optional inputs; it does not promise to remove every secret from arbitrary text. Sources are limited to 32 files, 10 MiB per file and 40 MiB total. Raw text export still requires the sensitive-data warning; first-boot JSON always uses the supported field allowlist. Configuration, certificates and hardware-hash files are excluded.

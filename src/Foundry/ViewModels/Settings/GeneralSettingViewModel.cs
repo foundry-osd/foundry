@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using Foundry.Localization;
 using Foundry.Core.Services.Application;
+using Foundry.Core.Services.Media;
 using Foundry.Services.Application;
 using Foundry.Services.Localization;
 using Foundry.Services.Settings;
@@ -21,17 +22,20 @@ namespace Foundry.ViewModels
         private readonly IExternalProcessLauncher externalProcessLauncher;
         private readonly IApplicationLocalizationService localizationService;
         private readonly IFilePickerService filePickerService;
+        private readonly MediaOperationCoordinator mediaCoordinator;
 
         public GeneralSettingViewModel(
             IAppSettingsService appSettingsService,
             IExternalProcessLauncher externalProcessLauncher,
             IApplicationLocalizationService localizationService,
-            IFilePickerService filePickerService)
+            IFilePickerService filePickerService,
+            MediaOperationCoordinator mediaCoordinator)
         {
             this.appSettingsService = appSettingsService;
             this.externalProcessLauncher = externalProcessLauncher;
             this.localizationService = localizationService;
             this.filePickerService = filePickerService;
+            this.mediaCoordinator = mediaCoordinator;
             IsDeveloperMode = appSettingsService.Current.Diagnostics.DeveloperMode;
             RefreshSupportedLanguages();
         }
@@ -111,13 +115,17 @@ namespace Foundry.ViewModels
 
             try
             {
-                string[] logFilePaths = Directory.Exists(LogDirectoryPath)
-                    ? Directory.GetFiles(LogDirectoryPath, "Foundry*.log", SearchOption.TopDirectoryOnly)
-                    : [];
+                List<SupportBundleSource> sources = [];
+                if (Path.IsPathFullyQualified(LogDirectoryPath))
+                    sources.AddRange(SupportBundleSourcePolicy.CreateRollingLogs(LogDirectoryPath,
+                        Path.GetFileName(LoggerSetup.LogFilePath), "authoring"));
+                if (mediaCoordinator.LastDismDiagnosticLogPath is string nativePath)
+                    sources.Add(SupportBundleSourcePolicy.CreateOwned(Path.GetDirectoryName(nativePath)!,
+                        Path.GetFileName(nativePath), "dism-console.log", SupportBundleSourceFormat.NativeText));
                 Log.ForContext<GeneralSettingViewModel>().Information(
                     "Support bundle export started. PrivacyMode={PrivacyMode}, LogFileCount={LogFileCount}",
                     privacyMode,
-                    logFilePaths.Length);
+                    sources.Count);
 
                 SupportBundleResult result = await new SupportBundleExporter().ExportAsync(
                     new SupportBundleRequest
@@ -126,7 +134,7 @@ namespace Foundry.ViewModels
                         ApplicationVersion = FoundryApplicationInfo.Version,
                         SessionId = DiagnosticSessionContext.CurrentSessionId,
                         DestinationDirectoryPath = destinationDirectoryPath,
-                        LogFilePaths = logFilePaths,
+                        Sources = sources,
                         PrivacyMode = privacyMode,
                         Summary = new Dictionary<string, string>
                         {

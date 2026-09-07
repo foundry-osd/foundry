@@ -54,7 +54,14 @@ public static class RemoteDiagnosticsLifecycle
         finally
         {
             RemoteDiagnosticsSink.Clear();
-            await service.DisposeAsync().AsTask().WaitAsync(cancellationToken).ConfigureAwait(false);
+            service.Disable();
+            await DisposeObservedAsync(service).WaitAsync(cancellationToken).ConfigureAwait(false);
         }
+    }
+
+    private static async Task DisposeObservedAsync(IRemoteDiagnosticsService service)
+    {
+        try { await service.DisposeAsync().ConfigureAwait(false); }
+        catch (Exception error) { System.Diagnostics.Debug.WriteLine($"Remote diagnostics disposal failed: {error.GetType().Name}"); }
     }
 }

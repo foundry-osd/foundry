@@ -10,6 +10,8 @@ namespace Foundry.Telemetry;
 public sealed class NullTelemetryService : ITelemetryService
 {
     /// <inheritdoc />
+    public void SetEnabled(bool enabled) { }
+    /// <inheritdoc />
     public Task TrackAsync(string eventName, IReadOnlyDictionary<string, object?> properties, CancellationToken cancellationToken = default)
     {
         return Task.CompletedTask;

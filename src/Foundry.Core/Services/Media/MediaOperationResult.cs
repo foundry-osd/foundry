@@ -10,4 +10,5 @@ public sealed record MediaOperationResult(Guid OperationId, MediaOperationTarget
     string? IsoOutputPath = null, WinPeUsbProvisionResult? UsbResult = null)
 {
     public IReadOnlyList<string> Warnings { get; init; } = [];
+    public string? DismDiagnosticLogPath { get; init; }
 }

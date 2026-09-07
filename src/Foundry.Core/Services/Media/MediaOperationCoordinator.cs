@@ -29,6 +29,7 @@ public sealed class MediaOperationCoordinator
     private WinPeDiagnostic? recovery;
     private WinPePreparedRuntimePayloads? retainedRuntime;
     private bool closeRequested;
+    public string? LastDismDiagnosticLogPath { get; private set; }
 
     public MediaOperationCoordinator(IWinPeBuildService buildService,
         IWinPeWorkspacePreparationService preparationService,
@@ -132,6 +133,7 @@ public sealed class MediaOperationCoordinator
         WinPeResult<MediaOperationResult> result;
         WinPeDiagnostic? cleanupWarning = null;
         IReadOnlyList<string> warnings = [];
+        Foundry.Core.Services.Diagnostics.DismDiagnosticScope? diagnostics = null;
         try
         {
             token.ThrowIfCancellationRequested();
@@ -146,6 +148,8 @@ public sealed class MediaOperationCoordinator
             }
 
             lease = MediaOperationLease.Acquire(request.WorkspaceRoot, "Media", request.OperationId);
+            diagnostics = new(Path.Combine(request.WorkspaceRoot, "Diagnostics"));
+            LastDismDiagnosticLogPath = null;
             WinPeToolPaths tools = Value(resolveTools(request.AdkRootPath, options.Architecture));
             WinPeBuildArtifact artifact = Value(await buildService.BuildAsync(new WinPeBuildOptions
             {
@@ -273,6 +277,8 @@ public sealed class MediaOperationCoordinator
         }
         finally
         {
+            diagnostics?.Dispose();
+            LastDismDiagnosticLogPath = diagnostics?.CapturedLogPath;
             request.Dispose();
             try { lease?.Dispose(); }
             catch (Exception ex)
@@ -288,7 +294,8 @@ public sealed class MediaOperationCoordinator
 
         if (result.IsSuccess)
         {
-            result = WinPeResult<MediaOperationResult>.SuccessWithCleanup(result.Value! with { Warnings = warnings }, cleanupWarning);
+            result = WinPeResult<MediaOperationResult>.SuccessWithCleanup(result.Value! with
+            { Warnings = warnings, DismDiagnosticLogPath = diagnostics?.CapturedLogPath }, cleanupWarning);
         }
         completion.TrySetResult(result);
     }

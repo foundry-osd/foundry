@@ -2376,13 +2376,13 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Envie logs tratados e detalhes de exceções para ajudar a diagnosticar falhas. Segredos e identificadores diretos são excluídos.</value>
+    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Habilitar diagnóstico remoto</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Envie telemetria de uso anônima para ajudar a melhorar o Foundry. Segredos e identificadores diretos do dispositivo, incluindo números de série e hashes de hardware, são excluídos. A telemetria usa um identificador de instalação anônimo e pode incluir o fabricante e o modelo do dispositivo.</value>
+    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Habilitar telemetria</value>

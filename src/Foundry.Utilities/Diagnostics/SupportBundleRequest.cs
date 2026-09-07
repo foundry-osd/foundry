@@ -13,7 +13,7 @@ public sealed record SupportBundleRequest
     public required string ApplicationVersion { get; init; }
     public required string SessionId { get; init; }
     public required string DestinationDirectoryPath { get; init; }
-    public required IReadOnlyCollection<string> LogFilePaths { get; init; }
+    public required IReadOnlyCollection<SupportBundleSource> Sources { get; init; }
     public IReadOnlyDictionary<string, string> Summary { get; init; } = new Dictionary<string, string>();
     public SupportBundlePrivacyMode PrivacyMode { get; init; } = SupportBundlePrivacyMode.Sanitized;
 }

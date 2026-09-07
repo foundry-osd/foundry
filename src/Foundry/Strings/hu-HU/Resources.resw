@@ -2376,13 +2376,13 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Küldjön megtisztított naplókat és kivételadatokat a hibák diagnosztizálásának elősegítéséhez. A titkos adatok és a közvetlen azonosítók kimaradnak.</value>
+    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Távoli diagnosztika engedélyezése</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Küldjön névtelen használati telemetriát a Foundry fejlesztéséhez. A titkos adatok és a közvetlen eszközazonosítók, beleértve a sorozatszámokat és a hardverkivonatokat, ki vannak zárva. A telemetria névtelen telepítési azonosítót használ, és tartalmazhatja az eszköz gyártóját és modelljét.</value>
+    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Telemetria engedélyezése</value>

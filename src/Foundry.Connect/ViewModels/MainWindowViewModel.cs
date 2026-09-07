@@ -457,14 +457,19 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             }
 
             string? logDirectoryPath = Path.GetDirectoryName(FoundryConnectLogging.CurrentLogFilePath);
-            string[] logFilePaths = string.IsNullOrWhiteSpace(logDirectoryPath) || !Directory.Exists(logDirectoryPath)
-                ? []
-                : Directory.GetFiles(logDirectoryPath, "Foundry*.log", SearchOption.TopDirectoryOnly);
+            List<SupportBundleSource> sources = [];
+            if (!string.IsNullOrWhiteSpace(logDirectoryPath))
+            {
+                sources.AddRange(SupportBundleSourcePolicy.CreateRollingLogs(logDirectoryPath,
+                    FoundryConnectLogging.LogFileName, "connect"));
+                sources.AddRange(SupportBundleSourcePolicy.CreateRollingLogs(logDirectoryPath,
+                    "FoundryBootstrap.log", "bootstrap", SupportBundleSourceFormat.NativeText));
+            }
 
             _logger.LogInformation(
                 "Support bundle export started. PrivacyMode={PrivacyMode}, LogFileCount={LogFileCount}",
                 privacyMode,
-                logFilePaths.Length);
+                sources.Count);
 
             SupportBundleResult result = await new SupportBundleExporter().ExportAsync(
                 new SupportBundleRequest
@@ -473,7 +478,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                     ApplicationVersion = FoundryConnectApplicationInfo.Version,
                     SessionId = DiagnosticSessionContext.CurrentSessionId,
                     DestinationDirectoryPath = destinationDirectoryPath,
-                    LogFilePaths = logFilePaths,
+                    Sources = sources,
                     PrivacyMode = privacyMode,
                     Summary = new Dictionary<string, string>
                     {
@@ -829,7 +834,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 return;
             }
 
-            await TrackSessionReadyAsync(snapshot, cancellationToken).ConfigureAwait(false);
+            try { await TrackSessionReadyAsync(snapshot, cancellationToken).ConfigureAwait(false); }
+            catch (Exception error) { _logger.LogDebug(error, "Optional connectivity telemetry was dropped."); }
             _applicationLifetimeService.Exit(FoundryConnectExitCode.Success);
         }
         finally

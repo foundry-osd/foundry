@@ -17,7 +17,8 @@ public interface IRemoteDiagnosticsService : IAsyncDisposable
     void Configure(RemoteDiagnosticsOptions options, RemoteDiagnosticsContext context);
 
     /// <summary>
-    /// Revokes consent, stops accepting new records, and discards records that have not started export.
+    /// Stops capture and permanently closes this generation's transport admission. Queued batches are
+    /// discarded; admitted requests are cancelled best-effort and may already have reached the server.
     /// </summary>
     void Disable();
 

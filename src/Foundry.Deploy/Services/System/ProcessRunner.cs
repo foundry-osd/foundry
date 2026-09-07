@@ -96,6 +96,7 @@ public sealed class ProcessRunner : IProcessRunner
         ProcessExecutionResult result = await _processRunner
             .RunAsync(request, cancellationToken)
             .ConfigureAwait(false);
+        Foundry.Core.Services.Diagnostics.DismDiagnosticScope.Record(request.FileName, result);
 
         _logger.LogDebug(
             "Process completed. FileName={FileName}, ExitCode={ExitCode}",
