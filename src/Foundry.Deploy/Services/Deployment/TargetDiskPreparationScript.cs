@@ -54,7 +54,8 @@ internal static class TargetDiskPreparationScript
             $retained = [pscustomobject]@{ PartitionId = [string]$part.Guid; Offset = [uint64]$part.Offset; Size = [uint64]$part.Size }
             $current = Get-OwnedPartition $retained
             $volume = Get-OwnedVolume $current
-            return [pscustomobject]@{ PartitionId = [string]$current.Guid; Offset = [uint64]$current.Offset;
+            # Storage may return brace-wrapped GUIDs; the JSON consumer requires the D format.
+            return [pscustomobject]@{ PartitionId = ([guid]$current.Guid).ToString('D'); Offset = [uint64]$current.Offset;
                 Size = [uint64]$current.Size; VolumeRoot = [string]$volume.Path; DriveLetter = [string]$current.DriveLetter }
         }
         function Assert-OwnedVolume($retained) {

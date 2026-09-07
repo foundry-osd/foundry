@@ -38,6 +38,7 @@ public sealed class TargetDiskSafetyTests
 
     [Theory]
     [InlineData("same", 1, 3)]
+    [InlineData("braced-guid", 1, 3)]
     [InlineData("replacement", 0, 0)]
     [InlineData("duplicate", 0, 0)]
     [InlineData("serial", 1, 3)]
@@ -69,6 +70,16 @@ public sealed class TargetDiskSafetyTests
             Assert.Equal("", output.RootElement.GetProperty("Failure").GetString());
             JsonElement[] created = output.RootElement.GetProperty("Created").EnumerateArray().ToArray();
             Assert.Equal([272629760UL, 16777216UL, 5368709120UL, 100000000000UL], created.Select(p => p.GetProperty("Size").GetUInt64()));
+            using JsonDocument layout = JsonDocument.Parse(result.StandardOutput.Trim().Split('\n')[0]);
+            foreach (string name in new[] { "System", "Windows", "Recovery" })
+            {
+                DeploymentPartitionIdentity partition = layout.RootElement.GetProperty(name).Deserialize<DeploymentPartitionIdentity>()!;
+                partition.Validate();
+                JsonElement source = Assert.Single(created.Where(p =>
+                    Guid.Parse(p.GetProperty("Guid").GetString()!) == partition.PartitionId));
+                Assert.Equal(source.GetProperty("Offset").GetUInt64(), partition.Offset);
+                Assert.Equal(source.GetProperty("Size").GetUInt64(), partition.Size);
+            }
         }
     }
 
@@ -189,10 +200,11 @@ public sealed class TargetDiskSafetyTests
             if ($InputObject.UniqueId -cne 'A') {throw 'wrong_partition_object'}
             if ($UseMaximumSize) {$Size=100000000000}
             $part=[pscustomobject]@{DiskNumber=9;Guid=[guid]::NewGuid().ToString();Offset=[uint64](1048576+$created.Count*6000000000);Size=$Size;DriveLetter=$DriveLetter;GptType=$GptType}
+            if ($change -eq 'braced-guid') {$part.Guid=([guid]$part.Guid).ToString('B')}
             $script:created += $part; $part }
         function Get-Partition { param($Disk,$DriveLetter,$ErrorAction) $created }
         function Get-Volume { param($Partition,$ErrorAction)
-            [pscustomobject]@{Path=('\\?\Volume{'+$Partition.Guid+'}\');Partition=$Partition} }
+            [pscustomobject]@{Path=('\\?\Volume{'+([guid]$Partition.Guid).ToString('D')+'}\');Partition=$Partition} }
         function Format-Volume { param($InputObject,$FileSystem,$NewFileSystemLabel,$Confirm,[switch]$Force,$ErrorAction)
             if ($InputObject.Partition.DiskNumber -ne 9) {throw 'wrong_format_object'}; $script:formats++ }
         function Remove-PartitionAccessPath {throw 'unexpected_mount_mutation'}
