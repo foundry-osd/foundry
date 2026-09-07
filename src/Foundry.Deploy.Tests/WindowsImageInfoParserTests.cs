@@ -9,6 +9,11 @@ namespace Foundry.Deploy.Tests;
 public sealed class WindowsImageInfoParserTests
 {
     internal const string Detail = """
+        Deployment Image Servicing and Management tool
+        Version: 10.0.26100.2454
+
+        Details for image : C:\fixture\install.esd
+
         Index : 4
         Name : Windows image
         Size : 15,098,360,792 bytes
@@ -31,6 +36,22 @@ public sealed class WindowsImageInfoParserTests
     }
 
     [Theory]
+    [InlineData("\n")]
+    [InlineData("\r\n")]
+    public void Parse_SeparatesToolVersionFromImageVersion(string newline)
+    {
+        string output = Detail.Replace("\r\n", "\n", StringComparison.Ordinal).Replace("\n", newline, StringComparison.Ordinal);
+        Assert.Equal(new Version(10, 0, 26100, 1000), WindowsImageInfoParser.Parse(output, 4).Version);
+    }
+
+    [Fact]
+    public void Parse_DoesNotUseToolVersionWhenImageVersionIsMissing()
+    {
+        string output = Detail.Replace("Version : 10.0.26100", "", StringComparison.Ordinal);
+        Assert.Throws<InvalidDataException>(() => WindowsImageInfoParser.Parse(output, 4));
+    }
+
+    [Theory]
     [InlineData("Architecture : x64", "Architecture : AMD64")]
     [InlineData("Edition : Professional", "Edition ID : Professional")]
     [InlineData("Version : 10.0.26100", "Version : 10.0.26100.1000")]
@@ -47,6 +68,9 @@ public sealed class WindowsImageInfoParserTests
     [Theory]
     [InlineData("Index : 4", "Index : 5")]
     [InlineData("Index : 4", "Index : 0")]
+    [InlineData("Index : 4", "Index : 4\nIndex : 4")]
+    [InlineData("Index : 4", "Index : 3\nIndex : 4")]
+    [InlineData("Version : 10.0.26100", "Version : 10.0.26100\nVersion : 10.0.26100")]
     [InlineData("Architecture : x64", "Architecture : <undefined>")]
     [InlineData("Architecture : x64", "Architecture : x64\nArchitecture : x86")]
     [InlineData("Edition : Professional", "Edition : Professional\nEdition ID : Core")]

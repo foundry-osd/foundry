@@ -12,6 +12,10 @@ internal static class WindowsImageInfoParser
 {
     public static WindowsImageInfo Parse(string output, int expectedIndex)
     {
+        MatchCollection sections = Regex.Matches(output, @"^[\t ]*Index[\t ]*:", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+        if (sections.Count != 1) throw Invalid("Index");
+        // DISM prints its own Version before the image's Index and metadata.
+        output = output[sections[0].Index..];
         int index = ReadNonnegativeInt(Required(output, "Index"), "Index");
         if (index < 1 || index != expectedIndex) throw Invalid("Index");
         string edition = ReadEdition(output);
