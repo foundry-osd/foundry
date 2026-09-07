@@ -247,7 +247,7 @@
     <value>Webopdateringsfeed</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>Simpelt webfeed; filtrering efter udgivelseskanal understøttes ikke.</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Opdater kilde</value>
@@ -301,12 +301,12 @@
     <value>Ingen Autopilot profiler fundet</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>Disse profiler blev ikke importeret som offline-JSON. Understøttede brugerstyrede profiler kan stadig vælges.
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>Nogle profiler kan ikke bruges offline</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Downloader Autopilot profiler...</value>
@@ -1212,7 +1212,7 @@
     <value>Enhedslås</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedBootExp" xml:space="preserve">
-    <value>Unbranded Boot</value>
+    <value>Opstart uden branding</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedLogon" xml:space="preserve">
     <value>Brugerdefineret logon</value>
@@ -1248,7 +1248,7 @@
     <value>Active Directory Lightweight Directory Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HostGuardian" xml:space="preserve">
-    <value>Host Guardian Hyper-V Support</value>
+    <value>Hyper-V-understøttelse af Host Guardian</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
     <value>Microsoft Hyper-V Guest Integration Services</value>
@@ -1284,7 +1284,7 @@
     <value>Centraliseret SSL-certifikatsupport</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ClientCertificateMappingAuthentication" xml:space="preserve">
-    <value>Client Certificate Mapping Authentication</value>
+    <value>Godkendelse via klientcertifikattilknytning</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_CommonHttpFeatures" xml:space="preserve">
     <value>Almindelige HTTP-funktioner</value>
@@ -1296,7 +1296,7 @@
     <value>Standarddokument</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DigestAuthentication" xml:space="preserve">
-    <value>Digest Authentication</value>
+    <value>Digest-godkendelse</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DirectoryBrowsing" xml:space="preserve">
     <value>Directory browsing</value>
@@ -1311,7 +1311,7 @@
     <value>FTP-tjeneste</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HealthAndDiagnostics" xml:space="preserve">
-    <value>Health and Diagnostics</value>
+    <value>Tilstand og diagnosticering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
     <value>IIS Hostable Web Core</value>
@@ -1335,10 +1335,10 @@
     <value>Sporing</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IIS6ManagementCompatibility" xml:space="preserve">
-    <value>IIS 6 Management Compatibility</value>
+    <value>Kompatibilitet med IIS 6-administration</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IISCertificateMappingAuthentication" xml:space="preserve">
-    <value>IIS Client Certificate Mapping Authentication</value>
+    <value>IIS-godkendelse via klientcertifikattilknytning</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IPSecurity" xml:space="preserve">
     <value>IP-sikkerhed</value>
@@ -1350,31 +1350,31 @@
     <value>ISAPI-filtre</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
-    <value>IIS 6 Scripting Tools</value>
+    <value>IIS 6-scriptværktøjer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacySnapIn" xml:space="preserve">
-    <value>IIS 6 Management Console</value>
+    <value>IIS 6-administrationskonsol</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LoggingLibraries" xml:space="preserve">
     <value>Logningsværktøjer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementConsole" xml:space="preserve">
-    <value>IIS Management Console</value>
+    <value>IIS-administrationskonsol</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
     <value>IIS Management Scripts og værktøjer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
-    <value>IIS Management Service</value>
+    <value>IIS-administrationstjeneste</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
     <value>IIS Metabase og IIS 6 Configuration Compatibility</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
-    <value>.NET Extensibility 3.5</value>
+    <value>.NET-udvidelsesmuligheder 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility45" xml:space="preserve">
-    <value>.NET Extensibility 4.8</value>
+    <value>.NET-udvidelsesmuligheder 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
     <value>ODBC-logning</value>
@@ -1386,13 +1386,13 @@
     <value>Anmodningsfiltrering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
-    <value>Request Monitor</value>
+    <value>Anmodningsovervågning</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
     <value>Sikkerhedsfunktioner</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
-    <value>Server-Side Includes</value>
+    <value>Inkluderinger på serversiden</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
     <value>Statisk indhold</value>
@@ -1404,19 +1404,19 @@
     <value>IIS 6 WMI-kompatibilitet</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
-    <value>WebDAV Publishing</value>
+    <value>WebDAV-publicering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
-    <value>World Wide Web Services</value>
+    <value>World Wide Web-tjenester</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
-    <value>Web Management Tools</value>
+    <value>Webadministrationsværktøjer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerRole" xml:space="preserve">
     <value>Internet Information Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
-    <value>WebSocket Protocol</value>
+    <value>WebSocket-protokol</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
     <value>Windows-godkendelse</value>
@@ -1425,7 +1425,7 @@
     <value>Ældre komponenter</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
-    <value>Directory Service Integration</value>
+    <value>Integration med katalogtjeneste</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Container" xml:space="preserve">
     <value>Microsoft Message Queue (MSMQ) Server</value>
@@ -1437,16 +1437,16 @@
     <value>HTTP-understøttelse</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Multicast" xml:space="preserve">
-    <value>Multicasting Support</value>
+    <value>Multicast-understøttelse</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Server" xml:space="preserve">
     <value>Microsoft Message Queue (MSMQ) Server Core</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
-    <value>Message Queuing Triggers</value>
+    <value>Udløsere til meddelelseskøer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSRDC_Infrastructure" xml:space="preserve">
-    <value>Remote Differential Compression API Support</value>
+    <value>API-understøttelse af ekstern differentiel komprimering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MediaPlayback" xml:space="preserve">
     <value>Mediefunktioner</value>
@@ -1494,19 +1494,19 @@
     <value>ASP.NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
-    <value>.NET Framework 4.8 Advanced Services</value>
+    <value>Avancerede tjenester til .NET Framework 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
     <value>Print- og dokumenttjenester</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
-    <value>Internet Printing Client</value>
+    <value>Klient til internetudskrivning</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
-    <value>LPD Print Service</value>
+    <value>LPD-udskrivningstjeneste</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
-    <value>LPR Port Monitor</value>
+    <value>LPR-portovervågning</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
     <value>Microsoft Print til PDF</value>
@@ -1521,13 +1521,13 @@
     <value>SMB 1.0/CIFS fildelingsunderstøttelse</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Client" xml:space="preserve">
-    <value>SMB 1.0/CIFS Client</value>
+    <value>SMB 1.0/CIFS-klient</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Deprecation" xml:space="preserve">
     <value>SMB 1.0/CIFS automatisk fjernelse</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Server" xml:space="preserve">
-    <value>SMB 1.0/CIFS Server</value>
+    <value>SMB 1.0/CIFS-server</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.ServicesForNFS_ClientOnly" xml:space="preserve">
     <value>Tjenester til NFS</value>
@@ -1539,7 +1539,7 @@
     <value>SMB Direct</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Sysmon" xml:space="preserve">
-    <value>System Monitor</value>
+    <value>Systemovervågning</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TFTP" xml:space="preserve">
     <value>TFTP-klient</value>
@@ -1548,16 +1548,16 @@
     <value>Windows TIFF IFilter</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TelnetClient" xml:space="preserve">
-    <value>Telnet Client</value>
+    <value>Telnet-klient</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.VirtualMachinePlatform" xml:space="preserve">
-    <value>Virtual Machine Platform</value>
+    <value>Platform til virtuelle maskiner</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ConfigurationAPI" xml:space="preserve">
     <value>Configuration API'er</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_NetFxEnvironment" xml:space="preserve">
-    <value>.NET Environment</value>
+    <value>.NET-miljø</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
     <value>Procesmodel</value>
@@ -1578,10 +1578,10 @@
     <value>Windows Communication Foundation Non-HTTP Activation</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
-    <value>Named Pipe Activation</value>
+    <value>Aktivering af navngivne pipes</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
-    <value>WCF Services</value>
+    <value>WCF-tjenester</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_Activation45" xml:space="preserve">
     <value>TCP-aktivering</value>
@@ -1596,7 +1596,7 @@
     <value>Windows Identity Foundation 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
-    <value>Work Folders Client</value>
+    <value>Klient til arbejdsmapper</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
     <value>Deaktiver</value>
@@ -2175,7 +2175,7 @@
     <value>Wi-Fi-konfiguration kræver Wi-Fi-understøttelse for at blive klargjort i boot-imaget.</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>Wi-Fi-navnet skal indeholde 1–32 UTF-8-byte.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Wi-Fi-konfiguration kræver en SSID.</value>
@@ -2259,109 +2259,109 @@
     <value>Indstillinger for Windows-udrulning</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Forbindelsen mislykkedes</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Kontrollér proxyindstillingerne</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nye forbindelser fra Foundry OSD bruger nu disse indstillinger.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Proxyindstillinger anvendt</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD fik adgang til GitHub og Microsoft-tjenester med de valgte indstillinger.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Forbindelsen lykkedes</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Indtast brugernavn og adgangskode til eksplicit proxygodkendelse.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Anvend</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Brug aktuelle Windows-legitimationsoplysninger</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Vælg, hvordan proxyen godkender Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Godkendelse</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Brugernavn og adgangskode</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Ingen godkendelse</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Valgfrie værtsnavne eller jokertegnsmønstre adskilt af semikoloner.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Undtagelsesliste</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Opret direkte forbindelse til værtsnavne, der ikke indeholder et punktum.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Omgå proxy for lokale adresser</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Legitimationsoplysninger gemmes sikkert i Windows Legitimationsstyring.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Proxylegitimationsoplysninger</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domæne (valgfrit)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Indtast proxyens adresse og port.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Proxyserver</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Vælg, hvordan Foundry OSD opretter forbindelse til internettet.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Proxymetode</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Ingen proxy (direkte forbindelse)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Manuel proxy</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Brug Windows-indstillinger (anbefalet)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Adgangskode</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Disse indstillinger gælder kun for denne app. De føjes ikke til udrulningsmedier og påvirker ikke Foundry Connect eller Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Kun Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Test forbindelsen</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Brugernavn</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Indstillinger</value>
@@ -2373,19 +2373,19 @@
     <value>Generelt</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Konfigurer, hvordan Foundry OSD opretter forbindelse til onlinetjenester.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Send rensede logfiler og undtagelsesoplysninger for at hjælpe med fejlfinding. Hemmeligheder og direkte identifikatorer udelades. Deaktivering stopper straks nye afsendelser; en allerede afsendt anmodning kan ikke tilbagekaldes.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Aktivér fjerndiagnosticering</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Send anonym brugstelemetri for at forbedre Foundry. Hemmeligheder, serienumre og hardwarehash udelades. Der bruges et anonymt installations-id, og enhedens producent og model kan medtages. Deaktivering stopper straks nye afsendelser; en allerede afsendt anmodning kan ikke tilbagekaldes.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Aktiver telemetri</value>
@@ -2478,7 +2478,7 @@
     <value>Hardware hash-upload er aktiveret, men lejerforbindelsen mangler. Opret forbindelse til lejeren fra Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>Den valgte Autopilot-profil er ikke gyldig til offlineudrulning. Importér en understøttet brugerstyret profil med komplette indstillinger for lejer, tilknytning og OOBE.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON profiltilstand er aktiveret, men der er ikke valgt en gyldig standardprofil.</value>
@@ -2505,7 +2505,7 @@
     <value>Brugerdefineret drivermappe findes ikke.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>Kontrol af brugerdefinerede drivere afventer eller er ikke tilgængelig.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Generering af implementering af konfiguration er ikke klar.</value>
@@ -2967,7 +2967,7 @@
     <value>Formateringsadfærd brugt før kopiering af det endelige USB-medie.</value>
   </data>
   <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
-    <value>USB layout</value>
+    <value>USB-layout</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
     <value>Partitionsskema brugt ved forberedelse af det valgte USB mål.</value>
@@ -3180,10 +3180,10 @@
     <value>Ikke kontrolleret</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>støberi-osd/støberi</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>Opdateringen blev annulleret.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Søger efter opdateringer</value>
@@ -3198,7 +3198,7 @@
     <value>Opdateringskontrollen er sprunget over, fordi Foundry OSD ikke kører fra en Velopack-installation.</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>Opdateringen kunne ikke fuldføres.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Klar</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} er tilgængelig</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>Tidspunktet for den seneste opdateringskontrol kunne ikke gemmes.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Opdatering</value>

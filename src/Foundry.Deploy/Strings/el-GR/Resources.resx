@@ -76,13 +76,13 @@
     <value>{0} (Πιο πρόσφατο)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Επαληθευμένος κατάλογος εκτός σύνδεσης</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Διαδικτυακός κατάλογος με πιστοποιημένη προέλευση</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: ανακτήθηκε στις {1} (πριν από {2} ημέρες). Αναθεώρηση: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Έκδοση</value>
@@ -264,7 +264,7 @@
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Μη αυτόματη επιλογή: βεβαιωθείτε ότι αυτό το πακέτο υποστηρίζει το υλικό που εντοπίστηκε και την επιλεγμένη έκδοση Windows. Οι έλεγχοι ακεραιότητας και εκδότη του πακέτου εξακολουθούν να ισχύουν.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@
     <value>Επιβεβαιώστε τη διαγραφή του δίσκου</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Το Foundry ελέγχει την εικόνα πριν από τη διαγραφή όταν υπάρχει ανεξάρτητος χώρος αποθήκευσης. Αν η εικόνα πρέπει να ληφθεί στον δίσκο προορισμού, μπορούν να ελεγχθούν εκ των προτέρων μόνο τα μεταδεδομένα του καταλόγου, η διαθεσιμότητα της πηγής και η εκτιμώμενη χωρητικότητα. Σε αυτή την περίπτωση, η λήψη ή η επικύρωση της εικόνας μπορεί να αποτύχει αφού έχει διαγραφεί ο δίσκος.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Αυτή η έκδοση δεν διαθέτει πιστοποιημένο περιβάλλον WinPE για τη λήψη κατακερματισμού υλικού. Η ανάπτυξη Windows θα συνεχιστεί χωρίς αυτόματη αποστολή στο Autopilot μέσω πιστοποιητικού. Αν απαιτείται εγγραφή, επιστρέψτε και επιλέξτε τον διαδραστικό βοηθό εγγραφής σε πλήρες περιβάλλον Windows με υποστηριζόμενη έκδοση Windows. Το Foundry δεν θα αλλάξει αυτόματα τον τρόπο ελέγχου ταυτότητας.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Σχετικά</value>
@@ -672,7 +672,7 @@
     <value>Αρχικοποίηση ανάπτυξης</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Έλεγχος προϋποθέσεων εικόνας</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Προετοιμασία δίσκου</value>
@@ -1011,7 +1011,7 @@
     <value>Επιλύθηκε η στρατηγική cache (προσομοίωση).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Ο επιβεβαιωμένος δίσκος προορισμού δεν είναι διαθέσιμος, έχει αλλάξει ή δεν είναι ασφαλής.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Ζητήθηκε η εγκατάσταση του πακέτου προγράμματος οδήγησης πρώτης εκκίνησης χωρίς υποστηριζόμενη εντολή.</value>
@@ -1203,7 +1203,7 @@
     <value>Το διαμέρισμα προορισμού των Windows δεν είναι διαθέσιμο για την προετοιμασία του διαδραστικού βοηθού εγγραφής Autopilot.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Η ανάπτυξη απαιτεί λειτουργία εκκίνησης UEFI.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Μη υποστηριζόμενη λειτουργία εγκατάστασης πακέτου προγραμμάτων οδήγησης.</value>
@@ -1278,7 +1278,7 @@
     <value>Autopilot Προφίλ</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Αριθμός δομής</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Ενσωματωμένος λογαριασμός διαχειριστή</value>

@@ -31,7 +31,7 @@
     <value>Fortsæt</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>Gennemse offlineindhold</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Afbryd forbindelsen</value>
@@ -125,7 +125,7 @@
     <value>Kontroller kabelforbindelsen</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP aktiveret</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Gateway</value>
@@ -140,13 +140,13 @@
     <value>Ingen Ethernet adapter fundet.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>Statisk konfiguration</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>Venter på en brugbar netværksadresse</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Venter på netværkskonfiguration</value>
@@ -287,28 +287,28 @@
     <value>Værktøjer</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>Navneopslag på netværket mislykkedes</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>Ingen aktiv netværksforbindelse</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>Ingen brugbar netværksadresse</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>Internetadgang bekræftet</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>Proxygodkendelse er påkrævet</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>Internetkontrollen fik timeout</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>Internetadgangen kunne ikke bekræftes</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>Uventet netværkssvar. Der kan være en logonside, eller trafikken kan blive opsnappet.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Fortsætter automatisk i {0}s</value>

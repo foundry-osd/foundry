@@ -76,13 +76,13 @@
     <value>{0} (nejnovější)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Ověřený katalog offline</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Online katalog s ověřenou pravostí</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: načteno {1} (stáří {2} dnů). Revize: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Verze</value>
@@ -264,7 +264,7 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Ruční výběr: ověřte, zda tento balíček podporuje zjištěný hardware a vybrané vydání Windows. Kontroly integrity balíčku a vydavatele se nadále provádějí.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@ Pokračovat v nasazování?</value>
     <value>Potvrďte vymazání disku</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry kontroluje bitovou kopii před vymazáním, pokud je k dispozici nezávislé úložiště. Pokud je nutné kopii stáhnout na cílový disk, lze předem zkontrolovat pouze metadata katalogu, dostupnost zdroje a odhadovanou kapacitu. Chyba stahování nebo ověření kopie pak může nastat až po vymazání tohoto disku.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Toto sestavení nemá ověřené prostředí WinPE pro získání hardwarového otisku. Nasazení Windows bude pokračovat bez automatického odeslání do Autopilot s ověřením certifikátem. Pokud je registrace vyžadována, vraťte se a vyberte interaktivního průvodce registrací v plném systému Windows s podporovanou edicí. Foundry automaticky nezmění způsob ověřování.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_O</value>
@@ -672,7 +672,7 @@ Pokračovat v nasazování?</value>
     <value>Inicializuj nasazení</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Zkontrolovat předpoklady bitové kopie</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Připrav disk</value>
@@ -1011,7 +1011,7 @@ Pokračovat v nasazování?</value>
     <value>Strategie mezipaměti vyřešena (simulace).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Potvrzený cílový disk není dostupný, změnil se nebo není bezpečný.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>První spuštění balíčku ovladače bylo požadováno bez podporovaného příkazu.</value>
@@ -1203,7 +1203,7 @@ Pokračovat v nasazování?</value>
     <value>Cílový oddíl Windows není dostupný pro přípravu interaktivního asistenta registrace Autopilotu.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Nasazení vyžaduje spuštění v režimu UEFI.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Nepodporovaný režim instalace balíčku ovladačů.</value>
@@ -1278,7 +1278,7 @@ Pokračovat v nasazování?</value>
     <value>Profil Autopilot</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Sestavení</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Předdefinovaný účet správce</value>

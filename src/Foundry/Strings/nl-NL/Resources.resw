@@ -247,7 +247,7 @@
     <value>Webupdatefeed</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>Eenvoudige webfeed; filteren op releasekanaal wordt niet ondersteund.</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Bron bijwerken</value>
@@ -301,12 +301,12 @@
     <value>Geen Autopilot profielen gevonden</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>Deze profielen zijn niet als offline-JSON geïmporteerd. Ondersteunde gebruikersgestuurde profielen blijven beschikbaar voor selectie.
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>Sommige profielen kunnen niet offline worden gebruikt</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Autopilot profielen downloaden...</value>
@@ -1350,22 +1350,22 @@
     <value>ISAPI-filters</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
-    <value>IIS 6 Scripting Tools</value>
+    <value>IIS 6-scripthulpprogramma's</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacySnapIn" xml:space="preserve">
-    <value>IIS 6 Management Console</value>
+    <value>IIS 6-beheerconsole</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LoggingLibraries" xml:space="preserve">
-    <value>Logging Tools</value>
+    <value>Hulpprogramma's voor logboekregistratie</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementConsole" xml:space="preserve">
-    <value>IIS Management Console</value>
+    <value>IIS-beheerconsole</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
     <value>IIS-beheerscripts en -hulpmiddelen</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
-    <value>IIS Management Service</value>
+    <value>IIS-beheerservice</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
     <value>IIS Metabase en IIS 6-configuratiecompatibiliteit</value>
@@ -1386,13 +1386,13 @@
     <value>Aanvraagfiltering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
-    <value>Request Monitor</value>
+    <value>Aanvraagcontrole</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
     <value>Beveiligingsfuncties</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
-    <value>Server-Side Includes</value>
+    <value>Insluitingen aan serverzijde</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
     <value>statische inhoud</value>
@@ -1404,10 +1404,10 @@
     <value>IIS 6 WMI-compatibiliteit</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
-    <value>WebDAV Publishing</value>
+    <value>WebDAV-publicatie</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
-    <value>World Wide Web Services</value>
+    <value>World Wide Web-services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
     <value>Webbeheertools</value>
@@ -1416,7 +1416,7 @@
     <value>Internet Information Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
-    <value>WebSocket Protocol</value>
+    <value>WebSocket-protocol</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
     <value>Windows-verificatie</value>
@@ -1494,16 +1494,16 @@
     <value>ASP.NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
-    <value>.NET Framework 4.8 Advanced Services</value>
+    <value>Geavanceerde services voor .NET Framework 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
     <value>Print- en Document Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
-    <value>Internet Printing Client</value>
+    <value>Client voor afdrukken via internet</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
-    <value>LPD Print Service</value>
+    <value>LPD-afdrukservice</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
     <value>LPR-poortmonitor</value>
@@ -1548,16 +1548,16 @@
     <value>Windows TIFF IFilter</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TelnetClient" xml:space="preserve">
-    <value>Telnet Client</value>
+    <value>Telnet-client</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.VirtualMachinePlatform" xml:space="preserve">
-    <value>Virtual Machine Platform</value>
+    <value>Platform voor virtuele machines</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ConfigurationAPI" xml:space="preserve">
     <value>configuratie-API's</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_NetFxEnvironment" xml:space="preserve">
-    <value>.NET Environment</value>
+    <value>.NET-omgeving</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
     <value>Procesmodel</value>
@@ -1581,7 +1581,7 @@
     <value>Named Pipe-activering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
-    <value>WCF Services</value>
+    <value>WCF-services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_TCP_Activation45" xml:space="preserve">
     <value>TCP-activering</value>
@@ -1596,7 +1596,7 @@
     <value>Windows Identity Foundation 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
-    <value>Work Folders Client</value>
+    <value>Werkmappenclient</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
     <value>Uitschakelen</value>
@@ -2175,7 +2175,7 @@
     <value>Wi-Fi-configuratie vereist dat Wi-Fi-ondersteuning wordt ingericht in de opstartimage.</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>De Wi-Fi-naam moet 1–32 UTF-8-bytes bevatten.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Wi-Fi-configuratie vereist een SSID.</value>
@@ -2259,109 +2259,109 @@
     <value>Windows-implementatieopties</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Verbinding mislukt</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Controleer de proxyinstellingen</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nieuwe verbindingen vanuit Foundry OSD gebruiken nu deze instellingen.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Proxyinstellingen toegepast</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD heeft GitHub en Microsoft-services bereikt met de geselecteerde instellingen.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Verbinding geslaagd</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Voer een gebruikersnaam en wachtwoord in voor expliciete proxyverificatie.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Toepassen</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Huidige Windows-referenties gebruiken</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Kies hoe de proxy Foundry OSD verifieert.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Verificatie</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Gebruikersnaam en wachtwoord</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Geen verificatie</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Optionele hostnamen of patronen met jokertekens, gescheiden door puntkomma's.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Uitzonderingenlijst</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Maak rechtstreeks verbinding met hostnamen zonder punt.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Proxy omzeilen voor lokale adressen</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Referenties worden veilig opgeslagen in Windows Referentiebeheer.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Proxyreferenties</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domein (optioneel)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Voer het proxyadres en de poort in.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Proxyserver</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Kies hoe Foundry OSD verbinding maakt met internet.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Proxymethode</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Geen proxy (rechtstreekse verbinding)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Handmatige proxy</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Windows-instellingen gebruiken (aanbevolen)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Wachtwoord</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>Poort</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Deze instellingen gelden alleen voor deze app. Ze worden niet aan implementatiemedia toegevoegd en hebben geen invloed op Foundry Connect of Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Alleen Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Verbinding testen</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Gebruikersnaam</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Instellingen</value>
@@ -2373,19 +2373,19 @@
     <value>Algemeen</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Configureer hoe Foundry OSD verbinding maakt met onlineservices.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Verzend opgeschoonde logboeken en uitzonderingsdetails om fouten te helpen onderzoeken. Geheimen en directe identificatiegegevens worden uitgesloten. Uitschakelen stopt nieuwe verzendingen onmiddellijk; een al verzonden aanvraag kan niet worden ingetrokken.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Diagnostiek op afstand inschakelen</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Verzend anonieme gebruikstelemetrie om Foundry te verbeteren. Geheimen, serienummers en hardwarehashes worden uitgesloten. Er wordt een anonieme installatie-ID gebruikt; de fabrikant en het model van het apparaat kunnen worden opgenomen. Uitschakelen stopt nieuwe verzendingen onmiddellijk; een al verzonden aanvraag kan niet worden ingetrokken.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Schakel telemetrie in</value>
@@ -2478,7 +2478,7 @@
     <value>Hardware-hash-upload is ingeschakeld, maar de tenantverbinding ontbreekt. Maak verbinding met de tenant via Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>Het geselecteerde Autopilot-profiel is niet geldig voor offline-implementatie. Importeer een ondersteund gebruikersgestuurd profiel met volledige tenant-, deelname- en OOBE-instellingen.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON profielmodus is ingeschakeld, maar er is geen geldig standaardprofiel geselecteerd.</value>
@@ -2505,7 +2505,7 @@
     <value>Aangepaste drivermap bestaat niet.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>De controle van aangepaste stuurprogramma's is nog niet voltooid of niet beschikbaar.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Het genereren van de implementatieconfiguratie is niet gereed.</value>
@@ -3150,7 +3150,7 @@
     <value>Updaten en opnieuw opstarten</value>
   </data>
   <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Update Foundry OSD</value>
+    <value>Foundry OSD bijwerken</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Beschikbare versie</value>
@@ -3180,10 +3180,10 @@
     <value>Niet gecontroleerd</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>gieterij-osd/gieterij</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>Updatebewerking geannuleerd.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Controleren op updates</value>
@@ -3198,7 +3198,7 @@
     <value>Updatecontrole overgeslagen omdat Foundry OSD niet draait vanaf een Velopack-installatie.</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>De updatebewerking kon niet worden voltooid.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Klaar</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} is beschikbaar</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>Het tijdstip van de laatste updatecontrole kon niet worden opgeslagen.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Bijwerken</value>

@@ -247,7 +247,7 @@
     <value>Spletni vir posodobitev</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>Preprost spletni vir; filtriranje kanalov izdaj ni podprto.</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Posodobi vir</value>
@@ -301,12 +301,12 @@
     <value>Najden ni noben profil Autopilot</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>Ti profili niso bili uvoženi kot datoteke JSON za uporabo brez povezave. Podprti profili, ki jih upravlja uporabnik, so še vedno na voljo za izbiro.
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>Nekaterih profilov ni mogoče uporabljati brez povezave</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Prenašanje profilov Autopilot...</value>
@@ -1380,7 +1380,7 @@
     <value>beleženje ODBC</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Performance" xml:space="preserve">
-    <value>Performance Features</value>
+    <value>Funkcije za izboljšanje učinkovitosti delovanja</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestFiltering" xml:space="preserve">
     <value>Filtriranje zahtev</value>
@@ -1500,7 +1500,7 @@
     <value>Storitve tiskanja in dokumentov</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
-    <value>Internet Printing Client</value>
+    <value>Odjemalec za internetno tiskanje</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
     <value>Storitev tiskanja LPD</value>
@@ -1548,7 +1548,7 @@
     <value>Windows TIFF IFilter</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TelnetClient" xml:space="preserve">
-    <value>Telnet Client</value>
+    <value>Odjemalec Telnet</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.VirtualMachinePlatform" xml:space="preserve">
     <value>Platforma navideznega stroja</value>
@@ -2175,7 +2175,7 @@
     <value>Konfiguracija Wi-Fi zahteva, da je podpora za Wi-Fi omogočena v zagonski sliki.</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>Ime omrežja Wi-Fi mora obsegati 1–32 bajtov v kodiranju UTF-8.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Wi-Fi konfiguracija zahteva SSID.</value>
@@ -2259,109 +2259,109 @@
     <value>Možnosti uvajanja sistema Windows</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Povezava ni uspela</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Preverite nastavitve posredniškega strežnika</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nove povezave iz Foundry OSD zdaj uporabljajo te nastavitve.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Nastavitve posredniškega strežnika so uveljavljene</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD se je z izbranimi nastavitvami povezal s storitvami GitHub in Microsoft.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Povezava je uspela</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Vnesite uporabniško ime in geslo za izrecno preverjanje pristnosti pri posredniškem strežniku.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Uveljavi</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Uporabi trenutne poverilnice sistema Windows</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Izberite, kako posredniški strežnik preverja pristnost Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Preverjanje pristnosti</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Uporabniško ime in geslo</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Brez preverjanja pristnosti</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Izbirna imena gostiteljev ali vzorci z nadomestnimi znaki, ločeni s podpičji.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Seznam izjem</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Neposredno se poveži z gostitelji, katerih imena ne vsebujejo pike.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Za krajevne naslove ne uporabi posrednika</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Poverilnice so varno shranjene v upravitelju poverilnic sistema Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Poverilnice za posredniški strežnik</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domena (izbirno)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Vnesite naslov in vrata posredniškega strežnika.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Posredniški strežnik</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Izberite, kako se Foundry OSD povezuje z internetom.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Način posredovanja</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Brez posrednika (neposredna povezava)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Ročna nastavitev posrednika</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Uporabi nastavitve sistema Windows (priporočeno)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Geslo</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>Vrata</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Te nastavitve veljajo samo za to aplikacijo. Ne dodajo se namestitvenemu mediju in ne vplivajo na Foundry Connect ali Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Samo Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Preizkusi povezavo</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Uporabniško ime</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>nastavitve</value>
@@ -2373,19 +2373,19 @@
     <value>Splošno</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Nastavite, kako se Foundry OSD povezuje s spletnimi storitvami.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>Posredniški strežnik</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Pošiljajte dnevnike in podrobnosti izjem z odstranjenimi občutljivimi podatki za lažje odkrivanje napak. Skrivnosti in neposredni identifikatorji so izključeni. Izklop takoj ustavi nova pošiljanja; že poslane zahteve ni mogoče preklicati.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Omogoči oddaljeno diagnostiko</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Pošiljajte anonimne podatke o uporabi za izboljšanje Foundry. Skrivnosti, serijske številke in strojni prstni odtisi so izključeni. Uporablja se anonimni identifikator namestitve; podatki lahko vključujejo proizvajalca in model naprave. Izklop takoj ustavi nova pošiljanja; že poslane zahteve ni mogoče preklicati.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Omogoči telemetrijo</value>
@@ -2478,7 +2478,7 @@
     <value>Nalaganje zgoščene vrednosti strojne opreme je omogočeno, vendar najemniška povezava manjka. Povežite se z najemnikom iz Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>Izbrani profil Autopilot ni veljaven za uvedbo brez povezave. Uvozite podprt profil, ki ga upravlja uporabnik, s popolnimi nastavitvami najemnika, pridružitve in OOBE.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Način profila Autopilot JSON je omogočen, vendar ni izbran veljaven privzeti profil.</value>
@@ -2505,7 +2505,7 @@
     <value>Mapa gonilnika po meri ne obstaja.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>Preverjanje gonilnikov po meri čaka ali ni na voljo.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Generacija konfiguracije razmestitve ni pripravljena.</value>
@@ -3180,10 +3180,10 @@
     <value>Ni preverjeno</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>livarna-osd/livarna</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>Posodobitev je preklicana.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Preverjanje posodobitev</value>
@@ -3198,7 +3198,7 @@
     <value>Preverjanje posodobitve je bilo preskočeno, ker se Foundry OSD ne izvaja iz namestitve Velopack.</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>Posodobitve ni bilo mogoče dokončati.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>pripravljena</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} je na voljo</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>Časa zadnjega preverjanja posodobitev ni bilo mogoče shraniti.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>posodobitev</value>

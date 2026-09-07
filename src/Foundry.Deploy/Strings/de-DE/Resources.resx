@@ -76,13 +76,13 @@
     <value>{0} (Aktuellstes)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Überprüfter Offlinekatalog</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Authentifizierter Onlinekatalog</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: abgerufen am {1} ({2} Tage alt). Revision: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Version</value>
@@ -264,7 +264,7 @@ Aktion: Überprüfen Sie die Festplattenattribute und wiederholen Sie die Bereit
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Manuelle Auswahl: Prüfen Sie, ob dieses Paket die erkannte Hardware und die ausgewählte Windows-Version unterstützt. Die Prüfungen von Paketintegrität und Herausgeber werden weiterhin durchgeführt.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Bestätigen Sie das Löschen der Festplatte</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry prüft das Image vor dem Löschen, sofern unabhängiger Speicher verfügbar ist. Muss das Image auf den Zieldatenträger heruntergeladen werden, können zuvor nur Katalogmetadaten, Quellenverfügbarkeit und geschätzter Speicherbedarf geprüft werden. Fehler beim Herunterladen oder bei der Imageprüfung können dann erst nach dem Löschen dieses Datenträgers auftreten.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Dieser Build enthält keine qualifizierte WinPE-Umgebung zur Erfassung von Hardware-Hashes. Die Windows-Bereitstellung wird ohne automatischen zertifikatbasierten Autopilot-Upload fortgesetzt. Falls eine Registrierung erforderlich ist, gehen Sie zurück und wählen Sie den interaktiven Registrierungsassistenten für die vollständige Windows-Umgebung mit einer unterstützten Windows-Edition. Foundry ändert den Authentifizierungsmodus nicht automatisch.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Über</value>
@@ -672,7 +672,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Bereitstellung initialisieren</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Imagevoraussetzungen prüfen</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Datenträger vorbereiten</value>
@@ -1011,7 +1011,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Cache-Strategie gelöst (Simulation).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Der bestätigte Zieldatenträger ist nicht verfügbar, wurde geändert oder ist nicht sicher verwendbar.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Das Staging des Treiberpakets beim ersten Start wurde ohne unterstützten Befehl angefordert.</value>
@@ -1203,7 +1203,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Die Ziel-Windows-Partition ist für die Bereitstellung des interaktiven Autopilot-Registrierungsassistenten nicht verfügbar.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Die Bereitstellung erfordert den UEFI-Startmodus.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Nicht unterstützter Treiberpaket-Installationsmodus.</value>
@@ -1437,7 +1437,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Optionale Windows-Funktionen</value>
   </data>
   <data name="Summary.WiredDot1x" xml:space="preserve">
-    <value>Wired 802.1X</value>
+    <value>Kabelgebundenes 802.1X</value>
   </data>
   <data name="TargetDevice.Architecture" xml:space="preserve">
     <value>Architektur</value>

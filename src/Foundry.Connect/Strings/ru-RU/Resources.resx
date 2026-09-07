@@ -31,7 +31,7 @@
     <value>Продолжить</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>Просмотреть автономное содержимое</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Отключить</value>
@@ -125,7 +125,7 @@
     <value>Проверьте подключение кабеля</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP включён</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>шлюз</value>
@@ -140,13 +140,13 @@
     <value>Адаптер Ethernet не обнаружен.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>Статическая конфигурация</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>Ожидание подходящего сетевого адреса</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Ожидание конфигурации сети</value>
@@ -287,28 +287,28 @@
     <value>Инструменты</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>Не удалось разрешить сетевое имя</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>Нет активного сетевого подключения</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>Нет подходящего сетевого адреса</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>Доступ к Интернету подтверждён</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>Требуется проверка подлинности на прокси-сервере</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>Истекло время проверки доступа к Интернету</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>Не удалось подтвердить доступ к Интернету</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>Неожиданный ответ сети. Возможно, требуется вход на странице авторизации или соединение перехватывается.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Продолжение автоматически через {0}s</value>

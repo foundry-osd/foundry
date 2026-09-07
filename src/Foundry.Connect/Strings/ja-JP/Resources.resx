@@ -31,7 +31,7 @@
     <value>続ける</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>オフラインコンテンツを参照</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>切断する</value>
@@ -125,7 +125,7 @@
     <value>ケーブル接続を確認してください</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP 有効</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>ゲートウェイ</value>
@@ -140,13 +140,13 @@
     <value>Ethernet アダプターが検出されませんでした。</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>静的構成</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>使用可能なネットワークアドレスを待機中</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>ネットワーク構成を待機しています</value>
@@ -287,28 +287,28 @@
     <value>ツール</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>ネットワークの名前解決に失敗しました</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>有効なネットワーク接続がありません</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>使用可能なネットワークアドレスがありません</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>インターネット接続を確認しました</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>プロキシ認証が必要です</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>インターネット接続の確認がタイムアウトしました</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>インターネット接続を確認できませんでした</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>予期しないネットワーク応答です。サインインページや通信の傍受が存在する可能性があります。</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>{0}s で自動的に続行します</value>

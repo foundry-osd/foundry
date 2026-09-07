@@ -247,7 +247,7 @@
     <value>웹 업데이트 피드</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>간단한 웹 피드입니다. 릴리스 채널별 필터링은 지원되지 않습니다.</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>소스 업데이트</value>
@@ -301,12 +301,12 @@
     <value>Autopilot 프로필을 찾을 수 없습니다.</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>이 프로필은 오프라인용 JSON으로 가져오지 않았습니다. 지원되는 사용자 기반 프로필은 계속 선택할 수 있습니다.
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>일부 프로필은 오프라인에서 사용할 수 없습니다</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Autopilot 프로필 다운로드 중...</value>
@@ -1563,7 +1563,7 @@
     <value>프로세스 모델</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_WindowsActivationService" xml:space="preserve">
-    <value>Windows Process Activation Service</value>
+    <value>Windows 프로세스 활성화 서비스</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation" xml:space="preserve">
     <value>Windows Communication Foundation HTTP 활성화</value>
@@ -2175,7 +2175,7 @@
     <value>Wi-Fi 구성을 위해서는 부팅 이미지에서 Wi-Fi 지원을 프로비저닝해야 합니다.</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>Wi-Fi 이름은 UTF-8 기준 1~32바이트여야 합니다.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Wi-Fi 구성에는 SSID이 필요합니다.</value>
@@ -2259,109 +2259,109 @@
     <value>Windows 배포 옵션</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>연결에 실패했습니다</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>프록시 설정을 확인하세요</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>이제 Foundry OSD의 새 연결에 이 설정이 적용됩니다.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>프록시 설정이 적용되었습니다</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD가 선택한 설정으로 GitHub 및 Microsoft 서비스에 연결했습니다.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>연결에 성공했습니다</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>프록시 인증에 사용할 사용자 이름과 암호를 직접 입력하세요.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>적용</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>현재 Windows 자격 증명 사용</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>프록시에서 Foundry OSD를 인증하는 방법을 선택하세요.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>인증</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>사용자 이름 및 암호</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>인증 안 함</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>필요한 경우 호스트 이름이나 와일드카드 패턴을 세미콜론으로 구분하여 입력하세요.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>예외 목록</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>마침표가 없는 호스트 이름에는 직접 연결합니다.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>로컬 주소에 프록시 사용 안 함</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>자격 증명은 Windows 자격 증명 관리자에 안전하게 저장됩니다.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>프록시 자격 증명</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>도메인(선택 사항)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>프록시 주소와 포트를 입력하세요.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>프록시 서버</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Foundry OSD의 인터넷 연결 방법을 선택하세요.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>프록시 설정 방법</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>프록시 없음(직접 연결)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>수동 프록시</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Windows 설정 사용(권장)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>암호</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>포트</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>이 설정은 이 앱에만 적용됩니다. 배포 미디어에 추가되지 않으며 Foundry Connect 또는 Foundry Deploy에는 영향을 주지 않습니다.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Foundry OSD에만 적용</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>연결 테스트</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>사용자 이름</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>설정</value>
@@ -2373,19 +2373,19 @@
     <value>일반</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Foundry OSD의 온라인 서비스 연결 방법을 설정합니다.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>프록시</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>오류 진단에 도움이 되도록 민감한 정보를 제거한 로그와 예외 세부 정보를 보냅니다. 비밀 정보와 직접 식별자는 제외됩니다. 이 옵션을 끄면 새 전송은 즉시 중지되지만 이미 전송된 요청은 회수할 수 없습니다.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>원격 진단 활성화</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Foundry 개선에 도움이 되도록 익명 사용 현황 데이터를 보냅니다. 비밀 정보, 일련 번호, 하드웨어 해시는 제외됩니다. 익명 설치 ID를 사용하며 장치 제조업체와 모델이 포함될 수 있습니다. 이 옵션을 끄면 새 전송은 즉시 중지되지만 이미 전송된 요청은 회수할 수 없습니다.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>원격 측정 활성화</value>
@@ -2478,7 +2478,7 @@
     <value>하드웨어 해시 업로드가 활성화되었지만 테넌트 연결이 없습니다. Autopilot에서 테넌트에 연결합니다.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>선택한 Autopilot 프로필은 오프라인 배포에 사용할 수 없습니다. 테넌트, 조인 및 OOBE 설정이 모두 포함된 지원되는 사용자 기반 프로필을 가져오세요.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON 프로필 모드가 활성화되었지만 유효한 기본 프로필이 선택되지 않았습니다.</value>
@@ -2505,7 +2505,7 @@
     <value>사용자 정의 드라이버 폴더가 존재하지 않습니다.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>사용자 지정 드라이버 검사가 대기 중이거나 사용할 수 없습니다.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>배포 구성 생성이 준비되지 않았습니다.</value>
@@ -3180,10 +3180,10 @@
     <value>체크하지 않음</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>파운드리-osd/파운드리</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>업데이트 작업이 취소되었습니다.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>업데이트 확인 중</value>
@@ -3198,7 +3198,7 @@
     <value>Foundry OSD이 Velopack 설치에서 실행되고 있지 않기 때문에 업데이트 확인을 건너뛰었습니다.</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>업데이트 작업을 완료하지 못했습니다.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>준비</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} 가능합니다</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>마지막 업데이트 확인 시간을 저장하지 못했습니다.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>업데이트</value>

@@ -31,7 +31,7 @@
     <value>继续</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>浏览离线内容</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>断开连接</value>
@@ -125,7 +125,7 @@
     <value>检查电缆连接</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP 已启用</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>网关</value>
@@ -140,13 +140,13 @@
     <value>未检测到 Ethernet 适配器。</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>静态配置</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>正在等待可用的网络地址</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>等待网络配置</value>
@@ -287,28 +287,28 @@
     <value>工具</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>网络名称解析失败</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>没有活动的网络连接</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>没有可用的网络地址</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>已确认可访问互联网</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>需要进行代理身份验证</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>互联网连接检查超时</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>无法确认是否可访问互联网</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>网络响应异常。可能存在登录页面或连接被拦截的情况。</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>在{0}s中自动继续</value>

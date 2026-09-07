@@ -76,13 +76,13 @@
     <value>{0} (най-скорошен)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Проверен офлайн каталог</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Онлайн каталог с удостоверена автентичност</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: изтеглен на {1} (преди {2} дни). Ревизия: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Версия</value>
@@ -264,7 +264,7 @@
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Ръчен избор: проверете дали този пакет поддържа открития хардуер и избраното издание на Windows. Проверките за целостта на пакета и издателя остават в сила.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@
     <value>Потвърдете изтриването на диска</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry проверява образа преди изтриването, когато е налично независимо хранилище. Ако образът трябва да се изтегли на целевия диск, предварително могат да се проверят само метаданните на каталога, достъпността на източника и очакваният капацитет. Тогава грешка при изтегляне или проверка на образа може да възникне след изтриването на диска.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Тази компилация няма проверена среда WinPE за извличане на хардуерен хеш. Разполагането на Windows ще продължи без автоматично качване в Autopilot с удостоверяване чрез сертификат. Ако се изисква регистрация, върнете се и изберете интерактивния помощник за регистрация в пълна среда Windows с поддържано издание. Foundry няма да промени автоматично начина на удостоверяване.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Относно</value>
@@ -672,7 +672,7 @@
     <value>Инициализирай внедряването</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Проверка на предварителните изисквания за образа</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Подготви диска</value>
@@ -1011,7 +1011,7 @@
     <value>Кеш стратегията е разрешена (симулация).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Потвърденият целеви диск е недостъпен, променен или небезопасен.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Беше поискано поставяне на пакет драйвери за първо зареждане без поддържана команда.</value>
@@ -1203,7 +1203,7 @@
     <value>Целевият дял на Windows не е наличен за подготвяне на интерактивния помощник за регистрация на Autopilot.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Разполагането изисква зареждане в режим UEFI.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Неподдържан режим на инсталиране на драйверен пакет.</value>
@@ -1278,7 +1278,7 @@
     <value>Autopilot Профил</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Компилация</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Вграден акаунт на администратор</value>
@@ -1437,7 +1437,7 @@
     <value>Допълнителни функции на Windows</value>
   </data>
   <data name="Summary.WiredDot1x" xml:space="preserve">
-    <value>Wired 802.1X</value>
+    <value>Кабелна мрежа 802.1X</value>
   </data>
   <data name="TargetDevice.Architecture" xml:space="preserve">
     <value>Архитектура</value>

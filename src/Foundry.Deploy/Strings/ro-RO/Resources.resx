@@ -76,13 +76,13 @@
     <value>{0} (Cea mai recentă)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Catalog offline verificat</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Catalog online cu autenticitate confirmată</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: preluat la {1} (vechime de {2} zile). Revizie: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Versiune</value>
@@ -264,7 +264,7 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Selectare manuală: verificați dacă acest pachet acceptă hardware-ul detectat și ediția Windows selectată. Verificările integrității pachetului și editorului se aplică în continuare.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@ Continuați cu implementarea?</value>
     <value>Confirmați ștergerea discului</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry verifică imaginea înainte de ștergere atunci când există stocare independentă. Dacă imaginea trebuie descărcată pe discul țintă, în prealabil pot fi verificate doar metadatele catalogului, disponibilitatea sursei și capacitatea estimată. O eroare la descărcarea sau validarea imaginii poate apărea apoi după ștergerea discului.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Această compilare nu are un mediu WinPE validat pentru capturarea hashului hardware. Implementarea Windows va continua fără încărcare automată în Autopilot cu autentificare prin certificat. Dacă înregistrarea este necesară, reveniți și selectați asistentul interactiv de înregistrare în mediul Windows complet, cu o ediție Windows acceptată. Foundry nu va schimba automat modul de autentificare.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Despre</value>
@@ -672,7 +672,7 @@ Continuați cu implementarea?</value>
     <value>Inițializează implementarea</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Verificați cerințele preliminare ale imaginii</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Pregătește discul</value>
@@ -1011,7 +1011,7 @@ Continuați cu implementarea?</value>
     <value>Strategia de cache a fost rezolvată (simulare).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Discul țintă confirmat este indisponibil, s-a modificat sau nu este sigur.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Staging-ul pachetului de drivere pentru prima pornire a fost solicitat fără o comandă acceptată.</value>
@@ -1203,7 +1203,7 @@ Continuați cu implementarea?</value>
     <value>Partiția Windows țintă nu este disponibilă pentru pregătirea asistentului de înregistrare interactivă Autopilot.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Implementarea necesită pornirea în modul UEFI.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Modul de instalare a pachetului de drivere neacceptat.</value>
@@ -1278,7 +1278,7 @@ Continuați cu implementarea?</value>
     <value>Autopilot Profil</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Versiune compilată</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Cont Administrator încorporat</value>

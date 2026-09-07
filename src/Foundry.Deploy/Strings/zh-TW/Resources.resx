@@ -76,13 +76,13 @@
     <value>{0}（最新）</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>已驗證的離線目錄</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>已驗證來源的線上目錄</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}：於 {1} 擷取（{2} 天前）。修訂版本：{3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>版本</value>
@@ -264,7 +264,7 @@
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>手動選取：請確認此驅動程式套件支援偵測到的硬體與選取的 Windows 版本。仍會執行套件完整性與發行者檢查。</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@
     <value>確認磁碟清除</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>有獨立儲存空間可用時，Foundry 會在清除磁碟前檢查映像。如果必須將映像下載至目標磁碟，事前只能檢查目錄中繼資料、來源可用性及預估容量。在這種情況下，下載或映像驗證可能在磁碟已清除後失敗。</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>此組建不包含已通過驗證的 WinPE 硬體雜湊擷取環境。Windows 部署將繼續，但不會使用憑證自動上傳至 Autopilot。若需要註冊，請返回並選取在受支援 Windows 版本的完整環境中執行的互動式註冊小幫手。Foundry 不會自動變更驗證模式。</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_關於</value>
@@ -672,7 +672,7 @@
     <value>初始化部署</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>檢查映像先決條件</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>準備磁碟</value>
@@ -1011,7 +1011,7 @@
     <value>快取策略已解決（模擬）。</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>已確認的目標磁碟無法使用、已變更或不安全。</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>在沒有支援的命令的情況下請求了首次啟動驅動程式包暫存。</value>
@@ -1203,7 +1203,7 @@
     <value>目標 Windows 分割區無法用於暫存互動式 Autopilot 註冊助理。</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>部署需要 UEFI 開機模式。</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>不支援的驅動程式包安裝模式。</value>

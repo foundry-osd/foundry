@@ -76,13 +76,13 @@
     <value>{0} (Meest recent)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Geverifieerde offlinecatalogus</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Onlinecatalogus met geverifieerde herkomst</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: opgehaald op {1} ({2} dagen oud). Revisie: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Versie</value>
@@ -264,7 +264,7 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Handmatige selectie: controleer of dit pakket de gedetecteerde hardware en geselecteerde Windows-versie ondersteunt. De controles van pakketintegriteit en uitgever blijven van toepassing.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@ Doorgaan met de implementatie?</value>
     <value>Bevestig het wissen van de schijf</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry controleert de image vóór het wissen als onafhankelijke opslag beschikbaar is. Als de image naar de doelschijf moet worden gedownload, kunnen vooraf alleen de catalogusmetagegevens, bronbeschikbaarheid en geschatte capaciteit worden gecontroleerd. Een download- of imagevalidatiefout kan dan optreden nadat deze schijf is gewist.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Deze build heeft geen gekwalificeerde WinPE-omgeving voor het vastleggen van hardwarehashes. De Windows-implementatie gaat verder zonder automatische, op certificaten gebaseerde Autopilot-upload. Als registratie vereist is, gaat u terug en kiest u de interactieve registratieassistent voor volledig Windows met een ondersteunde Windows-editie. Foundry wijzigt de verificatiemodus niet automatisch.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Over</value>
@@ -672,7 +672,7 @@ Doorgaan met de implementatie?</value>
     <value>Implementatie initialiseren</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Imagevereisten controleren</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Schijf voorbereiden</value>
@@ -1011,7 +1011,7 @@ Doorgaan met de implementatie?</value>
     <value>Cachestrategie opgelost (simulatie).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>De bevestigde doelschijf is niet beschikbaar, gewijzigd of onveilig.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Er is een fasering van het driverpakket voor het eerst opstarten aangevraagd zonder een ondersteunde opdracht.</value>
@@ -1203,7 +1203,7 @@ Doorgaan met de implementatie?</value>
     <value>De doel-Windows-partitie is niet beschikbaar voor het voorbereiden van de interactieve Autopilot-registratieassistent.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>De implementatie vereist de UEFI-opstartmodus.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Niet-ondersteunde installatiemodus voor driverpakketten.</value>

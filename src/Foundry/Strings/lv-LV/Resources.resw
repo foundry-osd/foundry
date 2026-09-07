@@ -247,7 +247,7 @@
     <value>Web atjaunināšanas plūsma</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>Vienkārša tīmekļa plūsma; filtrēšana pēc laidiena kanāla netiek atbalstīta.</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Atjaunināt avotu</value>
@@ -301,12 +301,12 @@
     <value>Nav atrasts neviens Autopilot profils</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>Šie profili netika importēti kā bezsaistes JSON faili. Atbalstītos lietotāja vadītos profilus joprojām var atlasīt.
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>Dažus profilus nevar izmantot bezsaistē</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Notiek Autopilot profilu lejupielāde...</value>
@@ -1371,10 +1371,10 @@
     <value>IIS metabāze un IIS 6 konfigurācijas saderība</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
-    <value>.NET Extensibility 3.5</value>
+    <value>.NET 3.5 paplašināmība</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility45" xml:space="preserve">
-    <value>.NET Extensibility 4.8</value>
+    <value>.NET 4.8 paplašināmība</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
     <value>ODBC reģistrēšana</value>
@@ -1404,7 +1404,7 @@
     <value>IIS 6 WMI saderība</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
-    <value>WebDAV Publishing</value>
+    <value>WebDAV publicēšana</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
     <value>globālā tīmekļa pakalpojumi</value>
@@ -1416,7 +1416,7 @@
     <value>interneta informācijas pakalpojumi</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
-    <value>WebSocket Protocol</value>
+    <value>WebSocket protokols</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
     <value>Windows autentifikācija</value>
@@ -1494,13 +1494,13 @@
     <value>ASP.NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
-    <value>.NET Framework 4.8 Advanced Services</value>
+    <value>.NET Framework 4.8 papildu pakalpojumi</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
     <value>drukāšanas un dokumentu pakalpojumi</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
-    <value>Internet Printing Client</value>
+    <value>Interneta drukāšanas klients</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
     <value>LPD drukas pakalpojums</value>
@@ -1557,7 +1557,7 @@
     <value>konfigurācijas API</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_NetFxEnvironment" xml:space="preserve">
-    <value>.NET Environment</value>
+    <value>.NET vide</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
     <value>procesa modelis</value>
@@ -1578,7 +1578,7 @@
     <value>Windows Communication Foundation aktivizācija bez HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
-    <value>Named Pipe Activation</value>
+    <value>Nosaukto kanālu aktivizēšana</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
     <value>WCF pakalpojumi</value>
@@ -1596,7 +1596,7 @@
     <value>Windows Identity Foundation 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
-    <value>Work Folders Client</value>
+    <value>Darba mapju klients</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
     <value>Atspējot</value>
@@ -1917,7 +1917,7 @@
     <value>lietuviešu (Lietuva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norwegian Bokmal (Norway)</value>
+    <value>Norvēģu bukmols (Norvēģija)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poļu (Polija)</value>
@@ -2175,7 +2175,7 @@
     <value>Wi-Fi konfigurācijai ir nepieciešams Wi-Fi atbalsts, kas tiek nodrošināts sāknēšanas attēlā.</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>Wi-Fi nosaukumam jābūt 1–32 UTF-8 baitus garam.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Wi-Fi konfigurācijai ir nepieciešams SSID.</value>
@@ -2259,109 +2259,109 @@
     <value>Windows izvietošanas opcijas</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Savienojums neizdevās</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Pārbaudiet starpniekservera iestatījumus</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Jauni Foundry OSD savienojumi tagad izmanto šos iestatījumus.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Starpniekservera iestatījumi lietoti</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD sasniedza GitHub un Microsoft pakalpojumus, izmantojot atlasītos iestatījumus.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Savienojums izveidots</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Ievadiet lietotājvārdu un paroli atsevišķai starpniekservera autentifikācijai.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Lietot</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Izmantot pašreizējos Windows akreditācijas datus</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Izvēlieties, kā starpniekserveris autentificē Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autentifikācija</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Lietotājvārds un parole</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Bez autentifikācijas</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Neobligāti resursdatoru nosaukumi vai aizstājējzīmju raksti, atdalīti ar semikoliem.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Izņēmumu saraksts</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Veidot tiešu savienojumu ar resursdatoriem, kuru nosaukumos nav punkta.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Neizmantot starpniekserveri vietējām adresēm</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Akreditācijas dati tiek droši glabāti Windows akreditācijas datu pārvaldniekā.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Starpniekservera akreditācijas dati</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domēns (neobligāts)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Ievadiet starpniekservera adresi un portu.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Starpniekserveris</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Izvēlieties, kā Foundry OSD izveido savienojumu ar internetu.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Starpniekservera izmantošanas veids</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Bez starpniekservera (tiešs savienojums)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Manuāli iestatīts starpniekserveris</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Izmantot Windows iestatījumus (ieteicams)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Parole</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>Ports</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Šie iestatījumi attiecas tikai uz šo programmu. Tie netiek pievienoti izvietošanas datu nesējam un neietekmē Foundry Connect vai Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Tikai Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Pārbaudīt savienojumu</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Lietotājvārds</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Iestatījumi</value>
@@ -2373,19 +2373,19 @@
     <value>Ģenerālis</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Konfigurējiet, kā Foundry OSD izveido savienojumu ar tiešsaistes pakalpojumiem.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>Starpniekserveris</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Sūtīt attīrītus žurnālus un izņēmumu informāciju, lai palīdzētu diagnosticēt kļūmes. Noslēpumi un tiešie identifikatori netiek iekļauti. Izslēdzot šo funkciju, jauna sūtīšana nekavējoties tiek pārtraukta; jau nosūtītu pieprasījumu nevar atsaukt.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Iespējot attālo diagnostiku</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Sūtīt anonīmu lietojuma telemetriju, lai uzlabotu Foundry. Noslēpumi, sērijas numuri un aparatūras jaucējvērtības netiek iekļautas. Tiek izmantots anonīms instalācijas ID, un var tikt iekļauts ierīces ražotājs un modelis. Izslēdzot šo funkciju, jauna sūtīšana nekavējoties tiek pārtraukta; jau nosūtītu pieprasījumu nevar atsaukt.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Iespējot telemetriju</value>
@@ -2478,7 +2478,7 @@
     <value>Aparatūras jauktā augšupielāde ir iespējota, taču trūkst nomnieka savienojuma. Izveidojiet savienojumu ar nomnieku no Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>Atlasītais Autopilot profils nav derīgs bezsaistes izvietošanai. Importējiet atbalstītu lietotāja vadītu profilu ar pilnīgiem nomnieka, pievienošanās un OOBE iestatījumiem.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON profila režīms ir iespējots, bet nav atlasīts derīgs noklusējuma profils.</value>
@@ -2505,7 +2505,7 @@
     <value>Pielāgota draivera mape nepastāv.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>Pielāgoto draiveru pārbaude vēl nav pabeigta vai nav pieejama.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Izvietošanas konfigurācijas ģenerēšana nav gatava.</value>
@@ -3180,10 +3180,10 @@
     <value>Nav pārbaudīts</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>lietuve-osd/lietuve</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>Atjaunināšana atcelta.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Notiek atjauninājumu pārbaude</value>
@@ -3198,7 +3198,7 @@
     <value>Atjaunināšanas pārbaude tika izlaista, jo Foundry OSD nedarbojas no Velopack instalācijas.</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>Atjaunināšanu neizdevās pabeigt.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Gatavs</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} ir pieejams</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>Neizdevās saglabāt pēdējās atjauninājumu pārbaudes laiku.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Atjaunināt</value>

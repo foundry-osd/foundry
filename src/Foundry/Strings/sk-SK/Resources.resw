@@ -247,7 +247,7 @@
     <value>Informačný kanál webovej aktualizácie</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>Jednoduchý webový zdroj; filtrovanie kanálov vydaní nie je podporované.</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Aktualizovať zdroj</value>
@@ -301,12 +301,12 @@
     <value>Nenašli sa žiadne profily Autopilot</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>Tieto profily neboli importované ako súbory JSON na použitie offline. Podporované profily riadené používateľom je naďalej možné vybrať.
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>Niektoré profily nemožno použiť offline</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Sťahujú sa profily Autopilot...</value>
@@ -1350,16 +1350,16 @@
     <value>Filtre ISAPI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
-    <value>IIS 6 Scripting Tools</value>
+    <value>Skriptovacie nástroje IIS 6</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacySnapIn" xml:space="preserve">
-    <value>IIS 6 Management Console</value>
+    <value>Konzola správy IIS 6</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LoggingLibraries" xml:space="preserve">
     <value>Nástroje na zaznamenávanie</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementConsole" xml:space="preserve">
-    <value>IIS Management Console</value>
+    <value>Konzola správy IIS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
     <value>skripty a nástroje na správu služby IIS</value>
@@ -1386,7 +1386,7 @@
     <value>Filtrovanie požiadaviek</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
-    <value>Request Monitor</value>
+    <value>Monitor požiadaviek</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
     <value>Funkcie zabezpečenia</value>
@@ -1398,7 +1398,7 @@
     <value>Statický obsah</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_URLAuthorization" xml:space="preserve">
-    <value>URL Authorization</value>
+    <value>Autorizácia adries URL</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WMICompatibility" xml:space="preserve">
     <value>Kompatibilita so službou IIS 6 WMI</value>
@@ -1410,7 +1410,7 @@
     <value>Služby World Wide Web Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
-    <value>Web Management Tools</value>
+    <value>Nástroje správy webu</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerRole" xml:space="preserve">
     <value>Internetové informačné služby</value>
@@ -1422,7 +1422,7 @@
     <value>Overenie systému Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.LegacyComponents" xml:space="preserve">
-    <value>Legacy Components</value>
+    <value>Staršie súčasti</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
     <value>Integrácia adresárovej služby</value>
@@ -1500,7 +1500,7 @@
     <value>Služby tlače a dokumentov</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
-    <value>Internet Printing Client</value>
+    <value>Klient internetovej tlače</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
     <value>Tlačová služba LPD</value>
@@ -1560,7 +1560,7 @@
     <value>.NET Environment</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
-    <value>Process Model</value>
+    <value>Procesný model</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_WindowsActivationService" xml:space="preserve">
     <value>Služba aktivácie procesov systému Windows</value>
@@ -2175,7 +2175,7 @@
     <value>Konfigurácia Wi-Fi vyžaduje, aby bola v zavádzacom obraze poskytnutá podpora Wi-Fi.</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>Názov siete Wi-Fi musí mať 1–32 bajtov v kódovaní UTF-8.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Konfigurácia Wi-Fi vyžaduje SSID.</value>
@@ -2259,145 +2259,145 @@
     <value>Možnosti nasadenia Windows</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Pripojenie zlyhalo</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Skontrolujte nastavenia servera proxy</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nové pripojenia z Foundry OSD teraz používajú tieto nastavenia.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Nastavenia servera proxy boli použité</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD sa pomocou vybraných nastavení pripojilo k službám GitHub a Microsoft.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Pripojenie bolo úspešné</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Zadajte meno používateľa a heslo na overenie na serveri proxy.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Použiť</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Použiť aktuálne prihlasovacie údaje systému Windows</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Vyberte spôsob overovania Foundry OSD na serveri proxy.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Overovanie</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Meno používateľa a heslo</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Bez overovania</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Voliteľné názvy hostiteľov alebo vzory so zástupnými znakmi oddelené bodkočiarkami.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Zoznam výnimiek</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Pripájať sa priamo k hostiteľom, ktorých názvy neobsahujú bodku.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Nepoužívať proxy pre lokálne adresy</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Prihlasovacie údaje sú bezpečne uložené v Správcovi poverení systému Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Prihlasovacie údaje pre server proxy</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Doména (voliteľné)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Zadajte adresu a port servera proxy.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Server proxy</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Vyberte, ako sa Foundry OSD pripája k internetu.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Režim servera proxy</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Bez proxy (priame pripojenie)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Manuálne nastavenie proxy</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Použiť nastavenia systému Windows (odporúčané)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Heslo</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Tieto nastavenia platia iba pre túto aplikáciu. Nepridávajú sa na inštalačné médium a neovplyvňujú Foundry Connect ani Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Iba Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Otestovať pripojenie</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Meno používateľa</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Nastavenia</value>
   </data>
   <data name="SettingsPage_GeneralCard.Description" xml:space="preserve">
-    <value>Manage startup, language, diagnostics, and application behavior.</value>
+    <value>Spravujte spúšťanie, jazyk, diagnostiku a správanie aplikácie.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>generál</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Nastavte, ako sa Foundry OSD pripája k online službám.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Odosielajte denníky a podrobnosti výnimiek zbavené citlivých údajov na jednoduchšiu diagnostiku chýb. Tajné údaje a priame identifikátory sa vynechávajú. Vypnutie okamžite zastaví nové odosielanie; už odoslanú požiadavku nemožno odvolať.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Povoliť vzdialenú diagnostiku</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Odosielajte anonymné údaje o používaní a pomôžte zlepšovať Foundry. Tajné údaje, sériové čísla a hardvérové odtlačky sa vynechávajú. Používa sa anonymný identifikátor inštalácie; údaje môžu zahŕňať výrobcu a model zariadenia. Vypnutie okamžite zastaví nové odosielanie; už odoslanú požiadavku nemožno odvolať.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Povoliť telemetriu</value>
   </data>
   <data name="SettingsPage_ThemeCard.Description" xml:space="preserve">
-    <value>Change theme, backdrop, and accent color preferences.</value>
+    <value>Zmeňte motív, pozadie a nastavenia farby zvýraznenia.</value>
   </data>
   <data name="SettingsPage_ThemeCard.Header" xml:space="preserve">
     <value>Vzhľad</value>
   </data>
   <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
-    <value>Check for Foundry OSD updates and review release notes.</value>
+    <value>Vyhľadajte aktualizácie Foundry OSD a pozrite si poznámky k vydaniu.</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Aktualizovať aplikáciu</value>
@@ -2442,7 +2442,7 @@
     <value>Nahrávanie hardvérového hash je povolené, ale vybraný PFX nezodpovedá registračnému certifikátu aplikácie.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashActiveCertificateThumbprintMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected certificate thumbprint is missing.</value>
+    <value>Nahrávanie hardvérového odtlačku je zapnuté, ale odtlačok vybraného certifikátu chýba.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashAppRegistrationMissing" xml:space="preserve">
     <value>Nahrávanie hardvérového hash je povolené, ale registrácia aplikácie nie je nakonfigurovaná. Pripojte sa k nájomcovi z Autopilot.</value>
@@ -2451,16 +2451,16 @@
     <value>Odovzdávanie hardvérového hash je povolené, ale nebolo možné overiť platnosť spúšťacieho média PFX.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateExpired" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected boot media PFX has expired.</value>
+    <value>Nahrávanie hardvérového odtlačku je zapnuté, ale platnosť vybraného certifikátu PFX pre spúšťacie médium uplynula.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateNotValidated" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the boot media PFX has not been validated.</value>
+    <value>Nahrávanie hardvérového odtlačku je zapnuté, ale certifikát PFX pre spúšťacie médium nebol overený.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaCertificateThumbprintMismatch" xml:space="preserve">
-    <value>Hardware hash upload is enabled but the selected PFX does not match the active certificate.</value>
+    <value>Nahrávanie hardvérového odtlačku je zapnuté, ale vybraný súbor PFX nezodpovedá aktívnemu certifikátu.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxMissing" xml:space="preserve">
-    <value>Hardware hash upload is enabled but no boot media PFX is selected.</value>
+    <value>Nahrávanie hardvérového odtlačku je zapnuté, ale nie je vybraný žiadny súbor PFX pre spúšťacie médium.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashBootMediaPfxPasswordMissing" xml:space="preserve">
     <value>Odovzdávanie hardvérového hash je povolené, ale chýba heslo PFX zavádzacieho média.</value>
@@ -2478,7 +2478,7 @@
     <value>Nahrávanie hardvérového hash je povolené, ale pripojenie nájomníka chýba. Pripojte sa k nájomcovi z Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>Vybraný profil Autopilot nie je platný na nasadenie offline. Importujte podporovaný profil riadený používateľom s úplnými nastaveniami nájomníka, pripojenia a OOBE.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Režim profilu Autopilot JSON je povolený, ale nie je vybratý žiadny platný predvolený profil.</value>
@@ -2499,13 +2499,13 @@
     <value>Poskytovanie pripojenia nie je pripravené.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryHasNoInfFiles" xml:space="preserve">
-    <value>Custom driver folder does not contain .inf files.</value>
+    <value>Priečinok vlastných ovládačov neobsahuje súbory .inf.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Vlastný priečinok ovládača neexistuje.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>Kontrola vlastných ovládačov čaká na dokončenie alebo nie je dostupná.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Generovanie konfigurácie nasadenia nie je pripravené.</value>
@@ -2532,7 +2532,7 @@
     <value>Vybratý cieľ USB je príliš malý. Použite kľúč USB s veľkosťou aspoň 16 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeLanguageUnavailable" xml:space="preserve">
-    <value>Selected WinPE boot language is not available for the selected architecture.</value>
+    <value>Vybraný jazyk spúšťacieho prostredia WinPE nie je pre vybranú architektúru dostupný.</value>
   </data>
   <data name="StartMedia.BootImageSource.WinPe" xml:space="preserve">
     <value>Štandardné WinPE</value>
@@ -2994,7 +2994,7 @@
     <value>Otvorte</value>
   </data>
   <data name="ThemeSetting_AccentCard.Description" xml:space="preserve">
-    <value>Open Windows color settings to change the accent color.</value>
+    <value>Otvorte nastavenia farieb systému Windows a zmeňte farbu zvýraznenia.</value>
   </data>
   <data name="ThemeSetting_AccentCard.Header" xml:space="preserve">
     <value>Farba akcentu</value>
@@ -3180,10 +3180,10 @@
     <value>Nekontrolované</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>zlieváreň-osd/zlieváreň</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>Aktualizácia bola zrušená.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Kontrolujú sa aktualizácie</value>
@@ -3198,7 +3198,7 @@
     <value>Kontrola aktualizácie bola preskočená, pretože Foundry OSD nie je spustený z inštalácie Velopack.</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>Aktualizáciu sa nepodarilo dokončiť.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Pripravený</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} je k dispozícii</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>Čas poslednej kontroly aktualizácií sa nepodarilo uložiť.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Aktualizovať</value>

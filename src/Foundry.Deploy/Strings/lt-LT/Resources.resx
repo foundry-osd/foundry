@@ -76,13 +76,13 @@
     <value>{0} (Naujausia)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Patikrintas neprisijungus naudojamas katalogas</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Patvirtintos kilmės internetinis katalogas</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: gauta {1} (prieš {2} d.). Redakcija: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Versija</value>
@@ -121,7 +121,7 @@
     <value>Nėra</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
-    <value>N/A</value>
+    <value>Nėra duomenų</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
     <value>Ankstesnis</value>
@@ -264,7 +264,7 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Rankinis pasirinkimas: įsitikinkite, kad šis paketas palaiko aptiktą aparatinę įrangą ir pasirinktą Windows leidimą. Paketo vientisumo ir leidėjo patikros vis tiek atliekamos.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,16 +435,16 @@ Tęsti diegimą?</value>
     <value>Patvirtinkite disko ištrynimą</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry patikrina atvaizdą prieš trynimą, kai pasiekiama nepriklausoma saugykla. Jei atvaizdą reikia atsisiųsti į tikslinį diską, iš anksto galima patikrinti tik katalogo metaduomenis, šaltinio pasiekiamumą ir numatomą talpą. Atsisiuntimo arba atvaizdo patikros klaida tuomet gali įvykti jau ištrynus diską.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Šioje komponavimo versijoje nėra kvalifikuotos WinPE aplinkos aparatinės įrangos maišoms surinkti. Windows diegimas bus tęsiamas be automatinio sertifikatu pagrįsto įkėlimo į Autopilot. Jei registracija būtina, grįžkite ir pasirinkite interaktyvų registracijos asistentą visoje Windows aplinkoje su palaikomu Windows leidimu. Foundry automatiškai nekeis autentifikavimo režimo.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Apie</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_Debug</value>
+    <value>_Derinimas</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Kalba</value>
@@ -672,7 +672,7 @@ Tęsti diegimą?</value>
     <value>Inicializuok diegimą</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Patikrinti atvaizdo būtinas sąlygas</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Paruošk diską</value>
@@ -1011,7 +1011,7 @@ Tęsti diegimą?</value>
     <value>Talpyklos strategija išspręsta (modeliavimas).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Patvirtintas tikslinis diskas nepasiekiamas, pasikeitęs arba nesaugus.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Pirmojo įkrovos tvarkyklės paketo sustojimo užklausa buvo pateikta be palaikomos komandos.</value>
@@ -1203,7 +1203,7 @@ Tęsti diegimą?</value>
     <value>Tikslinis Windows skaidinys nepasiekiamas interaktyvaus Autopilot registracijos pagalbininko paruošimui.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Diegimui reikalingas UEFI paleidimo režimas.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Nepalaikomas tvarkyklių paketo diegimo režimas.</value>
@@ -1278,7 +1278,7 @@ Tęsti diegimą?</value>
     <value>Autopilot profilis</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Komponavimo versija</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Integruotoji administratoriaus paskyra</value>

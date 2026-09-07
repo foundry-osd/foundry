@@ -76,13 +76,13 @@
     <value>{0} (Последнее)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Проверенный автономный каталог</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Сетевой каталог с подтверждённой подлинностью</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: получен {1} (давность: {2} дн.). Редакция: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Версия</value>
@@ -264,7 +264,7 @@
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Ручной выбор: убедитесь, что пакет поддерживает обнаруженное оборудование и выбранный выпуск Windows. Проверки целостности пакета и издателя по-прежнему выполняются.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@
     <value>Подтвердить очистку диска</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry проверяет образ до очистки диска, если доступно независимое хранилище. Если образ необходимо загрузить на целевой диск, заранее можно проверить только метаданные каталога, доступность источника и предполагаемый объём. В таком случае ошибка загрузки или проверки образа может возникнуть уже после очистки диска.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>В этой сборке нет проверенной среды WinPE для получения аппаратного хеша. Развёртывание Windows продолжится без автоматической отправки в Autopilot с проверкой подлинности по сертификату. Если регистрация обязательна, вернитесь и выберите интерактивный мастер регистрации в полной системе Windows с поддерживаемой редакцией. Foundry не изменит способ проверки подлинности автоматически.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_О нас</value>
@@ -672,7 +672,7 @@
     <value>Инициализация развертывания</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Проверить предварительные требования к образу</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Подготовка диска</value>
@@ -1011,7 +1011,7 @@
     <value>Стратегия кэширования решена (симуляция).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Подтверждённый целевой диск недоступен, изменился или небезопасен.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Запрошена установка пакета драйверов при первой загрузке без поддерживаемой команды.</value>
@@ -1203,7 +1203,7 @@
     <value>Целевой раздел Windows недоступен для подготовки интерактивного помощника регистрации Autopilot.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Для развёртывания требуется загрузка в режиме UEFI.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Неподдерживаемый режим установки пакета драйверов.</value>
@@ -1251,13 +1251,13 @@
     <value>Дополнительные локальные учетные записи</value>
   </data>
   <data name="Summary.AdvertisingId" xml:space="preserve">
-    <value>Advertising ID</value>
+    <value>Рекламный идентификатор</value>
   </data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve">
     <value>Удаление компонентов ИИ</value>
   </data>
   <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve">
-    <value>Application and AI removal</value>
+    <value>Удаление приложений и компонентов ИИ</value>
   </data>
   <data name="Summary.AppxRemoval" xml:space="preserve">
     <value>Удаление AppX</value>
@@ -1308,7 +1308,7 @@
     <value>Проверьте выбранные параметры перед началом развертывания.</value>
   </data>
   <data name="Summary.DiagnosticData" xml:space="preserve">
-    <value>Diagnostic data</value>
+    <value>Диагностические данные</value>
   </data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve">
     <value>Выключен</value>
@@ -1326,16 +1326,16 @@
     <value>Функции отключены</value>
   </data>
   <data name="Summary.FeaturesEnabled" xml:space="preserve">
-    <value>Features enabled</value>
+    <value>Включённые компоненты</value>
   </data>
   <data name="Summary.HidePrivacySetup" xml:space="preserve">
-    <value>Hide privacy setup</value>
+    <value>Скрыть настройку конфиденциальности</value>
   </data>
   <data name="Summary.Included" xml:space="preserve">
     <value>Включен</value>
   </data>
   <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve">
-    <value>Inking and typing diagnostics</value>
+    <value>Диагностика рукописного ввода и ввода с клавиатуры</value>
   </data>
   <data name="Summary.Language" xml:space="preserve">
     <value>Язык</value>
@@ -1344,7 +1344,7 @@
     <value>Лицензионный канал</value>
   </data>
   <data name="Summary.LocationAccess" xml:space="preserve">
-    <value>Location access</value>
+    <value>Доступ к местоположению</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
     <value>Принудительно выключен</value>
@@ -1371,7 +1371,7 @@
     <value>Не включен</value>
   </data>
   <data name="Summary.OnlineSpeechRecognition" xml:space="preserve">
-    <value>Online speech recognition</value>
+    <value>Распознавание речи в интернете</value>
   </data>
   <data name="Summary.Oobe" xml:space="preserve">
     <value>OOBE</value>
@@ -1380,7 +1380,7 @@
     <value>Материал с закрытым ключом</value>
   </data>
   <data name="Summary.ProvisioningMethod" xml:space="preserve">
-    <value>Provisioning method</value>
+    <value>Способ подготовки</value>
   </data>
   <data name="Summary.Release" xml:space="preserve">
     <value>Версия</value>
@@ -1401,10 +1401,10 @@
     <value>Пропустить создание учетной записи</value>
   </data>
   <data name="Summary.SkipLicenseTerms" xml:space="preserve">
-    <value>Skip license terms</value>
+    <value>Пропустить условия лицензии</value>
   </data>
   <data name="Summary.Status" xml:space="preserve">
-    <value>Status</value>
+    <value>Состояние</value>
   </data>
   <data name="Summary.Status.Configured" xml:space="preserve">
     <value>Настроено</value>
@@ -1416,7 +1416,7 @@
     <value>Не настроено</value>
   </data>
   <data name="Summary.TailoredExperiences" xml:space="preserve">
-    <value>Tailored experiences</value>
+    <value>Персонализированные возможности</value>
   </data>
   <data name="Summary.TargetDisk" xml:space="preserve">
     <value>Целевой диск</value>
@@ -1425,10 +1425,10 @@
     <value>Сводка по развертыванию</value>
   </data>
   <data name="Summary.TotalConfigured" xml:space="preserve">
-    <value>Total configured</value>
+    <value>Всего настроено</value>
   </data>
   <data name="Summary.WarningDetails" xml:space="preserve">
-    <value>Warning details</value>
+    <value>Подробности предупреждений</value>
   </data>
   <data name="Summary.Wifi" xml:space="preserve">
     <value>Wi-Fi</value>

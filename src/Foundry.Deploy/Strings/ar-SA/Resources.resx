@@ -76,13 +76,13 @@
     <value>{0} (الأحدث)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>كتالوج دون اتصال تم التحقق منه</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>كتالوج عبر الإنترنت موثّق المصدر</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: جُلب في {1} (منذ {2} يومًا). المراجعة: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>الإصدار</value>
@@ -264,7 +264,7 @@
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>اختيار يدوي: تحقّق من أن هذه الحزمة تدعم الأجهزة المكتشفة وإصدار Windows المحدد. تظل فحوص سلامة الحزمة وناشرها مطبّقة.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@
     <value>تأكيد مسح القرص</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>يفحص Foundry الصورة قبل المسح متى توفرت مساحة تخزين مستقلة. إذا لزم تنزيل الصورة إلى القرص الهدف، فلا يمكن أولًا فحص سوى بيانات الكتالوج الوصفية وتوفر المصدر والسعة المقدّرة. وقد يفشل التنزيل أو التحقق من الصورة بعد مسح هذا القرص.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>لا يتضمن هذا البناء بيئة WinPE مؤهلة لالتقاط بصمة تجزئة الجهاز. سيستمر نشر Windows دون رفع تلقائي إلى Autopilot باستخدام شهادة. إذا كان التسجيل مطلوبًا، فارجع واختر مساعد التسجيل التفاعلي ضمن بيئة Windows الكاملة مع نسخة Windows مدعومة. لن يغيّر Foundry أوضاع المصادقة تلقائيًا.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_حول</value>
@@ -672,7 +672,7 @@
     <value>تهيئة النشر</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>التحقق من متطلبات الصورة</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>إعداد القرص</value>
@@ -1011,7 +1011,7 @@
     <value>تم حل استراتيجية ذاكرة التخزين المؤقت (المحاكاة).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>القرص الهدف المؤكَّد غير متاح أو تغيّر أو غير آمن.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>تم طلب التدريج المرحلي لحزمة برنامج التشغيل للتمهيد الأول بدون أمر مدعوم.</value>
@@ -1203,7 +1203,7 @@
     <value>قسم Windows الهدف غير متوفر لتجهيز مساعد تسجيل Autopilot التفاعلي.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>يتطلب النشر وضع الإقلاع UEFI.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>وضع تثبيت حزمة برنامج التشغيل غير مدعوم.</value>
@@ -1278,7 +1278,7 @@
     <value>Autopilot الملف الشخصي</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>البناء</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>حساب المسؤول المضمن</value>

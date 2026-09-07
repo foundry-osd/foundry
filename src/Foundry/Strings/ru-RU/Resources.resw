@@ -247,7 +247,7 @@
     <value>Веб-канал обновлений</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>Простой веб-источник; фильтрация по каналам выпуска не поддерживается.</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Обновить источник</value>
@@ -301,12 +301,12 @@
     <value>Профили Autopilot не найдены</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>Эти профили не были импортированы как файлы JSON для автономного использования. Поддерживаемые профили с участием пользователя по-прежнему доступны для выбора.
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>Некоторые профили нельзя использовать автономно</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Загрузка профилей Autopilot...</value>
@@ -2175,7 +2175,7 @@
     <value>Конфигурация Wi-Fi требует наличия поддержки Wi-Fi в загрузочном образе.</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>Имя сети Wi-Fi должно занимать от 1 до 32 байтов в кодировке UTF-8.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Для конфигурации Wi-Fi требуется SSID.</value>
@@ -2259,109 +2259,109 @@
     <value>Параметры развертывания Windows</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Не удалось подключиться</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Проверьте настройки прокси-сервера</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Новые подключения из Foundry OSD теперь используют эти настройки.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Настройки прокси-сервера применены</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD удалось подключиться к службам GitHub и Microsoft с выбранными настройками.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Подключение установлено</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Введите имя пользователя и пароль для явной проверки подлинности на прокси-сервере.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Применить</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Использовать текущие учётные данные Windows</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Выберите способ проверки подлинности Foundry OSD на прокси-сервере.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Проверка подлинности</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Имя пользователя и пароль</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Без проверки подлинности</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Необязательные имена узлов или шаблоны с подстановочными знаками, разделённые точкой с запятой.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Список исключений</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Подключаться напрямую к узлам, в именах которых нет точки.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Не использовать прокси для локальных адресов</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Учётные данные безопасно хранятся в диспетчере учётных данных Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Учётные данные прокси-сервера</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Домен (необязательно)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Введите адрес и порт прокси-сервера.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Прокси-сервер</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Выберите способ подключения Foundry OSD к интернету.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Режим прокси-сервера</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Без прокси (прямое подключение)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Ручная настройка прокси</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Использовать настройки Windows (рекомендуется)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Пароль</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>Порт</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Эти настройки действуют только в этом приложении. Они не добавляются на носитель развёртывания и не влияют на Foundry Connect или Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Только Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Проверить подключение</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Имя пользователя</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Настройки</value>
@@ -2373,19 +2373,19 @@
     <value>Общий</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Настройте способ подключения Foundry OSD к онлайн-службам.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>Прокси-сервер</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Отправлять журналы и сведения об исключениях с удалёнными конфиденциальными данными для диагностики сбоев. Секреты и прямые идентификаторы исключены. Отключение немедленно прекращает новые отправки; уже отправленный запрос отозвать нельзя.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Включить удалённую диагностику</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Отправлять анонимные данные об использовании для улучшения Foundry. Секреты, серийные номера и аппаратные хеши исключены. Используется анонимный идентификатор установки; данные могут включать производителя и модель устройства. Отключение немедленно прекращает новые отправки; уже отправленный запрос отозвать нельзя.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Включить телеметрию</value>
@@ -2478,7 +2478,7 @@
     <value>Загрузка аппаратного хеша включена, но подключение клиента отсутствует. Подключитесь к арендатору от Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>Выбранный профиль Autopilot не подходит для автономного развёртывания. Импортируйте поддерживаемый профиль с участием пользователя и полными настройками клиента, присоединения и OOBE.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Режим профиля Autopilot JSON включен, но действительный профиль по умолчанию не выбран.</value>
@@ -2505,7 +2505,7 @@
     <value>Папка пользовательского драйвера не существует.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>Проверка пользовательских драйверов ожидает выполнения или недоступна.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Создание конфигурации развертывания не готово.</value>
@@ -3180,10 +3180,10 @@
     <value>Не проверено</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Foundry-OSD/литейный завод</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>Обновление отменено.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Проверка обновлений</value>
@@ -3198,7 +3198,7 @@
     <value>Проверка обновлений пропущена, поскольку Foundry OSD не запускается из установки Velopack.</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>Не удалось завершить обновление.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Готово</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} доступен</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>Не удалось сохранить время последней проверки обновлений.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Обновить</value>

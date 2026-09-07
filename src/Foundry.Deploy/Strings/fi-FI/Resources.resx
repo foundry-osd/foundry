@@ -76,13 +76,13 @@
     <value>{0} (uusin)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Varmennettu offline-luettelo</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Verkkoluettelo, jonka alkuperä on todennettu</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: noudettu {1} ({2} päivää vanha). Revisio: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Versio</value>
@@ -264,7 +264,7 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Manuaalinen valinta: varmista, että paketti tukee havaittua laitteistoa ja valittua Windows-versiota. Paketin eheys ja julkaisija tarkistetaan edelleen.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,16 +435,16 @@ Jatketaanko käyttöönottoa?</value>
     <value>Vahvista levyn tyhjennys</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry tarkistaa näköistiedoston ennen tyhjennystä, jos erillistä tallennustilaa on käytettävissä. Jos näköistiedosto on ladattava kohdelevylle, etukäteen voidaan tarkistaa vain luettelon metatiedot, lähteen saatavuus ja arvioitu kapasiteetti. Lataus tai näköistiedoston tarkistus voi tällöin epäonnistua vasta levyn tyhjennyksen jälkeen.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Tässä koontiversiossa ei ole kelpuutettua WinPE-ympäristöä laitteistotiivisteiden keräämiseen. Windowsin käyttöönotto jatkuu ilman automaattista varmennepohjaista Autopilot-lähetystä. Jos rekisteröinti on pakollinen, palaa takaisin ja valitse täyden Windows-ympäristön vuorovaikutteinen rekisteröintiavustaja sekä tuettu Windows-versio. Foundry ei vaihda todennustapaa automaattisesti.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_ Noin</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_Debug</value>
+    <value>_Virheenkorjaus</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Kieli</value>
@@ -672,7 +672,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Alusta käyttöönotto</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Tarkista näköistiedoston edellytykset</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Valmistele levy</value>
@@ -1011,7 +1011,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Välimuististrategia ratkaistu (simulointi).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Vahvistettu kohdelevy ei ole käytettävissä, on muuttunut tai ei ole turvallinen.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Ensimmäisen käynnistyksen ohjainpaketin vaiheistusta pyydettiin ilman tuettua komentoa.</value>
@@ -1203,7 +1203,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Windows-kohdeosio ei ole käytettävissä vuorovaikutteisen Autopilot-rekisteröintiavustajan valmisteluun.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Käyttöönotto edellyttää UEFI-käynnistystilaa.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Ohjainpaketin asennustilaa ei tueta.</value>
@@ -1278,7 +1278,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Autopilot Profiili</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Koontiversio</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Sisäinen järjestelmänvalvojan tili</value>

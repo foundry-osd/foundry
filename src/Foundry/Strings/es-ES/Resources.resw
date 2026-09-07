@@ -247,7 +247,7 @@
     <value>Fuente de actualización web</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>Fuente web simple; no se admite el filtrado por canal de publicación.</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Fuente de actualización</value>
@@ -301,12 +301,12 @@
     <value>No se encontraron perfiles Autopilot</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>Estos perfiles no se han importado como JSON sin conexión. Los perfiles compatibles controlados por el usuario siguen disponibles para su selección.
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>Algunos perfiles no se pueden usar sin conexión</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Descargando perfiles Autopilot...</value>
@@ -1590,7 +1590,7 @@
     <value>Uso compartido de puertos TCP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
-    <value>Windows Media Player Legacy</value>
+    <value>Reproductor de Windows Media heredado</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Windows_Identity_Foundation" xml:space="preserve">
     <value>Windows Identity Foundation 3.5</value>
@@ -2175,7 +2175,7 @@
     <value>La configuración Wi-Fi requiere que se proporcione compatibilidad con Wi-Fi en la imagen de inicio.</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>El nombre de la red Wi-Fi debe contener entre 1 y 32 bytes UTF-8.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>La configuración Wi-Fi requiere un SSID.</value>
@@ -2259,109 +2259,109 @@
     <value>Opciones de implementación de Windows</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Error de conexión</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Comprueba la configuración del proxy</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Las nuevas conexiones de Foundry OSD ya utilizan esta configuración.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Configuración del proxy aplicada</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD se ha conectado a los servicios de GitHub y Microsoft con la configuración seleccionada.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Conexión establecida</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Introduce un nombre de usuario y una contraseña para la autenticación explícita del proxy.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Aplicar</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Usar las credenciales actuales de Windows</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Elige cómo autentica el proxy a Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autenticación</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Nombre de usuario y contraseña</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Sin autenticación</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Nombres de host o patrones con comodines opcionales, separados por punto y coma.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Lista de excepciones</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Conectar directamente a los nombres de host que no contengan un punto.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Omitir el proxy para las direcciones locales</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Las credenciales se almacenan de forma segura en el Administrador de credenciales de Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Credenciales del proxy</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Dominio (opcional)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Introduce la dirección y el puerto del proxy.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Servidor proxy</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Elige cómo se conecta Foundry OSD a Internet.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Modo de proxy</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Sin proxy (conexión directa)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Proxy manual</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Usar la configuración de Windows (recomendado)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Contraseña</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>Puerto</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Esta configuración solo se aplica a esta aplicación. No se añade a los medios de implementación ni afecta a Foundry Connect o Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Solo Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Probar conexión</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Nombre de usuario</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Ajustes</value>
@@ -2373,19 +2373,19 @@
     <value>General</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Configura cómo se conecta Foundry OSD a los servicios en línea.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Envía registros depurados y detalles de las excepciones para ayudar a diagnosticar fallos. Se excluyen los secretos y los identificadores directos. Al desactivar esta opción, los nuevos envíos se detienen inmediatamente; una solicitud ya enviada no se puede retirar.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Activar diagnósticos remotos</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Envía telemetría de uso anónima para mejorar Foundry. Se excluyen los secretos, los números de serie y los hashes de hardware. Se utiliza un identificador de instalación anónimo y se pueden incluir el fabricante y el modelo del dispositivo. Al desactivar esta opción, los nuevos envíos se detienen inmediatamente; una solicitud ya enviada no se puede retirar.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Habilitar telemetría</value>
@@ -2478,7 +2478,7 @@
     <value>La carga de hash de hardware está habilitada pero falta la conexión del inquilino. Conéctese con el inquilino desde Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>El perfil de Autopilot seleccionado no es válido para la implementación sin conexión. Importa un perfil compatible controlado por el usuario con la configuración completa del inquilino, la unión y OOBE.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON el modo de perfil está habilitado pero no se selecciona ningún perfil predeterminado válido.</value>
@@ -2505,7 +2505,7 @@
     <value>La carpeta del controlador personalizado no existe.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>La comprobación de los controladores personalizados está pendiente o no está disponible.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>La generación de configuración de implementación no está lista.</value>
@@ -3180,10 +3180,10 @@
     <value>No comprobado</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>fundición-osd/fundición</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>Operación de actualización cancelada.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Buscando actualizaciones</value>
@@ -3198,7 +3198,7 @@
     <value>Se omitió la verificación de actualización porque Foundry OSD no se está ejecutando desde una instalación de Velopack.</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>No se ha podido completar la operación de actualización.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Listo</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} está disponible</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>No se ha podido guardar la fecha y hora de la última búsqueda de actualizaciones.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Actualizar</value>

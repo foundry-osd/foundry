@@ -31,7 +31,7 @@
     <value>Continuar</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>Explorar conteúdo offline</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Desconectar</value>
@@ -125,7 +125,7 @@
     <value>Verifique a conexão do cabo</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP ativado</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Portal</value>
@@ -140,13 +140,13 @@
     <value>Nenhum adaptador Ethernet detectado.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>Configuração estática</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>A aguardar um endereço de rede utilizável</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Aguardando configuração de rede</value>
@@ -287,28 +287,28 @@
     <value>Ferramentas</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>Falha na resolução de nomes de rede</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>Nenhuma ligação de rede ativa</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>Nenhum endereço de rede utilizável</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>Acesso à Internet verificado</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>É necessária a autenticação no proxy</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>O tempo limite da verificação de acesso à Internet foi excedido</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>Não foi possível verificar o acesso à Internet</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>Resposta de rede inesperada. Pode existir uma página de autenticação ou uma interceção.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Continuando automaticamente em {0}s</value>

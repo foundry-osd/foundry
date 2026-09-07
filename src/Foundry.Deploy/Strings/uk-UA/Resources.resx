@@ -55,7 +55,7 @@
     <value>Архітектура: {0}</value>
   </data>
   <data name="Catalog.EditionTarget" xml:space="preserve">
-    <value>Edition (Target)</value>
+    <value>Редакція (цільова)</value>
   </data>
   <data name="Catalog.Language" xml:space="preserve">
     <value>Мова</value>
@@ -76,13 +76,13 @@
     <value>{0} (Найновіше)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Перевірений автономний каталог</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Мережевий каталог із підтвердженою автентичністю</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: отримано {1} (давність: {2} дн.). Редакція: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Версія</value>
@@ -264,7 +264,7 @@ ErrorCode=0x80070005
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Ручний вибір: перевірте, чи підтримує цей пакет виявлене обладнання та вибраний випуск Windows. Перевірки цілісності пакета й видавця й надалі виконуються.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,16 +435,16 @@ ErrorCode=0x80070005
     <value>Підтвердити стирання диска</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry перевіряє образ до очищення диска, якщо доступне незалежне сховище. Якщо образ потрібно завантажити на цільовий диск, заздалегідь можна перевірити лише метадані каталогу, доступність джерела й орієнтовну місткість. Тоді помилка завантаження або перевірки образу може статися вже після очищення диска.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Ця збірка не має перевіреного середовища WinPE для отримання апаратного хешу. Розгортання Windows триватиме без автоматичного надсилання до Autopilot з автентифікацією сертифікатом. Якщо реєстрація обов’язкова, поверніться й виберіть інтерактивний помічник реєстрації в повній системі Windows із підтримуваною редакцією. Foundry не змінюватиме спосіб автентифікації автоматично.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Про</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_Debug</value>
+    <value>_Налагодження</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Мова</value>
@@ -672,7 +672,7 @@ ErrorCode=0x80070005
     <value>Ініціалізація розгортання</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Перевірити попередні вимоги до образу</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Підготовка диска</value>
@@ -1011,7 +1011,7 @@ ErrorCode=0x80070005
     <value>Вирішено стратегію кешу (симуляція).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Підтверджений цільовий диск недоступний, змінився або небезпечний.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Надійшов запит на проміжне встановлення пакета драйверів першого завантаження без підтримуваної команди.</value>
@@ -1203,7 +1203,7 @@ ErrorCode=0x80070005
     <value>Цільовий розділ Windows недоступний для підготовки інтерактивного помічника реєстрації Autopilot.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Розгортання потребує завантаження в режимі UEFI.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Непідтримуваний режим встановлення пакета драйверів.</value>

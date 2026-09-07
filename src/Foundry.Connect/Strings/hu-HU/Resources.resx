@@ -31,7 +31,7 @@
     <value>Folytatás</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>Offline tartalom böngészése</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Leválasztás</value>
@@ -125,7 +125,7 @@
     <value>Ellenőrizze a kábelcsatlakozást</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP engedélyezve</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Átjáró</value>
@@ -140,13 +140,13 @@
     <value>Nem észlelhető Ethernet adapter.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>Statikus konfiguráció</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>Várakozás használható hálózati címre</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Várakozás a hálózati konfigurációra</value>
@@ -287,28 +287,28 @@
     <value>Eszközök</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>A hálózati névfeloldás sikertelen</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>Nincs aktív hálózati kapcsolat</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>Nincs használható hálózati cím</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>Az internetelérés ellenőrizve</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>Proxyhitelesítés szükséges</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>Az internetellenőrzés túllépte az időkorlátot</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>Az internetelérést nem sikerült ellenőrizni</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>Váratlan hálózati válasz. Bejelentkezési oldalra lehet szükség, vagy a kapcsolatot elfoghatják.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Automatikus folytatás {0}s</value>

@@ -31,7 +31,7 @@
     <value>Ga door</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>Offline-inhoud bekijken</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Verbreek de verbinding</value>
@@ -125,7 +125,7 @@
     <value>Controleer de kabelaansluiting</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP ingeschakeld</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Poort</value>
@@ -140,13 +140,13 @@
     <value>Geen Ethernet-adapter gedetecteerd.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>Statische configuratie</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>Wachten op een bruikbaar netwerkadres</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Wachten op netwerkconfiguratie</value>
@@ -287,28 +287,28 @@
     <value>Gereedschap</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>Naamomzetting op het netwerk mislukt</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>Geen actieve netwerkverbinding</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>Geen bruikbaar netwerkadres</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>Internettoegang geverifieerd</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>Proxyverificatie is vereist</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>Time-out bij de internetcontrole</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>Internettoegang kon niet worden geverifieerd</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>Onverwachte netwerkreactie. Mogelijk is er een aanmeldpagina of wordt het verkeer onderschept.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Automatisch doorgaan in {0}s</value>

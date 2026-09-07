@@ -31,7 +31,7 @@
     <value>המשך</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>עיון בתוכן לא מקוון</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>התנתק</value>
@@ -125,7 +125,7 @@
     <value>בדוק את חיבור הכבל</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP מופעל</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>שער</value>
@@ -140,13 +140,13 @@
     <value>לא זוהה מתאם Ethernet.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>תצורה סטטית</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>ממתין לכתובת רשת שמישה</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>ממתין לתצורת הרשת</value>
@@ -287,28 +287,28 @@
     <value>כלים</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>פענוח שמות הרשת נכשל</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>אין חיבור רשת פעיל</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>אין כתובת רשת שמישה</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>הגישה לאינטרנט אומתה</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>נדרש אימות מול שרת ה-Proxy</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>תם הזמן הקצוב לבדיקת האינטרנט</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>לא ניתן היה לאמת את הגישה לאינטרנט</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>תגובה בלתי צפויה מהרשת. ייתכן שיש דף כניסה או יירוט של התקשורת.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>ממשיך אוטומטית ב-{0}s</value>
@@ -413,7 +413,7 @@
     <value>רענן Wi-Fi רשתות</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
-    <value>Enterprise</value>
+    <value>ארגוני</value>
   </data>
   <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
     <value>{0} (מכונה)</value>

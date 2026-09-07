@@ -31,7 +31,7 @@
     <value>Tęsti</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>Naršyti neprisijungus pasiekiamą turinį</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Atsijungti</value>
@@ -125,7 +125,7 @@
     <value>Patikrinkite kabelio jungtį</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP įjungtas</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Vartai</value>
@@ -140,13 +140,13 @@
     <value>Neaptiktas Ethernet adapteris.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>Statinė konfigūracija</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>Laukiama tinkamo tinklo adreso</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Laukiama tinklo konfigūracijos</value>
@@ -287,28 +287,28 @@
     <value>Įrankiai</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>Nepavyko nustatyti tinklo vardo adreso</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>Nėra aktyvaus tinklo ryšio</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>Nėra tinkamo tinklo adreso</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>Interneto prieiga patvirtinta</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>Reikalingas tarpinio serverio autentifikavimas</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>Baigėsi interneto patikros laikas</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>Nepavyko patvirtinti interneto prieigos</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>Netikėtas tinklo atsakymas. Gali būti rodomas prisijungimo puslapis arba perimamas duomenų srautas.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Tęsiama automatiškai {0}s</value>

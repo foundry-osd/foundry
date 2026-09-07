@@ -247,7 +247,7 @@
     <value>Ροή ενημέρωσης ιστού</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>Απλή ροή web· δεν υποστηρίζεται φιλτράρισμα ανά κανάλι εκδόσεων.</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Πηγή ενημέρωσης</value>
@@ -301,12 +301,12 @@
     <value>Δεν βρέθηκαν προφίλ Autopilot</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>Αυτά τα προφίλ δεν εισήχθησαν ως JSON για χρήση εκτός σύνδεσης. Τα υποστηριζόμενα προφίλ με καθοδήγηση από τον χρήστη παραμένουν διαθέσιμα για επιλογή.
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>Ορισμένα προφίλ δεν μπορούν να χρησιμοποιηθούν εκτός σύνδεσης</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Λήψη προφίλ Autopilot...</value>
@@ -1140,7 +1140,7 @@
     <value>Συμβατότητα</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.Containers" xml:space="preserve">
-    <value>Containers</value>
+    <value>Κοντέινερ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Category.DeviceLockdown" xml:space="preserve">
     <value>Κλείδωμα συσκευής</value>
@@ -1230,7 +1230,7 @@
     <value>Ενοποιημένο φίλτρο εγγραφής</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers" xml:space="preserve">
-    <value>Containers</value>
+    <value>Κοντέινερ</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Containers_DisposableClientVM" xml:space="preserve">
     <value>Windows Sandbox</value>
@@ -1257,7 +1257,7 @@
     <value>Προσαρμογέας δικτύου Microsoft Kernel Debug Network</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HypervisorPlatform" xml:space="preserve">
-    <value>Windows Hypervisor Platform</value>
+    <value>Πλατφόρμα υπερεπόπτη Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASP" xml:space="preserve">
     <value>ASP</value>
@@ -1311,10 +1311,10 @@
     <value>Υπηρεσία FTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HealthAndDiagnostics" xml:space="preserve">
-    <value>Health and Diagnostics</value>
+    <value>Εύρυθμη λειτουργία και διαγνωστικά</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
-    <value>IIS Hostable Web Core</value>
+    <value>Φιλοξενούμενος πυρήνας web IIS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
     <value>Δυναμική συμπίεση περιεχομένου</value>
@@ -1332,7 +1332,7 @@
     <value>Ανακατεύθυνση HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpTracing" xml:space="preserve">
-    <value>Tracing</value>
+    <value>Ανίχνευση</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_IIS6ManagementCompatibility" xml:space="preserve">
     <value>Συμβατότητα διαχείρισης IIS 6</value>
@@ -1350,7 +1350,7 @@
     <value>Φίλτρα ISAPI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacyScripts" xml:space="preserve">
-    <value>IIS 6 Scripting Tools</value>
+    <value>Εργαλεία δεσμών ενεργειών IIS 6</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacySnapIn" xml:space="preserve">
     <value>Κονσόλα διαχείρισης IIS 6</value>
@@ -1386,13 +1386,13 @@
     <value>Φιλτράρισμα αιτημάτων</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_RequestMonitor" xml:space="preserve">
-    <value>Request Monitor</value>
+    <value>Παρακολούθηση αιτημάτων</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Security" xml:space="preserve">
     <value>Λειτουργίες ασφαλείας</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
-    <value>Server-Side Includes</value>
+    <value>Συμπεριλήψεις από την πλευρά του διακομιστή</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
     <value>Στατικό περιεχόμενο</value>
@@ -1404,7 +1404,7 @@
     <value>Συμβατότητα IIS 6 WMI</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebDAV" xml:space="preserve">
-    <value>WebDAV Publishing</value>
+    <value>Δημοσίευση WebDAV</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
     <value>Υπηρεσίες World Wide Web</value>
@@ -1431,7 +1431,7 @@
     <value>Διακομιστής ουράς μηνυμάτων της Microsoft (MSMQ).</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_DCOMProxy" xml:space="preserve">
-    <value>MSMQ DCOM Proxy</value>
+    <value>Διακομιστής μεσολάβησης MSMQ DCOM</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_HTTP" xml:space="preserve">
     <value>Υποστήριξη HTTP</value>
@@ -1452,13 +1452,13 @@
     <value>Λειτουργίες πολυμέσων</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V" xml:space="preserve">
-    <value>Hyper-V Platform</value>
+    <value>Πλατφόρμα Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_All" xml:space="preserve">
     <value>Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Hypervisor" xml:space="preserve">
-    <value>Hyper-V Hypervisor</value>
+    <value>Υπερεπόπτης Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_Clients" xml:space="preserve">
     <value>Εργαλεία διαχείρισης GUI Hyper-V</value>
@@ -1476,7 +1476,7 @@
     <value>Υποσύστημα Windows για Linux</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector" xml:space="preserve">
-    <value>MultiPoint Connector</value>
+    <value>Σύνδεσμος MultiPoint</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector_Services" xml:space="preserve">
     <value>Υπηρεσίες MultiPoint Connector</value>
@@ -1494,19 +1494,19 @@
     <value>ASP.NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
-    <value>.NET Framework 4.8 Advanced Services</value>
+    <value>Σύνθετες υπηρεσίες .NET Framework 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
     <value>Υπηρεσίες εκτύπωσης και εγγράφων</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
-    <value>Internet Printing Client</value>
+    <value>Πρόγραμμα-πελάτης εκτύπωσης μέσω Internet</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
     <value>Υπηρεσία εκτύπωσης LPD</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
-    <value>LPR Port Monitor</value>
+    <value>Παρακολούθηση θύρας LPR</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
     <value>Εκτύπωση Microsoft σε PDF</value>
@@ -1521,10 +1521,10 @@
     <value>Υποστήριξη κοινής χρήσης αρχείων SMB 1.0/CIFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Client" xml:space="preserve">
-    <value>SMB 1.0/CIFS Client</value>
+    <value>Πρόγραμμα-πελάτης SMB 1.0/CIFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Deprecation" xml:space="preserve">
-    <value>SMB 1.0/CIFS Automatic Removal</value>
+    <value>Αυτόματη κατάργηση SMB 1.0/CIFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Server" xml:space="preserve">
     <value>Διακομιστής SMB 1.0/CIFS</value>
@@ -1539,16 +1539,16 @@
     <value>SMB Direct</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Sysmon" xml:space="preserve">
-    <value>System Monitor</value>
+    <value>Παρακολούθηση συστήματος</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TFTP" xml:space="preserve">
-    <value>TFTP Client</value>
+    <value>Πρόγραμμα-πελάτης TFTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TIFFIFilter" xml:space="preserve">
     <value>Windows TIFF IFilter</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.TelnetClient" xml:space="preserve">
-    <value>Telnet Client</value>
+    <value>Πρόγραμμα-πελάτης Telnet</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.VirtualMachinePlatform" xml:space="preserve">
     <value>Πλατφόρμα εικονικής μηχανής</value>
@@ -1557,7 +1557,7 @@
     <value>API διαμόρφωσης</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_NetFxEnvironment" xml:space="preserve">
-    <value>.NET Environment</value>
+    <value>Περιβάλλον .NET</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ProcessModel" xml:space="preserve">
     <value>Μοντέλο διεργασίας</value>
@@ -1575,7 +1575,7 @@
     <value>Ενεργοποίηση ουράς μηνυμάτων (MSMQ).</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_NonHTTP_Activation" xml:space="preserve">
-    <value>Windows Communication Foundation Non-HTTP Activation</value>
+    <value>Ενεργοποίηση εκτός HTTP του Windows Communication Foundation</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
     <value>Ενεργοποίηση Named Pipe</value>
@@ -1590,13 +1590,13 @@
     <value>Κοινή χρήση θύρας TCP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
-    <value>Windows Media Player Legacy</value>
+    <value>Παλαιού τύπου Windows Media Player</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Windows_Identity_Foundation" xml:space="preserve">
     <value>Windows Identity Foundation 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
-    <value>Work Folders Client</value>
+    <value>Πρόγραμμα-πελάτης φακέλων εργασίας</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
     <value>Απενεργοποίηση</value>
@@ -2175,7 +2175,7 @@
     <value>Η διαμόρφωση Wi-Fi απαιτεί υποστήριξη Wi-Fi να παρέχεται στην εικόνα εκκίνησης.</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>Το όνομα Wi-Fi πρέπει να έχει μήκος 1–32 byte σε UTF-8.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Η διαμόρφωση Wi-Fi απαιτεί ένα SSID.</value>
@@ -2259,109 +2259,109 @@
     <value>Επιλογές ανάπτυξης Windows</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Η σύνδεση απέτυχε</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Ελέγξτε τις ρυθμίσεις διακομιστή μεσολάβησης</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Οι νέες συνδέσεις του Foundry OSD χρησιμοποιούν πλέον αυτές τις ρυθμίσεις.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Εφαρμόστηκαν οι ρυθμίσεις διακομιστή μεσολάβησης</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Το Foundry OSD συνδέθηκε στις υπηρεσίες GitHub και Microsoft με τις επιλεγμένες ρυθμίσεις.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Η σύνδεση ήταν επιτυχής</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Εισαγάγετε όνομα χρήστη και κωδικό πρόσβασης για ρητό έλεγχο ταυτότητας στον διακομιστή μεσολάβησης.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Εφαρμογή</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Χρήση τρεχόντων διαπιστευτηρίων Windows</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Επιλέξτε πώς ο διακομιστής μεσολάβησης ελέγχει την ταυτότητα του Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Έλεγχος ταυτότητας</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Όνομα χρήστη και κωδικός πρόσβασης</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Χωρίς έλεγχο ταυτότητας</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Προαιρετικά ονόματα υπολογιστών ή μοτίβα με χαρακτήρες μπαλαντέρ, χωρισμένα με ελληνικό ερωτηματικό (;).</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Λίστα παράκαμψης</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Απευθείας σύνδεση σε ονόματα υπολογιστών που δεν περιέχουν τελεία.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Παράκαμψη τοπικών διευθύνσεων</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Τα διαπιστευτήρια αποθηκεύονται με ασφάλεια στη Διαχείριση διαπιστευτηρίων των Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Διαπιστευτήρια διακομιστή μεσολάβησης</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Τομέας (προαιρετικό)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Εισαγάγετε τη διεύθυνση και τη θύρα του διακομιστή μεσολάβησης.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Διακομιστής μεσολάβησης</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Επιλέξτε πώς συνδέεται το Foundry OSD στο διαδίκτυο.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Μέθοδος διακομιστή μεσολάβησης</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Χωρίς διακομιστή μεσολάβησης (απευθείας σύνδεση)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Μη αυτόματος διακομιστής μεσολάβησης</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Χρήση ρυθμίσεων Windows (συνιστάται)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Κωδικός πρόσβασης</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>Θύρα</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Αυτές οι ρυθμίσεις ισχύουν μόνο για αυτή την εφαρμογή. Δεν προστίθενται στα μέσα ανάπτυξης και δεν επηρεάζουν το Foundry Connect ή το Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Μόνο για το Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Δοκιμή σύνδεσης</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Όνομα χρήστη</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Ρυθμίσεις</value>
@@ -2373,19 +2373,19 @@
     <value>Στρατηγός</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Ρυθμίστε πώς το Foundry OSD συνδέεται σε διαδικτυακές υπηρεσίες.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>Διακομιστής μεσολάβησης</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Αποστολή αρχείων καταγραφής και λεπτομερειών εξαιρέσεων με αφαιρεμένα ευαίσθητα στοιχεία, για τη διάγνωση αποτυχιών. Εξαιρούνται τα μυστικά και τα άμεσα αναγνωριστικά. Η απενεργοποίηση σταματά αμέσως τις νέες αποστολές· ένα αίτημα που έχει ήδη σταλεί δεν μπορεί να ανακληθεί.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Ενεργοποίηση απομακρυσμένων διαγνωστικών</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Αποστολή ανώνυμων δεδομένων χρήσης για τη βελτίωση του Foundry. Εξαιρούνται τα μυστικά, οι σειριακοί αριθμοί και οι κατακερματισμοί υλικού. Χρησιμοποιείται ανώνυμο αναγνωριστικό εγκατάστασης και ενδέχεται να περιλαμβάνονται ο κατασκευαστής και το μοντέλο της συσκευής. Η απενεργοποίηση σταματά αμέσως τις νέες αποστολές· ένα αίτημα που έχει ήδη σταλεί δεν μπορεί να ανακληθεί.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Ενεργοποίηση τηλεμετρίας</value>
@@ -2478,7 +2478,7 @@
     <value>Η μεταφόρτωση κατακερματισμού υλικού είναι ενεργοποιημένη, αλλά η σύνδεση μισθωτή λείπει. Συνδεθείτε με τον ενοικιαστή από Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>Το επιλεγμένο προφίλ Autopilot δεν είναι έγκυρο για ανάπτυξη εκτός σύνδεσης. Εισαγάγετε ένα υποστηριζόμενο προφίλ με καθοδήγηση από τον χρήστη και πλήρεις ρυθμίσεις μισθωτή, συμμετοχής και OOBE.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Η λειτουργία προφίλ Autopilot JSON είναι ενεργοποιημένη αλλά δεν έχει επιλεγεί έγκυρο προεπιλεγμένο προφίλ.</value>
@@ -2505,7 +2505,7 @@
     <value>Ο προσαρμοσμένος φάκελος προγράμματος οδήγησης δεν υπάρχει.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>Ο έλεγχος προσαρμοσμένων προγραμμάτων οδήγησης εκκρεμεί ή δεν είναι διαθέσιμος.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Η δημιουργία διαμόρφωσης ανάπτυξης δεν είναι έτοιμη.</value>
@@ -3180,10 +3180,10 @@
     <value>Δεν έχει ελεγχθεί</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>χυτήριο-osd/χυτήριο</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>Η ενημέρωση ακυρώθηκε.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Έλεγχος για ενημερώσεις</value>
@@ -3198,7 +3198,7 @@
     <value>Ο έλεγχος ενημέρωσης παραβλέφθηκε επειδή το Foundry OSD δεν εκτελείται από εγκατάσταση Velopack.</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>Δεν ήταν δυνατή η ολοκλήρωση της ενημέρωσης.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Έτοιμοι</value>
@@ -3231,7 +3231,7 @@
     <value>Το Foundry OSD {0} είναι διαθέσιμο</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>Δεν ήταν δυνατή η αποθήκευση της ώρας του τελευταίου ελέγχου ενημερώσεων.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Ενημέρωση</value>

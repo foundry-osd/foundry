@@ -76,13 +76,13 @@
     <value>{0} (Najnoviji)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Provjeren izvanmrežni katalog</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Mrežni katalog s potvrđenom autentičnošću</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: preuzeto {1} (starost: {2} dana). Revizija: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Verzija</value>
@@ -264,7 +264,7 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Ručni odabir: provjerite podržava li ovaj paket otkriveni hardver i odabrano izdanje sustava Windows. Provjere integriteta paketa i izdavača i dalje se primjenjuju.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,16 +435,16 @@ Nastaviti s implementacijom?</value>
     <value>Potvrdite brisanje diska</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry provjerava sliku prije brisanja kad god je dostupna neovisna pohrana. Ako se slika mora preuzeti na ciljni disk, unaprijed se mogu provjeriti samo metapodaci kataloga, dostupnost izvora i procijenjeni kapacitet. Pogreška preuzimanja ili provjere slike tada se može pojaviti nakon brisanja diska.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Ova međuverzija nema provjereno okruženje WinPE za dohvat hardverskog sažetka. Implementacija sustava Windows nastavit će se bez automatskog prijenosa u Autopilot uz provjeru autentičnosti certifikatom. Ako je registracija obvezna, vratite se i odaberite interaktivni pomoćnik za registraciju u punom sustavu Windows s podržanim izdanjem. Foundry neće automatski promijeniti način provjere autentičnosti.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Oko</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_Debug</value>
+    <value>_Otklanjanje pogrešaka</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Jezik</value>
@@ -672,7 +672,7 @@ Nastaviti s implementacijom?</value>
     <value>Inicijaliziraj implementaciju</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Provjerite preduvjete slike</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Pripremi disk</value>
@@ -1011,7 +1011,7 @@ Nastaviti s implementacijom?</value>
     <value>Strategija predmemorije riješena (simulacija).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Potvrđeni ciljni disk nije dostupan, promijenjen je ili nije siguran.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Zatraženo je postavljanje paketa upravljačkih programa za prvo pokretanje bez podržane naredbe.</value>
@@ -1203,7 +1203,7 @@ Nastaviti s implementacijom?</value>
     <value>Ciljna Windows particija nije dostupna za pripremu interaktivnog pomoćnika za registraciju Autopilota.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Implementacija zahtijeva pokretanje u načinu UEFI.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Nepodržani način instalacije paketa upravljačkih programa.</value>
@@ -1278,7 +1278,7 @@ Nastaviti s implementacijom?</value>
     <value>Autopilot Profil</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Međuverzija</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Ugrađeni administratorski račun</value>

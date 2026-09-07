@@ -247,7 +247,7 @@
     <value>تغذية تحديث الويب</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>موجز ويب بسيط؛ التصفية حسب قناة الإصدار غير مدعومة.</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>تحديث المصدر</value>
@@ -301,12 +301,12 @@
     <value>لم يتم العثور على ملفات تعريف Autopilot</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>لم تُستورد ملفات التعريف هذه بصيغة JSON للاستخدام دون اتصال. تظل ملفات التعريف المدعومة التي يقود المستخدم إعدادها متاحة للاختيار.
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>لا يمكن استخدام بعض ملفات التعريف دون اتصال</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>جارٍ تنزيل الملفات الشخصية Autopilot...</value>
@@ -1251,13 +1251,13 @@
     <value>دعم Host Guardian Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
-    <value>Microsoft Hyper-V Guest Integration Services</value>
+    <value>خدمات تكامل الأجهزة الضيفة في Microsoft Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_KernelInt_VirtualDevice" xml:space="preserve">
     <value>محول شبكة Microsoft Kernel Debug</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HypervisorPlatform" xml:space="preserve">
-    <value>Windows Hypervisor Platform</value>
+    <value>منصة مراقب الأجهزة الافتراضية في Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASP" xml:space="preserve">
     <value>ASP</value>
@@ -1314,7 +1314,7 @@
     <value>الصحة والتشخيص</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
-    <value>IIS Hostable Web Core</value>
+    <value>نواة الويب القابلة للاستضافة في IIS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
     <value>ضغط المحتوى الديناميكي</value>
@@ -1371,10 +1371,10 @@
     <value>توافق قاعدة تعريف IIS وتكوين IIS 6</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
-    <value>.NET Extensibility 3.5</value>
+    <value>قابلية توسعة .NET 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility45" xml:space="preserve">
-    <value>.NET Extensibility 4.8</value>
+    <value>قابلية توسعة .NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
     <value>تسجيل ODBC</value>
@@ -1392,7 +1392,7 @@
     <value>ميزات الأمان</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
-    <value>Server-Side Includes</value>
+    <value>التضمينات من جانب الخادم</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
     <value>المحتوى الثابت</value>
@@ -1440,7 +1440,7 @@
     <value>دعم البث المتعدد</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Server" xml:space="preserve">
-    <value>Microsoft Message Queue (MSMQ) Server Core</value>
+    <value>نواة خادم Microsoft Message Queue (MSMQ)</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
     <value>مشغلات خدمة وضع الرسائل في قائمة انتظار</value>
@@ -1458,7 +1458,7 @@
     <value>Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Hypervisor" xml:space="preserve">
-    <value>Hyper-V Hypervisor</value>
+    <value>مراقب الأجهزة الافتراضية Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_Clients" xml:space="preserve">
     <value>أدوات إدارة واجهة المستخدم الرسومية Hyper-V</value>
@@ -1476,7 +1476,7 @@
     <value>نظام Windows الفرعي لنظام التشغيل Linux</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector" xml:space="preserve">
-    <value>MultiPoint Connector</value>
+    <value>موصل MultiPoint</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector_Services" xml:space="preserve">
     <value>خدمات MultiPoint Connector</value>
@@ -1521,13 +1521,13 @@
     <value>دعم مشاركة الملفات SMB 1.0/CIFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Client" xml:space="preserve">
-    <value>SMB 1.0/CIFS Client</value>
+    <value>عميل SMB 1.0/CIFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Deprecation" xml:space="preserve">
     <value>الإزالة التلقائية لـ SMB 1.0/CIFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.SMB1Protocol_Server" xml:space="preserve">
-    <value>SMB 1.0/CIFS Server</value>
+    <value>خادم SMB 1.0/CIFS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.ServicesForNFS_ClientOnly" xml:space="preserve">
     <value>خدمات NFS</value>
@@ -1551,7 +1551,7 @@
     <value>عميل Telnet</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.VirtualMachinePlatform" xml:space="preserve">
-    <value>Virtual Machine Platform</value>
+    <value>منصة الأجهزة الافتراضية</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_ConfigurationAPI" xml:space="preserve">
     <value>واجهات برمجة التطبيقات للتكوين</value>
@@ -1566,7 +1566,7 @@
     <value>خدمة تنشيط العمليات في Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation" xml:space="preserve">
-    <value>Windows Communication Foundation HTTP Activation</value>
+    <value>تنشيط HTTP في Windows Communication Foundation</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation45" xml:space="preserve">
     <value>تنشيط HTTP</value>
@@ -1578,7 +1578,7 @@
     <value>تنشيط Windows Communication Foundation Non-HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
-    <value>Named Pipe Activation</value>
+    <value>تنشيط توجيهات الإخراج المسماة</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
     <value>خدمات WCF</value>
@@ -1590,7 +1590,7 @@
     <value>مشاركة منفذ TCP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
-    <value>Windows Media Player Legacy</value>
+    <value>Windows Media Player القديم</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Windows_Identity_Foundation" xml:space="preserve">
     <value>Windows Identity Foundation 3.5</value>
@@ -2175,7 +2175,7 @@
     <value>يتطلب تكوين Wi-Fi توفير دعم Wi-Fi في صورة التمهيد.</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>يجب أن يتراوح طول اسم Wi-Fi بين 1 و32 بايت بترميز UTF-8.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>يتطلب تكوين Wi-Fi SSID.</value>
@@ -2259,109 +2259,109 @@
     <value>خيارات نشر Windows</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>فشل الاتصال</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>تحقّق من إعدادات الوكيل</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>تستخدم اتصالات Foundry OSD الجديدة هذه الإعدادات الآن.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>تم تطبيق إعدادات الوكيل</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>اتصل Foundry OSD بخدمات GitHub وMicrosoft باستخدام الإعدادات المحددة.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>تم الاتصال بنجاح</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>أدخل اسم مستخدم وكلمة مرور للمصادقة الصريحة مع الوكيل.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>تطبيق</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>استخدام بيانات اعتماد Windows الحالية</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>اختر كيفية مصادقة الوكيل على اتصالات Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>المصادقة</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>اسم المستخدم وكلمة المرور</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>دون مصادقة</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>أسماء مضيفين أو أنماط أحرف بدل اختيارية، تفصل بينها فواصل منقوطة.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>قائمة التجاوز</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>الاتصال مباشرةً بأسماء المضيفين التي لا تحتوي على نقطة.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>تجاوز الوكيل للعناوين المحلية</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>تُخزّن بيانات الاعتماد بأمان في مدير بيانات اعتماد Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>بيانات اعتماد الوكيل</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>المجال (اختياري)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>أدخل عنوان الوكيل والمنفذ.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>خادم الوكيل</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>اختر كيفية اتصال Foundry OSD بالإنترنت.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>طريقة الاتصال بالوكيل</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>دون وكيل (اتصال مباشر)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>وكيل يدوي</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>استخدام إعدادات Windows (مستحسن)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>كلمة المرور</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>المنفذ</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>تنطبق هذه الإعدادات على هذا التطبيق فقط. ولا تُضاف إلى وسائط النشر ولا تؤثر في Foundry Connect أو Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Foundry OSD فقط</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>اختبار الاتصال</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>اسم المستخدم</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>الإعدادات</value>
@@ -2373,19 +2373,19 @@
     <value>عام</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>اضبط كيفية اتصال Foundry OSD بالخدمات عبر الإنترنت.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>الوكيل</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>إرسال سجلات وتفاصيل استثناءات منقّحة للمساعدة في تشخيص الأعطال. تُستبعد الأسرار والمعرّفات المباشرة. يؤدي تعطيل هذا الخيار إلى إيقاف عمليات الإرسال الجديدة فورًا؛ ولا يمكن استرجاع طلب سبق إرساله.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>تمكين التشخيص عن بُعد</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>إرسال بيانات استخدام مجهولة الهوية للمساعدة في تحسين Foundry. تُستبعد الأسرار والأرقام التسلسلية وبصمات تجزئة الأجهزة. يُستخدم معرّف تثبيت مجهول الهوية، وقد تتضمن البيانات الشركة المصنّعة للجهاز وطرازه. يؤدي تعطيل هذا الخيار إلى إيقاف عمليات الإرسال الجديدة فورًا؛ ولا يمكن استرجاع طلب سبق إرساله.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>تمكين القياس عن بعد</value>
@@ -2478,7 +2478,7 @@
     <value>تم تمكين تحميل تجزئة الأجهزة ولكن اتصال المستأجر مفقود. اتصل بالمستأجر من Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>ملف تعريف Autopilot المحدد غير صالح للنشر دون اتصال. استورد ملف تعريف مدعومًا يقود المستخدم إعداده ويتضمن إعدادات المستأجر والانضمام وOOBE كاملة.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON تم تمكين وضع ملف التعريف ولكن لم يتم تحديد ملف تعريف افتراضي صالح.</value>
@@ -2505,7 +2505,7 @@
     <value>مجلد برنامج التشغيل المخصص غير موجود.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>فحص برامج التشغيل المخصصة قيد الانتظار أو غير متاح.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>نشر إنشاء التكوين غير جاهز.</value>
@@ -3180,10 +3180,10 @@
     <value>لم يتم التحقق منها</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>مسبك-OSD/مسبك</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>أُلغيت عملية التحديث.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>التحقق من وجود تحديثات</value>
@@ -3198,7 +3198,7 @@
     <value>تم تخطي التحقق من التحديث لأن Foundry OSD لا يعمل من تثبيت Velopack.</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>تعذّر إكمال عملية التحديث.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>جاهز</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} متاح</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>تعذّر حفظ وقت آخر تحقق من التحديثات.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>تحديث</value>

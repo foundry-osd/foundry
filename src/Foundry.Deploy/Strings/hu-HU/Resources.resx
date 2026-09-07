@@ -76,13 +76,13 @@
     <value>{0} (Legfrissebb)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Ellenőrzött offline katalógus</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Hitelesített online katalógus</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: lekérve: {1} ({2} napos). Revízió: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Verzió</value>
@@ -121,7 +121,7 @@
     <value>Egyik sem</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
-    <value>N/A</value>
+    <value>Nem érhető el</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
     <value>Előző</value>
@@ -264,7 +264,7 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Kézi kiválasztás: ellenőrizze, hogy a csomag támogatja-e az észlelt hardvert és a kiválasztott Windows-kiadást. A csomag sértetlenségének és kiadójának ellenőrzése továbbra is érvényes.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,16 +435,16 @@ Folytatja a telepítést?</value>
     <value>Erősítse meg a lemez törlését</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>A Foundry törlés előtt ellenőrzi a rendszerképet, ha rendelkezésre áll független tárhely. Ha a képet a céllemezre kell letölteni, előzetesen csak a katalógus metaadatai, a forrás elérhetősége és a becsült kapacitás ellenőrizhető. Ilyenkor a letöltés vagy a rendszerkép ellenőrzésének hibája a lemez törlése után is bekövetkezhet.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Ez a build nem rendelkezik minősített WinPE-környezettel a hardverkivonat rögzítéséhez. A Windows telepítése folytatódik az automatikus, tanúsítványalapú Autopilot-feltöltés nélkül. Ha regisztráció szükséges, lépjen vissza, és válassza a teljes Windows rendszerben futó interaktív regisztrációs segédet egy támogatott Windows-kiadással. A Foundry nem módosítja automatikusan a hitelesítési módot.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Körülbelül</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_Debug</value>
+    <value>_Hibakeresés</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Nyelv</value>
@@ -672,7 +672,7 @@ Folytatja a telepítést?</value>
     <value>Telepítés inicializálása</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>A rendszerkép előfeltételeinek ellenőrzése</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Lemez előkészítése</value>
@@ -1011,7 +1011,7 @@ Folytatja a telepítést?</value>
     <value>A gyorsítótár-stratégia megoldva (szimuláció).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>A megerősített céllemez nem érhető el, megváltozott vagy nem biztonságos.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Az első rendszerindítási illesztőprogram-csomag szakaszolását támogatott parancs nélkül kérték.</value>
@@ -1203,7 +1203,7 @@ Folytatja a telepítést?</value>
     <value>A cél Windows-partíció nem érhető el az interaktív Autopilot regisztrációs segéd előkészítéséhez.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>A telepítéshez UEFI rendszerindítási mód szükséges.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Nem támogatott illesztőprogram-csomag telepítési mód.</value>
@@ -1251,13 +1251,13 @@ Folytatja a telepítést?</value>
     <value>További helyi fiókok</value>
   </data>
   <data name="Summary.AdvertisingId" xml:space="preserve">
-    <value>Advertising ID</value>
+    <value>Hirdetési azonosító</value>
   </data>
   <data name="Summary.AiComponentRemoval" xml:space="preserve">
     <value>AI komponens eltávolítása</value>
   </data>
   <data name="Summary.ApplicationAndAiRemoval" xml:space="preserve">
-    <value>Application and AI removal</value>
+    <value>Alkalmazások és MI eltávolítása</value>
   </data>
   <data name="Summary.AppxRemoval" xml:space="preserve">
     <value>AppX eltávolítás</value>
@@ -1278,7 +1278,7 @@ Folytatja a telepítést?</value>
     <value>Autopilot Profil</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Buildszám</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Beépített rendszergazdai fiók</value>
@@ -1308,7 +1308,7 @@ Folytatja a telepítést?</value>
     <value>Az üzembe helyezés megkezdése előtt tekintse át a választásait.</value>
   </data>
   <data name="Summary.DiagnosticData" xml:space="preserve">
-    <value>Diagnostic data</value>
+    <value>Diagnosztikai adatok</value>
   </data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve">
     <value>Ki</value>
@@ -1326,16 +1326,16 @@ Folytatja a telepítést?</value>
     <value>Funkciók letiltva</value>
   </data>
   <data name="Summary.FeaturesEnabled" xml:space="preserve">
-    <value>Features enabled</value>
+    <value>Engedélyezett funkciók</value>
   </data>
   <data name="Summary.HidePrivacySetup" xml:space="preserve">
-    <value>Hide privacy setup</value>
+    <value>Adatvédelmi beállítások elrejtése</value>
   </data>
   <data name="Summary.Included" xml:space="preserve">
     <value>Tartalmazza</value>
   </data>
   <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve">
-    <value>Inking and typing diagnostics</value>
+    <value>Szabadkézi bevitel és gépelés diagnosztikája</value>
   </data>
   <data name="Summary.Language" xml:space="preserve">
     <value>Nyelv</value>
@@ -1344,7 +1344,7 @@ Folytatja a telepítést?</value>
     <value>Licenccsatorna</value>
   </data>
   <data name="Summary.LocationAccess" xml:space="preserve">
-    <value>Location access</value>
+    <value>Helyadatokhoz való hozzáférés</value>
   </data>
   <data name="Summary.LocationAccess.ForceOff" xml:space="preserve">
     <value>Kényszerített</value>
@@ -1371,7 +1371,7 @@ Folytatja a telepítést?</value>
     <value>Nem tartalmazza</value>
   </data>
   <data name="Summary.OnlineSpeechRecognition" xml:space="preserve">
-    <value>Online speech recognition</value>
+    <value>Online beszédfelismerés</value>
   </data>
   <data name="Summary.Oobe" xml:space="preserve">
     <value>OOBE</value>
@@ -1380,7 +1380,7 @@ Folytatja a telepítést?</value>
     <value>Privát kulcsú anyag</value>
   </data>
   <data name="Summary.ProvisioningMethod" xml:space="preserve">
-    <value>Provisioning method</value>
+    <value>Kiépítési módszer</value>
   </data>
   <data name="Summary.Release" xml:space="preserve">
     <value>Verzió</value>
@@ -1401,7 +1401,7 @@ Folytatja a telepítést?</value>
     <value>Fióklétrehozás kihagyása</value>
   </data>
   <data name="Summary.SkipLicenseTerms" xml:space="preserve">
-    <value>Skip license terms</value>
+    <value>Licencfeltételek kihagyása</value>
   </data>
   <data name="Summary.Status" xml:space="preserve">
     <value>Állapot</value>
@@ -1416,7 +1416,7 @@ Folytatja a telepítést?</value>
     <value>Nincs konfigurálva</value>
   </data>
   <data name="Summary.TailoredExperiences" xml:space="preserve">
-    <value>Tailored experiences</value>
+    <value>Személyre szabott élmények</value>
   </data>
   <data name="Summary.TargetDisk" xml:space="preserve">
     <value>Céllemez</value>
@@ -1425,10 +1425,10 @@ Folytatja a telepítést?</value>
     <value>Telepítési összefoglaló</value>
   </data>
   <data name="Summary.TotalConfigured" xml:space="preserve">
-    <value>Total configured</value>
+    <value>Összes beállított elem</value>
   </data>
   <data name="Summary.WarningDetails" xml:space="preserve">
-    <value>Warning details</value>
+    <value>Figyelmeztetés részletei</value>
   </data>
   <data name="Summary.Wifi" xml:space="preserve">
     <value>Wi-Fi</value>

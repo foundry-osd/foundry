@@ -76,13 +76,13 @@
     <value>{0} (Jaunākais)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Pārbaudīts bezsaistes katalogs</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Tiešsaistes katalogs ar apstiprinātu izcelsmi</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: iegūts {1} (pirms {2} dienām). Redakcija: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Versija</value>
@@ -121,7 +121,7 @@
     <value>Nav</value>
   </data>
   <data name="Common.NotAvailable" xml:space="preserve">
-    <value>N/A</value>
+    <value>Nav pieejams</value>
   </data>
   <data name="Common.Previous" xml:space="preserve">
     <value>Iepriekšējais</value>
@@ -264,7 +264,7 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Manuāla atlase: pārbaudiet, vai šī pakotne atbalsta noteikto aparatūru un atlasīto Windows laidienu. Pakotnes integritātes un izdevēja pārbaudes joprojām tiek veiktas.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -375,7 +375,7 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
     <value>lietuviešu (Lietuva)</value>
   </data>
   <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
-    <value>Norwegian Bokmal (Norway)</value>
+    <value>Norvēģu bukmols (Norvēģija)</value>
   </data>
   <data name="Language.PolishPoland" xml:space="preserve">
     <value>poļu (Polija)</value>
@@ -435,10 +435,10 @@ Vai turpināt izvietošanu?</value>
     <value>Apstipriniet diska dzēšanu</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry pārbauda attēlu pirms dzēšanas, ja ir pieejama neatkarīga krātuve. Ja attēls ir jālejupielādē mērķa diskā, iepriekš var pārbaudīt tikai kataloga metadatus, avota pieejamību un paredzamo ietilpību. Lejupielādes vai attēla pārbaudes kļūme tad var rasties pēc diska dzēšanas.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Šajā būvējumā nav kvalificētas WinPE vides aparatūras jaucējvērtību iegūšanai. Windows izvietošana turpināsies bez automātiskas, uz sertifikātu balstītas augšupielādes pakalpojumā Autopilot. Ja reģistrācija ir nepieciešama, atgriezieties un atlasiet interaktīvo reģistrācijas palīgu pilnā Windows vidē ar atbalstītu Windows izdevumu. Foundry automātiski nemainīs autentifikācijas režīmu.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Par</value>
@@ -672,7 +672,7 @@ Vai turpināt izvietošanu?</value>
     <value>Inicializē izvēršanu</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Pārbaudīt attēla priekšnosacījumus</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Sagatavo disku</value>
@@ -1011,7 +1011,7 @@ Vai turpināt izvietošanu?</value>
     <value>Kešatmiņas stratēģija atrisināta (simulācija).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Apstiprinātais mērķa disks nav pieejams, ir mainījies vai nav drošs.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Pirmās sāknēšanas draivera pakotnes inscenēšana tika pieprasīta bez atbalstītas komandas.</value>
@@ -1203,7 +1203,7 @@ Vai turpināt izvietošanu?</value>
     <value>Mērķa Windows nodalījums nav pieejams interaktīvā Autopilot reģistrācijas palīga sagatavošanai.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Izvietošanai nepieciešams UEFI sāknēšanas režīms.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Neatbalstīts draivera pakotnes instalēšanas režīms.</value>
@@ -1245,7 +1245,7 @@ Vai turpināt izvietošanu?</value>
     <value>Šis dators tiks restartēts pēc {0}s.</value>
   </data>
   <data name="Success.RebootNow" xml:space="preserve">
-    <value>Reboot</value>
+    <value>Restartēt</value>
   </data>
   <data name="Summary.AdditionalLocalAccounts" xml:space="preserve">
     <value>Papildu lokālie konti</value>
@@ -1278,7 +1278,7 @@ Vai turpināt izvietošanu?</value>
     <value>Autopilot profils</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Būvējums</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Iebūvētais administratora konts</value>

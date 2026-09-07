@@ -31,7 +31,7 @@
     <value>Продължи</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>Преглед на офлайн съдържанието</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Прекъснете връзката</value>
@@ -125,7 +125,7 @@
     <value>Проверете кабелната връзка</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP е включен</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Шлюз</value>
@@ -140,13 +140,13 @@
     <value>Не е открит Ethernet адаптер.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>Статична конфигурация</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>Изчакване на използваем мрежов адрес</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Изчакване на мрежова конфигурация</value>
@@ -287,28 +287,28 @@
     <value>Инструменти</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>Разрешаването на мрежовото име е неуспешно</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>Няма активна мрежова връзка</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>Няма използваем мрежов адрес</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>Достъпът до интернет е потвърден</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>Изисква се удостоверяване пред прокси сървъра</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>Времето за проверка на интернет изтече</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>Достъпът до интернет не можа да бъде потвърден</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>Неочакван мрежов отговор. Възможно е да има страница за вход или прихващане на връзката.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Продължава автоматично след {0}s</value>

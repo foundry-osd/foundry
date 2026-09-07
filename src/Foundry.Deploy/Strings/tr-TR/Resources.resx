@@ -76,13 +76,13 @@
     <value>{0} (En son)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Doğrulanmış çevrimdışı katalog</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Kaynağı doğrulanmış çevrimiçi katalog</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: alınma tarihi {1} ({2} gün önce). Revizyon: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Sürüm</value>
@@ -264,7 +264,7 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>El ile seçim: Bu paketin algılanan donanımı ve seçilen Windows sürümünü desteklediğini doğrulayın. Paket bütünlüğü ve yayımcı denetimleri uygulanmaya devam eder.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@ Dağıtıma devam edilsin mi?</value>
     <value>Disk silmeyi onayla</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Bağımsız depolama kullanılabildiğinde Foundry, silme işleminden önce görüntüyü denetler. Görüntünün hedef diske indirilmesi gerekiyorsa önceden yalnızca katalog meta verileri, kaynak kullanılabilirliği ve tahmini kapasite denetlenebilir. Bu durumda indirme veya görüntü doğrulaması, disk silindikten sonra başarısız olabilir.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Bu derlemede, donanım karması yakalama için yeterliliği doğrulanmış bir WinPE ortamı yoktur. Windows dağıtımı, sertifika tabanlı otomatik Autopilot yüklemesi olmadan devam eder. Kayıt gerekiyorsa geri dönüp desteklenen bir Windows edisyonuyla tam Windows ortamında çalışan etkileşimli kayıt yardımcısını seçin. Foundry kimlik doğrulama modlarını otomatik olarak değiştirmez.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Hakkında</value>
@@ -672,7 +672,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Dağıtımı başlat</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Görüntü ön koşullarını denetle</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Diski hazırla</value>
@@ -1011,7 +1011,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Önbellek stratejisi çözüldü (simülasyon).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Onaylanan hedef disk kullanılamıyor, değişmiş veya güvenli değil.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Desteklenen bir komut olmadan ilk önyükleme sürücü paketi hazırlama işlemi istendi.</value>
@@ -1203,7 +1203,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Etkileşimli Autopilot kayıt yardımcısını hazırlamak için hedef Windows bölümü kullanılamıyor.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Dağıtım için UEFI önyükleme modu gerekir.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Desteklenmeyen sürücü paketi yükleme modu.</value>
@@ -1278,7 +1278,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Autopilot Profili</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Derleme</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Yerleşik Yönetici hesabı</value>

@@ -55,7 +55,7 @@
     <value>Profil</value>
   </data>
   <data name="AboutDialog.OpenReleaseNotes" xml:space="preserve">
-    <value>Öppna release notes i webbläsaren</value>
+    <value>Öppna versionsinformationen i webbläsaren</value>
   </data>
   <data name="AboutDialog.ReleaseNotesError" xml:space="preserve">
     <value>Det gick inte att läsa in releasenotes i den inbäddade webbläsaren.</value>
@@ -64,7 +64,7 @@
     <value>Laddar versionsinformation...</value>
   </data>
   <data name="AboutDialog.ReleaseNotesSection" xml:space="preserve">
-    <value>Release notes</value>
+    <value>Versionsinformation</value>
   </data>
   <data name="AboutDialog.RepositoryLink" xml:space="preserve">
     <value>Förvar</value>
@@ -247,7 +247,7 @@
     <value>Webbuppdateringsflöde</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>Enkelt webbflöde; filtrering efter utgivningskanal stöds inte.</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Uppdatera källa</value>
@@ -259,7 +259,7 @@
     <value>Uppdatera och starta om</value>
   </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
-    <value>Release notes</value>
+    <value>Versionsinformation</value>
   </data>
   <data name="Autopilot.ActionsDescription" xml:space="preserve">
     <value>Importera lokala JSON-profiler eller ladda ner dem från Intune.</value>
@@ -301,12 +301,12 @@
     <value>Inga Autopilot-profiler hittades</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>Dessa profiler importerades inte som offline-JSON. Användarstyrda profiler som stöds kan fortfarande väljas.
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>Vissa profiler kan inte användas offline</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Laddar ned Autopilot profiler...</value>
@@ -1248,7 +1248,7 @@
     <value>Active Directory Lightweight Directory Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HostGuardian" xml:space="preserve">
-    <value>Host Guardian Hyper-V Support</value>
+    <value>Hyper-V-stöd för Host Guardian</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
     <value>Microsoft Hyper-V Guest Integration Services</value>
@@ -1353,19 +1353,19 @@
     <value>IIS 6 skriptverktyg</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LegacySnapIn" xml:space="preserve">
-    <value>IIS 6 Management Console</value>
+    <value>Hanteringskonsol för IIS 6</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_LoggingLibraries" xml:space="preserve">
     <value>Loggningsverktyg</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementConsole" xml:space="preserve">
-    <value>IIS Management Console</value>
+    <value>Hanteringskonsol för IIS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementScriptingTools" xml:space="preserve">
     <value>IIS-hanteringsskript och verktyg</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
-    <value>IIS Management Service</value>
+    <value>Hanteringstjänst för IIS</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
     <value>IIS Metabase och IIS 6 konfigurationskompatibilitet</value>
@@ -1392,7 +1392,7 @@
     <value>Säkerhetsfunktioner</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
-    <value>Server-Side Includes</value>
+    <value>Inkluderingar på serversidan</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
     <value>Statiskt innehåll</value>
@@ -1407,7 +1407,7 @@
     <value>WebDAV-publicering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServer" xml:space="preserve">
-    <value>World Wide Web Services</value>
+    <value>World Wide Web-tjänster</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebServerManagementTools" xml:space="preserve">
     <value>Webbhanteringsverktyg</value>
@@ -1416,7 +1416,7 @@
     <value>Internetinformationstjänster</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
-    <value>WebSocket Protocol</value>
+    <value>WebSocket-protokoll</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
     <value>Windows-autentisering</value>
@@ -1425,7 +1425,7 @@
     <value>Äldre komponenter</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_ADIntegration" xml:space="preserve">
-    <value>Directory Service Integration</value>
+    <value>Integrering med katalogtjänst</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Container" xml:space="preserve">
     <value>Microsoft Message Queue (MSMQ) Server</value>
@@ -1443,7 +1443,7 @@
     <value>Microsoft Message Queue (MSMQ) Server Core</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
-    <value>Message Queuing Triggers</value>
+    <value>Utlösare för meddelandeköer</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSRDC_Infrastructure" xml:space="preserve">
     <value>Fjärrstyrd Differential Compression API Support</value>
@@ -1494,7 +1494,7 @@
     <value>ASP.NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
-    <value>.NET Framework 4.8 Advanced Services</value>
+    <value>Avancerade tjänster för .NET Framework 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
     <value>Tryck- och dokumenttjänster</value>
@@ -1503,10 +1503,10 @@
     <value>Internetutskriftsklient</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
-    <value>LPD Print Service</value>
+    <value>LPD-utskriftstjänst</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
-    <value>LPR Port Monitor</value>
+    <value>LPR-portövervakare</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
     <value>Microsoft Print till PDF</value>
@@ -1578,7 +1578,7 @@
     <value>Windows Communication Foundation Icke-HTTP-aktivering</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
-    <value>Named Pipe Activation</value>
+    <value>Aktivering av namngivna pipes</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
     <value>WCF-tjänster</value>
@@ -2175,7 +2175,7 @@
     <value>Wi-Fi-konfigurationen kräver att Wi-Fi tillhandahålls i startavbildningen.</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>Wi-Fi-namnet måste innehålla 1–32 UTF-8-byte.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Wi-Fi-konfiguration kräver en SSID.</value>
@@ -2259,109 +2259,109 @@
     <value>Distributionsalternativ för Windows</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Anslutningen misslyckades</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Kontrollera proxyinställningarna</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nya anslutningar från Foundry OSD använder nu dessa inställningar.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Proxyinställningarna har tillämpats</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD nådde GitHub och Microsoft-tjänster med de valda inställningarna.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Anslutningen lyckades</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Ange användarnamn och lösenord för uttrycklig proxyautentisering.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Verkställ</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Använd aktuella Windows-autentiseringsuppgifter</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Välj hur proxyn autentiserar Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autentisering</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Användarnamn och lösenord</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Ingen autentisering</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Valfria värdnamn eller jokerteckenmönster avgränsade med semikolon.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Undantagslista</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Anslut direkt till värdnamn som inte innehåller någon punkt.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Kringgå proxy för lokala adresser</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Autentiseringsuppgifter lagras säkert i Windows Autentiseringshanteraren.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Autentiseringsuppgifter för proxy</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domän (valfritt)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Ange proxyns adress och port.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Proxyserver</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Välj hur Foundry OSD ansluter till internet.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Proxymetod</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Ingen proxy (direktanslutning)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Manuell proxy</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Använd Windows-inställningar (rekommenderas)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Lösenord</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
     <value>Port</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Dessa inställningar gäller bara den här appen. De läggs inte till på distributionsmedier och påverkar inte Foundry Connect eller Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Endast Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Testa anslutning</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Användarnamn</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Inställningar</value>
@@ -2373,19 +2373,19 @@
     <value>Allmänt</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Konfigurera hur Foundry OSD ansluter till onlinetjänster.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Skicka rensade loggar och undantagsinformation för att underlätta felsökning. Hemligheter och direkta identifierare utesluts. Om du stänger av detta stoppas nya sändningar omedelbart; en redan skickad begäran kan inte återkallas.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Aktivera fjärrdiagnostik</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Skicka anonym användningstelemetri för att förbättra Foundry. Hemligheter, serienummer och maskinvaruhashar utesluts. Ett anonymt installations-ID används, och enhetens tillverkare och modell kan ingå. Om du stänger av detta stoppas nya sändningar omedelbart; en redan skickad begäran kan inte återkallas.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Aktivera telemetri</value>
@@ -2397,7 +2397,7 @@
     <value>Utseende</value>
   </data>
   <data name="SettingsPage_UpdateCard.Description" xml:space="preserve">
-    <value>Leta efter Foundry OSD uppdateringar och granska release notes.</value>
+    <value>Sök efter uppdateringar för Foundry OSD och läs versionsinformationen.</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Uppdatera appen</value>
@@ -2478,7 +2478,7 @@
     <value>Hårdvaruhashuppladdning är aktiverad men klientanslutningen saknas. Anslut till hyresgästen från Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>Den valda Autopilot-profilen är inte giltig för offlinedistribution. Importera en användarstyrd profil som stöds med fullständiga inställningar för klientorganisation, anslutning och OOBE.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON profilläget är aktiverat men ingen giltig standardprofil har valts.</value>
@@ -2505,7 +2505,7 @@
     <value>Anpassad drivrutinsmapp finns inte.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>Kontrollen av anpassade drivrutiner väntar eller är inte tillgänglig.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Generering av distributionskonfiguration är inte klar.</value>
@@ -2967,7 +2967,7 @@
     <value>Formatbeteende som används innan det slutliga USB-mediet kopieras.</value>
   </data>
   <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
-    <value>USB layout</value>
+    <value>USB-layout</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
     <value>Partitionsschema som används när du förbereder det valda USB målet.</value>
@@ -3180,10 +3180,10 @@
     <value>Ej kontrollerat</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>gjuteri-osd/gjuteri</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>Uppdateringen avbröts.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Söker efter uppdateringar</value>
@@ -3198,7 +3198,7 @@
     <value>Uppdateringskontrollen hoppades över eftersom Foundry OSD inte körs från en Velopack-installation.</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>Uppdateringen kunde inte slutföras.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Klar</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} är tillgängligt</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>Tidpunkten för den senaste uppdateringskontrollen kunde inte sparas.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Uppdatering</value>

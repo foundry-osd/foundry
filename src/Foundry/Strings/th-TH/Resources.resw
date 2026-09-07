@@ -247,7 +247,7 @@
     <value>ฟีดอัพเดตเว็บ</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>ฟีดเว็บแบบง่าย ไม่รองรับการกรองตามช่องทางการเผยแพร่</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>อัปเดตแหล่งที่มา</value>
@@ -301,12 +301,12 @@
     <value>ไม่พบโปรไฟล์ Autopilot</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>ไม่ได้นำเข้าโปรไฟล์เหล่านี้เป็น JSON สำหรับใช้งานแบบออฟไลน์ โปรไฟล์แบบผู้ใช้ดำเนินการที่รองรับยังคงมีให้เลือก
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>บางโปรไฟล์ไม่สามารถใช้แบบออฟไลน์ได้</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>กำลังดาวน์โหลดโปรไฟล์ Autopilot...</value>
@@ -2175,7 +2175,7 @@
     <value>การกำหนดค่า Wi-Fi จำเป็นต้องมีการสนับสนุน Wi-Fi ในอิมเมจสำหรับบูต</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>ชื่อ Wi-Fi ต้องมีขนาด 1–32 ไบต์เมื่อเข้ารหัสแบบ UTF-8</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>การกำหนดค่า Wi-Fi จำเป็นต้องมี SSID</value>
@@ -2259,109 +2259,109 @@
     <value>ตัวเลือกการปรับใช้ Windows</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>เชื่อมต่อไม่สำเร็จ</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>ตรวจสอบการตั้งค่าพร็อกซี</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>การเชื่อมต่อใหม่จาก Foundry OSD จะใช้การตั้งค่าเหล่านี้แล้ว</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>ใช้การตั้งค่าพร็อกซีแล้ว</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD เชื่อมต่อกับบริการ GitHub และ Microsoft ได้โดยใช้การตั้งค่าที่เลือก</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>เชื่อมต่อสำเร็จ</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>ป้อนชื่อผู้ใช้และรหัสผ่านเพื่อยืนยันตัวตนกับพร็อกซีโดยระบุข้อมูลเอง</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>นำไปใช้</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>ใช้ข้อมูลประจำตัว Windows ปัจจุบัน</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>เลือกวิธีที่พร็อกซียืนยันตัวตนของ Foundry OSD</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>การยืนยันตัวตน</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>ชื่อผู้ใช้และรหัสผ่าน</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>ไม่ยืนยันตัวตน</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>ระบุชื่อโฮสต์หรือรูปแบบไวลด์การ์ดเพิ่มเติมได้ โดยคั่นด้วยเครื่องหมายอัฒภาค</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>รายการยกเว้น</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>เชื่อมต่อโดยตรงกับชื่อโฮสต์ที่ไม่มีจุด</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>ไม่ใช้พร็อกซีกับที่อยู่ภายใน</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>ข้อมูลประจำตัวจะจัดเก็บอย่างปลอดภัยในตัวจัดการข้อมูลประจำตัวของ Windows</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>ข้อมูลประจำตัวของพร็อกซี</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>โดเมน (ไม่บังคับ)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>ป้อนที่อยู่และพอร์ตของพร็อกซี</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>เซิร์ฟเวอร์พร็อกซี</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>เลือกวิธีที่ Foundry OSD เชื่อมต่ออินเทอร์เน็ต</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>วิธีตั้งค่าพร็อกซี</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>ไม่ใช้พร็อกซี (เชื่อมต่อโดยตรง)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>ตั้งค่าพร็อกซีด้วยตนเอง</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>ใช้การตั้งค่า Windows (แนะนำ)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>รหัสผ่าน</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>พอร์ต</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>การตั้งค่าเหล่านี้ใช้กับแอปนี้เท่านั้น ไม่ได้เพิ่มลงในสื่อการปรับใช้ และไม่ส่งผลต่อ Foundry Connect หรือ Foundry Deploy</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>เฉพาะ Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>ทดสอบการเชื่อมต่อ</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>ชื่อผู้ใช้</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>การตั้งค่า</value>
@@ -2373,19 +2373,19 @@
     <value>ทั่วไป</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>กำหนดวิธีที่ Foundry OSD เชื่อมต่อกับบริการออนไลน์</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>พร็อกซี</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>ส่งบันทึกและรายละเอียดข้อยกเว้นที่ลบข้อมูลอ่อนไหวแล้วเพื่อช่วยวินิจฉัยข้อผิดพลาด โดยไม่รวมข้อมูลลับและข้อมูลระบุตัวตนโดยตรง เมื่อปิดตัวเลือกนี้จะหยุดการส่งใหม่ทันที แต่ไม่สามารถเรียกคืนคำขอที่ส่งไปแล้วได้</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>เปิดใช้งานการวินิจฉัยระยะไกล</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>ส่งข้อมูลการใช้งานแบบไม่ระบุตัวตนเพื่อช่วยปรับปรุง Foundry โดยไม่รวมข้อมูลลับ หมายเลขซีเรียล และแฮชฮาร์ดแวร์ ใช้รหัสการติดตั้งแบบไม่ระบุตัวตนและอาจรวมผู้ผลิตกับรุ่นของอุปกรณ์ เมื่อปิดตัวเลือกนี้จะหยุดการส่งใหม่ทันที แต่ไม่สามารถเรียกคืนคำขอที่ส่งไปแล้วได้</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>เปิดใช้งานการวัดและส่งข้อมูลทางไกล</value>
@@ -2478,7 +2478,7 @@
     <value>เปิดใช้งานการอัปโหลดแฮชฮาร์ดแวร์ แต่การเชื่อมต่อของผู้เช่าขาดหายไป เชื่อมต่อกับผู้เช่าจาก Autopilot</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>โปรไฟล์ Autopilot ที่เลือกใช้กับการปรับใช้แบบออฟไลน์ไม่ได้ ให้นำเข้าโปรไฟล์แบบผู้ใช้ดำเนินการที่รองรับและมีการตั้งค่าผู้เช่า การเข้าร่วม และ OOBE ครบถ้วน</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON โหมดโปรไฟล์ถูกเปิดใช้งานแต่ไม่ได้เลือกโปรไฟล์เริ่มต้นที่ถูกต้อง</value>
@@ -2505,7 +2505,7 @@
     <value>ไม่มีโฟลเดอร์ไดรเวอร์แบบกำหนดเอง</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>การตรวจสอบไดรเวอร์แบบกำหนดเองยังรอดำเนินการหรือไม่พร้อมใช้งาน</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>การสร้างการกำหนดค่าใช้งานยังไม่พร้อม</value>
@@ -3180,10 +3180,10 @@
     <value>ไม่ได้ตรวจสอบ</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>โรงหล่อ-osd/โรงหล่อ</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>ยกเลิกการอัปเดตแล้ว</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>กำลังตรวจสอบการอัปเดต</value>
@@ -3198,7 +3198,7 @@
     <value>การตรวจสอบการอัปเดตถูกข้ามเนื่องจาก Foundry OSD ไม่ได้ทำงานจากการติดตั้ง Velopack</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>ไม่สามารถดำเนินการอัปเดตให้เสร็จสมบูรณ์ได้</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>พร้อม</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} ว่างแล้ว</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>ไม่สามารถบันทึกเวลาที่ตรวจหาการอัปเดตครั้งล่าสุดได้</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>อัปเดต</value>

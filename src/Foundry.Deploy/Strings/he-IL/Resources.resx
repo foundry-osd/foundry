@@ -76,13 +76,13 @@
     <value>{0} (העדכנית ביותר)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>קטלוג לא מקוון שנבדק</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>קטלוג מקוון שמקורו אומת</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: אוחזר ב-{1} (לפני {2} ימים). מהדורה: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>גרסה</value>
@@ -264,7 +264,7 @@ ErrorCode=0x80070005
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>בחירה ידנית: יש לוודא שחבילה זו תומכת בחומרה שזוהתה ובמהדורת Windows שנבחרה. בדיקות שלמות החבילה והמפרסם עדיין חלות.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@ ErrorCode=0x80070005
     <value>אשר את מחיקת הדיסק</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry בודק את דמות המערכת לפני המחיקה כאשר זמין אחסון נפרד. אם יש להוריד את הדמות לדיסק היעד, ניתן לבדוק מראש רק את נתוני הקטלוג, זמינות המקור והקיבולת המשוערת. במקרה זה, ההורדה או אימות הדמות עלולים להיכשל לאחר שהדיסק כבר נמחק.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>בנייה זו אינה כוללת סביבת WinPE מאושרת ללכידת גיבוב החומרה. פריסת Windows תימשך ללא העלאה אוטומטית ל-Autopilot באמצעות אישור. אם נדרש רישום, יש לחזור ולבחור את אשף הרישום האינטראקטיבי בסביבת Windows מלאה, עם מהדורת Windows נתמכת. Foundry לא ישנה את מצבי האימות באופן אוטומטי.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_בערך</value>
@@ -672,7 +672,7 @@ ErrorCode=0x80070005
     <value>אתחול פריסה</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>בדיקת דרישות מקדימות לדמות המערכת</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>הכנת דיסק</value>
@@ -1011,7 +1011,7 @@ ErrorCode=0x80070005
     <value>אסטרטגיית המטמון נפתרה (סימולציה).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>דיסק היעד שאושר אינו זמין, השתנה או אינו בטוח.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>התבקשה שלב חבילת מנהל התקן אתחול ראשון ללא פקודה נתמכת.</value>
@@ -1203,7 +1203,7 @@ ErrorCode=0x80070005
     <value>מחיצת ה-Windows היעד אינה זמינה להכנת מסייע הרישום האינטראקטיבי של Autopilot.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>הפריסה דורשת מצב אתחול UEFI.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>מצב התקנת חבילת מנהלי התקנים לא נתמך.</value>
@@ -1266,7 +1266,7 @@ ErrorCode=0x80070005
     <value>ארכיטקטורת מערכת</value>
   </data>
   <data name="Summary.Automatic" xml:space="preserve">
-    <value>Automatic</value>
+    <value>אוטומטי</value>
   </data>
   <data name="Summary.AutomaticRestart" xml:space="preserve">
     <value>הפעלה מחדש אוטומטית</value>
@@ -1278,7 +1278,7 @@ ErrorCode=0x80070005
     <value>Autopilot פרופיל</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>מספר בנייה</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>חשבון מנהל מערכת מוכלל</value>
@@ -1311,13 +1311,13 @@ ErrorCode=0x80070005
     <value>נתוני אבחון</value>
   </data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve">
-    <value>Off</value>
+    <value>כבוי</value>
   </data>
   <data name="Summary.DiagnosticData.Optional" xml:space="preserve">
-    <value>Optional</value>
+    <value>אופציונלי</value>
   </data>
   <data name="Summary.DiagnosticData.Required" xml:space="preserve">
-    <value>Required</value>
+    <value>נדרש</value>
   </data>
   <data name="Summary.Edition" xml:space="preserve">
     <value>מהדורת מערכת ההפעלה</value>
@@ -1332,7 +1332,7 @@ ErrorCode=0x80070005
     <value>הסתרת הגדרת פרטיות</value>
   </data>
   <data name="Summary.Included" xml:space="preserve">
-    <value>Included</value>
+    <value>כלול</value>
   </data>
   <data name="Summary.InkingAndTypingDiagnostics" xml:space="preserve">
     <value>אבחון בדיו והקלדה</value>
@@ -1350,10 +1350,10 @@ ErrorCode=0x80070005
     <value>Forced Off</value>
   </data>
   <data name="Summary.LocationAccess.UserControlled" xml:space="preserve">
-    <value>User controlled</value>
+    <value>בשליטת המשתמש</value>
   </data>
   <data name="Summary.Manual" xml:space="preserve">
-    <value>Manual</value>
+    <value>ידני</value>
   </data>
   <data name="Summary.ManualRestart" xml:space="preserve">
     <value>הפעלה מחדש ידנית</value>
@@ -1368,7 +1368,7 @@ ErrorCode=0x80070005
     <value>אין בחירה</value>
   </data>
   <data name="Summary.NotIncluded" xml:space="preserve">
-    <value>Not included</value>
+    <value>לא כלול</value>
   </data>
   <data name="Summary.OnlineSpeechRecognition" xml:space="preserve">
     <value>זיהוי דיבור מקוון</value>
@@ -1386,7 +1386,7 @@ ErrorCode=0x80070005
     <value>גרסה</value>
   </data>
   <data name="Summary.RestartBehavior" xml:space="preserve">
-    <value>Restart behavior</value>
+    <value>התנהגות הפעלה מחדש</value>
   </data>
   <data name="Summary.RestartDelay" xml:space="preserve">
     <value>עיכוב הפעלה מחדש</value>
@@ -1437,7 +1437,7 @@ ErrorCode=0x80070005
     <value>תכונות אופציונליות של Windows</value>
   </data>
   <data name="Summary.WiredDot1x" xml:space="preserve">
-    <value>Wired 802.1X</value>
+    <value>חיבור קווי 802.1X</value>
   </data>
   <data name="TargetDevice.Architecture" xml:space="preserve">
     <value>ארכיטקטורה</value>

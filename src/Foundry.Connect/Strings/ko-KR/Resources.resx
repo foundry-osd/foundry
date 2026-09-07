@@ -31,7 +31,7 @@
     <value>계속</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>오프라인 콘텐츠 찾아보기</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>연결 끊기</value>
@@ -125,7 +125,7 @@
     <value>케이블 연결을 확인하세요</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP 사용</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>게이트웨이</value>
@@ -140,13 +140,13 @@
     <value>Ethernet 어댑터가 감지되지 않았습니다.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>고정 구성</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>사용 가능한 네트워크 주소를 기다리는 중</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>네트워크 구성을 기다리는 중</value>
@@ -287,28 +287,28 @@
     <value>도구</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>네트워크 이름 확인에 실패했습니다</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>활성 네트워크 연결이 없습니다</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>사용 가능한 네트워크 주소가 없습니다</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>인터넷 연결을 확인했습니다</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>프록시 인증이 필요합니다</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>인터넷 연결 확인 시간이 초과되었습니다</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>인터넷 연결을 확인하지 못했습니다</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>예기치 않은 네트워크 응답입니다. 로그인 페이지나 통신 가로채기가 있을 수 있습니다.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>{0}s에서 자동으로 계속</value>

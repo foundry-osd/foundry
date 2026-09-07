@@ -247,7 +247,7 @@
     <value>Емисия за уеб актуализиране</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>Обикновен уеб източник; филтрирането по канали за издания не се поддържа.</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Актуализирайте източника</value>
@@ -301,12 +301,12 @@
     <value>Няма намерени Autopilot профили</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>Тези профили не бяха импортирани като JSON за офлайн употреба. Поддържаните профили с участие на потребителя остават достъпни за избор.
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>Някои профили не могат да се използват офлайн</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Изтеглят се Autopilot профили...</value>
@@ -1296,13 +1296,13 @@
     <value>Документ по подразбиране</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DigestAuthentication" xml:space="preserve">
-    <value>Digest Authentication</value>
+    <value>Удостоверяване чрез дайджест</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_DirectoryBrowsing" xml:space="preserve">
     <value>Преглед на директория</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPExtensibility" xml:space="preserve">
-    <value>FTP Extensibility</value>
+    <value>Разширяемост на FTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_FTPServer" xml:space="preserve">
     <value>FTP сървър</value>
@@ -1311,7 +1311,7 @@
     <value>FTP услуга</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HealthAndDiagnostics" xml:space="preserve">
-    <value>Health and Diagnostics</value>
+    <value>Състояние и диагностика</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
     <value>IIS Hostable Web Core</value>
@@ -1326,7 +1326,7 @@
     <value>HTTP грешки</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpLogging" xml:space="preserve">
-    <value>HTTP Logging</value>
+    <value>Записване в дневник на HTTP</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpRedirect" xml:space="preserve">
     <value>HTTP пренасочване</value>
@@ -1392,7 +1392,7 @@
     <value>Функции за сигурност</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ServerSideIncludes" xml:space="preserve">
-    <value>Server-Side Includes</value>
+    <value>Включвания от страна на сървъра</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_StaticContent" xml:space="preserve">
     <value>Статично съдържание</value>
@@ -1503,10 +1503,10 @@
     <value>Интернет клиент за печат</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
-    <value>LPD Print Service</value>
+    <value>Услуга за печат LPD</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
-    <value>LPR Port Monitor</value>
+    <value>Монитор на LPR портове</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
     <value>Microsoft Print to PDF</value>
@@ -2175,7 +2175,7 @@
     <value>Wi-Fi конфигурацията изисква Wi-Fi поддръжка да бъде осигурена в изображението за зареждане.</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>Името на Wi-Fi мрежата трябва да заема 1–32 байта в UTF-8.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Wi-Fi конфигурацията изисква SSID.</value>
@@ -2259,109 +2259,109 @@
     <value>Опции за разполагане на Windows</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Неуспешна връзка</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Проверете настройките на прокси сървъра</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Новите връзки от Foundry OSD вече използват тези настройки.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Настройките на прокси сървъра са приложени</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD се свърза с услугите на GitHub и Microsoft чрез избраните настройки.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Успешна връзка</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Въведете потребителско име и парола за изрично удостоверяване пред прокси сървъра.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Прилагане</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Използване на текущите идентификационни данни за Windows</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Изберете как прокси сървърът удостоверява Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Удостоверяване</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Потребителско име и парола</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Без удостоверяване</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Незадължителни имена на хостове или шаблони със заместващи знаци, разделени с точка и запетая.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Списък с изключения</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Директно свързване с хостове, чиито имена не съдържат точка.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Заобикаляне на прокси сървъра за локални адреси</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Идентификационните данни се съхраняват защитено в диспечера на идентификационни данни на Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Идентификационни данни за прокси сървъра</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Домейн (незадължително)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Въведете адреса и порта на прокси сървъра.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Прокси сървър</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Изберете как Foundry OSD се свързва с интернет.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Режим на прокси сървъра</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Без прокси сървър (директна връзка)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Ръчно зададен прокси сървър</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Използване на настройките на Windows (препоръчително)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Парола</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>Порт</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Тези настройки важат само за това приложение. Те не се добавят към носителя за внедряване и не засягат Foundry Connect или Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Само за Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Проверка на връзката</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Потребителско име</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Настройки</value>
@@ -2373,19 +2373,19 @@
     <value>генерал</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Настройте как Foundry OSD се свързва с онлайн услуги.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>Прокси сървър</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Изпращайте журнали и подробности за изключения с премахнати поверителни данни за диагностика на грешки. Тайните и преките идентификатори са изключени. Изключването спира новите изпращания незабавно; вече изпратена заявка не може да бъде оттеглена.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Активиране на отдалечената диагностика</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Изпращайте анонимни данни за употребата, за да помогнете за подобряването на Foundry. Тайните, серийните номера и хардуерните хешове са изключени. Използва се анонимен идентификатор на инсталацията; данните може да включват производителя и модела на устройството. Изключването спира новите изпращания незабавно; вече изпратена заявка не може да бъде оттеглена.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Активирайте телеметрията</value>
@@ -2478,7 +2478,7 @@
     <value>Качването на хардуерен хеш е активирано, но връзката на клиента липсва. Свържете се с клиента от Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>Избраният профил Autopilot не е валиден за офлайн разполагане. Импортирайте поддържан профил с участие на потребителя и пълни настройки за клиента, присъединяването и OOBE.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON режимът на профил е активиран, но не е избран валиден профил по подразбиране.</value>
@@ -2505,7 +2505,7 @@
     <value>Персонализираната папка на драйвера не съществува.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>Проверката на персонализираните драйвери изчаква или е недостъпна.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Генерирането на конфигурация за внедряване не е готово.</value>
@@ -3180,10 +3180,10 @@
     <value>Не е проверено</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>леярна-осд/леярна</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>Актуализацията е отменена.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Проверка за актуализации</value>
@@ -3198,7 +3198,7 @@
     <value>Проверката на актуализацията е пропусната, защото Foundry OSD не се изпълнява от инсталация на Velopack.</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>Актуализацията не можа да завърши.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Готови</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} е наличен</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>Часът на последната проверка за актуализации не можа да бъде запазен.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Актуализация</value>

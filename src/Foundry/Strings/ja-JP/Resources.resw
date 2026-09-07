@@ -247,7 +247,7 @@
     <value>ウェブ更新フィード</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>シンプルな Web フィードです。リリースチャネルによる絞り込みには対応していません。</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>アップデート元</value>
@@ -301,12 +301,12 @@
     <value>Autopilot プロフィールが見つかりませんでした</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>これらのプロファイルはオフライン用の JSON としてインポートされませんでした。対応するユーザー主導のプロファイルは引き続き選択できます。
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>一部のプロファイルはオフラインで使用できません</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Autopilot プロファイルをダウンロードしています...</value>
@@ -1371,10 +1371,10 @@
     <value>IIS メタベースと IIS 6 構成の互換性</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
-    <value>.NET Extensibility 3.5</value>
+    <value>.NET 拡張機能 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility45" xml:space="preserve">
-    <value>.NET Extensibility 4.8</value>
+    <value>.NET 拡張機能 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
     <value>ODBC ログ</value>
@@ -1494,7 +1494,7 @@
     <value>ASP.NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
-    <value>.NET Framework 4.8 Advanced Services</value>
+    <value>.NET Framework 4.8 高度なサービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
     <value>印刷およびドキュメント サービス</value>
@@ -1566,7 +1566,7 @@
     <value>Windows プロセス アクティベーション サービス</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation" xml:space="preserve">
-    <value>Windows Communication Foundation HTTP Activation</value>
+    <value>Windows Communication Foundation HTTP アクティブ化</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation45" xml:space="preserve">
     <value>HTTP アクティベーション</value>
@@ -2175,7 +2175,7 @@
     <value>Wi-Fi 構成では、ブート イメージで Wi-Fi サポートをプロビジョニングする必要があります。</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>Wi-Fi 名は UTF-8 で 1～32 バイトにする必要があります。</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Wi-Fi 構成には SSID が必要です。</value>
@@ -2259,109 +2259,109 @@
     <value>Windows 展開オプション</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>接続に失敗しました</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>プロキシ設定を確認してください</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Foundry OSD の新しい接続には、この設定が使用されます。</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>プロキシ設定を適用しました</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>選択した設定で、Foundry OSD から GitHub と Microsoft のサービスに接続できました。</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>接続に成功しました</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>プロキシ認証に使用するユーザー名とパスワードを明示的に入力してください。</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>適用</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>現在の Windows 資格情報を使用</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>プロキシで Foundry OSD を認証する方法を選択してください。</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>認証</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>ユーザー名とパスワード</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>認証なし</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>必要に応じて、ホスト名またはワイルドカードパターンをセミコロンで区切って指定します。</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>除外リスト</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>ピリオドを含まないホスト名には直接接続します。</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>ローカルアドレスにはプロキシを使用しない</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>資格情報は Windows 資格情報マネージャーに安全に保存されます。</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>プロキシの資格情報</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>ドメイン（省略可）</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>プロキシのアドレスとポートを入力してください。</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>プロキシサーバー</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Foundry OSD のインターネット接続方法を選択してください。</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>プロキシの設定方法</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>プロキシなし（直接接続）</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>手動プロキシ</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Windows の設定を使用（推奨）</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>パスワード</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>ポート</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>この設定はこのアプリにのみ適用されます。展開メディアには追加されず、Foundry Connect や Foundry Deploy には影響しません。</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Foundry OSD のみ</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>接続をテスト</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>ユーザー名</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>設定</value>
@@ -2373,19 +2373,19 @@
     <value>一般</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Foundry OSD のオンラインサービスへの接続方法を設定します。</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>プロキシ</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>障害の診断に役立てるため、機密情報を除去したログと例外の詳細を送信します。秘密情報や直接識別できる情報は含まれません。オフにすると新たな送信は直ちに停止しますが、送信済みのリクエストは取り消せません。</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>リモート診断を有効にする</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Foundry の改善に役立てるため、匿名の利用状況データを送信します。秘密情報、シリアル番号、ハードウェアハッシュは含まれません。匿名のインストール ID を使用し、デバイスのメーカーとモデルが含まれる場合があります。オフにすると新たな送信は直ちに停止しますが、送信済みのリクエストは取り消せません。</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>テレメトリを有効にする</value>
@@ -2478,7 +2478,7 @@
     <value>ハードウェア ハッシュ アップロードは有効になっていますが、テナント接続がありません。 Autopilot からテナントに接続します。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>選択した Autopilot プロファイルはオフライン展開に使用できません。テナント、参加、OOBE の設定がすべて含まれる、対応するユーザー主導のプロファイルをインポートしてください。</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON プロファイル モードが有効になっていますが、有効なデフォルト プロファイルが選択されていません。</value>
@@ -2505,7 +2505,7 @@
     <value>カスタムドライバーフォルダーが存在しません。</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>カスタムドライバーの検査が完了していないか、検査を利用できません。</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>デプロイ構成の生成の準備ができていません。</value>
@@ -3180,10 +3180,10 @@
     <value>未チェック</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>ファウンドリ-OSD/ファウンドリ</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>更新操作がキャンセルされました。</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>アップデートをチェックしています</value>
@@ -3198,7 +3198,7 @@
     <value>Foundry OSD が Velopack インストールから実行されていないため、更新チェックがスキップされました。</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>更新操作を完了できませんでした。</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>準備完了</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} は利用可能です</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>前回の更新確認日時を保存できませんでした。</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>アップデート</value>

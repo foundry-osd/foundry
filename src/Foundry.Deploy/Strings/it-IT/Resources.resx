@@ -76,13 +76,13 @@
     <value>{0} (Più recente)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Catalogo offline verificato</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Catalogo online autenticato</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: recuperato il {1} ({2} giorni fa). Revisione: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Versione</value>
@@ -160,7 +160,7 @@
     <value>JSON profilo</value>
   </data>
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
-    <value>No Autopilot</value>
+    <value>Nessun Autopilot</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Pagine di distribuzione</value>
@@ -264,7 +264,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Selezione manuale: verifica che questo pacchetto supporti l'hardware rilevato e la versione di Windows selezionata. I controlli di integrità del pacchetto e dell'autore vengono comunque eseguiti.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@ Continuare con la distribuzione?</value>
     <value>Conferma la cancellazione del disco</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry verifica l'immagine prima della cancellazione quando è disponibile uno spazio di archiviazione indipendente. Se l'immagine deve essere scaricata sul disco di destinazione, è possibile verificare prima solo i metadati del catalogo, la disponibilità dell'origine e la capacità stimata. Un errore di download o di convalida dell'immagine può quindi verificarsi dopo la cancellazione del disco.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Questa build non dispone di un ambiente WinPE qualificato per l'acquisizione dell'hash hardware. La distribuzione di Windows continuerà senza il caricamento automatico in Autopilot basato su certificato. Se è richiesta la registrazione, torna indietro e seleziona l'assistente di registrazione interattiva nell'ambiente Windows completo con un'edizione di Windows supportata. Foundry non cambierà automaticamente la modalità di autenticazione.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Circa</value>
@@ -672,7 +672,7 @@ Continuare con la distribuzione?</value>
     <value>Inizializzare distribuzione</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Verifica i prerequisiti dell'immagine</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Preparare il disco</value>
@@ -1011,7 +1011,7 @@ Continuare con la distribuzione?</value>
     <value>Strategia cache risolta (simulazione).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Il disco di destinazione confermato non è disponibile, è cambiato o non è sicuro.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>È stata richiesta la gestione temporanea del pacchetto driver al primo avvio senza un comando supportato.</value>
@@ -1203,7 +1203,7 @@ Continuare con la distribuzione?</value>
     <value>La partizione Windows di destinazione non è disponibile per preparare l'assistente di registrazione interattiva di Autopilot.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>La distribuzione richiede la modalità di avvio UEFI.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Modalità di installazione del pacchetto driver non supportata.</value>
@@ -1311,7 +1311,7 @@ Continuare con la distribuzione?</value>
     <value>Dati diagnostici</value>
   </data>
   <data name="Summary.DiagnosticData.Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Disattivato</value>
   </data>
   <data name="Summary.DiagnosticData.Optional" xml:space="preserve">
     <value>Facoltativo</value>

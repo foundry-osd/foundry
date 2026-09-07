@@ -247,7 +247,7 @@
     <value>Feed web ažuriranja</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>Jednostavan web-izvor; filtriranje kanala izdanja nije podržano.</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Ažuriraj izvor</value>
@@ -301,12 +301,12 @@
     <value>Nije pronađen nijedan Autopilot profil</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>Ovi profili nisu uvezeni kao JSON za izvanmrežnu upotrebu. Podržani profili kojima upravlja korisnik i dalje su dostupni za odabir.
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>Neki se profili ne mogu koristiti izvanmrežno</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Preuzimanje Autopilot profila...</value>
@@ -1212,7 +1212,7 @@
     <value>Zaključavanje uređaja</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedBootExp" xml:space="preserve">
-    <value>Unbranded Boot</value>
+    <value>Pokretanje bez oznake proizvođača</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Client_EmbeddedLogon" xml:space="preserve">
     <value>prilagođena prijava</value>
@@ -1251,13 +1251,13 @@
     <value>Host Guardian Hyper-V podrška</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_Guest_KernelInt" xml:space="preserve">
-    <value>Microsoft Hyper-V Guest Integration Services</value>
+    <value>Integracijske usluge za goste sustava Microsoft Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HyperV_KernelInt_VirtualDevice" xml:space="preserve">
     <value>Microsoftov mrežni adapter za otklanjanje grešaka u jezgri</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.HypervisorPlatform" xml:space="preserve">
-    <value>Windows Hypervisor Platform</value>
+    <value>Platforma hipervizora sustava Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ASP" xml:space="preserve">
     <value>ASP</value>
@@ -1314,7 +1314,7 @@
     <value>Zdravlje i dijagnostika</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HostableWebCore" xml:space="preserve">
-    <value>IIS Hostable Web Core</value>
+    <value>Jezgra weba IIS koja se može ugostiti</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_HttpCompressionDynamic" xml:space="preserve">
     <value>dinamička kompresija sadržaja</value>
@@ -1365,16 +1365,16 @@
     <value>skripte i alati za upravljanje IIS-om</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ManagementService" xml:space="preserve">
-    <value>IIS Management Service</value>
+    <value>Usluga upravljanja IIS-om</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_Metabase" xml:space="preserve">
     <value>IIS metabaza i kompatibilnost konfiguracije IIS 6</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
-    <value>.NET Extensibility 3.5</value>
+    <value>Proširivost platforme .NET 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility45" xml:space="preserve">
-    <value>.NET Extensibility 4.8</value>
+    <value>Proširivost platforme .NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
     <value>ODBC bilježenje</value>
@@ -1416,7 +1416,7 @@
     <value>Internet Information Services</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
-    <value>WebSocket Protocol</value>
+    <value>Protokol WebSocket</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
     <value>Windows autentifikacija</value>
@@ -1440,7 +1440,7 @@
     <value>podrška za multicasting</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Server" xml:space="preserve">
-    <value>Microsoft Message Queue (MSMQ) Server Core</value>
+    <value>Jezgra poslužitelja Microsoft Message Queue (MSMQ)</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MSMQ_Triggers" xml:space="preserve">
     <value>Okidači stavljanja poruka u red čekanja</value>
@@ -1458,10 +1458,10 @@
     <value>Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Hypervisor" xml:space="preserve">
-    <value>Hyper-V Hypervisor</value>
+    <value>Hipervizor Hyper-V</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_Clients" xml:space="preserve">
-    <value>Hyper-V GUI Management Tools</value>
+    <value>Grafički alati za upravljanje Hyper-V-om</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Microsoft_Hyper_V_Management_PowerShell" xml:space="preserve">
     <value>Hyper-V modul za Windows PowerShell</value>
@@ -1476,10 +1476,10 @@
     <value>Windows podsustav za Linux</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector" xml:space="preserve">
-    <value>MultiPoint Connector</value>
+    <value>Poveznik MultiPoint</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Connector_Services" xml:space="preserve">
-    <value>MultiPoint Connector Services</value>
+    <value>Usluge poveznika MultiPoint</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.MultiPoint_Tools" xml:space="preserve">
     <value>MultiPoint Manager i MultiPoint Dashboard</value>
@@ -1500,13 +1500,13 @@
     <value>usluge ispisa i dokumenata</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_InternetPrinting_Client" xml:space="preserve">
-    <value>Internet Printing Client</value>
+    <value>Klijent za ispis putem interneta</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPDPrintService" xml:space="preserve">
-    <value>LPD Print Service</value>
+    <value>Usluga ispisa LPD</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_LPRPortMonitor" xml:space="preserve">
-    <value>LPR Port Monitor</value>
+    <value>Nadzor priključka LPR</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_PrintToPDFServices_Features" xml:space="preserve">
     <value>Microsoftov ispis u PDF</value>
@@ -1563,7 +1563,7 @@
     <value>model procesa</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WAS_WindowsActivationService" xml:space="preserve">
-    <value>Windows Process Activation Service</value>
+    <value>Usluga aktivacije procesa sustava Windows</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_HTTP_Activation" xml:space="preserve">
     <value>Windows Communication Foundation HTTP aktivacija</value>
@@ -1575,7 +1575,7 @@
     <value>Aktivacija stavljanja poruka u red čekanja (MSMQ)</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_NonHTTP_Activation" xml:space="preserve">
-    <value>Windows Communication Foundation Non-HTTP Activation</value>
+    <value>Aktivacija bez HTTP-a za Windows Communication Foundation</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
     <value>Aktivacija imenovanog kanala</value>
@@ -1590,13 +1590,13 @@
     <value>dijeljenje TCP porta</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WindowsMediaPlayer" xml:space="preserve">
-    <value>Windows Media Player Legacy</value>
+    <value>Naslijeđeni Windows Media Player</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Windows_Identity_Foundation" xml:space="preserve">
     <value>Windows Identity Foundation 3.5</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WorkFolders_Client" xml:space="preserve">
-    <value>Work Folders Client</value>
+    <value>Klijent radnih mapa</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.State.Disable" xml:space="preserve">
     <value>Onemogući</value>
@@ -1755,7 +1755,7 @@
     <value>Nijedan WinPE jezični paket nije otkriven za odabranu arhitekturu.</value>
   </data>
   <data name="GeneralConfigurationPage_Title.Text" xml:space="preserve">
-    <value>General</value>
+    <value>Općenito</value>
   </data>
   <data name="GeneralConfiguration_CreateMedia.Button" xml:space="preserve">
     <value>Pregledajte i počnite</value>
@@ -2055,10 +2055,10 @@
     <value>Standardna konfiguracija</value>
   </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
-    <value>General</value>
+    <value>Općenito</value>
   </data>
   <data name="Nav_GeneralSection.Title" xml:space="preserve">
-    <value>General</value>
+    <value>Općenito</value>
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD kući</value>
@@ -2109,10 +2109,10 @@
     <value>Pregledajte i započnite stvaranje medija.</value>
   </data>
   <data name="Nav_StartKey.Subtitle" xml:space="preserve">
-    <value>Start</value>
+    <value>Početak</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
-    <value>Start</value>
+    <value>Početak</value>
   </data>
   <data name="Nav_UnattendKey.Description" xml:space="preserve">
     <value>Uvezite datoteke odgovora za Windows i odaberite postavke koje će se koristiti pri implementaciji.</value>
@@ -2175,7 +2175,7 @@
     <value>Wi-Fi konfiguracija zahtijeva da Wi-Fi podrška bude osigurana u slici za pokretanje.</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>Naziv Wi-Fi mreže mora zauzimati 1–32 bajta u kodiranju UTF-8.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Wi-Fi konfiguracija zahtijeva SSID.</value>
@@ -2259,109 +2259,109 @@
     <value>Mogućnosti implementacije sustava Windows</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Povezivanje nije uspjelo</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Provjerite postavke proxyja</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nove veze iz aplikacije Foundry OSD sada upotrebljavaju ove postavke.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Postavke proxyja primijenjene su</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD povezao se s uslugama GitHub i Microsoft putem odabranih postavki.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Povezivanje je uspjelo</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Unesite korisničko ime i lozinku za izričitu provjeru autentičnosti na proxyju.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Primijeni</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Upotrijebi trenutačne vjerodajnice sustava Windows</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Odaberite kako proxy provjerava autentičnost aplikacije Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Provjera autentičnosti</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Korisničko ime i lozinka</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Bez provjere autentičnosti</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Neobavezni nazivi glavnih računala ili uzorci sa zamjenskim znakovima, odvojeni točkom sa zarezom.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Popis iznimki</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Izravno se poveži s glavnim računalima čiji naziv ne sadrži točku.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Zaobiđi proxy za lokalne adrese</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Vjerodajnice se sigurno pohranjuju u Upravitelju vjerodajnicama sustava Windows.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Vjerodajnice za proxy</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domena (neobavezno)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Unesite adresu i priključak proxyja.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Proxy poslužitelj</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Odaberite kako se Foundry OSD povezuje s internetom.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Način postavljanja proxyja</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Bez proxyja (izravna veza)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Ručno postavljen proxy</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Upotrijebi postavke sustava Windows (preporučeno)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Lozinka</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>Priključak</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Ove postavke vrijede samo za ovu aplikaciju. Ne dodaju se na medij za implementaciju i ne utječu na Foundry Connect ni Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Samo Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Testiraj vezu</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Korisničko ime</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>postavke</value>
@@ -2370,22 +2370,22 @@
     <value>Upravljajte pokretanjem, jezikom, dijagnostikom i ponašanjem aplikacije.</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
-    <value>General</value>
+    <value>Općenito</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Postavite kako se Foundry OSD povezuje s mrežnim uslugama.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>Proxy postavke</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Šaljite zapisnike i pojedinosti o iznimkama iz kojih su uklonjeni osjetljivi podaci radi dijagnostike pogrešaka. Tajne i izravni identifikatori su isključeni. Isključivanje odmah zaustavlja nova slanja; već poslani zahtjev nije moguće povući.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Omogući udaljenu dijagnostiku</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Šaljite anonimne podatke o upotrebi kako biste pomogli poboljšati Foundry. Tajne, serijski brojevi i hardverski sažeci su isključeni. Koristi se anonimni identifikator instalacije; podaci mogu sadržavati proizvođača i model uređaja. Isključivanje odmah zaustavlja nova slanja; već poslani zahtjev nije moguće povući.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Omogući telemetriju</value>
@@ -2478,7 +2478,7 @@
     <value>Prijenos raspršene vrijednosti hardvera je omogućen, ali veza stanara nedostaje. Povežite se sa stanarom iz Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>Odabrani profil Autopilot nije valjan za izvanmrežnu implementaciju. Uvezite podržani profil kojim upravlja korisnik s potpunim postavkama klijenta, pridruživanja i OOBE-a.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Način profila Autopilot JSON je omogućen, ali nije odabran valjani zadani profil.</value>
@@ -2505,7 +2505,7 @@
     <value>Mapa prilagođenog upravljačkog programa ne postoji.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>Provjera prilagođenih upravljačkih programa čeka na izvršavanje ili nije dostupna.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Generacija konfiguracije implementacije nije spremna.</value>
@@ -2988,7 +2988,7 @@
     <value>Nije odabrano</value>
   </data>
   <data name="StartPage_Title.Text" xml:space="preserve">
-    <value>Start</value>
+    <value>Početak</value>
   </data>
   <data name="ThemeSetting_AccentButton.Content" xml:space="preserve">
     <value>Otvoriti</value>
@@ -3180,10 +3180,10 @@
     <value>Nije provjereno</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>ljevaonica-osd/ljevaonica</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>Ažuriranje je otkazano.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Provjera ažuriranja</value>
@@ -3198,7 +3198,7 @@
     <value>Provjera ažuriranja je preskočena jer se Foundry OSD ne pokreće iz instalacije Velopacka.</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>Ažuriranje nije moguće dovršiti.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Spreman</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} je dostupan</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>Vrijeme posljednje provjere ažuriranja nije moguće spremiti.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Ažurirati</value>

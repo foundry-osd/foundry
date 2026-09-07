@@ -31,7 +31,7 @@
     <value>متابعة</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>استعراض المحتوى دون اتصال</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>قطع الاتصال</value>
@@ -125,7 +125,7 @@
     <value>تحقق من اتصال الكابل</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP مفعّل</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>بوابة</value>
@@ -140,13 +140,13 @@
     <value>لم يتم اكتشاف محول Ethernet.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>تكوين ثابت</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>في انتظار عنوان شبكة صالح للاستخدام</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>في انتظار تكوين الشبكة</value>
@@ -287,28 +287,28 @@
     <value>أدوات</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>فشل تحليل أسماء الشبكة</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>لا يوجد اتصال شبكة نشط</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>لا يوجد عنوان شبكة صالح للاستخدام</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>تم التحقق من الوصول إلى الإنترنت</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>يلزم إجراء مصادقة الوكيل</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>انتهت مهلة التحقق من الإنترنت</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>تعذّر التحقق من الوصول إلى الإنترنت</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>استجابة غير متوقعة من الشبكة. قد توجد صفحة لتسجيل الدخول أو اعتراض للاتصال.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>المتابعة تلقائيًا في {0}s</value>

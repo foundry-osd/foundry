@@ -31,7 +31,7 @@
     <value>Jätka</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>Sirvi võrguühenduseta sisu</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Katkesta ühendus</value>
@@ -125,7 +125,7 @@
     <value>Kontrollige kaabli ühendust</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP on lubatud</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Värav</value>
@@ -140,13 +140,13 @@
     <value>Ethernet adapterit ei tuvastatud.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>Staatiline konfiguratsioon</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>Kasutatava võrguaadressi ootel</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Võrgu konfigureerimise ootel</value>
@@ -287,28 +287,28 @@
     <value>Tööriistad</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>Võrgunimede lahendamine ebaõnnestus</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>Aktiivne võrguühendus puudub</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>Kasutatav võrguaadress puudub</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>Interneti-juurdepääs on kinnitatud</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>Puhverserver nõuab autentimist</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>Interneti kontrolli ajalõpp</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>Interneti-juurdepääsu ei saanud kinnitada</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>Ootamatu võrguvastus. Võimalik, et ees on sisselogimisleht või liiklust püütakse kinni.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Jätkub automaatselt {0}s</value>

@@ -31,7 +31,7 @@
     <value>Pokračovať</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>Prehliadať obsah offline</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Odpojiť</value>
@@ -125,7 +125,7 @@
     <value>Skontrolujte pripojenie kábla</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP je povolené</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Brána</value>
@@ -140,13 +140,13 @@
     <value>Nenašiel sa žiadny adaptér Ethernet.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>Statická konfigurácia</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>Čakanie na použiteľnú sieťovú adresu</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Čaká sa na konfiguráciu siete</value>
@@ -275,7 +275,7 @@
     <value>O</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Debug</value>
+    <value>Ladenie</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Jazyk</value>
@@ -287,28 +287,28 @@
     <value>Nástroje</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>Preklad sieťového názvu zlyhal</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>Žiadne aktívne sieťové pripojenie</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>Žiadna použiteľná sieťová adresa</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>Prístup na internet bol overený</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>Vyžaduje sa overenie na serveri proxy</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>Vypršal časový limit kontroly internetu</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>Prístup na internet sa nepodarilo overiť</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>Neočakávaná sieťová odpoveď. Môže sa vyžadovať prihlásenie alebo môže dochádzať k zachytávaniu spojenia.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Pokračovanie automaticky v {0}s</value>

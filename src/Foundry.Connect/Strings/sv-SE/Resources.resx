@@ -31,7 +31,7 @@
     <value>Fortsätt</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>Bläddra bland offlineinnehåll</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Koppla från</value>
@@ -125,7 +125,7 @@
     <value>Kontrollera kabelanslutningen</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP aktiverat</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Gateway</value>
@@ -140,13 +140,13 @@
     <value>Ingen Ethernet adapter upptäckt.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>Statisk konfiguration</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>Väntar på en användbar nätverksadress</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Väntar på nätverkskonfiguration</value>
@@ -287,28 +287,28 @@
     <value>Verktyg</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>Namnmatchningen i nätverket misslyckades</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>Ingen aktiv nätverksanslutning</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>Ingen användbar nätverksadress</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>Internetåtkomst verifierad</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>Proxyautentisering krävs</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>Tidsgränsen för internetkontrollen överskreds</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>Internetåtkomsten kunde inte verifieras</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>Oväntat nätverkssvar. Det kan finnas en inloggningssida, eller trafiken kan fångas upp.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Fortsätter automatiskt i {0}s</value>
@@ -380,7 +380,7 @@
     <value>Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
-    <value>Provisioned Wi-Fi · {0}</value>
+    <value>Förkonfigurerat Wi-Fi · {0}</value>
   </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>Företagsprofil</value>
@@ -407,7 +407,7 @@
     <value>Detta nätverk kräver en tillhandahållen Wi-Fi-profil.</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
-    <value>Provisioned Wi-Fi</value>
+    <value>Förkonfigurerat Wi-Fi</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Uppdatera Wi-Fi nätverk</value>

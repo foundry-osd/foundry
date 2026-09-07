@@ -247,7 +247,7 @@
     <value>Žiniatinklio naujinimo kanalas</value>
   </data>
   <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
-    <value>Simple web feed; release-lane filtering is not supported.</value>
+    <value>Paprastas žiniatinklio srautas; filtravimas pagal leidimo kanalą nepalaikomas.</value>
   </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Atnaujinti šaltinį</value>
@@ -301,12 +301,12 @@
     <value>Nerasta jokių Autopilot profilių</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
-    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+    <value>Šie profiliai nebuvo importuoti kaip neprisijungus naudojami JSON failai. Palaikomus naudotojo valdomus profilius vis dar galima pasirinkti.
 
 {0}</value>
   </data>
   <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
-    <value>Some profiles cannot be used offline</value>
+    <value>Kai kurių profilių negalima naudoti neprisijungus</value>
   </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Atsisiunčiami Autopilot profiliai...</value>
@@ -1371,10 +1371,10 @@
     <value>IIS metabazės ir IIS 6 konfigūracijos suderinamumas</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility" xml:space="preserve">
-    <value>.NET Extensibility 3.5</value>
+    <value>.NET 3.5 išplečiamumas</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_NetFxExtensibility45" xml:space="preserve">
-    <value>.NET Extensibility 4.8</value>
+    <value>.NET 4.8 išplečiamumas</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_ODBCLogging" xml:space="preserve">
     <value>ODBC registravimas</value>
@@ -1416,7 +1416,7 @@
     <value>Interneto informacijos paslaugos</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WebSockets" xml:space="preserve">
-    <value>WebSocket Protocol</value>
+    <value>WebSocket protokolas</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.IIS_WindowsAuthentication" xml:space="preserve">
     <value>„Windows“ autentifikavimas</value>
@@ -1494,7 +1494,7 @@
     <value>ASP.NET 4.8</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.NetFx4_AdvSrvs" xml:space="preserve">
-    <value>.NET Framework 4.8 Advanced Services</value>
+    <value>.NET Framework 4.8 išplėstinės tarnybos</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.Printing_Foundation_Features" xml:space="preserve">
     <value>spausdinimo ir dokumentų paslaugos</value>
@@ -1578,7 +1578,7 @@
     <value>„Windows Communication Foundation“ ne HTTP aktyvinimas</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Pipe_Activation45" xml:space="preserve">
-    <value>Named Pipe Activation</value>
+    <value>Vardinių kanalų aktyvinimas</value>
   </data>
   <data name="Customization.WindowsOptionalFeatures.Feature.WCF_Services45" xml:space="preserve">
     <value>WCF paslaugos</value>
@@ -2175,7 +2175,7 @@
     <value>Wi-Fi konfigūracijai reikalingas Wi-Fi palaikymas įkrovos atvaizde.</value>
   </data>
   <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
-    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+    <value>Wi-Fi pavadinimą turi sudaryti 1–32 UTF-8 baitai.</value>
   </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Wi-Fi konfigūracijai reikalingas SSID.</value>
@@ -2259,109 +2259,109 @@
     <value>Windows diegimo parinktys</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
-    <value>Connection failed</value>
+    <value>Nepavyko prisijungti</value>
   </data>
   <data name="Proxy.Status.InvalidTitle" xml:space="preserve">
-    <value>Check the proxy settings</value>
+    <value>Patikrinkite tarpinio serverio parametrus</value>
   </data>
   <data name="Proxy.Status.SavedMessage" xml:space="preserve">
-    <value>New connections from Foundry OSD now use these settings.</value>
+    <value>Nauji Foundry OSD ryšiai dabar naudoja šiuos parametrus.</value>
   </data>
   <data name="Proxy.Status.SavedTitle" xml:space="preserve">
-    <value>Proxy settings applied</value>
+    <value>Tarpinio serverio parametrai pritaikyti</value>
   </data>
   <data name="Proxy.Status.SuccessMessage" xml:space="preserve">
-    <value>Foundry OSD reached GitHub and Microsoft services using the selected settings.</value>
+    <value>Foundry OSD pasiekė GitHub ir Microsoft tarnybas naudodama pasirinktus parametrus.</value>
   </data>
   <data name="Proxy.Status.SuccessTitle" xml:space="preserve">
-    <value>Connection successful</value>
+    <value>Prisijungta sėkmingai</value>
   </data>
   <data name="Proxy.Validation.CredentialsRequired" xml:space="preserve">
-    <value>Enter a username and password for explicit proxy authentication.</value>
+    <value>Įveskite naudotojo vardą ir slaptažodį atskiram tarpinio serverio autentifikavimui.</value>
   </data>
   <data name="Proxy_AddressTextBox.PlaceholderText" xml:space="preserve">
     <value>proxy.contoso.com</value>
   </data>
   <data name="Proxy_ApplyButton.Content" xml:space="preserve">
-    <value>Apply</value>
+    <value>Taikyti</value>
   </data>
   <data name="Proxy_AuthenticationAutomatic.Content" xml:space="preserve">
-    <value>Use current Windows credentials</value>
+    <value>Naudoti dabartinius Windows kredencialus</value>
   </data>
   <data name="Proxy_AuthenticationCard.Description" xml:space="preserve">
-    <value>Choose how the proxy authenticates Foundry OSD.</value>
+    <value>Pasirinkite, kaip tarpinis serveris autentifikuoja Foundry OSD.</value>
   </data>
   <data name="Proxy_AuthenticationCard.Header" xml:space="preserve">
-    <value>Authentication</value>
+    <value>Autentifikavimas</value>
   </data>
   <data name="Proxy_AuthenticationExplicit.Content" xml:space="preserve">
-    <value>Username and password</value>
+    <value>Naudotojo vardas ir slaptažodis</value>
   </data>
   <data name="Proxy_AuthenticationNone.Content" xml:space="preserve">
-    <value>No authentication</value>
+    <value>Be autentifikavimo</value>
   </data>
   <data name="Proxy_BypassListCard.Description" xml:space="preserve">
-    <value>Optional host names or wildcard patterns separated by semicolons.</value>
+    <value>Pasirinktiniai pagrindinių kompiuterių vardai arba šablonai su pakaitos simboliais, atskirti kabliataškiais.</value>
   </data>
   <data name="Proxy_BypassListCard.Header" xml:space="preserve">
-    <value>Bypass list</value>
+    <value>Išimčių sąrašas</value>
   </data>
   <data name="Proxy_BypassListTextBox.PlaceholderText" xml:space="preserve">
     <value>*.contoso.com;downloads.example.net</value>
   </data>
   <data name="Proxy_BypassLocalCard.Description" xml:space="preserve">
-    <value>Connect directly to host names that do not contain a period.</value>
+    <value>Tiesiogiai jungtis prie pagrindinių kompiuterių, kurių varduose nėra taško.</value>
   </data>
   <data name="Proxy_BypassLocalCard.Header" xml:space="preserve">
-    <value>Bypass local addresses</value>
+    <value>Vietiniams adresams nenaudoti tarpinio serverio</value>
   </data>
   <data name="Proxy_CredentialsCard.Description" xml:space="preserve">
-    <value>Credentials are stored securely in Windows Credential Manager.</value>
+    <value>Kredencialai saugiai laikomi Windows kredencialų tvarkytuve.</value>
   </data>
   <data name="Proxy_CredentialsCard.Header" xml:space="preserve">
-    <value>Proxy credentials</value>
+    <value>Tarpinio serverio kredencialai</value>
   </data>
   <data name="Proxy_DomainTextBox.PlaceholderText" xml:space="preserve">
-    <value>Domain (optional)</value>
+    <value>Domenas (pasirinktinai)</value>
   </data>
   <data name="Proxy_EndpointCard.Description" xml:space="preserve">
-    <value>Enter the proxy address and port.</value>
+    <value>Įveskite tarpinio serverio adresą ir prievadą.</value>
   </data>
   <data name="Proxy_EndpointCard.Header" xml:space="preserve">
-    <value>Proxy server</value>
+    <value>Tarpinis serveris</value>
   </data>
   <data name="Proxy_MethodCard.Description" xml:space="preserve">
-    <value>Choose how Foundry OSD connects to the internet.</value>
+    <value>Pasirinkite, kaip Foundry OSD jungiasi prie interneto.</value>
   </data>
   <data name="Proxy_MethodCard.Header" xml:space="preserve">
-    <value>Proxy method</value>
+    <value>Tarpinio serverio naudojimo būdas</value>
   </data>
   <data name="Proxy_MethodDirect.Content" xml:space="preserve">
-    <value>No proxy (direct connection)</value>
+    <value>Be tarpinio serverio (tiesioginis ryšys)</value>
   </data>
   <data name="Proxy_MethodManual.Content" xml:space="preserve">
-    <value>Manual proxy</value>
+    <value>Rankiniu būdu nustatomas tarpinis serveris</value>
   </data>
   <data name="Proxy_MethodSystem.Content" xml:space="preserve">
-    <value>Use Windows settings (recommended)</value>
+    <value>Naudoti Windows parametrus (rekomenduojama)</value>
   </data>
   <data name="Proxy_PasswordBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>Slaptažodis</value>
   </data>
   <data name="Proxy_PortNumberBox.PlaceholderText" xml:space="preserve">
-    <value>Port</value>
+    <value>Prievadas</value>
   </data>
   <data name="Proxy_ScopeInfo.Message" xml:space="preserve">
-    <value>These settings apply only to this app. They are not added to deployment media and do not affect Foundry Connect or Foundry Deploy.</value>
+    <value>Šie parametrai taikomi tik šiai programai. Jie nepridedami prie diegimo laikmenos ir neturi įtakos Foundry Connect ar Foundry Deploy.</value>
   </data>
   <data name="Proxy_ScopeInfo.Title" xml:space="preserve">
-    <value>Foundry OSD only</value>
+    <value>Tik Foundry OSD</value>
   </data>
   <data name="Proxy_TestButton.Content" xml:space="preserve">
-    <value>Test connection</value>
+    <value>Tikrinti ryšį</value>
   </data>
   <data name="Proxy_UsernameTextBox.PlaceholderText" xml:space="preserve">
-    <value>Username</value>
+    <value>Naudotojo vardas</value>
   </data>
   <data name="SettingsPage.PageTitle" xml:space="preserve">
     <value>Nustatymai</value>
@@ -2373,19 +2373,19 @@
     <value>Generolas</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
-    <value>Configure how Foundry OSD connects to online services.</value>
+    <value>Konfigūruokite, kaip Foundry OSD jungiasi prie internetinių tarnybų.</value>
   </data>
   <data name="SettingsPage_ProxyCard.Header" xml:space="preserve">
-    <value>Proxy</value>
+    <value>Tarpinis serveris</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send sanitized logs and exception details to help diagnose failures. Secrets and direct identifiers are excluded. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Siųskite išvalytus žurnalus ir išimčių informaciją, kad būtų lengviau diagnozuoti gedimus. Paslaptys ir tiesioginiai identifikatoriai neįtraukiami. Išjungus šią funkciją, naujas siuntimas iškart sustabdomas; jau išsiųstos užklausos atšaukti negalima.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Įjungti nuotolinę diagnostiką</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Description" xml:space="preserve">
-    <value>Send anonymous usage telemetry to help improve Foundry. Secrets, serial numbers and hardware hashes are excluded. Uses an anonymous installation ID and may include device vendor and model. Turning this off stops new sends immediately; a request already sent cannot be recalled.</value>
+    <value>Siųskite anoniminę naudojimo telemetriją, kad padėtumėte tobulinti Foundry. Paslaptys, serijos numeriai ir aparatinės įrangos maišos neįtraukiami. Naudojamas anoniminis diegimo ID; gali būti įtrauktas įrenginio gamintojas ir modelis. Išjungus šią funkciją, naujas siuntimas iškart sustabdomas; jau išsiųstos užklausos atšaukti negalima.</value>
   </data>
   <data name="SettingsPage_TelemetryCard.Header" xml:space="preserve">
     <value>Įgalinti telemetriją</value>
@@ -2478,7 +2478,7 @@
     <value>Aparatinės įrangos maišos įkėlimas įgalintas, bet trūksta nuomininko ryšio. Prisijunkite prie nuomininko iš Autopilot.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
-    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
+    <value>Pasirinktas Autopilot profilis netinka diegti neprisijungus. Importuokite palaikomą naudotojo valdomą profilį su visais nuomotojo, prijungimo ir OOBE parametrais.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON profilio režimas įjungtas, bet nepasirinktas tinkamas numatytasis profilis.</value>
@@ -2505,7 +2505,7 @@
     <value>Pasirinktinis tvarkyklės aplankas neegzistuoja.</value>
   </data>
   <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
-    <value>Custom driver inspection is pending or unavailable.</value>
+    <value>Pasirinktinių tvarkyklių patikra dar neatlikta arba nepasiekiama.</value>
   </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Diegimo konfigūracijos generavimas neparengtas.</value>
@@ -3180,10 +3180,10 @@
     <value>Nepatikrintas</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>liejykla-osd / liejykla</value>
+    <value>foundry-osd/foundry</value>
   </data>
   <data name="Update.Status.Cancelled" xml:space="preserve">
-    <value>Update operation canceled.</value>
+    <value>Atnaujinimas atšauktas.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Tikrinama, ar nėra atnaujinimų</value>
@@ -3198,7 +3198,7 @@
     <value>Atnaujinimo patikra praleista, nes Foundry OSD neveikia iš Velopack diegimo.</value>
   </data>
   <data name="Update.Status.OperationFailed" xml:space="preserve">
-    <value>The update operation could not be completed.</value>
+    <value>Nepavyko užbaigti atnaujinimo.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Paruošta</value>
@@ -3231,7 +3231,7 @@
     <value>Foundry OSD {0} yra</value>
   </data>
   <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
-    <value>The last update check time could not be saved.</value>
+    <value>Nepavyko išsaugoti paskutinės atnaujinimų patikros laiko.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Atnaujinti</value>

@@ -31,7 +31,7 @@
     <value>Nastaviti</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>Pregledajte izvanmrežni sadržaj</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Prekini vezu</value>
@@ -125,10 +125,10 @@
     <value>Provjerite kabelsku vezu</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP je omogućen</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Gateway</value>
+    <value>Pristupnik</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
@@ -140,13 +140,13 @@
     <value>Nije otkriven Ethernet adapter.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>Statička konfiguracija</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>Čekanje na upotrebljivu mrežnu adresu</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Čeka se konfiguracija mreže</value>
@@ -275,7 +275,7 @@
     <value>Oko</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Debug</value>
+    <value>Otklanjanje pogrešaka</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Jezik</value>
@@ -287,28 +287,28 @@
     <value>Alati</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>Razrješavanje mrežnog naziva nije uspjelo</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>Nema aktivne mrežne veze</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>Nema upotrebljive mrežne adrese</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>Pristup internetu je potvrđen</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>Potrebna je provjera autentičnosti na proxy poslužitelju</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>Isteklo je vrijeme provjere interneta</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>Pristup internetu nije moguće potvrditi</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>Neočekivan mrežni odgovor. Moguća je stranica za prijavu ili presretanje veze.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Automatski se nastavlja za {0}s</value>

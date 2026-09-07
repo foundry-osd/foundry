@@ -76,13 +76,13 @@
     <value>{0} (Nyeste)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Verifisert frakoblet katalog</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Nettkatalog med bekreftet opprinnelse</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: hentet {1} ({2} dager gammel). Revisjon: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Versjon</value>
@@ -264,7 +264,7 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Manuelt valg: Kontroller at denne pakken støtter den registrerte maskinvaren og den valgte Windows-versjonen. Kontroller av pakkeintegritet og utgiver gjelder fortsatt.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@ Vil du fortsette med distribusjonen?</value>
     <value>Bekreft sletting av disk</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry kontrollerer avbildningen før sletting når uavhengig lagringsplass er tilgjengelig. Hvis avbildningen må lastes ned til måldisken, kan bare katalogmetadata, kildetilgjengelighet og anslått kapasitet kontrolleres på forhånd. Nedlasting eller validering av avbildningen kan da mislykkes etter at disken er slettet.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Denne builden har ikke et kvalifisert WinPE-miljø for innsamling av maskinvarehasher. Windows-distribusjonen fortsetter uten automatisk sertifikatbasert opplasting til Autopilot. Hvis registrering kreves, går du tilbake og velger den interaktive registreringsassistenten for fullstendig Windows med en støttet Windows-utgave. Foundry endrer ikke autentiseringsmetode automatisk.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Omtrent</value>
@@ -672,7 +672,7 @@ Vil du fortsette med distribusjonen?</value>
     <value>Initialiser utrulling</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Kontroller forutsetningene for avbildningen</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Forbered disk</value>
@@ -1011,7 +1011,7 @@ Vil du fortsette med distribusjonen?</value>
     <value>Cache-strategi løst (simulering).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Den bekreftede måldisken er utilgjengelig, endret eller usikker.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Første oppstart av driverpakken ble forespurt uten en støttet kommando.</value>
@@ -1203,7 +1203,7 @@ Vil du fortsette med distribusjonen?</value>
     <value>Mål-Windows-partisjonen er ikke tilgjengelig for klargjøring av den interaktive Autopilot-registreringsassistenten.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Distribusjon krever UEFI-oppstartsmodus.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Installasjonsmodus for driverpakke som ikke støttes.</value>

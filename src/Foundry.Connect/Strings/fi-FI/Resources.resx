@@ -31,7 +31,7 @@
     <value>Jatka</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>Selaa offline-sisältöä</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Katkaise yhteys</value>
@@ -125,10 +125,10 @@
     <value>Tarkista kaapelin liitäntä</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>DHCP käytössä</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
-    <value>Gateway</value>
+    <value>Yhdyskäytävä</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
@@ -140,13 +140,13 @@
     <value>Ethernet-sovitinta ei havaittu.</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>Kiinteät asetukset</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>Odotetaan käyttökelpoista verkko-osoitetta</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Odotetaan verkon määritystä</value>
@@ -275,7 +275,7 @@
     <value>Tietoja</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Debug</value>
+    <value>Virheenkorjaus</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>Kieli</value>
@@ -287,28 +287,28 @@
     <value>Työkalut</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>Verkon nimenselvitys epäonnistui</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>Ei aktiivista verkkoyhteyttä</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>Ei käyttökelpoista verkko-osoitetta</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>Internet-yhteys vahvistettu</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>Välityspalvelin vaatii todennuksen</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>Internet-tarkistus aikakatkaistiin</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>Internet-yhteyttä ei voitu vahvistaa</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>Odottamaton verkkovastaus. Yhteys voi edellyttää kirjautumista, tai liikennettä voidaan siepata.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Jatkuu automaattisesti {0}s</value>

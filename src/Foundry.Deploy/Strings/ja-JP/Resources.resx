@@ -76,13 +76,13 @@
     <value>{0} (最新)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>検証済みのオフラインカタログ</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>配信元を認証済みのオンラインカタログ</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: {1} に取得（{2} 日前）。リビジョン: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>バージョン</value>
@@ -264,7 +264,7 @@
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>手動選択: このパックが検出されたハードウェアと選択した Windows リリースに対応していることを確認してください。パッケージの整合性と発行元の検証は引き続き実施されます。</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@
     <value>ディスク消去の確認</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>独立したストレージが利用できる場合、Foundry は消去前にイメージを検査します。イメージを対象ディスクにダウンロードする必要がある場合、事前に確認できるのはカタログのメタデータ、取得元の可用性、推定容量のみです。その場合、ディスクの消去後にダウンロードやイメージ検証が失敗する可能性があります。</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>このビルドには、動作検証済みの WinPE ハードウェアハッシュ取得環境がありません。証明書による Autopilot への自動アップロードを行わずに Windows の展開を続行します。登録が必要な場合は戻って、対応する Windows エディションで完全な Windows 環境の対話型登録アシスタントを選択してください。Foundry が認証モードを自動的に変更することはありません。</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_概要</value>
@@ -672,7 +672,7 @@
     <value>展開を初期化</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>イメージの前提条件を確認</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>ディスクを準備</value>
@@ -1011,7 +1011,7 @@
     <value>キャッシュ戦略が解決されました (シミュレーション)。</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>確認済みの対象ディスクが利用できないか、変更されたか、安全ではありません。</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>サポートされているコマンドなしで、初回起動ドライバー パックのステージングが要求されました。</value>
@@ -1203,7 +1203,7 @@
     <value>対話型 Autopilot 登録アシスタントのステージングに使用するターゲット Windows パーティションを利用できません。</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>展開には UEFI ブートモードが必要です。</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>サポートされていないドライバー パックのインストール モードです。</value>

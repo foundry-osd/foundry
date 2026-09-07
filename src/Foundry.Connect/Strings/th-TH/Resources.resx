@@ -31,7 +31,7 @@
     <value>ดำเนินการต่อ</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>เรียกดูเนื้อหาออฟไลน์</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>ตัดการเชื่อมต่อ</value>
@@ -125,7 +125,7 @@
     <value>ตรวจสอบการเชื่อมต่อสายเคเบิล</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>เปิดใช้งาน DHCP</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>เกตเวย์</value>
@@ -140,13 +140,13 @@
     <value>ไม่พบอะแดปเตอร์ Ethernet</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>การกำหนดค่าแบบคงที่</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>กำลังรอที่อยู่เครือข่ายที่ใช้งานได้</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>กำลังรอการกำหนดค่าเครือข่าย</value>
@@ -287,28 +287,28 @@
     <value>เครื่องมือ</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>การแปลงชื่อเครือข่ายล้มเหลว</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>ไม่มีการเชื่อมต่อเครือข่ายที่ทำงานอยู่</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>ไม่มีที่อยู่เครือข่ายที่ใช้งานได้</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>ยืนยันการเข้าถึงอินเทอร์เน็ตแล้ว</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>ต้องยืนยันตัวตนกับพร็อกซี</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>หมดเวลาตรวจสอบอินเทอร์เน็ต</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>ไม่สามารถยืนยันการเข้าถึงอินเทอร์เน็ตได้</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>การตอบสนองของเครือข่ายไม่เป็นไปตามที่คาดไว้ อาจมีหน้าลงชื่อเข้าใช้หรือการดักรับการเชื่อมต่อ</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>ต่อเนื่องอัตโนมัติใน {0}s</value>

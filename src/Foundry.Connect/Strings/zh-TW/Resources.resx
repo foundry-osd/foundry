@@ -31,7 +31,7 @@
     <value>繼續</value>
   </data>
   <data name="Action.ContinueOffline" xml:space="preserve">
-    <value>Browse offline content</value>
+    <value>瀏覽離線內容</value>
   </data>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>斷開連接</value>
@@ -125,7 +125,7 @@
     <value>檢查電纜連接</value>
   </data>
   <data name="Ethernet.DhcpEnabled" xml:space="preserve">
-    <value>DHCP enabled</value>
+    <value>已啟用 DHCP</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>閘道</value>
@@ -140,13 +140,13 @@
     <value>未偵測到 Ethernet 適配器。</value>
   </data>
   <data name="Ethernet.StaticConfiguration" xml:space="preserve">
-    <value>Static configuration</value>
+    <value>靜態設定</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
   <data name="Ethernet.WaitingAddress" xml:space="preserve">
-    <value>Waiting for a usable network address</value>
+    <value>正在等候可用的網路位址</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>等待網路配置</value>
@@ -287,28 +287,28 @@
     <value>工具</value>
   </data>
   <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
-    <value>Network name resolution failed</value>
+    <value>網路名稱解析失敗</value>
   </data>
   <data name="Network.Readiness.NoLink" xml:space="preserve">
-    <value>No active network connection</value>
+    <value>沒有作用中的網路連線</value>
   </data>
   <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
-    <value>No usable network address</value>
+    <value>沒有可用的網路位址</value>
   </data>
   <data name="Network.Readiness.Online" xml:space="preserve">
-    <value>Internet access verified</value>
+    <value>已確認可存取網際網路</value>
   </data>
   <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
-    <value>Proxy authentication is required</value>
+    <value>需要進行 Proxy 驗證</value>
   </data>
   <data name="Network.Readiness.TimedOut" xml:space="preserve">
-    <value>Internet check timed out</value>
+    <value>網際網路連線檢查逾時</value>
   </data>
   <data name="Network.Readiness.Unavailable" xml:space="preserve">
-    <value>Internet access could not be verified</value>
+    <value>無法確認是否可存取網際網路</value>
   </data>
   <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
-    <value>Unexpected network response. A sign-in page or interception may be present.</value>
+    <value>網路回應與預期不符。可能有登入頁面或連線遭攔截的情況。</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>在{0}s中自動繼續</value>

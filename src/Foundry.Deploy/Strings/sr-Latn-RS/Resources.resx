@@ -76,16 +76,16 @@
     <value>{0} (Najnovije)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Proveren katalog van mreže</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Mrežni katalog sa potvrđenom autentičnošću</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: preuzeto {1} (starost: {2} dana). Revizija: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
-    <value>Version</value>
+    <value>Verzija</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Otkaži</value>
@@ -100,7 +100,7 @@
     <value>Deploi</value>
   </data>
   <data name="Common.Detected" xml:space="preserve">
-    <value>Detected</value>
+    <value>Otkriveno</value>
   </data>
   <data name="Common.Disabled" xml:space="preserve">
     <value>Onemogućeno</value>
@@ -246,7 +246,7 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
     <value>Blokirano: sistemski disk</value>
   </data>
   <data name="Disk.DebugVirtualTarget" xml:space="preserve">
-    <value>DEBUG VIRTUAL TARGET</value>
+    <value>VIRTUELNI CILJ ZA OTKLANJANJE GREŠAKA</value>
   </data>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Disk {0} | {1} | {2} | {3}{4}</value>
@@ -264,7 +264,7 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Ručni izbor: proverite da li ovaj paket podržava otkriveni hardver i izabrano izdanje sistema Windows. Provere integriteta paketa i izdavača i dalje važe.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -285,7 +285,7 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
     <value>Izvor drajvera</value>
   </data>
   <data name="DriverPack.Version" xml:space="preserve">
-    <value>Version</value>
+    <value>Verzija</value>
   </data>
   <data name="Drivers.Description" xml:space="preserve">
     <value>Izaberite izvor upravljačkih programa i, kada je potrebno, odgovarajući model i verziju.</value>
@@ -435,16 +435,16 @@ Operativni sistem: {4}
     <value>Potvrdite brisanje diska</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry proverava sliku pre brisanja kad god je dostupno nezavisno skladište. Ako slika mora da se preuzme na ciljni disk, unapred mogu da se provere samo metapodaci kataloga, dostupnost izvora i procenjeni kapacitet. Greška pri preuzimanju ili proveri slike tada može da se javi nakon brisanja diska.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Ova verzija nema provereno WinPE okruženje za prikupljanje hardverskog heša. Primena sistema Windows nastaviće se bez automatskog otpremanja u Autopilot uz potvrdu identiteta sertifikatom. Ako je registracija obavezna, vratite se i izaberite interaktivni pomoćnik za registraciju u punom sistemu Windows sa podržanim izdanjem. Foundry neće automatski menjati način potvrde identiteta.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_O</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>_Debug</value>
+    <value>_Otklanjanje grešaka</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Jezik</value>
@@ -672,7 +672,7 @@ Operativni sistem: {4}
     <value>Inicijalizuj raspoređivanje</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Proverite preduslove slike</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Pripremi disk</value>
@@ -1011,7 +1011,7 @@ Operativni sistem: {4}
     <value>Strategija keširanja je rešena (simulacija).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Potvrđeni ciljni disk nije dostupan, promenjen je ili nije bezbedan.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Zatraženo je postavljanje paketa drajvera za prvo pokretanje bez podržane komande.</value>
@@ -1203,7 +1203,7 @@ Operativni sistem: {4}
     <value>Ciljna Windows particija nije dostupna za pripremu interaktivnog pomoćnika za registraciju Autopilota.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Primena zahteva pokretanje u UEFI režimu.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Nepodržani režim instalacije paketa drajvera.</value>
@@ -1278,7 +1278,7 @@ Operativni sistem: {4}
     <value>Autopilot Profil</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Izdanje</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Ugrađeni administratorski nalog</value>
@@ -1497,7 +1497,7 @@ Operativni sistem: {4}
     <value>TPM</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Tamna</value>
   </data>
   <data name="Theme.Light" xml:space="preserve">
     <value>Svetlost</value>

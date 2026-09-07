@@ -76,13 +76,13 @@
     <value>{0} (La plus récente)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Catalogue hors connexion vérifié</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Catalogue en ligne authentifié</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0} : récupéré le {1} (il y a {2} jours). Révision : {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Version</value>
@@ -264,7 +264,7 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
     <value> | {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Sélection manuelle : vérifiez que ce pack prend en charge le matériel détecté et la version de Windows sélectionnée. Les contrôles d’intégrité du package et de son éditeur restent applicables.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@ Continuer le déploiement ?</value>
     <value>Confirmer l’effacement du disque</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry vérifie l’image avant l’effacement lorsqu’un stockage indépendant est disponible. Si l’image doit être téléchargée sur le disque cible, seules les métadonnées du catalogue, la disponibilité de la source et la capacité estimée peuvent être vérifiées au préalable. Le téléchargement ou la validation de l’image peut alors échouer après l’effacement de ce disque.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Cette version ne dispose d’aucun environnement WinPE validé pour la capture des empreintes matérielles. Le déploiement de Windows continuera sans envoi automatique vers Autopilot par certificat. Si l’enregistrement est requis, revenez en arrière et sélectionnez l’assistant d’enregistrement interactif sous Windows complet avec une édition de Windows prise en charge. Foundry ne changera pas automatiquement de mode d’authentification.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_À propos</value>
@@ -468,7 +468,7 @@ Continuer le déploiement ?</value>
     <value>Le certificat Autopilot a expiré. Le déploiement peut continuer sans envoyer le hash matériel.</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashGroupTagChoice" xml:space="preserve">
-    <value>Group tag</value>
+    <value>Étiquette de groupe</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashMissingMetadataMessage" xml:space="preserve">
     <value>Les informations de certificat requises sont manquantes. Le déploiement peut continuer sans envoyer le hash matériel.</value>
@@ -672,7 +672,7 @@ Continuer le déploiement ?</value>
     <value>Initialiser le déploiement</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Vérifier les prérequis de l’image</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Préparer le disque</value>
@@ -1011,7 +1011,7 @@ Continuer le déploiement ?</value>
     <value>Stratégie de cache résolue (simulation).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Le disque cible confirmé est indisponible, a changé ou ne peut pas être utilisé en toute sécurité.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>La préparation du pack de pilotes au premier démarrage a été demandée sans commande prise en charge.</value>
@@ -1203,7 +1203,7 @@ Continuer le déploiement ?</value>
     <value>La partition Windows cible n'est pas disponible pour préparer l'assistant d'enregistrement Autopilot interactif.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Le déploiement nécessite le mode de démarrage UEFI.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Mode d’installation du pack de pilotes non pris en charge.</value>
@@ -1278,7 +1278,7 @@ Continuer le déploiement ?</value>
     <value>Profil Autopilot</value>
   </data>
   <data name="Summary.Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Version de build</value>
   </data>
   <data name="Summary.BuiltInAdministrator" xml:space="preserve">
     <value>Compte Administrateur intégré</value>

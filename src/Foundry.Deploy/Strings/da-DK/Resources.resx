@@ -76,13 +76,13 @@
     <value>{0} (nyeste)</value>
   </data>
   <data name="Catalog.OfflineSource" xml:space="preserve">
-    <value>Verified offline catalog</value>
+    <value>Verificeret offlinekatalog</value>
   </data>
   <data name="Catalog.OnlineSource" xml:space="preserve">
-    <value>Authenticated online catalog</value>
+    <value>Onlinekatalog med bekræftet oprindelse</value>
   </data>
   <data name="Catalog.SnapshotStatusFormat" xml:space="preserve">
-    <value>{0}: retrieved {1} ({2} days old). Revision: {3}</value>
+    <value>{0}: hentet {1} ({2} dage gammelt). Revision: {3}</value>
   </data>
   <data name="Catalog.Version" xml:space="preserve">
     <value>version</value>
@@ -264,7 +264,7 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value>
     <value>| {0}</value>
   </data>
   <data name="DriverPack.ManualSelectionWarning" xml:space="preserve">
-    <value>Manual selection: verify that this pack supports the detected hardware and selected Windows release. Package integrity and publisher checks still apply.</value>
+    <value>Manuelt valg: Kontrollér, at denne pakke understøtter den registrerede hardware og den valgte Windows-version. Kontrol af pakkens integritet og udgiver gælder stadig.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
@@ -435,10 +435,10 @@ Vil du fortsætte med implementeringen?</value>
     <value>Bekræft sletning af disk</value>
   </data>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
-    <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
+    <value>Foundry kontrollerer afbildningen før sletning, når uafhængig lagerplads er tilgængelig. Hvis afbildningen skal downloades til måldisken, kan kun katalogmetadata, kildens tilgængelighed og den anslåede kapacitet kontrolleres på forhånd. Download eller validering af afbildningen kan derfor mislykkes, efter at disken er blevet slettet.</value>
   </data>
   <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
-    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+    <value>Denne build har ikke et kvalificeret WinPE-miljø til registrering af hardwarehash. Windows-udrulningen fortsætter uden automatisk certifikatbaseret upload til Autopilot. Hvis registrering er påkrævet, skal du gå tilbage og vælge den interaktive registreringsassistent til det fulde Windows-miljø med en understøttet Windows-udgave. Foundry ændrer ikke godkendelsesmetode automatisk.</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Om</value>
@@ -483,7 +483,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Upload af hardware-hash er ikke tilgængelig</value>
   </data>
   <data name="Preparation.AutopilotHardwareHashUploadStatus" xml:space="preserve">
-    <value>Hardware hash upload status</value>
+    <value>Status for upload af hardwarehash</value>
   </data>
   <data name="Preparation.AutopilotModeHardwareHashUpload" xml:space="preserve">
     <value>Zero-touch upload af hardwarehash</value>
@@ -654,7 +654,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Download drivere</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Download firmware</value>
+    <value>Hent firmware</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
     <value>Download operativsystem</value>
@@ -672,7 +672,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Initialiser implementering</value>
   </data>
   <data name="Step.PreflightOperatingSystemImage" xml:space="preserve">
-    <value>Check image prerequisites</value>
+    <value>Kontrollér forudsætninger for afbildningen</value>
   </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Forbered disk</value>
@@ -1011,7 +1011,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Cache-strategi løst (simulering).</value>
   </data>
   <data name="StepResult.ConfirmedDiskMismatch" xml:space="preserve">
-    <value>The confirmed target disk is unavailable, changed, or unsafe.</value>
+    <value>Den bekræftede måldisk er utilgængelig, ændret eller usikker.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Der blev anmodet om iscenesættelse af driverpakke ved første start uden en understøttet kommando.</value>
@@ -1203,7 +1203,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Mål-Windows-partitionen er ikke tilgængelig til klargøring af den interaktive Autopilot-registreringsassistent.</value>
   </data>
   <data name="StepResult.UefiRequired" xml:space="preserve">
-    <value>Deployment requires UEFI boot mode.</value>
+    <value>Udrulning kræver UEFI-starttilstand.</value>
   </data>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Ikke-understøttet driverpakkeinstallationstilstand.</value>
