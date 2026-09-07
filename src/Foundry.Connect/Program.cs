@@ -36,6 +36,7 @@ public static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        if (PackageValidationCommand.IsRequested(args)) return PackageValidationCommand.Run(args);
         string startupLogFilePath = FoundryConnectLogging.ResolveStartupLogFilePath();
         IHost? host = null;
         ITelemetryService? telemetryService = null;

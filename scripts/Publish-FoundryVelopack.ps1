@@ -61,8 +61,21 @@ $applicationVersion = '{0}.{1}.{2}.{3}' -f $Matches['year'], $Matches['month'], 
 # $msiVersion = '{0}.{1}.{2}.0' -f $Matches['year'], $Matches['month'], $Matches['day']
 
 foreach ($path in @($publishDir, $releaseDir)) {
+    $path = [IO.Path]::GetFullPath($path)
+    $ownedPrefix = [IO.Path]::GetFullPath($artifactsRoot) + [IO.Path]::DirectorySeparatorChar
+    if (-not $path.StartsWith($ownedPrefix, [StringComparison]::OrdinalIgnoreCase)) {
+        throw 'Velopack output must remain inside repository artifacts.'
+    }
+    $ancestor = $path
+    while ($ancestor) {
+        if ((Test-Path -LiteralPath $ancestor) -and
+            ((Get-Item -LiteralPath $ancestor -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+            throw 'Velopack output cannot traverse a reparse point.'
+        }
+        $ancestor = [IO.Path]::GetDirectoryName($ancestor)
+    }
     if (Test-Path -Path $path) {
-        Remove-Item -Path $path -Recurse -Force
+        Remove-Item -LiteralPath $path -Recurse -Force
     }
 
     New-Item -Path $path -ItemType Directory -Force | Out-Null

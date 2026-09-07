@@ -38,6 +38,7 @@ public static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        if (PackageValidationCommand.IsRequested(args)) return PackageValidationCommand.Run(args);
         if (Services.Startup.DeploymentOfflineReadinessCommand.IsRequested(args))
             return Services.Startup.DeploymentOfflineReadinessCommand.RunAsync(args).GetAwaiter().GetResult();
         string startupLogFilePath = FoundryDeployLogging.ResolveStartupLogFilePath();

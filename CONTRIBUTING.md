@@ -74,7 +74,7 @@ foreach ($testProject in $testProjects) {
 }
 ```
 
-Validate ARM64 when the change affects runtime behavior, packaging, architecture-specific code, or deployment assets. CI runs formatting, Release builds, and all test projects for both x64 and ARM64.
+Run local validation on an available native architecture. Without an ARM64 host, record ARM64 qualification as unavailable; an x64 cross-build does not establish native behavior. CI runs formatting, Release builds, and all test projects on native x64 and ARM64 runners.
 
 Use disposable virtual machines, test disks, non-production tenants, and non-production credentials for manual media and deployment testing. Foundry workflows can erase disks and exercise privileged network or cloud operations.
 
@@ -116,3 +116,15 @@ Before adopting different bytes:
 5. Perform separately authorized native launch qualification on the intended architecture before claiming support. Reading ARM64 PE headers or cross-building on x64 is not native ARM64 qualification.
 
 ServiceUI metadata currently identifies only x64. Do not replace it or assume ARM64 emulation support as part of a documentation-only provenance change.
+
+## Release verification
+
+The Release workflow computes one commit and version, runs reusable CI against that identity, then builds each architecture on its native runner. `Set-FoundryBuildVersion.ps1` applies the four build version properties consistently. Build-generated version changes are not source release-version commits.
+
+Connect and Deploy archives run `--validate-package --expected-version <version> --expected-runtime win-x64` before normal application startup. The workflow supplies a fresh `DOTNET_BUNDLE_EXTRACT_BASE_DIR`. This checks exact resources, architecture, native DLL loadability and Deploy's embedded ServiceUI and external notices. It does not create views, initialize deployment/network services, run ServiceUI, install an MSI or prove WinPE bootability.
+
+Each native job produces a receipt containing the commit, versions and measured asset hashes. `Test-FoundryReleaseAssets.ps1` requires both architecture receipts, installers, runtime archives and complete current-version full/delta feed references before merging artifacts. Conflicting duplicate names fail verification. Receipts describe the trusted build job; they are not signatures.
+
+Only the complete verified inventory can reach `Publish-FoundryRelease.ps1`. Its Stage mode creates or resumes one matching draft, refuses public or immutable collisions, and verifies uploaded names, sizes and SHA-256 values. Publish mode rechecks the exact release ID, tag, commit, draft state and complete asset set before publication. The default workflow input keeps the result as a draft. An upload or verification failure leaves publication blocked; rerun the failed jobs to resume the same prepared identity. Do not publish an incomplete draft manually or use Velopack's implicit upload command to bypass this gate.
+
+Keep manual installer, UI, WinPE, physical-media and hardware qualification separate from these automated package checks.

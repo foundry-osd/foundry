@@ -6,12 +6,23 @@ on:
       - main
   pull_request:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      source_sha:
+        description: Immutable commit to verify
+        required: true
+        type: string
+      release_version:
+        description: Product version applied before verification
+        required: false
+        default: ''
+        type: string
 
 permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
+  group: ci-${{ github.workflow }}-${{ inputs.source_sha || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -22,6 +33,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.source_sha || github.sha }}
+
+      - name: Apply release version
+        if: inputs.release_version != ''
+        shell: pwsh
+        env:
+          RELEASE_VERSION: ${{ inputs.release_version }}
+        run: ./scripts/Set-FoundryBuildVersion.ps1 -Version $env:RELEASE_VERSION
 
       - name: Set up .NET SDK
         uses: actions/setup-dotnet@v6
@@ -58,6 +78,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.source_sha || github.sha }}
+
+      - name: Apply release version
+        if: inputs.release_version != ''
+        shell: pwsh
+        env:
+          RELEASE_VERSION: ${{ inputs.release_version }}
+        run: ./scripts/Set-FoundryBuildVersion.ps1 -Version $env:RELEASE_VERSION
 
       - name: Set up .NET SDK
         uses: actions/setup-dotnet@v6

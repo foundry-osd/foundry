@@ -31,9 +31,21 @@ $runtimeIdentifiers = if ($AllRuntimes) { @('win-x64', 'win-arm64') } else { @($
 
 foreach ($rid in $runtimeIdentifiers) {
     $platform = if ($rid -eq 'win-x64') { 'x64' } else { 'ARM64' }
-    $outputPath = Join-Path $publishRoot $rid
+    $outputPath = [IO.Path]::GetFullPath((Join-Path $publishRoot $rid))
+    $ownedPrefix = [IO.Path]::GetFullPath((Join-Path $repoRoot 'artifacts')) + [IO.Path]::DirectorySeparatorChar
+    if (-not $outputPath.StartsWith($ownedPrefix, [StringComparison]::OrdinalIgnoreCase)) {
+        throw 'Publish output must remain inside repository artifacts.'
+    }
+    $ancestor = $outputPath
+    while ($ancestor) {
+        if ((Test-Path -LiteralPath $ancestor) -and
+            ((Get-Item -LiteralPath $ancestor -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+            throw 'Publish output cannot traverse a reparse point.'
+        }
+        $ancestor = [IO.Path]::GetDirectoryName($ancestor)
+    }
     if (Test-Path $outputPath) {
-        Remove-Item -Path $outputPath -Recurse -Force
+        Remove-Item -LiteralPath $outputPath -Recurse -Force
     }
 
     New-Item -Path $outputPath -ItemType Directory -Force | Out-Null
