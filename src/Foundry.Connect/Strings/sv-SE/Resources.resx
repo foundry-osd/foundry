@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Detta startmedia skapades med ett äldre Foundry OSD-konfigurationsformat. Uppdatera startmediet för att säkerställa kompatibilitet med de senaste funktionerna.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Konfiguration: inbyggda standardinställningar</value>
   </data>

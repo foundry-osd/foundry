@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Αυτό το μέσο εκκίνησης δημιουργήθηκε με παλαιότερη μορφή ρύθμισης παραμέτρων Foundry OSD. Ενημερώστε το μέσο εκκίνησης για να διασφαλίσετε τη συμβατότητα με τις πιο πρόσφατες δυνατότητες.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Διαμόρφωση: ενσωματωμένες προεπιλογές</value>
   </data>

@@ -17,6 +17,7 @@ public sealed partial class UpdateInstallProgressDialog : ContentDialog
     {
         ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
         InitializeComponent();
+        Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(this);
         DataContext = ViewModel;
         Closing += OnClosing;
         Closed += OnClosed;

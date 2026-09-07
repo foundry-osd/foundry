@@ -26,6 +26,7 @@ public sealed class AutopilotCertificateDialogService(
             DefaultButton = ContentDialogButton.Close
         };
 
+        Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(dialog);
         await dialog.ShowAsync();
     }
 

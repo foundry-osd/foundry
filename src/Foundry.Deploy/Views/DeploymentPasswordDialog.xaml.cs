@@ -33,6 +33,7 @@ public partial class DeploymentPasswordDialog : Window
     public DeploymentPasswordDialog()
     {
         InitializeComponent();
+        Foundry.Deploy.Services.Localization.LocalizationRoot.BindToOwner(this);
         Loaded += (_, _) => PasswordInput.Focus();
         Closed += (_, _) => ClearPasswordEditors();
     }

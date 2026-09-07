@@ -1,4 +1,4 @@
-﻿<Window x:Class="Foundry.Deploy.Views.DeploymentErrorDetailsDialog"
+<Window x:Class="Foundry.Deploy.Views.DeploymentErrorDetailsDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="{Binding Strings[Error.TechnicalDetailsTitle]}"
@@ -22,6 +22,7 @@
             AcceptsReturn="True"
             AcceptsTab="True"
             AutomationProperties.Name="{Binding Strings[Error.TechnicalDetailsTitle]}"
+            FlowDirection="LeftToRight"
             FontFamily="Consolas"
             HorizontalScrollBarVisibility="Auto"
             IsReadOnly="True"

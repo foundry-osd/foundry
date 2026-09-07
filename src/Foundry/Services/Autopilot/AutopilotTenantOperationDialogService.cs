@@ -47,6 +47,7 @@ public sealed class AutopilotTenantOperationDialogService(
 
         try
         {
+            Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(dialog);
             Task<ContentDialogResult> dialogTask = dialog.ShowAsync().AsTask();
             Task completedBeforeOpenTask = await Task.WhenAny(dialogOpenedTask.Task, dialogCanceledTask.Task, dialogTask);
             if (completedBeforeOpenTask != dialogOpenedTask.Task)

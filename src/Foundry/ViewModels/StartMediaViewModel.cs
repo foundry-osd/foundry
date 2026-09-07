@@ -40,6 +40,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IFilePickerService filePickerService;
     private readonly IFoundryConfigurationStateService foundryConfigurationStateService;
     private readonly IConfigurationOverviewService configurationOverviewService;
+    private readonly ICustomDriverReadinessService driverReadiness;
     private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
     private readonly INetworkSecretStateService networkSecretStateService;
     private readonly ITelemetryService telemetryService;
@@ -73,6 +74,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IFilePickerService filePickerService,
         IFoundryConfigurationStateService foundryConfigurationStateService,
         IConfigurationOverviewService configurationOverviewService,
+        ICustomDriverReadinessService driverReadiness,
         IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
         INetworkSecretStateService networkSecretStateService,
         ITelemetryService telemetryService,
@@ -91,6 +93,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.filePickerService = filePickerService;
         this.foundryConfigurationStateService = foundryConfigurationStateService;
         this.configurationOverviewService = configurationOverviewService;
+        this.driverReadiness = driverReadiness;
         this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
         this.networkSecretStateService = networkSecretStateService;
         this.telemetryService = telemetryService;
@@ -1170,6 +1173,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             BootImageSource = ResolveBootImageSource(),
             DriverVendors = vendors,
             CustomDriverDirectoryPath = CustomDriverDirectoryPath,
+            CustomDriverInspection = driverReadiness.Current,
             SelectedUsbDisk = SelectedUsbDisk?.Value
         };
     }
@@ -1343,7 +1347,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         MediaPreflightBlockingReason? driverReason = GetFirstReason(
             mediaEvaluation,
             MediaPreflightBlockingReason.CustomDriverDirectoryNotFound,
-            MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles);
+            MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles,
+            MediaPreflightBlockingReason.CustomDriverInspectionNotReady);
 
         return
         (StartConfigurationOverviewItemViewModel[])

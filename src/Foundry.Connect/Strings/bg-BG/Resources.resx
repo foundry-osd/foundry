@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Този носител за стартиране е генериран с по-стар формат за конфигурация на Foundry OSD. Актуализирайте носителя за стартиране, за да осигурите съвместимост с най-новите функции.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Затваряне</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Конфигурация: вградени настройки по подразбиране</value>
   </data>

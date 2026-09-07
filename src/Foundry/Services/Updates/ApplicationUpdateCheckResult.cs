@@ -10,10 +10,12 @@ namespace Foundry.Services.Updates;
 /// <param name="Status">Lifecycle status produced by the check.</param>
 /// <param name="Message">User-visible status or failure message.</param>
 /// <param name="Version">Available release version, when an update exists.</param>
+/// <param name="SettingsSaveFailed">Whether persisting the check timestamp failed without invalidating the check result.</param>
 public sealed record ApplicationUpdateCheckResult(
     ApplicationUpdateStatus Status,
     string Message,
-    string? Version = null)
+    string? Version = null,
+    bool SettingsSaveFailed = false)
 {
     /// <summary>
     /// Gets a value indicating whether the check found a downloadable update.

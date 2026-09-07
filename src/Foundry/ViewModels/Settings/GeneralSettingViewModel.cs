@@ -96,6 +96,7 @@ namespace Foundry.ViewModels
                 CloseButtonText = localizationService.GetString("Common.Cancel"),
                 DefaultButton = ContentDialogButton.Close
             };
+            Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(warningDialog);
             if (await warningDialog.ShowAsync() != ContentDialogResult.Primary)
             {
                 return;
@@ -156,6 +157,7 @@ namespace Foundry.ViewModels
                     Content = result.ArchivePath,
                     CloseButtonText = localizationService.GetString("Common.Close")
                 };
+                Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(completedDialog);
                 await completedDialog.ShowAsync();
             }
             catch (Exception ex)
@@ -169,6 +171,7 @@ namespace Foundry.ViewModels
                     Content = localizationService.GetString("Diagnostics.ExportFailedMessage"),
                     CloseButtonText = localizationService.GetString("Common.Close")
                 };
+                Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(failedDialog);
                 await failedDialog.ShowAsync();
             }
         }

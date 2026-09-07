@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Services.Shell;
+
 namespace Foundry.Views;
 
 public sealed partial class EthernetDot1xPage : Page
@@ -10,7 +12,8 @@ public sealed partial class EthernetDot1xPage : Page
 
     public EthernetDot1xPage()
     {
-        ViewModel = App.GetService<NetworkConfigurationViewModel>();
+        NavigationCacheMode = NavigationCacheMode.Disabled;
+        ViewModel = App.GetService<PageViewModelFactory>().Create<NetworkConfigurationViewModel>();
         InitializeComponent();
         Unloaded += OnUnloaded;
     }

@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.Configuration;
+
 namespace Foundry.Core.Services.WinPe;
 
 /// <summary>
@@ -17,9 +19,11 @@ public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparatio
     /// <summary>
     /// Initializes a workspace preparation service using the default WinPE services.
     /// </summary>
-    public WinPeWorkspacePreparationService()
+    public WinPeWorkspacePreparationService() : this(new CustomDriverSourceInspector()) { }
+
+    public WinPeWorkspacePreparationService(CustomDriverSourceInspector inspector)
         : this(
-            new WinPeDriverResolutionService(new WinPeDriverCatalogService(), new WinPeDriverPackageService()),
+            new WinPeDriverResolutionService(new WinPeDriverCatalogService(), new WinPeDriverPackageService(), inspector),
             new WinPeMountedImageCustomizationService(),
             new WinPeToolResolver(),
             new WinPeProcessRunner())

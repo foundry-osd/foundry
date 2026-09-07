@@ -10,6 +10,40 @@ namespace Foundry.Localization.Tests;
 
 public sealed class ResourceKeyParityTests
 {
+    [Theory]
+    [MemberData(nameof(ResourceSets))]
+    public void LiteralResourceReferences_ExistInOwningNeutralDictionary(string projectName, string extension)
+    {
+        string root = Path.Combine(FindSourceRoot(), projectName);
+        SortedSet<string> keys = ReadResourceKeys(Path.Combine(root, "Strings", "en-US", "Resources" + extension));
+        List<string> missing = [];
+        foreach (string path in Directory.EnumerateFiles(root, "*.cs", SearchOption.AllDirectories)
+            .Where(path => !path.Split(Path.DirectorySeparatorChar).Any(part => part is "obj" or "bin")))
+        {
+            foreach (string key in ReadLiteralResourceReferences(File.ReadAllText(path)))
+                if (!keys.Contains(key)) missing.Add($"{Path.GetRelativePath(root, path)}: {key}");
+        }
+        Assert.True(missing.Count == 0, string.Join(Environment.NewLine, missing));
+    }
+
+    [Fact]
+    public void LiteralResourceReferences_IgnoreCommentsAndDynamicValues()
+    {
+        const string source = "// GetString(\"Comment\")\n/* Strings[\"Comment\"] */\nGetString(variable); GetString(\"Actual\"); localization.Format(\"Formatted\", 1); Strings[\"Indexed\"]; string.Format(\"NotAResource\", 1); String.Format(\"NotAResource\", 1);";
+        Assert.Equal(["Actual", "Formatted", "Indexed"], ReadLiteralResourceReferences(source));
+    }
+
+    private static string[] ReadLiteralResourceReferences(string source)
+    {
+        string withoutComments = Regex.Replace(source,
+            "@\"(?:\"\"|[^\"])*\"|\"(?:\\\\.|[^\"\\\\])*\"|'(?:\\\\.|[^'\\\\])*'|//[^\\r\\n]*|/\\*[\\s\\S]*?\\*/",
+            match => match.Value.StartsWith("//", StringComparison.Ordinal) || match.Value.StartsWith("/*", StringComparison.Ordinal)
+                ? new string(' ', match.Length) : match.Value);
+        return Regex.Matches(withoutComments,
+            "(?<![A-Za-z0-9_])(?<!string\\.)(?<!String\\.)(?:GetString|FormatString|Format)\\(\\s*\"([A-Za-z0-9_.-]+)\"|Strings\\[\\s*\"([A-Za-z0-9_.-]+)\"")
+            .Select(match => match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value).ToArray();
+    }
+
     private static readonly string[] ProtectedTechnicalTokens =
     [
         "MakeWinPEMedia",

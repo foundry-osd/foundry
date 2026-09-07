@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Dit opstartmedium is gegenereerd met een ouder Foundry OSD-configuratieformaat. Werk het opstartmedium bij om compatibiliteit met de nieuwste functies te garanderen.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Configuratie: ingebouwde standaardinstellingen</value>
   </data>

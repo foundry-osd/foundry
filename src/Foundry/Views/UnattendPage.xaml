@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.UnattendPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -132,6 +132,7 @@
                                                     TextWrapping="Wrap" />
                                                 <TextBlock
                                                     Grid.Row="1"
+                                                    FlowDirection="LeftToRight"
                                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                     Style="{StaticResource FoundryCaptionTextBlockStyle}"
                                                     Text="{x:Bind SourcePath}"

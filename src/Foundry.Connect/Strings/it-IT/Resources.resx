@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Questo supporto di avvio è stato generato con un formato di configurazione Foundry OSD precedente. Aggiorna il supporto di avvio per garantire la compatibilità con le funzionalità più recenti.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Chiudi la finestra</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Configurazione: impostazioni predefinite integrate</value>
   </data>

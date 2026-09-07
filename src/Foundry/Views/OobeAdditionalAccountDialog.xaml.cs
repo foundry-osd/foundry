@@ -21,6 +21,7 @@ public sealed partial class OobeAdditionalAccountDialog : ContentDialog, IDispos
     {
         ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
         InitializeComponent();
+        Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(this);
         DataContext = ViewModel;
         Title = ViewModel.Title;
         PrimaryButtonText = ViewModel.PrimaryButtonText;

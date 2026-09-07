@@ -7,6 +7,8 @@ using System.Security.Cryptography;
 using Foundry.Services.Localization;
 using Serilog;
 
+using Foundry.Services.Shell;
+
 namespace Foundry.Views;
 
 public sealed partial class GeneralConfigurationPage : Page
@@ -21,7 +23,8 @@ public sealed partial class GeneralConfigurationPage : Page
     public GeneralConfigurationPage()
     {
         localizationService = App.GetService<IApplicationLocalizationService>();
-        ViewModel = App.GetService<GeneralConfigurationViewModel>();
+        NavigationCacheMode = NavigationCacheMode.Disabled;
+        ViewModel = App.GetService<PageViewModelFactory>().Create<GeneralConfigurationViewModel>();
         InitializeComponent();
         ApplyLocalizedText();
         localizationService.LanguageChanged += OnLanguageChanged;

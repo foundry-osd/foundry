@@ -1,4 +1,4 @@
-﻿<Window x:Class="Foundry.Connect.Views.AboutDialog"
+<Window x:Class="Foundry.Connect.Views.AboutDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="{Binding AboutTitle}"
@@ -47,6 +47,7 @@
 
                 <TextBlock
                     Margin="0,12,0,0"
+                    FlowDirection="LeftToRight"
                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                     Style="{DynamicResource SubtitleTextBlockStyle}"
                     Text="{Binding Version}" />

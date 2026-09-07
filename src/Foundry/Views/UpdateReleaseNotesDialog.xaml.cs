@@ -21,6 +21,7 @@ public sealed partial class UpdateReleaseNotesDialog : ContentDialog
     {
         ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
         InitializeComponent();
+        Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(this);
         DataContext = ViewModel;
         ApplyContentLayout();
         Loaded += OnLoaded;

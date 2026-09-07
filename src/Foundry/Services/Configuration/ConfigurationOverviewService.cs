@@ -6,12 +6,12 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
-using Foundry.Utilities.IO;
 
 namespace Foundry.Services.Configuration;
 
 internal sealed class ConfigurationOverviewService : IConfigurationOverviewService
 {
+    private readonly ICustomDriverReadinessService driverReadiness;
     private readonly object syncRoot = new();
     private readonly IAdkService adkService;
     private readonly IFoundryConfigurationStateService configurationStateService;
@@ -27,8 +27,11 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
         IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
         INetworkSecretStateService networkSecretStateService,
         IOobeAccountSecretStateService oobeAccountSecretStateService,
-        IWinPeLanguageDiscoveryService languageDiscoveryService)
+        IWinPeLanguageDiscoveryService languageDiscoveryService,
+        ICustomDriverReadinessService driverReadiness)
     {
+        this.driverReadiness = driverReadiness;
+        driverReadiness.Changed += OnUnderlyingStateChanged;
         this.adkService = adkService;
         this.configurationStateService = configurationStateService;
         this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
@@ -113,10 +116,11 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
             languagesResult.Value.Contains(settings.WinPeLanguage, StringComparer.OrdinalIgnoreCase);
     }
 
-    private static bool IsCustomDriverConfigurationReady(GeneralSettings settings)
+    private bool IsCustomDriverConfigurationReady(GeneralSettings settings)
     {
-        return string.IsNullOrWhiteSpace(settings.CustomDriverDirectoryPath) ||
-            (Directory.Exists(settings.CustomDriverDirectoryPath) &&
-             FileSearch.ContainsRecursive(settings.CustomDriverDirectoryPath, "*.inf"));
+        if (string.IsNullOrWhiteSpace(settings.CustomDriverDirectoryPath)) return true;
+        CustomDriverSourceInspection inspection = driverReadiness.Current;
+        return inspection.State == CustomDriverSourceState.Ready &&
+            string.Equals(inspection.Path, settings.CustomDriverDirectoryPath.Trim(), StringComparison.Ordinal);
     }
 }

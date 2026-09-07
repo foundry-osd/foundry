@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Acest suport de pornire a fost generat cu un format de configurare Foundry OSD mai vechi. Actualizați suportul de pornire pentru a asigura compatibilitatea cu cele mai recente caracteristici.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Anulați</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Închide fereastra</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Configurație: setări implicite încorporate</value>
   </data>

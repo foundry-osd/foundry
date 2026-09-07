@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Ten nośnik rozruchowy został wygenerowany przy użyciu starszego formatu konfiguracji Foundry OSD. Zaktualizuj nośnik rozruchowy, aby zapewnić zgodność z najnowszymi funkcjami.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Zamknij</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Konfiguracja: wbudowane ustawienia domyślne</value>
   </data>

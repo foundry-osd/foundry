@@ -120,6 +120,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IFoundryConfigurationStateService, FoundryConfigurationStateService>();
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
         services.AddSingleton<IConfigurationOverviewService, ConfigurationOverviewService>();
+        services.AddSingleton<CustomDriverSourceInspector>();
+        services.AddSingleton<ICustomDriverReadinessService, CustomDriverReadinessService>();
         services.AddSingleton<IWinPeEmbeddedAssetService, WinPeEmbeddedAssetService>();
         services.AddSingleton<IWinPeBuildService, WinPeBuildService>();
         services.AddSingleton<IWinPeWorkspacePreparationService, WinPeWorkspacePreparationService>();
@@ -146,18 +148,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IExternalProcessLauncher, WinUiExternalProcessLauncher>();
         services.AddSingleton<IFilePickerService, WinUiFilePickerService>();
 
+        services.AddSingleton<PageViewModelFactory>();
         services.AddTransient<MainViewModel>();
-        services.AddTransient<GeneralConfigurationViewModel>();
-        services.AddTransient<UnattendConfigurationViewModel>();
-        services.AddTransient<NetworkConfigurationViewModel>();
-        services.AddTransient<AutopilotConfigurationViewModel>();
-        services.AddTransient<CustomizationConfigurationViewModel>();
-        services.AddTransient<StartMediaViewModel>();
-        services.AddTransient<HomeLandingViewModel>();
         services.AddTransient<SettingsPageViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
-        services.AddTransient<AdkPageViewModel>();
-        services.AddTransient<AppUpdateSettingViewModel>();
         services.AddTransient<ProxySettingViewModel>();
         services.AddTransient<AboutUsSettingViewModel>();
 

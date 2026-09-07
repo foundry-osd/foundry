@@ -11,7 +11,7 @@ public interface IApplicationUpdateService
 {
     /// <summary>
     /// Logs update settings and starts the optional startup check without blocking application launch.
-    /// The startup check runs in the background and is not canceled by the initialization token after it starts.
+    /// The service owns and observes the startup task until application shutdown.
     /// </summary>
     /// <param name="cancellationToken">Token that cancels initialization before the background check is scheduled.</param>
     Task InitializeAsync(CancellationToken cancellationToken = default);
@@ -35,6 +35,10 @@ public interface IApplicationUpdateService
     /// <summary>
     /// Applies the pending downloaded update and requests application shutdown so Velopack can complete the handoff.
     /// </summary>
-    /// <remarks>The call logs and returns when no pending update exists, and rethrows apply failures.</remarks>
-    void ApplyUpdateAndRestart();
+    /// <param name="operationId">The exact identity returned by a successful download.</param>
+    /// <remarks>Rejects unknown identities, incomplete downloads and conflicting native work.</remarks>
+    void ApplyUpdateAndRestart(Guid operationId);
+
+    /// <summary>Closes admission, cancels owned work and bounds the application shutdown wait.</summary>
+    Task ShutdownAsync(CancellationToken cancellationToken = default);
 }

@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>تم إنشاء وسيط التمهيد هذا بتنسيق تكوين قديم لـ Foundry OSD. حدّث وسيط التمهيد لضمان التوافق مع أحدث الميزات.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>التكوين: الإعدادات الافتراضية المضمنة</value>
   </data>

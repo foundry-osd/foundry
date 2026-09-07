@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Toto zavádzacie médium bolo vygenerované pomocou staršieho formátu konfigurácie Foundry OSD. Aktualizujte zavádzacie médium, aby ste zabezpečili kompatibilitu s najnovšími funkciami.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Zavrieť</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Konfigurácia: vstavané predvolené nastavenia</value>
   </data>

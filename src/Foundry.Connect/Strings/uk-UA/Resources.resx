@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Цей завантажувальний носій створено зі старішим форматом конфігурації Foundry OSD. Оновіть завантажувальний носій, щоб забезпечити сумісність із найновішими функціями.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Конфігурація: вбудовані параметри за замовчуванням</value>
   </data>

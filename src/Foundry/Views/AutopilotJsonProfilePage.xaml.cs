@@ -4,6 +4,8 @@
 
 using Foundry.Core.Models.Configuration;
 
+using Foundry.Services.Shell;
+
 namespace Foundry.Views;
 
 public sealed partial class AutopilotJsonProfilePage : Page
@@ -12,7 +14,8 @@ public sealed partial class AutopilotJsonProfilePage : Page
 
     public AutopilotJsonProfilePage()
     {
-        ViewModel = App.GetService<AutopilotConfigurationViewModel>();
+        NavigationCacheMode = NavigationCacheMode.Disabled;
+        ViewModel = App.GetService<PageViewModelFactory>().Create<AutopilotConfigurationViewModel>();
         InitializeComponent();
         Unloaded += OnUnloaded;
     }

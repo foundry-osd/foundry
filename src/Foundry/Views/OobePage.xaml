@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.OobePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -140,12 +140,14 @@
                                                 Visibility="{x:Bind ViewModel.EnableAdministratorAccount, Mode=OneWay}">
                                                 <PasswordBox x:Name="AdministratorPasswordBox"
                                                     AutomationProperties.Name="{x:Bind ViewModel.OobePasswordPlaceholder, Mode=OneWay}"
+                                                    FlowDirection="LeftToRight"
                                                     IsEnabled="{x:Bind ViewModel.UseAdministratorPassword, Mode=OneWay}"
                                                     Loaded="AdministratorPasswordBox_Loaded"
                                                     PasswordChanged="AdministratorPasswordBox_PasswordChanged"
                                                     PlaceholderText="{x:Bind ViewModel.OobePasswordPlaceholder, Mode=OneWay}" />
                                                 <PasswordBox x:Name="AdministratorConfirmationBox"
                                                     AutomationProperties.Name="{x:Bind ViewModel.OobeConfirmationPlaceholder, Mode=OneWay}"
+                                                    FlowDirection="LeftToRight"
                                                     IsEnabled="{x:Bind ViewModel.UseAdministratorPassword, Mode=OneWay}"
                                                     Loaded="AdministratorConfirmationBox_Loaded"
                                                     PasswordChanged="AdministratorConfirmationBox_PasswordChanged"
@@ -224,6 +226,7 @@
                                                                 </Grid.ColumnDefinitions>
                                                                 <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
                                                                     <TextBlock
+                                                                        FlowDirection="LeftToRight"
                                                                         Style="{ThemeResource BodyStrongTextBlockStyle}"
                                                                         Text="{x:Bind UserName, Mode=OneWay}"
                                                                         TextWrapping="WrapWholeWords" />

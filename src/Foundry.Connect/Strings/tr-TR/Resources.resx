@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Bu önyükleme medyası daha eski bir Foundry OSD yapılandırma biçimiyle oluşturuldu. En son özelliklerle uyumluluğu sağlamak için önyükleme medyasını güncelleyin.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Pencereyi kapat</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Yapılandırma: yerleşik varsayılanlar</value>
   </data>

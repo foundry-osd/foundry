@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Foundry.Deploy.Views.Wizard.TargetStepView" x:Name="ViewRoot"
+<UserControl x:Class="Foundry.Deploy.Views.Wizard.TargetStepView" x:Name="ViewRoot"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Foundry.Deploy.Controls">
@@ -212,6 +212,7 @@
                                 Grid.Row="3"
                                 Grid.Column="2"
                                 Margin="0,8,0,0"
+                                FlowDirection="LeftToRight"
                                 Text="{Binding HardwareSerialNumberText}"
                                 TextWrapping="Wrap" />
                         </Grid>

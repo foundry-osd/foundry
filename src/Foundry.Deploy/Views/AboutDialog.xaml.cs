@@ -11,5 +11,6 @@ public partial class AboutDialog : Window
     public AboutDialog()
     {
         InitializeComponent();
+        Foundry.Deploy.Services.Localization.LocalizationRoot.BindToOwner(this);
     }
 }

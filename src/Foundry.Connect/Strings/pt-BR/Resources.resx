@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Esta mídia de inicialização foi gerada com um formato de configuração mais antigo do Foundry OSD. Atualize a mídia de inicialização para garantir compatibilidade com os recursos mais recentes.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Fechar janela</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Configuração: padrões integrados</value>
   </data>

@@ -6,6 +6,8 @@ using System.ComponentModel;
 using Foundry.Core.Services.Configuration;
 using Foundry.Services.Localization;
 
+using Foundry.Services.Shell;
+
 namespace Foundry.Views;
 
 public sealed partial class StartPage : Page
@@ -17,7 +19,8 @@ public sealed partial class StartPage : Page
     public StartPage()
     {
         localizationService = App.GetService<IApplicationLocalizationService>();
-        ViewModel = App.GetService<StartMediaViewModel>();
+        NavigationCacheMode = NavigationCacheMode.Disabled;
+        ViewModel = App.GetService<PageViewModelFactory>().Create<StartMediaViewModel>();
         InitializeComponent();
         ApplyLocalizedText();
         ViewModel.PropertyChanged += OnViewModelPropertyChanged;

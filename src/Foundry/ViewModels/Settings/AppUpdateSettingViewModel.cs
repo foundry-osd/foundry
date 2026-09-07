@@ -133,6 +133,16 @@ namespace Foundry.ViewModels
                 ApplicationUpdateCheckResult result = await applicationUpdateService.CheckForUpdatesAsync();
                 ApplyCurrentUpdateState(result);
             }
+            catch (OperationCanceledException)
+            {
+                LoadingStatus = localizationService.GetString("Update.Status.Cancelled");
+            }
+            catch (Exception error)
+            {
+                logger.Error(error, "The update operation could not be completed.");
+                LoadingStatus = localizationService.GetString("Update.Status.OperationFailed");
+                IsInstallButtonVisible = IsUpdateAvailable;
+            }
             finally
             {
                 IsLoading = false;
@@ -178,12 +188,23 @@ namespace Foundry.ViewModels
                 {
                     DownloadProgress = 100;
                     await Task.Delay(TimeSpan.FromMilliseconds(300));
-                    applicationUpdateService.ApplyUpdateAndRestart();
+                    applicationUpdateService.ApplyUpdateAndRestart(result.OperationId
+                        ?? throw new InvalidOperationException("The downloaded update identity is unavailable."));
                 }
                 else
                 {
                     IsInstallButtonVisible = IsUpdateAvailable;
                 }
+            }
+            catch (OperationCanceledException)
+            {
+                LoadingStatus = localizationService.GetString("Update.Status.Cancelled");
+            }
+            catch (Exception error)
+            {
+                logger.Error(error, "The update operation could not be completed.");
+                LoadingStatus = localizationService.GetString("Update.Status.OperationFailed");
+                IsInstallButtonVisible = IsUpdateAvailable;
             }
             finally
             {
@@ -278,7 +299,7 @@ namespace Foundry.ViewModels
 
         private string GetCheckStatusMessage(ApplicationUpdateCheckResult result)
         {
-            return result.Status switch
+            string message = result.Status switch
             {
                 ApplicationUpdateStatus.NoUpdate => localizationService.GetString("Update.Status.NoUpdate"),
                 ApplicationUpdateStatus.UpdateAvailable => localizationService.GetString("Update.Status.UpdateAvailableActionHint"),
@@ -287,6 +308,9 @@ namespace Foundry.ViewModels
                 ApplicationUpdateStatus.NotInstalled => localizationService.GetString("Update.Status.NotInstalled"),
                 _ => result.Message
             };
+            return result.SettingsSaveFailed
+                ? message + " " + localizationService.GetString("Update.Warning.SettingsSaveFailed")
+                : message;
         }
 
         private string GetCheckStatusTitle(ApplicationUpdateCheckResult result)
@@ -306,9 +330,10 @@ namespace Foundry.ViewModels
 
         private string GetUpdateSourceDescription()
         {
-            if (!IsGitHubRepositoryUrl(UpdateFeedUrl))
+            if (!ApplicationUpdateSourceClassifier.IsGitHubRepositoryUrl(UpdateFeedUrl))
             {
-                return localizationService.GetString("AppUpdate.SourceKind.SimpleWeb");
+                return localizationService.GetString(ApplicationUpdateSourceClassifier.IsPrereleaseChannel(appSettingsService.Current.Updates.Channel)
+                    ? "AppUpdate.SourceKind.SimpleWebLaneUnsupported" : "AppUpdate.SourceKind.SimpleWeb");
             }
 
             return localizationService.FormatString(
@@ -325,13 +350,6 @@ namespace Foundry.ViewModels
                 "prerelease" => localizationService.GetString("AppUpdate.ReleaseLane.Preview"),
                 _ => localizationService.GetString("AppUpdate.ReleaseLane.Stable")
             };
-        }
-
-        private static bool IsGitHubRepositoryUrl(string feedUrl)
-        {
-            return Uri.TryCreate(feedUrl, UriKind.Absolute, out Uri? uri)
-                && string.Equals(uri.Host, "github.com", StringComparison.OrdinalIgnoreCase)
-                && uri.AbsolutePath.Count(character => character == '/') == 2;
         }
 
         private string FormatLastUpdateCheck(DateTimeOffset? checkedAt)

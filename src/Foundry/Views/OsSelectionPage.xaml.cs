@@ -4,6 +4,8 @@
 
 using Foundry.Core.Services.Configuration;
 
+using Foundry.Services.Shell;
+
 namespace Foundry.Views;
 
 public sealed partial class OsSelectionPage : Page
@@ -12,7 +14,8 @@ public sealed partial class OsSelectionPage : Page
 
     public OsSelectionPage()
     {
-        ViewModel = App.GetService<CustomizationConfigurationViewModel>();
+        NavigationCacheMode = NavigationCacheMode.Disabled;
+        ViewModel = App.GetService<PageViewModelFactory>().Create<CustomizationConfigurationViewModel>();
         ViewModel.InitializeSection(ConfigurationNavigationTarget.OperatingSystemSelection);
         InitializeComponent();
         Unloaded += OnUnloaded;

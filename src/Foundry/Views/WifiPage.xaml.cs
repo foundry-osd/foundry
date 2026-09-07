@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Services.Shell;
+
 namespace Foundry.Views;
 
 public sealed partial class WifiPage : Page
@@ -10,7 +12,8 @@ public sealed partial class WifiPage : Page
 
     public WifiPage()
     {
-        ViewModel = App.GetService<NetworkConfigurationViewModel>();
+        NavigationCacheMode = NavigationCacheMode.Disabled;
+        ViewModel = App.GetService<PageViewModelFactory>().Create<NetworkConfigurationViewModel>();
         InitializeComponent();
         ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         Unloaded += OnUnloaded;

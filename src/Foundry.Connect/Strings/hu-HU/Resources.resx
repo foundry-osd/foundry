@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Ez a rendszerindító adathordozó egy régebbi Foundry OSD konfigurációs formátummal készült. Frissítse a rendszerindító adathordozót a legújabb funkciókkal való kompatibilitás biztosításához.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Mégse</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Bezárás</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Konfiguráció: beépített alapértékek</value>
   </data>

@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Этот загрузочный носитель был создан с использованием более старого формата конфигурации Foundry OSD. Обновите загрузочный носитель, чтобы обеспечить совместимость с новейшими функциями.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Конфигурация: встроенные настройки по умолчанию</value>
   </data>

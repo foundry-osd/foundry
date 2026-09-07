@@ -22,6 +22,7 @@ public sealed partial class AutopilotProfileSelectionDialog : ContentDialog
     {
         ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
         InitializeComponent();
+        Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(this);
         DataContext = ViewModel;
         Title = ViewModel.Title;
         PrimaryButtonText = ViewModel.ImportText;

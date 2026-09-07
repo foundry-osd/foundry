@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>このブート メディアは古い Foundry OSD 構成形式で生成されています。最新機能との互換性を確保するため、ブート メディアを更新してください。</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>構成: 組み込みのデフォルト</value>
   </data>

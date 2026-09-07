@@ -3,12 +3,42 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.Media;
+using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Tests.Media;
 
 public sealed class MediaPreflightServiceTests
 {
+    [Theory]
+    [InlineData(CustomDriverSourceState.Ready, true)]
+    [InlineData(CustomDriverSourceState.Pending, false)]
+    [InlineData(CustomDriverSourceState.Inaccessible, false)]
+    [InlineData(CustomDriverSourceState.TimedOut, false)]
+    [InlineData(CustomDriverSourceState.NoDrivers, false)]
+    [InlineData(CustomDriverSourceState.Missing, false)]
+    [InlineData(CustomDriverSourceState.Empty, false)]
+    public void Evaluate_UsesCachedDriverInspectionWithoutFilesystem(CustomDriverSourceState state, bool ready)
+    {
+        MediaPreflightEvaluation result = MediaPreflightService.Evaluate(CreateReadyOptions() with
+        {
+            CustomDriverDirectoryPath = "not-a-real-directory",
+            CustomDriverInspection = new("not-a-real-directory", state, null)
+        });
+        Assert.Equal(ready, result.CanGenerateIsoSummary);
+    }
+
+    [Fact]
+    public void Evaluate_RejectsStaleDriverInspection()
+    {
+        MediaPreflightEvaluation result = MediaPreflightService.Evaluate(CreateReadyOptions() with
+        {
+            CustomDriverDirectoryPath = "new-path",
+            CustomDriverInspection = new("old-path", CustomDriverSourceState.Ready, null)
+        });
+        Assert.Contains(MediaPreflightBlockingReason.CustomDriverInspectionNotReady, result.IsoBlockingReasons);
+    }
+
     [Fact]
     public void Evaluate_WhenBasicsAreReady_AllowsDryRunButKeepsFinalExecutionDisabled()
     {

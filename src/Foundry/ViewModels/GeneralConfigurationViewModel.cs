@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
+using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
@@ -24,6 +25,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
     private const string AutomaticSelectionValue = "";
 
     private readonly IFoundryConfigurationStateService configurationStateService;
+    private readonly ICustomDriverReadinessService driverReadiness;
     private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
     private readonly IAdkService adkService;
     private readonly IWinPeLanguageDiscoveryService winPeLanguageDiscoveryService;
@@ -37,6 +39,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
 
     public GeneralConfigurationViewModel(
         IFoundryConfigurationStateService configurationStateService,
+        ICustomDriverReadinessService driverReadiness,
         IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
         IAdkService adkService,
         IWinPeLanguageDiscoveryService winPeLanguageDiscoveryService,
@@ -45,6 +48,8 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         ILogger logger)
     {
         this.configurationStateService = configurationStateService;
+        this.driverReadiness = driverReadiness;
+        driverReadiness.Changed += OnDriverReadinessChanged;
         this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
         this.adkService = adkService;
         this.winPeLanguageDiscoveryService = winPeLanguageDiscoveryService;
@@ -168,6 +173,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
     public void Dispose()
     {
         configurationStateService.StateChanged -= OnConfigurationStateChanged;
+        driverReadiness.Changed -= OnDriverReadinessChanged;
     }
 
     [RelayCommand]
@@ -440,9 +446,15 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
         RefreshMediaReadiness();
     }
 
+    private void OnDriverReadinessChanged(object? sender, EventArgs e) => RefreshMediaReadiness();
+
     private void RefreshMediaReadiness()
     {
-        CanCreateMedia = adkService.CurrentStatus.CanCreateMedia &&
+        CustomDriverSourceInspection inspection = driverReadiness.Current;
+        string configuredPath = configurationStateService.Current.General.CustomDriverDirectoryPath?.Trim() ?? "";
+        bool driversReady = configuredPath.Length == 0 ||
+            (inspection.State == CustomDriverSourceState.Ready && string.Equals(inspection.Path, configuredPath, StringComparison.Ordinal));
+        CanCreateMedia = driversReady && adkService.CurrentStatus.CanCreateMedia &&
             (!IsDeploymentProtectionEnabled || deploymentProtectionSecretStateService.IsValid);
     }
 

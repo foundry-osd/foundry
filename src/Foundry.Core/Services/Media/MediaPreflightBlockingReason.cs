@@ -20,5 +20,6 @@ public enum MediaPreflightBlockingReason
     Arm64RequiresGpt,
     CustomDriverDirectoryNotFound,
     CustomDriverDirectoryHasNoInfFiles,
+    CustomDriverInspectionNotReady,
     FinalExecutionDeferred
 }

@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Ta zagonski medij je bil ustvarjen s starejšo obliko konfiguracije Foundry OSD. Posodobite zagonski medij, da zagotovite združljivost z najnovejšimi funkcijami.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Zapri okno</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Konfiguracija: vgrajene privzete nastavitve</value>
   </data>

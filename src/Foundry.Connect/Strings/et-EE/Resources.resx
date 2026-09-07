@@ -48,6 +48,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>See algkandja loodi vanema Foundry OSD konfiguratsioonivorminguga. Värskendage algkandjat, et tagada ühilduvus uusimate funktsioonidega.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Loobu</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Sule aken</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Konfiguratsioon: sisseehitatud vaikeseaded</value>
   </data>

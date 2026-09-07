@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Services.Shell;
+
 namespace Foundry.Views;
 
 public sealed partial class UnattendPage : Page
@@ -10,7 +12,8 @@ public sealed partial class UnattendPage : Page
 
     public UnattendPage()
     {
-        ViewModel = App.GetService<UnattendConfigurationViewModel>();
+        NavigationCacheMode = NavigationCacheMode.Disabled;
+        ViewModel = App.GetService<PageViewModelFactory>().Create<UnattendConfigurationViewModel>();
         InitializeComponent();
         Loaded += OnLoaded;
         Unloaded += OnUnloaded;

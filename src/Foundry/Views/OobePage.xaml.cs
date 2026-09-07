@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 
+using Foundry.Services.Shell;
+
 namespace Foundry.Views;
 
 public sealed partial class OobePage : Page
@@ -16,7 +18,8 @@ public sealed partial class OobePage : Page
 
     public OobePage()
     {
-        ViewModel = App.GetService<CustomizationConfigurationViewModel>();
+        NavigationCacheMode = NavigationCacheMode.Disabled;
+        ViewModel = App.GetService<PageViewModelFactory>().Create<CustomizationConfigurationViewModel>();
         InitializeComponent();
         ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         Unloaded += OnUnloaded;

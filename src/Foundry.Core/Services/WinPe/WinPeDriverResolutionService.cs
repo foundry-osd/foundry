@@ -2,19 +2,22 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Utilities.IO;
+using Foundry.Core.Services.Configuration;
 
 namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeDriverResolutionService : IWinPeDriverResolutionService
 {
+    private readonly CustomDriverSourceInspector _inspector;
     private readonly IWinPeDriverCatalogService _driverCatalogService;
     private readonly IWinPeDriverPackageService _driverPackageService;
 
     public WinPeDriverResolutionService(
         IWinPeDriverCatalogService driverCatalogService,
-        IWinPeDriverPackageService driverPackageService)
+        IWinPeDriverPackageService driverPackageService,
+        CustomDriverSourceInspector? inspector = null)
     {
+        _inspector = inspector ?? new CustomDriverSourceInspector();
         _driverCatalogService = driverCatalogService;
         _driverPackageService = driverPackageService;
     }
@@ -39,7 +42,7 @@ public sealed class WinPeDriverResolutionService : IWinPeDriverResolutionService
             return WinPeResult<IReadOnlyList<string>>.Success([]);
         }
 
-        WinPeDiagnostic? customDirectoryError = ValidateCustomDirectory(normalizedCustomDirectory, hasCustomDirectory);
+        WinPeDiagnostic? customDirectoryError = await ValidateCustomDirectoryAsync(normalizedCustomDirectory, hasCustomDirectory, cancellationToken).ConfigureAwait(false);
         if (customDirectoryError is not null)
         {
             return WinPeResult<IReadOnlyList<string>>.Failure(customDirectoryError);
@@ -154,29 +157,13 @@ public sealed class WinPeDriverResolutionService : IWinPeDriverResolutionService
         return distinctPackages;
     }
 
-    private static WinPeDiagnostic? ValidateCustomDirectory(string customDirectoryPath, bool hasCustomDirectory)
+    private async Task<WinPeDiagnostic?> ValidateCustomDirectoryAsync(string customDirectoryPath, bool hasCustomDirectory, CancellationToken cancellationToken)
     {
-        if (!hasCustomDirectory)
-        {
-            return null;
-        }
-
-        if (!Directory.Exists(customDirectoryPath))
-        {
-            return new WinPeDiagnostic(
-                WinPeErrorCodes.ValidationFailed,
-                "Custom driver directory does not exist.",
-                $"Path: '{customDirectoryPath}'.");
-        }
-
-        if (!FileSearch.ContainsRecursive(customDirectoryPath, "*.inf"))
-        {
-            return new WinPeDiagnostic(
-                WinPeErrorCodes.ValidationFailed,
-                "Custom driver directory does not contain any .inf files.",
-                $"Path: '{customDirectoryPath}'.");
-        }
-
-        return null;
+        if (!hasCustomDirectory) return null;
+        CustomDriverSourceInspection inspection = await _inspector.InspectAsync(customDirectoryPath, cancellationToken).ConfigureAwait(false);
+        return inspection.State == CustomDriverSourceState.Ready ? null : new WinPeDiagnostic(
+            WinPeErrorCodes.ValidationFailed,
+            "Custom driver directory is unavailable or does not contain accessible .inf files.",
+            inspection.ErrorCode);
     }
 }

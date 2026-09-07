@@ -13,278 +13,241 @@ using Velopack.Sources;
 
 namespace Foundry.Services.Updates;
 
-/// <summary>
-/// Wraps Velopack update checks, downloads, and restart handoff for the WinUI shell.
-/// </summary>
-internal sealed class ApplicationUpdateService(
+/// <summary>Owns each immutable update release from discovery through verified download and restart handoff.</summary>
+internal sealed partial class ApplicationUpdateService(
     IAppSettingsService appSettingsService,
     IApplicationLifetimeService applicationLifetimeService,
     IApplicationUpdateStateService updateStateService,
     MediaOperationCoordinator mediaCoordinator,
     IAdkService adkService,
-    ILogger logger) : IApplicationUpdateService
+    ILogger logger) : IApplicationUpdateService, IDisposable
 {
     private readonly ILogger logger = logger.ForContext<ApplicationUpdateService>();
-    private Velopack.UpdateInfo? pendingUpdate;
-    private UpdateManager? pendingUpdateManager;
+    private readonly SemaphoreSlim transition = new(1, 1);
+    private readonly object lifetimeGate = new();
+    private readonly CancellationTokenSource lifetime = new();
+    private ApplicationUpdateOperation? availableOperation;
+    private ApplicationUpdateOperation? downloadedOperation;
+    private Task? startupCheck;
+    private Task? shutdown;
+    private TaskCompletionSource drained = CompletedSource();
+    private int activeOperations;
+    private bool stopping;
 
-    /// <inheritdoc />
     public Task InitializeAsync(CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-
-        logger.Information(
-            "Update service initialized. CheckOnStartup={CheckOnStartup}, Channel={Channel}, FeedSource={FeedSource}",
-            appSettingsService.Current.Updates.CheckOnStartup,
-            appSettingsService.Current.Updates.Channel,
-            GetFeedUrlLogValue(appSettingsService.Current.Updates.FeedUrl));
-
-        if (appSettingsService.Current.Updates.CheckOnStartup)
+        lock (lifetimeGate)
         {
-            // Startup checks are intentionally fire-and-forget so update availability never blocks app launch.
-            _ = Task.Run(() => RunStartupCheckAsync(CancellationToken.None), CancellationToken.None);
+            if (stopping || startupCheck is not null || !appSettingsService.Current.Updates.CheckOnStartup)
+                return Task.CompletedTask;
+            startupCheck = Task.Run(RunStartupCheckAsync);
         }
-
         return Task.CompletedTask;
     }
 
-    /// <inheritdoc />
-    public async Task<ApplicationUpdateCheckResult> CheckForUpdatesAsync(
-        bool isStartupCheck = false,
+    public async Task<ApplicationUpdateCheckResult> CheckForUpdatesAsync(bool isStartupCheck = false,
         CancellationToken cancellationToken = default)
     {
-        cancellationToken.ThrowIfCancellationRequested();
-
-        if (Debugger.IsAttached)
-        {
-            const string message = "Update check skipped because a debugger is attached.";
-            logger.Information(message);
-            return PublishCheckResult(new ApplicationUpdateCheckResult(ApplicationUpdateStatus.SkippedInDebug, message));
-        }
-
-        Stopwatch totalStopwatch = Stopwatch.StartNew();
-
+        BeginOperation();
         try
         {
-            string feedUrl = appSettingsService.Current.Updates.FeedUrl;
-            string sourceKind = ResolveUpdateSourceKind(feedUrl);
-            logger.Debug(
-                "Resolved update source. IsStartupCheck={IsStartupCheck}, SourceKind={SourceKind}, FeedSource={FeedSource}, Channel={Channel}",
-                isStartupCheck,
-                sourceKind,
-                GetFeedUrlLogValue(feedUrl),
-                appSettingsService.Current.Updates.Channel);
-
-            Stopwatch sourceStopwatch = Stopwatch.StartNew();
-            UpdateManager updateManager = CreateUpdateManager();
-            sourceStopwatch.Stop();
-
-            logger.Debug(
-                "Foundry update source created. IsStartupCheck={IsStartupCheck}, SourceKind={SourceKind}, FeedSource={FeedSource}, ConfiguredChannel={ConfiguredChannel}, ElapsedMilliseconds={ElapsedMilliseconds}",
-                isStartupCheck,
-                sourceKind,
-                GetFeedUrlLogValue(feedUrl),
-                appSettingsService.Current.Updates.Channel,
-                sourceStopwatch.ElapsedMilliseconds);
-
-            if (!updateManager.IsInstalled)
+            using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token, cancellationToken);
+            await transition.WaitAsync(cancellation.Token).ConfigureAwait(false);
+            try
             {
-                totalStopwatch.Stop();
-                const string message = "Update check skipped because Foundry is not running from a Velopack installation.";
-                logger.Information(
-                    "{Message} IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
-                    message,
-                    isStartupCheck,
-                    totalStopwatch.ElapsedMilliseconds);
-                ClearPendingUpdate();
-                return PublishCheckResult(new ApplicationUpdateCheckResult(ApplicationUpdateStatus.NotInstalled, message));
+                cancellation.Token.ThrowIfCancellationRequested();
+                if (downloadedOperation is not null)
+                    return PublishCheckResult(AvailableResult(downloadedOperation));
+                if (Debugger.IsAttached)
+                    return PublishCheckResult(new(ApplicationUpdateStatus.SkippedInDebug, "Update check skipped because a debugger is attached."));
+
+                string feedUrl = appSettingsService.Current.Updates.FeedUrl.Trim();
+                string channel = appSettingsService.Current.Updates.Channel;
+                using var metadataDeadline = CancellationTokenSource.CreateLinkedTokenSource(cancellation.Token);
+                metadataDeadline.CancelAfter(TimeSpan.FromSeconds(15));
+                try
+                {
+                    var downloader = new ApplicationUpdateFileDownloader(lifetime.Token, metadataDeadline.Token);
+                    UpdateManager manager = CreateUpdateManager(feedUrl, channel, downloader);
+                    logger.Information("Checking for Foundry updates. Startup={Startup}, FeedSource={FeedSource}, Channel={Channel}",
+                        isStartupCheck, GetFeedUrlLogValue(feedUrl), channel);
+                    if (!manager.IsInstalled)
+                    {
+                        availableOperation = null;
+                        return PublishCheckResult(new(ApplicationUpdateStatus.NotInstalled, "Foundry is not running from a Velopack installation."));
+                    }
+                    UpdateInfo? update = await manager.CheckForUpdatesAsync().ConfigureAwait(false);
+                    metadataDeadline.Token.ThrowIfCancellationRequested();
+                    availableOperation = update is null ? null : new(Guid.NewGuid(), manager, update, feedUrl, channel);
+                    return PublishCheckResult(availableOperation is null
+                        ? new(ApplicationUpdateStatus.NoUpdate, $"{FoundryApplicationInfo.AppName} is up to date.")
+                        : AvailableResult(availableOperation));
+                }
+                catch (OperationCanceledException) when (!cancellation.IsCancellationRequested)
+                {
+                    return PublishCheckResult(new(ApplicationUpdateStatus.Failed, "The update feed check timed out."));
+                }
+                catch (OperationCanceledException) { throw; }
+                catch (Exception error)
+                {
+                    logger.Error(error, "Foundry update check failed.");
+                    return PublishCheckResult(new(ApplicationUpdateStatus.Failed, "The update feed could not be checked."));
+                }
             }
-
-            logger.Information(
-                "Checking for Foundry updates. IsStartupCheck={IsStartupCheck}, SourceKind={SourceKind}, FeedSource={FeedSource}",
-                isStartupCheck,
-                sourceKind,
-                GetFeedUrlLogValue(feedUrl));
-
-            Stopwatch checkStopwatch = Stopwatch.StartNew();
-            Velopack.UpdateInfo? updateInfo = await updateManager.CheckForUpdatesAsync();
-            checkStopwatch.Stop();
-            totalStopwatch.Stop();
-
-            logger.Debug(
-                "Foundry update check request completed. IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
-                isStartupCheck,
-                checkStopwatch.ElapsedMilliseconds);
-
-            if (updateInfo is null)
-            {
-                string message = $"{FoundryApplicationInfo.AppName} is up to date.";
-                logger.Information(
-                    "{Message} IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
-                    message,
-                    isStartupCheck,
-                    totalStopwatch.ElapsedMilliseconds);
-                ClearPendingUpdate();
-                return PublishCheckResult(new ApplicationUpdateCheckResult(ApplicationUpdateStatus.NoUpdate, message));
-            }
-
-            pendingUpdate = updateInfo;
-            pendingUpdateManager = updateManager;
-
-            VelopackAsset targetRelease = updateInfo.TargetFullRelease;
-            string version = FormatDisplayVersion(targetRelease.Version?.ToString());
-            string updateMessage = $"{FoundryApplicationInfo.AppName} {version} is available.";
-
-            logger.Information(
-                "Foundry update available. Version={Version}, FileName={FileName}, Size={Size}, IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
-                version,
-                targetRelease.FileName,
-                targetRelease.Size,
-                isStartupCheck,
-                totalStopwatch.ElapsedMilliseconds);
-
-            return PublishCheckResult(new ApplicationUpdateCheckResult(
-                ApplicationUpdateStatus.UpdateAvailable,
-                updateMessage,
-                version));
+            finally { transition.Release(); }
         }
-        catch (Exception ex)
-        {
-            totalStopwatch.Stop();
-            logger.Error(
-                ex,
-                "Foundry update check failed. IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
-                isStartupCheck,
-                totalStopwatch.ElapsedMilliseconds);
-            return PublishCheckResult(new ApplicationUpdateCheckResult(ApplicationUpdateStatus.Failed, ex.Message));
-        }
+        finally { EndOperation(); }
     }
 
-    /// <inheritdoc />
-    public async Task<ApplicationUpdateDownloadResult> DownloadUpdateAsync(
-        IProgress<int>? progress = null,
+    public async Task<ApplicationUpdateDownloadResult> DownloadUpdateAsync(IProgress<int>? progress = null,
         CancellationToken cancellationToken = default)
     {
-        cancellationToken.ThrowIfCancellationRequested();
-
-        if (pendingUpdate is null || pendingUpdateManager is null)
-        {
-            const string message = "No update is ready to download. Check for updates first.";
-            logger.Warning(message);
-            return new ApplicationUpdateDownloadResult(ApplicationUpdateStatus.NoUpdate, message);
-        }
-
+        BeginOperation();
         try
         {
-            logger.Information(
-                "Downloading Foundry update. Version={Version}",
-                pendingUpdate.TargetFullRelease.Version);
-
-            Action<int>? progressHandler = progress is null ? null : progress.Report;
-
-            await pendingUpdateManager.DownloadUpdatesAsync(
-                pendingUpdate,
-                progressHandler,
-                cancellationToken);
-
-            const string message = "Update downloaded. Foundry will restart to apply it.";
-            logger.Information(message);
-            return new ApplicationUpdateDownloadResult(ApplicationUpdateStatus.ReadyToRestart, message);
+            using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token, cancellationToken);
+            await transition.WaitAsync(cancellation.Token).ConfigureAwait(false);
+            try
+            {
+                cancellation.Token.ThrowIfCancellationRequested();
+                if (downloadedOperation is not null) return DownloadedResult(downloadedOperation);
+                ApplicationUpdateOperation? operation = availableOperation;
+                if (operation is null) return new(ApplicationUpdateStatus.NoUpdate, "Check for updates before downloading.");
+                try
+                {
+                    await operation.Manager.DownloadUpdatesAsync(operation.Update, progress is null ? null : progress.Report,
+                        cancellation.Token).ConfigureAwait(false);
+                    cancellation.Token.ThrowIfCancellationRequested();
+                    downloadedOperation = operation;
+                    return DownloadedResult(operation);
+                }
+                catch (OperationCanceledException) { throw; }
+                catch (Exception error)
+                {
+                    logger.Error(error, "Foundry update download failed. OperationId={OperationId}", operation.Id);
+                    return new(ApplicationUpdateStatus.Failed, "The update could not be downloaded.");
+                }
+            }
+            finally { transition.Release(); }
         }
-        catch (Exception ex)
-        {
-            logger.Error(ex, "Foundry update download failed.");
-            return new ApplicationUpdateDownloadResult(ApplicationUpdateStatus.Failed, ex.Message);
-        }
+        finally { EndOperation(); }
     }
 
-    /// <inheritdoc />
-    public void ApplyUpdateAndRestart()
+    public void ApplyUpdateAndRestart(Guid operationId)
     {
-        if (mediaCoordinator.IsRunning || mediaCoordinator.RecoveryDiagnostic is not null ||
-            adkService.ActiveOperation is { IsCompleted: false } || adkService.HasUncertainOwnership)
-        {
-            throw new InvalidOperationException("Complete native media or ADK cleanup before applying an application update.");
-        }
-
-        if (pendingUpdate is null || pendingUpdateManager is null)
-        {
-            logger.Warning("Apply update requested without a pending update.");
-            return;
-        }
-
-        string version = pendingUpdate.TargetFullRelease.Version?.ToString() ?? "unknown";
+        lock (lifetimeGate)
+            if (stopping) throw new InvalidOperationException("The update service is shutting down.");
+        if (!transition.Wait(0)) throw new InvalidOperationException("An update operation is still in progress.");
         try
         {
+            ApplicationUpdateOperation operation = downloadedOperation is { } ready && ready.Id == operationId
+                ? ready : throw new InvalidOperationException("The requested update has not been downloaded successfully.");
+            if (mediaCoordinator.IsRunning || mediaCoordinator.RecoveryDiagnostic is not null ||
+                adkService.ActiveOperation is { IsCompleted: false } || adkService.HasUncertainOwnership)
+                throw new InvalidOperationException("Complete native media or ADK cleanup before applying an application update.");
             using MediaOperationLease lease = MediaOperationLease.Acquire(Constants.WinPeWorkspaceDirectoryPath, "ApplicationUpdate");
             lease.DeleteOwnedWorkspace();
-            logger.Information("Applying Foundry update and restarting. Version={Version}", version);
-            pendingUpdateManager.WaitExitThenApplyUpdates(pendingUpdate.TargetFullRelease, silent: false, restart: true);
+            logger.Information("Applying downloaded update. OperationId={OperationId}, Version={Version}", operation.Id,
+                operation.Update.TargetFullRelease.Version);
+            operation.Manager.WaitExitThenApplyUpdates(operation.Update.TargetFullRelease, silent: false, restart: true);
             applicationLifetimeService.Shutdown();
         }
-        catch (Exception ex)
-        {
-            logger.Error(ex, "Failed to apply Foundry update and restart. Version={Version}", version);
-            throw;
-        }
+        finally { transition.Release(); }
     }
 
-    private async Task RunStartupCheckAsync(CancellationToken cancellationToken)
+    public Task ShutdownAsync(CancellationToken cancellationToken = default)
+    {
+        Task completion;
+        lock (lifetimeGate)
+        {
+            stopping = true;
+            shutdown ??= WaitForShutdownAsync(StopAndDrainAsync(drained.Task, startupCheck));
+            completion = shutdown;
+        }
+        return cancellationToken.CanBeCanceled ? completion.WaitAsync(cancellationToken) : completion;
+    }
+
+    public void Dispose() => ShutdownAsync().GetAwaiter().GetResult();
+
+    private async Task StopAndDrainAsync(Task operations, Task? startup)
     {
         try
         {
-            ApplicationUpdateCheckResult result = await CheckForUpdatesAsync(isStartupCheck: true, cancellationToken);
-            logger.Debug("Startup update check completed. Status={Status}, Message={Message}", result.Status, result.Message);
+            await lifetime.CancelAsync().ConfigureAwait(false);
+            await operations.ConfigureAwait(false);
+            if (startup is not null) await startup.ConfigureAwait(false);
         }
-        catch (Exception ex)
+        catch (Exception error) { logger.Debug(error, "Update shutdown completed with an optional operation failure."); }
+        finally { lifetime.Dispose(); }
+    }
+
+    private static async Task WaitForShutdownAsync(Task completion)
+    {
+        try { await completion.WaitAsync(TimeSpan.FromSeconds(2)).ConfigureAwait(false); }
+        catch (TimeoutException) { /* Actual completion remains owned and observed by StopAndDrainAsync. */ }
+    }
+
+    private void BeginOperation()
+    {
+        lock (lifetimeGate)
         {
-            logger.Error(ex, "Startup update check failed.");
+            if (stopping) throw new OperationCanceledException("The update service is shutting down.");
+            if (activeOperations++ == 0) drained = new(TaskCreationOptions.RunContinuationsAsynchronously);
         }
     }
 
-    private UpdateManager CreateUpdateManager()
+    private void EndOperation()
+    {
+        lock (lifetimeGate) if (--activeOperations == 0) drained.TrySetResult();
+    }
+
+    private async Task RunStartupCheckAsync()
+    {
+        try { await CheckForUpdatesAsync(isStartupCheck: true).ConfigureAwait(false); }
+        catch (OperationCanceledException) { logger.Debug("Startup update check canceled."); }
+        catch (Exception error) { logger.Error(error, "Startup update check failed."); }
+    }
+
+    private static UpdateManager CreateUpdateManager(string feedUrl, string channel, ApplicationUpdateFileDownloader downloader)
     {
         UpdateOptions options = new();
+        if (ApplicationUpdateSourceClassifier.IsGitHubRepositoryUrl(feedUrl))
+            return new UpdateManager(new GithubSource(feedUrl.TrimEnd('/'), string.Empty,
+                ApplicationUpdateSourceClassifier.IsPrereleaseChannel(channel), downloader), options, locator: null);
+        if (Uri.TryCreate(feedUrl, UriKind.Absolute, out Uri? uri) && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps))
+            return new UpdateManager(new SimpleWebSource(uri, downloader), options, locator: null);
+        return new UpdateManager(feedUrl, options, locator: null);
+    }
 
-        string feedUrl = appSettingsService.Current.Updates.FeedUrl;
-        if (!IsGitHubRepositoryUrl(feedUrl))
+    private ApplicationUpdateCheckResult PublishCheckResult(ApplicationUpdateCheckResult result)
+    {
+        // LastCheckedAt records the last attempt, including unsuccessful checks.
+        appSettingsService.Current.Updates.LastCheckedAt = DateTimeOffset.Now;
+        try { appSettingsService.Save(); }
+        catch (Exception error)
         {
-            logger.Debug("Creating simple web Velopack update manager. FeedSource={FeedSource}", GetFeedUrlLogValue(feedUrl));
-            return new UpdateManager(feedUrl, options, locator: null);
+            logger.Warning(error, "The last update check time could not be saved.");
+            result = result with { SettingsSaveFailed = true };
         }
-
-        logger.Debug(
-            "Creating GitHub Velopack update manager. FeedSource={FeedSource}, Channel={Channel}",
-            GetFeedUrlLogValue(feedUrl),
-            appSettingsService.Current.Updates.Channel);
-
-        // GitHub feeds use prerelease visibility as the channel selector; stable channels only see releases.
-        GithubSource source = new(
-            feedUrl,
-            accessToken: string.Empty,
-            prerelease: IsPrereleaseChannel(appSettingsService.Current.Updates.Channel),
-            downloader: new HttpClientFileDownloader());
-
-        return new UpdateManager(source, options, locator: null);
+        updateStateService.Publish(result);
+        return result;
     }
 
-    private static bool IsGitHubRepositoryUrl(string feedUrl)
+    private static ApplicationUpdateCheckResult AvailableResult(ApplicationUpdateOperation operation)
     {
-        return Uri.TryCreate(feedUrl, UriKind.Absolute, out Uri? uri)
-            && string.Equals(uri.Host, "github.com", StringComparison.OrdinalIgnoreCase)
-            && uri.AbsolutePath.Count(character => character == '/') == 2;
+        string version = FormatDisplayVersion(operation.Update.TargetFullRelease.Version?.ToString());
+        return new(ApplicationUpdateStatus.UpdateAvailable, $"{FoundryApplicationInfo.AppName} {version} is available.", version);
     }
 
-    private static bool IsPrereleaseChannel(string? channel)
-    {
-        return string.Equals(channel, "beta", StringComparison.OrdinalIgnoreCase)
-            || string.Equals(channel, "preview", StringComparison.OrdinalIgnoreCase)
-            || string.Equals(channel, "prerelease", StringComparison.OrdinalIgnoreCase);
-    }
+    private static ApplicationUpdateDownloadResult DownloadedResult(ApplicationUpdateOperation operation) =>
+        new(ApplicationUpdateStatus.ReadyToRestart, "Update downloaded. Foundry will restart to apply it.", operation.Id);
 
-    private static string ResolveUpdateSourceKind(string feedUrl)
+    private static TaskCompletionSource CompletedSource()
     {
-        return IsGitHubRepositoryUrl(feedUrl) ? "GitHubReleases" : "SimpleWeb";
+        var completion = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        completion.SetResult();
+        return completion;
     }
 
     private static string GetFeedUrlLogValue(string feedUrl)
@@ -320,18 +283,4 @@ internal sealed class ApplicationUpdateService(
         return packageVersion.Trim().Replace("-build.", ".", StringComparison.OrdinalIgnoreCase);
     }
 
-    private void ClearPendingUpdate()
-    {
-        pendingUpdate = null;
-        pendingUpdateManager = null;
-    }
-
-    private ApplicationUpdateCheckResult PublishCheckResult(ApplicationUpdateCheckResult result)
-    {
-        appSettingsService.Current.Updates.LastCheckedAt = DateTimeOffset.Now;
-        appSettingsService.Save();
-
-        updateStateService.Publish(result);
-        return result;
-    }
 }

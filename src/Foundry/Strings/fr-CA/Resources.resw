@@ -246,6 +246,9 @@
   <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
     <value>Flux de mise à jour Web</value>
   </data>
+  <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
+    <value>Simple web feed; release-lane filtering is not supported.</value>
+  </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Source de mise à jour</value>
   </data>
@@ -2501,6 +2504,9 @@
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Le dossier du pilote personnalisé n'existe pas.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
+    <value>Custom driver inspection is pending or unavailable.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>La génération de la configuration de déploiement n’est pas prête.</value>
   </data>
@@ -3179,6 +3185,9 @@
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
     <value>fonderie-osd/fonderie</value>
   </data>
+  <data name="Update.Status.Cancelled" xml:space="preserve">
+    <value>Update operation canceled.</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Vérification des mises à jour</value>
   </data>
@@ -3190,6 +3199,9 @@
   </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
     <value>La vérification de la mise à jour a été ignorée car Foundry OSD ne s'exécute pas à partir d'une installation Velopack.</value>
+  </data>
+  <data name="Update.Status.OperationFailed" xml:space="preserve">
+    <value>The update operation could not be completed.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Prêt</value>
@@ -3220,6 +3232,9 @@
   </data>
   <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
     <value>Foundry OSD {0} est disponible</value>
+  </data>
+  <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
+    <value>The last update check time could not be saved.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Mise à jour</value>

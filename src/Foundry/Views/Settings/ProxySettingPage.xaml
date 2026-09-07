@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.ProxySettingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -48,6 +48,7 @@
                             <TextBox
                                 x:Uid="Proxy_AddressTextBox"
                                 MinWidth="{ThemeResource FoundryCompactInputMinWidth}"
+                                FlowDirection="LeftToRight"
                                 Text="{x:Bind ViewModel.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <NumberBox x:Name="PortNumberBox"
                                 x:Uid="Proxy_PortNumberBox"
@@ -68,6 +69,7 @@
                         <TextBox
                             x:Uid="Proxy_BypassListTextBox"
                             MinWidth="{ThemeResource FoundryCompactInputMinWidth}"
+                            FlowDirection="LeftToRight"
                             Text="{x:Bind ViewModel.BypassList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
                     <wct:SettingsCard x:Uid="Proxy_AuthenticationCard">
@@ -93,12 +95,15 @@
                             Spacing="{ThemeResource FoundryInlineControlSpacing}">
                             <TextBox
                                 x:Uid="Proxy_UsernameTextBox"
+                                FlowDirection="LeftToRight"
                                 Text="{x:Bind ViewModel.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBox
                                 x:Uid="Proxy_DomainTextBox"
+                                FlowDirection="LeftToRight"
                                 Text="{x:Bind ViewModel.Domain, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <PasswordBox x:Name="PasswordBox"
-                                x:Uid="Proxy_PasswordBox" />
+                                x:Uid="Proxy_PasswordBox"
+                                FlowDirection="LeftToRight" />
                         </StackPanel>
                     </wct:SettingsCard>
                 </StackPanel>

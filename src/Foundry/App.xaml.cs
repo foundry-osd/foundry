@@ -12,6 +12,7 @@ using Foundry.Services.Networking;
 using Foundry.Services.Settings;
 using Foundry.Services.Shell;
 using Foundry.Services.Startup;
+using Foundry.Services.Updates;
 using Foundry.Telemetry;
 using Microsoft.UI.Xaml;
 using Microsoft.Extensions.Hosting;
@@ -205,6 +206,19 @@ namespace Foundry
 
             isShuttingDown = true;
             AppLogger.Information("Foundry WinUI shutdown started.");
+            using (var workDeadline = new CancellationTokenSource(TimeSpan.FromSeconds(2)))
+            {
+                try
+                {
+                    Task.WhenAll(
+                        GetService<IApplicationUpdateService>().ShutdownAsync(workDeadline.Token),
+                        GetService<ICustomDriverReadinessService>().StopAsync(workDeadline.Token)).GetAwaiter().GetResult();
+                }
+                catch (Exception error)
+                {
+                    AppLogger.Warning(error, "Application background work did not finish within the shutdown deadline; cancellation remains requested.");
+                }
+            }
             AppLogger.Debug("Flushing Foundry telemetry events.");
             using (var telemetryDeadline = new CancellationTokenSource(TimeSpan.FromSeconds(2)))
             {

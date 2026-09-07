@@ -202,7 +202,7 @@ public sealed class UpdateSettings
     public string FeedUrl { get; set; } = Constants.DefaultUpdateFeedUrl;
 
     /// <summary>
-    /// Gets or sets the last time an update check completed.
+    /// Gets or sets the completion time of the most recent update-check attempt, including failures.
     /// </summary>
     public DateTimeOffset? LastCheckedAt { get; set; }
 }

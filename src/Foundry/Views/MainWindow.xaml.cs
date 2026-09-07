@@ -93,6 +93,7 @@ namespace Foundry.Views
 
         private void ApplyLocalizedShellText()
         {
+            Foundry.Services.Localization.LocalizationRoot.Apply(RootGrid, localizationService.CurrentLanguage);
             EnsureExternalDocumentationFooterItem();
             EnsureExternalBugReportFooterItem();
             EnsureExternalAboutFooterItem();
@@ -367,6 +368,7 @@ namespace Foundry.Views
 
             try
             {
+                Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(dialog);
                 await dialog.ShowAsync();
             }
             finally
@@ -728,6 +730,7 @@ namespace Foundry.Views
                 }
             };
 
+            Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(dialog);
             await dialog.ShowAsync();
         }
 
@@ -744,6 +747,7 @@ namespace Foundry.Views
                 RequestedTheme = RootGrid.ActualTheme
             };
 
+            Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(dialog);
             await dialog.ShowAsync();
         }
 

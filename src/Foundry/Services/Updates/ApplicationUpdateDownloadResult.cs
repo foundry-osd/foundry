@@ -9,6 +9,8 @@ namespace Foundry.Services.Updates;
 /// </summary>
 /// <param name="Status">Lifecycle status after the download attempt.</param>
 /// <param name="Message">User-visible completion or failure message.</param>
+/// <param name="OperationId">Identity of the successfully downloaded release, otherwise null.</param>
 public sealed record ApplicationUpdateDownloadResult(
     ApplicationUpdateStatus Status,
-    string Message);
+    string Message,
+    Guid? OperationId = null);

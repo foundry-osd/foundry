@@ -246,6 +246,9 @@
   <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
     <value>Web güncelleme akışı</value>
   </data>
+  <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
+    <value>Simple web feed; release-lane filtering is not supported.</value>
+  </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>Kaynağı güncelle</value>
   </data>
@@ -2501,6 +2504,9 @@
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>Özel sürücü klasörü mevcut değil.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
+    <value>Custom driver inspection is pending or unavailable.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>Dağıtım yapılandırması oluşturma hazır değil.</value>
   </data>
@@ -3179,6 +3185,9 @@
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
     <value>dökümhane-osd/dökümhane</value>
   </data>
+  <data name="Update.Status.Cancelled" xml:space="preserve">
+    <value>Update operation canceled.</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Güncellemeler kontrol ediliyor</value>
   </data>
@@ -3190,6 +3199,9 @@
   </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
     <value>Foundry OSD bir Velopack kurulumundan çalışmadığından güncelleme kontrolü atlandı.</value>
+  </data>
+  <data name="Update.Status.OperationFailed" xml:space="preserve">
+    <value>The update operation could not be completed.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>Hazır</value>
@@ -3220,6 +3232,9 @@
   </data>
   <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
     <value>Foundry OSD {0} mevcut</value>
+  </data>
+  <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
+    <value>The last update check time could not be saved.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Güncelleme</value>

@@ -17,6 +17,7 @@ public sealed partial class AboutDialog : ContentDialog
     {
         ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
         InitializeComponent();
+        Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(this);
         DataContext = ViewModel;
         ApplyContentLayout();
         Loaded += OnLoaded;

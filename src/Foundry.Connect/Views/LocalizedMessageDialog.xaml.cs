@@ -20,6 +20,7 @@ public partial class LocalizedMessageDialog : Window
         CancelButtonText = cancelButtonText ?? string.Empty;
         CancelButtonVisibility = cancelButtonText is null ? Visibility.Collapsed : Visibility.Visible;
         InitializeComponent();
+        Foundry.Connect.Services.Localization.LocalizationRoot.BindToOwner(this);
         Owner = Application.Current?.MainWindow;
     }
 

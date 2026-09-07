@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Foundry.Connect.Views.EthernetWifiView"
+<UserControl x:Class="Foundry.Connect.Views.EthernetWifiView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -80,6 +80,7 @@
                                 <PasswordBox x:Name="SelectedWifiPassphraseBox"
                                     MinWidth="0"
                                     HorizontalAlignment="Stretch"
+                                    FlowDirection="LeftToRight"
                                     KeyDown="SelectedWifiPassphraseEditor_OnKeyDown"
                                     Loaded="SelectedWifiPassphraseBox_OnLoaded"
                                     PasswordChanged="SelectedWifiPassphraseBox_OnPasswordChanged"
@@ -88,6 +89,7 @@
                                 <TextBox x:Name="SelectedWifiPassphraseRevealTextBox"
                                     MinWidth="0"
                                     HorizontalAlignment="Stretch"
+                                    FlowDirection="LeftToRight"
                                     KeyDown="SelectedWifiPassphraseEditor_OnKeyDown"
                                     Loaded="SelectedWifiPassphraseRevealTextBox_OnLoaded"
                                     ScrollViewer.HorizontalScrollBarVisibility="Hidden"
@@ -354,6 +356,7 @@
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Margin="8,0,0,0"
+                                FlowDirection="LeftToRight"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{Binding EthernetIpAddress}"
                                 TextTrimming="CharacterEllipsis" />
@@ -365,6 +368,7 @@
                                 Grid.Row="2"
                                 Grid.Column="1"
                                 Margin="8,0,0,0"
+                                FlowDirection="LeftToRight"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{Binding EthernetGateway}"
                                 TextTrimming="CharacterEllipsis" />

@@ -80,8 +80,11 @@ public sealed record MediaPreflightOptions
     public bool IsFinalExecutionEnabled { get; init; }
 
     /// <summary>
-    /// Gets the ISO output path currently configured.
+    /// Gets the cached driver inspection used only for displayed readiness.
     /// </summary>
+    public CustomDriverSourceInspection? CustomDriverInspection { get; init; }
+
+    /// <summary>Gets the ISO output path currently configured.</summary>
     public string IsoOutputPath { get; init; } = string.Empty;
 
     /// <summary>

@@ -11,6 +11,7 @@ public partial class DeploymentErrorDetailsDialog : Window
     public DeploymentErrorDetailsDialog()
     {
         InitializeComponent();
+        Foundry.Deploy.Services.Localization.LocalizationRoot.BindToOwner(this);
         Loaded += (_, _) => DetailsTextBox.Focus();
     }
 

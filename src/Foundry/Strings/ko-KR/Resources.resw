@@ -246,6 +246,9 @@
   <data name="AppUpdate.SourceKind.SimpleWeb" xml:space="preserve">
     <value>웹 업데이트 피드</value>
   </data>
+  <data name="AppUpdate.SourceKind.SimpleWebLaneUnsupported" xml:space="preserve">
+    <value>Simple web feed; release-lane filtering is not supported.</value>
+  </data>
   <data name="AppUpdate.UpdateSourceTitle" xml:space="preserve">
     <value>소스 업데이트</value>
   </data>
@@ -2501,6 +2504,9 @@
   <data name="StartMedia.BlockingReason.CustomDriverDirectoryNotFound" xml:space="preserve">
     <value>사용자 정의 드라이버 폴더가 존재하지 않습니다.</value>
   </data>
+  <data name="StartMedia.BlockingReason.CustomDriverInspectionNotReady" xml:space="preserve">
+    <value>Custom driver inspection is pending or unavailable.</value>
+  </data>
   <data name="StartMedia.BlockingReason.DeployConfigurationNotReady" xml:space="preserve">
     <value>배포 구성 생성이 준비되지 않았습니다.</value>
   </data>
@@ -3179,6 +3185,9 @@
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
     <value>파운드리-osd/파운드리</value>
   </data>
+  <data name="Update.Status.Cancelled" xml:space="preserve">
+    <value>Update operation canceled.</value>
+  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>업데이트 확인 중</value>
   </data>
@@ -3190,6 +3199,9 @@
   </data>
   <data name="Update.Status.NotInstalled" xml:space="preserve">
     <value>Foundry OSD이 Velopack 설치에서 실행되고 있지 않기 때문에 업데이트 확인을 건너뛰었습니다.</value>
+  </data>
+  <data name="Update.Status.OperationFailed" xml:space="preserve">
+    <value>The update operation could not be completed.</value>
   </data>
   <data name="Update.Status.Ready" xml:space="preserve">
     <value>준비</value>
@@ -3220,6 +3232,9 @@
   </data>
   <data name="Update.StatusTitle.UpdateAvailableFormat" xml:space="preserve">
     <value>Foundry OSD {0} 가능합니다</value>
+  </data>
+  <data name="Update.Warning.SettingsSaveFailed" xml:space="preserve">
+    <value>The last update check time could not be saved.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>업데이트</value>

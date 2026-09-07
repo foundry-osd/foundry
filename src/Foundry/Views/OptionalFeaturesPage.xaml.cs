@@ -8,6 +8,8 @@ using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 
+using Foundry.Services.Shell;
+
 namespace Foundry.Views;
 
 public sealed partial class OptionalFeaturesPage : Page
@@ -22,7 +24,8 @@ public sealed partial class OptionalFeaturesPage : Page
 
     public OptionalFeaturesPage()
     {
-        ViewModel = App.GetService<CustomizationConfigurationViewModel>();
+        NavigationCacheMode = NavigationCacheMode.Disabled;
+        ViewModel = App.GetService<PageViewModelFactory>().Create<CustomizationConfigurationViewModel>();
         ViewModel.InitializeSection(ConfigurationNavigationTarget.WindowsOptionalFeatures);
         InitializeComponent();
         FeatureSearchBox.Text = ViewModel.WindowsOptionalFeatureSearchText;

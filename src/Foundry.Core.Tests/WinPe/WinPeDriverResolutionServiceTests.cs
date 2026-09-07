@@ -3,11 +3,37 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Services.Configuration;
 
 namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeDriverResolutionServiceTests
 {
+    [Fact]
+    public async Task ResolveAsync_ReinspectsPreviouslyReadySource()
+    {
+        bool available = true;
+        // A cached UI result cannot authorize the later operation.
+        var realInspector = new CustomDriverSourceInspector(p => p == "source" ? FileAttributes.Directory : FileAttributes.Normal,
+            _ => available ? ["driver.inf"] : []);
+        Assert.Equal(CustomDriverSourceState.Ready, (await realInspector.InspectAsync("source", default)).State);
+        available = false;
+        var packages = new FakePackageService();
+        var service = new WinPeDriverResolutionService(new FakeCatalogService([]), packages, realInspector);
+        var result = await service.ResolveAsync(new WinPeDriverResolutionRequest
+        {
+            Artifact = new WinPeBuildArtifact { DriverWorkspacePath = "unused" },
+            Architecture = WinPeArchitecture.X64,
+            CustomDriverDirectoryPath = "source",
+            CatalogUri = "https://example.test/catalog.xml",
+            BootImageSource = WinPeBootImageSource.WinPe,
+            DriverVendors = [WinPeVendorSelection.Dell]
+        });
+        Assert.False(result.IsSuccess);
+        Assert.Equal("driver_source_no_inf", result.Error?.Details);
+        Assert.Empty(packages.PreparedPackages);
+    }
+
     [Theory]
     [InlineData(false, false)]
     [InlineData(true, false)]

@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.WinPe;
-using Foundry.Utilities.IO;
+using Foundry.Core.Services.Configuration;
 
 namespace Foundry.Core.Services.Media;
 
@@ -49,15 +49,21 @@ public static class MediaPreflightService
 
         if (!string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath))
         {
-            if (!Directory.Exists(options.CustomDriverDirectoryPath))
+            CustomDriverSourceInspection? inspection = options.CustomDriverInspection;
+            CustomDriverSourceState state = inspection is not null &&
+                string.Equals(inspection.Path, options.CustomDriverDirectoryPath.Trim(), StringComparison.Ordinal)
+                ? inspection.State : CustomDriverSourceState.Pending;
+            MediaPreflightBlockingReason? reason = state switch
             {
-                isoReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryNotFound);
-                usbReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryNotFound);
-            }
-            else if (!FileSearch.ContainsRecursive(options.CustomDriverDirectoryPath, "*.inf"))
+                CustomDriverSourceState.Ready => null,
+                CustomDriverSourceState.Missing => MediaPreflightBlockingReason.CustomDriverDirectoryNotFound,
+                CustomDriverSourceState.NoDrivers => MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles,
+                _ => MediaPreflightBlockingReason.CustomDriverInspectionNotReady
+            };
+            if (reason is { } blocking)
             {
-                isoReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles);
-                usbReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles);
+                isoReasons.Add(blocking);
+                usbReasons.Add(blocking);
             }
         }
 

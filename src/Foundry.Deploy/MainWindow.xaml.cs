@@ -4,6 +4,8 @@
 
 using System.ComponentModel;
 using System.Windows;
+using Foundry.Deploy.Services.Localization;
+using Foundry.Localization;
 using Foundry.Deploy.Motion;
 using Foundry.Deploy.ViewModels;
 
@@ -12,11 +14,15 @@ namespace Foundry.Deploy;
 public partial class MainWindow : Window
 {
     private readonly MainWindowViewModel _viewModel;
+    private readonly ILocalizationService _localization;
     private DeploymentPage _previousPage = DeploymentPage.Splash;
 
-    public MainWindow(MainWindowViewModel viewModel)
+    public MainWindow(MainWindowViewModel viewModel, ILocalizationService localization)
     {
         InitializeComponent();
+        _localization = localization;
+        LocalizationRoot.Apply(this, _localization.CurrentCulture);
+        _localization.LanguageChanged += OnLanguageChanged;
         _viewModel = viewModel;
         DataContext = viewModel;
         _viewModel.Session.PropertyChanged += OnSessionPropertyChanged;
@@ -25,12 +31,23 @@ public partial class MainWindow : Window
 
     protected override void OnClosed(EventArgs e)
     {
+        _localization.LanguageChanged -= OnLanguageChanged;
         _viewModel.Session.PropertyChanged -= OnSessionPropertyChanged;
         _viewModel.Dispose();
 
         base.OnClosed(e);
     }
 
+    private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs args)
+    {
+        if (Dispatcher.HasShutdownStarted) return;
+        if (!Dispatcher.CheckAccess())
+        {
+            Dispatcher.InvokeAsync(() => LocalizationRoot.Apply(this, _localization.CurrentCulture));
+            return;
+        }
+        LocalizationRoot.Apply(this, _localization.CurrentCulture);
+    }
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
         await _viewModel.InitializeAsync();

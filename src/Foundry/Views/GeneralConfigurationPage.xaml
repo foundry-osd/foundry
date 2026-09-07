@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.GeneralConfigurationPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -112,9 +112,11 @@
                                     MinWidth="{ThemeResource FoundryWideInputMinWidth}"
                                     Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                                     <PasswordBox x:Name="DeploymentProtectionPasswordBox"
+                                        FlowDirection="LeftToRight"
                                         Loaded="DeploymentProtectionPasswordBox_Loaded"
                                         PasswordChanged="DeploymentProtectionPasswordBox_PasswordChanged" />
                                     <PasswordBox x:Name="DeploymentProtectionConfirmationBox"
+                                        FlowDirection="LeftToRight"
                                         Loaded="DeploymentProtectionConfirmationBox_Loaded"
                                         PasswordChanged="DeploymentProtectionConfirmationBox_PasswordChanged" />
                                     <TextBlock x:Name="DeploymentProtectionValidationText"
@@ -149,6 +151,7 @@
                                     Spacing="{ThemeResource FoundryInlineControlSpacing}">
                                     <TextBox
                                         MinWidth="{ThemeResource FoundryWideInputMinWidth}"
+                                        FlowDirection="LeftToRight"
                                         Text="{x:Bind ViewModel.CustomDriverDirectoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <Button x:Name="BrowseCustomDriversButton"
                                         MinWidth="{StaticResource FoundrySettingsActionMinWidth}"

@@ -25,6 +25,7 @@ public sealed class WinUiDialogService : IDialogService
             XamlRoot = GetXamlRoot()
         };
 
+        Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(dialog);
         await dialog.ShowAsync();
     }
 
@@ -49,6 +50,7 @@ public sealed class WinUiDialogService : IDialogService
             dialog.DefaultButton = ContentDialogButton.Primary;
         }
 
+        Foundry.Services.Localization.LocalizationRoot.BindToMainRoot(dialog);
         ContentDialogResult result = await dialog.ShowAsync();
         return result == ContentDialogResult.Primary;
     }
