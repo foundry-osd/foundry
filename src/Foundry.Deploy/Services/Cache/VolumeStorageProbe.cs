@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace Foundry.Deploy.Services.Cache;
 
@@ -22,15 +23,16 @@ public sealed class VolumeStorageProbe : IVolumeStorageProbe
     {
         try
         {
-            string root = Path.GetPathRoot(Path.GetFullPath(directory))
-                ?? throw new IOException("Storage root cannot be resolved.");
-            var drive = new DriveInfo(root);
-            if (!drive.IsReady)
-            {
-                return new(false, false, null);
-            }
-            long freeBytes = drive.AvailableFreeSpace;
+            directory = Path.GetFullPath(directory);
             Directory.CreateDirectory(directory);
+            // Query the destination itself so volume GUIDs and mounted folders retain their identity.
+            string capacityPath = Path.EndsInDirectorySeparator(directory) ? directory : directory + Path.DirectorySeparatorChar;
+            if (!GetDiskFreeSpaceExW(capacityPath,
+                out ulong availableBytes, out _, out _))
+            {
+                return new(Marshal.GetLastWin32Error() == 5, false, null);
+            }
+            long? freeBytes = availableBytes <= long.MaxValue ? (long)availableBytes : null;
             string probePath = Path.Combine(directory, $".foundry-write-{Guid.NewGuid():N}.tmp");
             using var stream = new FileStream(probePath, FileMode.CreateNew, FileAccess.Write, FileShare.None, 1, FileOptions.DeleteOnClose);
             stream.WriteByte(0);
@@ -50,4 +52,9 @@ public sealed class VolumeStorageProbe : IVolumeStorageProbe
             return new(false, false, null);
         }
     }
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool GetDiskFreeSpaceExW(string directoryName, out ulong freeBytesAvailable,
+        out ulong totalNumberOfBytes, out ulong totalNumberOfFreeBytes);
 }
