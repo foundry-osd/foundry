@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Xml.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using Foundry.Core.Models.Configuration;
 
@@ -249,11 +250,11 @@ public sealed class ResourceKeyParityTests
 
             foreach ((string key, string enUsValue) in enUsValues)
             {
-                string[] expectedPlaceholders = ExtractPlaceholders(enUsValue);
-                string[] actualPlaceholders = ExtractPlaceholders(cultureValues[key]);
+                SortedSet<int> expectedPlaceholders = ExtractPlaceholderIdentities(enUsValue);
+                SortedSet<int> actualPlaceholders = ExtractPlaceholderIdentities(cultureValues[key]);
 
                 Assert.True(
-                    expectedPlaceholders.SequenceEqual(actualPlaceholders, StringComparer.Ordinal),
+                    expectedPlaceholders.SetEquals(actualPlaceholders),
                     $"{projectName} {culture} {key}: expected placeholders [{string.Join(", ", expectedPlaceholders)}], actual [{string.Join(", ", actualPlaceholders)}]");
             }
         }
@@ -333,12 +334,71 @@ public sealed class ResourceKeyParityTests
             .ToDictionary(item => item.Name!, item => item.Value, StringComparer.Ordinal);
     }
 
-    private static string[] ExtractPlaceholders(string value)
+    [Theory]
+    [InlineData("{0} then {1}", "{1} before {0}")]
+    [InlineData("{0}", "{0,10}")]
+    [InlineData("{0:N2}", "{0,-10:N1}")]
+    [InlineData("{{literal}} {0}", "{0} {{other}}")]
+    [InlineData("{{0}}", "plain text")]
+    [InlineData("{{{0}}}", "{0}")]
+    public void PlaceholderIdentities_AllowValidTranslationFormatting(string source, string translation)
     {
-        return Regex
-            .Matches(value, @"\{\d+(?::[^}]*)?\}")
-            .Select(match => match.Value)
-            .ToArray();
+        Assert.True(ExtractPlaceholderIdentities(source).SetEquals(ExtractPlaceholderIdentities(translation)));
+    }
+
+    [Theory]
+    [InlineData("{0} {1}", "{0}")]
+    [InlineData("{0}", "{1}")]
+    [InlineData("{0}", "{0} {2}")]
+    [InlineData("{{0}}", "{0}")]
+    public void PlaceholderIdentities_RejectDifferentArgumentIdentities(string source, string translation)
+    {
+        Assert.False(ExtractPlaceholderIdentities(source).SetEquals(ExtractPlaceholderIdentities(translation)));
+    }
+
+    [Theory]
+    [InlineData("{")]
+    [InlineData("}")]
+    [InlineData("{0")]
+    [InlineData("{name}")]
+    [InlineData("{0,}")]
+    [InlineData("{0:{1}}")]
+    public void PlaceholderIdentities_RejectMalformedCompositeFormat(string value)
+    {
+        Assert.Throws<FormatException>(() => ExtractPlaceholderIdentities(value));
+    }
+
+    private static SortedSet<int> ExtractPlaceholderIdentities(string value)
+    {
+        _ = CompositeFormat.Parse(value);
+        SortedSet<int> identities = [];
+        for (int position = 0; position < value.Length; position++)
+        {
+            if (value[position] != '{')
+            {
+                continue;
+            }
+
+            if (position + 1 < value.Length && value[position + 1] == '{')
+            {
+                position++;
+                continue;
+            }
+
+            int identity = 0;
+            while (++position < value.Length && char.IsAsciiDigit(value[position]))
+            {
+                identity = checked(identity * 10 + value[position] - '0');
+            }
+
+            identities.Add(identity);
+            while (value[position] != '}')
+            {
+                position++;
+            }
+        }
+
+        return identities;
     }
 
     private static string[] ExtractTechnicalTokens(string value)

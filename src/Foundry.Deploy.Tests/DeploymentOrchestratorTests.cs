@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Reflection;
+using Foundry.Deploy.DependencyInjection;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Deployment;
@@ -9,6 +11,7 @@ using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Telemetry;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using DeployUnattendFile = Foundry.Core.Models.Configuration.Deploy.DeployUnattendFile;
@@ -145,35 +148,7 @@ public sealed class DeploymentOrchestratorTests
     [Fact]
     public void Constructor_WhenStepsAreRegisteredOutOfOrder_UsesCanonicalExecutionOrder()
     {
-        string[] expectedOrder =
-        [
-            DeploymentStepNames.GatherDeploymentVariables,
-            DeploymentStepNames.InitializeDeploymentWorkspace,
-            DeploymentStepNames.ValidateCustomUnattend,
-            DeploymentStepNames.ValidateFirstBootExecution,
-            DeploymentStepNames.ValidateTargetConfiguration,
-            DeploymentStepNames.ResolveCacheStrategy,
-            DeploymentStepNames.PreflightOperatingSystemImage,
-            DeploymentStepNames.PrepareTargetDiskLayout,
-            DeploymentStepNames.DownloadOperatingSystemImage,
-            DeploymentStepNames.ApplyOperatingSystemImage,
-            DeploymentStepNames.StageCustomUnattend,
-            DeploymentStepNames.DownloadDriverPack,
-            DeploymentStepNames.ExtractDriverPack,
-            DeploymentStepNames.ApplyDriverPack,
-            DeploymentStepNames.DownloadFirmwareUpdate,
-            DeploymentStepNames.ApplyFirmwareUpdate,
-            DeploymentStepNames.ConfigureTargetComputerName,
-            DeploymentStepNames.ConfigureOobeSettings,
-            DeploymentStepNames.ConfigureWindowsOptionalFeatures,
-            DeploymentStepNames.StagePreOobeCustomization,
-            DeploymentStepNames.ConfigureRecoveryEnvironment,
-            DeploymentStepNames.ApplyRecoveryDrivers,
-            DeploymentStepNames.SealRecoveryPartition,
-            DeploymentStepNames.ProvisionAutopilot,
-            DeploymentStepNames.FinalizeDeploymentAndWriteLogs
-        ];
-        IDeploymentStep[] registeredSteps = expectedOrder
+        IDeploymentStep[] registeredSteps = DeploymentStepNames.ExecutionOrder
             .Reverse()
             .Select(name => (IDeploymentStep)new SucceedingStep(name))
             .ToArray();
@@ -186,7 +161,32 @@ public sealed class DeploymentOrchestratorTests
             new RecordingTelemetryService(),
             NullLogger<DeploymentOrchestrator>.Instance);
 
-        Assert.Equal(expectedOrder, orchestrator.PlannedSteps);
+        Assert.Equal(DeploymentStepNames.ExecutionOrder, orchestrator.PlannedSteps);
+    }
+
+    [Fact]
+    public void ApplicationServices_RegisterEveryCanonicalStepExactlyOnce()
+    {
+        IServiceCollection services = new ServiceCollection().AddFoundryDeployApplicationServices(offlineOnly: true);
+        ServiceDescriptor[] registrations = services
+            .Where(descriptor => descriptor.ServiceType == typeof(IDeploymentStep))
+            .ToArray();
+        Dictionary<string, string> identifiers = typeof(DeploymentStepNames)
+            .GetFields(BindingFlags.Public | BindingFlags.Static)
+            .Where(field => field.IsLiteral && field.FieldType == typeof(string))
+            .ToDictionary(field => (string)field.GetRawConstantValue()!, field => field.Name, StringComparer.Ordinal);
+
+        Assert.Equal(DeploymentStepNames.ExecutionOrder.Count, registrations.Length);
+        foreach (string stepName in DeploymentStepNames.ExecutionOrder)
+        {
+            string implementationName = $"Foundry.Deploy.Services.Deployment.Steps.{identifiers[stepName]}Step";
+            Type? implementation = typeof(DeploymentOrchestrator).Assembly.GetType(implementationName);
+            Assert.NotNull(implementation);
+            Assert.True(typeof(IDeploymentStep).IsAssignableFrom(implementation));
+            ServiceDescriptor registration = Assert.Single(registrations,
+                descriptor => descriptor.ImplementationType == implementation);
+            Assert.Equal(ServiceLifetime.Singleton, registration.Lifetime);
+        }
     }
 
     [Fact]
