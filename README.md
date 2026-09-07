@@ -42,26 +42,6 @@ Foundry separates the deployment into three focused stages:
 
 Operating system, driver pack, firmware, and WinPE metadata come from the maintained [`foundry-osd/catalog`](https://github.com/foundry-osd/catalog).
 
-Online catalog requests validate HTTPS certificates against Windows trust stores. Environments that inspect HTTPS traffic need their trusted corporate root certificates in the administrator workstation and WinPE image. Microsoft ESD content retains its supported HTTP delivery path, with SHA-256 verification against authenticated catalog metadata.
-
-Connect preserves Wi-Fi names and passwords exactly, including case and surrounding spaces. Connectivity requires an exact probe response; captive portals, proxy authentication, DNS failures, and timeouts remain distinct from Online readiness. A usable IPv6 address can satisfy network readiness.
-
-Cached payloads are rechecked before reuse. Downloads replace existing files only after validation, and downloaded driver installers require a valid signature from the expected publisher. A verified cached file can be reused from read-only media without reserving space for another download.
-
-Deployment checks image compatibility and capacity before erasing the selected disk whenever independent storage can hold the verified image. If only target storage is available, the confirmation warns that download or image-validation failures can occur after erasure. Foundry first checks authenticated catalog metadata, source availability and conservative capacity, then verifies the acquired image before applying it. The image is protected against writes and deletion during native inspection and application. Capacity includes the existing EFI, MSR and recovery partitions, Windows space, a 16 GiB working reserve and known target payloads; unknown expanded image size uses a conservative 64 GiB estimate.
-
-Automatic OEM driver selection requires a matching manufacturer, model or documented machine type, architecture, exact Windows release, and an established system-pack role. Unmatched or ambiguous entries require an explicit model and version choice; verify their applicability before deployment. Manual selection retains package integrity and publisher checks.
-
-Offline Autopilot JSON supports user-driven Entra and hybrid join. Foundry validates tenant, branding and OOBE settings while preserving valid imported bytes. Self-deploying and pre-provisioning modes require an assigned online profile; exporting JSON does not create that assignment. Unsupported exports are identified individually so supported profiles remain selectable.
-
-Autopilot registration confirms the current import's hardware identity and authoritative registration ID before reporting success or changing its group tag. The full-Windows assistant performs authentication and registration in a background worker with bounded requests and cancellation. An import with an unknown server outcome is not automatically resubmitted.
-
-This build has no qualified WinPE OA3 capture combination. Certificate-based hardware-hash upload therefore warns before erasure and is skipped without blocking Windows installation or switching authentication modes. Select the full-Windows interactive registration workflow on a supported edition when capture is required. Internal wireless hardware requires full-Windows capture; OA3 output parsing alone does not establish hash quality or tool compatibility.
-
-New media embeds Connect and a runtime/catalog manifest in `boot.wim`. Bootstrap checks every runtime file, matches USB cache storage to the authored medium, and rechecks the copied runtime before executing it from RAM. Writable cache markers identify the medium; they do not authenticate files. This protection assumes the authored boot image itself is trusted.
-
-When a verified local Deploy runtime and operating-system catalog are available, Connect offers **Browse offline content**. This opens the wizard without granting deployment readiness. Before erasure, Deploy checks the current selected image, OEM package and customization files, rejects online-only actions and requires payload storage outside the target disk. Offline cache misses never trigger downloads. Catalog status shows its revision and age; refreshing the medium is required to make newly fetched catalogs eligible offline.
-
 ## What you can configure
 
 - **Deployment content** — Windows release, language, edition, licensing channel, drivers, and optional firmware.
@@ -76,20 +56,6 @@ When a verified local Deploy runtime and operating-system catalog are available,
 2. Open Foundry OSD and validate the Windows ADK and Windows PE prerequisites.
 3. Configure the deployment, then create ISO or USB media.
 4. Boot a representative test device and continue through Foundry Connect and Foundry Deploy.
-
-Media creation requires host-native Windows ADK DISM build 26100 or later, compatible with the selected image. Foundry checks required WinPE components, language resources, selected driver coverage, and runtime architecture before completing the image. Runtime payloads are prepared before USB formatting. USB creation sizes BOOT for the finished content; updates require enough space in the existing BOOT and CACHE partitions. Files exceeding FAT32's per-file limit stop the operation before formatting.
-
-Custom driver folders are inspected in the background. Pending, inaccessible or timed-out folders remain unavailable for media creation, and preparation checks the selected source again. A blocked filesystem scan stays owned until it exits; changing the path does not start overlapping scans.
-
-Application updates retain the exact downloaded release through restart. Later checks cannot substitute another release. Metadata checks have a 15-second deadline, and closing the application cancels its update work. Simple web feeds use the installed architecture's package channel and do not filter release lanes such as beta or preview.
-
-Media creation and ADK installation share a machine-wide operation lock. Each operation owns a separate workspace; existing ISO and runtime outputs remain available until their replacements are verified and published. Closing Foundry waits for native cleanup. If cleanup cannot be confirmed, Foundry preserves the workspace and recovery journal, displays the retained paths, and blocks conflicting work. Do not remove recovery files before checking the recorded native operation and mounted-image state. ADK setup must finish and any required restart must complete before media creation becomes available.
-
-Deployment also preserves unresolved WinRE mounts, offline registry hives and uncertain native operations in `State/deployment-recovery.json` under its workspace (`X:\Foundry` in WinPE). A later deployment stops before preparing the disk or resetting DISM evidence. Review the recorded resource and confirm that its native process has ended and its mount or hive is safely reconciled before removing the record and restarting Foundry.Deploy. The original operation error remains available alongside cleanup diagnostics; cancellation does not cancel the independent cleanup attempt.
-
-Deploy validates first-boot entry points before preparing the target disk. Required driver, profile-roaming, AppX, and interactive registration actions are rejected when the Windows edition and effective license channel do not establish a supported setup hook. Catalog channel alone cannot prove the effective key channel. Specialize actions remain disabled until their execution has been qualified; supported Enterprise and Server scenarios retain SetupComplete. Custom answer files remain byte-preserved.
-
-First-boot staging is separate from execution. The action journal at `%SystemRoot%\Temp\Foundry\PreOobe\results.json` records outcomes and restart requirements. Failed actions retain nonsecret retry inputs; secret inputs are removed even when their action fails or is skipped. Check the recorded result before retrying, and resolve uncertain native-process ownership before attempting another run. The same runner supports `-CleanupSecretsOnly` for an explicit cleanup of staged secrets without launching actions; subsequent actions that need those secrets require fresh input.
 
 [Follow the complete quick start →](https://docs.foundryosd.com/start-here/quick-start)
 
@@ -126,7 +92,3 @@ Code contributions are welcome. Read the [contributing guide](CONTRIBUTING.md) b
 ---
 
 Foundry is available under the [MIT License](LICENSE). Anonymous usage telemetry and remote error diagnostics are enabled by default and can be disabled independently in Settings. See [Telemetry and privacy](https://docs.foundryosd.com/reference/telemetry-and-privacy), [Third-Party Notices](THIRD_PARTY_NOTICES.md), and the [Code of Conduct](CODE_OF_CONDUCT.md).
-
-Telemetry consent applies to the running application after a successful settings save. Turning either setting off discards its queued data and prevents new HTTP sends; cancellation of a request already admitted is best-effort and cannot recall transmitted data. Product events use a bounded memory queue and do not wait for network delivery during operation completion. Shutdown gives optional telemetry a two-second delivery budget.
-
-Support bundles include an explicit inventory of application logs and available operation-owned DISM console output, bootstrap logs, and typed first-boot results. Sanitized export removes supported sensitive fields and omits unsupported optional inputs; it does not promise to remove every secret from arbitrary text. Sources are limited to 32 files, 10 MiB per file and 40 MiB total. Raw text export still requires the sensitive-data warning; first-boot JSON always uses the supported field allowlist. Configuration, certificates and hardware-hash files are excluded.
