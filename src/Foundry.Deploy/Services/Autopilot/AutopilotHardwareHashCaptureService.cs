@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
 using Foundry.Deploy.Services.System;
@@ -34,8 +35,19 @@ public sealed class AutopilotHardwareHashCaptureService(
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
+        cancellationToken.ThrowIfCancellationRequested();
+        AutopilotCaptureCapability capability = AutopilotCaptureCapabilityEvaluator.Evaluate(request.IsWinPe,
+            request.InternalWireless, request.QualifiedToolPair, request.QualifiedHardware);
+        if (!capability.CanCaptureInWinPe)
+        {
+            return AutopilotHardwareHashCaptureResult.Failed(
+                capability.ReasonCode == "full_windows_capture_required"
+                    ? AutopilotHardwareHashCaptureFailureCode.FullWindowsCaptureRequired
+                    : AutopilotHardwareHashCaptureFailureCode.UnqualifiedCaptureEnvironment,
+                "Hardware-hash capture requires a qualified environment. Use the full-Windows registration assistant on a supported edition; the selected certificate authentication mode has not been changed.");
+        }
 
-        string runtimeHashRoot = Path.Combine(request.WorkspaceRootPath, RuntimeHashRelativePath);
+        string runtimeHashRoot = Path.Combine(request.WorkspaceRootPath, RuntimeHashRelativePath, Guid.NewGuid().ToString("N"));
         string oa3ToolPath = Path.Combine(request.WorkspaceRootPath, Oa3ToolRelativePath);
         string sourcePcpKspPath = Path.Combine(request.TargetWindowsRootPath, "Windows", "System32", PcpKspFileName);
         string destinationPcpKspPath = Path.Combine(request.WinPeWindowsRootPath, "System32", PcpKspFileName);
@@ -65,7 +77,18 @@ public sealed class AutopilotHardwareHashCaptureService(
                 Directory.CreateDirectory(destinationDirectory);
             }
 
-            File.Copy(sourcePcpKspPath, destinationPcpKspPath, overwrite: true);
+            if (File.Exists(destinationPcpKspPath))
+            {
+                using FileStream source = File.OpenRead(sourcePcpKspPath);
+                using FileStream destination = File.OpenRead(destinationPcpKspPath);
+                if (!SHA256.HashData(source).AsSpan().SequenceEqual(SHA256.HashData(destination)))
+                    return AutopilotHardwareHashCaptureResult.Failed(AutopilotHardwareHashCaptureFailureCode.UnqualifiedCaptureEnvironment,
+                        "The active PE support library differs from the qualified source and was preserved. Use full-Windows capture.");
+            }
+            else
+            {
+                File.Copy(sourcePcpKspPath, destinationPcpKspPath, overwrite: false);
+            }
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
@@ -75,15 +98,17 @@ public sealed class AutopilotHardwareHashCaptureService(
                 $"Required support library could not be copied to '{destinationPcpKspPath}': {ex.Message}");
         }
 
+        using NativeFileLease toolLease = NativeFileLease.OpenRead(oa3ToolPath);
+        using NativeFileLease libraryLease = NativeFileLease.OpenRead(destinationPcpKspPath);
         await WriteOa3InputsAsync(runtimeHashRoot, cancellationToken).ConfigureAwait(false);
 
-        ProcessExecutionResult execution = await processRunner
+        ProcessExecutionResult execution = await toolLease.RunAsync(() => libraryLease.RunAsync(() => processRunner
             .RunAsync(
                 oa3ToolPath,
                 ["/Report", "/ConfigFile=.\\OA3.cfg", "/NoKeyCheck", "/LogTrace=.\\OA3.log"],
                 runtimeHashRoot,
                 cancellationToken,
-                TimeSpan.FromMinutes(2))
+                TimeSpan.FromMinutes(2)), cancellationToken), cancellationToken)
             .ConfigureAwait(false);
 
         if (!execution.IsSuccess)
@@ -104,15 +129,37 @@ public sealed class AutopilotHardwareHashCaptureService(
                 "OA3Tool did not create OA3.xml.");
         }
 
-        string oa3Xml = await File.ReadAllTextAsync(oa3XmlPath, cancellationToken).ConfigureAwait(false);
-        string? oa3LogXml = File.Exists(oa3LogPath)
-            ? await File.ReadAllTextAsync(oa3LogPath, cancellationToken).ConfigureAwait(false)
-            : null;
+        using NativeFileLease reportLease = NativeFileLease.OpenRead(oa3XmlPath);
+        string oa3Xml;
+        string? oa3LogXml;
+        try
+        {
+            oa3Xml = await ReadBoundedReportAsync(oa3XmlPath, cancellationToken).ConfigureAwait(false);
+            oa3LogXml = File.Exists(oa3LogPath)
+                ? await ReadBoundedReportAsync(oa3LogPath, cancellationToken).ConfigureAwait(false)
+                : null;
+        }
+        catch (InvalidDataException)
+        {
+            return AutopilotHardwareHashCaptureResult.Failed(AutopilotHardwareHashCaptureFailureCode.ReportInvalid,
+                "The OA3 report exceeds the bounded metadata limit or changed while being read.");
+        }
         AutopilotHardwareHashParseResult parseResult = AutopilotOa3XmlParser.Parse(oa3Xml, oa3LogXml);
         if (!parseResult.IsSuccess || parseResult.Identity is null)
         {
             await RetainDiagnosticsAsync(runtimeHashRoot, request.DiagnosticsRootPath, cancellationToken).ConfigureAwait(false);
             return AutopilotHardwareHashCaptureResult.Failed(parseResult.FailureCode, parseResult.Message);
+        }
+
+        ProcessExecutionResult quality = await toolLease.RunAsync(() => libraryLease.RunAsync(() => reportLease.RunAsync(
+            () => processRunner.RunAsync(oa3ToolPath, [$"/ValidateHwhash={oa3XmlPath}"], runtimeHashRoot,
+                cancellationToken, TimeSpan.FromMinutes(2)), cancellationToken), cancellationToken), cancellationToken).ConfigureAwait(false);
+        // OA3 documents 0x00000200 as the quality-validation success code; report generation alone is insufficient.
+        if (quality.ExitCode != 0x00000200)
+        {
+            await RetainDiagnosticsAsync(runtimeHashRoot, request.DiagnosticsRootPath, cancellationToken).ConfigureAwait(false);
+            return AutopilotHardwareHashCaptureResult.Failed(AutopilotHardwareHashCaptureFailureCode.HashQualityFailed,
+                "OA3 hardware-hash quality validation did not pass. Capture again in full Windows before registration.");
         }
 
         AutopilotHardwareHashDeviceIdentity identity = parseResult.Identity with
@@ -136,6 +183,18 @@ public sealed class AutopilotHardwareHashCaptureService(
             retainedOa3XmlPath,
             retainedOa3LogPath,
             retainedCsvPath);
+    }
+
+    private static async Task<string> ReadBoundedReportAsync(string path, CancellationToken cancellationToken)
+    {
+        await using var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 81920, useAsync: true);
+        if (input.Length > 1024 * 1024) throw new InvalidDataException("OA3 metadata exceeds its size limit.");
+        byte[] bytes = new byte[(int)input.Length];
+        await input.ReadExactlyAsync(bytes, cancellationToken).ConfigureAwait(false);
+        if (await input.ReadAsync(new byte[1], cancellationToken).ConfigureAwait(false) != 0)
+            throw new InvalidDataException("OA3 metadata changed while being read.");
+        using var reader = new StreamReader(new MemoryStream(bytes), Encoding.UTF8, detectEncodingFromByteOrderMarks: true);
+        return await reader.ReadToEndAsync(cancellationToken).ConfigureAwait(false);
     }
 
     private static async Task WriteOa3InputsAsync(string runtimeHashRoot, CancellationToken cancellationToken)

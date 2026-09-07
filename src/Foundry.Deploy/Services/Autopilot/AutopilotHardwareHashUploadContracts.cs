@@ -31,6 +31,11 @@ public sealed record AutopilotHardwareHashUploadProgress(
     string? Detail = null,
     bool IsIndeterminate = true);
 
+public sealed record AutopilotHardwareHashUploadOptions
+{
+    public TimeSpan WorkflowTimeout { get; init; } = TimeSpan.FromMinutes(15);
+}
+
 public sealed record AutopilotHardwareHashUploadResult
 {
     public required AutopilotHardwareHashUploadState State { get; init; }

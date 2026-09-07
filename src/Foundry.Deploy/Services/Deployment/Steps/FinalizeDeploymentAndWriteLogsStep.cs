@@ -112,6 +112,7 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
             selectedAutopilotProfileDisplayName = runtimeState.SelectedAutopilotProfileDisplayName,
             autopilotHardwareHashGroupTag = runtimeState.AutopilotHardwareHashGroupTag,
             autopilotHardwareHashUploadState = runtimeState.AutopilotHardwareHashUploadState.ToString(),
+            autopilotCaptureCapability = runtimeState.AutopilotCaptureCapability,
             autopilotHardwareHashUploadMessage = runtimeState.AutopilotHardwareHashUploadMessage,
             autopilotHardwareHashDiagnosticsPath = runtimeState.AutopilotHardwareHashDiagnosticsPath,
             targetSystemPartitionRoot = runtimeState.TargetSystemPartitionRoot,

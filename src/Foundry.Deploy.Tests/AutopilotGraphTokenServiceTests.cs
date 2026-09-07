@@ -13,6 +13,40 @@ namespace Foundry.Deploy.Tests;
 public sealed class AutopilotGraphTokenServiceTests
 {
     [Fact]
+    public async Task AcquireAccessTokenAsync_SeparatesRequestTimeoutFromCallerCancellation()
+    {
+        using X509Certificate2 certificate = CreateCertificate();
+        using var handler = new StalledTokenHandler();
+        var service = new AutopilotGraphTokenService(new HttpClient(handler), NullLogger<AutopilotGraphTokenService>.Instance,
+            new AutopilotGraphTokenServiceOptions { RetryCount = 0, RequestTimeout = TimeSpan.FromMilliseconds(30) });
+        await Assert.ThrowsAnyAsync<TimeoutException>(() => service.AcquireAccessTokenAsync("tenant", "client", certificate, TestContext.Current.CancellationToken));
+        using var cancelled = new CancellationTokenSource();
+        cancelled.Cancel();
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.AcquireAccessTokenAsync("tenant", "client", certificate, cancelled.Token));
+    }
+
+    [Fact]
+    public async Task AcquireAccessTokenAsync_DoesNotExposeOAuthErrorBody()
+    {
+        var handler = new RecordingTokenHandler();
+        handler.Enqueue(HttpStatusCode.BadRequest, """{"error":"invalid_client","error_description":"secret-tenant-and-assertion"}""");
+        using X509Certificate2 certificate = CreateCertificate();
+        var service = new AutopilotGraphTokenService(new HttpClient(handler), NullLogger<AutopilotGraphTokenService>.Instance);
+        HttpRequestException failure = await Assert.ThrowsAnyAsync<HttpRequestException>(() => service.AcquireAccessTokenAsync("tenant", "client", certificate, TestContext.Current.CancellationToken));
+        Assert.DoesNotContain("secret-tenant", failure.ToString(), StringComparison.Ordinal);
+        Assert.Single(handler.Requests);
+    }
+
+    private sealed class StalledTokenHandler : HttpMessageHandler
+    {
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token)
+        {
+            await Task.Delay(Timeout.InfiniteTimeSpan, token);
+            throw new InvalidOperationException();
+        }
+    }
+
+    [Fact]
     public async Task AcquireAccessTokenAsync_WhenTransientFailureOccurs_RetriesWithCertificateAssertion()
     {
         var handler = new RecordingTokenHandler();

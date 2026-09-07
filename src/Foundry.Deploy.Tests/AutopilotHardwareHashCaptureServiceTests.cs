@@ -12,6 +12,58 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class AutopilotHardwareHashCaptureServiceTests
 {
+    [Theory]
+    [InlineData(0)]
+    [InlineData(unchecked((int)0xC0000200))]
+    [InlineData(unchecked((int)0x80000200))]
+    public async Task CaptureAsync_RequiresExplicitOa3QualityPass(int qualityExitCode)
+    {
+        using TemporaryWorkspace workspace = TemporaryWorkspace.Create();
+        workspace.WriteTargetPcpKsp("pcp");
+        workspace.WriteOa3Tool();
+        var runner = new RecordingProcessRunner(workspace) { QualityExitCode = qualityExitCode };
+        AutopilotHardwareHashCaptureResult result = await CreateService(runner).CaptureAsync(workspace.CreateRequest(null), TestContext.Current.CancellationToken);
+        Assert.Equal(AutopilotHardwareHashCaptureFailureCode.HashQualityFailed, result.FailureCode);
+        Assert.Null(result.Identity);
+    }
+
+    [Fact]
+    public async Task CaptureAsync_DifferentExistingSupportLibraryIsPreserved()
+    {
+        using TemporaryWorkspace workspace = TemporaryWorkspace.Create();
+        workspace.WriteTargetPcpKsp("new");
+        workspace.WriteOa3Tool();
+        string path = Path.Combine(workspace.WinPeWindowsRootPath, "System32", "PCPKsp.dll");
+        await File.WriteAllTextAsync(path, "existing", TestContext.Current.CancellationToken);
+        var runner = new RecordingProcessRunner(workspace);
+        AutopilotHardwareHashCaptureResult result = await CreateService(runner).CaptureAsync(workspace.CreateRequest(null), TestContext.Current.CancellationToken);
+        Assert.Equal(AutopilotHardwareHashCaptureFailureCode.UnqualifiedCaptureEnvironment, result.FailureCode);
+        Assert.False(runner.WasCalled);
+        Assert.Equal("existing", await File.ReadAllTextAsync(path, TestContext.Current.CancellationToken));
+    }
+
+    [Theory]
+    [InlineData(WirelessAdapterPresence.Present, true, true, AutopilotHardwareHashCaptureFailureCode.FullWindowsCaptureRequired)]
+    [InlineData(WirelessAdapterPresence.Unknown, true, true, AutopilotHardwareHashCaptureFailureCode.UnqualifiedCaptureEnvironment)]
+    [InlineData(WirelessAdapterPresence.Absent, false, true, AutopilotHardwareHashCaptureFailureCode.UnqualifiedCaptureEnvironment)]
+    [InlineData(WirelessAdapterPresence.Absent, true, false, AutopilotHardwareHashCaptureFailureCode.UnqualifiedCaptureEnvironment)]
+    public async Task CaptureAsync_WhenEnvironmentIsNotEligible_DoesNotRunOrReplaceSupportLibrary(
+        WirelessAdapterPresence wireless, bool toolPair, bool hardware, AutopilotHardwareHashCaptureFailureCode expected)
+    {
+        using TemporaryWorkspace workspace = TemporaryWorkspace.Create();
+        workspace.WriteTargetPcpKsp("replacement");
+        workspace.WriteOa3Tool();
+        string existingPath = Path.Combine(workspace.WinPeWindowsRootPath, "System32", "PCPKsp.dll");
+        await File.WriteAllTextAsync(existingPath, "original", TestContext.Current.CancellationToken);
+        var runner = new RecordingProcessRunner(workspace);
+        AutopilotHardwareHashCaptureResult result = await CreateService(runner).CaptureAsync(
+            workspace.CreateRequest(null) with { InternalWireless = wireless, QualifiedToolPair = toolPair, QualifiedHardware = hardware },
+            TestContext.Current.CancellationToken);
+        Assert.Equal(expected, result.FailureCode);
+        Assert.False(runner.WasCalled);
+        Assert.Equal("original", await File.ReadAllTextAsync(existingPath, TestContext.Current.CancellationToken));
+    }
+
     [Fact]
     public async Task CaptureAsync_WhenPcpKspExists_CopiesPcpKspBeforeRunningOa3Tool()
     {
@@ -27,9 +79,9 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
 
         Assert.True(result.IsSuccess);
         Assert.Equal("SER123", result.Identity?.SerialNumber);
-        Assert.Equal("HASHVALUE", result.Identity?.HardwareHash);
+        Assert.Equal("SEFTSFZBTFVF", result.Identity?.HardwareHash);
         Assert.True(processRunner.WasPcpKspPresentBeforeOa3Run);
-        Assert.Equal(workspace.RuntimeHashRootPath, processRunner.WorkingDirectory);
+        Assert.Equal(workspace.RuntimeHashRootPath, Path.GetDirectoryName(processRunner.WorkingDirectory));
         Assert.Equal(
             Path.Combine(workspace.WinPeWindowsRootPath, "System32", "PCPKsp.dll"),
             processRunner.CopiedPcpKspPath);
@@ -53,20 +105,20 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
 
         Assert.True(result.IsSuccess);
 
-        string configPath = Path.Combine(workspace.RuntimeHashRootPath, "OA3.cfg");
+        string configPath = Path.Combine(processRunner.WorkingDirectory!, "OA3.cfg");
         XDocument config = XDocument.Load(configPath);
         Assert.Equal("OA3", config.Root?.Name.LocalName);
         Assert.Equal(
-            Path.Combine(workspace.RuntimeHashRootPath, "input.xml"),
+            Path.Combine(processRunner.WorkingDirectory!, "input.xml"),
             config.Root?.Element("FileBased")?.Element("InputKeyXMLFile")?.Value);
         Assert.Equal(
-            Path.Combine(workspace.RuntimeHashRootPath, "OA3.bin"),
+            Path.Combine(processRunner.WorkingDirectory!, "OA3.bin"),
             config.Root?.Element("OutputData")?.Element("AssembledBinaryFile")?.Value);
         Assert.Equal(
-            Path.Combine(workspace.RuntimeHashRootPath, "OA3.xml"),
+            Path.Combine(processRunner.WorkingDirectory!, "OA3.xml"),
             config.Root?.Element("OutputData")?.Element("ReportedXMLFile")?.Value);
 
-        XDocument input = XDocument.Load(Path.Combine(workspace.RuntimeHashRootPath, "input.xml"));
+        XDocument input = XDocument.Load(Path.Combine(processRunner.WorkingDirectory!, "input.xml"));
         Assert.Equal("XXXXX-XXXXX-XXXXX-XXXXX-XXXXX", input.Root?.Element("ProductKey")?.Value);
         Assert.Equal("0000000000000", input.Root?.Element("ProductKeyID")?.Value);
         Assert.Equal("0", input.Root?.Element("ProductKeyState")?.Value);
@@ -215,6 +267,45 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
         Assert.True(File.Exists(Path.Combine(workspace.DiagnosticsRootPath, "OA3.log")));
     }
 
+    [Fact]
+    public async Task CaptureAsync_PreviousReportCannotSatisfyNewCapture()
+    {
+        using TemporaryWorkspace workspace = TemporaryWorkspace.Create();
+        workspace.WriteTargetPcpKsp("pcp");
+        workspace.WriteOa3Tool();
+        string staleReport = Path.Combine(workspace.RuntimeHashRootPath, "OA3.xml");
+        await File.WriteAllTextAsync(staleReport,
+            "<Key><SerialNumber>OLD</SerialNumber><HardwareHash>SEFTSFZBTFVF</HardwareHash></Key>",
+            TestContext.Current.CancellationToken);
+        var firstRunner = new RecordingProcessRunner(workspace);
+        Assert.True((await CreateService(firstRunner).CaptureAsync(workspace.CreateRequest(null),
+            TestContext.Current.CancellationToken)).IsSuccess);
+        var retryRunner = new RecordingProcessRunner(workspace) { WriteOa3Xml = false };
+
+        AutopilotHardwareHashCaptureResult result = await CreateService(retryRunner).CaptureAsync(
+            workspace.CreateRequest(null), TestContext.Current.CancellationToken);
+
+        Assert.Equal(AutopilotHardwareHashCaptureFailureCode.ReportMissing, result.FailureCode);
+        Assert.Null(result.Identity);
+        Assert.NotEqual(firstRunner.WorkingDirectory, retryRunner.WorkingDirectory);
+        Assert.True(File.Exists(staleReport));
+    }
+
+    [Fact]
+    public async Task CaptureAsync_OversizedTraceIsRejectedBeforeParsing()
+    {
+        using TemporaryWorkspace workspace = TemporaryWorkspace.Create();
+        workspace.WriteTargetPcpKsp("pcp");
+        workspace.WriteOa3Tool();
+        var runner = new RecordingProcessRunner(workspace) { Oa3LogContent = new string('x', 1024 * 1024 + 1) };
+
+        AutopilotHardwareHashCaptureResult result = await CreateService(runner).CaptureAsync(
+            workspace.CreateRequest(null), TestContext.Current.CancellationToken);
+
+        Assert.Equal(AutopilotHardwareHashCaptureFailureCode.ReportInvalid, result.FailureCode);
+        Assert.Null(result.Identity);
+    }
+
     private static AutopilotHardwareHashCaptureService CreateService(IProcessRunner processRunner)
     {
         return new AutopilotHardwareHashCaptureService(
@@ -229,11 +320,12 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
         public string? CopiedPcpKspPath { get; private set; }
         public string? WorkingDirectory { get; private set; }
         public int ExitCode { get; init; }
+        public int QualityExitCode { get; init; } = 0x00000200;
         public string StandardError { get; init; } = string.Empty;
         public string Oa3XmlContent { get; init; } = """
             <Key>
               <ProductKeyState>6</ProductKeyState>
-              <HardwareHash>HASHVALUE</HardwareHash>
+              <HardwareHash>SEFTSFZBTFVF</HardwareHash>
             </Key>
             """;
         public string Oa3LogContent { get; init; } = """
@@ -276,6 +368,10 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
             CancellationToken cancellationToken = default, TimeSpan? executionTimeout = null)
         {
             WasCalled = true;
+            if (arguments.Any(argument => argument.StartsWith("/ValidateHwhash=", StringComparison.Ordinal)))
+            {
+                return Task.FromResult(new ProcessExecutionResult { ExitCode = QualityExitCode });
+            }
             WorkingDirectory = workingDirectory;
             CopiedPcpKspPath = Path.Combine(workspace.WinPeWindowsRootPath, "System32", "PCPKsp.dll");
             WasPcpKspPresentBeforeOa3Run = File.Exists(CopiedPcpKspPath);
@@ -350,6 +446,9 @@ public sealed class AutopilotHardwareHashCaptureServiceTests
         {
             return new AutopilotHardwareHashCaptureRequest
             {
+                InternalWireless = WirelessAdapterPresence.Absent,
+                QualifiedToolPair = true,
+                QualifiedHardware = true,
                 TargetWindowsRootPath = TargetWindowsRootPath,
                 WinPeWindowsRootPath = WinPeWindowsRootPath,
                 WorkspaceRootPath = WorkspaceRootPath,

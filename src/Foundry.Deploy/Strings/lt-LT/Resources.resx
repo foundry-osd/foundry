@@ -428,6 +428,9 @@ Tęsti diegimą?</value>
   <data name="Launch.ImagePreflightStorageWarning" xml:space="preserve">
     <value>Foundry checks the image before erasing whenever independent storage is available. If the image must be downloaded to the target disk, only catalog metadata, source availability and estimated capacity can be checked first. A download or image-validation failure can then occur after this disk has been erased.</value>
   </data>
+  <data name="Launch.UnqualifiedAutopilotCaptureWarning" xml:space="preserve">
+    <value>This build has no qualified WinPE hardware-hash capture environment. Windows deployment will continue without automatic certificate-based Autopilot upload. If registration is required, go back and select the full-Windows interactive registration assistant with a supported Windows edition. Foundry will not change authentication modes automatically.</value>
+  </data>
   <data name="Menu.About" xml:space="preserve">
     <value>_Apie</value>
   </data>

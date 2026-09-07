@@ -5,6 +5,7 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text.Json;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Logging;
@@ -106,12 +107,13 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         }
 
         context.EmitCurrentStepIndeterminate("Staging Autopilot profile...", "Copying AutopilotConfigurationFile.json...", DeploymentOperationNames.StageAutopilotProfile);
-        Directory.CreateDirectory(targetDirectoryPath);
         byte[] profileContent = await _autopilotProfileContentService
             .ReadAsync(context.Request.SelectedAutopilotProfile, cancellationToken)
             .ConfigureAwait(false);
         try
         {
+            AutopilotOfflineProfileValidator.Validate(profileContent);
+            Directory.CreateDirectory(targetDirectoryPath);
             await File.WriteAllBytesAsync(targetConfigurationPath, profileContent, cancellationToken).ConfigureAwait(false);
         }
         finally
@@ -266,6 +268,14 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             return await WriteDryRunHardwareHashManifestAsync(context, cancellationToken).ConfigureAwait(false);
         }
 
+        if (context.RuntimeState.AutopilotCaptureCapability is not { CanCaptureInWinPe: true })
+        {
+            const string message = "Autopilot upload skipped because WinPE hardware capture is unqualified. Use the full-Windows registration assistant on a supported edition; certificate authentication was not changed.";
+            await WriteHardwareHashStatusAsync(context, AutopilotHardwareHashUploadState.CaptureFailed, message,
+                cancellationToken, context.RuntimeState.AutopilotCaptureCapability?.ReasonCode ?? "unqualified_capture_environment").ConfigureAwait(false);
+            return DeploymentStepResult.Skipped(message);
+        }
+
         string diagnosticsPath = ResolveHardwareHashDiagnosticsPath(context);
         context.EmitCurrentStepIndeterminate("Capturing Autopilot hardware hash...", "Running OA3Tool...", DeploymentOperationNames.CaptureAutopilotHash);
         AutopilotHardwareHashCaptureResult captureResult = await _hardwareHashCaptureService
@@ -276,7 +286,10 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
                     WinPeWindowsRootPath = ResolveWinPeWindowsRoot(context.RuntimeState.WorkspaceRoot),
                     WorkspaceRootPath = context.RuntimeState.WorkspaceRoot,
                     DiagnosticsRootPath = diagnosticsPath,
-                    GroupTag = context.RuntimeState.AutopilotHardwareHashGroupTag
+                    GroupTag = context.RuntimeState.AutopilotHardwareHashGroupTag,
+                    InternalWireless = context.RuntimeState.HardwareProfile?.InternalWireless ?? WirelessAdapterPresence.Unknown,
+                    QualifiedToolPair = context.RuntimeState.AutopilotCaptureCapability.CanCaptureInWinPe,
+                    QualifiedHardware = context.RuntimeState.AutopilotCaptureCapability.CanCaptureInWinPe
                 },
                 cancellationToken)
             .ConfigureAwait(false);

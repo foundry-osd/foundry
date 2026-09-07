@@ -42,7 +42,7 @@ public sealed class MediaOperationCoordinatorTests
         List<AutopilotProfileSettings> profiles = [new()
         {
             Id = "captured", DisplayName = "Captured", FolderName = "Captured", Source = "test",
-            ImportedAtUtc = DateTimeOffset.UnixEpoch, JsonContent = "{}"
+            ImportedAtUtc = DateTimeOffset.UnixEpoch, JsonContent = AutopilotOfflineProfileTestData.ValidJson
         }];
         var document = new FoundryConfigurationDocument { Autopilot = new() { Profiles = profiles } };
         MediaOperationRequest request = CreateRequest(temporary.Path, vendors, document);

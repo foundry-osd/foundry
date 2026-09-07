@@ -5,6 +5,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Utilities.IO;
 
 namespace Foundry.Core.Services.Configuration;
@@ -21,6 +22,7 @@ public static class AutopilotProfileSettingsFactory
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(jsonContent);
         ArgumentException.ThrowIfNullOrWhiteSpace(source);
+        AutopilotOfflineProfileValidator.Validate(jsonContent);
 
         string normalizedId = string.IsNullOrWhiteSpace(id) ? BuildManualProfileId(jsonContent) : id.Trim();
         string normalizedDisplayName = string.IsNullOrWhiteSpace(displayName)

@@ -5,6 +5,7 @@
 using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -18,30 +19,20 @@ public sealed class AutopilotProfileImportService : IAutopilotProfileImportServi
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
 
-        string jsonContent = await File.ReadAllTextAsync(filePath, cancellationToken).ConfigureAwait(false);
-        using JsonDocument document = ValidateJsonContent(jsonContent, filePath);
+        await using var input = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 81920, useAsync: true);
+        if (input.Length > AutopilotOfflineProfileValidator.MaximumContentLength)
+            throw new InvalidDataException("The offline Autopilot profile exceeds its size limit.");
+        byte[] bytes = new byte[(int)input.Length];
+        await input.ReadExactlyAsync(bytes, cancellationToken).ConfigureAwait(false);
+        if (await input.ReadAsync(new byte[1], cancellationToken).ConfigureAwait(false) != 0)
+            throw new InvalidDataException("The offline Autopilot profile changed while it was read.");
+        AutopilotOfflineProfileValidator.Validate(bytes);
+        string jsonContent = Encoding.ASCII.GetString(bytes);
+        using JsonDocument document = JsonDocument.Parse(jsonContent);
         string displayName = ResolveDisplayName(document.RootElement, filePath);
         string id = AutopilotProfileSettingsFactory.BuildManualProfileId(jsonContent);
 
         return AutopilotProfileSettingsFactory.Create(id, displayName, jsonContent, "Manual import", DateTimeOffset.UtcNow);
-    }
-
-    private static JsonDocument ValidateJsonContent(string jsonContent, string sourcePath)
-    {
-        if (string.IsNullOrWhiteSpace(jsonContent))
-        {
-            throw new InvalidOperationException("The selected Autopilot JSON file is empty.");
-        }
-
-        JsonDocument document = JsonDocument.Parse(jsonContent);
-
-        string roundTrip = Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(jsonContent));
-        if (!string.Equals(roundTrip, jsonContent, StringComparison.Ordinal))
-        {
-            throw new InvalidOperationException("The selected Autopilot JSON file contains non-ASCII characters.");
-        }
-
-        return document;
     }
 
     private static string ResolveDisplayName(JsonElement rootElement, string filePath)

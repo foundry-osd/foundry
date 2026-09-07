@@ -12,6 +12,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Security;
+using Foundry.Utilities.Networking;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Autopilot;
@@ -23,7 +24,8 @@ public sealed class AutopilotHardwareHashUploadService(
     IDeploymentSecretKeyProvider deploymentSecretKeyProvider,
     IAutopilotGraphTokenService tokenService,
     AutopilotGraphImportClient graphImportClient,
-    ILogger<AutopilotHardwareHashUploadService> logger) : IAutopilotHardwareHashUploadService
+    ILogger<AutopilotHardwareHashUploadService> logger,
+    AutopilotHardwareHashUploadOptions? options = null) : IAutopilotHardwareHashUploadService
 {
     private const string UploadResultFileName = "AutopilotUploadResult.json";
 
@@ -38,19 +40,35 @@ public sealed class AutopilotHardwareHashUploadService(
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
+        cancellationToken.ThrowIfCancellationRequested();
+        TimeSpan timeout = (options ?? new()).WorkflowTimeout;
+        if (timeout <= TimeSpan.Zero || timeout > TimeSpan.FromMinutes(15)) throw new ArgumentOutOfRangeException(nameof(options));
+        using var workflow = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        workflow.CancelAfter(timeout);
         AutopilotDiagnosticsDirectory.CreateRestricted(request.DiagnosticsRootPath);
 
         AutopilotHardwareHashUploadResult result;
         try
         {
-            result = await UploadCoreAsync(request, progress, cancellationToken).ConfigureAwait(false);
+            result = await UploadCoreAsync(request, progress, workflow.Token).ConfigureAwait(false);
         }
-        catch (Exception ex) when (ex is InvalidOperationException or ArgumentException or FileNotFoundException or CryptographicException or HttpRequestException or JsonException)
+        catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested && workflow.IsCancellationRequested)
         {
-            logger.LogWarning(ex, "Autopilot hardware hash upload failed and OS deployment will continue.");
+            result = AutopilotHardwareHashUploadResult.Failed(AutopilotHardwareHashUploadState.UploadTimedOut,
+                "Autopilot registration exceeded its workflow deadline.", "WorkflowTimedOut");
+        }
+        catch (TimeoutException)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            result = AutopilotHardwareHashUploadResult.Failed(AutopilotHardwareHashUploadState.UploadTimedOut,
+                "An Autopilot network request exceeded its deadline.", "RequestTimedOut");
+        }
+        catch (Exception ex) when (ex is InvalidOperationException or ArgumentException or FileNotFoundException or InvalidDataException or TransferReadException or CryptographicException or HttpRequestException or JsonException)
+        {
+            logger.LogWarning("Autopilot hardware hash upload failed and OS deployment will continue. ErrorType={ErrorType}", ex.GetType().Name);
             result = AutopilotHardwareHashUploadResult.Failed(
                 AutopilotHardwareHashUploadState.UploadFailed,
-                $"Autopilot hardware hash upload skipped: {ex.Message}",
+                "Autopilot hardware hash upload could not be completed. Review the registration configuration and service status.",
                 ResolveFailureCode(ex));
         }
 

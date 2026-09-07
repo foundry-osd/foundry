@@ -37,6 +37,16 @@ public sealed class PreflightOperatingSystemImageStep : DeploymentStepBase
         if (guard is not null) return guard;
         (TargetDiskInfo? target, DeploymentStepResult? targetFailure) = await context.TryGetValidatedTargetDiskAsync(cancellationToken).ConfigureAwait(false);
         if (targetFailure is not null) return targetFailure;
+        if (context.Request.IsAutopilotEnabled && context.Request.AutopilotProvisioningMode == Models.Configuration.AutopilotProvisioningMode.HardwareHashUpload)
+        {
+            // No exact PE/OA3/PCPKsp build pairing or device family has completed native capture qualification yet.
+            context.RuntimeState.AutopilotCaptureCapability = Autopilot.AutopilotCaptureCapabilityEvaluator.Evaluate(true,
+                context.RuntimeState.HardwareProfile?.InternalWireless ?? Autopilot.WirelessAdapterPresence.Unknown,
+                qualifiedToolPair: false, qualifiedHardware: false);
+            await context.AppendLogAsync(DeploymentLogLevel.Warning,
+                "WinPE hardware-hash capture is unqualified. The requested certificate upload will be skipped without changing authentication mode. Choose the full-Windows interactive registration workflow on a supported edition if registration is required.",
+                cancellationToken).ConfigureAwait(false);
+        }
         validateTools();
         string candidateCache = context.ResolveOperatingSystemCacheRoot();
         int? cacheDisk = await disks.GetDiskNumberForPathAsync(candidateCache, cancellationToken).ConfigureAwait(false);

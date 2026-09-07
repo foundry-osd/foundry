@@ -18,12 +18,65 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class ProvisionAutopilotStepTests
 {
+    private const string ValidJson = """
+        {
+          "CloudAssignedTenantId": "11111111-1111-4111-8111-111111111111",
+          "CloudAssignedForcedEnrollment": 1,
+          "Version": 2049,
+          "Comment_File": "Profile Synthetic",
+          "CloudAssignedAadServerData": "{\"ZeroTouchConfig\":{\"CloudAssignedTenantUpn\":\"\",\"ForcedEnrollment\":1,\"CloudAssignedTenantDomain\":\"example.onmicrosoft.com\"}}",
+          "CloudAssignedTenantDomain": "example.onmicrosoft.com",
+          "CloudAssignedDomainJoinMethod": 0,
+          "CloudAssignedOobeConfig": 28,
+          "ZtdCorrelationId": "22222222-2222-4222-8222-222222222222"
+        }
+        """;
+    [Fact]
+    public async Task InvalidOfflineContentCannotReplaceExistingTargetProfile()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        string sourcePath = Path.Combine(workspace.RootPath, "profile.json");
+        await File.WriteAllTextAsync(sourcePath, "{}", TestContext.Current.CancellationToken);
+        string targetPath = Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Provisioning", "Autopilot", "AutopilotConfigurationFile.json");
+        Directory.CreateDirectory(Path.GetDirectoryName(targetPath)!);
+        await File.WriteAllTextAsync(targetPath, ValidJson, TestContext.Current.CancellationToken);
+        using DeploymentStepExecutionContext context = CreateContext(workspace, false, AutopilotProvisioningMode.JsonProfile,
+            selectedProfile: new AutopilotProfileCatalogItem { FolderName = "Synthetic", DisplayName = "Synthetic", ConfigurationFilePath = sourcePath });
+        await Assert.ThrowsAsync<InvalidDataException>(() => CreateStep().ExecuteAsync(context, TestContext.Current.CancellationToken));
+        Assert.Equal(ValidJson, await File.ReadAllTextAsync(targetPath, TestContext.Current.CancellationToken));
+        Assert.Null(context.RuntimeState.StagedAutopilotConfigurationPath);
+    }
+    [Fact]
+    public async Task UnqualifiedCaptureSkipsWithoutRunningCaptureOrChangingAuthentication()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var capture = new FakeAutopilotHardwareHashCaptureService();
+        var upload = new FakeAutopilotHardwareHashUploadService(AutopilotHardwareHashUploadResult.Completed("unexpected"));
+        using DeploymentStepExecutionContext context = CreateContext(workspace, false, AutopilotProvisioningMode.HardwareHashUpload,
+            new DeployAutopilotHardwareHashUploadSettings
+            {
+                TenantId = "tenant-id",
+                ClientId = "client-id",
+                ActiveCertificateKeyId = "key-id",
+                ActiveCertificateThumbprint = "ABCDEF123456",
+                ActiveCertificateExpiresOnUtc = DateTimeOffset.UtcNow.AddDays(1)
+            });
+        context.RuntimeState.AutopilotCaptureCapability = new(false, true, "unqualified_capture_environment");
+
+        DeploymentStepResult result = await CreateStep(captureService: capture, uploadService: upload).ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Skipped, result.State);
+        Assert.Equal(0, capture.Calls);
+        Assert.Empty(upload.Requests);
+        Assert.Equal(AutopilotProvisioningMode.HardwareHashUpload, context.Request.AutopilotProvisioningMode);
+    }
+
     [Fact]
     public async Task ExecuteAsync_WhenLiveJsonMode_StagesAutopilotProfile()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         string sourceConfigurationPath = Path.Combine(workspace.RootPath, "AutopilotConfigurationFile.json");
-        await File.WriteAllTextAsync(sourceConfigurationPath, """{"profile":true}""");
+        await File.WriteAllTextAsync(sourceConfigurationPath, ValidJson);
         ProvisionAutopilotStep step = CreateStep();
         DeploymentStepExecutionContext context = CreateContext(
             workspace,
@@ -52,7 +105,7 @@ public sealed class ProvisionAutopilotStepTests
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         string sourceConfigurationPath = Path.Combine(workspace.RootPath, "AutopilotConfigurationFile.json.encrypted");
         await File.WriteAllTextAsync(sourceConfigurationPath, "encrypted", TestContext.Current.CancellationToken);
-        const string decryptedJson = """{"profile":"protected"}""";
+        const string decryptedJson = ValidJson;
         ProvisionAutopilotStep step = CreateStep(contentService: new FakeAutopilotProfileContentService(decryptedJson));
         DeploymentStepExecutionContext context = CreateContext(
             workspace,
@@ -391,6 +444,8 @@ public sealed class ProvisionAutopilotStepTests
         };
         DeploymentRuntimeState runtimeState = new()
         {
+            AutopilotCaptureCapability = new(true, false, "qualified_test_fixture"),
+            HardwareProfile = new HardwareProfile { InternalWireless = WirelessAdapterPresence.Absent },
             FirstBootExecutionPlan = new(FirstBootEntryPoint.None, true, null),
             WorkspaceRoot = workspace.RootPath,
             TargetWindowsPartitionRoot = workspace.TargetWindowsRootPath,
@@ -468,10 +523,12 @@ public sealed class ProvisionAutopilotStepTests
     private sealed class FakeAutopilotHardwareHashCaptureService(
         AutopilotHardwareHashCaptureResult? result = null) : IAutopilotHardwareHashCaptureService
     {
+        public int Calls { get; private set; }
         public Task<AutopilotHardwareHashCaptureResult> CaptureAsync(
             AutopilotHardwareHashCaptureRequest request,
             CancellationToken cancellationToken = default)
         {
+            Calls++;
             if (result is not null)
             {
                 return Task.FromResult(result);

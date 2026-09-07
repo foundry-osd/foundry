@@ -7,715 +7,309 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Runtime.ExceptionServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Http;
+using Foundry.Utilities.Networking;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Autopilot;
 
-/// <summary>
-/// Imports hardware hashes through Microsoft Graph and waits for Intune Autopilot visibility.
-/// </summary>
-public sealed class AutopilotGraphImportClient(
-    HttpClient httpClient,
-    ILogger<AutopilotGraphImportClient> logger,
+/// <summary>Correlates hardware imports with the registration ID reported by that exact imported identity.</summary>
+public sealed class AutopilotGraphImportClient(HttpClient httpClient, ILogger<AutopilotGraphImportClient> logger,
     AutopilotGraphImportClientOptions? options = null)
 {
-    private const string ImportedIdentitiesImportPath = "v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities/import";
-    private const string ImportedIdentitiesPath = "v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities";
-    private const string WindowsAutopilotDevicesPath = "v1.0/deviceManagement/windowsAutopilotDeviceIdentities";
-    private const string ODataType = "#microsoft.graph.importedWindowsAutopilotDeviceIdentity";
+    private const string ImportedPath = "v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities";
+    private const string DevicesPath = "v1.0/deviceManagement/windowsAutopilotDeviceIdentities";
+    private static readonly Uri GraphRoot = new("https://graph.microsoft.com/");
+    private readonly AutopilotGraphImportClientOptions options = options ?? new();
 
-    private readonly HttpClient httpClient = httpClient;
-    private readonly ILogger logger = logger;
-    private readonly AutopilotGraphImportClientOptions options = options ?? new AutopilotGraphImportClientOptions();
+    public Task<AutopilotHardwareHashUploadResult> ImportHardwareHashAsync(AutopilotGraphImportRequest request,
+        CancellationToken cancellationToken = default) => ImportHardwareHashAsync(request, null, cancellationToken);
 
-    public Task<AutopilotHardwareHashUploadResult> ImportHardwareHashAsync(
-        AutopilotGraphImportRequest request,
-        CancellationToken cancellationToken = default)
-    {
-        return ImportHardwareHashAsync(request, progress: null, cancellationToken);
-    }
-
-    /// <summary>
-    /// Lists distinct group tags currently visible on Windows Autopilot devices.
-    /// </summary>
-    public async Task<IReadOnlyList<string>> ListGroupTagsAsync(
-        string accessToken,
-        CancellationToken cancellationToken = default)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(accessToken);
-
-        List<string> groupTags = [];
-        string? path = WindowsAutopilotDevicesPath;
-        while (!string.IsNullOrWhiteSpace(path))
-        {
-            GraphCollectionResponse<WindowsAutopilotDeviceIdentity>? response =
-                await SendGraphAsync<object, GraphCollectionResponse<WindowsAutopilotDeviceIdentity>>(
-                    HttpMethod.Get,
-                    path,
-                    accessToken,
-                    body: null,
-                    "Windows Autopilot group tag discovery",
-                    cancellationToken).ConfigureAwait(false);
-
-            if (response?.Value is not null)
-            {
-                foreach (string? groupTag in response.Value.Select(static device => device.GroupTag?.Trim()))
-                {
-                    if (!string.IsNullOrWhiteSpace(groupTag))
-                    {
-                        groupTags.Add(groupTag);
-                    }
-                }
-            }
-
-            path = response?.NextLink;
-        }
-
-        return groupTags
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .Order(StringComparer.OrdinalIgnoreCase)
-            .ToArray();
-    }
-
-    public async Task<AutopilotHardwareHashUploadResult> ImportHardwareHashAsync(
-        AutopilotGraphImportRequest request,
-        IProgress<AutopilotHardwareHashUploadProgress>? progress = null,
-        CancellationToken cancellationToken = default)
+    public async Task<AutopilotHardwareHashUploadResult> ImportHardwareHashAsync(AutopilotGraphImportRequest request,
+        IProgress<AutopilotHardwareHashUploadProgress>? progress = null, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
-
-        progress?.Report(new AutopilotHardwareHashUploadProgress(
-            "Uploading Autopilot hardware hash...",
-            "Submitting import request to Microsoft Graph..."));
-        ImportedWindowsAutopilotDeviceIdentity importedIdentity = await ImportAsync(request, cancellationToken)
-            .ConfigureAwait(false);
-        AutopilotImportWaitResult waitResult = await WaitForAutopilotDeviceReadinessAsync(
-            request,
-            importedIdentity,
-            progress,
-            cancellationToken)
-            .ConfigureAwait(false);
-        importedIdentity = waitResult.ImportedIdentity;
-        if (waitResult.FailureState is not null)
-        {
-            return AutopilotHardwareHashUploadResult.Failed(
-                waitResult.FailureState.Value,
-                waitResult.FailureMessage ?? "Autopilot hardware hash upload did not complete before the timeout.",
-                waitResult.FailureCode,
-                request.ImportId,
-                importedIdentity.Id,
-                waitResult.AutopilotDevice?.Id);
-        }
-
-        if (waitResult.AutopilotDevice is not null)
-        {
-            return AutopilotHardwareHashUploadResult.Completed(
-                "Autopilot hardware hash imported and visible in Windows Autopilot devices.",
-                request.ImportId,
-                importedIdentity.Id,
-                waitResult.AutopilotDevice.Id);
-        }
-
-        string importStatus = importedIdentity.State?.DeviceImportStatus ?? "unknown";
-        if (string.Equals(importStatus, "error", StringComparison.OrdinalIgnoreCase))
-        {
-            string failureCode = importedIdentity.State?.DeviceErrorCode?.ToString() ?? "ImportFailed";
-            string deviceErrorName = importedIdentity.State?.DeviceErrorName ?? "ImportFailed";
-            return AutopilotHardwareHashUploadResult.Failed(
-                AutopilotHardwareHashUploadState.UploadFailed,
-                $"Autopilot hardware hash import failed: {deviceErrorName}.",
-                failureCode,
-                request.ImportId,
-                importedIdentity.Id);
-        }
-
-        return AutopilotHardwareHashUploadResult.Failed(
-            AutopilotHardwareHashUploadState.UploadTimedOut,
-            "Imported Autopilot device did not appear in Windows Autopilot devices before the timeout.",
-            "AutopilotDeviceTimedOut",
-            request.ImportId,
-            importedIdentity.Id);
-    }
-
-    private async Task<ImportedWindowsAutopilotDeviceIdentity> ImportAsync(
-        AutopilotGraphImportRequest request,
-        CancellationToken cancellationToken)
-    {
-        ImportRequestBody body = new([
-            new ImportRequestDevice(
-                ODataType,
-                request.SerialNumber,
-                request.HardwareIdentifier,
-                request.GroupTag,
-                request.AssignedUserPrincipalName,
-                request.ImportId)
-        ]);
-
-        GraphCollectionResponse<ImportedWindowsAutopilotDeviceIdentity>? response =
-            await SendGraphAsync<ImportRequestBody, GraphCollectionResponse<ImportedWindowsAutopilotDeviceIdentity>>(
-                HttpMethod.Post,
-                ImportedIdentitiesImportPath,
-                request.AccessToken,
-                body,
-                "Autopilot hardware hash import",
-                cancellationToken).ConfigureAwait(false);
-
-        return response?.Value?.FirstOrDefault()
-            ?? throw new InvalidOperationException("Microsoft Graph did not return an imported Autopilot device identity.");
-    }
-
-    private async Task<WindowsAutopilotDeviceIdentity?> ReconcileAutopilotDeviceGroupTagAsync(
-        AutopilotGraphImportRequest request,
-        WindowsAutopilotDeviceIdentity existingDevice,
-        IProgress<AutopilotHardwareHashUploadProgress>? progress,
-        CancellationToken cancellationToken)
-    {
-        if (!ShouldUpdateGroupTag(existingDevice.GroupTag, request.GroupTag))
-        {
-            return existingDevice;
-        }
-
-        if (string.IsNullOrWhiteSpace(existingDevice.Id))
-        {
-            throw new InvalidOperationException("Microsoft Graph returned an existing Autopilot device without an ID.");
-        }
-
-        progress?.Report(new AutopilotHardwareHashUploadProgress(
-            "Updating existing Autopilot device...",
-            "Updating Windows Autopilot group tag in Microsoft Graph..."));
-        await UpdateAutopilotDevicePropertiesAsync(
-            request.AccessToken,
-            existingDevice.Id,
-            request.GroupTag,
-            cancellationToken).ConfigureAwait(false);
-        return await WaitForAutopilotDeviceGroupTagAsync(request, progress, cancellationToken).ConfigureAwait(false);
-    }
-
-    private async Task UpdateAutopilotDevicePropertiesAsync(
-        string accessToken,
-        string autopilotDeviceId,
-        string? groupTag,
-        CancellationToken cancellationToken)
-    {
-        string path = $"{WindowsAutopilotDevicesPath}/{Uri.EscapeDataString(autopilotDeviceId)}/updateDeviceProperties";
-        await SendGraphNoContentAsync(
-            HttpMethod.Post,
-            path,
-            accessToken,
-            new UpdateDevicePropertiesRequest(NormalizeGroupTagForGraph(groupTag)),
-            "Windows Autopilot device property update",
-            cancellationToken).ConfigureAwait(false);
-    }
-
-    private async Task<AutopilotImportWaitResult> WaitForAutopilotDeviceReadinessAsync(
-        AutopilotGraphImportRequest request,
-        ImportedWindowsAutopilotDeviceIdentity importedIdentity,
-        IProgress<AutopilotHardwareHashUploadProgress>? progress,
-        CancellationToken cancellationToken)
-    {
-        DateTimeOffset deadline = DateTimeOffset.UtcNow.Add(options.VisibilityTimeout);
-        logger.LogInformation(
-            "Waiting up to {Timeout} for Windows Autopilot device visibility. SerialNumber={SerialNumber}, ImportId={ImportId}.",
-            options.VisibilityTimeout,
-            request.SerialNumber,
-            request.ImportId);
-        while (true)
-        {
-            TimeSpan remaining = deadline - DateTimeOffset.UtcNow;
-            if (remaining < TimeSpan.Zero)
-            {
-                remaining = TimeSpan.Zero;
-            }
-
-            progress?.Report(new AutopilotHardwareHashUploadProgress(
-                "Waiting for Autopilot device visibility...",
-                $"Checking Windows Autopilot devices ({FormatRemaining(remaining)} remaining)..."));
-            AutopilotDeviceLookupResult visibleDeviceLookup = await FindAutopilotDeviceAsync(request, cancellationToken)
-                .ConfigureAwait(false);
-            if (visibleDeviceLookup.FailureState is not null)
-            {
-                return new AutopilotImportWaitResult(
-                    importedIdentity,
-                    null,
-                    visibleDeviceLookup.FailureState,
-                    visibleDeviceLookup.FailureMessage,
-                    visibleDeviceLookup.FailureCode);
-            }
-
-            if (visibleDeviceLookup.Device is not null)
-            {
-                logger.LogInformation(
-                    "Windows Autopilot device became visible. SerialNumber={SerialNumber}, ImportId={ImportId}, AutopilotDeviceId={AutopilotDeviceId}.",
-                    request.SerialNumber,
-                    request.ImportId,
-                    visibleDeviceLookup.Device.Id);
-                WindowsAutopilotDeviceIdentity? reconciledDevice = await ReconcileAutopilotDeviceGroupTagAsync(
-                    request,
-                    visibleDeviceLookup.Device,
-                    progress,
-                    cancellationToken)
-                    .ConfigureAwait(false);
-                if (reconciledDevice is null)
-                {
-                    return new AutopilotImportWaitResult(
-                        importedIdentity,
-                        visibleDeviceLookup.Device,
-                        AutopilotHardwareHashUploadState.UploadTimedOut,
-                        "Windows Autopilot device group tag update was not confirmed before the timeout.",
-                        "AutopilotGroupTagUpdateTimedOut");
-                }
-
-                return new AutopilotImportWaitResult(importedIdentity, reconciledDevice);
-            }
-
-            bool importError = IsImportError(importedIdentity.State?.DeviceImportStatus);
-            if (importError && !ShouldContinueVisibilityWaitAfterImportError(importedIdentity.State))
-            {
-                logger.LogWarning(
-                    "Autopilot import entered error state before device visibility. SerialNumber={SerialNumber}, ImportId={ImportId}, ImportedIdentityId={ImportedIdentityId}, ErrorCode={ErrorCode}, ErrorName={ErrorName}.",
-                    request.SerialNumber,
-                    request.ImportId,
-                    importedIdentity.Id,
-                    importedIdentity.State?.DeviceErrorCode,
-                    importedIdentity.State?.DeviceErrorName);
-                return new AutopilotImportWaitResult(importedIdentity, null);
-            }
-
-            if (DateTimeOffset.UtcNow >= deadline)
-            {
-                logger.LogWarning(
-                    "Windows Autopilot device visibility timed out. SerialNumber={SerialNumber}, ImportId={ImportId}, ImportedIdentityId={ImportedIdentityId}, ImportStatus={ImportStatus}.",
-                    request.SerialNumber,
-                    request.ImportId,
-                    importedIdentity.Id,
-                    importedIdentity.State?.DeviceImportStatus);
-                return new AutopilotImportWaitResult(
-                    importedIdentity,
-                    null,
-                    AutopilotHardwareHashUploadState.UploadTimedOut,
-                    "Imported Autopilot device did not appear in Windows Autopilot devices before the timeout.",
-                    "AutopilotDeviceTimedOut");
-            }
-
-            if (!importError && !IsImportComplete(importedIdentity.State?.DeviceImportStatus))
-            {
-                ImportedWindowsAutopilotDeviceIdentity? current = await GetImportedIdentityAsync(request, cancellationToken)
-                    .ConfigureAwait(false);
-                if (current is not null)
-                {
-                    importedIdentity = current;
-                }
-
-            }
-
-            TimeSpan delay = deadline - DateTimeOffset.UtcNow;
-            if (delay > options.PollInterval)
-            {
-                delay = options.PollInterval;
-            }
-
-            await DelayWithProgressAsync(
-                deadline,
-                delay,
-                progress,
-                "Waiting for Autopilot device visibility...",
-                remainingTime => $"Checking Windows Autopilot devices ({FormatRemaining(remainingTime)} remaining)...",
-                cancellationToken).ConfigureAwait(false);
-        }
-    }
-
-    private async Task<WindowsAutopilotDeviceIdentity?> WaitForAutopilotDeviceGroupTagAsync(
-        AutopilotGraphImportRequest request,
-        IProgress<AutopilotHardwareHashUploadProgress>? progress,
-        CancellationToken cancellationToken)
-    {
-        DateTimeOffset deadline = DateTimeOffset.UtcNow.Add(options.VisibilityTimeout);
-        logger.LogInformation(
-            "Waiting up to {Timeout} for Windows Autopilot group tag update. SerialNumber={SerialNumber}, ImportId={ImportId}, GroupTag={GroupTag}.",
-            options.VisibilityTimeout,
-            request.SerialNumber,
-            request.ImportId,
-            NormalizeGroupTagForGraph(request.GroupTag));
-        while (true)
-        {
-            TimeSpan remaining = deadline - DateTimeOffset.UtcNow;
-            if (remaining < TimeSpan.Zero)
-            {
-                remaining = TimeSpan.Zero;
-            }
-
-            progress?.Report(new AutopilotHardwareHashUploadProgress(
-                "Waiting for Autopilot group tag update...",
-                $"Checking Windows Autopilot group tag ({FormatRemaining(remaining)} remaining)..."));
-            AutopilotDeviceLookupResult deviceLookup = await FindAutopilotDeviceAsync(request, cancellationToken)
-                .ConfigureAwait(false);
-            if (deviceLookup.FailureState is not null)
-            {
-                logger.LogWarning(
-                    "Windows Autopilot group tag update could not be verified because device lookup failed. SerialNumber={SerialNumber}, ImportId={ImportId}, FailureCode={FailureCode}.",
-                    request.SerialNumber,
-                    request.ImportId,
-                    deviceLookup.FailureCode);
-                return null;
-            }
-
-            if (deviceLookup.Device is not null && !ShouldUpdateGroupTag(deviceLookup.Device.GroupTag, request.GroupTag))
-            {
-                logger.LogInformation(
-                    "Windows Autopilot group tag update confirmed. SerialNumber={SerialNumber}, ImportId={ImportId}, AutopilotDeviceId={AutopilotDeviceId}.",
-                    request.SerialNumber,
-                    request.ImportId,
-                    deviceLookup.Device.Id);
-                return deviceLookup.Device;
-            }
-
-            if (DateTimeOffset.UtcNow >= deadline)
-            {
-                logger.LogWarning(
-                    "Windows Autopilot group tag update timed out. SerialNumber={SerialNumber}, ImportId={ImportId}, ExpectedGroupTag={ExpectedGroupTag}.",
-                    request.SerialNumber,
-                    request.ImportId,
-                    NormalizeGroupTagForGraph(request.GroupTag));
-                return null;
-            }
-
-            TimeSpan delay = deadline - DateTimeOffset.UtcNow;
-            if (delay > options.PollInterval)
-            {
-                delay = options.PollInterval;
-            }
-
-            await DelayWithProgressAsync(
-                deadline,
-                delay,
-                progress,
-                "Waiting for Autopilot group tag update...",
-                remainingTime => $"Checking Windows Autopilot group tag ({FormatRemaining(remainingTime)} remaining)...",
-                cancellationToken).ConfigureAwait(false);
-        }
-    }
-
-    private async Task<ImportedWindowsAutopilotDeviceIdentity?> GetImportedIdentityAsync(
-        AutopilotGraphImportRequest request,
-        CancellationToken cancellationToken)
-    {
-        string filter = EscapeODataFilter($"importId eq '{EscapeODataString(request.ImportId)}'");
-        string? path = $"{ImportedIdentitiesPath}?$filter={filter}";
-        while (!string.IsNullOrWhiteSpace(path))
-        {
-            GraphCollectionResponse<ImportedWindowsAutopilotDeviceIdentity>? response =
-                await SendGraphAsync<object, GraphCollectionResponse<ImportedWindowsAutopilotDeviceIdentity>>(
-                    HttpMethod.Get,
-                    path,
-                    request.AccessToken,
-                    body: null,
-                    "Autopilot import status polling",
-                    cancellationToken).ConfigureAwait(false);
-
-            ImportedWindowsAutopilotDeviceIdentity? identity = response?.Value?.FirstOrDefault(candidate =>
-                string.Equals(candidate.ImportId, request.ImportId, StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(candidate.SerialNumber, request.SerialNumber, StringComparison.OrdinalIgnoreCase));
-            if (identity is not null)
-            {
-                return identity;
-            }
-
-            path = response?.NextLink;
-        }
-
-        return null;
-    }
-
-    private async Task<AutopilotDeviceLookupResult> FindAutopilotDeviceAsync(
-        AutopilotGraphImportRequest request,
-        CancellationToken cancellationToken)
-    {
-        List<WindowsAutopilotDeviceIdentity> matches = [];
-        string? path = WindowsAutopilotDevicesPath;
-        while (!string.IsNullOrWhiteSpace(path))
-        {
-            GraphCollectionResponse<WindowsAutopilotDeviceIdentity>? response =
-                await SendGraphAsync<object, GraphCollectionResponse<WindowsAutopilotDeviceIdentity>>(
-                    HttpMethod.Get,
-                    path,
-                    request.AccessToken,
-                    body: null,
-                    "Windows Autopilot device visibility scan",
-                    cancellationToken).ConfigureAwait(false);
-
-            matches.AddRange(FindDevicesBySerialNumber(response, request.SerialNumber));
-
-            path = response?.NextLink;
-        }
-
-        if (matches.Count == 0)
-        {
-            return new AutopilotDeviceLookupResult(null);
-        }
-
-        if (matches.Count == 1)
-        {
-            return new AutopilotDeviceLookupResult(matches[0]);
-        }
-
-        logger.LogWarning(
-            "Multiple Windows Autopilot devices matched the captured serial number. SerialNumber={SerialNumber}, MatchCount={MatchCount}.",
-            request.SerialNumber,
-            matches.Count);
-        return AutopilotDeviceLookupResult.Failed(
-            AutopilotHardwareHashUploadState.UploadFailed,
-            "Multiple Windows Autopilot devices matched the captured serial number; group tag reconciliation was skipped to avoid updating the wrong device.",
-            "AutopilotDeviceAmbiguous");
-    }
-
-    private static IEnumerable<WindowsAutopilotDeviceIdentity> FindDevicesBySerialNumber(
-        GraphCollectionResponse<WindowsAutopilotDeviceIdentity>? response,
-        string serialNumber)
-    {
-        return response?.Value?.Where(device =>
-            string.Equals(device.SerialNumber, serialNumber, StringComparison.OrdinalIgnoreCase)) ?? [];
-    }
-
-    private async Task<TResponse?> SendGraphAsync<TBody, TResponse>(
-        HttpMethod method,
-        string path,
-        string accessToken,
-        TBody? body,
-        string operationName,
-        CancellationToken cancellationToken)
-        where TBody : class
-    {
-        return await HttpRetryPolicy.ExecuteAsync(
-            async ct =>
-            {
-                using var request = new HttpRequestMessage(method, path);
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                if (body is not null)
-                {
-                    request.Content = JsonContent.Create(body, options: AutopilotGraphJson.Options);
-                }
-
-                using HttpResponseMessage response = await httpClient.SendAsync(request, ct).ConfigureAwait(false);
-                if (!response.IsSuccessStatusCode)
-                {
-                    string graphError = await ReadGraphErrorAsync(response, ct).ConfigureAwait(false);
-                    throw new HttpRequestException(
-                        string.IsNullOrWhiteSpace(graphError)
-                            ? $"Microsoft Graph request failed with status code {(int)response.StatusCode}."
-                            : $"Microsoft Graph request failed with status code {(int)response.StatusCode}: {graphError}.",
-                        null,
-                        response.StatusCode);
-                }
-
-                await using Stream responseStream = await response.Content.ReadAsStreamAsync(ct).ConfigureAwait(false);
-                return await JsonSerializer.DeserializeAsync<TResponse>(
-                    responseStream,
-                    AutopilotGraphJson.Options,
-                    ct).ConfigureAwait(false);
-            },
-            logger,
-            operationName,
-            cancellationToken,
-            HttpOperationOptions.Metadata with
-            {
-                MaximumAttempts = checked(options.RetryCount + 1),
-                InitialRetryDelay = options.RetryDelay,
-                MaximumRetryDelay = options.RetryDelay > HttpOperationOptions.Metadata.MaximumRetryDelay
-                    ? options.RetryDelay : HttpOperationOptions.Metadata.MaximumRetryDelay
-            }).ConfigureAwait(false);
-    }
-
-    private async Task SendGraphNoContentAsync<TBody>(
-        HttpMethod method,
-        string path,
-        string accessToken,
-        TBody? body,
-        string operationName,
-        CancellationToken cancellationToken)
-        where TBody : class
-    {
-        await HttpRetryPolicy.ExecuteAsync(
-            async ct =>
-            {
-                using var request = new HttpRequestMessage(method, path);
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                if (body is not null)
-                {
-                    request.Content = JsonContent.Create(body, options: AutopilotGraphJson.Options);
-                }
-
-                using HttpResponseMessage response = await httpClient.SendAsync(request, ct).ConfigureAwait(false);
-                if (!response.IsSuccessStatusCode)
-                {
-                    string graphError = await ReadGraphErrorAsync(response, ct).ConfigureAwait(false);
-                    throw new HttpRequestException(
-                        string.IsNullOrWhiteSpace(graphError)
-                            ? $"Microsoft Graph request failed with status code {(int)response.StatusCode}."
-                            : $"Microsoft Graph request failed with status code {(int)response.StatusCode}: {graphError}.",
-                        null,
-                        response.StatusCode);
-                }
-            },
-            logger,
-            operationName,
-            cancellationToken,
-            HttpOperationOptions.Metadata with
-            {
-                MaximumAttempts = checked(options.RetryCount + 1),
-                InitialRetryDelay = options.RetryDelay,
-                MaximumRetryDelay = options.RetryDelay > HttpOperationOptions.Metadata.MaximumRetryDelay
-                    ? options.RetryDelay : HttpOperationOptions.Metadata.MaximumRetryDelay
-            }).ConfigureAwait(false);
-    }
-
-    private Task DelayAsync(TimeSpan delay, CancellationToken cancellationToken)
-    {
-        return delay <= TimeSpan.Zero
-            ? Task.CompletedTask
-            : Task.Delay(delay, cancellationToken);
-    }
-
-    private async Task DelayWithProgressAsync(
-        DateTimeOffset deadline,
-        TimeSpan delay,
-        IProgress<AutopilotHardwareHashUploadProgress>? progress,
-        string message,
-        Func<TimeSpan, string> detailFactory,
-        CancellationToken cancellationToken)
-    {
-        TimeSpan remainingDelay = delay;
-        TimeSpan progressInterval = options.ProgressInterval > TimeSpan.Zero
-            ? options.ProgressInterval
-            : TimeSpan.FromSeconds(1);
-        while (remainingDelay > TimeSpan.Zero)
-        {
-            TimeSpan currentDelay = remainingDelay > progressInterval
-                ? progressInterval
-                : remainingDelay;
-            await DelayAsync(currentDelay, cancellationToken).ConfigureAwait(false);
-            remainingDelay -= currentDelay;
-
-            TimeSpan remaining = deadline - DateTimeOffset.UtcNow;
-            if (remaining < TimeSpan.Zero)
-            {
-                remaining = TimeSpan.Zero;
-            }
-
-            progress?.Report(new AutopilotHardwareHashUploadProgress(message, detailFactory(remaining)));
-        }
-    }
-
-    private static bool IsImportError(string? status)
-    {
-        return string.Equals(status, "error", StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static bool IsImportComplete(string? status)
-    {
-        return string.Equals(status, "complete", StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static bool ShouldContinueVisibilityWaitAfterImportError(ImportedWindowsAutopilotDeviceIdentityState? state)
-    {
-        string errorName = state?.DeviceErrorName ?? string.Empty;
-        return errorName.Contains("AlreadyAssigned", StringComparison.OrdinalIgnoreCase) ||
-               errorName.Contains("AlreadyExists", StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static bool ShouldUpdateGroupTag(string? currentGroupTag, string? requestedGroupTag)
-    {
-        return !string.Equals(
-            NormalizeGroupTagForComparison(currentGroupTag),
-            NormalizeGroupTagForComparison(requestedGroupTag),
-            StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static string NormalizeGroupTagForComparison(string? groupTag)
-    {
-        return string.IsNullOrWhiteSpace(groupTag)
-            ? string.Empty
-            : groupTag.Trim();
-    }
-
-    private static string NormalizeGroupTagForGraph(string? groupTag)
-    {
-        return NormalizeGroupTagForComparison(groupTag);
-    }
-
-    private static string FormatRemaining(TimeSpan remaining)
-    {
-        double seconds = Math.Ceiling(remaining.TotalSeconds);
-        return seconds == 1
-            ? "1 second"
-            : $"{seconds:0} seconds";
-    }
-
-    private static string EscapeODataFilter(string filter)
-    {
-        return Uri.EscapeDataString(filter);
-    }
-
-    private static string EscapeODataString(string value)
-    {
-        return value.Replace("'", "''", StringComparison.Ordinal);
-    }
-
-    private static async Task<string> ReadGraphErrorAsync(HttpResponseMessage response, CancellationToken cancellationToken)
-    {
-        string body = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-        if (string.IsNullOrWhiteSpace(body))
-        {
-            return string.Empty;
-        }
-
+        ValidateOptions();
+        cancellationToken.ThrowIfCancellationRequested();
+        using var workflow = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        workflow.CancelAfter(options.WorkflowTimeout);
+        DateTimeOffset workflowDeadline = DateTimeOffset.UtcNow.Add(options.WorkflowTimeout);
+        string? importedId = null;
         try
         {
-            using JsonDocument document = JsonDocument.Parse(body);
-            if (document.RootElement.TryGetProperty("error", out JsonElement error))
+            ValidateRequest(request);
+            progress?.Report(new("Uploading Autopilot hardware hash...", "Submitting the current hardware identity..."));
+            var body = new ImportRequestBody([new ImportRequestDevice("#microsoft.graph.importedWindowsAutopilotDeviceIdentity",
+                request.SerialNumber, request.HardwareIdentifier, request.GroupTag, request.AssignedUserPrincipalName, request.ImportId)]);
+            GraphCollectionResponse<ImportedWindowsAutopilotDeviceIdentity>? response = await SendGraphAsync<GraphCollectionResponse<ImportedWindowsAutopilotDeviceIdentity>>(
+                HttpMethod.Post, ImportedPath + "/import", request.AccessToken, body, workflow.Token).ConfigureAwait(false);
+            if (response?.Value is not { Count: 1 } || response.NextLink is not null)
+                return Failed(request, "IdentityUnconfirmed");
+            ImportedWindowsAutopilotDeviceIdentity imported = response.Value[0];
+            if (!MatchesRequest(imported, request)) return Failed(request, "IdentityUnconfirmed");
+            importedId = imported.Id;
+            while (true)
             {
-                string? code = error.TryGetProperty("code", out JsonElement codeElement)
-                    ? codeElement.GetString()
-                    : null;
-                string? message = error.TryGetProperty("message", out JsonElement messageElement)
-                    ? messageElement.GetString()
-                    : null;
-                return string.Join(
-                    ": ",
-                    new[] { code, message }
-                        .Where(value => !string.IsNullOrWhiteSpace(value))
-                        .Select(value => value!.Trim()));
+                workflow.Token.ThrowIfCancellationRequested();
+                if (!MatchesRequest(imported, request) || !string.Equals(imported.Id, importedId, StringComparison.Ordinal))
+                    return Failed(request, "IdentityUnconfirmed", importedId);
+                string? status = imported.State?.DeviceImportStatus;
+                bool error = string.Equals(status, "error", StringComparison.OrdinalIgnoreCase);
+                bool complete = string.Equals(status, "complete", StringComparison.OrdinalIgnoreCase);
+                if (error && !IsSameTenantAlreadyAssigned(imported.State)) return Failed(request, "ImportFailed", importedId);
+                if (error || complete)
+                {
+                    string? registrationId = imported.State?.DeviceRegistrationId;
+                    if (string.IsNullOrWhiteSpace(registrationId)) return Failed(request, "IdentityUnconfirmed", importedId);
+                    return await WaitForRegistrationAsync(request, importedId!, registrationId, DateTimeOffset.UtcNow.Add(options.VisibilityTimeout), progress, workflow.Token).ConfigureAwait(false);
+                }
+                if (status is null || !(status.Equals("pending", StringComparison.OrdinalIgnoreCase) ||
+                    status.Equals("partial", StringComparison.OrdinalIgnoreCase) || status.Equals("unknown", StringComparison.OrdinalIgnoreCase)))
+                    return Failed(request, "IdentityUnconfirmed", importedId);
+                if (DateTimeOffset.UtcNow >= workflowDeadline) return TimedOut(request, "WorkflowTimedOut", importedId);
+                await DelayWithProgressAsync(workflowDeadline, progress, workflow.Token).ConfigureAwait(false);
+                imported = await GetImportedIdentityAsync(request.AccessToken, importedId!, workflow.Token).ConfigureAwait(false)
+                    ?? throw new InvalidDataException("The current imported identity is unavailable.");
             }
         }
-        catch (JsonException)
+        catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested && workflow.IsCancellationRequested)
         {
+            return TimedOut(request, "WorkflowTimedOut", importedId);
         }
-
-        return body.Length <= 500 ? body : body[..500];
+        catch (TransferTimeoutException error) when (error.Kind == TransferTimeoutKind.Overall)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            return TimedOut(request, "WorkflowTimedOut", importedId);
+        }
+        catch (TimeoutException)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            return TimedOut(request, workflow.IsCancellationRequested ? "WorkflowTimedOut" : "RequestTimedOut", importedId);
+        }
+        catch (Exception error) when (error is InvalidDataException or JsonException)
+        {
+            return Failed(request, "IdentityUnconfirmed", importedId);
+        }
     }
 
-    private sealed record ImportRequestBody(
-        IReadOnlyList<ImportRequestDevice> ImportedWindowsAutopilotDeviceIdentities);
+    public async Task<IReadOnlyList<string>> ListGroupTagsAsync(string accessToken, CancellationToken cancellationToken = default)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(accessToken);
+        ValidateOptions();
+        using var workflow = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        workflow.CancelAfter(options.WorkflowTimeout);
+        var tags = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var visited = new HashSet<string>(StringComparer.Ordinal);
+        string? path = DevicesPath;
+        try
+        {
+            while (path is not null)
+            {
+                Uri uri = ValidateCollectionLink(path);
+                if (visited.Count >= options.MaximumGroupTagPages || !visited.Add(uri.AbsoluteUri))
+                    throw new InvalidDataException("Group tag pagination is cyclic or exceeds its page limit.");
+                GraphCollectionResponse<WindowsAutopilotDeviceIdentity>? response = await SendGraphAsync<GraphCollectionResponse<WindowsAutopilotDeviceIdentity>>(
+                    HttpMethod.Get, uri.AbsoluteUri, accessToken, null, workflow.Token).ConfigureAwait(false);
+                if (response?.Value is null) throw new InvalidDataException("The group tag collection is unavailable.");
+                foreach (string? tag in response.Value.Select(device => device.GroupTag?.Trim()))
+                    if (!string.IsNullOrEmpty(tag)) tags.Add(tag);
+                if (tags.Count > 100000) throw new InvalidDataException("Group tag discovery exceeds its item limit.");
+                path = response.NextLink;
+            }
+        }
+        catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested && workflow.IsCancellationRequested)
+        {
+            throw new TimeoutException("Group tag discovery exceeded its workflow deadline.");
+        }
+        return tags.Order(StringComparer.OrdinalIgnoreCase).ToArray();
+    }
 
-    private sealed record ImportRequestDevice(
-        [property: JsonPropertyName("@odata.type")] string ODataType,
-        string SerialNumber,
-        string HardwareIdentifier,
-        string? GroupTag,
-        string? AssignedUserPrincipalName,
-        string ImportId);
+    private async Task<AutopilotHardwareHashUploadResult> WaitForRegistrationAsync(AutopilotGraphImportRequest request,
+        string importedId, string registrationId, DateTimeOffset deadline,
+        IProgress<AutopilotHardwareHashUploadProgress>? progress, CancellationToken token)
+    {
+        bool updated = false;
+        using var visibility = CancellationTokenSource.CreateLinkedTokenSource(token);
+        TimeSpan remaining = deadline - DateTimeOffset.UtcNow;
+        if (remaining <= TimeSpan.Zero) return TimedOut(request, "AutopilotDeviceTimedOut", importedId);
+        visibility.CancelAfter(remaining);
+        try
+        {
+            while (true)
+            {
+                visibility.Token.ThrowIfCancellationRequested();
+                WindowsAutopilotDeviceIdentity? device = await GetAutopilotDeviceByIdAsync(request.AccessToken, registrationId, visibility.Token).ConfigureAwait(false);
+                if (device is not null)
+                {
+                    if (!string.Equals(device.Id, registrationId, StringComparison.Ordinal) ||
+                        !string.Equals(device.SerialNumber, request.SerialNumber, StringComparison.Ordinal))
+                        return Failed(request, "IdentityUnconfirmed", importedId);
+                    if (string.Equals(NormalizeGroupTag(device.GroupTag), NormalizeGroupTag(request.GroupTag), StringComparison.OrdinalIgnoreCase))
+                        return AutopilotHardwareHashUploadResult.Completed("The imported hardware identity is registered in Windows Autopilot.", request.ImportId, importedId, registrationId);
+                    if (!updated)
+                    {
+                        await SendGraphAsync<object>(HttpMethod.Post, DevicesPath + "/" + Uri.EscapeDataString(registrationId) + "/updateDeviceProperties",
+                            request.AccessToken, new UpdateDevicePropertiesRequest(NormalizeGroupTag(request.GroupTag)), visibility.Token, noContent: true).ConfigureAwait(false);
+                        updated = true;
+                    }
+                }
+                if (DateTimeOffset.UtcNow >= deadline) return TimedOut(request, updated ? "GroupTagTimedOut" : "AutopilotDeviceTimedOut", importedId);
+                await DelayWithProgressAsync(deadline, progress, visibility.Token).ConfigureAwait(false);
+            }
+        }
+        catch (OperationCanceledException) when (!token.IsCancellationRequested && visibility.IsCancellationRequested)
+        {
+            return TimedOut(request, updated ? "GroupTagTimedOut" : "AutopilotDeviceTimedOut", importedId);
+        }
+    }
 
+    private async Task<ImportedWindowsAutopilotDeviceIdentity?> GetImportedIdentityAsync(string accessToken, string id, CancellationToken token)
+    {
+        JsonElement response = await SendGraphAsync<JsonElement>(HttpMethod.Get, ImportedPath + "/" + Uri.EscapeDataString(id), accessToken, null, token).ConfigureAwait(false);
+        if (response.ValueKind == JsonValueKind.Object && response.TryGetProperty("value", out JsonElement value)) response = value;
+        return response.Deserialize<ImportedWindowsAutopilotDeviceIdentity>(AutopilotGraphJson.Options);
+    }
+
+    private async Task<WindowsAutopilotDeviceIdentity?> GetAutopilotDeviceByIdAsync(string accessToken, string registrationId, CancellationToken token)
+    {
+        try
+        {
+            return await SendGraphAsync<WindowsAutopilotDeviceIdentity>(HttpMethod.Get, DevicesPath + "/" + Uri.EscapeDataString(registrationId), accessToken, null, token).ConfigureAwait(false);
+        }
+        catch (HttpRequestException error) when (error.StatusCode == HttpStatusCode.NotFound) { return null; }
+    }
+
+    private async Task<T?> SendGraphAsync<T>(HttpMethod method, string path, string accessToken, object? body,
+        CancellationToken token, bool noContent = false)
+    {
+        try
+        {
+            return await HttpRetryPolicy.ExecuteAsync(async ct =>
+            {
+                try
+                {
+                    using var request = new HttpRequestMessage(method, new Uri(GraphRoot, path));
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                    request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    if (body is not null) request.Content = JsonContent.Create(body, options: AutopilotGraphJson.Options);
+                    using HttpResponseMessage response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, ct).ConfigureAwait(false);
+                    if (!response.IsSuccessStatusCode)
+                        throw new HttpResponseException(response.StatusCode, response.Headers.RetryAfter?.Delta, response.Headers.RetryAfter?.Date);
+                    if (noContent) return default;
+                    string json = await BoundedHttpContent.ReadStringAsync(response, 32L * 1024 * 1024, ct).ConfigureAwait(false);
+                    return JsonSerializer.Deserialize<T>(json, AutopilotGraphJson.Options);
+                }
+                catch (HttpRequestException error) when (method == HttpMethod.Post && error.StatusCode != HttpStatusCode.TooManyRequests)
+                {
+                    throw new NonRetryableMutationException(error);
+                }
+                catch (TransferReadException error) when (method == HttpMethod.Post)
+                {
+                    throw new NonRetryableMutationException(error);
+                }
+                catch (OperationCanceledException error) when (method == HttpMethod.Post && !token.IsCancellationRequested)
+                {
+                    throw new NonRetryableMutationException(new TimeoutException("The mutation request exceeded its deadline; its server outcome is unknown.", error));
+                }
+            }, logger, "Autopilot Graph request", token, HttpOperationOptions.Metadata with
+            {
+                MaximumAttempts = checked(options.RetryCount + 1),
+                OverallTimeout = options.WorkflowTimeout,
+                RequestTimeout = options.RequestTimeout,
+                InitialRetryDelay = options.RetryDelay,
+                MaximumRetryDelay = options.RetryDelay > TimeSpan.FromSeconds(10) ? options.RetryDelay : TimeSpan.FromSeconds(10)
+            }).ConfigureAwait(false);
+        }
+        catch (NonRetryableMutationException error)
+        {
+            ExceptionDispatchInfo.Capture(error.Failure).Throw();
+            throw;
+        }
+    }
+
+    private sealed class NonRetryableMutationException(Exception failure) : Exception("The mutation outcome must not be retried automatically.")
+    {
+        public Exception Failure { get; } = failure;
+    }
+
+    private async Task DelayWithProgressAsync(DateTimeOffset deadline, IProgress<AutopilotHardwareHashUploadProgress>? progress, CancellationToken token)
+    {
+        TimeSpan remainingDelay = options.PollInterval;
+        do
+        {
+            token.ThrowIfCancellationRequested();
+            TimeSpan remaining = deadline - DateTimeOffset.UtcNow;
+            progress?.Report(new("Waiting for Autopilot registration...", $"Checking the imported identity ({Math.Max(0, Math.Ceiling(remaining.TotalSeconds)):0} seconds remaining)..."));
+            TimeSpan delay = remainingDelay < options.ProgressInterval ? remainingDelay : options.ProgressInterval;
+            if (delay > remaining) delay = remaining;
+            if (delay <= TimeSpan.Zero) return;
+            await Task.Delay(delay, token).ConfigureAwait(false);
+            remainingDelay -= delay;
+        } while (remainingDelay > TimeSpan.Zero);
+    }
+
+    private static bool MatchesRequest(ImportedWindowsAutopilotDeviceIdentity? imported, AutopilotGraphImportRequest request) =>
+        imported is not null && !string.IsNullOrWhiteSpace(imported.Id) && string.Equals(imported.ImportId, request.ImportId, StringComparison.Ordinal) &&
+        string.Equals(imported.SerialNumber, request.SerialNumber, StringComparison.Ordinal) && SameHardware(imported.HardwareIdentifier, request.HardwareIdentifier);
+
+    private static bool SameHardware(string? actual, string expected)
+    {
+        try { return actual is not null && Convert.FromBase64String(actual).AsSpan().SequenceEqual(Convert.FromBase64String(expected)); }
+        catch (FormatException) { return false; }
+    }
+
+    // Microsoft documents 806 as already registered to this tenant; serial visibility alone is never proof.
+    private static bool IsSameTenantAlreadyAssigned(ImportedWindowsAutopilotDeviceIdentityState? state) =>
+        string.Equals(state?.DeviceErrorName, "ZtdDeviceAlreadyAssigned", StringComparison.OrdinalIgnoreCase) &&
+        (state.DeviceErrorCode is null or 806);
+
+    private static void ValidateRequest(AutopilotGraphImportRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.AccessToken) || string.IsNullOrWhiteSpace(request.ImportId) ||
+            string.IsNullOrWhiteSpace(request.SerialNumber) || string.IsNullOrWhiteSpace(request.HardwareIdentifier)) throw new InvalidDataException("The import request identity is incomplete.");
+        try { if (Convert.FromBase64String(request.HardwareIdentifier).Length > 0) return; }
+        catch (FormatException) { }
+        throw new InvalidDataException("The hardware identifier is invalid.");
+    }
+
+    private static Uri ValidateCollectionLink(string path)
+    {
+        if (!Uri.TryCreate(GraphRoot, path, out Uri? uri) || uri.Scheme != Uri.UriSchemeHttps ||
+            !uri.Host.Equals(GraphRoot.Host, StringComparison.OrdinalIgnoreCase) || !uri.IsDefaultPort ||
+            uri.UserInfo.Length != 0 || uri.Fragment.Length != 0 || uri.AbsolutePath != "/" + DevicesPath)
+            throw new InvalidDataException("Graph pagination must remain on the requested collection.");
+        return uri;
+    }
+
+    private void ValidateOptions()
+    {
+        if (options.WorkflowTimeout <= TimeSpan.Zero || options.WorkflowTimeout > TimeSpan.FromMinutes(15) ||
+            options.RequestTimeout <= TimeSpan.Zero || options.RequestTimeout > TimeSpan.FromSeconds(30) ||
+            options.VisibilityTimeout <= TimeSpan.Zero || options.VisibilityTimeout > TimeSpan.FromMinutes(10) ||
+            options.ProgressInterval <= TimeSpan.Zero || options.PollInterval < TimeSpan.Zero ||
+            options.RetryCount is < 0 or > 5 || options.RetryDelay < TimeSpan.Zero || options.MaximumGroupTagPages is < 1 or > 1000)
+            throw new ArgumentOutOfRangeException(nameof(options), "Autopilot limits must be finite and bounded.");
+    }
+
+    private static string NormalizeGroupTag(string? value) => value?.Trim() ?? string.Empty;
+    private static AutopilotHardwareHashUploadResult Failed(AutopilotGraphImportRequest request, string code, string? importedId = null) =>
+        AutopilotHardwareHashUploadResult.Failed(AutopilotHardwareHashUploadState.UploadFailed,
+            code == "IdentityUnconfirmed" ? "The imported hardware identity could not be confirmed. Review the current import in Intune before retrying; no unrelated registration was changed."
+                : "Microsoft Graph reported that the current hardware import failed. Review its status in Intune.", code, request.ImportId, importedId);
+    private static AutopilotHardwareHashUploadResult TimedOut(AutopilotGraphImportRequest request, string code, string? importedId) =>
+        AutopilotHardwareHashUploadResult.Failed(AutopilotHardwareHashUploadState.UploadTimedOut,
+            "Autopilot registration did not finish within its network deadline.", code, request.ImportId, importedId);
+
+    private sealed record ImportRequestBody(IReadOnlyList<ImportRequestDevice> ImportedWindowsAutopilotDeviceIdentities);
+    private sealed record ImportRequestDevice([property: JsonPropertyName("@odata.type")] string ODataType,
+        string SerialNumber, string HardwareIdentifier, string? GroupTag, string? AssignedUserPrincipalName, string ImportId);
     private sealed record UpdateDevicePropertiesRequest(string GroupTag);
 }
 
-/// <summary>
-/// Controls Graph retry and polling bounds for the Autopilot import workflow.
-/// </summary>
 public sealed record AutopilotGraphImportClientOptions
 {
     public int RetryCount { get; init; } = HttpRetryPolicy.DefaultRetryCount;
@@ -723,72 +317,40 @@ public sealed record AutopilotGraphImportClientOptions
     public TimeSpan PollInterval { get; init; } = TimeSpan.FromSeconds(10);
     public TimeSpan ProgressInterval { get; init; } = TimeSpan.FromSeconds(1);
     public TimeSpan VisibilityTimeout { get; init; } = TimeSpan.FromMinutes(10);
+    public TimeSpan RequestTimeout { get; init; } = TimeSpan.FromSeconds(30);
+    public TimeSpan WorkflowTimeout { get; init; } = TimeSpan.FromMinutes(15);
+    public int MaximumGroupTagPages { get; init; } = 100;
 }
 
-public sealed record AutopilotGraphImportRequest(
-    string AccessToken,
-    string SerialNumber,
-    string HardwareIdentifier,
-    string? GroupTag,
-    string? AssignedUserPrincipalName,
-    string ImportId);
-
+public sealed record AutopilotGraphImportRequest(string AccessToken, string SerialNumber, string HardwareIdentifier,
+    string? GroupTag, string? AssignedUserPrincipalName, string ImportId);
 internal sealed record GraphCollectionResponse<TItem>
 {
     public List<TItem>? Value { get; init; }
-
-    [JsonPropertyName("@odata.nextLink")]
-    public string? NextLink { get; init; }
+    [JsonPropertyName("@odata.nextLink")] public string? NextLink { get; init; }
 }
-
 internal sealed record ImportedWindowsAutopilotDeviceIdentity
 {
     public string? Id { get; init; }
     public string? SerialNumber { get; init; }
     public string? ImportId { get; init; }
+    public string? HardwareIdentifier { get; init; }
     public ImportedWindowsAutopilotDeviceIdentityState? State { get; init; }
 }
-
 internal sealed record ImportedWindowsAutopilotDeviceIdentityState
 {
     public string? DeviceImportStatus { get; init; }
+    public string? DeviceRegistrationId { get; init; }
     public int? DeviceErrorCode { get; init; }
     public string? DeviceErrorName { get; init; }
 }
-
 internal sealed record WindowsAutopilotDeviceIdentity
 {
     public string? Id { get; init; }
     public string? SerialNumber { get; init; }
     public string? GroupTag { get; init; }
 }
-
-internal sealed record AutopilotImportWaitResult(
-    ImportedWindowsAutopilotDeviceIdentity ImportedIdentity,
-    WindowsAutopilotDeviceIdentity? AutopilotDevice,
-    AutopilotHardwareHashUploadState? FailureState = null,
-    string? FailureMessage = null,
-    string? FailureCode = null);
-
-internal sealed record AutopilotDeviceLookupResult(
-    WindowsAutopilotDeviceIdentity? Device,
-    AutopilotHardwareHashUploadState? FailureState = null,
-    string? FailureMessage = null,
-    string? FailureCode = null)
-{
-    public static AutopilotDeviceLookupResult Failed(
-        AutopilotHardwareHashUploadState state,
-        string message,
-        string failureCode)
-    {
-        return new AutopilotDeviceLookupResult(null, state, message, failureCode);
-    }
-}
-
 internal static class AutopilotGraphJson
 {
-    public static readonly JsonSerializerOptions Options = new(JsonSerializerDefaults.Web)
-    {
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-    };
+    public static readonly JsonSerializerOptions Options = new(JsonSerializerDefaults.Web) { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull };
 }

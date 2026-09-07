@@ -502,16 +502,25 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         try
         {
             logger.Information("Starting Autopilot profile download from tenant.");
-            IReadOnlyList<AutopilotProfileSettings>? availableProfiles = await tenantOperationDialogService.RunAsync(
+            AutopilotProfileDownloadResult? download = await tenantOperationDialogService.RunAsync(
                 localizationService.GetString("Autopilot.TenantDownloadDialogTitle"),
                 localizationService.GetString("Autopilot.TenantDownloadDialogMessage"),
                 autopilotTenantProfileService.DownloadFromTenantAsync);
-            if (availableProfiles is null)
+            if (download is null)
             {
                 logger.Information("Autopilot tenant download was canceled.");
                 return;
             }
 
+            if (download.RejectedProfiles.Count > 0)
+            {
+                string details = string.Join(Environment.NewLine, download.RejectedProfiles.Select(profile => $"{profile.DisplayName}: {profile.Reason}"));
+                await dialogService.ShowMessageAsync(new DialogRequest(
+                    localizationService.GetString("Autopilot.DownloadUnsupportedProfilesTitle"),
+                    localizationService.FormatString("Autopilot.DownloadUnsupportedProfilesMessage", details)));
+                if (download.SupportedProfiles.Count == 0) return;
+            }
+            IReadOnlyList<AutopilotProfileSettings> availableProfiles = download.SupportedProfiles;
             if (availableProfiles.Count == 0)
             {
                 logger.Information("Autopilot tenant download completed. ProfileCount=0");
@@ -540,7 +549,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             logger.Information("Autopilot tenant download was canceled.");
             return;
         }
-        catch (Exception ex) when (ex is InvalidOperationException or HttpRequestException or JsonException or AuthenticationFailedException)
+        catch (Exception ex) when (ex is IOException or InvalidOperationException or HttpRequestException or JsonException or AuthenticationFailedException)
         {
             string failureMessage = localizationService.FormatString("Autopilot.DownloadFailedFormat", ex.Message);
             logger.Error(ex, "Autopilot tenant download failed.");

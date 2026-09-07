@@ -297,6 +297,14 @@
   <data name="Autopilot.DownloadNoProfilesTitle" xml:space="preserve">
     <value>Nije pronađen nijedan Autopilot profil</value>
   </data>
+  <data name="Autopilot.DownloadUnsupportedProfilesMessage" xml:space="preserve">
+    <value>These profiles were not imported as offline JSON. Supported user-driven profiles remain available for selection.
+
+{0}</value>
+  </data>
+  <data name="Autopilot.DownloadUnsupportedProfilesTitle" xml:space="preserve">
+    <value>Some profiles cannot be used offline</value>
+  </data>
   <data name="Autopilot.DownloadingStatus" xml:space="preserve">
     <value>Preuzimanje Autopilot profila...</value>
   </data>
@@ -2465,6 +2473,9 @@
   </data>
   <data name="StartMedia.Autopilot.Validation.HardwareHashTenantMissing" xml:space="preserve">
     <value>Otpremanje hardverskog heš-a je omogućeno, ali veza zakupca nedostaje. Povežite se sa zakupcem sa Autopilot.</value>
+  </data>
+  <data name="StartMedia.Autopilot.Validation.JsonProfileInvalid" xml:space="preserve">
+    <value>The selected Autopilot profile is not valid for offline deployment. Import a supported user-driven profile with complete tenant, join and OOBE settings.</value>
   </data>
   <data name="StartMedia.Autopilot.Validation.JsonProfileMissing" xml:space="preserve">
     <value>Autopilot JSON režim profila je omogućen, ali nije izabran važeći podrazumevani profil.</value>

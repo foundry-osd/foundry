@@ -14,6 +14,8 @@ public sealed record HardwareProfile
     public string AssetTag { get; init; } = "Unknown";
     public string SystemUuid { get; init; } = "Unknown";
     public string Architecture { get; init; } = string.Empty;
+    /// <summary>Missing driver/discovery evidence cannot prove that an internal wireless adapter is absent.</summary>
+    public Services.Autopilot.WirelessAdapterPresence InternalWireless { get; init; } = Services.Autopilot.WirelessAdapterPresence.Unknown;
     public bool IsVirtualMachine { get; init; }
     public bool IsOnBattery { get; init; }
     public bool IsTpmPresent { get; init; }

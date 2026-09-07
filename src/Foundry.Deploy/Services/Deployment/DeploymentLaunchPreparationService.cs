@@ -150,6 +150,8 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             operatingSystem.DisplayLabel);
 
         message += Environment.NewLine + Environment.NewLine + LocalizationText.GetString("Launch.ImagePreflightStorageWarning");
+        if (request.IsAutopilotEnabled && request.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload)
+            message += Environment.NewLine + Environment.NewLine + LocalizationText.GetString("Launch.UnqualifiedAutopilotCaptureWarning");
 
         if (request.UsesCustomUnattend)
         {

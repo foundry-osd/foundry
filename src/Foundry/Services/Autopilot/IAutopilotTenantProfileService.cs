@@ -16,5 +16,12 @@ public interface IAutopilotTenantProfileService
     /// </summary>
     /// <param name="cancellationToken">Token that cancels token acquisition and Graph download operations.</param>
     /// <returns>The profiles converted to Foundry configuration settings.</returns>
-    Task<IReadOnlyList<AutopilotProfileSettings>> DownloadFromTenantAsync(CancellationToken cancellationToken = default);
+    Task<AutopilotProfileDownloadResult> DownloadFromTenantAsync(CancellationToken cancellationToken = default);
 }
+
+/// <summary>Separates usable offline profiles from explicit per-profile rejection diagnostics.</summary>
+public sealed record AutopilotProfileDownloadResult(IReadOnlyList<AutopilotProfileSettings> SupportedProfiles,
+    IReadOnlyList<AutopilotProfileRejection> RejectedProfiles);
+
+/// <summary>Contains only the user-visible profile name and a sanitized domain-validation reason.</summary>
+public sealed record AutopilotProfileRejection(string DisplayName, string Reason);

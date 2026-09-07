@@ -9,6 +9,17 @@ namespace Foundry.Deploy.Services.Autopilot;
 /// </summary>
 public sealed record AutopilotHardwareHashCaptureRequest
 {
+    /// <summary>The OA3 service is the PE path; full Windows uses the existing registration assistant.</summary>
+    public bool IsWinPe { get; init; } = true;
+
+    public WirelessAdapterPresence InternalWireless { get; init; } = WirelessAdapterPresence.Unknown;
+
+    /// <summary>Requires qualification of the exact PE/OA3/PCPKsp architecture and build combination, not file existence.</summary>
+    public bool QualifiedToolPair { get; init; }
+
+    /// <summary>Requires native qualification of the device and its loaded hardware drivers.</summary>
+    public bool QualifiedHardware { get; init; }
+
     /// <summary>
     /// Gets the root of the applied offline Windows image.
     /// </summary>

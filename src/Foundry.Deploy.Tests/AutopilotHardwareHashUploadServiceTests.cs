@@ -16,6 +16,52 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class AutopilotHardwareHashUploadServiceTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task UploadAsync_WorkflowDeadlineIncludesPreparationAndPreservesCallerCancellation(bool callerCancels)
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-upload-budget-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(root);
+        using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        if (callerCancels) cancellation.CancelAfter(TimeSpan.FromMilliseconds(30));
+        try
+        {
+            var service = new AutopilotHardwareHashUploadService(new StalledKeyReader(), new ThrowingTokenService(),
+                new AutopilotGraphImportClient(new HttpClient(new ThrowingGraphHandler()), NullLogger<AutopilotGraphImportClient>.Instance),
+                NullLogger<AutopilotHardwareHashUploadService>.Instance,
+                new AutopilotHardwareHashUploadOptions { WorkflowTimeout = callerCancels ? TimeSpan.FromSeconds(1) : TimeSpan.FromMilliseconds(30) });
+            var request = new AutopilotHardwareHashUploadRequest
+            {
+                Settings = new DeployAutopilotHardwareHashUploadSettings
+                {
+                    TenantId = "tenant",
+                    ClientId = "client",
+                    ActiveCertificateThumbprint = "test",
+                    CertificatePfxSecret = Encrypt([], new byte[32]),
+                    CertificatePfxPasswordSecret = Encrypt([], new byte[32])
+                },
+                Identity = new AutopilotHardwareHashDeviceIdentity("SERIAL", "aGFzaA==", null),
+                WorkspaceRootPath = root,
+                DiagnosticsRootPath = Path.Combine(root, "Diagnostics")
+            };
+            if (callerCancels)
+                await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.UploadAsync(request, cancellationToken: cancellation.Token));
+            else
+                Assert.Equal("WorkflowTimedOut", (await service.UploadAsync(request, cancellationToken: cancellation.Token)).FailureCode);
+        }
+        finally { Directory.Delete(root, recursive: true); }
+    }
+
+    private sealed class StalledKeyReader : IDeploymentSecretKeyProvider
+    {
+        public async Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default)
+        {
+            await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken);
+            throw new InvalidOperationException();
+        }
+    }
+
     [Fact]
     public async Task UploadAsync_WhenEncryptedCertificateMaterialIsMissing_ReturnsNonBlockingFailureAndSanitizedResult()
     {

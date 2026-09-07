@@ -58,6 +58,16 @@ public static class AutopilotOa3XmlParser
             return Failed(AutopilotHardwareHashCaptureFailureCode.HashMissing, "OA3 report does not contain a hardware hash.");
         }
 
+        try
+        {
+            if (hardwareHash.Length > 16384 || Convert.FromBase64String(hardwareHash).Length == 0)
+                return Failed(AutopilotHardwareHashCaptureFailureCode.ReportInvalid, "OA3 hardware hash is not a bounded Base64 value.");
+        }
+        catch (FormatException)
+        {
+            return Failed(AutopilotHardwareHashCaptureFailureCode.ReportInvalid, "OA3 hardware hash is not valid Base64.");
+        }
+
         return new AutopilotHardwareHashParseResult
         {
             FailureCode = AutopilotHardwareHashCaptureFailureCode.None,
@@ -85,7 +95,14 @@ public static class AutopilotOa3XmlParser
     {
         try
         {
-            document = XDocument.Parse(xml);
+            using var text = new global::System.IO.StringReader(xml);
+            using var reader = global::System.Xml.XmlReader.Create(text, new global::System.Xml.XmlReaderSettings
+            {
+                DtdProcessing = global::System.Xml.DtdProcessing.Prohibit,
+                XmlResolver = null,
+                MaxCharactersInDocument = 1024 * 1024
+            });
+            document = XDocument.Load(reader);
             failure = null;
             return true;
         }

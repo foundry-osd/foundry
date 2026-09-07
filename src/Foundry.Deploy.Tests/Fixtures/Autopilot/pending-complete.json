@@ -1,0 +1,55 @@
+{
+  "name": "pending-complete",
+  "request": {
+    "importId": "request-current",
+    "serialNumber": "SAME-SERIAL",
+    "hardwareIdentifier": "aGFyZHdhcmVIYXNo",
+    "groupTag": "New"
+  },
+  "importResponse": {
+    "value": [
+      {
+        "id": "imported-current",
+        "importId": "request-current",
+        "serialNumber": "SAME-SERIAL",
+        "hardwareIdentifier": "aGFyZHdhcmVIYXNo",
+        "state": {
+          "deviceImportStatus": "pending"
+        }
+      }
+    ]
+  },
+  "importedPolls": [
+    {
+      "id": "imported-current",
+      "importId": "request-current",
+      "serialNumber": "SAME-SERIAL",
+      "hardwareIdentifier": "aGFyZHdhcmVIYXNo",
+      "state": {
+        "deviceImportStatus": "complete",
+        "deviceRegistrationId": "registration-current"
+      }
+    }
+  ],
+  "deviceResponses": [
+    {
+      "statusCode": 200,
+      "body": {
+        "id": "registration-current",
+        "serialNumber": "SAME-SERIAL",
+        "groupTag": "New"
+      }
+    }
+  ],
+  "unrelatedDevice": {
+    "id": "old-registration",
+    "serialNumber": "SAME-SERIAL",
+    "groupTag": "Old"
+  },
+  "expected": {
+    "status": "completed",
+    "code": null,
+    "propertyUpdateCount": 0,
+    "registrationId": "registration-current"
+  }
+}

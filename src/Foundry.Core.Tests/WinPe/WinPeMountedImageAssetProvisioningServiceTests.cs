@@ -156,7 +156,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                         FolderName = "Profile1",
                         Source = "test",
                         ImportedAtUtc = DateTimeOffset.UnixEpoch,
-                        JsonContent = "{\"profile\":1}"
+                        JsonContent = AutopilotOfflineProfileTestData.ValidJson
                     }
                 ],
                 ConnectProvisioningSource = WinPeProvisioningSource.Debug,
@@ -173,7 +173,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.Equal("<WLANProfile />", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wifi", "Profiles", "profile.xml")));
         Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wired")));
         Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Certificates")));
-        Assert.Equal("{\"profile\":1}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Autopilot", "Profile1", "AutopilotConfigurationFile.json")));
+        Assert.Equal(AutopilotOfflineProfileTestData.ValidJson, await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Autopilot", "Profile1", "AutopilotConfigurationFile.json")));
     }
 
     [Fact]
@@ -200,7 +200,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                         FolderName = "Profile1",
                         Source = "test",
                         ImportedAtUtc = DateTimeOffset.UnixEpoch,
-                        JsonContent = "{\"profile\":1}"
+                        JsonContent = AutopilotOfflineProfileTestData.ValidJson
                     }
                 ]
             },
@@ -239,7 +239,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                         FolderName = "Profile1",
                         Source = "test",
                         ImportedAtUtc = DateTimeOffset.UnixEpoch,
-                        JsonContent = "{\"profile\":1}"
+                        JsonContent = AutopilotOfflineProfileTestData.ValidJson
                     }
                 ]
             },
@@ -488,7 +488,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     {
         using TempMountedImage image = TempMountedImage.Create();
         byte[] deploymentKey = Enumerable.Range(32, 32).Select(static value => (byte)value).ToArray();
-        const string profileJson = "{\"Comment_File\":\"Protected profile\"}";
+        const string profileJson = AutopilotOfflineProfileTestData.ValidJson;
         var service = new WinPeMountedImageAssetProvisioningService();
 
         WinPeResult result = await service.ProvisionAsync(

@@ -5,6 +5,8 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
 
+using Foundry.Core.Tests.TestUtilities;
+
 namespace Foundry.Core.Tests.Configuration;
 
 public sealed class AutopilotConfigurationValidatorTests
@@ -317,7 +319,7 @@ public sealed class AutopilotConfigurationValidatorTests
             FolderName = id,
             Source = "import",
             ImportedAtUtc = EvaluationTimeUtc,
-            JsonContent = "{}"
+            JsonContent = AutopilotOfflineProfileTestData.ValidJson
         };
     }
 

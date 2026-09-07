@@ -25,6 +25,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
     private const string ConfigFileName = "config.json";
     private const string SetupCompleteMarkerKey = "FOUNDRY AUTOPILOT REGISTRATION";
     private const string ScriptResourceName = "Foundry.Deploy.AutopilotRegistration.Start-FoundryAutopilotRegistration.ps1";
+    private const string ProtocolFileName = "Foundry-AutopilotProtocol.ps1";
     private const string ServiceUiResourceName = "Foundry.Deploy.AutopilotRegistration.ServiceUI.exe";
     private const string RuntimeRegistrationRoot = "%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration";
     private const string RuntimeLogRoot = "%SystemRoot%\\Temp\\Foundry\\Logs\\AutopilotRegistration";
@@ -64,6 +65,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
         Directory.CreateDirectory(logRoot);
 
         StageEmbeddedResource(ScriptResourceName, scriptPath);
+        StageEmbeddedResource("Foundry.Deploy.AutopilotRegistration." + ProtocolFileName, Path.Combine(registrationRoot, ProtocolFileName));
         StageEmbeddedResource(ServiceUiResourceName, serviceUiPath);
         File.WriteAllText(launcherPath, BuildLauncher(), Encoding.ASCII);
         File.WriteAllText(oobeLauncherPath, BuildOobeLauncher(), Encoding.ASCII);

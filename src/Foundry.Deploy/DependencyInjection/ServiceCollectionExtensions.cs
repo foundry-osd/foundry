@@ -134,11 +134,11 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<INetworkSecretKeyReader, NetworkSecretKeyReader>();
         services.AddSingleton<IAutopilotGraphTokenService>(sp =>
             new AutopilotGraphTokenService(
-                new HttpClient(),
+                new HttpClient(new HttpClientHandler { AllowAutoRedirect = false }),
                 sp.GetRequiredService<ILogger<AutopilotGraphTokenService>>()));
         services.AddSingleton(sp =>
             new AutopilotGraphImportClient(
-                new HttpClient
+                new HttpClient(new HttpClientHandler { AllowAutoRedirect = false })
                 {
                     BaseAddress = new Uri("https://graph.microsoft.com/", UriKind.Absolute)
                 },

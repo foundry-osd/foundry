@@ -10,6 +10,8 @@ using Foundry.Core.Services.WinPe;
 using Foundry.Telemetry;
 using System.Text.Json;
 
+using Foundry.Core.Tests.TestUtilities;
+
 namespace Foundry.Core.Tests.Configuration;
 
 public sealed class DeployConfigurationGeneratorTests
@@ -1318,7 +1320,7 @@ public sealed class DeployConfigurationGeneratorTests
             FolderName = folderName,
             Source = "import",
             ImportedAtUtc = DateTimeOffset.UtcNow,
-            JsonContent = "{}"
+            JsonContent = AutopilotOfflineProfileTestData.ValidJson
         };
     }
 

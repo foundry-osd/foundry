@@ -52,6 +52,12 @@ Deployment checks image compatibility and capacity before erasing the selected d
 
 Automatic OEM driver selection requires a matching manufacturer, model or documented machine type, architecture, exact Windows release, and an established system-pack role. Unmatched or ambiguous entries require an explicit model and version choice; verify their applicability before deployment. Manual selection retains package integrity and publisher checks.
 
+Offline Autopilot JSON supports user-driven Entra and hybrid join. Foundry validates tenant, branding and OOBE settings while preserving valid imported bytes. Self-deploying and pre-provisioning modes require an assigned online profile; exporting JSON does not create that assignment. Unsupported exports are identified individually so supported profiles remain selectable.
+
+Autopilot registration confirms the current import's hardware identity and authoritative registration ID before reporting success or changing its group tag. The full-Windows assistant performs authentication and registration in a background worker with bounded requests and cancellation. An import with an unknown server outcome is not automatically resubmitted.
+
+This build has no qualified WinPE OA3 capture combination. Certificate-based hardware-hash upload therefore warns before erasure and is skipped without blocking Windows installation or switching authentication modes. Select the full-Windows interactive registration workflow on a supported edition when capture is required. Internal wireless hardware requires full-Windows capture; OA3 output parsing alone does not establish hash quality or tool compatibility.
+
 ## What you can configure
 
 - **Deployment content** — Windows release, language, edition, licensing channel, drivers, and optional firmware.

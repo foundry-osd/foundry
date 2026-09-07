@@ -9,6 +9,7 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Security;
+using Foundry.Core.Services.Autopilot;
 
 namespace Foundry.Deploy.Services.Autopilot;
 
@@ -22,14 +23,20 @@ public sealed class AutopilotProfileContentService(IDeploymentSecretKeySession d
         ArgumentNullException.ThrowIfNull(profile);
         if (!profile.IsProtected)
         {
-            return await File.ReadAllBytesAsync(profile.ConfigurationFilePath, cancellationToken).ConfigureAwait(false);
+            byte[] bytes = await ReadBoundedAsync(profile.ConfigurationFilePath,
+                AutopilotOfflineProfileValidator.MaximumContentLength, cancellationToken).ConfigureAwait(false);
+            AutopilotOfflineProfileValidator.Validate(bytes);
+            return bytes;
         }
 
         byte[]? deploymentKey = null;
+        byte[] plaintext;
         try
         {
             deploymentKey = deploymentSecretKeySession.GetKeyCopy();
-            byte[] envelopeJson = await File.ReadAllBytesAsync(profile.ConfigurationFilePath, cancellationToken).ConfigureAwait(false);
+            // Two MiB accommodates Base64 expansion of the one-MiB profile plus envelope metadata.
+            byte[] envelopeJson = await ReadBoundedAsync(profile.ConfigurationFilePath,
+                2 * AutopilotOfflineProfileValidator.MaximumContentLength, cancellationToken).ConfigureAwait(false);
             SecretEnvelope? envelope = JsonSerializer.Deserialize<SecretEnvelope>(
                 envelopeJson,
                 ConfigurationJsonDefaults.SerializerOptions);
@@ -38,7 +45,7 @@ public sealed class AutopilotProfileContentService(IDeploymentSecretKeySession d
                 throw new InvalidDataException();
             }
 
-            return DeployMediaSecretEnvelopeProtector.DecryptBytes(
+            plaintext = DeployMediaSecretEnvelopeProtector.DecryptBytes(
                 envelope,
                 deploymentKey,
                 DeployMediaSecretEnvelopeProtector.DeploymentKeyId);
@@ -60,5 +67,26 @@ public sealed class AutopilotProfileContentService(IDeploymentSecretKeySession d
                 CryptographicOperations.ZeroMemory(deploymentKey);
             }
         }
+        try
+        {
+            AutopilotOfflineProfileValidator.Validate(plaintext);
+            return plaintext;
+        }
+        catch
+        {
+            CryptographicOperations.ZeroMemory(plaintext);
+            throw;
+        }
+    }
+
+    private static async Task<byte[]> ReadBoundedAsync(string path, int maximumBytes, CancellationToken token)
+    {
+        await using var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 81920, useAsync: true);
+        if (input.Length > maximumBytes) throw new InvalidDataException("The Autopilot profile file exceeds its size limit.");
+        byte[] bytes = new byte[(int)input.Length];
+        await input.ReadExactlyAsync(bytes, token).ConfigureAwait(false);
+        if (await input.ReadAsync(new byte[1], token).ConfigureAwait(false) != 0)
+            throw new InvalidDataException("The Autopilot profile file changed while it was read.");
+        return bytes;
     }
 }

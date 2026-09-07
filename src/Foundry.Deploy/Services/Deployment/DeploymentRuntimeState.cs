@@ -195,6 +195,9 @@ public sealed record DeploymentRuntimeState
     /// <summary>Records pre-disk hook eligibility independently from later staging or execution success.</summary>
     public PreOobe.FirstBootExecutionPlan? FirstBootExecutionPlan { get; set; }
 
+    /// <summary>Retains pre-erasure OA3 eligibility independently from the requested authentication mode.</summary>
+    public Autopilot.AutopilotCaptureCapability? AutopilotCaptureCapability { get; set; }
+
     public string? PreOobeResultsPath { get; set; }
 
     /// <summary>

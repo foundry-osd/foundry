@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -39,9 +40,7 @@ public static class AutopilotConfigurationValidator
 
         return settings.ProvisioningMode switch
         {
-            AutopilotProvisioningMode.JsonProfile => GetSelectedJsonProfile(settings) is not null
-                ? AutopilotConfigurationValidationResult.Ready(AutopilotConfigurationValidationCode.Ready)
-                : AutopilotConfigurationValidationResult.Blocked(AutopilotConfigurationValidationCode.JsonProfileMissing),
+            AutopilotProvisioningMode.JsonProfile => EvaluateJsonProfile(settings),
             AutopilotProvisioningMode.HardwareHashUpload => EvaluateHardwareHashUpload(settings.HardwareHashUpload, currentTimeUtc),
             AutopilotProvisioningMode.InteractiveHardwareHashUpload => AutopilotConfigurationValidationResult.Ready(AutopilotConfigurationValidationCode.Ready),
             _ => AutopilotConfigurationValidationResult.Blocked(AutopilotConfigurationValidationCode.UnsupportedProvisioningMode)
@@ -61,6 +60,8 @@ public static class AutopilotConfigurationValidator
         {
             throw new InvalidOperationException("Autopilot JSON profile mode requires a selected profile.");
         }
+        if (settings.ProvisioningMode == AutopilotProvisioningMode.JsonProfile)
+            AutopilotOfflineProfileValidator.Validate(GetSelectedJsonProfile(settings)!.JsonContent);
 
         if (settings.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload &&
             !EvaluateHardwareHashUpload(settings.HardwareHashUpload, currentTimeUtc).IsReady)
@@ -83,6 +84,21 @@ public static class AutopilotConfigurationValidator
 
         return settings.Profiles.FirstOrDefault(profile =>
             string.Equals(profile.Id, settings.DefaultProfileId, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static AutopilotConfigurationValidationResult EvaluateJsonProfile(AutopilotSettings settings)
+    {
+        AutopilotProfileSettings? profile = GetSelectedJsonProfile(settings);
+        if (profile is null) return AutopilotConfigurationValidationResult.Blocked(AutopilotConfigurationValidationCode.JsonProfileMissing);
+        try
+        {
+            AutopilotOfflineProfileValidator.Validate(profile.JsonContent);
+            return AutopilotConfigurationValidationResult.Ready(AutopilotConfigurationValidationCode.Ready);
+        }
+        catch (InvalidDataException)
+        {
+            return AutopilotConfigurationValidationResult.Blocked(AutopilotConfigurationValidationCode.JsonProfileInvalid);
+        }
     }
 
     private static AutopilotConfigurationValidationResult EvaluateHardwareHashUpload(
@@ -249,6 +265,9 @@ public enum AutopilotConfigurationValidationCode
 
     /// <summary>JSON profile mode has no valid selected profile.</summary>
     JsonProfileMissing,
+
+    /// <summary>The selected JSON cannot support the requested offline Autopilot deployment.</summary>
+    JsonProfileInvalid,
 
     /// <summary>Hardware hash settings are missing.</summary>
     HardwareHashSettingsMissing,

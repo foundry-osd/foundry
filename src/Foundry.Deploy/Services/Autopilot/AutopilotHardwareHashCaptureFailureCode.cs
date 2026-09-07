@@ -57,5 +57,14 @@ public enum AutopilotHardwareHashCaptureFailureCode
     /// <summary>
     /// The OA3 report XML did not contain a device serial number.
     /// </summary>
-    SerialMissing
+    SerialMissing,
+
+    /// <summary>The selected environment must use the full-Windows capture workflow.</summary>
+    FullWindowsCaptureRequired,
+
+    /// <summary>Device or exact tool/library/PE pairing has not been qualified.</summary>
+    UnqualifiedCaptureEnvironment,
+
+    /// <summary>OA3's documented hardware-hash quality validation did not pass.</summary>
+    HashQualityFailed
 }

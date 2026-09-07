@@ -8,6 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
 using Foundry.Deploy.Services.Http;
+using Foundry.Utilities.Networking;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Autopilot;
@@ -46,7 +47,9 @@ public sealed class AutopilotGraphTokenService(
         ArgumentException.ThrowIfNullOrWhiteSpace(clientId);
         ArgumentNullException.ThrowIfNull(certificate);
 
-        string tokenEndpoint = $"https://login.microsoftonline.com/{tenantId.Trim()}/oauth2/v2.0/token";
+        if (options.RequestTimeout <= TimeSpan.Zero || options.RequestTimeout > TimeSpan.FromSeconds(30))
+            throw new ArgumentOutOfRangeException(nameof(options));
+        string tokenEndpoint = $"https://login.microsoftonline.com/{Uri.EscapeDataString(tenantId.Trim())}/oauth2/v2.0/token";
         string clientAssertion = CreateClientAssertion(tokenEndpoint, clientId.Trim(), certificate);
 
         return await HttpRetryPolicy.ExecuteAsync(
@@ -60,16 +63,10 @@ public sealed class AutopilotGraphTokenService(
                     ["client_assertion_type"] = ClientAssertionType,
                     ["client_assertion"] = clientAssertion
                 });
-                using HttpResponseMessage response = await httpClient.PostAsync(tokenEndpoint, content, ct)
+                using var request = new HttpRequestMessage(HttpMethod.Post, tokenEndpoint) { Content = content };
+                using HttpResponseMessage response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, ct)
                     .ConfigureAwait(false);
-                string responseBody = await response.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new HttpRequestException(
-                        $"Microsoft Entra token request failed with status code {(int)response.StatusCode}: {ReadOAuthError(responseBody)}.",
-                        null,
-                        response.StatusCode);
-                }
+                string responseBody = await BoundedHttpContent.ReadStringAsync(response, 32L * 1024 * 1024, ct).ConfigureAwait(false);
 
                 using JsonDocument document = JsonDocument.Parse(responseBody);
                 if (!document.RootElement.TryGetProperty("access_token", out JsonElement tokenElement) ||
@@ -86,6 +83,7 @@ public sealed class AutopilotGraphTokenService(
             HttpOperationOptions.Metadata with
             {
                 MaximumAttempts = checked(options.RetryCount + 1),
+                RequestTimeout = options.RequestTimeout,
                 InitialRetryDelay = options.RetryDelay,
                 MaximumRetryDelay = options.RetryDelay > HttpOperationOptions.Metadata.MaximumRetryDelay
                     ? options.RetryDelay : HttpOperationOptions.Metadata.MaximumRetryDelay
@@ -129,34 +127,6 @@ public sealed class AutopilotGraphTokenService(
         return $"{unsignedToken}.{Base64UrlEncode(signature)}";
     }
 
-    private static string ReadOAuthError(string responseBody)
-    {
-        if (string.IsNullOrWhiteSpace(responseBody))
-        {
-            return "No error body was returned";
-        }
-
-        try
-        {
-            using JsonDocument document = JsonDocument.Parse(responseBody);
-            string? code = document.RootElement.TryGetProperty("error", out JsonElement error)
-                ? error.GetString()
-                : null;
-            string? description = document.RootElement.TryGetProperty("error_description", out JsonElement descriptionElement)
-                ? descriptionElement.GetString()
-                : null;
-            return string.Join(
-                ": ",
-                new[] { code, description }
-                    .Where(value => !string.IsNullOrWhiteSpace(value))
-                    .Select(value => value!.Trim()));
-        }
-        catch (JsonException)
-        {
-            return responseBody.Length <= 500 ? responseBody : responseBody[..500];
-        }
-    }
-
     private static string Base64UrlEncode(byte[] value)
     {
         return Convert.ToBase64String(value)
@@ -170,4 +140,5 @@ public sealed record AutopilotGraphTokenServiceOptions
 {
     public int RetryCount { get; init; } = HttpRetryPolicy.DefaultRetryCount;
     public TimeSpan RetryDelay { get; init; } = HttpRetryPolicy.DefaultRetryDelay;
+    public TimeSpan RequestTimeout { get; init; } = TimeSpan.FromSeconds(30);
 }

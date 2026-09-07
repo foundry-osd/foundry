@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Net;
-using System.Net.Http.Headers;
 using System.Text.Json;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Deployment;
@@ -13,904 +12,280 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class AutopilotGraphImportClientTests
 {
+    private static AutopilotGraphImportRequest Request => new("secret-token", "SERIAL", "aGFzaA==", "New", null, "request-current");
+    private const string CompleteImport = """{"value":[{"id":"imported-current","importId":"request-current","serialNumber":"SERIAL","hardwareIdentifier":"aGFzaA==","state":{"deviceImportStatus":"complete","deviceRegistrationId":"registration-current"}}]}""";
+
     [Fact]
-    public async Task ImportHardwareHashAsync_SerializesGraphImportPayload()
+    public async Task ImportHardwareHashAsync_ReportsRequestDeadlineSeparately()
     {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": { "deviceImportStatus": "complete" }
-                }
-              ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                { "id": "device-id", "serialNumber": "SER123", "groupTag": "Sales" }
-              ]
-            }
-            """);
-
-        AutopilotGraphImportClient client = CreateClient(handler);
-
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "aGFyZHdhcmVIYXNo",
-                "Sales",
-                null,
-                "import-123"),
-            CancellationToken.None);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.Completed, result.State);
-        RecordedGraphRequest importRequest = handler.Requests[0];
-        Assert.Equal(HttpMethod.Post, importRequest.Method);
-        Assert.Equal("/v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities/import", importRequest.PathAndQuery);
-        Assert.Equal(new AuthenticationHeaderValue("Bearer", "access-token").ToString(), importRequest.Authorization);
-
-        using JsonDocument body = JsonDocument.Parse(importRequest.Body!);
-        JsonElement importedDevice = body.RootElement
-            .GetProperty("importedWindowsAutopilotDeviceIdentities")[0];
-        Assert.Equal("#microsoft.graph.importedWindowsAutopilotDeviceIdentity", importedDevice.GetProperty("@odata.type").GetString());
-        Assert.Equal("SER123", importedDevice.GetProperty("serialNumber").GetString());
-        Assert.Equal("aGFyZHdhcmVIYXNo", importedDevice.GetProperty("hardwareIdentifier").GetString());
-        Assert.Equal("Sales", importedDevice.GetProperty("groupTag").GetString());
-        Assert.Equal("import-123", importedDevice.GetProperty("importId").GetString());
-        Assert.DoesNotContain("access-token", importRequest.Body, StringComparison.Ordinal);
-        Assert.DoesNotContain("pfx", importRequest.Body, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("password", importRequest.Body, StringComparison.OrdinalIgnoreCase);
+        using var handler = new DelegateHandler(async (_, token) => { await Task.Delay(Timeout.InfiniteTimeSpan, token); throw new InvalidOperationException(); });
+        var client = CreateClient(handler, Limits() with { RequestTimeout = TimeSpan.FromMilliseconds(30) });
+        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(Request, TestContext.Current.CancellationToken);
+        Assert.Equal("RequestTimedOut", result.FailureCode);
+        Assert.Equal(1, handler.Count);
     }
 
     [Fact]
-    public async Task ImportHardwareHashAsync_WhenTransientGraphFailureOccurs_RetriesAndSucceeds()
+    public async Task ImportHardwareHashAsync_PreservesCallerCancellation()
     {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueText(HttpStatusCode.ServiceUnavailable, "temporary");
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": { "deviceImportStatus": "complete" }
-                }
-              ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            { "value": [ { "id": "device-id", "serialNumber": "SER123" } ] }
-            """);
-
-        AutopilotGraphImportClient client = CreateClient(handler);
-
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "aGFyZHdhcmVIYXNo",
-                null,
-                null,
-                "import-123"),
-            CancellationToken.None);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.Completed, result.State);
-        Assert.Equal(2, handler.Requests.Count(request =>
-            request.Method == HttpMethod.Post &&
-            request.PathAndQuery == "/v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities/import"));
+        using var cancelled = new CancellationTokenSource(TimeSpan.FromMilliseconds(30));
+        using var handler = new DelegateHandler(async (_, token) => { await Task.Delay(Timeout.InfiniteTimeSpan, token); throw new InvalidOperationException(); });
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => CreateClient(handler, Limits()).ImportHardwareHashAsync(Request, cancelled.Token));
     }
 
     [Fact]
-    public async Task ImportHardwareHashAsync_WhenGraphValidationFails_DoesNotRetry()
+    public async Task ImportHardwareHashAsync_GroupTagConfirmationSharesWorkflowDeadline()
     {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.BadRequest, """
-            {
-              "error": {
-                "code": "BadRequest",
-                "message": "Invalid hardware identifier."
-              }
-            }
-            """);
-
-        AutopilotGraphImportClient client = CreateClient(handler);
-
-        await Assert.ThrowsAsync<HttpRequestException>(() => client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "invalid",
-                null,
-                null,
-                "import-123"),
-            CancellationToken.None));
-
-        Assert.Single(handler.Requests);
-    }
-
-    [Fact]
-    public async Task ImportHardwareHashAsync_WhenImportFails_ReturnsNonBlockingUploadFailure()
-    {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": {
-                    "deviceImportStatus": "error",
-                    "deviceErrorCode": 400,
-                    "deviceErrorName": "InvalidHardwareIdentifier"
-                  }
-                }
-              ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
-
-        AutopilotGraphImportClient client = CreateClient(handler);
-
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "aGFyZHdhcmVIYXNo",
-                null,
-                null,
-                "import-123"),
-            CancellationToken.None);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.UploadFailed, result.State);
-        Assert.Contains("InvalidHardwareIdentifier", result.Message, StringComparison.Ordinal);
-        Assert.Equal("400", result.FailureCode);
-    }
-
-    [Fact]
-    public async Task ImportHardwareHashAsync_WhenDeviceVisibilityTimesOut_ReturnsTimedOutWithoutThrowing()
-    {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": { "deviceImportStatus": "complete" }
-                }
-              ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
-
-        AutopilotGraphImportClient client = CreateClient(
-            handler,
-            new AutopilotGraphImportClientOptions
-            {
-                RetryDelay = TimeSpan.Zero,
-                PollInterval = TimeSpan.Zero,
-                VisibilityTimeout = TimeSpan.Zero
-            });
-        List<AutopilotHardwareHashUploadProgress> progressReports = [];
-
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "aGFyZHdhcmVIYXNo",
-                null,
-                null,
-                "import-123"),
-            new CapturingAutopilotUploadProgress(progressReports),
-            CancellationToken.None);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.UploadTimedOut, result.State);
-        Assert.Contains("did not appear", result.Message, StringComparison.OrdinalIgnoreCase);
-        Assert.Contains(progressReports, progress =>
-            progress.IsIndeterminate &&
-            progress.Detail?.Contains("remaining", StringComparison.OrdinalIgnoreCase) == true);
-    }
-
-    [Fact]
-    public async Task ImportHardwareHashAsync_WhenImportIsCompleteButDeviceIsAbsent_KeepsPollingUntilTimeout()
-    {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": { "deviceImportStatus": "complete" }
-                }
-              ]
-            }
-            """);
-        for (int i = 0; i < 500; i++)
+        int updates = 0;
+        using var handler = new DelegateHandler(async (request, token) =>
         {
-            handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
-        }
-
-        AutopilotGraphImportClient client = CreateClient(
-            handler,
-            new AutopilotGraphImportClientOptions
-            {
-                RetryDelay = TimeSpan.Zero,
-                PollInterval = TimeSpan.FromMilliseconds(20),
-                VisibilityTimeout = TimeSpan.FromMilliseconds(70)
-            });
-
-        DateTimeOffset startedAt = DateTimeOffset.UtcNow;
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "aGFyZHdhcmVIYXNo",
-                null,
-                null,
-                "import-123"),
-            CancellationToken.None);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.UploadTimedOut, result.State);
-        Assert.True(DateTimeOffset.UtcNow - startedAt >= TimeSpan.FromMilliseconds(60));
-        Assert.True(handler.Requests.Count(request =>
-            request.PathAndQuery.StartsWith(
-                "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
-                StringComparison.Ordinal)) >= 2);
+            await Task.Delay(5, token);
+            string path = request.RequestUri!.AbsolutePath;
+            if (path.EndsWith("/import", StringComparison.Ordinal)) return Json(CompleteImport);
+            if (path.EndsWith("/updateDeviceProperties", StringComparison.Ordinal)) { updates++; return new(HttpStatusCode.NoContent); }
+            return Json("""{"id":"registration-current","serialNumber":"SERIAL","groupTag":"Old"}""");
+        });
+        AutopilotHardwareHashUploadResult result = await CreateClient(handler, Limits() with { WorkflowTimeout = TimeSpan.FromMilliseconds(100) })
+            .ImportHardwareHashAsync(Request, TestContext.Current.CancellationToken);
+        Assert.Equal("WorkflowTimedOut", result.FailureCode);
+        Assert.Equal(1, updates);
     }
 
     [Fact]
-    public async Task ImportHardwareHashAsync_WhenWaitingForDeviceVisibility_UpdatesProgressMoreOftenThanGraphPolling()
+    public async Task ImportHardwareHashAsync_RetriesExplicitThrottlingAndPreservesPayload()
     {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": { "deviceImportStatus": "complete" }
-                }
-              ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
-        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+        int imports = 0;
+        using var handler = new DelegateHandler((request, _) =>
+        {
+            if (request.RequestUri!.AbsolutePath.EndsWith("/import", StringComparison.Ordinal))
+                return Task.FromResult(++imports == 1 ? new HttpResponseMessage(HttpStatusCode.TooManyRequests) : Json(CompleteImport));
+            return Task.FromResult(Json("""{"id":"registration-current","serialNumber":"SERIAL","groupTag":"New"}"""));
+        });
+        Assert.True((await CreateClient(handler, Limits() with { RetryCount = 1 }).ImportHardwareHashAsync(Request, TestContext.Current.CancellationToken)).IsCompleted);
+        Assert.Equal(2, imports);
+    }
 
-        AutopilotGraphImportClient client = CreateClient(
-            handler,
-            new AutopilotGraphImportClientOptions
-            {
-                RetryDelay = TimeSpan.Zero,
-                PollInterval = TimeSpan.FromMilliseconds(300),
-                VisibilityTimeout = TimeSpan.FromMilliseconds(280),
-                ProgressInterval = TimeSpan.FromMilliseconds(50)
-            });
-        List<AutopilotHardwareHashUploadProgress> progressReports = [];
+    [Theory]
+    [InlineData(HttpStatusCode.BadRequest)]
+    [InlineData(HttpStatusCode.ServiceUnavailable)]
+    public async Task ImportHardwareHashAsync_UnconfirmedMutationDoesNotRetryOrExposeBody(HttpStatusCode status)
+    {
+        using var handler = new DelegateHandler((_, _) => Task.FromResult(Json("private-token-and-tenant-details", status)));
+        HttpRequestException failure = await Assert.ThrowsAnyAsync<HttpRequestException>(() => CreateClient(handler, Limits() with { RetryCount = 2 })
+            .ImportHardwareHashAsync(Request, TestContext.Current.CancellationToken));
+        Assert.Equal(1, handler.Count);
+        Assert.DoesNotContain("private-token", failure.ToString(), StringComparison.Ordinal);
+    }
 
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "aGFyZHdhcmVIYXNo",
-                null,
-                null,
-                "import-123"),
-            new CapturingAutopilotUploadProgress(progressReports),
-            CancellationToken.None);
-
-        int visibilityPolls = handler.Requests.Count(request =>
-            request.PathAndQuery.StartsWith(
-                "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
-                StringComparison.Ordinal));
-        int countdownReports = progressReports.Count(progress =>
-            progress.Detail?.StartsWith("Checking Windows Autopilot devices", StringComparison.Ordinal) == true);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.UploadTimedOut, result.State);
-        Assert.Equal(2, visibilityPolls);
-        Assert.True(countdownReports > visibilityPolls);
+    [Theory]
+    [InlineData("https://attacker.invalid/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?page=2")]
+    [InlineData("http://graph.microsoft.com/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?page=2")]
+    [InlineData("https://graph.microsoft.com/v1.0/users")]
+    [InlineData("https://graph.microsoft.com/v1.0/deviceManagement/windowsAutopilotDeviceIdentities")]
+    public async Task ListGroupTagsAsync_RejectsForeignOrCyclicLinksBeforeSending(string nextLink)
+    {
+        using var handler = new DelegateHandler((_, _) => Task.FromResult(Json(JsonSerializer.Serialize(new Dictionary<string, object> { ["value"] = Array.Empty<object>(), ["@odata.nextLink"] = nextLink }))));
+        await Assert.ThrowsAsync<InvalidDataException>(() => CreateClient(handler).ListGroupTagsAsync("secret-token", TestContext.Current.CancellationToken));
+        Assert.Equal(1, handler.Count);
     }
 
     [Fact]
-    public async Task ImportHardwareHashAsync_WhenCheckingDeviceVisibility_UsesUnfilteredDeviceList()
+    public async Task ListGroupTagsAsync_BoundsPagesAndHonorsRetryAfter()
     {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
+        int calls = 0;
+        using var handler = new DelegateHandler((_, _) =>
+        {
+            if (++calls == 1)
             {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "VMware-56 4d a9 71 fa ed 42 8b-e2 4c 5e e8 f9 e9 72 04",
-                  "importId": "import-123",
-                  "state": { "deviceImportStatus": "complete" }
-                }
-              ]
+                var response = new HttpResponseMessage(HttpStatusCode.TooManyRequests);
+                response.Headers.RetryAfter = new System.Net.Http.Headers.RetryConditionHeaderValue(TimeSpan.FromMilliseconds(50));
+                return Task.FromResult(response);
             }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "device-id",
-                  "serialNumber": "VMware-56 4d a9 71 fa ed 42 8b-e2 4c 5e e8 f9 e9 72 04"
-                }
-              ]
-            }
-            """);
-
-        AutopilotGraphImportClient client = CreateClient(handler);
-
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "VMware-56 4d a9 71 fa ed 42 8b-e2 4c 5e e8 f9 e9 72 04",
-                "aGFyZHdhcmVIYXNo",
-                null,
-                null,
-                "import-123"),
-            CancellationToken.None);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.Completed, result.State);
-        Assert.Equal("device-id", result.AutopilotDeviceId);
-        Assert.Contains(handler.Requests, request =>
-            request.PathAndQuery == "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities");
-        Assert.DoesNotContain(handler.Requests, request =>
-            request.PathAndQuery.Contains("$filter", StringComparison.Ordinal));
+            return Task.FromResult(Json("""{"value":[{"groupTag":" New "}],"@odata.nextLink":"https://graph.microsoft.com/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$skiptoken=second"}"""));
+        });
+        var elapsed = System.Diagnostics.Stopwatch.StartNew();
+        await Assert.ThrowsAsync<InvalidDataException>(() => CreateClient(handler, Limits() with { RetryCount = 1, MaximumGroupTagPages = 1 })
+            .ListGroupTagsAsync("secret-token", TestContext.Current.CancellationToken));
+        Assert.Equal(2, calls);
+        Assert.True(elapsed.Elapsed >= TimeSpan.FromMilliseconds(40));
     }
 
     [Fact]
-    public async Task ImportHardwareHashAsync_WhenDeviceVisibilityListIsPaged_FollowsNextLink()
+    public async Task ListGroupTagsAsync_ReadsDistinctTagsAcrossBoundedPages()
     {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": { "deviceImportStatus": "complete" }
-                }
-              ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "@odata.nextLink": "https://graph.microsoft.com/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$skiptoken=page-2",
-              "value": []
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                { "id": "device-id", "serialNumber": "SER123" }
-              ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+        int calls = 0;
+        using var handler = new DelegateHandler((_, _) => Task.FromResult(Json(++calls == 1
+            ? """{"value":[{"groupTag":" A "}],"@odata.nextLink":"https://graph.microsoft.com/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$skiptoken=second"}"""
+            : """{"value":[{"groupTag":"a"},{"groupTag":"B"}]}""")));
+        Assert.Equal(new[] { "A", "B" }, await CreateClient(handler).ListGroupTagsAsync("secret-token", TestContext.Current.CancellationToken));
+    }
 
-        AutopilotGraphImportClient client = CreateClient(handler);
-
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "aGFyZHdhcmVIYXNo",
-                null,
-                null,
-                "import-123"),
-            CancellationToken.None);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.Completed, result.State);
-        Assert.Equal("device-id", result.AutopilotDeviceId);
-        Assert.Equal(
-            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
-            handler.Requests[^2].PathAndQuery);
-        Assert.Equal(
-            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$skiptoken=page-2",
-            handler.Requests[^1].PathAndQuery);
+    private static AutopilotGraphImportClientOptions Limits() => new()
+    {
+        RetryCount = 0,
+        RetryDelay = TimeSpan.Zero,
+        PollInterval = TimeSpan.Zero,
+        RequestTimeout = TimeSpan.FromSeconds(1),
+        WorkflowTimeout = TimeSpan.FromSeconds(2),
+        VisibilityTimeout = TimeSpan.FromSeconds(1)
+    };
+    private static HttpResponseMessage Json(string json, HttpStatusCode status = HttpStatusCode.OK) => new(status) { Content = new StringContent(json) };
+    private sealed class DelegateHandler(Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> send) : HttpMessageHandler
+    {
+        public int Count { get; private set; }
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken token) { Count++; return send(request, token); }
     }
 
     [Fact]
-    public async Task ImportHardwareHashAsync_WhenImportStatusListIsPaged_FollowsNextLink()
+    public async Task ImportHardwareHashAsync_RejectsOversizedMetadataBeforeReading()
     {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "initial-imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": { "deviceImportStatus": "pending" }
-                }
-              ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "@odata.nextLink": "https://graph.microsoft.com/v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities?$skiptoken=page-2",
-              "value": []
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": { "deviceImportStatus": "complete" }
-                }
-              ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                { "id": "device-id", "serialNumber": "SER123" }
-              ]
-            }
-            """);
-
-        AutopilotGraphImportClient client = CreateClient(handler);
-
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "aGFyZHdhcmVIYXNo",
-                null,
-                null,
-                "import-123"),
-            CancellationToken.None);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.Completed, result.State);
-        Assert.Equal("device-id", result.AutopilotDeviceId);
-        Assert.Contains(handler.Requests, request =>
-            request.PathAndQuery.StartsWith(
-                "/v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities?$filter=",
-                StringComparison.Ordinal));
-        Assert.Contains(handler.Requests, request =>
-            request.PathAndQuery == "/v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities?$skiptoken=page-2");
+        using var handler = new DelegateHandler((_, _) =>
+        {
+            HttpResponseMessage response = Json(CompleteImport);
+            response.Content.Headers.ContentLength = 32L * 1024 * 1024 + 1;
+            return Task.FromResult(response);
+        });
+        Assert.Equal("IdentityUnconfirmed", (await CreateClient(handler).ImportHardwareHashAsync(Request, TestContext.Current.CancellationToken)).FailureCode);
+        Assert.Equal(1, handler.Count);
     }
 
     [Fact]
-    public async Task ImportHardwareHashAsync_WhenDeviceAppearsBeforeImportCompletion_Completes()
+    public async Task ImportHardwareHashAsync_DelayedVisibilityHasProgressWithinPolls()
     {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": { "deviceImportStatus": "pending" }
-                }
-              ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            { "value": [ { "id": "device-id", "serialNumber": "SER123" } ] }
-            """);
-        AutopilotGraphImportClient client = CreateClient(handler);
-
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "aGFyZHdhcmVIYXNo",
-                null,
-                null,
-                "import-123"),
-            CancellationToken.None);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.Completed, result.State);
-        Assert.Equal("device-id", result.AutopilotDeviceId);
-        Assert.Equal(
-            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
-            handler.Requests[^1].PathAndQuery);
-    }
-
-    [Fact]
-    public async Task ImportHardwareHashAsync_WhenAutopilotDeviceAlreadyExistsWithDifferentGroupTag_UpdatesGroupTagBeforeCompleting()
-    {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": {
-                    "deviceImportStatus": "error",
-                    "deviceErrorCode": 806,
-                    "deviceErrorName": "ZtdDeviceAlreadyAssigned"
-                  }
-                }
-              ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                { "id": "device-id", "serialNumber": "SER123", "groupTag": "A" }
-              ]
-            }
-            """);
-        handler.EnqueueText(HttpStatusCode.NoContent, string.Empty);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                { "id": "device-id", "serialNumber": "SER123", "groupTag": "B" }
-              ]
-            }
-            """);
-
-        AutopilotGraphImportClient client = CreateClient(handler);
-
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "aGFyZHdhcmVIYXNo",
-                "B",
-                null,
-                "import-123"),
-            CancellationToken.None);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.Completed, result.State);
-        Assert.Equal("device-id", result.AutopilotDeviceId);
-        Assert.Equal(
-            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
-            handler.Requests[1].PathAndQuery);
-        Assert.Equal(HttpMethod.Post, handler.Requests[2].Method);
-        Assert.Equal(
-            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities/device-id/updateDeviceProperties",
-            handler.Requests[2].PathAndQuery);
-        Assert.Equal(
-            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
-            handler.Requests[3].PathAndQuery);
-        Assert.Contains(handler.Requests, request =>
-            request.PathAndQuery == "/v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities/import");
-
-        using JsonDocument body = JsonDocument.Parse(handler.Requests[2].Body!);
-        Assert.Equal("B", body.RootElement.GetProperty("groupTag").GetString());
-    }
-
-    [Fact]
-    public async Task ImportHardwareHashAsync_WhenAutopilotDeviceAlreadyExistsAndSelectedGroupTagIsNone_ClearsGroupTag()
-    {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": {
-                    "deviceImportStatus": "error",
-                    "deviceErrorCode": 806,
-                    "deviceErrorName": "ZtdDeviceAlreadyAssigned"
-                  }
-                }
-              ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                { "id": "device-id", "serialNumber": "SER123", "groupTag": "A" }
-              ]
-            }
-            """);
-        handler.EnqueueText(HttpStatusCode.NoContent, string.Empty);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                { "id": "device-id", "serialNumber": "SER123", "groupTag": "" }
-              ]
-            }
-            """);
-
-        AutopilotGraphImportClient client = CreateClient(handler);
-
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "aGFyZHdhcmVIYXNo",
-                null,
-                null,
-                "import-123"),
-            CancellationToken.None);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.Completed, result.State);
-        Assert.Equal("device-id", result.AutopilotDeviceId);
-
-        using JsonDocument body = JsonDocument.Parse(handler.Requests[2].Body!);
-        Assert.Equal(string.Empty, body.RootElement.GetProperty("groupTag").GetString());
-        Assert.Equal(
-            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
-            handler.Requests[3].PathAndQuery);
-    }
-
-    [Fact]
-    public async Task ImportHardwareHashAsync_WhenImportReportsExistingDevice_WaitsForVisibleDeviceUntilTimeout()
-    {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": {
-                    "deviceImportStatus": "error",
-                    "deviceErrorCode": 806,
-                    "deviceErrorName": "ZtdDeviceAlreadyAssigned"
-                  }
-                }
-              ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
-
-        AutopilotGraphImportClient client = CreateClient(
-            handler,
-            new AutopilotGraphImportClientOptions
-            {
-                RetryDelay = TimeSpan.Zero,
-                PollInterval = TimeSpan.Zero,
-                VisibilityTimeout = TimeSpan.Zero
-            });
-
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "aGFyZHdhcmVIYXNo",
-                null,
-                null,
-                "import-123"),
-            CancellationToken.None);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.UploadTimedOut, result.State);
+        var reports = new List<AutopilotHardwareHashUploadProgress>();
+        using var handler = new DelegateHandler((request, _) => Task.FromResult(request.RequestUri!.AbsolutePath.EndsWith("/import", StringComparison.Ordinal)
+            ? Json(CompleteImport) : new HttpResponseMessage(HttpStatusCode.NotFound)));
+        var client = CreateClient(handler, Limits() with { VisibilityTimeout = TimeSpan.FromMilliseconds(100), PollInterval = TimeSpan.FromMilliseconds(70), ProgressInterval = TimeSpan.FromMilliseconds(10) });
+        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(Request, new InlineProgress(reports), TestContext.Current.CancellationToken);
         Assert.Equal("AutopilotDeviceTimedOut", result.FailureCode);
+        Assert.True(reports.Count > handler.Count);
+    }
+
+    private sealed class InlineProgress(List<AutopilotHardwareHashUploadProgress> reports) : IProgress<AutopilotHardwareHashUploadProgress>
+    {
+        public void Report(AutopilotHardwareHashUploadProgress value) => reports.Add(value);
     }
 
     [Fact]
-    public async Task ImportHardwareHashAsync_WhenMultipleAutopilotDevicesMatchSerial_DoesNotUpdateGroupTag()
+    public async Task ImportHardwareHashAsync_VisibilityDeadlinePreventsLatePropertyMutation()
     {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": {
-                    "deviceImportStatus": "error",
-                    "deviceErrorCode": 806,
-                    "deviceErrorName": "ZtdDeviceAlreadyAssigned"
-                  }
-                }
-              ]
-            }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                { "id": "device-id-1", "serialNumber": "SER123", "groupTag": "A" },
-                { "id": "device-id-2", "serialNumber": "SER123", "groupTag": "B" }
-              ]
-            }
-            """);
-
-        AutopilotGraphImportClient client = CreateClient(handler);
-
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "aGFyZHdhcmVIYXNo",
-                "C",
-                null,
-                "import-123"),
-            CancellationToken.None);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.UploadFailed, result.State);
-        Assert.Equal("AutopilotDeviceAmbiguous", result.FailureCode);
-        Assert.DoesNotContain(handler.Requests, request =>
-            request.PathAndQuery.Contains("updateDeviceProperties", StringComparison.Ordinal));
+        int updates = 0;
+        using var handler = new DelegateHandler(async (request, _) =>
+        {
+            if (request.RequestUri!.AbsolutePath.EndsWith("/import", StringComparison.Ordinal)) return Json(CompleteImport);
+            if (request.Method == HttpMethod.Post) { updates++; return new(HttpStatusCode.NoContent); }
+            await Task.Delay(80, TestContext.Current.CancellationToken);
+            return Json("""{"id":"registration-current","serialNumber":"SERIAL","groupTag":"Old"}""");
+        });
+        AutopilotHardwareHashUploadResult result = await CreateClient(handler, Limits() with { VisibilityTimeout = TimeSpan.FromMilliseconds(20) })
+            .ImportHardwareHashAsync(Request, TestContext.Current.CancellationToken);
+        Assert.Equal("AutopilotDeviceTimedOut", result.FailureCode);
+        Assert.Equal(0, updates);
     }
 
     [Fact]
-    public async Task ImportHardwareHashAsync_WhenExistingDeviceGroupTagUpdateIsNotConfirmed_ReturnsTimedOut()
+    public async Task ImportHardwareHashAsync_PendingImportDoesNotConsumeRegistrationVisibilityBudget()
     {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
+        using var handler = new DelegateHandler(async (request, token) =>
+        {
+            string path = request.RequestUri!.AbsolutePath;
+            if (path.EndsWith("/import", StringComparison.Ordinal)) return Json(CompleteImport.Replace("complete", "pending", StringComparison.Ordinal));
+            if (path.Contains("/importedWindowsAutopilotDeviceIdentities/", StringComparison.Ordinal))
             {
-              "value": [
-                {
-                  "id": "imported-id",
-                  "serialNumber": "SER123",
-                  "importId": "import-123",
-                  "state": {
-                    "deviceImportStatus": "error",
-                    "deviceErrorCode": 806,
-                    "deviceErrorName": "ZtdDeviceAlreadyAssigned"
-                  }
-                }
-              ]
+                await Task.Delay(60, token);
+                using JsonDocument complete = JsonDocument.Parse(CompleteImport);
+                return Json(complete.RootElement.GetProperty("value")[0].GetRawText());
             }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                { "id": "device-id", "serialNumber": "SER123", "groupTag": "A" }
-              ]
-            }
-            """);
-        handler.EnqueueText(HttpStatusCode.NoContent, string.Empty);
-        handler.EnqueueJson(HttpStatusCode.OK, """
-            {
-              "value": [
-                { "id": "device-id", "serialNumber": "SER123", "groupTag": "A" }
-              ]
-            }
-            """);
-
-        AutopilotGraphImportClient client = CreateClient(
-            handler,
-            new AutopilotGraphImportClientOptions
-            {
-                RetryDelay = TimeSpan.Zero,
-                PollInterval = TimeSpan.Zero,
-                VisibilityTimeout = TimeSpan.Zero
-            });
-
-        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
-            new AutopilotGraphImportRequest(
-                "access-token",
-                "SER123",
-                "aGFyZHdhcmVIYXNo",
-                "B",
-                null,
-                "import-123"),
-            CancellationToken.None);
-
-        Assert.Equal(AutopilotHardwareHashUploadState.UploadTimedOut, result.State);
-        Assert.Equal("AutopilotGroupTagUpdateTimedOut", result.FailureCode);
-        Assert.Equal("device-id", result.AutopilotDeviceId);
+            return Json("""{"id":"registration-current","serialNumber":"SERIAL","groupTag":"New"}""");
+        });
+        Assert.True((await CreateClient(handler, Limits() with { VisibilityTimeout = TimeSpan.FromMilliseconds(30) })
+            .ImportHardwareHashAsync(Request, TestContext.Current.CancellationToken)).IsCompleted);
     }
 
     [Fact]
-    public async Task ListGroupTagsAsync_ReadsPagedAutopilotDevicesAndReturnsDistinctTags()
+    public async Task ListGroupTagsAsync_RetriesTransientReadFailure()
     {
-        var handler = new QueuedGraphHandler();
-        handler.EnqueueJson(HttpStatusCode.OK, """
+        int count = 0;
+        using var handler = new DelegateHandler((_, _) => Task.FromResult(++count == 1
+            ? new HttpResponseMessage(HttpStatusCode.ServiceUnavailable) : Json("""{"value":[]}""")));
+        Assert.Empty(await CreateClient(handler, Limits() with { RetryCount = 1 }).ListGroupTagsAsync("token", TestContext.Current.CancellationToken));
+        Assert.Equal(2, count);
+    }
+
+    public static IEnumerable<object[]> ProtocolFixtures => Directory.EnumerateFiles(
+        Path.Combine(AppContext.BaseDirectory, "Fixtures", "Autopilot"), "*.json").Select(path => new object[] { path });
+
+    [Theory]
+    [MemberData(nameof(ProtocolFixtures))]
+    public async Task ImportHardwareHashAsync_FollowsAuthoritativeProtocolFixture(string fixturePath)
+    {
+        using JsonDocument fixture = JsonDocument.Parse(await File.ReadAllTextAsync(fixturePath, TestContext.Current.CancellationToken));
+        using var handler = new FixtureHandler(fixture.RootElement);
+        var client = CreateClient(handler);
+        JsonElement input = fixture.RootElement.GetProperty("request");
+        var request = new AutopilotGraphImportRequest("secret-access-token", input.GetProperty("serialNumber").GetString()!,
+            input.GetProperty("hardwareIdentifier").GetString()!, input.GetProperty("groupTag").GetString(), null,
+            input.GetProperty("importId").GetString()!);
+        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(request, TestContext.Current.CancellationToken);
+        JsonElement expected = fixture.RootElement.GetProperty("expected");
+        Assert.Equal(expected.GetProperty("status").GetString() == "completed", result.IsCompleted);
+        Assert.Equal(expected.GetProperty("code").GetString(), result.FailureCode);
+        Assert.Equal(expected.GetProperty("propertyUpdateCount").GetInt32(), handler.UpdateCount);
+        Assert.Equal(expected.GetProperty("registrationId").GetString(), result.AutopilotDeviceId);
+        Assert.DoesNotContain(handler.Paths, path => path.Contains("?", StringComparison.Ordinal));
+        using JsonDocument body = JsonDocument.Parse(handler.ImportBody!);
+        JsonElement submitted = body.RootElement.GetProperty("importedWindowsAutopilotDeviceIdentities")[0];
+        Assert.Equal(request.HardwareIdentifier, submitted.GetProperty("hardwareIdentifier").GetString());
+        Assert.Equal(request.ImportId, submitted.GetProperty("importId").GetString());
+        Assert.DoesNotContain(request.AccessToken, JsonSerializer.Serialize(result), StringComparison.Ordinal);
+    }
+
+    private static AutopilotGraphImportClient CreateClient(HttpMessageHandler handler, AutopilotGraphImportClientOptions? options = null) => new(
+        new HttpClient(handler) { BaseAddress = new Uri("https://graph.microsoft.com/") },
+        NullLogger<AutopilotGraphImportClient>.Instance,
+        options ?? new AutopilotGraphImportClientOptions { RetryCount = 0, RetryDelay = TimeSpan.Zero, PollInterval = TimeSpan.Zero, VisibilityTimeout = TimeSpan.FromMilliseconds(200) });
+
+    private sealed class FixtureHandler(JsonElement fixture) : HttpMessageHandler
+    {
+        private int _poll;
+        private int _device;
+        public int UpdateCount { get; private set; }
+        public List<string> Paths { get; } = [];
+        public string? ImportBody { get; private set; }
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            string path = request.RequestUri!.PathAndQuery;
+            Paths.Add(path);
+            if (path.EndsWith("/import", StringComparison.Ordinal))
             {
-              "@odata.nextLink": "https://graph.microsoft.com/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$skiptoken=page-2",
-              "value": [
-                { "id": "device-1", "serialNumber": "SER1", "groupTag": " KIOSK " },
-                { "id": "device-2", "serialNumber": "SER2", "groupTag": "" }
-              ]
+                ImportBody = await request.Content!.ReadAsStringAsync(cancellationToken);
+                return Json(HttpStatusCode.OK, fixture.GetProperty("importResponse"));
             }
-            """);
-        handler.EnqueueJson(HttpStatusCode.OK, """
+            if (path.EndsWith("/updateDeviceProperties", StringComparison.Ordinal))
             {
-              "value": [
-                { "id": "device-3", "serialNumber": "SER3", "groupTag": "HAADJ" },
-                { "id": "device-4", "serialNumber": "SER4", "groupTag": "kiosk" }
-              ]
+                Assert.Contains("/registration-current/", path, StringComparison.Ordinal);
+                UpdateCount++;
+                return new(HttpStatusCode.NoContent);
             }
-            """);
-        AutopilotGraphImportClient client = CreateClient(handler);
-
-        IReadOnlyList<string> groupTags = await client.ListGroupTagsAsync("access-token", CancellationToken.None);
-
-        Assert.Equal(["HAADJ", "KIOSK"], groupTags);
-        Assert.Equal(
-            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities",
-            handler.Requests[0].PathAndQuery);
-        Assert.Equal(
-            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$skiptoken=page-2",
-            handler.Requests[1].PathAndQuery);
-    }
-
-    private static AutopilotGraphImportClient CreateClient(
-        QueuedGraphHandler handler,
-        AutopilotGraphImportClientOptions? options = null)
-    {
-        return new AutopilotGraphImportClient(
-            new HttpClient(handler)
+            if (path.Contains("/importedWindowsAutopilotDeviceIdentities/", StringComparison.Ordinal))
             {
-                BaseAddress = new Uri("https://graph.microsoft.com/", UriKind.Absolute)
-            },
-            NullLogger<AutopilotGraphImportClient>.Instance,
-            options ?? new AutopilotGraphImportClientOptions
-            {
-                RetryDelay = TimeSpan.Zero,
-                PollInterval = TimeSpan.Zero
-            });
-    }
-
-    private sealed class CapturingAutopilotUploadProgress(List<AutopilotHardwareHashUploadProgress> reports)
-        : IProgress<AutopilotHardwareHashUploadProgress>
-    {
-        public void Report(AutopilotHardwareHashUploadProgress value)
-        {
-            reports.Add(value);
-        }
-    }
-
-    private sealed class QueuedGraphHandler : HttpMessageHandler
-    {
-        private readonly Queue<HttpResponseMessage> responses = new();
-
-        public List<RecordedGraphRequest> Requests { get; } = [];
-
-        public void EnqueueJson(HttpStatusCode statusCode, string json)
-        {
-            HttpResponseMessage response = new(statusCode)
-            {
-                Content = new StringContent(json)
-            };
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            responses.Enqueue(response);
-        }
-
-        public void EnqueueText(HttpStatusCode statusCode, string text)
-        {
-            responses.Enqueue(new HttpResponseMessage(statusCode)
-            {
-                Content = new StringContent(text)
-            });
-        }
-
-        protected override async Task<HttpResponseMessage> SendAsync(
-            HttpRequestMessage request,
-            CancellationToken cancellationToken)
-        {
-            string? body = request.Content is null
-                ? null
-                : await request.Content.ReadAsStringAsync(cancellationToken);
-            Requests.Add(new RecordedGraphRequest(
-                request.Method,
-                request.RequestUri?.PathAndQuery ?? string.Empty,
-                request.Headers.Authorization?.ToString(),
-                body));
-
-            if (responses.Count == 0)
-            {
-                throw new InvalidOperationException("No queued response for Graph request.");
+                Assert.EndsWith("/imported-current", path, StringComparison.Ordinal);
+                JsonElement polls = fixture.GetProperty("importedPolls");
+                return Json(HttpStatusCode.OK, polls.GetArrayLength() == 0 ? fixture.GetProperty("importResponse").GetProperty("value")[0]
+                    : polls[Math.Min(_poll++, polls.GetArrayLength() - 1)]);
             }
-
-            return responses.Dequeue();
+            if (path.Contains("/windowsAutopilotDeviceIdentities/", StringComparison.Ordinal))
+            {
+                Assert.EndsWith("/registration-current", path, StringComparison.Ordinal);
+                JsonElement devices = fixture.GetProperty("deviceResponses");
+                JsonElement response = devices[Math.Min(_device++, devices.GetArrayLength() - 1)];
+                return Json((HttpStatusCode)response.GetProperty("statusCode").GetInt32(), response.GetProperty("body"));
+            }
+            // Legacy lookup responses expose a stale matching serial so the regression cannot pass by absence.
+            if (path.Contains("/windowsAutopilotDeviceIdentities", StringComparison.Ordinal))
+                return new(HttpStatusCode.OK) { Content = new StringContent("{\"value\":[" + fixture.GetProperty("unrelatedDevice").GetRawText() + "]}") };
+            return Json(HttpStatusCode.OK, fixture.GetProperty("importResponse"));
         }
+        private static HttpResponseMessage Json(HttpStatusCode status, JsonElement value) => new(status) { Content = new StringContent(value.GetRawText()) };
     }
-
-    private sealed record RecordedGraphRequest(
-        HttpMethod Method,
-        string PathAndQuery,
-        string? Authorization,
-        string? Body);
 }
