@@ -3002,9 +3002,6 @@
   <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
     <value>亞克力</value>
   </data>
-  <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
-    <value>亞克力薄</value>
-  </data>
   <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
     <value>選擇應用程式主題。</value>
   </data>

@@ -40,6 +40,10 @@ public sealed partial class AboutDialog : ContentDialog
     {
         Loaded -= OnLoaded;
         Closed -= OnClosed;
+        if (ContentFrame.Content is ReleaseNotesDialogPage releaseNotesPage)
+        {
+            releaseNotesPage.CloseWebView();
+        }
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -64,7 +68,7 @@ public sealed partial class AboutDialog : ContentDialog
             0 => typeof(AboutOverviewDialogPage),
             1 => typeof(AboutLicensesDialogPage),
             2 => typeof(AboutContributorsDialogPage),
-            3 => typeof(AboutReleaseNotesDialogPage),
+            3 => typeof(ReleaseNotesDialogPage),
             _ => typeof(AboutOverviewDialogPage)
         };
 
@@ -74,7 +78,7 @@ public sealed partial class AboutDialog : ContentDialog
 
         ContentFrame.Navigate(
             pageType,
-            ViewModel,
+            index == 3 ? ViewModel.ReleasesUri : (object)ViewModel,
             new SlideNavigationTransitionInfo { Effect = effect });
 
         previousSelectedIndex = index;

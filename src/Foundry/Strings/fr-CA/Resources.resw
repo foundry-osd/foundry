@@ -3002,9 +3002,6 @@
   <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
     <value>Acrylique</value>
   </data>
-  <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
-    <value>Acrylique fin</value>
-  </data>
   <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
     <value>Sélectionnez le thème de l'application.</value>
   </data>

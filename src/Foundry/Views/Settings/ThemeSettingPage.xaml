@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.ThemeSettingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -44,9 +44,6 @@
                     <ComboBoxItem
                         x:Uid="ThemeSetting_AcrylicItem"
                         Tag="Acrylic" />
-                    <ComboBoxItem
-                        x:Uid="ThemeSetting_AcrylicThinItem"
-                        Tag="AcrylicThin" />
                 </ComboBox>
             </wct:SettingsCard>
             <wct:SettingsCard x:Uid="ThemeSetting_AccentCard">
@@ -61,4 +58,3 @@
         </StackPanel>
     </ScrollView>
 </Page>
-

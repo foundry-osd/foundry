@@ -3002,9 +3002,6 @@
   <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
     <value>אקריליק</value>
   </data>
-  <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
-    <value>דק אקרילי</value>
-  </data>
   <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
     <value>בחר את נושא היישום.</value>
   </data>

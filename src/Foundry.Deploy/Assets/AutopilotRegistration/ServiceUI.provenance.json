@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "file": "ServiceUI.exe",
+  "fileVersion": "1.3.0.0",
+  "size": 74008,
+  "sha256": "1BE85A64AAD2C3CAA0DC28705B49A1548E85157F4D2D522C20FEC4B4570A623F",
+  "peMachine": "8664",
+  "architecture": "x64",
+  "expectedSigner": "Microsoft Corporation",
+  "observedSignature": {
+    "status": "Valid",
+    "checkedUtc": "2026-09-07",
+    "certificateThumbprint": "D468FAEB5190BF9DECD9827AF470F799C41A769C"
+  },
+  "sourceFamily": "Microsoft Deployment Toolkit",
+  "sourceUrl": "https://learn.microsoft.com/en-us/intune/configmgr/mdt/",
+  "sourcePackageVerification": "unverified",
+  "sourcePackage": null,
+  "redistributionVerification": "unverified",
+  "purpose": "Launch the full-Windows Autopilot assistant in the interactive session",
+  "qualification": {
+    "x64": "Native launch qualification pending",
+    "arm64": "Not ARM64-native; emulation support not qualified"
+  },
+  "repositoryIntroduction": "32e7d962caffbf2d7a063037c3d99ffed6d3765e"
+}

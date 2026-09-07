@@ -3002,9 +3002,6 @@
   <data name="ThemeSetting_AcrylicItem.Content" xml:space="preserve">
     <value>Ακρυλικό</value>
   </data>
-  <data name="ThemeSetting_AcrylicThinItem.Content" xml:space="preserve">
-    <value>Ακρυλικό Λεπτό</value>
-  </data>
   <data name="ThemeSetting_AppThemeCard.Description" xml:space="preserve">
     <value>Επιλέξτε το θέμα της εφαρμογής.</value>
   </data>

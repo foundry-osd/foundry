@@ -37,7 +37,7 @@ public sealed partial class UpdateReleaseNotesDialog : ContentDialog
     {
         if (ContentFrame.Content is null)
         {
-            ContentFrame.Navigate(typeof(UpdateReleaseNotesDialogPage), ViewModel);
+            ContentFrame.Navigate(typeof(ReleaseNotesDialogPage), ViewModel.ReleasesUri);
         }
     }
 
@@ -45,6 +45,10 @@ public sealed partial class UpdateReleaseNotesDialog : ContentDialog
     {
         Loaded -= OnLoaded;
         Closed -= OnClosed;
+        if (ContentFrame.Content is ReleaseNotesDialogPage releaseNotesPage)
+        {
+            releaseNotesPage.CloseWebView();
+        }
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)

@@ -87,3 +87,32 @@ Use disposable virtual machines, test disks, non-production tenants, and non-pro
 - Call out breaking changes, schema changes, incomplete validation, and platform limitations.
 
 Maintainers may request changes to keep project boundaries, deployment safety, release compatibility, or documentation accurate.
+
+## Bundled tool verification and updates
+
+Run the read-only source check from the repository root:
+
+```powershell
+.\scripts\Test-FoundryBundledTools.ps1
+```
+
+The checker validates fixed bundled binary identities, ServiceUI's Microsoft Authenticode signature, and required license/provenance/notice files. It never executes, downloads, installs or repairs a bundled program. `SourceIdentity=verified` describes the checked repository bytes; `SourcePackageVerification=unverified` and `RedistributionVerification=unverified` preserve the outstanding ServiceUI evidence limits.
+
+Optionally supply an already-produced Deploy publish folder or an already-accessible WinPE filesystem root:
+
+```powershell
+.\scripts\Test-FoundryBundledTools.ps1 -DeployPublishRoot 'C:\OwnedArtifacts\Deploy'
+.\scripts\Test-FoundryBundledTools.ps1 -WinPeRoot 'C:\OwnedArtifacts\WinPE' -Architecture x64
+```
+
+These arguments only read the supplied local files. They do not mount an image. Deploy scope checks the external notice/provenance files; ServiceUI inside a single-file executable is not inspected by that scope. WinPE scope checks the selected 7-Zip executable and license/readme. Omitted artifact scopes are reported as not supplied. The checker is not a full release-package validator or native launch test.
+
+Before adopting different bytes:
+
+1. Obtain the fixed-version official distribution and record its final source URL, package version and SHA-256. Do not substitute a third-party rehost as authenticated provenance.
+2. Extract to an owned temporary directory without running the installer. Inspect PE architecture, file version, hashes and applicable Authenticode publisher/chain; compare the extracted file to the proposed repository bytes.
+3. Review the actual distribution's redistribution terms and accompanying notices. Signer identity alone establishes no redistribution rights. If the historical source cannot be reconstructed, keep its verification status explicitly unverified.
+4. Update the provenance record, checker pins and notices together, preserving existing 7-Zip license/readme files. Run the checker against source and relevant produced artifacts.
+5. Perform separately authorized native launch qualification on the intended architecture before claiming support. Reading ARM64 PE headers or cross-building on x64 is not native ARM64 qualification.
+
+ServiceUI metadata currently identifies only x64. Do not replace it or assume ARM64 emulation support as part of a documentation-only provenance change.

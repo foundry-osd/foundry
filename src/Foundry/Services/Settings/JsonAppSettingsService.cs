@@ -122,7 +122,9 @@ internal sealed partial class JsonAppSettingsService : IAppSettingsService
             : settings.Appearance.ElementTheme;
         settings.Appearance.BackdropType = string.IsNullOrWhiteSpace(settings.Appearance.BackdropType)
             ? "Mica"
-            : settings.Appearance.BackdropType;
+            : string.Equals(settings.Appearance.BackdropType, "AcrylicThin", StringComparison.OrdinalIgnoreCase)
+                ? "Acrylic"
+                : settings.Appearance.BackdropType;
         settings.Localization.Language = string.IsNullOrWhiteSpace(settings.Localization.Language)
             ? Foundry.Localization.FoundrySupportedCultures.DefaultCultureCode
             : settings.Localization.Language;

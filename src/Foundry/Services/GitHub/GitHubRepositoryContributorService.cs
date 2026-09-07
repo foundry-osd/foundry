@@ -32,6 +32,7 @@ public sealed class GitHubRepositoryContributorService : IGitHubRepositoryContri
         List<GitHubRepositoryContributor> contributors = [];
         foreach (JsonElement contributorElement in document.RootElement.EnumerateArray())
         {
+            cancellationToken.ThrowIfCancellationRequested();
             if (!TryReadContributor(contributorElement, out GitHubRepositoryContributor? contributor)
                 || contributor is null)
             {
@@ -43,8 +44,7 @@ public sealed class GitHubRepositoryContributorService : IGitHubRepositoryContri
                 continue;
             }
 
-            // The contributors endpoint omits profile display names, so each user is enriched separately.
-            contributors.Add(await EnrichContributorAsync(contributor, cancellationToken).ConfigureAwait(false));
+            contributors.Add(contributor);
         }
 
         return contributors
@@ -83,40 +83,6 @@ public sealed class GitHubRepositoryContributorService : IGitHubRepositoryContri
 
         contributor = new GitHubRepositoryContributor(login, null, profileUri, avatarUri, contributions);
         return true;
-    }
-
-    private static async Task<GitHubRepositoryContributor> EnrichContributorAsync(
-        GitHubRepositoryContributor contributor,
-        CancellationToken cancellationToken)
-    {
-        string? displayName = await TryGetDisplayNameAsync(contributor.Login, cancellationToken).ConfigureAwait(false);
-        return contributor with { DisplayName = displayName };
-    }
-
-    private static async Task<string?> TryGetDisplayNameAsync(string login, CancellationToken cancellationToken)
-    {
-        try
-        {
-            using HttpRequestMessage request = new(HttpMethod.Get, $"https://api.github.com/users/{Uri.EscapeDataString(login)}");
-            using HttpResponseMessage response = await HttpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
-            if (!response.IsSuccessStatusCode)
-            {
-                return null;
-            }
-
-            await using Stream stream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-            using JsonDocument document = await JsonDocument.ParseAsync(stream, cancellationToken: cancellationToken).ConfigureAwait(false);
-
-            return TryGetString(document.RootElement, "name", out string name) ? name : null;
-        }
-        catch (HttpRequestException)
-        {
-            return null;
-        }
-        catch (JsonException)
-        {
-            return null;
-        }
     }
 
     private static bool TryGetString(JsonElement element, string propertyName, out string value)

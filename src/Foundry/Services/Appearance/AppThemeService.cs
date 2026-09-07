@@ -48,12 +48,14 @@ internal sealed class AppThemeService(IAppSettingsService settingsService) : IAp
         Enum.TryParse(value, ignoreCase: true, out ElementTheme result) ? result : ElementTheme.Default;
 
     private static AppBackdropKind ParseBackdrop(string? value) =>
-        Enum.TryParse(value, ignoreCase: true, out AppBackdropKind result) ? result : AppBackdropKind.Mica;
+        string.Equals(value, "AcrylicThin", StringComparison.OrdinalIgnoreCase)
+            ? AppBackdropKind.Acrylic
+            : Enum.TryParse(value, ignoreCase: true, out AppBackdropKind result) ? result : AppBackdropKind.Mica;
 
     private static SystemBackdrop CreateBackdrop(AppBackdropKind backdrop) => backdrop switch
     {
         AppBackdropKind.MicaAlt => new MicaBackdrop { Kind = MicaKind.BaseAlt },
-        AppBackdropKind.Acrylic or AppBackdropKind.AcrylicThin => new DesktopAcrylicBackdrop(),
+        AppBackdropKind.Acrylic => new DesktopAcrylicBackdrop(),
         _ => new MicaBackdrop { Kind = MicaKind.Base }
     };
 }

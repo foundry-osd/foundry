@@ -8,6 +8,5 @@ public enum AppBackdropKind
 {
     Mica,
     MicaAlt,
-    Acrylic,
-    AcrylicThin
+    Acrylic
 }
