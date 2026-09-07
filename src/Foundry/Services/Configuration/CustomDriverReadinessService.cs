@@ -113,6 +113,10 @@ public sealed partial class CustomDriverReadinessService : ICustomDriverReadines
 
     private void PublishInspection(long resultRevision, CustomDriverSourceInspection result)
     {
+        lock (sync)
+        {
+            if (disposed || resultRevision != revision) return;
+        }
         dispatcher.TryEnqueue(() =>
         {
             lock (sync)

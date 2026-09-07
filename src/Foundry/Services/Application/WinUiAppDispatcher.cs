@@ -13,14 +13,15 @@ namespace Foundry.Services.Application;
 public sealed class WinUiAppDispatcher : IAppDispatcher
 {
     /// <inheritdoc />
-    public bool HasThreadAccess => GetDispatcherQueue().HasThreadAccess;
+    public bool HasThreadAccess => GetDispatcherQueue()?.HasThreadAccess == true;
 
     /// <inheritdoc />
     public bool TryEnqueue(Action action)
     {
         ArgumentNullException.ThrowIfNull(action);
 
-        DispatcherQueue dispatcherQueue = GetDispatcherQueue();
+        DispatcherQueue? dispatcherQueue = GetDispatcherQueue();
+        if (dispatcherQueue is null) return false;
         if (dispatcherQueue.HasThreadAccess)
         {
             action();
@@ -35,7 +36,11 @@ public sealed class WinUiAppDispatcher : IAppDispatcher
     {
         ArgumentNullException.ThrowIfNull(action);
 
-        DispatcherQueue dispatcherQueue = GetDispatcherQueue();
+        DispatcherQueue? dispatcherQueue = GetDispatcherQueue();
+        if (dispatcherQueue is null)
+        {
+            return Task.FromException(new InvalidOperationException("The WinUI dispatcher queue is not available on this thread."));
+        }
         if (dispatcherQueue.HasThreadAccess)
         {
             action();
@@ -62,11 +67,9 @@ public sealed class WinUiAppDispatcher : IAppDispatcher
         return completion.Task;
     }
 
-    private static DispatcherQueue GetDispatcherQueue()
+    private static DispatcherQueue? GetDispatcherQueue()
     {
         // Window construction can dispatch work before OnLaunched assigns MainWindow.
-        return App.MainWindow?.DispatcherQueue
-            ?? DispatcherQueue.GetForCurrentThread()
-            ?? throw new InvalidOperationException("The WinUI dispatcher queue is not available on this thread.");
+        return App.MainWindow?.DispatcherQueue ?? DispatcherQueue.GetForCurrentThread();
     }
 }
