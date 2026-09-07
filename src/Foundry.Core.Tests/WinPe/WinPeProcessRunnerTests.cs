@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using Foundry.Core.Services.WinPe;
@@ -13,6 +14,119 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeProcessRunnerTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task RunCmdScriptAsync_UsesNativeToolInsteadOfWorkingDirectoryTool(bool direct)
+    {
+        using var workspace = new TemporaryDirectory();
+        string adk = Path.Combine(workspace.Path, "Selected ADK");
+        string winPe = Path.Combine(adk, "Windows Preinstallation Environment");
+        string host = RuntimeInformation.OSArchitecture == Architecture.Arm64 ? "arm64" : "amd64";
+        Directory.CreateDirectory(winPe);
+        CreateNativeToolFixture(adk, host);
+        string nativeTool = Path.Combine(adk, "Deployment Tools", host, "Oscdimg", "oscdimg.cmd");
+        await File.WriteAllTextAsync(nativeTool, "@echo selected-native-tool\r\n", TestContext.Current.CancellationToken);
+        await File.WriteAllTextAsync(Path.Combine(workspace.Path, "oscdimg.cmd"), "@echo unexpected-workspace-tool\r\n", TestContext.Current.CancellationToken);
+        string script = Path.Combine(winPe, "capture.cmd");
+        await File.WriteAllTextAsync(script, "@echo off\r\nset PATHEXT=.CMD\r\ncall oscdimg\r\n", TestContext.Current.CancellationToken);
+
+        var runner = new WinPeProcessRunner();
+        WinPeProcessExecution result = direct
+            ? await runner.RunCmdScriptDirectAsync(script, string.Empty, workspace.Path, TestContext.Current.CancellationToken)
+            : await runner.RunCmdScriptAsync(script, string.Empty, workspace.Path, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.ToDiagnosticText());
+        Assert.Equal("selected-native-tool", result.StandardOutput.Trim());
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task RunCmdScriptAsync_UsesSelectedRootsWithoutRunningRegistryInitialization(bool direct)
+    {
+        using var workspace = new TemporaryDirectory();
+        string adk = Path.Combine(workspace.Path, "Selected ADK (x64)");
+        string winPe = Path.Combine(adk, "Windows Preinstallation Environment");
+        string host = RuntimeInformation.OSArchitecture == Architecture.Arm64 ? "arm64" : "amd64";
+        string deploymentTools = Path.Combine(adk, "Deployment Tools");
+        string dism = Path.Combine(deploymentTools, host, "DISM");
+        string oscdimg = Path.Combine(deploymentTools, host, "Oscdimg");
+        Directory.CreateDirectory(winPe);
+        Directory.CreateDirectory(dism);
+        Directory.CreateDirectory(oscdimg);
+        File.WriteAllText(Path.Combine(dism, "dism.exe"), string.Empty);
+        File.WriteAllText(Path.Combine(oscdimg, "oscdimg.exe"), string.Empty);
+        await File.WriteAllTextAsync(Path.Combine(deploymentTools, "DandISetEnv.bat"), """
+            @echo off
+            set WinPERoot=C:\RegistryADK\WinPE
+            set DISMRoot=C:\RegistryADK\DISM
+            set OSCDImgRoot=C:\RegistryADK\Oscdimg
+            set INITIALIZATION_INVOKED=unexpected
+            """, TestContext.Current.CancellationToken);
+        string script = Path.Combine(winPe, "capture.cmd");
+        await File.WriteAllTextAsync(script, """
+            @echo off
+            powershell.exe -NoProfile -NonInteractive -Command "ConvertTo-Json -Compress -InputObject @($env:WinPERoot, $env:DISMRoot, $env:OSCDImgRoot, [string]$env:INITIALIZATION_INVOKED)"
+            """, TestContext.Current.CancellationToken);
+
+        var runner = new WinPeProcessRunner();
+        WinPeProcessExecution result = direct
+            ? await runner.RunCmdScriptDirectAsync(script, string.Empty, workspace.Path, TestContext.Current.CancellationToken)
+            : await runner.RunCmdScriptAsync(script, string.Empty, workspace.Path, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.ToDiagnosticText());
+        Assert.Equal([winPe, dism, oscdimg, ""], JsonSerializer.Deserialize<string[]>(result.StandardOutput.Trim())!);
+    }
+
+    [Theory]
+    [InlineData(Architecture.X64, "amd64")]
+    [InlineData(Architecture.Arm64, "arm64")]
+    public void BuildAdkEnvironmentOverrides_SelectsNativeHostToolsAndPrecedesInheritedPath(Architecture host, string folder)
+    {
+        using var workspace = new TemporaryDirectory();
+        string winPe = Path.Combine(workspace.Path, "Windows Preinstallation Environment");
+        Directory.CreateDirectory(winPe);
+        foreach (string candidate in new[] { "amd64", "arm64", "x86" })
+        {
+            CreateNativeToolFixture(workspace.Path, candidate);
+        }
+
+        IReadOnlyDictionary<string, string> environment = WinPeProcessRunner.BuildAdkEnvironmentOverrides(Path.Combine(winPe, "copype.cmd"), host)!;
+
+        string nativeRoot = Path.Combine(workspace.Path, "Deployment Tools", folder);
+        Assert.Equal(Path.Combine(nativeRoot, "DISM"), environment["DISMRoot"]);
+        Assert.Equal(Path.Combine(nativeRoot, "Oscdimg"), environment["OSCDImgRoot"]);
+        Assert.StartsWith(Path.Combine(nativeRoot, "Oscdimg") + ";" + Path.Combine(nativeRoot, "DISM") + ";", environment["PATH"]);
+    }
+
+    [Theory]
+    [InlineData("missing-arm64")]
+    [InlineData("missing-oscdimg")]
+    [InlineData("unsupported-host")]
+    public void BuildAdkEnvironmentOverrides_RejectsMissingNativeToolsWithoutEmulationOrPathFallback(string failure)
+    {
+        using var workspace = new TemporaryDirectory();
+        string winPe = Path.Combine(workspace.Path, "Windows Preinstallation Environment");
+        Directory.CreateDirectory(winPe);
+        CreateNativeToolFixture(workspace.Path, "amd64");
+        CreateNativeToolFixture(workspace.Path, "x86");
+        if (failure == "missing-oscdimg")
+        {
+            File.Delete(Path.Combine(workspace.Path, "Deployment Tools", "amd64", "Oscdimg", "oscdimg.exe"));
+        }
+        string script = Path.Combine(winPe, "copype.cmd");
+        if (failure == "unsupported-host")
+        {
+            Assert.Throws<NotSupportedException>(() => WinPeProcessRunner.BuildAdkEnvironmentOverrides(script, Architecture.X86));
+        }
+        else
+        {
+            Assert.Throws<DirectoryNotFoundException>(() => WinPeProcessRunner.BuildAdkEnvironmentOverrides(script,
+                failure == "missing-arm64" ? Architecture.Arm64 : Architecture.X64));
+        }
+    }
+
     [Fact]
     public async Task RunAsync_PreservesExecutableArgumentBoundaries()
     {
@@ -106,6 +220,7 @@ public sealed class WinPeProcessRunnerTests
         string adkDirectory = Path.Combine(workspace.Path, "Program Files (x86)", "ADK tools é漢字");
         string scriptDirectory = Path.Combine(adkDirectory, "Windows Preinstallation Environment");
         Directory.CreateDirectory(scriptDirectory);
+        CreateNativeToolFixture(adkDirectory, RuntimeInformation.OSArchitecture == Architecture.Arm64 ? "arm64" : "amd64");
         if (initializeAdkEnvironment)
         {
             string deploymentTools = Path.Combine(adkDirectory, "Deployment Tools");
@@ -130,7 +245,7 @@ public sealed class WinPeProcessRunnerTests
             : await runner.RunCmdScriptAsync(scriptPath, arguments, workspace.Path, TestContext.Current.CancellationToken);
 
         Assert.True(result.IsSuccess, result.ToDiagnosticText());
-        Assert.Equal(["", "space value", "C:\\Program Files (x86)\\é漢字\\", "plain", initializeAdkEnvironment ? "ready" : ""], JsonSerializer.Deserialize<string[]>(result.StandardOutput.Trim())!);
+        Assert.Equal(["", "space value", "C:\\Program Files (x86)\\é漢字\\", "plain", ""], JsonSerializer.Deserialize<string[]>(result.StandardOutput.Trim())!);
     }
 
     [Theory]
@@ -289,6 +404,16 @@ public sealed class WinPeProcessRunnerTests
     }
 
     private static string GetChildPath() => Path.Combine(AppContext.BaseDirectory, "ProcessTestChild", "ProcessTestChild.exe");
+
+    private static void CreateNativeToolFixture(string adkRoot, string hostFolder)
+    {
+        foreach ((string directory, string executable) in new[] { ("DISM", "dism.exe"), ("Oscdimg", "oscdimg.exe") })
+        {
+            string root = Path.Combine(adkRoot, "Deployment Tools", hostFolder, directory);
+            Directory.CreateDirectory(root);
+            File.WriteAllText(Path.Combine(root, executable), string.Empty);
+        }
+    }
 
     private sealed class CapturedOutputRunner(WinPeProcessExecution result) : IWinPeProcessRunner
     {

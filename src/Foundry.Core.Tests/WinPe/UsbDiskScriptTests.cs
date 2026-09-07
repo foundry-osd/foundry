@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using System.Text.Json;
 using Foundry.Core.Services.WinPe;
@@ -74,30 +75,115 @@ public sealed class UsbDiskScriptTests
         Assert.False(RunGuard(expected, disks));
     }
 
-    [Fact]
-    public void GeneratedScripts_ParseInWindowsPowerShell51WithoutExecutingNativeCommands()
+    [Theory]
+    [InlineData("fr-FR")]
+    [InlineData("ar-SA")]
+    public void GeneratedScripts_ParseInWindowsPowerShell51WithoutExecutingNativeCommands(string cultureName)
     {
-        var expected = new WinPeUsbDiskIdentity { Number = 9, UniqueId = "USB-ID", SerialNumber = "SERIAL", BusType = "USB", Size = 64000000000 };
-        string[] scripts =
-        [
-            WinPeEmbeddedAssetService.ReadEmbeddedText("Foundry.Core.WinPe.UsbDiskOperations"),
-            WinPeUsbMediaService.BuildPowerShellProvisioningScript(expected, UsbPartitionStyle.Gpt, UsbFormatMode.Quick),
-            WinPeUsbMediaService.BuildPowerShellProvisioningScript(expected, UsbPartitionStyle.Mbr, UsbFormatMode.Complete),
-            WinPeUsbMediaService.BuildPowerShellBootPartitionUpdateScript(expected, new WinPeUsbProvisionResult(), UsbFormatMode.Quick)
-        ];
-        foreach (string source in scripts)
+        CultureInfo previousCulture = CultureInfo.CurrentCulture;
+        try
         {
-            string parserScript = $$"""
-                $source = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('{{Convert.ToBase64String(Encoding.UTF8.GetBytes(source))}}'))
-                $tokens = $null; $errors = $null
-                $ast = [System.Management.Automation.Language.Parser]::ParseInput($source, [ref]$tokens, [ref]$errors)
-                if ($errors.Count -ne 0) { throw ($errors -join '; ') }
-                [Console]::WriteLine('parsed')
-                """;
-            Assert.Equal("parsed", RunIsolatedPowerShell(parserScript).Trim());
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(cultureName);
+            var expected = new WinPeUsbDiskIdentity { Number = 9, UniqueId = "USB-ID", SerialNumber = "SERIAL", BusType = "USB", Size = 64000000000 };
+            string[] scripts =
+            [
+                WinPeEmbeddedAssetService.ReadEmbeddedText("Foundry.Core.WinPe.UsbDiskOperations"),
+                WinPeUsbMediaService.BuildPowerShellProvisioningScript(expected, UsbPartitionStyle.Gpt, UsbFormatMode.Quick, 2147483648, 268435456),
+                WinPeUsbMediaService.BuildPowerShellProvisioningScript(expected, UsbPartitionStyle.Mbr, UsbFormatMode.Complete, 2147483648, 268435456),
+                WinPeUsbMediaService.BuildPowerShellBootPartitionUpdateScript(expected, new WinPeUsbProvisionResult(), UsbFormatMode.Quick, 268435456, 268435456)
+            ];
+            foreach (string source in scripts)
+            {
+                string parserScript = $$"""
+                    $source = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('{{Convert.ToBase64String(Encoding.UTF8.GetBytes(source))}}'))
+                    $tokens = $null; $errors = $null
+                    $ast = [System.Management.Automation.Language.Parser]::ParseInput($source, [ref]$tokens, [ref]$errors)
+                    if ($errors.Count -ne 0) { throw ($errors -join '; ') }
+                    [Console]::WriteLine('parsed')
+                    """;
+                Assert.Equal("parsed", RunIsolatedPowerShell(parserScript).Trim());
+            }
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = previousCulture;
         }
     }
 
+    [Theory]
+    [InlineData(null, false)]
+    [InlineData(0L, true)]
+    [InlineData(60000000000L, true)]
+    [InlineData(60000000001L, false)]
+    [InlineData(-1L, false)]
+    public void LayoutGuard_RequiresMeasuredCacheFreeSpace(long? freeBytes, bool accepted)
+    {
+        var disk = new WinPeUsbDiskIdentity
+        {
+            Number = 9,
+            UniqueId = "USB-123",
+            SerialNumber = "SERIAL",
+            BusType = "USB",
+            IsRemovable = true,
+            Size = 64000000000
+        };
+        string fixture = JsonSerializer.Serialize(new
+        {
+            Disk = disk,
+            Partitions = new[]
+            {
+                new { DiskNumber = 9, PartitionNumber = 1, Offset = 1048576L, Size = 2147483648L, Guid = "boot-guid", GptType = "{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}" },
+                new { DiskNumber = 9, PartitionNumber = 2, Offset = 2148532224L, Size = 60000000000L, Guid = "cache-guid", GptType = "{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}" }
+            },
+            Volumes = new[]
+            {
+                new { PartitionNumber = 1, FileSystemLabel = "BOOT", FileSystem = "FAT32", UniqueId = "boot-volume", Path = @"\\?\Volume{11111111-1111-1111-1111-111111111111}\", DriveLetter = "U", SizeRemaining = (long?)0 },
+                new { PartitionNumber = 2, FileSystemLabel = "Foundry Cache", FileSystem = "NTFS", UniqueId = "cache-volume", Path = @"\\?\Volume{22222222-2222-2222-2222-222222222222}\", DriveLetter = "V", SizeRemaining = freeBytes }
+            }
+        });
+        string helper = WinPeEmbeddedAssetService.ReadEmbeddedText("Foundry.Core.WinPe.UsbDiskOperations");
+        string script = $$"""
+            $ErrorActionPreference = 'Stop'
+            Import-Module Microsoft.PowerShell.Utility
+            $PSModuleAutoLoadingPreference = 'None'
+            $fixture = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('{{Convert.ToBase64String(Encoding.UTF8.GetBytes(fixture))}}')) | Microsoft.PowerShell.Utility\ConvertFrom-Json
+            function Get-Disk { param($ErrorAction) return $fixture.Disk }
+            function Get-Partition { param($Disk, $ErrorAction) return $fixture.Partitions }
+            function Get-Volume {
+                param($Partition, $ErrorAction)
+                foreach ($volume in $fixture.Volumes) {
+                    if ($volume.PartitionNumber -eq $Partition.PartitionNumber) { return $volume }
+                }
+                throw 'No fixture volume matches the supplied partition.'
+            }
+            $source = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('{{Convert.ToBase64String(Encoding.UTF8.GetBytes(helper))}}'))
+            $tokens = $null; $errors = $null
+            $ast = [System.Management.Automation.Language.Parser]::ParseInput($source, [ref]$tokens, [ref]$errors)
+            if ($errors.Count -ne 0) { throw 'Helper parse failed.' }
+            $names = @('ConvertTo-FoundryUsbIdentityText', 'Test-FoundryUsbDiskSelectable', 'Assert-FoundryUsbDiskIdentity',
+                'Get-FoundryUsbDriveLetter', 'Get-FoundryUsbDriveLetterText', 'Get-FoundryUsbPartitionVolume', 'Get-FoundryUsbLayout')
+            foreach ($name in $names) {
+                $definitions = @($ast.FindAll({ param($node) $node -is [System.Management.Automation.Language.FunctionDefinitionAst] -and $node.Name -eq $name }, $false))
+                if ($definitions.Count -ne 1) { throw 'Expected exactly one layout helper definition.' }
+                foreach ($command in $definitions[0].FindAll({ param($node) $node -is [System.Management.Automation.Language.CommandAst] }, $true)) {
+                    if ($command.GetCommandName() -notin ($names + @('Get-Disk', 'Get-Partition', 'Get-Volume'))) {
+                        throw 'External commands are forbidden in the isolated layout harness.'
+                    }
+                }
+                . ([scriptblock]::Create($definitions[0].Extent.Text))
+            }
+            try {
+                $layout = Get-FoundryUsbLayout -Expected $fixture.Disk
+                [Console]::WriteLine('accepted:' + $layout.CacheFreeBytes)
+            } catch {
+                [Console]::WriteLine('rejected')
+            }
+            """;
+
+        string output = RunIsolatedPowerShell(script).Trim();
+
+        Assert.Equal(accepted ? "accepted:" + freeBytes!.Value.ToString(CultureInfo.InvariantCulture) : "rejected", output);
+    }
     private static bool RunGuard(WinPeUsbDiskIdentity expected, WinPeUsbDiskIdentity[] disks)
     {
         string helper = WinPeEmbeddedAssetService.ReadEmbeddedText("Foundry.Core.WinPe.UsbDiskOperations");

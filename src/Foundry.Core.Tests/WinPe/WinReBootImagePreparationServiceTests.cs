@@ -47,7 +47,7 @@ public sealed class WinReBootImagePreparationServiceTests
             Task<WinPeResult<WinReBootImagePreparationResult>> operation = service.ReplaceBootWimAsync(new WinReBootImagePreparationOptions
             {
                 Artifact = new WinPeBuildArtifact { Architecture = WinPeArchitecture.X64, BootWimPath = bootPath, WorkingDirectoryPath = working },
-                Tools = new WinPeToolPaths { DismPath = "dism.exe" },
+                Tools = new WinPeToolPaths { DismPath = "dism.exe", DismVersion = new(10, 0, 26100, 1) },
                 WinPeLanguage = "en-US",
                 CacheDirectoryPath = cache
             }, cancelled.Token);
@@ -266,9 +266,13 @@ public sealed class WinReBootImagePreparationServiceTests
     }
 
     [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task ReplaceBootWimAsync_RequiresCompleteImageMetadataBeforeExporting(bool metadataTruncated)
+    [InlineData(false, "x64", "10.0.26100.9999", true)]
+    [InlineData(true, "x64", "10.0.26100.9999", false)]
+    [InlineData(false, "arm64", "10.0.26100.9999", false)]
+    [InlineData(false, "x64", "10.0.26200.1", true)]
+    [InlineData(false, "x64", "10.0.26300.1", false)]
+    public async Task ReplaceBootWimAsync_RequiresCompleteCompatibleImageMetadataBeforeExporting(
+        bool metadataTruncated, string imageArchitecture, string imageVersion, bool expectedSuccess)
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-winre-replace-{Guid.NewGuid():N}");
         string workingPath = Path.Combine(root, "workspace");
@@ -285,7 +289,7 @@ public sealed class WinReBootImagePreparationServiceTests
         string cachedSourceHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes("cached source")));
         string catalogXml = CreateCatalogXml(cachedSourceHash);
 
-        var runner = new FakeWinPeProcessRunner { MetadataTruncated = metadataTruncated };
+        var runner = new FakeWinPeProcessRunner { MetadataTruncated = metadataTruncated, ImageArchitecture = imageArchitecture, ImageVersion = imageVersion };
         var service = new WinReBootImagePreparationService(
             runner,
             new HttpClient(new StaticCatalogHandler(catalogXml)));
@@ -303,14 +307,15 @@ public sealed class WinReBootImagePreparationServiceTests
                     },
                     Tools = new WinPeToolPaths
                     {
-                        DismPath = "dism.exe"
+                        DismPath = "dism.exe",
+                        DismVersion = new(10, 0, 26100, 1)
                     },
                     WinPeLanguage = "en-US",
                     CacheDirectoryPath = cachePath
                 },
                 CancellationToken.None);
 
-            if (metadataTruncated)
+            if (!expectedSuccess)
             {
                 Assert.False(result.IsSuccess);
                 Assert.Equal("original", await File.ReadAllTextAsync(bootWimPath, TestContext.Current.CancellationToken));
@@ -373,6 +378,8 @@ public sealed class WinReBootImagePreparationServiceTests
         public string? InterruptCommand { get; init; }
         public Action? BeforeInterruption { get; init; }
         public bool MetadataTruncated { get; init; }
+        public string ImageArchitecture { get; init; } = "x64";
+        public string ImageVersion { get; init; } = "10.0.26100.9999";
         public List<WinPeProcessExecution> Executions { get; } = [];
 
         public Task<WinPeProcessExecution> RunAsync(
@@ -435,14 +442,16 @@ public sealed class WinReBootImagePreparationServiceTests
             throw new NotSupportedException();
         }
 
-        private static string CreateOutput(string arguments)
+        private string CreateOutput(string arguments)
         {
             if (!arguments.Contains("/Get-ImageInfo", StringComparison.OrdinalIgnoreCase))
             {
                 return string.Empty;
             }
 
-            return """
+            return $"""
+                   Architecture : {ImageArchitecture}
+                   Version : {ImageVersion}
                    Index : 6
                    Name : Windows 11 Pro
                    Edition : Professional

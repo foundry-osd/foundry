@@ -44,6 +44,9 @@ public sealed record WinPeMountedImageCustomizationOptions
     /// </summary>
     public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
 
+    /// <summary>Gets operation-owned runtimes already acquired for placement into the image and media cache.</summary>
+    public WinPePreparedRuntimePayloads? PreparedRuntime { get; init; }
+
     /// <summary>
     /// Gets the cache path used for WinRE downloads.
     /// </summary>

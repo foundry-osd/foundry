@@ -4,6 +4,7 @@
 
 using System.ComponentModel;
 using System.Runtime.ExceptionServices;
+using System.Runtime.InteropServices;
 using Foundry.Utilities.Processes;
 using UtilityProcessRunner = Foundry.Utilities.Processes.ProcessRunner;
 
@@ -11,7 +12,6 @@ namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
 {
-    private const string InternalSetEnvKey = "FOUNDRY_ADK_SETENV_PATH";
     private static readonly TimeSpan DefaultExecutionTimeout = TimeSpan.FromHours(4);
     private readonly UtilityProcessRunner _processRunner = new();
 
@@ -158,11 +158,7 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
         ArgumentException.ThrowIfNullOrWhiteSpace(scriptPath);
         _ = Quote(scriptPath);
         ValidateBatchArguments(scriptArguments);
-        IReadOnlyDictionary<string, string>? environment = BuildAdkEnvironmentOverrides(scriptPath);
-        if (environment is not null && environment.TryGetValue(InternalSetEnvKey, out string? setEnvPath))
-        {
-            _ = Quote(setEnvPath);
-        }
+        _ = BuildAdkEnvironmentOverrides(scriptPath);
     }
 
     private static void ValidateBatchArguments(string arguments)
@@ -209,12 +205,6 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
             : scriptCommand;
 
         IReadOnlyDictionary<string, string>? environmentOverrides = BuildAdkEnvironmentOverrides(scriptPath);
-        if (environmentOverrides is not null &&
-            environmentOverrides.TryGetValue(InternalSetEnvKey, out string? setEnvPath) &&
-            !string.IsNullOrWhiteSpace(setEnvPath))
-        {
-            command = $"call {Quote(setEnvPath)} >nul 2>&1 && {command}";
-        }
 
         string switchS = useCommandExtensionsStripQuoteRules ? " /s" : string.Empty;
         string arguments = $"/d /v:off{switchS} /c \"{command}\"";
@@ -252,7 +242,12 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
         return filtered;
     }
 
-    private static IReadOnlyDictionary<string, string>? BuildAdkEnvironmentOverrides(string scriptPath)
+    /// <summary>
+    /// Pins ADK script inputs and executable lookup to the selected installation and native host.
+    /// DandISetEnv is deliberately not invoked: it switches roots through the registry and repairs drivers.
+    /// </summary>
+    internal static IReadOnlyDictionary<string, string>? BuildAdkEnvironmentOverrides(
+        string scriptPath, Architecture? hostArchitecture = null)
     {
         string? winPeRoot = FindWinPeRootDirectory(scriptPath);
         if (winPeRoot is null)
@@ -260,57 +255,34 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
             return null;
         }
 
-        var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        string architecture = (hostArchitecture ?? RuntimeInformation.OSArchitecture) switch
         {
-            ["WinPERoot"] = winPeRoot
+            Architecture.X64 => "amd64",
+            Architecture.Arm64 => "arm64",
+            _ => throw new NotSupportedException("WinPE authoring requires an x64 or ARM64 host with native ADK tools.")
         };
-
-        string? adkRoot = Directory.GetParent(winPeRoot)?.FullName;
-        if (string.IsNullOrWhiteSpace(adkRoot))
+        string adkRoot = Directory.GetParent(winPeRoot)?.FullName
+            ?? throw new DirectoryNotFoundException("The selected WinPE script has no ADK installation root.");
+        string hostTools = Path.Combine(adkRoot, "Deployment Tools", architecture);
+        string oscdimgRoot = Path.Combine(hostTools, "Oscdimg");
+        string dismRoot = Path.Combine(hostTools, "DISM");
+        if (!Directory.Exists(oscdimgRoot) || !Directory.Exists(dismRoot) ||
+            !File.Exists(Path.Combine(oscdimgRoot, "oscdimg.exe")) || !File.Exists(Path.Combine(dismRoot, "dism.exe")))
         {
-            return result;
+            throw new DirectoryNotFoundException($"The selected ADK installation is missing native {architecture} DISM or Oscdimg tools under '{hostTools}'.");
         }
-
-        string deploymentToolsRoot = Path.Combine(adkRoot, "Deployment Tools");
-        if (!Directory.Exists(deploymentToolsRoot))
+        if (hostTools.Contains(Path.PathSeparator))
         {
-            return result;
+            throw new ArgumentException("The selected ADK path cannot contain PATH separators.", nameof(scriptPath));
         }
-
-        string[] hostArchitectureCandidates = Environment.Is64BitOperatingSystem
-            ? ["amd64", "x86"]
-            : ["x86", "amd64"];
-
-        foreach (string hostArchitecture in hostArchitectureCandidates)
+        return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            string hostToolsRoot = Path.Combine(deploymentToolsRoot, hostArchitecture);
-            if (!Directory.Exists(hostToolsRoot))
-            {
-                continue;
-            }
-
-            string oscdimgRoot = Path.Combine(hostToolsRoot, "Oscdimg");
-            if (Directory.Exists(oscdimgRoot))
-            {
-                result["OSCDImgRoot"] = oscdimgRoot;
-            }
-
-            string dismRoot = Path.Combine(hostToolsRoot, "DISM");
-            if (Directory.Exists(dismRoot))
-            {
-                result["DISMRoot"] = dismRoot;
-            }
-
-            break;
-        }
-
-        string setEnvPath = Path.Combine(deploymentToolsRoot, "DandISetEnv.bat");
-        if (File.Exists(setEnvPath))
-        {
-            result[InternalSetEnvKey] = setEnvPath;
-        }
-
-        return result;
+            ["WinPERoot"] = winPeRoot,
+            ["DISMRoot"] = dismRoot,
+            ["OSCDImgRoot"] = oscdimgRoot,
+            ["NoDefaultCurrentDirectoryInExePath"] = "1",
+            ["PATH"] = string.Join(Path.PathSeparator, oscdimgRoot, dismRoot, Environment.GetEnvironmentVariable("PATH"))
+        };
     }
 
     private static string? FindWinPeRootDirectory(string scriptPath)

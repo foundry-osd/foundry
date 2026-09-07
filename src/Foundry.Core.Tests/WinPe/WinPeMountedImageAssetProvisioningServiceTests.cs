@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Security.Cryptography;
+using System.Reflection.PortableExecutable;
+using Foundry.Core.Tests.TestUtilities;
 using System.Text;
 using System.Text.Json;
 using System.Xml.Linq;
@@ -15,13 +17,61 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeMountedImageAssetProvisioningServiceTests
 {
-    [Fact]
-    public async Task ProvisionAsync_WritesBootstrapStartnetAndCurl()
+    [Theory]
+    [InlineData("curl")]
+    [InlineData("7za")]
+    [InlineData("oa3")]
+    public async Task ProvisionAsync_RejectsWrongMachineTools(string tool)
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "tools", "curl.exe");
+        string sevenZip = Path.Combine(image.RootPath, "7zip");
+        string oa3 = Path.Combine(image.RootPath, "oa3tool.exe");
+        PortableExecutableFixture.Write(oa3, tool == "oa3" ? Machine.Arm64 : Machine.Amd64);
+        PortableExecutableFixture.Write(Path.Combine(sevenZip, "x64", "7za.exe"), tool == "7za" ? Machine.Arm64 : Machine.Amd64);
+        File.WriteAllText(Path.Combine(sevenZip, "License.txt"), "license");
+        File.WriteAllText(Path.Combine(sevenZip, "readme.txt"), "readme");
+        if (tool == "curl")
+        {
+            PortableExecutableFixture.Write(Path.Combine(image.System32Path, "curl.exe"), Machine.Arm64);
+        }
+        WinPeResult result = await new WinPeMountedImageAssetProvisioningService().ProvisionAsync(new()
+        {
+            MountedImagePath = image.MountedImagePath,
+            BootstrapScriptContent = "bootstrap",
+            IanaWindowsTimeZoneMapJson = "{}",
+            SevenZipSourceDirectoryPath = sevenZip,
+            Oa3ToolSourcePath = oa3,
+            AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Contains("incompatible", result.Error?.Details);
+        Assert.False(File.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Tools", "OA3", "oa3tool.exe")));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WithoutImageCurl_AllowsBootstrapFallback()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        WinPeResult result = await new WinPeMountedImageAssetProvisioningService().ProvisionAsync(new()
+        {
+            MountedImagePath = image.MountedImagePath,
+            BootstrapScriptContent = "bootstrap",
+            IanaWindowsTimeZoneMapJson = "{}"
+        }, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Message);
+        Assert.False(File.Exists(Path.Combine(image.System32Path, "curl.exe")));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WritesBootstrapStartnetAndPreservesImageCurl()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.System32Path, "curl.exe");
         Directory.CreateDirectory(Path.GetDirectoryName(curlSourcePath)!);
-        File.WriteAllText(curlSourcePath, "curl");
+        PortableExecutableFixture.Write(curlSourcePath, Machine.Amd64);
+        byte[] expectedCurl = File.ReadAllBytes(curlSourcePath);
         string startnetPath = Path.Combine(image.MountedImagePath, "Windows", "System32", "startnet.cmd");
         File.WriteAllLines(startnetPath, ["wpeinit", "echo existing"]);
 
@@ -33,14 +83,13 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "Write-Host 'Foundry'",
-                CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}"
             },
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.Equal("Write-Host 'Foundry'", await File.ReadAllTextAsync(Path.Combine(image.System32Path, "FoundryBootstrap.ps1")));
-        Assert.Equal("curl", await File.ReadAllTextAsync(Path.Combine(image.System32Path, "curl.exe")));
+        Assert.Equal(expectedCurl, File.ReadAllBytes(Path.Combine(image.System32Path, "curl.exe")));
 
         string[] startnetLines = await File.ReadAllLinesAsync(startnetPath);
         Assert.Contains(startnetLines, line => line.Equals("wpeinit", StringComparison.OrdinalIgnoreCase));
@@ -52,8 +101,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_WhenRunTwice_DoesNotDuplicateBootstrapInvocation()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
 
         var service = new WinPeMountedImageAssetProvisioningService();
         var options = new WinPeMountedImageAssetProvisioningOptions
@@ -61,7 +108,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             MountedImagePath = image.MountedImagePath,
             Architecture = WinPeArchitecture.X64,
             BootstrapScriptContent = "bootstrap",
-            CurlExecutableSourcePath = curlSourcePath,
             IanaWindowsTimeZoneMapJson = "{}"
         };
 
@@ -79,8 +125,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_WritesConfigurationAssetsAndSourceMarkers()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
         string assetSourcePath = Path.Combine(image.RootPath, "profile.xml");
         File.WriteAllText(assetSourcePath, "<WLANProfile />");
 
@@ -92,7 +136,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "bootstrap",
-                CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{\"zones\":[]}",
                 FoundryConnectConfigurationJson = "{\"schemaVersion\":1}",
                 DeployConfigurationJson = "{\"schemaVersion\":2}",
@@ -137,8 +180,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_WhenJsonProfileMode_WritesAutopilotProfileAssetsOnly()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
 
         var service = new WinPeMountedImageAssetProvisioningService();
 
@@ -148,7 +189,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "bootstrap",
-                CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 AutopilotProvisioningMode = AutopilotProvisioningMode.JsonProfile,
                 AutopilotProfiles =
@@ -176,10 +216,8 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_WhenHardwareHashMode_WritesHashAssetsOnly()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
         string oa3SourcePath = Path.Combine(image.RootPath, "oa3tool.exe");
-        File.WriteAllText(curlSourcePath, "curl");
-        File.WriteAllText(oa3SourcePath, "oa3");
+        PortableExecutableFixture.Write(oa3SourcePath, Machine.Amd64);
 
         var service = new WinPeMountedImageAssetProvisioningService();
 
@@ -189,7 +227,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "bootstrap",
-                CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
                 Oa3ToolSourcePath = oa3SourcePath,
@@ -209,7 +246,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.Equal("oa3", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Tools", "OA3", "oa3tool.exe")));
+        Assert.Equal(File.ReadAllBytes(oa3SourcePath), File.ReadAllBytes(Path.Combine(image.MountedImagePath, "Foundry", "Tools", "OA3", "oa3tool.exe")));
         string oa3ConfigPath = Path.Combine(image.MountedImagePath, "Foundry", "Runtime", "AutopilotHash", "OA3.cfg");
         string oa3InputPath = Path.Combine(image.MountedImagePath, "Foundry", "Runtime", "AutopilotHash", "input.xml");
         Assert.True(File.Exists(oa3ConfigPath));
@@ -224,8 +261,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_WhenHardwareHashModeHasMissingOa3Tool_ReturnsFailure()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
 
         var service = new WinPeMountedImageAssetProvisioningService();
 
@@ -235,7 +270,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "bootstrap",
-                CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
                 Oa3ToolSourcePath = Path.Combine(image.RootPath, "missing", "oa3tool.exe")
@@ -250,8 +284,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_DoesNotCreateRuntimeOwnedLogTempOrNetworkDirectories()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
 
         var service = new WinPeMountedImageAssetProvisioningService();
 
@@ -261,7 +293,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "bootstrap",
-                CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}"
             },
             CancellationToken.None);
@@ -276,8 +307,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_WhenDeployConfigurationIsMissing_WritesCompleteDefaultDeployConfiguration()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
 
         var service = new WinPeMountedImageAssetProvisioningService();
 
@@ -287,7 +316,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "bootstrap",
-                CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}"
             },
             CancellationToken.None);
@@ -311,8 +339,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_WhenConnectConfigurationIsMissing_WritesCompleteDefaultConnectConfiguration()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
 
         var service = new WinPeMountedImageAssetProvisioningService();
 
@@ -322,7 +348,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "bootstrap",
-                CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}"
             },
             CancellationToken.None);
@@ -346,8 +371,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_WhenMediaSecretKeyIsProvided_WritesSecretKeyUnderConfigSecrets()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
         byte[] secretKey = Enumerable.Range(0, 32).Select(static value => (byte)value).ToArray();
 
         var service = new WinPeMountedImageAssetProvisioningService();
@@ -358,7 +381,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "bootstrap",
-                CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 FoundryConnectConfigurationJson = CreateConnectConfigurationWithEncryptedSecret(),
                 NetworkSecretsKey = secretKey
@@ -373,8 +395,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_WhenUnprotectedDeploymentKeyIsProvided_WritesSeparateDeploymentKey()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
         byte[] secretKey = Enumerable.Range(0, 32).Select(static value => (byte)value).ToArray();
 
         var service = new WinPeMountedImageAssetProvisioningService();
@@ -385,7 +405,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "bootstrap",
-                CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 DeploymentSecretsKey = secretKey
             },
@@ -400,8 +419,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_WhenMediaSecretKeyHasNoEncryptedSecret_ReturnsFailure()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
         byte[] secretKey = Enumerable.Range(0, 32).Select(static value => (byte)value).ToArray();
 
         var service = new WinPeMountedImageAssetProvisioningService();
@@ -412,7 +429,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "bootstrap",
-                CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 NetworkSecretsKey = secretKey
             },
@@ -427,8 +443,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_WhenEncryptedSecretHasNoMediaSecretKey_ReturnsFailure()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
 
         var service = new WinPeMountedImageAssetProvisioningService();
 
@@ -438,7 +452,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "bootstrap",
-                CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 FoundryConnectConfigurationJson = CreateConnectConfigurationWithEncryptedSecret()
             },
@@ -453,8 +466,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_WhenMediaSecretKeyIsMissing_DoesNotCreateSecretsDirectory()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
 
         var service = new WinPeMountedImageAssetProvisioningService();
 
@@ -464,7 +475,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "bootstrap",
-                CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}"
             },
             CancellationToken.None);
@@ -477,8 +487,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_WhenDeploymentProtectionIsEnabled_EncryptsProfilesWithoutWritingDeploymentKey()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
         byte[] deploymentKey = Enumerable.Range(32, 32).Select(static value => (byte)value).ToArray();
         const string profileJson = "{\"Comment_File\":\"Protected profile\"}";
         var service = new WinPeMountedImageAssetProvisioningService();
@@ -489,7 +497,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "bootstrap",
-                CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 IsDeploymentProtectionEnabled = true,
                 DeploymentSecretsKey = deploymentKey,
@@ -536,11 +543,9 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     public async Task ProvisionAsync_WhenSevenZipSourceIsProvided_CopiesRuntimeTools()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
         string sevenZipSourcePath = Path.Combine(image.RootPath, "7z");
         Directory.CreateDirectory(Path.Combine(sevenZipSourcePath, "x64"));
-        File.WriteAllText(Path.Combine(sevenZipSourcePath, "x64", "7za.exe"), "7za");
+        PortableExecutableFixture.Write(Path.Combine(sevenZipSourcePath, "x64", "7za.exe"), Machine.Amd64);
         File.WriteAllText(Path.Combine(sevenZipSourcePath, "License.txt"), "license");
         File.WriteAllText(Path.Combine(sevenZipSourcePath, "readme.txt"), "readme");
 
@@ -552,7 +557,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
                 BootstrapScriptContent = "bootstrap",
-                CurlExecutableSourcePath = curlSourcePath,
                 SevenZipSourceDirectoryPath = sevenZipSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}"
             },
@@ -560,7 +564,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         string toolsPath = Path.Combine(image.MountedImagePath, "Foundry", "Tools", "7zip");
-        Assert.Equal("7za", await File.ReadAllTextAsync(Path.Combine(toolsPath, "x64", "7za.exe")));
+        Assert.Equal(File.ReadAllBytes(Path.Combine(sevenZipSourcePath, "x64", "7za.exe")), File.ReadAllBytes(Path.Combine(toolsPath, "x64", "7za.exe")));
         Assert.Equal("license", await File.ReadAllTextAsync(Path.Combine(toolsPath, "License.txt")));
         Assert.Equal("readme", await File.ReadAllTextAsync(Path.Combine(toolsPath, "readme.txt")));
     }

@@ -14,6 +14,7 @@ public sealed record WinPeUsbProvisionResult
     public ulong CachePartitionOffset { get; init; }
     public ulong BootPartitionSize { get; init; }
     public ulong CachePartitionSize { get; init; }
+    public ulong? CacheFreeBytes { get; init; }
     public string BootPartitionGuid { get; init; } = string.Empty;
     public string CachePartitionGuid { get; init; } = string.Empty;
     public string BootVolumeUniqueId { get; init; } = string.Empty;

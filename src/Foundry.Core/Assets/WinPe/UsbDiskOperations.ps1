@@ -115,6 +115,9 @@ function Get-FoundryUsbLayout($Expected, $Layout = $null) {
             }
         }
     }
+    $freeBytes = $cache[0].Volume.SizeRemaining
+    if ($null -eq $freeBytes -or [uint64]$freeBytes -gt [uint64]$cache[0].Partition.Size) { throw 'CACHE free space is unavailable or invalid.' }
+    $result['CacheFreeBytes'] = [uint64]$freeBytes
     return [pscustomobject]$result
 }
 

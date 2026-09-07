@@ -3,6 +3,8 @@ Import-Module Storage
 $expected = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('{{EXPECTED_DISK}}')) | ConvertFrom-Json
 $partitionStyle = '{{PARTITION_STYLE}}'
 $fullFormat = {{FULL_FORMAT}}
+$bootPartitionBytes = [uint64]{{BOOT_PARTITION_BYTES}}
+$requiredCacheBytes = [uint64]{{REQUIRED_CACHE_BYTES}}
 
 function Write-FoundryUsbProgress([int]$Percent, [string]$Status) {
     Write-Output ("FOUNDRY_USB_PROGRESS|{0}|{1}" -f $Percent, $Status)
@@ -21,6 +23,10 @@ function Wait-FoundryUsbVolume($Partition) {
 
 Write-FoundryUsbProgress 26 'Clearing USB partition table.'
 $disk = Assert-FoundryUsbDiskIdentity -Expected $expected -Disks @(Get-Disk -ErrorAction Stop)
+if ($bootPartitionBytes -lt 2GB -or $bootPartitionBytes -gt 32GB -or $bootPartitionBytes % 1MB -ne 0 -or
+    $requiredCacheBytes -lt 256MB -or [decimal]$bootPartitionBytes + $requiredCacheBytes + 2MB -gt [decimal]$disk.Size) {
+    throw 'Validated media sizes no longer fit the confirmed USB disk.'
+}
 Clear-Disk -InputObject $disk -RemoveData -RemoveOEM -Confirm:$false -ErrorAction Stop
 
 Write-FoundryUsbProgress 32 'Initializing USB partition table.'
@@ -32,7 +38,7 @@ if ($disk.PartitionStyle -eq 'RAW') {
 }
 
 Write-FoundryUsbProgress 38 'Creating BOOT partition.'
-$bootPartitionArguments = @{ Size = 2048MB; AssignDriveLetter = $true; ErrorAction = 'Stop' }
+$bootPartitionArguments = @{ Size = $bootPartitionBytes; AssignDriveLetter = $true; ErrorAction = 'Stop' }
 if ($partitionStyle -eq 'GPT') {
     $bootPartitionArguments['GptType'] = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'
 } else {

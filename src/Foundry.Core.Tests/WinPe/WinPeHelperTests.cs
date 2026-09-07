@@ -30,23 +30,30 @@ public sealed class WinPeHelperTests
         Assert.Equal(expected, canonical);
     }
 
-    [Fact]
-    public void TryResolveInputLocale_WhenCultureExists_ReturnsCanonicalCodeAndLocale()
+    [Theory]
+    [InlineData("es-ES")]
+    [InlineData("fr-CA")]
+    [InlineData("en-US")]
+    public void TryResolveInputLocale_WhenCultureExists_ReturnsCanonicalCodeAndLocale(string language)
     {
-        bool success = WinPeLanguageUtility.TryResolveInputLocale("fr-FR", out string canonicalLanguageCode, out string inputLocale);
+        bool success = WinPeLanguageUtility.TryResolveInputLocale(language, out string canonicalLanguageCode, out string inputLocale);
 
         Assert.True(success);
-        Assert.Equal("fr-FR", canonicalLanguageCode);
-        Assert.Matches("^[0-9a-f]{4}:0000[0-9a-f]{4}$", inputLocale);
+        Assert.Equal(language, canonicalLanguageCode);
+        Assert.Equal(language, inputLocale);
     }
 
-    [Fact]
-    public void TryResolveInputLocale_WhenCultureIsUnknown_ReturnsFalse()
+    [Theory]
+    [InlineData("invalid-culture-code")]
+    [InlineData("en")]
+    [InlineData("")]
+    [InlineData("zz-ZZ")]
+    public void TryResolveInputLocale_WhenCultureIsUnknown_ReturnsFalse(string language)
     {
-        bool success = WinPeLanguageUtility.TryResolveInputLocale("invalid-culture-code", out string canonicalLanguageCode, out string inputLocale);
+        bool success = WinPeLanguageUtility.TryResolveInputLocale(language, out string canonicalLanguageCode, out string inputLocale);
 
         Assert.False(success);
-        Assert.Equal("invalid-culture-code", canonicalLanguageCode);
+        Assert.Equal(language, canonicalLanguageCode);
         Assert.Equal(string.Empty, inputLocale);
     }
 

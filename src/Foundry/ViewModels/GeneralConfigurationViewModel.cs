@@ -234,7 +234,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
             return;
         }
 
-        WinPeResult<WinPeToolPaths> toolsResult = new WinPeToolResolver().ResolveTools(adkService.CurrentStatus.KitsRootPath);
+        WinPeResult<WinPeToolPaths> toolsResult = new WinPeToolResolver().ResolveTools(adkService.CurrentStatus.KitsRootPath, SelectedArchitecture?.Value ?? WinPeArchitecture.X64);
         if (!toolsResult.IsSuccess || toolsResult.Value is null)
         {
             logger.Warning("WinPE language discovery skipped because ADK tools were not resolved. ErrorCode={ErrorCode}", toolsResult.Error?.Code);

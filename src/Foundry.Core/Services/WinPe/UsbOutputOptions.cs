@@ -28,6 +28,8 @@ public sealed record UsbOutputOptions
     public string? DeployConfigurationJson { get; init; }
     public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = [];
     public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
+    /// <summary>Gets the caller-owned payloads prepared before formatting; retain them until USB population finishes.</summary>
+    public WinPePreparedRuntimePayloads? PreparedRuntime { get; init; }
     public IProgress<WinPeDownloadProgress>? DownloadProgress { get; init; }
     public IProgress<WinPeMediaProgress>? Progress { get; init; }
     public bool PreserveBuildWorkspace { get; init; }

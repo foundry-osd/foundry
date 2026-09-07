@@ -59,6 +59,9 @@ public sealed record WinPeWorkspacePreparationOptions
     /// </summary>
     public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
 
+    /// <summary>Gets operation-owned runtimes already acquired for placement into the image and media cache.</summary>
+    public WinPePreparedRuntimePayloads? PreparedRuntime { get; init; }
+
     /// <summary>
     /// Gets the cache directory used for WinRE sources when recovery media support is required.
     /// </summary>

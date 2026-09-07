@@ -3,11 +3,62 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Tests.TestUtilities;
+using System.Reflection.PortableExecutable;
+using System.Runtime.InteropServices;
 
 namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeBuildServiceTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task BuildAsync_RejectsWorkspaceContainingOutputParentWithoutDeletingFiles(bool sameDirectory)
+    {
+        using TempWinPeBuildWorkspace workspace = TempWinPeBuildWorkspace.Create();
+        string working = sameDirectory ? workspace.OutputDirectoryPath : Path.GetDirectoryName(workspace.OutputDirectoryPath)!;
+        Directory.CreateDirectory(working);
+        string sentinel = Path.Combine(working, "keep.txt");
+        await File.WriteAllTextAsync(sentinel, "original", TestContext.Current.CancellationToken);
+        var runner = new FakeBuildRunner();
+        var service = new WinPeBuildService(new WinPeToolResolver(() => workspace.KitsRootPath,
+            () => Architecture.X64, _ => new Version(10, 0, 26100, 1)), runner);
+
+        WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(new()
+        {
+            OutputDirectoryPath = workspace.OutputDirectoryPath,
+            WorkingDirectoryPath = working,
+            CleanExistingWorkingDirectory = true
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.ValidationFailed, result.Error?.Code);
+        Assert.Equal(0, runner.CopypeCalls);
+        Assert.Equal("original", await File.ReadAllTextAsync(sentinel, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task BuildAsync_RejectsIncompatibleSourceBeforeCopypeCanMountIt()
+    {
+        using TempWinPeBuildWorkspace workspace = TempWinPeBuildWorkspace.Create();
+        var runner = new FakeBuildRunner(imageArchitecture: "arm64");
+        var service = new WinPeBuildService(
+            new WinPeToolResolver(() => workspace.KitsRootPath, () => Architecture.X64, _ => new Version(10, 0, 26100, 1)),
+            runner);
+
+        WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(new()
+        {
+            OutputDirectoryPath = workspace.OutputDirectoryPath,
+            Architecture = WinPeArchitecture.X64
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Null(result.Value);
+        Assert.Equal(WinPeErrorCodes.ValidationFailed, result.Error?.Code);
+        Assert.Equal(0, runner.CopypeCalls);
+    }
+
     [Fact]
     public async Task BuildAsync_RejectsUnsupportedBatchPathBeforeDeletingTheWorkspace()
     {
@@ -16,7 +67,7 @@ public sealed class WinPeBuildServiceTests
         Directory.CreateDirectory(workingDirectory);
         string sentinel = Path.Combine(workingDirectory, "keep.txt");
         await File.WriteAllTextAsync(sentinel, "original", TestContext.Current.CancellationToken);
-        var service = new WinPeBuildService(new WinPeToolResolver(() => workspace.KitsRootPath), new FakeBuildRunner());
+        var service = new WinPeBuildService(new WinPeToolResolver(() => workspace.KitsRootPath, () => Architecture.X64, _ => new Version(10, 0, 26100, 1)), new FakeBuildRunner());
 
         WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(new WinPeBuildOptions
         {
@@ -73,7 +124,7 @@ public sealed class WinPeBuildServiceTests
         using TempWinPeBuildWorkspace workspace = TempWinPeBuildWorkspace.Create();
         var runner = new FakeBuildRunner();
         var service = new WinPeBuildService(
-            new WinPeToolResolver(() => workspace.KitsRootPath),
+            new WinPeToolResolver(() => workspace.KitsRootPath, () => Architecture.X64, _ => new Version(10, 0, 26100, 1)),
             runner);
 
         WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(
@@ -90,6 +141,7 @@ public sealed class WinPeBuildServiceTests
         Assert.True(Directory.Exists(Path.Combine(result.Value.WorkingDirectoryPath, "drivers")));
         Assert.True(Directory.Exists(Path.Combine(result.Value.WorkingDirectoryPath, "logs")));
         Assert.True(Directory.Exists(Path.Combine(result.Value.WorkingDirectoryPath, "temp")));
+        Assert.Equal(1, runner.CopypeCalls);
     }
 
     [Fact]
@@ -97,7 +149,7 @@ public sealed class WinPeBuildServiceTests
     {
         using TempWinPeBuildWorkspace workspace = TempWinPeBuildWorkspace.Create();
         var service = new WinPeBuildService(
-            new WinPeToolResolver(() => workspace.KitsRootPath),
+            new WinPeToolResolver(() => workspace.KitsRootPath, () => Architecture.X64, _ => new Version(10, 0, 26100, 1)),
             new FakeBuildRunner(exitCode: 9));
 
         WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(
@@ -123,7 +175,7 @@ public sealed class WinPeBuildServiceTests
         exception.Data["ProcessRootExitConfirmed"] = true;
         exception.Data["ProcessTreeTerminationConfirmed"] = false;
         var service = new WinPeBuildService(
-            new WinPeToolResolver(() => workspace.KitsRootPath),
+            new WinPeToolResolver(() => workspace.KitsRootPath, () => Architecture.X64, _ => new Version(10, 0, 26100, 1)),
             new FakeBuildRunner(exception: exception));
 
         WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(
@@ -143,8 +195,9 @@ public sealed class WinPeBuildServiceTests
         Assert.Equal(false, result.Error?.Exception?.Data["ProcessTreeTerminationConfirmed"]);
     }
 
-    private sealed class FakeBuildRunner(int exitCode = 0, Exception? exception = null) : IWinPeProcessRunner
+    private sealed class FakeBuildRunner(int exitCode = 0, Exception? exception = null, string imageArchitecture = "x64") : IWinPeProcessRunner
     {
+        public int CopypeCalls { get; private set; }
         public Task<WinPeProcessExecution> RunAsync(
             string fileName,
             string arguments,
@@ -170,7 +223,8 @@ public sealed class WinPeBuildServiceTests
                 ExitCode = 0,
                 FileName = fileName,
                 Arguments = arguments,
-                WorkingDirectory = workingDirectory
+                WorkingDirectory = workingDirectory,
+                StandardOutput = $"Architecture : {imageArchitecture}\nVersion : 10.0.26100.9999\n"
             });
         }
 
@@ -181,6 +235,7 @@ public sealed class WinPeBuildServiceTests
             CancellationToken cancellationToken,
             TimeSpan? executionTimeout = null)
         {
+            CopypeCalls++;
             if (exception is not null)
             {
                 throw exception;
@@ -228,8 +283,14 @@ public sealed class WinPeBuildServiceTests
                 "Assessment and Deployment Kit",
                 "Windows Preinstallation Environment");
             Directory.CreateDirectory(winPeRoot);
+            Directory.CreateDirectory(Path.Combine(winPeRoot, "amd64", "en-us"));
+            File.WriteAllText(Path.Combine(winPeRoot, "amd64", "en-us", "winpe.wim"), "source");
             File.WriteAllText(Path.Combine(winPeRoot, "copype.cmd"), "copype");
             File.WriteAllText(Path.Combine(winPeRoot, "MakeWinPEMedia.cmd"), "makewinpemedia");
+            PortableExecutableFixture.Write(Path.Combine(KitsRootPath, "Assessment and Deployment Kit", "Deployment Tools", "amd64", "DISM", "dism.exe"), Machine.Amd64);
+            PortableExecutableFixture.Write(Path.Combine(KitsRootPath, "Assessment and Deployment Kit", "Deployment Tools", "amd64", "Oscdimg", "oscdimg.exe"), Machine.Amd64);
+            PortableExecutableFixture.Write(Path.Combine(KitsRootPath, "Assessment and Deployment Kit", "Deployment Tools", "arm64", "DISM", "dism.exe"), Machine.Arm64);
+            PortableExecutableFixture.Write(Path.Combine(KitsRootPath, "Assessment and Deployment Kit", "Deployment Tools", "arm64", "Oscdimg", "oscdimg.exe"), Machine.Arm64);
         }
 
         public string RootPath { get; }

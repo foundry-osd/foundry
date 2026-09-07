@@ -38,6 +38,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeEmbeddedAssetService embeddedAssetService;
     private readonly IWinPeBuildService buildService;
     private readonly IWinPeWorkspacePreparationService workspacePreparationService;
+    private readonly IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService;
     private readonly IWinPeIsoMediaService isoMediaService;
     private readonly IWinPeUsbMediaService usbMediaService;
     private readonly IFilePickerService filePickerService;
@@ -74,6 +75,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeEmbeddedAssetService embeddedAssetService,
         IWinPeBuildService buildService,
         IWinPeWorkspacePreparationService workspacePreparationService,
+        IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService,
         IWinPeIsoMediaService isoMediaService,
         IWinPeUsbMediaService usbMediaService,
         IFilePickerService filePickerService,
@@ -95,6 +97,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.embeddedAssetService = embeddedAssetService;
         this.buildService = buildService;
         this.workspacePreparationService = workspacePreparationService;
+        this.runtimePayloadProvisioningService = runtimePayloadProvisioningService;
         this.isoMediaService = isoMediaService;
         this.usbMediaService = usbMediaService;
         this.filePickerService = filePickerService;
@@ -339,7 +342,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return;
         }
 
-        WinPeResult<WinPeToolPaths> toolsResult = new WinPeToolResolver().ResolveTools(adkService.CurrentStatus.KitsRootPath);
+        WinPeResult<WinPeToolPaths> toolsResult = new WinPeToolResolver().ResolveTools(adkService.CurrentStatus.KitsRootPath, SelectedArchitecture?.Value ?? WinPeArchitecture.X64);
         if (!toolsResult.IsSuccess || toolsResult.Value is null)
         {
             usbCandidateDiscoveryState = UsbCandidateDiscoveryState.Error;
@@ -688,6 +691,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
+            workspace?.PreparedRuntime.Dispose();
             CleanupPreparedWorkspace(workspace?.PreparedWorkspace.Artifact.WorkingDirectoryPath);
         }
     }
@@ -747,6 +751,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     PartitionStyle = options.UsbPartitionStyle,
                     FormatMode = options.UsbFormatMode,
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
+                    PreparedRuntime = workspace.PreparedRuntime,
                     DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
                         new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
@@ -767,6 +772,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
+            workspace?.PreparedRuntime.Dispose();
             CleanupPreparedWorkspace(workspace?.PreparedWorkspace.Artifact.WorkingDirectoryPath);
         }
     }
@@ -824,6 +830,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     },
                     FormatMode = options.UsbFormatMode,
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
+                    PreparedRuntime = workspace.PreparedRuntime,
                     DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
                         new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
@@ -844,6 +851,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
+            workspace?.PreparedRuntime.Dispose();
             CleanupPreparedWorkspace(workspace?.PreparedWorkspace.Artifact.WorkingDirectoryPath);
         }
     }
@@ -856,11 +864,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         CancellationToken cancellationToken)
     {
         WinPeBuildArtifact? artifact = null;
+        WinPePreparedRuntimePayloads? preparedRuntime = null;
 
         try
         {
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.ResolveWinPeTools);
-            WinPeToolPaths tools = ResolveWinPeToolsOrThrow();
+            WinPeToolPaths tools = ResolveWinPeToolsOrThrow(options.Architecture);
             logger.Debug(
                 "Resolved WinPE tools. KitsRootPath={KitsRootPath}, DismPath={DismPath}, MakeWinPeMediaPath={MakeWinPeMediaPath}",
                 tools.KitsRootPath,
@@ -916,6 +925,21 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 artifact.MountDirectoryPath,
                 artifact.BootWimPath);
 
+            WinPeRuntimePayloadProvisioningOptions artifactRuntimePayloadProvisioning = runtimePayloadProvisioning with
+            {
+                WorkingDirectoryPath = artifact.WorkingDirectoryPath,
+                MountedImagePath = artifact.MountDirectoryPath,
+                UsbCacheRootPath = string.Empty
+            };
+
+            telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.PrepareRuntimePayloads);
+            WinPeResult<WinPePreparedRuntimePayloads> runtimePreparationResult = await runtimePayloadProvisioningService.PrepareAsync(
+                artifactRuntimePayloadProvisioning,
+                telemetryProgressTracker.CreateDownloadProgress(new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
+                cancellationToken);
+            EnsureSuccess(runtimePreparationResult);
+            preparedRuntime = runtimePreparationResult.Value!;
+
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.GenerateProvisioningPayloads);
             FoundryConnectProvisioningBundle connectBundle = foundryConfigurationStateService.GenerateConnectProvisioningBundle(
                 Path.Combine(artifact.WorkingDirectoryPath, "Provisioning"),
@@ -925,13 +949,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 connectBundle.AssetFiles.Count,
                 connectBundle.MediaSecretsKey is { Length: > 0 },
                 options.IsAutopilotEnabled ? foundryConfigurationStateService.Current.Autopilot.Profiles.Count : 0);
-
-            WinPeRuntimePayloadProvisioningOptions artifactRuntimePayloadProvisioning = runtimePayloadProvisioning with
-            {
-                WorkingDirectoryPath = artifact.WorkingDirectoryPath,
-                MountedImagePath = artifact.MountDirectoryPath,
-                UsbCacheRootPath = string.Empty
-            };
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.PrepareWinPeWorkspace);
             IProgress<WinPeWorkspacePreparationStage> workspacePreparationProgress =
@@ -961,6 +978,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                             runtimePayloadProvisioning,
                             deployTelemetrySettings),
                         RuntimePayloadProvisioning = includeRuntimePayloadInImage ? artifactRuntimePayloadProvisioning : null,
+                        PreparedRuntime = preparedRuntime,
                         WinReCacheDirectoryPath = Constants.WinReTempDirectoryPath,
                         Progress = workspacePreparationProgress,
                         DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
@@ -991,10 +1009,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 {
                     MountedImagePath = string.Empty,
                     UsbCacheRootPath = string.Empty
-                });
+                },
+                preparedRuntime);
         }
         catch
         {
+            preparedRuntime?.Dispose();
             CleanupPreparedWorkspace(artifact?.WorkingDirectoryPath);
             throw;
         }
@@ -1021,7 +1041,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         return new WinPeMountedImageAssetProvisioningOptions
         {
             BootstrapScriptContent = embeddedAssetService.GetBootstrapScriptContent(),
-            CurlExecutableSourcePath = ResolveCurlExecutablePath(),
             SevenZipSourceDirectoryPath = embeddedAssetService.GetSevenZipSourceDirectoryPath(),
             IanaWindowsTimeZoneMapJson = embeddedAssetService.GetIanaWindowsTimeZoneMapJson(),
             FoundryConnectConfigurationJson = connectBundle.ConfigurationJson,
@@ -2212,7 +2231,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return [];
         }
 
-        WinPeResult<WinPeToolPaths> toolsResult = new WinPeToolResolver().ResolveTools(adkService.CurrentStatus.KitsRootPath);
+        WinPeResult<WinPeToolPaths> toolsResult = new WinPeToolResolver().ResolveTools(adkService.CurrentStatus.KitsRootPath, SelectedArchitecture?.Value ?? WinPeArchitecture.X64);
         if (!toolsResult.IsSuccess || toolsResult.Value is null)
         {
             logger.Warning("WinPE language validation skipped because ADK tools were not resolved. ErrorCode={ErrorCode}", toolsResult.Error?.Code);
@@ -2429,9 +2448,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         return $"{size:0.#} {units[unitIndex]}";
     }
 
-    private WinPeToolPaths ResolveWinPeToolsOrThrow()
+    private WinPeToolPaths ResolveWinPeToolsOrThrow(WinPeArchitecture architecture)
     {
-        WinPeResult<WinPeToolPaths> result = new WinPeToolResolver().ResolveTools(adkService.CurrentStatus.KitsRootPath);
+        WinPeResult<WinPeToolPaths> result = new WinPeToolResolver().ResolveTools(adkService.CurrentStatus.KitsRootPath, architecture);
         EnsureSuccess(result);
         return result.Value!;
     }
@@ -2475,15 +2494,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 ProvisioningSource = WinPeProvisioningSource.Release
             }
         };
-    }
-
-    private static string ResolveCurlExecutablePath()
-    {
-        string systemCurlPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.System),
-            "curl.exe");
-
-        return File.Exists(systemCurlPath) ? systemCurlPath : "curl.exe";
     }
 
     private static string? FindRepositoryRoot()
@@ -2562,5 +2572,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private sealed record PreparedMediaWorkspace(
         WinPeWorkspacePreparationResult PreparedWorkspace,
         WinPeToolPaths Tools,
-        WinPeRuntimePayloadProvisioningOptions RuntimePayloadProvisioning);
+        WinPeRuntimePayloadProvisioningOptions RuntimePayloadProvisioning,
+        WinPePreparedRuntimePayloads PreparedRuntime);
 }

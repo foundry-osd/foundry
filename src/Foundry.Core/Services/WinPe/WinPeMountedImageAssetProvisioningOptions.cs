@@ -11,7 +11,6 @@ public sealed record WinPeMountedImageAssetProvisioningOptions
     public string MountedImagePath { get; init; } = string.Empty;
     public WinPeArchitecture Architecture { get; init; } = WinPeArchitecture.X64;
     public string BootstrapScriptContent { get; init; } = string.Empty;
-    public string CurlExecutableSourcePath { get; init; } = string.Empty;
     public string SevenZipSourceDirectoryPath { get; init; } = string.Empty;
     public string IanaWindowsTimeZoneMapJson { get; init; } = string.Empty;
     public string FoundryConnectConfigurationJson { get; init; } = string.Empty;

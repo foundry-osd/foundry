@@ -216,6 +216,8 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
                 "Set UsbOutputOptions.TargetDiskNumber to the physical disk number you intend to erase.");
         }
 
+        WinPeResult runtimeValidation = await ValidatePreparedRuntimeAsync(options, artifact, cancellationToken).ConfigureAwait(false);
+        if (!runtimeValidation.IsSuccess) { return WinPeResult<WinPeUsbProvisionResult>.Failure(runtimeValidation.Error!); }
         int diskNumber = options.TargetDiskNumber.Value;
         ReportProgress(options.Progress, 0, "Validating USB target.");
         WinPeResult<IReadOnlyList<WinPeUsbDiskIdentity>> diskResult = await GetDiskIdentitiesAsync(
@@ -238,11 +240,18 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<WinPeUsbProvisionResult>.Failure(safetyValidation.Error!);
         }
 
+        WinPeResult<WinPeBootContentPreflightResult> contentResult = WinPeBootContentPreflightService.Evaluate(
+            artifact, options.PreparedRuntime!.Applications.SelectMany(app => app.Files).Select(file => file.Length),
+            disk!.Size, null, null, useBootEx, cancellationToken);
+        if (!contentResult.IsSuccess) { return WinPeResult<WinPeUsbProvisionResult>.Failure(contentResult.Error!); }
+        using WinPeBootContentPreflightResult content = contentResult.Value!;
+
         ReportProgress(options.Progress, 20, "Partitioning and formatting USB target.");
         WinPeResult<WinPeUsbProvisionResult> provisioningResult = await ProvisionDiskAsync(
             options.ExpectedDisk!,
             options.PartitionStyle,
             options.FormatMode,
+            content,
             tools,
             artifact.WorkingDirectoryPath,
             options.Progress,
@@ -263,9 +272,8 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         string cacheRootPath = _resolveVolumeRoot(provisionedUsb.CacheVolumePath);
         ReportProgress(options.Progress, 55, "Copying WinPE media to USB.");
         WinPeResult copyResult = await CopyMediaAsync(
-            artifact.MediaDirectoryPath,
+            content,
             bootRootPath,
-            artifact.WorkingDirectoryPath,
             cancellationToken).ConfigureAwait(false);
         if (!copyResult.IsSuccess)
         {
@@ -274,18 +282,14 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 
         if (useBootEx)
         {
-            ReportProgress(options.Progress, 70, "Configuring USB boot files.");
+            ReportProgress(options.Progress, 70, "Validating USB boot files.");
             WinPeResult bootFilesLayoutValidation = await ValidatePopulationLayoutAsync(options.ExpectedDisk!, provisionedUsb, tools, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
             if (!bootFilesLayoutValidation.IsSuccess)
             {
                 return WinPeResult<WinPeUsbProvisionResult>.Failure(bootFilesLayoutValidation.Error!);
             }
 
-            WinPeResult bootConfigurationResult = ConfigureBootFiles(bootRootPath, artifact);
-            if (!bootConfigurationResult.IsSuccess)
-            {
-                return WinPeResult<WinPeUsbProvisionResult>.Failure(bootConfigurationResult.Error!);
-            }
+
         }
 
         ReportProgress(options.Progress, 78, "Verifying USB boot media.");
@@ -319,9 +323,9 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
                 return WinPeResult<WinPeUsbProvisionResult>.Failure(runtimeLayoutValidation.Error!);
             }
 
-            WinPeResult runtimePayloadResult = await _runtimePayloadProvisioningService.ProvisionAsync(
+            WinPeResult runtimePayloadResult = await _runtimePayloadProvisioningService.ProvisionPreparedAsync(
+                options.PreparedRuntime!,
                 CreateUsbRuntimePayloadOptions(options.RuntimePayloadProvisioning, artifact, cacheRootPath),
-                options.DownloadProgress,
                 cancellationToken).ConfigureAwait(false);
 
             if (!runtimePayloadResult.IsSuccess)
@@ -362,6 +366,8 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
                 "Set UsbOutputOptions.TargetDiskNumber to the physical disk number you intend to update.");
         }
 
+        WinPeResult runtimeValidation = await ValidatePreparedRuntimeAsync(options, artifact, cancellationToken).ConfigureAwait(false);
+        if (!runtimeValidation.IsSuccess) { return WinPeResult<WinPeUsbProvisionResult>.Failure(runtimeValidation.Error!); }
         int diskNumber = options.TargetDiskNumber.Value;
         ReportProgress(options.Progress, 0, "Validating USB target.");
         WinPeResult<IReadOnlyList<WinPeUsbDiskIdentity>> diskResult = await GetDiskIdentitiesAsync(
@@ -396,11 +402,17 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         }
 
         WinPeUsbProvisionResult layout = layoutResult.Value!;
+        WinPeResult<WinPeBootContentPreflightResult> contentResult = WinPeBootContentPreflightService.Evaluate(
+            artifact, options.PreparedRuntime!.Applications.SelectMany(app => app.Files).Select(file => file.Length),
+            disk!.Size, layout.BootPartitionSize, layout.CacheFreeBytes, useBootEx, cancellationToken);
+        if (!contentResult.IsSuccess) { return WinPeResult<WinPeUsbProvisionResult>.Failure(contentResult.Error!); }
+        using WinPeBootContentPreflightResult content = contentResult.Value!;
         ReportProgress(options.Progress, 35, "Formatting BOOT partition.");
         WinPeResult<WinPeUsbProvisionResult> formatResult = await FormatBootPartitionAsync(
             options.ExpectedDisk!,
             layout,
             options.FormatMode,
+            content,
             tools,
             artifact.WorkingDirectoryPath,
             options.Progress,
@@ -420,9 +432,8 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         string bootRootPath = _resolveVolumeRoot(layout.BootVolumePath);
         ReportProgress(options.Progress, 55, "Copying WinPE media to USB.");
         WinPeResult copyResult = await CopyMediaAsync(
-            artifact.MediaDirectoryPath,
+            content,
             bootRootPath,
-            artifact.WorkingDirectoryPath,
             cancellationToken).ConfigureAwait(false);
         if (!copyResult.IsSuccess)
         {
@@ -431,18 +442,14 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 
         if (useBootEx)
         {
-            ReportProgress(options.Progress, 75, "Configuring USB boot files.");
+            ReportProgress(options.Progress, 75, "Validating USB boot files.");
             WinPeResult bootFilesLayoutValidation = await ValidatePopulationLayoutAsync(options.ExpectedDisk!, layout, tools, artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
             if (!bootFilesLayoutValidation.IsSuccess)
             {
                 return WinPeResult<WinPeUsbProvisionResult>.Failure(bootFilesLayoutValidation.Error!);
             }
 
-            WinPeResult bootConfigurationResult = ConfigureBootFiles(bootRootPath, artifact);
-            if (!bootConfigurationResult.IsSuccess)
-            {
-                return WinPeResult<WinPeUsbProvisionResult>.Failure(bootConfigurationResult.Error!);
-            }
+
         }
 
         ReportProgress(options.Progress, 90, "Verifying USB boot media.");
@@ -475,9 +482,9 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
                 return WinPeResult<WinPeUsbProvisionResult>.Failure(runtimeLayoutValidation.Error!);
             }
 
-            WinPeResult runtimePayloadResult = await _runtimePayloadProvisioningService.ProvisionAsync(
+            WinPeResult runtimePayloadResult = await _runtimePayloadProvisioningService.ProvisionPreparedAsync(
+                options.PreparedRuntime!,
                 CreateUsbRuntimePayloadOptions(options.RuntimePayloadProvisioning, artifact, cacheRootPath),
-                options.DownloadProgress,
                 cancellationToken).ConfigureAwait(false);
 
             if (!runtimePayloadResult.IsSuccess)
@@ -495,6 +502,24 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 
         ReportProgress(options.Progress, 100, "USB boot partition updated.");
         return WinPeResult<WinPeUsbProvisionResult>.Success(layout);
+    }
+
+    /// <summary>Validates one confirmed snapshot against the same complete enumeration used for uniqueness.</summary>
+    private Task<WinPeResult> ValidatePreparedRuntimeAsync(
+        UsbOutputOptions options, WinPeBuildArtifact artifact, CancellationToken cancellationToken)
+    {
+        WinPePreparedRuntimePayloads? prepared = options.PreparedRuntime;
+        if (prepared is null || prepared.IsDisposed || options.RuntimePayloadProvisioning is null ||
+            options.RuntimePayloadProvisioning.Connect is null || options.RuntimePayloadProvisioning.Deploy is null ||
+            prepared.Applications.Count(app => app.ApplicationName == "Foundry.Connect") != 1 ||
+            prepared.Applications.Any(app => app.RuntimeIdentifier != artifact.Architecture.ToDotnetRuntimeIdentifier()) ||
+            (options.RuntimePayloadProvisioning.Deploy.IsEnabled &&
+                prepared.Applications.Count(app => app.ApplicationName == "Foundry.Deploy") != 1))
+        {
+            return Task.FromResult(WinPeResult.Failure(WinPeErrorCodes.ValidationFailed,
+                "Prepare the required target-architecture runtimes before formatting USB media."));
+        }
+        return _runtimePayloadProvisioningService.ValidatePreparedAsync(prepared, cancellationToken);
     }
 
     /// <summary>Validates one confirmed snapshot against the same complete enumeration used for uniqueness.</summary>
@@ -539,19 +564,18 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
     private static bool SameIdentifier(string first, string second) =>
         string.Equals(first.Trim(), second.Trim(), StringComparison.Ordinal);
 
-    internal static bool IsRobocopySuccessExitCode(int exitCode)
-    {
-        return exitCode is >= 0 and <= 7;
-    }
-
     internal static string BuildPowerShellProvisioningScript(
         WinPeUsbDiskIdentity expectedDisk,
         UsbPartitionStyle partitionStyle,
-        UsbFormatMode formatMode)
+        UsbFormatMode formatMode,
+        ulong bootPartitionBytes,
+        ulong requiredCacheBytes)
     {
         string template = WinPeEmbeddedAssetService.ReadEmbeddedText(WinPeEmbeddedAssetService.UsbProvisioningScriptResourceName);
         return ReadUsbDiskOperations() + template
             .Replace("{{EXPECTED_DISK}}", EncodeJson(expectedDisk))
+            .Replace("{{BOOT_PARTITION_BYTES}}", bootPartitionBytes.ToString(System.Globalization.CultureInfo.InvariantCulture))
+            .Replace("{{REQUIRED_CACHE_BYTES}}", requiredCacheBytes.ToString(System.Globalization.CultureInfo.InvariantCulture))
             .Replace("{{PARTITION_STYLE}}", partitionStyle == UsbPartitionStyle.Gpt ? "GPT" : "MBR")
             .Replace("{{FULL_FORMAT}}", formatMode == UsbFormatMode.Complete ? "$true" : "$false")
             .ReplaceLineEndings(Environment.NewLine);
@@ -560,7 +584,9 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
     internal static string BuildPowerShellBootPartitionUpdateScript(
         WinPeUsbDiskIdentity expectedDisk,
         WinPeUsbProvisionResult layout,
-        UsbFormatMode formatMode)
+        UsbFormatMode formatMode,
+        ulong requiredBootBytes,
+        ulong requiredCacheBytes)
     {
         return ReadUsbDiskOperations() + $$"""
             $ErrorActionPreference = 'Stop'
@@ -568,9 +594,11 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             $expected = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('{{EncodeJson(expectedDisk)}}')) | ConvertFrom-Json
             $layout = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('{{EncodeJson(layout)}}')) | ConvertFrom-Json
             $validatedLayout = Get-FoundryUsbLayout -Expected $expected -Layout $layout
+            if ($null -eq $validatedLayout.CacheFreeBytes -or [uint64]$validatedLayout.CacheFreeBytes -lt {{requiredCacheBytes.ToString(System.Globalization.CultureInfo.InvariantCulture)}}) { throw 'CACHE free space changed before formatting.' }
             $bootPartition = Get-FoundryUsbLayoutPartition -Expected $expected -Layout $layout -Role 'Boot'
             $bootVolume = Get-FoundryUsbPartitionVolume $bootPartition
             if ([string]$bootVolume.UniqueId -cne $layout.BootVolumeUniqueId -or [string]$bootVolume.Path -cne $layout.BootVolumePath) { throw 'BOOT volume identity changed.' }
+            if ($null -eq $bootVolume.Size -or [uint64]$bootVolume.Size -lt {{requiredBootBytes.ToString(System.Globalization.CultureInfo.InvariantCulture)}}) { throw 'Final media does not fit the BOOT volume.' }
             Write-Output 'FOUNDRY_USB_PROGRESS|35|Formatting BOOT partition.'
             Format-Volume -InputObject $bootVolume -FileSystem FAT32 -NewFileSystemLabel BOOT -Full:{{(formatMode == UsbFormatMode.Complete ? "$true" : "$false")}} -Force -Confirm:$false -ErrorAction Stop | Out-Null
             $bootPartition = Get-FoundryUsbLayoutPartition -Expected $expected -Layout $layout -Role 'Boot'
@@ -696,6 +724,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         WinPeUsbDiskIdentity expectedDisk,
         UsbPartitionStyle partitionStyle,
         UsbFormatMode formatMode,
+        WinPeBootContentPreflightResult content,
         WinPeToolPaths tools,
         string workingDirectoryPath,
         IProgress<WinPeMediaProgress>? progress,
@@ -704,7 +733,9 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         string script = BuildPowerShellProvisioningScript(
             expectedDisk,
             partitionStyle,
-            formatMode);
+            formatMode,
+            content.BootPartitionSizeBytes,
+            content.RequiredCacheFreeBytes);
 
         Directory.CreateDirectory(workingDirectoryPath);
         IReadOnlyList<string> arguments = CreatePowerShellArguments(script);
@@ -793,6 +824,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         WinPeUsbDiskIdentity expectedDisk,
         WinPeUsbProvisionResult layout,
         UsbFormatMode formatMode,
+        WinPeBootContentPreflightResult content,
         WinPeToolPaths tools,
         string workingDirectoryPath,
         IProgress<WinPeMediaProgress>? progress,
@@ -801,7 +833,9 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         string script = BuildPowerShellBootPartitionUpdateScript(
             expectedDisk,
             layout,
-            formatMode);
+            formatMode,
+            content.RequiredBootBytes,
+            content.RequiredCacheFreeBytes);
 
         Directory.CreateDirectory(workingDirectoryPath);
         IReadOnlyList<string> arguments = CreatePowerShellArguments(script);
@@ -867,6 +901,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
                     result.BootPartitionNumber == result.CachePartitionNumber ||
                     result.BootPartitionOffset == 0 || result.CachePartitionOffset == 0 ||
                     result.BootPartitionSize == 0 || result.CachePartitionSize == 0 ||
+                    result.CacheFreeBytes > result.CachePartitionSize ||
                     string.IsNullOrWhiteSpace(result.BootVolumeUniqueId) || string.IsNullOrWhiteSpace(result.CacheVolumeUniqueId) ||
                     result.BootVolumeUniqueId == result.CacheVolumeUniqueId ||
                     !IsVolumeGuidPath(result.BootVolumePath) || !IsVolumeGuidPath(result.CacheVolumePath) ||
@@ -895,38 +930,25 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             "USB provisioning did not return a complete disk and volume identity.");
     }
 
-    private async Task<WinPeResult> CopyMediaAsync(
-        string sourceMediaDirectoryPath,
+    private static async Task<WinPeResult> CopyMediaAsync(
+        WinPeBootContentPreflightResult content,
         string destinationBootRootPath,
-        string workingDirectoryPath,
         CancellationToken cancellationToken)
     {
-        string robocopyPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.Windows),
-            "System32",
-            "robocopy.exe");
-        if (!File.Exists(robocopyPath))
+        foreach (WinPeMeasuredBootFile file in content.Files)
         {
-            robocopyPath = "robocopy.exe";
+            cancellationToken.ThrowIfCancellationRequested();
+            string destinationPath = Path.Combine(destinationBootRootPath, file.RelativePath);
+            Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
+            file.Source.Position = 0;
+            await using FileStream destination = new(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None,
+                81920, FileOptions.Asynchronous | FileOptions.SequentialScan);
+            await file.Source.CopyToAsync(destination, cancellationToken).ConfigureAwait(false);
+            await destination.FlushAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        WinPeProcessExecution execution = await _processRunner.RunAsync(
-            robocopyPath,
-            [sourceMediaDirectoryPath, destinationBootRootPath, "/E", "/R:1", "/W:1", "/NFL", "/NDL", "/NJH", "/NJS", "/NP"],
-            workingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
-
-        if (IsRobocopySuccessExitCode(execution.ExitCode))
-        {
-            return WinPeResult.Success();
-        }
-
-        return WinPeResult.Failure(WithoutDeviceDetails(execution).ToFailureDiagnostic(
-            WinPeErrorCodes.UsbCopyFailed,
-            "Failed to copy WinPE media files to USB BOOT partition.",
-            toolName: "robocopy"));
+        return WinPeResult.Success();
     }
-
     private static void ReportProgress(IProgress<WinPeMediaProgress>? progress, int percent, string status)
     {
         progress?.Report(new WinPeMediaProgress

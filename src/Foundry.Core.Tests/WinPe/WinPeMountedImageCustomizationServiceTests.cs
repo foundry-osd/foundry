@@ -21,13 +21,22 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         var assetProvisioning = new FakeAssetProvisioningService();
         var runtimePayloadProvisioning = new FakeRuntimePayloadProvisioningService();
         var winRePreparation = new FakeWinRePreparationService();
+        bool capabilitiesValidated = false;
         var service = new WinPeMountedImageCustomizationService(
             runner,
             driverInjection,
             internationalization,
             assetProvisioning,
             runtimePayloadProvisioning,
-            winRePreparation);
+            winRePreparation,
+            (options, token) =>
+            {
+                capabilitiesValidated = true;
+                Assert.Same(Assert.Single(internationalization.Options), options);
+                Assert.Single(runtimePayloadProvisioning.Options);
+                Assert.DoesNotContain(runner.Executions, execution => execution.Arguments.Contains("/Commit", StringComparison.Ordinal));
+                return AcceptCapabilities(options, token);
+            });
         var runtimePayloadOptions = new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = Path.Combine(temp.RootPath, "runtime-work"),
@@ -45,16 +54,16 @@ public sealed class WinPeMountedImageCustomizationServiceTests
                 AssetProvisioning = new WinPeMountedImageAssetProvisioningOptions
                 {
                     BootstrapScriptContent = "bootstrap",
-                    CurlExecutableSourcePath = Path.Combine(temp.RootPath, "curl.exe"),
                     IanaWindowsTimeZoneMapJson = "{}"
                 },
                 RuntimePayloadProvisioning = runtimePayloadOptions,
                 WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache")
             },
-            CancellationToken.None);
+            TestContext.Current.CancellationToken);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.False(winRePreparation.WasCalled);
+        Assert.True(capabilitiesValidated);
         Assert.Single(assetProvisioning.Options);
         Assert.Equal(temp.Artifact.MountDirectoryPath, assetProvisioning.Options[0].MountedImagePath);
         Assert.Single(runtimePayloadProvisioning.Options);
@@ -91,7 +100,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
                 WinPeLanguage = "en-US",
                 WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache")
             },
-            CancellationToken.None);
+            TestContext.Current.CancellationToken);
 
         Assert.False(result.IsSuccess);
         Assert.Contains(runner.Executions, execution => execution.Arguments.Contains("/Discard", StringComparison.OrdinalIgnoreCase));
@@ -136,7 +145,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
                         StagedPath = stagedDependency
                     }
                 ]
-            }));
+            }), AcceptCapabilities);
 
         WinPeResult result = await service.CustomizeAsync(
             new WinPeMountedImageCustomizationOptions
@@ -148,12 +157,71 @@ public sealed class WinPeMountedImageCustomizationServiceTests
                 DriverPackagePaths = [driverDirectory],
                 WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache")
             },
-            CancellationToken.None);
+            TestContext.Current.CancellationToken);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.Single(driverInjection.Options);
     }
 
+    [Fact]
+    public async Task CustomizeAsync_WhenFinalCapabilityInventoryCannotBeVerified_DiscardsWithoutCommit()
+    {
+        using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        var runner = new FakeCustomizationRunner();
+        var runtime = new FakeRuntimePayloadProvisioningService();
+        var service = new WinPeMountedImageCustomizationService(runner, new FakeDriverInjectionService(),
+            new FakeInternationalizationService(), new FakeAssetProvisioningService(), runtime, new FakeWinRePreparationService());
+
+        WinPeResult result = await service.CustomizeAsync(new WinPeMountedImageCustomizationOptions
+        {
+            Artifact = temp.Artifact,
+            Tools = temp.Tools,
+            WinPeLanguage = "en-US",
+            RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions()
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.BuildFailed, result.Error?.Code);
+        Assert.Single(runtime.Options);
+        Assert.Contains(runner.Executions, execution => execution.Arguments.Contains("/Get-Packages", StringComparison.Ordinal));
+        Assert.Contains(runner.Executions, execution => execution.Arguments.Contains("/Discard", StringComparison.Ordinal));
+        Assert.DoesNotContain(runner.Executions, execution => execution.Arguments.Contains("/Commit", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task CustomizeAsync_WhenRuntimeIsPrepared_PlacesSamePayloadWithoutAcquisition()
+    {
+        using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        using var prepared = new WinPePreparedRuntimePayloads(Guid.NewGuid(), []);
+        var runtime = new FakeRuntimePayloadProvisioningService { RejectLegacyPlacement = true };
+        var service = new WinPeMountedImageCustomizationService(new FakeCustomizationRunner(), new FakeDriverInjectionService(),
+            new FakeInternationalizationService(), new FakeAssetProvisioningService(), runtime, new FakeWinRePreparationService(), AcceptCapabilities);
+        var destinations = new WinPeRuntimePayloadProvisioningOptions
+        {
+            Connect = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true },
+            WorkingDirectoryPath = temp.Artifact.WorkingDirectoryPath
+        };
+
+        WinPeResult result = await service.CustomizeAsync(new WinPeMountedImageCustomizationOptions
+        {
+            Artifact = temp.Artifact,
+            Tools = temp.Tools,
+            WinPeLanguage = "en-US",
+            RuntimePayloadProvisioning = destinations,
+            PreparedRuntime = prepared
+        }, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Same(prepared, Assert.Single(runtime.PreparedPayloads));
+        Assert.Equal(temp.Artifact.MountDirectoryPath, Assert.Single(runtime.Options).MountedImagePath);
+        Assert.Equal(temp.Artifact.Architecture, runtime.Options[0].Architecture);
+        Assert.Same(destinations.Connect, runtime.Options[0].Connect);
+        Assert.Empty(runtime.DownloadProgressItems);
+        Assert.False(prepared.IsDisposed);
+    }
+    private static Task<WinPeResult<WinPeCapabilityValidationResult>> AcceptCapabilities(
+        WinPeImageInternationalizationOptions options, CancellationToken cancellationToken) =>
+        Task.FromResult(WinPeResult<WinPeCapabilityValidationResult>.Success(new([], [])));
     private sealed class TempWinPeArtifact : IDisposable
     {
         private TempWinPeArtifact(string rootPath, WinPeBuildArtifact artifact, WinPeToolPaths tools)
@@ -308,7 +376,24 @@ public sealed class WinPeMountedImageCustomizationServiceTests
     {
         public List<WinPeRuntimePayloadProvisioningOptions> Options { get; } = [];
         public List<IProgress<WinPeDownloadProgress>?> DownloadProgressItems { get; } = [];
+        public List<WinPePreparedRuntimePayloads> PreparedPayloads { get; } = [];
+        public bool RejectLegacyPlacement { get; init; }
 
+        public Task<WinPeResult<WinPePreparedRuntimePayloads>> PrepareAsync(
+            WinPeRuntimePayloadProvisioningOptions options, IProgress<WinPeDownloadProgress>? progress = null,
+            CancellationToken cancellationToken = default) =>
+            throw new InvalidOperationException("This placement fixture must not acquire runtimes.");
+
+        public Task<WinPeResult> ValidatePreparedAsync(WinPePreparedRuntimePayloads prepared,
+            CancellationToken cancellationToken = default) => Task.FromResult(WinPeResult.Success());
+
+        public Task<WinPeResult> ProvisionPreparedAsync(WinPePreparedRuntimePayloads prepared,
+            WinPeRuntimePayloadProvisioningOptions destinations, CancellationToken cancellationToken = default)
+        {
+            PreparedPayloads.Add(prepared);
+            Options.Add(destinations);
+            return Task.FromResult(result ?? WinPeResult.Success());
+        }
         public Task<WinPeResult> ProvisionAsync(
             WinPeRuntimePayloadProvisioningOptions options,
             IProgress<WinPeDownloadProgress>? downloadProgress = null,
@@ -316,7 +401,9 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         {
             Options.Add(options);
             DownloadProgressItems.Add(downloadProgress);
-            return Task.FromResult(result ?? WinPeResult.Success());
+            return Task.FromResult(RejectLegacyPlacement
+                ? WinPeResult.Failure(WinPeErrorCodes.BuildFailed, "Prepared placement must not reacquire runtimes.")
+                : result ?? WinPeResult.Success());
         }
     }
 

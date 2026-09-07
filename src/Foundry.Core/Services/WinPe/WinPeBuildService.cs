@@ -39,7 +39,7 @@ public sealed class WinPeBuildService : IWinPeBuildService
             return WinPeResult<WinPeBuildArtifact>.Failure(validationError);
         }
 
-        WinPeResult<WinPeToolPaths> toolsResult = _toolResolver.ResolveTools(ResolveAdkRootHint(options));
+        WinPeResult<WinPeToolPaths> toolsResult = _toolResolver.ResolveTools(ResolveAdkRootHint(options), options.Architecture);
         if (!toolsResult.IsSuccess)
         {
             return WinPeResult<WinPeBuildArtifact>.Failure(toolsResult.Error!);
@@ -53,13 +53,38 @@ public sealed class WinPeBuildService : IWinPeBuildService
             string arguments = $"{options.Architecture.ToCopypeArchitecture()} {WinPeProcessRunner.Quote(workingDirectory)}";
             WinPeProcessRunner.ValidateCmdScript(tools.CopypePath, arguments);
 
+            string outputRoot = Path.TrimEndingDirectorySeparator(Path.GetFullPath(options.OutputDirectoryPath));
+            string workingRoot = Path.TrimEndingDirectorySeparator(Path.GetFullPath(workingDirectory));
+            if (outputRoot.Equals(workingRoot, StringComparison.OrdinalIgnoreCase) ||
+                outputRoot.StartsWith(workingRoot + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+            {
+                return WinPeResult<WinPeBuildArtifact>.Failure(WinPeErrorCodes.ValidationFailed,
+                    "The Copype workspace must not contain its output parent directory.");
+            }
+
+            // Copype mounts the source image internally, so inspect it before invoking the script.
+            string selectedWinPeRoot = WinPeProcessRunner.BuildAdkEnvironmentOverrides(tools.CopypePath)!["WinPERoot"];
+            string sourceImagePath = Path.Combine(selectedWinPeRoot,
+                options.Architecture.ToCopypeArchitecture(), "en-us", "winpe.wim");
+            if (!File.Exists(sourceImagePath))
+            {
+                return WinPeResult<WinPeBuildArtifact>.Failure(WinPeErrorCodes.ToolNotFound,
+                    "The selected ADK WinPE source image was not found.", sourceImagePath);
+            }
+            Directory.CreateDirectory(options.OutputDirectoryPath);
+            WinPeResult sourceCompatibility = await WinPeToolResolver.ValidateImageAsync(
+                tools, sourceImagePath, 1, options.Architecture, _processRunner, options.OutputDirectoryPath,
+                cancellationToken, writeDiagnosticLog: false).ConfigureAwait(false);
+            if (!sourceCompatibility.IsSuccess)
+            {
+                return WinPeResult<WinPeBuildArtifact>.Failure(sourceCompatibility.Error!);
+            }
+
             if (Directory.Exists(workingDirectory) && options.CleanExistingWorkingDirectory)
             {
                 // The workspace is owned by this build stage, so stale ADK output is removed before Copype runs.
                 Directory.Delete(workingDirectory, recursive: true);
             }
-
-            Directory.CreateDirectory(options.OutputDirectoryPath);
 
             WinPeProcessExecution copyPeResult = await _processRunner.RunCmdScriptAsync(
                 tools.CopypePath,
@@ -87,6 +112,12 @@ public sealed class WinPeBuildService : IWinPeBuildService
             }
 
             string mountDirectory = Path.Combine(workingDirectory, "mount");
+            WinPeResult imageCompatibility = await WinPeToolResolver.ValidateImageAsync(
+                tools, bootWimPath, 1, options.Architecture, _processRunner, workingDirectory, cancellationToken).ConfigureAwait(false);
+            if (!imageCompatibility.IsSuccess)
+            {
+                return WinPeResult<WinPeBuildArtifact>.Failure(imageCompatibility.Error!);
+            }
             string driverWorkspace = Path.Combine(workingDirectory, "drivers");
             string logsDirectory = Path.Combine(workingDirectory, "logs");
             string tempDirectory = Path.Combine(workingDirectory, "temp");

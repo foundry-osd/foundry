@@ -8,6 +8,32 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeDriverResolutionServiceTests
 {
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    public async Task ResolveAsync_RejectsMissingRequestedVendorBeforePreparingAnyPackage(bool includeDell, bool arm64)
+    {
+        WinPeDriverCatalogEntry[] entries = includeDell
+            ? [new() { Id = "dell", Vendor = WinPeVendorSelection.Dell, Architecture = WinPeArchitecture.X64 }]
+            : [];
+        var packages = new FakePackageService();
+        var service = new WinPeDriverResolutionService(new FakeCatalogService(entries), packages);
+
+        WinPeResult<IReadOnlyList<string>> result = await service.ResolveAsync(new WinPeDriverResolutionRequest
+        {
+            Artifact = new WinPeBuildArtifact { DriverWorkspacePath = "unused" },
+            CatalogUri = "https://example.test/catalog.json",
+            BootImageSource = WinPeBootImageSource.WinPe,
+            Architecture = arm64 ? WinPeArchitecture.Arm64 : WinPeArchitecture.X64,
+            DriverVendors = arm64 ? [WinPeVendorSelection.Dell] : [WinPeVendorSelection.Dell, WinPeVendorSelection.Hp]
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.ValidationFailed, result.Error?.Code);
+        Assert.Empty(packages.PreparedPackages);
+    }
+
     [Fact]
     public async Task ResolveAsync_WhenNoDriversAreRequestedForStandardWinPe_ReturnsEmptyList()
     {

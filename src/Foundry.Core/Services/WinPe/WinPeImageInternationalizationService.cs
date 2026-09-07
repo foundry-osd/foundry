@@ -6,24 +6,6 @@ namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeImageInternationalizationService : IWinPeImageInternationalizationService
 {
-    private static readonly string[] RequiredOptionalComponents =
-    [
-        "WinPE-WMI",
-        "WinPE-NetFX",
-        "WinPE-Scripting",
-        "WinPE-PowerShell",
-        "WinPE-WinReCfg",
-        "WinPE-DismCmdlets",
-        "WinPE-StorageWMI",
-        "WinPE-Dot3Svc",
-        "WinPE-EnhancedStorage",
-        "WinPE-SecureStartup"
-    ];
-    private static readonly string[] BlockingOptionalComponents =
-    [
-        "WinPE-SecureStartup"
-    ];
-
     private readonly IWinPeProcessRunner _processRunner;
 
     public WinPeImageInternationalizationService()
@@ -58,167 +40,55 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                 $"Language: '{options.WinPeLanguage}'.");
         }
 
+        var capabilities = new WinPeCapabilityValidationService(_processRunner);
+        WinPeResult<IReadOnlyList<WinPeCapabilityValidationService.InstalledPackage>> inventory =
+            await capabilities.ReadInventoryAsync(options, cancellationToken).ConfigureAwait(false);
+        if (!inventory.IsSuccess)
+        {
+            return WinPeResult.Failure(inventory.Error!);
+        }
+
         string optionalComponentsRoot = GetOptionalComponentsRootPath(tools.KitsRootPath, options.Architecture);
-        if (!Directory.Exists(optionalComponentsRoot))
+        foreach (WinPeCapabilityValidationService.RequiredPackage package in WinPeCapabilityValidationService.GetRequiredPackages(normalizedLocale))
         {
-            return WinPeResult.Failure(
-                WinPeErrorCodes.ToolNotFound,
-                "The WinPE optional components folder was not found.",
-                $"Expected path: '{optionalComponentsRoot}'.");
-        }
-
-        WinPeResult packageResult = await AddRequiredOptionalComponentsAsync(
-            options.MountedImagePath,
-            tools.DismPath,
-            optionalComponentsRoot,
-            normalizedLocale,
-            options.WorkingDirectoryPath,
-            options.DismProgress,
-            cancellationToken).ConfigureAwait(false);
-
-        if (!packageResult.IsSuccess)
-        {
-            return packageResult;
-        }
-
-        return await ApplyInternationalSettingsAsync(
-            options.MountedImagePath,
-            tools.DismPath,
-            canonicalLocale,
-            inputLocale,
-            options.WorkingDirectoryPath,
-            options.DismProgress,
-            cancellationToken).ConfigureAwait(false);
-    }
-
-    private async Task<WinPeResult> AddRequiredOptionalComponentsAsync(
-        string mountedImagePath,
-        string dismPath,
-        string optionalComponentsRoot,
-        string normalizedLocale,
-        string workingDirectoryPath,
-        IProgress<WinPeDismProgress>? dismProgress,
-        CancellationToken cancellationToken)
-    {
-        string languagePackPath = Path.Combine(optionalComponentsRoot, normalizedLocale, "lp.cab");
-        if (!File.Exists(languagePackPath))
-        {
-            return WinPeResult.Failure(
-                WinPeErrorCodes.ToolNotFound,
-                "The selected WinPE language pack was not found.",
-                $"Expected path: '{languagePackPath}'.");
-        }
-
-        WinPeResult languagePackResult = await AddPackageAsync(
-            dismPath,
-            mountedImagePath,
-            languagePackPath,
-            workingDirectoryPath,
-            "Failed to add the selected WinPE language pack.",
-            "Applying language pack with DISM.",
-            allowNonBlockingPackageFailure: false,
-            dismProgress,
-            cancellationToken).ConfigureAwait(false);
-
-        if (!languagePackResult.IsSuccess)
-        {
-            return languagePackResult;
-        }
-
-        int neutralComponentsFound = 0;
-        foreach (string component in RequiredOptionalComponents)
-        {
-            bool isBlockingComponent = BlockingOptionalComponents.Contains(component, StringComparer.OrdinalIgnoreCase);
-            string neutralPackagePath = Path.Combine(optionalComponentsRoot, $"{component}.cab");
-            if (File.Exists(neutralPackagePath))
+            if (WinPeCapabilityValidationService.FindInstalled(inventory.Value!, package, options.Architecture) is not null)
             {
-                neutralComponentsFound++;
-                WinPeResult neutralResult = await AddPackageAsync(
-                    dismPath,
-                    mountedImagePath,
-                    neutralPackagePath,
-                    workingDirectoryPath,
-                    $"Failed to add the '{component}' WinPE optional component.",
-                    "Applying optional components with DISM.",
-                    allowNonBlockingPackageFailure: !isBlockingComponent,
-                    dismProgress,
-                    cancellationToken).ConfigureAwait(false);
-
-                if (!neutralResult.IsSuccess)
+                continue;
+            }
+            string path = Path.Combine(optionalComponentsRoot, package.RelativeCabPath);
+            if (!File.Exists(path))
+            {
+                return WinPeResult.Failure(WinPeErrorCodes.ToolNotFound,
+                    $"The required WinPE package '{package.Key}' was not found.", $"Expected path: '{path}'.");
+            }
+            WinPeProcessExecution execution = await WinPeDismProcessRunner.RunAsync(_processRunner, tools.DismPath,
+                ["/English", $"/Image:{options.MountedImagePath}", "/Add-Package", $"/PackagePath:{path}"],
+                options.WorkingDirectoryPath, "Applying required WinPE packages with DISM.", options.DismProgress,
+                cancellationToken).ConfigureAwait(false);
+            if (!execution.IsSuccess)
+            {
+                inventory = await capabilities.ReadInventoryAsync(options, cancellationToken).ConfigureAwait(false);
+                if (!inventory.IsSuccess)
                 {
-                    return neutralResult;
+                    return WinPeResult.Failure(inventory.Error!);
                 }
-            }
-            else if (isBlockingComponent)
-            {
-                return WinPeResult.Failure(
-                    WinPeErrorCodes.ToolNotFound,
-                    $"The required '{component}' WinPE optional component was not found.",
-                    $"Expected path: '{neutralPackagePath}'.");
-            }
-
-            string localizedPackagePath = Path.Combine(optionalComponentsRoot, normalizedLocale, $"{component}_{normalizedLocale}.cab");
-            if (File.Exists(localizedPackagePath))
-            {
-                WinPeResult localizedResult = await AddPackageAsync(
-                    dismPath,
-                    mountedImagePath,
-                    localizedPackagePath,
-                    workingDirectoryPath,
-                    $"Failed to add the localized '{component}' WinPE optional component.",
-                    "Applying optional components with DISM.",
-                    allowNonBlockingPackageFailure: !isBlockingComponent,
-                    dismProgress,
-                    cancellationToken).ConfigureAwait(false);
-
-                if (!localizedResult.IsSuccess)
+                if (WinPeCapabilityValidationService.FindInstalled(inventory.Value!, package, options.Architecture) is null)
                 {
-                    return localizedResult;
+                    return WinPeResult.Failure(WinPeErrorCodes.BuildFailed,
+                        $"Failed to install required WinPE package '{package.Key}'.", execution.ToDiagnosticText());
                 }
             }
         }
 
-        return neutralComponentsFound > 0
-            ? WinPeResult.Success()
-            : WinPeResult.Failure(
-                WinPeErrorCodes.ToolNotFound,
-                "No required WinPE optional components were found.",
-                $"Expected at least one required component under: '{optionalComponentsRoot}'.");
-    }
-
-    private async Task<WinPeResult> AddPackageAsync(
-        string dismPath,
-        string mountedImagePath,
-        string packagePath,
-        string workingDirectoryPath,
-        string failureMessage,
-        string progressStatus,
-        bool allowNonBlockingPackageFailure,
-        IProgress<WinPeDismProgress>? dismProgress,
-        CancellationToken cancellationToken)
-    {
-        WinPeProcessExecution execution = await WinPeDismProcessRunner.RunAsync(
-            _processRunner,
-            dismPath,
-            [$"/Image:{mountedImagePath}", "/Add-Package", $"/PackagePath:{packagePath}"],
-            workingDirectoryPath,
-            progressStatus,
-            dismProgress,
-            cancellationToken).ConfigureAwait(false);
-
-        if (execution.IsSuccess ||
-            IsAlreadyInstalledPackageFailure(execution) ||
-            allowNonBlockingPackageFailure && IsNonBlockingPackageFailure(execution))
+        WinPeResult settings = await ApplyInternationalSettingsAsync(options.MountedImagePath, tools.DismPath,
+            canonicalLocale, inputLocale, options.WorkingDirectoryPath, options.DismProgress, cancellationToken).ConfigureAwait(false);
+        if (!settings.IsSuccess)
         {
-            return WinPeResult.Success();
+            return settings;
         }
-
-        return WinPeResult.Failure(
-            WinPeErrorCodes.BuildFailed,
-            failureMessage,
-            execution.ToDiagnosticText());
+        WinPeResult<WinPeCapabilityValidationResult> validation = await capabilities.ValidateAsync(options, cancellationToken).ConfigureAwait(false);
+        return validation.IsSuccess ? WinPeResult.Success() : WinPeResult.Failure(validation.Error!);
     }
-
     private async Task<WinPeResult> ApplyInternationalSettingsAsync(
         string mountedImagePath,
         string dismPath,
@@ -257,7 +127,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
         return WinPeResult.Success();
     }
 
-    private static WinPeDiagnostic? ValidateOptions(WinPeImageInternationalizationOptions? options)
+    internal static WinPeDiagnostic? ValidateOptions(WinPeImageInternationalizationOptions? options)
     {
         if (options is null)
         {
@@ -336,19 +206,4 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
             "WinPE_OCs");
     }
 
-    private static bool IsAlreadyInstalledPackageFailure(WinPeProcessExecution execution)
-    {
-        execution.EnsureCompleteOutput();
-        string diagnostic = $"{execution.StandardOutput}{Environment.NewLine}{execution.StandardError}";
-        return diagnostic.Contains("already installed", StringComparison.OrdinalIgnoreCase) ||
-               diagnostic.Contains("already exists", StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static bool IsNonBlockingPackageFailure(WinPeProcessExecution execution)
-    {
-        execution.EnsureCompleteOutput();
-        string diagnostic = $"{execution.StandardOutput}{Environment.NewLine}{execution.StandardError}";
-        return diagnostic.Contains("0x800f081e", StringComparison.OrdinalIgnoreCase) ||
-               diagnostic.Contains("not applicable", StringComparison.OrdinalIgnoreCase);
-    }
 }

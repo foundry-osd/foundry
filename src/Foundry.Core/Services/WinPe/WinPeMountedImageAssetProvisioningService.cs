@@ -57,6 +57,12 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             string foundryRootPath = Path.Combine(mountedImagePath, "Foundry");
             string foundryConfigPath = Path.Combine(foundryRootPath, "Config");
 
+            string curlPath = Path.Combine(system32Path, "curl.exe");
+            if (File.Exists(curlPath))
+            {
+                WinPeExecutableArchitecture.ValidateNative(curlPath, options.Architecture);
+            }
+
             Directory.CreateDirectory(system32Path);
             Directory.CreateDirectory(foundryConfigPath);
 
@@ -65,8 +71,6 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
                 options.BootstrapScriptContent,
                 Utf8NoBom,
                 cancellationToken).ConfigureAwait(false);
-
-            File.Copy(options.CurlExecutableSourcePath, Path.Combine(system32Path, "curl.exe"), overwrite: true);
 
             ProvisionBundledSevenZip(mountedImagePath, options);
             await WriteStartnetAsync(system32Path, cancellationToken).ConfigureAwait(false);
@@ -293,6 +297,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         }
 
         string destinationToolsRootPath = Path.Combine(mountedImagePath, "Foundry", "Tools", "7zip");
+        WinPeExecutableArchitecture.ValidateNative(sourceExecutablePath, options.Architecture);
         string destinationRuntimePath = Path.Combine(destinationToolsRootPath, runtimeFolder);
         Directory.CreateDirectory(destinationRuntimePath);
 
@@ -312,6 +317,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         }
 
         string oa3ToolsPath = Path.Combine(mountedImagePath, "Foundry", "Tools", "OA3");
+        WinPeExecutableArchitecture.ValidateNative(options.Oa3ToolSourcePath, options.Architecture);
         Directory.CreateDirectory(oa3ToolsPath);
         File.Copy(options.Oa3ToolSourcePath, Path.Combine(oa3ToolsPath, "oa3tool.exe"), overwrite: true);
 
@@ -459,14 +465,6 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
                 WinPeErrorCodes.ValidationFailed,
                 "Foundry bootstrap script content is required.",
                 "Set WinPeMountedImageAssetProvisioningOptions.BootstrapScriptContent.");
-        }
-
-        if (string.IsNullOrWhiteSpace(options.CurlExecutableSourcePath) || !File.Exists(options.CurlExecutableSourcePath))
-        {
-            return new WinPeDiagnostic(
-                WinPeErrorCodes.ValidationFailed,
-                "curl.exe source path is required.",
-                $"Expected file: '{options.CurlExecutableSourcePath}'.");
         }
 
         if (string.IsNullOrWhiteSpace(options.IanaWindowsTimeZoneMapJson))

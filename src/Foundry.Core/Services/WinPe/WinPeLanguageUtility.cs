@@ -33,21 +33,25 @@ internal static class WinPeLanguageUtility
         }
     }
 
+    /// <summary>Lets DISM map a specific Windows locale to its default input profile; custom/neutral names cannot prove a Windows layout.</summary>
     public static bool TryResolveInputLocale(string languageCode, out string canonicalLanguageCode, out string inputLocale)
     {
+        canonicalLanguageCode = languageCode;
+        inputLocale = string.Empty;
+        string normalized = Normalize(languageCode);
         try
         {
-            CultureInfo culture = CultureInfo.GetCultureInfo(languageCode);
+            CultureInfo culture = CultureInfo.GetCultureInfo(normalized);
+            if (culture.IsNeutralCulture || culture.LCID is 0x1000 or 0x007f)
+            {
+                return false;
+            }
             canonicalLanguageCode = culture.Name;
-            int keyboardLayoutId = culture.KeyboardLayoutId;
-            string hex = keyboardLayoutId.ToString("x4", CultureInfo.InvariantCulture);
-            inputLocale = $"{hex}:0000{hex}";
+            inputLocale = culture.Name;
             return true;
         }
         catch (CultureNotFoundException)
         {
-            canonicalLanguageCode = languageCode;
-            inputLocale = string.Empty;
             return false;
         }
     }

@@ -63,6 +63,8 @@ Automatic OEM driver selection requires a matching manufacturer, model or docume
 3. Configure the deployment, then create ISO or USB media.
 4. Boot a representative test device and continue through Foundry Connect and Foundry Deploy.
 
+Media creation requires host-native Windows ADK DISM build 26100 or later, compatible with the selected image. Foundry checks required WinPE components, language resources, selected driver coverage, and runtime architecture before completing the image. Runtime payloads are prepared before USB formatting. USB creation sizes BOOT for the finished content; updates require enough space in the existing BOOT and CACHE partitions. Files exceeding FAT32's per-file limit stop the operation before formatting.
+
 [Follow the complete quick start →](https://docs.foundryosd.com/start-here/quick-start)
 
 > [!NOTE]

@@ -12,12 +12,12 @@ public sealed class WinPeWorkspacePreparationServiceTests
     public async Task PrepareAsync_ResolvesDriversAndCustomizesImage()
     {
         using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        using var preparedRuntime = new WinPePreparedRuntimePayloads(Guid.NewGuid(), []);
         var driverResolution = new FakeDriverResolutionService(["drivers"]);
         var customization = new FakeMountedImageCustomizationService();
         var assetProvisioning = new WinPeMountedImageAssetProvisioningOptions
         {
             BootstrapScriptContent = "bootstrap",
-            CurlExecutableSourcePath = Path.Combine(temp.RootPath, "curl.exe"),
             IanaWindowsTimeZoneMapJson = "{}"
         };
         var runtimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions
@@ -43,9 +43,10 @@ public sealed class WinPeWorkspacePreparationServiceTests
                 WinPeLanguage = "en-US",
                 AssetProvisioning = assetProvisioning,
                 RuntimePayloadProvisioning = runtimePayloadProvisioning,
+                PreparedRuntime = preparedRuntime,
                 WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache")
             },
-            CancellationToken.None);
+            TestContext.Current.CancellationToken);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.Single(driverResolution.Requests);
@@ -53,6 +54,7 @@ public sealed class WinPeWorkspacePreparationServiceTests
         Assert.Equal("drivers", Assert.Single(customization.Options[0].DriverPackagePaths));
         Assert.Same(assetProvisioning, customization.Options[0].AssetProvisioning);
         Assert.Same(runtimePayloadProvisioning, customization.Options[0].RuntimePayloadProvisioning);
+        Assert.Same(preparedRuntime, customization.Options[0].PreparedRuntime);
         Assert.False(result.Value!.UseBootEx);
     }
 
@@ -78,7 +80,7 @@ public sealed class WinPeWorkspacePreparationServiceTests
                 WinPeLanguage = "en-US",
                 WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache")
             },
-            CancellationToken.None);
+            TestContext.Current.CancellationToken);
 
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeErrorCodes.BootExUnsupported, result.Error?.Code);

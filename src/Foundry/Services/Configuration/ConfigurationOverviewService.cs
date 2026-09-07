@@ -97,7 +97,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
             return false;
         }
 
-        WinPeResult<WinPeToolPaths> toolsResult = new WinPeToolResolver().ResolveTools(adkService.CurrentStatus.KitsRootPath);
+        WinPeResult<WinPeToolPaths> toolsResult = new WinPeToolResolver().ResolveTools(adkService.CurrentStatus.KitsRootPath, settings.Architecture);
         if (!toolsResult.IsSuccess || toolsResult.Value is null)
         {
             return true;

@@ -349,6 +349,13 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             }
 
             ReportProgress(options.Progress, 19, "Exporting Windows image for WinRE extraction.");
+            WinPeResult sourceCompatibility = await sourceLock.RunAsync(() => WinPeToolResolver.ValidateImageAsync(
+                options.Tools, sourcePathResult.Value!, indexResult.Value, options.Artifact.Architecture,
+                _processRunner, options.Artifact.WorkingDirectoryPath, cancellationToken), cancellationToken).ConfigureAwait(false);
+            if (!sourceCompatibility.IsSuccess)
+            {
+                return WinPeResult<WinReBootImagePreparationResult>.Failure(sourceCompatibility.Error!);
+            }
             WinPeProcessExecution exportResult = await sourceLock.RunAsync(() => WinPeDismProcessRunner.RunAsync(
                 _processRunner,
                 options.Tools.DismPath,
@@ -395,6 +402,13 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             }
 
             ReportProgress(options.Progress, 27, "Staging WinRE Wi-Fi dependencies.");
+            WinPeResult recoveryCompatibility = await WinPeToolResolver.ValidateImageAsync(
+                options.Tools, winRePath, 1, options.Artifact.Architecture, _processRunner,
+                options.Artifact.WorkingDirectoryPath, cancellationToken).ConfigureAwait(false);
+            if (!recoveryCompatibility.IsSuccess)
+            {
+                return await FailWithDiscardAsync(recoveryCompatibility.Error!, session, cancellationToken).ConfigureAwait(false);
+            }
             WinPeResult<WinReBootImagePreparationResult> dependencyResult = PrepareWirelessDependencyFiles(
                 mountDirectory,
                 dependencyDirectory);

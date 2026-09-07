@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO.Compression;
+using System.Reflection.PortableExecutable;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -13,6 +15,113 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeUsbMediaServiceTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task UsbOperation_RejectsUnpreparedRuntimeBeforeAnyNativeCall(bool update)
+    {
+        using var workspace = new TemporaryDirectory();
+        var runner = new FakeSequenceRunner(JsonSerializer.Serialize(ConfirmedDisk), string.Empty);
+        var service = new WinPeUsbMediaService(runner);
+        var options = new UsbOutputOptions { TargetDiskNumber = 9, ExpectedDisk = ConfirmedDisk };
+        var artifact = new WinPeBuildArtifact { WorkingDirectoryPath = workspace.Path };
+        var tools = new WinPeToolPaths { PowerShellPath = "must-not-run.exe" };
+
+        WinPeResult<WinPeUsbProvisionResult> result = update
+            ? await service.UpdateBootPartitionAsync(options, artifact, tools, false, TestContext.Current.CancellationToken)
+            : await service.ProvisionAndPopulateAsync(options, artifact, tools, false, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Empty(runner.Executions);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task UpdateBootPartitionAsync_RejectsInsufficientBootOrCacheBeforeFormatting(bool insufficientBoot)
+    {
+        using var workspace = new TemporaryDirectory();
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(workspace.Path, WinPeArchitecture.X64);
+        string media = Path.Combine(workspace.Path, "media");
+        CreateVerifiedBootPartition(media, WinPeArchitecture.X64);
+        WinPeUsbProvisionResult layout = insufficientBoot
+            ? TestLayout with { BootPartitionSize = 256 * 1024 * 1024 }
+            : TestLayout with { CacheFreeBytes = 1 };
+        var runner = new FakeSequenceRunner(JsonSerializer.Serialize(ConfirmedDisk), JsonSerializer.Serialize(layout));
+        var runtime = new FakeRuntimePayloadProvisioningService();
+        var service = new WinPeUsbMediaService(runner, runtime,
+            _ => throw new InvalidOperationException("Capacity preflight must finish before resolving USB destinations."));
+
+        WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(new()
+        {
+            TargetDiskNumber = 9,
+            ExpectedDisk = ConfirmedDisk,
+            PreparedRuntime = prepared,
+            RuntimePayloadProvisioning = new()
+        }, new WinPeBuildArtifact { WorkingDirectoryPath = workspace.Path, MediaDirectoryPath = media },
+            new WinPeToolPaths { PowerShellPath = "must-not-run.exe" }, false, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.ValidationFailed, result.Error?.Code);
+        Assert.Equal(2, runner.Executions.Count);
+        Assert.Empty(runtime.Options);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task UsbPopulation_CopiesOnlyMeasuredLockedSourceFiles(bool update)
+    {
+        using var workspace = new TemporaryDirectory();
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(workspace.Path, WinPeArchitecture.X64);
+        string media = Path.Combine(workspace.Path, "media");
+        string boot = Path.Combine(workspace.Path, "boot");
+        string cache = Path.Combine(workspace.Path, "cache");
+        CreateVerifiedBootPartition(media, WinPeArchitecture.X64);
+        string originalWim = Path.Combine(media, "sources", "boot.wim");
+        var progress = new RecordingProgress
+        {
+            OnReport = report =>
+            {
+                if (report.Percent == 55)
+                {
+                    Assert.Throws<IOException>(() => File.WriteAllText(originalWim, "replaced"));
+                    File.WriteAllText(Path.Combine(media, "unmeasured.bin"), "must-not-copy");
+                }
+            }
+        };
+        string layout = JsonSerializer.Serialize(TestLayout);
+        var outputs = new List<string> { JsonSerializer.Serialize(ConfirmedDisk), layout };
+        if (update) { outputs.Add(layout); }
+        outputs.AddRange([layout, layout, layout]);
+        var runner = new FakeSequenceRunner(outputs.ToArray());
+        var service = new WinPeUsbMediaService(runner, new FakeRuntimePayloadProvisioningService(), volume => volume switch
+        {
+            BootVolumePath => boot,
+            CacheVolumePath => cache,
+            _ => throw new InvalidOperationException("Unowned test volume.")
+        });
+        var options = new UsbOutputOptions
+        {
+            TargetDiskNumber = 9,
+            ExpectedDisk = ConfirmedDisk,
+            PreparedRuntime = prepared,
+            RuntimePayloadProvisioning = new(),
+            Progress = progress
+        };
+        var artifact = new WinPeBuildArtifact { WorkingDirectoryPath = workspace.Path, MediaDirectoryPath = media, Architecture = WinPeArchitecture.X64 };
+        var tools = new WinPeToolPaths { PowerShellPath = "fake-storage.exe" };
+
+        WinPeResult<WinPeUsbProvisionResult> result = update
+            ? await service.UpdateBootPartitionAsync(options, artifact, tools, false, TestContext.Current.CancellationToken)
+            : await service.ProvisionAndPopulateAsync(options, artifact, tools, false, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.True(File.Exists(Path.Combine(media, "unmeasured.bin")));
+        Assert.False(File.Exists(Path.Combine(boot, "unmeasured.bin")));
+        Assert.Equal("boot", File.ReadAllText(Path.Combine(boot, "sources", "boot.wim")));
+        File.WriteAllText(originalWim, "released");
+    }
     private const string BootVolumePath = @"\\?\Volume{11111111-1111-1111-1111-111111111111}\";
     private const string CacheVolumePath = @"\\?\Volume{22222222-2222-2222-2222-222222222222}\";
     private static WinPeUsbDiskIdentity ConfirmedDisk => new()
@@ -32,16 +141,18 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task ProvisionAndPopulateAsync_RejectsTruncatedLayoutBeforeResolvingDestinations(bool truncateError, UsbFormatMode formatMode)
     {
         using var workspace = new TemporaryDirectory();
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(workspace.Path, WinPeArchitecture.X64);
+        CreateVerifiedBootPartition(Path.Combine(workspace.Path, "media"), WinPeArchitecture.X64);
         var runner = new FakeSequenceRunner(JsonSerializer.Serialize(ConfirmedDisk), JsonSerializer.Serialize(TestLayout))
         {
             TruncateAtExecution = 1,
             TruncateError = truncateError
         };
-        var service = new WinPeUsbMediaService(runner, _ => throw new InvalidOperationException("Must not resolve an incomplete layout."));
+        var service = new WinPeUsbMediaService(runner, new FakeRuntimePayloadProvisioningService(), _ => throw new InvalidOperationException("Must not resolve an incomplete layout."));
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.ProvisionAndPopulateAsync(
-            new UsbOutputOptions { TargetDiskNumber = 9, ExpectedDisk = ConfirmedDisk, FormatMode = formatMode },
-            new WinPeBuildArtifact { WorkingDirectoryPath = workspace.Path },
+            new UsbOutputOptions { PreparedRuntime = prepared, RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions(), TargetDiskNumber = 9, ExpectedDisk = ConfirmedDisk, FormatMode = formatMode },
+            new WinPeBuildArtifact { WorkingDirectoryPath = workspace.Path, MediaDirectoryPath = Path.Combine(workspace.Path, "media") },
             new WinPeToolPaths { PowerShellPath = "must-not-run.exe" }, false, TestContext.Current.CancellationToken);
 
         Assert.False(result.IsSuccess);
@@ -84,6 +195,8 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task UsbPopulation_TranslatesFilesystemExceptionsWithoutDeviceDetails(bool update)
     {
         using var temporary = new TemporaryDirectory();
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(temporary.Path, WinPeArchitecture.X64);
+        CreateVerifiedBootPartition(Path.Combine(temporary.Path, "media"), WinPeArchitecture.X64);
         string bootRoot = Path.Combine(temporary.Path, "boot");
         string cacheRoot = Path.Combine(temporary.Path, "Volume{22222222-2222-2222-2222-222222222222}");
         string mediaRoot = Path.Combine(temporary.Path, "media");
@@ -92,17 +205,18 @@ public sealed class WinPeUsbMediaServiceTests
         string layoutJson = JsonSerializer.Serialize(TestLayout);
         var outputs = new List<string> { JsonSerializer.Serialize(ConfirmedDisk), layoutJson };
         if (update) { outputs.Add(layoutJson); }
-        outputs.AddRange([layoutJson, string.Empty, layoutJson]);
-        var runner = new FakeSequenceRunner(true, 0, outputs.ToArray());
+        outputs.AddRange([layoutJson, layoutJson]);
+        var runner = new FakeSequenceRunner(outputs.ToArray());
         string ResolveTestRoot(string volume) => volume switch
         {
             BootVolumePath => bootRoot,
             CacheVolumePath => cacheRoot,
             _ => throw new InvalidOperationException("Unowned test volume.")
         };
-        var service = new WinPeUsbMediaService(runner, ResolveTestRoot);
+        var service = new WinPeUsbMediaService(runner, new FakeRuntimePayloadProvisioningService(), ResolveTestRoot);
         var options = new UsbOutputOptions
         {
+            PreparedRuntime = prepared,
             TargetDiskNumber = 9,
             ExpectedDisk = ConfirmedDisk,
             RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions()
@@ -151,6 +265,8 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task UsbPopulation_StopsAtEachPopulationBoundaryWhenVolumeChanges(int changedPhase, bool update)
     {
         using var temporary = new TemporaryDirectory();
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(temporary.Path, WinPeArchitecture.X64);
+        CreateVerifiedBootPartition(Path.Combine(temporary.Path, "media"), WinPeArchitecture.X64);
         string bootRoot = Path.Combine(temporary.Path, "boot");
         string cacheRoot = Path.Combine(temporary.Path, "cache");
         string mediaRoot = Path.Combine(temporary.Path, "media");
@@ -165,9 +281,8 @@ public sealed class WinPeUsbMediaServiceTests
         for (int phase = 0; phase <= changedPhase; phase++)
         {
             outputs.Add(phase == changedPhase ? changedJson : layoutJson);
-            if (phase == 0 && changedPhase > 0) { outputs.Add(string.Empty); }
         }
-        var runner = new FakeSequenceRunner(true, 0, outputs.ToArray());
+        var runner = new FakeSequenceRunner(outputs.ToArray());
         var runtime = new FakeRuntimePayloadProvisioningService();
         string ResolveTestRoot(string volume) => volume switch
         {
@@ -178,6 +293,7 @@ public sealed class WinPeUsbMediaServiceTests
         var service = new WinPeUsbMediaService(runner, runtime, ResolveTestRoot);
         var options = new UsbOutputOptions
         {
+            PreparedRuntime = prepared,
             TargetDiskNumber = 9,
             ExpectedDisk = ConfirmedDisk,
             RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions()
@@ -194,7 +310,7 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Equal(changedPhase > 2, Directory.Exists(Path.Combine(cacheRoot, "Cache")));
         if (changedPhase == 1)
         {
-            Assert.NotEqual("replacement-boot-manager", File.ReadAllText(Path.Combine(bootRoot, "EFI", "Boot", "bootx64.efi")));
+            Assert.Equal("replacement-boot-manager", File.ReadAllText(Path.Combine(bootRoot, "EFI", "Boot", "bootx64.efi")));
         }
     }
 
@@ -205,6 +321,8 @@ public sealed class WinPeUsbMediaServiceTests
     public async Task ProvisionAndPopulateAsync_RejectsUnboundLayoutBeforeResolvingDestinations(string failure)
     {
         using TempWorkspace workspace = TempWorkspace.Create();
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(workspace.RootPath, WinPeArchitecture.X64);
+        CreateVerifiedBootPartition(Path.Combine(workspace.RootPath, "media"), WinPeArchitecture.X64);
         WinPeUsbProvisionResult layout = failure switch
         {
             "letter" => TestLayout with { BootVolumePath = "Y:\\" },
@@ -212,10 +330,10 @@ public sealed class WinPeUsbMediaServiceTests
             _ => TestLayout with { CacheVolumeUniqueId = TestLayout.BootVolumeUniqueId }
         };
         var runner = new FakeSequenceRunner(JsonSerializer.Serialize(ConfirmedDisk), JsonSerializer.Serialize(layout));
-        var service = new WinPeUsbMediaService(runner, _ => throw new InvalidOperationException("Must not resolve an unbound destination."));
+        var service = new WinPeUsbMediaService(runner, new FakeRuntimePayloadProvisioningService(), _ => throw new InvalidOperationException("Must not resolve an unbound destination."));
         WinPeResult<WinPeUsbProvisionResult> result = await service.ProvisionAndPopulateAsync(
-            new UsbOutputOptions { TargetDiskNumber = 9, ExpectedDisk = ConfirmedDisk },
-            new WinPeBuildArtifact { WorkingDirectoryPath = workspace.RootPath },
+            new UsbOutputOptions { PreparedRuntime = prepared, RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions(), TargetDiskNumber = 9, ExpectedDisk = ConfirmedDisk },
+            new WinPeBuildArtifact { WorkingDirectoryPath = workspace.RootPath, MediaDirectoryPath = Path.Combine(workspace.RootPath, "media") },
             new WinPeToolPaths { PowerShellPath = "pwsh.exe" }, false, TestContext.Current.CancellationToken);
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeErrorCodes.UsbProvisioningFailed, result.Error?.Code);
@@ -231,6 +349,7 @@ public sealed class WinPeUsbMediaServiceTests
         CachePartitionOffset = 2148532224,
         BootPartitionSize = 2147483648,
         CachePartitionSize = 60000000000,
+        CacheFreeBytes = 59000000000,
         BootVolumeUniqueId = "boot-id",
         CacheVolumeUniqueId = "cache-id",
         BootVolumePath = BootVolumePath,
@@ -321,15 +440,6 @@ public sealed class WinPeUsbMediaServiceTests
         WinPeUsbDiskIdentity actual = ConfirmedDisk with { UniqueId = " UNIQUE ", SerialNumber = " SERIAL ", FriendlyName = "Renamed", IsRemovable = null };
         Assert.True(WinPeUsbMediaService.ValidateDiskSafety(
             new UsbOutputOptions { TargetDiskNumber = 9, ExpectedDisk = ConfirmedDisk }, actual, [actual]).IsSuccess);
-    }
-
-    [Theory]
-    [InlineData(0, true)]
-    [InlineData(7, true)]
-    [InlineData(8, false)]
-    public void IsRobocopySuccessExitCode_AcceptsDocumentedSuccessRange(int exitCode, bool expected)
-    {
-        Assert.Equal(expected, WinPeUsbMediaService.IsRobocopySuccessExitCode(exitCode));
     }
 
     [Fact]
@@ -530,15 +640,19 @@ public sealed class WinPeUsbMediaServiceTests
                          """;
         var runner = new FakeRunner(payload);
         using TempWorkspace workspace = TempWorkspace.Create();
-        var service = new WinPeUsbMediaService(runner);
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(workspace.RootPath, WinPeArchitecture.X64);
+        CreateVerifiedBootPartition(Path.Combine(workspace.RootPath, "media"), WinPeArchitecture.X64);
+        var service = new WinPeUsbMediaService(runner, new FakeRuntimePayloadProvisioningService());
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.ProvisionAndPopulateAsync(
             new UsbOutputOptions
             {
+                PreparedRuntime = prepared,
+                RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions(),
                 TargetDiskNumber = 9,
                 ExpectedDisk = ConfirmedDisk
             },
-            new WinPeBuildArtifact { WorkingDirectoryPath = workspace.RootPath },
+            new WinPeBuildArtifact { WorkingDirectoryPath = workspace.RootPath, MediaDirectoryPath = Path.Combine(workspace.RootPath, "media") },
             new WinPeToolPaths { PowerShellPath = "pwsh.exe" },
             useBootEx: false,
             CancellationToken.None);
@@ -556,9 +670,11 @@ public sealed class WinPeUsbMediaServiceTests
                               {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
                               """;
         string provisioningResult = """
-                                    {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"Y:","CacheDriveLetter":"Z:"}
+                                    {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"CacheFreeBytes":59000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"Y:","CacheDriveLetter":"Z:"}
                                     """;
         using var temporary = new TemporaryDirectory();
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(temporary.Path, WinPeArchitecture.X64);
+        CreateVerifiedBootPartition(Path.Combine(temporary.Path, "media"), WinPeArchitecture.X64);
         string bootRoot = Path.Combine(temporary.Path, "boot");
         string cacheRoot = Path.Combine(temporary.Path, "cache");
         string mediaRoot = Path.Combine(temporary.Path, "media");
@@ -573,18 +689,18 @@ public sealed class WinPeUsbMediaServiceTests
         };
         Assert.Throws<InvalidOperationException>(() => ResolveTestRoot("S:\\"));
         var runner = new FakeSequenceRunner(
-            copyMedia: true,
-            robocopyExitCode: 0,
             diskIdentity,
             provisioningResult,
             provisioningResult,
-            string.Empty,
+            provisioningResult,
             provisioningResult);
-        var service = new WinPeUsbMediaService(runner, ResolveTestRoot);
+        var service = new WinPeUsbMediaService(runner, new FakeRuntimePayloadProvisioningService(), ResolveTestRoot);
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.ProvisionAndPopulateAsync(
             new UsbOutputOptions
             {
+                PreparedRuntime = prepared,
+                RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions(),
                 TargetDiskNumber = 9,
                 ExpectedDisk = ConfirmedDisk,
                 PartitionStyle = UsbPartitionStyle.Gpt,
@@ -606,8 +722,7 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.True(File.Exists(Path.Combine(bootRoot, "sources", "boot.wim")));
         Assert.True(Directory.Exists(Path.Combine(cacheRoot, "Cache", "OperatingSystems")));
         Assert.DoesNotContain("diskpart.exe", runner.Executions.Select(execution => execution.FileName));
-        Assert.Equal(4, runner.Executions.Count(execution => execution.FileName == "pwsh.exe"));
-        Assert.Contains(runner.Executions, execution => execution.FileName.EndsWith("robocopy.exe", StringComparison.OrdinalIgnoreCase));
+        Assert.Equal(5, runner.Executions.Count(execution => execution.FileName == "pwsh.exe"));
     }
 
     [Fact]
@@ -618,9 +733,11 @@ public sealed class WinPeUsbMediaServiceTests
                               """;
         string provisioningResult = """
                                     FOUNDRY_USB_PROGRESS|55|USB partitions formatted.
-                                    {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"Y:","CacheDriveLetter":"Z:"}
+                                    {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"CacheFreeBytes":59000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"Y:","CacheDriveLetter":"Z:"}
                                     """;
         using var temporary = new TemporaryDirectory();
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(temporary.Path, WinPeArchitecture.X64);
+        CreateVerifiedBootPartition(Path.Combine(temporary.Path, "media"), WinPeArchitecture.X64);
         string bootRoot = Path.Combine(temporary.Path, "boot");
         string cacheRoot = Path.Combine(temporary.Path, "cache");
         string mediaRoot = Path.Combine(temporary.Path, "media");
@@ -635,18 +752,18 @@ public sealed class WinPeUsbMediaServiceTests
         };
         Assert.Throws<InvalidOperationException>(() => ResolveTestRoot("S:\\"));
         var runner = new FakeSequenceRunner(
-            copyMedia: true,
-            robocopyExitCode: 1,
             diskIdentity,
             provisioningResult,
             provisioningResult,
-            string.Empty,
+            provisioningResult,
             provisioningResult);
-        var service = new WinPeUsbMediaService(runner, ResolveTestRoot);
+        var service = new WinPeUsbMediaService(runner, new FakeRuntimePayloadProvisioningService(), ResolveTestRoot);
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.ProvisionAndPopulateAsync(
             new UsbOutputOptions
             {
+                PreparedRuntime = prepared,
+                RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions(),
                 TargetDiskNumber = 9,
                 ExpectedDisk = ConfirmedDisk,
                 PartitionStyle = UsbPartitionStyle.Gpt,
@@ -665,10 +782,6 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.Equal("Y:", result.Value?.BootDriveLetter);
         Assert.Equal("Z:", result.Value?.CacheDriveLetter);
-        WinPeProcessExecution copyExecution = Assert.Single(
-            runner.Executions,
-            execution => execution.FileName.EndsWith("robocopy.exe", StringComparison.OrdinalIgnoreCase));
-        Assert.Contains(bootRoot, copyExecution.Arguments, StringComparison.Ordinal);
         Assert.True(File.Exists(Path.Combine(bootRoot, "sources", "boot.wim")));
     }
 
@@ -680,9 +793,11 @@ public sealed class WinPeUsbMediaServiceTests
                          """;
         string provisioningResult = """
                                     FOUNDRY_USB_PROGRESS|55|USB partitions formatted.
-                                    {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}
+                                    {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"CacheFreeBytes":59000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}
                                     """;
         using var temporary = new TemporaryDirectory();
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(temporary.Path, WinPeArchitecture.X64);
+        CreateVerifiedBootPartition(Path.Combine(temporary.Path, "media"), WinPeArchitecture.X64);
         string bootRoot = Path.Combine(temporary.Path, "boot");
         string cacheRoot = Path.Combine(temporary.Path, "cache");
         string mediaRoot = Path.Combine(temporary.Path, "media");
@@ -698,11 +813,13 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Throws<InvalidOperationException>(() => ResolveTestRoot("Y:\\"));
         var runner = new FakeOutputRunner(payload, provisioningResult);
         var progress = new RecordingProgress();
-        var service = new WinPeUsbMediaService(runner, ResolveTestRoot);
+        var service = new WinPeUsbMediaService(runner, new FakeRuntimePayloadProvisioningService(), ResolveTestRoot);
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.ProvisionAndPopulateAsync(
             new UsbOutputOptions
             {
+                PreparedRuntime = prepared,
+                RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions(),
                 TargetDiskNumber = 9,
                 ExpectedDisk = ConfirmedDisk,
                 PartitionStyle = UsbPartitionStyle.Gpt,
@@ -738,13 +855,15 @@ public sealed class WinPeUsbMediaServiceTests
                               {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
                               """;
         string layout = """
-                        {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}
+                        {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"CacheFreeBytes":59000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}
                         """;
         string formatResult = """
                               FOUNDRY_USB_PROGRESS|35|Formatting BOOT partition.
-                              {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}
+                              {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"CacheFreeBytes":59000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}
                               """;
         using var temporary = new TemporaryDirectory();
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(temporary.Path, WinPeArchitecture.X64);
+        CreateVerifiedBootPartition(Path.Combine(temporary.Path, "media"), WinPeArchitecture.X64);
         string bootRoot = Path.Combine(temporary.Path, "boot");
         string cacheRoot = Path.Combine(temporary.Path, "cache");
         string mediaRoot = Path.Combine(temporary.Path, "media");
@@ -759,21 +878,20 @@ public sealed class WinPeUsbMediaServiceTests
         };
         Assert.Throws<InvalidOperationException>(() => ResolveTestRoot("Y:\\"));
         var runner = new FakeSequenceRunner(
-            copyMedia: true,
-            robocopyExitCode: 0,
             diskIdentity,
             layout,
             formatResult,
             formatResult,
-            string.Empty,
             formatResult,
             formatResult);
         var progress = new RecordingProgress();
-        var service = new WinPeUsbMediaService(runner, ResolveTestRoot);
+        var service = new WinPeUsbMediaService(runner, new FakeRuntimePayloadProvisioningService(), ResolveTestRoot);
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(
             new UsbOutputOptions
             {
+                PreparedRuntime = prepared,
+                RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions(),
                 TargetDiskNumber = 9,
                 ExpectedDisk = ConfirmedDisk,
                 Progress = progress
@@ -792,8 +910,7 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Equal("S:", result.Value?.BootDriveLetter);
         Assert.Equal("T:", result.Value?.CacheDriveLetter);
         Assert.True(File.Exists(Path.Combine(bootRoot, "sources", "boot.wim")));
-        Assert.Equal(4, runner.Executions.Count(execution => execution.FileName == "pwsh.exe"));
-        Assert.Contains(runner.Executions, execution => execution.FileName.EndsWith("robocopy.exe", StringComparison.OrdinalIgnoreCase));
+        Assert.Equal(6, runner.Executions.Count(execution => execution.FileName == "pwsh.exe"));
         Assert.DoesNotContain(runner.Executions, execution => execution.Arguments.Contains("Clear-Disk", StringComparison.Ordinal));
         Assert.DoesNotContain(runner.Executions, execution => execution.Arguments.Contains("Foundry Cache", StringComparison.Ordinal));
         Assert.Contains(progress.Reports, report => report is { Percent: 35, Status: "Formatting BOOT partition." });
@@ -807,6 +924,8 @@ public sealed class WinPeUsbMediaServiceTests
                               {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
                               """;
         using var temporary = new TemporaryDirectory();
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(temporary.Path, WinPeArchitecture.Arm64);
+        CreateVerifiedBootPartition(Path.Combine(temporary.Path, "media"), WinPeArchitecture.Arm64);
         string bootRoot = Path.Combine(temporary.Path, "boot");
         string cacheRoot = Path.Combine(temporary.Path, "cache");
         string mediaRoot = Path.Combine(temporary.Path, "media");
@@ -822,25 +941,21 @@ public sealed class WinPeUsbMediaServiceTests
         };
         Assert.Throws<InvalidOperationException>(() => ResolveTestRoot("Y:\\"));
         string layout = """
-                        {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}
+                        {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"CacheFreeBytes":59000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}
                         """;
         string formatResult = """
                               FOUNDRY_USB_PROGRESS|35|Formatting BOOT partition.
-                              {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}
+                              {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"CacheFreeBytes":59000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}
                               """;
         var runner = new FakeSequenceRunner(
-            copyMedia: true,
-            robocopyExitCode: 0,
             diskIdentity,
             layout,
             formatResult,
             formatResult,
-            string.Empty,
             formatResult,
             formatResult);
         var runtimeProvisioningService = new FakeRuntimePayloadProvisioningService();
         var progress = new RecordingProgress();
-        var downloadProgress = new CapturingProgress<WinPeDownloadProgress>();
         var service = new WinPeUsbMediaService(runner, runtimeProvisioningService, ResolveTestRoot);
         var runtimeOptions = new WinPeRuntimePayloadProvisioningOptions
         {
@@ -854,10 +969,10 @@ public sealed class WinPeUsbMediaServiceTests
         WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(
             new UsbOutputOptions
             {
+                PreparedRuntime = prepared,
                 TargetDiskNumber = 9,
                 ExpectedDisk = ConfirmedDisk,
                 RuntimePayloadProvisioning = runtimeOptions,
-                DownloadProgress = downloadProgress,
                 Progress = progress
             },
             new WinPeBuildArtifact
@@ -878,7 +993,6 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Equal(runtimeOptions.WorkingDirectoryPath, capturedOptions.WorkingDirectoryPath);
         Assert.Same(runtimeOptions.Connect, capturedOptions.Connect);
         Assert.Same(runtimeOptions.Deploy, capturedOptions.Deploy);
-        Assert.Same(downloadProgress, Assert.Single(runtimeProvisioningService.DownloadProgress));
         Assert.Equal("existing-cache", File.ReadAllText(Path.Combine(cacheRoot, "preserve.txt")));
         Assert.True(Directory.Exists(Path.Combine(cacheRoot, "Cache", "OperatingSystems")));
         Assert.Contains(progress.Reports, report => report is { Percent: 92, Status: "Provisioning USB runtime payloads." });
@@ -891,6 +1005,8 @@ public sealed class WinPeUsbMediaServiceTests
                               {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
                               """;
         using var temporary = new TemporaryDirectory();
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(temporary.Path, WinPeArchitecture.X64);
+        CreateVerifiedBootPartition(Path.Combine(temporary.Path, "media"), WinPeArchitecture.X64);
         string bootRoot = Path.Combine(temporary.Path, "boot");
         string cacheRoot = Path.Combine(temporary.Path, "cache");
         string mediaRoot = Path.Combine(temporary.Path, "media");
@@ -905,20 +1021,17 @@ public sealed class WinPeUsbMediaServiceTests
         };
         Assert.Throws<InvalidOperationException>(() => ResolveTestRoot("Y:\\"));
         string layout = """
-                        {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}
+                        {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"CacheFreeBytes":59000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}
                         """;
         string formatResult = """
                               FOUNDRY_USB_PROGRESS|35|Formatting BOOT partition.
-                              {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}
+                              {"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"CacheFreeBytes":59000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}
                               """;
         var runner = new FakeSequenceRunner(
-            copyMedia: true,
-            robocopyExitCode: 0,
             diskIdentity,
             layout,
             formatResult,
             formatResult,
-            string.Empty,
             formatResult,
             formatResult);
         var runtimeProvisioningService = new FakeRuntimePayloadProvisioningService(
@@ -932,6 +1045,7 @@ public sealed class WinPeUsbMediaServiceTests
         WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(
             new UsbOutputOptions
             {
+                PreparedRuntime = prepared,
                 TargetDiskNumber = 9,
                 ExpectedDisk = ConfirmedDisk,
                 RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions
@@ -968,11 +1082,15 @@ public sealed class WinPeUsbMediaServiceTests
                               """;
         var runner = new FakeSequenceRunner(diskIdentity, string.Empty);
         using TempWorkspace workspace = TempWorkspace.Create();
-        var service = new WinPeUsbMediaService(runner);
+        using WinPePreparedRuntimePayloads prepared = CreatePreparedRuntime(workspace.RootPath, WinPeArchitecture.X64);
+        CreateVerifiedBootPartition(Path.Combine(workspace.RootPath, "media"), WinPeArchitecture.X64);
+        var service = new WinPeUsbMediaService(runner, new FakeRuntimePayloadProvisioningService());
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(
             new UsbOutputOptions
             {
+                PreparedRuntime = prepared,
+                RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions(),
                 TargetDiskNumber = 9,
                 ExpectedDisk = ConfirmedDisk
             },
@@ -989,13 +1107,10 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeErrorCodes.UsbVerificationFailed, result.Error?.Code);
         Assert.Equal(2, runner.Executions.Count);
-        Assert.DoesNotContain(runner.Executions, execution => execution.FileName.EndsWith("robocopy.exe", StringComparison.OrdinalIgnoreCase));
     }
 
     private class FakeRunner(
         string output,
-        bool copyMedia = false,
-        int robocopyExitCode = 0,
         string? layoutOutput = null) : IWinPeProcessRunner
     {
         protected string? LayoutOutput { get; } = layoutOutput;
@@ -1021,19 +1136,13 @@ public sealed class WinPeUsbMediaServiceTests
             TimeSpan? executionTimeout = null)
         {
             string arguments = string.Join(' ', argumentList);
-            bool isRobocopy = fileName.EndsWith("robocopy.exe", StringComparison.OrdinalIgnoreCase);
-            if (isRobocopy && copyMedia && robocopyExitCode < 8)
-            {
-                CopyRobocopyMedia(argumentList);
-            }
-
             var execution = new WinPeProcessExecution
             {
                 FileName = fileName,
                 Arguments = arguments,
                 WorkingDirectory = workingDirectory,
-                ExitCode = isRobocopy ? robocopyExitCode : 0,
-                StandardOutput = !isRobocopy && arguments.Length > 0 && DecodePowerShellEncodedCommand(arguments).Contains("$layout =", StringComparison.Ordinal) ? LayoutOutput ?? output : output
+                ExitCode = 0,
+                StandardOutput = arguments.Length > 0 && DecodePowerShellEncodedCommand(arguments).Contains("$layout =", StringComparison.Ordinal) ? LayoutOutput ?? output : output
             };
             Executions.Add(execution);
             return Task.FromResult(execution);
@@ -1065,22 +1174,12 @@ public sealed class WinPeUsbMediaServiceTests
         public int? TruncateAtExecution { get; init; }
         public bool TruncateError { get; init; }
         public List<TimeSpan?> ExecutionTimeouts { get; } = [];
-        private readonly bool _copyMedia;
-        private readonly int _robocopyExitCode;
         private readonly Queue<string> _outputs;
 
         public FakeSequenceRunner(params string[] outputs)
-            : this(copyMedia: false, robocopyExitCode: 0, outputs)
         {
-        }
-
-        public FakeSequenceRunner(bool copyMedia, int robocopyExitCode, params string[] outputs)
-        {
-            _copyMedia = copyMedia;
-            _robocopyExitCode = robocopyExitCode;
             _outputs = new Queue<string>(outputs);
         }
-
         public List<WinPeProcessExecution> Executions { get; } = [];
 
         public Task<WinPeProcessExecution> RunAsync(
@@ -1103,18 +1202,12 @@ public sealed class WinPeUsbMediaServiceTests
             TimeSpan? executionTimeout = null)
         {
             string arguments = string.Join(' ', argumentList);
-            bool isRobocopy = fileName.EndsWith("robocopy.exe", StringComparison.OrdinalIgnoreCase);
-            if (isRobocopy && _copyMedia && _robocopyExitCode < 8)
-            {
-                CopyRobocopyMedia(argumentList);
-            }
-
             var execution = new WinPeProcessExecution
             {
                 FileName = fileName,
                 Arguments = arguments,
                 WorkingDirectory = workingDirectory,
-                ExitCode = isRobocopy ? _robocopyExitCode : 0,
+                ExitCode = 0,
                 StandardOutput = _outputs.Count > 0 ? _outputs.Dequeue() : string.Empty,
                 StandardOutputTruncated = TruncateAtExecution == Executions.Count && !TruncateError,
                 StandardErrorTruncated = TruncateAtExecution == Executions.Count && TruncateError
@@ -1146,7 +1239,7 @@ public sealed class WinPeUsbMediaServiceTests
     }
 
     private sealed class FakeOutputRunner(string output, string provisioningOutput)
-        : FakeRunner(output, copyMedia: true, layoutOutput: provisioningOutput), IWinPeProcessOutputRunner
+        : FakeRunner(output, layoutOutput: provisioningOutput), IWinPeProcessOutputRunner
     {
         public Task<WinPeProcessExecution> RunWithOutputAsync(
             string fileName,
@@ -1176,7 +1269,7 @@ public sealed class WinPeUsbMediaServiceTests
             onOutputData?.Invoke("FOUNDRY_USB_PROGRESS|44|Formatting BOOT partition.");
             onOutputData?.Invoke("FOUNDRY_USB_VERBOSE|BOOT partition formatted. DriveLetter=S, FileSystem=FAT32, Label=BOOT.");
             onOutputData?.Invoke("FOUNDRY_USB_PROGRESS|53|Formatting cache partition.");
-            onOutputData?.Invoke("""{"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}""");
+            onOutputData?.Invoke("""{"ConfirmedDisk":{"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"Size":64000000000},"BootPartitionNumber":1,"CachePartitionNumber":2,"BootPartitionOffset":1048576,"CachePartitionOffset":2148532224,"BootPartitionSize":2147483648,"CachePartitionSize":60000000000,"CacheFreeBytes":59000000000,"BootVolumeUniqueId":"boot-id","CacheVolumeUniqueId":"cache-id","BootVolumePath":"\\\\?\\Volume{11111111-1111-1111-1111-111111111111}\\","CacheVolumePath":"\\\\?\\Volume{22222222-2222-2222-2222-222222222222}\\","BootDriveLetter":"S:","CacheDriveLetter":"T:"}""");
 
             var execution = new WinPeProcessExecution
             {
@@ -1211,36 +1304,39 @@ public sealed class WinPeUsbMediaServiceTests
     private sealed class RecordingProgress : IProgress<WinPeMediaProgress>
     {
         public List<WinPeMediaProgress> Reports { get; } = [];
+        public Action<WinPeMediaProgress>? OnReport { get; init; }
 
         public void Report(WinPeMediaProgress value)
         {
             Reports.Add(value);
-        }
-    }
-
-    private sealed class CapturingProgress<T> : IProgress<T>
-    {
-        public List<T> Items { get; } = [];
-
-        public void Report(T value)
-        {
-            Items.Add(value);
+            OnReport?.Invoke(value);
         }
     }
 
     private sealed class FakeRuntimePayloadProvisioningService(WinPeResult? result = null) : IWinPeRuntimePayloadProvisioningService
     {
         public List<WinPeRuntimePayloadProvisioningOptions> Options { get; } = [];
-        public List<IProgress<WinPeDownloadProgress>?> DownloadProgress { get; } = [];
 
+        public Task<WinPeResult<WinPePreparedRuntimePayloads>> PrepareAsync(
+            WinPeRuntimePayloadProvisioningOptions options, IProgress<WinPeDownloadProgress>? progress = null,
+            CancellationToken cancellationToken = default) =>
+            throw new InvalidOperationException("This placement fixture must not acquire runtimes.");
+
+        public Task<WinPeResult> ValidatePreparedAsync(WinPePreparedRuntimePayloads prepared,
+            CancellationToken cancellationToken = default) => Task.FromResult(WinPeResult.Success());
+
+        public Task<WinPeResult> ProvisionPreparedAsync(WinPePreparedRuntimePayloads prepared,
+            WinPeRuntimePayloadProvisioningOptions destinations, CancellationToken cancellationToken = default)
+        {
+            Options.Add(destinations);
+            return Task.FromResult(result ?? WinPeResult.Success());
+        }
         public Task<WinPeResult> ProvisionAsync(
             WinPeRuntimePayloadProvisioningOptions options,
             IProgress<WinPeDownloadProgress>? downloadProgress = null,
             CancellationToken cancellationToken = default)
         {
-            Options.Add(options);
-            DownloadProgress.Add(downloadProgress);
-            return Task.FromResult(result ?? WinPeResult.Success());
+            throw new InvalidOperationException("USB placement must consume prepared runtimes without acquisition.");
         }
     }
 
@@ -1254,22 +1350,19 @@ public sealed class WinPeUsbMediaServiceTests
         File.WriteAllText(Path.Combine(bootRootPath, "EFI", "Boot", architecture.ToBootEfiName()), "efi");
     }
 
-    private static void CopyRobocopyMedia(IReadOnlyList<string> arguments)
+    private static WinPePreparedRuntimePayloads CreatePreparedRuntime(string workspace, WinPeArchitecture architecture)
     {
-        string sourcePath = arguments[0];
-        string destinationPath = arguments[1];
-        Directory.CreateDirectory(destinationPath);
-        foreach (string directoryPath in Directory.EnumerateDirectories(sourcePath, "*", SearchOption.AllDirectories))
+        var applications = new List<WinPePreparedRuntimeApplication>();
+        foreach (string name in new[] { "Foundry.Connect", "Foundry.Deploy" })
         {
-            Directory.CreateDirectory(Path.Combine(destinationPath, Path.GetRelativePath(sourcePath, directoryPath)));
+            string directory = Path.Combine(workspace, "prepared-runtime", name);
+            string executable = Path.Combine(directory, name + ".exe");
+            PortableExecutableFixture.Write(executable, architecture == WinPeArchitecture.X64 ? Machine.Amd64 : Machine.Arm64);
+            byte[] bytes = File.ReadAllBytes(executable);
+            applications.Add(new(name, architecture.ToDotnetRuntimeIdentifier(), directory, WinPeProvisioningSource.Debug,
+                null, null, [new(name + ".exe", bytes.Length, Convert.ToHexString(SHA256.HashData(bytes)))]));
         }
-
-        foreach (string filePath in Directory.EnumerateFiles(sourcePath, "*", SearchOption.AllDirectories))
-        {
-            string destinationFilePath = Path.Combine(destinationPath, Path.GetRelativePath(sourcePath, filePath));
-            Directory.CreateDirectory(Path.GetDirectoryName(destinationFilePath)!);
-            File.Copy(filePath, destinationFilePath, overwrite: true);
-        }
+        return new WinPePreparedRuntimePayloads(Guid.NewGuid(), applications);
     }
 
     private sealed class TempWorkspace : IDisposable

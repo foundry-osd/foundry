@@ -63,9 +63,21 @@ public sealed class WinPeDriverResolutionService : IWinPeDriverResolutionService
             }
 
             IReadOnlyList<WinPeDriverCatalogEntry> selectedPackages = SelectPackages(
-                catalog.Value!,
+                catalog.Value!.Where(package => package.Architecture == request.Architecture).ToArray(),
                 normalizedVendors,
                 includeWifiSupplement);
+
+            WinPeVendorSelection[] missingVendors = normalizedVendors
+                .Where(vendor => !selectedPackages.Any(package => package.Vendor == vendor &&
+                    package.PackageRole == WinPeDriverPackageRole.BaseDriverPack))
+                .ToArray();
+            if (missingVendors.Length > 0)
+            {
+                return WinPeResult<IReadOnlyList<string>>.Failure(
+                    WinPeErrorCodes.ValidationFailed,
+                    "A selected vendor has no compatible WinPE driver pack.",
+                    string.Join(", ", missingVendors));
+            }
 
             if (selectedPackages.Count > 0)
             {

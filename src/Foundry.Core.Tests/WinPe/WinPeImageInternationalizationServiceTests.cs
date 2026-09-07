@@ -3,403 +3,227 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeImageInternationalizationServiceTests
 {
-    [Fact]
-    public async Task ApplyAsync_AddsLanguagePackNeutralAndLocalizedComponentsBeforeIntlSettings()
+    [Theory]
+    [InlineData("es-ES")]
+    [InlineData("fr-CA")]
+    public async Task ApplyAsync_InstallsDependenciesAndUsesWindowsInputLocale(string language)
     {
-        string root = Path.Combine(Path.GetTempPath(), $"foundry-intl-{Guid.NewGuid():N}");
-        string mountedImagePath = Path.Combine(root, "mount");
-        string workingDirectory = Path.Combine(root, "work");
-        string ocRoot = CreateOptionalComponentRoot(root, "amd64", "fr-fr");
-        Directory.CreateDirectory(mountedImagePath);
-        Directory.CreateDirectory(workingDirectory);
-
-        string languagePack = Path.Combine(ocRoot, "fr-fr", "lp.cab");
-        string neutralWmi = Path.Combine(ocRoot, "WinPE-WMI.cab");
-        string localizedWmi = Path.Combine(ocRoot, "fr-fr", "WinPE-WMI_fr-fr.cab");
-        string secureStartup = Path.Combine(ocRoot, "WinPE-SecureStartup.cab");
-        File.WriteAllText(languagePack, string.Empty);
-        File.WriteAllText(neutralWmi, string.Empty);
-        File.WriteAllText(localizedWmi, string.Empty);
-        File.WriteAllText(secureStartup, string.Empty);
-
-        var runner = new FakeInternationalizationRunner();
-        var service = new WinPeImageInternationalizationService(runner);
-
-        try
+        using var fixture = new InternationalizationFixture(language);
+        WinPeResult result = await fixture.ApplyAsync();
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Contains(fixture.Runner.Calls, args => args.Contains($"/Set-InputLocale:{language}"));
+        Assert.DoesNotContain(fixture.Runner.Calls.SelectMany(args => args), arg => arg.Contains("00000c0a", StringComparison.Ordinal));
+        Assert.Equal(2, fixture.Runner.Calls.Count(args => args.Contains("/Get-Packages")));
+        Assert.All(fixture.Runner.Calls.Where(args => args.Contains("/Get-Packages")), args =>
         {
-            WinPeResult result = await service.ApplyAsync(
-                new WinPeImageInternationalizationOptions
-                {
-                    MountedImagePath = mountedImagePath,
-                    Architecture = WinPeArchitecture.X64,
-                    Tools = new WinPeToolPaths
-                    {
-                        KitsRootPath = root,
-                        DismPath = "dism.exe"
-                    },
-                    WinPeLanguage = "fr-FR",
-                    WorkingDirectoryPath = workingDirectory
-                },
-                CancellationToken.None);
+            Assert.Contains("/English", args);
+            Assert.Contains("/Format:List", args);
+        });
+        string[] additions = fixture.Runner.Calls.SelectMany(args => args).Where(arg => arg.StartsWith("/PackagePath:", StringComparison.Ordinal)).ToArray();
+        Assert.True(Array.FindIndex(additions, arg => arg.EndsWith("WinPE-WMI.cab", StringComparison.Ordinal)) <
+                    Array.FindIndex(additions, arg => arg.EndsWith("WinPE-PowerShell.cab", StringComparison.Ordinal)));
+    }
 
-            Assert.True(result.IsSuccess, result.Error?.Details);
-            Assert.Collection(
-                runner.Executions,
-                execution => Assert.Contains($"/PackagePath:{languagePack}", execution.Arguments),
-                execution => Assert.Contains($"/PackagePath:{neutralWmi}", execution.Arguments),
-                execution => Assert.Contains($"/PackagePath:{localizedWmi}", execution.Arguments),
-                execution => Assert.Contains($"/PackagePath:{secureStartup}", execution.Arguments),
-                execution => Assert.Contains("/Set-AllIntl:fr-FR", execution.Arguments),
-                execution => Assert.Contains("/Set-InputLocale:", execution.Arguments));
-        }
-        finally
-        {
-            Directory.Delete(root, recursive: true);
-        }
+    [Theory]
+    [InlineData("WinPE-PowerShell.cab")]
+    [InlineData("en-us/WinPE-WMI_en-us.cab")]
+    [InlineData("en-us/lp.cab")]
+    public async Task ApplyAsync_MissingRequiredPackageBlocksSettings(string missing)
+    {
+        using var fixture = new InternationalizationFixture();
+        File.Delete(Path.Combine(fixture.ComponentsRoot, missing));
+        WinPeResult result = await fixture.ApplyAsync();
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.ToolNotFound, result.Error?.Code);
+        Assert.DoesNotContain(fixture.Runner.Calls.SelectMany(args => args), arg => arg.StartsWith("/Set-", StringComparison.Ordinal));
     }
 
     [Fact]
-    public async Task ApplyAsync_AddsSecureStartupOptionalComponentByDefault()
+    public async Task ApplyAsync_InstalledWinReCapabilitiesDoNotRequireSourceCabs()
     {
-        string root = Path.Combine(Path.GetTempPath(), $"foundry-intl-{Guid.NewGuid():N}");
-        string mountedImagePath = Path.Combine(root, "mount");
-        string workingDirectory = Path.Combine(root, "work");
-        string ocRoot = CreateOptionalComponentRoot(root, "amd64", "en-us");
-        Directory.CreateDirectory(mountedImagePath);
-        Directory.CreateDirectory(workingDirectory);
+        using var fixture = new InternationalizationFixture();
+        fixture.Runner.InstallAll();
+        Directory.Delete(fixture.ComponentsRoot, recursive: true);
+        WinPeResult result = await fixture.ApplyAsync();
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.DoesNotContain(fixture.Runner.Calls, args => args.Contains("/Add-Package"));
+    }
 
-        string languagePack = Path.Combine(ocRoot, "en-us", "lp.cab");
-        string wmi = Path.Combine(ocRoot, "WinPE-WMI.cab");
-        string secureStartup = Path.Combine(ocRoot, "WinPE-SecureStartup.cab");
-        File.WriteAllText(languagePack, string.Empty);
-        File.WriteAllText(wmi, string.Empty);
-        File.WriteAllText(secureStartup, string.Empty);
+    [Theory]
+    [InlineData("not applicable", false)]
+    [InlineData("already installed", false)]
+    [InlineData("0x800f081e", true)]
+    public async Task ApplyAsync_FailedAdditionRequiresIndependentInstalledEvidence(string output, bool installed)
+    {
+        using var fixture = new InternationalizationFixture();
+        fixture.Runner.FailedComponent = "WinPE-PowerShell";
+        fixture.Runner.FailureOutput = output;
+        fixture.Runner.InstallFailedPackage = installed;
+        WinPeResult result = await fixture.ApplyAsync();
+        Assert.Equal(installed, result.IsSuccess);
+    }
 
-        var runner = new FakeInternationalizationRunner();
-        var service = new WinPeImageInternationalizationService(runner);
+    [Theory]
+    [InlineData("Install Pending")]
+    [InlineData("Staged")]
+    [InlineData("Not Present")]
+    public async Task ApplyAsync_NonInstalledFinalStateBlocksSuccess(string state)
+    {
+        using var fixture = new InternationalizationFixture();
+        fixture.Runner.PowerShellState = state;
+        Assert.False((await fixture.ApplyAsync()).IsSuccess);
+    }
 
-        try
-        {
-            WinPeResult result = await service.ApplyAsync(
-                new WinPeImageInternationalizationOptions
-                {
-                    MountedImagePath = mountedImagePath,
-                    Architecture = WinPeArchitecture.X64,
-                    Tools = new WinPeToolPaths
-                    {
-                        KitsRootPath = root,
-                        DismPath = "dism.exe"
-                    },
-                    WinPeLanguage = "en-US",
-                    WorkingDirectoryPath = workingDirectory
-                },
-                CancellationToken.None);
-
-            Assert.True(result.IsSuccess, result.Error?.Details);
-            Assert.Contains(
-                runner.Executions,
-                execution => execution.Arguments.Contains($"/PackagePath:{secureStartup}", StringComparison.Ordinal));
-        }
-        finally
-        {
-            Directory.Delete(root, recursive: true);
-        }
+    [Theory]
+    [InlineData("ja-JP", "WinPE-FontSupport-JA-JP")]
+    [InlineData("ko-KR", "WinPE-FontSupport-KO-KR")]
+    [InlineData("zh-CN", "WinPE-FontSupport-ZH-CN")]
+    [InlineData("zh-TW", "WinPE-FontSupport-ZH-TW")]
+    [InlineData("zh-HK", "WinPE-FontSupport-ZH-HK")]
+    public async Task ApplyAsync_CjkRequiresInstalledNeutralFontPackage(string language, string font)
+    {
+        using var fixture = new InternationalizationFixture(language, font);
+        WinPeResult result = await fixture.ApplyAsync();
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Contains(fixture.Runner.Calls.SelectMany(args => args), arg => arg.EndsWith($"{font}.cab", StringComparison.Ordinal));
+        Assert.DoesNotContain(fixture.Runner.Calls.SelectMany(args => args), arg => arg.Contains($"{font}_", StringComparison.Ordinal));
     }
 
     [Fact]
-    public async Task ApplyAsync_WhenLanguagePackIsMissing_ReturnsToolNotFound()
+    public async Task ApplyAsync_MissingCjkFontBlocksSuccess()
     {
-        string root = Path.Combine(Path.GetTempPath(), $"foundry-intl-{Guid.NewGuid():N}");
-        string mountedImagePath = Path.Combine(root, "mount");
-        string workingDirectory = Path.Combine(root, "work");
-        CreateOptionalComponentRoot(root, "amd64", "fr-fr");
-        Directory.CreateDirectory(mountedImagePath);
-        Directory.CreateDirectory(workingDirectory);
-
-        var service = new WinPeImageInternationalizationService(new FakeInternationalizationRunner());
-
-        try
-        {
-            WinPeResult result = await service.ApplyAsync(
-                new WinPeImageInternationalizationOptions
-                {
-                    MountedImagePath = mountedImagePath,
-                    Architecture = WinPeArchitecture.X64,
-                    Tools = new WinPeToolPaths
-                    {
-                        KitsRootPath = root,
-                        DismPath = "dism.exe"
-                    },
-                    WinPeLanguage = "fr-FR",
-                    WorkingDirectoryPath = workingDirectory
-                },
-                CancellationToken.None);
-
-            Assert.False(result.IsSuccess);
-            Assert.Equal(WinPeErrorCodes.ToolNotFound, result.Error?.Code);
-        }
-        finally
-        {
-            Directory.Delete(root, recursive: true);
-        }
+        using var fixture = new InternationalizationFixture("ja-JP");
+        Assert.False((await fixture.ApplyAsync()).IsSuccess);
     }
 
-    [Fact]
-    public async Task ApplyAsync_WhenSecureStartupIsMissing_ReturnsToolNotFound()
+    [Theory]
+    [InlineData("failed")]
+    [InlineData("truncated")]
+    [InlineData("malformed")]
+    public async Task ApplyAsync_UnreadableInventoryBlocksMutation(string mode)
     {
-        string root = Path.Combine(Path.GetTempPath(), $"foundry-intl-{Guid.NewGuid():N}");
-        string mountedImagePath = Path.Combine(root, "mount");
-        string workingDirectory = Path.Combine(root, "work");
-        string ocRoot = CreateOptionalComponentRoot(root, "amd64", "en-us");
-        Directory.CreateDirectory(mountedImagePath);
-        Directory.CreateDirectory(workingDirectory);
-        File.WriteAllText(Path.Combine(ocRoot, "en-us", "lp.cab"), string.Empty);
-        File.WriteAllText(Path.Combine(ocRoot, "WinPE-WMI.cab"), string.Empty);
-
-        var service = new WinPeImageInternationalizationService(new FakeInternationalizationRunner());
-
-        try
-        {
-            WinPeResult result = await service.ApplyAsync(
-                new WinPeImageInternationalizationOptions
-                {
-                    MountedImagePath = mountedImagePath,
-                    Architecture = WinPeArchitecture.X64,
-                    Tools = new WinPeToolPaths
-                    {
-                        KitsRootPath = root,
-                        DismPath = "dism.exe"
-                    },
-                    WinPeLanguage = "en-US",
-                    WorkingDirectoryPath = workingDirectory
-                },
-                CancellationToken.None);
-
-            Assert.False(result.IsSuccess);
-            Assert.Equal(WinPeErrorCodes.ToolNotFound, result.Error?.Code);
-            Assert.Contains("WinPE-SecureStartup", result.Error?.Message, StringComparison.Ordinal);
-        }
-        finally
-        {
-            Directory.Delete(root, recursive: true);
-        }
+        using var fixture = new InternationalizationFixture();
+        fixture.Runner.InventoryFailure = mode;
+        Assert.False((await fixture.ApplyAsync()).IsSuccess);
+        Assert.DoesNotContain(fixture.Runner.Calls, args => args.Contains("/Add-Package"));
     }
+}
 
-    [Fact]
-    public async Task ApplyAsync_WhenSecureStartupIsNotApplicable_ReturnsBuildFailed()
+internal sealed class InternationalizationFixture : IDisposable
+{
+    private readonly TemporaryDirectory _directory = new();
+    internal static readonly string[] Components =
+    [
+        "WinPE-WMI", "WinPE-NetFX", "WinPE-Scripting", "WinPE-PowerShell", "WinPE-WinReCfg",
+        "WinPE-DismCmdlets", "WinPE-StorageWMI", "WinPE-Dot3Svc", "WinPE-EnhancedStorage", "WinPE-SecureStartup"
+    ];
+
+    public InternationalizationFixture(string language = "en-US", string? font = null)
     {
-        string root = Path.Combine(Path.GetTempPath(), $"foundry-intl-{Guid.NewGuid():N}");
-        string mountedImagePath = Path.Combine(root, "mount");
-        string workingDirectory = Path.Combine(root, "work");
-        string ocRoot = CreateOptionalComponentRoot(root, "amd64", "en-us");
-        Directory.CreateDirectory(mountedImagePath);
-        Directory.CreateDirectory(workingDirectory);
-        File.WriteAllText(Path.Combine(ocRoot, "en-us", "lp.cab"), string.Empty);
-        File.WriteAllText(Path.Combine(ocRoot, "WinPE-SecureStartup.cab"), string.Empty);
-
-        var runner = new FakeInternationalizationRunner
+        string locale = language.ToLowerInvariant();
+        ComponentsRoot = Path.Combine(_directory.Path, "Assessment and Deployment Kit", "Windows Preinstallation Environment", "amd64", "WinPE_OCs");
+        Directory.CreateDirectory(Path.Combine(ComponentsRoot, locale));
+        Runner = new InternationalizationRunner();
+        AddCab(Path.Combine(locale, "lp.cab"), "Microsoft-Windows-WinPE-LanguagePack-Package", locale);
+        foreach (string component in Components)
         {
-            PackageExitCode = 1,
-            PackageStandardOutput = "The specified package is not applicable to this image.",
-            FailPackagePathContains = "WinPE-SecureStartup"
+            AddCab($"{component}.cab", $"{component}-Package", string.Empty);
+            AddCab(Path.Combine(locale, $"{component}_{locale}.cab"), $"{component}-Package", locale);
+        }
+        if (font is not null)
+        {
+            AddCab($"{font}.cab", $"{font}-Package", string.Empty);
+        }
+        Options = new WinPeImageInternationalizationOptions
+        {
+            MountedImagePath = _directory.Path,
+            WorkingDirectoryPath = _directory.Path,
+            WinPeLanguage = language,
+            Architecture = WinPeArchitecture.X64,
+            Tools = new WinPeToolPaths { KitsRootPath = _directory.Path, DismPath = "fixture-dism.exe" }
         };
-        var service = new WinPeImageInternationalizationService(runner);
-
-        try
-        {
-            WinPeResult result = await service.ApplyAsync(
-                new WinPeImageInternationalizationOptions
-                {
-                    MountedImagePath = mountedImagePath,
-                    Architecture = WinPeArchitecture.X64,
-                    Tools = new WinPeToolPaths
-                    {
-                        KitsRootPath = root,
-                        DismPath = "dism.exe"
-                    },
-                    WinPeLanguage = "en-US",
-                    WorkingDirectoryPath = workingDirectory
-                },
-                CancellationToken.None);
-
-            Assert.False(result.IsSuccess);
-            Assert.Equal(WinPeErrorCodes.BuildFailed, result.Error?.Code);
-            Assert.Contains("WinPE-SecureStartup", result.Error?.Message, StringComparison.Ordinal);
-        }
-        finally
-        {
-            Directory.Delete(root, recursive: true);
-        }
     }
 
+    public string ComponentsRoot { get; }
+    public WinPeImageInternationalizationOptions Options { get; }
+    public InternationalizationRunner Runner { get; }
+    public Task<WinPeResult> ApplyAsync() => new WinPeImageInternationalizationService(Runner).ApplyAsync(Options, TestContext.Current.CancellationToken);
+    public void Dispose() => _directory.Dispose();
 
-    [Fact]
-    public async Task ApplyAsync_WhenNeutralComponentIsAlreadyInstalled_Continues()
+    private void AddCab(string relativePath, string name, string language)
     {
-        string root = Path.Combine(Path.GetTempPath(), $"foundry-intl-{Guid.NewGuid():N}");
-        string mountedImagePath = Path.Combine(root, "mount");
-        string workingDirectory = Path.Combine(root, "work");
-        string ocRoot = CreateOptionalComponentRoot(root, "amd64", "en-us");
-        Directory.CreateDirectory(mountedImagePath);
-        Directory.CreateDirectory(workingDirectory);
-        File.WriteAllText(Path.Combine(ocRoot, "en-us", "lp.cab"), string.Empty);
-        File.WriteAllText(Path.Combine(ocRoot, "WinPE-WMI.cab"), string.Empty);
-        File.WriteAllText(Path.Combine(ocRoot, "WinPE-SecureStartup.cab"), string.Empty);
-
-        var runner = new FakeInternationalizationRunner
-        {
-            PackageExitCode = 1,
-            PackageStandardOutput = "The specified package is already installed."
-        };
-        var service = new WinPeImageInternationalizationService(runner);
-
-        try
-        {
-            WinPeResult result = await service.ApplyAsync(
-                new WinPeImageInternationalizationOptions
-                {
-                    MountedImagePath = mountedImagePath,
-                    Architecture = WinPeArchitecture.X64,
-                    Tools = new WinPeToolPaths
-                    {
-                        KitsRootPath = root,
-                        DismPath = "dism.exe"
-                    },
-                    WinPeLanguage = "en-US",
-                    WorkingDirectoryPath = workingDirectory
-                },
-                CancellationToken.None);
-
-            Assert.True(result.IsSuccess, result.Error?.Details);
-        }
-        finally
-        {
-            Directory.Delete(root, recursive: true);
-        }
+        string path = Path.Combine(ComponentsRoot, relativePath);
+        File.WriteAllText(path, string.Empty);
+        Runner.CabIdentities[path] = $"{name}~31bf3856ad364e35~amd64~{language}~10.0.26100.1";
     }
+}
 
-    [Fact]
-    public async Task ApplyAsync_WhenNoNeutralComponentsExist_ReturnsToolNotFound()
+internal sealed class InternationalizationRunner : IWinPeProcessRunner
+{
+    public Dictionary<string, string> CabIdentities { get; } = new(StringComparer.OrdinalIgnoreCase);
+    public List<string> Installed { get; } = ["Microsoft-Windows-WinPE-Package~31bf3856ad364e35~amd64~~10.0.26100.1"];
+    public List<string[]> Calls { get; } = [];
+    public string? FailedComponent { get; set; }
+    public string FailureOutput { get; set; } = string.Empty;
+    public bool InstallFailedPackage { get; set; }
+    public string PowerShellState { get; set; } = "Installed";
+    public string? InventoryFailure { get; set; }
+    public Func<string, string>? TransformInventory { get; set; }
+    public string? PackageInfoOutput { get; set; }
+
+    public void InstallAll() => Installed.AddRange(CabIdentities.Values);
+
+    public Task<WinPeProcessExecution> RunAsync(string fileName, IReadOnlyList<string> arguments, string workingDirectory,
+        CancellationToken cancellationToken, IReadOnlyDictionary<string, string>? environmentOverrides = null, TimeSpan? executionTimeout = null)
     {
-        string root = Path.Combine(Path.GetTempPath(), $"foundry-intl-{Guid.NewGuid():N}");
-        string mountedImagePath = Path.Combine(root, "mount");
-        string workingDirectory = Path.Combine(root, "work");
-        string ocRoot = CreateOptionalComponentRoot(root, "amd64", "en-us");
-        Directory.CreateDirectory(mountedImagePath);
-        Directory.CreateDirectory(workingDirectory);
-        File.WriteAllText(Path.Combine(ocRoot, "en-us", "lp.cab"), string.Empty);
-
-        var service = new WinPeImageInternationalizationService(new FakeInternationalizationRunner());
-
-        try
+        Calls.Add(arguments.ToArray());
+        int exitCode = 0;
+        string output = string.Empty;
+        if (arguments.Contains("/Get-Packages"))
         {
-            WinPeResult result = await service.ApplyAsync(
-                new WinPeImageInternationalizationOptions
-                {
-                    MountedImagePath = mountedImagePath,
-                    Architecture = WinPeArchitecture.X64,
-                    Tools = new WinPeToolPaths
-                    {
-                        KitsRootPath = root,
-                        DismPath = "dism.exe"
-                    },
-                    WinPeLanguage = "en-US",
-                    WorkingDirectoryPath = workingDirectory
-                },
-                CancellationToken.None);
-
-            Assert.False(result.IsSuccess);
-            Assert.Equal(WinPeErrorCodes.ToolNotFound, result.Error?.Code);
+            exitCode = InventoryFailure == "failed" ? 1 : 0;
+            output = InventoryFailure == "malformed" ? "Package Identity : invalid\nState : Installed" :
+                "Deployment Image Servicing and Management tool\nVersion: 10.0.26100.1\n\nPackages listing:\n\n" +
+                string.Join("\n\n", Installed.Select(identity => $"Package Identity : {identity}\nState : {(identity.StartsWith("WinPE-PowerShell-Package~", StringComparison.Ordinal) ? PowerShellState : "Installed")}\nRelease Type : Feature Pack\nInstall Time : 9/7/2026 10:00 AM")) +
+                "\n\nThe operation completed successfully.";
+            output = TransformInventory?.Invoke(output) ?? output;
         }
-        finally
+        else if (arguments.Contains("/Get-PackageInfo"))
         {
-            Directory.Delete(root, recursive: true);
+            output = PackageInfoOutput ?? string.Empty;
         }
-    }
-
-    private static string CreateOptionalComponentRoot(string kitsRootPath, string architecture, string language)
-    {
-        string ocRoot = Path.Combine(
-            kitsRootPath,
-            "Assessment and Deployment Kit",
-            "Windows Preinstallation Environment",
-            architecture,
-            "WinPE_OCs");
-
-        Directory.CreateDirectory(Path.Combine(ocRoot, language));
-        return ocRoot;
-    }
-
-    private sealed class FakeInternationalizationRunner : IWinPeProcessRunner
-    {
-        public List<WinPeProcessExecution> Executions { get; } = [];
-        public int PackageExitCode { get; init; }
-        public string PackageStandardOutput { get; init; } = string.Empty;
-        public string? FailPackagePathContains { get; init; }
-
-        public Task<WinPeProcessExecution> RunAsync(
-            string fileName,
-            string arguments,
-            string workingDirectory,
-            CancellationToken cancellationToken,
-            IReadOnlyDictionary<string, string>? environmentOverrides = null,
-            TimeSpan? executionTimeout = null)
+        else if (arguments.Contains("/Add-Package"))
         {
-            throw new NotSupportedException("Executable calls must pass argument tokens.");
-        }
-
-        public Task<WinPeProcessExecution> RunAsync(
-            string fileName,
-            IReadOnlyList<string> argumentList,
-            string workingDirectory,
-            CancellationToken cancellationToken,
-            IReadOnlyDictionary<string, string>? environmentOverrides = null,
-            TimeSpan? executionTimeout = null)
-        {
-            string arguments = string.Join(' ', argumentList);
-            bool shouldFailPackage = arguments.Contains("/Add-Package", StringComparison.OrdinalIgnoreCase) &&
-                                     (string.IsNullOrWhiteSpace(FailPackagePathContains) ||
-                                      arguments.Contains(FailPackagePathContains, StringComparison.OrdinalIgnoreCase));
-            int exitCode = shouldFailPackage
-                ? PackageExitCode
-                : 0;
-
-            var execution = new WinPeProcessExecution
+            string path = arguments.Single(arg => arg.StartsWith("/PackagePath:", StringComparison.Ordinal))[13..];
+            bool fails = FailedComponent is not null && Path.GetFileNameWithoutExtension(path) == FailedComponent;
+            if (!fails || InstallFailedPackage)
             {
-                ExitCode = exitCode,
-                FileName = fileName,
-                Arguments = arguments,
-                WorkingDirectory = workingDirectory,
-                StandardOutput = exitCode == 0 ? string.Empty : PackageStandardOutput
-            };
-
-            Executions.Add(execution);
-            return Task.FromResult(execution);
+                Installed.Add(CabIdentities[path]);
+            }
+            exitCode = fails ? 1 : 0;
+            output = fails ? FailureOutput : string.Empty;
         }
-
-        public Task<WinPeProcessExecution> RunCmdScriptAsync(
-            string scriptPath,
-            string scriptArguments,
-            string workingDirectory,
-            CancellationToken cancellationToken,
-            TimeSpan? executionTimeout = null)
+        return Task.FromResult(new WinPeProcessExecution
         {
-            throw new NotSupportedException();
-        }
-
-        public Task<WinPeProcessExecution> RunCmdScriptDirectAsync(
-            string scriptPath,
-            string scriptArguments,
-            string workingDirectory,
-            CancellationToken cancellationToken,
-            TimeSpan? executionTimeout = null)
-        {
-            throw new NotSupportedException();
-        }
+            FileName = fileName,
+            Arguments = string.Join(' ', arguments),
+            WorkingDirectory = workingDirectory,
+            ExitCode = exitCode,
+            StandardOutput = output,
+            StandardOutputTruncated = arguments.Contains("/Get-Packages") && InventoryFailure == "truncated"
+        });
     }
+
+    public Task<WinPeProcessExecution> RunAsync(string fileName, string arguments, string workingDirectory, CancellationToken cancellationToken,
+        IReadOnlyDictionary<string, string>? environmentOverrides = null, TimeSpan? executionTimeout = null) => throw new NotSupportedException();
+    public Task<WinPeProcessExecution> RunCmdScriptAsync(string scriptPath, string scriptArguments, string workingDirectory,
+        CancellationToken cancellationToken, TimeSpan? executionTimeout = null) => throw new NotSupportedException();
+    public Task<WinPeProcessExecution> RunCmdScriptDirectAsync(string scriptPath, string scriptArguments, string workingDirectory,
+        CancellationToken cancellationToken, TimeSpan? executionTimeout = null) => throw new NotSupportedException();
 }
