@@ -26,5 +26,8 @@ public sealed record AdkInstallationStatus(
     /// <summary>
     /// Gets whether Foundry can create WinPE media with the detected ADK state.
     /// </summary>
-    public bool CanCreateMedia => IsInstalled && IsCompatible && IsWinPeAddonInstalled;
+    public bool CanCreateMedia => IsInstalled && IsCompatible && IsWinPeAddonInstalled && MissingTools.Count == 0;
+
+    /// <summary>Gets the required native host tools absent from the detected installation.</summary>
+    public IReadOnlyList<string> MissingTools { get; init; } = [];
 }

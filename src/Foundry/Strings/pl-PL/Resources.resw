@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Możliwość tworzenia multimediów</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Instalacja ADK została anulowana. Sprawdź instalację przed ponowną próbą.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK operacja zakończona</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Instalowanie dodatku Windows PE</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>Instalacja ADK zakończyła się, ale nadal brakuje wymaganych składników lub narzędzi. Sprawdź instalację i spróbuj ponownie.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Nie można potwierdzić zakończenia instalacji ADK. Operacje dotyczące nośników i instalacji są zablokowane do czasu odzyskania stanu.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Uruchom ponownie system Windows przed utworzeniem nośnika.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Usuwanie istniejącego Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Zaktualizuj aplikację</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Nie można bezpiecznie zamknąć operacji. Sprawdź dzienniki i zachowany obszar roboczy: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Natywne czyszczenie wymaga odzyskiwania. Pozostaw aplikację otwartą i sprawdź: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Oczekiwanie na natywne czyszczenie. Aplikacja pozostanie otwarta; spróbuj ją zamknąć po zakończeniu operacji.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Operacja zakończona</value>

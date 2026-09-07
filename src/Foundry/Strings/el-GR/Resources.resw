@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Δυνατότητα δημιουργίας πολυμέσων</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Η εγκατάσταση ADK ακυρώθηκε. Ελέγξτε την εγκατάσταση πριν δοκιμάσετε ξανά.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>Η λειτουργία ADK ολοκληρώθηκε</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Εγκατάσταση του πρόσθετου Windows PE</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>Η εγκατάσταση ADK ολοκληρώθηκε, αλλά λείπουν ακόμα απαιτούμενα στοιχεία ή εργαλεία. Ελέγξτε την εγκατάσταση και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η επιβεβαίωση ολοκλήρωσης της εγκατάστασης ADK. Οι λειτουργίες μέσων και εγκατάστασης αποκλείονται μέχρι την αποκατάσταση.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Επανεκκινήστε τα Windows πριν δημιουργήσετε μέσα.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Αφαίρεση υπάρχοντος Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Ενημέρωση εφαρμογής</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Δεν ήταν δυνατό το ασφαλές κλείσιμο της λειτουργίας. Ελέγξτε τα αρχεία καταγραφής και τον διατηρημένο χώρο εργασίας: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Η εκκαθάριση εγγενών πόρων απαιτεί αποκατάσταση. Κρατήστε την εφαρμογή ανοιχτή και ελέγξτε: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Αναμονή για εκκαθάριση εγγενών πόρων. Η εφαρμογή θα παραμείνει ανοιχτή· δοκιμάστε να την κλείσετε ξανά όταν ολοκληρωθεί η λειτουργία.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Ολοκληρώθηκε η λειτουργία</value>

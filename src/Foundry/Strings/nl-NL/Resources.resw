@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Mogelijkheid voor het maken van media</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>De ADK-installatie is geannuleerd. Controleer de installatie voordat u het opnieuw probeert.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK bewerking voltooid</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Windows PE-add-on installeren</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>De ADK-installatie is voltooid, maar vereiste onderdelen of hulpprogramma’s ontbreken nog. Controleer de installatie en probeer het opnieuw.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Het einde van de ADK-installatie kon niet worden bevestigd. Media- en installatiebewerkingen zijn geblokkeerd totdat herstel is uitgevoerd.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Start Windows opnieuw voordat u media maakt.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Bestaande Windows ADK verwijderen</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>App bijwerken</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>De bewerking kon niet veilig worden afgesloten. Controleer de logboeken en de bewaarde werkruimte: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>De native opschoning vereist herstel. Houd de toepassing geopend en controleer: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Wachten op native opschoning. De toepassing blijft geopend; probeer deze opnieuw te sluiten wanneer de bewerking is voltooid.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Operatie voltooid</value>

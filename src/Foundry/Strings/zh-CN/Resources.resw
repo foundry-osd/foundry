@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>媒体创作能力</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>ADK 安装已取消。重试前请检查安装。</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK操作完成</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>安装Windows PE 附加组件</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>ADK 安装已结束，但仍缺少必需的组件或工具。请检查安装并重试。</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>无法确认 ADK 安装是否完成。恢复前将阻止介质和安装操作。</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>创建介质前请重启 Windows。</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>删除现有的 Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>更新应用程序</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>无法安全关闭操作。请检查日志和保留的工作区：{0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>本机清理需要恢复。请保持应用程序打开并检查：{0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>正在等待本机清理。应用程序将保持打开；请在操作结束后再次尝试关闭。</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>操作完成</value>

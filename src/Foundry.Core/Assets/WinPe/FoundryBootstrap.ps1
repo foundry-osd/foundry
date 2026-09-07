@@ -1508,26 +1508,39 @@ function Promote-StagedCache {
         [string]$RuntimeCacheRoot
     )
 
-    $backupRoot = "$RuntimeCacheRoot.previous"
+    $backupRoot = "$RuntimeCacheRoot.previous-$([Guid]::NewGuid().ToString('N'))"
     $activeMoved = $false
 
-    Remove-DirectoryIfPresent -Path $backupRoot
-
     try {
-        if (Test-Path -Path $RuntimeCacheRoot -PathType Container) {
-            Move-Item -Path $RuntimeCacheRoot -Destination $backupRoot
+        if (Test-Path -LiteralPath $RuntimeCacheRoot -PathType Container) {
+            [System.IO.Directory]::Move($RuntimeCacheRoot, $backupRoot)
             $activeMoved = $true
         }
 
-        Move-Item -Path $StagingRoot -Destination $RuntimeCacheRoot
-        Remove-DirectoryIfPresent -Path $backupRoot
+        [System.IO.Directory]::Move($StagingRoot, $RuntimeCacheRoot)
     }
     catch {
-        if ($activeMoved -and -not (Test-Path -Path $RuntimeCacheRoot -PathType Container) -and (Test-Path -Path $backupRoot -PathType Container)) {
-            Move-Item -Path $backupRoot -Destination $RuntimeCacheRoot
+        $promotionError = $_
+        if ($activeMoved) {
+            try {
+                [System.IO.Directory]::Move($backupRoot, $RuntimeCacheRoot)
+            }
+            catch {
+                $promotionError.Exception.Data['PublicationRecoveryRequired'] = $true
+                $promotionError.Exception.Data['PublicationRetainedPaths'] = @($StagingRoot, $backupRoot)
+                $promotionError.Exception.Data['PublicationRollbackFailure'] = $_.Exception
+            }
         }
+        throw $promotionError
+    }
 
-        throw
+    if ($activeMoved) {
+        try {
+            Remove-Item -LiteralPath $backupRoot -Recurse -Force -ErrorAction Stop
+        }
+        catch {
+            Write-Warning 'Runtime publication succeeded, but its previous cache could not be removed.'
+        }
     }
 }
 
@@ -1551,7 +1564,8 @@ function Update-CacheFromArchiveFile {
         [string]$ArchiveSha256
     )
 
-    $stagingRoot = Get-StagingRoot -RuntimeCacheRoot $RuntimeCacheRoot
+    $retainStaging = $false
+    $stagingRoot = (Get-StagingRoot -RuntimeCacheRoot $RuntimeCacheRoot) + "-" + [Guid]::NewGuid().ToString("N")
     Remove-DirectoryIfPresent -Path $stagingRoot
 
     try {
@@ -1583,9 +1597,15 @@ function Update-CacheFromArchiveFile {
         Promote-StagedCache -StagingRoot $stagingRoot -RuntimeCacheRoot $RuntimeCacheRoot
         return Resolve-CachedExecutable -RuntimeCacheRoot $RuntimeCacheRoot -ApplicationName $ApplicationName
     }
+    catch {
+        $retainStaging = $_.Exception.Data['PublicationRecoveryRequired'] -eq $true
+        throw
+    }
     finally {
-        Remove-FileIfPresent -Path $ArchivePath
-        Remove-DirectoryIfPresent -Path $stagingRoot
+        if (-not $retainStaging) {
+            Remove-FileIfPresent -Path $ArchivePath
+            Remove-DirectoryIfPresent -Path $stagingRoot
+        }
     }
 }
 #endregion

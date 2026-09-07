@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Runtime.InteropServices;
+
 namespace Foundry.Core.Services.Adk;
 
 public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
@@ -31,7 +33,28 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
             installedVersion,
             versionRelation,
             kitsRootPath,
-            RequiredVersionPolicyText);
+            RequiredVersionPolicyText)
+        {
+            MissingTools = GetMissingNativeTools(kitsRootPath)
+        };
+    }
+
+    private IReadOnlyList<string> GetMissingNativeTools(string? kitsRoot)
+    {
+        string? host = RuntimeInformation.OSArchitecture switch
+        {
+            Architecture.X64 => "amd64",
+            Architecture.Arm64 => "arm64",
+            _ => null
+        };
+        if (host is null) return ["Native x64 or ARM64 ADK tools"];
+        var missing = new List<string>();
+        foreach ((string directory, string file) in new[] { ("DISM", "dism.exe"), ("Oscdimg", "oscdimg.exe") })
+        {
+            if (string.IsNullOrWhiteSpace(kitsRoot) || !probe.FileExists(Path.Combine(kitsRoot, DeploymentToolsRelativePath, host, directory, file)))
+                missing.Add($"{host}/{directory}/{file}");
+        }
+        return missing;
     }
 
     public static bool IsCompatibleVersion(string? versionText)

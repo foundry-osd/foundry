@@ -14,10 +14,16 @@ public class WinPeResult
 
     public bool IsSuccess { get; }
     public WinPeDiagnostic? Error { get; }
+    public WinPeDiagnostic? CleanupDiagnostic { get; init; }
 
     public static WinPeResult Success()
     {
         return new WinPeResult(true, null);
+    }
+
+    public static WinPeResult SuccessWithCleanup(WinPeDiagnostic? cleanup)
+    {
+        return new WinPeResult(true, null) { CleanupDiagnostic = cleanup };
     }
 
     public static WinPeResult Failure(WinPeDiagnostic error)
@@ -58,6 +64,11 @@ public sealed class WinPeResult<T> : WinPeResult
     public static WinPeResult<T> Success(T value)
     {
         return new WinPeResult<T>(true, value, null);
+    }
+
+    public static WinPeResult<T> SuccessWithCleanup(T value, WinPeDiagnostic? cleanup)
+    {
+        return new WinPeResult<T>(true, value, null) { CleanupDiagnostic = cleanup };
     }
 
     public new static WinPeResult<T> Failure(WinPeDiagnostic error)

@@ -2,13 +2,17 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Utilities.IO;
+using System.Security.Cryptography;
 
 namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
 {
     private readonly IWinPeProcessRunner _processRunner;
+    internal Func<Stream, Stream, CancellationToken, Task> CopyIsoAsync { get; init; } =
+        (source, destination, token) => source.CopyToAsync(destination, token);
+    internal Action<string, string, string> ReplaceIso { get; init; } = File.Replace;
+    internal Action<string> DeleteIso { get; init; } = File.Delete;
 
     public WinPeIsoMediaService()
         : this(new WinPeProcessRunner())
@@ -37,6 +41,7 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
         string? preparedOutputPath = null;
         string? safeWorkspacePath = null;
         string currentStage = "Prepare ISO output path";
+        bool retainWorkspace = false;
 
         try
         {
@@ -50,7 +55,10 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
 
             ReportProgress(options.Progress, 0, "Preparing ISO output path.");
             EnsureOutputDirectoryExists(requestedOutputPath);
-            preparedOutputPath = PrepareOutputPath(requestedOutputPath, options.IsoTempDirectoryPath);
+            if (!options.ForceOverwriteOutput && File.Exists(requestedOutputPath))
+            {
+                throw new IOException("An ISO already exists at the selected output path.");
+            }
             currentStage = "Prepare ISO workspace";
             ReportProgress(options.Progress, 20, "Preparing ISO workspace.");
             string makeWinPeMediaWorkspacePath = PrepareWorkspacePath(
@@ -58,10 +66,7 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                 options.IsoTempDirectoryPath,
                 out safeWorkspacePath);
 
-            if (options.ForceOverwriteOutput && File.Exists(preparedOutputPath))
-            {
-                File.Delete(preparedOutputPath);
-            }
+            preparedOutputPath = Path.Combine(makeWinPeMediaWorkspacePath, $"iso-{Guid.NewGuid():N}.iso");
 
             string arguments =
                 $"/ISO /F {WinPeProcessRunner.Quote(makeWinPeMediaWorkspacePath)} {WinPeProcessRunner.Quote(preparedOutputPath)}" +
@@ -84,7 +89,7 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                     "MakeWinPEMedia"));
             }
 
-            if (!File.Exists(preparedOutputPath))
+            if (!File.Exists(preparedOutputPath) || new FileInfo(preparedOutputPath).Length == 0)
             {
                 return WinPeResult.Failure(
                     WinPeErrorCodes.IsoCreateFailed,
@@ -99,15 +104,22 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
 
             currentStage = "Finalize ISO output";
             ReportProgress(options.Progress, 90, "Finalizing ISO output.");
-            FinalizeOutput(preparedOutputPath, requestedOutputPath);
+            WinPeDiagnostic? cleanup = await FinalizeOutputAsync(
+                preparedOutputPath, requestedOutputPath, options.ForceOverwriteOutput, cancellationToken).ConfigureAwait(false);
             ReportProgress(options.Progress, 100, "ISO media completed.");
-            return WinPeResult.Success();
+            return WinPeResult.SuccessWithCleanup(cleanup);
         }
-        catch (Exception ex) when (ex is not OperationCanceledException)
+        catch (Exception ex)
         {
-            return WinPeResult.Failure(
+            bool writerUncertain = currentStage == "Run MakeWinPEMedia for ISO" &&
+                (ex.Data["ProcessRootExitConfirmed"] is false || ex.Data["ProcessTreeTerminationConfirmed"] is false ||
+                 ((ex is TimeoutException or OperationCanceledException) &&
+                  !(ex.Data["ProcessRootExitConfirmed"] is true && ex.Data["ProcessTreeTerminationConfirmed"] is true)));
+            retainWorkspace = writerUncertain || ex.Data["PublicationRecoveryRequired"] is true;
+            if (ex is OperationCanceledException && !retainWorkspace) throw;
+            WinPeResult failure = WinPeResult.Failure(
                 WinPeErrorCodes.IsoCreateFailed,
-                "Unexpected failure while creating WinPE ISO media.",
+                "Failed to create WinPE ISO media.",
                 ex.ToString(),
                 stage: currentStage,
                 failureKind: currentStage == "Run MakeWinPEMedia for ISO"
@@ -115,6 +127,7 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                     : WinPeFailureKinds.FileSystem,
                 failureReason: ex switch
                 {
+                    OperationCanceledException => WinPeFailureReasons.Cancelled,
                     TimeoutException when currentStage == "Run MakeWinPEMedia for ISO" => WinPeFailureReasons.Timeout,
                     UnauthorizedAccessException => WinPeFailureReasons.AccessDenied,
                     IOException => WinPeFailureReasons.IoError,
@@ -124,11 +137,22 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                 toolName: currentStage == "Run MakeWinPEMedia for ISO" ? "MakeWinPEMedia" : null,
                 errorSummary: ex.Message,
                 exception: ex);
+            return WinPeResult.Failure(failure.Error! with
+            {
+                RecoveryRequired = retainWorkspace || ex.Data["PublicationRecoveryRequired"] is true,
+                RetainedPaths = (retainWorkspace
+                    ? new[] { safeWorkspacePath ?? preparedWorkspace.Artifact.WorkingDirectoryPath }
+                    : []).Concat(ex.Data["PublicationRetainedPaths"] as string[] ?? []).ToArray(),
+                NativeTerminationConfirmed = !writerUncertain
+            });
         }
         finally
         {
-            CleanupPreparedOutput(requestedOutputPath, preparedOutputPath);
-            CleanupPreparedWorkspace(safeWorkspacePath);
+            if (!retainWorkspace)
+            {
+                CleanupPreparedOutput(requestedOutputPath, preparedOutputPath);
+                CleanupPreparedWorkspace(safeWorkspacePath);
+            }
         }
     }
 
@@ -206,38 +230,72 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
         return safeWorkspacePath;
     }
 
-    private static string PrepareOutputPath(string requestedOutputPath, string isoTempDirectoryPath)
+
+    private async Task<WinPeDiagnostic?> FinalizeOutputAsync(
+        string preparedOutputPath, string requestedOutputPath, bool overwrite, CancellationToken cancellationToken)
     {
-        if (!ContainsNonAscii(requestedOutputPath))
+        string target = Path.GetFullPath(requestedOutputPath);
+        string sibling = target + $".staged-{Guid.NewGuid():N}";
+        string backup = target + $".previous-{Guid.NewGuid():N}";
+        bool retainSibling = false;
+        try
         {
-            return requestedOutputPath;
+            await using FileStream source = new(preparedOutputPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            long length = source.Length;
+            byte[] hash = await SHA256.HashDataAsync(source, cancellationToken).ConfigureAwait(false);
+            source.Position = 0;
+            await using (FileStream destination = new(sibling, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None))
+            {
+                await CopyIsoAsync(source, destination, cancellationToken).ConfigureAwait(false);
+                destination.Flush(flushToDisk: true);
+                destination.Position = 0;
+                byte[] copiedHash = await SHA256.HashDataAsync(destination, cancellationToken).ConfigureAwait(false);
+                if (destination.Length != length ||
+                    !hash.AsSpan().SequenceEqual(copiedHash))
+                {
+                    throw new InvalidDataException("The staged ISO copy did not match the completed artifact.");
+                }
+            }
+
+            cancellationToken.ThrowIfCancellationRequested();
+            if (overwrite && File.Exists(target))
+            {
+                try
+                {
+                    ReplaceIso(sibling, target, backup);
+                }
+                catch (Exception ex)
+                {
+                    retainSibling = true;
+                    ex.Data["PublicationRecoveryRequired"] = true;
+                    ex.Data["PublicationRetainedPaths"] = new[] { sibling, backup }.Where(File.Exists).ToArray();
+                    throw;
+                }
+            }
+            else
+            {
+                File.Move(sibling, target, overwrite: false);
+            }
+
+            try
+            {
+                if (File.Exists(backup)) DeleteIso(backup);
+                return null;
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                return new WinPeDiagnostic(WinPeErrorCodes.IsoCreateFailed,
+                    "ISO publication succeeded, but its previous output could not be removed.", exception: ex)
+                {
+                    RetainedPaths = [backup]
+                };
+            }
         }
-
-        Directory.CreateDirectory(isoTempDirectoryPath);
-        string fileName = Path.GetFileName(requestedOutputPath);
-        string safeFileName = string.IsNullOrWhiteSpace(fileName)
-            ? $"foundry-winpe-{DateTime.UtcNow:yyyyMMddHHmmssfff}.iso"
-            : ToAsciiSafeFileName(fileName);
-
-        if (!safeFileName.EndsWith(".iso", StringComparison.OrdinalIgnoreCase))
+        finally
         {
-            safeFileName += ".iso";
+            if (!retainSibling) CleanupPreparedOutput(target, sibling);
         }
-
-        return Path.Combine(isoTempDirectoryPath, safeFileName);
     }
-
-    private static void FinalizeOutput(string preparedOutputPath, string requestedOutputPath)
-    {
-        if (string.Equals(preparedOutputPath, requestedOutputPath, StringComparison.OrdinalIgnoreCase))
-        {
-            return;
-        }
-
-        EnsureOutputDirectoryExists(requestedOutputPath);
-        File.Copy(preparedOutputPath, requestedOutputPath, overwrite: true);
-    }
-
     private static void CleanupPreparedOutput(string requestedOutputPath, string? preparedOutputPath)
     {
         if (string.IsNullOrWhiteSpace(preparedOutputPath) ||
@@ -316,13 +374,4 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
         });
     }
 
-    private static string ToAsciiSafeFileName(string fileName)
-    {
-        string sanitized = PathSegment.Sanitize(fileName);
-        char[] chars = sanitized
-            .Select(character => character > 127 ? '_' : character)
-            .ToArray();
-
-        return new string(chars);
-    }
 }

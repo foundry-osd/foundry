@@ -157,25 +157,22 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         return RunBlockingAdkOperationAsync(adkService.UpgradeAsync);
     }
 
-    private async Task RunBlockingAdkOperationAsync(Func<CancellationToken, Task<AdkInstallationStatus>> operation)
+    private async Task RunBlockingAdkOperationAsync(Func<CancellationToken, Task<AdkInstallResult>> operation)
     {
         // ADK setup can display UAC and modifies machine-level components, so the shell blocks navigation while it runs.
         shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
 
         try
         {
-            AdkInstallationStatus status = await operation(CancellationToken.None);
-            ApplyShellState(status);
+            AdkInstallResult result = await operation(CancellationToken.None);
+            ApplyStatus(adkService.CurrentStatus);
+            shellNavigationGuardService.SetState(result.Outcome == AdkInstallOutcome.Ready ? ShellNavigationState.Ready : ShellNavigationState.AdkBlocked);
         }
         catch (Exception)
         {
+            ApplyStatus(adkService.CurrentStatus);
             shellNavigationGuardService.SetState(ShellNavigationState.AdkBlocked);
         }
-    }
-
-    private void ApplyShellState(AdkInstallationStatus status)
-    {
-        shellNavigationGuardService.SetState(status.CanCreateMedia ? ShellNavigationState.Ready : ShellNavigationState.AdkBlocked);
     }
 
     private void OnAdkStatusChanged(object? sender, AdkStatusChangedEventArgs e)
@@ -223,6 +220,14 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         StatusTitle = GetStatusTitle(status);
         StatusDescription = GetStatusDescription(status);
         StatusSeverity = GetStatusSeverity(status);
+        if (adkService.LastResult is { Outcome: not AdkInstallOutcome.Ready } result)
+        {
+            StatusTitle = localizationService.GetString("Adk.PageTitle");
+            StatusDescription = localizationService.GetString(AdkService.GetOutcomeResourceKey(result.Outcome));
+            if (result.Outcome == AdkInstallOutcome.NotReady && result.Status.MissingTools.Count > 0)
+                StatusDescription += " " + string.Join(", ", result.Status.MissingTools);
+            StatusSeverity = result.Outcome == AdkInstallOutcome.OwnershipUncertain ? InfoBarSeverity.Error : InfoBarSeverity.Warning;
+        }
         SetupActionTitle = localizationService.GetString("Adk.SetupAction.Title");
         SetupActionDescription = localizationService.GetString("Adk.SetupAction.Description");
         UpgradeButtonText = GetUpgradeButtonText(status);
@@ -242,13 +247,13 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         IsUpgradeButtonVisible = status.IsInstalled && !status.IsCompatible;
         IsInstallButtonVisible = !IsUpgradeButtonVisible && (!status.IsInstalled || !status.IsWinPeAddonInstalled);
         IsSetupActionVisible = IsInstallButtonVisible || IsUpgradeButtonVisible;
-        IsActionEnabled = !IsBusy;
+        IsActionEnabled = !IsBusy && !adkService.HasUncertainOwnership && adkService.LastResult?.RebootRequired != true;
     }
 
     private void ApplyOperationState(OperationProgressState state)
     {
         IsBusy = state.IsRunning;
-        IsActionEnabled = !IsBusy;
+        IsActionEnabled = !IsBusy && !adkService.HasUncertainOwnership && adkService.LastResult?.RebootRequired != true;
     }
 
     private string GetStatusTitle(AdkInstallationStatus status)
@@ -285,6 +290,8 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
 
     private string GetStatusDescription(AdkInstallationStatus status)
     {
+        if (status.IsInstalled && status.MissingTools.Count > 0)
+            return localizationService.GetString("Adk.Operation.NotReady") + " " + string.Join(", ", status.MissingTools);
         if (status.CanCreateMedia)
         {
             return localizationService.GetString("Adk.Status.ReadyDescription");

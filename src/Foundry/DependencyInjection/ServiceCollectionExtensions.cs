@@ -105,6 +105,8 @@ public static class ServiceCollectionExtensions
         });
         services.AddSingleton<IRemoteDiagnosticsService>(_ => new PostHogRemoteDiagnosticsSink());
         services.AddSingleton<IAdkInstallationProbe, WindowsAdkInstallationProbe>();
+        services.AddSingleton<IAdkInstallerRunner, ElevatedAdkInstallerRunner>();
+        services.AddSingleton<AdkInstallationService>();
         services.AddSingleton<IFoundryConfigurationService, FoundryConfigurationService>();
         services.AddSingleton<IDeployConfigurationGenerator, DeployConfigurationGenerator>();
         services.AddSingleton<IConnectConfigurationGenerator, ConnectConfigurationGenerator>();
@@ -130,6 +132,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IWinPeRuntimePayloadProvisioningService, WinPeRuntimePayloadProvisioningService>();
         services.AddSingleton<IWinPeIsoMediaService, WinPeIsoMediaService>();
         services.AddSingleton<IWinPeUsbMediaService, WinPeUsbMediaService>();
+        services.AddSingleton<Foundry.Core.Services.Media.MediaOperationCoordinator>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IAdkService, AdkService>();
         services.AddSingleton<IShellNavigationGuardService, ShellNavigationGuardService>();

@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Можливість створення медіа</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Інсталяцію ADK скасовано. Перевірте інсталяцію перед повторною спробою.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>Операція ADK завершена</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Встановлення додатка Windows PE</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>Інсталяція ADK завершилася, але необхідні компоненти або інструменти все ще відсутні. Перевірте інсталяцію та повторіть спробу.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Не вдалося підтвердити завершення інсталяції ADK. Операції з носіями та інсталяції заблоковано до відновлення.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Перезапустіть Windows перед створенням носія.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Видалення існуючого Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Оновити додаток</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Не вдалося безпечно завершити операцію. Перегляньте журнали та збережену робочу область: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Очищення нативних ресурсів потребує відновлення. Залиште програму відкритою та перевірте: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Очікування очищення нативних ресурсів. Програма залишиться відкритою; спробуйте закрити її після завершення операції.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Операція завершена</value>

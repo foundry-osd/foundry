@@ -37,6 +37,13 @@ public sealed record WinPeDiagnostic
         (FailureKind, FailureReason) = Classify(code, exitCode, toolName, exception, failureKind, failureReason);
     }
 
+    public bool RecoveryRequired { get; init; }
+    public string? OwnedMountPath { get; init; }
+    public string? OwnedImagePath { get; init; }
+    public IReadOnlyList<string> RetainedPaths { get; init; } = [];
+    public WinPeDiagnostic? CleanupDiagnostic { get; init; }
+    public bool NativeTerminationConfirmed { get; init; }
+
     public string Code { get; init; }
     public string Message { get; init; }
     public string? Details { get; init; }

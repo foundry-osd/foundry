@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Mulighed for at skabe medier</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>ADK-installationen blev annulleret. Kontrollér installationen, før du prøver igen.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK handling afsluttet</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Installerer Windows PE tilføjelse</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>ADK-installationen er afsluttet, men nødvendige komponenter eller værktøjer mangler stadig. Kontrollér installationen, og prøv igen.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Det kunne ikke bekræftes, at ADK-installationen er afsluttet. Medie- og installationshandlinger er blokeret indtil genoprettelse.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Genstart Windows, før du opretter medier.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Fjernelse af eksisterende Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Opdater app</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Handlingen kunne ikke afsluttes sikkert. Gennemgå logfilerne og det bevarede arbejdsområde: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Den native oprydning kræver genoprettelse. Hold programmet åbent, og gennemgå: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Venter på native oprydning. Programmet forbliver åbent; prøv at lukke det igen, når handlingen er færdig.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Operation færdig</value>

@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Multivides izveides iespēja</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>ADK instalēšana tika atcelta. Pirms atkārtota mēģinājuma pārbaudiet instalāciju.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK darbība pabeigta</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Notiek Windows PE papildinājuma instalēšana</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>ADK instalēšana ir beigusies, taču joprojām trūkst nepieciešamo komponentu vai rīku. Pārbaudiet instalāciju un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Neizdevās apstiprināt ADK instalēšanas pabeigšanu. Datu nesēju un instalēšanas darbības ir bloķētas līdz atkopšanai.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Pirms datu nesēja izveides restartējiet Windows.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Esošā Windows ADK noņemšana</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Atjaunināt lietotni</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Darbību nevarēja droši aizvērt. Pārskatiet žurnālus un saglabāto darbvietu: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Vietējai tīrīšanai nepieciešama atkopšana. Atstājiet lietotni atvērtu un pārskatiet: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Gaida vietējo tīrīšanu. Lietotne paliks atvērta; mēģiniet to aizvērt vēlreiz pēc darbības beigām.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Darbība pabeigta</value>

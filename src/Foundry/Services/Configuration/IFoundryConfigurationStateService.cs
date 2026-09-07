@@ -18,6 +18,8 @@ namespace Foundry.Services.Configuration;
 /// </remarks>
 public interface IFoundryConfigurationStateService
 {
+    /// <summary>Copies current media configuration and volatile secrets before asynchronous work starts.</summary>
+    Foundry.Core.Services.Media.MediaConfigurationSnapshot CaptureMediaConfiguration();
     /// <summary>
     /// Occurs after the Foundry configuration changes.
     /// </summary>

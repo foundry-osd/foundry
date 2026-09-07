@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Möglichkeit zur Medienerstellung</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Das ADK-Setup wurde abgebrochen. Prüfen Sie die Installation vor einem erneuten Versuch.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK Vorgang abgeschlossen</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Windows PE Add-on installieren</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>Das ADK-Setup ist beendet, aber erforderliche Komponenten oder Tools fehlen noch. Prüfen Sie die Installation und versuchen Sie es erneut.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Der Abschluss des ADK-Setups konnte nicht bestätigt werden. Weitere Medien- und Setupvorgänge sind bis zur Wiederherstellung gesperrt.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Starten Sie Windows neu, bevor Sie Medien erstellen.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Vorhandenes Windows ADK entfernen</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>App aktualisieren</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Der Vorgang konnte nicht sicher beendet werden. Prüfen Sie die Protokolle und den beibehaltenen Arbeitsbereich: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Die native Bereinigung erfordert eine Wiederherstellung. Lassen Sie die Anwendung geöffnet und prüfen Sie: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Warten auf die native Bereinigung. Die Anwendung bleibt geöffnet; versuchen Sie nach Abschluss des Vorgangs erneut, sie zu schließen.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Vorgang abgeschlossen</value>

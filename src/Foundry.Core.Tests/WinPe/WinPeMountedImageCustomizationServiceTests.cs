@@ -222,6 +222,56 @@ public sealed class WinPeMountedImageCustomizationServiceTests
     private static Task<WinPeResult<WinPeCapabilityValidationResult>> AcceptCapabilities(
         WinPeImageInternationalizationOptions options, CancellationToken cancellationToken) =>
         Task.FromResult(WinPeResult<WinPeCapabilityValidationResult>.Success(new([], [])));
+    [Fact]
+    public async Task CustomizeAsync_WhenPrimaryExceptionAndDiscardFail_PreservesBothAndOwnedMount()
+    {
+        using var temp = TempWinPeArtifact.Create();
+        var original = new IOException("driver input failed");
+        var runner = new FakeCustomizationRunner { FailDiscard = true };
+        var service = new WinPeMountedImageCustomizationService(runner,
+            new FakeDriverInjectionService { OnInject = _ => throw original },
+            new FakeInternationalizationService(), new FakeAssetProvisioningService(),
+            new FakeRuntimePayloadProvisioningService(), new FakeWinRePreparationService());
+        var result = await service.CustomizeAsync(new WinPeMountedImageCustomizationOptions
+        {
+            Artifact = temp.Artifact,
+            Tools = temp.Tools,
+            WinPeLanguage = "en-US",
+            DriverPackagePaths = ["driver"]
+        }, TestContext.Current.CancellationToken);
+        Assert.Same(original, result.Error!.Exception);
+        Assert.True(result.Error.RecoveryRequired);
+        Assert.Equal(temp.Artifact.MountDirectoryPath, result.Error.OwnedMountPath);
+        Assert.Equal(8, result.Error.CleanupDiagnostic!.ExitCode);
+        Assert.True(Directory.Exists(temp.Artifact.MountDirectoryPath));
+        Assert.Single(runner.Executions.Where(item => item.Arguments.Contains("/Discard")));
+        Assert.DoesNotContain(runner.Executions, item => item.Arguments.Contains("/Commit"));
+    }
+
+    [Fact]
+    public async Task CustomizeAsync_WhenStageReportsUncertainRecoveryWithoutException_DoesNotDiscard()
+    {
+        using var temp = TempWinPeArtifact.Create();
+        var primary = new WinPeDiagnostic(WinPeErrorCodes.BuildFailed, "Native ownership remains uncertain.")
+        {
+            RecoveryRequired = true,
+            RetainedPaths = [Path.Combine(temp.Artifact.MountDirectoryPath, "payload")]
+        };
+        var runner = new FakeCustomizationRunner();
+        var service = new WinPeMountedImageCustomizationService(runner, new FakeDriverInjectionService(),
+            new FakeInternationalizationService(WinPeResult.Failure(primary)), new FakeAssetProvisioningService(),
+            new FakeRuntimePayloadProvisioningService(), new FakeWinRePreparationService());
+        var result = await service.CustomizeAsync(new WinPeMountedImageCustomizationOptions
+        {
+            Artifact = temp.Artifact,
+            Tools = temp.Tools,
+            WinPeLanguage = "en-US"
+        }, TestContext.Current.CancellationToken);
+        Assert.True(result.Error!.RecoveryRequired);
+        Assert.Equal(temp.Artifact.MountDirectoryPath, result.Error.OwnedMountPath);
+        Assert.DoesNotContain(runner.Executions, item => item.Arguments.Contains("/Discard"));
+    }
+
     private sealed class TempWinPeArtifact : IDisposable
     {
         private TempWinPeArtifact(string rootPath, WinPeBuildArtifact artifact, WinPeToolPaths tools)
@@ -277,6 +327,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
 
     private sealed class FakeCustomizationRunner : IWinPeProcessRunner
     {
+        public bool FailDiscard { get; init; }
         public List<WinPeProcessExecution> Executions { get; } = [];
 
         public Task<WinPeProcessExecution> RunAsync(
@@ -301,6 +352,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             string arguments = string.Join(' ', argumentList);
             var execution = new WinPeProcessExecution
             {
+                ExitCode = FailDiscard && argumentList.Contains("/Discard") ? 8 : 0,
                 FileName = fileName,
                 Arguments = arguments,
                 WorkingDirectory = workingDirectory

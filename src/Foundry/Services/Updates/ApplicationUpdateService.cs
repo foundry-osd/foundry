@@ -4,6 +4,8 @@
 
 using System.Diagnostics;
 using Foundry.Core.Services.Application;
+using Foundry.Core.Services.Media;
+using Foundry.Services.Adk;
 using Foundry.Services.Settings;
 using Serilog;
 using Velopack;
@@ -18,6 +20,8 @@ internal sealed class ApplicationUpdateService(
     IAppSettingsService appSettingsService,
     IApplicationLifetimeService applicationLifetimeService,
     IApplicationUpdateStateService updateStateService,
+    MediaOperationCoordinator mediaCoordinator,
+    IAdkService adkService,
     ILogger logger) : IApplicationUpdateService
 {
     private readonly ILogger logger = logger.ForContext<ApplicationUpdateService>();
@@ -197,6 +201,12 @@ internal sealed class ApplicationUpdateService(
     /// <inheritdoc />
     public void ApplyUpdateAndRestart()
     {
+        if (mediaCoordinator.IsRunning || mediaCoordinator.RecoveryDiagnostic is not null ||
+            adkService.ActiveOperation is { IsCompleted: false } || adkService.HasUncertainOwnership)
+        {
+            throw new InvalidOperationException("Complete native media or ADK cleanup before applying an application update.");
+        }
+
         if (pendingUpdate is null || pendingUpdateManager is null)
         {
             logger.Warning("Apply update requested without a pending update.");
@@ -206,6 +216,8 @@ internal sealed class ApplicationUpdateService(
         string version = pendingUpdate.TargetFullRelease.Version?.ToString() ?? "unknown";
         try
         {
+            using MediaOperationLease lease = MediaOperationLease.Acquire(Constants.WinPeWorkspaceDirectoryPath, "ApplicationUpdate");
+            lease.DeleteOwnedWorkspace();
             logger.Information("Applying Foundry update and restarting. Version={Version}", version);
             pendingUpdateManager.WaitExitThenApplyUpdates(pendingUpdate.TargetFullRelease, silent: false, restart: true);
             applicationLifetimeService.Shutdown();

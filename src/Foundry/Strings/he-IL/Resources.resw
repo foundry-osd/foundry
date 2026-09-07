@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>יכולת יצירת מדיה</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>התקנת ADK בוטלה. יש לבדוק את ההתקנה לפני ניסיון נוסף.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>הפעולה ADK הושלמה</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>מתקין את התוסף Windows PE</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>התקנת ADK הסתיימה, אך עדיין חסרים רכיבים או כלים נדרשים. יש לבדוק את ההתקנה ולנסות שוב.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>לא ניתן לאשר שהתקנת ADK הסתיימה. פעולות מדיה והתקנה חסומות עד להשלמת השחזור.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>יש להפעיל מחדש את Windows לפני יצירת מדיה.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>הסרת Windows ADK הקיים</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>עדכן את האפליקציה</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>לא ניתן לסגור את הפעולה בבטחה. יש לעיין ביומנים ובסביבת העבודה שנשמרה: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>ניקוי המשאבים המקוריים מחייב שחזור. יש להשאיר את היישום פתוח ולבדוק: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>ממתין לניקוי משאבים מקוריים. היישום יישאר פתוח; יש לנסות לסגור שוב לאחר סיום הפעולה.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>הפעולה הושלמה</value>

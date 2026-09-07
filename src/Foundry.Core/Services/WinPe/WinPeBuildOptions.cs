@@ -30,9 +30,9 @@ public sealed record WinPeBuildOptions
     public string? AdkRootPath { get; init; }
 
     /// <summary>
-    /// Gets whether an existing workspace path should be deleted before creation.
+    /// Retained for source compatibility. Existing workspaces are always preserved.
     /// </summary>
-    public bool CleanExistingWorkingDirectory { get; init; } = true;
+    public bool CleanExistingWorkingDirectory { get; init; }
 
     /// <summary>
     /// Gets the WinPE architecture to create.

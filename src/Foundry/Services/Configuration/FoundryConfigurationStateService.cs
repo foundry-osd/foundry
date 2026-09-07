@@ -69,6 +69,31 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     /// <inheritdoc />
     public event EventHandler? StateChanged;
 
+    public Foundry.Core.Services.Media.MediaConfigurationSnapshot CaptureMediaConfiguration()
+    {
+        lock (stateLock)
+        {
+            FoundryConfigurationDocument current = Current;
+            OobeAccountSecretState secrets = CreateOobeAccountSecretStateForDeployGeneration(current.Customization.Oobe);
+            try
+            {
+                if (!secrets.Validate(current.Customization.Oobe).IsValid)
+                {
+                    throw new InvalidOperationException("OOBE local account password confirmation is invalid.");
+                }
+
+                return new Foundry.Core.Services.Media.MediaConfigurationSnapshot(current,
+                    current with { Network = networkSecretStateService.ApplyRequiredSecrets(current.Network) },
+                    current with { Autopilot = CreateAutopilotSettingsForValidation(current.Autopilot) }, secrets);
+            }
+            catch
+            {
+                secrets.Dispose();
+                throw;
+            }
+        }
+    }
+
     /// <inheritdoc />
     public FoundryConfigurationDocument Current { get; private set; }
 

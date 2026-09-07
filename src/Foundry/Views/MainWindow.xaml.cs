@@ -3,6 +3,9 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.Application;
+using Foundry.Core.Services.Media;
+using Foundry.Core.Services.WinPe;
+using Foundry.Services.Adk;
 using Foundry.Services.Application;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
@@ -40,6 +43,8 @@ namespace Foundry.Views
         private ProgressBar? operationSecondaryProgressBar;
         private TextBlock? operationSecondaryProgressPercentText;
         private bool operationDialogCanClose;
+        private Task? closeOperation;
+        private bool closeApproved;
 
         /// <summary>
         /// Gets the shell view model.
@@ -83,6 +88,7 @@ namespace Foundry.Views
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
             AppTitleBar.PaneToggleRequested += OnTitleBarPaneToggleRequested;
             Closed += OnClosed;
+            AppWindow.Closing += OnAppWindowClosing;
         }
 
         private void ApplyLocalizedShellText()
@@ -121,6 +127,7 @@ namespace Foundry.Views
 
         private void OnClosed(object sender, WindowEventArgs args)
         {
+            AppWindow.Closing -= OnAppWindowClosing;
             localizationService.LanguageChanged -= OnLanguageChanged;
             operationProgressService.StateChanged -= OnOperationProgressChanged;
             shellNavigationGuardService.StateChanged -= OnShellNavigationStateChanged;
@@ -129,6 +136,85 @@ namespace Foundry.Views
             AppTitleBar.PaneToggleRequested -= OnTitleBarPaneToggleRequested;
             Closed -= OnClosed;
             ViewModel.Dispose();
+        }
+
+        private void OnAppWindowClosing(AppWindow sender, AppWindowClosingEventArgs args)
+        {
+            if (closeApproved) return;
+            args.Cancel = true;
+            RequestSafeClose();
+        }
+
+        /// <summary>Routes system and programmatic closes through the same native ownership check.</summary>
+        internal void RequestSafeClose()
+        {
+            if (!DispatcherQueue.HasThreadAccess)
+            {
+                if (!DispatcherQueue.TryEnqueue(RequestSafeClose))
+                    logger.Warning("Unable to dispatch the application close request.");
+                return;
+            }
+
+            if (closeOperation is { IsCompleted: false }) return;
+            closeOperation = CloseWhenSafeAsync();
+        }
+
+        private async Task CloseWhenSafeAsync()
+        {
+            MediaOperationCoordinator media = App.GetService<MediaOperationCoordinator>();
+            IAdkService adk = App.GetService<IAdkService>();
+            using var wait = new CancellationTokenSource(TimeSpan.FromMinutes(2));
+            try
+            {
+                Task<WinPeResult> mediaCleanup = media.RequestCancellationAndWaitAsync(wait.Token);
+                Task adkCleanup = adk.RequestCancellationAndWaitAsync(wait.Token);
+                await Task.WhenAll(mediaCleanup, adkCleanup);
+                WinPeResult cleanup = await mediaCleanup;
+                if (!cleanup.IsSuccess || adk.HasUncertainOwnership)
+                {
+                    string locations = cleanup.Error is { } error
+                        ? string.Join(Environment.NewLine, error.RetainedPaths)
+                        : Constants.WinPeWorkspaceDirectoryPath;
+                    ShowCloseRecoveryStatus(localizationService.FormatString("Shell.CloseRecoveryFormat", locations));
+                    return;
+                }
+
+                closeApproved = true;
+                Close();
+            }
+            catch (OperationCanceledException)
+            {
+                ShowCloseRecoveryStatus(localizationService.GetString("Shell.CloseWaiting"));
+            }
+            catch (Exception error)
+            {
+                logger.Error(error, "Application close was blocked while checking native ownership.");
+                ShowCloseRecoveryStatus(localizationService.FormatString("Shell.CloseFailedFormat", Constants.WinPeWorkspaceDirectoryPath));
+            }
+            finally
+            {
+                if (!closeApproved)
+                {
+                    media.ResumeAfterCancelledClose();
+                    adk.ResumeAfterCancelledClose();
+                }
+            }
+        }
+
+        private void ShowCloseRecoveryStatus(string message)
+        {
+            logger.Warning("Application close blocked. Status={Status}", message);
+            if (operationDialog is not null)
+            {
+                operationDialogCanClose = true;
+                operationDialog.CloseButtonText = localizationService.GetString("Common.Close");
+                operationDialog.Content = new TextBlock { Text = message, TextWrapping = TextWrapping.Wrap, IsTextSelectionEnabled = true };
+            }
+            else
+            {
+                operationProgressService.Start(OperationKind.MediaCreation, message);
+                operationProgressService.Reset(message);
+            }
         }
 
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

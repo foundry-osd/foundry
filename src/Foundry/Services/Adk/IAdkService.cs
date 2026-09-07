@@ -21,6 +21,21 @@ public interface IAdkService
     /// </summary>
     AdkInstallationStatus CurrentStatus { get; }
 
+    /// <summary>Gets the last installation outcome, including restart and recovery requirements.</summary>
+    AdkInstallResult? LastResult { get; }
+
+    /// <summary>Gets the active orchestration or independently owned native wait for safe application close.</summary>
+    Task? ActiveOperation { get; }
+
+    /// <summary>Gets whether machine ownership must be reconciled before further operations.</summary>
+    bool HasUncertainOwnership { get; }
+
+    /// <summary>Requests cancellation of further setup stages and independently joins owned native completion.</summary>
+    Task RequestCancellationAndWaitAsync(CancellationToken waitToken);
+
+    /// <summary>Restores admission after the application abandons a close request.</summary>
+    void ResumeAfterCancelledClose();
+
     /// <summary>
     /// Re-detects installed ADK components and publishes the resulting status.
     /// </summary>
@@ -33,12 +48,12 @@ public interface IAdkService
     /// </summary>
     /// <param name="cancellationToken">Token that cancels the install operation.</param>
     /// <returns>The installation status after the operation.</returns>
-    Task<AdkInstallationStatus> InstallAsync(CancellationToken cancellationToken = default);
+    Task<AdkInstallResult> InstallAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Upgrades installed ADK components when the current versions are unsupported.
     /// </summary>
     /// <param name="cancellationToken">Token that cancels the upgrade operation.</param>
     /// <returns>The installation status after the operation.</returns>
-    Task<AdkInstallationStatus> UpgradeAsync(CancellationToken cancellationToken = default);
+    Task<AdkInstallResult> UpgradeAsync(CancellationToken cancellationToken = default);
 }

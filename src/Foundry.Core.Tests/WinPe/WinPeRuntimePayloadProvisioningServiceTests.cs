@@ -489,6 +489,124 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         Assert.Equal(1, handler.RequestCount);
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task ProvisionPreparedAsync_CopyFailurePreservesActiveRuntime(bool corrupt)
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        string active = Path.Combine(workspace.UsbCacheRootPath, "Runtime", "Foundry.Connect", "win-x64");
+        Directory.CreateDirectory(active);
+        await File.WriteAllTextAsync(Path.Combine(active, "old.exe"), "known-good", TestContext.Current.CancellationToken);
+        var options = new WinPeRuntimePayloadProvisioningOptions
+        {
+            Architecture = WinPeArchitecture.X64,
+            WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            UsbCacheRootPath = workspace.UsbCacheRootPath,
+            Connect = new() { IsEnabled = true, ArchivePath = workspace.CreateArchive("new.zip", "Foundry.Connect.exe") }
+        };
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner())
+        {
+            CopyRuntimeFileAsync = async (_, destination, token) =>
+            {
+                await destination.WriteAsync(new byte[] { 1, 2, 3 }, token);
+                if (!corrupt) throw new IOException("Injected full output volume.");
+            }
+        };
+        using WinPePreparedRuntimePayloads prepared = (await service.PrepareAsync(options, cancellationToken: TestContext.Current.CancellationToken)).Value!;
+        WinPeResult result = await service.ProvisionPreparedAsync(prepared, options, TestContext.Current.CancellationToken);
+        Assert.False(result.IsSuccess);
+        Assert.Equal("known-good", await File.ReadAllTextAsync(Path.Combine(active, "old.exe"), TestContext.Current.CancellationToken));
+        Assert.False(File.Exists(Path.Combine(active, "Foundry.Connect.exe")));
+    }
+    [Theory]
+    [InlineData("promotion")]
+    [InlineData("rollback")]
+    [InlineData("collision")]
+    public async Task ProvisionPreparedAsync_PromotionFailureRestoresOrRetainsPreviousRuntime(string failure)
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        string active = Path.Combine(workspace.UsbCacheRootPath, "Runtime", "Foundry.Connect", "win-x64");
+        Directory.CreateDirectory(active);
+        await File.WriteAllTextAsync(Path.Combine(active, "old.exe"), "known-good", TestContext.Current.CancellationToken);
+        var options = new WinPeRuntimePayloadProvisioningOptions
+        {
+            Architecture = WinPeArchitecture.X64,
+            WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            UsbCacheRootPath = workspace.UsbCacheRootPath,
+            Connect = new() { IsEnabled = true, ArchivePath = workspace.CreateArchive("new.zip", "Foundry.Connect.exe") }
+        };
+        var primary = new IOException("Injected promotion failure.");
+        int moves = 0;
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner())
+        {
+            MoveRuntimeDirectory = (source, target) =>
+            {
+                moves++;
+                if (moves == 2)
+                {
+                    if (failure == "collision") Directory.CreateDirectory(target);
+                    throw primary;
+                }
+                if (moves == 3 && failure == "rollback") throw new IOException("Injected rollback failure.");
+                Directory.Move(source, target);
+            }
+        };
+        using WinPePreparedRuntimePayloads prepared = (await service.PrepareAsync(options, cancellationToken: TestContext.Current.CancellationToken)).Value!;
+        WinPeResult result = await service.ProvisionPreparedAsync(prepared, options, TestContext.Current.CancellationToken);
+        Assert.False(result.IsSuccess);
+        Assert.Same(primary, result.Error!.Exception);
+        if (failure == "promotion")
+        {
+            Assert.False(result.Error.RecoveryRequired);
+            Assert.Equal("known-good", await File.ReadAllTextAsync(Path.Combine(active, "old.exe"), TestContext.Current.CancellationToken));
+            Assert.Single(Directory.GetDirectories(Path.GetDirectoryName(active)!));
+        }
+        else
+        {
+            Assert.True(result.Error.RecoveryRequired);
+            Assert.NotNull(result.Error.CleanupDiagnostic);
+            string backup = Assert.Single(result.Error.RetainedPaths, path => path.Contains(".previous-", StringComparison.Ordinal));
+            string stage = Assert.Single(result.Error.RetainedPaths, path => path.Contains(".staged-", StringComparison.Ordinal));
+            Assert.Equal("known-good", await File.ReadAllTextAsync(Path.Combine(backup, "old.exe"), TestContext.Current.CancellationToken));
+            Assert.True(File.Exists(Path.Combine(stage, "Foundry.Connect.exe")));
+        }
+    }
+    [Fact]
+    public async Task ProvisionPreparedAsync_RevalidatesEarlierFilesBeforePromotion()
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        string archive = workspace.CreateArchive("new.zip", "Foundry.Connect.exe");
+        using (ZipArchive zip = ZipFile.Open(archive, ZipArchiveMode.Update))
+        {
+            using var writer = new StreamWriter(zip.CreateEntry("later.txt").Open());
+            writer.Write("second file");
+        }
+        string active = Path.Combine(workspace.UsbCacheRootPath, "Runtime", "Foundry.Connect", "win-x64");
+        Directory.CreateDirectory(active);
+        await File.WriteAllTextAsync(Path.Combine(active, "old.exe"), "known-good", TestContext.Current.CancellationToken);
+        string? firstCopiedPath = null;
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner())
+        {
+            CopyRuntimeFileAsync = async (source, destination, token) =>
+            {
+                await source.CopyToAsync(destination, token);
+                if (firstCopiedPath is null) firstCopiedPath = ((FileStream)destination).Name;
+                else await File.WriteAllTextAsync(firstCopiedPath, "changed after first verification", token);
+            }
+        };
+        var options = new WinPeRuntimePayloadProvisioningOptions
+        {
+            Architecture = WinPeArchitecture.X64,
+            WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            UsbCacheRootPath = workspace.UsbCacheRootPath,
+            Connect = new() { IsEnabled = true, ArchivePath = archive }
+        };
+        using WinPePreparedRuntimePayloads prepared = (await service.PrepareAsync(options, cancellationToken: TestContext.Current.CancellationToken)).Value!;
+        WinPeResult result = await service.ProvisionPreparedAsync(prepared, options, TestContext.Current.CancellationToken);
+        Assert.False(result.IsSuccess);
+        Assert.Equal("known-good", await File.ReadAllTextAsync(Path.Combine(active, "old.exe"), TestContext.Current.CancellationToken));
+    }
     private sealed class SingleResponseHandler(HttpResponseMessage response) : HttpMessageHandler
     {
         public int RequestCount { get; private set; }

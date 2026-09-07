@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>メディア作成機能</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>ADK セットアップはキャンセルされました。再試行する前にインストールを確認してください。</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK 操作が完了しました</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Windows PE アドオンのインストール</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>ADK セットアップは終了しましたが、必要なコンポーネントまたはツールが不足しています。インストールを確認して再試行してください。</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>ADK セットアップの完了を確認できませんでした。復旧が完了するまで、メディア操作とセットアップはブロックされます。</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>メディアを作成する前に Windows を再起動してください。</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>既存の Windows ADK を削除しています</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>アプリを更新する</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>処理を安全に終了できませんでした。ログと保持された作業フォルダーを確認してください: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>ネイティブ処理のクリーンアップには復旧が必要です。アプリを開いたまま、次を確認してください: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>ネイティブ処理のクリーンアップを待機しています。アプリは開いたままになります。処理終了後に再度閉じてください。</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>操作完了</value>

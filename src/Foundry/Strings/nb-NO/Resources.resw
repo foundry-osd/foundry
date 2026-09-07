@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Evne til å skape medier</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>ADK-installasjonen ble avbrutt. Kontroller installasjonen før du prøver igjen.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK operasjon fullført</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Installerer Windows PE tillegg</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>ADK-installasjonen er avsluttet, men nødvendige komponenter eller verktøy mangler fortsatt. Kontroller installasjonen og prøv igjen.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Det kunne ikke bekreftes at ADK-installasjonen er avsluttet. Medie- og installasjonshandlinger er blokkert til gjenoppretting er utført.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Start Windows på nytt før du oppretter medier.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Fjerner eksisterende Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Oppdater appen</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Handlingen kunne ikke avsluttes trygt. Se gjennom loggene og det bevarte arbeidsområdet: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Den native oppryddingen krever gjenoppretting. Hold programmet åpent og se gjennom: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Venter på native opprydding. Programmet forblir åpent; prøv å lukke det igjen når handlingen er ferdig.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Operasjonen er fullført</value>

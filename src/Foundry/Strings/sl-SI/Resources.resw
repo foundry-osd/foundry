@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Sposobnost ustvarjanja medijev</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Namestitev ADK je bila preklicana. Pred ponovnim poskusom preverite namestitev.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK operacija končana</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Namestitev dodatka Windows PE</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>Namestitev ADK se je končala, vendar še vedno manjkajo zahtevane komponente ali orodja. Preverite namestitev in poskusite znova.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Konca namestitve ADK ni bilo mogoče potrditi. Dejanja z mediji in namestitve so blokirana do obnovitve.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Pred ustvarjanjem medija znova zaženite Windows.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Odstranjevanje obstoječega Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Posodobi aplikacijo</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Dejanja ni bilo mogoče varno zapreti. Preglejte dnevnike in ohranjeni delovni prostor: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Izvorno čiščenje zahteva obnovitev. Aplikacijo pustite odprto in preglejte: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Čakanje na izvorno čiščenje. Aplikacija bo ostala odprta; po koncu dejanja jo poskusite znova zapreti.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Operacija končana</value>

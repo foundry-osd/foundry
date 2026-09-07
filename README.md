@@ -65,6 +65,8 @@ Automatic OEM driver selection requires a matching manufacturer, model or docume
 
 Media creation requires host-native Windows ADK DISM build 26100 or later, compatible with the selected image. Foundry checks required WinPE components, language resources, selected driver coverage, and runtime architecture before completing the image. Runtime payloads are prepared before USB formatting. USB creation sizes BOOT for the finished content; updates require enough space in the existing BOOT and CACHE partitions. Files exceeding FAT32's per-file limit stop the operation before formatting.
 
+Media creation and ADK installation share a machine-wide operation lock. Each operation owns a separate workspace; existing ISO and runtime outputs remain available until their replacements are verified and published. Closing Foundry waits for native cleanup. If cleanup cannot be confirmed, Foundry preserves the workspace and recovery journal, displays the retained paths, and blocks conflicting work. Do not remove recovery files before checking the recorded native operation and mounted-image state. ADK setup must finish and any required restart must complete before media creation becomes available.
+
 [Follow the complete quick start →](https://docs.foundryosd.com/start-here/quick-start)
 
 > [!NOTE]

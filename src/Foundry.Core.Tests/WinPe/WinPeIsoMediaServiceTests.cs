@@ -236,6 +236,159 @@ public sealed class WinPeIsoMediaServiceTests
         Assert.NotNull(result.Error?.Exception);
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task CreateAsync_FailedStagedWriterPreservesExistingIso(bool cancel)
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        string final = Path.Combine(temp.RootPath, "existing.iso");
+        await File.WriteAllTextAsync(final, "known-good", TestContext.Current.CancellationToken);
+        var runner = new FakeIsoRunner
+        {
+            AfterWrite = _ =>
+            {
+                if (cancel)
+                {
+                    var cancelled = new OperationCanceledException();
+                    cancelled.Data["ProcessRootExitConfirmed"] = true;
+                    cancelled.Data["ProcessTreeTerminationConfirmed"] = true;
+                    throw cancelled;
+                }
+            },
+            WrittenExitCode = 7
+        };
+        var options = new WinPeIsoMediaOptions { PreparedWorkspace = temp.PreparedWorkspace, OutputIsoPath = final };
+        if (cancel)
+        {
+            await Assert.ThrowsAsync<OperationCanceledException>(() => new WinPeIsoMediaService(runner).CreateAsync(options, TestContext.Current.CancellationToken));
+        }
+        else
+        {
+            Assert.False((await new WinPeIsoMediaService(runner).CreateAsync(options, TestContext.Current.CancellationToken)).IsSuccess);
+        }
+        Assert.Equal("known-good", await File.ReadAllTextAsync(final, TestContext.Current.CancellationToken));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task CreateAsync_NoOverwritePreservesExistingAndCompetingIso(bool competing)
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        string final = Path.Combine(temp.RootPath, "existing.iso");
+        if (!competing) await File.WriteAllTextAsync(final, "other-output", TestContext.Current.CancellationToken);
+        var runner = new FakeIsoRunner { AfterWrite = _ => File.WriteAllText(final, "other-output") };
+        WinPeResult result = await new WinPeIsoMediaService(runner).CreateAsync(new WinPeIsoMediaOptions
+        {
+            PreparedWorkspace = temp.PreparedWorkspace,
+            OutputIsoPath = final,
+            ForceOverwriteOutput = false
+        }, TestContext.Current.CancellationToken);
+        Assert.False(result.IsSuccess);
+        Assert.Equal("other-output", await File.ReadAllTextAsync(final, TestContext.Current.CancellationToken));
+    }
+    [Theory]
+    [InlineData("copy")]
+    [InlineData("corruption")]
+    [InlineData("replace")]
+    public async Task CreateAsync_PublicationFailurePreservesCompleteExistingIso(string failure)
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        string final = Path.Combine(temp.RootPath, "existing.iso");
+        await File.WriteAllTextAsync(final, "known-good", TestContext.Current.CancellationToken);
+        var service = new WinPeIsoMediaService(new FakeIsoRunner())
+        {
+            CopyIsoAsync = async (source, destination, token) =>
+            {
+                if (failure == "copy") throw new IOException("Injected full volume.");
+                if (failure == "corruption") await destination.WriteAsync(new byte[] { 9 }, token);
+                else await source.CopyToAsync(destination, token);
+            },
+            ReplaceIso = (_, _, _) => throw new IOException("Injected replacement failure.")
+        };
+        WinPeResult result = await service.CreateAsync(new WinPeIsoMediaOptions
+        {
+            PreparedWorkspace = temp.PreparedWorkspace,
+            OutputIsoPath = final
+        }, TestContext.Current.CancellationToken);
+        Assert.False(result.IsSuccess);
+        Assert.Equal("known-good", await File.ReadAllTextAsync(final, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task CreateAsync_BackupCleanupFailureKeepsPublishedIsoAndReportsWarning()
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        string final = Path.Combine(temp.RootPath, "existing.iso");
+        await File.WriteAllTextAsync(final, "known-good", TestContext.Current.CancellationToken);
+        var service = new WinPeIsoMediaService(new FakeIsoRunner())
+        {
+            DeleteIso = _ => throw new IOException("Injected backup cleanup failure.")
+        };
+        WinPeResult result = await service.CreateAsync(new WinPeIsoMediaOptions
+        {
+            PreparedWorkspace = temp.PreparedWorkspace,
+            OutputIsoPath = final
+        }, TestContext.Current.CancellationToken);
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal("iso", await File.ReadAllTextAsync(final, TestContext.Current.CancellationToken));
+        string backup = Assert.Single(result.CleanupDiagnostic!.RetainedPaths);
+        Assert.Equal("known-good", await File.ReadAllTextAsync(backup, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task CreateAsync_UncertainWriterRetainsStagedIso()
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        string? staged = null;
+        var runner = new FakeIsoRunner
+        {
+            AfterWrite = path =>
+            {
+                staged = path;
+                var timeout = new TimeoutException();
+                timeout.Data["ProcessRootExitConfirmed"] = true;
+                timeout.Data["ProcessTreeTerminationConfirmed"] = false;
+                throw timeout;
+            }
+        };
+        WinPeResult result = await new WinPeIsoMediaService(runner).CreateAsync(new WinPeIsoMediaOptions
+        {
+            PreparedWorkspace = temp.PreparedWorkspace,
+            OutputIsoPath = Path.Combine(temp.RootPath, "final.iso")
+        }, TestContext.Current.CancellationToken);
+        Assert.False(result.IsSuccess);
+        Assert.True(result.Error!.RecoveryRequired);
+        Assert.False(result.Error.NativeTerminationConfirmed);
+        Assert.True(File.Exists(staged));
+        Assert.Contains(temp.PreparedWorkspace.Artifact.WorkingDirectoryPath, result.Error.RetainedPaths);
+    }
+
+    [Fact]
+    public async Task CreateAsync_UnicodeNamesUseDistinctGuidStagingInsideWorkspace()
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        var stages = new List<string>();
+        var runner = new FakeIsoRunner { AfterWrite = stages.Add };
+        var service = new WinPeIsoMediaService(runner);
+        foreach (string name in new[] { "é.iso", "è.iso", "é.iso" })
+        {
+            WinPeResult result = await service.CreateAsync(new WinPeIsoMediaOptions
+            {
+                PreparedWorkspace = temp.PreparedWorkspace,
+                OutputIsoPath = Path.Combine(temp.RootPath, name),
+                IsoTempDirectoryPath = Path.Combine(temp.RootPath, "temp")
+            }, TestContext.Current.CancellationToken);
+            Assert.True(result.IsSuccess, result.Error?.Details);
+        }
+        Assert.Equal(3, stages.Distinct().Count());
+        Assert.All(stages, path =>
+        {
+            Assert.Equal(temp.PreparedWorkspace.Artifact.WorkingDirectoryPath, Path.GetDirectoryName(path));
+            Assert.All(path, character => Assert.True(character <= 127));
+        });
+    }
     private sealed class TempPreparedWorkspace : IDisposable
     {
         private TempPreparedWorkspace(string rootPath, WinPeWorkspacePreparationResult preparedWorkspace)
@@ -309,6 +462,8 @@ public sealed class WinPeIsoMediaServiceTests
             this.exception = exception;
         }
 
+        public Action<string>? AfterWrite { get; init; }
+        public int WrittenExitCode { get; init; }
         public List<WinPeProcessExecution> Executions { get; } = [];
 
         public Task<WinPeProcessExecution> RunAsync(
@@ -358,9 +513,11 @@ public sealed class WinPeIsoMediaServiceTests
             string outputIsoPath = ExtractLastIsoArgument(scriptArguments);
             Directory.CreateDirectory(Path.GetDirectoryName(outputIsoPath)!);
             File.WriteAllText(outputIsoPath, "iso");
+            AfterWrite?.Invoke(outputIsoPath);
 
             var execution = new WinPeProcessExecution
             {
+                ExitCode = WrittenExitCode,
                 FileName = scriptPath,
                 Arguments = scriptArguments,
                 WorkingDirectory = workingDirectory

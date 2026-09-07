@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Medya oluşturma yeteneği</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>ADK kurulumu iptal edildi. Yeniden denemeden önce kurulumu kontrol edin.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK işlemi tamamlandı</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Windows PE Eklentisinin Yüklenmesi</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>ADK kurulumu sona erdi, ancak gerekli bileşenler veya araçlar hâlâ eksik. Kurulumu kontrol edip yeniden deneyin.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>ADK kurulumunun tamamlandığı doğrulanamadı. Kurtarma yapılana kadar medya ve kurulum işlemleri engellenir.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Medya oluşturmadan önce Windows’u yeniden başlatın.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Mevcut Windows ADK kaldırılıyor</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Uygulamayı güncelle</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>İşlem güvenli biçimde kapatılamadı. Günlükleri ve korunan çalışma alanını inceleyin: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Yerel temizleme kurtarma gerektiriyor. Uygulamayı açık tutun ve inceleyin: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Yerel temizleme bekleniyor. Uygulama açık kalacak; işlem tamamlandıktan sonra yeniden kapatmayı deneyin.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>İşlem tamamlandı</value>

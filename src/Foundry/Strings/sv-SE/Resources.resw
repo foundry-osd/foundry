@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Möjlighet att skapa media</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>ADK-installationen avbröts. Kontrollera installationen innan du försöker igen.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK operation slutförd</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Installerar Windows PE tillägg</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>ADK-installationen har avslutats, men nödvändiga komponenter eller verktyg saknas fortfarande. Kontrollera installationen och försök igen.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Det gick inte att bekräfta att ADK-installationen har avslutats. Medie- och installationsåtgärder är blockerade tills återställning har utförts.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Starta om Windows innan du skapar media.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Ta bort befintlig Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Uppdatera appen</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Åtgärden kunde inte avslutas säkert. Granska loggarna och den sparade arbetsytan: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Den interna rensningen kräver återställning. Håll programmet öppet och granska: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Väntar på intern rensning. Programmet förblir öppet; försök stänga det igen när åtgärden är klar.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Operation klar</value>

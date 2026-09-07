@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Capacitate de creare media</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Instalarea ADK a fost anulată. Verificați instalarea înainte de a încerca din nou.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK operațiune finalizată</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Instalarea suplimentului Windows PE</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>Instalarea ADK s-a încheiat, dar încă lipsesc componente sau instrumente necesare. Verificați instalarea și încercați din nou.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Încheierea instalării ADK nu a putut fi confirmată. Operațiunile cu suporturi și instalările sunt blocate până la recuperare.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Reporniți Windows înainte de a crea suporturi.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Eliminarea Windows ADK existente</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Actualizați aplicația</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Operațiunea nu a putut fi închisă în siguranță. Consultați jurnalele și spațiul de lucru păstrat: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Curățarea nativă necesită recuperare. Lăsați aplicația deschisă și consultați: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Se așteaptă curățarea nativă. Aplicația va rămâne deschisă; încercați să o închideți din nou după terminarea operațiunii.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Operațiune finalizată</value>

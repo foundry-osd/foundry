@@ -51,14 +51,10 @@ public sealed class WinReBootImagePreparationServiceTests
                 WinPeLanguage = "en-US",
                 CacheDirectoryPath = cache
             }, cancelled.Token);
-            if (cancellation)
-            {
-                Assert.Same(interruption, await Assert.ThrowsAsync<OperationCanceledException>(() => operation));
-            }
-            else
-            {
-                Assert.Same(interruption, (await operation).Error?.Exception);
-            }
+            WinPeResult<WinReBootImagePreparationResult> result = await operation;
+            Assert.Same(interruption, result.Error?.Exception);
+            Assert.True(result.Error!.RecoveryRequired);
+            Assert.NotEmpty(result.Error.RetainedPaths);
             Assert.Equal(rootExited, interruption.Data["ProcessRootExitConfirmed"]);
             Assert.Equal(false, interruption.Data["ProcessTreeTerminationConfirmed"]);
             Assert.Throws<IOException>(() => File.WriteAllText(sourcePath, "replacement"));
@@ -266,13 +262,14 @@ public sealed class WinReBootImagePreparationServiceTests
     }
 
     [Theory]
-    [InlineData(false, "x64", "10.0.26100.9999", true)]
-    [InlineData(true, "x64", "10.0.26100.9999", false)]
-    [InlineData(false, "arm64", "10.0.26100.9999", false)]
-    [InlineData(false, "x64", "10.0.26200.1", true)]
-    [InlineData(false, "x64", "10.0.26300.1", false)]
+    [InlineData(false, "x64", "10.0.26100.9999", true, false)]
+    [InlineData(false, "x64", "10.0.26100.9999", true, true)]
+    [InlineData(true, "x64", "10.0.26100.9999", false, false)]
+    [InlineData(false, "arm64", "10.0.26100.9999", false, false)]
+    [InlineData(false, "x64", "10.0.26200.1", true, false)]
+    [InlineData(false, "x64", "10.0.26300.1", false, false)]
     public async Task ReplaceBootWimAsync_RequiresCompleteCompatibleImageMetadataBeforeExporting(
-        bool metadataTruncated, string imageArchitecture, string imageVersion, bool expectedSuccess)
+        bool metadataTruncated, string imageArchitecture, string imageVersion, bool expectedSuccess, bool failDiscard)
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-winre-replace-{Guid.NewGuid():N}");
         string workingPath = Path.Combine(root, "workspace");
@@ -289,7 +286,7 @@ public sealed class WinReBootImagePreparationServiceTests
         string cachedSourceHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes("cached source")));
         string catalogXml = CreateCatalogXml(cachedSourceHash);
 
-        var runner = new FakeWinPeProcessRunner { MetadataTruncated = metadataTruncated, ImageArchitecture = imageArchitecture, ImageVersion = imageVersion };
+        var runner = new FakeWinPeProcessRunner { FailDiscard = failDiscard, MetadataTruncated = metadataTruncated, ImageArchitecture = imageArchitecture, ImageVersion = imageVersion };
         var service = new WinReBootImagePreparationService(
             runner,
             new HttpClient(new StaticCatalogHandler(catalogXml)));
@@ -315,6 +312,16 @@ public sealed class WinReBootImagePreparationServiceTests
                 },
                 CancellationToken.None);
 
+            if (failDiscard)
+            {
+                Assert.False(result.IsSuccess);
+                Assert.True(result.Error!.RecoveryRequired);
+                Assert.True(Directory.Exists(result.Error.OwnedMountPath));
+                Assert.True(File.Exists(result.Error.OwnedImagePath));
+                Assert.Single(runner.Executions.Where(item => item.Arguments.Contains("/Export-Image")));
+                Assert.Single(runner.Executions.Where(item => item.Arguments.Contains("/Discard")));
+                return;
+            }
             if (!expectedSuccess)
             {
                 Assert.False(result.IsSuccess);
@@ -374,6 +381,7 @@ public sealed class WinReBootImagePreparationServiceTests
 
     private sealed class FakeWinPeProcessRunner : IWinPeProcessRunner
     {
+        public bool FailDiscard { get; init; }
         public Exception? Interruption { get; init; }
         public string? InterruptCommand { get; init; }
         public Action? BeforeInterruption { get; init; }
@@ -410,6 +418,7 @@ public sealed class WinReBootImagePreparationServiceTests
             }
             var execution = new WinPeProcessExecution
             {
+                ExitCode = FailDiscard && argumentList.Contains("/Discard") ? 8 : 0,
                 FileName = fileName,
                 Arguments = arguments,
                 WorkingDirectory = workingDirectory,

@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>媒體創作能力</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>ADK 安裝已取消。重試前請檢查安裝。</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK操作完成</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>安裝Windows PE 附加元件</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>ADK 安裝已結束，但仍缺少必要的元件或工具。請檢查安裝並重試。</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>無法確認 ADK 安裝是否完成。復原前將封鎖媒體和安裝作業。</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>建立媒體前請重新啟動 Windows。</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>刪除現有的 Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>更新應用程式</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>無法安全關閉作業。請檢查記錄和保留的工作區：{0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>原生清理需要復原。請保持應用程式開啟並檢查：{0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>正在等候原生清理。應用程式將保持開啟；請在作業結束後再次嘗試關閉。</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>操作完成</value>

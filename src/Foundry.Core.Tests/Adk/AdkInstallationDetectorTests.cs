@@ -3,11 +3,19 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.Adk;
+using System.Runtime.InteropServices;
 
 namespace Foundry.Core.Tests.Adk;
 
 public sealed class AdkInstallationDetectorTests
 {
+    [Fact]
+    public void Detect_WhenNativeDeploymentExecutablesAreMissing_BlocksMediaCreation()
+    {
+        FakeAdkInstallationProbe probe = CreateInstalledProbe("10.1.26100.2454");
+        probe.ExistingFiles = probe.ExistingFiles.Where(path => !path.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)).ToArray();
+        Assert.False(new AdkInstallationDetector(probe).Detect().CanCreateMedia);
+    }
     [Fact]
     public void Detect_WhenRequiredFoldersAreMissing_ReturnsNotInstalled()
     {
@@ -147,7 +155,9 @@ public sealed class AdkInstallationDetectorTests
             ExistingFiles =
             [
                 Path.Combine(kitsRootPath, AdkInstallationDetector.WinPeRelativePath, "copype.cmd"),
-                Path.Combine(kitsRootPath, AdkInstallationDetector.WinPeRelativePath, "MakeWinPEMedia.cmd")
+                Path.Combine(kitsRootPath, AdkInstallationDetector.WinPeRelativePath, "MakeWinPEMedia.cmd"),
+                Path.Combine(kitsRootPath, AdkInstallationDetector.DeploymentToolsRelativePath, RuntimeInformation.OSArchitecture == Architecture.Arm64 ? "arm64" : "amd64", "DISM", "dism.exe"),
+                Path.Combine(kitsRootPath, AdkInstallationDetector.DeploymentToolsRelativePath, RuntimeInformation.OSArchitecture == Architecture.Arm64 ? "arm64" : "amd64", "Oscdimg", "oscdimg.exe")
             ]
         };
 
@@ -163,7 +173,7 @@ public sealed class AdkInstallationDetectorTests
     {
         public string? KitsRootPath { get; init; }
         public IReadOnlyCollection<string> ExistingDirectories { get; init; } = [];
-        public IReadOnlyCollection<string> ExistingFiles { get; init; } = [];
+        public IReadOnlyCollection<string> ExistingFiles { get; set; } = [];
         public IReadOnlyList<AdkInstalledProduct> Products { get; set; } = [];
 
         public string? GetKitsRootPath() => KitsRootPath;

@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Capacité de création de médias</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>L’installation de l’ADK a été annulée. Vérifiez l’installation avant de réessayer.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK opération terminée</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Installation du module complémentaire Windows PE</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>L’installation de l’ADK est terminée, mais des composants ou outils requis manquent encore. Vérifiez l’installation et réessayez.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>La fin de l’installation de l’ADK n’a pas pu être confirmée. La création de supports et les installations sont bloquées jusqu’à la récupération.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Redémarrez Windows avant de créer un support.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Suppression de Windows ADK existant</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Mettre à jour l'application</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>L’opération n’a pas pu être arrêtée en toute sécurité. Consultez les journaux et l’espace de travail conservé : {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Le nettoyage natif nécessite une récupération. Gardez l’application ouverte et consultez : {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>En attente du nettoyage natif. L’application reste ouverte ; réessayez de la fermer une fois l’opération terminée.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Opération terminée</value>

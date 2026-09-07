@@ -77,7 +77,8 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                 return result;
             }
 
-            if (result.Error?.Exception is { } error && NativeFileLease.HasRetainedProtection(error))
+            if (result.Error?.RecoveryRequired == true ||
+                result.Error?.Exception is { } error && NativeFileLease.HasRetainedProtection(error))
             {
                 return result;
             }
@@ -302,7 +303,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         CancellationToken cancellationToken)
     {
         string candidateName = PathSegment.Sanitize(candidate.RequestedEdition);
-        string sourceDirectory = Path.Combine(options.Artifact.WorkingDirectoryPath, $"winre-source-{candidateName}");
+        string sourceDirectory = Path.Combine(options.Artifact.WorkingDirectoryPath, $"winre-source-{candidateName}-{Guid.NewGuid():N}");
         string exportDirectory = Path.Combine(sourceDirectory, "export");
         string mountDirectory = Path.Combine(sourceDirectory, "install-mount");
         string dependencyDirectory = Path.Combine(sourceDirectory, "wireless-support");
@@ -330,7 +331,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             {
                 return WinPeResult<WinReBootImagePreparationResult>.Failure(sourceIntegrity.Error!);
             }
-            DirectoryOperations.Recreate(sourceDirectory);
+            Directory.CreateDirectory(sourceDirectory);
             Directory.CreateDirectory(exportDirectory);
 
             ReportProgress(options.Progress, 16, "Resolving WinRE image index.");
@@ -423,20 +424,18 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             File.Copy(winRePath, options.Artifact.BootWimPath, overwrite: true);
 
             WinPeResult discardResult = await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
-            session = null;
             if (!discardResult.IsSuccess)
             {
                 return WinPeResult<WinReBootImagePreparationResult>.Failure(discardResult.Error!);
             }
 
-            TryDeleteDirectory(exportDirectory);
-            TryDeleteDirectory(mountDirectory);
+            if (session.CanDeleteMountDirectory)
+            {
+                TryDeleteDirectory(exportDirectory);
+                TryDeleteDirectory(mountDirectory);
+            }
             ReportProgress(options.Progress, 30, "WinRE Wi-Fi boot image is ready.");
             return dependencyResult;
-        }
-        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
-        {
-            throw;
         }
         catch (Exception ex)
         {
@@ -452,11 +451,14 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                     cancellationToken).ConfigureAwait(false);
             }
 
-            return WinPeResult<WinReBootImagePreparationResult>.Failure(
+            return WinPeResult<WinReBootImagePreparationResult>.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.WinReExtractionFailed,
-                "Failed to replace boot.wim with a WinRE Wi-Fi source image.",
-                ex.Message,
-                exception: ex);
+                "Failed to replace boot.wim with a WinRE Wi-Fi source image.", ex.Message, exception: ex)
+            {
+                RecoveryRequired = !WinPeMountRecovery.IsTerminationConfirmed(ex),
+                RetainedPaths = !WinPeMountRecovery.IsTerminationConfirmed(ex) ? [sourceDirectory] : [],
+                NativeTerminationConfirmed = WinPeMountRecovery.IsTerminationConfirmed(ex)
+            });
         }
         finally
         {
@@ -628,22 +630,8 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         WinPeMountSession session,
         CancellationToken cancellationToken)
     {
-        WinPeResult discardResult = await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
-        if (discardResult.IsSuccess)
-        {
-            return WinPeResult<WinReBootImagePreparationResult>.Failure(primaryDiagnostic);
-        }
-
-        string details = string.Join(
-            Environment.NewLine,
-            primaryDiagnostic.Details ?? string.Empty,
-            "Discard diagnostics:",
-            discardResult.Error?.Details ?? string.Empty).Trim();
-
-        return WinPeResult<WinReBootImagePreparationResult>.Failure(new WinPeDiagnostic(
-            primaryDiagnostic.Code,
-            primaryDiagnostic.Message,
-            details));
+        WinPeResult result = await session.FailAsync(primaryDiagnostic).ConfigureAwait(false);
+        return WinPeResult<WinReBootImagePreparationResult>.Failure(result.Error!);
     }
 
     private static WinReCatalogItem ParseCatalogItem(XElement item)

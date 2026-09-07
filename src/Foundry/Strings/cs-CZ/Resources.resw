@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Možnost vytváření médií</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Instalace ADK byla zrušena. Před dalším pokusem zkontrolujte instalaci.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>Operace ADK dokončena</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Instalace doplňku Windows PE</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>Instalace ADK skončila, ale stále chybí požadované součásti nebo nástroje. Zkontrolujte instalaci a zkuste to znovu.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Dokončení instalace ADK se nepodařilo potvrdit. Operace s médii a instalace jsou do obnovení zablokovány.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Před vytvořením média restartujte Windows.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Odebrání existujících Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Aktualizovat aplikaci</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Operaci se nepodařilo bezpečně ukončit. Zkontrolujte protokoly a zachovaný pracovní prostor: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Nativní úklid vyžaduje obnovení. Nechte aplikaci otevřenou a zkontrolujte: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Čeká se na nativní úklid. Aplikace zůstane otevřená; zkuste ji zavřít znovu po dokončení operace.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Operace dokončena</value>

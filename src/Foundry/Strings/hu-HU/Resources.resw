@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Médiakészítési lehetőség</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Az ADK telepítése megszakadt. Újabb próbálkozás előtt ellenőrizze a telepítést.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK művelet befejeződött</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>A Windows PE bővítmény telepítése</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>Az ADK telepítése befejeződött, de szükséges összetevők vagy eszközök még hiányoznak. Ellenőrizze a telepítést, majd próbálja újra.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Az ADK telepítésének befejeződését nem sikerült megerősíteni. Az adathordozó- és telepítési műveletek a helyreállításig le vannak tiltva.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Adathordozó létrehozása előtt indítsa újra a Windowst.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Meglévő Windows ADK eltávolítása</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Frissítse az alkalmazást</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>A műveletet nem sikerült biztonságosan bezárni. Tekintse át a naplókat és a megőrzött munkaterületet: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>A natív takarításhoz helyreállítás szükséges. Hagyja nyitva az alkalmazást, és ellenőrizze: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Várakozás a natív takarításra. Az alkalmazás nyitva marad; a művelet befejezése után próbálja újra bezárni.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>A művelet befejeződött</value>

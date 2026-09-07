@@ -14,6 +14,17 @@ public sealed class WinUiApplicationLifetimeService : IApplicationLifetimeServic
     /// <inheritdoc />
     public void Shutdown()
     {
-        Microsoft.UI.Xaml.Application.Current.Exit();
+        if (App.MainWindow is Foundry.Views.MainWindow mainWindow)
+        {
+            mainWindow.RequestSafeClose();
+        }
+        else if (App.MainWindow.DispatcherQueue.HasThreadAccess)
+        {
+            App.MainWindow.Close();
+        }
+        else
+        {
+            App.MainWindow.DispatcherQueue.TryEnqueue(() => App.MainWindow.Close());
+        }
     }
 }

@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Mogućnost kreiranja medija</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Instalacija ADK-a je otkazana. Proverite instalaciju pre ponovnog pokušaja.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK operacija je završena</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Instaliranje dodatka Windows PE</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>Instalacija ADK-a je završena, ali i dalje nedostaju potrebne komponente ili alati. Proverite instalaciju i pokušajte ponovo.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Nije moguće potvrditi završetak instalacije ADK-a. Radnje sa medijima i instalacije su blokirane do oporavka.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Ponovo pokrenite Windows pre pravljenja medija.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Uklanjanje postojećeg Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Ažurirajte aplikaciju</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Radnju nije moguće bezbedno zatvoriti. Pregledajte evidencije i sačuvani radni prostor: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Nativno čišćenje zahteva oporavak. Ostavite aplikaciju otvorenom i pregledajte: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Čeka se nativno čišćenje. Aplikacija će ostati otvorena; pokušajte ponovo da je zatvorite nakon završetka radnje.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Operacija završena</value>

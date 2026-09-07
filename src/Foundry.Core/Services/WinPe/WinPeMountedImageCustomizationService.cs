@@ -100,111 +100,119 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         }
 
         await using WinPeMountSession session = mountResult.Value!;
-
-        if (options.BootImageSource == WinPeBootImageSource.WinReWifi)
+        try
         {
-            if (winRePreparationResult is null)
+
+            if (options.BootImageSource == WinPeBootImageSource.WinReWifi)
             {
-                return await FailWithDiscardAsync(
-                    new WinPeDiagnostic(
-                        WinPeErrorCodes.InternalError,
-                        "WinRE Wi-Fi preparation did not return dependency metadata.",
-                        null),
-                    session,
+                if (winRePreparationResult is null)
+                {
+                    return await FailWithDiscardAsync(
+                        new WinPeDiagnostic(
+                            WinPeErrorCodes.InternalError,
+                            "WinRE Wi-Fi preparation did not return dependency metadata.",
+                            null),
+                        session,
+                        cancellationToken).ConfigureAwait(false);
+                }
+
+                WinPeResult adjustmentsResult = ApplyWinReWifiAdjustments(session.MountDirectoryPath, winRePreparationResult);
+                if (!adjustmentsResult.IsSuccess)
+                {
+                    return await FailWithDiscardAsync(adjustmentsResult.Error!, session, cancellationToken).ConfigureAwait(false);
+                }
+            }
+
+            ReportProgress(options.Progress, 45, "Injecting drivers into mounted image.");
+            WinPeResult driverInjectionResult = await InjectDriversAsync(
+                session.MountDirectoryPath,
+                options.DriverPackagePaths,
+                tools.DismPath,
+                artifact.WorkingDirectoryPath,
+                options.Progress,
+                cancellationToken).ConfigureAwait(false);
+
+            if (!driverInjectionResult.IsSuccess)
+            {
+                return await FailWithDiscardAsync(driverInjectionResult.Error!, session, cancellationToken).ConfigureAwait(false);
+            }
+
+            ReportProgress(options.Progress, 65, "Applying language and optional components.");
+            var internationalizationOptions = new WinPeImageInternationalizationOptions
+            {
+                MountedImagePath = session.MountDirectoryPath,
+                Architecture = artifact.Architecture,
+                Tools = tools,
+                WinPeLanguage = options.WinPeLanguage,
+                WorkingDirectoryPath = artifact.WorkingDirectoryPath,
+                DismProgress = CreateDismProgress(options.Progress, 65, "Applying language and optional components.")
+            };
+            WinPeResult internationalizationResult = await _imageInternationalizationService.ApplyAsync(
+                internationalizationOptions, cancellationToken).ConfigureAwait(false);
+            if (!internationalizationResult.IsSuccess)
+            {
+                return await FailWithDiscardAsync(internationalizationResult.Error!, session, cancellationToken).ConfigureAwait(false);
+            }
+
+            if (options.AssetProvisioning is not null)
+            {
+                ReportProgress(options.Progress, 80, "Provisioning Foundry boot assets.");
+                WinPeResult assetProvisioningResult = await _assetProvisioningService.ProvisionAsync(
+                    options.AssetProvisioning with
+                    {
+                        MountedImagePath = session.MountDirectoryPath,
+                        Architecture = artifact.Architecture
+                    },
                     cancellationToken).ConfigureAwait(false);
+
+                if (!assetProvisioningResult.IsSuccess)
+                {
+                    return await FailWithDiscardAsync(assetProvisioningResult.Error!, session, cancellationToken).ConfigureAwait(false);
+                }
             }
 
-            WinPeResult adjustmentsResult = ApplyWinReWifiAdjustments(session.MountDirectoryPath, winRePreparationResult);
-            if (!adjustmentsResult.IsSuccess)
+            if (options.RuntimePayloadProvisioning is not null)
             {
-                return await FailWithDiscardAsync(adjustmentsResult.Error!, session, cancellationToken).ConfigureAwait(false);
-            }
-        }
-
-        ReportProgress(options.Progress, 45, "Injecting drivers into mounted image.");
-        WinPeResult driverInjectionResult = await InjectDriversAsync(
-            session.MountDirectoryPath,
-            options.DriverPackagePaths,
-            tools.DismPath,
-            artifact.WorkingDirectoryPath,
-            options.Progress,
-            cancellationToken).ConfigureAwait(false);
-
-        if (!driverInjectionResult.IsSuccess)
-        {
-            return await FailWithDiscardAsync(driverInjectionResult.Error!, session, cancellationToken).ConfigureAwait(false);
-        }
-
-        ReportProgress(options.Progress, 65, "Applying language and optional components.");
-        var internationalizationOptions = new WinPeImageInternationalizationOptions
-        {
-            MountedImagePath = session.MountDirectoryPath,
-            Architecture = artifact.Architecture,
-            Tools = tools,
-            WinPeLanguage = options.WinPeLanguage,
-            WorkingDirectoryPath = artifact.WorkingDirectoryPath,
-            DismProgress = CreateDismProgress(options.Progress, 65, "Applying language and optional components.")
-        };
-        WinPeResult internationalizationResult = await _imageInternationalizationService.ApplyAsync(
-            internationalizationOptions, cancellationToken).ConfigureAwait(false);
-        if (!internationalizationResult.IsSuccess)
-        {
-            return await FailWithDiscardAsync(internationalizationResult.Error!, session, cancellationToken).ConfigureAwait(false);
-        }
-
-        if (options.AssetProvisioning is not null)
-        {
-            ReportProgress(options.Progress, 80, "Provisioning Foundry boot assets.");
-            WinPeResult assetProvisioningResult = await _assetProvisioningService.ProvisionAsync(
-                options.AssetProvisioning with
+                ReportProgress(options.Progress, 85, "Provisioning Foundry runtime payloads.");
+                WinPeRuntimePayloadProvisioningOptions destinations = options.RuntimePayloadProvisioning with
                 {
                     MountedImagePath = session.MountDirectoryPath,
                     Architecture = artifact.Architecture
-                },
-                cancellationToken).ConfigureAwait(false);
-
-            if (!assetProvisioningResult.IsSuccess)
-            {
-                return await FailWithDiscardAsync(assetProvisioningResult.Error!, session, cancellationToken).ConfigureAwait(false);
+                };
+                WinPeResult runtimePayloadResult = options.PreparedRuntime is not null
+                    ? await _runtimePayloadProvisioningService.ProvisionPreparedAsync(
+                        options.PreparedRuntime, destinations, cancellationToken).ConfigureAwait(false)
+                    : await _runtimePayloadProvisioningService.ProvisionAsync(
+                        destinations, options.DownloadProgress, cancellationToken).ConfigureAwait(false);
+                if (!runtimePayloadResult.IsSuccess)
+                {
+                    return await FailWithDiscardAsync(runtimePayloadResult.Error!, session, cancellationToken).ConfigureAwait(false);
+                }
             }
-        }
 
-        if (options.RuntimePayloadProvisioning is not null)
-        {
-            ReportProgress(options.Progress, 85, "Provisioning Foundry runtime payloads.");
-            WinPeRuntimePayloadProvisioningOptions destinations = options.RuntimePayloadProvisioning with
+            ReportProgress(options.Progress, 88, "Verifying installed boot capabilities.");
+            WinPeResult<WinPeCapabilityValidationResult> capabilities = await _validateCapabilities(
+                internationalizationOptions, cancellationToken).ConfigureAwait(false);
+            if (!capabilities.IsSuccess)
             {
-                MountedImagePath = session.MountDirectoryPath,
-                Architecture = artifact.Architecture
-            };
-            WinPeResult runtimePayloadResult = options.PreparedRuntime is not null
-                ? await _runtimePayloadProvisioningService.ProvisionPreparedAsync(
-                    options.PreparedRuntime, destinations, cancellationToken).ConfigureAwait(false)
-                : await _runtimePayloadProvisioningService.ProvisionAsync(
-                    destinations, options.DownloadProgress, cancellationToken).ConfigureAwait(false);
-            if (!runtimePayloadResult.IsSuccess)
-            {
-                return await FailWithDiscardAsync(runtimePayloadResult.Error!, session, cancellationToken).ConfigureAwait(false);
+                return await FailWithDiscardAsync(capabilities.Error!, session, cancellationToken).ConfigureAwait(false);
             }
-        }
+            ReportProgress(options.Progress, 90, "Committing image changes.");
+            WinPeResult commitResult = await session.CommitAsync(
+                cancellationToken,
+                CreateDismProgress(options.Progress, 90, "Committing image changes.")).ConfigureAwait(false);
+            if (commitResult.IsSuccess)
+            {
+                ReportProgress(options.Progress, 100, "Image customization completed.");
+            }
 
-        ReportProgress(options.Progress, 88, "Verifying installed boot capabilities.");
-        WinPeResult<WinPeCapabilityValidationResult> capabilities = await _validateCapabilities(
-            internationalizationOptions, cancellationToken).ConfigureAwait(false);
-        if (!capabilities.IsSuccess)
-        {
-            return await FailWithDiscardAsync(capabilities.Error!, session, cancellationToken).ConfigureAwait(false);
+            return commitResult;
         }
-        ReportProgress(options.Progress, 90, "Committing image changes.");
-        WinPeResult commitResult = await session.CommitAsync(
-            cancellationToken,
-            CreateDismProgress(options.Progress, 90, "Committing image changes.")).ConfigureAwait(false);
-        if (commitResult.IsSuccess)
+        catch (Exception ex)
         {
-            ReportProgress(options.Progress, 100, "Image customization completed.");
+            return await session.FailAsync(new WinPeDiagnostic(WinPeErrorCodes.BuildFailed,
+                "Mounted image customization failed.", exception: ex)).ConfigureAwait(false);
         }
-
-        return commitResult;
     }
 
     private async Task<WinPeResult> InjectDriversAsync(
@@ -278,22 +286,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         WinPeMountSession session,
         CancellationToken cancellationToken)
     {
-        WinPeResult discardResult = await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
-        if (discardResult.IsSuccess)
-        {
-            return WinPeResult.Failure(primaryDiagnostic);
-        }
-
-        string details = string.Join(
-            Environment.NewLine,
-            primaryDiagnostic.Details ?? string.Empty,
-            "Discard diagnostics:",
-            discardResult.Error?.Details ?? string.Empty).Trim();
-
-        return WinPeResult.Failure(new WinPeDiagnostic(
-            primaryDiagnostic.Code,
-            primaryDiagnostic.Message,
-            details));
+        return await session.FailAsync(primaryDiagnostic).ConfigureAwait(false);
     }
 
     private static WinPeDiagnostic? ValidateOptions(WinPeMountedImageCustomizationOptions? options)

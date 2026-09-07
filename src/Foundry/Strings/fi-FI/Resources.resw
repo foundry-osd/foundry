@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Median luomiskyky</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>ADK-asennus peruutettiin. Tarkista asennus ennen uutta yritystä.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK -toiminto suoritettu</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Windows PE -lisäosan asentaminen</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>ADK-asennus päättyi, mutta tarvittavia osia tai työkaluja puuttuu edelleen. Tarkista asennus ja yritä uudelleen.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>ADK-asennuksen päättymistä ei voitu vahvistaa. Tietoväline- ja asennustoiminnot on estetty palautukseen asti.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Käynnistä Windows uudelleen ennen tietovälineen luomista.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Poistetaan olemassa oleva Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Päivitä sovellus</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Toimintoa ei voitu sulkea turvallisesti. Tarkista lokit ja säilytetty työtila: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Natiivi siivous edellyttää palautusta. Pidä sovellus auki ja tarkista: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Odotetaan natiivin siivouksen valmistumista. Sovellus pysyy auki. Yritä sulkea se uudelleen toiminnon päätyttyä.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Toiminto valmis</value>

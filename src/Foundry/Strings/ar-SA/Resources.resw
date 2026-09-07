@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>القدرة على إنشاء وسائل الإعلام</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>تم إلغاء إعداد ADK. تحقق من التثبيت قبل المحاولة مرة أخرى.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK اكتملت العملية</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>تثبيت الوظيفة الإضافية Windows PE</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>انتهى إعداد ADK، لكن بعض المكونات أو الأدوات المطلوبة لا تزال مفقودة. تحقق من التثبيت وحاول مرة أخرى.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>تعذر تأكيد اكتمال إعداد ADK. تم حظر عمليات الوسائط والإعداد حتى الاسترداد.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>أعد تشغيل Windows قبل إنشاء الوسائط.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>إزالة Windows ADK الموجودة</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>تحديث التطبيق</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>تعذر إغلاق العملية بأمان. راجع السجلات ومساحة العمل المحفوظة: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>يتطلب تنظيف الموارد الأصلية استردادًا. أبقِ التطبيق مفتوحًا وراجع: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>في انتظار تنظيف الموارد الأصلية. سيبقى التطبيق مفتوحًا؛ حاول إغلاقه مرة أخرى بعد انتهاء العملية.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>اكتملت العملية</value>

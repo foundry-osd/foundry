@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Возможность создания медиа</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Установка ADK отменена. Проверьте установку перед повторной попыткой.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK операция завершена</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Установка дополнения Windows PE</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>Установка ADK завершилась, но необходимые компоненты или инструменты всё ещё отсутствуют. Проверьте установку и повторите попытку.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Не удалось подтвердить завершение установки ADK. Операции с носителями и установка заблокированы до восстановления.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Перезапустите Windows перед созданием носителя.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Удаление существующего Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Обновить приложение</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Не удалось безопасно завершить операцию. Проверьте журналы и сохранённую рабочую область: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Очистка нативных ресурсов требует восстановления. Оставьте приложение открытым и проверьте: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Ожидание очистки нативных ресурсов. Приложение останется открытым; попробуйте закрыть его после завершения операции.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Операция завершена</value>

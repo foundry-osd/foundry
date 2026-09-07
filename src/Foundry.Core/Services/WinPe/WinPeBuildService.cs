@@ -47,6 +47,10 @@ public sealed class WinPeBuildService : IWinPeBuildService
 
         WinPeToolPaths tools = toolsResult.Value!;
         string workingDirectory = ResolveWorkingDirectory(options);
+        string bootWimPath = Path.Combine(workingDirectory, "media", "sources", "boot.wim");
+        string mountDirectory = Path.Combine(workingDirectory, "mount");
+        bool copypeStarted = false;
+        bool nativeTerminationConfirmed = true;
 
         try
         {
@@ -55,11 +59,16 @@ public sealed class WinPeBuildService : IWinPeBuildService
 
             string outputRoot = Path.TrimEndingDirectorySeparator(Path.GetFullPath(options.OutputDirectoryPath));
             string workingRoot = Path.TrimEndingDirectorySeparator(Path.GetFullPath(workingDirectory));
-            if (outputRoot.Equals(workingRoot, StringComparison.OrdinalIgnoreCase) ||
-                outputRoot.StartsWith(workingRoot + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+            if (!workingRoot.StartsWith(outputRoot + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
             {
                 return WinPeResult<WinPeBuildArtifact>.Failure(WinPeErrorCodes.ValidationFailed,
-                    "The Copype workspace must not contain its output parent directory.");
+                    "The Copype workspace must be a new child of its output directory.");
+            }
+            ValidateOrdinaryParents(workingRoot);
+            if (Directory.Exists(workingRoot) || File.Exists(workingRoot))
+            {
+                return WinPeResult<WinPeBuildArtifact>.Failure(WinPeErrorCodes.ValidationFailed,
+                    "The requested WinPE workspace already exists and must be preserved.", workingRoot);
             }
 
             // Copype mounts the source image internally, so inspect it before invoking the script.
@@ -80,12 +89,13 @@ public sealed class WinPeBuildService : IWinPeBuildService
                 return WinPeResult<WinPeBuildArtifact>.Failure(sourceCompatibility.Error!);
             }
 
-            if (Directory.Exists(workingDirectory) && options.CleanExistingWorkingDirectory)
+            ValidateOrdinaryParents(workingDirectory);
+            if (Directory.Exists(workingDirectory) || File.Exists(workingDirectory))
             {
-                // The workspace is owned by this build stage, so stale ADK output is removed before Copype runs.
-                Directory.Delete(workingDirectory, recursive: true);
+                return WinPeResult<WinPeBuildArtifact>.Failure(WinPeErrorCodes.ValidationFailed,
+                    "The requested WinPE workspace appeared before Copype and must be preserved.", workingDirectory);
             }
-
+            copypeStarted = true;
             WinPeProcessExecution copyPeResult = await _processRunner.RunCmdScriptAsync(
                 tools.CopypePath,
                 arguments,
@@ -94,29 +104,26 @@ public sealed class WinPeBuildService : IWinPeBuildService
 
             if (!copyPeResult.IsSuccess)
             {
-                return WinPeResult<WinPeBuildArtifact>.Failure(copyPeResult.ToFailureDiagnostic(
+                return await FailAfterCopypeAsync(copyPeResult.ToFailureDiagnostic(
                     WinPeErrorCodes.BuildFailed,
                     "Failed to create WinPE workspace using copype.cmd.",
                     "Build WinPE workspace",
-                    "copype"));
+                    "copype"), true).ConfigureAwait(false);
             }
 
             string mediaDirectory = Path.Combine(workingDirectory, "media");
-            string bootWimPath = Path.Combine(mediaDirectory, "sources", "boot.wim");
             if (!File.Exists(bootWimPath))
             {
-                return WinPeResult<WinPeBuildArtifact>.Failure(
-                    WinPeErrorCodes.BuildFailed,
+                return await FailAfterCopypeAsync(new WinPeDiagnostic(WinPeErrorCodes.BuildFailed,
                     "WinPE workspace was created but boot.wim was not found.",
-                    $"Expected path: '{bootWimPath}'.");
+                    $"Expected path: '{bootWimPath}'."), true).ConfigureAwait(false);
             }
 
-            string mountDirectory = Path.Combine(workingDirectory, "mount");
             WinPeResult imageCompatibility = await WinPeToolResolver.ValidateImageAsync(
                 tools, bootWimPath, 1, options.Architecture, _processRunner, workingDirectory, cancellationToken).ConfigureAwait(false);
             if (!imageCompatibility.IsSuccess)
             {
-                return WinPeResult<WinPeBuildArtifact>.Failure(imageCompatibility.Error!);
+                return await FailAfterCopypeAsync(imageCompatibility.Error!, true).ConfigureAwait(false);
             }
             string driverWorkspace = Path.Combine(workingDirectory, "drivers");
             string logsDirectory = Path.Combine(workingDirectory, "logs");
@@ -141,9 +148,10 @@ public sealed class WinPeBuildService : IWinPeBuildService
                 SignatureMode = options.SignatureMode
             });
         }
-        catch (Exception ex) when (ex is not OperationCanceledException)
+        catch (Exception ex)
         {
-            return WinPeResult<WinPeBuildArtifact>.Failure(
+            nativeTerminationConfirmed = WinPeMountRecovery.IsTerminationConfirmed(ex);
+            var diagnostic = new WinPeDiagnostic(
                 WinPeErrorCodes.BuildFailed,
                 "Unexpected failure while creating the WinPE workspace.",
                 ex.ToString(),
@@ -158,6 +166,36 @@ public sealed class WinPeBuildService : IWinPeBuildService
                 toolName: "copype",
                 errorSummary: ex.Message,
                 exception: ex);
+            if (copypeStarted)
+            {
+                return await FailAfterCopypeAsync(diagnostic, nativeTerminationConfirmed).ConfigureAwait(false);
+            }
+            return WinPeResult<WinPeBuildArtifact>.Failure(diagnostic with
+            {
+                RecoveryRequired = !nativeTerminationConfirmed,
+                NativeTerminationConfirmed = nativeTerminationConfirmed,
+                RetainedPaths = !nativeTerminationConfirmed ? [workingDirectory] : []
+            });
+        }
+
+        async Task<WinPeResult<WinPeBuildArtifact>> FailAfterCopypeAsync(WinPeDiagnostic primary, bool terminated)
+        {
+            using var cleanup = new CancellationTokenSource(WinPeMountRecovery.CleanupTimeout);
+            WinPeResult recovery = await WinPeMountRecovery.ReconcileOwnedMountAsync(_processRunner, tools.DismPath,
+                bootWimPath, mountDirectory, options.OutputDirectoryPath, cleanup.Token, terminated).ConfigureAwait(false);
+            return WinPeResult<WinPeBuildArtifact>.Failure(WinPeMountRecovery.Combine(primary, recovery));
+        }
+    }
+
+    private static void ValidateOrdinaryParents(string path)
+    {
+        for (string? current = Path.GetFullPath(path); current is not null; current = Path.GetDirectoryName(current))
+        {
+            if ((Directory.Exists(current) || File.Exists(current)) &&
+                (File.GetAttributes(current) & FileAttributes.ReparsePoint) != 0)
+            {
+                throw new IOException("WinPE workspace paths must not traverse reparse points.");
+            }
         }
     }
 
@@ -212,10 +250,10 @@ public sealed class WinPeBuildService : IWinPeBuildService
     {
         if (!string.IsNullOrWhiteSpace(options.WorkingDirectoryPath))
         {
-            return options.WorkingDirectoryPath;
+            return Path.GetFullPath(options.WorkingDirectoryPath);
         }
 
-        string folderName = $"FoundryWinPe_{options.Architecture.ToString().ToLowerInvariant()}_{DateTime.UtcNow:yyyyMMdd_HHmmss}";
-        return Path.Combine(options.OutputDirectoryPath, folderName);
+        string folderName = $"FoundryWinPe_{options.Architecture.ToString().ToLowerInvariant()}_{Guid.NewGuid():N}";
+        return Path.GetFullPath(Path.Combine(options.OutputDirectoryPath, folderName));
     }
 }

@@ -195,8 +195,101 @@ public sealed class WinPeBuildServiceTests
         Assert.Equal(false, result.Error?.Exception?.Data["ProcessTreeTerminationConfirmed"]);
     }
 
+    [Fact]
+    public async Task BuildAsync_WhenExplicitWorkspaceAlreadyExists_PreservesItsContent()
+    {
+        using var workspace = TempWinPeBuildWorkspace.Create();
+        string working = Path.Combine(workspace.OutputDirectoryPath, "existing");
+        Directory.CreateDirectory(working);
+        string sentinel = Path.Combine(working, "owned-by-someone-else.txt");
+        File.WriteAllText(sentinel, "keep");
+        var runner = new FakeBuildRunner();
+        var service = new WinPeBuildService(new WinPeToolResolver(() => workspace.KitsRootPath,
+            () => Architecture.X64, _ => new Version(10, 0, 26100, 1)), runner);
+        var result = await service.BuildAsync(new WinPeBuildOptions
+        {
+            OutputDirectoryPath = workspace.OutputDirectoryPath,
+            WorkingDirectoryPath = working,
+            CleanExistingWorkingDirectory = true
+        }, TestContext.Current.CancellationToken);
+        Assert.False(result.IsSuccess);
+        Assert.Equal("keep", File.ReadAllText(sentinel));
+        Assert.Equal(0, runner.CopypeCalls);
+    }
+
+    [Fact]
+    public async Task BuildAsync_WhenWorkspaceOutsideOutputRoot_DoesNotInvokeCopype()
+    {
+        using var workspace = TempWinPeBuildWorkspace.Create();
+        var runner = new FakeBuildRunner();
+        var service = new WinPeBuildService(new WinPeToolResolver(() => workspace.KitsRootPath,
+            () => Architecture.X64, _ => new Version(10, 0, 26100, 1)), runner);
+        var result = await service.BuildAsync(new WinPeBuildOptions
+        {
+            OutputDirectoryPath = workspace.OutputDirectoryPath,
+            WorkingDirectoryPath = Path.Combine(workspace.RootPath, "outside")
+        }, TestContext.Current.CancellationToken);
+        Assert.False(result.IsSuccess);
+        Assert.Equal(0, runner.CopypeCalls);
+    }
+
+    [Fact]
+    public async Task BuildAsync_WhenCopypeLeavesPartialMount_ReconcilesOwnedImageBeforeReturningFailure()
+    {
+        using var workspace = TempWinPeBuildWorkspace.Create();
+        var runner = new FakeBuildRunner(exitCode: 9) { PartialMount = true };
+        var service = new WinPeBuildService(new WinPeToolResolver(() => workspace.KitsRootPath,
+            () => Architecture.X64, _ => new Version(10, 0, 26100, 1)), runner);
+        var result = await service.BuildAsync(new WinPeBuildOptions { OutputDirectoryPath = workspace.OutputDirectoryPath },
+            TestContext.Current.CancellationToken);
+        Assert.False(result.IsSuccess);
+        Assert.Equal(9, result.Error!.ExitCode);
+        Assert.False(result.Error.RecoveryRequired);
+        Assert.Contains(runner.Commands, args => args.Contains("/Get-MountedWimInfo") && args.Contains("/English"));
+        Assert.Contains(runner.Commands, args => args.Contains("/Discard") &&
+            args.Contains("/MountDir:" + Path.Combine(runner.CopypeWorkingRoot!, "mount")));
+    }
+
+    [Fact]
+    public async Task BuildAsync_WhenCopypeCancellationHasUncertainTermination_PreservesWorkspaceDespiteAbsentTable()
+    {
+        using var workspace = TempWinPeBuildWorkspace.Create();
+        var original = new OperationCanceledException("fake native cancellation");
+        original.Data["ProcessRootExitConfirmed"] = true;
+        original.Data["ProcessTreeTerminationConfirmed"] = false;
+        var runner = new FakeBuildRunner(exception: original) { PartialMount = true, InventoryAbsent = true };
+        var service = new WinPeBuildService(new WinPeToolResolver(() => workspace.KitsRootPath,
+            () => Architecture.X64, _ => new Version(10, 0, 26100, 1)), runner);
+        var result = await service.BuildAsync(new WinPeBuildOptions { OutputDirectoryPath = workspace.OutputDirectoryPath },
+            TestContext.Current.CancellationToken);
+        Assert.Same(original, result.Error!.Exception);
+        Assert.True(result.Error.RecoveryRequired);
+        Assert.False(result.Error.NativeTerminationConfirmed);
+        Assert.True(Directory.Exists(result.Error.OwnedMountPath));
+        Assert.DoesNotContain(runner.Commands, args => args.Contains("/Discard"));
+    }
+
+    [Fact]
+    public async Task BuildAsync_DefaultWorkspacePathsAreUniqueAcrossImmediateBuilds()
+    {
+        using var workspace = TempWinPeBuildWorkspace.Create();
+        var service = new WinPeBuildService(new WinPeToolResolver(() => workspace.KitsRootPath,
+            () => Architecture.X64, _ => new Version(10, 0, 26100, 1)), new FakeBuildRunner());
+        var options = new WinPeBuildOptions { OutputDirectoryPath = workspace.OutputDirectoryPath };
+        var first = await service.BuildAsync(options, TestContext.Current.CancellationToken);
+        var second = await service.BuildAsync(options, TestContext.Current.CancellationToken);
+        Assert.True(first.IsSuccess);
+        Assert.True(second.IsSuccess);
+        Assert.NotEqual(first.Value!.WorkingDirectoryPath, second.Value!.WorkingDirectoryPath);
+        Assert.True(File.Exists(first.Value.BootWimPath));
+    }
+
     private sealed class FakeBuildRunner(int exitCode = 0, Exception? exception = null, string imageArchitecture = "x64") : IWinPeProcessRunner
     {
+        public bool PartialMount { get; init; }
+        public bool InventoryAbsent { get; init; }
+        public string? CopypeWorkingRoot { get; private set; }
+        public List<IReadOnlyList<string>> Commands { get; } = [];
         public int CopypeCalls { get; private set; }
         public Task<WinPeProcessExecution> RunAsync(
             string fileName,
@@ -217,14 +310,18 @@ public sealed class WinPeBuildServiceTests
             IReadOnlyDictionary<string, string>? environmentOverrides = null,
             TimeSpan? executionTimeout = null)
         {
+            Commands.Add(argumentList);
             string arguments = string.Join(' ', argumentList);
+            string inventory = PartialMount && !InventoryAbsent && CopypeWorkingRoot is not null
+                ? $"Mounted images:\nMount Dir : {Path.Combine(CopypeWorkingRoot!, "mount")}\nImage File : {Path.Combine(CopypeWorkingRoot!, "media", "sources", "boot.wim")}\nImage Index : 1\nMounted Read/Write : Yes\nStatus : Ok\nThe operation completed successfully."
+                : "Mounted images:\nThe operation completed successfully.";
             return Task.FromResult(new WinPeProcessExecution
             {
                 ExitCode = 0,
                 FileName = fileName,
                 Arguments = arguments,
                 WorkingDirectory = workingDirectory,
-                StandardOutput = $"Architecture : {imageArchitecture}\nVersion : 10.0.26100.9999\n"
+                StandardOutput = argumentList.Contains("/Get-MountedWimInfo") ? inventory : $"Architecture : {imageArchitecture}\nVersion : 10.0.26100.9999\n"
             });
         }
 
@@ -236,6 +333,8 @@ public sealed class WinPeBuildServiceTests
             TimeSpan? executionTimeout = null)
         {
             CopypeCalls++;
+            CopypeWorkingRoot = scriptArguments[(scriptArguments.IndexOf('"') + 1)..^1];
+            if (PartialMount) Directory.CreateDirectory(Path.Combine(CopypeWorkingRoot, "mount"));
             if (exception is not null)
             {
                 throw exception;

@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>ความสามารถในการสร้างสื่อ</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>การติดตั้ง ADK ถูกยกเลิก ตรวจสอบการติดตั้งก่อนลองอีกครั้ง</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK การดำเนินการเสร็จสิ้นแล้ว</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>กำลังติดตั้งส่วนเสริม Windows PE</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>การติดตั้ง ADK สิ้นสุดแล้ว แต่ยังขาดส่วนประกอบหรือเครื่องมือที่จำเป็น ตรวจสอบการติดตั้งแล้วลองอีกครั้ง</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>ไม่สามารถยืนยันว่าการติดตั้ง ADK เสร็จสมบูรณ์ การดำเนินการสื่อและการติดตั้งถูกบล็อกจนกว่าจะกู้คืน</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>เริ่ม Windows ใหม่ก่อนสร้างสื่อ</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>การลบ Windows ADK ที่มีอยู่ออก</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>อัปเดตแอป</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>ไม่สามารถปิดการดำเนินการได้อย่างปลอดภัย ตรวจสอบบันทึกและพื้นที่ทำงานที่เก็บไว้: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>การล้างข้อมูลเนทีฟต้องมีการกู้คืน เปิดแอปพลิเคชันไว้และตรวจสอบ: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>กำลังรอการล้างข้อมูลเนทีฟ แอปพลิเคชันจะยังเปิดอยู่ ลองปิดอีกครั้งหลังจากการดำเนินการเสร็จสิ้น</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>การดำเนินการเสร็จสมบูรณ์</value>

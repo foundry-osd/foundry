@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Meediumi loomise võimalus</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>ADK installimine tühistati. Enne uuesti proovimist kontrollige installi.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK toiming on lõpetatud</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Windows PE lisandmooduli installimine</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>ADK installimine lõppes, kuid vajalikud komponendid või tööriistad on endiselt puudu. Kontrollige installi ja proovige uuesti.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>ADK installimise lõppu ei saanud kinnitada. Andmekandja- ja installitoimingud on taastamiseni blokeeritud.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Enne andmekandja loomist taaskäivitage Windows.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Olemasoleva Windows ADK eemaldamine</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Värskendage rakendust</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Toimingut ei saanud ohutult sulgeda. Vaadake üle logid ja säilitatud tööala: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Natiivne puhastus nõuab taastamist. Hoidke rakendus avatuna ja vaadake üle: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Oodatakse natiivset puhastust. Rakendus jääb avatuks; proovige pärast toimingu lõppu uuesti sulgeda.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Toiming on lõpetatud</value>

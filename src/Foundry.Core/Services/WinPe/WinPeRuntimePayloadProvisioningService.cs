@@ -17,6 +17,9 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
 
     private readonly IWinPeProcessRunner _processRunner;
     private readonly HttpClient _httpClient;
+    internal Func<Stream, Stream, CancellationToken, Task> CopyRuntimeFileAsync { get; init; } =
+        (source, destination, token) => source.CopyToAsync(destination, token);
+    internal Action<string, string> MoveRuntimeDirectory { get; init; } = Directory.Move;
 
     public WinPeRuntimePayloadProvisioningService()
         : this(new WinPeProcessRunner(), CreateHttpClient())
@@ -139,10 +142,18 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             readLeases.Clear();
             return WinPeResult<WinPePreparedRuntimePayloads>.Success(prepared);
         }
-        catch (Exception ex) when (IsProvisioningFailure(ex))
+        catch (Exception ex) when (IsProvisioningFailure(ex) || ex.Data["PublicationRecoveryRequired"] is true)
         {
-            return WinPeResult<WinPePreparedRuntimePayloads>.Failure(
-                WinPeErrorCodes.BuildFailed, "Failed to prepare Foundry runtime payloads.", ex.Message);
+            bool recovery = ex.Data["PublicationRecoveryRequired"] is true;
+            string[] retained = recovery && ownedWorkspace is not null ? [ownedWorkspace] : [];
+            if (recovery) ownedWorkspace = null;
+            return WinPeResult<WinPePreparedRuntimePayloads>.Failure(new WinPeDiagnostic(
+                WinPeErrorCodes.BuildFailed, "Failed to prepare Foundry runtime payloads.", ex.Message, exception: ex)
+            {
+                RecoveryRequired = recovery,
+                RetainedPaths = retained,
+                NativeTerminationConfirmed = !recovery
+            });
         }
         finally
         {
@@ -235,6 +246,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         }
 
         Dictionary<string, FileStream> sources = new(StringComparer.OrdinalIgnoreCase);
+        WinPeDiagnostic? cleanupWarning = null;
         try
         {
             await AcquireVerifiedFilesAsync(prepared, sources, cancellationToken).ConfigureAwait(false);
@@ -242,17 +254,32 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             {
                 foreach (string destinationRoot in ResolveDestinationRoots(application.ApplicationName, destinations, application.RuntimeIdentifier))
                 {
-                    await CopyPreparedApplicationAsync(application, destinationRoot, sources, cancellationToken).ConfigureAwait(false);
+                    WinPeDiagnostic? cleanup = await CopyPreparedApplicationAsync(application, destinationRoot, sources, cancellationToken).ConfigureAwait(false);
+                    if (cleanup is not null)
+                    {
+                        cleanupWarning = cleanup with
+                        {
+                            RetainedPaths = (cleanupWarning?.RetainedPaths ?? []).Concat(cleanup.RetainedPaths).ToArray()
+                        };
+                    }
                 }
 
                 RemoveLegacyConnectSeed(application.ApplicationName, destinations);
             }
 
-            return WinPeResult.Success();
+            return WinPeResult.SuccessWithCleanup(cleanupWarning);
         }
         catch (Exception ex) when (IsProvisioningFailure(ex))
         {
-            return WinPeResult.Failure(WinPeErrorCodes.BuildFailed, "Failed to place prepared Foundry runtime payloads.", ex.Message);
+            return WinPeResult.Failure(new WinPeDiagnostic(WinPeErrorCodes.BuildFailed,
+                "Failed to place prepared Foundry runtime payloads.", exception: ex)
+            {
+                RecoveryRequired = ex.Data["PublicationRecoveryRequired"] is true,
+                RetainedPaths = ex.Data["PublicationRetainedPaths"] as string[] ?? [],
+                CleanupDiagnostic = ex.Data["PublicationRollbackFailure"] is Exception rollback
+                    ? new WinPeDiagnostic(WinPeErrorCodes.BuildFailed, "The previous runtime could not be restored.", exception: rollback)
+                    : cleanupWarning
+            });
         }
         finally
         {
@@ -351,11 +378,22 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             "-o", publishDirectory
         ];
 
-        WinPeProcessExecution publish = await _processRunner.RunAsync(
-            "dotnet",
-            publishArguments,
-            workingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
+        WinPeProcessExecution publish;
+        try
+        {
+            publish = await _processRunner.RunAsync(
+                "dotnet", publishArguments, workingDirectoryPath, cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            if (ex.Data["ProcessRootExitConfirmed"] is false || ex.Data["ProcessTreeTerminationConfirmed"] is false ||
+                ((ex is TimeoutException or OperationCanceledException) &&
+                 !(ex.Data["ProcessRootExitConfirmed"] is true && ex.Data["ProcessTreeTerminationConfirmed"] is true)))
+            {
+                ex.Data["PublicationRecoveryRequired"] = true;
+            }
+            throw;
+        }
 
         if (!publish.IsSuccess)
         {
@@ -745,7 +783,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         }
     }
 
-    private static async Task CopyPreparedApplicationAsync(
+    private async Task<WinPeDiagnostic?> CopyPreparedApplicationAsync(
         WinPePreparedRuntimeApplication application, string destinationRoot,
         IReadOnlyDictionary<string, FileStream> sources, CancellationToken cancellationToken)
     {
@@ -758,25 +796,94 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             throw new InvalidDataException("Runtime destination overlaps its prepared source.");
         }
 
-        cancellationToken.ThrowIfCancellationRequested();
-        DirectoryOperations.Recreate(targetRoot);
-        foreach (WinPeRuntimeFile file in application.Files)
+        string stagingRoot = targetRoot + $".staged-{Guid.NewGuid():N}";
+        string backupRoot = targetRoot + $".previous-{Guid.NewGuid():N}";
+        bool retainStaging = false;
+        bool activeMoved = false;
+        try
         {
             cancellationToken.ThrowIfCancellationRequested();
-            string sourcePath = ResolveRuntimeFilePath(sourceRoot, file.RelativePath);
-            string destinationPath = ResolveRuntimeFilePath(targetRoot, file.RelativePath);
-            Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
-            FileStream source = sources[sourcePath];
-            source.Position = 0;
-            await using (FileStream destination = new(destinationPath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+            Directory.CreateDirectory(stagingRoot);
+            foreach (WinPeRuntimeFile file in application.Files)
             {
-                await source.CopyToAsync(destination, cancellationToken).ConfigureAwait(false);
+                cancellationToken.ThrowIfCancellationRequested();
+                string sourcePath = ResolveRuntimeFilePath(sourceRoot, file.RelativePath);
+                string destinationPath = ResolveRuntimeFilePath(stagingRoot, file.RelativePath);
+                Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
+                FileStream source = sources[sourcePath];
+                source.Position = 0;
+                await using (FileStream destination = new(destinationPath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+                {
+                    await CopyRuntimeFileAsync(source, destination, cancellationToken).ConfigureAwait(false);
+                    destination.Flush(flushToDisk: true);
+                }
+                await ValidateFileAsync(destinationPath, file, cancellationToken).ConfigureAwait(false);
             }
 
-            await ValidateFileAsync(destinationPath, file, cancellationToken).ConfigureAwait(false);
+            foreach (WinPeRuntimeFile file in application.Files)
+            {
+                await ValidateFileAsync(ResolveRuntimeFilePath(stagingRoot, file.RelativePath), file, cancellationToken).ConfigureAwait(false);
+            }
+            if (EnumerateRuntimeFiles(stagingRoot).Count() != application.Files.Count)
+            {
+                throw new InvalidDataException("The staged runtime contained unrecorded files.");
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+            if (Directory.Exists(targetRoot))
+            {
+                MoveRuntimeDirectory(targetRoot, backupRoot);
+                activeMoved = true;
+            }
+            try
+            {
+                MoveRuntimeDirectory(stagingRoot, targetRoot);
+            }
+            catch (Exception ex)
+            {
+                if (activeMoved)
+                {
+                    try
+                    {
+                        MoveRuntimeDirectory(backupRoot, targetRoot);
+                        activeMoved = false;
+                    }
+                    catch (Exception rollback)
+                    {
+                        retainStaging = true;
+                        ex.Data["PublicationRecoveryRequired"] = true;
+                        ex.Data["PublicationRetainedPaths"] = new[] { stagingRoot, backupRoot };
+                        ex.Data["PublicationRollbackFailure"] = rollback;
+                    }
+                }
+                throw;
+            }
+
+            if (activeMoved)
+            {
+                try
+                {
+                    Directory.Delete(backupRoot, recursive: true);
+                }
+                catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+                {
+                    return new WinPeDiagnostic(WinPeErrorCodes.BuildFailed,
+                        "Runtime publication succeeded, but its previous runtime could not be removed.", exception: ex)
+                    {
+                        RetainedPaths = [backupRoot]
+                    };
+                }
+            }
+            return null;
+        }
+        finally
+        {
+            if (!retainStaging && Directory.Exists(stagingRoot))
+            {
+                try { Directory.Delete(stagingRoot, recursive: true); }
+                catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
+            }
         }
     }
-
     private static WinPeDiagnostic? ValidateOptions(WinPeRuntimePayloadProvisioningOptions? options, bool requireDestination)
     {
         if (options is null)

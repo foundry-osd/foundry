@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Žiniasklaidos kūrimo galimybė</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>ADK diegimas atšauktas. Prieš bandydami dar kartą patikrinkite diegimą.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK operacija baigta</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Įdiegiamas Windows PE priedas</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>ADK diegimas baigtas, tačiau vis dar trūksta būtinų komponentų ar įrankių. Patikrinkite diegimą ir bandykite dar kartą.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Nepavyko patvirtinti ADK diegimo pabaigos. Laikmenų ir diegimo operacijos užblokuotos iki atkūrimo.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Prieš kurdami laikmeną paleiskite Windows iš naujo.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Pašalinamas esamas Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Atnaujinti programą</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Operacijos nepavyko saugiai uždaryti. Peržiūrėkite žurnalus ir išsaugotą darbo sritį: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Vietiniam valymui reikia atkūrimo. Palikite programą atidarytą ir peržiūrėkite: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Laukiama vietinio valymo. Programa liks atidaryta; bandykite ją uždaryti dar kartą, kai operacija baigsis.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Operacija baigta</value>

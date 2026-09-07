@@ -96,6 +96,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Schopnosť vytvárať médiá</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Inštalácia ADK bola zrušená. Pred ďalším pokusom skontrolujte inštaláciu.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK operácia dokončená</value>
   </data>
@@ -119,6 +122,15 @@
   </data>
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Inštalácia doplnku Windows PE</value>
+  </data>
+  <data name="Adk.Operation.NotReady" xml:space="preserve">
+    <value>Inštalácia ADK sa skončila, ale stále chýbajú požadované súčasti alebo nástroje. Skontrolujte inštaláciu a skúste to znova.</value>
+  </data>
+  <data name="Adk.Operation.OwnershipUncertain" xml:space="preserve">
+    <value>Dokončenie inštalácie ADK sa nepodarilo potvrdiť. Operácie s médiami a inštalácie sú do obnovenia zablokované.</value>
+  </data>
+  <data name="Adk.Operation.RebootRequired" xml:space="preserve">
+    <value>Pred vytvorením média reštartujte Windows.</value>
   </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Odstránenie existujúceho Windows ADK</value>
@@ -2375,6 +2387,15 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Aktualizovať aplikáciu</value>
+  </data>
+  <data name="Shell.CloseFailedFormat" xml:space="preserve">
+    <value>Operáciu sa nepodarilo bezpečne ukončiť. Skontrolujte protokoly a zachovaný pracovný priestor: {0}</value>
+  </data>
+  <data name="Shell.CloseRecoveryFormat" xml:space="preserve">
+    <value>Natívne čistenie vyžaduje obnovenie. Nechajte aplikáciu otvorenú a skontrolujte: {0}</value>
+  </data>
+  <data name="Shell.CloseWaiting" xml:space="preserve">
+    <value>Čaká sa na natívne čistenie. Aplikácia zostane otvorená; skúste ju zatvoriť znova po dokončení operácie.</value>
   </data>
   <data name="Shell.OperationCompleted" xml:space="preserve">
     <value>Operácia dokončená</value>
