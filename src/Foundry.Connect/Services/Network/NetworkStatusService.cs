@@ -2,7 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Net.Http;
+using System.Net;
+using System.Net.Sockets;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
 using Foundry.Connect.Models;
@@ -10,7 +11,6 @@ using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Models.Network;
 using Foundry.Utilities.Networking;
-using Foundry.Utilities.Diagnostics;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Services.Network;
@@ -20,12 +20,9 @@ namespace Foundry.Connect.Services.Network;
 /// </summary>
 public sealed class NetworkStatusService : INetworkStatusService
 {
-    private static readonly HttpClient HttpClient = new(new HttpClientHandler
-    {
-        AllowAutoRedirect = true
-    });
     private static readonly TimeSpan WifiDiscoveryGracePeriod = TimeSpan.FromSeconds(15);
 
+    private readonly INetworkProbeService _probeService;
     private readonly FoundryConnectConfiguration _configuration;
     private readonly ILocalizationService _localizationService;
     private readonly INetworkAdapterSnapshotProvider _networkAdapterSnapshotProvider;
@@ -37,8 +34,10 @@ public sealed class NetworkStatusService : INetworkStatusService
         FoundryConnectConfiguration configuration,
         ILocalizationService localizationService,
         ILogger<NetworkStatusService> logger,
+        INetworkProbeService probeService,
         INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
     {
+        _probeService = probeService;
         _configuration = configuration;
         _localizationService = localizationService;
         _logger = logger;
@@ -47,6 +46,7 @@ public sealed class NetworkStatusService : INetworkStatusService
 
     public async Task<NetworkStatusSnapshot> GetSnapshotAsync(CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         bool isDebugWifiEnabled = Debugger.IsAttached;
         NetworkAdapterSnapshot[] adapters = _networkAdapterSnapshotProvider.GetAdapters()
             .Where(static adapter => adapter.InterfaceType is not NetworkInterfaceType.Loopback and not NetworkInterfaceType.Tunnel)
@@ -63,75 +63,61 @@ public sealed class NetworkStatusService : INetworkStatusService
         bool hasWirelessAdapter = wirelessAdapters.Length > 0;
         bool isWifiUiEnabled = _configuration.Capabilities.WifiProvisioned || isDebugWifiEnabled;
         bool isWifiRuntimeAvailable = isWifiUiEnabled && await IsWifiRuntimeAvailableAsync(cancellationToken).ConfigureAwait(false);
-        string? connectedWifiSsid = isWifiRuntimeAvailable ? NativeWifiApi.GetConnectedSsid() : null;
+        var connectedWifi = isWifiRuntimeAvailable ? NativeWifiApi.GetConnectedNetwork() : null;
         IReadOnlyList<WifiNetworkSummary> wifiNetworks = isWifiRuntimeAvailable
             ? await DiscoverWifiNetworksAsync(cancellationToken).ConfigureAwait(false)
             : Array.Empty<WifiNetworkSummary>();
-        bool hasDhcpLease = connectedEthernetAdapter?.IsDhcpEnabled == true;
-        bool hasInternetAccess = await ProbeInternetAsync(cancellationToken).ConfigureAwait(false);
+        bool isDhcpEnabled = connectedEthernetAdapter?.IsDhcpEnabled == true;
+        NetworkAdapterSnapshot[] linkedAdapters = adapters.Where(static adapter => adapter.OperationalStatus == OperationalStatus.Up).ToArray();
+        NetworkProbeResult readiness = linkedAdapters.Length == 0
+            ? new(NetworkReadinessStatus.NoLink, "network_no_link")
+            : !linkedAdapters.Any(HasUsableAddress)
+                ? new(NetworkReadinessStatus.NoUsableAddress, "network_no_usable_address")
+                : await _probeService.ProbeAsync(cancellationToken).ConfigureAwait(false);
 
-        NetworkIpv4AddressSnapshot? ethernetIpv4Information = ethernetDisplayAdapter?.Ipv4Addresses.FirstOrDefault();
+        NetworkIpv4AddressSnapshot? ethernetIpv4Information = ethernetDisplayAdapter?.Ipv4Addresses.FirstOrDefault(address => IsUsableAddress(address.Address));
         string? ethernetGateway = connectedEthernetAdapter?.Gateways.FirstOrDefault();
-        bool hasEthernetIpv4 = ethernetIpv4Information is not null;
+        bool hasEthernetIpv4 = ethernetDisplayAdapter?.Ipv4Addresses.Any(address => IsUsableAddress(address.Address)) == true;
+        bool hasEthernetUsableAddress = ethernetDisplayAdapter is not null && HasUsableAddress(ethernetDisplayAdapter);
 
         return new NetworkStatusSnapshot
         {
             LayoutMode = isWifiRuntimeAvailable ? NetworkLayoutMode.EthernetWifi : NetworkLayoutMode.EthernetOnly,
-            HasInternetAccess = hasInternetAccess,
+            Readiness = readiness,
             HasEthernetAdapter = hasEthernetAdapter,
             IsEthernetConnected = isEthernetConnected,
-            HasDhcpLease = hasDhcpLease,
+            IsDhcpEnabled = isDhcpEnabled,
             HasEthernetIpv4 = hasEthernetIpv4,
+            HasEthernetUsableAddress = hasEthernetUsableAddress,
             IsWifiRuntimeAvailable = isWifiRuntimeAvailable,
             HasWirelessAdapter = hasWirelessAdapter,
-            EthernetStatusText = BuildEthernetStatusText(hasEthernetAdapter, isEthernetConnected, hasEthernetIpv4),
-            EthernetSecondaryStatusText = BuildEthernetSecondaryStatusText(hasEthernetAdapter, isEthernetConnected, hasEthernetIpv4, hasDhcpLease),
+            EthernetStatusText = BuildEthernetStatusText(hasEthernetAdapter, isEthernetConnected, hasEthernetUsableAddress),
+            EthernetSecondaryStatusText = BuildEthernetSecondaryStatusText(hasEthernetAdapter, isEthernetConnected, hasEthernetUsableAddress, isDhcpEnabled),
             EthernetAdapterName = ethernetDisplayAdapter?.Name ?? GetString("Common.Unavailable"),
-            EthernetIpAddress = ethernetIpv4Information?.Address ?? GetString("Common.Unavailable"),
+            EthernetIpAddress = ethernetIpv4Information?.Address ?? ethernetDisplayAdapter?.Ipv6Addresses.FirstOrDefault(IsUsableAddress)
+                ?? ethernetDisplayAdapter?.Ipv4Addresses.FirstOrDefault()?.Address ?? GetString("Common.Unavailable"),
             EthernetGateway = ethernetGateway ?? GetString("Common.Unavailable"),
-            ConnectedWifiSsid = connectedWifiSsid,
+            ConnectedWifiSsid = connectedWifi?.CurrentSsid,
+            ConnectedWifiSsidHex = connectedWifi?.CurrentSsidHex,
             WifiNetworks = wifiNetworks
         };
     }
 
-    private async Task<bool> ProbeInternetAsync(CancellationToken cancellationToken)
+    private static bool HasUsableAddress(NetworkAdapterSnapshot adapter) =>
+        adapter.Ipv4Addresses.Any(address => IsUsableAddress(address.Address)) || adapter.Ipv6Addresses.Any(IsUsableAddress);
+
+    internal static bool IsUsableAddress(string value)
     {
-        foreach (string probeUri in _configuration.InternetProbe.ProbeUris)
+        if (!IPAddress.TryParse(value, out IPAddress? address) || IPAddress.IsLoopback(address)) return false;
+        if (address.IsIPv4MappedToIPv6) address = address.MapToIPv4();
+        if (address.AddressFamily == AddressFamily.InterNetwork)
         {
-            string safeProbeUri = Uri.TryCreate(probeUri, UriKind.Absolute, out Uri? parsedProbeUri)
-                ? LogValueSanitizer.SanitizeUri(parsedProbeUri)
-                : "<invalid-uri>";
-            using CancellationTokenSource timeoutSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-            timeoutSource.CancelAfter(TimeSpan.FromSeconds(_configuration.InternetProbe.TimeoutSeconds));
-
-            try
-            {
-                using HttpRequestMessage request = new(HttpMethod.Get, probeUri);
-                using HttpResponseMessage response = await HttpClient
-                    .SendAsync(request, HttpCompletionOption.ResponseHeadersRead, timeoutSource.Token)
-                    .ConfigureAwait(false);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return true;
-                }
-            }
-            catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
-            {
-                _logger.LogDebug("Internet probe timed out. ProbeUri={ProbeUri}", safeProbeUri);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogDebug(
-                    "Internet probe failed. ProbeUri={ProbeUri}, FailureType={FailureType}",
-                    safeProbeUri,
-                    ex.GetType().Name);
-            }
+            byte[] bytes = address.GetAddressBytes();
+            return bytes[0] is not (0 or 127) && bytes[0] < 224 && !(bytes[0] == 169 && bytes[1] == 254);
         }
-
-        return false;
+        return address.AddressFamily == AddressFamily.InterNetworkV6 && !address.Equals(IPAddress.IPv6Any) &&
+            !IPAddress.IsLoopback(address) && !address.IsIPv6LinkLocal && !address.IsIPv6Multicast && !address.IsIPv6SiteLocal;
     }
-
     private Task<bool> IsWifiRuntimeAvailableAsync(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -207,7 +193,7 @@ public sealed class NetworkStatusService : INetworkStatusService
             : GetString("Ethernet.WaitingConfiguration");
     }
 
-    private string BuildEthernetSecondaryStatusText(bool hasEthernetAdapter, bool isEthernetConnected, bool hasEthernetIpv4, bool hasDhcpLease)
+    private string BuildEthernetSecondaryStatusText(bool hasEthernetAdapter, bool isEthernetConnected, bool hasEthernetIpv4, bool isDhcpEnabled)
     {
         if (!hasEthernetAdapter)
         {
@@ -221,12 +207,12 @@ public sealed class NetworkStatusService : INetworkStatusService
 
         if (!hasEthernetIpv4)
         {
-            return GetString("Ethernet.WaitingDhcp");
+            return GetString("Ethernet.WaitingAddress");
         }
 
-        return hasDhcpLease
-            ? GetString("Ethernet.DhcpLeaseDetected")
-            : GetString("Ethernet.StaticConfigurationDetected");
+        return isDhcpEnabled
+            ? GetString("Ethernet.DhcpEnabled")
+            : GetString("Ethernet.StaticConfiguration");
     }
 
     private string GetString(string key)

@@ -9,6 +9,21 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class NetworkMediaReadinessEvaluatorTests
 {
+    [Theory]
+    [InlineData(" password123 ")]
+    [InlineData("        ")]
+    public void Evaluate_UsesExactPassphraseLength(string password)
+    {
+        var settings = new NetworkSettings
+        {
+            WifiProvisioned = true,
+            Wifi = new WifiSettings
+            { IsEnabled = true, Ssid = "   ", SecurityType = NetworkConfigurationValidator.WifiSecurityPersonal }
+        };
+        Assert.True(NetworkMediaReadinessEvaluator.Evaluate(settings, password).IsConnectProvisioningReady);
+        Assert.Equal(password, NetworkMediaReadinessEvaluator.ApplyRequiredSecrets(settings, password).Wifi.Passphrase);
+    }
+
     [Fact]
     public void Evaluate_WhenNetworkFeaturesAreDisabled_ReturnsReady()
     {

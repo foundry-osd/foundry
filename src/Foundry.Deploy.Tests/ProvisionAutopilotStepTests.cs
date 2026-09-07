@@ -6,6 +6,7 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
@@ -353,6 +354,20 @@ public sealed class ProvisionAutopilotStepTests
             contentService ?? new FakeAutopilotProfileContentService());
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task ExecuteAsync_InteractiveRegistrationWithoutEligibleHook_RejectsBeforeStaging(bool dryRun)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using DeploymentStepExecutionContext context = CreateContext(workspace, dryRun, AutopilotProvisioningMode.InteractiveHardwareHashUpload);
+        context.RuntimeState.FirstBootExecutionPlan = new(FirstBootEntryPoint.None, false, "unsupported_setup_hook");
+
+        DeploymentStepResult result = await CreateStep().ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.False(File.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Setup", "Scripts", "OOBE.cmd")));
+    }
     private static DeploymentStepExecutionContext CreateContext(
         TempDeploymentWorkspace workspace,
         bool isDryRun,
@@ -376,6 +391,7 @@ public sealed class ProvisionAutopilotStepTests
         };
         DeploymentRuntimeState runtimeState = new()
         {
+            FirstBootExecutionPlan = new(FirstBootEntryPoint.None, true, null),
             WorkspaceRoot = workspace.RootPath,
             TargetWindowsPartitionRoot = workspace.TargetWindowsRootPath,
             TargetFoundryRoot = workspace.TargetFoundryRootPath

@@ -2163,6 +2163,9 @@
   <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
     <value>Wi-Fi 구성을 위해서는 부팅 이미지에서 Wi-Fi 지원을 프로비저닝해야 합니다.</value>
   </data>
+  <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
+    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+  </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Wi-Fi 구성에는 SSID이 필요합니다.</value>
   </data>

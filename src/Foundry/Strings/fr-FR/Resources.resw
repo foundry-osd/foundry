@@ -2163,6 +2163,9 @@
   <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
     <value>La configuration Wi-Fi nécessite que la prise en charge Wi-Fi soit provisionnée dans l'image de démarrage.</value>
   </data>
+  <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
+    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+  </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>La configuration Wi-Fi nécessite un SSID.</value>
   </data>

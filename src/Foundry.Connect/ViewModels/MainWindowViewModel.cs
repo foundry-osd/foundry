@@ -71,9 +71,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private bool _isSyncingWifiNetworks;
     private bool _hasTrackedSessionReady;
     private NetworkStatusSnapshot? _lastNetworkReadySnapshot;
-    private string? _lastSelectedWifiNetworkSsid;
+    private string? _lastSelectedWifiNetworkIdentity;
     private DateTimeOffset? _lastConfiguredWifiConnectAttemptAt;
     private string? _connectedWifiSsid;
+    private string? _connectedWifiSsidHex;
+    private NetworkReadinessStatus _networkReadinessStatus = NetworkReadinessStatus.Unavailable;
 
     [ObservableProperty]
     private NetworkLayoutMode layoutMode;
@@ -272,7 +274,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// <summary>
     /// Gets a value indicating whether the current Wi-Fi connection matches the provisioned profile.
     /// </summary>
-    public bool IsProvisionedWifiConnected => IsProvisionedWifiConnection(_connectedWifiSsid);
+    public bool IsProvisionedWifiConnected => IsProvisionedWifiConnection(_connectedWifiSsid, _connectedWifiSsidHex);
 
     /// <summary>
     /// Gets a value indicating whether the provisioned Wi-Fi profile can be connected now.
@@ -335,7 +337,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     public bool CanConnectSelectedWifi => SelectedWifiNetwork is { CanDirectConnect: true } network &&
                                           !network.IsConnected &&
-                                          (!network.RequiresPassphrase || !string.IsNullOrWhiteSpace(SelectedWifiPassphrase)) &&
+                                          (!network.RequiresPassphrase || !string.IsNullOrEmpty(SelectedWifiPassphrase)) &&
                                           !IsNetworkActionInProgress;
 
     public bool CanDisconnectSelectedWifi => SelectedWifiNetwork is { IsConnected: true } && !IsNetworkActionInProgress;
@@ -679,7 +681,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 snapshot.WifiNetworks.Count);
             await RunOnUiAsync(() => ApplySnapshot(snapshot)).ConfigureAwait(false);
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
             // Ignore shutdown-driven refresh cancellation.
         }
@@ -696,7 +698,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 IsPrimaryStatusSuccessful = false;
                 PrimaryStatusGlyph = PendingStatusGlyph;
                 PrimaryStatusTitle = GetString("Status.NetworkRefreshFailedTitle");
-                PrimaryStatusDescription = ex.Message;
+                HasInternetAccess = false;
+                _lastNetworkReadySnapshot = null;
+                _networkReadinessStatus = NetworkReadinessStatus.Unavailable;
+                CancelCountdown();
+                PrimaryStatusDescription = GetString("Network.Readiness.Unavailable");
+                ContinueBootstrapCommand.NotifyCanExecuteChanged();
             }).ConfigureAwait(false);
         }
         finally
@@ -713,6 +720,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IsWifiRuntimeAvailable = snapshot.IsWifiRuntimeAvailable;
         HasWirelessAdapter = snapshot.HasWirelessAdapter;
         _connectedWifiSsid = snapshot.ConnectedWifiSsid;
+        _connectedWifiSsidHex = snapshot.ConnectedWifiSsidHex;
+        _networkReadinessStatus = snapshot.Readiness.Status;
         _lastNetworkReadySnapshot = snapshot.HasInternetAccess ? snapshot : null;
 
         EthernetGlyph = ResolveEthernetGlyph(snapshot);
@@ -728,7 +737,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(ProvisionedWifiPlaceholderText));
         RefreshDerivedConnectionState(snapshot);
 
-        SyncWifiNetworks(snapshot.WifiNetworks, snapshot.ConnectedWifiSsid);
+        SyncWifiNetworks(snapshot.WifiNetworks, snapshot.ConnectedWifiSsid, snapshot.ConnectedWifiSsidHex);
         ApplyPrimaryStatus(snapshot.HasInternetAccess);
         UpdateCountdown(snapshot);
 
@@ -823,7 +832,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         WifiNetworkSummary? connectedNetwork = snapshot.WifiNetworks.FirstOrDefault(network =>
-            string.Equals(network.Ssid, snapshot.ConnectedWifiSsid, StringComparison.OrdinalIgnoreCase));
+            IsSameWifiIdentity(network.Ssid, network.SsidHex, snapshot.ConnectedWifiSsid, snapshot.ConnectedWifiSsidHex));
         if (connectedNetwork is not null)
         {
             return NetworkTelemetryClassifier.ClassifyWifiSecurity(connectedNetwork.Authentication);
@@ -844,7 +853,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return "none";
         }
 
-        return IsProvisionedWifiConnection(snapshot.ConnectedWifiSsid) ? "provisioned" : "manual";
+        return IsProvisionedWifiConnection(snapshot.ConnectedWifiSsid, snapshot.ConnectedWifiSsidHex) ? "provisioned" : "manual";
     }
 
     private void ApplyPrimaryStatus(bool hasInternetAccess)
@@ -861,7 +870,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IsPrimaryStatusSuccessful = false;
         PrimaryStatusGlyph = PendingStatusGlyph;
         PrimaryStatusTitle = GetString("Status.WaitingForNetworkTitle");
-        PrimaryStatusDescription = GetString("Status.WaitingForNetworkDescription");
+        PrimaryStatusDescription = GetString($"Network.Readiness.{_networkReadinessStatus}");
     }
 
     private void UpdateCountdown(NetworkStatusSnapshot snapshot)
@@ -946,15 +955,16 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         ContinueBootstrapCommand.NotifyCanExecuteChanged();
     }
 
-    private void SyncWifiNetworks(IReadOnlyList<WifiNetworkSummary> networks, string? connectedWifiSsid)
+    private void SyncWifiNetworks(IReadOnlyList<WifiNetworkSummary> networks, string? connectedWifiSsid, string? connectedWifiSsidHex)
     {
-        string? selectedSsid = SelectedWifiNetwork?.Ssid;
+        string? selectedIdentity = WifiNetworkIdentity.GetIdentity(SelectedWifiNetwork?.Ssid, SelectedWifiNetwork?.SsidHex);
         string preservedPassphrase = SelectedWifiNetwork?.RequiresPassphrase == true
             ? SelectedWifiPassphrase
             : string.Empty;
-        Dictionary<string, WifiNetworkItemViewModel> existingNetworks = WifiNetworks.ToDictionary(
-            network => network.Ssid,
-            StringComparer.OrdinalIgnoreCase);
+        Dictionary<string, WifiNetworkItemViewModel> existingNetworks = WifiNetworks
+            .Where(network => WifiNetworkIdentity.GetIdentity(network.Ssid, network.SsidHex) is not null)
+            .GroupBy(network => WifiNetworkIdentity.GetIdentity(network.Ssid, network.SsidHex)!, StringComparer.Ordinal)
+            .ToDictionary(group => group.Key, group => group.First(), StringComparer.Ordinal);
         List<WifiNetworkItemViewModel> orderedNetworks = new(networks.Count);
 
         _isSyncingWifiNetworks = true;
@@ -963,7 +973,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         {
             foreach (WifiNetworkSummary network in networks)
             {
-                if (!existingNetworks.TryGetValue(network.Ssid, out WifiNetworkItemViewModel? wifiNetwork))
+                string? identity = WifiNetworkIdentity.GetIdentity(network.Ssid, network.SsidHex);
+                if (identity is null) continue;
+                if (!existingNetworks.TryGetValue(identity, out WifiNetworkItemViewModel? wifiNetwork))
                 {
                     wifiNetwork = new WifiNetworkItemViewModel(network.Ssid);
                 }
@@ -978,23 +990,24 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                     ResolveWifiGlyph(network.SignalStrengthPercent),
                     CanDirectConnect(network.Authentication),
                     RequiresPassphrase(network.Authentication),
-                    string.Equals(network.Ssid, connectedWifiSsid, StringComparison.OrdinalIgnoreCase));
+                    IsSameWifiIdentity(network.Ssid, network.SsidHex, connectedWifiSsid, connectedWifiSsidHex));
                 orderedNetworks.Add(wifiNetwork);
             }
 
             SyncWifiNetworkCollection(orderedNetworks);
 
             SelectedWifiNetwork = orderedNetworks.FirstOrDefault(network =>
-                string.Equals(network.Ssid, selectedSsid, StringComparison.OrdinalIgnoreCase))
+                selectedIdentity is not null && WifiNetworkIdentity.GetIdentity(network.Ssid, network.SsidHex) == selectedIdentity)
                 ?? orderedNetworks.FirstOrDefault(network =>
-                    string.Equals(network.Ssid, connectedWifiSsid, StringComparison.OrdinalIgnoreCase));
+                    IsSameWifiIdentity(network.Ssid, network.SsidHex, connectedWifiSsid, connectedWifiSsidHex));
         }
         finally
         {
             _isSyncingWifiNetworks = false;
         }
 
-        if (SelectedWifiNetwork is { RequiresPassphrase: true, IsConnected: false })
+        if (SelectedWifiNetwork is { RequiresPassphrase: true, IsConnected: false } &&
+            selectedIdentity is not null && selectedIdentity == WifiNetworkIdentity.GetIdentity(SelectedWifiNetwork.Ssid, SelectedWifiNetwork.SsidHex))
         {
             SelectedWifiPassphrase = preservedPassphrase;
         }
@@ -1043,7 +1056,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     private static string ResolveEthernetGlyph(NetworkStatusSnapshot snapshot)
     {
-        if (snapshot.IsEthernetConnected && snapshot.HasEthernetIpv4)
+        if (snapshot.IsEthernetConnected && snapshot.HasEthernetUsableAddress)
         {
             return EthernetOkGlyph;
         }
@@ -1111,9 +1124,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     partial void OnSelectedWifiNetworkChanged(WifiNetworkItemViewModel? value)
     {
         bool hasChangedSelection = !string.Equals(
-            _lastSelectedWifiNetworkSsid,
-            value?.Ssid,
-            StringComparison.OrdinalIgnoreCase);
+            _lastSelectedWifiNetworkIdentity,
+            WifiNetworkIdentity.GetIdentity(value?.Ssid, value?.SsidHex),
+            StringComparison.Ordinal);
 
         if (!_isSyncingWifiNetworks &&
             (value is null || !value.RequiresPassphrase || value.IsConnected || hasChangedSelection))
@@ -1123,7 +1136,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         SelectedWifiActionFeedbackText = string.Empty;
 
-        _lastSelectedWifiNetworkSsid = value?.Ssid;
+        _lastSelectedWifiNetworkIdentity = WifiNetworkIdentity.GetIdentity(value?.Ssid, value?.SsidHex);
 
         ConnectSelectedWifiCommand.NotifyCanExecuteChanged();
         DisconnectSelectedWifiCommand.NotifyCanExecuteChanged();
@@ -1640,7 +1653,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 string? profileName = ProvisionedWifiProfileResolver.ResolveProfileName(
                     _configuration.Wifi,
                     _configurationService.ConfigurationPath);
-                if (!string.IsNullOrWhiteSpace(profileName))
+                if (!string.IsNullOrEmpty(profileName))
                 {
                     return profileName;
                 }
@@ -1653,9 +1666,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return GetString("Wifi.EnterpriseProfile");
         }
 
-        return string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid)
+        return string.IsNullOrEmpty(_configuration.Wifi.Ssid)
             ? GetString("Wifi.UnnamedProvisionedProfile")
-            : _configuration.Wifi.Ssid.Trim();
+            : _configuration.Wifi.Ssid;
     }
 
     private void LogHandledNetworkFailures(string networkOperation, string operationId, NetworkBootstrapResult result)
@@ -1811,7 +1824,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return GetString("Wifi.StatusNoAdapter");
         }
 
-        if (!string.IsNullOrWhiteSpace(_connectedWifiSsid))
+        if (!string.IsNullOrEmpty(_connectedWifiSsid))
         {
             return GetString("Wifi.StatusAnotherNetworkActive");
         }
@@ -1831,7 +1844,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return GetString("Wifi.ConnectionChipEthernet");
         }
 
-        if (string.IsNullOrWhiteSpace(_connectedWifiSsid))
+        if (string.IsNullOrEmpty(_connectedWifiSsid))
         {
             return string.Empty;
         }
@@ -1841,32 +1854,34 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             : Format("Wifi.ConnectionChipFormat", _connectedWifiSsid);
     }
 
-    private bool IsProvisionedWifiConnection(string? ssid)
+    private bool IsProvisionedWifiConnection(string? ssid, string? ssidHex)
     {
-        if (!HasProvisionedWifiProfile || string.IsNullOrWhiteSpace(ssid))
+        if (!HasProvisionedWifiProfile || WifiNetworkIdentity.GetIdentity(ssid, ssidHex) is null)
         {
             return false;
         }
 
-        string trimmedSsid = ssid.Trim();
-
-        if (!string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid) &&
-            string.Equals(trimmedSsid, _configuration.Wifi.Ssid.Trim(), StringComparison.OrdinalIgnoreCase))
+        if (!_configuration.Wifi.HasEnterpriseProfile)
         {
-            return true;
+            return IsSameWifiIdentity(ssid, ssidHex, _configuration.Wifi.Ssid, null);
         }
 
-        string profileName = ResolveProvisionedWifiProfileName();
-        return !string.IsNullOrWhiteSpace(profileName) &&
-               !string.Equals(profileName, GetString("Wifi.EnterpriseProfile"), StringComparison.OrdinalIgnoreCase) &&
-               string.Equals(trimmedSsid, profileName, StringComparison.OrdinalIgnoreCase);
+        string? profilePath = ProvisionedWifiProfileResolver.ResolveAssetPath(
+            _configuration.Wifi.EnterpriseProfileTemplatePath, _configurationService.ConfigurationPath);
+        string? profileIdentity = WlanProfileReader.TryReadSsidHex(profilePath);
+        return profileIdentity is not null && profileIdentity == WifiNetworkIdentity.GetIdentity(ssid, ssidHex);
+    }
+
+    private static bool IsSameWifiIdentity(string? name, string? hex, string? otherName, string? otherHex)
+    {
+        string? identity = WifiNetworkIdentity.GetIdentity(name, hex);
+        return identity is not null && identity == WifiNetworkIdentity.GetIdentity(otherName, otherHex);
     }
 
     private static bool CanDirectConnect(string authentication)
     {
         return ClassifyDiscoveredWifi(authentication) is DiscoveredWifiType.Open or DiscoveredWifiType.Owe or DiscoveredWifiType.Personal;
     }
-
     private static bool RequiresPassphrase(string authentication)
     {
         return ClassifyDiscoveredWifi(authentication) == DiscoveredWifiType.Personal;

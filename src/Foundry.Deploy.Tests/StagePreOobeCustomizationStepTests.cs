@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Security.Cryptography;
+using System.Text.Json;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Cache;
@@ -27,7 +29,7 @@ public sealed class StagePreOobeCustomizationStepTests
         using var tempDirectory = new TemporaryDirectory();
         DeploymentStepExecutionContext context = CreateContext(tempDirectory);
         var step = new StagePreOobeCustomizationStep(
-            new PreOobeScriptProvisioningService(new SetupCompleteScriptService()),
+            new PreOobeScriptProvisioningService(new SetupCompleteScriptService(), path => Directory.CreateDirectory(path), _ => { }),
             new PreOobeScriptDefinitionBuilder(),
             new FakeDriverPackStrategyResolver(),
             new StaticNetworkProfileRoamingArtifactService(CreateRoamingPayload()));
@@ -52,7 +54,7 @@ public sealed class StagePreOobeCustomizationStepTests
         context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
         context.RuntimeState.DownloadedDriverPackPath = driverPackagePath;
         var step = new StagePreOobeCustomizationStep(
-            new PreOobeScriptProvisioningService(new SetupCompleteScriptService()),
+            new PreOobeScriptProvisioningService(new SetupCompleteScriptService(), path => Directory.CreateDirectory(path), _ => { }),
             new PreOobeScriptDefinitionBuilder(),
             new FakeDriverPackStrategyResolver(),
             new StaticNetworkProfileRoamingArtifactService(CreateRoamingPayload()));
@@ -65,13 +67,15 @@ public sealed class StagePreOobeCustomizationStepTests
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Install-DriverPack.ps1", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Import-NetworkProfiles.ps1", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Cleanup-PreOobe.ps1", StringComparison.OrdinalIgnoreCase));
-        string runner = File.ReadAllText(context.RuntimeState.PreOobeRunnerPath!);
-        Assert.True(
-            runner.IndexOf("Install-DriverPack.ps1", StringComparison.Ordinal) <
-            runner.IndexOf("Import-NetworkProfiles.ps1", StringComparison.Ordinal));
-        Assert.True(
-            runner.IndexOf("Import-NetworkProfiles.ps1", StringComparison.Ordinal) <
-            runner.IndexOf("Cleanup-PreOobe.ps1", StringComparison.Ordinal));
+        using JsonDocument manifest = JsonDocument.Parse(File.ReadAllText(context.RuntimeState.PreOobeManifestPath!));
+        JsonElement[] scripts = manifest.RootElement.GetProperty("scripts").EnumerateArray().ToArray();
+        Assert.Equal(new[] { "driver-pack", "network-profile-roaming", "cleanup" },
+            scripts.Select(script => script.GetProperty("id").GetString()).ToArray());
+        string[] arguments = scripts[0].GetProperty("arguments").EnumerateArray().Select(value => value.GetString()!).ToArray();
+        Assert.Equal(Convert.ToHexString(SHA256.HashData(new byte[] { 1, 2, 3 })),
+            arguments[Array.IndexOf(arguments, "-ExpectedSha256") + 1]);
+        Assert.Equal("3", arguments[Array.IndexOf(arguments, "-ExpectedSizeBytes") + 1]);
+        Assert.True(File.Exists(context.RuntimeState.PreOobeResultsPath));
     }
 
     [Fact]
@@ -81,7 +85,7 @@ public sealed class StagePreOobeCustomizationStepTests
         DeploymentStepExecutionContext context = CreateContext(tempDirectory);
         context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
         var step = new StagePreOobeCustomizationStep(
-            new PreOobeScriptProvisioningService(new SetupCompleteScriptService()),
+            new PreOobeScriptProvisioningService(new SetupCompleteScriptService(), path => Directory.CreateDirectory(path), _ => { }),
             new PreOobeScriptDefinitionBuilder(),
             new FakeDriverPackStrategyResolver());
 
@@ -103,7 +107,7 @@ public sealed class StagePreOobeCustomizationStepTests
         context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
         context.RuntimeState.DownloadedDriverPackPath = driverPackagePath;
         var step = new StagePreOobeCustomizationStep(
-            new PreOobeScriptProvisioningService(new SetupCompleteScriptService()),
+            new PreOobeScriptProvisioningService(new SetupCompleteScriptService(), path => Directory.CreateDirectory(path), _ => { }),
             new PreOobeScriptDefinitionBuilder(),
             new FakeDriverPackStrategyResolver(DeferredDriverPackageCommandKind.None));
 
@@ -115,6 +119,40 @@ public sealed class StagePreOobeCustomizationStepTests
         Assert.Empty(context.RuntimeState.PreOobeScriptPaths);
     }
 
+    [Fact]
+    public async Task StagePreOobeCustomizationStep_WithoutValidatedPlan_WritesNoFirstBootPayload()
+    {
+        using var temporary = new TemporaryDirectory();
+        using DeploymentStepExecutionContext context = CreateContext(temporary);
+        context.RuntimeState.FirstBootExecutionPlan = null;
+        var step = new StagePreOobeCustomizationStep(
+            new PreOobeScriptProvisioningService(new SetupCompleteScriptService(), path => Directory.CreateDirectory(path), _ => { }),
+            new PreOobeScriptDefinitionBuilder(), new FakeDriverPackStrategyResolver(),
+            new StaticNetworkProfileRoamingArtifactService(CreateRoamingPayload()));
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.False(Directory.Exists(Path.Combine(temporary.WindowsRoot, "Windows", "Temp", "Foundry", "PreOobe")));
+    }
+
+    [Theory]
+    [InlineData("Professional", DeploymentStepState.Failed)]
+    [InlineData("Enterprise", DeploymentStepState.Succeeded)]
+    public async Task ValidateFirstBootExecutionStep_RejectsUnprovenDeferredHooksBeforeErasure(string edition, DeploymentStepState expected)
+    {
+        using var temporary = new TemporaryDirectory();
+        using DeploymentStepExecutionContext context = CreateContext(temporary, edition);
+        var step = new ValidateFirstBootExecutionStep(new FakeDriverPackStrategyResolver());
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(expected, result.State);
+        Assert.NotNull(context.RuntimeState.FirstBootExecutionPlan);
+        Assert.Null(context.RuntimeState.DeferredDriverPackagePath);
+        Assert.True(DeploymentStepNames.ExecutionOrder.ToList().IndexOf(step.Name) <
+            DeploymentStepNames.ExecutionOrder.ToList().IndexOf(DeploymentStepNames.PrepareTargetDiskLayout));
+    }
     private static PreOobeNetworkProfileRoamingPayload CreateRoamingPayload()
     {
         return new PreOobeNetworkProfileRoamingPayload
@@ -135,7 +173,7 @@ public sealed class StagePreOobeCustomizationStepTests
         };
     }
 
-    private static DeploymentStepExecutionContext CreateContext(TemporaryDirectory tempDirectory)
+    private static DeploymentStepExecutionContext CreateContext(TemporaryDirectory tempDirectory, string edition = "Enterprise")
     {
         var request = new DeploymentContext
         {
@@ -144,12 +182,13 @@ public sealed class StagePreOobeCustomizationStepTests
             CacheRootPath = tempDirectory.WorkspaceRoot,
             TargetDiskNumber = 1,
             TargetComputerName = "LAB01",
-            OperatingSystem = new OperatingSystemCatalogItem(),
+            OperatingSystem = new OperatingSystemCatalogItem { Edition = edition, Architecture = "x64" },
             DriverPackSelectionKind = DriverPackSelectionKind.OemCatalog,
             DriverPack = new DriverPackCatalogItem()
         };
         var runtimeState = new DeploymentRuntimeState
         {
+            FirstBootExecutionPlan = new(FirstBootEntryPoint.SetupComplete, true, null),
             WorkspaceRoot = tempDirectory.WorkspaceRoot,
             Mode = DeploymentMode.Iso,
             TargetWindowsPartitionRoot = tempDirectory.WindowsRoot,

@@ -44,6 +44,8 @@ Operating system, driver pack, firmware, and WinPE metadata come from the mainta
 
 Online catalog requests validate HTTPS certificates against Windows trust stores. Environments that inspect HTTPS traffic need their trusted corporate root certificates in the administrator workstation and WinPE image. Microsoft ESD content retains its supported HTTP delivery path, with SHA-256 verification against authenticated catalog metadata.
 
+Connect preserves Wi-Fi names and passwords exactly, including case and surrounding spaces. Connectivity requires an exact probe response; captive portals, proxy authentication, DNS failures, and timeouts remain distinct from Online readiness. A usable IPv6 address can satisfy network readiness.
+
 Cached payloads are rechecked before reuse. Downloads replace existing files only after validation, and downloaded driver installers require a valid signature from the expected publisher. A verified cached file can be reused from read-only media without reserving space for another download.
 
 Automatic OEM driver selection requires a matching manufacturer, model or documented machine type, architecture, exact Windows release, and an established system-pack role. Unmatched or ambiguous entries require an explicit model and version choice; verify their applicability before deployment. Manual selection retains package integrity and publisher checks.
@@ -66,6 +68,10 @@ Automatic OEM driver selection requires a matching manufacturer, model or docume
 Media creation requires host-native Windows ADK DISM build 26100 or later, compatible with the selected image. Foundry checks required WinPE components, language resources, selected driver coverage, and runtime architecture before completing the image. Runtime payloads are prepared before USB formatting. USB creation sizes BOOT for the finished content; updates require enough space in the existing BOOT and CACHE partitions. Files exceeding FAT32's per-file limit stop the operation before formatting.
 
 Media creation and ADK installation share a machine-wide operation lock. Each operation owns a separate workspace; existing ISO and runtime outputs remain available until their replacements are verified and published. Closing Foundry waits for native cleanup. If cleanup cannot be confirmed, Foundry preserves the workspace and recovery journal, displays the retained paths, and blocks conflicting work. Do not remove recovery files before checking the recorded native operation and mounted-image state. ADK setup must finish and any required restart must complete before media creation becomes available.
+
+Deploy validates first-boot entry points before preparing the target disk. Required driver, profile-roaming, AppX, and interactive registration actions are rejected when the Windows edition and effective license channel do not establish a supported setup hook. Catalog channel alone cannot prove the effective key channel. Specialize actions remain disabled until their execution has been qualified; supported Enterprise and Server scenarios retain SetupComplete. Custom answer files remain byte-preserved.
+
+First-boot staging is separate from execution. The action journal at `%SystemRoot%\Temp\Foundry\PreOobe\results.json` records outcomes and restart requirements. Failed actions retain nonsecret retry inputs; secret inputs are removed even when their action fails or is skipped. Check the recorded result before retrying, and resolve uncertain native-process ownership before attempting another run. The same runner supports `-CleanupSecretsOnly` for an explicit cleanup of staged secrets without launching actions; subsequent actions that need those secrets require fresh input.
 
 [Follow the complete quick start →](https://docs.foundryosd.com/start-here/quick-start)
 

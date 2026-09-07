@@ -37,7 +37,7 @@ public sealed class NetworkStatusServiceTests
 
         Assert.True(snapshot.HasEthernetAdapter);
         Assert.True(snapshot.IsEthernetConnected);
-        Assert.True(snapshot.HasDhcpLease);
+        Assert.True(snapshot.IsDhcpEnabled);
         Assert.True(snapshot.HasEthernetIpv4);
         Assert.True(snapshot.HasWirelessAdapter);
         Assert.False(snapshot.IsWifiRuntimeAvailable);
@@ -59,7 +59,7 @@ public sealed class NetworkStatusServiceTests
         NetworkStatusSnapshot snapshot = await service.GetSnapshotAsync(TestContext.Current.CancellationToken);
 
         Assert.False(snapshot.IsEthernetConnected);
-        Assert.False(snapshot.HasDhcpLease);
+        Assert.False(snapshot.IsDhcpEnabled);
         Assert.Equal("First", snapshot.EthernetAdapterName);
         Assert.Equal("198.51.100.5", snapshot.EthernetIpAddress);
     }
@@ -75,44 +75,62 @@ public sealed class NetworkStatusServiceTests
     }
 
     [Fact]
-    public async Task GetSnapshotAsync_WhenProbeFails_LogsSanitizedEndpoint()
+    public async Task GetSnapshotAsync_CallerCancellationMustPropagate()
     {
-        var logger = new RecordingLogger<NetworkStatusService>();
-        var configuration = new FoundryConnectConfiguration
-        {
-            InternetProbe = new InternetProbeOptions
-            {
-                ProbeUris = ["http://user:password@127.0.0.1:1/status?token=secret#fragment"],
-                TimeoutSeconds = 1
-            }
-        };
-        var service = new NetworkStatusService(
-            configuration,
-            new LocalizationService(),
-            logger,
-            new StubNetworkAdapterSnapshotProvider([]));
-
-        _ = await service.GetSnapshotAsync(TestContext.Current.CancellationToken);
-
-        string message = Assert.Single(logger.Messages);
-        Assert.Contains("http://127.0.0.1:1/status", message, StringComparison.Ordinal);
-        Assert.DoesNotContain("user", message, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("password", message, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("secret", message, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("fragment", message, StringComparison.OrdinalIgnoreCase);
+        using var cancelled = new CancellationTokenSource();
+        cancelled.Cancel();
+        var service = CreateService(new StubNetworkAdapterSnapshotProvider([]));
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.GetSnapshotAsync(cancelled.Token));
+    }
+    [Theory]
+    [InlineData("169.254.1.2", false)]
+    [InlineData("0.0.0.0", false)]
+    [InlineData("127.0.0.2", false)]
+    [InlineData("::", false)]
+    [InlineData("::1", false)]
+    [InlineData("fe80::1", false)]
+    [InlineData("ff02::1", false)]
+    [InlineData("2001:db8::1", true)]
+    [InlineData("fd12::1", true)]
+    [InlineData("192.0.2.3", true)]
+    public async Task GetSnapshotAsync_RequiresUsableAddressBeforeProbing(string address, bool usable)
+    {
+        var probe = new StubProbe();
+        NetworkAdapterSnapshot adapter = address.Contains(':')
+            ? CreateAdapter("Ethernet", NetworkInterfaceType.Ethernet, OperationalStatus.Up) with { Ipv6Addresses = [address] }
+            : CreateAdapter("Ethernet", NetworkInterfaceType.Ethernet, OperationalStatus.Up, address);
+        var service = new NetworkStatusService(new(), new LocalizationService(), NullLogger<NetworkStatusService>.Instance,
+            probe, new StubNetworkAdapterSnapshotProvider([adapter]));
+        NetworkStatusSnapshot snapshot = await service.GetSnapshotAsync(TestContext.Current.CancellationToken);
+        Assert.Equal(usable ? 1 : 0, probe.Calls);
+        Assert.Equal(usable, snapshot.HasEthernetUsableAddress);
+        Assert.Equal(usable ? NetworkReadinessStatus.Unavailable : NetworkReadinessStatus.NoUsableAddress, snapshot.Readiness.Status);
+        if (usable && address.Contains(':')) Assert.Equal(address, snapshot.EthernetIpAddress);
+    }
+    [Fact]
+    public async Task GetSnapshotAsync_PrefersUsableIpv6OverApipaDisplayAddress()
+    {
+        var adapter = CreateAdapter("Ethernet", NetworkInterfaceType.Ethernet, OperationalStatus.Up, "169.254.1.2")
+            with
+        { Ipv6Addresses = ["2001:db8::1"] };
+        NetworkStatusSnapshot snapshot = await CreateService(new StubNetworkAdapterSnapshotProvider([adapter]))
+            .GetSnapshotAsync(TestContext.Current.CancellationToken);
+        Assert.True(snapshot.HasEthernetUsableAddress);
+        Assert.Equal("2001:db8::1", snapshot.EthernetIpAddress);
     }
 
     private static NetworkStatusService CreateService(INetworkAdapterSnapshotProvider provider)
     {
         var configuration = new FoundryConnectConfiguration
         {
-            InternetProbe = new InternetProbeOptions { ProbeUris = [] }
+            InternetProbe = new InternetProbeOptions { Probes = [] }
         };
 
         return new NetworkStatusService(
             configuration,
             new LocalizationService(),
             NullLogger<NetworkStatusService>.Instance,
+            new StubProbe(),
             provider);
     }
 
@@ -153,23 +171,13 @@ public sealed class NetworkStatusServiceTests
         public IReadOnlyList<NetworkAdapterSnapshot> GetAdapters() => _getAdapters();
     }
 
-    private sealed class RecordingLogger<T> : ILogger<T>
+    private sealed class StubProbe : INetworkProbeService
     {
-        public List<string> Messages { get; } = [];
-
-        public IDisposable? BeginScope<TState>(TState state)
-            where TState : notnull => null;
-
-        public bool IsEnabled(LogLevel logLevel) => true;
-
-        public void Log<TState>(
-            LogLevel logLevel,
-            EventId eventId,
-            TState state,
-            Exception? exception,
-            Func<TState, Exception?, string> formatter)
+        public int Calls { get; private set; }
+        public Task<NetworkProbeResult> ProbeAsync(CancellationToken cancellationToken)
         {
-            Messages.Add(formatter(state, exception));
+            Calls++;
+            return Task.FromResult(new NetworkProbeResult(NetworkReadinessStatus.Unavailable, "test_unavailable"));
         }
     }
 }

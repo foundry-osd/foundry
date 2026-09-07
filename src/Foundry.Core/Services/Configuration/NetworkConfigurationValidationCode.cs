@@ -13,6 +13,7 @@ public enum NetworkConfigurationValidationCode
     WiredCertificateRequired,
     WiredCertificateMissing,
     WifiSsidRequired,
+    WifiSsidInvalid,
     UnsupportedWifiSecurityType,
     WifiPersonalPassphraseInvalid,
     WifiEnterpriseProfileTemplateRequired,

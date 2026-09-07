@@ -6,360 +6,214 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace Foundry.Deploy.Services.Deployment.PreOobe;
 
-/// <summary>
-/// Provisions the pre-OOBE PowerShell runner inside an offline Windows installation.
-/// </summary>
+/// <summary>Stages restricted first-boot inputs and the independently journaled action runner.</summary>
 public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisioningService
 {
-    private const string SetupCompleteMarkerKey = "FOUNDRY PRE-OOBE";
-    private const string RunnerFileName = "Invoke-FoundryPreOobe.ps1";
-    private const string ManifestFileName = "pre-oobe-manifest.json";
-    private const string RuntimePreOobeRoot = "%SystemRoot%\\Temp\\Foundry\\PreOobe";
-    private const string RuntimePreOobeLogRoot = "%SystemRoot%\\Temp\\Foundry\\Logs\\PreOobe";
+    private const string Marker = "FOUNDRY PRE-OOBE";
     private static readonly UTF8Encoding Utf8NoBom = new(false);
+    private readonly ISetupCompleteScriptService setupComplete;
+    private readonly Action<string> createRestrictedDirectory;
+    private readonly Action<string> verifyRestrictedFile;
 
-    private readonly ISetupCompleteScriptService _setupCompleteScriptService;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PreOobeScriptProvisioningService"/> class.
-    /// </summary>
-    /// <param name="setupCompleteScriptService">Service used to update SetupComplete.cmd idempotently.</param>
+    /// <summary>Creates the production staging policy.</summary>
     public PreOobeScriptProvisioningService(ISetupCompleteScriptService setupCompleteScriptService)
+        : this(setupCompleteScriptService, SensitiveStagingPolicy.CreateRestrictedDirectory, SensitiveStagingPolicy.VerifyRestrictedFile) { }
+
+    internal PreOobeScriptProvisioningService(ISetupCompleteScriptService setupCompleteScriptService,
+        Action<string> createRestrictedDirectory, Action<string> verifyRestrictedFile)
     {
-        _setupCompleteScriptService = setupCompleteScriptService;
+        setupComplete = setupCompleteScriptService;
+        this.createRestrictedDirectory = createRestrictedDirectory;
+        this.verifyRestrictedFile = verifyRestrictedFile;
     }
 
     /// <inheritdoc />
-    public PreOobeScriptProvisioningResult Provision(
-        string targetWindowsPartitionRoot,
-        IEnumerable<PreOobeScriptDefinition> scripts)
+    public PreOobeScriptProvisioningResult Provision(string targetWindowsPartitionRoot,
+        IEnumerable<PreOobeScriptDefinition> scripts, FirstBootExecutionPlan executionPlan)
     {
-        if (string.IsNullOrWhiteSpace(targetWindowsPartitionRoot))
-        {
-            throw new ArgumentException("Target Windows partition root is required.", nameof(targetWindowsPartitionRoot));
-        }
-
+        ArgumentException.ThrowIfNullOrWhiteSpace(targetWindowsPartitionRoot);
         ArgumentNullException.ThrowIfNull(scripts);
-
-        PreOobeScriptDefinition[] orderedScripts = scripts
-            .Select(NormalizeScript)
-            .Where(script => !string.IsNullOrWhiteSpace(script.Id))
-            .GroupBy(script => script.Id, StringComparer.OrdinalIgnoreCase)
-            .Select(group => group.Last())
-            .OrderBy(script => script.Priority)
-            .ThenBy(script => script.Id, StringComparer.OrdinalIgnoreCase)
-            .ToArray();
-
-        if (orderedScripts.Length == 0)
+        ArgumentNullException.ThrowIfNull(executionPlan);
+        FirstBootEntryPoint entry = executionPlan.CustomizationEntryPoint;
+        if (executionPlan?.FailureCode is not null || entry is not (FirstBootEntryPoint.SetupComplete or FirstBootEntryPoint.GeneratedSpecialize or FirstBootEntryPoint.VerifiedCustomSpecialize))
+            throw new InvalidOperationException(executionPlan?.FailureCode ?? "unsupported_setup_hook");
+        PreOobeScriptDefinition[] ordered = scripts.Select(Normalize).GroupBy(script => script.Id, StringComparer.OrdinalIgnoreCase)
+            .Select(group => group.Last()).OrderBy(script => script.Priority).ThenBy(script => script.Id, StringComparer.OrdinalIgnoreCase).ToArray();
+        if (ordered.Length == 0) throw new InvalidOperationException("At least one pre-OOBE script is required.");
+        ValidateOwnership(ordered);
+        string root = Path.Combine(targetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "PreOobe");
+        string scriptsRoot = Path.Combine(root, "Scripts");
+        string dataRoot = Path.Combine(root, "Data");
+        string runner = Path.Combine(root, "Invoke-FoundryPreOobe.ps1");
+        string manifest = Path.Combine(root, "pre-oobe-manifest.json");
+        string results = Path.Combine(root, "results.json");
+        string setup = Path.Combine(targetWindowsPartitionRoot, "Windows", "Setup", "Scripts", "SetupComplete.cmd");
+        createRestrictedDirectory(root);
+        createRestrictedDirectory(scriptsRoot);
+        createRestrictedDirectory(dataRoot);
+        if (File.Exists(results))
         {
-            throw new InvalidOperationException("At least one pre-OOBE script is required.");
-        }
-
-        string preOobeRoot = GetPreOobeRoot(targetWindowsPartitionRoot);
-        string scriptsRoot = GetScriptsRoot(targetWindowsPartitionRoot);
-        string dataRoot = GetDataRoot(targetWindowsPartitionRoot);
-        string runnerPath = Path.Combine(preOobeRoot, RunnerFileName);
-        string manifestPath = Path.Combine(preOobeRoot, ManifestFileName);
-        string setupCompletePath = GetSetupCompletePath(targetWindowsPartitionRoot);
-
-        Directory.CreateDirectory(preOobeRoot);
-        Directory.CreateDirectory(scriptsRoot);
-        Directory.CreateDirectory(dataRoot);
-
-        string[] stagedScriptPaths = StageScripts(scriptsRoot, orderedScripts);
-        StageDataFiles(dataRoot, orderedScripts);
-        File.WriteAllText(runnerPath, BuildRunner(orderedScripts), Utf8NoBom);
-        File.WriteAllText(manifestPath, BuildManifest(orderedScripts), Utf8NoBom);
-
-        _setupCompleteScriptService.RemoveBlock(setupCompletePath, "FOUNDRY DRIVERPACK");
-        _setupCompleteScriptService.EnsureBlock(
-            setupCompletePath,
-            SetupCompleteMarkerKey,
-            BuildSetupCompleteLauncher());
-
-        return new PreOobeScriptProvisioningResult
-        {
-            SetupCompletePath = setupCompletePath,
-            RunnerPath = runnerPath,
-            ManifestPath = manifestPath,
-            StagedScriptPaths = stagedScriptPaths
-        };
-    }
-
-    private static string GetPreOobeRoot(string targetWindowsPartitionRoot)
-    {
-        return Path.Combine(targetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "PreOobe");
-    }
-
-    private static string GetScriptsRoot(string targetWindowsPartitionRoot)
-    {
-        return Path.Combine(GetPreOobeRoot(targetWindowsPartitionRoot), "Scripts");
-    }
-
-    private static string GetDataRoot(string targetWindowsPartitionRoot)
-    {
-        return Path.Combine(GetPreOobeRoot(targetWindowsPartitionRoot), "Data");
-    }
-
-    private static string GetSetupCompletePath(string targetWindowsPartitionRoot)
-    {
-        return Path.Combine(targetWindowsPartitionRoot, "Windows", "Setup", "Scripts", "SetupComplete.cmd");
-    }
-
-    private static PreOobeScriptDefinition NormalizeScript(PreOobeScriptDefinition script)
-    {
-        string fileName = script.FileName.Trim();
-        if (string.IsNullOrWhiteSpace(fileName))
-        {
-            throw new ArgumentException("Pre-OOBE script file name is required.", nameof(script));
-        }
-
-        if (!string.Equals(fileName, Path.GetFileName(fileName), StringComparison.Ordinal))
-        {
-            throw new ArgumentException($"Pre-OOBE script file name '{script.FileName}' must not contain a path.", nameof(script));
-        }
-
-        string resourceName = script.ResourceName.Trim();
-        if (string.IsNullOrWhiteSpace(resourceName))
-        {
-            throw new ArgumentException("Pre-OOBE script resource name is required.", nameof(script));
-        }
-
-        return script with
-        {
-            Id = script.Id.Trim(),
-            FileName = fileName,
-            ResourceName = resourceName,
-            Arguments = script.Arguments
-                .Where(argument => argument is not null)
-                .Select(argument => argument.Trim())
-                .ToArray(),
-            DataFiles = script.DataFiles
-                .Where(dataFile => dataFile is not null)
-                .Select(NormalizeDataFile)
-                .ToArray()
-        };
-    }
-
-    private static PreOobeScriptDataFile NormalizeDataFile(PreOobeScriptDataFile dataFile)
-    {
-        string fileName = NormalizeRelativeDataPath(dataFile.FileName);
-        if (string.IsNullOrWhiteSpace(fileName))
-        {
-            throw new ArgumentException("Pre-OOBE data file name is required.", nameof(dataFile));
-        }
-
-        return dataFile with
-        {
-            FileName = fileName,
-            Content = dataFile.Content,
-            Bytes = dataFile.Bytes
-        };
-    }
-
-    private static string[] StageScripts(string scriptsRoot, IReadOnlyList<PreOobeScriptDefinition> orderedScripts)
-    {
-        Assembly assembly = typeof(PreOobeScriptProvisioningService).Assembly;
-        var stagedPaths = new List<string>(orderedScripts.Count);
-
-        foreach (PreOobeScriptDefinition script in orderedScripts)
-        {
-            using Stream? stream = assembly.GetManifestResourceStream(script.ResourceName);
-            if (stream is null)
+            verifyRestrictedFile(results);
+            using JsonDocument existing = JsonDocument.Parse(File.ReadAllBytes(results));
+            if (existing.RootElement.ValueKind != JsonValueKind.Array || existing.RootElement.EnumerateArray()
+                .Any(result => result.GetProperty("status").GetString() != "staged" || result.GetProperty("attempt").GetInt32() != 0))
+                throw new InvalidOperationException("First-boot execution already started; use explicit action retry instead of restaging.");
+            if (File.Exists(manifest))
             {
-                throw new InvalidOperationException($"Embedded pre-OOBE script resource '{script.ResourceName}' was not found.");
-            }
-
-            string destinationPath = Path.Combine(scriptsRoot, script.FileName);
-            using FileStream destination = File.Create(destinationPath);
-            stream.CopyTo(destination);
-            stagedPaths.Add(destinationPath);
-        }
-
-        return stagedPaths.ToArray();
-    }
-
-    private static void StageDataFiles(string dataRoot, IReadOnlyList<PreOobeScriptDefinition> orderedScripts)
-    {
-        foreach (PreOobeScriptDataFile dataFile in orderedScripts.SelectMany(script => script.DataFiles))
-        {
-            string destinationPath = Path.Combine(dataRoot, dataFile.FileName);
-            string? destinationDirectory = Path.GetDirectoryName(destinationPath);
-            if (!string.IsNullOrWhiteSpace(destinationDirectory))
-            {
-                Directory.CreateDirectory(destinationDirectory);
-            }
-
-            if (dataFile.Bytes is not null)
-            {
-                File.WriteAllBytes(destinationPath, dataFile.Bytes);
-            }
-            else
-            {
-                File.WriteAllText(destinationPath, dataFile.Content, Utf8NoBom);
-            }
-
-            if (dataFile.IsSensitive)
-            {
-                TryMarkSensitiveFile(destinationPath);
+                verifyRestrictedFile(manifest);
+                using JsonDocument previous = JsonDocument.Parse(File.ReadAllBytes(manifest));
+                if (previous.RootElement.GetProperty("scripts").EnumerateArray().SelectMany(script => script.GetProperty("dataFiles").EnumerateArray())
+                    .Any(file => file.GetProperty("isSensitive").GetBoolean()))
+                    throw new InvalidOperationException("Existing secret staging requires explicit cleanup before restaging.");
             }
         }
-    }
-
-    private static string BuildRunner(IReadOnlyList<PreOobeScriptDefinition> orderedScripts)
-    {
-        var builder = new StringBuilder();
-        builder.AppendLine("$ErrorActionPreference = 'Stop'");
-        builder.AppendLine("$preOobeRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\PreOobe'");
-        builder.AppendLine("$scriptsRoot = Join-Path $preOobeRoot 'Scripts'");
-        builder.AppendLine();
-        builder.AppendLine("function Invoke-FoundryScript {");
-        builder.AppendLine("    param(");
-        builder.AppendLine("        [Parameter(Mandatory = $true)]");
-        builder.AppendLine("        [string]$ScriptPath,");
-        builder.AppendLine("        [string[]]$Arguments = @()");
-        builder.AppendLine("    )");
-        builder.AppendLine();
-        builder.AppendLine("    $name = [System.IO.Path]::GetFileNameWithoutExtension($ScriptPath)");
-        builder.AppendLine("    $logRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\Logs\\PreOobe'");
-        builder.AppendLine("    $transcriptPath = Join-Path $logRoot \"$name.transcript.log\"");
-        builder.AppendLine("    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $ScriptPath @Arguments");
-        builder.AppendLine("    if ($LASTEXITCODE -ne 0) {");
-        builder.AppendLine("        throw \"Pre-OOBE script '$ScriptPath' failed with exit code $LASTEXITCODE. See '$transcriptPath'.\"");
-        builder.AppendLine("    }");
-        builder.AppendLine("}");
-        builder.AppendLine();
-
-        PreOobeScriptDefinition[] cleanupScripts = orderedScripts
-            .Where(static script => script.Priority == PreOobeScriptPriority.Cleanup)
-            .ToArray();
-        PreOobeScriptDefinition[] mainScripts = orderedScripts
-            .Where(static script => script.Priority != PreOobeScriptPriority.Cleanup)
-            .ToArray();
-
-        if (cleanupScripts.Length == 0)
-        {
-            foreach (PreOobeScriptDefinition script in mainScripts)
-            {
-                AppendInvokeFoundryScript(builder, script);
-            }
-
-            return builder.ToString();
-        }
-
-        builder.AppendLine("try {");
-        foreach (PreOobeScriptDefinition script in mainScripts)
-        {
-            AppendInvokeFoundryScript(builder, script, "    ");
-        }
-        builder.AppendLine("}");
-        builder.AppendLine("finally {");
-        foreach (PreOobeScriptDefinition script in cleanupScripts)
-        {
-            builder.AppendLine("    try {");
-            AppendInvokeFoundryScript(builder, script, "        ");
-            builder.AppendLine("    }");
-            builder.AppendLine("    catch {");
-            builder.AppendLine("        Write-Warning $_");
-            builder.AppendLine("    }");
-        }
-        builder.AppendLine("}");
-
-        return builder.ToString();
-    }
-
-    private static void AppendInvokeFoundryScript(StringBuilder builder, PreOobeScriptDefinition script, string indent = "")
-    {
-        builder.Append(indent);
-        builder.Append("Invoke-FoundryScript -ScriptPath (Join-Path $scriptsRoot ");
-        builder.Append(ToPowerShellString(script.FileName));
-        builder.Append(") -Arguments ");
-        builder.AppendLine(ToPowerShellArray(script.Arguments));
-    }
-
-    private static string BuildSetupCompleteLauncher()
-    {
-        return string.Join(
-            Environment.NewLine,
-            [
-                $"mkdir \"{RuntimePreOobeLogRoot}\" >nul 2>&1",
-                $"echo [%date% %time%] Starting Foundry pre-OOBE runner.>\"{RuntimePreOobeLogRoot}\\SetupComplete.log\"",
-                $"powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"{RuntimePreOobeRoot}\\{RunnerFileName}\" >>\"{RuntimePreOobeLogRoot}\\SetupComplete.log\" 2>&1",
-                "set \"FOUNDRY_PREOOBE_EXIT=%ERRORLEVEL%\"",
-                $"echo [%date% %time%] Foundry pre-OOBE runner exited with %FOUNDRY_PREOOBE_EXIT%.>>\"{RuntimePreOobeLogRoot}\\SetupComplete.log\"",
-                "if not \"%FOUNDRY_PREOOBE_EXIT%\"==\"0\" exit /b %FOUNDRY_PREOOBE_EXIT%"
-            ]);
-    }
-
-    private static string BuildManifest(IReadOnlyList<PreOobeScriptDefinition> orderedScripts)
-    {
-        string json = JsonSerializer.Serialize(new
-        {
-            generatedAtUtc = DateTimeOffset.UtcNow,
-            scripts = orderedScripts.Select(script => new
-            {
-                id = script.Id,
-                fileName = script.FileName,
-                priority = (int)script.Priority,
-                arguments = script.Arguments,
-                dataFiles = script.DataFiles.Select(dataFile => dataFile.FileName)
-            })
-        }, new JsonSerializerOptions
-        {
-            WriteIndented = true
-        });
-
-        return json + Environment.NewLine;
-    }
-
-    private static string ToPowerShellArray(IReadOnlyList<string> values)
-    {
-        if (values.Count == 0)
-        {
-            return "@()";
-        }
-
-        return "@(" + string.Join(", ", values.Select(ToPowerShellString)) + ")";
-    }
-
-    private static string ToPowerShellString(string value)
-    {
-        return "'" + value.Replace("'", "''", StringComparison.Ordinal) + "'";
-    }
-
-    private static string NormalizeRelativeDataPath(string fileName)
-    {
-        string normalized = fileName.Trim().Replace('/', Path.DirectorySeparatorChar);
-        if (string.IsNullOrWhiteSpace(normalized) || Path.IsPathRooted(normalized))
-        {
-            throw new ArgumentException($"Pre-OOBE data file name '{fileName}' must be relative.", nameof(fileName));
-        }
-
-        string[] segments = normalized.Split(
-            [Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar],
-            StringSplitOptions.RemoveEmptyEntries);
-        if (segments.Length == 0 || segments.Any(segment => segment is "." or ".."))
-        {
-            throw new ArgumentException($"Pre-OOBE data file name '{fileName}' is invalid.", nameof(fileName));
-        }
-
-        return Path.Combine(segments);
-    }
-
-    private static void TryMarkSensitiveFile(string path)
-    {
+        var staged = new List<string>();
+        var writtenSecrets = new List<string>();
         try
         {
-            File.SetAttributes(path, File.GetAttributes(path) | FileAttributes.Hidden);
+            foreach (PreOobeScriptDefinition script in ordered)
+            {
+                string scriptPath = Path.Combine(scriptsRoot, script.FileName);
+                WriteProtected(scriptPath, ReadResource(script.ResourceName));
+                staged.Add(scriptPath);
+                foreach (PreOobeScriptDataFile file in script.DataFiles)
+                {
+                    string path = Path.Combine(dataRoot, file.FileName);
+                    createRestrictedDirectory(Path.GetDirectoryName(path)!);
+                    bool secret = file.CleanupDisposition == PreOobeCleanupDisposition.SecretAlways;
+                    WriteProtected(path, file.Bytes ?? Utf8NoBom.GetBytes(file.Content), secret ? writtenSecrets : null);
+                }
+            }
+            WriteProtected(runner, ReadResource(PreOobeScriptResources.Runner));
+            WriteProtected(Path.Combine(root, "Foundry-PreOobeFunctions.ps1"), ReadResource(PreOobeScriptResources.Functions));
+            WriteProtected(manifest, JsonSerializer.SerializeToUtf8Bytes(new
+            {
+                version = 1,
+                scripts = ordered.Select(script => new
+                {
+                    id = script.Id,
+                    fileName = script.FileName,
+                    priority = (int)script.Priority,
+                    arguments = script.Arguments,
+                    dependsOn = script.DependsOn,
+                    dataFiles = script.DataFiles.Select(file => new
+                    {
+                        fileName = file.FileName,
+                        owningActionId = file.OwningActionId,
+                        cleanupDisposition = file.CleanupDisposition.ToString(),
+                        isSensitive = file.IsSensitive
+                    })
+                })
+            }, new JsonSerializerOptions { WriteIndented = true }));
+            WriteProtected(results, JsonSerializer.SerializeToUtf8Bytes(ordered.Select(script => new PreOobeActionResult(
+                script.Id, "staged", null, false, 0, DateTimeOffset.UtcNow, null, null)),
+                new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true }));
+            setupComplete.RemoveBlock(setup, "FOUNDRY DRIVERPACK");
+            if (entry == FirstBootEntryPoint.SetupComplete)
+                setupComplete.EnsureBlock(setup, Marker, BuildSetupCompleteLauncher());
+            else setupComplete.RemoveBlock(setup, Marker);
+            return new()
+            {
+                SetupCompletePath = entry == FirstBootEntryPoint.SetupComplete ? setup : string.Empty,
+                EntryPoint = entry,
+                RunnerPath = runner,
+                ManifestPath = manifest,
+                ResultsPath = results,
+                StagedScriptPaths = staged
+            };
         }
-        catch (IOException)
+        catch (Exception failure)
         {
-        }
-        catch (UnauthorizedAccessException)
-        {
+            var cleanupFailures = new List<Exception>();
+            foreach (string secretPath in writtenSecrets)
+            {
+                try
+                {
+                    SensitiveStagingPolicy.RejectReparsePoints(secretPath);
+                    File.Delete(secretPath);
+                }
+                catch (Exception cleanupFailure) { cleanupFailures.Add(cleanupFailure); }
+            }
+            if (cleanupFailures.Count > 0) failure.Data["SecretCleanupFailures"] = new AggregateException(cleanupFailures);
+            throw;
         }
     }
+
+    internal PreOobeScriptProvisioningResult Provision(string root, IEnumerable<PreOobeScriptDefinition> scripts) =>
+        Provision(root, scripts, new FirstBootExecutionPlan(FirstBootEntryPoint.SetupComplete, false, null));
+
+    private void WriteProtected(string path, byte[] bytes, List<string>? writtenSecrets = null)
+    {
+        SensitiveStagingPolicy.RejectReparsePoints(path);
+        if (File.Exists(path)) verifyRestrictedFile(path);
+        using var output = new FileStream(path, writtenSecrets is null ? FileMode.Create : FileMode.CreateNew, FileAccess.Write, FileShare.Read);
+        writtenSecrets?.Add(path);
+        verifyRestrictedFile(path);
+        output.Write(bytes);
+        output.Flush(true);
+    }
+
+    private static byte[] ReadResource(string name)
+    {
+        using Stream stream = typeof(PreOobeScriptProvisioningService).Assembly.GetManifestResourceStream(name)
+            ?? throw new InvalidOperationException($"Embedded pre-OOBE script resource '{name}' was not found.");
+        using var output = new MemoryStream();
+        stream.CopyTo(output);
+        return output.ToArray();
+    }
+
+    private static PreOobeScriptDefinition Normalize(PreOobeScriptDefinition script)
+    {
+        string id = script.Id.Trim();
+        if (!Regex.IsMatch(id, "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$", RegexOptions.CultureInvariant))
+            throw new ArgumentException("Invalid first-boot action identifier.");
+        string fileName = NormalizeRelativePath(script.FileName);
+        if (fileName != Path.GetFileName(fileName)) throw new ArgumentException("A script name must not contain a path.");
+        ArgumentException.ThrowIfNullOrWhiteSpace(script.ResourceName);
+        return script with
+        {
+            Id = id,
+            FileName = fileName,
+            DataFiles = script.DataFiles.Select(file => file with
+            {
+                FileName = NormalizeRelativePath(file.FileName),
+                OwningActionId = string.IsNullOrEmpty(file.OwningActionId) ? id : file.OwningActionId
+            }).ToArray()
+        };
+    }
+
+    private static string NormalizeRelativePath(string value)
+    {
+        string[] parts = value.Replace('/', '\\').Split('\\');
+        if (string.IsNullOrWhiteSpace(value) || Path.IsPathRooted(value) ||
+            parts.Any(part => string.IsNullOrEmpty(part) || part is "." or ".." || part.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0 || part.EndsWith('.') || part.EndsWith(' ')))
+            throw new ArgumentException("Invalid staged relative path.");
+        return Path.Combine(parts);
+    }
+
+    private static void ValidateOwnership(IReadOnlyList<PreOobeScriptDefinition> scripts)
+    {
+        var paths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var ids = scripts.Select(script => script.Id).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        foreach (PreOobeScriptDefinition script in scripts)
+        {
+            if (script.DependsOn.Any(id => !ids.Contains(id) || id == script.Id)) throw new ArgumentException("Invalid action dependency.");
+            foreach (PreOobeScriptDataFile file in script.DataFiles)
+                if (file.OwningActionId != script.Id || !paths.Add(file.FileName) ||
+                    (file.IsSensitive && file.CleanupDisposition != PreOobeCleanupDisposition.SecretAlways))
+                    throw new ArgumentException("Invalid input ownership or secret cleanup policy.");
+        }
+    }
+
+    private static string BuildSetupCompleteLauncher() => string.Join(Environment.NewLine,
+    [
+        "mkdir \"%SystemRoot%\\Temp\\Foundry\\Logs\\PreOobe\" >nul 2>&1",
+        "\"%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -ExecutionPolicy Bypass -File \"%SystemRoot%\\Temp\\Foundry\\PreOobe\\Invoke-FoundryPreOobe.ps1\" >>\"%SystemRoot%\\Temp\\Foundry\\Logs\\PreOobe\\SetupComplete.log\" 2>&1",
+        "set \"FOUNDRY_PREOOBE_EXIT=%ERRORLEVEL%\"",
+        "exit /b %FOUNDRY_PREOOBE_EXIT%"
+    ]);
 }

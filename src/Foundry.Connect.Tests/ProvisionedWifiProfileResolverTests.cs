@@ -9,6 +9,14 @@ namespace Foundry.Connect.Tests;
 
 public sealed class ProvisionedWifiProfileResolverTests
 {
+    [Theory]
+    [InlineData(" Lab ")]
+    [InlineData("   ")]
+    public void ResolveProfileName_PreservesExactSsid(string ssid)
+    {
+        Assert.Equal(ssid, ProvisionedWifiProfileResolver.ResolveProfileName(new WifiSettings { Ssid = ssid }, null));
+    }
+
     [Fact]
     public void ResolveAssetPath_WhenPathIsRelative_UsesConfigurationDirectory()
     {

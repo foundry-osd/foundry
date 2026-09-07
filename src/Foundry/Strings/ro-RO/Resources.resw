@@ -2163,6 +2163,9 @@
   <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
     <value>Configurarea Wi-Fi necesită ca suportul Wi-Fi să fie furnizat în imaginea de pornire.</value>
   </data>
+  <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
+    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+  </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Configurarea Wi-Fi necesită un SSID.</value>
   </data>

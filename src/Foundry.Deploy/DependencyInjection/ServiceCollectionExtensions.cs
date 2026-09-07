@@ -150,6 +150,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStep, ConfigureRecoveryEnvironmentStep>();
         services.AddSingleton<Foundry.Deploy.Services.Deployment.Unattend.UnattendContentService>();
         services.AddSingleton<IDeploymentStep, ValidateCustomUnattendStep>();
+        services.AddSingleton<IDeploymentStep, ValidateFirstBootExecutionStep>();
         services.AddSingleton<IDeploymentStep, StageCustomUnattendStep>();
         services.AddSingleton<IDeploymentStep, ConfigureTargetComputerNameStep>();
         services.AddSingleton<IDeploymentStep, ConfigureWindowsOptionalFeaturesStep>();

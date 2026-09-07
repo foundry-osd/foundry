@@ -11,6 +11,14 @@ namespace Foundry.Utilities.Tests.Networking;
 public sealed class WindowsNetworkAdapterSnapshotProviderTests
 {
     [Fact]
+    public void CreateIpFacts_PreservesIpv6OnlyUnicastAddresses()
+    {
+        NetworkAdapterIpFacts facts = WindowsNetworkAdapterInfo.CreateIpFacts(
+            [new NetworkAddressFacts(IPAddress.Parse("2001:db8::12"), null)], [], [], false);
+        Assert.Empty(facts.Ipv4Addresses);
+        Assert.Equal(new[] { "2001:db8::12" }, facts.Ipv6Addresses);
+    }
+    [Fact]
     public void CreateIpFacts_MapsIpv4AddressesAndGatewaysWhilePreservingDualStackDns()
     {
         NetworkAdapterIpFacts facts = WindowsNetworkAdapterInfo.CreateIpFacts(

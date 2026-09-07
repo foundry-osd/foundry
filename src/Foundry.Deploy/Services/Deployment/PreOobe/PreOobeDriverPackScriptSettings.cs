@@ -20,4 +20,10 @@ public sealed record PreOobeDriverPackScriptSettings
     /// Gets the runtime package path used from the first full Windows boot.
     /// </summary>
     public required string RuntimePackagePath { get; init; }
+
+    /// <summary>Gets the digest of the authenticated, protected staged source.</summary>
+    public string ExpectedSha256 { get; init; } = string.Empty;
+
+    /// <summary>Gets its exact byte count.</summary>
+    public long ExpectedSizeBytes { get; init; }
 }

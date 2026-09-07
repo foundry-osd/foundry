@@ -18,4 +18,8 @@ public sealed record NetworkAdapterSnapshot(
     IReadOnlyList<NetworkIpv4AddressSnapshot> Ipv4Addresses,
     IReadOnlyList<string> Gateways,
     IReadOnlyList<string> DnsServers,
-    bool IsDhcpEnabled);
+    bool IsDhcpEnabled)
+{
+    /// <summary>Gets IPv6 unicast addresses reported by the adapter.</summary>
+    public IReadOnlyList<string> Ipv6Addresses { get; init; } = [];
+}

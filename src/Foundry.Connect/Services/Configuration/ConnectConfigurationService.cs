@@ -171,23 +171,6 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         NetworkCapabilitiesOptions capabilities = configuration.Capabilities ?? new NetworkCapabilitiesOptions();
         InternetProbeOptions probe = configuration.InternetProbe ?? new InternetProbeOptions();
 
-        string[] probeUris = (probe.ProbeUris ?? [])
-            .Where(static value => !string.IsNullOrWhiteSpace(value))
-            .Select(static value => value.Trim())
-            .Where(static value => Uri.TryCreate(value, UriKind.Absolute, out _))
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .ToArray();
-
-        if (probeUris.Length == 0)
-        {
-            // Keep internet detection useful even when the generated configuration omits explicit probe endpoints.
-            probeUris =
-            [
-                "http://www.msftconnecttest.com/connecttest.txt",
-                "http://www.google.com"
-            ];
-        }
-
         return new FoundryConnectConfiguration
         {
             SchemaVersion = configuration.SchemaVersion <= 0
@@ -200,11 +183,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             Network = configuration.Network ?? new CoreConnectNetworkSettings(),
             Dot1x = NormalizeDot1x(configuration.Dot1x),
             Wifi = NormalizeWifi(configuration.Wifi),
-            InternetProbe = new InternetProbeOptions
-            {
-                ProbeUris = probeUris,
-                TimeoutSeconds = Math.Clamp(probe.TimeoutSeconds, 1, 30)
-            },
+            InternetProbe = probe.Normalize(),
             Telemetry = configuration.Telemetry ?? new Foundry.Telemetry.TelemetrySettings()
         };
     }

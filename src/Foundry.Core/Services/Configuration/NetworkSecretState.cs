@@ -20,9 +20,9 @@ public sealed class NetworkSecretState
             return;
         }
 
-        if (!string.IsNullOrWhiteSpace(settings.Wifi.Passphrase))
+        if (!string.IsNullOrEmpty(settings.Wifi.Passphrase))
         {
-            PersonalWifiPassphrase = settings.Wifi.Passphrase.Trim();
+            PersonalWifiPassphrase = settings.Wifi.Passphrase;
         }
     }
 

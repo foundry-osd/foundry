@@ -352,11 +352,11 @@ public sealed class MainWindowViewModelTelemetryTests
         return new NetworkStatusSnapshot
         {
             LayoutMode = NetworkLayoutMode.EthernetWifi,
-            HasInternetAccess = true,
+            Readiness = new(NetworkReadinessStatus.Online, null),
             HasEthernetAdapter = true,
             IsEthernetConnected = true,
             HasEthernetIpv4 = true,
-            HasDhcpLease = true,
+            IsDhcpEnabled = true,
             IsWifiRuntimeAvailable = true,
             HasWirelessAdapter = true,
             EthernetStatusText = "Connected",
@@ -378,11 +378,11 @@ public sealed class MainWindowViewModelTelemetryTests
         return new NetworkStatusSnapshot
         {
             LayoutMode = NetworkLayoutMode.EthernetWifi,
-            HasInternetAccess = false,
+            Readiness = new(NetworkReadinessStatus.Unavailable, "network_probe_unavailable"),
             HasEthernetAdapter = true,
             IsEthernetConnected = false,
             HasEthernetIpv4 = false,
-            HasDhcpLease = false,
+            IsDhcpEnabled = false,
             IsWifiRuntimeAvailable = true,
             HasWirelessAdapter = true,
             EthernetStatusText = "Disconnected",

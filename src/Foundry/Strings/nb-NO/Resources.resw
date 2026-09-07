@@ -2163,6 +2163,9 @@
   <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
     <value>Wi-Fi-konfigurasjon krever at Wi-Fi-støtte er klargjort i oppstartsbildet.</value>
   </data>
+  <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
+    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+  </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Wi-Fi-konfigurasjon krever en SSID.</value>
   </data>

@@ -115,8 +115,8 @@
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>تحقق من اتصال الكابل</value>
   </data>
-  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP تم اكتشاف عقد إيجار</value>
+  <data name="Ethernet.DhcpEnabled" xml:space="preserve">
+    <value>DHCP enabled</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>بوابة</value>
@@ -130,17 +130,17 @@
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>لم يتم اكتشاف محول Ethernet.</value>
   </data>
-  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
-    <value>تم اكتشاف تكوين شبكة ثابت</value>
+  <data name="Ethernet.StaticConfiguration" xml:space="preserve">
+    <value>Static configuration</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
+  <data name="Ethernet.WaitingAddress" xml:space="preserve">
+    <value>Waiting for a usable network address</value>
+  </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>في انتظار تكوين الشبكة</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>في انتظار DHCP أو تكوين الشبكة الثابتة</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>العربية (المملكة العربية السعودية)</value>
@@ -276,6 +276,30 @@
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>أدوات</value>
+  </data>
+  <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
+    <value>Network name resolution failed</value>
+  </data>
+  <data name="Network.Readiness.NoLink" xml:space="preserve">
+    <value>No active network connection</value>
+  </data>
+  <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
+    <value>No usable network address</value>
+  </data>
+  <data name="Network.Readiness.Online" xml:space="preserve">
+    <value>Internet access verified</value>
+  </data>
+  <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
+    <value>Proxy authentication is required</value>
+  </data>
+  <data name="Network.Readiness.TimedOut" xml:space="preserve">
+    <value>Internet check timed out</value>
+  </data>
+  <data name="Network.Readiness.Unavailable" xml:space="preserve">
+    <value>Internet access could not be verified</value>
+  </data>
+  <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
+    <value>Unexpected network response. A sign-in page or interception may be present.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>المتابعة تلقائيًا في {0}s</value>

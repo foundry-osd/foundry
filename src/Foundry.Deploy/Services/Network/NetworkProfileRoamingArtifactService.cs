@@ -109,7 +109,11 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
 
         return new PreOobeNetworkProfileRoamingPayload
         {
-            DataFiles = dataFiles
+            DataFiles = dataFiles.Select(file => file with
+            {
+                OwningActionId = "network-profile-roaming",
+                CleanupDisposition = file.IsSensitive ? PreOobeCleanupDisposition.SecretAlways : PreOobeCleanupDisposition.RetainForRetry
+            }).ToArray()
         };
     }
 
@@ -160,7 +164,8 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         dataFiles.Add(new PreOobeScriptDataFile
         {
             FileName = stagedRelativePath,
-            Bytes = File.ReadAllBytes(sourcePath)
+            Bytes = File.ReadAllBytes(sourcePath),
+            IsSensitive = true
         });
         cancellationToken.ThrowIfCancellationRequested();
         return stagedRelativePath;

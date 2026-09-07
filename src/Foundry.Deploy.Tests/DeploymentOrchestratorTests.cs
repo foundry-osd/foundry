@@ -74,6 +74,7 @@ public sealed class DeploymentOrchestratorTests
             DeploymentStepNames.GatherDeploymentVariables,
             DeploymentStepNames.InitializeDeploymentWorkspace,
             DeploymentStepNames.ValidateCustomUnattend,
+            DeploymentStepNames.ValidateFirstBootExecution,
             DeploymentStepNames.ValidateTargetConfiguration,
             DeploymentStepNames.ResolveCacheStrategy,
             DeploymentStepNames.PrepareTargetDiskLayout,

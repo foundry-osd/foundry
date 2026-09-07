@@ -81,7 +81,8 @@ public sealed class WindowsNetworkAdapterSnapshotProvider : INetworkAdapterSnaps
                 ipFacts.Ipv4Addresses,
                 ipFacts.Gateways,
                 ipFacts.DnsServers,
-                ipFacts.IsDhcpEnabled));
+                ipFacts.IsDhcpEnabled)
+            { Ipv6Addresses = ipFacts.Ipv6Addresses });
         }
 
         return snapshots;
@@ -130,6 +131,8 @@ internal sealed record NetworkAdapterIpFacts(
     IReadOnlyList<string> DnsServers,
     bool IsDhcpEnabled)
 {
+    public IReadOnlyList<string> Ipv6Addresses { get; init; } = [];
+
     public static NetworkAdapterIpFacts Empty { get; } = new([], [], [], false);
 }
 
@@ -179,7 +182,8 @@ internal sealed class WindowsNetworkAdapterInfo(NetworkInterface adapter) : IWin
         IEnumerable<IPAddress> dnsServers,
         bool isDhcpEnabled)
     {
-        NetworkIpv4AddressSnapshot[] ipv4Addresses = addresses
+        NetworkAddressFacts[] allAddresses = addresses.ToArray();
+        NetworkIpv4AddressSnapshot[] ipv4Addresses = allAddresses
             .Where(static address => address.Address.AddressFamily == AddressFamily.InterNetwork)
             .Select(static address => new NetworkIpv4AddressSnapshot(
                 address.Address.ToString(),
@@ -197,7 +201,11 @@ internal sealed class WindowsNetworkAdapterInfo(NetworkInterface adapter) : IWin
             ipv4Addresses,
             ipv4Gateways,
             mappedDnsServers,
-            isDhcpEnabled);
+            isDhcpEnabled)
+        {
+            Ipv6Addresses = allAddresses.Where(static address => address.Address.AddressFamily == AddressFamily.InterNetworkV6)
+                .Select(static address => address.Address.ToString()).ToArray()
+        };
     }
 }
 

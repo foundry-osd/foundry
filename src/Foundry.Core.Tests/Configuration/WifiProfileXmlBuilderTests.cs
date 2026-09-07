@@ -8,6 +8,43 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class WifiProfileXmlBuilderTests
 {
+    [Theory]
+    [InlineData("0")]
+    [InlineData("GG")]
+    [InlineData(" 20")]
+    [InlineData("")]
+    public void Build_RejectsInvalidAuthoritativeHex(string rawHex)
+    {
+        Assert.Throws<ArgumentException>(() => WifiProfileXmlBuilder.Build("Lab", "Open", null, rawHex));
+    }
+
+    [Fact]
+    public void Build_UsesRawHexAndDistinctSafeProfileNameForUnrepresentableIdentity()
+    {
+        string first = WifiProfileXmlBuilder.Build("�", "Open", null, "ff");
+        string second = WifiProfileXmlBuilder.Build("�", "Open", null, "fe");
+        Assert.Contains("<hex>FF</hex>", first);
+        Assert.Contains("<name>Foundry-SSID-FF</name>", first);
+        Assert.Contains("<name>Foundry-SSID-FE</name>", second);
+        Assert.DoesNotContain("<name>�</name>", first);
+    }
+
+    [Theory]
+    [InlineData(" Lab ", " password123 ")]
+    [InlineData("   ", "        ")]
+    [InlineData("réseau", " éPassword ")]
+    [InlineData("Lab\rOne", "pass\rword123")]
+    [InlineData("Lab\r\nOne", "pass\r\nword123")]
+    public void Build_PreservesExactProtocolValues(string ssid, string password)
+    {
+        var document = System.Xml.Linq.XDocument.Parse(WifiProfileXmlBuilder.Build(ssid, "WPA2-Personal", password),
+            System.Xml.Linq.LoadOptions.PreserveWhitespace);
+        System.Xml.Linq.XNamespace ns = "http://www.microsoft.com/networking/WLAN/profile/v1";
+        Assert.Equal(ssid, document.Root!.Element(ns + "name")!.Value);
+        Assert.Equal(Convert.ToHexString(System.Text.Encoding.UTF8.GetBytes(ssid)), document.Descendants(ns + "hex").Single().Value);
+        Assert.Equal(password, document.Descendants(ns + "keyMaterial").Single().Value);
+    }
+
     [Fact]
     public void Build_WhenPersonalWifiRequested_WritesProfileWithPlaintextKeyMaterial()
     {

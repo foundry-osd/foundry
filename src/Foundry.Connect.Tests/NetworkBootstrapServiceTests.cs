@@ -13,6 +13,48 @@ namespace Foundry.Connect.Tests;
 
 public sealed class NetworkBootstrapServiceTests
 {
+    [Fact]
+    public async Task ConnectWifiNetworkAsync_DoesNotAcceptSameDisplayWithDifferentRawSsid()
+    {
+        var configuration = new FoundryConnectConfiguration { Capabilities = new NetworkCapabilitiesOptions { WifiProvisioned = true } };
+        using var cancelled = new CancellationTokenSource();
+        Guid adapter = Guid.NewGuid();
+        var service = new NetworkBootstrapService(configuration, new FakeConnectConfigurationService(configuration),
+            new CapturingNetworkProfileRoamingService(), NullLogger<NetworkBootstrapService>.Instance,
+            () => [adapter], executeNetsh: (_, _) => Task.FromResult(new Foundry.Utilities.Processes.ProcessExecutionResult()),
+            getWifiConnectionInfo: _ => { cancelled.Cancel(); return new(adapter, "fake", NativeWifiApi.WlanInterfaceState.Connected, "�", "FE"); });
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.ConnectWifiNetworkAsync("�", "FF", "Open", null, cancelled.Token));
+    }
+
+    [Theory]
+    [InlineData(" Lab ", "204C616220", " password123 ", " Lab ")]
+    [InlineData("   ", "202020", "        ", "   ")]
+    [InlineData("�", "FF", "password123", "Foundry-SSID-FF")]
+    public async Task ConnectWifiNetworkAsync_PreservesProfileValuesAndUsesRawConnectionIdentity(
+        string ssid, string hex, string password, string profileName)
+    {
+        var configuration = new FoundryConnectConfiguration { Capabilities = new NetworkCapabilitiesOptions { WifiProvisioned = true } };
+        Guid adapter = Guid.NewGuid();
+        string? importedXml = null;
+        var commands = new List<IReadOnlyList<string>>();
+        var service = new NetworkBootstrapService(configuration, new FakeConnectConfigurationService(configuration),
+            new CapturingNetworkProfileRoamingService(), NullLogger<NetworkBootstrapService>.Instance,
+            () => [adapter], executeNetsh: (args, _) =>
+            {
+                commands.Add(args);
+                if (args.Contains("add")) importedXml = File.ReadAllText(args.Single(value => value.StartsWith("filename=", StringComparison.Ordinal))[9..]);
+                return Task.FromResult(new Foundry.Utilities.Processes.ProcessExecutionResult { ExitCode = 0 });
+            }, getWifiConnectionInfo: _ => new(adapter, "fake", NativeWifiApi.WlanInterfaceState.Connected, ssid, hex));
+        var result = await service.ConnectWifiNetworkAsync(ssid, hex, "WPA2-Personal", password, TestContext.Current.CancellationToken);
+        Assert.Empty(result.HandledFailures);
+        Assert.NotNull(importedXml);
+        var xml = System.Xml.Linq.XDocument.Parse(importedXml!, System.Xml.Linq.LoadOptions.PreserveWhitespace);
+        System.Xml.Linq.XNamespace ns = "http://www.microsoft.com/networking/WLAN/profile/v1";
+        Assert.Equal(hex, xml.Descendants(ns + "hex").Single().Value);
+        Assert.Equal(password, xml.Descendants(ns + "keyMaterial").Single().Value);
+        Assert.Contains(commands, args => args.Contains("connect") && args.Contains("name=" + profileName));
+    }
+
     [Theory]
     [InlineData("provision")]
     [InlineData("configured")]
@@ -190,7 +232,7 @@ public sealed class NetworkBootstrapServiceTests
         Assert.Equal(2, result.HandledFailures.Count);
         Assert.Contains(result.HandledFailures, failure => failure.Code == "wired_profile_template_missing");
         Assert.Contains(result.HandledFailures, failure => failure.Code == "no_wireless_adapter");
-        Assert.DoesNotContain(result.HandledFailures, failure => failure.Code?.StartsWith("wifi_", StringComparison.OrdinalIgnoreCase) == true && failure.Code == "wired_profile_template_missing");
+        Assert.DoesNotContain(result.HandledFailures, failure => failure.Code?.StartsWith("wifi_", StringComparison.OrdinalIgnoreCase) == true);
     }
 
     private sealed class CapturingNetworkProfileRoamingService : INetworkProfileRoamingService

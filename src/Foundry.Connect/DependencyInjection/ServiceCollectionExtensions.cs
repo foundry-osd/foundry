@@ -68,6 +68,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<INetworkAdapterSnapshotProvider, WindowsNetworkAdapterSnapshotProvider>();
         services.AddSingleton<INetworkProfileRoamingService, NetworkProfileRoamingService>();
         services.AddSingleton<INetworkBootstrapService, NetworkBootstrapService>();
+        services.AddSingleton<INetworkProbeService>(sp => new NetworkProbeService(
+            sp.GetRequiredService<FoundryConnectConfiguration>().InternetProbe,
+            new HttpClient(new HttpClientHandler { AllowAutoRedirect = false }) { Timeout = Timeout.InfiniteTimeSpan },
+            sp.GetRequiredService<ILogger<NetworkProbeService>>()));
         services.AddSingleton<INetworkStatusService, NetworkStatusService>();
         services.AddSingleton<IThemeService, ThemeService>();
 

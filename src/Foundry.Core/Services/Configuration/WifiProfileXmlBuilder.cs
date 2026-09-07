@@ -4,6 +4,7 @@
 
 using System.Security;
 using System.Text;
+using System.Xml;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -30,11 +31,10 @@ public static class WifiProfileXmlBuilder
         string? passphraseValue,
         string? ssidHexOverride = null)
     {
-        string trimmedSsid = ssidValue.Trim();
-        string ssid = SecurityElement.Escape(trimmedSsid) ?? string.Empty;
-        string ssidHex = string.IsNullOrWhiteSpace(ssidHexOverride)
-            ? ConvertSsidToHex(trimmedSsid)
-            : ssidHexOverride.Trim();
+        string ssidHex = GetSsidHex(ssidValue, ssidHexOverride);
+        string profileName = GetProfileName(ssidValue, ssidHexOverride);
+        string ssid = EscapeXmlText(profileName);
+        string ssidName = profileName == ssidValue ? $"<name>{ssid}</name>" : string.Empty;
 
         if (string.Equals(securityType, NetworkConfigurationValidator.WifiSecurityOpen, StringComparison.OrdinalIgnoreCase))
         {
@@ -45,7 +45,7 @@ public static class WifiProfileXmlBuilder
   <SSIDConfig>
     <SSID>
       <hex>{{ssidHex}}</hex>
-      <name>{{ssid}}</name>
+      {{ssidName}}
     </SSID>
   </SSIDConfig>
   <connectionType>ESS</connectionType>
@@ -68,7 +68,7 @@ public static class WifiProfileXmlBuilder
 
         if (IsPersonalSecurityType(securityType))
         {
-            string passphrase = SecurityElement.Escape(passphraseValue?.Trim() ?? string.Empty) ?? string.Empty;
+            string passphrase = EscapeXmlText(passphraseValue ?? string.Empty);
             string authentication = ResolvePersonalAuthentication(securityType);
             string transitionMode = string.Equals(securityType, NetworkConfigurationValidator.WifiSecurityPersonal, StringComparison.OrdinalIgnoreCase)
                 ? """
@@ -83,7 +83,7 @@ public static class WifiProfileXmlBuilder
   <SSIDConfig>
     <SSID>
       <hex>{{ssidHex}}</hex>
-      <name>{{ssid}}</name>
+      {{ssidName}}
     </SSID>
   </SSIDConfig>
   <connectionType>ESS</connectionType>
@@ -118,7 +118,7 @@ public static class WifiProfileXmlBuilder
   <SSIDConfig>
     <SSID>
       <hex>{{ssidHex}}</hex>
-      <name>{{ssid}}</name>
+      {{ssidName}}
     </SSID>
   </SSIDConfig>
   <connectionType>ESS</connectionType>
@@ -142,6 +142,39 @@ public static class WifiProfileXmlBuilder
         throw new InvalidOperationException($"Unsupported Wi-Fi security type '{securityType}'.");
     }
 
+    public static string GetSsidHex(string? ssidValue, string? ssidHexOverride = null)
+    {
+        if (ssidHexOverride is not null)
+        {
+            if (ssidHexOverride.Length is < 2 or > 64 || ssidHexOverride.Length % 2 != 0 ||
+                !ssidHexOverride.All(Uri.IsHexDigit))
+                throw new ArgumentException("SSID hex must encode between 1 and 32 bytes.", nameof(ssidHexOverride));
+            return Convert.ToHexString(Convert.FromHexString(ssidHexOverride));
+        }
+        if (string.IsNullOrEmpty(ssidValue)) throw new ArgumentException("An SSID is required.", nameof(ssidValue));
+        byte[] bytes = new UTF8Encoding(false, true).GetBytes(ssidValue);
+        if (bytes.Length is < 1 or > 32) throw new ArgumentException("SSID must contain between 1 and 32 UTF-8 bytes.", nameof(ssidValue));
+        return Convert.ToHexString(bytes);
+    }
+
+    public static string GetProfileName(string ssidValue, string? ssidHexOverride = null)
+    {
+        string identity = GetSsidHex(ssidValue, ssidHexOverride);
+        try
+        {
+            if (GetSsidHex(ssidValue) == identity)
+            {
+                XmlConvert.VerifyXmlChars(ssidValue);
+                return ssidValue;
+            }
+        }
+        catch (Exception error) when (error is ArgumentException or XmlException) { }
+        return "Foundry-SSID-" + identity;
+    }
+
+    private static string EscapeXmlText(string value) =>
+        (SecurityElement.Escape(value) ?? string.Empty).Replace("\r", "&#xD;", StringComparison.Ordinal);
+
     private static bool IsPersonalSecurityType(string securityType)
     {
         return string.Equals(securityType, WifiSecurityLegacyWpa2Personal, StringComparison.OrdinalIgnoreCase) ||
@@ -161,16 +194,4 @@ public static class WifiProfileXmlBuilder
         return "WPA2PSK";
     }
 
-    private static string ConvertSsidToHex(string value)
-    {
-        byte[] bytes = Encoding.UTF8.GetBytes(value);
-        StringBuilder builder = new(bytes.Length * 2);
-
-        foreach (byte currentByte in bytes)
-        {
-            builder.Append(currentByte.ToString("X2"));
-        }
-
-        return builder.ToString();
-    }
 }

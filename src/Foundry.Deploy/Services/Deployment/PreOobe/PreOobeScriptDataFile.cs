@@ -28,4 +28,21 @@ public sealed record PreOobeScriptDataFile
     /// Gets whether the data file contains transient sensitive material.
     /// </summary>
     public bool IsSensitive { get; init; }
+
+    /// <summary>Gets the action that owns this input and its cleanup.</summary>
+    public string OwningActionId { get; init; } = string.Empty;
+
+    /// <summary>Gets the retention rule, independent of failures in other actions.</summary>
+    public PreOobeCleanupDisposition CleanupDisposition { get; init; } = PreOobeCleanupDisposition.RetainForRetry;
+}
+
+/// <summary>Defines when a staged input can remain on the target.</summary>
+public enum PreOobeCleanupDisposition
+{
+    /// <summary>Remove on every outcome, including skipped or unstarted actions.</summary>
+    SecretAlways,
+    /// <summary>Remove when the owning action succeeds.</summary>
+    AfterSuccess,
+    /// <summary>Retain on failure for an explicit bounded retry.</summary>
+    RetainForRetry
 }

@@ -56,6 +56,12 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
 
         if (context.Request.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload)
         {
+            if (context.RuntimeState.FirstBootExecutionPlan is not { CanLaunchInteractiveRegistration: true, FailureCode: null })
+            {
+                return DeploymentStepResult.Failed("Interactive registration requires a validated supported OOBE entry point.",
+                    DeploymentFailure.Guard(DeploymentOperationNames.StageAutopilotProfile,
+                        DeploymentFailureReasons.InvalidInput, "unsupported_setup_hook"));
+            }
             return await StageInteractiveHardwareHashUploadAsync(context, cancellationToken).ConfigureAwait(false);
         }
 
@@ -140,6 +146,12 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
 
         if (context.Request.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload)
         {
+            if (context.RuntimeState.FirstBootExecutionPlan is not { CanLaunchInteractiveRegistration: true, FailureCode: null })
+            {
+                return DeploymentStepResult.Failed("Interactive registration requires a validated supported OOBE entry point.",
+                    DeploymentFailure.Guard(DeploymentOperationNames.StageAutopilotProfile,
+                        DeploymentFailureReasons.InvalidInput, "unsupported_setup_hook"));
+            }
             return await WriteDryRunInteractiveRegistrationManifestAsync(context, cancellationToken).ConfigureAwait(false);
         }
 

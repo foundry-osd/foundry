@@ -34,6 +34,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     private readonly ILogger<NetworkBootstrapService> _logger;
     private readonly Func<IReadOnlyList<string>, CancellationToken, Task<ProcessExecutionResult>> _executeNetsh;
     private readonly Func<IReadOnlyList<Guid>> _getWifiInterfaceIds;
+    private readonly Func<Guid, NativeWifiApi.WifiInterfaceConnectionInfo?> _getWifiConnectionInfo;
     private readonly INetworkAdapterSnapshotProvider _networkAdapterSnapshotProvider;
 
     /// <summary>
@@ -67,7 +68,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         ILogger<NetworkBootstrapService> logger,
         Func<IReadOnlyList<Guid>> getWifiInterfaceIds,
         INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null,
-        Func<IReadOnlyList<string>, CancellationToken, Task<ProcessExecutionResult>>? executeNetsh = null)
+        Func<IReadOnlyList<string>, CancellationToken, Task<ProcessExecutionResult>>? executeNetsh = null,
+        Func<Guid, NativeWifiApi.WifiInterfaceConnectionInfo?>? getWifiConnectionInfo = null)
     {
         _configuration = configuration;
         _configurationService = configurationService;
@@ -77,6 +79,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         _executeNetsh = executeNetsh ?? ((arguments, cancellationToken) =>
             processExecutor.ExecuteAsync("netsh", arguments, cancellationToken, TimeSpan.FromSeconds(30)));
         _getWifiInterfaceIds = getWifiInterfaceIds;
+        _getWifiConnectionInfo = getWifiConnectionInfo ?? NativeWifiApi.GetInterfaceConnectionInfo;
         _networkAdapterSnapshotProvider = networkAdapterSnapshotProvider ?? new WindowsNetworkAdapterSnapshotProvider();
     }
 
@@ -171,7 +174,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             handledFailures,
             await EnsureWifiProfileAsync(cancellationToken).ConfigureAwait(false));
         string? profileName = ResolveWifiProfileName();
-        if (string.IsNullOrWhiteSpace(profileName))
+        if (string.IsNullOrEmpty(profileName))
         {
             AddHandledFailure(handledFailures, CreateHandledFailure("profile_unavailable", "wifi_profile_unavailable"));
             AddMessage(messages, "No Wi-Fi profile is available to connect.");
@@ -201,13 +204,20 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             return new NetworkBootstrapResult(JoinMessages(messages), handledFailures);
         }
 
-        string expectedSsid = string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid)
+        string expectedSsid = string.IsNullOrEmpty(_configuration.Wifi.Ssid)
             ? profileName
-            : _configuration.Wifi.Ssid.Trim();
+            : _configuration.Wifi.Ssid;
+        string? expectedSsidHex = _configuration.Wifi.HasEnterpriseProfile
+            ? WlanProfileReader.TryReadSsidHex(ProvisionedWifiProfileResolver.ResolveAssetPath(
+                _configuration.Wifi.EnterpriseProfileTemplatePath, _configurationService.ConfigurationPath))
+            : null;
+        if (_configuration.Wifi.HasEnterpriseProfile && expectedSsidHex is null)
+            return NetworkBootstrapResult.Failed("The provisioned profile does not contain a valid SSID identity.",
+                CreateHandledFailure("invalid_input", "wifi_missing_ssid"));
         WifiConnectionAttemptResult attemptResult = await WaitForWifiConnectionAsync(
             wirelessInterfaceIds,
             expectedSsid,
-            cancellationToken).ConfigureAwait(false);
+            cancellationToken, expectedSsidHex).ConfigureAwait(false);
 
         if (attemptResult.IsConnected)
         {
@@ -229,8 +239,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 CreateHandledFailure("profile_unavailable", "wifi_profile_unavailable"));
         }
 
-        string trimmedSsid = ssid?.Trim() ?? string.Empty;
-        if (string.IsNullOrWhiteSpace(trimmedSsid))
+        string exactSsid = ssid ?? string.Empty;
+        if (WifiNetworkIdentity.GetIdentity(exactSsid, ssidHex) is null)
         {
             return NetworkBootstrapResult.Failed(
                 "A discovered Wi-Fi network must provide an SSID before it can be connected.",
@@ -246,10 +256,11 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
 
         string? profilePath = null;
+        string profileName = WifiProfileXmlBuilder.GetProfileName(exactSsid, ssidHex);
         try
         {
             profilePath = await WriteTemporaryWifiProfileAsync(
-                WifiProfileXmlBuilder.Build(trimmedSsid, securityType, passphrase, ssidHex),
+                WifiProfileXmlBuilder.Build(exactSsid, securityType, passphrase, ssidHex),
                 cancellationToken).ConfigureAwait(false);
 
             IReadOnlyList<Guid> wirelessInterfaceIds = _getWifiInterfaceIds();
@@ -267,29 +278,29 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                     "Failed to import discovered Wi-Fi profile. ExitCode={ExitCode}",
                     addProfileResult.ExitCode);
                 return NetworkBootstrapResult.Failed(
-                    $"Wi-Fi profile import failed for '{trimmedSsid}': {CollapseError(addProfileResult)}",
+                    $"Wi-Fi profile import failed for '{exactSsid}': {CollapseError(addProfileResult)}",
                     CreateHandledFailure("profile_import_failed", "wifi_profile_import_failed"));
             }
 
             ProcessExecutionResult connectResult = await _executeNetsh(
-                ["wlan", "connect", $"name={trimmedSsid}"],
+                ["wlan", "connect", $"name={profileName}"],
                 cancellationToken).ConfigureAwait(false);
             if (connectResult.ExitCode != 0)
             {
                 return NetworkBootstrapResult.Failed(
-                    $"Wi-Fi connection request failed for '{trimmedSsid}': {CollapseError(connectResult)}",
+                    $"Wi-Fi connection request failed for '{exactSsid}': {CollapseError(connectResult)}",
                     CreateHandledFailure("connect_request_failed", "wifi_connect_request_failed"));
             }
 
             WifiConnectionAttemptResult attemptResult = await WaitForWifiConnectionAsync(
                 wirelessInterfaceIds,
-                trimmedSsid,
-                cancellationToken).ConfigureAwait(false);
+                exactSsid,
+                cancellationToken, ssidHex).ConfigureAwait(false);
 
             if (!attemptResult.IsConnected)
             {
                 return NetworkBootstrapResult.Failed(
-                    $"Wi-Fi connection failed for '{trimmedSsid}': {attemptResult.FailureMessage}",
+                    $"Wi-Fi connection failed for '{exactSsid}': {attemptResult.FailureMessage}",
                     CreateHandledFailure("timeout", "wifi_connect_timeout"));
             }
 
@@ -300,7 +311,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                     NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable),
                 cancellationToken).ConfigureAwait(false);
 
-            return NetworkBootstrapResult.Success($"Wi-Fi connected to '{trimmedSsid}'.");
+            return NetworkBootstrapResult.Success($"Wi-Fi connected to '{exactSsid}'.");
         }
         finally
         {
@@ -318,8 +329,10 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 CreateHandledFailure("missing_adapter", "no_wireless_adapter"));
         }
 
-        string? connectedSsid = NativeWifiApi.GetConnectedSsid();
-        if (string.IsNullOrWhiteSpace(connectedSsid))
+        NativeWifiApi.WifiInterfaceConnectionInfo? connected = wirelessInterfaceIds.Select(_getWifiConnectionInfo)
+            .FirstOrDefault(info => info?.State == NativeWifiApi.WlanInterfaceState.Connected);
+        string? connectedSsid = connected?.CurrentSsid;
+        if (WifiNetworkIdentity.GetIdentity(connectedSsid, connected?.CurrentSsidHex) is null)
         {
             return NetworkBootstrapResult.Success("Wi-Fi is already disconnected.");
         }
@@ -336,8 +349,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
         WifiDisconnectAttemptResult attemptResult = await WaitForWifiDisconnectionAsync(
             wirelessInterfaceIds,
-            connectedSsid,
-            cancellationToken).ConfigureAwait(false);
+            connectedSsid!,
+            cancellationToken, connected?.CurrentSsidHex).ConfigureAwait(false);
 
         return attemptResult.IsDisconnected
             ? NetworkBootstrapResult.Success($"Wi-Fi disconnected from '{connectedSsid}'.")
@@ -514,13 +527,13 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 : null;
         }
 
-        if (string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid) || string.IsNullOrWhiteSpace(_configuration.Wifi.SecurityType))
+        if (string.IsNullOrEmpty(_configuration.Wifi.Ssid) || string.IsNullOrWhiteSpace(_configuration.Wifi.SecurityType))
         {
             return null;
         }
 
         return await WriteTemporaryWifiProfileAsync(
-            WifiProfileXmlBuilder.Build(_configuration.Wifi.Ssid.Trim(), _configuration.Wifi.SecurityType.Trim(), _configuration.Wifi.Passphrase),
+            WifiProfileXmlBuilder.Build(_configuration.Wifi.Ssid, _configuration.Wifi.SecurityType.Trim(), _configuration.Wifi.Passphrase),
             cancellationToken).ConfigureAwait(false);
     }
 
@@ -793,10 +806,11 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             or NativeWifiApi.WlanInterfaceState.Disconnecting;
     }
 
-    private static async Task<WifiConnectionAttemptResult> WaitForWifiConnectionAsync(
+    private async Task<WifiConnectionAttemptResult> WaitForWifiConnectionAsync(
         IReadOnlyList<Guid> interfaceIds,
         string expectedSsid,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        string? expectedSsidHex = null)
     {
         DateTimeOffset deadline = DateTimeOffset.UtcNow + WifiConnectionTimeout;
         bool sawConnectionTransition = false;
@@ -807,14 +821,14 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
             foreach (Guid interfaceId in interfaceIds)
             {
-                NativeWifiApi.WifiInterfaceConnectionInfo? connectionInfo = NativeWifiApi.GetInterfaceConnectionInfo(interfaceId);
+                NativeWifiApi.WifiInterfaceConnectionInfo? connectionInfo = _getWifiConnectionInfo(interfaceId);
                 if (connectionInfo is null)
                 {
                     continue;
                 }
 
                 if (connectionInfo.State == NativeWifiApi.WlanInterfaceState.Connected &&
-                    string.Equals(connectionInfo.CurrentSsid, expectedSsid, StringComparison.Ordinal))
+                    WifiNetworkIdentity.Matches(connectionInfo.CurrentSsid, connectionInfo.CurrentSsidHex, expectedSsid, expectedSsidHex))
                 {
                     return WifiConnectionAttemptResult.Success();
                 }
@@ -833,10 +847,11 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
             : WifiConnectionAttemptResult.Failure($"Windows accepted the request, but the wireless interface never transitioned into an active connection attempt.");
     }
 
-    private static async Task<WifiDisconnectAttemptResult> WaitForWifiDisconnectionAsync(
+    private async Task<WifiDisconnectAttemptResult> WaitForWifiDisconnectionAsync(
         IReadOnlyList<Guid> interfaceIds,
         string disconnectedSsid,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        string? disconnectedSsidHex = null)
     {
         DateTimeOffset deadline = DateTimeOffset.UtcNow + WifiConnectionTimeout;
         bool sawDisconnectTransition = false;
@@ -849,7 +864,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
 
             foreach (Guid interfaceId in interfaceIds)
             {
-                NativeWifiApi.WifiInterfaceConnectionInfo? connectionInfo = NativeWifiApi.GetInterfaceConnectionInfo(interfaceId);
+                NativeWifiApi.WifiInterfaceConnectionInfo? connectionInfo = _getWifiConnectionInfo(interfaceId);
                 if (connectionInfo is null)
                 {
                     continue;
@@ -861,7 +876,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 }
 
                 if (connectionInfo.State == NativeWifiApi.WlanInterfaceState.Connected &&
-                    string.Equals(connectionInfo.CurrentSsid, disconnectedSsid, StringComparison.Ordinal))
+                    WifiNetworkIdentity.Matches(connectionInfo.CurrentSsid, connectionInfo.CurrentSsidHex, disconnectedSsid, disconnectedSsidHex))
                 {
                     isStillConnectedToTarget = true;
                 }

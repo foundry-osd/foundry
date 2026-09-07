@@ -2163,6 +2163,9 @@
   <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
     <value>Die Wi-Fi-Konfiguration erfordert die Bereitstellung von Wi-Fi-Unterstützung im Boot-Image.</value>
   </data>
+  <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
+    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+  </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Die Wi-Fi-Konfiguration erfordert ein SSID.</value>
   </data>

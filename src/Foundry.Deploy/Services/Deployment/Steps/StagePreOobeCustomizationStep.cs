@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using System.Security.Cryptography;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Logging;
@@ -47,6 +48,14 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             return CreateMissingTargetPartitionFailure();
         }
 
+        FirstBootExecutionPlan? executionPlan = context.RuntimeState.FirstBootExecutionPlan;
+        if (executionPlan is null || executionPlan.FailureCode is not null ||
+            executionPlan.CustomizationEntryPoint == FirstBootEntryPoint.None &&
+            context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredSetupComplete)
+        {
+            return CreateUnsupportedHookFailure();
+        }
+
         PreOobeDriverPackScriptSettings? driverPackSettings = null;
         if (context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredSetupComplete)
         {
@@ -74,19 +83,22 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             return DeploymentStepResult.Skipped("No pre-OOBE customization scripts are required.");
         }
 
-        context.EmitCurrentStepIndeterminate("Staging pre-OOBE customizations...", "Updating SetupComplete hook...", DeploymentOperationNames.StagePreOobe);
+        if (executionPlan.CustomizationEntryPoint == FirstBootEntryPoint.None) return CreateUnsupportedHookFailure();
+        context.EmitCurrentStepIndeterminate("Staging pre-OOBE customizations...", "Preparing the validated first-boot entry point...", DeploymentOperationNames.StagePreOobe);
         PreOobeScriptProvisioningResult result = _preOobeScriptProvisioningService.Provision(
             context.RuntimeState.TargetWindowsPartitionRoot,
-            scripts);
+            scripts, executionPlan);
 
+        FirstBootLauncherService.Stage(context.RuntimeState.TargetWindowsPartitionRoot,
+            context.Request.OperatingSystem.Architecture, executionPlan, context.Request.UsesCustomUnattend);
         ApplyPreOobeResult(context.RuntimeState, result);
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
-            $"Pre-OOBE customization staged with {scripts.Count} script(s). SetupComplete hook: '{result.SetupCompletePath}'.",
+            $"Pre-OOBE customization staged with {scripts.Count} script(s). Entry point: {result.EntryPoint}; first-boot execution is pending.",
             cancellationToken).ConfigureAwait(false);
 
-        return DeploymentStepResult.Succeeded("Pre-OOBE customizations staged.");
+        return DeploymentStepResult.Succeeded("Pre-OOBE customizations staged; first-boot execution is pending.");
     }
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(
@@ -96,6 +108,14 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
         {
             return CreateMissingTargetPartitionFailure();
+        }
+
+        FirstBootExecutionPlan? executionPlan = context.RuntimeState.FirstBootExecutionPlan;
+        if (executionPlan is null || executionPlan.FailureCode is not null ||
+            executionPlan.CustomizationEntryPoint == FirstBootEntryPoint.None &&
+            context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredSetupComplete)
+        {
+            return CreateUnsupportedHookFailure();
         }
 
         PreOobeDriverPackScriptSettings? driverPackSettings = null;
@@ -123,6 +143,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             return DeploymentStepResult.Skipped("No pre-OOBE customization scripts are required.");
         }
 
+        if (executionPlan.CustomizationEntryPoint == FirstBootEntryPoint.None) return CreateUnsupportedHookFailure();
         ApplyDryRunPreOobeResult(context.RuntimeState, scripts);
 
         await context.AppendLogAsync(
@@ -147,10 +168,10 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         IProgress<double> stepProgress = context.CreateStepPercentProgressReporter("Staging pre-OOBE customizations...", "Staging package");
 
         context.EmitCurrentStepIndeterminate("Staging pre-OOBE customizations...", "Staging package...", DeploymentOperationNames.StageDeferredDriverPack);
-        await CopyFileWithProgressAsync(plan!.SourcePath, plan.TargetPath, stepProgress, cancellationToken).ConfigureAwait(false);
+        (string digest, long length) = await CopyFileWithProgressAsync(plan!.SourcePath, plan.TargetPath, stepProgress, cancellationToken).ConfigureAwait(false);
 
         context.RuntimeState.DeferredDriverPackagePath = plan.TargetPath;
-        return (plan.ScriptSettings, null);
+        return (plan.ScriptSettings with { ExpectedSha256 = digest, ExpectedSizeBytes = length }, null);
     }
 
     private (PreOobeDriverPackScriptSettings? Settings, DeploymentStepResult? Failure) PrepareDeferredDriverPackageDryRun(
@@ -240,6 +261,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         runtimeState.PreOobeSetupCompletePath = result.SetupCompletePath;
         runtimeState.PreOobeRunnerPath = result.RunnerPath;
         runtimeState.PreOobeManifestPath = result.ManifestPath;
+        runtimeState.PreOobeResultsPath = result.ResultsPath;
         runtimeState.PreOobeScriptPaths = result.StagedScriptPaths;
     }
 
@@ -254,20 +276,21 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             "Foundry",
             "PreOobe");
 
-        runtimeState.PreOobeSetupCompletePath = Path.Combine(
+        runtimeState.PreOobeSetupCompletePath = runtimeState.FirstBootExecutionPlan?.CustomizationEntryPoint == FirstBootEntryPoint.SetupComplete ? Path.Combine(
             runtimeState.TargetWindowsPartitionRoot!,
             "Windows",
             "Setup",
             "Scripts",
-            "SetupComplete.cmd");
+            "SetupComplete.cmd") : null;
         runtimeState.PreOobeRunnerPath = Path.Combine(preOobeRoot, "Invoke-FoundryPreOobe.ps1");
         runtimeState.PreOobeManifestPath = Path.Combine(preOobeRoot, "pre-oobe-manifest.json");
+        runtimeState.PreOobeResultsPath = Path.Combine(preOobeRoot, "results.json");
         runtimeState.PreOobeScriptPaths = scripts
             .Select(script => Path.Combine(preOobeRoot, "Scripts", script.FileName))
             .ToArray();
     }
 
-    private static async Task CopyFileWithProgressAsync(
+    private static async Task<(string Digest, long Length)> CopyFileWithProgressAsync(
         string sourcePath,
         string destinationPath,
         IProgress<double>? progress,
@@ -280,7 +303,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         }
 
         Directory.CreateDirectory(destinationDirectory);
-        long totalBytes = new FileInfo(sourcePath).Length;
+
         progress?.Report(0d);
 
         await using FileStream sourceStream = new(
@@ -290,6 +313,9 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             FileShare.Read,
             FileCopyBufferSize,
             useAsync: true);
+        long totalBytes = sourceStream.Length;
+        string digest = Convert.ToHexString(await SHA256.HashDataAsync(sourceStream, cancellationToken).ConfigureAwait(false));
+        sourceStream.Position = 0;
         await using FileStream destinationStream = new(
             destinationPath,
             FileMode.Create,
@@ -311,7 +337,9 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             },
             cancellationToken).ConfigureAwait(false);
 
+        await destinationStream.FlushAsync(cancellationToken).ConfigureAwait(false);
         progress?.Report(100d);
+        return (digest, totalBytes);
     }
 
     private Task<PreOobeNetworkProfileRoamingPayload?> LoadNetworkProfileRoamingPayloadAsync(
@@ -326,6 +354,9 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
                 cancellationToken);
     }
 
+    private static DeploymentStepResult CreateUnsupportedHookFailure() =>
+        DeploymentStepResult.Failed("A supported first-boot entry point must be validated before staging customizations.",
+            DeploymentFailure.Guard(DeploymentOperationNames.StagePreOobe, DeploymentFailureReasons.InvalidInput, "unsupported_setup_hook"));
     private static DeploymentStepResult CreateMissingTargetPartitionFailure() =>
         DeploymentStepResult.Failed(
             "Target Windows partition is unavailable.",

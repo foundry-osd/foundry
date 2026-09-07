@@ -2163,6 +2163,9 @@
   <data name="Network.ErrorWifiProvisioningRequired" xml:space="preserve">
     <value>Konfigurácia Wi-Fi vyžaduje, aby bola v zavádzacom obraze poskytnutá podpora Wi-Fi.</value>
   </data>
+  <data name="Network.ErrorWifiSsidInvalid" xml:space="preserve">
+    <value>Wi-Fi name must contain 1–32 UTF-8 bytes.</value>
+  </data>
   <data name="Network.ErrorWifiSsidRequired" xml:space="preserve">
     <value>Konfigurácia Wi-Fi vyžaduje SSID.</value>
   </data>

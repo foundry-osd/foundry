@@ -25,7 +25,8 @@ internal static class NativeWifiApi
         Guid InterfaceId,
         string InterfaceDescription,
         WlanInterfaceState State,
-        string? CurrentSsid);
+        string? CurrentSsid,
+        string? CurrentSsidHex = null);
 
     public static bool IsRuntimeAvailable()
     {
@@ -55,29 +56,17 @@ internal static class NativeWifiApi
                 nameof(WlanEnumInterfaces));
 
             List<Guid> interfaceIds = ReadInterfaceIds(interfaceListPointer);
-            Dictionary<string, WifiNetworkSummary> networks = new(StringComparer.OrdinalIgnoreCase);
+            List<WifiNetworkSummary> networks = [];
 
             foreach (Guid interfaceId in interfaceIds)
             {
                 IReadOnlyList<WifiNetworkSummary> interfaceNetworks = ReadAvailableNetworks(clientHandle, interfaceId);
                 TryStartScan(clientHandle, interfaceId);
 
-                foreach (WifiNetworkSummary network in interfaceNetworks)
-                {
-                    if (networks.TryGetValue(network.Ssid, out WifiNetworkSummary? existing) &&
-                        existing.SignalStrengthPercent >= network.SignalStrengthPercent)
-                    {
-                        continue;
-                    }
-
-                    networks[network.Ssid] = network;
-                }
+                networks.AddRange(interfaceNetworks);
             }
 
-            return networks.Values
-                .OrderByDescending(static network => network.SignalStrengthPercent)
-                .ThenBy(static network => network.Ssid, StringComparer.OrdinalIgnoreCase)
-                .ToArray();
+            return WifiNetworkIdentity.SelectStrongest(networks);
         }
         finally
         {
@@ -116,11 +105,12 @@ internal static class NativeWifiApi
                     continue;
                 }
 
+                (string? ssid, string? hex) = TryReadCurrentConnectionSsid(clientHandle, item.InterfaceGuid);
                 return new WifiInterfaceConnectionInfo(
                     item.InterfaceGuid,
                     item.InterfaceDescription,
                     item.State,
-                    TryReadCurrentConnectionSsid(clientHandle, item.InterfaceGuid));
+                    ssid, hex);
             }
 
             return null;
@@ -158,15 +148,17 @@ internal static class NativeWifiApi
         }
     }
 
-    public static string? GetConnectedSsid()
+    public static string? GetConnectedSsid() => GetConnectedNetwork()?.CurrentSsid;
+
+    public static WifiInterfaceConnectionInfo? GetConnectedNetwork()
     {
         foreach (Guid interfaceId in GetInterfaceIds())
         {
             WifiInterfaceConnectionInfo? connectionInfo = GetInterfaceConnectionInfo(interfaceId);
             if (connectionInfo?.State == WlanInterfaceState.Connected &&
-                !string.IsNullOrWhiteSpace(connectionInfo.CurrentSsid))
+                WifiNetworkIdentity.GetIdentity(connectionInfo.CurrentSsid, connectionInfo.CurrentSsidHex) is not null)
             {
-                return connectionInfo.CurrentSsid;
+                return connectionInfo;
             }
         }
 
@@ -224,6 +216,7 @@ internal static class NativeWifiApi
             {
                 IntPtr itemPointer = IntPtr.Add(availableNetworkListPointer, itemOffset + (index * itemSize));
                 WlanAvailableNetwork item = Marshal.PtrToStructure<WlanAvailableNetwork>(itemPointer);
+                if (ReadSsidHex(item.Ssid) is null) continue;
                 networks.Add(new WifiNetworkSummary
                 {
                     Ssid = ReadSsid(item.Ssid),
@@ -242,26 +235,16 @@ internal static class NativeWifiApi
         }
     }
 
-    private static string ReadSsid(Dot11Ssid ssid)
-    {
-        if (ssid.Length == 0 || ssid.Value.Length == 0)
-        {
-            return "Hidden network";
-        }
-
-        int length = (int)Math.Min(ssid.Length, (uint)ssid.Value.Length);
-        string decoded = Encoding.UTF8.GetString(ssid.Value, 0, length).Trim();
-        return string.IsNullOrWhiteSpace(decoded) ? "Hidden network" : decoded;
-    }
+    private static string ReadSsid(Dot11Ssid ssid) => WifiNetworkIdentity.DecodeSsid(ssid.Value, ssid.Length);
 
     private static string? ReadSsidHex(Dot11Ssid ssid)
     {
-        if (ssid.Length == 0 || ssid.Value.Length == 0)
+        if (ssid.Length is 0 or > 32 || ssid.Length > ssid.Value.Length)
         {
             return null;
         }
 
-        int length = (int)Math.Min(ssid.Length, (uint)ssid.Value.Length);
+        int length = (int)ssid.Length;
         return Convert.ToHexString(ssid.Value, 0, length);
     }
 
@@ -355,7 +338,7 @@ internal static class NativeWifiApi
         }
     }
 
-    private static string? TryReadCurrentConnectionSsid(IntPtr clientHandle, Guid interfaceId)
+    private static (string? Ssid, string? Hex) TryReadCurrentConnectionSsid(IntPtr clientHandle, Guid interfaceId)
     {
         IntPtr dataPointer = IntPtr.Zero;
 
@@ -371,11 +354,11 @@ internal static class NativeWifiApi
                 out _);
             if (result != 0 || dataPointer == IntPtr.Zero)
             {
-                return null;
+                return (null, null);
             }
 
             WlanConnectionAttributes attributes = Marshal.PtrToStructure<WlanConnectionAttributes>(dataPointer);
-            return ReadSsid(attributes.AssociationAttributes.Ssid);
+            return (ReadSsid(attributes.AssociationAttributes.Ssid), ReadSsidHex(attributes.AssociationAttributes.Ssid));
         }
         finally
         {

@@ -19,7 +19,9 @@ public sealed class NetworkStatusSnapshot
     /// <summary>
     /// Gets whether an internet probe succeeded.
     /// </summary>
-    public bool HasInternetAccess { get; init; }
+    public bool HasInternetAccess => Readiness.Status == NetworkReadinessStatus.Online;
+
+    public NetworkProbeResult Readiness { get; init; } = new(NetworkReadinessStatus.Unavailable, "network_probe_unavailable");
 
     /// <summary>
     /// Gets whether any Ethernet adapter was detected.
@@ -34,12 +36,14 @@ public sealed class NetworkStatusSnapshot
     /// <summary>
     /// Gets a value indicating whether the connected Ethernet adapter uses DHCP.
     /// </summary>
-    public bool HasDhcpLease { get; init; }
+    public bool IsDhcpEnabled { get; init; }
 
     /// <summary>
     /// Gets a value indicating whether an Ethernet IPv4 address is available.
     /// </summary>
     public bool HasEthernetIpv4 { get; init; }
+
+    public bool HasEthernetUsableAddress { get; init; }
 
     /// <summary>
     /// Gets a value indicating whether Wi-Fi controls can use the native WLAN runtime.
@@ -80,6 +84,8 @@ public sealed class NetworkStatusSnapshot
     /// Gets the currently connected Wi-Fi SSID when the WLAN runtime reports one.
     /// </summary>
     public string? ConnectedWifiSsid { get; init; }
+
+    public string? ConnectedWifiSsidHex { get; init; }
 
     /// <summary>
     /// Gets the discovered Wi-Fi networks.

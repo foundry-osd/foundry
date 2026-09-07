@@ -189,6 +189,11 @@ public sealed record DeploymentRuntimeState
     /// </summary>
     public string? PreOobeSetupCompletePath { get; set; }
 
+    /// <summary>Records pre-disk hook eligibility independently from later staging or execution success.</summary>
+    public PreOobe.FirstBootExecutionPlan? FirstBootExecutionPlan { get; set; }
+
+    public string? PreOobeResultsPath { get; set; }
+
     /// <summary>
     /// Gets or sets the offline path to the generated pre-OOBE PowerShell runner.
     /// </summary>

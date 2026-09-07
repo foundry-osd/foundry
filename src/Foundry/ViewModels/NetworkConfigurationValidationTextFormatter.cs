@@ -26,6 +26,7 @@ internal static class NetworkConfigurationValidationTextFormatter
             NetworkConfigurationValidationCode.WiredCertificateRequired => "Network.ErrorWiredCertificateRequired",
             NetworkConfigurationValidationCode.WiredCertificateMissing => "Network.ErrorWiredCertificateMissing",
             NetworkConfigurationValidationCode.WifiSsidRequired => "Network.ErrorWifiSsidRequired",
+            NetworkConfigurationValidationCode.WifiSsidInvalid => "Network.ErrorWifiSsidInvalid",
             NetworkConfigurationValidationCode.UnsupportedWifiSecurityType => "Network.ErrorUnsupportedWifiSecurityTypeFormat",
             NetworkConfigurationValidationCode.WifiPersonalPassphraseInvalid => "Network.ErrorWifiPersonalPassphraseInvalid",
             NetworkConfigurationValidationCode.WifiEnterpriseProfileTemplateRequired => "Network.ErrorWifiEnterpriseProfileTemplateRequired",

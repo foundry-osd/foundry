@@ -53,7 +53,9 @@ public sealed class PreOobeScriptDefinitionBuilder
                     "-CommandKind",
                     driverPack.CommandKind.ToString(),
                     "-PackagePath",
-                    driverPack.RuntimePackagePath
+                    driverPack.RuntimePackagePath,
+                    "-ExpectedSha256", driverPack.ExpectedSha256,
+                    "-ExpectedSizeBytes", driverPack.ExpectedSizeBytes.ToString(global::System.Globalization.CultureInfo.InvariantCulture)
                 ]
             });
         }
@@ -129,7 +131,14 @@ public sealed class PreOobeScriptDefinitionBuilder
             });
         }
 
-        return scripts;
+        return scripts.Select(script => script with
+        {
+            DataFiles = script.DataFiles.Select(file => file with
+            {
+                OwningActionId = script.Id,
+                CleanupDisposition = file.IsSensitive ? PreOobeCleanupDisposition.SecretAlways : file.CleanupDisposition
+            }).ToArray()
+        }).ToArray();
     }
 
     private static string BuildRemoveAppxPackageCatalog(IReadOnlyList<string> packageNames)
@@ -179,7 +188,7 @@ public sealed class PreOobeScriptDefinitionBuilder
         return packages.ToArray();
     }
 
-    private static bool HasAnyAiComponentRemovalAppxOptionEnabled(DeployAiComponentRemovalSettings settings)
+    internal static bool HasAnyAiComponentRemovalAppxOptionEnabled(DeployAiComponentRemovalSettings settings)
     {
         return settings.RemoveCopilot ||
             settings.RemoveAiHub;

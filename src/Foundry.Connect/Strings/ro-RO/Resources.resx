@@ -115,8 +115,8 @@
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Verificați conexiunea cablului</value>
   </data>
-  <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
-    <value>DHCP închiriere detectată</value>
+  <data name="Ethernet.DhcpEnabled" xml:space="preserve">
+    <value>DHCP enabled</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Poarta de acces</value>
@@ -130,17 +130,17 @@
   <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
     <value>Nu a fost detectat niciun adaptor Ethernet.</value>
   </data>
-  <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
-    <value>Configurația statică a rețelei a fost detectată</value>
+  <data name="Ethernet.StaticConfiguration" xml:space="preserve">
+    <value>Static configuration</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
+  <data name="Ethernet.WaitingAddress" xml:space="preserve">
+    <value>Waiting for a usable network address</value>
+  </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Se așteaptă configurarea rețelei</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Se așteaptă DHCP sau configurația statică a rețelei</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabă (Arabia Saudită)</value>
@@ -276,6 +276,30 @@
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>Instrumente</value>
+  </data>
+  <data name="Network.Readiness.NameResolutionFailed" xml:space="preserve">
+    <value>Network name resolution failed</value>
+  </data>
+  <data name="Network.Readiness.NoLink" xml:space="preserve">
+    <value>No active network connection</value>
+  </data>
+  <data name="Network.Readiness.NoUsableAddress" xml:space="preserve">
+    <value>No usable network address</value>
+  </data>
+  <data name="Network.Readiness.Online" xml:space="preserve">
+    <value>Internet access verified</value>
+  </data>
+  <data name="Network.Readiness.ProxyAuthenticationRequired" xml:space="preserve">
+    <value>Proxy authentication is required</value>
+  </data>
+  <data name="Network.Readiness.TimedOut" xml:space="preserve">
+    <value>Internet check timed out</value>
+  </data>
+  <data name="Network.Readiness.Unavailable" xml:space="preserve">
+    <value>Internet access could not be verified</value>
+  </data>
+  <data name="Network.Readiness.UnexpectedResponse" xml:space="preserve">
+    <value>Unexpected network response. A sign-in page or interception may be present.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Continuând automat în {0}s</value>

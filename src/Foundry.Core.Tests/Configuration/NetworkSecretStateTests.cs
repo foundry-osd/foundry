@@ -9,6 +9,19 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class NetworkSecretStateTests
 {
+    [Theory]
+    [InlineData(" password123 ")]
+    [InlineData("        ")]
+    public void Update_PreservesSignificantPassphraseCharacters(string password)
+    {
+        var state = new NetworkSecretState();
+        state.Update(CreatePersonalWifiSettings(password));
+        Assert.Equal(password, state.PersonalWifiPassphrase);
+        Assert.Equal(password, state.ApplyRequiredSecrets(CreatePersonalWifiSettings(null)).Wifi.Passphrase);
+        state.ClearPersonalWifiPassphrase();
+        Assert.Null(state.PersonalWifiPassphrase);
+    }
+
     [Fact]
     public void Update_WhenPersonalWifiPassphraseIsMissingOnLaterSave_PreservesTransientSecret()
     {

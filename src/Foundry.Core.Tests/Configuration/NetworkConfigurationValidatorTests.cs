@@ -9,6 +9,22 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class NetworkConfigurationValidatorTests
 {
+    [Theory]
+    [InlineData("   ", true)]
+    [InlineData("éééééééééééééééé", true)]
+    [InlineData("ééééééééééééééééé", false)]
+    [InlineData("12345678901234567890123456789012345", false)]
+    public void Validate_UsesExactSsidUtf8ByteLength(string ssid, bool expected)
+    {
+        var settings = new NetworkSettings
+        {
+            WifiProvisioned = true,
+            Wifi = new WifiSettings
+            { IsEnabled = true, Ssid = ssid, SecurityType = NetworkConfigurationValidator.WifiSecurityOpen }
+        };
+        Assert.Equal(expected, NetworkConfigurationValidator.Validate(settings).IsValid);
+    }
+
     [Fact]
     public void Validate_WhenPersonalWifiPassphraseIsTooShort_ReturnsPassphraseInvalid()
     {

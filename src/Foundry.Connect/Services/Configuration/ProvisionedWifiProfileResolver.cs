@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using Foundry.Core.Services.Configuration;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Utilities.Networking;
 
@@ -57,8 +58,8 @@ internal static class ProvisionedWifiProfileResolver
             return WlanProfileReader.TryReadName(profilePath);
         }
 
-        return string.IsNullOrWhiteSpace(wifiSettings.Ssid)
-            ? null
-            : wifiSettings.Ssid.Trim();
+        if (string.IsNullOrEmpty(wifiSettings.Ssid)) return null;
+        try { return WifiProfileXmlBuilder.GetProfileName(wifiSettings.Ssid); }
+        catch (ArgumentException) { return null; }
     }
 }

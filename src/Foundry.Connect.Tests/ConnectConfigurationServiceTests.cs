@@ -29,8 +29,8 @@ public sealed class ConnectConfigurationServiceTests
         Assert.Equal(FoundryConnectConfiguration.CurrentSchemaVersion, configuration.SchemaVersion);
         Assert.Equal(5, configuration.InternetProbe.TimeoutSeconds);
         Assert.Equal(
-            ["http://www.msftconnecttest.com/connecttest.txt", "http://www.google.com"],
-            configuration.InternetProbe.ProbeUris);
+            ["http://www.msftconnecttest.com/connecttest.txt"],
+            configuration.InternetProbe.Probes!.Select(probe => probe.Uri));
     }
 
     [Fact]
@@ -63,12 +63,43 @@ public sealed class ConnectConfigurationServiceTests
         Assert.True(service.IsLoadedFromDisk);
         Assert.Equal(System.IO.Path.GetFullPath(configurationPath), service.ConfigurationPath);
         Assert.Equal(FoundryConnectConfiguration.CurrentSchemaVersion, configuration.SchemaVersion);
-        Assert.Equal(30, configuration.InternetProbe.TimeoutSeconds);
-        Assert.Equal(
-            ["https://example.com/health", "http://contoso.test/connect"],
-            configuration.InternetProbe.ProbeUris);
+        Assert.Equal(99, configuration.InternetProbe.TimeoutSeconds);
+        Assert.Equal("network_probe_configuration_invalid", configuration.InternetProbe.ConfigurationErrorCode);
+        Assert.Empty(configuration.InternetProbe.Probes!);
+        Assert.Contains("https://example.com/health", configuration.InternetProbe.InvalidEndpointUris);
     }
 
+    [Fact]
+    public void Load_KnownLegacyMicrosoftGetsExactExpectationAndGoogleIsDropped()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var temporary = new TemporaryDirectory();
+        string path = CreateJsonFile(temporary.Path, "legacy.json", """
+            { "internetProbe": { "probeUris": ["http://www.msftconnecttest.com/connecttest.txt", "http://www.google.com"] } }
+            """);
+        FoundryConnectConfiguration config = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance).Load();
+        Assert.Null(config.InternetProbe.ConfigurationErrorCode);
+        CoreConfiguration.ConnectInternetProbeEndpoint endpoint = Assert.Single(config.InternetProbe.Probes!);
+        Assert.Equal(200, endpoint.ExpectedStatusCode);
+        Assert.Equal("Microsoft Connect Test", endpoint.ExpectedBody);
+    }
+
+    [Fact]
+    public void Load_UnknownLegacyProbeStaysNonReadyWithoutCredentialQueryDiagnostics()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var temporary = new TemporaryDirectory();
+        string path = CreateJsonFile(temporary.Path, "unknown.json", """
+            { "internetProbe": { "probeUris": ["https://user:password@example.test/health?token=secret#fragment"] } }
+            """);
+        FoundryConnectConfiguration config = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance).Load();
+        Assert.Equal("network_probe_configuration_invalid", config.InternetProbe.ConfigurationErrorCode);
+        string diagnostic = Assert.Single(config.InternetProbe.InvalidEndpointUris);
+        Assert.Contains("example.test/health", diagnostic);
+        Assert.DoesNotContain("password", diagnostic);
+        Assert.DoesNotContain("secret", diagnostic);
+        Assert.DoesNotContain("fragment", diagnostic);
+    }
     [Fact]
     public void Load_WhenSchemaIsOlderThanCurrent_RecommendsBootMediaUpdate()
     {

@@ -1,83 +1,30 @@
 param(
-    [Parameter(Mandatory = $true)]
-    [ValidateSet('LenovoExecutable', 'SurfaceMsi')]
-    [string]$CommandKind,
-
-    [Parameter(Mandatory = $true)]
-    [string]$PackagePath
+    [Parameter(Mandatory=$true)][ValidateSet('LenovoExecutable','SurfaceMsi')][string]$CommandKind,
+    [Parameter(Mandatory=$true)][string]$PackagePath,
+    [Parameter(Mandatory=$true)][ValidatePattern('^[A-Fa-f0-9]{64}$')][string]$ExpectedSha256,
+    [Parameter(Mandatory=$true)][long]$ExpectedSizeBytes
 )
-
 $ErrorActionPreference = 'Stop'
-$SuccessExitCodes = @(0, 3010)
-$ResolvedPackagePath = [Environment]::ExpandEnvironmentVariables($PackagePath)
-$LogDirectory = Join-Path $env:SystemRoot 'Temp\Foundry\Logs\PreOobe'
-$TranscriptPath = Join-Path $LogDirectory 'Install-DriverPack.transcript.log'
-$TranscriptStarted = $false
-$ScriptStartedAt = [DateTimeOffset]::Now
-$DriverPathRegistryKey = 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1'
-
-function Start-FoundryTranscript {
-    New-Item -Path $LogDirectory -ItemType Directory -Force | Out-Null
-    Start-Transcript -Path $TranscriptPath -Force | Out-Null
-    $script:TranscriptStarted = $true
+if (-not (Get-Command Invoke-FoundryInstaller -ErrorAction SilentlyContinue)) {
+    . (Join-Path (Split-Path -Parent $PSScriptRoot) 'Foundry-PreOobeFunctions.ps1')
 }
-
-function Stop-FoundryTranscript {
-    if ($script:TranscriptStarted) {
-        Stop-Transcript | Out-Null
-    }
-}
-
-function Write-FoundryLog {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$Message
-    )
-
-    $now = [DateTimeOffset]::Now
-    $elapsed = $now - $script:ScriptStartedAt
-    Write-Host ("[{0}] [+{1:c}] {2}" -f $now.ToString('yyyy-MM-ddTHH:mm:ss'), $elapsed, $Message)
-}
-
-function ConvertTo-ProcessArgument {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$Value
-    )
-
-    if ($Value -notmatch '[\s"]') {
-        return $Value
-    }
-
-    return '"' + ($Value -replace '"', '\"') + '"'
-}
-
-function Invoke-ProcessAndWait {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$FilePath,
-
-        [string[]]$ArgumentList = @(),
-
-        [Parameter(Mandatory = $true)]
-        [string]$OperationName
-    )
-
-    Write-FoundryLog "Starting ${OperationName}: $FilePath $($ArgumentList -join ' ')"
-    $operationStartedAt = [DateTimeOffset]::Now
-    $process = Start-Process -FilePath $FilePath -ArgumentList $ArgumentList -WindowStyle Hidden -Wait -PassThru
-    $operationDuration = [DateTimeOffset]::Now - $operationStartedAt
-    Write-FoundryLog "$OperationName exited with code $($process.ExitCode) after $($operationDuration.ToString('c'))."
-
-    if ($SuccessExitCodes -notcontains $process.ExitCode) {
-        throw "$OperationName failed with exit code $($process.ExitCode)."
-    }
-}
-
-$DriverPathRegistered = $false
+$ResolvedPackagePath = [IO.Path]::GetFullPath([Environment]::ExpandEnvironmentVariables($PackagePath))
 $PackageLock = $null
 $InstallationCompleted = $false
+$RebootRequired = $false
+$DriverPathRegistered = $false
+$PriorDriverPath = $null
+$NativeExitCode = $null
+$Failure = $null
+$RestoreFailed = $false
 
+function Invoke-DriverOperation {
+    param([string]$FilePath,[string[]]$Arguments,[switch]$AllowReboot)
+    $code = Invoke-FoundryInstaller -FilePath $FilePath -Arguments $Arguments -TimeoutSeconds 1800
+    $script:NativeExitCode = [int]$code
+    if ($code -eq 3010 -and $AllowReboot) { $script:RebootRequired=$true; return }
+    if ($code -ne 0) { throw 'driver_native_exit_failed' }
+}
 function Assert-DriverPackageTrust {
     param([string]$Path, [string]$Kind)
 
@@ -114,72 +61,48 @@ function Assert-DriverPackageTrust {
 }
 
 try {
-    Start-FoundryTranscript
-    Write-FoundryLog "Foundry driver pack installation started."
-    Write-FoundryLog "CommandKind=$CommandKind"
-    Write-FoundryLog "PackagePath=$ResolvedPackagePath"
-
-    if (-not (Test-Path -LiteralPath $ResolvedPackagePath -PathType Leaf)) {
-        throw "Driver package was not found: $ResolvedPackagePath"
-    }
-
-    $ResolvedPackagePath = [IO.Path]::GetFullPath($ResolvedPackagePath)
-    $PackageLock = [IO.File]::Open($ResolvedPackagePath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+    $PackageLock = [IO.File]::Open($ResolvedPackagePath,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read)
+    if ($ExpectedSizeBytes -le 0 -or $PackageLock.Length -ne $ExpectedSizeBytes) { throw 'driver_identity_failed' }
+    $hasher = [Security.Cryptography.SHA256]::Create()
+    try { $actualHash = [BitConverter]::ToString($hasher.ComputeHash($PackageLock)).Replace('-','') }
+    finally { $hasher.Dispose() }
+    if ($actualHash -ine $ExpectedSha256) { throw 'driver_identity_failed' }
     Assert-DriverPackageTrust -Path $ResolvedPackagePath -Kind $CommandKind
-
     switch ($CommandKind) {
         'LenovoExecutable' {
-            Invoke-ProcessAndWait `
-                -FilePath $ResolvedPackagePath `
-                -ArgumentList @('/SILENT', '/SUPPRESSMSGBOXES') `
-                -OperationName 'Lenovo driver package'
-
-            Invoke-ProcessAndWait `
-                -FilePath 'reg.exe' `
-                -ArgumentList @('add', (ConvertTo-ProcessArgument -Value $DriverPathRegistryKey), '/v', 'Path', '/t', 'REG_SZ', '/d', 'C:\Drivers', '/f') `
-                -OperationName 'Register PnPUnattend driver path'
+            Invoke-DriverOperation -FilePath $ResolvedPackagePath -Arguments @('/SILENT','/SUPPRESSMSGBOXES') -AllowReboot
+            $PriorDriverPath = Get-FoundryDriverPath
             $DriverPathRegistered = $true
-            Invoke-ProcessAndWait `
-                -FilePath 'pnpunattend.exe' `
-                -ArgumentList @('AuditSystem', '/L') `
-                -OperationName 'pnpunattend.exe'
+            Set-FoundryDriverPath -State ([pscustomobject]@{Exists=$true;Value='C:\Drivers';Kind='String'})
+            Invoke-DriverOperation -FilePath (Join-Path $env:SystemRoot 'System32\pnpunattend.exe') -Arguments @('AuditSystem','/L')
         }
         'SurfaceMsi' {
             $logDirectory = Join-Path $env:SystemRoot 'Temp\Foundry\DriverPack'
             New-Item -Path $logDirectory -ItemType Directory -Force | Out-Null
-
-            $logPath = Join-Path $logDirectory 'surface-driverpack.log'
-            Invoke-ProcessAndWait `
-                -FilePath 'msiexec.exe' `
-                -ArgumentList @('/i', (ConvertTo-ProcessArgument -Value $ResolvedPackagePath), '/qn', '/norestart', '/l*v', (ConvertTo-ProcessArgument -Value $logPath)) `
-                -OperationName 'Surface driver package'
+            Invoke-DriverOperation -FilePath (Join-Path $env:SystemRoot 'System32\msiexec.exe') -Arguments @('/i',$ResolvedPackagePath,'/qn','/norestart','/l*v',(Join-Path $logDirectory 'surface-driverpack.log')) -AllowReboot
         }
     }
-
-    Write-FoundryLog "Foundry driver pack installation completed."
     $InstallationCompleted = $true
 }
+catch { $Failure = $_ }
 finally {
-    if ($DriverPathRegistered) {
-        try {
-            Invoke-ProcessAndWait `
-                -FilePath 'reg.exe' `
-                -ArgumentList @('delete', (ConvertTo-ProcessArgument -Value $DriverPathRegistryKey), '/v', 'Path', '/f') `
-                -OperationName 'Remove PnPUnattend driver path'
-        }
-        catch {
-            Write-FoundryLog "WARNING: $($_.Exception.Message)"
+    try {
+        if ($DriverPathRegistered) {
+            try { Set-FoundryDriverPath -State $PriorDriverPath }
+            catch { $InstallationCompleted=$false; $RestoreFailed=$true; if($null -eq $Failure) { $Failure=$_ } }
         }
     }
-
-    if ($null -ne $PackageLock) {
-        $PackageLock.Dispose()
+    finally {
+        if ($null -ne $PackageLock) { $PackageLock.Dispose() }
+        if ($InstallationCompleted -and [IO.File]::Exists($ResolvedPackagePath)) {
+            try { Remove-Item -LiteralPath $ResolvedPackagePath -Force -ErrorAction Stop }
+            catch { $InstallationCompleted=$false; $Failure=$_ }
+        }
+        Write-FoundryDriverOutcome ([pscustomobject]@{exitCode=$NativeExitCode;rebootRequired=$RebootRequired;failed=(-not $InstallationCompleted);cleanupFailed=$RestoreFailed})
     }
-
-    if ($InstallationCompleted -and (Test-Path -LiteralPath $ResolvedPackagePath -PathType Leaf)) {
-        Write-FoundryLog "Removing staged package: $ResolvedPackagePath"
-        Remove-Item -LiteralPath $ResolvedPackagePath -Force
-    }
-
-    Stop-FoundryTranscript
 }
+if ($null -ne $Failure) {
+    if ($null -ne $NativeExitCode -and $NativeExitCode -ne 0 -and $NativeExitCode -ne 3010) { exit $NativeExitCode }
+    throw $Failure
+}
+if ($RebootRequired) { exit 3010 }

@@ -14,8 +14,10 @@ public interface IPreOobeScriptProvisioningService
     /// </summary>
     /// <param name="targetWindowsPartitionRoot">Offline root of the target Windows partition.</param>
     /// <param name="scripts">Script definitions selected by the deployment workflow.</param>
+    /// <param name="executionPlan">Approved entry point for the selected target image.</param>
     /// <returns>The paths written during provisioning.</returns>
     PreOobeScriptProvisioningResult Provision(
         string targetWindowsPartitionRoot,
-        IEnumerable<PreOobeScriptDefinition> scripts);
+        IEnumerable<PreOobeScriptDefinition> scripts,
+        FirstBootExecutionPlan executionPlan);
 }

@@ -42,4 +42,7 @@ public sealed record PreOobeScriptDefinition
     /// Gets generated data files staged under the pre-OOBE data folder.
     /// </summary>
     public IReadOnlyList<PreOobeScriptDataFile> DataFiles { get; init; } = [];
+
+    /// <summary>Gets explicit prerequisite action IDs; priority alone does not create dependencies.</summary>
+    public IReadOnlyList<string> DependsOn { get; init; } = [];
 }

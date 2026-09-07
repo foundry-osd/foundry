@@ -298,7 +298,8 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public Visibility Dot1xCertificateValidationVisibility => ToVisibility(Dot1xCertificateValidationMessage);
     public string WifiSsidValidationMessage => FormatFieldValidationMessage(
         NetworkConfigurationValidator.Validate(BuildWifiOnlySettings()),
-        NetworkConfigurationValidationCode.WifiSsidRequired);
+        NetworkConfigurationValidationCode.WifiSsidRequired,
+        NetworkConfigurationValidationCode.WifiSsidInvalid);
     public Visibility WifiSsidValidationVisibility => ToVisibility(WifiSsidValidationMessage);
     public string WifiSecurityTypeValidationMessage => FormatFieldValidationMessage(
         NetworkConfigurationValidator.Validate(BuildWifiOnlySettings()),
@@ -466,7 +467,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
     partial void OnWifiPassphraseChanged(string value)
     {
-        if (!isApplyingState && IsWifiPersonalSectionEnabled && string.IsNullOrWhiteSpace(value))
+        if (!isApplyingState && IsWifiPersonalSectionEnabled && string.IsNullOrEmpty(value))
         {
             networkSecretStateService.ClearPersonalWifiPassphrase();
         }
@@ -618,14 +619,14 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
             Wifi = new WifiSettings
             {
                 IsEnabled = IsWifiConfigured,
-                Ssid = IsWifiConfigured && !string.IsNullOrWhiteSpace(WifiSsid)
-                    ? WifiSsid.Trim()
+                Ssid = IsWifiConfigured && !string.IsNullOrEmpty(WifiSsid)
+                    ? WifiSsid
                     : null,
                 SecurityType = IsWifiConfigured && !string.IsNullOrWhiteSpace(SelectedWifiSecurityType?.Value)
                     ? SelectedWifiSecurityType.Value.Trim()
                     : null,
-                Passphrase = IsWifiPersonalSectionEnabled && !string.IsNullOrWhiteSpace(WifiPassphrase)
-                    ? WifiPassphrase.Trim()
+                Passphrase = IsWifiPersonalSectionEnabled && !string.IsNullOrEmpty(WifiPassphrase)
+                    ? WifiPassphrase
                     : null,
                 HasEnterpriseProfile = IsWifiEnterpriseSectionEnabled,
                 EnterpriseProfileTemplatePath = IsWifiEnterpriseSectionEnabled && !string.IsNullOrWhiteSpace(WifiEnterpriseProfileTemplatePath)
@@ -783,8 +784,8 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
             return string.Empty;
         }
 
-        return !string.IsNullOrWhiteSpace(settings.Wifi.Passphrase)
-            ? settings.Wifi.Passphrase.Trim()
+        return !string.IsNullOrEmpty(settings.Wifi.Passphrase)
+            ? settings.Wifi.Passphrase
             : networkSecretStateService.PersonalWifiPassphrase ?? string.Empty;
     }
 

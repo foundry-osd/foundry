@@ -11,6 +11,44 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class UnattendFileServiceTests
 {
+    [Fact]
+    public void Inspect_RecognizesOnlyExactSupportedSpecializeLauncher()
+    {
+        string command = System.Security.SecurityElement.Escape(UnattendInspection.FirstBootLauncherCommand)!;
+        byte[] content = Xml($"<settings pass='specialize'><component name='Microsoft-Windows-Deployment' processorArchitecture='amd64'><RunSynchronous><RunSynchronousCommand><Order>1</Order><Description>{UnattendInspection.FirstBootLauncherDescription}</Description><Path>{command}</Path></RunSynchronousCommand></RunSynchronous></component></settings>");
+        Assert.True(UnattendFileService.Inspect(content, "amd64").HasFoundrySpecializeLauncher);
+    }
+    [Theory]
+    [InlineData("path")]
+    [InlineData("description")]
+    [InlineData("order-zero")]
+    [InlineData("order-large")]
+    [InlineData("duplicate-order")]
+    [InlineData("duplicate-launcher")]
+    [InlineData("duplicate-path")]
+    [InlineData("foreign-namespace")]
+    [InlineData("wrong-component")]
+    [InlineData("wrong-pass")]
+    [InlineData("wrong-architecture")]
+    public void Inspect_DoesNotCertifyLookalikeOrAmbiguousLauncher(string change)
+    {
+        string path = System.Security.SecurityElement.Escape(UnattendInspection.FirstBootLauncherCommand)!;
+        string command = $"<RunSynchronousCommand><Order>1</Order><Description>{UnattendInspection.FirstBootLauncherDescription}</Description><Path>{path}</Path></RunSynchronousCommand>";
+        string commands = command;
+        if (change == "path") commands = commands.Replace(path, "arbitrary-command");
+        if (change == "description") commands = commands.Replace(UnattendInspection.FirstBootLauncherDescription, "Other command");
+        if (change == "order-zero") commands = commands.Replace("<Order>1", "<Order>0");
+        if (change == "order-large") commands = commands.Replace("<Order>1", "<Order>501");
+        if (change == "duplicate-order") commands += "<RunSynchronousCommand><Order>1</Order><Path>other.exe</Path></RunSynchronousCommand>";
+        if (change == "duplicate-launcher") commands += command.Replace("<Order>1", "<Order>2");
+        if (change == "duplicate-path") commands = commands.Replace("</RunSynchronousCommand>", $"<Path>{path}</Path></RunSynchronousCommand>");
+        if (change == "foreign-namespace") commands = commands.Replace("<RunSynchronousCommand>", "<RunSynchronousCommand xmlns='urn:extension'>");
+        string component = change == "wrong-component" ? "Other-Component" : "Microsoft-Windows-Deployment";
+        string pass = change == "wrong-pass" ? "oobeSystem" : "specialize";
+        string architecture = change == "wrong-architecture" ? "arm64" : "amd64";
+        byte[] content = Xml($"<settings pass='{pass}'><component name='{component}' processorArchitecture='{architecture}'><RunSynchronous>{commands}</RunSynchronous></component></settings>" + Settings("<ComputerName>PC</ComputerName>"));
+        Assert.False(UnattendFileService.Inspect(content, "amd64").HasFoundrySpecializeLauncher);
+    }
     [Theory]
     [InlineData("windowsPE")]
     [InlineData("offlineServicing")]
@@ -145,12 +183,11 @@ public sealed class UnattendFileServiceTests
     }
 
     [Fact]
-    public void Inspect_DetectsDomainProvisioningWithoutJoinDomain()
+    public void Inspect_RejectsRealOfflineDomainJoinInOfflineServicing()
     {
-        Assert.True(UnattendFileService.Inspect(Xml(
-            "<settings pass='specialize'><component name='Microsoft-Windows-UnattendedJoin' processorArchitecture='amd64'><Identification><Provisioning><AccountData>join-data</AccountData></Provisioning></Identification></component></settings>")).ConflictsWithAutopilot);
+        Assert.Throws<InvalidDataException>(() => UnattendFileService.Inspect(Xml(
+            "<settings pass='offlineServicing'><component name='Microsoft-Windows-UnattendedJoin' processorArchitecture='amd64'><OfflineIdentification><Provisioning><AccountData>join-data</AccountData></Provisioning></OfflineIdentification></component></settings>")));
     }
-
     [Theory]
     [InlineData("<FirstLogonCommands><SynchronousCommand><CommandLine>example</CommandLine></SynchronousCommand></FirstLogonCommands>")]
     [InlineData("<LogonCommands><AsynchronousCommand><CommandLine>example</CommandLine></AsynchronousCommand></LogonCommands>")]

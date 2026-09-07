@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Xml;
 using System.Xml.Linq;
@@ -106,6 +107,7 @@ public static class UnattendFileService
         var architectures = new HashSet<string>(StringComparer.Ordinal);
         bool hasApplicableSettings = false;
         bool hasCommands = false;
+        List<XElement> specializeCommands = [];
         bool conflictsWithAutopilot = false;
         foreach (XElement settings in root.Elements(UnattendNamespace + "settings"))
         {
@@ -144,6 +146,10 @@ public static class UnattendFileService
 
                 hasApplicableSettings = true;
 
+                if (name == "Microsoft-Windows-Deployment" && pass == "specialize")
+                {
+                    specializeCommands.AddRange(Children(component, "RunSynchronous", "RunSynchronousCommand"));
+                }
                 hasCommands |= HasCommands(component, name, pass);
                 conflictsWithAutopilot |= ConflictsWithAutopilot(component, name, pass);
             }
@@ -158,6 +164,7 @@ public static class UnattendFileService
         {
             Architectures = architectures.Order(StringComparer.Ordinal).ToArray(),
             HasCommands = hasCommands,
+            HasFoundrySpecializeLauncher = HasSupportedLauncher(specializeCommands),
             ConflictsWithAutopilot = conflictsWithAutopilot
         };
     }
@@ -302,12 +309,35 @@ public static class UnattendFileService
                 (Children(component, "FirstLogonCommands", "SynchronousCommand").Any() || Children(component, "LogonCommands", "AsynchronousCommand").Any()));
     }
 
+    private static bool HasSupportedLauncher(IReadOnlyList<XElement> commands)
+    {
+        XElement[] candidates = commands.Where(command =>
+            command.Elements(UnattendNamespace + "Description").Any(element => element.Value == UnattendInspection.FirstBootLauncherDescription) ||
+            command.Elements(UnattendNamespace + "Path").Any(element => element.Value == UnattendInspection.FirstBootLauncherCommand)).ToArray();
+        if (candidates.Length != 1) return false;
+        XElement candidate = candidates[0];
+        string? action = (string?)candidate.Attribute(XNamespace.Get("http://schemas.microsoft.com/WMIConfig/2002/State") + "action");
+        if (action is not (null or "add") || candidate.Elements(UnattendNamespace + "Credentials").Any()) return false;
+        if (candidate.Elements(UnattendNamespace + "Description").Count() != 1 ||
+            candidate.Element(UnattendNamespace + "Description")!.Value != UnattendInspection.FirstBootLauncherDescription ||
+            candidate.Elements(UnattendNamespace + "Path").Count() != 1 ||
+            candidate.Element(UnattendNamespace + "Path")!.Value != UnattendInspection.FirstBootLauncherCommand ||
+            candidate.Element(UnattendNamespace + "Path")!.HasElements ||
+            candidate.Element(UnattendNamespace + "Description")!.HasElements) return false;
+        var orders = new HashSet<int>();
+        foreach (XElement command in commands)
+        {
+            XElement[] values = command.Elements(UnattendNamespace + "Order").ToArray();
+            if (values.Length != 1 || values[0].HasElements || !int.TryParse(values[0].Value.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out int order) ||
+                order is < 1 or > 500 || !orders.Add(order)) return false;
+        }
+        return true;
+    }
     private static bool ConflictsWithAutopilot(XElement component, string name, string pass)
     {
         if (name == "Microsoft-Windows-UnattendedJoin" && pass == "specialize")
         {
-            return Children(component, "Identification", "JoinDomain").Any(element => !string.IsNullOrWhiteSpace(element.Value)) ||
-                Children(component, "Identification", "Provisioning", "AccountData").Any(element => !string.IsNullOrWhiteSpace(element.Value));
+            return Children(component, "Identification", "JoinDomain").Any(element => !string.IsNullOrWhiteSpace(element.Value));
         }
 
         if (name != "Microsoft-Windows-Shell-Setup")

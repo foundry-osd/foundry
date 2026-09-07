@@ -28,4 +28,10 @@ public sealed record PreOobeScriptProvisioningResult
     /// Gets the offline paths to the staged embedded PowerShell scripts.
     /// </summary>
     public required IReadOnlyList<string> StagedScriptPaths { get; init; }
+
+    /// <summary>Gets the qualified launch path selected before staging.</summary>
+    public FirstBootEntryPoint EntryPoint { get; init; }
+
+    /// <summary>Gets the atomic first-boot result journal path.</summary>
+    public string ResultsPath { get; init; } = string.Empty;
 }

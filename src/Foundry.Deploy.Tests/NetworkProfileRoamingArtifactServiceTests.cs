@@ -10,6 +10,7 @@ using Foundry.Core.Models.Network;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Network;
+using Foundry.Deploy.Services.Deployment.PreOobe;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using NetworkProfileRoamingTransportSettings = Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings;
@@ -49,6 +50,10 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             TestContext.Current.CancellationToken);
 
         Assert.NotNull(payload);
+        var profile = Assert.Single(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wifi-profile.xml"));
+        Assert.True(profile.IsSensitive);
+        Assert.Equal("network-profile-roaming", profile.OwningActionId);
+        Assert.Equal(PreOobeCleanupDisposition.SecretAlways, profile.CleanupDisposition);
         Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wifi-profile.xml"));
         string importSettingsJson = Assert.Single(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "import-settings.json")).Content;
         using JsonDocument importSettings = JsonDocument.Parse(importSettingsJson);

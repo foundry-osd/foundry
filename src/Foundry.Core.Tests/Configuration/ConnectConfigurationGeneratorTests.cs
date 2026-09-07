@@ -35,7 +35,11 @@ public sealed class ConnectConfigurationGeneratorTests
         Assert.Equal(JsonValueKind.Number, root.GetProperty("dot1x").GetProperty("authenticationMode").ValueKind);
         Assert.Equal(JsonValueKind.Number, root.GetProperty("wifi").GetProperty("enterpriseAuthenticationMode").ValueKind);
         Assert.Equal(5, internetProbe.GetProperty("timeoutSeconds").GetInt32());
-        Assert.NotEmpty(internetProbe.GetProperty("probeUris").EnumerateArray());
+        JsonElement probe = Assert.Single(internetProbe.GetProperty("probes").EnumerateArray());
+        Assert.Equal("http://www.msftconnecttest.com/connecttest.txt", probe.GetProperty("uri").GetString());
+        Assert.Equal(200, probe.GetProperty("expectedStatusCode").GetInt32());
+        Assert.Equal("Microsoft Connect Test", probe.GetProperty("expectedBody").GetString());
+        Assert.False(internetProbe.TryGetProperty("probeUris", out _));
         Assert.Empty(bundle.AssetFiles);
         Assert.Null(bundle.MediaSecretsKey);
     }

@@ -9,6 +9,11 @@ namespace Foundry.Deploy.Services.Deployment.PreOobe;
 /// </summary>
 public static class PreOobeScriptResources
 {
+    /// <summary>Executes only explicit first-boot actions and publishes their journal.</summary>
+    public const string Runner = "Foundry.Deploy.PreOobe.Invoke-FoundryPreOobe.ps1";
+
+    /// <summary>Contains isolated testable first-boot execution and cleanup functions.</summary>
+    public const string Functions = "Foundry.Deploy.PreOobe.Foundry-PreOobeFunctions.ps1";
     /// <summary>
     /// Installs a deferred driver package during the first full Windows boot.
     /// </summary>

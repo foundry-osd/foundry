@@ -10,6 +10,7 @@ namespace Foundry.Deploy.Services.Deployment;
 public static class DeploymentStepNames
 {
     public const string ValidateCustomUnattend = "Validate custom answer file";
+    public const string ValidateFirstBootExecution = "Validate first-boot execution";
     public const string StageCustomUnattend = "Stage custom answer file";
     public const string GatherDeploymentVariables = "Gather deployment variables";
     public const string InitializeDeploymentWorkspace = "Initialize deployment workspace";
@@ -41,6 +42,7 @@ public static class DeploymentStepNames
         GatherDeploymentVariables,
         InitializeDeploymentWorkspace,
         ValidateCustomUnattend,
+        ValidateFirstBootExecution,
         ValidateTargetConfiguration,
         ResolveCacheStrategy,
         PrepareTargetDiskLayout,

@@ -127,7 +127,7 @@ public static class NetworkConfigurationValidator
             return enterpriseSecurityType ?? WifiSecurityEnterprise;
         }
 
-        return !string.IsNullOrWhiteSpace(settings.Passphrase)
+        return !string.IsNullOrEmpty(settings.Passphrase)
             ? WifiSecurityPersonal
             : WifiSecurityOpen;
     }
@@ -258,9 +258,15 @@ public static class NetworkConfigurationValidator
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiProvisioningRequired);
         }
 
-        if (string.IsNullOrWhiteSpace(settings.Ssid))
+        if (string.IsNullOrEmpty(settings.Ssid))
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiSsidRequired);
+        }
+
+        try { _ = WifiProfileXmlBuilder.GetSsidHex(settings.Ssid); }
+        catch (ArgumentException)
+        {
+            return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiSsidInvalid);
         }
 
         bool isOpen = string.Equals(settings.SecurityType, WifiSecurityOpen, StringComparison.OrdinalIgnoreCase);
@@ -278,7 +284,7 @@ public static class NetworkConfigurationValidator
 
         if (isPersonal)
         {
-            int passphraseLength = settings.Passphrase?.Trim().Length ?? 0;
+            int passphraseLength = settings.Passphrase?.Length ?? 0;
             if (passphraseLength is < 8 or > 63)
             {
                 return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiPersonalPassphraseInvalid);

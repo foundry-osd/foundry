@@ -52,7 +52,7 @@ public static class NetworkMediaReadinessEvaluator
         {
             Wifi = settings.Wifi with
             {
-                Passphrase = personalWifiPassphrase!.Trim()
+                Passphrase = personalWifiPassphrase!
             }
         };
     }
@@ -72,7 +72,7 @@ public static class NetworkMediaReadinessEvaluator
 
     private static bool IsPersonalWifiPassphraseValid(string? passphrase)
     {
-        int length = passphrase?.Trim().Length ?? 0;
+        int length = passphrase?.Length ?? 0;
         return length is >= 8 and <= 63;
     }
 }
