@@ -112,6 +112,7 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         await service.FlushAsync(TestContext.Current.CancellationToken);
 
         Assert.Equal(6, exporter.Records.Count);
+        Assert.Equal(6, exporter.ExceptionEvents.Count);
     }
 
     [Fact]
@@ -133,18 +134,26 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
     }
 
     [Fact]
-    public async Task Emit_DropsDuplicateExceptionInstance()
+    public async Task Emit_PreservesTerminalFailureAfterLowerLevelException()
     {
         var exporter = new RecordingExporter();
         await using var service = CreateService(exporter);
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
         var sharedException = new InvalidOperationException("failed");
 
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "failed", sharedException));
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "failed again", sharedException));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(
+            LogEventLevel.Error, "Artifact download failed", sharedException, ("OperationId", "deployment-1")));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(
+            LogEventLevel.Error, "Deployment failed", sharedException,
+            ("OperationId", "deployment-1"), ("Outcome", "failed"), ("FailureCode", "download_failed")));
         await service.FlushAsync(TestContext.Current.CancellationToken);
 
-        Assert.Single(exporter.Records);
+        Assert.Equal(2, exporter.Records.Count);
+        RemoteDiagnosticRecord terminal = exporter.Records[1];
+        Assert.Equal("failed", terminal.Attributes["operation.outcome"]);
+        Assert.Equal("download_failed", terminal.Attributes["failure.code"]);
+        Assert.NotNull(terminal.Exception);
+        Assert.Single(exporter.ExceptionEvents);
     }
 
     [Fact]
@@ -168,6 +177,45 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         await service.FlushAsync(TestContext.Current.CancellationToken);
 
         Assert.Equal(2, exporter.Records.Count);
+        Assert.Equal(2, exporter.ExceptionEvents.Count);
+    }
+
+    [Fact]
+    public async Task Emit_WarningDoesNotSuppressLaterErrorTracking()
+    {
+        var exporter = new RecordingExporter();
+        await using var service = CreateService(exporter);
+        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+        var exception = new InvalidOperationException("failed");
+
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Warning, "retrying", exception));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "failed", exception));
+        await service.FlushAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(2, exporter.Records.Count);
+        Assert.Single(exporter.ExceptionEvents);
+    }
+
+    [Fact]
+    public async Task Emit_RateLimitedExceptionDoesNotSuppressLaterTerminalErrorTracking()
+    {
+        var exporter = new RecordingExporter();
+        await using var service = CreateService(exporter);
+        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+        for (int index = 0; index < 5; index++)
+        {
+            service.Emit(RemoteDiagnosticsTestData.LogEvent(
+                LogEventLevel.Error, "download failed", new InvalidOperationException("failed")));
+        }
+
+        var exception = new InvalidOperationException("failed");
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "download failed", exception));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "deployment failed", exception));
+        await service.FlushAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(1, service.DroppedRecordCount);
+        Assert.Equal(6, exporter.Records.Count);
+        Assert.Equal(6, exporter.ExceptionEvents.Count);
     }
 
     [Fact]
@@ -316,6 +364,10 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
 
     private class RecordingExporter : IRemoteDiagnosticsExporter
     {
+        private readonly RecordingEventClient _eventClient = new();
+
+        public List<string> ExceptionEvents => _eventClient.Events;
+
         public List<RemoteDiagnosticRecord> Records { get; } = [];
 
         public int ExportAttempts { get; private set; }
@@ -331,12 +383,28 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
             }
 
             Records.Add(record);
+            new PostHogExceptionTracker(_eventClient, "install-1").Track(record);
             return ValueTask.CompletedTask;
         }
 
         public virtual Task FlushAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 
         public virtual ValueTask DisposeAsync() => ValueTask.CompletedTask;
+    }
+
+    private sealed class RecordingEventClient : IPostHogEventClient
+    {
+        public List<string> Events { get; } = [];
+
+        public bool Capture(string distinctId, string eventName, Dictionary<string, object> properties, DateTimeOffset timestamp)
+        {
+            Events.Add(eventName);
+            return true;
+        }
+
+        public Task FlushAsync() => Task.CompletedTask;
+
+        public ValueTask DisposeAsync() => ValueTask.CompletedTask;
     }
 
     private sealed class BlockingExporter : RecordingExporter
