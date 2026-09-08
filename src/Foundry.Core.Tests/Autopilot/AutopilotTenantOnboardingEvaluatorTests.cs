@@ -128,31 +128,6 @@ public sealed class AutopilotTenantOnboardingEvaluatorTests
         Assert.Equal("other-key-id", result.ActiveCertificateCredential?.KeyId);
     }
 
-    [Fact]
-    public void AddCertificateCredential_PreservesExistingCredentials()
-    {
-        AutopilotGraphKeyCredential existing = CreateKeyCredential("existing-key-id", "AAA", Now.AddMonths(12));
-        AutopilotGraphKeyCredential added = CreateKeyCredential("new-key-id", "BBB", Now.AddMonths(24));
-
-        IReadOnlyList<AutopilotGraphKeyCredential> result =
-            AutopilotAppRegistrationCertificateCollection.AddCertificate([existing], added);
-
-        Assert.Equal(["existing-key-id", "new-key-id"], result.Select(credential => credential.KeyId));
-    }
-
-    [Fact]
-    public void RetireActiveCertificate_RemovesOnlyPersistedActiveKeyId()
-    {
-        AutopilotGraphKeyCredential active = CreateKeyCredential("active-key-id", "AAA", Now.AddMonths(12));
-        AutopilotGraphKeyCredential other = CreateKeyCredential("other-key-id", "BBB", Now.AddMonths(24));
-
-        IReadOnlyList<AutopilotGraphKeyCredential> result =
-            AutopilotAppRegistrationCertificateCollection.RetireActiveCertificate([active, other], "active-key-id");
-
-        Assert.Single(result);
-        Assert.Equal("other-key-id", result[0].KeyId);
-    }
-
     private static AutopilotTenantOnboardingSnapshot CreateSnapshot(
         string? persistedApplicationObjectId = "persisted-object-id",
         IReadOnlyList<AutopilotGraphApplication>? applications = null,

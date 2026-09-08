@@ -291,17 +291,6 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         RaiseStateChanged();
     }
 
-    public void ApplyOfflineComputerName(string effectiveName)
-    {
-        if (!string.IsNullOrEmpty(TargetComputerName))
-        {
-            return;
-        }
-
-        ApplyComputerName(effectiveName);
-        RaiseStateChanged();
-    }
-
     public void ApplyMachineNamePreparation(MachineNamePreparationResult result)
     {
         ArgumentNullException.ThrowIfNull(result);

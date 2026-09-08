@@ -45,6 +45,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Dette startmedie blev genereret med et ældre Foundry OSD-konfigurationsformat. Opdater startmediet for at sikre kompatibilitet med de nyeste funktioner.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Luk</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Konfiguration: indbyggede standardindstillinger</value>
   </data>

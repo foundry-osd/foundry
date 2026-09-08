@@ -45,6 +45,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Toto spouštěcí médium bylo vygenerováno pomocí staršího formátu konfigurace Foundry OSD. Aktualizujte spouštěcí médium, aby byla zajištěna kompatibilita s nejnovějšími funkcemi.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Zavřít</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Konfigurace: vestavěné výchozí hodnoty</value>
   </data>

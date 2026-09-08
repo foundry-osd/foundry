@@ -209,13 +209,6 @@ public static class ConfigurationOverviewEvaluator
             : ConfigurationOverviewState.Disabled;
     }
 
-    private static ConfigurationOverviewState EvaluateEnabledFeature(bool isEnabled, bool isReady) =>
-        !isEnabled
-            ? ConfigurationOverviewState.Disabled
-            : isReady
-                ? ConfigurationOverviewState.Configured
-                : ConfigurationOverviewState.NeedsAttention;
-
     private static ConfigurationOverviewState EvaluateDeploymentProtection(
         bool isEnabled,
         bool isReady,
