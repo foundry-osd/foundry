@@ -144,6 +144,8 @@ internal sealed partial class PostHogExceptionTracker(
             frames.Add(frame);
         }
 
+        // .NET stacks are crash-first; PostHog requires the entry point first.
+        frames.Reverse();
         return frames;
     }
 
