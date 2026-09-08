@@ -416,7 +416,8 @@ public sealed class ProvisionAutopilotStepTests
 
         public Task SaveStateAsync<TState>(DeploymentLogSession session, TState state, CancellationToken cancellationToken = default)
         {
-            return File.WriteAllTextAsync(session.StateFilePath, "{}", cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+            return Task.CompletedTask;
         }
 
     }
