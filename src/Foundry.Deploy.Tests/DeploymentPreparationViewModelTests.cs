@@ -27,29 +27,14 @@ public sealed class DeploymentPreparationViewModelTests
                 Mode = Foundry.Core.Models.Configuration.MachineNamingMode.Composed,
                 AllowEditingDuringDeployment = false
             });
-        viewModel.ApplyOfflineComputerName("LAB-123456");
+        viewModel.ApplyMachineNamePreparation(new MachineNamePreparationResult { ComputerName = "LAB-123456" });
 
         Assert.Equal("LAB-123456", viewModel.TargetComputerName);
         Assert.True(viewModel.IsTargetComputerNameReadOnly);
     }
 
     [Fact]
-    public void ApplyOfflineComputerName_WhenMachineNamingIsEnabled_PreservesConfiguredName()
-    {
-        using DeploymentPreparationViewModel viewModel = CreateViewModel();
-        viewModel.ApplyMachineNamingConfiguration(new DeployMachineNamingSettings
-        {
-            IsEnabled = true,
-            Mode = Foundry.Core.Models.Configuration.MachineNamingMode.Composed
-        });
-        viewModel.ApplyOfflineComputerName("LAB-123456");
-        viewModel.ApplyOfflineComputerName("OLD-PC-01");
-
-        Assert.Equal("LAB-123456", viewModel.TargetComputerName);
-    }
-
-    [Fact]
-    public void ApplyMachineNamingConfiguration_WhenDisabled_IgnoresStalePrefix()
+    public void ApplyMachineNamePreparation_WhenMachineNamingIsDisabled_UsesPreparedName()
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();
 
@@ -57,7 +42,7 @@ public sealed class DeploymentPreparationViewModelTests
         {
             IsEnabled = false
         });
-        viewModel.ApplyOfflineComputerName("CURRENT-PC");
+        viewModel.ApplyMachineNamePreparation(new MachineNamePreparationResult { ComputerName = "CURRENT-PC" });
 
         Assert.Equal("CURRENT-PC", viewModel.TargetComputerName);
     }
@@ -74,7 +59,7 @@ public sealed class DeploymentPreparationViewModelTests
                 Mode = Foundry.Core.Models.Configuration.MachineNamingMode.Composed,
                 AllowEditingDuringDeployment = true
             });
-        viewModel.ApplyOfflineComputerName("LAB-123456");
+        viewModel.ApplyMachineNamePreparation(new MachineNamePreparationResult { ComputerName = "LAB-123456" });
         viewModel.TargetComputerName = "NEW-DEVICE";
 
         Assert.False(viewModel.IsTargetComputerNameReadOnly);

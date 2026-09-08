@@ -298,38 +298,3 @@ public static class AutopilotGraphPermissionCatalog
         return RequiredWinPeApplicationPermissionValues.All(permissionValues.Contains);
     }
 }
-
-/// <summary>
-/// Provides pure helpers for safe app registration certificate credential collection updates.
-/// </summary>
-public static class AutopilotAppRegistrationCertificateCollection
-{
-    /// <summary>
-    /// Adds or replaces one certificate credential without pruning unrelated credentials.
-    /// </summary>
-    public static IReadOnlyList<AutopilotGraphKeyCredential> AddCertificate(
-        IReadOnlyList<AutopilotGraphKeyCredential> currentCredentials,
-        AutopilotGraphKeyCredential credential)
-    {
-        ArgumentNullException.ThrowIfNull(currentCredentials);
-        ArgumentNullException.ThrowIfNull(credential);
-        return currentCredentials
-            .Where(existing => !string.Equals(existing.KeyId, credential.KeyId, StringComparison.OrdinalIgnoreCase))
-            .Concat([credential])
-            .ToArray();
-    }
-
-    /// <summary>
-    /// Removes only the persisted active certificate credential.
-    /// </summary>
-    public static IReadOnlyList<AutopilotGraphKeyCredential> RetireActiveCertificate(
-        IReadOnlyList<AutopilotGraphKeyCredential> currentCredentials,
-        string activeKeyId)
-    {
-        ArgumentNullException.ThrowIfNull(currentCredentials);
-        ArgumentException.ThrowIfNullOrWhiteSpace(activeKeyId);
-        return currentCredentials
-            .Where(credential => !string.Equals(credential.KeyId, activeKeyId, StringComparison.OrdinalIgnoreCase))
-            .ToArray();
-    }
-}
