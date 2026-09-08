@@ -8,9 +8,21 @@
     NavigationCacheMode="Required"
     mc:Ignorable="d">
     <Page.Resources>
-        <converters:BooleanToBrushConverter x:Key="ContributorRowBackgroundConverter"
-            FalseBrush="{ThemeResource ControlFillColorDefaultBrush}"
-            TrueBrush="{ThemeResource ControlFillColorSecondaryBrush}" />
+        <Style x:Key="ContributorRowStyle"
+            TargetType="Border">
+            <Setter
+                Property="Background"
+                Value="{ThemeResource ControlFillColorDefaultBrush}" />
+        </Style>
+        <Style x:Key="ContributorAlternateRowStyle"
+            TargetType="Border">
+            <Setter
+                Property="Background"
+                Value="{ThemeResource ControlFillColorSecondaryBrush}" />
+        </Style>
+        <converters:BooleanToStyleConverter x:Key="ContributorRowStyleConverter"
+            FalseStyle="{StaticResource ContributorRowStyle}"
+            TrueStyle="{StaticResource ContributorAlternateRowStyle}" />
     </Page.Resources>
 
     <Grid Margin="{ThemeResource FoundryDialogPageMargin}">
@@ -25,8 +37,8 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border
-                                Background="{Binding IsAlternate, Converter={StaticResource ContributorRowBackgroundConverter}}"
-                                CornerRadius="{ThemeResource FoundryCardCornerRadius}">
+                                CornerRadius="{ThemeResource FoundryCardCornerRadius}"
+                                Style="{Binding IsAlternate, Converter={StaticResource ContributorRowStyleConverter}}">
                                 <Grid
                                     Padding="{ThemeResource FoundryDefaultContentPadding}"
                                     ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">

@@ -4,6 +4,7 @@
 
 using Foundry.Services.Settings;
 using Microsoft.UI.Composition.SystemBackdrops;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 
@@ -23,13 +24,16 @@ internal sealed class AppThemeService(IAppSettingsService settingsService) : IAp
         this.window = window;
         this.rootElement = rootElement;
         rootElement.RequestedTheme = ElementTheme;
+        window.AppWindow.TitleBar.PreferredTheme = GetTitleBarTheme(ElementTheme);
         window.SystemBackdrop = CreateBackdrop(Backdrop);
     }
 
     public void SetElementTheme(ElementTheme theme)
     {
         FrameworkElement target = rootElement ?? throw new InvalidOperationException("The theme service is not initialized.");
+        Window targetWindow = window ?? throw new InvalidOperationException("The theme service is not initialized.");
         target.RequestedTheme = theme;
+        targetWindow.AppWindow.TitleBar.PreferredTheme = GetTitleBarTheme(theme);
         ElementTheme = theme;
         settingsService.Current.Appearance.ElementTheme = theme.ToString();
         settingsService.Save();
@@ -46,6 +50,13 @@ internal sealed class AppThemeService(IAppSettingsService settingsService) : IAp
 
     private static ElementTheme ParseElementTheme(string? value) =>
         Enum.TryParse(value, ignoreCase: true, out ElementTheme result) ? result : ElementTheme.Default;
+
+    private static TitleBarTheme GetTitleBarTheme(ElementTheme theme) => theme switch
+    {
+        ElementTheme.Light => TitleBarTheme.Light,
+        ElementTheme.Dark => TitleBarTheme.Dark,
+        _ => TitleBarTheme.UseDefaultAppMode
+    };
 
     private static AppBackdropKind ParseBackdrop(string? value) =>
         Enum.TryParse(value, ignoreCase: true, out AppBackdropKind result) ? result : AppBackdropKind.Mica;

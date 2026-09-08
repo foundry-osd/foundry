@@ -71,7 +71,7 @@ public sealed class AutopilotCertificateDialogService(
         var copiedTextBlock = new TextBlock
         {
             Text = localizationService.GetString("Autopilot.HardwareHashCertificateCreatedPasswordCopied"),
-            Foreground = (Microsoft.UI.Xaml.Media.Brush)Microsoft.UI.Xaml.Application.Current.Resources["SystemFillColorSuccessBrush"],
+            Style = (Style)Microsoft.UI.Xaml.Application.Current.Resources["FoundrySuccessTextBlockStyle"],
             Visibility = Visibility.Collapsed
         };
 

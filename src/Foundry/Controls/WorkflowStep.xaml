@@ -56,50 +56,77 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Button
-        Padding="4"
-        HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Center"
-        AutomationProperties.Name="{x:Bind AutomationName, Mode=OneTime}"
-        Background="Transparent"
-        BorderThickness="0"
-        Click="StepButton_Click">
-        <StackPanel
-            HorizontalAlignment="Center"
-            Orientation="Vertical"
-            Spacing="8">
-            <Grid
-                Width="40"
-                Height="40"
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="StatusStates">
+                <VisualState x:Name="Pending" />
+                <VisualState x:Name="Ready">
+                    <VisualState.Setters>
+                        <Setter
+                            Target="StepCircle.Background"
+                            Value="{ThemeResource WorkflowStepReadyBrush}" />
+                        <Setter
+                            Target="StepLabel.Foreground"
+                            Value="{ThemeResource TextFillColorPrimaryBrush}" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Critical">
+                    <VisualState.Setters>
+                        <Setter
+                            Target="StepCircle.Background"
+                            Value="{ThemeResource WorkflowStepCriticalBrush}" />
+                        <Setter
+                            Target="StepLabel.Foreground"
+                            Value="{ThemeResource TextFillColorPrimaryBrush}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Button
+            Padding="4"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            AutomationProperties.Name="{x:Bind AutomationName, Mode=OneTime}"
+            Background="Transparent"
+            BorderThickness="0"
+            Click="StepButton_Click">
+            <StackPanel
                 HorizontalAlignment="Center"
-                Background="{x:Bind CircleBackground, Mode=OneTime}"
-                CornerRadius="20">
-                <FontIcon
-                    FontSize="16"
-                    Foreground="{x:Bind CircleForeground, Mode=OneTime}"
-                    Glyph="&#xE73E;"
-                    Visibility="{x:Bind IsReady, Mode=OneTime}" />
-                <FontIcon
-                    FontSize="16"
-                    Foreground="{x:Bind CircleForeground, Mode=OneTime}"
-                    Glyph="&#xE711;"
-                    Visibility="{x:Bind IsCritical, Mode=OneTime}" />
-                <TextBlock
+                Orientation="Vertical"
+                Spacing="8">
+                <Grid x:Name="StepCircle"
+                    Width="40"
+                    Height="40"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    FontSize="14"
-                    FontWeight="SemiBold"
-                    Foreground="{x:Bind CircleForeground, Mode=OneTime}"
-                    Text="{x:Bind StepNumber, Mode=OneWay}"
-                    Visibility="{x:Bind IsPending, Mode=OneTime}" />
-            </Grid>
-            <TextBlock
-                HorizontalAlignment="Center"
-                FontSize="12"
-                Foreground="{x:Bind LabelForeground, Mode=OneTime}"
-                Text="{x:Bind Label, Mode=OneWay}"
-                TextAlignment="Center"
-                TextWrapping="Wrap" />
-        </StackPanel>
-    </Button>
+                    Background="{ThemeResource WorkflowStepPendingBrush}"
+                    CornerRadius="20">
+                    <FontIcon
+                        FontSize="16"
+                        Foreground="{ThemeResource WorkflowStepReadyForegroundBrush}"
+                        Glyph="&#xE73E;"
+                        Visibility="{x:Bind IsReady, Mode=OneTime}" />
+                    <FontIcon
+                        FontSize="16"
+                        Foreground="{ThemeResource WorkflowStepCriticalForegroundBrush}"
+                        Glyph="&#xE711;"
+                        Visibility="{x:Bind IsCritical, Mode=OneTime}" />
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource WorkflowStepPendingForegroundBrush}"
+                        Text="{x:Bind StepNumber, Mode=OneWay}"
+                        Visibility="{x:Bind IsPending, Mode=OneTime}" />
+                </Grid>
+                <TextBlock x:Name="StepLabel"
+                    HorizontalAlignment="Center"
+                    FontSize="12"
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="{x:Bind Label, Mode=OneWay}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </Button>
+    </Grid>
 </UserControl>

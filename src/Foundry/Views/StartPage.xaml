@@ -30,8 +30,8 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontSize="{ThemeResource FoundryIconSizeSmall}"
-                        Foreground="{x:Bind GlyphForeground}"
-                        Glyph="{x:Bind Glyph}" />
+                        Glyph="{x:Bind Glyph}"
+                        Style="{x:Bind GlyphStyle}" />
                 </Grid>
                 <StackPanel
                     Grid.Column="1"

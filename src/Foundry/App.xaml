@@ -12,6 +12,7 @@
 
                 <ResourceDictionary Source="Themes/ThemeResources.xaml" />
                 <ResourceDictionary Source="Themes/Fonts.xaml" />
+                <ResourceDictionary Source="Themes/Status.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

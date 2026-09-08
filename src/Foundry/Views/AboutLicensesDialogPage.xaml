@@ -8,9 +8,21 @@
     NavigationCacheMode="Required"
     mc:Ignorable="d">
     <Page.Resources>
-        <converters:BooleanToBrushConverter x:Key="LicenseRowBackgroundConverter"
-            FalseBrush="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-            TrueBrush="{ThemeResource CardBackgroundFillColorSecondaryBrush}" />
+        <Style x:Key="LicenseRowStyle"
+            TargetType="Border">
+            <Setter
+                Property="Background"
+                Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+        </Style>
+        <Style x:Key="LicenseAlternateRowStyle"
+            TargetType="Border">
+            <Setter
+                Property="Background"
+                Value="{ThemeResource CardBackgroundFillColorSecondaryBrush}" />
+        </Style>
+        <converters:BooleanToStyleConverter x:Key="LicenseRowStyleConverter"
+            FalseStyle="{StaticResource LicenseRowStyle}"
+            TrueStyle="{StaticResource LicenseAlternateRowStyle}" />
         <Thickness x:Key="LicenseRowPadding">14,8</Thickness>
         <Thickness x:Key="LicenseScrollContentMargin">0,0,16,0</Thickness>
     </Page.Resources>
@@ -59,9 +71,9 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border
-                            Background="{Binding IsAlternate, Converter={StaticResource LicenseRowBackgroundConverter}}"
                             BorderBrush="{ThemeResource FoundrySurfaceBorderBrush}"
-                            BorderThickness="0,0,0,1">
+                            BorderThickness="0,0,0,1"
+                            Style="{Binding IsAlternate, Converter={StaticResource LicenseRowStyleConverter}}">
                             <Grid
                                 MinHeight="54"
                                 Padding="{StaticResource LicenseRowPadding}"

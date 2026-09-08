@@ -4,7 +4,6 @@
 
 using System.Globalization;
 using Foundry.Core.Services.Autopilot;
-using Microsoft.UI.Xaml.Media;
 
 namespace Foundry.ViewModels;
 
@@ -23,7 +22,7 @@ public sealed record AutopilotCertificateEntryViewModel(
 
     public string ExpiresOnDisplay => ExpiresOnUtc.ToLocalTime().ToString("g", CultureInfo.CurrentCulture);
 
-    public Brush ValidityForeground => (Brush)Application.Current.Resources[ResolveValidityBrushKey()];
+    public Style ValidityStyle => (Style)Application.Current.Resources[ResolveValidityStyleKey()];
 
     public static AutopilotCertificateEntryViewModel FromGraphCredential(AutopilotGraphKeyCredential credential)
     {
@@ -36,16 +35,16 @@ public sealed record AutopilotCertificateEntryViewModel(
             credential.ExpiresOnUtc);
     }
 
-    private string ResolveValidityBrushKey()
+    private string ResolveValidityStyleKey()
     {
         DateTimeOffset now = DateTimeOffset.UtcNow;
         if (ExpiresOnUtc <= now)
         {
-            return "SystemFillColorCriticalBrush";
+            return "FoundryCriticalTextBlockStyle";
         }
 
         return ExpiresOnUtc - now <= ExpirationWarningThreshold
-            ? "SystemFillColorCautionBrush"
-            : "SystemFillColorSuccessBrush";
+            ? "FoundryCautionTextBlockStyle"
+            : "FoundrySuccessTextBlockStyle";
     }
 }

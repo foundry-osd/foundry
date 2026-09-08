@@ -1955,7 +1955,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             description,
             GetOverviewStatus(state),
             GetOverviewGlyph(state),
-            GetOverviewGlyphBrushKey(state),
+            GetOverviewGlyphStyleKey(state),
             state,
             needsAttention ? errorNavigationTarget : ConfigurationNavigationTarget.None,
             actionText,
@@ -2083,13 +2083,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         };
     }
 
-    private static string GetOverviewGlyphBrushKey(ConfigurationOverviewState state)
+    private static string GetOverviewGlyphStyleKey(ConfigurationOverviewState state)
     {
         return state switch
         {
-            ConfigurationOverviewState.Configured or ConfigurationOverviewState.Default => "FoundryStatusReadyBrush",
-            ConfigurationOverviewState.NeedsAttention => "FoundryStatusBlockedBrush",
-            _ => "FoundryStatusNeutralBrush"
+            ConfigurationOverviewState.Configured or ConfigurationOverviewState.Default => "FoundryReadyFontIconStyle",
+            ConfigurationOverviewState.NeedsAttention => "FoundryBlockedFontIconStyle",
+            _ => "FoundryNeutralFontIconStyle"
         };
     }
 
