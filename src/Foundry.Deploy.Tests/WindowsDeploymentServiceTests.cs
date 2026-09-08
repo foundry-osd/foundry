@@ -721,7 +721,7 @@ public sealed class WindowsDeploymentServiceTests
     }
 
     [Fact]
-    public async Task ConfigureOfflineComputerNameAsync_WhenDefaultTimeZoneIdIsProvided_WritesUnattendTimeZone()
+    public async Task ConfigureOfflineComputerNameAsync_WhenCreatingUnattend_DoesNotWriteTimeZone()
     {
         using var workspace = new TemporaryWorkspace();
         string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
@@ -733,7 +733,6 @@ public sealed class WindowsDeploymentServiceTests
             windowsRoot,
             "LAB01",
             "amd64",
-            "Romance Standard Time",
             cancellationToken: TestContext.Current.CancellationToken);
 
         string unattendPath = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
@@ -741,15 +740,26 @@ public sealed class WindowsDeploymentServiceTests
         XNamespace ns = "urn:schemas-microsoft-com:unattend";
 
         Assert.Equal("LAB01", document.Descendants(ns + "ComputerName").Single().Value);
-        Assert.Equal("Romance Standard Time", document.Descendants(ns + "TimeZone").Single().Value);
+        Assert.Empty(document.Descendants(ns + "TimeZone"));
     }
 
     [Fact]
-    public async Task ConfigureOfflineComputerNameAsync_WhenIanaTimeZoneIdIsProvided_WritesWindowsTimeZoneId()
+    public async Task ConfigureOfflineComputerNameAsync_WhenUnattendContainsTimeZone_PreservesIt()
     {
         using var workspace = new TemporaryWorkspace();
         string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
-        Directory.CreateDirectory(windowsRoot);
+        string unattendPath = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
+        Directory.CreateDirectory(Path.GetDirectoryName(unattendPath)!);
+        await File.WriteAllTextAsync(unattendPath, """
+            <unattend xmlns="urn:schemas-microsoft-com:unattend">
+              <settings pass="specialize">
+                <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64">
+                  <ComputerName>OLD-NAME</ComputerName>
+                  <TimeZone>Pacific Standard Time</TimeZone>
+                </component>
+              </settings>
+            </unattend>
+            """, TestContext.Current.CancellationToken);
 
         var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance);
 
@@ -757,14 +767,13 @@ public sealed class WindowsDeploymentServiceTests
             windowsRoot,
             "LAB01",
             "amd64",
-            "Europe/Paris",
             cancellationToken: TestContext.Current.CancellationToken);
 
-        string unattendPath = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
         XDocument document = XDocument.Load(unattendPath);
         XNamespace ns = "urn:schemas-microsoft-com:unattend";
 
-        Assert.Equal("Romance Standard Time", document.Descendants(ns + "TimeZone").Single().Value);
+        Assert.Equal("LAB01", document.Descendants(ns + "ComputerName").Single().Value);
+        Assert.Equal("Pacific Standard Time", document.Descendants(ns + "TimeZone").Single().Value);
     }
 
     [Fact]

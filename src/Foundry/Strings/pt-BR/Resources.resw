@@ -1711,7 +1711,7 @@
     <value>Insira senhas iguais com pelo menos 8 caracteres.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
-    <value>Configure a base da mídia, o idioma WinPE, a assinatura de inicialização, os drivers e o fuso horário de implantação.</value>
+    <value>Configure a base da mídia, o idioma WinPE, a assinatura de inicialização, os drivers e o fuso horário do Windows PE.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
     <value>Escolha a política de assinatura de Inicialização Segura usada para a mídia gerada.</value>
@@ -1720,10 +1720,10 @@
     <value>Inicialização segura</value>
   </data>
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
-    <value>Escolha o fuso horário aplicado durante a implantação.</value>
+    <value>Escolha o fuso horário usado no Windows PE.</value>
   </data>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
-    <value>Fuso horário de implantação</value>
+    <value>Fuso horário do Windows PE</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Instale Windows ADK e o complemento Windows PE antes de selecionar o idioma de inicialização WinPE.</value>

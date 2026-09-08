@@ -34,7 +34,6 @@ public sealed class DeploymentWizardContext : IDisposable
     public DeploymentPreparationViewModel Preparation { get; }
     public OperatingSystemCatalogViewModel OperatingSystemCatalog { get; }
     public DriverPackSelectionViewModel DriverPackSelection { get; }
-    public string? DefaultTimeZoneId { get; private set; }
     public DeployCompletionSettings Completion { get; private set; } = new();
     public CoreDeployNetworkSettings Network { get; private set; } = new();
     public DeployOobeSettings Oobe { get; private set; } = new();
@@ -111,9 +110,6 @@ public sealed class DeploymentWizardContext : IDisposable
     {
         Completion = document.Completion ?? new DeployCompletionSettings();
         OperatingSystemCatalog.ApplyOperatingSystemSelection(document.OperatingSystemSelection);
-        DefaultTimeZoneId = string.IsNullOrWhiteSpace(document.Localization.DefaultTimeZoneId)
-            ? null
-            : document.Localization.DefaultTimeZoneId.Trim();
         Preparation.ApplyMachineNamingConfiguration(
             document.Customization.MachineNaming ?? new DeployMachineNamingSettings());
         Network = document.Network ?? new CoreDeployNetworkSettings();

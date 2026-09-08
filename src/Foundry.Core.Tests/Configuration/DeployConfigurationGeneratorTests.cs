@@ -1010,7 +1010,7 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
-    public void Serialize_WhenDefaultTimeZoneIdIsSet_WritesCamelCaseProperty()
+    public void Serialize_WhenWinPeTimeZoneIsSet_PreservesBootstrapConfigurationPath()
     {
         var generator = new DeployConfigurationGenerator();
         var document = generator.Generate(new FoundryConfigurationDocument
@@ -1023,7 +1023,9 @@ public sealed class DeployConfigurationGeneratorTests
 
         string json = generator.Serialize(document);
 
-        Assert.Contains("\"defaultTimeZoneId\": \"Romance Standard Time\"", json, StringComparison.Ordinal);
+        using JsonDocument configuration = JsonDocument.Parse(json);
+        Assert.Equal("Romance Standard Time", configuration.RootElement
+            .GetProperty("localization").GetProperty("defaultTimeZoneId").GetString());
     }
 
     [Fact]

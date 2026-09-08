@@ -1508,9 +1508,6 @@ Folytatja a telepítést?</value>
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>A Windows a kiválasztott válaszfájlt használja. A Foundry nem egyesít és nem ad hozzá beállításokat.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Időzóna</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Válaszfájl</value>
   </data>

@@ -1508,9 +1508,6 @@
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Windows は選択した応答ファイルを使用します。Foundry は設定を結合したり追加したりしません。</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>タイムゾーン</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>応答ファイル</value>
   </data>

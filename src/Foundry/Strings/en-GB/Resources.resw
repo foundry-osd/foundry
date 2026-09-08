@@ -1711,7 +1711,7 @@
     <value>Enter matching passwords with at least 8 characters.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
-    <value>Configure the media baseline, WinPE language, boot signature, drivers, and deployment time zone.</value>
+    <value>Configure the media baseline, WinPE language, boot signature, drivers, and Windows PE time zone.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
     <value>Choose the Secure Boot signing policy used for generated media.</value>
@@ -1720,10 +1720,10 @@
     <value>Secure Boot</value>
   </data>
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
-    <value>Choose the time zone applied during deployment.</value>
+    <value>Choose the time zone used in Windows PE.</value>
   </data>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
-    <value>Deployment time zone</value>
+    <value>Windows PE time zone</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Install Windows ADK and the Windows PE Add-on before selecting the WinPE boot language.</value>

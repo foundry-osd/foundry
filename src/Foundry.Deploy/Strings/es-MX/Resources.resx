@@ -1508,9 +1508,6 @@ Sistema operativo: {4}
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Windows usa el archivo de respuesta seleccionado. Foundry no combina ni agrega opciones.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Zona horaria</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Archivo de respuesta</value>
   </data>

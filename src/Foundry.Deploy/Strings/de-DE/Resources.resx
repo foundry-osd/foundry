@@ -1508,9 +1508,6 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Windows verwendet die ausgewählte Antwortdatei. Foundry führt keine Einstellungen zusammen und fügt keine hinzu.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Zeitzone</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Antwortdatei</value>
   </data>

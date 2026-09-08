@@ -88,7 +88,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
     public ObservableCollection<string> AvailableWinPeLanguages { get; } = [];
 
     /// <summary>
-    /// Gets the Windows time-zone options available for generated deployment media.
+    /// Gets the time-zone options available for Windows PE on generated boot media.
     /// </summary>
     public ObservableCollection<SelectionOption<string>> TimeZoneOptions { get; } = [];
 
@@ -276,7 +276,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
     }
 
     /// <summary>
-    /// Reloads localized Windows time-zone options and keeps the selected value when possible.
+    /// Reloads localized Windows PE time-zone options and keeps the selected value when possible.
     /// </summary>
     public void RefreshTimeZones()
     {

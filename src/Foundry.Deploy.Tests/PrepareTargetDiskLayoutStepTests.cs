@@ -128,7 +128,6 @@ public sealed class PrepareTargetDiskLayoutStepTests
             string windowsPartitionRoot,
             string computerName,
             string processorArchitecture,
-            string? defaultTimeZoneId = null,
             CancellationToken cancellationToken = default)
         {
             throw new NotSupportedException();

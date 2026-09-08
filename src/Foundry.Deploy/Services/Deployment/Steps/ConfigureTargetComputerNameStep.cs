@@ -36,7 +36,6 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
                 context.RuntimeState.TargetWindowsPartitionRoot,
                 context.RuntimeState.TargetComputerName,
                 context.Request.OperatingSystem.Architecture,
-                context.Request.DefaultTimeZoneId,
                 cancellationToken)
             .ConfigureAwait(false);
 
@@ -66,7 +65,6 @@ public sealed class ConfigureTargetComputerNameStep : DeploymentStepBase
                 context.RuntimeState.TargetWindowsPartitionRoot,
                 context.RuntimeState.TargetComputerName,
                 context.Request.OperatingSystem.Architecture,
-                context.Request.DefaultTimeZoneId,
                 cancellationToken)
             .ConfigureAwait(false);
 

@@ -1508,9 +1508,6 @@ Continuer le déploiement?</value>
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Windows utilise le fichier de réponses sélectionné. Foundry ne fusionne ni n’ajoute de paramètres.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Fuseau horaire</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Fichier de réponses</value>
   </data>

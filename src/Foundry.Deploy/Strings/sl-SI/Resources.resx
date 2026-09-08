@@ -1508,9 +1508,6 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Windows uporabi izbrano datoteko odgovorov. Foundry ne združuje ali dodaja nastavitev.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Časovni pas</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Datoteka odgovorov</value>
   </data>

@@ -42,11 +42,6 @@ public sealed record FoundryDeployConfigurationDocument
     public DeployOperatingSystemSelectionSettings OperatingSystemSelection { get; init; } = new();
 
     /// <summary>
-    /// Gets Windows localization settings used during deployment.
-    /// </summary>
-    public DeployLocalizationSettings Localization { get; init; } = new();
-
-    /// <summary>
     /// Gets network profile roaming settings used during deployment.
     /// </summary>
     public CoreDeployNetworkSettings Network { get; init; } = new();

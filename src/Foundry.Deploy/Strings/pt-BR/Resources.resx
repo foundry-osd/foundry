@@ -1508,9 +1508,6 @@ Continuar com a implantação?</value>
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>O Windows usa o arquivo de resposta selecionado. O Foundry não mescla nem adiciona configurações.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Fuso horário</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Arquivo de resposta</value>
   </data>

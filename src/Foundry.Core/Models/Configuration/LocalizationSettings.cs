@@ -5,12 +5,12 @@
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
-/// Stores user-authored localization preferences that are not OS catalog selectors.
+/// Stores user-authored Windows PE localization preferences.
 /// </summary>
 public sealed record LocalizationSettings
 {
     /// <summary>
-    /// Gets the optional default Windows time-zone identifier.
+    /// Gets the optional Windows time-zone identifier used by the WinPE bootstrap.
     /// </summary>
     public string? DefaultTimeZoneId { get; init; }
 }

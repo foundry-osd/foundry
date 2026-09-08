@@ -1711,7 +1711,7 @@
     <value>أدخل كلمتي مرور متطابقتين تتكونان من 8 أحرف على الأقل.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
-    <value>كوّن أساس الوسائط ولغة WinPE وتوقيع التمهيد وبرامج التشغيل والمنطقة الزمنية للنشر.</value>
+    <value>كوّن أساس الوسائط ولغة WinPE وتوقيع التمهيد وبرامج التشغيل والمنطقة الزمنية لـ Windows PE.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
     <value>اختر نهج توقيع التمهيد الآمن المستخدم للوسائط التي تم إنشاؤها.</value>
@@ -1720,10 +1720,10 @@
     <value>التمهيد الآمن</value>
   </data>
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
-    <value>اختر المنطقة الزمنية المطبقة أثناء النشر.</value>
+    <value>اختر المنطقة الزمنية المستخدمة في Windows PE.</value>
   </data>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
-    <value>المنطقة الزمنية للنشر</value>
+    <value>المنطقة الزمنية لـ Windows PE</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>قم بتثبيت Windows ADK والوظيفة الإضافية Windows PE قبل تحديد لغة التمهيد WinPE.</value>
