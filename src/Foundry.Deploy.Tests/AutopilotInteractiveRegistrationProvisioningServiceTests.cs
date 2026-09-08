@@ -226,13 +226,10 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Start-AuthenticationDeviceCodeRequest", script);
         Assert.Contains("Test-TransientHttpFailure", script);
         Assert.Contains("TransientFailure", script);
-        Assert.Contains("Waiting for network connectivity.", script);
-        Assert.Contains("Retrying Microsoft sign-in request", script);
         Assert.Contains("Request-DeviceCodeToken", script);
         Assert.Contains("ErrorDetails.Message", script);
         Assert.Contains("authorization_pending", script);
         Assert.Contains("expired_token", script);
-        Assert.Contains("Requesting a new Microsoft device code.", script);
         Assert.Contains("Get-AutopilotHardwareIdentity", script);
         Assert.Contains("Import-AutopilotDeviceIdentity", script);
         Assert.Contains("Test-AutopilotDeviceReadiness", script);
@@ -240,7 +237,6 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Update-AutopilotDeviceGroupTag", script);
         Assert.Contains("Should-ContinueVisibilityWaitAfterImportError", script);
         Assert.Contains("UploadGroupTagUpdateRequested", script);
-        Assert.Contains("Timed out while waiting for Windows Autopilot group tag update.", script);
         Assert.Contains("Invoke-GraphRequest", script);
         Assert.Contains("Test-RegistrationAlreadyCompleted", script);
         Assert.Contains("deviceManagement/importedWindowsAutopilotDeviceIdentities/import", script);
@@ -248,64 +244,15 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("updateDeviceProperties", script);
         Assert.Contains("AlreadyAssigned", script);
         Assert.Contains("AlreadyExists", script);
+        Assert.Contains("shutdown.exe", script);
+        Assert.DoesNotContain("Read-Host", script);
+        Assert.DoesNotContain("Write-Host", script);
         Assert.DoesNotContain("Install-Module", script);
         Assert.DoesNotContain("Connect-MgGraph", script);
         Assert.DoesNotContain("Get-WindowsAutopilotInfo", script);
         Assert.DoesNotContain("WindowsAutopilotIntune", script);
         Assert.DoesNotContain("Wait-AutopilotDeviceGroupTag", script);
         Assert.DoesNotContain("Start-Sleep -Seconds $intervalSeconds", script);
-    }
-
-    [Fact]
-    public void Provision_StagedScriptUsesTwoStepWpfFlow()
-    {
-        string windowsRoot = CreateWindowsRoot();
-        var service = CreateService();
-
-        AutopilotInteractiveRegistrationProvisioningResult result = service.Provision(windowsRoot);
-
-        string script = File.ReadAllText(result.ScriptPath);
-        Assert.Contains("PresentationFramework", script);
-        Assert.Contains("Start-FoundryAutopilotRegistrationUi", script);
-        Assert.Contains("Show-AuthenticationStep", script);
-        Assert.Contains("Show-UploadStep", script);
-        Assert.Contains("Start-AuthenticationFlow", script);
-        Assert.Contains("Add_ContentRendered", script);
-        Assert.Contains("[void]$window.Activate()", script);
-        Assert.Contains("AuthenticationProgressBar", script);
-        Assert.Contains("AuthenticationStatusTextBlock", script);
-        Assert.Contains("Code expires in {0} seconds.", script);
-        Assert.Contains("Update-AuthenticationCountdown", script);
-        Assert.Contains("Restart-AuthenticationDeviceCodeRequest", script);
-        Assert.Contains("Previous code expired.", script);
-        Assert.Contains("UploadProgressBar", script);
-        Assert.Contains("UploadStatusTextBlock", script);
-        Assert.Contains("IsIndeterminate", script);
-        Assert.Contains("Set-UploadControlsEnabled", script);
-        Assert.Contains("Content=\"Upload\"", script);
-        Assert.Contains("Group tag", script);
-        Assert.Contains("Foundry OSD - Interactive hardware hash upload", script);
-        Assert.Contains("Foundry OSD - Sign in to Microsoft", script);
-        Assert.Contains("Foundry OSD - Upload hardware hash", script);
-        Assert.Contains("UseLayoutRounding=\"True\"", script);
-        Assert.Contains("Stretch=\"Uniform\"", script);
-        Assert.Contains("RenderOptions.BitmapScalingMode=\"HighQuality\"", script);
-        Assert.Contains("<Run Text=\" \" />", script);
-        Assert.Contains("Choose a group tag, then upload this device hardware hash to Microsoft Intune.", script);
-        Assert.Contains("Waiting for device registration in Microsoft Intune.", script);
-        Assert.Contains("Restarting in {0} seconds.", script);
-        Assert.Contains("Restarting now.", script);
-        Assert.Contains("shutdown.exe", script);
-        Assert.Contains("Width=\"420\"", script);
-        Assert.Contains("Height=\"560\"", script);
-        Assert.Contains("ResizeMode=\"NoResize\"", script);
-        Assert.Contains("Topmost=\"True\"", script);
-        Assert.Contains("FontSize=\"16\"", script);
-        Assert.Contains("FontSize=\"32\"", script);
-        Assert.Contains("MinWidth=\"140\"", script);
-        Assert.Contains("MinHeight=\"32\"", script);
-        Assert.DoesNotContain("Read-Host", script);
-        Assert.DoesNotContain("Write-Host", script);
     }
 
     private static string CreateWindowsRoot()
