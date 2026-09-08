@@ -45,6 +45,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Ši įkrovos laikmena buvo sugeneruota naudojant senesnį Foundry OSD konfigūracijos formatą. Atnaujinkite įkrovos laikmeną, kad užtikrintumėte suderinamumą su naujausiomis funkcijomis.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Atšaukti</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Uždaryti</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Konfigūracija: integruoti numatytieji nustatymai</value>
   </data>

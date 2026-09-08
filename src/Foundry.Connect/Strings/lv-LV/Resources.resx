@@ -45,6 +45,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Šis sāknēšanas datu nesējs tika ģenerēts ar vecāku Foundry OSD konfigurācijas formātu. Atjauniniet sāknēšanas datu nesēju, lai nodrošinātu saderību ar jaunākajiem līdzekļiem.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Aizvērt</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Konfigurācija: iebūvētie noklusējuma iestatījumi</value>
   </data>

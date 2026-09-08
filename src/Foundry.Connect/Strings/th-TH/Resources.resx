@@ -45,6 +45,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>สื่อบูตนี้ถูกสร้างด้วยรูปแบบการกำหนดค่า Foundry OSD รุ่นเก่า อัปเดตสื่อบูตเพื่อให้เข้ากันได้กับฟีเจอร์ล่าสุด</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>ปิด</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>การกำหนดค่า: ค่าเริ่มต้นในตัว</value>
   </data>
