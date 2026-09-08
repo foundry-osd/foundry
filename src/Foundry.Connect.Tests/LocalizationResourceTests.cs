@@ -10,7 +10,7 @@ namespace Foundry.Connect.Tests;
 
 public sealed class LocalizationResourceTests
 {
-    public static TheoryData<string> SatelliteCultures => new()
+    public static TheoryData<string> SupportedCultures => new()
     {
         "ar-SA",
         "bg-BG",
@@ -19,6 +19,7 @@ public sealed class LocalizationResourceTests
         "de-DE",
         "el-GR",
         "en-GB",
+        "en-US",
         "es-ES",
         "es-MX",
         "et-EE",
@@ -52,8 +53,8 @@ public sealed class LocalizationResourceTests
     };
 
     [Theory]
-    [MemberData(nameof(SatelliteCultures))]
-    public void SatelliteResourceSet_IsAvailableForAdkCulture(string cultureName)
+    [MemberData(nameof(SupportedCultures))]
+    public void ResourceSet_ContainsRequiredLabelsForAdkCulture(string cultureName)
     {
         ResourceManager resourceManager = new(
             "Foundry.Connect.Strings.Resources",
@@ -64,5 +65,7 @@ public sealed class LocalizationResourceTests
 
         Assert.NotNull(resourceSet);
         Assert.Equal("Foundry Connect", resourceSet.GetString("App.Name"));
+        Assert.False(string.IsNullOrWhiteSpace(resourceSet.GetString("Common.Cancel")));
+        Assert.False(string.IsNullOrWhiteSpace(resourceSet.GetString("Common.Close")));
     }
 }

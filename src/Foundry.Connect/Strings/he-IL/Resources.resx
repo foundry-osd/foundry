@@ -45,6 +45,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>מדיית האתחול הזו נוצרה באמצעות תבנית תצורה ישנה יותר של Foundry OSD. עדכן את מדיית האתחול כדי להבטיח תאימות לתכונות העדכניות ביותר.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>סגור</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>תצורה: ברירות מחדל מובנות</value>
   </data>
