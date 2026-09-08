@@ -17,6 +17,7 @@ public interface IWindowsDiskInspector
     /// <summary>
     /// Resolves the physical disk number that contains a path.
     /// </summary>
+    /// <returns>The disk number, or null when the path has no matching physical partition, such as a WinPE RAM drive.</returns>
     Task<int?> ResolveDiskNumberForPathAsync(
         string path,
         CancellationToken cancellationToken = default);

@@ -171,6 +171,55 @@ public sealed class WindowsDiskInspectorTests
         Assert.Null(diskNumber);
     }
 
+    [Theory]
+    [InlineData("X:\\Foundry")]
+    [InlineData("R:\\Foundry")]
+    public async Task ResolveDiskNumberForPathAsync_WhenPowerShellReportsNoMatchingPartition_ReturnsNull(string path)
+    {
+        var inspector = CreatePowerShellInspector("""
+            $PSCmdlet.WriteError([System.Management.Automation.ErrorRecord]::new(
+                [System.Exception]::new('No matching partition.'),
+                'CmdletizationQuery_NotFound_DriveLetter',
+                [System.Management.Automation.ErrorCategory]::ObjectNotFound,
+                $DriveLetter))
+            """);
+
+        int? diskNumber = await inspector.ResolveDiskNumberForPathAsync(
+            path,
+            TestContext.Current.CancellationToken);
+
+        Assert.Null(diskNumber);
+    }
+
+    [Fact]
+    public async Task ResolveDiskNumberForPathAsync_WhenPowerShellCannotAccessPartitions_ThrowsInvalidDataException()
+    {
+        var inspector = CreatePowerShellInspector("""
+            $PSCmdlet.WriteError([System.Management.Automation.ErrorRecord]::new(
+                [System.UnauthorizedAccessException]::new('Access denied.'),
+                'StorageWMI 40001',
+                [System.Management.Automation.ErrorCategory]::PermissionDenied,
+                $DriveLetter))
+            """);
+
+        await Assert.ThrowsAsync<InvalidDataException>(
+            () => inspector.ResolveDiskNumberForPathAsync(
+                "C:\\Foundry",
+                TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task ResolveDiskNumberForPathAsync_WhenPowerShellFindsPartition_ReturnsDiskNumber()
+    {
+        var inspector = CreatePowerShellInspector("[pscustomobject]@{ DiskNumber = 3 }");
+
+        int? diskNumber = await inspector.ResolveDiskNumberForPathAsync(
+            "C:\\Foundry",
+            TestContext.Current.CancellationToken);
+
+        Assert.Equal(3, diskNumber);
+    }
+
     [Fact]
     public async Task ResolveDiskNumberForPathAsync_WhenPayloadIsMalformed_ThrowsInvalidDataException()
     {
@@ -225,6 +274,28 @@ public sealed class WindowsDiskInspectorTests
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(
             () => inspector.GetDisksAsync(cancellationSource.Token));
+    }
+
+    private static WindowsDiskInspector CreatePowerShellInspector(string partitionQueryBody)
+    {
+        return new WindowsDiskInspector((request, cancellationToken) =>
+        {
+            string[] arguments = request.ArgumentList!.ToArray();
+            int encodedCommandIndex = Array.IndexOf(arguments, "-EncodedCommand") + 1;
+            string script = Encoding.Unicode.GetString(Convert.FromBase64String(arguments[encodedCommandIndex]));
+            string stub = $$"""
+                function Get-Partition {
+                    [CmdletBinding()]
+                    param([char]$DriveLetter)
+                    {{partitionQueryBody}}
+                }
+                """;
+            arguments[encodedCommandIndex] = Convert.ToBase64String(Encoding.Unicode.GetBytes(stub + "\n" + script));
+
+            return new ProcessRunner().RunAsync(
+                new ProcessExecutionRequest(request.FileName, arguments, request.WorkingDirectory),
+                cancellationToken);
+        });
     }
 
     private static WindowsDiskInspector CreateInspector(string json)
