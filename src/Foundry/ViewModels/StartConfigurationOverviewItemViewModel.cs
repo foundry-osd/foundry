@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.Configuration;
-using Microsoft.UI.Xaml.Media;
 
 namespace Foundry.ViewModels;
 
@@ -20,7 +19,7 @@ public sealed class StartConfigurationOverviewItemViewModel
         string description,
         string status,
         string glyph,
-        string glyphForegroundBrushKey,
+        string glyphStyleKey,
         ConfigurationOverviewState state,
         ConfigurationNavigationTarget navigationTarget,
         string actionText,
@@ -30,7 +29,7 @@ public sealed class StartConfigurationOverviewItemViewModel
         Description = description;
         Status = status;
         Glyph = glyph;
-        GlyphForegroundBrushKey = glyphForegroundBrushKey;
+        GlyphStyleKey = glyphStyleKey;
         State = state;
         NavigationTarget = navigationTarget;
         ActionText = actionText;
@@ -49,10 +48,10 @@ public sealed class StartConfigurationOverviewItemViewModel
     /// <summary>Gets the state glyph.</summary>
     public string Glyph { get; }
 
-    /// <summary>Gets the theme-aware glyph brush.</summary>
-    public Brush GlyphForeground => (Brush)Application.Current.Resources[GlyphForegroundBrushKey];
+    /// <summary>Gets the theme-aware glyph style.</summary>
+    public Style GlyphStyle => (Style)Application.Current.Resources[GlyphStyleKey];
 
-    private string GlyphForegroundBrushKey { get; }
+    private string GlyphStyleKey { get; }
 
     /// <summary>Gets the evaluated configuration state.</summary>
     public ConfigurationOverviewState State { get; }

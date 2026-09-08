@@ -2,8 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Microsoft.UI.Xaml.Media;
-
 namespace Foundry.Controls;
 
 /// <summary>
@@ -57,6 +55,7 @@ public sealed partial class HomeStatusCard : UserControl
     public HomeStatusCard()
     {
         InitializeComponent();
+        Loaded += (_, _) => UpdateVisualState();
     }
 
     public string Title
@@ -131,22 +130,6 @@ public sealed partial class HomeStatusCard : UserControl
         set => SetValue(Line4ValueProperty, value);
     }
 
-    /// <summary>Background brush of the status badge, computed from <see cref="Severity"/>.</summary>
-    public Brush BadgeBackground => Severity switch
-    {
-        InfoBarSeverity.Success => (Brush)Application.Current.Resources["FoundryStatusReadyBrush"],
-        InfoBarSeverity.Error => (Brush)Application.Current.Resources["FoundryStatusBlockedBrush"],
-        _ => (Brush)Application.Current.Resources["FoundryStatusNeutralBrush"],
-    };
-
-    /// <summary>Foreground brush of the status badge, computed from <see cref="Severity"/>.</summary>
-    public Brush BadgeForeground => Severity switch
-    {
-        InfoBarSeverity.Success => (Brush)Application.Current.Resources["FoundryStatusReadyForegroundBrush"],
-        InfoBarSeverity.Error => (Brush)Application.Current.Resources["FoundryStatusBlockedForegroundBrush"],
-        _ => (Brush)Application.Current.Resources["FoundryStatusNeutralForegroundBrush"],
-    };
-
     /// <summary>Glyph shown in the badge, computed from <see cref="Severity"/>.</summary>
     public string BadgeGlyph => Severity switch
     {
@@ -178,7 +161,19 @@ public sealed partial class HomeStatusCard : UserControl
         if (d is HomeStatusCard card)
         {
             card.Bindings.Update();
+            card.UpdateVisualState();
         }
+    }
+
+    private void UpdateVisualState()
+    {
+        string state = Severity switch
+        {
+            InfoBarSeverity.Success => "Ready",
+            InfoBarSeverity.Error => "Blocked",
+            _ => "Neutral"
+        };
+        VisualStateManager.GoToState(this, state, false);
     }
 
     private static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

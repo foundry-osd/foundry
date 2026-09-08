@@ -13,7 +13,6 @@ using Foundry.Services.Autopilot;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Media;
 using Serilog;
 
 namespace Foundry.ViewModels;
@@ -159,7 +158,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         : Visibility.Collapsed;
     public string BootMediaCertificatePfxPath => hardwareHashUploadSettings.BootMediaCertificate.PfxPath ?? string.Empty;
     public string BootMediaCertificateStatusText => CreateBootMediaCertificateStatusText();
-    public Brush BootMediaCertificateStatusForeground => ResolveBootMediaCertificateStatusBrush();
+    public Style BootMediaCertificateStatusStyle => ResolveBootMediaCertificateStatusStyle();
     public bool IsBootMediaCertificateReady => hardwareHashUploadSettings.BootMediaCertificate.ValidatedExpiresOnUtc is DateTimeOffset expiresOnUtc &&
                                                expiresOnUtc > DateTimeOffset.UtcNow &&
                                                !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.BootMediaCertificate.PfxPath) &&
@@ -172,9 +171,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public string TenantStatusText => HasConnectedTenantInCurrentSession && HasTenantRegistration
         ? localizationService.GetString("Autopilot.HardwareHashTenantConnected")
         : localizationService.GetString("Autopilot.HardwareHashTenantNotConnected");
-    public Brush TenantStatusForeground => HasConnectedTenantInCurrentSession && HasTenantRegistration
-        ? (Brush)Application.Current.Resources["SystemFillColorSuccessBrush"]
-        : (Brush)Application.Current.Resources["SystemFillColorCriticalBrush"];
+    public Style TenantStatusStyle => HasConnectedTenantInCurrentSession && HasTenantRegistration
+        ? (Style)Application.Current.Resources["FoundrySuccessTextBlockStyle"]
+        : (Style)Application.Current.Resources["FoundryCriticalTextBlockStyle"];
     public string TenantConnectionButtonText => HasConnectedTenantInCurrentSession
         ? DisconnectTenantButtonText
         : ConnectTenantButtonText;
@@ -184,7 +183,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public string TenantIdText => hardwareHashUploadSettings.Tenant.TenantId ?? string.Empty;
     public string ClientIdText => hardwareHashUploadSettings.Tenant.ClientId ?? string.Empty;
     public string TenantOnboardingStatusText => CreateTenantOnboardingStatusText();
-    public Brush TenantOnboardingStatusForeground => ResolveTenantOnboardingStatusBrush();
+    public Style TenantOnboardingStatusStyle => ResolveTenantOnboardingStatusStyle();
     public string DefaultGroupTagText => string.IsNullOrWhiteSpace(hardwareHashUploadSettings.DefaultGroupTag)
         ? localizationService.GetString("Autopilot.HardwareHashDefaultGroupTagNone")
         : hardwareHashUploadSettings.DefaultGroupTag!;
@@ -982,7 +981,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         ProfileFolderColumnHeader = localizationService.GetString("Autopilot.ColumnFolder");
         OnPropertyChanged(nameof(BusyStatusText));
         OnPropertyChanged(nameof(TenantConnectionButtonText));
-        OnPropertyChanged(nameof(TenantStatusForeground));
+        OnPropertyChanged(nameof(TenantStatusStyle));
         OnPropertyChanged(nameof(JsonProfileActionText));
         OnPropertyChanged(nameof(HardwareHashUploadActionText));
         OnPropertyChanged(nameof(InteractiveHardwareHashUploadActionText));
@@ -1060,13 +1059,13 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private void RefreshHardwareHashUploadState()
     {
         OnPropertyChanged(nameof(TenantStatusText));
-        OnPropertyChanged(nameof(TenantStatusForeground));
+        OnPropertyChanged(nameof(TenantStatusStyle));
         OnPropertyChanged(nameof(TenantConnectionButtonText));
         OnPropertyChanged(nameof(AppRegistrationStatusText));
         OnPropertyChanged(nameof(TenantIdText));
         OnPropertyChanged(nameof(ClientIdText));
         OnPropertyChanged(nameof(TenantOnboardingStatusText));
-        OnPropertyChanged(nameof(TenantOnboardingStatusForeground));
+        OnPropertyChanged(nameof(TenantOnboardingStatusStyle));
         RefreshTenantReadinessEntries();
         OnPropertyChanged(nameof(IsHardwareHashCertificateExpired));
         OnPropertyChanged(nameof(EmptyCertificatesVisibility));
@@ -1076,7 +1075,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(BootMediaCertificateVisibility));
         OnPropertyChanged(nameof(BootMediaCertificatePfxPath));
         OnPropertyChanged(nameof(BootMediaCertificateStatusText));
-        OnPropertyChanged(nameof(BootMediaCertificateStatusForeground));
+        OnPropertyChanged(nameof(BootMediaCertificateStatusStyle));
         OnPropertyChanged(nameof(IsBootMediaCertificateReady));
         RetireActiveCertificateCommand.NotifyCanExecuteChanged();
         SelectBootMediaCertificatePfxCommand.NotifyCanExecuteChanged();
@@ -1086,7 +1085,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     {
         OnPropertyChanged(nameof(BootMediaCertificatePfxPath));
         OnPropertyChanged(nameof(BootMediaCertificateStatusText));
-        OnPropertyChanged(nameof(BootMediaCertificateStatusForeground));
+        OnPropertyChanged(nameof(BootMediaCertificateStatusStyle));
         OnPropertyChanged(nameof(IsBootMediaCertificateReady));
         SelectBootMediaCertificatePfxCommand.NotifyCanExecuteChanged();
     }
@@ -1114,7 +1113,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         TenantReadinessEntries.Add(new AutopilotTenantReadinessEntryViewModel(
             TenantOnboardingStatusLabel,
             TenantOnboardingStatusText,
-            TenantOnboardingStatusForeground));
+            TenantOnboardingStatusStyle));
     }
 
     private void DisconnectTenantSession()
@@ -1230,11 +1229,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         };
     }
 
-    private Brush ResolveBootMediaCertificateStatusBrush()
+    private Style ResolveBootMediaCertificateStatusStyle()
     {
         if (IsBootMediaCertificateReady)
         {
-            return (Brush)Application.Current.Resources["SystemFillColorSuccessBrush"];
+            return (Style)Application.Current.Resources["FoundrySuccessTextBlockStyle"];
         }
 
         if (IsHardwareHashCertificateExpired ||
@@ -1246,10 +1245,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                 or AutopilotPfxValidationCode.PrivateKeyMissing
                 or AutopilotPfxValidationCode.ThumbprintMismatch)
         {
-            return (Brush)Application.Current.Resources["SystemFillColorCriticalBrush"];
+            return (Style)Application.Current.Resources["FoundryCriticalTextBlockStyle"];
         }
 
-        return (Brush)Application.Current.Resources["TextFillColorSecondaryBrush"];
+        return (Style)Application.Current.Resources["FoundrySecondaryTextBlockStyle"];
     }
 
     private void SetBootMediaCertificateInput(string? pfxPath, string? password)
@@ -1351,11 +1350,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             : localizationService.GetString("Autopilot.HardwareHashOnboardingStatusNotReady");
     }
 
-    private Brush ResolveTenantOnboardingStatusBrush()
+    private Style ResolveTenantOnboardingStatusStyle()
     {
         return tenantOnboardingStatus == AutopilotTenantOnboardingStatus.Ready
-            ? (Brush)Application.Current.Resources["SystemFillColorSuccessBrush"]
-            : (Brush)Application.Current.Resources["SystemFillColorCriticalBrush"];
+            ? (Style)Application.Current.Resources["FoundrySuccessTextBlockStyle"]
+            : (Style)Application.Current.Resources["FoundryCriticalTextBlockStyle"];
     }
 
     private string GetTenantOnboardingDialogTitle()

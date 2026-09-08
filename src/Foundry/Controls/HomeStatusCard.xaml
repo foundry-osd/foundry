@@ -17,6 +17,37 @@
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </Grid.Resources>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="StatusStates">
+                <VisualState x:Name="Neutral" />
+                <VisualState x:Name="Ready">
+                    <VisualState.Setters>
+                        <Setter
+                            Target="StatusBadge.Background"
+                            Value="{ThemeResource FoundryStatusReadyBrush}" />
+                        <Setter
+                            Target="StatusIcon.Foreground"
+                            Value="{ThemeResource FoundryStatusReadyForegroundBrush}" />
+                        <Setter
+                            Target="StatusLabel.Foreground"
+                            Value="{ThemeResource FoundryStatusReadyForegroundBrush}" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Blocked">
+                    <VisualState.Setters>
+                        <Setter
+                            Target="StatusBadge.Background"
+                            Value="{ThemeResource FoundryStatusBlockedBrush}" />
+                        <Setter
+                            Target="StatusIcon.Foreground"
+                            Value="{ThemeResource FoundryStatusBlockedForegroundBrush}" />
+                        <Setter
+                            Target="StatusLabel.Foreground"
+                            Value="{ThemeResource FoundryStatusBlockedForegroundBrush}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Button
             Padding="-1"
             HorizontalAlignment="Stretch"
@@ -47,21 +78,21 @@
                         VerticalAlignment="Center"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{x:Bind Title, Mode=OneWay}" />
-                    <Border
+                    <Border x:Name="StatusBadge"
                         Grid.Column="2"
                         Padding="8,4"
-                        Background="{x:Bind BadgeBackground, Mode=OneWay}"
+                        Background="{ThemeResource FoundryStatusNeutralBrush}"
                         CornerRadius="12">
                         <StackPanel
                             Orientation="Horizontal"
                             Spacing="4">
-                            <FontIcon
+                            <FontIcon x:Name="StatusIcon"
                                 FontSize="10"
-                                Foreground="{x:Bind BadgeForeground, Mode=OneWay}"
+                                Foreground="{ThemeResource FoundryStatusNeutralForegroundBrush}"
                                 Glyph="{x:Bind BadgeGlyph, Mode=OneWay}" />
-                            <TextBlock
+                            <TextBlock x:Name="StatusLabel"
                                 VerticalAlignment="Center"
-                                Foreground="{x:Bind BadgeForeground, Mode=OneWay}"
+                                Foreground="{ThemeResource FoundryStatusNeutralForegroundBrush}"
                                 Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                                 Text="{x:Bind StatusText, Mode=OneWay}" />
                         </StackPanel>

@@ -41,7 +41,7 @@
                             Spacing="{ThemeResource FoundryInlineControlSpacing}">
                             <TextBlock
                                 VerticalAlignment="Center"
-                                Foreground="{x:Bind ViewModel.TenantStatusForeground, Mode=OneWay}"
+                                Style="{x:Bind ViewModel.TenantStatusStyle, Mode=OneWay}"
                                 Text="{x:Bind ViewModel.TenantStatusText, Mode=OneWay}" />
                             <Button
                                 MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
@@ -80,7 +80,7 @@
                                         <DataTemplate>
                                             <TextBlock
                                                 Margin="12,0,12,0"
-                                                Foreground="{Binding ValueForeground}"
+                                                Style="{Binding ValueStyle}"
                                                 Text="{Binding Value}"
                                                 TextTrimming="CharacterEllipsis" />
                                         </DataTemplate>
@@ -158,7 +158,7 @@
                                             <DataTemplate>
                                                 <TextBlock
                                                     Margin="12,0,12,0"
-                                                    Foreground="{Binding ValidityForeground}"
+                                                    Style="{Binding ValidityStyle}"
                                                     Text="{Binding ExpiresOnDisplay}"
                                                     TextTrimming="CharacterEllipsis" />
                                             </DataTemplate>
@@ -203,7 +203,7 @@
                                 Loaded="BootMediaCertificatePasswordBox_OnLoaded"
                                 PasswordChanged="BootMediaCertificatePasswordBox_OnPasswordChanged" />
                             <TextBlock
-                                Foreground="{x:Bind ViewModel.BootMediaCertificateStatusForeground, Mode=OneWay}"
+                                Style="{x:Bind ViewModel.BootMediaCertificateStatusStyle, Mode=OneWay}"
                                 Text="{x:Bind ViewModel.BootMediaCertificateStatusText, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords" />
                         </StackPanel>

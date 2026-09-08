@@ -14,4 +14,11 @@
     <Style x:Key="FoundryCaptionTextBlockStyle"
         BasedOn="{StaticResource CaptionTextBlockStyle}"
         TargetType="TextBlock" />
+    <Style x:Key="FoundrySecondaryBodyTextBlockStyle"
+        BasedOn="{StaticResource FoundryBodyTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter
+            Property="Foreground"
+            Value="{ThemeResource TextFillColorSecondaryBrush}" />
+    </Style>
 </ResourceDictionary>

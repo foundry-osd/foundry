@@ -4,7 +4,7 @@
 
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+using System.Windows.Data;
 using System.Windows.Media.Effects;
 using Foundry.Deploy.Motion;
 
@@ -81,20 +81,28 @@ public partial class TerminalStatusGlyph : UserControl
 
     private void UpdateVisuals()
     {
-        var brush = (SolidColorBrush)FindResource(IsSuccess
+        ForegroundGlyph.SetResourceReference(TextBlock.ForegroundProperty, IsSuccess
             ? "SystemFillColorSuccessBrush"
             : "SystemFillColorCriticalBrush");
-        ForegroundGlyph.Foreground = brush;
         ForegroundGlyph.Text = Glyph;
-        ForegroundGlyph.Effect = SystemParameters.HighContrast
-            ? null
-            : new DropShadowEffect
-            {
-                BlurRadius = 16,
-                Color = brush.Color,
-                Opacity = 1,
-                ShadowDepth = 0
-            };
+        if (SystemParameters.HighContrast)
+        {
+            ForegroundGlyph.Effect = null;
+            return;
+        }
+
+        var effect = new DropShadowEffect
+        {
+            BlurRadius = 16,
+            Opacity = 1,
+            ShadowDepth = 0
+        };
+        BindingOperations.SetBinding(effect, DropShadowEffect.ColorProperty, new Binding("Foreground.Color")
+        {
+            Source = ForegroundGlyph,
+            Mode = BindingMode.OneWay
+        });
+        ForegroundGlyph.Effect = effect;
     }
 
     private void PlayEntranceAnimation()

@@ -2,8 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Microsoft.UI.Xaml.Media;
-
 namespace Foundry.Controls;
 
 /// <summary>
@@ -36,6 +34,7 @@ public sealed partial class WorkflowStep : UserControl
     public WorkflowStep()
     {
         InitializeComponent();
+        Loaded += (_, _) => UpdateVisualState();
     }
 
     /// <summary>Gets or sets the label displayed beneath the step circle.</summary>
@@ -65,27 +64,6 @@ public sealed partial class WorkflowStep : UserControl
         set => SetValue(StateProperty, value);
     }
 
-    /// <summary>Gets the background brush for the circle based on current state.</summary>
-    public Brush CircleBackground => State switch
-    {
-        InfoBarSeverity.Success => (Brush)Resources["WorkflowStepReadyBrush"],
-        InfoBarSeverity.Error => (Brush)Resources["WorkflowStepCriticalBrush"],
-        _ => (Brush)Resources["WorkflowStepPendingBrush"],
-    };
-
-    /// <summary>Gets the foreground brush for the circle icon/number based on current state.</summary>
-    public Brush CircleForeground => State switch
-    {
-        InfoBarSeverity.Success => (Brush)Resources["WorkflowStepReadyForegroundBrush"],
-        InfoBarSeverity.Error => (Brush)Resources["WorkflowStepCriticalForegroundBrush"],
-        _ => (Brush)Resources["WorkflowStepPendingForegroundBrush"],
-    };
-
-    /// <summary>Gets the foreground brush for the label text.</summary>
-    public Brush LabelForeground => State == InfoBarSeverity.Informational
-        ? (Brush)Application.Current.Resources["TextFillColorSecondaryBrush"]
-        : (Brush)Application.Current.Resources["TextFillColorPrimaryBrush"];
-
     /// <summary>Gets the visibility of the checkmark icon (Ready state only).</summary>
     public Visibility IsReady => State == InfoBarSeverity.Success ? Visibility.Visible : Visibility.Collapsed;
 
@@ -108,6 +86,18 @@ public sealed partial class WorkflowStep : UserControl
     private void UpdateBindings()
     {
         Bindings.Update();
+        UpdateVisualState();
+    }
+
+    private void UpdateVisualState()
+    {
+        string state = State switch
+        {
+            InfoBarSeverity.Success => "Ready",
+            InfoBarSeverity.Error => "Critical",
+            _ => "Pending"
+        };
+        VisualStateManager.GoToState(this, state, false);
     }
 
     private void StepButton_Click(object sender, RoutedEventArgs e)

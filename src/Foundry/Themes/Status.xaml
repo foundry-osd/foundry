@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="FoundrySuccessTextBlockStyle"
+        TargetType="TextBlock">
+        <Setter
+            Property="Foreground"
+            Value="{ThemeResource SystemFillColorSuccessBrush}" />
+    </Style>
+    <Style x:Key="FoundryCriticalTextBlockStyle"
+        TargetType="TextBlock">
+        <Setter
+            Property="Foreground"
+            Value="{ThemeResource SystemFillColorCriticalBrush}" />
+    </Style>
+    <Style x:Key="FoundryCautionTextBlockStyle"
+        TargetType="TextBlock">
+        <Setter
+            Property="Foreground"
+            Value="{ThemeResource SystemFillColorCautionBrush}" />
+    </Style>
+    <Style x:Key="FoundrySecondaryTextBlockStyle"
+        TargetType="TextBlock">
+        <Setter
+            Property="Foreground"
+            Value="{ThemeResource TextFillColorSecondaryBrush}" />
+    </Style>
+    <Style x:Key="FoundryReadyFontIconStyle"
+        TargetType="FontIcon">
+        <Setter
+            Property="Foreground"
+            Value="{ThemeResource FoundryStatusReadyBrush}" />
+    </Style>
+    <Style x:Key="FoundryBlockedFontIconStyle"
+        TargetType="FontIcon">
+        <Setter
+            Property="Foreground"
+            Value="{ThemeResource FoundryStatusBlockedBrush}" />
+    </Style>
+    <Style x:Key="FoundryNeutralFontIconStyle"
+        TargetType="FontIcon">
+        <Setter
+            Property="Foreground"
+            Value="{ThemeResource FoundryStatusNeutralBrush}" />
+    </Style>
+</ResourceDictionary>
