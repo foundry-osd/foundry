@@ -733,7 +733,8 @@ public sealed class WindowsDeploymentServiceTests
             windowsRoot,
             "LAB01",
             "amd64",
-            "Romance Standard Time");
+            "Romance Standard Time",
+            cancellationToken: TestContext.Current.CancellationToken);
 
         string unattendPath = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
         XDocument document = XDocument.Load(unattendPath);
@@ -756,7 +757,8 @@ public sealed class WindowsDeploymentServiceTests
             windowsRoot,
             "LAB01",
             "amd64",
-            "Europe/Paris");
+            "Europe/Paris",
+            cancellationToken: TestContext.Current.CancellationToken);
 
         string unattendPath = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
         XDocument document = XDocument.Load(unattendPath);
@@ -1078,7 +1080,8 @@ public sealed class WindowsDeploymentServiceTests
                 DisablePaintAi = true,
                 DisableNotepadAi = true
             },
-            workingDirectory);
+            workingDirectory,
+            cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Contains(processRunner.Calls, call => call.Contains(@"LOAD HKLM\FoundrySoftware", StringComparison.Ordinal));
         Assert.Contains(processRunner.Calls, call => call.Contains(@"LOAD HKLM\FoundrySystem", StringComparison.Ordinal));
@@ -1108,7 +1111,8 @@ public sealed class WindowsDeploymentServiceTests
         await service.ConfigureOfflineAiComponentRemovalAsync(
             windowsRoot,
             new DeployAiComponentRemovalSettings(),
-            workingDirectory);
+            workingDirectory,
+            cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Empty(processRunner.Calls);
     }

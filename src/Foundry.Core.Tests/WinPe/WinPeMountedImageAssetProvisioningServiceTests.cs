@@ -39,10 +39,10 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.Equal("Write-Host 'Foundry'", await File.ReadAllTextAsync(Path.Combine(image.System32Path, "FoundryBootstrap.ps1")));
-        Assert.Equal("curl", await File.ReadAllTextAsync(Path.Combine(image.System32Path, "curl.exe")));
+        Assert.Equal("Write-Host 'Foundry'", await File.ReadAllTextAsync(Path.Combine(image.System32Path, "FoundryBootstrap.ps1"), TestContext.Current.CancellationToken));
+        Assert.Equal("curl", await File.ReadAllTextAsync(Path.Combine(image.System32Path, "curl.exe"), TestContext.Current.CancellationToken));
 
-        string[] startnetLines = await File.ReadAllLinesAsync(startnetPath);
+        string[] startnetLines = await File.ReadAllLinesAsync(startnetPath, TestContext.Current.CancellationToken);
         Assert.Contains(startnetLines, line => line.Equals("wpeinit", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(startnetLines, line => line.Equals("echo existing", StringComparison.OrdinalIgnoreCase));
         Assert.Single(startnetLines, line => line.Contains("FoundryBootstrap.ps1", StringComparison.OrdinalIgnoreCase));
@@ -71,7 +71,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.True(firstResult.IsSuccess, firstResult.Error?.Details);
         Assert.True(secondResult.IsSuccess, secondResult.Error?.Details);
 
-        string[] startnetLines = await File.ReadAllLinesAsync(Path.Combine(image.System32Path, "startnet.cmd"));
+        string[] startnetLines = await File.ReadAllLinesAsync(Path.Combine(image.System32Path, "startnet.cmd"), TestContext.Current.CancellationToken);
         Assert.Single(startnetLines, line => line.Contains("FoundryBootstrap.ps1", StringComparison.OrdinalIgnoreCase));
     }
 
@@ -122,15 +122,15 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.Equal("{\"schemaVersion\":1}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.config.json")));
-        Assert.Equal("{\"schemaVersion\":2}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.config.json")));
-        Assert.Equal("debug", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.provisioning-source.txt")));
-        Assert.Equal("release", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.provisioning-source.txt")));
-        Assert.Equal("{\"zones\":[]}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "iana-windows-timezones.json")));
-        Assert.Equal("<WLANProfile />", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wifi", "Profiles", "profile.xml")));
+        Assert.Equal("{\"schemaVersion\":1}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.config.json"), TestContext.Current.CancellationToken));
+        Assert.Equal("{\"schemaVersion\":2}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.config.json"), TestContext.Current.CancellationToken));
+        Assert.Equal("debug", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.provisioning-source.txt"), TestContext.Current.CancellationToken));
+        Assert.Equal("release", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.provisioning-source.txt"), TestContext.Current.CancellationToken));
+        Assert.Equal("{\"zones\":[]}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "iana-windows-timezones.json"), TestContext.Current.CancellationToken));
+        Assert.Equal("<WLANProfile />", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wifi", "Profiles", "profile.xml"), TestContext.Current.CancellationToken));
         Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wired")));
         Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Certificates")));
-        Assert.Equal("{\"profile\":1}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Autopilot", "Profile1", "AutopilotConfigurationFile.json")));
+        Assert.Equal("{\"profile\":1}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Autopilot", "Profile1", "AutopilotConfigurationFile.json"), TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -209,7 +209,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.Equal("oa3", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Tools", "OA3", "oa3tool.exe")));
+        Assert.Equal("oa3", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Tools", "OA3", "oa3tool.exe"), TestContext.Current.CancellationToken));
         string oa3ConfigPath = Path.Combine(image.MountedImagePath, "Foundry", "Runtime", "AutopilotHash", "OA3.cfg");
         string oa3InputPath = Path.Combine(image.MountedImagePath, "Foundry", "Runtime", "AutopilotHash", "input.xml");
         Assert.True(File.Exists(oa3ConfigPath));
@@ -293,7 +293,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        string deployConfigurationJson = await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.config.json"));
+        string deployConfigurationJson = await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.config.json"), TestContext.Current.CancellationToken);
         using JsonDocument document = JsonDocument.Parse(deployConfigurationJson);
         JsonElement root = document.RootElement;
         Assert.Equal(
@@ -328,7 +328,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        string connectConfigurationJson = await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.config.json"));
+        string connectConfigurationJson = await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.config.json"), TestContext.Current.CancellationToken);
         using JsonDocument document = JsonDocument.Parse(connectConfigurationJson);
         JsonElement root = document.RootElement;
         Assert.True(root.TryGetProperty("schemaVersion", out _));
@@ -366,7 +366,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.Equal(secretKey, await File.ReadAllBytesAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "media-secrets.key")));
+        Assert.Equal(secretKey, await File.ReadAllBytesAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "media-secrets.key"), TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -392,7 +392,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.Equal(secretKey, await File.ReadAllBytesAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "deployment-secrets.key")));
+        Assert.Equal(secretKey, await File.ReadAllBytesAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "deployment-secrets.key"), TestContext.Current.CancellationToken));
         Assert.False(File.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "media-secrets.key")));
     }
 
@@ -516,7 +516,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.False(File.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "deployment-secrets.key")));
 
         SecretEnvelope envelope = JsonSerializer.Deserialize<SecretEnvelope>(
-            await File.ReadAllTextAsync(encryptedPath),
+            await File.ReadAllTextAsync(encryptedPath, TestContext.Current.CancellationToken),
             ConfigurationJsonDefaults.SerializerOptions)!;
         byte[] plaintext = MediaSecretEnvelopeProtector.DecryptBytes(
             envelope,
@@ -560,9 +560,9 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         string toolsPath = Path.Combine(image.MountedImagePath, "Foundry", "Tools", "7zip");
-        Assert.Equal("7za", await File.ReadAllTextAsync(Path.Combine(toolsPath, "x64", "7za.exe")));
-        Assert.Equal("license", await File.ReadAllTextAsync(Path.Combine(toolsPath, "License.txt")));
-        Assert.Equal("readme", await File.ReadAllTextAsync(Path.Combine(toolsPath, "readme.txt")));
+        Assert.Equal("7za", await File.ReadAllTextAsync(Path.Combine(toolsPath, "x64", "7za.exe"), TestContext.Current.CancellationToken));
+        Assert.Equal("license", await File.ReadAllTextAsync(Path.Combine(toolsPath, "License.txt"), TestContext.Current.CancellationToken));
+        Assert.Equal("readme", await File.ReadAllTextAsync(Path.Combine(toolsPath, "readme.txt"), TestContext.Current.CancellationToken));
     }
 
     private sealed class TempMountedImage : IDisposable

@@ -52,7 +52,7 @@ public sealed class AutopilotHardwareHashUploadServiceTests
 
             Assert.Equal(AutopilotHardwareHashUploadState.UploadFailed, result.State);
             Assert.NotNull(result.ArtifactPath);
-            string json = await File.ReadAllTextAsync(result.ArtifactPath);
+            string json = await File.ReadAllTextAsync(result.ArtifactPath, TestContext.Current.CancellationToken);
             Assert.DoesNotContain("access_token", json, StringComparison.OrdinalIgnoreCase);
             Assert.DoesNotContain("authorization", json, StringComparison.OrdinalIgnoreCase);
             Assert.DoesNotContain("pfx", json, StringComparison.OrdinalIgnoreCase);
@@ -111,7 +111,7 @@ public sealed class AutopilotHardwareHashUploadServiceTests
             Assert.Equal(AutopilotHardwareHashUploadState.UploadFailed, result.State);
             Assert.Equal("PermissionMissing", result.FailureCode);
             Assert.NotNull(result.ArtifactPath);
-            string json = await File.ReadAllTextAsync(result.ArtifactPath);
+            string json = await File.ReadAllTextAsync(result.ArtifactPath, TestContext.Current.CancellationToken);
             Assert.DoesNotContain(Convert.ToBase64String(pfxBytes), json, StringComparison.Ordinal);
             Assert.DoesNotContain(pfxPassword, json, StringComparison.Ordinal);
             Assert.DoesNotContain(certificate.ExportCertificatePem(), json, StringComparison.Ordinal);

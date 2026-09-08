@@ -109,7 +109,7 @@ public sealed class WinReBootImagePreparationServiceTests
     public async Task ValidateHashIfRequestedAsync_WhenHashMatches_ReturnsSuccess()
     {
         string filePath = Path.Combine(Path.GetTempPath(), $"foundry-hash-{Guid.NewGuid():N}.txt");
-        await File.WriteAllTextAsync(filePath, "foundry");
+        await File.WriteAllTextAsync(filePath, "foundry", TestContext.Current.CancellationToken);
 
         try
         {
@@ -166,8 +166,8 @@ public sealed class WinReBootImagePreparationServiceTests
 
         string bootWimPath = Path.Combine(sourcesPath, "boot.wim");
         string cachedSourcePath = Path.Combine(cachePath, "source.esd");
-        await File.WriteAllTextAsync(bootWimPath, "original");
-        await File.WriteAllTextAsync(cachedSourcePath, "cached source");
+        await File.WriteAllTextAsync(bootWimPath, "original", TestContext.Current.CancellationToken);
+        await File.WriteAllTextAsync(cachedSourcePath, "cached source", TestContext.Current.CancellationToken);
         string cachedSourceHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes("cached source")));
         string catalogXml = CreateCatalogXml(cachedSourceHash);
 
@@ -197,7 +197,7 @@ public sealed class WinReBootImagePreparationServiceTests
                 CancellationToken.None);
 
             Assert.True(result.IsSuccess, result.Error?.Details);
-            Assert.Equal("winre", await File.ReadAllTextAsync(bootWimPath));
+            Assert.Equal("winre", await File.ReadAllTextAsync(bootWimPath, TestContext.Current.CancellationToken));
             Assert.NotNull(result.Value);
             Assert.Equal(2, result.Value.DependencyFiles.Count);
             Assert.Contains(runner.Executions, execution => execution.Arguments.Contains("/Export-Image", StringComparison.OrdinalIgnoreCase));

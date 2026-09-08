@@ -76,7 +76,7 @@ jobs:
         run: dotnet restore .\src\Foundry.slnx --nologo
 
       - name: Build solution
-        run: dotnet build .\src\Foundry.slnx -c Release -p:Platform=${{ matrix.platform }} -p:ContinuousIntegrationBuild=true --no-restore --nologo
+        run: dotnet build .\src\Foundry.slnx -c Release -p:Platform=${{ matrix.platform }} -p:ContinuousIntegrationBuild=true -warnaserror --no-restore --nologo
 
       - name: Run unit tests
         shell: pwsh

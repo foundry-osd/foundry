@@ -47,7 +47,7 @@ public sealed class WinPeDriverCatalogServiceTests
                                                     <OsInfo releaseId="11" architecture="x64" />
                                                   </DriverPack>
                                                 </Catalog>
-                                                """);
+                                                """, TestContext.Current.CancellationToken);
 
         var service = new WinPeDriverCatalogService();
 
@@ -86,7 +86,7 @@ public sealed class WinPeDriverCatalogServiceTests
                                                     <Hashes sha256="abc" />
                                                   </DriverPack>
                                                 </Catalog>
-                                                """);
+                                                """, TestContext.Current.CancellationToken);
 
         var service = new WinPeDriverCatalogService();
 
