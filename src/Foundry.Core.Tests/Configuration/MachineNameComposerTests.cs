@@ -16,11 +16,11 @@ public sealed class MachineNameComposerTests
             [Hardware(MachineNameComponentType.SerialNumber, 15, MachineNameTruncation.KeepRight)],
             new Dictionary<MachineNameComponentType, string?>
             {
-                [MachineNameComponentType.SerialNumber] = "SERIAL-123456789012345"
+                [MachineNameComponentType.SerialNumber] = "SERIAL-A23456789012345"
             });
 
         Assert.True(result.IsSuccess);
-        Assert.Equal("123456789012345", result.ComputerName);
+        Assert.Equal("A23456789012345", result.ComputerName);
     }
 
     [Fact]
@@ -51,10 +51,27 @@ public sealed class MachineNameComposerTests
             [Hardware(MachineNameComponentType.Model, 5, MachineNameTruncation.KeepRight)],
             new Dictionary<MachineNameComponentType, string?>
             {
-                [MachineNameComponentType.Model] = "Model / 12345"
+                [MachineNameComponentType.Model] = "Model / a2345"
             });
 
-        Assert.Equal("12345", result.ComputerName);
+        Assert.Equal("a2345", result.ComputerName);
+    }
+
+    [Theory]
+    [InlineData("123456789012345")]
+    [InlineData("SERIAL-123456789012345")]
+    public void Compose_WhenFinalNameContainsOnlyDigits_ReturnsInvalidFinalName(string serialNumber)
+    {
+        MachineNameCompositionResult result = Compose(
+            [Hardware(MachineNameComponentType.SerialNumber, 15, MachineNameTruncation.KeepRight)],
+            new Dictionary<MachineNameComponentType, string?>
+            {
+                [MachineNameComponentType.SerialNumber] = serialNumber
+            });
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(MachineNameCompositionFailureKind.InvalidFinalName, result.FailureKind);
+        Assert.Null(result.ComputerName);
     }
 
     [Theory]

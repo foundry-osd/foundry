@@ -12,6 +12,22 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentLaunchPreparationServiceTests
 {
+    [Theory]
+    [InlineData("123456789012345")]
+    [InlineData(" 123_456 ")]
+    public void Prepare_WhenComputerNameContainsOnlyDigits_FailsBeforeConfirmation(string computerName)
+    {
+        var shell = new FakeApplicationShellService();
+        var service = new DeploymentLaunchPreparationService(shell);
+
+        DeploymentLaunchPreparationResult result = service.Prepare(
+            CreateRequest(selectedTargetDisk: CreateDisk(), targetComputerName: computerName));
+
+        Assert.False(result.IsReadyToStart);
+        Assert.Null(result.Context);
+        Assert.Equal(0, shell.ConfirmationCallCount);
+    }
+
     [Fact]
     public void Prepare_WhenDryRunAndTargetDiskMissing_UsesDebugVirtualDisk()
     {
