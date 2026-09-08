@@ -10,6 +10,57 @@ namespace Foundry.Telemetry.Tests;
 public sealed class PostHogExceptionTrackerTests
 {
     [Fact]
+    public void Track_OrdersEachExceptionStackFromEntryPointToCrashSite()
+    {
+        var client = new RecordingPostHogEventClient();
+        var tracker = new PostHogExceptionTracker(client, "install-1");
+        var record = new RemoteDiagnosticRecord(
+            DateTimeOffset.UtcNow,
+            LogEventLevel.Error,
+            "Deployment failed",
+            new Dictionary<string, object>(),
+            new RemoteDiagnosticException(
+                "System.InvalidOperationException",
+                "redacted outer",
+                "   at Foundry.Deploy.Validate() in <redacted:path>:line 30\r\n" +
+                "   at Foundry.Deploy.Run() in <redacted:path>:line 20\r\n" +
+                "--- End of stack trace from previous location ---\r\n" +
+                "   at Foundry.Deploy.Main() in <redacted:path>:line 10",
+                [new RemoteDiagnosticException(
+                    "System.IO.IOException",
+                    "redacted inner",
+                    "   at System.Net.Http.HttpClient.Send()\n" +
+                    "   at Foundry.Deploy.Download() in <redacted:path>:line 40",
+                    [])]));
+
+        tracker.Track(record);
+
+        CapturedPostHogEvent captured = Assert.Single(client.Events);
+        var exceptions = Assert.IsType<List<Dictionary<string, object>>>(captured.Properties["$exception_list"]);
+        Assert.Collection(exceptions,
+            outer =>
+            {
+                Assert.Equal("System.InvalidOperationException", outer["type"]);
+                Assert.Collection(GetFrames(outer),
+                    frame => AssertFrame(frame, "Foundry.Deploy.Main()", 10),
+                    frame => AssertFrame(frame, "Foundry.Deploy.Run()", 20),
+                    frame => AssertFrame(frame, "Foundry.Deploy.Validate()", 30));
+            },
+            inner =>
+            {
+                Assert.Equal("System.IO.IOException", inner["type"]);
+                Assert.Collection(GetFrames(inner),
+                    frame => AssertFrame(frame, "Foundry.Deploy.Download()", 40),
+                    frame =>
+                    {
+                        Assert.Equal("System.Net.Http.HttpClient.Send()", frame["function"]);
+                        Assert.False(frame.ContainsKey("lineno"));
+                    });
+            });
+        Assert.DoesNotContain("<redacted:path>", captured.SerializedProperties, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void Track_CapturesSanitizedExceptionChainWithoutPersonProfile()
     {
         var client = new RecordingPostHogEventClient();
@@ -125,10 +176,20 @@ public sealed class PostHogExceptionTrackerTests
     }
 
     private static Dictionary<string, object> GetSingleFrame(Dictionary<string, object> exception)
+        => Assert.Single(GetFrames(exception));
+
+    private static List<Dictionary<string, object>> GetFrames(Dictionary<string, object> exception)
     {
         var stackTrace = Assert.IsType<Dictionary<string, object>>(exception["stacktrace"]);
-        var frames = Assert.IsType<List<Dictionary<string, object>>>(stackTrace["frames"]);
-        return Assert.Single(frames);
+        return Assert.IsType<List<Dictionary<string, object>>>(stackTrace["frames"]);
+    }
+
+    private static void AssertFrame(Dictionary<string, object> frame, string function, int lineNumber)
+    {
+        Assert.Equal(function, frame["function"]);
+        Assert.Equal(lineNumber, frame["lineno"]);
+        Assert.False(frame.ContainsKey("filename"));
+        Assert.False(frame.ContainsKey("abs_path"));
     }
 
     private sealed record CapturedPostHogEvent(
