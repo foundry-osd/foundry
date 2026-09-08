@@ -1508,9 +1508,6 @@
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Τα Windows χρησιμοποιούν το επιλεγμένο αρχείο απαντήσεων. Το Foundry δεν συγχωνεύει ούτε προσθέτει ρυθμίσεις.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Ζώνη ώρας</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Αρχείο απαντήσεων</value>
   </data>

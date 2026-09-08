@@ -1508,9 +1508,6 @@ Kas jätkata juurutamisega?</value>
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Windows kasutab valitud vastusefaili. Foundry ei ühenda ega lisa sätteid.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Ajavöönd</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Vastusefail</value>
   </data>

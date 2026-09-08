@@ -102,7 +102,6 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             TargetDiskNumber = effectiveTargetDisk.DiskNumber,
             Unattend = request.Unattend,
             TargetComputerName = request.UsesCustomUnattend ? string.Empty : normalizedComputerName,
-            DefaultTimeZoneId = request.UsesCustomUnattend || string.IsNullOrWhiteSpace(request.DefaultTimeZoneId) ? null : request.DefaultTimeZoneId.Trim(),
             OperatingSystem = request.SelectedOperatingSystem,
             DriverPackSelectionKind = request.DriverPackSelectionKind,
             DriverPack = request.SelectedDriverPack,

@@ -5,12 +5,12 @@
 namespace Foundry.Core.Models.Configuration.Deploy;
 
 /// <summary>
-/// Carries deploy-runtime localization settings that are not OS catalog selectors.
+/// Carries WinPE bootstrap settings in the generated deployment configuration.
 /// </summary>
 public sealed record DeployLocalizationSettings
 {
     /// <summary>
-    /// Gets the optional default Windows time-zone identifier.
+    /// Gets the optional Windows time-zone identifier read by the WinPE bootstrap.
     /// </summary>
     public string? DefaultTimeZoneId { get; init; }
 }

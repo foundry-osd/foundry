@@ -1508,9 +1508,6 @@
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Windows 使用选定的应答文件。Foundry 不会合并或添加设置。</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>时区</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>应答文件</value>
   </data>

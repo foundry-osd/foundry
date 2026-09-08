@@ -327,7 +327,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string windowsPartitionRoot,
         string computerName,
         string processorArchitecture,
-        string? defaultTimeZoneId = null,
         CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -349,7 +348,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             _logger.LogWarning("Processor architecture was not provided when configuring the offline computer name. Falling back to amd64.");
         }
 
-        // The specialize pass is used so computer name and time zone are applied before OOBE starts.
+        // The specialize pass applies the computer name before OOBE starts.
         XNamespace unattendNamespace = UnattendDocumentService.Namespace;
         XDocument document = _unattendDocumentService.LoadOrCreate(windowsPartitionRoot);
         XElement component = _unattendDocumentService.EnsureShellSetupComponent(document, "specialize", processorArchitecture);
@@ -364,35 +363,13 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         computerNameElement.Value = computerName;
 
-        XElement timeZoneElement = component.Element(unattendNamespace + "TimeZone")
-            ?? new XElement(unattendNamespace + "TimeZone");
-
-        string? unattendTimeZoneId = ResolveUnattendTimeZoneId(defaultTimeZoneId);
-        if (string.IsNullOrWhiteSpace(unattendTimeZoneId))
-        {
-            if (timeZoneElement.Parent is not null)
-            {
-                timeZoneElement.Remove();
-            }
-        }
-        else
-        {
-            if (timeZoneElement.Parent is null)
-            {
-                component.Add(timeZoneElement);
-            }
-
-            timeZoneElement.Value = unattendTimeZoneId;
-        }
-
         _unattendDocumentService.Save(windowsPartitionRoot, document);
 
         _logger.LogInformation(
-            "Offline computer name configured. ComputerName={ComputerName}, UnattendPath={UnattendPath}, ProcessorArchitecture={ProcessorArchitecture}, DefaultTimeZoneConfigured={DefaultTimeZoneConfigured}",
+            "Offline computer name configured. ComputerName={ComputerName}, UnattendPath={UnattendPath}, ProcessorArchitecture={ProcessorArchitecture}",
             computerName,
             Path.Combine(windowsPartitionRoot, "Windows", "Panther", "unattend.xml"),
-            processorArchitecture,
-            !string.IsNullOrWhiteSpace(unattendTimeZoneId));
+            processorArchitecture);
 
         return Task.CompletedTask;
     }
@@ -971,25 +948,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             settings.DisableEdgeAi ||
             settings.DisablePaintAi ||
             settings.DisableNotepadAi;
-    }
-
-    private static string? ResolveUnattendTimeZoneId(string? timeZoneId)
-    {
-        if (string.IsNullOrWhiteSpace(timeZoneId))
-        {
-            return null;
-        }
-
-        string normalizedTimeZoneId = timeZoneId.Trim();
-        if (TimeZoneInfo.TryConvertIanaIdToWindowsId(normalizedTimeZoneId, out string? windowsTimeZoneId) &&
-            !string.IsNullOrWhiteSpace(windowsTimeZoneId))
-        {
-            return windowsTimeZoneId;
-        }
-
-        return normalizedTimeZoneId.Contains('/', StringComparison.Ordinal)
-            ? null
-            : normalizedTimeZoneId;
     }
 
     /// <inheritdoc />

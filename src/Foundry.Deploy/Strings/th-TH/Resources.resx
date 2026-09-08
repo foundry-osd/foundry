@@ -1508,9 +1508,6 @@
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Windows ใช้ไฟล์คำตอบที่เลือก Foundry จะไม่ผสานหรือเพิ่มการตั้งค่า</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>เขตเวลา</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>ไฟล์คำตอบ</value>
   </data>

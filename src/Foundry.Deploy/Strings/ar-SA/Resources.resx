@@ -1508,9 +1508,6 @@
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>يستخدم Windows ملف الإجابات المحدد. لا يدمج Foundry الإعدادات ولا يضيف إليها.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>المنطقة الزمنية</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>ملف الإجابات</value>
   </data>

@@ -1508,9 +1508,6 @@
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Windows използва избрания файл с отговори. Foundry не обединява и не добавя настройки.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Часова зона</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Файл с отговори</value>
   </data>

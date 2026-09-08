@@ -1711,7 +1711,7 @@
     <value>8자 이상의 일치하는 암호를 입력하세요.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
-    <value>미디어 기준, WinPE 언어, 부팅 서명, 드라이버 및 배포 표준 시간대를 구성합니다.</value>
+    <value>미디어 기준, WinPE 언어, 부팅 서명, 드라이버 및 Windows PE 표준 시간대를 구성합니다.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
     <value>생성된 미디어에 사용할 보안 부팅 서명 정책을 선택합니다.</value>
@@ -1720,10 +1720,10 @@
     <value>보안 부팅</value>
   </data>
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
-    <value>배포 중에 적용할 표준 시간대를 선택합니다.</value>
+    <value>Windows PE에서 사용할 표준 시간대를 선택합니다.</value>
   </data>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
-    <value>배포 시간대</value>
+    <value>Windows PE 표준 시간대</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>WinPE 부팅 언어를 선택하기 전에 Windows ADK 및 Windows PE 추가 기능을 설치하세요.</value>

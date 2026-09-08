@@ -40,11 +40,6 @@ public sealed record DeploymentContext
     public required string TargetComputerName { get; init; }
 
     /// <summary>
-    /// Gets the optional default Windows time zone ID written into unattend.xml.
-    /// </summary>
-    public string? DefaultTimeZoneId { get; init; }
-
-    /// <summary>
     /// Gets the operating system catalog item to download and apply.
     /// </summary>
     public required OperatingSystemCatalogItem OperatingSystem { get; init; }

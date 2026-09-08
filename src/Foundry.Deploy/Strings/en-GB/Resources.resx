@@ -1508,9 +1508,6 @@ Continue with deployment?</value>
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Windows uses the selected answer file. Foundry does not merge or add settings.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Time zone</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Answer file</value>
   </data>

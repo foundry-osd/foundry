@@ -1508,9 +1508,6 @@ Fortsätt med implementeringen?</value>
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Windows använder den valda svarsfilen. Foundry slår inte samman eller lägger till inställningar.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Tidszon</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Svarsfil</value>
   </data>

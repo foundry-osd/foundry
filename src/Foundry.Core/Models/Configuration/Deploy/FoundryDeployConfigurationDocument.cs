@@ -38,7 +38,7 @@ public sealed record FoundryDeployConfigurationDocument
     public DeployOperatingSystemSelectionSettings OperatingSystemSelection { get; init; } = new();
 
     /// <summary>
-    /// Gets Windows localization settings used during apply and unattend generation.
+    /// Gets localization settings read by the WinPE bootstrap before deployment starts.
     /// </summary>
     public DeployLocalizationSettings Localization { get; init; } = new();
 

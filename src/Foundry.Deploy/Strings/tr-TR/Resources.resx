@@ -1508,9 +1508,6 @@ Dağıtıma devam edilsin mi?</value>
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Windows seçilen yanıt dosyasını kullanır. Foundry ayarları birleştirmez veya eklemez.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Saat dilimi</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Yanıt dosyası</value>
   </data>

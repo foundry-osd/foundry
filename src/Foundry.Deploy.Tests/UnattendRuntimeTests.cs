@@ -329,7 +329,6 @@ public sealed class UnattendRuntimeTests
         DeploymentLaunchRequest request = fixture.CreateLaunchRequest() with
         {
             Oobe = new DeployOobeSettings { IsEnabled = true, EnableAdministratorAccount = true, AdministratorPasswordSecret = new() },
-            DefaultTimeZoneId = "Romance Standard Time",
             AiComponentRemoval = ai
         };
         DeploymentLaunchPreparationResult result = service.Prepare(request);
@@ -337,7 +336,6 @@ public sealed class UnattendRuntimeTests
         Assert.NotNull(result.Context);
         Assert.True(result.Context.UsesCustomUnattend);
         Assert.Equal("", result.Context.TargetComputerName);
-        Assert.Null(result.Context.DefaultTimeZoneId);
         Assert.False(result.Context.Oobe.IsEnabled);
         Assert.Null(result.Context.Oobe.AdministratorPasswordSecret);
         Assert.Same(ai, result.Context.AiComponentRemoval);

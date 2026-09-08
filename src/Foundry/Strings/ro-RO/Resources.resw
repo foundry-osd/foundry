@@ -1711,7 +1711,7 @@
     <value>Introduceți parole identice de cel puțin 8 caractere.</value>
   </data>
   <data name="GeneralConfiguration.PageDescription" xml:space="preserve">
-    <value>Configurați baza suportului, limba WinPE, semnătura de pornire, driverele și fusul orar de implementare.</value>
+    <value>Configurați baza suportului, limba WinPE, semnătura de pornire, driverele și fusul orar Windows PE.</value>
   </data>
   <data name="GeneralConfiguration.SecureBoot.Description" xml:space="preserve">
     <value>Alegeți politica de semnare pentru pornirea securizată utilizată pentru suportul generat.</value>
@@ -1720,10 +1720,10 @@
     <value>Pornire securizată</value>
   </data>
   <data name="GeneralConfiguration.TimeZone.Description" xml:space="preserve">
-    <value>Alegeți fusul orar aplicat în timpul implementării.</value>
+    <value>Alegeți fusul orar utilizat în Windows PE.</value>
   </data>
   <data name="GeneralConfiguration.TimeZone.Header" xml:space="preserve">
-    <value>Fus orar de implementare</value>
+    <value>Fus orar Windows PE</value>
   </data>
   <data name="GeneralConfiguration.WinPeLanguage.AdkBlocked" xml:space="preserve">
     <value>Instalați Windows ADK și programul de completare Windows PE înainte de a selecta limba de pornire WinPE.</value>

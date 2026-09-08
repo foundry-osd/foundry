@@ -1508,9 +1508,6 @@ Tęsti diegimą?</value>
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>„Windows“ naudoja pasirinktą atsakymų failą. „Foundry“ parametrų nesujungia ir neprideda.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Laiko juosta</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Atsakymų failas</value>
   </data>

@@ -1508,9 +1508,6 @@ ErrorCode=0x80070005
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Windows משתמש בקובץ התשובות שנבחר. Foundry אינו ממזג או מוסיף הגדרות.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>אזור זמן</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>קובץ תשובות</value>
   </data>

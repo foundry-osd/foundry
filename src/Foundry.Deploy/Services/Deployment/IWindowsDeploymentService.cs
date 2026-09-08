@@ -70,19 +70,17 @@ public interface IWindowsDeploymentService
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Writes computer name and optional time zone into Windows\Panther\unattend.xml.
+    /// Writes the computer name into Windows\Panther\unattend.xml without changing other settings.
     /// </summary>
     /// <param name="windowsPartitionRoot">Root path of the target Windows partition.</param>
     /// <param name="computerName">Computer name written into unattend.xml.</param>
     /// <param name="processorArchitecture">Processor architecture used by unattend components.</param>
-    /// <param name="defaultTimeZoneId">Optional Windows time-zone identifier written into unattend.xml.</param>
     /// <param name="cancellationToken">Token that cancels unattend generation.</param>
     /// <returns>A task that completes after unattend.xml is written.</returns>
     Task ConfigureOfflineComputerNameAsync(
         string windowsPartitionRoot,
         string computerName,
         string processorArchitecture,
-        string? defaultTimeZoneId = null,
         CancellationToken cancellationToken = default);
 
     /// <summary>

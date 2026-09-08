@@ -1508,9 +1508,6 @@ Continuați cu implementarea?</value>
   <data name="Unattend.Ownership" xml:space="preserve">
     <value>Windows folosește fișierul de răspuns selectat. Foundry nu îmbină și nu adaugă setări.</value>
   </data>
-  <data name="Unattend.TimeZone" xml:space="preserve">
-    <value>Fus orar</value>
-  </data>
   <data name="Unattend.Title" xml:space="preserve">
     <value>Fișier de răspuns</value>
   </data>
