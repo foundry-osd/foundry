@@ -23,8 +23,44 @@ using Serilog.Events;
 namespace Foundry.Connect.Tests;
 
 [Collection(ConnectRemoteDiagnosticsCollection.Name)]
-public sealed class MainWindowViewModelTelemetryTests
+public sealed class MainWindowViewModelTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task RefreshStatusCommand_WhenSelectedNetworkConnectionChanges_RefreshesWifiCommandAvailability(bool initiallyConnected)
+    {
+        static NetworkStatusSnapshot Snapshot(bool connected) => new()
+        {
+            LayoutMode = NetworkLayoutMode.EthernetWifi,
+            IsWifiRuntimeAvailable = true,
+            HasWirelessAdapter = true,
+            ConnectedWifiSsid = connected ? "Foundry" : null,
+            WifiNetworks = [new WifiNetworkSummary { Ssid = "Foundry", Authentication = "Open" }]
+        };
+
+        using MainWindowViewModel viewModel = CreateViewModel(
+            new RecordingTelemetryService(),
+            new QueueNetworkStatusService(Snapshot(initiallyConnected), Snapshot(!initiallyConnected)));
+        await viewModel.RefreshStatusCommand.ExecuteAsync(null);
+        viewModel.SelectedWifiNetwork = Assert.Single(viewModel.WifiNetworks);
+        MainWindowViewModel.WifiNetworkItemViewModel selectedNetwork = viewModel.SelectedWifiNetwork;
+        bool canConnect = viewModel.ConnectSelectedWifiCommand.CanExecute(null);
+        bool canDisconnect = viewModel.DisconnectSelectedWifiCommand.CanExecute(null);
+        Assert.Equal(!initiallyConnected, canConnect);
+        Assert.Equal(initiallyConnected, canDisconnect);
+        viewModel.ConnectSelectedWifiCommand.CanExecuteChanged += (_, _) =>
+            canConnect = viewModel.ConnectSelectedWifiCommand.CanExecute(null);
+        viewModel.DisconnectSelectedWifiCommand.CanExecuteChanged += (_, _) =>
+            canDisconnect = viewModel.DisconnectSelectedWifiCommand.CanExecute(null);
+
+        await viewModel.RefreshStatusCommand.ExecuteAsync(null);
+
+        Assert.Same(selectedNetwork, viewModel.SelectedWifiNetwork);
+        Assert.Equal(initiallyConnected, canConnect);
+        Assert.Equal(!initiallyConnected, canDisconnect);
+    }
+
     [Fact]
     public async Task InitializeAsync_WhenNetworkIsReady_DoesNotTrackSessionReadyImmediately()
     {
