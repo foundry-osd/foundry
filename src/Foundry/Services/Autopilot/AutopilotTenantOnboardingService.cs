@@ -916,16 +916,6 @@ public sealed class AutopilotTenantOnboardingService(
         return null;
     }
 
-    private static string[] NormalizeGroupTags(IReadOnlyList<string> groupTags)
-    {
-        return groupTags
-            .Where(groupTag => !string.IsNullOrWhiteSpace(groupTag))
-            .Select(groupTag => groupTag.Trim())
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .OrderBy(groupTag => groupTag, StringComparer.OrdinalIgnoreCase)
-            .ToArray();
-    }
-
     private void DeletePfxOutputAfterFailedGraphUpload(string pfxOutputPath)
     {
         try

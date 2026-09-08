@@ -105,19 +105,6 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
         RefreshDriverPackOptions();
     }
 
-    public void SetDetectedHardware(HardwareProfile? detectedHardware)
-    {
-        _detectedHardware = detectedHardware;
-        RefreshDriverPackOptions();
-    }
-
-    public void SetOperatingSystemContext(OperatingSystemCatalogItem? selectedOperatingSystem, string effectiveArchitecture)
-    {
-        _selectedOperatingSystem = selectedOperatingSystem;
-        _effectiveArchitecture = NormalizeArchitecture(effectiveArchitecture);
-        RefreshDriverPackOptions();
-    }
-
     public DriverPackSelectionKind GetEffectiveSelectionKind()
     {
         return SelectedDriverPackOption?.Kind ?? DriverPackSelectionKind.None;

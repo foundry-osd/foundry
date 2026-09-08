@@ -34,16 +34,6 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
             RequiredVersionPolicyText);
     }
 
-    public static bool IsCompatibleVersion(string? versionText)
-    {
-        if (string.IsNullOrWhiteSpace(versionText))
-        {
-            return false;
-        }
-
-        return GetVersionRelation(versionText) == AdkVersionRelation.Supported;
-    }
-
     public static AdkVersionRelation GetVersionRelation(string? versionText)
     {
         if (string.IsNullOrWhiteSpace(versionText) || !Version.TryParse(versionText, out Version? version))
