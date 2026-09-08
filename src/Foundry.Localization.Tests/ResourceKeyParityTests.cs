@@ -299,11 +299,26 @@ public sealed class ResourceKeyParityTests
             .ToDictionary(item => item.Name!, item => item.Value, StringComparer.Ordinal);
     }
 
+    [Theory]
+    [InlineData("Step {0} of {1}", "Sur {1} étapes, étape {0}", true)]
+    [InlineData("{0} and {0}", "{0}", false)]
+    [InlineData("{0} and {1}", "{0} and {2}", false)]
+    [InlineData("Size: {0:N2}", "Taille : {0}", false)]
+    public void PlaceholderComparison_PreservesArgumentsWithoutRequiringTheirOrder(
+        string reference,
+        string translation,
+        bool expectedMatch)
+    {
+        Assert.Equal(
+            expectedMatch,
+            ExtractPlaceholders(reference).SequenceEqual(ExtractPlaceholders(translation), StringComparer.Ordinal));
+    }
     private static string[] ExtractPlaceholders(string value)
     {
         return Regex
             .Matches(value, @"\{\d+(?::[^}]*)?\}")
             .Select(match => match.Value)
+            .Order(StringComparer.Ordinal)
             .ToArray();
     }
 
