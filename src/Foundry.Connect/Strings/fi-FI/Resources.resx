@@ -45,6 +45,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Tämä käynnistysmedia luotiin vanhemmalla Foundry OSD -määritysmuodolla. Päivitä käynnistysmedia varmistaaksesi yhteensopivuuden uusimpien ominaisuuksien kanssa.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Kokoonpano: sisäänrakennetut oletusasetukset</value>
   </data>

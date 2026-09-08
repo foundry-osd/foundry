@@ -45,6 +45,12 @@
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Este suporte de arranque foi gerado com um formato de configuração Foundry OSD mais antigo. Atualize o suporte de arranque para garantir compatibilidade com as funcionalidades mais recentes.</value>
   </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Fechar janela</value>
+  </data>
   <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
     <value>Configuração: padrões integrados</value>
   </data>
