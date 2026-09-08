@@ -156,7 +156,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
     public async Task ProvisionAsync_WhenReleaseConnectIsEnabled_DownloadsAndExtractsReleaseAsset()
     {
         using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
-        byte[] archiveBytes = await File.ReadAllBytesAsync(workspace.CreateArchive("connect-release.zip", "Foundry.Connect.exe"));
+        byte[] archiveBytes = await File.ReadAllBytesAsync(workspace.CreateArchive("connect-release.zip", "Foundry.Connect.exe"), TestContext.Current.CancellationToken);
         var httpHandler = new FakeReleaseHttpMessageHandler("Foundry.Connect-win-x64.zip", archiveBytes);
         var service = new WinPeRuntimePayloadProvisioningService(
             new FakeRuntimeProcessRunner(),

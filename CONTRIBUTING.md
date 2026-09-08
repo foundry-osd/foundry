@@ -61,7 +61,7 @@ Build and test x64 changes locally:
 
 ```powershell
 dotnet restore .\src\Foundry.slnx --nologo
-dotnet build .\src\Foundry.slnx -c Release -p:Platform=x64 -p:ContinuousIntegrationBuild=true --no-restore --nologo
+dotnet build .\src\Foundry.slnx -c Release -p:Platform=x64 -p:ContinuousIntegrationBuild=true -warnaserror --no-restore --nologo
 
 $testProjects = Get-ChildItem .\src -Directory -Filter *.Tests |
     ForEach-Object { Join-Path $_.FullName "$($_.Name).csproj" }
@@ -75,6 +75,10 @@ foreach ($testProject in $testProjects) {
 ```
 
 Validate ARM64 when the change affects runtime behavior, packaging, architecture-specific code, or deployment assets. CI runs formatting, Release builds, and all test projects for both x64 and ARM64.
+
+CI treats build warnings as errors. Existing targeted suppressions remain in effect; fix new warnings instead of adding blanket suppressions.
+
+Foundry OSD publishes without trimming or Native AOT, matching its Velopack packaging settings, and keeps ReadyToRun enabled in Release. Foundry.Connect and Foundry.Deploy retain their self-contained WPF publication without trimming or Native AOT.
 
 Use disposable virtual machines, test disks, non-production tenants, and non-production credentials for manual media and deployment testing. Foundry workflows can erase disks and exercise privileged network or cloud operations.
 

@@ -22,7 +22,7 @@ public sealed class ProvisionAutopilotStepTests
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         string sourceConfigurationPath = Path.Combine(workspace.RootPath, "AutopilotConfigurationFile.json");
-        await File.WriteAllTextAsync(sourceConfigurationPath, """{"profile":true}""");
+        await File.WriteAllTextAsync(sourceConfigurationPath, """{"profile":true}""", TestContext.Current.CancellationToken);
         ProvisionAutopilotStep step = CreateStep();
         DeploymentStepExecutionContext context = CreateContext(
             workspace,
@@ -199,7 +199,7 @@ public sealed class ProvisionAutopilotStepTests
         Assert.Contains("consent", result.Message, StringComparison.OrdinalIgnoreCase);
 
         string statusPath = Path.Combine(context.RuntimeState.AutopilotHardwareHashDiagnosticsPath!, "autopilot-hash-upload-status.json");
-        using JsonDocument status = JsonDocument.Parse(await File.ReadAllTextAsync(statusPath));
+        using JsonDocument status = JsonDocument.Parse(await File.ReadAllTextAsync(statusPath, TestContext.Current.CancellationToken));
         Assert.Equal("UploadFailed", status.RootElement.GetProperty("uploadState").GetString());
         Assert.Equal("ConsentMissing", status.RootElement.GetProperty("failureCode").GetString());
     }
@@ -294,7 +294,7 @@ public sealed class ProvisionAutopilotStepTests
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
         Assert.True(File.Exists(manifestPath));
         Assert.Equal(AutopilotHardwareHashUploadState.DryRunPrepared, context.RuntimeState.AutopilotHardwareHashUploadState);
-        using JsonDocument manifest = JsonDocument.Parse(await File.ReadAllTextAsync(manifestPath));
+        using JsonDocument manifest = JsonDocument.Parse(await File.ReadAllTextAsync(manifestPath, TestContext.Current.CancellationToken));
         Assert.Equal("hardwareHashUpload", manifest.RootElement.GetProperty("provisioningMode").GetString());
         Assert.False(manifest.RootElement.TryGetProperty("certificatePfxSecret", out _));
         Assert.False(manifest.RootElement.TryGetProperty("certificatePfxPasswordSecret", out _));
@@ -320,7 +320,7 @@ public sealed class ProvisionAutopilotStepTests
         Assert.Equal(AutopilotHardwareHashUploadState.NotPlanned, context.RuntimeState.AutopilotHardwareHashUploadState);
         Assert.Equal(manifestPath, context.RuntimeState.StagedAutopilotConfigurationPath);
         Assert.True(File.Exists(manifestPath));
-        using JsonDocument manifest = JsonDocument.Parse(await File.ReadAllTextAsync(manifestPath));
+        using JsonDocument manifest = JsonDocument.Parse(await File.ReadAllTextAsync(manifestPath, TestContext.Current.CancellationToken));
         Assert.Equal("interactiveHardwareHashUpload", manifest.RootElement.GetProperty("provisioningMode").GetString());
         Assert.False(manifest.RootElement.TryGetProperty("certificatePfxSecret", out _));
         Assert.False(manifest.RootElement.TryGetProperty("certificatePfxPasswordSecret", out _));

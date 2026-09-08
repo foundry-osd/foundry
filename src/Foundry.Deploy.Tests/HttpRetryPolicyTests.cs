@@ -30,7 +30,8 @@ public sealed class HttpRetryPolicyTests
             NullLogger.Instance,
             "download catalog",
             retryCount: 3,
-            retryDelay: TimeSpan.Zero);
+            retryDelay: TimeSpan.Zero,
+            cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Equal("ok", result);
         Assert.Equal(3, attempts);
@@ -51,7 +52,8 @@ public sealed class HttpRetryPolicyTests
                 NullLogger.Instance,
                 "download catalog",
                 retryCount: 3,
-                retryDelay: TimeSpan.Zero));
+                retryDelay: TimeSpan.Zero,
+                cancellationToken: TestContext.Current.CancellationToken));
 
         Assert.Equal(1, attempts);
     }

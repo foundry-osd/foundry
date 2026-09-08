@@ -181,7 +181,7 @@ public sealed class PostHogTelemetryServiceTests
         using var httpClient = new HttpClient(new RecordingHttpMessageHandler { ThrowOnSend = true });
         var service = CreateService(httpClient);
 
-        await service.TrackAsync(TelemetryEvents.OsdBootMediaFinished, new Dictionary<string, object?> { ["boot_media_target"] = "iso" });
+        await service.TrackAsync(TelemetryEvents.OsdBootMediaFinished, new Dictionary<string, object?> { ["boot_media_target"] = "iso" }, cancellationToken: TestContext.Current.CancellationToken);
     }
 
     [Fact]
@@ -192,7 +192,7 @@ public sealed class PostHogTelemetryServiceTests
         var options = new TelemetryOptions(false, TelemetryDefaults.PostHogEuHost, "project-token", "install-id");
         var service = CreateService(httpClient, options);
 
-        await service.TrackAsync(TelemetryEvents.OsdBootMediaFinished, new Dictionary<string, object?> { ["boot_media_target"] = "iso" });
+        await service.TrackAsync(TelemetryEvents.OsdBootMediaFinished, new Dictionary<string, object?> { ["boot_media_target"] = "iso" }, cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Equal(0, handler.SendCount);
     }
@@ -213,7 +213,8 @@ public sealed class PostHogTelemetryServiceTests
                 ["boot_media_architecture"] = "arm64",
                 ["boot_media_creation_failed_step_name"] = "Customize boot image",
                 ["ssid"] = "CorpWifi"
-            });
+            },
+            cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Equal("https://eu.i.posthog.com/i/v0/e/", handler.RequestUri?.ToString());
 
@@ -253,7 +254,7 @@ public sealed class PostHogTelemetryServiceTests
         using var httpClient = new HttpClient(handler);
         var service = CreateService(httpClient);
 
-        await service.TrackAsync("unknown_event", new Dictionary<string, object?> { ["success"] = true });
+        await service.TrackAsync("unknown_event", new Dictionary<string, object?> { ["success"] = true }, cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Equal(0, handler.SendCount);
     }
@@ -271,7 +272,8 @@ public sealed class PostHogTelemetryServiceTests
             {
                 ["boot_media_target"] = "unknown",
                 ["connect_runtime_payload_source"] = "unknown"
-            });
+            },
+            cancellationToken: TestContext.Current.CancellationToken);
 
         JsonElement properties = handler.ReadJson().GetProperty("properties");
         Assert.Equal(TelemetryBootMediaTargets.Usb, properties.GetProperty("boot_media_target").GetString());
@@ -293,7 +295,8 @@ public sealed class PostHogTelemetryServiceTests
             {
                 ["boot_media_target"] = "unknown",
                 ["deploy_runtime_payload_source"] = "unknown"
-            });
+            },
+            cancellationToken: TestContext.Current.CancellationToken);
 
         JsonElement properties = handler.ReadJson().GetProperty("properties");
         Assert.Equal(TelemetryBootMediaTargets.Usb, properties.GetProperty("boot_media_target").GetString());
@@ -309,7 +312,7 @@ public sealed class PostHogTelemetryServiceTests
         using var httpClient = new HttpClient(handler);
         var service = CreateService(httpClient);
 
-        await service.FlushAsync();
+        await service.FlushAsync(cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.Equal(0, handler.SendCount);
     }
@@ -319,8 +322,8 @@ public sealed class PostHogTelemetryServiceTests
     {
         var service = new NullTelemetryService();
 
-        await service.TrackAsync(TelemetryEvents.OsdBootMediaFinished, new Dictionary<string, object?> { ["boot_media_target"] = "iso" });
-        await service.FlushAsync();
+        await service.TrackAsync(TelemetryEvents.OsdBootMediaFinished, new Dictionary<string, object?> { ["boot_media_target"] = "iso" }, cancellationToken: TestContext.Current.CancellationToken);
+        await service.FlushAsync(cancellationToken: TestContext.Current.CancellationToken);
     }
 
     private static PostHogTelemetryService CreateService(HttpClient httpClient, TelemetryOptions? options = null)

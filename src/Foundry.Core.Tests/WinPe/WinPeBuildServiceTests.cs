@@ -13,7 +13,7 @@ public sealed class WinPeBuildServiceTests
     {
         var service = new WinPeBuildService();
 
-        WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(null!);
+        WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(null!, cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeErrorCodes.ValidationFailed, result.Error?.Code);
@@ -24,7 +24,7 @@ public sealed class WinPeBuildServiceTests
     {
         var service = new WinPeBuildService();
 
-        WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(new WinPeBuildOptions());
+        WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(new WinPeBuildOptions(), cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeErrorCodes.ValidationFailed, result.Error?.Code);
@@ -39,7 +39,7 @@ public sealed class WinPeBuildServiceTests
         {
             OutputDirectoryPath = "C:\\Temp",
             Architecture = (WinPeArchitecture)999
-        });
+        }, cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeErrorCodes.ValidationFailed, result.Error?.Code);

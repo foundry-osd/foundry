@@ -83,7 +83,7 @@ public sealed class WinPeDriverResolutionServiceTests
     {
         string customDirectory = Path.Combine(Path.GetTempPath(), $"foundry-custom-drivers-{Guid.NewGuid():N}");
         Directory.CreateDirectory(customDirectory);
-        await File.WriteAllTextAsync(Path.Combine(customDirectory, "driver.inf"), string.Empty);
+        await File.WriteAllTextAsync(Path.Combine(customDirectory, "driver.inf"), string.Empty, TestContext.Current.CancellationToken);
 
         var catalogEntries = new[]
         {

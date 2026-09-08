@@ -20,7 +20,7 @@ public sealed class AutopilotHardwareHashCsvWriterTests
             new AutopilotHardwareHashDeviceIdentity("SER,123", "HASHVALUE", "Sales, East"),
             CancellationToken.None);
 
-        byte[] bytes = await File.ReadAllBytesAsync(csvPath);
+        byte[] bytes = await File.ReadAllBytesAsync(csvPath, TestContext.Current.CancellationToken);
         string csv = Encoding.UTF8.GetString(bytes);
 
         Assert.False(bytes.Length >= 3 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF);
@@ -41,7 +41,7 @@ public sealed class AutopilotHardwareHashCsvWriterTests
             new AutopilotHardwareHashDeviceIdentity("SER123", "HASHVALUE", null),
             CancellationToken.None);
 
-        string[] lines = await File.ReadAllLinesAsync(csvPath);
+        string[] lines = await File.ReadAllLinesAsync(csvPath, TestContext.Current.CancellationToken);
 
         Assert.Equal("Device Serial Number,Windows Product ID,Hardware Hash,Group Tag", lines[0]);
         Assert.Equal("SER123,,HASHVALUE,", lines[1]);
