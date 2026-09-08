@@ -1974,9 +1974,6 @@
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK spremnost i montaža.</value>
   </data>
-  <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
-    <value>Windows ADK</value>
-  </data>
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
@@ -2028,9 +2025,6 @@
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>Standardni tijek konfiguracije.</value>
   </data>
-  <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
-    <value>Standardna konfiguracija</value>
-  </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
     <value>General</value>
   </data>
@@ -2039,12 +2033,6 @@
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD kući</value>
-  </data>
-  <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
-    <value>Foundry OSD</value>
-  </data>
-  <data name="Nav_HomeKey.Subtitle" xml:space="preserve">
-    <value>Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Dom</value>
@@ -2084,9 +2072,6 @@
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>Pregledajte i započnite stvaranje medija.</value>
-  </data>
-  <data name="Nav_StartKey.Subtitle" xml:space="preserve">
-    <value>Start</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
     <value>Start</value>
@@ -2916,17 +2901,11 @@
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Nije pronađen nijedan USB pogon.</value>
   </data>
-  <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
-    <value>USB ciljevi još nisu skenirani.</value>
-  </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
     <value>USB ciljno osvježavanje nije uspjelo.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Ponašanje formata korišteno prije kopiranja konačnog USB medija.</value>
-  </data>
-  <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
-    <value>USB raspored</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
     <value>Shema dijeljenja koja se koristi prilikom pripreme odabranog USB cilja.</value>

@@ -1974,9 +1974,6 @@
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK 준비 및 설치.</value>
   </data>
-  <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
-    <value>Windows ADK</value>
-  </data>
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
@@ -2028,9 +2025,6 @@
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>표준 구성 워크플로.</value>
   </data>
-  <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
-    <value>표준 구성</value>
-  </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
     <value>일반</value>
   </data>
@@ -2039,12 +2033,6 @@
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD 집</value>
-  </data>
-  <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
-    <value>Foundry OSD</value>
-  </data>
-  <data name="Nav_HomeKey.Subtitle" xml:space="preserve">
-    <value>Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>홈</value>
@@ -2084,9 +2072,6 @@
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>미디어 생성을 검토하고 시작합니다.</value>
-  </data>
-  <data name="Nav_StartKey.Subtitle" xml:space="preserve">
-    <value>시작</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
     <value>시작</value>
@@ -2916,17 +2901,11 @@
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>USB 드라이브를 찾을 수 없습니다.</value>
   </data>
-  <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
-    <value>USB 대상은 아직 검사되지 않았습니다.</value>
-  </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
     <value>USB 대상 새로 고침에 실패했습니다.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>최종 USB 미디어를 복사하기 전에 사용되는 형식 동작입니다.</value>
-  </data>
-  <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
-    <value>USB 레이아웃</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
     <value>선택한 USB 대상을 준비할 때 사용되는 파티션 구성표입니다.</value>

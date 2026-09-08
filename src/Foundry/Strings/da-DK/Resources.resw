@@ -1974,9 +1974,6 @@
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK klarhed og installation.</value>
   </data>
-  <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
-    <value>Windows ADK</value>
-  </data>
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
@@ -2028,9 +2025,6 @@
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>Standard konfiguration workflow.</value>
   </data>
-  <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
-    <value>Standard konfiguration</value>
-  </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
     <value>Generelt</value>
   </data>
@@ -2039,12 +2033,6 @@
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD hjem</value>
-  </data>
-  <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
-    <value>Foundry OSD</value>
-  </data>
-  <data name="Nav_HomeKey.Subtitle" xml:space="preserve">
-    <value>Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Hjem</value>
@@ -2084,9 +2072,6 @@
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>Gennemgå og start medieskabelse.</value>
-  </data>
-  <data name="Nav_StartKey.Subtitle" xml:space="preserve">
-    <value>Start</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
     <value>Start</value>
@@ -2916,17 +2901,11 @@
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Der blev ikke fundet nogen USB-drev.</value>
   </data>
-  <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
-    <value>USB mål er ikke blevet scannet endnu.</value>
-  </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
     <value>USB målopdatering mislykkedes.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Formateringsadfærd brugt før kopiering af det endelige USB-medie.</value>
-  </data>
-  <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
-    <value>USB layout</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
     <value>Partitionsskema brugt ved forberedelse af det valgte USB mål.</value>

@@ -1974,9 +1974,6 @@
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK hazırlık ve kurulum.</value>
   </data>
-  <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
-    <value>Windows ADK</value>
-  </data>
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
@@ -2028,9 +2025,6 @@
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>Standart konfigürasyon iş akışı.</value>
   </data>
-  <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
-    <value>Standart konfigürasyon</value>
-  </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
     <value>Genel</value>
   </data>
@@ -2039,12 +2033,6 @@
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD ev</value>
-  </data>
-  <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
-    <value>Foundry OSD</value>
-  </data>
-  <data name="Nav_HomeKey.Subtitle" xml:space="preserve">
-    <value>Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Ana sayfa</value>
@@ -2084,9 +2072,6 @@
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>Medya oluşturmayı inceleyin ve başlatın.</value>
-  </data>
-  <data name="Nav_StartKey.Subtitle" xml:space="preserve">
-    <value>Başlat</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
     <value>Başlat</value>
@@ -2916,17 +2901,11 @@
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Hiçbir USB sürücüsü bulunamadı.</value>
   </data>
-  <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
-    <value>USB hedefleri henüz taranmadı.</value>
-  </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
     <value>USB hedef yenileme başarısız oldu.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Son USB ortamı kopyalanmadan önce kullanılan biçimlendirme davranışı.</value>
-  </data>
-  <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
-    <value>USB düzeni</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
     <value>Seçilen USB hedefi hazırlanırken kullanılan bölümleme şeması.</value>

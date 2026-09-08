@@ -1974,9 +1974,6 @@
   <data name="Nav_AdkKey.Description" xml:space="preserve">
     <value>ADK готовность и установка.</value>
   </data>
-  <data name="Nav_AdkKey.Subtitle" xml:space="preserve">
-    <value>Windows ADK</value>
-  </data>
   <data name="Nav_AdkKey.Title" xml:space="preserve">
     <value>ADK</value>
   </data>
@@ -2028,9 +2025,6 @@
   <data name="Nav_GeneralConfigurationKey.Description" xml:space="preserve">
     <value>Стандартный рабочий процесс настройки.</value>
   </data>
-  <data name="Nav_GeneralConfigurationKey.Subtitle" xml:space="preserve">
-    <value>Стандартная конфигурация</value>
-  </data>
   <data name="Nav_GeneralConfigurationKey.Title" xml:space="preserve">
     <value>Общий</value>
   </data>
@@ -2039,12 +2033,6 @@
   </data>
   <data name="Nav_HomeKey.Description" xml:space="preserve">
     <value>Foundry OSD дома</value>
-  </data>
-  <data name="Nav_HomeKey.SecondaryTitle" xml:space="preserve">
-    <value>Foundry OSD</value>
-  </data>
-  <data name="Nav_HomeKey.Subtitle" xml:space="preserve">
-    <value>Foundry OSD</value>
   </data>
   <data name="Nav_HomeKey.Title" xml:space="preserve">
     <value>Главная</value>
@@ -2084,9 +2072,6 @@
   </data>
   <data name="Nav_StartKey.Description" xml:space="preserve">
     <value>Просмотрите и начните создание медиа.</value>
-  </data>
-  <data name="Nav_StartKey.Subtitle" xml:space="preserve">
-    <value>Старт</value>
   </data>
   <data name="Nav_StartKey.Title" xml:space="preserve">
     <value>Старт</value>
@@ -2916,17 +2901,11 @@
   <data name="StartMedia.Usb.NoCandidatesFound" xml:space="preserve">
     <value>Диски USB не найдены.</value>
   </data>
-  <data name="StartMedia.Usb.NotLoaded" xml:space="preserve">
-    <value>Цели USB еще не сканировались.</value>
-  </data>
   <data name="StartMedia.Usb.QueryFailed" xml:space="preserve">
     <value>USB целевое обновление не удалось.</value>
   </data>
   <data name="StartMedia.UsbLayout.FormatMode.Description" xml:space="preserve">
     <value>Поведение формата, используемое перед копированием окончательного носителя USB.</value>
-  </data>
-  <data name="StartMedia.UsbLayout.Header" xml:space="preserve">
-    <value>USB макет</value>
   </data>
   <data name="StartMedia.UsbLayout.PartitionStyle.Description" xml:space="preserve">
     <value>Схема разделов, используемая при подготовке выбранной цели USB.</value>
