@@ -96,9 +96,16 @@ public sealed class WindowsDiskInspector : IWindowsDiskInspector
         string driveLetter = char.ToUpperInvariant(root[0]).ToString(CultureInfo.InvariantCulture);
 
         string script = $@"
-$partition = Get-Partition -DriveLetter '{EscapeForSingleQuote(driveLetter)}' -ErrorAction SilentlyContinue
+try {{
+    $partition = Get-Partition -DriveLetter '{EscapeForSingleQuote(driveLetter)}' -ErrorAction Stop
+}} catch {{
+    if ($_.FullyQualifiedErrorId -eq 'CmdletizationQuery_NotFound_DriveLetter,Get-Partition') {{
+        exit 0
+    }}
+    throw
+}}
 if ($null -eq $partition) {{
-    return
+    exit 0
 }}
 
 [pscustomobject]@{{
