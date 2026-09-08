@@ -1003,6 +1003,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             SelectedWifiPassphrase = string.Empty;
         }
 
+        ConnectSelectedWifiCommand.NotifyCanExecuteChanged();
+        DisconnectSelectedWifiCommand.NotifyCanExecuteChanged();
         OnPropertyChanged(nameof(HasWifiNetworks));
         OnPropertyChanged(nameof(WifiDiscoveryEmptyStateText));
         OnPropertyChanged(nameof(CanConnectSelectedWifi));
