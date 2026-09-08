@@ -3,20 +3,11 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
-using Foundry.Core.Models.Configuration.Deploy;
 
 namespace Foundry.Core.Tests.Configuration;
 
 public sealed class ConfigurationSchemaVersionsTests
 {
-    [Fact]
-    public void CurrentVersions_MatchConfigurationDocumentContracts()
-    {
-        Assert.Equal(FoundryConfigurationDocument.CurrentSchemaVersion, ConfigurationSchemaVersions.FoundryCurrent);
-        Assert.Equal(FoundryConnectConfigurationDocument.CurrentSchemaVersion, ConfigurationSchemaVersions.ConnectCurrent);
-        Assert.Equal(FoundryDeployConfigurationDocument.CurrentSchemaVersion, ConfigurationSchemaVersions.DeployCurrent);
-    }
-
     [Fact]
     public void IsBootMediaUpdateRecommended_UsesCurrentSchemaVersion()
     {

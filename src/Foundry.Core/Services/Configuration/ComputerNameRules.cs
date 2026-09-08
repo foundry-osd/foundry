@@ -10,7 +10,6 @@ public static class ComputerNameRules
 {
     public const int MaxLength = 15;
     public const string FallbackName = "PC";
-    public const string ValidationMessage = "Computer name must contain 1 to 15 characters using A-Z, a-z, 0-9, or -.";
 
     public static string Normalize(string? value)
     {
@@ -46,6 +45,9 @@ public static class ComputerNameRules
         return builder.ToString();
     }
 
+    /// <summary>
+    /// Validates a complete computer name, including Windows Setup's restriction on numeric-only names.
+    /// </summary>
     public static bool IsValid(string? value)
     {
         if (string.IsNullOrWhiteSpace(value) || value.Length > MaxLength)
@@ -53,15 +55,18 @@ public static class ComputerNameRules
             return false;
         }
 
+        bool hasNonDigit = false;
         foreach (char character in value)
         {
             if (!IsAllowedCharacter(character))
             {
                 return false;
             }
+
+            hasNonDigit |= character is < '0' or > '9';
         }
 
-        return true;
+        return hasNonDigit;
     }
 
     public static bool IsAllowedText(string? value)
@@ -80,13 +85,6 @@ public static class ComputerNameRules
         }
 
         return true;
-    }
-
-    public static string GetValidationMessage(string? value)
-    {
-        return IsValid(value)
-            ? string.Empty
-            : ValidationMessage;
     }
 
     public static bool IsAllowedCharacter(char character)

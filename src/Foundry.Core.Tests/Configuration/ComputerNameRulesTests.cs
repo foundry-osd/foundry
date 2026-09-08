@@ -4,7 +4,7 @@
 
 using Foundry.Core.Services.Configuration;
 
-namespace Foundry.Deploy.Tests;
+namespace Foundry.Core.Tests.Configuration;
 
 public sealed class ComputerNameRulesTests
 {
@@ -22,6 +22,16 @@ public sealed class ComputerNameRulesTests
         bool isValid = ComputerNameRules.IsValid("Computer-Name-Too-Long");
 
         Assert.False(isValid);
-        Assert.Equal(ComputerNameRules.ValidationMessage, ComputerNameRules.GetValidationMessage("Computer-Name-Too-Long"));
+    }
+
+    [Theory]
+    [InlineData("0", false)]
+    [InlineData("123456789012345", false)]
+    [InlineData("PC1234567890123", true)]
+    [InlineData("1234567890123PC", true)]
+    [InlineData("123-456", true)]
+    public void IsValid_RejectsNumericOnlyNames(string computerName, bool expected)
+    {
+        Assert.Equal(expected, ComputerNameRules.IsValid(computerName));
     }
 }
