@@ -42,7 +42,7 @@ internal sealed partial class PostHogExceptionTracker(
 {
     public void Track(RemoteDiagnosticRecord record)
     {
-        if (record.Exception is null || record.Level < Serilog.Events.LogEventLevel.Error)
+        if (!record.ShouldTrackException || record.Exception is null || record.Level < Serilog.Events.LogEventLevel.Error)
         {
             return;
         }

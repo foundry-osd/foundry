@@ -144,24 +144,29 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
                     return;
                 }
 
-                if (logEvent.Exception is not null && !TryAcquireException(logEvent.Exception, GetScalarText(logEvent, "OperationId")))
-                {
-                    return;
-                }
-
                 if (!TryAcquireFingerprint(logEvent))
                 {
                     Interlocked.Increment(ref _droppedRecordCount);
                     return;
                 }
 
-                RemoteDiagnosticRecord record = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(logEvent, context);
+                RemoteDiagnosticRecord record = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(logEvent, context) with
+                {
+                    ShouldTrackException = logEvent.Exception is not null &&
+                        logEvent.Level >= LogEventLevel.Error &&
+                        !HasTrackedException(logEvent.Exception, GetScalarText(logEvent, "OperationId"))
+                };
                 var queuedRecord = new QueuedRemoteDiagnosticRecord(
                     Volatile.Read(ref _consentGeneration),
                     record);
                 if (!channel.Writer.TryWrite(queuedRecord))
                 {
                     Interlocked.Increment(ref _droppedRecordCount);
+                }
+                else if (record.ShouldTrackException)
+                {
+                    _seenExceptions.GetValue(logEvent.Exception!, static _ => new ExceptionDedupeState())
+                        .OperationIds.Add(GetScalarText(logEvent, "OperationId"));
                 }
             }
         }
@@ -287,14 +292,9 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
             ? scalar.Value?.ToString() ?? string.Empty
             : string.Empty;
 
-    private bool TryAcquireException(Exception exception, string operationId)
-    {
-        ExceptionDedupeState state = _seenExceptions.GetValue(exception, static _ => new ExceptionDedupeState());
-        lock (state.OperationIds)
-        {
-            return state.OperationIds.Add(operationId);
-        }
-    }
+    private bool HasTrackedException(Exception exception, string operationId) =>
+        _seenExceptions.TryGetValue(exception, out ExceptionDedupeState? state) &&
+        state.OperationIds.Contains(operationId);
 
     private async Task ProcessQueueAsync(
         ChannelReader<QueuedRemoteDiagnosticRecord> reader,

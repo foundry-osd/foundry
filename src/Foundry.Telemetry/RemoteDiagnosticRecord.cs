@@ -14,7 +14,13 @@ public sealed record RemoteDiagnosticRecord(
     LogEventLevel Level,
     string Body,
     IReadOnlyDictionary<string, object> Attributes,
-    RemoteDiagnosticException? Exception);
+    RemoteDiagnosticException? Exception)
+{
+    /// <summary>
+    /// Allows repeated log context to retain its exception without duplicating Error Tracking events.
+    /// </summary>
+    internal bool ShouldTrackException { get; init; } = true;
+}
 
 /// <summary>
 /// Represents a privacy-filtered exception chain.
