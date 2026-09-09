@@ -96,13 +96,14 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ["Workflow"] = "deployment"
         });
         _logger.LogInformation(
-            "Starting deployment orchestration. Mode={Mode}, IsDryRun={IsDryRun}, TargetDiskNumber={TargetDiskNumber}, HasTargetComputerName={HasTargetComputerName}, DriverPackSelectionKind={DriverPackSelectionKind}, ApplyFirmwareUpdates={ApplyFirmwareUpdates}",
+            "Starting deployment orchestration. Mode={Mode}, IsDryRun={IsDryRun}, TargetDiskNumber={TargetDiskNumber}, HasTargetComputerName={HasTargetComputerName}, DriverPackSelectionKind={DriverPackSelectionKind}, ApplyFirmwareUpdates={ApplyFirmwareUpdates}, RemoteDiagnostic={RemoteDiagnostic}",
             context.Mode,
             context.IsDryRun,
             context.TargetDiskNumber,
             !string.IsNullOrWhiteSpace(context.TargetComputerName),
             context.DriverPackSelectionKind,
-            context.ApplyFirmwareUpdates);
+            context.ApplyFirmwareUpdates,
+            true);
 
         if (!_operationProgressService.TryStart(OperationKind.Deploy, "Starting Foundry.Deploy orchestration.", 0))
         {
@@ -194,13 +195,20 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
                 IDeploymentStep step = _steps[i];
                 executionContext.SetCurrentStep(step, i + 1);
+                using IDisposable? stepScope = _logger.BeginScope(new Dictionary<string, object?>
+                {
+                    ["StepName"] = step.Name,
+                    ["StepIndex"] = i + 1,
+                    ["StepCount"] = _steps.Count
+                });
                 await executionContext.TrySaveRuntimeStateAsync(cancellationToken).ConfigureAwait(false);
 
                 _logger.LogInformation(
-                    "Executing deployment step {StepIndex}/{StepCount}: {StepName}",
+                    "Executing deployment step {StepIndex}/{StepCount}: {StepName}. RemoteDiagnostic={RemoteDiagnostic}",
                     i + 1,
                     _steps.Count,
-                    step.Name);
+                    step.Name,
+                    true);
 
                 executionContext.EmitCurrentStep(
                     DeploymentStepState.Running,
@@ -208,6 +216,12 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     stepSubProgressIndeterminate: true,
                     stepSubProgressLabel: $"Starting {step.Name}...");
                 DeploymentStepResult result = await step.ExecuteAsync(executionContext, cancellationToken).ConfigureAwait(false);
+                _logger.LogInformation(
+                    "Deployment step finished. StepName={StepName}, StepState={StepState}, CurrentOperation={CurrentOperation}, RemoteDiagnostic={RemoteDiagnostic}",
+                    step.Name,
+                    result.State,
+                    runtimeState.CurrentOperation,
+                    true);
 
                 _operationProgressService.Report(CalculateOverallProgressPercent(i + 1), result.Message);
                 executionContext.EmitCurrentStep(
@@ -462,7 +476,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             level,
             eventId: default,
             exception,
-            "Deployment operation finished. OperationId={OperationId}, Outcome={Outcome}, DurationMs={DurationMs}, CompletedStepCount={CompletedStepCount}, FailedStepName={FailedStepName}, FailedOperationName={FailedOperationName}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, Mode={Mode}, IsDryRun={IsDryRun}, Cancelled={Cancelled}, RemoteDiagnostic={RemoteDiagnostic}",
+            "Deployment operation finished. OperationId={OperationId}, Outcome={Outcome}, DurationMs={DurationMs}, CompletedStepCount={CompletedStepCount}, FailedStepName={FailedStepName}, FailedOperationName={FailedOperationName}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, Mode={Mode}, IsDryRun={IsDryRun}, Cancelled={Cancelled}, RemoteDiagnostic={RemoteDiagnostic}, RemoteDiagnosticTerminal={RemoteDiagnosticTerminal}",
             operationId,
             outcome,
             Math.Round(duration.TotalMilliseconds, 0),
@@ -475,6 +489,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             context.Mode,
             context.IsDryRun,
             cancelled,
+            true,
             true);
     }
 

@@ -12,12 +12,41 @@ using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.System;
 using Foundry.Utilities.Processes;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
 
 public sealed class WindowsDeploymentServiceTests
 {
+    [Fact]
+    public async Task ResolveImageIndexAsync_WhenSourceDisappears_RecordsPostFailureSourceState()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "private-image.esd");
+        await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
+        var logger = new ScopeRecordingLogger();
+        var processRunner = new RecordingProcessRunner
+        {
+            ResultFactory = _ =>
+            {
+                File.Delete(imagePath);
+                return new ProcessExecutionResult { ExitCode = 21 };
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, logger);
+
+        DeploymentProcessException exception = await Assert.ThrowsAsync<DeploymentProcessException>(() =>
+            service.ResolveImageIndexAsync(imagePath, "Pro", workspace.RootPath, TestContext.Current.CancellationToken));
+
+        Assert.Equal("Deployment process exited with code 21.", exception.RemoteDiagnosticMessage);
+        Assert.Equal(DeploymentOperationNames.InspectOperatingSystemImage, logger.Properties["CurrentOperation"]);
+        Assert.Equal("esd", logger.Properties["ImageFormat"]);
+        Assert.Equal(false, logger.Properties["SourceExists"]);
+        Assert.Equal(true, logger.Properties["SourceDriveReady"]);
+        Assert.DoesNotContain(logger.Properties.Values, value => value?.ToString()?.Contains("private-image", StringComparison.Ordinal) == true);
+    }
+
     [Fact]
     public async Task ConfigureOfflineWindowsOptionalFeaturesAsync_WhenDisabled_DoesNotRunDism()
     {
@@ -1229,6 +1258,29 @@ public sealed class WindowsDeploymentServiceTests
             CancellationToken cancellationToken = default)
         {
             return Task.FromResult(new ProcessExecutionResult { ExitCode = 0 });
+        }
+    }
+
+    private sealed class ScopeRecordingLogger : ILogger<WindowsDeploymentService>
+    {
+        public Dictionary<string, object?> Properties { get; } = [];
+
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull
+        {
+            if (state is IEnumerable<KeyValuePair<string, object?>> properties)
+            {
+                foreach ((string key, object? value) in properties)
+                {
+                    Properties[key] = value;
+                }
+            }
+            return null;
+        }
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+        {
         }
     }
 

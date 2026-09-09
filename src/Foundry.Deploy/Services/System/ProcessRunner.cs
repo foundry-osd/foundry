@@ -2,6 +2,9 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Diagnostics;
+using System.IO;
+using Foundry.Telemetry;
 using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
 using UtilityProcessRunner = Foundry.Utilities.Processes.ProcessRunner;
@@ -84,6 +87,7 @@ public sealed class ProcessRunner : IProcessRunner
             argumentsDisplay,
             request.WorkingDirectory);
 
+        Stopwatch stopwatch = Stopwatch.StartNew();
         ProcessExecutionResult result = await _processRunner
             .RunAsync(request, cancellationToken)
             .ConfigureAwait(false);
@@ -92,6 +96,14 @@ public sealed class ProcessRunner : IProcessRunner
             "Process completed. FileName={FileName}, ExitCode={ExitCode}",
             request.FileName,
             result.ExitCode);
+        if (!result.IsSuccess)
+        {
+            using IDisposable? diagnosticScope = _logger.BeginScope(RemoteProcessDiagnostics.CreateProperties(result, stopwatch.Elapsed));
+            _logger.LogWarning(
+                "External process returned a nonzero exit code. ToolName={ToolName}, ExitCode={ExitCode}",
+                Path.GetFileName(result.FileName),
+                result.ExitCode);
+        }
         return result;
     }
 
