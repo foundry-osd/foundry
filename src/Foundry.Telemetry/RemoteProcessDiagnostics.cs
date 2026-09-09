@@ -61,9 +61,20 @@ public static partial class RemoteProcessDiagnostics
 
     private static string SelectDiagnosticOutput(string tool, string output)
     {
+        if (tool == "dism.exe")
+        {
+            string errorParagraphs = string.Join('\n', DismErrorPattern().Matches(output).Select(static match => match.Value.Trim()));
+            IEnumerable<string> driverErrors = DismDriverErrorPattern().Matches(output)
+                .Select(static match => $"There was a problem opening the INF file. Error: {match.Groups[1].Value}.");
+            if (string.IsNullOrEmpty(errorParagraphs))
+            {
+                errorParagraphs = DismDriverSummaryPattern().Match(output).Value;
+            }
+            return string.Join('\n', driverErrors.Append(errorParagraphs).Where(static text => !string.IsNullOrWhiteSpace(text)));
+        }
+
         Regex pattern = tool switch
         {
-            "dism.exe" => DismErrorPattern(),
             "7z.exe" or "7za.exe" => ArchiveErrorPattern(),
             "diskpart.exe" => DiskPartErrorPattern(),
             _ => BootErrorPattern()
@@ -81,6 +92,14 @@ public static partial class RemoteProcessDiagnostics
     // and volume inventories are not diagnostic text and may contain identifying values.
     [GeneratedRegex("^Error:[ \\t]*(?:0x[0-9a-f]+|[0-9]+)[^\\r\\n]*(?:\\r?\\n(?:[ \\t]*\\r?\\n)?[^\\r\\n]+(?:\\r?\\n[^\\r\\n]+)*)?", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant)]
     private static partial Regex DismErrorPattern();
+
+    // Driver servicing can mix localized DISM headers with English provider diagnostics.
+    // Keep the provider explanation and native code, never the intervening INF path.
+    [GeneratedRegex("^[ \\t]*There was a problem opening the INF file\\.[^\\r\\n]*?Error:[ \\t]*(0x[0-9a-f]+)\\.", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant)]
+    private static partial Regex DismDriverErrorPattern();
+
+    [GeneratedRegex("^No driver packages were found on the specified path\\.", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant)]
+    private static partial Regex DismDriverSummaryPattern();
 
     [GeneratedRegex("^(?:ERROR:\\s*(?:Data Error|CRC Failed|Wrong password|Can not open (?:the )?file as (?:an? )?archive|Cannot open (?:the )?file as (?:an? )?archive|Unsupported Method|Unexpected end of (?:archive|data)|Headers Error)|(?:Archives with Errors|Sub items Errors|Open Errors|Errors):\\s*[0-9]+)", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant)]
     private static partial Regex ArchiveErrorPattern();

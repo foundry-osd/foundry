@@ -77,6 +77,7 @@ public sealed class WinPeMountSessionTests
         Assert.Contains("Discard diagnostics", result.Error?.Details, StringComparison.Ordinal);
         Assert.Equal(3, runner.Executions.Count);
         Assert.Contains("/Discard", runner.Executions[2].Arguments, StringComparison.Ordinal);
+        Assert.All(runner.Executions, execution => Assert.StartsWith("/English ", execution.Arguments));
     }
 
     [Fact]
@@ -99,6 +100,7 @@ public sealed class WinPeMountSessionTests
 
         Assert.Equal(2, runner.Executions.Count);
         Assert.Contains("/Discard", runner.Executions[1].Arguments, StringComparison.Ordinal);
+        Assert.All(runner.Executions, execution => Assert.StartsWith("/English ", execution.Arguments));
     }
 
     private sealed class FakeWinPeProcessRunner : IWinPeProcessRunner

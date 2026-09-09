@@ -47,10 +47,11 @@ public sealed class WinPeDriverInjectionService : IWinPeDriverInjectionService
 
             if (!result.IsSuccess)
             {
-                return WinPeResult.Failure(
+                return WinPeResult.Failure(result.ToFailureDiagnostic(
                     WinPeErrorCodes.DriverInjectionFailed,
                     "Failed to inject driver package into the mounted image.",
-                    result.ToDiagnosticText());
+                    stage: "Inject drivers into boot image",
+                    toolName: "dism.exe"));
             }
         }
 

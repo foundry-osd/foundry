@@ -6,6 +6,10 @@ namespace Foundry.Core.Services.WinPe;
 
 internal static class WinPeDismProcessRunner
 {
+    /// <summary>
+    /// Runs DISM with English diagnostics so remote error extraction is independent of the host language.
+    /// Callers supply operation arguments without the common /English switch.
+    /// </summary>
     public static Task<WinPeProcessExecution> RunAsync(
         IWinPeProcessRunner processRunner,
         string dismPath,
@@ -15,6 +19,7 @@ internal static class WinPeDismProcessRunner
         IProgress<WinPeDismProgress>? progress,
         CancellationToken cancellationToken)
     {
+        arguments = $"/English {arguments}";
         if (progress is not null && processRunner is IWinPeProcessOutputRunner outputRunner)
         {
             var reporter = new WinPeDismProgressReporter(progressStatus, progress);

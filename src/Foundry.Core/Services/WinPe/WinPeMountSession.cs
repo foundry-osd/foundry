@@ -90,10 +90,13 @@ public sealed class WinPeMountSession : IAsyncDisposable
             return WinPeResult.Success();
         }
 
-        WinPeProcessExecution discardResult = await _processRunner.RunAsync(
+        WinPeProcessExecution discardResult = await WinPeDismProcessRunner.RunAsync(
+            _processRunner,
             _dismPath,
             $"/Unmount-Image /MountDir:{WinPeProcessRunner.Quote(MountDirectoryPath)} /Discard",
             _workingDirectory,
+            "Discarding mounted image with DISM.",
+            progress: null,
             cancellationToken).ConfigureAwait(false);
 
         _isMounted = false;
@@ -119,10 +122,13 @@ public sealed class WinPeMountSession : IAsyncDisposable
             return WinPeResult.Success();
         }
 
-        WinPeProcessExecution discardResult = await _processRunner.RunAsync(
+        WinPeProcessExecution discardResult = await WinPeDismProcessRunner.RunAsync(
+            _processRunner,
             _dismPath,
             $"/Unmount-Image /MountDir:{WinPeProcessRunner.Quote(MountDirectoryPath)} /Discard",
             _workingDirectory,
+            "Discarding mounted image with DISM.",
+            progress: null,
             cancellationToken).ConfigureAwait(false);
 
         _isMounted = false;

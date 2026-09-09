@@ -569,7 +569,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         WinPeProcessExecution imageInfoResult = await WinPeDismProcessRunner.RunAsync(
             _processRunner,
             dismPath,
-            $"/English /Get-ImageInfo /ImageFile:{WinPeProcessRunner.Quote(sourceImagePath)}",
+            $"/Get-ImageInfo /ImageFile:{WinPeProcessRunner.Quote(sourceImagePath)}",
             workingDirectory,
             "Resolving WinRE image index with DISM.",
             dismProgress,

@@ -3,11 +3,40 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeDriverInjectionServiceTests
 {
+    [Fact]
+    public async Task InjectAsync_WhenDismFails_PreservesProcessClassificationAndLocalDetails()
+    {
+        using var workspace = new TemporaryDirectory();
+        var runner = new FakeInjectionRunner
+        {
+            ExitCode = 2,
+            StandardOutput = "There was a problem opening the INF file. C:\\private\\invalid.inf Error: 0xE0000100."
+        };
+
+        WinPeResult result = await new WinPeDriverInjectionService(runner).InjectAsync(new WinPeDriverInjectionOptions
+        {
+            MountedImagePath = workspace.Path,
+            WorkingDirectoryPath = workspace.Path,
+            DriverPackagePaths = [workspace.Path],
+            DismExecutablePath = "dism.exe"
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.DriverInjectionFailed, result.Error?.Code);
+        Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
+        Assert.Equal(WinPeFailureReasons.NonZeroExit, result.Error?.FailureReason);
+        Assert.Equal(2, result.Error?.ExitCode);
+        Assert.Equal("dism.exe", result.Error?.ToolName);
+        Assert.Equal("Inject drivers into boot image", result.Error?.Stage);
+        Assert.Contains(runner.StandardOutput, result.Error?.Details);
+    }
+
     [Fact]
     public async Task InjectAsync_AddsEachDriverPathWithRecurse()
     {
@@ -40,6 +69,7 @@ public sealed class WinPeDriverInjectionServiceTests
             Assert.Equal("dism.exe", execution.FileName);
             Assert.Contains("/Add-Driver", execution.Arguments);
             Assert.Contains("/Recurse", execution.Arguments);
+            Assert.StartsWith("/English ", execution.Arguments);
         }
         finally
         {
@@ -95,6 +125,7 @@ public sealed class WinPeDriverInjectionServiceTests
                 CancellationToken.None);
 
             Assert.True(result.IsSuccess, result.Error?.Details);
+            Assert.StartsWith("/English ", Assert.Single(runner.Executions).Arguments);
             Assert.Collection(
                 progress.Reports,
                 report => Assert.Equal(25, report.Percent),
@@ -109,6 +140,8 @@ public sealed class WinPeDriverInjectionServiceTests
     private sealed class FakeInjectionRunner(IReadOnlyList<string>? outputLines = null) : IWinPeProcessOutputRunner
     {
         public List<WinPeProcessExecution> Executions { get; } = [];
+        public int ExitCode { get; init; }
+        public string StandardOutput { get; init; } = string.Empty;
 
         public Task<WinPeProcessExecution> RunAsync(
             string fileName,
@@ -121,7 +154,9 @@ public sealed class WinPeDriverInjectionServiceTests
             {
                 FileName = fileName,
                 Arguments = arguments,
-                WorkingDirectory = workingDirectory
+                WorkingDirectory = workingDirectory,
+                ExitCode = ExitCode,
+                StandardOutput = StandardOutput
             };
 
             Executions.Add(execution);

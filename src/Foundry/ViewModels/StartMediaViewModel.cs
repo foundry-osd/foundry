@@ -591,7 +591,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             operationProgressService.Report(100, terminalStatus);
             logger.Error(
                 ex,
-                "Final boot media operation failed. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, ToolName={ToolName}, ExitCode={ExitCode}, RetryCount={RetryCount}, ErrorSummary={ErrorSummary}, RemoteDiagnostic={RemoteDiagnostic}",
+                "Final boot media operation failed. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, ToolName={ToolName}, ExitCode={ExitCode}, RetryCount={RetryCount}, FailureSummary={FailureSummary}, RemoteDiagnostic={RemoteDiagnostic}",
                 failedStepName,
                 stopwatch.ElapsedMilliseconds,
                 failureDiagnostic.FailureKind,
@@ -600,7 +600,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 failureDiagnostic.ToolName,
                 failureDiagnostic.ExitCode,
                 failureDiagnostic.RetryCount,
-                failureDiagnostic.ErrorSummary ?? failureDiagnostic.Message,
+                failureDiagnostic.Message,
                 true);
         }
         catch (OperationCanceledException ex)

@@ -8,6 +8,33 @@ namespace Foundry.Telemetry.Tests;
 
 public sealed class RemoteProcessDiagnosticsTests
 {
+    [Theory]
+    [InlineData("Erreur\u00a0: 2")]
+    [InlineData("Error: 2")]
+    public void CreateProperties_PreservesDriverFailureFromMixedLanguageOutput(string errorHeader)
+    {
+        var result = new ProcessExecutionResult
+        {
+            FileName = "dism.exe",
+            Arguments = "/Add-Driver /Driver:C:\\private\\drivers /Recurse",
+            ExitCode = 2,
+            StandardOutput = "Searching for driver packages to install...\r\n" +
+                "There was a problem opening the INF file. C:\\Users\\Example User\\drivers\\invalid.inf Error: 0xE0000100.\r\n\r\n" +
+                errorHeader + "\r\n\r\nNo driver packages were found on the specified path.\r\n" +
+                "Verify that the driver .INF files are in the specified location and try the command again.\r\n"
+        };
+
+        IReadOnlyDictionary<string, object> properties = RemoteProcessDiagnostics.CreateProperties(result, TimeSpan.Zero);
+
+        string output = Assert.IsType<string>(properties["ProcessStdout"]);
+        Assert.Equal(false, properties["ProcessOutputOmitted"]);
+        Assert.Contains("There was a problem opening the INF file.", output);
+        Assert.Contains("0xE0000100", output);
+        Assert.Contains("No driver packages were found on the specified path.", output);
+        Assert.DoesNotContain("Example User", output);
+        Assert.DoesNotContain("invalid.inf", output);
+    }
+
     [Fact]
     public void CreateProperties_PreservesDismFailureWithoutCommandArguments()
     {
