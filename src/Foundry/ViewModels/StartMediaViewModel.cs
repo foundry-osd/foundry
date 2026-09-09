@@ -578,7 +578,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 telemetryProgressTracker.CurrentStepName,
                 failureKind: WinPeFailureKinds.Internal,
                 failureReason: WinPeFailureReasons.Unexpected,
-                errorSummary: ex.Message,
                 exception: ex);
             string failedStepName = string.IsNullOrWhiteSpace(failureDiagnostic.Stage)
                 ? telemetryProgressTracker.CurrentStepName
@@ -612,7 +611,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 telemetryProgressTracker.CurrentStepName,
                 failureKind: WinPeFailureKinds.Cancellation,
                 failureReason: WinPeFailureReasons.Cancelled,
-                errorSummary: ex.Message,
                 exception: ex);
             logger.Warning(
                 ex,

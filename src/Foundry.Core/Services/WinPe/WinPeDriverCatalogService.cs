@@ -71,7 +71,6 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
                     HttpRequestException { StatusCode: not null } => WinPeFailureReasons.HttpStatus,
                     _ => WinPeFailureReasons.Transport
                 },
-                errorSummary: ex.Message,
                 exception: ex);
         }
 

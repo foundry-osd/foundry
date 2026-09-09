@@ -77,7 +77,6 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 WinPeErrorCodes.BuildFailed,
                 "Failed to provision Foundry runtime payloads.",
                 ex.Message,
-                errorSummary: ex.Message,
                 exception: ex);
         }
     }
@@ -241,8 +240,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 exitCode: publish.ExitCode,
                 failureKind: WinPeFailureKinds.Process,
                 failureReason: WinPeFailureReasons.ArtifactMissing,
-                toolName: "dotnet",
-                errorSummary: message));
+                toolName: "dotnet"));
         }
 
         ZipFile.CreateFromDirectory(publishDirectory, archivePath, CompressionLevel.Optimal, includeBaseDirectory: false);

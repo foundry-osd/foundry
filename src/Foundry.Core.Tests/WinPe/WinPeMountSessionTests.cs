@@ -78,7 +78,7 @@ public sealed class WinPeMountSessionTests
         Assert.Equal(WinPeErrorCodes.WimUnmountFailed, result.Error?.Code);
         Assert.Equal(7, result.Error?.ExitCode);
         Assert.Equal(WinPeFailureReasons.NonZeroExit, result.Error?.FailureReason);
-        Assert.Equal("commit failed", result.Error?.ErrorSummary);
+        Assert.Contains("commit failed", result.Error?.Details, StringComparison.Ordinal);
         Assert.Contains("Commit diagnostics", result.Error?.Details, StringComparison.Ordinal);
         Assert.Contains("Discard diagnostics", result.Error?.Details, StringComparison.Ordinal);
         Assert.Equal(3, runner.Executions.Count);

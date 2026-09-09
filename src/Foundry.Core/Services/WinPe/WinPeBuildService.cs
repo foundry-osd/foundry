@@ -123,7 +123,6 @@ public sealed class WinPeBuildService : IWinPeBuildService
                     ? WinPeFailureReasons.AccessDenied
                     : WinPeFailureReasons.ProcessStartFailed,
                 toolName: "copype",
-                errorSummary: ex.Message,
                 exception: ex);
         }
     }

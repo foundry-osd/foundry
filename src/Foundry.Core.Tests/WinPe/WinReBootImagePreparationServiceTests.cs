@@ -206,11 +206,7 @@ public sealed class WinReBootImagePreparationServiceTests
                 Assert.Equal(failingOperation is null ? WinPeFailureReasons.ArtifactMissing : WinPeFailureReasons.NonZeroExit, result.Error?.FailureReason);
                 Assert.Equal(exitCode, result.Error?.ExitCode);
                 Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
-                if (failingOperation is not null)
-                {
-                    Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
-                    Assert.Equal("dism.exe", result.Error?.ToolName);
-                }
+                Assert.Equal("dism.exe", result.Error?.ToolName);
                 return;
             }
             Assert.True(result.IsSuccess, result.Error?.Details);

@@ -35,7 +35,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         Assert.Equal("dotnet", result.Error.ToolName);
         Assert.Equal(reason, result.Error.FailureReason);
         Assert.Equal("runtime.publish", result.Error.Stage);
-        Assert.Contains(exitCode == 0 ? "expected executable" : "error NETSDK1045", result.Error.ErrorSummary, StringComparison.Ordinal);
+        Assert.Contains(exitCode == 0 ? "expected executable" : "error NETSDK1045", exitCode == 0 ? result.Error.Message : result.Error.Details, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -57,7 +57,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
 
         Assert.False(result.IsSuccess);
         Assert.IsType<FileNotFoundException>(result.Error!.Exception);
-        Assert.Contains("archive was not found", result.Error.ErrorSummary, StringComparison.Ordinal);
+        Assert.Contains("archive was not found", result.Error.Exception.Message, StringComparison.Ordinal);
     }
 
     [Fact]
