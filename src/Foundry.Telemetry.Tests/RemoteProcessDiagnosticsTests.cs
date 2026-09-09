@@ -8,6 +8,26 @@ namespace Foundry.Telemetry.Tests;
 
 public sealed class RemoteProcessDiagnosticsTests
 {
+    [Fact]
+    public async Task CreateStartFailureProperties_PreservesNativeCodeWithoutPrivateContext()
+    {
+        string directory = Path.GetTempPath();
+        var request = ProcessExecutionRequest.FromRawArguments(
+            Path.Combine(directory, $"missing-{Guid.NewGuid():N}.exe"),
+            "--password private-secret", directory);
+        ProcessStartException exception = await Assert.ThrowsAsync<ProcessStartException>(() =>
+            new ProcessRunner().RunAsync(request, TestContext.Current.CancellationToken));
+
+        IReadOnlyDictionary<string, object> properties = RemoteProcessDiagnostics.CreateStartFailureProperties(exception, TimeSpan.FromMilliseconds(25));
+
+        Assert.Equal(Path.GetFileName(request.FileName), properties["ToolName"]);
+        Assert.Equal(exception.NativeErrorCode, properties["FailureCode"]);
+        Assert.Equal("process_start_failed", properties["FailureReason"]);
+        Assert.False(properties.ContainsKey("ExitCode"));
+        Assert.DoesNotContain("private-secret", string.Join(" ", properties.Values));
+        Assert.DoesNotContain(directory, string.Join(" ", properties.Values));
+    }
+
     [Theory]
     [InlineData("Erreur\u00a0: 2")]
     [InlineData("Error: 2")]

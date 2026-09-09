@@ -213,10 +213,11 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
             return WinPeResult.Success();
         }
 
-        return WinPeResult.Failure(
+        return WinPeResult.Failure(execution.ToFailureDiagnostic(
             WinPeErrorCodes.BuildFailed,
             failureMessage,
-            execution.ToDiagnosticText());
+            stage: "Install boot image package",
+            toolName: "dism.exe"));
     }
 
     private async Task<WinPeResult> ApplyInternationalSettingsAsync(
@@ -247,10 +248,11 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
 
             if (!execution.IsSuccess)
             {
-                return WinPeResult.Failure(
+                return WinPeResult.Failure(execution.ToFailureDiagnostic(
                     WinPeErrorCodes.BuildFailed,
                     "Failed to apply WinPE international settings.",
-                    execution.ToDiagnosticText());
+                    stage: "Apply boot image international settings",
+                    toolName: "dism.exe"));
             }
         }
 

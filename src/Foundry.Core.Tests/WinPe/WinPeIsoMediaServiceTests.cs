@@ -160,7 +160,7 @@ public sealed class WinPeIsoMediaServiceTests
 
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeFailureReasons.ArtifactMissing, result.Error?.FailureReason);
-        Assert.Null(result.Error?.ExitCode);
+        Assert.Equal(0, result.Error?.ExitCode);
     }
 
     [Fact]

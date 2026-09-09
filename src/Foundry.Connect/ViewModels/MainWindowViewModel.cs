@@ -1221,6 +1221,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         string operationId = CreateNetworkOperationId();
+        using IDisposable? operationScope = BeginNetworkOperationScope(operationId, "network.apply_provisioned_settings");
 
         try
         {
@@ -1271,6 +1272,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         string operationId = CreateNetworkOperationId();
+        using IDisposable? operationScope = BeginNetworkOperationScope(operationId, networkOperation);
 
         await RunOnUiAsync(() =>
         {
@@ -1333,6 +1335,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         string operationId = CreateNetworkOperationId();
+        using IDisposable? operationScope = BeginNetworkOperationScope(operationId, networkOperation);
 
         await RunOnUiAsync(() =>
         {
@@ -1695,6 +1698,14 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             failure.Code,
             true);
     }
+
+    private IDisposable? BeginNetworkOperationScope(string operationId, string networkOperation) =>
+        _logger.BeginScope(new Dictionary<string, object>
+        {
+            ["Workflow"] = "connect",
+            ["OperationId"] = operationId,
+            ["NetworkOperation"] = networkOperation
+        });
 
     private static string CreateNetworkOperationId()
     {

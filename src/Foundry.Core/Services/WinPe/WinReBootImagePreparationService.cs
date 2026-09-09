@@ -77,10 +77,12 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             failures.Add(result.Error!);
         }
 
-        return WinPeResult<WinReBootImagePreparationResult>.Failure(
-            WinPeErrorCodes.WinReExtractionFailed,
-            "Failed to prepare a WinRE Wi-Fi boot image from every matching operating system source.",
-            string.Join(Environment.NewLine + Environment.NewLine, failures.Select(failure => failure.Details ?? failure.Message)));
+        return WinPeResult<WinReBootImagePreparationResult>.Failure(failures[^1] with
+        {
+            Code = WinPeErrorCodes.WinReExtractionFailed,
+            Message = "Failed to prepare a WinRE Wi-Fi boot image from every matching operating system source.",
+            Details = string.Join(Environment.NewLine + Environment.NewLine, failures.Select(failure => failure.Details ?? failure.Message))
+        });
     }
 
     internal static WinPeResult<IReadOnlyList<WinReSourceCandidate>> SelectCatalogCandidates(
@@ -152,10 +154,11 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         }
         catch (Exception ex) when (ex is InvalidOperationException or FormatException)
         {
-            return WinPeResult<IReadOnlyList<WinReSourceCandidate>>.Failure(
+            return WinPeResult<IReadOnlyList<WinReSourceCandidate>>.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.OperatingSystemCatalogParseFailed,
                 "Failed to parse the operating system catalog.",
-                ex.Message);
+                ex.Message,
+                exception: ex));
         }
     }
 
@@ -252,10 +255,11 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         }
         catch (Exception ex)
         {
-            return WinPeResult<WinReBootImagePreparationResult>.Failure(
+            return WinPeResult<WinReBootImagePreparationResult>.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.WinReExtractionFailed,
                 "Failed to stage required wireless dependency files from the mounted operating system image.",
-                ex.Message);
+                ex.Message,
+                exception: ex));
         }
     }
 
@@ -272,10 +276,11 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         }
         catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or InvalidOperationException)
         {
-            return WinPeResult<IReadOnlyList<WinReSourceCandidate>>.Failure(
+            return WinPeResult<IReadOnlyList<WinReSourceCandidate>>.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.OperatingSystemCatalogFetchFailed,
                 "Failed to download the operating system catalog.",
-                ex.Message);
+                ex.Message,
+                exception: ex));
         }
     }
 
@@ -333,12 +338,26 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                 CreateDismProgress(options.Progress, 19, "Exporting Windows image for WinRE extraction."),
                 cancellationToken).ConfigureAwait(false);
 
-            if (!exportResult.IsSuccess || !File.Exists(installWimPath))
+            if (!exportResult.IsSuccess)
             {
-                return WinPeResult<WinReBootImagePreparationResult>.Failure(
+                return WinPeResult<WinReBootImagePreparationResult>.Failure(exportResult.ToFailureDiagnostic(
                     WinPeErrorCodes.WinReExtractionFailed,
                     $"Failed to export the {candidate.RequestedEdition} image from the WinRE source package.",
-                    exportResult.ToDiagnosticText());
+                    stage: "Export WinRE source image",
+                    toolName: "dism.exe"));
+            }
+
+            if (!File.Exists(installWimPath))
+            {
+                return WinPeResult<WinReBootImagePreparationResult>.Failure(new WinPeDiagnostic(
+                    WinPeErrorCodes.WinReExtractionFailed,
+                    "DISM completed without producing the exported Windows image.",
+                    exportResult.ToDiagnosticText(),
+                    stage: "Export WinRE source image",
+                    exitCode: exportResult.ExitCode,
+                    failureKind: WinPeFailureKinds.Process,
+                    failureReason: WinPeFailureReasons.ArtifactMissing,
+                    toolName: "dism.exe"));
             }
 
             ReportProgress(options.Progress, 24, "Mounting WinRE source image.");
@@ -403,15 +422,17 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                     new WinPeDiagnostic(
                         WinPeErrorCodes.WinReExtractionFailed,
                         "Failed to replace boot.wim with a WinRE Wi-Fi source image.",
-                        ex.Message),
+                        ex.Message,
+                        exception: ex),
                     session,
                     cancellationToken).ConfigureAwait(false);
             }
 
-            return WinPeResult<WinReBootImagePreparationResult>.Failure(
+            return WinPeResult<WinReBootImagePreparationResult>.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.WinReExtractionFailed,
                 "Failed to replace boot.wim with a WinRE Wi-Fi source image.",
-                ex.Message);
+                ex.Message,
+                exception: ex));
         }
         finally
         {
@@ -488,10 +509,11 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         {
             TryDeleteFile(sourceCachePath);
             TryDeleteFile(temporaryDownloadPath);
-            return WinPeResult<string>.Failure(
+            return WinPeResult<string>.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.DownloadFailed,
                 "Failed to download the WinRE source package.",
-                ex.Message);
+                ex.Message,
+                exception: ex));
         }
         finally
         {
@@ -577,10 +599,11 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
 
         if (!imageInfoResult.IsSuccess)
         {
-            return WinPeResult<int>.Failure(
+            return WinPeResult<int>.Failure(imageInfoResult.ToFailureDiagnostic(
                 WinPeErrorCodes.WinReIndexResolutionFailed,
                 "Failed to inspect the WinRE source package image indexes.",
-                imageInfoResult.ToDiagnosticText());
+                stage: "Inspect WinRE source image",
+                toolName: "dism.exe"));
         }
 
         return ResolveImageIndexFromOutput(imageInfoResult.StandardOutput, requestedEdition);
@@ -654,10 +677,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             "Discard diagnostics:",
             discardResult.Error?.Details ?? string.Empty).Trim();
 
-        return WinPeResult<WinReBootImagePreparationResult>.Failure(new WinPeDiagnostic(
-            primaryDiagnostic.Code,
-            primaryDiagnostic.Message,
-            details));
+        return WinPeResult<WinReBootImagePreparationResult>.Failure(primaryDiagnostic with { Details = details });
     }
 
     private static WinReCatalogItem ParseCatalogItem(XElement item)

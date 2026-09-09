@@ -168,7 +168,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>.Failure(
                 WinPeErrorCodes.UsbQueryFailed,
                 "Failed to parse USB disk candidates.",
-                ex.Message);
+                ex.Message, exception: ex);
         }
     }
 
@@ -696,10 +696,12 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
                             $"PartitionStyle: {partitionStyle}{Environment.NewLine}" +
                             "PowerShellProvisioningScript:" + Environment.NewLine +
                             script;
-        return WinPeResult<WinPeUsbProvisionResult>.Failure(
+        return WinPeResult<WinPeUsbProvisionResult>.Failure(execution.ToFailureDiagnostic(
             WinPeErrorCodes.UsbProvisioningFailed,
             "Failed to partition and format the USB disk.",
-            diagnostic);
+            stage: "Partition and format USB disk",
+            toolName: "PowerShell") with
+        { Details = diagnostic });
     }
 
     private async Task<WinPeResult<WinPeUsbProvisionResult>> GetFoundryUsbMediaLayoutAsync(
@@ -912,14 +914,25 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
                 return WinPeResult<WinPeUsbProvisionResult>.Failure(
                     WinPeErrorCodes.UsbProvisioningFailed,
                     "Failed to parse USB provisioning result.",
-                    ex.Message);
+                    ex.Message,
+                    stage: "Partition and format USB disk",
+                    exitCode: execution.ExitCode,
+                    failureKind: WinPeFailureKinds.Validation,
+                    failureReason: WinPeFailureReasons.InvalidInput,
+                    toolName: "PowerShell",
+                    exception: ex);
             }
         }
 
         return WinPeResult<WinPeUsbProvisionResult>.Failure(
             WinPeErrorCodes.UsbProvisioningFailed,
             "USB provisioning did not return assigned drive letters.",
-            execution.ToDiagnosticText());
+            execution.ToDiagnosticText(),
+            stage: "Partition and format USB disk",
+            exitCode: execution.ExitCode,
+            failureKind: WinPeFailureKinds.Process,
+            failureReason: WinPeFailureReasons.ArtifactMissing,
+            toolName: "PowerShell");
     }
 
     private async Task<WinPeResult> CopyMediaAsync(
@@ -1055,7 +1068,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<WinPeUsbDiskIdentity>.Failure(
                 WinPeErrorCodes.UsbQueryFailed,
                 "Failed to parse target USB disk details.",
-                ex.Message);
+                ex.Message, exception: ex);
         }
     }
 
@@ -1085,7 +1098,12 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<string>.Failure(
                 WinPeErrorCodes.UsbQueryFailed,
                 "A required PowerShell USB query command returned no data.",
-                execution.ToDiagnosticText());
+                execution.ToDiagnosticText(),
+                stage: "Query USB disk",
+                exitCode: execution.ExitCode,
+                failureKind: WinPeFailureKinds.Process,
+                failureReason: WinPeFailureReasons.ArtifactMissing,
+                toolName: "PowerShell");
         }
 
         return WinPeResult<string>.Success(output);

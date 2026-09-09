@@ -13,6 +13,24 @@ namespace Foundry.Telemetry;
 /// </summary>
 public static partial class RemoteProcessDiagnostics
 {
+    public static IReadOnlyDictionary<string, object> CreateStartFailureProperties(ProcessStartException exception, TimeSpan duration)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+        var properties = new Dictionary<string, object>(StringComparer.Ordinal)
+        {
+            ["ToolName"] = RemoteDiagnosticText.Sanitize(Path.GetFileName(exception.FileName).ToLowerInvariant(), 128),
+            ["ProcessDurationMs"] = Math.Round(duration.TotalMilliseconds),
+            ["FailureKind"] = "process",
+            ["FailureReason"] = "process_start_failed",
+            ["ProcessOutputOmitted"] = true
+        };
+        if (exception.NativeErrorCode is int code)
+        {
+            properties["FailureCode"] = code;
+        }
+        return properties;
+    }
+
     private static readonly HashSet<string> ReviewedTools = new(StringComparer.OrdinalIgnoreCase)
     {
         "dism.exe", "7z.exe", "7za.exe", "bcdboot.exe", "bootsect.exe", "diskpart.exe"

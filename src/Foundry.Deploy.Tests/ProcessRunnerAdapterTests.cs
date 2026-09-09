@@ -79,9 +79,11 @@ public sealed class ProcessRunnerAdapterTests
     {
         using var workspace = new TemporaryDirectory();
         string executablePath = Path.Combine(workspace.Path, "missing.exe");
+        var logger = new RecordingLogger<DeployProcessRunner>();
+        var runner = new DeployProcessRunner(new UtilityProcessRunner(), logger);
 
         ProcessStartException exception = await Assert.ThrowsAsync<ProcessStartException>(() =>
-            CreateRunner().RunAsync(
+            runner.RunAsync(
                 executablePath,
                 [],
                 workspace.Path,
@@ -89,6 +91,11 @@ public sealed class ProcessRunnerAdapterTests
 
         Assert.Equal(executablePath, exception.FileName);
         Assert.NotNull(exception.NativeErrorCode);
+        Assert.Equal(1, logger.WarningCount);
+        Assert.Equal("missing.exe", logger.LastScope["ToolName"]);
+        Assert.Equal("process_start_failed", logger.LastScope["FailureReason"]);
+        Assert.Equal(exception.NativeErrorCode.Value, logger.LastScope["FailureCode"]);
+        Assert.DoesNotContain("ExitCode", logger.LastScope.Keys);
     }
 
     [Fact]

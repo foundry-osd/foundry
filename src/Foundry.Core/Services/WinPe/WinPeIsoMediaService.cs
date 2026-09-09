@@ -83,6 +83,7 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                     "MakeWinPEMedia completed without producing the expected ISO artifact.",
                     execution.ToDiagnosticText(),
                     stage: "Create ISO media",
+                    exitCode: execution.ExitCode,
                     failureKind: WinPeFailureKinds.Process,
                     failureReason: WinPeFailureReasons.ArtifactMissing,
                     toolName: "MakeWinPEMedia",

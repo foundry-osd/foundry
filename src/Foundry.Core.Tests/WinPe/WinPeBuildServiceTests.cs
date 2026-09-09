@@ -70,13 +70,15 @@ public sealed class WinPeBuildServiceTests
         Assert.True(Directory.Exists(Path.Combine(result.Value.WorkingDirectoryPath, "temp")));
     }
 
-    [Fact]
-    public async Task BuildAsync_WhenCopypeFails_ReturnsStructuredProcessDiagnostic()
+    [Theory]
+    [InlineData(9, WinPeFailureReasons.NonZeroExit)]
+    [InlineData(0, WinPeFailureReasons.ArtifactMissing)]
+    public async Task BuildAsync_WhenCopypeDoesNotProduceImage_ReturnsStructuredProcessDiagnostic(int exitCode, string reason)
     {
         using TempWinPeBuildWorkspace workspace = TempWinPeBuildWorkspace.Create();
         var service = new WinPeBuildService(
             new WinPeToolResolver(() => workspace.KitsRootPath),
-            new FakeBuildRunner(exitCode: 9));
+            new FakeBuildRunner(exitCode, createImage: false));
 
         WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(
             new WinPeBuildOptions
@@ -88,12 +90,12 @@ public sealed class WinPeBuildServiceTests
 
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
-        Assert.Equal(WinPeFailureReasons.NonZeroExit, result.Error?.FailureReason);
+        Assert.Equal(reason, result.Error?.FailureReason);
         Assert.Equal("copype", result.Error?.ToolName);
-        Assert.Equal(9, result.Error?.ExitCode);
+        Assert.Equal(exitCode, result.Error?.ExitCode);
     }
 
-    private sealed class FakeBuildRunner(int exitCode = 0) : IWinPeProcessRunner
+    private sealed class FakeBuildRunner(int exitCode = 0, bool createImage = true) : IWinPeProcessRunner
     {
         public Task<WinPeProcessExecution> RunAsync(
             string fileName,
@@ -117,7 +119,7 @@ public sealed class WinPeBuildServiceTests
             string workingDirectory,
             CancellationToken cancellationToken)
         {
-            if (exitCode == 0)
+            if (exitCode == 0 && createImage)
             {
                 string workingRoot = scriptArguments.Split(' ', StringSplitOptions.RemoveEmptyEntries).Last().Trim('"');
                 string bootWimPath = Path.Combine(workingRoot, "media", "sources", "boot.wim");

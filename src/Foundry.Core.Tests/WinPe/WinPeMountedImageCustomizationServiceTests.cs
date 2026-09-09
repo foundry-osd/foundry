@@ -68,16 +68,19 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         Assert.Contains(runner.Executions, execution => execution.Arguments.Contains("/Commit", StringComparison.OrdinalIgnoreCase));
     }
 
-    [Fact]
-    public async Task CustomizeAsync_WhenInternationalizationFails_DiscardsMountedImage()
+    [Theory]
+    [InlineData(0)]
+    [InlineData(7)]
+    public async Task CustomizeAsync_WhenInternationalizationFails_PreservesPrimaryFailureAfterDiscard(int discardExitCode)
     {
         using TempWinPeArtifact temp = TempWinPeArtifact.Create();
 
-        var runner = new FakeCustomizationRunner();
+        var runner = new FakeCustomizationRunner { DiscardExitCode = discardExitCode };
+        var diagnostic = new WinPeDiagnostic(WinPeErrorCodes.BuildFailed, "intl failed", "primary detail", stage: "Apply language", exitCode: 5, toolName: "dism.exe");
         var service = new WinPeMountedImageCustomizationService(
             runner,
             new FakeDriverInjectionService(),
-            new FakeInternationalizationService(WinPeResult.Failure(WinPeErrorCodes.BuildFailed, "intl failed")),
+            new FakeInternationalizationService(WinPeResult.Failure(diagnostic)),
             new FakeAssetProvisioningService(),
             new FakeRuntimePayloadProvisioningService(),
             new FakeWinRePreparationService());
@@ -94,6 +97,14 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             CancellationToken.None);
 
         Assert.False(result.IsSuccess);
+        Assert.Equal(5, result.Error?.ExitCode);
+        Assert.Equal("Apply language", result.Error?.Stage);
+        Assert.Equal("dism.exe", result.Error?.ToolName);
+        Assert.Contains("primary detail", result.Error?.Details);
+        if (discardExitCode != 0)
+        {
+            Assert.Contains("Discard diagnostics:", result.Error?.Details);
+        }
         Assert.Contains(runner.Executions, execution => execution.Arguments.Contains("/Discard", StringComparison.OrdinalIgnoreCase));
     }
 
@@ -209,6 +220,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
 
     private sealed class FakeCustomizationRunner : IWinPeProcessRunner
     {
+        public int DiscardExitCode { get; init; }
         public List<WinPeProcessExecution> Executions { get; } = [];
 
         public Task<WinPeProcessExecution> RunAsync(
@@ -220,6 +232,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         {
             var execution = new WinPeProcessExecution
             {
+                ExitCode = arguments.Contains("/Discard", StringComparison.Ordinal) ? DiscardExitCode : 0,
                 FileName = fileName,
                 Arguments = arguments,
                 WorkingDirectory = workingDirectory

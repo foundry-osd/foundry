@@ -67,12 +67,18 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
 
             return WinPeResult.Success();
         }
+        catch (RuntimePublishException ex)
+        {
+            return WinPeResult.Failure(ex.Diagnostic);
+        }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException or NotSupportedException or InvalidOperationException or HttpRequestException or JsonException)
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.BuildFailed,
                 "Failed to provision Foundry runtime payloads.",
-                ex.Message);
+                ex.Message,
+                errorSummary: ex.Message,
+                exception: ex);
         }
     }
 
@@ -216,14 +222,27 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
 
         if (!publish.IsSuccess)
         {
-            throw new InvalidOperationException(publish.ToDiagnosticText());
+            throw new RuntimePublishException(publish.ToFailureDiagnostic(
+                WinPeErrorCodes.BuildFailed,
+                $"Failed to publish {applicationName} runtime payload.",
+                stage: "runtime.publish",
+                toolName: "dotnet"));
         }
 
         string executablePath = Path.Combine(publishDirectory, $"{applicationName}.exe");
         if (!File.Exists(executablePath))
         {
-            throw new InvalidOperationException(
-                $"{applicationName} publish output did not contain the expected executable '{executablePath}'.");
+            string message = $"{applicationName} publish output did not contain the expected executable '{executablePath}'.";
+            throw new RuntimePublishException(new WinPeDiagnostic(
+                WinPeErrorCodes.BuildFailed,
+                message,
+                publish.ToDiagnosticText(),
+                stage: "runtime.publish",
+                exitCode: publish.ExitCode,
+                failureKind: WinPeFailureKinds.Process,
+                failureReason: WinPeFailureReasons.ArtifactMissing,
+                toolName: "dotnet",
+                errorSummary: message));
         }
 
         ZipFile.CreateFromDirectory(publishDirectory, archivePath, CompressionLevel.Optimal, includeBaseDirectory: false);
@@ -593,6 +612,11 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         {
             // Best-effort cleanup.
         }
+    }
+
+    private sealed class RuntimePublishException(WinPeDiagnostic diagnostic) : Exception(diagnostic.Message)
+    {
+        public WinPeDiagnostic Diagnostic { get; } = diagnostic;
     }
 
     private sealed record ReleaseAsset(string Name, string DownloadUrl, string Digest);

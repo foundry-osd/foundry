@@ -52,10 +52,11 @@ public sealed class WinPeMountSession : IAsyncDisposable
 
         if (!mountResult.IsSuccess)
         {
-            return WinPeResult<WinPeMountSession>.Failure(
+            return WinPeResult<WinPeMountSession>.Failure(mountResult.ToFailureDiagnostic(
                 WinPeErrorCodes.WimMountFailed,
                 "Failed to mount boot.wim.",
-                mountResult.ToDiagnosticText());
+                stage: "Mount boot image",
+                toolName: "dism.exe"));
         }
 
         return WinPeResult<WinPeMountSession>.Success(new WinPeMountSession(
@@ -109,10 +110,12 @@ public sealed class WinPeMountSession : IAsyncDisposable
             "Discard diagnostics:",
             discardResult.ToDiagnosticText());
 
-        return WinPeResult.Failure(
+        return WinPeResult.Failure(commitResult.ToFailureDiagnostic(
             WinPeErrorCodes.WimUnmountFailed,
             "Failed to commit mounted boot.wim changes.",
-            details);
+            stage: "Commit boot image changes",
+            toolName: "dism.exe") with
+        { Details = details });
     }
 
     public async Task<WinPeResult> DiscardAsync(CancellationToken cancellationToken)
@@ -137,10 +140,11 @@ public sealed class WinPeMountSession : IAsyncDisposable
             return WinPeResult.Success();
         }
 
-        return WinPeResult.Failure(
+        return WinPeResult.Failure(discardResult.ToFailureDiagnostic(
             WinPeErrorCodes.WimUnmountFailed,
             "Failed to discard mounted boot.wim changes.",
-            discardResult.ToDiagnosticText());
+            stage: "Discard boot image changes",
+            toolName: "dism.exe"));
     }
 
     public async ValueTask DisposeAsync()

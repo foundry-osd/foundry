@@ -25,6 +25,9 @@ public sealed class WinPeMountSessionTests
 
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeErrorCodes.WimMountFailed, result.Error?.Code);
+        Assert.Equal(5, result.Error?.ExitCode);
+        Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
+        Assert.Equal("dism.exe", result.Error?.ToolName);
         Assert.Single(runner.Executions);
         Assert.Contains("/Mount-Image", runner.Executions[0].Arguments, StringComparison.Ordinal);
     }
@@ -73,11 +76,29 @@ public sealed class WinPeMountSessionTests
 
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeErrorCodes.WimUnmountFailed, result.Error?.Code);
+        Assert.Equal(7, result.Error?.ExitCode);
+        Assert.Equal(WinPeFailureReasons.NonZeroExit, result.Error?.FailureReason);
+        Assert.Equal("commit failed", result.Error?.ErrorSummary);
         Assert.Contains("Commit diagnostics", result.Error?.Details, StringComparison.Ordinal);
         Assert.Contains("Discard diagnostics", result.Error?.Details, StringComparison.Ordinal);
         Assert.Equal(3, runner.Executions.Count);
         Assert.Contains("/Discard", runner.Executions[2].Arguments, StringComparison.Ordinal);
         Assert.All(runner.Executions, execution => Assert.StartsWith("/English ", execution.Arguments));
+    }
+
+    [Fact]
+    public async Task DiscardAsync_WhenDismFails_PreservesProcessDetails()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        var runner = new FakeWinPeProcessRunner(new WinPeProcessExecution(), new WinPeProcessExecution { ExitCode = 9 });
+        WinPeMountSession session = (await WinPeMountSession.MountAsync(runner, "dism.exe", "boot.wim",
+            Path.Combine(tempDirectory.Path, "mount"), tempDirectory.Path, TestContext.Current.CancellationToken)).Value!;
+
+        WinPeResult result = await session.DiscardAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(9, result.Error?.ExitCode);
+        Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
+        Assert.Equal("dism.exe", result.Error?.ToolName);
     }
 
     [Fact]

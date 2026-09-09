@@ -86,7 +86,7 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
             return WinPeResult<IReadOnlyList<WinPeDriverCatalogEntry>>.Failure(
                 WinPeErrorCodes.DriverCatalogParseFailed,
                 "Failed to parse the WinPE driver catalog.",
-                ex.Message);
+                ex.Message, exception: ex);
         }
     }
 

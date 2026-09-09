@@ -56,9 +56,9 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
             OnErrorData = onErrorData
         };
 
+        Stopwatch stopwatch = Stopwatch.StartNew();
         try
         {
-            Stopwatch stopwatch = Stopwatch.StartNew();
             ProcessExecutionResult result = await _processRunner
                 .RunAsync(request, cancellationToken)
                 .ConfigureAwait(false);
@@ -74,13 +74,18 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
             }
             return WinPeProcessExecution.FromProcessExecutionResult(result);
         }
-        catch (ProcessStartException ex) when (ex.InnerException is Win32Exception or InvalidOperationException)
-        {
-            ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
-            throw;
-        }
         catch (ProcessStartException ex)
         {
+            ILogger logger = Log.ForContext<WinPeProcessRunner>();
+            foreach ((string name, object value) in RemoteProcessDiagnostics.CreateStartFailureProperties(ex, stopwatch.Elapsed))
+            {
+                logger = logger.ForContext(name, value);
+            }
+            logger.Warning("External process could not be started.");
+            if (ex.InnerException is Win32Exception or InvalidOperationException)
+            {
+                ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
+            }
             throw new InvalidOperationException($"Failed to start process '{fileName}'.", ex);
         }
     }

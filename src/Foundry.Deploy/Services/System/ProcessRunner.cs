@@ -88,9 +88,17 @@ public sealed class ProcessRunner : IProcessRunner
             request.WorkingDirectory);
 
         Stopwatch stopwatch = Stopwatch.StartNew();
-        ProcessExecutionResult result = await _processRunner
-            .RunAsync(request, cancellationToken)
-            .ConfigureAwait(false);
+        ProcessExecutionResult result;
+        try
+        {
+            result = await _processRunner.RunAsync(request, cancellationToken).ConfigureAwait(false);
+        }
+        catch (ProcessStartException ex)
+        {
+            using IDisposable? diagnosticScope = _logger.BeginScope(RemoteProcessDiagnostics.CreateStartFailureProperties(ex, stopwatch.Elapsed));
+            _logger.LogWarning(ex, "External process could not start.");
+            throw;
+        }
 
         _logger.LogDebug(
             "Process completed. FileName={FileName}, ExitCode={ExitCode}",
