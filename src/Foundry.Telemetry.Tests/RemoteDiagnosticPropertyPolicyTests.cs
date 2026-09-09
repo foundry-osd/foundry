@@ -150,14 +150,14 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
             "Deployment operation failed",
             new InvalidOperationException(
                 "unlabeled-device-serial-ABC123",
-                new IOException("arbitrary process stdout and response body")));
+                new InvalidOperationException("arbitrary process stdout and response body")));
 
         RemoteDiagnosticRecord result = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
 
         Assert.NotNull(result.Exception);
         Assert.Equal("Deployment operation failed", result.Exception.Message);
         RemoteDiagnosticException inner = Assert.Single(result.Exception.InnerExceptions);
-        Assert.Equal("System.IO.IOException", inner.Message);
+        Assert.Equal("System.InvalidOperationException", inner.Message);
         Assert.DoesNotContain("ABC123", System.Text.Json.JsonSerializer.Serialize(result.Exception), StringComparison.Ordinal);
         Assert.DoesNotContain("process stdout", System.Text.Json.JsonSerializer.Serialize(result.Exception), StringComparison.Ordinal);
     }
@@ -233,6 +233,66 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
             result.Body);
         Assert.DoesNotContain("<redacted>", result.Body, StringComparison.Ordinal);
         Assert.Equal("os_image.download", result.Attributes["failure.operation"]);
+    }
+
+    [Fact]
+    public void CreateSanitizedRecord_PreservesTechnicalCauseAndFollowingText()
+    {
+        LogEvent source = CreateLogEvent(LogEventLevel.Error, "Deployment failed",
+            new InvalidOperationException("private wrapper", new IOException(
+                "Cannot read 'C:\\Users\\Alice Smith\\image.wim': The device is not ready. Password=secret")));
+
+        RemoteDiagnosticRecord result = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
+
+        string message = Assert.Single(result.Exception!.InnerExceptions).Message;
+        Assert.Contains("The device is not ready", message);
+        Assert.DoesNotContain("Alice", message);
+        Assert.DoesNotContain("secret", message);
+        Assert.DoesNotContain("image.wim", message);
+    }
+
+    [Fact]
+    public void CreateSanitizedRecord_PreservesProcessOutputTailAndLineBoundaries()
+    {
+        string output = new string('x', 12000) + "\nError: 21\nThe device is not ready.\nPassword=secret";
+        LogEvent source = CreateLogEvent(LogEventLevel.Warning, "Process failed", null,
+            ("ProcessStdout", output), ("Attempt", 2), ("DelaySeconds", 3), ("ProcessOperation", "Get-ImageInfo"));
+
+        RemoteDiagnosticRecord result = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
+
+        string text = Assert.IsType<string>(result.Attributes["process.stdout"]);
+        Assert.Contains("\nError: 21\nThe device is not ready.", text);
+        Assert.Contains("<truncated>", text);
+        Assert.DoesNotContain("secret", text);
+        Assert.True(text.Length <= 8192);
+        Assert.Equal(2, result.Attributes["retry.attempt"]);
+        Assert.Equal(3, result.Attributes["retry.delay_seconds"]);
+    }
+
+    [Fact]
+    public void CreateSanitizedRecord_HidesInternalMarkersFromMessage()
+    {
+        LogEvent source = CreateLogEvent(LogEventLevel.Information,
+            "Finished. RemoteDiagnostic={RemoteDiagnostic}", null, ("RemoteDiagnostic", true));
+
+        RemoteDiagnosticRecord result = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
+
+        Assert.DoesNotContain("<redacted>", result.Body);
+        Assert.DoesNotContain("RemoteDiagnostic", result.Attributes.Keys);
+    }
+
+    [Fact]
+    public void CreateSanitizedRecord_PreservesReviewedFailureSummary()
+    {
+        LogEvent source = CreateLogEvent(LogEventLevel.Error, "{FailureSummary}. Diagnostic={Diagnostic}", null,
+            ("FailureSummary", "Failed to service 'C:\\private folder\\image.wim'"),
+            ("Diagnostic", "unrestricted command arguments"));
+
+        RemoteDiagnosticRecord result = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
+
+        Assert.Contains("Failed to service", result.Body);
+        Assert.DoesNotContain("private", result.Body);
+        Assert.DoesNotContain("unrestricted", result.Body);
     }
 
     private static RemoteDiagnosticsContext CreateContext() => new(

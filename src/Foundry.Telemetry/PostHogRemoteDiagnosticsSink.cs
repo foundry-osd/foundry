@@ -156,6 +156,19 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
                         logEvent.Level >= LogEventLevel.Error &&
                         !HasTrackedException(logEvent.Exception, GetScalarText(logEvent, "OperationId"))
                 };
+                // Cumulative local losses; SDK transport queues may drop additional records.
+                long droppedRecordCount = Interlocked.Read(ref _droppedRecordCount);
+                if (droppedRecordCount > 0)
+                {
+                    record = record with
+                    {
+                        Attributes = new Dictionary<string, object>(record.Attributes, StringComparer.Ordinal)
+                        {
+                            ["diagnostics.dropped_record_count"] = droppedRecordCount
+                        }
+                    };
+                }
+
                 var queuedRecord = new QueuedRemoteDiagnosticRecord(
                     Volatile.Read(ref _consentGeneration),
                     record);
@@ -255,6 +268,11 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
 
     private bool TryAcquireFingerprint(LogEvent logEvent)
     {
+        if (HasTrueScalar(logEvent, "RemoteDiagnosticTerminal"))
+        {
+            return true;
+        }
+
         string exceptionType = logEvent.Exception?.GetType().FullName ?? string.Empty;
         string failureCode = GetScalarText(logEvent, "FailureCode");
         if (string.IsNullOrEmpty(failureCode))
@@ -262,7 +280,10 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
             failureCode = GetScalarText(logEvent, "ErrorCode");
         }
 
-        string fingerprint = string.Join('|', logEvent.Level, logEvent.MessageTemplate.Text, exceptionType, failureCode);
+        string fingerprint = string.Join('|', logEvent.Level, logEvent.MessageTemplate.Text, exceptionType, failureCode,
+            GetScalarText(logEvent, "OperationId"), GetScalarText(logEvent, "FailedOperationName"),
+            GetScalarText(logEvent, "CurrentOperation"), GetScalarText(logEvent, "ProcessOperation"),
+            GetScalarText(logEvent, "StepName"), GetScalarText(logEvent, "ToolName"));
         DateTimeOffset now = _timeProvider.GetUtcNow();
         lock (_gate)
         {

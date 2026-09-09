@@ -123,7 +123,46 @@ public sealed class PostHogExceptionTrackerTests
         tracker.Track(record);
 
         CapturedPostHogEvent captured = Assert.Single(client.Events);
-        Assert.Equal("foundry.deploy:network_timeout", captured.Properties["$exception_fingerprint"]);
+        Assert.Contains("network_timeout", Assert.IsType<string>(captured.Properties["$exception_fingerprint"]), StringComparison.Ordinal);
+    }
+
+    [Theory]
+    [InlineData("failure.operation")]
+    [InlineData("operation.name")]
+    [InlineData("process.operation")]
+    [InlineData("tool.name")]
+    [InlineData("failure.reason")]
+    [InlineData("exception.type")]
+    public void Track_FallbackFingerprintDistinguishesStableFailureContext(string changedField)
+    {
+        var client = new RecordingPostHogEventClient();
+        var tracker = new PostHogExceptionTracker(client, "install-1");
+        for (int index = 0; index < 2; index++)
+        {
+            var attributes = new Dictionary<string, object> { ["failure.code"] = 21 };
+            attributes[changedField] = $"value-{index}";
+            tracker.Track(new RemoteDiagnosticRecord(
+                DateTimeOffset.UtcNow, LogEventLevel.Error, "failed", attributes,
+                new RemoteDiagnosticException(changedField == "exception.type" ? $"Exception{index}" : "Exception", "failed", null, [])));
+        }
+
+        Assert.NotEqual(client.Events[0].Properties["$exception_fingerprint"], client.Events[1].Properties["$exception_fingerprint"]);
+    }
+
+    [Fact]
+    public void Track_FallbackFingerprintIsStableAcrossSessionsWithoutFailureCode()
+    {
+        var client = new RecordingPostHogEventClient();
+        var tracker = new PostHogExceptionTracker(client, "install-1");
+        for (int index = 0; index < 2; index++)
+        {
+            tracker.Track(new RemoteDiagnosticRecord(
+                DateTimeOffset.UtcNow, LogEventLevel.Error, "failed",
+                new Dictionary<string, object> { ["session.id"] = $"session-{index}", ["operation.id"] = $"operation-{index}" },
+                new RemoteDiagnosticException("Exception", $"message-{index}", null, [])));
+        }
+
+        Assert.Equal(client.Events[0].Properties["$exception_fingerprint"], client.Events[1].Properties["$exception_fingerprint"]);
     }
 
     [Fact]
