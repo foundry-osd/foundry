@@ -2,10 +2,10 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.IO;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using Foundry.Utilities.Diagnostics;
 using Serilog.Events;
 
@@ -106,7 +106,7 @@ public static partial class RemoteDiagnosticPropertyPolicy
         AddProcessOutput(logEvent, attributes, "ProcessStdout", "process.stdout");
         AddProcessOutput(logEvent, attributes, "ProcessStderr", "process.stderr");
 
-        string body = SanitizeRemoteText(RenderSafeMessage(logEvent), MaximumMessageLength);
+        string body = RemoteDiagnosticText.Sanitize(RenderSafeMessage(logEvent), MaximumMessageLength);
         RemoteDiagnosticException? exception = CreateException(logEvent.Exception, body, depth: 0);
         return new RemoteDiagnosticRecord(logEvent.Timestamp, logEvent.Level, body, attributes, exception);
     }
@@ -210,7 +210,7 @@ public static partial class RemoteDiagnosticPropertyPolicy
             IOException or UnauthorizedAccessException or TimeoutException => exception.Message,
             _ => null
         };
-        return technicalMessage is null ? fallback : SanitizeRemoteText(technicalMessage, MaximumMessageLength);
+        return technicalMessage is null ? fallback : RemoteDiagnosticText.Sanitize(technicalMessage, MaximumMessageLength);
     }
 
     private static IEnumerable<Exception> GetInnerExceptions(Exception exception) =>
@@ -221,7 +221,7 @@ public static partial class RemoteDiagnosticPropertyPolicy
                 : [];
 
     private static string SanitizeAttribute(string? value) =>
-        SanitizeRemoteText(value, MaximumAttributeLength);
+        RemoteDiagnosticText.Sanitize(value, MaximumAttributeLength);
 
     internal static string SanitizeResourceValue(string? value) => SanitizeAttribute(value);
 
@@ -229,11 +229,6 @@ public static partial class RemoteDiagnosticPropertyPolicy
     {
         string withoutSourcePaths = StackSourcePathPattern().Replace(stackTrace, " in <redacted:path>");
         return DiagnosticContentSanitizer.SanitizeMultiline(withoutSourcePaths, MaximumStackTraceLength);
-    }
-
-    private static string SanitizeRemoteText(string? value, int maximumLength)
-    {
-        return RemoteDiagnosticText.Sanitize(value, maximumLength);
     }
 
     [GeneratedRegex("\\s+in\\s+(?:[A-Za-z]:\\\\|\\\\\\\\)[^\\r\\n]+?(?=:line\\s+\\d+)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]

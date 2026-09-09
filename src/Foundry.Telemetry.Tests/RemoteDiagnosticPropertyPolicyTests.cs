@@ -143,7 +143,7 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
     }
 
     [Fact]
-    public void CreateSanitizedRecord_DoesNotExportFreeFormExceptionMessages()
+    public void CreateSanitizedRecord_DoesNotExportUnreviewedExceptionMessages()
     {
         LogEvent source = CreateLogEvent(
             LogEventLevel.Error,
@@ -270,7 +270,7 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
     }
 
     [Fact]
-    public void CreateSanitizedRecord_HidesInternalMarkersFromMessage()
+    public void CreateSanitizedRecord_RendersInternalMarkersWithoutExportingAttributes()
     {
         LogEvent source = CreateLogEvent(LogEventLevel.Information,
             "Finished. RemoteDiagnostic={RemoteDiagnostic}", null, ("RemoteDiagnostic", true));

@@ -235,32 +235,13 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         Assert.Equal(5, exporter.Records.Count);
     }
 
-    [Fact]
-    public async Task Emit_DistinguishesRepeatedFingerprintAcrossOperations()
-    {
-        var exporter = new RecordingExporter();
-        await using var service = CreateService(exporter);
-        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
-
-        for (int index = 0; index < 8; index++)
-        {
-            service.Emit(RemoteDiagnosticsTestData.LogEvent(
-                LogEventLevel.Warning,
-                "same warning",
-                properties: ("OperationId", $"operation-{index}")));
-        }
-
-        await service.FlushAsync(TestContext.Current.CancellationToken);
-
-        Assert.Equal(8, exporter.Records.Count);
-    }
-
     [Theory]
+    [InlineData("OperationId")]
     [InlineData("FailedOperationName")]
     [InlineData("ToolName")]
     [InlineData("CurrentOperation")]
     [InlineData("ProcessOperation")]
-    public async Task Emit_DistinguishesLogicalOperationAndTool(string propertyName)
+    public async Task Emit_DistinguishesOperationAndToolContext(string propertyName)
     {
         var exporter = new RecordingExporter();
         await using var service = CreateService(exporter);
@@ -412,7 +393,7 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         LogEvent source = RemoteDiagnosticsTestData.LogEvent(
             LogEventLevel.Error,
             "Deployment failed",
-            new InvalidOperationException("Deployment failed"));
+            new InvalidOperationException("private detail"));
         RemoteDiagnosticRecord record = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(
             source,
             RemoteDiagnosticsTestData.Context());
