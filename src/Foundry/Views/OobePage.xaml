@@ -62,7 +62,7 @@
                                     Text="{x:Bind ViewModel.OobeAccountsNeedsAttentionText, Mode=OneWay}" />
                             </StackPanel>
                         </Border>
-                        <wct:SettingsExpander.Items>
+                        <wct:SettingsExpander.ItemsHeader>
                             <Border
                                 Padding="{ThemeResource FoundryDefaultContentPadding}"
                                 Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
@@ -320,7 +320,7 @@
                                     </ContentControl>
                                 </StackPanel>
                             </Border>
-                        </wct:SettingsExpander.Items>
+                        </wct:SettingsExpander.ItemsHeader>
                     </wct:SettingsExpander>
 
                     <wct:SettingsCard
