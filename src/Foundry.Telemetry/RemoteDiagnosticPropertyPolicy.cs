@@ -2,6 +2,9 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.ComponentModel;
+using System.IO;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using Foundry.Utilities.Diagnostics;
 using Serilog.Events;
@@ -33,11 +36,27 @@ public static partial class RemoteDiagnosticPropertyPolicy
             ["DurationMilliseconds"] = "duration.ms",
             ["DurationSeconds"] = "duration.seconds",
             ["RetryCount"] = "retry.count",
+            ["Attempt"] = "retry.attempt",
+            ["DelaySeconds"] = "retry.delay_seconds",
+            ["StepIndex"] = "workflow.step_index",
+            ["StepCount"] = "workflow.step_count",
+            ["StepState"] = "workflow.step_state",
+            ["CurrentOperation"] = "operation.name",
+            ["ProcessOperation"] = "process.operation",
+            ["ProcessDurationMs"] = "process.duration_ms",
+            ["ProcessOutputOmitted"] = "process.output_omitted",
+            ["ProcessOutputFiltered"] = "process.output_filtered",
+            ["ImageFormat"] = "image.format",
+            ["ImageIndex"] = "image.index",
+            ["SourceExists"] = "source.exists",
+            ["SourceDriveReady"] = "source.drive_ready",
+            ["SourceDriveType"] = "source.drive_type",
             ["Retryable"] = "retryable",
             ["FailureKind"] = "failure.kind",
             ["FailureCode"] = "failure.code",
             ["ErrorCode"] = "failure.code",
             ["FailureReason"] = "failure.reason",
+            ["FailureSummary"] = "failure.summary",
             ["FailedOperationName"] = "failure.operation",
             ["ToolName"] = "tool.name",
             ["ExitCode"] = "process.exit_code",
@@ -84,7 +103,10 @@ public static partial class RemoteDiagnosticPropertyPolicy
             }
         }
 
-        string body = SanitizeRemoteText(RenderSafeMessage(logEvent), MaximumMessageLength);
+        AddProcessOutput(logEvent, attributes, "ProcessStdout", "process.stdout");
+        AddProcessOutput(logEvent, attributes, "ProcessStderr", "process.stderr");
+
+        string body = RemoteDiagnosticText.Sanitize(RenderSafeMessage(logEvent), MaximumMessageLength);
         RemoteDiagnosticException? exception = CreateException(logEvent.Exception, body, depth: 0);
         return new RemoteDiagnosticRecord(logEvent.Timestamp, logEvent.Level, body, attributes, exception);
     }
@@ -94,7 +116,8 @@ public static partial class RemoteDiagnosticPropertyPolicy
         var safeProperties = new List<LogEventProperty>(logEvent.Properties.Count);
         foreach ((string name, LogEventPropertyValue propertyValue) in logEvent.Properties)
         {
-            object safeValue = AllowedPropertyNames.ContainsKey(name) &&
+            object safeValue = (AllowedPropertyNames.ContainsKey(name) ||
+                                name is "RemoteDiagnostic" or "RemoteDiagnosticTerminal") &&
                                TryConvertScalar(propertyValue, out object scalarValue)
                 ? scalarValue
                 : "<redacted>";
@@ -108,6 +131,15 @@ public static partial class RemoteDiagnosticPropertyPolicy
             logEvent.MessageTemplate,
             safeProperties);
         return safeEvent.RenderMessage(System.Globalization.CultureInfo.InvariantCulture);
+    }
+
+    private static void AddProcessOutput(LogEvent logEvent, Dictionary<string, object> attributes, string name, string remoteName)
+    {
+        if (logEvent.Properties.TryGetValue(name, out LogEventPropertyValue? property) &&
+            property is ScalarValue { Value: string text })
+        {
+            attributes[remoteName] = RemoteDiagnosticText.SanitizeOutput(text);
+        }
     }
 
     private static bool TryConvertScalar(LogEventPropertyValue propertyValue, out object value)
@@ -160,12 +192,25 @@ public static partial class RemoteDiagnosticPropertyPolicy
             : SanitizeStackTrace(exception.StackTrace);
         return new RemoteDiagnosticException(
             exception.GetType().FullName ?? exception.GetType().Name,
-            depth == 0 ? safeRootMessage : exception.GetType().FullName ?? exception.GetType().Name,
+            GetExceptionMessage(exception, depth == 0 ? safeRootMessage : exception.GetType().FullName ?? exception.GetType().Name),
             stackTrace,
             GetInnerExceptions(exception)
                 .Select(innerException => CreateException(innerException, safeRootMessage, depth + 1))
                 .OfType<RemoteDiagnosticException>()
                 .ToArray());
+    }
+
+    private static string GetExceptionMessage(Exception exception, string fallback)
+    {
+        string? technicalMessage = exception switch
+        {
+            IRemoteDiagnosticException diagnostic => diagnostic.RemoteDiagnosticMessage,
+            Win32Exception native => $"Native error {native.NativeErrorCode}: {new Win32Exception(native.NativeErrorCode).Message}",
+            HttpRequestException http => $"HTTP request failed. Error={http.HttpRequestError}, StatusCode={(int?)http.StatusCode}",
+            IOException or UnauthorizedAccessException or TimeoutException => exception.Message,
+            _ => null
+        };
+        return technicalMessage is null ? fallback : RemoteDiagnosticText.Sanitize(technicalMessage, MaximumMessageLength);
     }
 
     private static IEnumerable<Exception> GetInnerExceptions(Exception exception) =>
@@ -176,7 +221,7 @@ public static partial class RemoteDiagnosticPropertyPolicy
                 : [];
 
     private static string SanitizeAttribute(string? value) =>
-        SanitizeRemoteText(value, MaximumAttributeLength);
+        RemoteDiagnosticText.Sanitize(value, MaximumAttributeLength);
 
     internal static string SanitizeResourceValue(string? value) => SanitizeAttribute(value);
 
@@ -185,19 +230,6 @@ public static partial class RemoteDiagnosticPropertyPolicy
         string withoutSourcePaths = StackSourcePathPattern().Replace(stackTrace, " in <redacted:path>");
         return DiagnosticContentSanitizer.SanitizeMultiline(withoutSourcePaths, MaximumStackTraceLength);
     }
-
-    private static string SanitizeRemoteText(string? value, int maximumLength)
-    {
-        string withoutUris = UriPattern().Replace(value ?? string.Empty, "<redacted:uri>");
-        string withoutPaths = WindowsPathPattern().Replace(withoutUris, "<redacted:path>");
-        return DiagnosticContentSanitizer.Sanitize(withoutPaths, maximumLength);
-    }
-
-    [GeneratedRegex("\\b[A-Za-z][A-Za-z0-9+.-]*://[^\\s\\\"'<>]+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
-    private static partial Regex UriPattern();
-
-    [GeneratedRegex("(?<![A-Za-z0-9])(?:[A-Za-z]:\\\\|\\\\\\\\)[^\\r\\n\\\"<>|]+", RegexOptions.CultureInvariant)]
-    private static partial Regex WindowsPathPattern();
 
     [GeneratedRegex("\\s+in\\s+(?:[A-Za-z]:\\\\|\\\\\\\\)[^\\r\\n]+?(?=:line\\s+\\d+)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex StackSourcePathPattern();

@@ -71,7 +71,6 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
                     HttpRequestException { StatusCode: not null } => WinPeFailureReasons.HttpStatus,
                     _ => WinPeFailureReasons.Transport
                 },
-                errorSummary: ex.Message,
                 exception: ex);
         }
 
@@ -86,7 +85,7 @@ public sealed class WinPeDriverCatalogService : IWinPeDriverCatalogService
             return WinPeResult<IReadOnlyList<WinPeDriverCatalogEntry>>.Failure(
                 WinPeErrorCodes.DriverCatalogParseFailed,
                 "Failed to parse the WinPE driver catalog.",
-                ex.Message);
+                ex.Message, exception: ex);
         }
     }
 

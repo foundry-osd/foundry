@@ -55,8 +55,10 @@ public sealed class ProcessRunnerAdapterTests
     public async Task RunAsync_WithNonZeroExit_ReturnsCapturedResult()
     {
         using var workspace = new TemporaryDirectory();
+        var logger = new RecordingLogger<DeployProcessRunner>();
+        var runner = new DeployProcessRunner(new UtilityProcessRunner(), logger);
 
-        ProcessExecutionResult result = await CreateRunner().RunAsync(
+        ProcessExecutionResult result = await runner.RunAsync(
             GetCommandProcessor(),
             "/d /s /c \"echo stdout & echo stderr 1>&2 & exit /b 7\"",
             workspace.Path,
@@ -65,6 +67,11 @@ public sealed class ProcessRunnerAdapterTests
         Assert.Equal(7, result.ExitCode);
         Assert.Equal("stdout", result.StandardOutput.Trim());
         Assert.Equal("stderr", result.StandardError.Trim());
+        Assert.Equal(1, logger.WarningCount);
+        Assert.Equal(7, logger.LastScope["ExitCode"]);
+        Assert.Equal("cmd.exe", logger.LastScope["ToolName"]);
+        Assert.True(Convert.ToDouble(logger.LastScope["ProcessDurationMs"]) >= 0);
+        Assert.DoesNotContain("Arguments", logger.LastScope.Keys);
     }
 
     [Fact]
@@ -72,9 +79,11 @@ public sealed class ProcessRunnerAdapterTests
     {
         using var workspace = new TemporaryDirectory();
         string executablePath = Path.Combine(workspace.Path, "missing.exe");
+        var logger = new RecordingLogger<DeployProcessRunner>();
+        var runner = new DeployProcessRunner(new UtilityProcessRunner(), logger);
 
         ProcessStartException exception = await Assert.ThrowsAsync<ProcessStartException>(() =>
-            CreateRunner().RunAsync(
+            runner.RunAsync(
                 executablePath,
                 [],
                 workspace.Path,
@@ -82,6 +91,11 @@ public sealed class ProcessRunnerAdapterTests
 
         Assert.Equal(executablePath, exception.FileName);
         Assert.NotNull(exception.NativeErrorCode);
+        Assert.Equal(1, logger.WarningCount);
+        Assert.Equal("missing.exe", logger.LastScope["ToolName"]);
+        Assert.Equal("process_start_failed", logger.LastScope["FailureReason"]);
+        Assert.Equal(exception.NativeErrorCode.Value, logger.LastScope["FailureCode"]);
+        Assert.DoesNotContain("ExitCode", logger.LastScope.Keys);
     }
 
     [Fact]
@@ -150,10 +164,15 @@ public sealed class ProcessRunnerAdapterTests
     private sealed class RecordingLogger<T> : ILogger<T>
     {
         public int WarningCount { get; private set; }
+        public IReadOnlyDictionary<string, object> LastScope { get; private set; } = new Dictionary<string, object>();
 
         public IDisposable? BeginScope<TState>(TState state)
             where TState : notnull
         {
+            if (state is IReadOnlyDictionary<string, object> properties)
+            {
+                LastScope = properties;
+            }
             return null;
         }
 

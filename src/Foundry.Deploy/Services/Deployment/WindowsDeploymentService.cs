@@ -140,6 +140,17 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string workingDirectory,
         CancellationToken cancellationToken = default)
     {
+        using IDisposable? operationScope = _logger.BeginScope(new Dictionary<string, object?>
+        {
+            ["CurrentOperation"] = DeploymentOperationNames.InspectOperatingSystemImage,
+            ["ImageFormat"] = Path.GetExtension(imagePath).ToLowerInvariant() switch
+            {
+                ".wim" => "wim",
+                ".esd" => "esd",
+                ".swm" => "swm",
+                _ => "unknown"
+            }
+        });
         if (!File.Exists(imagePath))
         {
             throw new FileNotFoundException("Operating system image was not found.", imagePath);
@@ -156,6 +167,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
         if (!execution.IsSuccess)
         {
+            using IDisposable? sourceScope = _logger.BeginScope(GetImageSourceDiagnostics(imagePath));
             _logger.LogError("Failed to resolve OS image index for {ImagePath}. Diagnostic={Diagnostic}", imagePath, execution.ToDiagnosticText());
             throw new DeploymentProcessException(
                 $"Unable to resolve image index for '{imagePath}'.{Environment.NewLine}{execution.ToDiagnosticText()}",
@@ -177,6 +189,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         var imageMetadata = new List<ImageIndexMetadata>(imageIndexes.Count);
         foreach (int imageIndex in imageIndexes)
         {
+            using IDisposable? imageScope = _logger.BeginScope(new Dictionary<string, object?> { ["ImageIndex"] = imageIndex });
             ProcessExecutionResult detailedExecution = await _processRunner
                 .RunAsync(
                     "dism.exe",
@@ -187,6 +200,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
             if (!detailedExecution.IsSuccess)
             {
+                using IDisposable? sourceScope = _logger.BeginScope(GetImageSourceDiagnostics(imagePath));
                 _logger.LogError(
                     "Failed to inspect OS image index {ImageIndex} for {ImagePath}. Diagnostic={Diagnostic}",
                     imageIndex,
@@ -218,6 +232,31 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         int resolvedIndex = matches[0].Index;
         _logger.LogInformation("Resolved OS image index {ImageIndex} for ImagePath={ImagePath}", resolvedIndex, imagePath);
         return resolvedIndex;
+    }
+
+    private static IReadOnlyDictionary<string, object?> GetImageSourceDiagnostics(string imagePath)
+    {
+        var properties = new Dictionary<string, object?>
+        {
+            ["SourceExists"] = File.Exists(imagePath),
+            ["SourceDriveReady"] = "unknown",
+            ["SourceDriveType"] = "unknown"
+        };
+        try
+        {
+            string? root = Path.GetPathRoot(Path.GetFullPath(imagePath));
+            if (!string.IsNullOrWhiteSpace(root))
+            {
+                var drive = new DriveInfo(root);
+                properties["SourceDriveReady"] = drive.IsReady;
+                properties["SourceDriveType"] = drive.DriveType.ToString();
+            }
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException)
+        {
+            // Source probing must not replace the original image inspection failure.
+        }
+        return properties;
     }
 
     /// <inheritdoc />

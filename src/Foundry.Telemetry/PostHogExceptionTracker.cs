@@ -62,13 +62,17 @@ internal sealed partial class PostHogExceptionTracker(
             properties["$session_id"] = sessionId;
         }
 
-        if (string.IsNullOrWhiteSpace(record.Exception.StackTrace) &&
-            record.Attributes.TryGetValue("failure.code", out object? failureCode))
+        if (string.IsNullOrWhiteSpace(record.Exception.StackTrace))
         {
-            string serviceName = record.Attributes.TryGetValue("service.name", out object? service)
-                ? service.ToString() ?? "foundry"
-                : "foundry";
-            properties["$exception_fingerprint"] = $"{serviceName}:{failureCode}";
+            properties["$exception_fingerprint"] = string.Join(':',
+                GetAttribute(record, "service.name"),
+                record.Exception.Type,
+                GetLogicalOperation(record),
+                GetAttribute(record, "process.operation"),
+                GetAttribute(record, "tool.name"),
+                GetAttribute(record, "failure.reason"),
+                GetAttribute(record, "failure.code"),
+                GetAttribute(record, "process.exit_code"));
         }
 
         if (!client.Capture(distinctId, "$exception", properties, record.Timestamp))
@@ -76,6 +80,25 @@ internal sealed partial class PostHogExceptionTracker(
             System.Diagnostics.Debug.WriteLine("PostHog Error Tracking event was dropped by the SDK queue.");
         }
     }
+
+    private static string GetLogicalOperation(RemoteDiagnosticRecord record)
+    {
+        foreach (string name in new[] { "failure.operation", "operation.name", "process.operation" })
+        {
+            string operation = GetAttribute(record, name);
+            if (!string.IsNullOrWhiteSpace(operation))
+            {
+                return operation;
+            }
+        }
+
+        return string.Empty;
+    }
+
+    private static string GetAttribute(RemoteDiagnosticRecord record, string name) =>
+        record.Attributes.TryGetValue(name, out object? value)
+            ? Convert.ToString(value, System.Globalization.CultureInfo.InvariantCulture) ?? string.Empty
+            : string.Empty;
 
     private static List<Dictionary<string, object>> CreateExceptionList(RemoteDiagnosticException exception)
     {

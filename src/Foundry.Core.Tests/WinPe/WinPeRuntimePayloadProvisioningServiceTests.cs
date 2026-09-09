@@ -12,6 +12,54 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeRuntimePayloadProvisioningServiceTests
 {
+    [Theory]
+    [InlineData(1, "nonzero_exit")]
+    [InlineData(0, "artifact_missing")]
+    public async Task ProvisionAsync_WhenPublishFails_PreservesProcessContext(int exitCode, string reason)
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        string projectPath = Path.Combine(workspace.RootPath, "Foundry.Connect.csproj");
+        File.WriteAllText(projectPath, "<Project />");
+        var runner = new FakeRuntimeProcessRunner { ExitCode = exitCode, CreateOutput = false };
+        var service = new WinPeRuntimePayloadProvisioningService(runner);
+
+        WinPeResult result = await service.ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
+        {
+            WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            MountedImagePath = workspace.MountedImagePath,
+            Connect = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true, ProjectPath = projectPath }
+        }, cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(exitCode, result.Error!.ExitCode);
+        Assert.Equal("dotnet", result.Error.ToolName);
+        Assert.Equal(reason, result.Error.FailureReason);
+        Assert.Equal("runtime.publish", result.Error.Stage);
+        Assert.Contains(exitCode == 0 ? "expected executable" : "error NETSDK1045", exitCode == 0 ? result.Error.Message : result.Error.Details, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenArchiveIsMissing_PreservesOriginalException()
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner());
+
+        WinPeResult result = await service.ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
+        {
+            WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            MountedImagePath = workspace.MountedImagePath,
+            Connect = new WinPeRuntimePayloadApplicationOptions
+            {
+                IsEnabled = true,
+                ArchivePath = Path.Combine(workspace.RootPath, "missing.zip")
+            }
+        }, cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.IsType<FileNotFoundException>(result.Error!.Exception);
+        Assert.Contains("archive was not found", result.Error.Exception.Message, StringComparison.Ordinal);
+    }
+
     [Fact]
     public async Task ProvisionAsync_WhenDebugArchivesAreProvided_ExtractsToNormalizedIsoAndUsbRuntimeRoots()
     {
@@ -267,6 +315,8 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
     private sealed class FakeRuntimeProcessRunner : IWinPeProcessRunner
     {
         public List<WinPeProcessExecution> Executions { get; } = [];
+        public int ExitCode { get; init; }
+        public bool CreateOutput { get; init; } = true;
 
         public Task<WinPeProcessExecution> RunAsync(
             string fileName,
@@ -280,13 +330,18 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             string executableName = arguments.Contains("Foundry.Connect.csproj", StringComparison.OrdinalIgnoreCase)
                 ? "Foundry.Connect.exe"
                 : "Foundry.Deploy.exe";
-            File.WriteAllText(Path.Combine(outputDirectory, executableName), executableName);
+            if (CreateOutput)
+            {
+                File.WriteAllText(Path.Combine(outputDirectory, executableName), executableName);
+            }
 
             var execution = new WinPeProcessExecution
             {
                 FileName = fileName,
                 Arguments = arguments,
-                WorkingDirectory = workingDirectory
+                WorkingDirectory = workingDirectory,
+                ExitCode = ExitCode,
+                StandardError = ExitCode == 0 ? string.Empty : "error NETSDK1045: unsupported target framework"
             };
 
             Executions.Add(execution);

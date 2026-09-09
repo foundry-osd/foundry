@@ -2,12 +2,14 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Telemetry;
+
 namespace Foundry.Deploy.Services.Deployment;
 
 /// <summary>
 /// Represents a required deployment process that returned a non-zero exit code.
 /// </summary>
-public sealed class DeploymentProcessException : InvalidOperationException
+public sealed class DeploymentProcessException : InvalidOperationException, IRemoteDiagnosticException
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DeploymentProcessException"/> class.
@@ -36,4 +38,7 @@ public sealed class DeploymentProcessException : InvalidOperationException
     /// Gets the process exit code.
     /// </summary>
     public int ExitCode { get; }
+
+    /// <inheritdoc />
+    public string RemoteDiagnosticMessage => $"Deployment process exited with code {ExitCode}.";
 }

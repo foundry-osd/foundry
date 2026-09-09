@@ -153,8 +153,12 @@ public sealed class WinReBootImagePreparationServiceTests
         }
     }
 
-    [Fact]
-    public async Task ReplaceBootWimAsync_WhenCachedSourceIsValid_ReplacesBootWimAndStagesDependencies()
+    [Theory]
+    [InlineData(null, 0, true)]
+    [InlineData("/Get-ImageInfo", 5, true)]
+    [InlineData("/Export-Image", 2, true)]
+    [InlineData(null, 0, false)]
+    public async Task ReplaceBootWimAsync_ValidatesProcessResultsAndExportedImage(string? failingOperation, int exitCode, bool createExport)
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-winre-replace-{Guid.NewGuid():N}");
         string workingPath = Path.Combine(root, "workspace");
@@ -171,7 +175,7 @@ public sealed class WinReBootImagePreparationServiceTests
         string cachedSourceHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes("cached source")));
         string catalogXml = CreateCatalogXml(cachedSourceHash);
 
-        var runner = new FakeWinPeProcessRunner();
+        var runner = new FakeWinPeProcessRunner { FailingOperation = failingOperation, ExitCode = exitCode, CreateExport = createExport };
         var service = new WinReBootImagePreparationService(
             runner,
             new HttpClient(new StaticCatalogHandler(catalogXml)));
@@ -196,6 +200,15 @@ public sealed class WinReBootImagePreparationServiceTests
                 },
                 CancellationToken.None);
 
+            if (failingOperation is not null || !createExport)
+            {
+                Assert.False(result.IsSuccess);
+                Assert.Equal(failingOperation is null ? WinPeFailureReasons.ArtifactMissing : WinPeFailureReasons.NonZeroExit, result.Error?.FailureReason);
+                Assert.Equal(exitCode, result.Error?.ExitCode);
+                Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
+                Assert.Equal("dism.exe", result.Error?.ToolName);
+                return;
+            }
             Assert.True(result.IsSuccess, result.Error?.Details);
             Assert.Equal("winre", await File.ReadAllTextAsync(bootWimPath, TestContext.Current.CancellationToken));
             Assert.NotNull(result.Value);
@@ -245,6 +258,9 @@ public sealed class WinReBootImagePreparationServiceTests
     private sealed class FakeWinPeProcessRunner : IWinPeProcessRunner
     {
         public List<WinPeProcessExecution> Executions { get; } = [];
+        public string? FailingOperation { get; init; }
+        public int ExitCode { get; init; }
+        public bool CreateExport { get; init; } = true;
 
         public Task<WinPeProcessExecution> RunAsync(
             string fileName,
@@ -255,6 +271,7 @@ public sealed class WinReBootImagePreparationServiceTests
         {
             var execution = new WinPeProcessExecution
             {
+                ExitCode = FailingOperation is not null && arguments.Contains(FailingOperation, StringComparison.Ordinal) ? ExitCode : 0,
                 FileName = fileName,
                 Arguments = arguments,
                 WorkingDirectory = workingDirectory,
@@ -262,7 +279,10 @@ public sealed class WinReBootImagePreparationServiceTests
             };
 
             Executions.Add(execution);
-            HandleSideEffects(arguments);
+            if (execution.IsSuccess && (CreateExport || !arguments.Contains("/Export-Image", StringComparison.Ordinal)))
+            {
+                HandleSideEffects(arguments);
+            }
             return Task.FromResult(execution);
         }
 

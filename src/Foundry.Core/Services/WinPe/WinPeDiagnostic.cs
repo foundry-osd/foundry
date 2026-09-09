@@ -4,8 +4,6 @@
 
 namespace Foundry.Core.Services.WinPe;
 
-using Foundry.Utilities.Diagnostics;
-
 public sealed record WinPeDiagnostic
 {
     public WinPeDiagnostic(
@@ -18,7 +16,6 @@ public sealed record WinPeDiagnostic
         string? failureKind = null,
         string? failureReason = null,
         string? toolName = null,
-        string? errorSummary = null,
         int retryCount = 0,
         Exception? exception = null)
     {
@@ -29,9 +26,6 @@ public sealed record WinPeDiagnostic
         Command = command;
         ExitCode = exitCode;
         ToolName = toolName;
-        ErrorSummary = string.IsNullOrWhiteSpace(errorSummary)
-            ? null
-            : DiagnosticContentSanitizer.Sanitize(errorSummary, 512);
         RetryCount = Math.Max(0, retryCount);
         Exception = exception;
         (FailureKind, FailureReason) = Classify(code, exitCode, toolName, exception, failureKind, failureReason);
@@ -46,7 +40,6 @@ public sealed record WinPeDiagnostic
     public string FailureKind { get; init; }
     public string FailureReason { get; init; }
     public string? ToolName { get; init; }
-    public string? ErrorSummary { get; init; }
     public int RetryCount { get; init; }
     public Exception? Exception { get; init; }
 

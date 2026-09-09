@@ -112,7 +112,7 @@ public sealed class WinPeDriverPackageServiceTests
 
             Assert.False(result.IsSuccess);
             Assert.Equal(WinPeFailureReasons.HttpStatus, result.Error?.FailureReason);
-            Assert.Equal("HTTP 502 Bad Gateway", result.Error?.ErrorSummary);
+            Assert.Contains("HTTP status: 502 Bad Gateway", result.Error?.Details, StringComparison.Ordinal);
         }
         finally
         {

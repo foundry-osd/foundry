@@ -33,7 +33,7 @@ public sealed class WinPeProcessExecutionTests
     }
 
     [Fact]
-    public void ToFailureDiagnostic_KeepsRawDetailsLocalAndCreatesSafeStructuredFields()
+    public void ToFailureDiagnostic_PreservesLocalDetailsAndProcessMetadata()
     {
         var execution = new WinPeProcessExecution
         {
@@ -56,8 +56,6 @@ public sealed class WinPeProcessExecutionTests
         Assert.Equal("MakeWinPEMedia", diagnostic.ToolName);
         Assert.Equal(7, diagnostic.ExitCode);
         Assert.Contains("plain-text", diagnostic.Details);
-        Assert.DoesNotContain("plain-text", diagnostic.ErrorSummary);
-        Assert.DoesNotContain(@"C:\Users\operator", diagnostic.ErrorSummary);
     }
 
     [Fact]

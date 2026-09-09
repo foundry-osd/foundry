@@ -79,7 +79,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             return WinPeResult.Failure(
                 WinPeErrorCodes.BuildFailed,
                 "Failed to provision Foundry boot assets into the mounted WinPE image.",
-                ex.Message);
+                ex.Message, exception: ex);
         }
     }
 

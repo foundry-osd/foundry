@@ -35,13 +35,12 @@ public class WinPeResult
         string? failureKind = null,
         string? failureReason = null,
         string? toolName = null,
-        string? errorSummary = null,
         int retryCount = 0,
         Exception? exception = null)
     {
         return new WinPeResult(false, new WinPeDiagnostic(
             code, message, details, stage, command, exitCode, failureKind, failureReason,
-            toolName, errorSummary, retryCount, exception));
+            toolName, retryCount, exception));
     }
 }
 
@@ -75,12 +74,11 @@ public sealed class WinPeResult<T> : WinPeResult
         string? failureKind = null,
         string? failureReason = null,
         string? toolName = null,
-        string? errorSummary = null,
         int retryCount = 0,
         Exception? exception = null)
     {
         return new WinPeResult<T>(false, default, new WinPeDiagnostic(
             code, message, details, stage, command, exitCode, failureKind, failureReason,
-            toolName, errorSummary, retryCount, exception));
+            toolName, retryCount, exception));
     }
 }

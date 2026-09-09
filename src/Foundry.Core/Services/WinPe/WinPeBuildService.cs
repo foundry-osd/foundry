@@ -80,7 +80,12 @@ public sealed class WinPeBuildService : IWinPeBuildService
                 return WinPeResult<WinPeBuildArtifact>.Failure(
                     WinPeErrorCodes.BuildFailed,
                     "WinPE workspace was created but boot.wim was not found.",
-                    $"Expected path: '{bootWimPath}'.");
+                    $"Expected path: '{bootWimPath}'.",
+                    stage: "Build WinPE workspace",
+                    exitCode: copyPeResult.ExitCode,
+                    failureKind: WinPeFailureKinds.Process,
+                    failureReason: WinPeFailureReasons.ArtifactMissing,
+                    toolName: "copype");
             }
 
             string mountDirectory = Path.Combine(workingDirectory, "mount");
@@ -118,7 +123,6 @@ public sealed class WinPeBuildService : IWinPeBuildService
                     ? WinPeFailureReasons.AccessDenied
                     : WinPeFailureReasons.ProcessStartFailed,
                 toolName: "copype",
-                errorSummary: ex.Message,
                 exception: ex);
         }
     }

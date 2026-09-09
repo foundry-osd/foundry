@@ -83,10 +83,10 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                     "MakeWinPEMedia completed without producing the expected ISO artifact.",
                     execution.ToDiagnosticText(),
                     stage: "Create ISO media",
+                    exitCode: execution.ExitCode,
                     failureKind: WinPeFailureKinds.Process,
                     failureReason: WinPeFailureReasons.ArtifactMissing,
-                    toolName: "MakeWinPEMedia",
-                    errorSummary: "Expected ISO artifact was not produced.");
+                    toolName: "MakeWinPEMedia");
             }
 
             currentStage = "Finalize ISO output";
@@ -113,7 +113,6 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                     _ => WinPeFailureReasons.Unexpected
                 },
                 toolName: currentStage == "Run MakeWinPEMedia for ISO" ? "MakeWinPEMedia" : null,
-                errorSummary: ex.Message,
                 exception: ex);
         }
         finally

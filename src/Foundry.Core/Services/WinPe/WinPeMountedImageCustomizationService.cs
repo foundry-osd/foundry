@@ -256,10 +256,11 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         }
         catch (Exception ex)
         {
-            return WinPeResult.Failure(
+            return WinPeResult.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.BuildFailed,
                 "Failed to apply WinRE Wi-Fi startup fixes to the mounted boot image.",
-                ex.Message);
+                ex.Message,
+                exception: ex));
         }
     }
 
@@ -280,10 +281,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             "Discard diagnostics:",
             discardResult.Error?.Details ?? string.Empty).Trim();
 
-        return WinPeResult.Failure(new WinPeDiagnostic(
-            primaryDiagnostic.Code,
-            primaryDiagnostic.Message,
-            details));
+        return WinPeResult.Failure(primaryDiagnostic with { Details = details });
     }
 
     private static WinPeDiagnostic? ValidateOptions(WinPeMountedImageCustomizationOptions? options)

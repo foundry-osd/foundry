@@ -171,8 +171,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
                     "Driver package download failed.",
                     $"URI: '{sourceUri}', HTTP status: {(int)response.StatusCode} {response.ReasonPhrase}",
                     failureKind: WinPeFailureKinds.Network,
-                    failureReason: WinPeFailureReasons.HttpStatus,
-                    errorSummary: $"HTTP {(int)response.StatusCode} {response.ReasonPhrase}");
+                    failureReason: WinPeFailureReasons.HttpStatus);
             }
 
             Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
@@ -211,7 +210,6 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
                     HttpRequestException { StatusCode: not null } => WinPeFailureReasons.HttpStatus,
                     _ => WinPeFailureReasons.Transport
                 },
-                errorSummary: ex.Message,
                 exception: ex);
         }
     }

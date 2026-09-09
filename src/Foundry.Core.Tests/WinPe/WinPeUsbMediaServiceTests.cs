@@ -885,9 +885,35 @@ public sealed class WinPeUsbMediaServiceTests
         }
     }
 
+    [Theory]
+    [InlineData(5, "", "nonzero_exit")]
+    [InlineData(0, "", "artifact_missing")]
+    [InlineData(0, "{invalid", "invalid_input")]
+    public async Task ProvisionAndPopulateAsync_PreservesProvisioningFailureMetadata(int exitCode, string output, string reason)
+    {
+        const string identity = """
+            {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
+            """;
+        var runner = new FakeSequenceRunner(identity, output) { FailureExitCode = exitCode };
+        using TempWorkspace workspace = TempWorkspace.Create();
+        var service = new WinPeUsbMediaService(runner);
+
+        WinPeResult<WinPeUsbProvisionResult> result = await service.ProvisionAndPopulateAsync(
+            new UsbOutputOptions { TargetDiskNumber = 9, ExpectedDiskFriendlyName = "Safe USB" },
+            new WinPeBuildArtifact { WorkingDirectoryPath = workspace.RootPath },
+            new WinPeToolPaths { PowerShellPath = "pwsh.exe" }, false, CancellationToken.None);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(exitCode, result.Error?.ExitCode);
+        Assert.Equal("PowerShell", result.Error?.ToolName);
+        Assert.Equal(reason, result.Error?.FailureReason);
+        Assert.Equal("Partition and format USB disk", result.Error?.Stage);
+    }
+
     private sealed class FakeSequenceRunner(params string[] outputs) : IWinPeProcessRunner
     {
         private readonly Queue<string> _outputs = new(outputs);
+        public int FailureExitCode { get; init; }
 
         public List<WinPeProcessExecution> Executions { get; } = [];
 
@@ -903,7 +929,7 @@ public sealed class WinPeUsbMediaServiceTests
                 FileName = fileName,
                 Arguments = arguments,
                 WorkingDirectory = workingDirectory,
-                ExitCode = 0,
+                ExitCode = Executions.Count == 1 ? FailureExitCode : 0,
                 StandardOutput = _outputs.Count > 0 ? _outputs.Dequeue() : string.Empty
             };
             Executions.Add(execution);

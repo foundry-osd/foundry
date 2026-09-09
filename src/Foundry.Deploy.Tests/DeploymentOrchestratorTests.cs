@@ -321,6 +321,15 @@ public sealed class DeploymentOrchestratorTests
         Assert.Equal(DeploymentOperationNames.ValidateTargetDisk, terminalLog.Properties["FailedOperationName"]);
         Assert.Equal("missing_target_partition", terminalLog.Properties["FailureCode"]);
         Assert.Equal(true, terminalLog.Properties["RemoteDiagnostic"]);
+        Assert.Equal(true, terminalLog.Properties["RemoteDiagnosticTerminal"]);
+        Assert.Contains(logger.Entries, entry =>
+            entry.Properties.TryGetValue("RemoteDiagnostic", out object? remote) && Equals(remote, true) &&
+            entry.Properties.ContainsKey("Mode") && !entry.Properties.ContainsKey("Outcome"));
+        Assert.Contains(logger.Entries, entry =>
+            entry.Properties.TryGetValue("RemoteDiagnostic", out object? remote) && Equals(remote, true) &&
+            entry.Properties.TryGetValue("StepName", out object? step) && Equals(step, DeploymentStepNames.ValidateTargetConfiguration));
+        Assert.All(logger.Entries.Where(entry => Equals(entry.Properties.GetValueOrDefault("RemoteDiagnostic"), true)),
+            entry => Assert.Equal(operationId, entry.Properties["OperationId"]));
     }
 
     [Fact]
@@ -805,9 +814,10 @@ public sealed class DeploymentOrchestratorTests
 
     private sealed class RecordingLogger<T> : ILogger<T>
     {
+        private readonly LoggerExternalScopeProvider _scopeProvider = new();
         public List<LogEntry> Entries { get; } = [];
 
-        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => _scopeProvider.Push(state);
 
         public bool IsEnabled(LogLevel logLevel) => true;
 
@@ -818,11 +828,25 @@ public sealed class DeploymentOrchestratorTests
             Exception? exception,
             Func<TState, Exception?, string> formatter)
         {
-            var properties = state as IEnumerable<KeyValuePair<string, object?>>;
-            Entries.Add(new LogEntry(
-                logLevel,
-                properties?.ToDictionary(pair => pair.Key, pair => pair.Value, StringComparer.Ordinal)
-                    ?? new Dictionary<string, object?>()));
+            var properties = new Dictionary<string, object?>();
+            _scopeProvider.ForEachScope((scope, values) =>
+            {
+                if (scope is IEnumerable<KeyValuePair<string, object?>> scopeProperties)
+                {
+                    foreach ((string key, object? value) in scopeProperties)
+                    {
+                        values[key] = value;
+                    }
+                }
+            }, properties);
+            if (state is IEnumerable<KeyValuePair<string, object?>> eventProperties)
+            {
+                foreach ((string key, object? value) in eventProperties)
+                {
+                    properties[key] = value;
+                }
+            }
+            Entries.Add(new LogEntry(logLevel, properties));
         }
     }
 

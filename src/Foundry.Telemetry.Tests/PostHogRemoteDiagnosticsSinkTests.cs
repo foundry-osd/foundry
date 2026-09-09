@@ -235,24 +235,72 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         Assert.Equal(5, exporter.Records.Count);
     }
 
-    [Fact]
-    public async Task Emit_RateLimitsRepeatedFingerprintAcrossOperations()
+    [Theory]
+    [InlineData("OperationId")]
+    [InlineData("FailedOperationName")]
+    [InlineData("ToolName")]
+    [InlineData("CurrentOperation")]
+    [InlineData("ProcessOperation")]
+    public async Task Emit_DistinguishesOperationAndToolContext(string propertyName)
     {
         var exporter = new RecordingExporter();
         await using var service = CreateService(exporter);
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
-
         for (int index = 0; index < 8; index++)
         {
             service.Emit(RemoteDiagnosticsTestData.LogEvent(
-                LogEventLevel.Warning,
-                "same warning",
-                properties: ("OperationId", $"operation-{index}")));
+                LogEventLevel.Warning, "same warning", properties: (propertyName, $"value-{index}")));
         }
 
         await service.FlushAsync(TestContext.Current.CancellationToken);
 
-        Assert.Equal(5, exporter.Records.Count);
+        Assert.Equal(8, exporter.Records.Count);
+    }
+
+    [Fact]
+    public async Task Emit_PreservesDistinctStepsAndLimitsRepeatedStep()
+    {
+        var exporter = new RecordingExporter();
+        await using var service = CreateService(exporter);
+        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+        for (int index = 0; index < 8; index++)
+        {
+            service.Emit(RemoteDiagnosticsTestData.LogEvent(
+                LogEventLevel.Information, "Step starting",
+                properties: [("RemoteDiagnostic", true), ("OperationId", "deployment-1"), ("StepName", $"step-{index}")]));
+        }
+
+        for (int index = 0; index < 8; index++)
+        {
+            service.Emit(RemoteDiagnosticsTestData.LogEvent(
+                LogEventLevel.Information, "Step starting",
+                properties: [("RemoteDiagnostic", true), ("OperationId", "deployment-1"), ("StepName", "step-0")]));
+        }
+
+        await service.FlushAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(12, exporter.Records.Count);
+        Assert.Equal(8, exporter.Records.Select(record => record.Attributes["workflow.step"]).Distinct().Count());
+        Assert.Equal(5, exporter.Records.Count(record => Equals(record.Attributes["workflow.step"], "step-0")));
+    }
+
+    [Fact]
+    public async Task Emit_TerminalEventBypassesThrottleAndReportsDroppedRecords()
+    {
+        var exporter = new RecordingExporter();
+        await using var service = CreateService(exporter);
+        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+        for (int index = 0; index < 8; index++)
+        {
+            service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "failed"));
+        }
+
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(
+            LogEventLevel.Error, "failed", properties: ("RemoteDiagnosticTerminal", true)));
+        await service.FlushAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(6, exporter.Records.Count);
+        Assert.Equal(3L, exporter.Records[^1].Attributes["diagnostics.dropped_record_count"]);
     }
 
     [Fact]

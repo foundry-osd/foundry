@@ -3,8 +3,11 @@
 // See the LICENSE file in the project root for more information.
 
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.ExceptionServices;
+using Foundry.Telemetry;
 using Foundry.Utilities.Processes;
+using Serilog;
 using UtilityProcessRunner = Foundry.Utilities.Processes.ProcessRunner;
 
 namespace Foundry.Core.Services.WinPe;
@@ -53,20 +56,36 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
             OnErrorData = onErrorData
         };
 
+        Stopwatch stopwatch = Stopwatch.StartNew();
         try
         {
             ProcessExecutionResult result = await _processRunner
                 .RunAsync(request, cancellationToken)
                 .ConfigureAwait(false);
+            if (!result.IsSuccess)
+            {
+                ILogger logger = Log.ForContext<WinPeProcessRunner>();
+                foreach ((string name, object value) in RemoteProcessDiagnostics.CreateProperties(result, stopwatch.Elapsed))
+                {
+                    logger = logger.ForContext(name, value);
+                }
+                logger.Warning("External process returned a nonzero exit code. ToolName={ToolName}, ExitCode={ExitCode}",
+                    Path.GetFileName(result.FileName), result.ExitCode);
+            }
             return WinPeProcessExecution.FromProcessExecutionResult(result);
-        }
-        catch (ProcessStartException ex) when (ex.InnerException is Win32Exception or InvalidOperationException)
-        {
-            ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
-            throw;
         }
         catch (ProcessStartException ex)
         {
+            ILogger logger = Log.ForContext<WinPeProcessRunner>();
+            foreach ((string name, object value) in RemoteProcessDiagnostics.CreateStartFailureProperties(ex, stopwatch.Elapsed))
+            {
+                logger = logger.ForContext(name, value);
+            }
+            logger.Warning("External process could not be started.");
+            if (ex.InnerException is Win32Exception or InvalidOperationException)
+            {
+                ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
+            }
             throw new InvalidOperationException($"Failed to start process '{fileName}'.", ex);
         }
     }
