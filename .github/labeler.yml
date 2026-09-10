@@ -32,12 +32,19 @@
           - 'src/Foundry.Deploy/**'
           - 'src/Foundry.Deploy.Tests/**'
 
-# Foundry WinPE network bootstrap application
+# Foundry WinPE network provisioning application
 'project: foundry-connect':
   - changed-files:
       - any-glob-to-any-file:
           - 'src/Foundry.Connect/**'
           - 'src/Foundry.Connect.Tests/**'
+
+# Foundry WinPE boot orchestration runtime
+'project: foundry-bootstrap':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/Foundry.Bootstrap/**'
+          - 'src/Foundry.Bootstrap.Tests/**'
 
 # UI assets and views
 ui:

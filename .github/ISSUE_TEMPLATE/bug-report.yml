@@ -14,6 +14,7 @@ body:
       label: Affected area
       options:
         - Foundry OSD
+        - Foundry Bootstrap
         - Foundry Connect
         - Foundry Deploy
         - Documentation

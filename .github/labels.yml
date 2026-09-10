@@ -60,7 +60,11 @@
 
 - name: 'project: foundry-connect'
   color: '5319e7'
-  description: Changes in the Foundry.Connect WinPE network bootstrap application
+  description: Changes in the Foundry.Connect WinPE network provisioning application
+
+- name: 'project: foundry-bootstrap'
+  color: '006b75'
+  description: Changes in the Foundry.Bootstrap WinPE boot orchestration runtime
 
 - name: ui
   color: '7057ff'

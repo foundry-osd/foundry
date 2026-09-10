@@ -38,6 +38,7 @@ Verification scope:
 Solution architecture and project ownership:
 - `Foundry` is the WinUI 3 authoring application. It owns the desktop authoring experience, navigation, views, view models, and UI-specific services used to configure and generate deployment media.
 - `Foundry.Core` contains shared business logic, configuration models, validation, media creation, Windows ADK and WinPE operations, Autopilot integration, and framework-independent orchestration used by the applications.
+- `Foundry.Bootstrap` is the .NET console runtime for WinPE boot orchestration. It owns runtime payload resolution, cache recovery, system preparation, child process supervision, console progress, and local boot diagnostics. It must not reference UI projects or replace PowerShell workflows owned by other applications.
 - `Foundry.Connect` is the WPF network provisioning runtime included in boot media. It owns runtime networking, configuration loading, application lifecycle, and the Connect-specific UI.
 - `Foundry.Deploy` is the WPF deployment runtime included in boot media. It owns deployment workflows, hardware discovery, downloads, driver packs, caching, runtime configuration, startup validation, and the Deploy-specific UI.
 - `Foundry.Localization` provides shared culture definitions and resource-based localization services used by the applications.
@@ -54,7 +55,7 @@ Project dependency rules:
 - Use `Foundry.Localization` for shared localization behavior instead of creating application-specific replacements.
 - Use `Foundry.Telemetry` for shared telemetry behavior instead of creating application-specific telemetry implementations.
 - `Foundry.Utilities` is a leaf project and must not reference another Foundry project.
-- `Foundry.Core`, `Foundry`, `Foundry.Connect`, `Foundry.Deploy`, `Foundry.Localization`, and `Foundry.Telemetry` may consume `Foundry.Utilities` when a capability has a stable cross-project contract.
+- `Foundry.Core`, `Foundry`, `Foundry.Bootstrap`, `Foundry.Connect`, `Foundry.Deploy`, `Foundry.Localization`, and `Foundry.Telemetry` may consume `Foundry.Utilities` when a capability has a stable cross-project contract.
 - A type belongs in `Foundry.Utilities` only when it is technical, independently testable, and either has multiple consumers or replaces proven duplication.
 - Destructive deployment and media operations remain in the project that owns the workflow even when they use shared utility primitives.
 
@@ -110,6 +111,7 @@ Unit testing rules:
 - When adding new functionality, add or update the smallest relevant set of tests
 - Keep test projects aligned with the main project naming and solution structure
 - `Foundry.Core.Tests` owns tests for shared business logic, configuration contracts, validation, selection, transformation, and orchestration in `Foundry.Core`.
+- `Foundry.Bootstrap.Tests` owns tests for boot sequencing, runtime selection, cache rollback, process observation, cancellation, and best-effort system preparation and diagnostics in `Foundry.Bootstrap`.
 - `Foundry.Connect.Tests` owns tests for `Foundry.Connect` runtime behavior and its integration with shared `Foundry.Core` contracts.
 - `Foundry.Deploy.Tests` owns tests for `Foundry.Deploy` runtime behavior.
 - `Foundry.Localization.Tests` owns tests for shared localization behavior.
@@ -121,7 +123,7 @@ Unit testing rules:
 - Test logic in its owning project; move it to `Foundry.Core` only when domain ownership and reuse justify it.
 
 Logging rules:
-- Use `FoundryLogConfiguration` for application file sinks so Foundry.OSD, Foundry.Connect, and Foundry.Deploy share the same structured text contract
+- Use `FoundryLogConfiguration` for application file sinks so Foundry.OSD, Foundry.Bootstrap, Foundry.Connect, and Foundry.Deploy share the same structured text contract
 - Emit UTC timestamps with milliseconds and the Application, Session, and Component context on every application log event
 - Keep one stable active log filename with 10 MB size-based rolling and bounded retention
 - Use Information as the Foundry.OSD default level, with Debug enabled by developer mode
