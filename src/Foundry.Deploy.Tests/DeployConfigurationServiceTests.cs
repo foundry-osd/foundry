@@ -11,6 +11,21 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeployConfigurationServiceTests
 {
+    [Fact]
+    public void LoadOptional_PreservesParseExceptionForStartupDiagnostics()
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "invalid.json", "{invalid}");
+        var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.Null(result.Document);
+        var exception = Assert.IsType<System.Text.Json.JsonException>(result.FailureException);
+        Assert.NotEmpty(exception.StackTrace!);
+        Assert.Equal(exception.Message, result.FailureMessage);
+    }
+
     [Theory]
     [InlineData("{\"isEnabled\":true,\"files\":[]}")]
     [InlineData("{\"isEnabled\":true,\"defaultFileId\":\"missing\",\"files\":[]}")]

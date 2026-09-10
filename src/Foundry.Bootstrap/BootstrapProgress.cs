@@ -17,7 +17,8 @@ internal sealed record BootstrapProgress(BootstrapStage Stage, BootstrapStatus S
 internal enum BootstrapOutcome { Succeeded, Cancelled, Failed }
 
 /// <summary>Terminal result retains the failing stage and child code for diagnostics.</summary>
-internal sealed record BootstrapResult(BootstrapOutcome Outcome, BootstrapStage Stage, int? ChildExitCode = null)
+internal sealed record BootstrapResult(BootstrapOutcome Outcome, BootstrapStage Stage, int? ChildExitCode = null,
+    string? FailureCategory = null, string? ChildStartupStage = null, bool ReadinessConfirmed = false)
 {
     internal int ExitCode => Outcome == BootstrapOutcome.Succeeded ? 0 : 1;
 }

@@ -23,7 +23,8 @@ public sealed class ApplicationLauncherTests
             Arguments = "/d /c exit 22"
         };
 
-        Assert.Equal(22, await launcher.RunAsync(startInfo, CancellationToken.None));
+        using Process child = Process.Start(startInfo)!;
+        Assert.Equal(22, await launcher.ObserveAsync(child, CancellationToken.None));
     }
 
     [Fact]
@@ -60,6 +61,55 @@ public sealed class ApplicationLauncherTests
             "missing.exe", new Dictionary<string, string?>(), new CancellationToken(true)));
     }
 
+    [Theory]
+    [InlineData(null)]
+    [InlineData("{\"protocolVersions\":[2]}")]
+    public async Task LegacyOrIncompatiblePayloadUsesExplicitUnverifiedHandoff(string? manifest)
+    {
+        string directory = Directory.CreateTempSubdirectory("FoundryStartup-").FullName;
+        try
+        {
+            if (manifest is not null) File.WriteAllText(Path.Combine(directory, "foundry.startup.json"), manifest);
+            using var logger = new LoggerConfiguration().CreateLogger();
+            var warnings = new List<string>();
+            var launcher = new ApplicationLauncher(logger, warning: warnings.Add, startProcess: start =>
+            {
+                Assert.False(start.Environment.ContainsKey("FOUNDRY_STARTUP_PROTOCOL"));
+                Assert.False(start.Environment.ContainsKey("FOUNDRY_STARTUP_LAUNCH_ID"));
+                Assert.False(start.Environment.ContainsKey("FOUNDRY_STARTUP_STATUS_PATH"));
+                return Process.GetCurrentProcess();
+            });
+            ApplicationLaunchResult result = await launcher.StartDeployAsync(Path.Combine(directory, "Foundry.Deploy.exe"),
+                new Dictionary<string, string?>
+                {
+                    ["FOUNDRY_STARTUP_PROTOCOL"] = "1",
+                    ["FOUNDRY_STARTUP_LAUNCH_ID"] = "stale",
+                    ["FOUNDRY_STARTUP_STATUS_PATH"] = "stale"
+                }, TestContext.Current.CancellationToken);
+            Assert.True(result.Succeeded);
+            Assert.False(result.ReadinessConfirmed);
+            Assert.Single(warnings);
+        }
+        finally { Directory.Delete(directory, recursive: true); }
+    }
+
+    [Fact]
+    public async Task MalformedCapabilitiesNeverStartTheApplication()
+    {
+        string directory = Directory.CreateTempSubdirectory("FoundryStartup-").FullName;
+        try
+        {
+            File.WriteAllText(Path.Combine(directory, "foundry.startup.json"), "invalid");
+            using var logger = new LoggerConfiguration().CreateLogger();
+            var launcher = new ApplicationLauncher(logger, startProcess: _ => throw new InvalidOperationException("Must not start"));
+            ApplicationLaunchResult result = await launcher.StartDeployAsync(Path.Combine(directory, "Foundry.Deploy.exe"),
+                new Dictionary<string, string?>(), TestContext.Current.CancellationToken);
+            Assert.False(result.Succeeded);
+            Assert.Equal("capability_invalid", result.FailureCategory);
+        }
+        finally { Directory.Delete(directory, recursive: true); }
+    }
+
     [Fact]
     public void ChildArgumentsAndEnvironmentArePassedWithoutShellExpansion()
     {
@@ -73,5 +123,93 @@ public sealed class ApplicationLauncherTests
         Assert.Equal(@"X:\Path with spaces\config.json", start.ArgumentList[1]);
         Assert.Equal("TEST", start.Environment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
         Assert.False(start.Environment.ContainsKey("TO_REMOVE"));
+    }
+
+    [Fact]
+    public async Task MissingManagedDependencyIsObservedBeforeChildMain()
+    {
+        string directory = Directory.CreateTempSubdirectory("FoundryStartup-").FullName;
+        try
+        {
+            string appHost = Path.ChangeExtension(typeof(ApplicationLauncherTests).Assembly.Location, ".exe");
+            string executable = Path.Combine(directory, Path.GetFileName(appHost));
+            File.Copy(appHost, executable);
+            await File.WriteAllTextAsync(Path.Combine(directory, "foundry.startup.json"),
+                "{\"protocolVersions\":[1]}", TestContext.Current.CancellationToken);
+            using var logger = new LoggerConfiguration().CreateLogger();
+            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            var launcher = new ApplicationLauncher(logger, Path.Combine(directory, "session"));
+            ApplicationLaunchResult result = await launcher.StartDeployAsync(executable,
+                new Dictionary<string, string?> { ["DOTNET_DISABLE_GUI_ERRORS"] = "1" }, deadline.Token);
+            Assert.False(result.Succeeded);
+            Assert.NotNull(result.ExitCode);
+            Assert.NotEqual(0, result.ExitCode);
+            Assert.Null(result.LastStage);
+            Assert.Equal("child_exit", result.FailureCategory);
+        }
+        finally { Directory.Delete(directory, recursive: true); }
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task NegotiatedChildAcknowledgementUsesActualLaunchIdentity(bool connect)
+    {
+        string directory = Directory.CreateTempSubdirectory("FoundryStartup-").FullName;
+        Process? fixture = null;
+        try
+        {
+            string application = connect ? "Foundry.Connect" : "Foundry.Deploy";
+            string executable = Path.Combine(directory, application + ".exe");
+            File.WriteAllText(Path.Combine(directory, "foundry.startup.json"), "{\"protocolVersions\":[1]}");
+            using var logger = new LoggerConfiguration().CreateLogger();
+            var launcher = new ApplicationLauncher(logger, Path.Combine(directory, "session"), startProcess: start =>
+            {
+                string script = $$"""
+                    $status = @{
+                        protocolVersion = [int]$env:FOUNDRY_STARTUP_PROTOCOL
+                        sessionId = $env:FOUNDRY_DIAGNOSTIC_SESSION_ID
+                        launchId = $env:FOUNDRY_STARTUP_LAUNCH_ID
+                        application = '{{application}}'
+                        processId = $PID
+                        stage = 'ui_ready'
+                        timestampUtc = [DateTime]::UtcNow.ToString('o')
+                    } | ConvertTo-Json -Compress
+                    [IO.File]::WriteAllText($env:FOUNDRY_STARTUP_STATUS_PATH, $status)
+                    {{(connect ? "exit 0" : "Start-Sleep -Seconds 30")}}
+                    """;
+                start.FileName = "powershell.exe";
+                start.WorkingDirectory = Path.GetTempPath();
+                start.CreateNoWindow = true;
+                start.ArgumentList.Clear();
+                start.ArgumentList.Add("-NoProfile");
+                start.ArgumentList.Add("-NonInteractive");
+                start.ArgumentList.Add("-EncodedCommand");
+                start.ArgumentList.Add(Convert.ToBase64String(System.Text.Encoding.Unicode.GetBytes(script)));
+                Process? child = Process.Start(start);
+                if (child is not null) { fixture = Process.GetProcessById(child.Id); }
+                return child;
+            });
+            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            var environment = new Dictionary<string, string?> { ["FOUNDRY_DIAGNOSTIC_SESSION_ID"] = "TEST" };
+            ApplicationLaunchResult result = connect
+                ? await launcher.RunConnectAsync(executable, "missing.json", environment, deadline.Token)
+                : await launcher.StartDeployAsync(executable, environment, deadline.Token);
+            Assert.True(result.Succeeded);
+            Assert.True(result.ReadinessConfirmed);
+            Assert.Equal("ui_ready", result.LastStage);
+        }
+        finally
+        {
+            if (fixture is not null)
+            {
+                using (fixture)
+                {
+                    if (!fixture.HasExited) { fixture.Kill(); }
+                    await fixture.WaitForExitAsync(CancellationToken.None);
+                }
+            }
+            Directory.Delete(directory, recursive: true);
+        }
     }
 }

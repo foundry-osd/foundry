@@ -163,21 +163,21 @@ public sealed class BootstrapCoordinatorTests
             return Task.CompletedTask;
         }
 
-        public Task<int> RunConnectAsync(string executable, string configurationPath,
+        public Task<ApplicationLaunchResult> RunConnectAsync(string executable, string configurationPath,
             IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
         {
             Calls.Add("connect");
             Assert.Equal("TEST", environment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
             if (CancelConnect) { cancellation.Cancel(); cancellationToken.ThrowIfCancellationRequested(); }
             if (ConnectTimeout) { throw new TaskCanceledException("Internal operation timed out."); }
-            return Task.FromResult(ConnectExit);
+            return Task.FromResult(new ApplicationLaunchResult(ConnectExit == 0, ConnectExit));
         }
 
-        public Task StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
+        public Task<ApplicationLaunchResult> StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
         {
             Calls.Add("deploy");
             if (DeployFails) { throw new IOException(); }
-            return Task.CompletedTask;
+            return Task.FromResult(new ApplicationLaunchResult(true, ReadinessConfirmed: true));
         }
 
         public Task PersistAsync(CancellationToken cancellationToken)

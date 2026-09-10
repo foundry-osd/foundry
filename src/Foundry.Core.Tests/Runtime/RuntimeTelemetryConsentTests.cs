@@ -2,12 +2,12 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Bootstrap.Diagnostics;
+using Foundry.Core.Services.Runtime;
 using Xunit;
 
-namespace Foundry.Bootstrap.Tests.Diagnostics;
+namespace Foundry.Core.Tests.Runtime;
 
-public sealed class BootstrapTelemetryConsentTests
+public sealed class RuntimeTelemetryConsentTests
 {
     [Theory]
     [InlineData(null)]
@@ -17,7 +17,7 @@ public sealed class BootstrapTelemetryConsentTests
     [InlineData("{\"schemaVersion\":2,\"telemetry\":{\"isEnabled\":true,\"isRemoteDiagnosticsEnabled\":true}}")]
     public void MissingOrInvalidBootstrapPreferencesNeverAuthorizeSending(string? json)
     {
-        Assert.Null(BootstrapTelemetryConsent.ReadBootstrap(json));
+        Assert.Null(RuntimeTelemetryConsent.ReadBootstrap(json));
     }
 
     [Theory]
@@ -33,21 +33,21 @@ public sealed class BootstrapTelemetryConsentTests
             telemetry = new { isEnabled = usage, isRemoteDiagnosticsEnabled = diagnostics },
             protection = new { unreadableSecret = "not-decrypted" }
         });
-        var settings = BootstrapTelemetryConsent.ReadBootstrap(json);
+        var settings = RuntimeTelemetryConsent.ReadBootstrap(json);
         Assert.NotNull(settings);
         Assert.Equal(usage, settings.IsEnabled);
         Assert.Equal(diagnostics, settings.IsRemoteDiagnosticsEnabled);
-        Assert.Equal((usage, diagnostics), BootstrapTelemetryConsent.RestrictChild(json, true, true, true));
-        Assert.Equal((false, false), BootstrapTelemetryConsent.RestrictChild(json, true, false, false));
+        Assert.Equal((usage, diagnostics), RuntimeTelemetryConsent.RestrictChild(json, true, true, true));
+        Assert.Equal((false, false), RuntimeTelemetryConsent.RestrictChild(json, true, false, false));
     }
 
     [Fact]
     public void UnknownOverrideAndMalformedPreferencesRestrictDelivery()
     {
-        Assert.Equal((false, false), BootstrapTelemetryConsent.RestrictChild(null, true, true, true));
-        Assert.Equal((false, false), BootstrapTelemetryConsent.RestrictChild("invalid", false, true, true));
-        Assert.Equal((true, false), BootstrapTelemetryConsent.RestrictChild(null, false, true, false));
-        Assert.Equal((false, true), BootstrapTelemetryConsent.RestrictChild("{\"Telemetry\":{\"IsEnabled\":false}}", true, true, true));
+        Assert.Equal((false, false), RuntimeTelemetryConsent.RestrictChild(null, true, true, true));
+        Assert.Equal((false, false), RuntimeTelemetryConsent.RestrictChild("invalid", false, true, true));
+        Assert.Equal((true, false), RuntimeTelemetryConsent.RestrictChild(null, false, true, false));
+        Assert.Equal((false, true), RuntimeTelemetryConsent.RestrictChild("{\"Telemetry\":{\"IsEnabled\":false}}", true, true, true));
     }
 
     [Theory]
@@ -56,6 +56,6 @@ public sealed class BootstrapTelemetryConsentTests
     [InlineData("{\"telemetry\":{\"isEnabled\":true},\"Telemetry\":{\"isEnabled\":false}}")]
     public void AmbiguousConsentFailsClosed(string json)
     {
-        Assert.Equal((false, false), BootstrapTelemetryConsent.RestrictChild(json, true, true, true));
+        Assert.Equal((false, false), RuntimeTelemetryConsent.RestrictChild(json, true, true, true));
     }
 }

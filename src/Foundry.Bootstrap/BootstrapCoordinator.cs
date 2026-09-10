@@ -49,9 +49,11 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
             };
             string message = result.Outcome switch
             {
-                BootstrapOutcome.Succeeded => "Foundry Deploy was launched.",
+                BootstrapOutcome.Succeeded => result.ReadinessConfirmed ? "Foundry Deploy is ready." : "Foundry Deploy was launched. Readiness is unverified.",
                 BootstrapOutcome.Cancelled => "Boot was cancelled. Deployment will not continue.",
-                _ when result.ChildExitCode is int code => $"Foundry Connect stopped with exit code {code}.",
+                _ when result.FailureCategory == "readiness_timeout" => "Application readiness was not confirmed within two minutes. The application may still be running.",
+                _ when result.ChildExitCode is int code => $"Foundry {(result.Stage == BootstrapStage.Connect ? "Connect" : "Deploy")} stopped with exit code {code}.",
+                _ when result.FailureCategory == "capability_invalid" => "Application startup metadata is invalid. Recreate the boot media or refresh the runtime cache.",
                 _ => "This boot stage could not be completed. Check the session log for details."
             };
             Report(status, message);
@@ -92,12 +94,12 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         }
 
         Report(BootstrapStatus.Running, "Waiting for Foundry Connect");
-        int connectExit = await launcher.RunConnectAsync(connect, context.ConnectConfigurationPath,
+        ApplicationLaunchResult connectResult = await launcher.RunConnectAsync(connect, context.ConnectConfigurationPath,
             context.ChildEnvironment, cancellationToken).ConfigureAwait(false);
-        if (connectExit != 0)
+        if (!connectResult.Succeeded)
         {
-            return new BootstrapResult(connectExit == 20 ? BootstrapOutcome.Cancelled : BootstrapOutcome.Failed,
-                stage, connectExit);
+            return new BootstrapResult(connectResult.ExitCode == 20 ? BootstrapOutcome.Cancelled : BootstrapOutcome.Failed,
+                stage, connectResult.ExitCode, connectResult.FailureCategory, connectResult.LastStage);
         }
         Report(BootstrapStatus.Completed, "Foundry Connect completed");
 
@@ -124,8 +126,9 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         stage = BootstrapStage.Deploy;
         Report(BootstrapStatus.Running, "Starting Foundry Deploy");
         cancellationToken.ThrowIfCancellationRequested();
-        await launcher.StartDeployAsync(deploy, context.ChildEnvironment, cancellationToken).ConfigureAwait(false);
-        return new BootstrapResult(BootstrapOutcome.Succeeded, stage);
+        ApplicationLaunchResult deployResult = await launcher.StartDeployAsync(deploy, context.ChildEnvironment, cancellationToken).ConfigureAwait(false);
+        return new BootstrapResult(deployResult.Succeeded ? BootstrapOutcome.Succeeded : BootstrapOutcome.Failed, stage,
+            deployResult.ExitCode, deployResult.FailureCategory, deployResult.LastStage, deployResult.ReadinessConfirmed);
     }
 
     private async Task BestEffortAsync(Func<Task> action, string warning)
