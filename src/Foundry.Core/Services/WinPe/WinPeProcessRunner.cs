@@ -8,6 +8,7 @@ using System.Runtime.ExceptionServices;
 using Foundry.Telemetry;
 using Foundry.Utilities.Processes;
 using Serilog;
+using Serilog.Events;
 using UtilityProcessRunner = Foundry.Utilities.Processes.ProcessRunner;
 
 namespace Foundry.Core.Services.WinPe;
@@ -34,7 +35,7 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
             environmentOverrides).ConfigureAwait(false);
     }
 
-    public async Task<WinPeProcessExecution> RunWithOutputAsync(
+    public Task<WinPeProcessExecution> RunWithOutputAsync(
         string fileName,
         string arguments,
         string workingDirectory,
@@ -42,6 +43,20 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
         Action<string>? onErrorData,
         CancellationToken cancellationToken,
         IReadOnlyDictionary<string, string>? environmentOverrides = null)
+    {
+        return RunWithOutputCoreAsync(fileName, arguments, workingDirectory, onOutputData, onErrorData,
+            cancellationToken, environmentOverrides, isMakeWinPeMediaHelp: false);
+    }
+
+    private async Task<WinPeProcessExecution> RunWithOutputCoreAsync(
+        string fileName,
+        string arguments,
+        string workingDirectory,
+        Action<string>? onOutputData,
+        Action<string>? onErrorData,
+        CancellationToken cancellationToken,
+        IReadOnlyDictionary<string, string>? environmentOverrides,
+        bool isMakeWinPeMediaHelp)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(fileName);
         ArgumentException.ThrowIfNullOrWhiteSpace(workingDirectory);
@@ -69,7 +84,10 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
                 {
                     logger = logger.ForContext(name, value);
                 }
-                logger.Warning("External process returned a nonzero exit code. ToolName={ToolName}, ExitCode={ExitCode}",
+                LogEventLevel level = IsExpectedNonzeroExit(result, isMakeWinPeMediaHelp)
+                    ? LogEventLevel.Debug
+                    : LogEventLevel.Warning;
+                logger.Write(level, "External process returned a nonzero exit code. ToolName={ToolName}, ExitCode={ExitCode}",
                     Path.GetFileName(result.FileName), result.ExitCode);
             }
             return WinPeProcessExecution.FromProcessExecutionResult(result);
@@ -156,7 +174,26 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
 
         string switchS = useCommandExtensionsStripQuoteRules ? " /s" : string.Empty;
         string arguments = $"/d{switchS} /c \"{command}\"";
-        return RunAsync(GetCommandProcessorPath(), arguments, workingDirectory, cancellationToken, environmentOverrides);
+        bool isMakeWinPeMediaHelp = Path.GetFileName(scriptPath).Equals("MakeWinPEMedia.cmd", StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(scriptArguments?.Trim(), "/?", StringComparison.Ordinal);
+        return RunWithOutputCoreAsync(GetCommandProcessorPath(), arguments, workingDirectory, null, null,
+            cancellationToken, environmentOverrides, isMakeWinPeMediaHelp);
+    }
+
+    /// <summary>
+    /// Classifies known nonzero outcomes for logging only; callers retain the raw exit code and output.
+    /// </summary>
+    private static bool IsExpectedNonzeroExit(ProcessExecutionResult result, bool isMakeWinPeMediaHelp)
+    {
+        if (Path.GetFileName(result.FileName).Equals("robocopy.exe", StringComparison.OrdinalIgnoreCase))
+        {
+            return WinPeUsbMediaService.IsRobocopySuccessExitCode(result.ExitCode);
+        }
+
+        // MakeWinPEMedia help can exit with 1 even when the capability probe has usable output.
+        return isMakeWinPeMediaHelp && result.ExitCode == 1 &&
+            (result.StandardOutput.Contains("/bootex", StringComparison.OrdinalIgnoreCase) ||
+             result.StandardError.Contains("/bootex", StringComparison.OrdinalIgnoreCase));
     }
 
     private static string GetCommandProcessorPath()
