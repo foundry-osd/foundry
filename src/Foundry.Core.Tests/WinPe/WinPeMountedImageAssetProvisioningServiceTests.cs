@@ -11,11 +11,62 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
+using Foundry.Telemetry;
 
 namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeMountedImageAssetProvisioningServiceTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task ProvisionAsync_WritesIsolatedBootstrapTelemetryConfiguration(bool provideConfiguration)
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSource = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSource, "curl");
+        var configuration = new FoundryBootstrapConfigurationDocument
+        {
+            Telemetry = new TelemetrySettings
+            {
+                IsEnabled = true,
+                IsRemoteDiagnosticsEnabled = false,
+                InstallId = "anonymous-install",
+                RuntimePayloadSource = TelemetryRuntimePayloadSources.Release
+            }
+        };
+
+        WinPeResult result = await new WinPeMountedImageAssetProvisioningService().ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                CurlExecutableSourcePath = curlSource,
+                IanaWindowsTimeZoneMapJson = "{}",
+                FoundryBootstrapConfiguration = provideConfiguration ? configuration : null,
+                FoundryConnectConfigurationJson = "{\"network\":{\"secret\":\"network-secret\"}}",
+                DeployConfigurationJson = "{\"deploymentSecret\":\"deployment-secret\"}"
+            }, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        string json = await File.ReadAllTextAsync(
+            Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.bootstrap.config.json"),
+            TestContext.Current.CancellationToken);
+        var written = JsonSerializer.Deserialize<FoundryBootstrapConfigurationDocument>(json, ConfigurationJsonDefaults.SerializerOptions);
+        Assert.NotNull(written);
+        Assert.Equal(1, written.SchemaVersion);
+        Assert.Equal(provideConfiguration, written.Telemetry.IsEnabled);
+        Assert.False(written.Telemetry.IsRemoteDiagnosticsEnabled);
+        if (provideConfiguration)
+        {
+            Assert.Equal(configuration.Telemetry, written.Telemetry);
+        }
+
+        using JsonDocument document = JsonDocument.Parse(json);
+        Assert.Equal(["schemaVersion", "telemetry"], document.RootElement.EnumerateObject().Select(property => property.Name).Order());
+        Assert.DoesNotContain("network-secret", json, StringComparison.Ordinal);
+        Assert.DoesNotContain("deployment-secret", json, StringComparison.Ordinal);
+    }
+
     [Fact]
     public async Task Launcher_WhenExecutableCannotStart_RecordsAttemptAndPropagatesFailure()
     {

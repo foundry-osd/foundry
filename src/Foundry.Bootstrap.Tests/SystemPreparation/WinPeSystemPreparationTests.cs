@@ -116,6 +116,7 @@ public sealed class WinPeSystemPreparationTests : IDisposable
         await preparation.PrepareSystemAsync(CancellationToken.None);
 
         Assert.Equal(expectedUpdate ? 1 : 0, platform.AppliedUtcTimes.Count);
+        Assert.True(preparation.IsClockUsable);
     }
 
     [Fact]
@@ -134,6 +135,7 @@ public sealed class WinPeSystemPreparationTests : IDisposable
         await preparation.PrepareSystemAsync(CancellationToken.None);
 
         Assert.Empty(platform.AppliedUtcTimes);
+        Assert.False(preparation.IsClockUsable);
     }
 
     [Fact]

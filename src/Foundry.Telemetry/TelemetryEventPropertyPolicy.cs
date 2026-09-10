@@ -46,6 +46,11 @@ public static class TelemetryEventPropertyPolicy
     private static readonly IReadOnlyDictionary<string, HashSet<string>> AllowedPropertiesByEvent =
         new Dictionary<string, HashSet<string>>(StringComparer.Ordinal)
         {
+            [TelemetryEvents.BootstrapFailed] = new(StringComparer.Ordinal)
+            {
+                "failure_category", "last_stage", "elapsed_seconds", "child_application",
+                "child_exit_code", "payload_source", "payload_version", "architecture"
+            },
             [TelemetryEvents.AppDailyActive] = new(StringComparer.Ordinal)
             {
                 "proxy_method",
@@ -234,11 +239,43 @@ public static class TelemetryEventPropertyPolicy
                 continue;
             }
 
+            if (eventName == TelemetryEvents.BootstrapFailed)
+            {
+                if (key == "elapsed_seconds")
+                {
+                    if (value is double seconds && double.IsFinite(seconds) && seconds >= 0)
+                    {
+                        sanitized[key] = Math.Min(seconds, 604800);
+                    }
+                }
+                else if (key == "child_exit_code")
+                {
+                    if (value is int) sanitized[key] = value;
+                }
+                else if (value is string text && IsAllowedBootstrapValue(key, text))
+                {
+                    sanitized[key] = text;
+                }
+                continue;
+            }
+
             sanitized[key] = value;
         }
 
         return sanitized;
     }
+
+    private static bool IsAllowedBootstrapValue(string key, string value) => key switch
+    {
+        "failure_category" => value is "child_exit" or "stage_failed",
+        "last_stage" => value is "environment" or "connect" or "system" or "deploymentpreparation" or "deploy",
+        "child_application" => value is TelemetryApps.FoundryConnect or TelemetryApps.FoundryDeploy or "none",
+        "payload_source" => value is TelemetryRuntimePayloadSources.None or TelemetryRuntimePayloadSources.Debug or
+            TelemetryRuntimePayloadSources.Release or TelemetryRuntimePayloadSources.Unknown,
+        "architecture" => value is "x64" or "arm64",
+        "payload_version" => value.Length <= 64 && Version.TryParse(value, out _),
+        _ => false
+    };
 
     private static bool IsAllowedUnattendValue(string key, object? value) => key switch
     {

@@ -120,6 +120,16 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         WinPeMountedImageAssetProvisioningOptions options,
         CancellationToken cancellationToken)
     {
+        string bootstrapConfigurationJson = JsonSerializer.Serialize(
+            options.FoundryBootstrapConfiguration ?? new FoundryBootstrapConfigurationDocument(),
+            ConfigurationJsonDefaults.SerializerOptions);
+
+        await File.WriteAllTextAsync(
+            Path.Combine(foundryConfigPath, "foundry.bootstrap.config.json"),
+            bootstrapConfigurationJson,
+            Utf8NoBom,
+            cancellationToken).ConfigureAwait(false);
+
         string connectConfigurationJson = string.IsNullOrWhiteSpace(options.FoundryConnectConfigurationJson)
             ? CreateFallbackFoundryConnectConfigurationJson()
             : options.FoundryConnectConfigurationJson;

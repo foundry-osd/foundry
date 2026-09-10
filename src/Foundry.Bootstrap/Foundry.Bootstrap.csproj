@@ -3,6 +3,7 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Foundry.Telemetry\Foundry.Telemetry.csproj" />
     <ProjectReference Include="..\Foundry.Utilities\Foundry.Utilities.csproj" />
     <InternalsVisibleTo Include="Foundry.Bootstrap.Tests" />
   </ItemGroup>
