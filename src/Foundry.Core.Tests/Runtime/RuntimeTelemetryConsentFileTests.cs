@@ -11,6 +11,26 @@ namespace Foundry.Core.Tests.Runtime;
 public sealed class RuntimeTelemetryConsentFileTests
 {
     [Theory]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(true, true)]
+    public void Utf8BomPreservesConsentAndChildOptOut(bool bootstrapBom, bool childBom)
+    {
+        using var directory = new TemporaryDirectory();
+        string bootstrap = WriteBootstrap(directory.Path);
+        File.WriteAllText(bootstrap, File.ReadAllText(bootstrap), new System.Text.UTF8Encoding(bootstrapBom));
+        string child = Path.Combine(directory.Path, "child.json");
+        File.WriteAllText(child, "{\"telemetry\":{\"isEnabled\":false,\"isRemoteDiagnosticsEnabled\":true}}",
+            new System.Text.UTF8Encoding(childBom));
+
+        TelemetrySettings? settings = RuntimeTelemetryConsent.ReadSettings(bootstrap, child);
+
+        Assert.NotNull(settings);
+        Assert.False(settings.IsEnabled);
+        Assert.True(settings.IsRemoteDiagnosticsEnabled);
+    }
+
+    [Theory]
     [InlineData("\"hostUrl\":\"https://other.example.test/Base?x=A\"")]
     [InlineData("\"hostUrl\":\"https://ingest.example.test/base?x=A\"")]
     [InlineData("\"hostUrl\":\"https://ingest.example.test/Base?x=a\"")]

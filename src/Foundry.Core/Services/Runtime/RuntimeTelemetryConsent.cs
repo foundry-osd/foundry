@@ -95,7 +95,13 @@ public static class RuntimeTelemetryConsent
 
     private static string? ReadConfiguration(string path)
     {
-        try { return System.Text.Encoding.UTF8.GetString(RuntimeStartupFile.Read(path, 1024 * 1024)); }
+        try
+        {
+            ReadOnlySpan<byte> content = RuntimeStartupFile.Read(path, 1024 * 1024);
+            ReadOnlySpan<byte> preamble = System.Text.Encoding.UTF8.Preamble;
+            if (content.StartsWith(preamble)) content = content[preamble.Length..];
+            return System.Text.Encoding.UTF8.GetString(content);
+        }
         catch (FileNotFoundException) { return null; }
         catch (DirectoryNotFoundException) { return null; }
         catch (Exception exception) when (RuntimeStartupFile.IsExpectedFailure(exception)) { return "invalid"; }
