@@ -6,6 +6,9 @@ namespace Foundry.Core.Services.WinPe;
 
 public static class WinPeRuntimePayloadEnvironmentVariables
 {
+    public const string DebugBootstrapEnable = "FOUNDRY_WINPE_DEBUG_BOOTSTRAP";
+    public const string DebugBootstrapArchive = "FOUNDRY_WINPE_DEBUG_BOOTSTRAP_ARCHIVE";
+    public const string DebugBootstrapProject = "FOUNDRY_WINPE_DEBUG_BOOTSTRAP_PROJECT";
     public const string DebugConnectEnable = "FOUNDRY_WINPE_DEBUG_CONNECT";
     public const string DebugConnectArchive = "FOUNDRY_WINPE_DEBUG_CONNECT_ARCHIVE";
     public const string DebugConnectProject = "FOUNDRY_WINPE_DEBUG_CONNECT_PROJECT";

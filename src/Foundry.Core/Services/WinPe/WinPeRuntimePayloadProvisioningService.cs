@@ -32,6 +32,85 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         _httpClient = httpClient;
     }
 
+    /// <inheritdoc />
+    public async Task<WinPeResult<WinPeRuntimePayloadProvisioningOptions>> PrepareAsync(
+        WinPeRuntimePayloadProvisioningOptions options,
+        CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        WinPeDiagnostic? validationError = ValidateOptions(options, requireDestination: false);
+        if (validationError is not null)
+        {
+            return WinPeResult<WinPeRuntimePayloadProvisioningOptions>.Failure(validationError);
+        }
+
+        try
+        {
+            string runtimeIdentifier = options.Architecture.ToDotnetRuntimeIdentifier();
+            options = options with
+            {
+                Bootstrap = await PrepareLocalApplicationAsync("Foundry.Bootstrap", options.Bootstrap, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
+                Connect = await PrepareLocalApplicationAsync("Foundry.Connect", options.Connect, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
+                Deploy = await PrepareLocalApplicationAsync("Foundry.Deploy", options.Deploy, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false)
+            };
+            var releaseApplications = new[]
+            {
+                (Name: "Foundry.Bootstrap", Options: options.Bootstrap),
+                (Name: "Foundry.Connect", Options: options.Connect),
+                (Name: "Foundry.Deploy", Options: options.Deploy)
+            }.Where(application => application.Options.IsEnabled &&
+                application.Options.ProvisioningSource == WinPeProvisioningSource.Release &&
+                string.IsNullOrWhiteSpace(application.Options.ArchivePath)).ToArray();
+
+            if (releaseApplications.Length > 0)
+            {
+                WinPeRuntimeReleaseSnapshot snapshot = options.ReleaseSnapshot ??
+                    await GetReleaseSnapshotAsync(cancellationToken).ConfigureAwait(false);
+                foreach (var application in releaseApplications)
+                {
+                    snapshot.GetAsset(ResolveReleaseAssetName(application.Name, runtimeIdentifier));
+                }
+
+                options = options with { ReleaseSnapshot = snapshot };
+            }
+
+            return WinPeResult<WinPeRuntimePayloadProvisioningOptions>.Success(options);
+        }
+        catch (RuntimePublishException ex)
+        {
+            return WinPeResult<WinPeRuntimePayloadProvisioningOptions>.Failure(ex.Diagnostic);
+        }
+        catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or NotSupportedException or InvalidOperationException or HttpRequestException or JsonException)
+        {
+            return WinPeResult<WinPeRuntimePayloadProvisioningOptions>.Failure(
+                WinPeErrorCodes.BuildFailed, "Failed to prepare Foundry runtime payloads.", ex.Message, exception: ex);
+        }
+    }
+
+    private async Task<WinPeRuntimePayloadApplicationOptions> PrepareLocalApplicationAsync(
+        string applicationName,
+        WinPeRuntimePayloadApplicationOptions applicationOptions,
+        WinPeRuntimePayloadProvisioningOptions options,
+        string runtimeIdentifier,
+        CancellationToken cancellationToken)
+    {
+        if (!applicationOptions.IsEnabled ||
+            (applicationOptions.ProvisioningSource == WinPeProvisioningSource.Release && string.IsNullOrWhiteSpace(applicationOptions.ArchivePath)))
+        {
+            return applicationOptions;
+        }
+
+        string archivePath = await ResolveArchivePathAsync(applicationName, applicationOptions,
+            options.WorkingDirectoryPath, runtimeIdentifier, null, null, cancellationToken).ConfigureAwait(false);
+        using ZipArchive archive = ZipFile.OpenRead(archivePath);
+        if (archive.GetEntry($"{applicationName}.exe") is null)
+        {
+            throw new InvalidOperationException($"{applicationName} archive did not contain the expected executable '{applicationName}.exe'.");
+        }
+
+        return applicationOptions with { ArchivePath = archivePath };
+    }
+
     public async Task<WinPeResult> ProvisionAsync(
         WinPeRuntimePayloadProvisioningOptions options,
         IProgress<WinPeDownloadProgress>? downloadProgress = null,
@@ -45,9 +124,21 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             return WinPeResult.Failure(validationError);
         }
 
+        WinPeResult<WinPeRuntimePayloadProvisioningOptions> prepared = await PrepareAsync(options, cancellationToken).ConfigureAwait(false);
+        if (!prepared.IsSuccess)
+        {
+            return WinPeResult.Failure(prepared.Error!);
+        }
+
+        options = prepared.Value!;
         try
         {
             string runtimeIdentifier = options.Architecture.ToDotnetRuntimeIdentifier();
+            if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
+            {
+                await ProvisionApplicationAsync("Foundry.Bootstrap", options.Bootstrap, options,
+                    runtimeIdentifier, downloadProgress, cancellationToken).ConfigureAwait(false);
+            }
 
             await ProvisionApplicationAsync(
                 "Foundry.Connect",
@@ -71,7 +162,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         {
             return WinPeResult.Failure(ex.Diagnostic);
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException or NotSupportedException or InvalidOperationException or HttpRequestException or JsonException)
+        catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or NotSupportedException or InvalidOperationException or HttpRequestException or JsonException)
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.BuildFailed,
@@ -99,6 +190,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             applicationOptions,
             options.WorkingDirectoryPath,
             runtimeIdentifier,
+            options.ReleaseSnapshot,
             downloadProgress,
             cancellationToken).ConfigureAwait(false);
 
@@ -137,6 +229,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         WinPeRuntimePayloadApplicationOptions options,
         string workingDirectoryPath,
         string runtimeIdentifier,
+        WinPeRuntimeReleaseSnapshot? releaseSnapshot,
         IProgress<WinPeDownloadProgress>? downloadProgress,
         CancellationToken cancellationToken)
     {
@@ -157,6 +250,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 applicationName,
                 workingDirectoryPath,
                 runtimeIdentifier,
+                releaseSnapshot!,
                 downloadProgress,
                 cancellationToken).ConfigureAwait(false);
         }
@@ -251,6 +345,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         string applicationName,
         string workingDirectoryPath,
         string runtimeIdentifier,
+        WinPeRuntimeReleaseSnapshot releaseSnapshot,
         IProgress<WinPeDownloadProgress>? downloadProgress,
         CancellationToken cancellationToken)
     {
@@ -264,10 +359,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             File.Delete(archivePath);
         }
 
-        ReleaseAsset asset = await GetReleaseAssetAsync(
-            applicationName,
-            assetName,
-            cancellationToken).ConfigureAwait(false);
+        WinPeRuntimeReleaseAsset asset = releaseSnapshot.GetAsset(assetName);
 
         using HttpRequestMessage request = CreateGitHubRequest(asset.DownloadUrl);
         using HttpResponseMessage response = await _httpClient.SendAsync(
@@ -295,48 +387,29 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         return archivePath;
     }
 
-    private async Task<ReleaseAsset> GetReleaseAssetAsync(
-        string applicationName,
-        string assetName,
-        CancellationToken cancellationToken)
+    private async Task<WinPeRuntimeReleaseSnapshot> GetReleaseSnapshotAsync(CancellationToken cancellationToken)
     {
         using HttpRequestMessage request = CreateGitHubRequest(ReleaseApiUrl);
         using HttpResponseMessage response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
-
         await using Stream stream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
         using JsonDocument document = await JsonDocument.ParseAsync(stream, cancellationToken: cancellationToken).ConfigureAwait(false);
-
-        if (!document.RootElement.TryGetProperty("assets", out JsonElement assets) ||
-            assets.ValueKind != JsonValueKind.Array)
+        if (!document.RootElement.TryGetProperty("assets", out JsonElement assets) || assets.ValueKind != JsonValueKind.Array)
         {
             throw new InvalidOperationException("GitHub release metadata did not contain an assets array.");
         }
 
-        foreach (JsonElement asset in assets.EnumerateArray())
-        {
-            string name = ReadStringProperty(asset, "name");
-            if (!string.Equals(name, assetName, StringComparison.Ordinal))
-            {
-                continue;
-            }
-
-            string downloadUrl = ReadStringProperty(asset, "browser_download_url");
-            if (string.IsNullOrWhiteSpace(downloadUrl))
-            {
-                throw new InvalidOperationException($"{applicationName} release asset '{assetName}' did not contain a download URL.");
-            }
-
-            return new ReleaseAsset(name, downloadUrl, ReadStringProperty(asset, "digest"));
-        }
-
-        throw new InvalidOperationException($"No {applicationName} release asset named '{assetName}' was found.");
+        return new WinPeRuntimeReleaseSnapshot(ReadStringProperty(document.RootElement, "tag_name"),
+            assets.EnumerateArray().Select(asset => new WinPeRuntimeReleaseAsset(
+                ReadStringProperty(asset, "name"), ReadStringProperty(asset, "browser_download_url"), ReadStringProperty(asset, "digest"))));
     }
 
     private static string ResolveReleaseAssetName(string applicationName, string runtimeIdentifier)
     {
         return (applicationName, runtimeIdentifier) switch
         {
+            ("Foundry.Bootstrap", "win-x64") => "Foundry.Bootstrap-win-x64.zip",
+            ("Foundry.Bootstrap", "win-arm64") => "Foundry.Bootstrap-win-arm64.zip",
             ("Foundry.Connect", "win-x64") => "Foundry.Connect-win-x64.zip",
             ("Foundry.Connect", "win-arm64") => "Foundry.Connect-win-arm64.zip",
             ("Foundry.Deploy", "win-x64") => "Foundry.Deploy-win-x64.zip",
@@ -485,6 +558,16 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         WinPeRuntimePayloadProvisioningOptions options,
         string runtimeIdentifier)
     {
+        if (applicationName == "Foundry.Bootstrap")
+        {
+            if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
+            {
+                yield return Path.Combine(Path.GetFullPath(options.MountedImagePath), "Foundry", "Bootstrap");
+            }
+
+            yield break;
+        }
+
         if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
         {
             yield return Path.Combine(
@@ -544,7 +627,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         }
     }
 
-    private static WinPeDiagnostic? ValidateOptions(WinPeRuntimePayloadProvisioningOptions? options)
+    private static WinPeDiagnostic? ValidateOptions(WinPeRuntimePayloadProvisioningOptions? options, bool requireDestination = true)
     {
         if (options is null)
         {
@@ -552,6 +635,14 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 WinPeErrorCodes.ValidationFailed,
                 "Runtime payload provisioning options are required.",
                 "Provide a non-null WinPeRuntimePayloadProvisioningOptions instance.");
+        }
+
+        if (options.Bootstrap is null || options.Connect is null || options.Deploy is null)
+        {
+            return new WinPeDiagnostic(
+                WinPeErrorCodes.ValidationFailed,
+                "Runtime payload application options are required.",
+                "Provide non-null Bootstrap, Connect, and Deploy options.");
         }
 
         if (!Enum.IsDefined(options.Architecture))
@@ -570,7 +661,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 "Set WinPeRuntimePayloadProvisioningOptions.WorkingDirectoryPath.");
         }
 
-        if (string.IsNullOrWhiteSpace(options.MountedImagePath) &&
+        if (requireDestination && string.IsNullOrWhiteSpace(options.MountedImagePath) &&
             string.IsNullOrWhiteSpace(options.UsbCacheRootPath))
         {
             return new WinPeDiagnostic(
@@ -616,6 +707,4 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
     {
         public WinPeDiagnostic Diagnostic { get; } = diagnostic;
     }
-
-    private sealed record ReleaseAsset(string Name, string DownloadUrl, string Digest);
 }

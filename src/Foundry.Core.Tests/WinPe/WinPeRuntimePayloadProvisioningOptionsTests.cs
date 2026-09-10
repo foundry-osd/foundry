@@ -12,6 +12,7 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
     public void CreateDeveloperOptions_WhenDebuggerAttachedAndProjectsExist_EnablesDebugRuntimes()
     {
         using TempProjectRoot root = TempProjectRoot.Create();
+        string bootstrapProjectPath = root.CreateProject("Foundry.Bootstrap");
         string connectProjectPath = root.CreateProject("Foundry.Connect");
         string deployProjectPath = root.CreateProject("Foundry.Deploy");
 
@@ -28,6 +29,9 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
         Assert.True(options.Deploy.IsEnabled);
         Assert.Equal(WinPeProvisioningSource.Debug, options.Connect.ProvisioningSource);
         Assert.Equal(WinPeProvisioningSource.Debug, options.Deploy.ProvisioningSource);
+        Assert.True(options.Bootstrap.IsEnabled);
+        Assert.Equal(WinPeProvisioningSource.Debug, options.Bootstrap.ProvisioningSource);
+        Assert.Equal(bootstrapProjectPath, options.Bootstrap.ProjectPath);
         Assert.Equal(connectProjectPath, options.Connect.ProjectPath);
         Assert.Equal(deployProjectPath, options.Deploy.ProjectPath);
     }
@@ -36,6 +40,7 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
     public void CreateDeveloperOptions_WhenDebuggerIsNotAttached_DoesNotAutoEnableDebugRuntimes()
     {
         using TempProjectRoot root = TempProjectRoot.Create();
+        root.CreateProject("Foundry.Bootstrap");
         root.CreateProject("Foundry.Connect");
         root.CreateProject("Foundry.Deploy");
 
@@ -48,6 +53,7 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
             getEnvironmentVariable: _ => null,
             projectDiscoveryStartPath: root.RootPath);
 
+        Assert.False(options.Bootstrap.IsEnabled);
         Assert.False(options.Connect.IsEnabled);
         Assert.False(options.Deploy.IsEnabled);
     }
@@ -76,6 +82,51 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
         Assert.Equal(WinPeProvisioningSource.Debug, options.Connect.ProvisioningSource);
         Assert.Equal(archivePath, options.Connect.ArchivePath);
         Assert.Empty(options.Connect.ProjectPath);
+    }
+
+    [Theory]
+    [InlineData("1")]
+    [InlineData("true")]
+    [InlineData("YES")]
+    public void CreateDeveloperOptions_WhenBootstrapIsExplicitlyEnabled_PreservesDebugSourceWithoutProject(string flag)
+    {
+        var options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
+            WinPeArchitecture.X64, "work", "mount", "usb", false,
+            key => key == WinPeRuntimePayloadEnvironmentVariables.DebugBootstrapEnable ? flag : null);
+        Assert.True(options.Bootstrap.IsEnabled);
+        Assert.Equal(WinPeProvisioningSource.Debug, options.Bootstrap.ProvisioningSource);
+        Assert.Empty(options.Bootstrap.ProjectPath);
+    }
+
+    [Fact]
+    public void CreateDeveloperOptions_WhenBootstrapArchiveIsSet_PrefersArchiveOverProject()
+    {
+        var options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
+            WinPeArchitecture.Arm64, "work", "mount", "usb", false,
+            key => key switch
+            {
+                WinPeRuntimePayloadEnvironmentVariables.DebugBootstrapArchive => "bootstrap.zip",
+                WinPeRuntimePayloadEnvironmentVariables.DebugBootstrapProject => "bootstrap.csproj",
+                _ => null
+            });
+        Assert.True(options.Bootstrap.IsEnabled);
+        Assert.Equal("bootstrap.zip", options.Bootstrap.ArchivePath);
+        Assert.Empty(options.Bootstrap.ProjectPath);
+        Assert.Equal(WinPeProvisioningSource.Debug, options.Bootstrap.ProvisioningSource);
+    }
+
+    [Fact]
+    public void CreateDeveloperOptions_WhenDebuggerHasNoBootstrapProject_KeepsBootstrapDebugEnabled()
+    {
+        using TempProjectRoot root = TempProjectRoot.Create();
+        var options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
+            WinPeArchitecture.X64, "work", "mount", "usb", true,
+            _ => null, root.RootPath);
+        Assert.True(options.Bootstrap.IsEnabled);
+        Assert.Equal(WinPeProvisioningSource.Debug, options.Bootstrap.ProvisioningSource);
+        Assert.Empty(options.Bootstrap.ProjectPath);
+        Assert.False(options.Connect.IsEnabled);
+        Assert.False(options.Deploy.IsEnabled);
     }
 
     private sealed class TempProjectRoot : IDisposable

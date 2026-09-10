@@ -129,9 +129,10 @@ jobs:
               '--generate-notes'
           )
 
-          if ('${{ steps.compute.outputs.draft_release }}' -eq 'true') {
-              $releaseArgs += '--draft'
-          }
+          # Keep every release undiscoverable until all runtime assets have been
+          # uploaded and validated. This also makes interrupted uploads safe to
+          # delete or inspect without exposing an incomplete update feed.
+          $releaseArgs += '--draft'
 
           gh release create @releaseArgs
 
@@ -236,6 +237,7 @@ jobs:
           $publishRoot = Join-Path $releaseRoot 'publish'
           $connectProject = Join-Path $workspace 'src\Foundry.Connect\Foundry.Connect.csproj'
           $deployProject = Join-Path $workspace 'src\Foundry.Deploy\Foundry.Deploy.csproj'
+          $bootstrapProject = Join-Path $workspace 'src\Foundry.Bootstrap\Foundry.Bootstrap.csproj'
           $velopackScript = Join-Path $workspace 'scripts\Publish-FoundryVelopack.ps1'
           $publishProperties = @(
               'PublishSingleFile=true',
@@ -326,6 +328,17 @@ jobs:
 
               $connectAssetPath = Join-Path $releaseRoot "Foundry.Connect-$runtimeIdentifier.zip"
               Compress-Archive -Path (Join-Path $connectPublishPath '*') -DestinationPath $connectAssetPath -CompressionLevel Optimal -Force
+
+              $bootstrapPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Bootstrap' $runtimeIdentifier)
+              Invoke-Publish -ProjectPath $bootstrapProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $bootstrapPublishPath
+
+              $bootstrapExecutable = Join-Path $bootstrapPublishPath 'Foundry.Bootstrap.exe'
+              if (-not (Test-Path -Path $bootstrapExecutable -PathType Leaf)) {
+                  throw "Expected Foundry.Bootstrap executable not found: '$bootstrapExecutable'."
+              }
+
+              $bootstrapAssetPath = Join-Path $releaseRoot "Foundry.Bootstrap-$runtimeIdentifier.zip"
+              Compress-Archive -Path (Join-Path $bootstrapPublishPath '*') -DestinationPath $bootstrapAssetPath -CompressionLevel Optimal -Force
           }
 
       - name: Upload release assets
@@ -377,6 +390,8 @@ jobs:
           }
 
           $assets = @(
+              (Join-Path $releaseRoot 'Foundry.Bootstrap-win-x64.zip'),
+              (Join-Path $releaseRoot 'Foundry.Bootstrap-win-arm64.zip'),
               (Join-Path $releaseRoot 'Foundry.Connect-win-x64.zip'),
               (Join-Path $releaseRoot 'Foundry.Connect-win-arm64.zip'),
               (Join-Path $releaseRoot 'Foundry.Deploy-win-x64.zip'),
@@ -387,6 +402,58 @@ jobs:
               if (-not (Test-Path -Path $asset -PathType Leaf)) {
                   throw "Release asset was not created: '$asset'."
               }
+
+              $applicationName = [System.IO.Path]::GetFileNameWithoutExtension($asset) -replace '-win-(x64|arm64)$', ''
+              $expectedExecutableName = "$applicationName.exe"
+              $archiveEntries = [System.IO.Compression.ZipFile]::OpenRead($asset)
+              try {
+                  $hasRootExecutable = $null -ne ($archiveEntries.Entries |
+                      Where-Object { $_.FullName -eq $expectedExecutableName } |
+                      Select-Object -First 1)
+              }
+              finally {
+                  $archiveEntries.Dispose()
+              }
+
+              if (-not $hasRootExecutable) {
+                  throw "Release asset '$asset' does not contain '$expectedExecutableName' at its root."
+              }
           }
 
           gh release upload $releaseTag @assets --clobber
+          if ($LASTEXITCODE -ne 0) {
+              throw "Unable to upload runtime assets for '$releaseTag'."
+          }
+
+          $expectedAssetNames = @(
+              'Foundry.Bootstrap-win-x64.zip',
+              'Foundry.Bootstrap-win-arm64.zip',
+              'Foundry.Connect-win-x64.zip',
+              'Foundry.Connect-win-arm64.zip',
+              'Foundry.Deploy-win-x64.zip',
+              'Foundry.Deploy-win-arm64.zip'
+          )
+          $release = gh release view $releaseTag --json assets | ConvertFrom-Json
+          if ($LASTEXITCODE -ne 0) {
+              throw "Unable to validate GitHub release assets for '$releaseTag'."
+          }
+
+          $uploadedAssets = @($release.assets)
+          $missingAssetNames = @($expectedAssetNames | Where-Object { $_ -notin $uploadedAssets.name })
+          if ($missingAssetNames.Count -gt 0) {
+              throw "Release '$releaseTag' is missing required runtime assets: $($missingAssetNames -join ', ')."
+          }
+
+          $emptyAssetNames = @($uploadedAssets |
+              Where-Object { $_.name -in $expectedAssetNames -and $_.size -le 0 } |
+              ForEach-Object { $_.name })
+          if ($emptyAssetNames.Count -gt 0) {
+              throw "Release '$releaseTag' contains empty runtime assets: $($emptyAssetNames -join ', ')."
+          }
+
+          if ('${{ needs.prepare-release.outputs.draft_release }}' -ne 'true') {
+              gh release edit $releaseTag --draft=false
+              if ($LASTEXITCODE -ne 0) {
+                  throw "Unable to publish validated release '$releaseTag'."
+              }
+          }

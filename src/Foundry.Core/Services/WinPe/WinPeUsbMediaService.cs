@@ -567,6 +567,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
     {
         return options with
         {
+            Bootstrap = options.Bootstrap with { IsEnabled = false },
             MountedImagePath = string.Empty,
             UsbCacheRootPath = cacheRootPath,
             WorkingDirectoryPath = string.IsNullOrWhiteSpace(options.WorkingDirectoryPath)

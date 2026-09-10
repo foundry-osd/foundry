@@ -5,7 +5,7 @@
 namespace Foundry.Core.Services.WinPe;
 
 /// <summary>
-/// Describes how Foundry.Connect and Foundry.Deploy runtime payloads are staged into a mounted boot image.
+/// Describes how Foundry runtime payloads are staged into a mounted boot image.
 /// </summary>
 public sealed record WinPeRuntimePayloadProvisioningOptions
 {
@@ -28,6 +28,16 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     /// Gets the USB cache root path staged into the boot image.
     /// </summary>
     public string UsbCacheRootPath { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the Bootstrap payload staged only into the mounted image.
+    /// </summary>
+    public WinPeRuntimePayloadApplicationOptions Bootstrap { get; init; } = new();
+
+    /// <summary>
+    /// Gets the release metadata shared by all provisioning stages of this media build.
+    /// </summary>
+    public WinPeRuntimeReleaseSnapshot? ReleaseSnapshot { get; init; }
 
     /// <summary>
     /// Gets Foundry.Connect payload options.
@@ -67,6 +77,15 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
             WorkingDirectoryPath = workingDirectoryPath,
             MountedImagePath = mountedImagePath,
             UsbCacheRootPath = usbCacheRootPath,
+            Bootstrap = CreateApplicationOptions(
+                "Foundry.Bootstrap",
+                WinPeRuntimePayloadEnvironmentVariables.DebugBootstrapEnable,
+                WinPeRuntimePayloadEnvironmentVariables.DebugBootstrapArchive,
+                WinPeRuntimePayloadEnvironmentVariables.DebugBootstrapProject,
+                isDebuggerAttached,
+                getEnvironmentVariable,
+                projectDiscoveryStartPath,
+                requireLocalSourceWhenDebugging: true),
             Connect = CreateApplicationOptions(
                 "Foundry.Connect",
                 WinPeRuntimePayloadEnvironmentVariables.DebugConnectEnable,
@@ -93,7 +112,8 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
         string projectVariableName,
         bool isDebuggerAttached,
         Func<string, string?> getEnvironmentVariable,
-        string? projectDiscoveryStartPath)
+        string? projectDiscoveryStartPath,
+        bool requireLocalSourceWhenDebugging = false)
     {
         string archivePath = (getEnvironmentVariable(archiveVariableName) ?? string.Empty).Trim();
         if (!string.IsNullOrWhiteSpace(archivePath))
@@ -114,7 +134,8 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
         }
 
         bool isExplicitlyEnabled = IsEnabledEnvironmentFlag(getEnvironmentVariable(enableVariableName));
-        bool shouldAutoEnable = isDebuggerAttached && !string.IsNullOrWhiteSpace(projectPath);
+        bool shouldAutoEnable = isDebuggerAttached &&
+            (requireLocalSourceWhenDebugging || !string.IsNullOrWhiteSpace(projectPath));
 
         return new WinPeRuntimePayloadApplicationOptions
         {

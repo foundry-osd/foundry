@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -16,6 +17,60 @@ namespace Foundry.Core.Tests.WinPe;
 public sealed class WinPeMountedImageAssetProvisioningServiceTests
 {
     [Fact]
+    public async Task Launcher_WhenExecutableCannotStart_RecordsAttemptAndPropagatesFailure()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSource = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSource, "curl");
+        WinPeResult result = await new WinPeMountedImageAssetProvisioningService().ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                CurlExecutableSourcePath = curlSource,
+                IanaWindowsTimeZoneMapJson = "{}"
+            }, TestContext.Current.CancellationToken);
+        Assert.True(result.IsSuccess, result.Error?.Details);
+
+        string foundryRoot = Path.Combine(image.MountedImagePath, "Foundry");
+        string launcherPath = Path.Combine(foundryRoot, "Bootstrap", "Launch.cmd");
+        string launcher = File.ReadAllText(launcherPath).Replace(@"X:\Foundry", foundryRoot, StringComparison.Ordinal);
+        File.WriteAllText(launcherPath, launcher);
+        File.Delete(Path.Combine(foundryRoot, "Bootstrap", "Foundry.Bootstrap.exe"));
+
+        using var process = Process.Start(new ProcessStartInfo("cmd.exe", $"/d /c \"\"{launcherPath}\"\"")
+        {
+            UseShellExecute = false,
+            CreateNoWindow = true,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true
+        })!;
+        Task<string> output = process.StandardOutput.ReadToEndAsync(TestContext.Current.CancellationToken);
+        Task<string> error = process.StandardError.ReadToEndAsync(TestContext.Current.CancellationToken);
+        await process.WaitForExitAsync(TestContext.Current.CancellationToken);
+        await Task.WhenAll(output, error);
+
+        Assert.NotEqual(0, process.ExitCode);
+        string log = File.ReadAllText(Path.Combine(foundryRoot, "Logs", "FoundryBootstrap.Launcher.log"));
+        Assert.Contains("Starting Foundry.Bootstrap.exe", log, StringComparison.Ordinal);
+        Assert.Contains($"exited with code {process.ExitCode}", log, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenBootstrapIsMissing_DoesNotCreateLauncher()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        File.Delete(Path.Combine(image.MountedImagePath, "Foundry", "Bootstrap", "Foundry.Bootstrap.exe"));
+
+        WinPeResult result = await new WinPeMountedImageAssetProvisioningService().ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions { MountedImagePath = image.MountedImagePath },
+            TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Contains("Foundry.Bootstrap", result.Error!.Message, StringComparison.Ordinal);
+        Assert.False(File.Exists(Path.Combine(image.System32Path, "startnet.cmd")));
+    }
+
+    [Fact]
     public async Task ProvisionAsync_WritesBootstrapStartnetAndCurl()
     {
         using TempMountedImage image = TempMountedImage.Create();
@@ -23,7 +78,8 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Directory.CreateDirectory(Path.GetDirectoryName(curlSourcePath)!);
         File.WriteAllText(curlSourcePath, "curl");
         string startnetPath = Path.Combine(image.MountedImagePath, "Windows", "System32", "startnet.cmd");
-        File.WriteAllLines(startnetPath, ["wpeinit", "echo existing"]);
+        File.WriteAllLines(startnetPath, ["wpeinit", "echo existing", @"powershell.exe -File X:\Windows\System32\FoundryBootstrap.ps1"]);
+        File.WriteAllText(Path.Combine(image.System32Path, "FoundryBootstrap.ps1"), "legacy");
 
         var service = new WinPeMountedImageAssetProvisioningService();
 
@@ -32,20 +88,23 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "Write-Host 'Foundry'",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}"
             },
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.Equal("Write-Host 'Foundry'", await File.ReadAllTextAsync(Path.Combine(image.System32Path, "FoundryBootstrap.ps1"), TestContext.Current.CancellationToken));
+        Assert.False(File.Exists(Path.Combine(image.System32Path, "FoundryBootstrap.ps1")));
+        string launcher = await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Bootstrap", "Launch.cmd"), TestContext.Current.CancellationToken);
+        Assert.Contains("Foundry.Bootstrap.exe", launcher, StringComparison.Ordinal);
+        Assert.Contains("%errorlevel%", launcher, StringComparison.OrdinalIgnoreCase);
         Assert.Equal("curl", await File.ReadAllTextAsync(Path.Combine(image.System32Path, "curl.exe"), TestContext.Current.CancellationToken));
 
         string[] startnetLines = await File.ReadAllLinesAsync(startnetPath, TestContext.Current.CancellationToken);
         Assert.Contains(startnetLines, line => line.Equals("wpeinit", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(startnetLines, line => line.Equals("echo existing", StringComparison.OrdinalIgnoreCase));
-        Assert.Single(startnetLines, line => line.Contains("FoundryBootstrap.ps1", StringComparison.OrdinalIgnoreCase));
+        Assert.Single(startnetLines, line => line.Equals(@"call X:\Foundry\Bootstrap\Launch.cmd", StringComparison.OrdinalIgnoreCase));
+        Assert.True(Array.IndexOf(startnetLines, "wpeinit") < Array.IndexOf(startnetLines, @"call X:\Foundry\Bootstrap\Launch.cmd"));
     }
 
     [Fact]
@@ -60,7 +119,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         {
             MountedImagePath = image.MountedImagePath,
             Architecture = WinPeArchitecture.X64,
-            BootstrapScriptContent = "bootstrap",
             CurlExecutableSourcePath = curlSourcePath,
             IanaWindowsTimeZoneMapJson = "{}"
         };
@@ -72,7 +130,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.True(secondResult.IsSuccess, secondResult.Error?.Details);
 
         string[] startnetLines = await File.ReadAllLinesAsync(Path.Combine(image.System32Path, "startnet.cmd"), TestContext.Current.CancellationToken);
-        Assert.Single(startnetLines, line => line.Contains("FoundryBootstrap.ps1", StringComparison.OrdinalIgnoreCase));
+        Assert.Single(startnetLines, line => line.Equals(@"call X:\Foundry\Bootstrap\Launch.cmd", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
@@ -91,7 +149,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{\"zones\":[]}",
                 FoundryConnectConfigurationJson = "{\"schemaVersion\":1}",
@@ -147,7 +204,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 AutopilotProvisioningMode = AutopilotProvisioningMode.JsonProfile,
@@ -188,7 +244,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
@@ -234,7 +289,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 AutopilotProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
@@ -260,7 +314,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}"
             },
@@ -286,7 +339,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}"
             },
@@ -321,7 +373,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}"
             },
@@ -357,7 +408,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 FoundryConnectConfigurationJson = CreateConnectConfigurationWithEncryptedSecret(),
@@ -384,7 +434,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 DeploymentSecretsKey = secretKey
@@ -411,7 +460,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 NetworkSecretsKey = secretKey
@@ -437,7 +485,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 FoundryConnectConfigurationJson = CreateConnectConfigurationWithEncryptedSecret()
@@ -463,7 +510,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}"
             },
@@ -488,7 +534,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
                 IsDeploymentProtectionEnabled = true,
@@ -551,7 +596,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             {
                 MountedImagePath = image.MountedImagePath,
                 Architecture = WinPeArchitecture.X64,
-                BootstrapScriptContent = "bootstrap",
                 CurlExecutableSourcePath = curlSourcePath,
                 SevenZipSourceDirectoryPath = sevenZipSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}"
@@ -583,6 +627,9 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             string rootPath = Path.Combine(Path.GetTempPath(), $"foundry-asset-provisioning-{Guid.NewGuid():N}");
             string mountedImagePath = Path.Combine(rootPath, "mount");
             Directory.CreateDirectory(Path.Combine(mountedImagePath, "Windows", "System32"));
+            string bootstrapDirectory = Path.Combine(mountedImagePath, "Foundry", "Bootstrap");
+            Directory.CreateDirectory(bootstrapDirectory);
+            File.WriteAllText(Path.Combine(bootstrapDirectory, "Foundry.Bootstrap.exe"), "bootstrap");
             return new TempMountedImage(rootPath, mountedImagePath);
         }
 
