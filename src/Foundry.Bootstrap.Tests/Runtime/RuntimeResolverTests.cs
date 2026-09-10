@@ -105,14 +105,20 @@ public sealed class RuntimeResolverTests : IDisposable
     [Fact]
     public async Task DebugDeployUsesEmbeddedArchiveBeforeExistingCacheWithoutNetwork()
     {
-        ProvisionExtractor();
         string embedded = Path.Combine(root, "Seed", "Foundry.Deploy.zip");
         CreateArchive(embedded, "Foundry.Deploy.exe", "embedded");
         string cache = Path.Combine(root, "Runtime", "Foundry.Deploy", RuntimeIdentifier);
         Directory.CreateDirectory(cache);
         File.WriteAllText(Path.Combine(cache, "Foundry.Deploy.exe"), "old");
         using var client = CreateClient();
-        string executable = await CreateResolver(client).ResolveAsync("Foundry.Deploy", true, CancellationToken.None);
+        var progress = new List<RuntimeDownloadProgress>();
+        string executable = await CreateResolver(client, progress: progress.Add).ResolveAsync("Foundry.Deploy", true, CancellationToken.None);
+        foreach (RuntimeProgressPhase phase in new[] { RuntimeProgressPhase.Verification, RuntimeProgressPhase.Extraction })
+        {
+            RuntimeDownloadProgress final = progress.Last(item => item.Phase == phase);
+            Assert.Equal(final.TotalBytes, final.BytesReceived);
+            Assert.True(final.BytesReceived > 0);
+        }
         Assert.Equal("embedded", File.ReadAllText(executable));
         Assert.Empty(requests);
         Assert.Contains($"Asset=Foundry.Deploy-{RuntimeIdentifier}.zip", File.ReadAllText(Path.Combine(cache, "manifest")));
@@ -123,7 +129,6 @@ public sealed class RuntimeResolverTests : IDisposable
     [Fact]
     public async Task MissingStagedExecutableDoesNotReplaceCache()
     {
-        ProvisionExtractor();
         string executable = SeedCache();
         string archive = Path.Combine(root, "override.zip");
         CreateArchive(archive, "wrong.exe", "candidate");
@@ -159,7 +164,6 @@ public sealed class RuntimeResolverTests : IDisposable
     [Fact]
     public async Task OfflineDeployWithoutCacheExtractsEmbeddedFallback()
     {
-        ProvisionExtractor();
         CreateArchive(Path.Combine(root, "Seed", "Foundry.Deploy.zip"), "Foundry.Deploy.exe", "embedded");
         using var client = CreateClient();
         string executable = await CreateResolver(client).ResolveAsync("Foundry.Deploy", false, CancellationToken.None);
@@ -176,6 +180,49 @@ public sealed class RuntimeResolverTests : IDisposable
         Assert.Equal(2, requests.Count);
     }
 
+    [Fact]
+    public async Task NativeExtractionHandlesNestedFilesAndEmptyDirectories()
+    {
+        string archivePath = Path.Combine(root, "nested.zip");
+        CreateArchive(archivePath, "nested/data.txt", "payload");
+        using (ZipArchive archive = ZipFile.Open(archivePath, ZipArchiveMode.Update)) archive.CreateEntry("empty/");
+        string destination = Path.Combine(root, "staging");
+        await RuntimeArchive.ExtractAsync(archivePath, destination, TestContext.Current.CancellationToken);
+        Assert.Equal("payload", File.ReadAllText(Path.Combine(destination, "nested", "data.txt")));
+        Assert.True(Directory.Exists(Path.Combine(destination, "empty")));
+    }
+
+    [Fact]
+    public async Task CancellationDuringExtractionPreservesActiveCacheAndRemovesStaging()
+    {
+        string executable = SeedCache();
+        string archivePath = Path.Combine(root, "override.zip");
+        CreateArchive(archivePath, "Foundry.Connect.exe", new string('x', 200000));
+        environment["FOUNDRY_CONNECT_ARCHIVE"] = archivePath;
+        using var cancellation = new CancellationTokenSource();
+        using var client = CreateClient();
+        RuntimeResolver resolver = CreateResolver(client, progress: value =>
+        {
+            if (value.Phase == RuntimeProgressPhase.Extraction && value.BytesReceived > 0) cancellation.Cancel();
+        });
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => resolver.ResolveAsync("Foundry.Connect", false, cancellation.Token));
+        Assert.Equal("original", File.ReadAllText(executable));
+        Assert.False(Directory.Exists(Path.GetDirectoryName(executable) + ".staging"));
+    }
+
+    [Theory]
+    [InlineData(0xA0000000)]
+    [InlineData(0x400)]
+    public async Task NativeExtractionRejectsLinksBeforeWriting(uint attributes)
+    {
+        string archivePath = Path.Combine(root, "link.zip");
+        CreateArchive(archivePath, "link", "target");
+        using (ZipArchive archive = ZipFile.Open(archivePath, ZipArchiveMode.Update))
+            archive.Entries[0].ExternalAttributes = unchecked((int)attributes);
+        string destination = Path.Combine(root, "staging");
+        await Assert.ThrowsAsync<InvalidDataException>(() => RuntimeArchive.ExtractAsync(archivePath, destination, TestContext.Current.CancellationToken));
+        Assert.False(Directory.Exists(destination));
+    }
     private static void CreateArchive(string path, string entry, string contents)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
@@ -184,18 +231,8 @@ public sealed class RuntimeResolverTests : IDisposable
         writer.Write(contents);
     }
 
-    private void ProvisionExtractor()
-    {
-        DirectoryInfo? repository = new(AppContext.BaseDirectory);
-        while (repository is not null && !File.Exists(Path.Combine(repository.FullName, "src", "Foundry.Core", "Assets", "7z", ArchitectureFolder, "7za.exe"))) repository = repository.Parent;
-        Assert.NotNull(repository);
-        string destination = Path.Combine(root, "Tools", "7zip", ArchitectureFolder);
-        Directory.CreateDirectory(destination);
-        File.Copy(Path.Combine(repository.FullName, "src", "Foundry.Core", "Assets", "7z", ArchitectureFolder, "7za.exe"), Path.Combine(destination, "7za.exe"));
-    }
-
-    private RuntimeResolver CreateResolver(HttpClient client, Action<string>? warning = null) => new(root, Path.Combine(root, "Runtime"), RuntimeIdentifier, client,
-        new LoggerConfiguration().CreateLogger(), getEnvironmentVariable: key => environment.GetValueOrDefault(key), warning: warning);
+    private RuntimeResolver CreateResolver(HttpClient client, Action<string>? warning = null, Action<RuntimeDownloadProgress>? progress = null) => new(root, Path.Combine(root, "Runtime"), RuntimeIdentifier, client,
+        new LoggerConfiguration().CreateLogger(), progress, getEnvironmentVariable: key => environment.GetValueOrDefault(key), warning: warning);
 
     private string SeedCache(string? manifest = null)
     {

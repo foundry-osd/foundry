@@ -86,9 +86,10 @@ internal sealed class BootstrapConsole : IDisposable
         lock (gate)
         {
             if (stopped || disposed) return;
+            bool phaseChanged = download?.Phase != value.Phase || download?.ApplicationName != value.ApplicationName;
             download = value;
             activity = null;
-            if (Stopwatch.GetElapsedTime(lastOutput) < TimeSpan.FromSeconds(1)) return;
+            if (!phaseChanged && Stopwatch.GetElapsedTime(lastOutput) < TimeSpan.FromSeconds(1)) return;
             if (!Render()) WriteLine(DownloadText(value));
             lastOutput = Stopwatch.GetTimestamp();
         }
@@ -209,7 +210,7 @@ internal sealed class BootstrapConsole : IDisposable
 
     private string StatusText(BootstrapStage stage) => stages[(int)stage] switch
     {
-        BootstrapStatus.Running => download is not null && current?.Stage == stage ? "Downloading" : "In progress",
+        BootstrapStatus.Running => download is not null && current?.Stage == stage ? ProgressName(download.Phase) : "In progress",
         BootstrapStatus.Completed when stage == BootstrapStage.Deploy && result is not null =>
             result.ReadinessConfirmed ? "Ready" : "Unverified",
         BootstrapStatus.Completed => warnings.Any(warning => warning.Stage == stage) ? "Done (warning)" : "Done",
@@ -238,12 +239,18 @@ internal sealed class BootstrapConsole : IDisposable
         _ => throw new ArgumentOutOfRangeException(nameof(stage))
     };
 
+    private static string ProgressName(RuntimeProgressPhase phase) => phase switch
+    {
+        RuntimeProgressPhase.Verification => "Verifying",
+        RuntimeProgressPhase.Extraction => "Extracting",
+        _ => "Downloading"
+    };
     private static string DownloadText(RuntimeDownloadProgress value)
     {
         string total = value.TotalBytes is > 0
             ? $" / {value.TotalBytes.Value / 1048576d:F1} MB - {Math.Min(100, 100d * value.BytesReceived / value.TotalBytes.Value):F0}%"
             : " MB";
-        return $"Downloading {value.ApplicationName}: {value.BytesReceived / 1048576d:F1}{total}";
+        return $"{ProgressName(value.Phase)} {value.ApplicationName}: {value.BytesReceived / 1048576d:F1}{total}";
     }
 
     private static string DownloadProgressText(RuntimeDownloadProgress value)
@@ -281,7 +288,7 @@ internal sealed class BootstrapConsole : IDisposable
             foreach (BootstrapStage stage in Enum.GetValues<BootstrapStage>())
                 Add($"  {StageName(stage),-27}{StatusText(stage),-15}{(width >= 50 ? StageElapsedText(stage) : "")}");
             Add("");
-            Add(stopped ? FinalMessage() : download is not null ? $"Downloading {download.ApplicationName}" : activity ?? current?.Message ?? "Starting...");
+            Add(stopped ? FinalMessage() : download is not null ? $"{ProgressName(download.Phase)} {download.ApplicationName}" : activity is not null ? $"[{"|/-\\"[(int)(Stopwatch.GetElapsedTime(started).TotalSeconds % 4)]}] {activity}" : current?.Message ?? "Starting...");
             if (download is not null) Add(DownloadProgressText(download));
             Add("");
             Add($"{(stopped ? "Finished in" : "Elapsed:")} {ElapsedText()}");

@@ -4,7 +4,7 @@
 
 using System.Diagnostics;
 using System.Text.Json;
-using Foundry.Utilities.IO;
+using System.Security.Cryptography;
 using Serilog;
 
 namespace Foundry.Bootstrap.Runtime;
@@ -177,7 +177,20 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
     private async Task<string> VerifyHashAsync(string applicationName, string archive, string? expected, CancellationToken cancellationToken)
     {
         activity?.Invoke($"Verifying archive for {applicationName}...");
-        string actual = await FileHash.ComputeSha256Async(archive, cancellationToken).ConfigureAwait(false);
+        using var hash = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
+        await using var input = new FileStream(archive, FileMode.Open, FileAccess.Read, FileShare.Read,
+            81920, FileOptions.Asynchronous | FileOptions.SequentialScan);
+        byte[] buffer = new byte[81920];
+        long received = 0;
+        progress?.Invoke(new(applicationName, 0, input.Length, RuntimeProgressPhase.Verification));
+        int read;
+        while ((read = await input.ReadAsync(buffer, cancellationToken).ConfigureAwait(false)) > 0)
+        {
+            hash.AppendData(buffer, 0, read);
+            received += read;
+            progress?.Invoke(new(applicationName, received, input.Length, RuntimeProgressPhase.Verification));
+        }
+        string actual = Convert.ToHexString(hash.GetHashAndReset());
         if (!string.IsNullOrWhiteSpace(expected))
         {
             string normalized = expected.Trim();
@@ -198,11 +211,11 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
         try
         {
             Directory.CreateDirectory(staging);
-            string tool = Path.Combine(winPeRoot, "Tools", "7zip", runtimeIdentifier == "win-x64" ? "x64" : "arm64", "7za.exe");
             long extractionStarted = Stopwatch.GetTimestamp();
             activity?.Invoke($"Extracting files for {applicationName}...");
             logger.Debug("Archive extraction started for {PayloadApplication}; asset {AssetName}", applicationName, assetName);
-            await RuntimeArchive.ExtractAsync(tool, archive, staging, cancellationToken).ConfigureAwait(false);
+            await RuntimeArchive.ExtractAsync(archive, staging, cancellationToken,
+                (bytes, total) => progress?.Invoke(new(applicationName, bytes, total, RuntimeProgressPhase.Extraction))).ConfigureAwait(false);
             logger.Debug("Archive extraction completed for {PayloadApplication}; asset {AssetName}; duration {DurationMilliseconds:F0} ms",
                 applicationName, assetName, Stopwatch.GetElapsedTime(extractionStarted).TotalMilliseconds);
             string executable = ResolveCached(staging, applicationName);
