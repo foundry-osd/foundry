@@ -28,6 +28,7 @@ dotnet restore .\src\Foundry.slnx --nologo
 | --- | --- |
 | `Foundry` | WinUI 3 desktop authoring application |
 | `Foundry.Core` | Shared business logic, configuration, validation, media creation, and orchestration |
+| `Foundry.Bootstrap` | .NET console runtime for Windows PE boot orchestration, runtime payload preparation, and startup diagnostics |
 | `Foundry.Connect` | WPF network-provisioning runtime included in boot media |
 | `Foundry.Deploy` | WPF deployment runtime included in boot media |
 | `Foundry.Localization` | Shared cultures and resource-based localization |
