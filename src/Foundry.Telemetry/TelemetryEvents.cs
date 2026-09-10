@@ -9,6 +9,7 @@ namespace Foundry.Telemetry;
 /// </summary>
 public static class TelemetryEvents
 {
+    public const string BootstrapFailed = "bootstrap:failed";
     public const string AppDailyActive = "app:daily_active";
     public const string OsdBootMediaFinished = "osd:boot_media_finished";
     public const string ConnectSessionReady = "connect:session_ready";

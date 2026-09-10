@@ -14,7 +14,8 @@ namespace Foundry.Bootstrap;
 /// <summary>Runs the finite, ordered WinPE boot workflow.</summary>
 internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeResolver runtime,
     ISystemPreparation preparation, IApplicationLauncher launcher, IBootstrapLogPersistence persistence,
-    ILogger logger, Action<BootstrapProgress> progress)
+    ILogger logger, Action<BootstrapProgress> progress, Action? deliveryReady = null,
+    Action<BootstrapResult, TimeSpan>? completed = null)
 {
     private BootstrapStage stage = BootstrapStage.Environment;
 
@@ -54,8 +55,10 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
                 _ => "This boot stage could not be completed. Check the session log for details."
             };
             Report(status, message);
-            logger.Information("Bootstrap finished with {Outcome} at {Stage}; child exit {ExitCode}; elapsed {ElapsedMilliseconds} ms",
+            logger.ForContext("RemoteDiagnostic", true).Information("Bootstrap finished with {Outcome} at {Stage}; child exit {ExitCode}; elapsed {DurationMilliseconds} ms",
                 result.Outcome, result.Stage, result.ChildExitCode, Stopwatch.GetElapsedTime(started).TotalMilliseconds);
+            try { completed?.Invoke(result, Stopwatch.GetElapsedTime(started)); }
+            catch { }
         }
         finally
         {
@@ -104,6 +107,8 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         await BestEffortAsync(() => preparation.PrepareSystemAsync(cancellationToken),
             "Some system preparation was unavailable. Continuing.").ConfigureAwait(false);
         Report(BootstrapStatus.Completed, "System preparation completed");
+        try { deliveryReady?.Invoke(); }
+        catch { }
 
         stage = BootstrapStage.DeploymentPreparation;
         Report(BootstrapStatus.Running, "Preparing the deployment application");
@@ -133,5 +138,12 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         }
     }
 
-    private void Report(BootstrapStatus status, string message) => progress(new BootstrapProgress(stage, status, message));
+    private void Report(BootstrapStatus status, string message)
+    {
+        if (status == BootstrapStatus.Completed)
+        {
+            logger.ForContext("RemoteDiagnostic", true).Information("Bootstrap stage {Stage} completed", stage);
+        }
+        progress(new BootstrapProgress(stage, status, message));
+    }
 }

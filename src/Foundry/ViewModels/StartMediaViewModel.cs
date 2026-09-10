@@ -1013,6 +1013,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             CurlExecutableSourcePath = ResolveCurlExecutablePath(),
             SevenZipSourceDirectoryPath = embeddedAssetService.GetSevenZipSourceDirectoryPath(),
             IanaWindowsTimeZoneMapJson = embeddedAssetService.GetIanaWindowsTimeZoneMapJson(),
+            FoundryBootstrapConfiguration = new FoundryBootstrapConfigurationDocument
+            {
+                Telemetry = CreateRuntimeTelemetrySettings(ResolveRuntimePayloadSource(runtimePayloadProvisioning.Bootstrap))
+            },
             FoundryConnectConfigurationJson = connectBundle.ConfigurationJson,
             DeployConfigurationJson = foundryConfigurationStateService.GenerateDeployConfigurationJson(
                 deployTelemetrySettings,

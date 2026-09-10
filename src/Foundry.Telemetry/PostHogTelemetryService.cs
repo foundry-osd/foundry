@@ -63,7 +63,7 @@ public sealed class PostHogTelemetryService : ITelemetryService
 
         try
         {
-            Dictionary<string, object> finalProperties = BuildProperties(eventName, properties);
+            Dictionary<string, object> finalProperties = BuildProperties(context, eventName, properties);
             var payload = new PostHogCapturePayload(
                 options.ProjectToken,
                 eventName,
@@ -115,13 +115,32 @@ public sealed class PostHogTelemetryService : ITelemetryService
         return Task.CompletedTask;
     }
 
+    /// <summary>Returns HTTP acceptance for durable events, retaining the original identity and timestamp.</summary>
+    internal async Task<bool> SendDurableAsync(
+        Guid id, DateTimeOffset timestamp, IReadOnlyDictionary<string, object> properties,
+        CancellationToken cancellationToken)
+    {
+        var payload = new
+        {
+            api_key = options.ProjectToken,
+            @event = TelemetryEvents.BootstrapFailed,
+            distinct_id = options.InstallId,
+            uuid = id,
+            timestamp,
+            properties
+        };
+        using HttpResponseMessage response = await httpClient.PostAsJsonAsync(
+            BuildCaptureEndpoint(options.HostUrl), payload, JsonOptions, cancellationToken).ConfigureAwait(false);
+        return response.IsSuccessStatusCode;
+    }
+
     private static Uri BuildCaptureEndpoint(string hostUrl)
     {
         var baseUri = new Uri(hostUrl.EndsWith("/", StringComparison.Ordinal) ? hostUrl : hostUrl + "/");
         return new Uri(baseUri, "i/v0/e/");
     }
 
-    private Dictionary<string, object> BuildProperties(string eventName, IReadOnlyDictionary<string, object?> properties)
+    internal static Dictionary<string, object> BuildProperties(TelemetryContext context, string eventName, IReadOnlyDictionary<string, object?> properties)
     {
         Dictionary<string, object> finalProperties = new(StringComparer.Ordinal)
         {
@@ -145,12 +164,12 @@ public sealed class PostHogTelemetryService : ITelemetryService
             }
         }
 
-        AddEventContext(eventName, finalProperties);
+        AddEventContext(context, eventName, finalProperties);
 
         return finalProperties;
     }
 
-    private void AddEventContext(string eventName, IDictionary<string, object> finalProperties)
+    private static void AddEventContext(TelemetryContext context, string eventName, IDictionary<string, object> finalProperties)
     {
         if (eventName == TelemetryEvents.ConnectSessionReady)
         {

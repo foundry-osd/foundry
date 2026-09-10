@@ -33,6 +33,9 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
     private readonly TimeSpan _requestTimeout;
     private readonly Action<string>? _warningCallback;
 
+    /// <summary>Indicates that system UTC was verified or corrected against an internet clock response.</summary>
+    public bool IsClockUsable { get; private set; }
+
     public WinPeSystemPreparation(
         string winPeRoot,
         HttpClient httpClient,
@@ -142,13 +145,18 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
 
         if ((internetTime.Value - _platform.UtcNow).Duration() <= ClockSkewThreshold)
         {
+            IsClockUsable = true;
             _logger.Information("System clock is within the allowed internet time threshold.");
             return;
         }
 
         await TryActionAsync(
             "System clock could not be corrected. Boot will continue.",
-            token => _platform.SetSystemTimeAsync(internetTime.Value.ToUniversalTime(), token),
+            async token =>
+            {
+                await _platform.SetSystemTimeAsync(internetTime.Value.ToUniversalTime(), token).ConfigureAwait(false);
+                IsClockUsable = true;
+            },
             cancellationToken).ConfigureAwait(false);
     }
 

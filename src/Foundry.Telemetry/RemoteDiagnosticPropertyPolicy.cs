@@ -111,6 +111,40 @@ public static partial class RemoteDiagnosticPropertyPolicy
         return new RemoteDiagnosticRecord(logEvent.Timestamp, logEvent.Level, body, attributes, exception);
     }
 
+    /// <summary>Revalidates on-disk records without manufacturing exception objects or losing their original stacks.</summary>
+    internal static RemoteDiagnosticRecord SanitizePersistedRecord(RemoteDiagnosticRecord record)
+    {
+        var allowed = new HashSet<string>(AllowedPropertyNames.Values, StringComparer.Ordinal)
+        {
+            "service.name", "service.version", "service.release", "build.configuration", "runtime.name",
+            "runtime.architecture", "locale", "session.id", "diagnostics.record_id", "diagnostics.dropped_record_count"
+        };
+        var attributes = new Dictionary<string, object>(StringComparer.Ordinal);
+        foreach ((string name, object value) in record.Attributes)
+        {
+            if (allowed.Contains(name) && TryConvertScalar(new ScalarValue(value), out object sanitized))
+                attributes[name] = sanitized;
+            else if (name is "process.stdout" or "process.stderr" && value is string output)
+                attributes[name] = RemoteDiagnosticText.SanitizeOutput(output);
+        }
+        return record with
+        {
+            Body = RemoteDiagnosticText.Sanitize(record.Body, MaximumMessageLength),
+            Attributes = attributes,
+            Exception = SanitizePersistedException(record.Exception, 0)
+        };
+    }
+
+    private static RemoteDiagnosticException? SanitizePersistedException(RemoteDiagnosticException? exception, int depth)
+    {
+        if (exception is null || depth >= MaximumExceptionDepth) return null;
+        return new RemoteDiagnosticException(SanitizeAttribute(exception.Type),
+            RemoteDiagnosticText.Sanitize(exception.Message, MaximumMessageLength),
+            exception.StackTrace is null ? null : SanitizeStackTrace(exception.StackTrace),
+            (exception.InnerExceptions ?? []).Take(16)
+                .Select(inner => SanitizePersistedException(inner, depth + 1)).OfType<RemoteDiagnosticException>().ToArray());
+    }
+
     private static string RenderSafeMessage(LogEvent logEvent)
     {
         var safeProperties = new List<LogEventProperty>(logEvent.Properties.Count);
