@@ -12,7 +12,7 @@ public sealed class WindowsSystemPreparationPlatformTests
     [Fact]
     public void IsValidWindowsTimeZone_RejectsIanaIdAndAcceptsWindowsId()
     {
-        var platform = new WindowsSystemPreparationPlatform("X:\\Foundry");
+        var platform = new WindowsSystemPreparationPlatform();
 
         Assert.False(platform.IsValidWindowsTimeZone("Europe/Paris"));
         Assert.True(platform.IsValidWindowsTimeZone("Romance Standard Time"));

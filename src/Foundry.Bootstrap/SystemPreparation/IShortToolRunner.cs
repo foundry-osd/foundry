@@ -7,12 +7,9 @@ namespace Foundry.Bootstrap.SystemPreparation;
 /// <summary>Runs bounded preparation tools without forwarding their output to the boot console.</summary>
 internal interface IShortToolRunner
 {
-    Task<ShortToolResult> RunAsync(
+    Task<int> RunAsync(
         string fileName,
         IReadOnlyList<string> arguments,
         TimeSpan timeout,
         CancellationToken cancellationToken);
 }
-
-/// <summary>Retains an exit code and a bounded diagnostic output sample.</summary>
-internal sealed record ShortToolResult(int ExitCode, string StandardOutput);

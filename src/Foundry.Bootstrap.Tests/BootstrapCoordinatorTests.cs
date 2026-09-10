@@ -150,11 +150,11 @@ public sealed class BootstrapCoordinatorTests
             return Task.FromResult(ConnectExit);
         }
 
-        public Task<int> StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
+        public Task StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
         {
             Calls.Add("deploy");
             if (DeployFails) { throw new IOException(); }
-            return Task.FromResult(123);
+            return Task.CompletedTask;
         }
 
         public Task PersistAsync(CancellationToken cancellationToken)

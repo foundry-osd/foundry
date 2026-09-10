@@ -22,7 +22,7 @@ internal sealed class BootstrapConsole : IDisposable
         WriteLine("Foundry Bootstrap");
         foreach (BootstrapStage stage in Enum.GetValues<BootstrapStage>())
         {
-            WriteLine($"[{(int)stage + 1}/5] {StageName(stage)}: Pending");
+            WriteLine($"[{(int)stage + 1}/5] {StageName(stage)}: {BootstrapStatus.Pending}");
         }
         heartbeat = new Timer(_ => Refresh(), null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
     }

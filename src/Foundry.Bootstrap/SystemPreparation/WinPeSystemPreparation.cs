@@ -42,7 +42,7 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
             winPeRoot,
             httpClient,
             logger,
-            new WindowsSystemPreparationPlatform(winPeRoot),
+            new WindowsSystemPreparationPlatform(),
             TimeSpan.FromSeconds(10),
             warningCallback)
     {

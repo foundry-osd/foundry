@@ -17,12 +17,12 @@ internal sealed class ApplicationLauncher(ILogger logger) : IApplicationLauncher
         return RunAsync(CreateStartInfo(executable, environment, arguments), cancellationToken);
     }
 
-    public Task<int> StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment,
+    public Task StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment,
         CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         using Process process = Start(CreateStartInfo(executable, environment, []));
-        return Task.FromResult(process.Id);
+        return Task.CompletedTask;
     }
 
     internal async Task<int> RunAsync(ProcessStartInfo startInfo, CancellationToken cancellationToken)

@@ -3,16 +3,13 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Diagnostics;
-using System.Runtime.ExceptionServices;
 
 namespace Foundry.Bootstrap.SystemPreparation;
 
 /// <summary>Drains both output streams and terminates only the short-lived tool on timeout or cancellation.</summary>
 internal sealed class ShortToolRunner : IShortToolRunner
 {
-    private const int MaximumCapturedCharacters = 4096;
-
-    public async Task<ShortToolResult> RunAsync(
+    public async Task<int> RunAsync(
         string fileName,
         IReadOnlyList<string> arguments,
         TimeSpan timeout,
@@ -34,14 +31,14 @@ internal sealed class ShortToolRunner : IShortToolRunner
         using Process process = Process.Start(startInfo) ?? throw new InvalidOperationException($"Could not start {fileName}.");
         using var deadline = new CancellationTokenSource(timeout);
         using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, deadline.Token);
-        Task<string> standardOutput = ReadBoundedAsync(process.StandardOutput, linked.Token);
-        Task<string> standardError = ReadBoundedAsync(process.StandardError, linked.Token);
+        Task standardOutput = process.StandardOutput.BaseStream.CopyToAsync(Stream.Null, linked.Token);
+        Task standardError = process.StandardError.BaseStream.CopyToAsync(Stream.Null, linked.Token);
 
         try
         {
             await process.WaitForExitAsync(linked.Token).ConfigureAwait(false);
             await Task.WhenAll(standardOutput, standardError).ConfigureAwait(false);
-            return new ShortToolResult(process.ExitCode, standardOutput.Result);
+            return process.ExitCode;
         }
         catch (OperationCanceledException exception)
         {
@@ -52,7 +49,6 @@ internal sealed class ShortToolRunner : IShortToolRunner
                 throw new TimeoutException($"{fileName} exceeded its execution deadline.", exception);
             }
 
-            ExceptionDispatchInfo.Capture(exception).Throw();
             throw;
         }
     }
@@ -67,30 +63,6 @@ internal sealed class ShortToolRunner : IShortToolRunner
         {
             // Cleanup must not replace the primary cancellation or timeout.
         }
-    }
-
-    private static async Task<string> ReadBoundedAsync(StreamReader reader, CancellationToken cancellationToken)
-    {
-        var result = new char[MaximumCapturedCharacters];
-        int captured = 0;
-        var buffer = new char[512];
-        while (true)
-        {
-            int read = await reader.ReadAsync(buffer, cancellationToken).ConfigureAwait(false);
-            if (read == 0)
-            {
-                break;
-            }
-
-            int copyLength = Math.Min(read, result.Length - captured);
-            if (copyLength > 0)
-            {
-                Array.Copy(buffer, 0, result, captured, copyLength);
-                captured += copyLength;
-            }
-        }
-
-        return new string(result, 0, captured);
     }
 
     private static async Task TerminateBestEffortAsync(Process process)

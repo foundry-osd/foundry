@@ -32,4 +32,6 @@ Use `win-arm64` and `Platform=ARM64` for ARM64. Automated build and publication 
 
 ## WinPE qualification before cutover
 
+Follow the [manual testing procedure](MANUAL-TESTING.md) for both a quick runtime check and a cold boot using a copied image.
+
 Validate the published executable on representative x64 and ARM64 images with the existing provisioned assets. Cover USB and ISO boot, debug overrides, unavailable Internet with cached content, checksum and extraction failures, Connect cancellation, and missing application binaries. Check compressed single-file extraction space and startup time, readable progress in a narrow console, and the log/session evidence after each failure. Keep this qualification separate from unit test and desktop publish results.

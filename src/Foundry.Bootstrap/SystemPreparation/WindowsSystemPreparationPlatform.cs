@@ -14,17 +14,15 @@ internal sealed class WindowsSystemPreparationPlatform : ISystemPreparationPlatf
     private readonly IWindowsServiceManager _serviceManager;
     private readonly IShortToolRunner _toolRunner;
 
-    public WindowsSystemPreparationPlatform(string winPeRoot)
-        : this(winPeRoot, new WindowsServiceManager(), new ShortToolRunner())
+    public WindowsSystemPreparationPlatform()
+        : this(new WindowsServiceManager(), new ShortToolRunner())
     {
     }
 
     internal WindowsSystemPreparationPlatform(
-        string winPeRoot,
         IWindowsServiceManager serviceManager,
         IShortToolRunner toolRunner)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(winPeRoot);
         ArgumentNullException.ThrowIfNull(serviceManager);
         ArgumentNullException.ThrowIfNull(toolRunner);
         _serviceManager = serviceManager;
@@ -82,14 +80,14 @@ internal sealed class WindowsSystemPreparationPlatform : ISystemPreparationPlatf
 
     public async Task SetTimeZoneAsync(string timeZoneId, CancellationToken cancellationToken)
     {
-        ShortToolResult result = await _toolRunner.RunAsync(
+        int exitCode = await _toolRunner.RunAsync(
             "tzutil.exe",
             ["/s", timeZoneId],
             ToolTimeout,
             cancellationToken).ConfigureAwait(false);
-        if (result.ExitCode != 0)
+        if (exitCode != 0)
         {
-            throw new InvalidOperationException($"Timezone utility returned exit code {result.ExitCode}.");
+            throw new InvalidOperationException($"Timezone utility returned exit code {exitCode}.");
         }
     }
 
