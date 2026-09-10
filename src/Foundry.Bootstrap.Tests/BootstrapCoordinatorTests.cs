@@ -22,6 +22,7 @@ public sealed class BootstrapCoordinatorTests
         using var fixture = new Fixture { ConnectExit = exitCode, ObserveDiagnostics = true };
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(exitCode == 0 ? BootstrapOutcome.Succeeded : exitCode == 20 ? BootstrapOutcome.Cancelled : BootstrapOutcome.Failed, result.Outcome);
+        Assert.Equal(exitCode == 0 ? 0 : exitCode == 20 ? 20 : 1, result.ExitCode);
         Assert.Single(fixture.Outcomes);
         Assert.Equal(result, fixture.Outcomes[0]);
         if (exitCode == 0)
@@ -43,6 +44,7 @@ public sealed class BootstrapCoordinatorTests
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(cancelled ? BootstrapOutcome.Cancelled : BootstrapOutcome.Failed, result.Outcome);
         Assert.Equal(exitCode, result.ChildExitCode);
+        Assert.Equal(cancelled ? 20 : 1, result.ExitCode);
         Assert.DoesNotContain("deploy", fixture.Calls);
         Assert.Equal("persist", fixture.Calls[^1]);
     }

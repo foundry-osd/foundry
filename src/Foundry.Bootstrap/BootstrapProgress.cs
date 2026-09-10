@@ -20,5 +20,10 @@ internal enum BootstrapOutcome { Succeeded, Cancelled, Failed }
 internal sealed record BootstrapResult(BootstrapOutcome Outcome, BootstrapStage Stage, int? ChildExitCode = null,
     string? FailureCategory = null, string? ChildStartupStage = null, bool ReadinessConfirmed = false)
 {
-    internal int ExitCode => Outcome == BootstrapOutcome.Succeeded ? 0 : 1;
+    internal int ExitCode => Outcome switch
+    {
+        BootstrapOutcome.Succeeded => 0,
+        BootstrapOutcome.Cancelled => 20,
+        _ => 1
+    };
 }
