@@ -40,8 +40,8 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
             {
                 logger.Information("Resolving {PayloadApplication} for {RuntimeIdentifier} from {PayloadSource}; replacing cached content",
                     applicationName, runtimeIdentifier, Equal(archiveOverride, embeddedArchive) ? "embedded seed" : "archive override");
-                await transfer.SaveAsync(archiveOverride, downloadPath, applicationName, cancellationToken).ConfigureAwait(false);
-                string hash = await VerifyHashAsync(downloadPath, ReadEnvironment(prefix + "_ARCHIVE_SHA256"), cancellationToken).ConfigureAwait(false);
+                await SaveArchiveAsync(archiveOverride, downloadPath, applicationName, cancellationToken).ConfigureAwait(false);
+                string hash = await VerifyHashAsync(applicationName, downloadPath, ReadEnvironment(prefix + "_ARCHIVE_SHA256"), cancellationToken).ConfigureAwait(false);
                 return await UpdateCacheAsync(downloadPath, cacheRoot, applicationName, assetName, "", "", hash, cancellationToken).ConfigureAwait(false);
             }
             if (skipReleaseLookup)
@@ -87,8 +87,8 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
                 {
                     if (string.IsNullOrWhiteSpace(expectedHash)) logger.Warning("No supported SHA256 digest supplied for {PayloadApplication}; continuing without digest validation", applicationName);
                     string url = asset.GetProperty("browser_download_url").GetString() ?? throw new InvalidDataException("Release asset has no download URL.");
-                    await transfer.SaveAsync(url, downloadPath, applicationName, cancellationToken).ConfigureAwait(false);
-                    string hash = await VerifyHashAsync(downloadPath, expectedHash, cancellationToken).ConfigureAwait(false);
+                    await SaveArchiveAsync(url, downloadPath, applicationName, cancellationToken).ConfigureAwait(false);
+                    string hash = await VerifyHashAsync(applicationName, downloadPath, expectedHash, cancellationToken).ConfigureAwait(false);
                     return await UpdateCacheAsync(downloadPath, cacheRoot, applicationName, assetName, tag, version, hash, cancellationToken).ConfigureAwait(false);
                 }
                 catch (Exception exception) when (!cancellationToken.IsCancellationRequested)
@@ -117,8 +117,8 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
             }
             if (!File.Exists(embeddedArchive)) return ResolveCached(cacheRoot, applicationName);
             logger.Warning("Using embedded archive fallback for {PayloadApplication}", applicationName);
-            await transfer.SaveAsync(embeddedArchive!, downloadPath, applicationName, cancellationToken).ConfigureAwait(false);
-            string hash = await VerifyHashAsync(downloadPath, null, cancellationToken).ConfigureAwait(false);
+            await SaveArchiveAsync(embeddedArchive!, downloadPath, applicationName, cancellationToken).ConfigureAwait(false);
+            string hash = await VerifyHashAsync(applicationName, downloadPath, null, cancellationToken).ConfigureAwait(false);
             string embeddedExecutable = await UpdateCacheAsync(downloadPath, cacheRoot, applicationName, assetName, "", "", hash, cancellationToken).ConfigureAwait(false);
             warning?.Invoke(reason + " Continuing with the application included on the boot media.");
             return embeddedExecutable;
@@ -161,7 +161,19 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
 
     private static bool Equal(string? left, string? right) => string.Equals(left, right, StringComparison.OrdinalIgnoreCase);
 
-    private static async Task<string> VerifyHashAsync(string archive, string? expected, CancellationToken cancellationToken)
+    private async Task SaveArchiveAsync(string source, string destination, string applicationName, CancellationToken cancellationToken)
+    {
+        bool remote = Uri.TryCreate(source, UriKind.Absolute, out Uri? uri) &&
+            (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
+        string operation = remote ? "Download" : "Local copy";
+        string assetName = $"{applicationName}-{runtimeIdentifier}.zip";
+        long started = Stopwatch.GetTimestamp();
+        logger.Debug("{TransferOperation} started for {PayloadApplication}; asset {AssetName}", operation, applicationName, assetName);
+        await transfer.SaveAsync(source, destination, applicationName, cancellationToken).ConfigureAwait(false);
+        logger.Debug("{TransferOperation} completed for {PayloadApplication}; asset {AssetName}; received {BytesReceived} bytes; duration {DurationMilliseconds:F0} ms",
+            operation, applicationName, assetName, new FileInfo(destination).Length, Stopwatch.GetElapsedTime(started).TotalMilliseconds);
+    }
+    private async Task<string> VerifyHashAsync(string applicationName, string archive, string? expected, CancellationToken cancellationToken)
     {
         string actual = await FileHash.ComputeSha256Async(archive, cancellationToken).ConfigureAwait(false);
         if (!string.IsNullOrWhiteSpace(expected))
@@ -169,7 +181,9 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
             string normalized = expected.Trim();
             if (normalized.Length != 64 || normalized.Any(character => !Uri.IsHexDigit(character))) throw new InvalidDataException("Invalid archive SHA256 value.");
             if (!Equal(actual, normalized)) throw new InvalidDataException("Archive SHA256 mismatch.");
+            logger.Debug("Archive SHA256 validation passed for {PayloadApplication}", applicationName);
         }
+        else logger.Debug("Archive SHA256 calculated for {PayloadApplication}; no expected digest was available for validation", applicationName);
         return actual;
     }
 
@@ -183,7 +197,11 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
         {
             Directory.CreateDirectory(staging);
             string tool = Path.Combine(winPeRoot, "Tools", "7zip", runtimeIdentifier == "win-x64" ? "x64" : "arm64", "7za.exe");
+            long extractionStarted = Stopwatch.GetTimestamp();
+            logger.Debug("Archive extraction started for {PayloadApplication}; asset {AssetName}", applicationName, assetName);
             await RuntimeArchive.ExtractAsync(tool, archive, staging, cancellationToken).ConfigureAwait(false);
+            logger.Debug("Archive extraction completed for {PayloadApplication}; asset {AssetName}; duration {DurationMilliseconds:F0} ms",
+                applicationName, assetName, Stopwatch.GetElapsedTime(extractionStarted).TotalMilliseconds);
             string executable = ResolveCached(staging, applicationName);
             if (string.IsNullOrWhiteSpace(version)) version = FileVersionInfo.GetVersionInfo(executable).FileVersion?.Trim() ?? "";
             await File.WriteAllLinesAsync(Path.Combine(staging, "manifest"),

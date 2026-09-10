@@ -60,7 +60,8 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
         }
         else
         {
-            logger.Warning("Application startup readiness is unverified for {Component}; capability {Mode}", application, capability.Mode);
+            logger.Warning("Application startup readiness is unverified for {Component}; capability {Mode}; reason {CompatibilityReason}",
+                application, capability.Mode, capability.Mode == StartupCapabilityMode.Legacy ? "Startup capability manifest is absent" : "No supported startup protocol version was advertised");
             warning?.Invoke("This application does not support startup confirmation. Readiness will remain unverified.");
         }
         long launched = Stopwatch.GetTimestamp();
