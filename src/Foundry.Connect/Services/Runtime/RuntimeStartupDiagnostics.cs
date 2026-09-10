@@ -35,7 +35,6 @@ public sealed class RuntimeStartupDiagnostics
 
     private RuntimeStartupDiagnostics(RuntimeStartupReporter? reporter, TelemetrySettings? settings)
     {
-        ProtocolEnabled = reporter is not null;
         _report = (stage, category, id) => reporter?.Report(stage, category, id);
         _logger = () => Log.ForContext<RuntimeStartupDiagnostics>();
         _emergencyPath = reporter is null ? null : Path.Combine(Path.GetDirectoryName(reporter.StatusPath)!, "startup-terminated.txt");
@@ -56,9 +55,6 @@ public sealed class RuntimeStartupDiagnostics
                 Guid.Parse(reporter.LaunchId), options, context, entry);
         };
     }
-
-    /// <summary>Indicates that Bootstrap supplied a valid negotiated launch identity.</summary>
-    public bool ProtocolEnabled { get; }
 
     /// <summary>Loads only early diagnostic preferences; standalone startup never gains consent from Bootstrap files.</summary>
     internal static RuntimeStartupDiagnostics Create(string childConfigurationPath, bool configurationRequired = true)

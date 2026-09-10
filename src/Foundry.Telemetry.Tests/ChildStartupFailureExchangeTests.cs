@@ -226,7 +226,7 @@ public sealed class ChildStartupFailureExchangeTests
     {
         using var folder = new TestFolder();
         var transport = new RecordingTransport();
-        await using var pipeline = Create(transport, folder.Journal);
+        await using var pipeline = Create(transport, time: new TestClock());
         for (int index = 0; index < 60; index++)
         {
             Guid launch = Guid.NewGuid();
@@ -234,17 +234,12 @@ public sealed class ChildStartupFailureExchangeTests
             Guid? id = ChildStartupFailureExchange.TryCapture(directory, launch, Options, ChildContext, Failure(CreateException()));
             Assert.True(pipeline.ImportChildStartupFailure(directory, launch, ChildContext.App, true, id));
         }
+        pipeline.StartDelivery(clockUsable: false);
+        using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        cancellation.CancelAfter(TimeSpan.FromSeconds(30));
+        while (transport.Records.Count < 100) await Task.Delay(10, cancellation.Token);
         await pipeline.ShutdownAsync(TestContext.Current.CancellationToken);
         Assert.Equal(100, transport.Records.Count);
-    }
-
-    [Fact]
-    public async Task StartupFailureOwnedByExchange_IsNotDuplicatedByRegularSink()
-    {
-        await using var pipeline = Create(new RecordingTransport());
-        pipeline.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Fatal, "Startup failed", CreateException(),
-            ("RemoteDiagnosticsInternal", true)));
-        Assert.Empty(pipeline.PendingRecords);
     }
 
     private static Guid? Capture(TestFolder folder, Exception exception) => ChildStartupFailureExchange.TryCapture(

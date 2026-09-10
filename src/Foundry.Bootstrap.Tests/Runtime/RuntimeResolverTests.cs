@@ -92,21 +92,13 @@ public sealed class RuntimeResolverTests : IDisposable
     }
 
     [Fact]
-    public async Task OfflineLookupUsesExistingCacheWithoutManifest()
-    {
-        string executable = SeedCache();
-        using var client = CreateClient();
-        Assert.Equal(executable, await CreateResolver(client).ResolveAsync("Foundry.Connect", false, CancellationToken.None));
-        Assert.Single(requests);
-    }
-
-    [Fact]
-    public async Task SuccessfulOfflineFallbackReportsOneSafeWarning()
+    public async Task OfflineLookupUsesExistingCacheWithoutManifestAndReportsSafeWarning()
     {
         string executable = SeedCache();
         var warnings = new List<string>();
         using var client = CreateClient();
         Assert.Equal(executable, await CreateResolver(client, warnings.Add).ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken));
+        Assert.Single(requests);
         Assert.Equal("Release lookup failed. Continuing with the cached application.", Assert.Single(warnings));
     }
 
