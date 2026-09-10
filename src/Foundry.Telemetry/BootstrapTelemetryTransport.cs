@@ -18,7 +18,7 @@ internal sealed class BootstrapTelemetryTransport : IBootstrapTelemetryTransport
     private readonly PostHogTelemetryService _analytics;
     private readonly RemoteDiagnosticsOptions _options;
     private readonly RemoteDiagnosticsContext _context;
-    private PostHogDiagnosticsExporter? _diagnostics;
+    private readonly Dictionary<RemoteDiagnosticsContext, PostHogDiagnosticsExporter> _diagnostics = [];
 
     internal BootstrapTelemetryTransport(TelemetryOptions usage, TelemetryContext context,
         RemoteDiagnosticsOptions diagnostics, RemoteDiagnosticsContext diagnosticContext)
@@ -37,19 +37,34 @@ internal sealed class BootstrapTelemetryTransport : IBootstrapTelemetryTransport
                 .ConfigureAwait(false);
         }
 
-        _diagnostics ??= new PostHogDiagnosticsExporter(_options, _context);
-        if (record.Destination == BootstrapTelemetryDestination.Log) _diagnostics.ExportLog(record.Diagnostic!);
-        else _diagnostics.ExportException(record.Diagnostic!);
+        RemoteDiagnosticsContext context = GetResourceContext(record.Diagnostic!, _context);
+        if (!_diagnostics.TryGetValue(context, out PostHogDiagnosticsExporter? exporter))
+        {
+            exporter = new PostHogDiagnosticsExporter(_options, context);
+            _diagnostics.Add(context, exporter);
+        }
+        if (record.Destination == BootstrapTelemetryDestination.Log) exporter.ExportLog(record.Diagnostic!);
+        else exporter.ExportException(record.Diagnostic!);
         // Both SDK APIs only enqueue. Their flush methods do not expose per-record receipts.
         return false;
     }
 
+    internal static RemoteDiagnosticsContext GetResourceContext(RemoteDiagnosticRecord record, RemoteDiagnosticsContext fallback)
+    {
+        string Attribute(string name, string defaultValue) => record.Attributes.TryGetValue(name, out object? value) && value is string text
+            ? text : defaultValue;
+        return new RemoteDiagnosticsContext(Attribute("service.name", fallback.App), Attribute("service.version", fallback.AppVersion),
+            string.Empty, Attribute("runtime.name", fallback.Runtime), Attribute("runtime.architecture", fallback.RuntimeArchitecture),
+            string.Empty, string.Empty, Attribute("service.release", fallback.Release));
+    }
+
     public Task FlushAsync(CancellationToken cancellationToken) =>
-        _diagnostics?.FlushAsync(cancellationToken) ?? Task.CompletedTask;
+        Task.WhenAll(_diagnostics.Values.Select(exporter => exporter.FlushAsync(cancellationToken)));
 
     public async ValueTask DisposeAsync()
     {
         _httpClient.Dispose();
-        if (_diagnostics is not null) await _diagnostics.DisposeAsync().ConfigureAwait(false);
+        foreach (PostHogDiagnosticsExporter exporter in _diagnostics.Values)
+            await exporter.DisposeAsync().ConfigureAwait(false);
     }
 }

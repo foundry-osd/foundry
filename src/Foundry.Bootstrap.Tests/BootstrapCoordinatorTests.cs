@@ -22,6 +22,7 @@ public sealed class BootstrapCoordinatorTests
         using var fixture = new Fixture { ConnectExit = exitCode, ObserveDiagnostics = true };
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(exitCode == 0 ? BootstrapOutcome.Succeeded : exitCode == 20 ? BootstrapOutcome.Cancelled : BootstrapOutcome.Failed, result.Outcome);
+        Assert.Equal(exitCode == 0 ? 0 : exitCode == 20 ? 20 : 1, result.ExitCode);
         Assert.Single(fixture.Outcomes);
         Assert.Equal(result, fixture.Outcomes[0]);
         if (exitCode == 0)
@@ -43,6 +44,7 @@ public sealed class BootstrapCoordinatorTests
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(cancelled ? BootstrapOutcome.Cancelled : BootstrapOutcome.Failed, result.Outcome);
         Assert.Equal(exitCode, result.ChildExitCode);
+        Assert.Equal(cancelled ? 20 : 1, result.ExitCode);
         Assert.DoesNotContain("deploy", fixture.Calls);
         Assert.Equal("persist", fixture.Calls[^1]);
     }
@@ -163,21 +165,21 @@ public sealed class BootstrapCoordinatorTests
             return Task.CompletedTask;
         }
 
-        public Task<int> RunConnectAsync(string executable, string configurationPath,
+        public Task<ApplicationLaunchResult> RunConnectAsync(string executable, string configurationPath,
             IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
         {
             Calls.Add("connect");
             Assert.Equal("TEST", environment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
             if (CancelConnect) { cancellation.Cancel(); cancellationToken.ThrowIfCancellationRequested(); }
             if (ConnectTimeout) { throw new TaskCanceledException("Internal operation timed out."); }
-            return Task.FromResult(ConnectExit);
+            return Task.FromResult(new ApplicationLaunchResult(ConnectExit == 0, ConnectExit));
         }
 
-        public Task StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
+        public Task<ApplicationLaunchResult> StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
         {
             Calls.Add("deploy");
             if (DeployFails) { throw new IOException(); }
-            return Task.CompletedTask;
+            return Task.FromResult(new ApplicationLaunchResult(true, ReadinessConfirmed: true));
         }
 
         public Task PersistAsync(CancellationToken cancellationToken)

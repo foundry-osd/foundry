@@ -123,7 +123,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         }
     }
 
-    private static ConfigurationResolution ResolveConfigurationPath(IEnumerable<string> args)
+    internal static ConfigurationResolution ResolveConfigurationPath(IEnumerable<string> args)
     {
         string? envPath = Environment.GetEnvironmentVariable("FOUNDRY_CONNECT_CONFIG");
         if (!string.IsNullOrWhiteSpace(envPath))
@@ -277,5 +277,5 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         return File.ReadAllBytes(keyPath);
     }
 
-    private readonly record struct ConfigurationResolution(string? Path, bool IsRequired);
+    internal readonly record struct ConfigurationResolution(string? Path, bool IsRequired);
 }

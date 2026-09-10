@@ -7,10 +7,10 @@ namespace Foundry.Bootstrap.Processes;
 /// <summary>Launches each application once; cancelling observation never terminates the child.</summary>
 internal interface IApplicationLauncher
 {
-    Task<int> RunConnectAsync(string executable, string configurationPath,
+    Task<ApplicationLaunchResult> RunConnectAsync(string executable, string configurationPath,
         IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken);
 
-    /// <summary>Completes after launch, without claiming application readiness.</summary>
-    Task StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment,
+    /// <summary>Waits for advertised readiness; legacy payloads retain process-only handoff.</summary>
+    Task<ApplicationLaunchResult> StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment,
         CancellationToken cancellationToken);
 }
