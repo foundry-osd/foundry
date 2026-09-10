@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Foundry.Utilities\Foundry.Utilities.csproj" />
+    <InternalsVisibleTo Include="Foundry.Bootstrap.Tests" />
+  </ItemGroup>
+</Project>
