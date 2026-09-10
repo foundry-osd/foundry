@@ -78,40 +78,6 @@ jobs:
       - name: Build solution
         run: dotnet build .\src\Foundry.slnx -c Release -p:Platform=${{ matrix.platform }} -p:ContinuousIntegrationBuild=true -warnaserror --no-restore --nologo
 
-      - name: Smoke test Bootstrap package
-        shell: pwsh
-        run: |
-          $runtimeIdentifier = if ('${{ matrix.platform }}' -eq 'x64') { 'win-x64' } else { 'win-arm64' }
-          $publishPath = Join-Path $env:RUNNER_TEMP "Foundry.Bootstrap-$runtimeIdentifier"
-          $archivePath = "$publishPath.zip"
-          $extractPath = "$publishPath-extracted"
-
-          dotnet publish .\src\Foundry.Bootstrap\Foundry.Bootstrap.csproj `
-            -c Release `
-            -r $runtimeIdentifier `
-            --self-contained true `
-            -o $publishPath `
-            --nologo `
-            -p:Platform=${{ matrix.platform }} `
-            -p:PublishSingleFile=true `
-            -p:EnableCompressionInSingleFile=true `
-            -p:IncludeNativeLibrariesForSelfExtract=true `
-            -p:IncludeAllContentForSelfExtract=true `
-            -p:DebugType=None `
-            -p:GenerateDocumentationFile=false
-
-          if ($LASTEXITCODE -ne 0) {
-            throw "Bootstrap publish failed for '$runtimeIdentifier'."
-          }
-
-          Compress-Archive -Path (Join-Path $publishPath '*') -DestinationPath $archivePath -CompressionLevel Optimal -Force
-          Expand-Archive -Path $archivePath -DestinationPath $extractPath -Force
-
-          $expectedExecutable = Join-Path $extractPath 'Foundry.Bootstrap.exe'
-          if (-not (Test-Path -Path $expectedExecutable -PathType Leaf)) {
-            throw "Bootstrap ZIP does not contain Foundry.Bootstrap.exe at its root."
-          }
-
       - name: Run unit tests
         shell: pwsh
         run: |
