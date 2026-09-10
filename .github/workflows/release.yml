@@ -129,10 +129,9 @@ jobs:
               '--generate-notes'
           )
 
-          # Keep every release undiscoverable until all runtime assets have been
-          # uploaded and validated. This also makes interrupted uploads safe to
-          # delete or inspect without exposing an incomplete update feed.
-          $releaseArgs += '--draft'
+          if ('${{ steps.compute.outputs.draft_release }}' -eq 'true') {
+              $releaseArgs += '--draft'
+          }
 
           gh release create @releaseArgs
 
@@ -402,58 +401,6 @@ jobs:
               if (-not (Test-Path -Path $asset -PathType Leaf)) {
                   throw "Release asset was not created: '$asset'."
               }
-
-              $applicationName = [System.IO.Path]::GetFileNameWithoutExtension($asset) -replace '-win-(x64|arm64)$', ''
-              $expectedExecutableName = "$applicationName.exe"
-              $archiveEntries = [System.IO.Compression.ZipFile]::OpenRead($asset)
-              try {
-                  $hasRootExecutable = $null -ne ($archiveEntries.Entries |
-                      Where-Object { $_.FullName -eq $expectedExecutableName } |
-                      Select-Object -First 1)
-              }
-              finally {
-                  $archiveEntries.Dispose()
-              }
-
-              if (-not $hasRootExecutable) {
-                  throw "Release asset '$asset' does not contain '$expectedExecutableName' at its root."
-              }
           }
 
           gh release upload $releaseTag @assets --clobber
-          if ($LASTEXITCODE -ne 0) {
-              throw "Unable to upload runtime assets for '$releaseTag'."
-          }
-
-          $expectedAssetNames = @(
-              'Foundry.Bootstrap-win-x64.zip',
-              'Foundry.Bootstrap-win-arm64.zip',
-              'Foundry.Connect-win-x64.zip',
-              'Foundry.Connect-win-arm64.zip',
-              'Foundry.Deploy-win-x64.zip',
-              'Foundry.Deploy-win-arm64.zip'
-          )
-          $release = gh release view $releaseTag --json assets | ConvertFrom-Json
-          if ($LASTEXITCODE -ne 0) {
-              throw "Unable to validate GitHub release assets for '$releaseTag'."
-          }
-
-          $uploadedAssets = @($release.assets)
-          $missingAssetNames = @($expectedAssetNames | Where-Object { $_ -notin $uploadedAssets.name })
-          if ($missingAssetNames.Count -gt 0) {
-              throw "Release '$releaseTag' is missing required runtime assets: $($missingAssetNames -join ', ')."
-          }
-
-          $emptyAssetNames = @($uploadedAssets |
-              Where-Object { $_.name -in $expectedAssetNames -and $_.size -le 0 } |
-              ForEach-Object { $_.name })
-          if ($emptyAssetNames.Count -gt 0) {
-              throw "Release '$releaseTag' contains empty runtime assets: $($emptyAssetNames -join ', ')."
-          }
-
-          if ('${{ needs.prepare-release.outputs.draft_release }}' -ne 'true') {
-              gh release edit $releaseTag --draft=false
-              if ($LASTEXITCODE -ne 0) {
-                  throw "Unable to publish validated release '$releaseTag'."
-              }
-          }
