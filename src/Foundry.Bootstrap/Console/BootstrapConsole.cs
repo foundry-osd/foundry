@@ -15,6 +15,8 @@ internal sealed class BootstrapConsole : IDisposable
     private readonly Timer heartbeat;
     private readonly long started = Stopwatch.GetTimestamp();
     private readonly BootstrapStatus[] stages = new BootstrapStatus[5];
+    private readonly long?[] stageStarts = new long?[5];
+    private readonly TimeSpan?[] stageDurations = new TimeSpan?[5];
     private readonly List<(BootstrapStage Stage, string Message)> warnings = [];
     private BootstrapProgress? current;
     private BootstrapResult? result;
@@ -65,6 +67,10 @@ internal sealed class BootstrapConsole : IDisposable
             }
             current = value;
             download = null;
+            int index = (int)value.Stage;
+            if (value.Status == BootstrapStatus.Running) stageStarts[index] ??= Stopwatch.GetTimestamp();
+            else if (stageStarts[index] is long stageStart)
+                stageDurations[index] ??= Stopwatch.GetElapsedTime(stageStart);
             stages[(int)value.Stage] = value.Status;
             if (value.Status is BootstrapStatus.Failed or BootstrapStatus.Cancelled ||
                 value.Stage == BootstrapStage.Deploy && value.Status == BootstrapStatus.Completed) Stop();
@@ -101,13 +107,14 @@ internal sealed class BootstrapConsole : IDisposable
             if (disposed || result is not null) return;
             result = value;
             Stop();
-            if (value.Outcome != BootstrapOutcome.Succeeded || warnings.Count > 0)
+            if (value.Outcome == BootstrapOutcome.Failed || warnings.Count > 0)
             {
                 diagnosticSession = sessionId;
                 diagnosticLog = logPath;
             }
             if (!Render())
             {
+                WriteLine(Subtitle());
                 WriteLine(FinalMessage());
                 WriteLine($"Finished in {ElapsedText()}");
                 WriteDiagnostics();
@@ -161,24 +168,33 @@ internal sealed class BootstrapConsole : IDisposable
         return $"{(int)duration.TotalMinutes:00}:{duration.Seconds:00}";
     }
 
+    private string StageElapsedText(BootstrapStage stage)
+    {
+        int index = (int)stage;
+        if (stageStarts[index] is not long timestamp) return "";
+        TimeSpan duration = stageDurations[index] ?? Stopwatch.GetElapsedTime(timestamp);
+        return $"{(int)duration.TotalMinutes:00}:{duration.Seconds:00}";
+    }
+
+    private string Subtitle() => result?.Outcome switch
+    {
+        BootstrapOutcome.Succeeded when result.ReadinessConfirmed => "Deployment environment ready",
+        BootstrapOutcome.Succeeded => "Deployment application launched",
+        BootstrapOutcome.Cancelled => "Startup cancelled",
+        BootstrapOutcome.Failed => "Startup failed",
+        _ => "Preparing your deployment environment"
+    };
+
     private string FinalMessage() => result?.Outcome switch
     {
         BootstrapOutcome.Succeeded when result.ReadinessConfirmed => "Continue in Foundry Deploy.",
-        BootstrapOutcome.Succeeded => "Foundry Deploy was launched. Readiness is unverified.",
+        BootstrapOutcome.Succeeded => warnings.Count > 0 ? "Foundry Deploy was launched." : "Foundry Deploy was launched. Readiness is unverified.",
         _ => current?.Message ?? "Preparing your deployment environment"
-    };
-
-    private ConsoleColor ResultColor() => result?.Outcome switch
-    {
-        BootstrapOutcome.Succeeded => warnings.Count > 0 ? ConsoleColor.Yellow : ConsoleColor.Green,
-        BootstrapOutcome.Cancelled => ConsoleColor.Yellow,
-        BootstrapOutcome.Failed => ConsoleColor.Red,
-        _ => current is null ? ConsoleColor.Gray : StageColor(current.Stage)
     };
 
     private string StatusText(BootstrapStage stage) => stages[(int)stage] switch
     {
-        BootstrapStatus.Running => "In progress",
+        BootstrapStatus.Running => download is not null && current?.Stage == stage ? "Downloading" : "In progress",
         BootstrapStatus.Completed when stage == BootstrapStage.Deploy && result is not null =>
             result.ReadinessConfirmed ? "Ready" : "Unverified",
         BootstrapStatus.Completed => warnings.Any(warning => warning.Stage == stage) ? "Done (warning)" : "Done",
@@ -215,6 +231,15 @@ internal sealed class BootstrapConsole : IDisposable
         return $"Downloading {value.ApplicationName}: {value.BytesReceived / 1048576d:F1}{total}";
     }
 
+    private static string DownloadProgressText(RuntimeDownloadProgress value)
+    {
+        double received = Math.Max(0, value.BytesReceived) / 1048576d;
+        if (value.TotalBytes is not > 0) return $"{received:F1} MB transferred";
+        double fraction = Math.Clamp((double)value.BytesReceived / value.TotalBytes.Value, 0, 1);
+        int filled = (int)(fraction * 20);
+        return $"{received:F1} MB / {value.TotalBytes.Value / 1048576d:F1} MB  [{new string('=', filled)}{new string(' ', 20 - filled)}] {fraction:P0}";
+    }
+
     private bool Render()
     {
         if (!interactive) return false;
@@ -236,13 +261,13 @@ internal sealed class BootstrapConsole : IDisposable
                 lines.Add((text, color));
             }
             Add("Foundry Bootstrap", ConsoleColor.White);
-            Add(stopped ? "" : "Preparing your deployment environment");
+            Add(Subtitle());
             Add("");
             foreach (BootstrapStage stage in Enum.GetValues<BootstrapStage>())
-                Add($"{StageName(stage),-27}{StatusText(stage)}", StageColor(stage));
+                Add($"  {StageName(stage),-27}{StatusText(stage),-15}{(width >= 50 ? StageElapsedText(stage) : "")}");
             Add("");
-            Add(stopped ? FinalMessage() : current?.Message ?? "Starting...", stopped ? ResultColor() : ConsoleColor.Cyan);
-            if (download is not null) Add(DownloadText(download), ConsoleColor.Cyan);
+            Add(stopped ? FinalMessage() : download is not null ? $"Downloading {download.ApplicationName}" : current?.Message ?? "Starting...");
+            if (download is not null) Add(DownloadProgressText(download));
             Add("");
             Add($"{(stopped ? "Finished in" : "Elapsed:")} {ElapsedText()}");
             foreach (var warning in warnings.Take(3)) Add($"Warning: {warning.Message}", ConsoleColor.Yellow);
@@ -262,6 +287,22 @@ internal sealed class BootstrapConsole : IDisposable
                 var line = row < lines.Count ? lines[row] : (string.Empty, ConsoleColor.Gray);
                 System.Console.ForegroundColor = line.Item2;
                 output.Write(line.Item1.PadRight(width));
+                if (row is >= 3 and < 8)
+                {
+                    BootstrapStage stage = (BootstrapStage)(row - 3);
+                    System.Console.SetCursorPosition(2, row);
+                    System.Console.ForegroundColor = ConsoleColor.White;
+                    output.Write(StageName(stage));
+                    System.Console.SetCursorPosition(29, row);
+                    System.Console.ForegroundColor = StageColor(stage);
+                    output.Write(StatusText(stage));
+                    if (width >= 50)
+                    {
+                        System.Console.SetCursorPosition(44, row);
+                        System.Console.ForegroundColor = ConsoleColor.DarkGray;
+                        output.Write(StageElapsedText(stage));
+                    }
+                }
             }
             System.Console.SetCursorPosition(0, rows);
             System.Console.ForegroundColor = originalColor;

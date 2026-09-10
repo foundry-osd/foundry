@@ -48,6 +48,19 @@ public sealed class BootstrapConsoleTests
     }
 
     [Fact]
+    public void NormalCancellationDoesNotDisplayDiagnosticFooter()
+    {
+        using var output = new StringWriter();
+        using var presenter = new BootstrapConsole(output);
+        presenter.Report(new(BootstrapStage.Connect, BootstrapStatus.Cancelled, "Boot was cancelled. Deployment will not continue."));
+        presenter.Complete(new(BootstrapOutcome.Cancelled, BootstrapStage.Connect, 20), "SESSION", @"X:\Foundry\Logs\FoundryBootstrap.log");
+
+        Assert.Contains("Startup cancelled", output.ToString());
+        Assert.DoesNotContain("Session:", output.ToString());
+        Assert.DoesNotContain("Log:", output.ToString());
+    }
+
+    [Fact]
     public void UnavailableOutputDoesNotInterruptBootReporting()
     {
         using var output = new UnavailableWriter();
