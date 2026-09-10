@@ -63,6 +63,7 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
             logger.Warning("Application startup readiness is unverified for {Component}; capability {Mode}", application, capability.Mode);
             warning?.Invoke("This application does not support startup confirmation. Readiness will remain unverified.");
         }
+        long launched = Stopwatch.GetTimestamp();
         using Process process = Start(start);
         try
         {
@@ -73,12 +74,26 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
                 return new(exitCode == 0, exitCode, FailureCategory: exitCode == 0 ? null : "child_exit");
             }
             var reader = new RuntimeStartupStatusReader(statusPath, sessionId, launchId.ToString("N"), application, process.Id);
+            logger.Debug("Observing managed startup for {Component}; process {ProcessId}; protocol {ProtocolVersion}",
+                application, process.Id, capability.ProtocolVersion);
             ApplicationLaunchResult result = await new ApplicationStartupObserver().ObserveAsync(
-                new ObservedApplication(process), reader.Read, waitForCompletion, cancellationToken).ConfigureAwait(false);
+                new ObservedApplication(process), ReadStatus, waitForCompletion, cancellationToken).ConfigureAwait(false);
             logger.ForContext("RemoteDiagnostic", true).Information(
-                "Application startup observed for {Component}: {Outcome}; stage {Stage}; exit {ExitCode}; reason {FailureReason}",
-                application, result.Succeeded ? "Succeeded" : "Stopped", result.LastStage, result.ExitCode, result.FailureCategory);
+                "Application startup observed for {Component}: {Outcome}; stage {Stage}; exit {ExitCode}; reason {FailureReason}; duration {DurationMilliseconds:F0} ms",
+                application, result.Succeeded ? "Succeeded" : "Stopped", result.LastStage, result.ExitCode, result.FailureCategory,
+                Stopwatch.GetElapsedTime(launched).TotalMilliseconds);
             return result;
+
+            RuntimeStartupStatus? ReadStatus()
+            {
+                RuntimeStartupStatus? status = reader.Read();
+                if (status is not null)
+                {
+                    logger.Information("Application {Component} acknowledged startup stage {Stage}; process {ProcessId}; elapsed {DurationMilliseconds:F0} ms",
+                        application, status.Stage, process.Id, Stopwatch.GetElapsedTime(launched).TotalMilliseconds);
+                }
+                return status;
+            }
         }
         finally
         {

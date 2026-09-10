@@ -38,12 +38,19 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
         {
             if (archiveOverride.Length > 0)
             {
-                logger.Information("Resolving {PayloadApplication} from an archive override", applicationName);
+                logger.Information("Resolving {PayloadApplication} for {RuntimeIdentifier} from {PayloadSource}; replacing cached content",
+                    applicationName, runtimeIdentifier, Equal(archiveOverride, embeddedArchive) ? "embedded seed" : "archive override");
                 await transfer.SaveAsync(archiveOverride, downloadPath, applicationName, cancellationToken).ConfigureAwait(false);
                 string hash = await VerifyHashAsync(downloadPath, ReadEnvironment(prefix + "_ARCHIVE_SHA256"), cancellationToken).ConfigureAwait(false);
                 return await UpdateCacheAsync(downloadPath, cacheRoot, applicationName, assetName, "", "", hash, cancellationToken).ConfigureAwait(false);
             }
-            if (skipReleaseLookup) return ResolveCached(cacheRoot, applicationName);
+            if (skipReleaseLookup)
+            {
+                string executable = ResolveCached(cacheRoot, applicationName);
+                logger.Information("Selected provisioned cache for {PayloadApplication} on {RuntimeIdentifier}; release lookup skipped",
+                    applicationName, runtimeIdentifier);
+                return executable;
+            }
 
             JsonDocument release;
             string releaseUrl = "https://api.github.com/repos/foundry-osd/foundry/releases/" +
@@ -68,7 +75,14 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
                 if (asset.ValueKind == JsonValueKind.Undefined) throw new InvalidDataException($"Release does not contain '{assetName}'.");
                 string? digest = asset.TryGetProperty("digest", out JsonElement digestElement) ? digestElement.GetString() : null;
                 string? expectedHash = digest?.StartsWith("sha256:", StringComparison.OrdinalIgnoreCase) == true ? digest[7..].Trim() : null;
-                if (IsCacheCurrent(cacheRoot, applicationName, assetName, tag, version, expectedHash)) return ResolveCached(cacheRoot, applicationName);
+                if (IsCacheCurrent(cacheRoot, applicationName, assetName, tag, version, expectedHash))
+                {
+                    logger.Information("Selected current cache for {PayloadApplication} on {RuntimeIdentifier}; release version {PayloadVersion}",
+                        applicationName, runtimeIdentifier, version);
+                    return ResolveCached(cacheRoot, applicationName);
+                }
+                logger.Information("Selected release version {PayloadVersion} for {PayloadApplication} on {RuntimeIdentifier}; cache refresh required",
+                    version, applicationName, runtimeIdentifier);
                 try
                 {
                     if (string.IsNullOrWhiteSpace(expectedHash)) logger.Warning("No supported SHA256 digest supplied for {PayloadApplication}; continuing without digest validation", applicationName);
@@ -96,6 +110,8 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
             if (File.Exists(Path.Combine(cacheRoot, applicationName + ".exe")))
             {
                 string executable = ResolveCached(cacheRoot, applicationName);
+                logger.Information("Selected cached fallback for {PayloadApplication} on {RuntimeIdentifier}; reason {FailureReason}",
+                    applicationName, runtimeIdentifier, reason);
                 warning?.Invoke(reason + " Continuing with the cached application.");
                 return executable;
             }
@@ -160,6 +176,7 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
     private async Task<string> UpdateCacheAsync(string archive, string cacheRoot, string applicationName, string assetName,
         string tag, string version, string hash, CancellationToken cancellationToken)
     {
+        long started = Stopwatch.GetTimestamp();
         string staging = cacheRoot + ".staging";
         RuntimeCache.DeleteDirectory(staging);
         try
@@ -173,7 +190,9 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
                 [$"Tag={tag}", $"Version={version}", $"Asset={assetName}", $"ArchiveSha256={hash}", $"UpdatedUtc={DateTime.UtcNow:O}"], cancellationToken).ConfigureAwait(false);
             cancellationToken.ThrowIfCancellationRequested();
             new RuntimeCache().Promote(staging, cacheRoot);
-            logger.Information("Updated runtime cache for {PayloadApplication}", applicationName);
+            logger.Information("Runtime cache ready for {PayloadApplication} on {RuntimeIdentifier}; version {PayloadVersion}; duration {DurationMilliseconds:F0} ms",
+                applicationName, runtimeIdentifier, string.IsNullOrWhiteSpace(version) ? "unknown" : version,
+                Stopwatch.GetElapsedTime(started).TotalMilliseconds);
             return ResolveCached(cacheRoot, applicationName);
         }
         finally

@@ -18,6 +18,8 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
     Action<BootstrapResult, TimeSpan>? completed = null)
 {
     private BootstrapStage stage = BootstrapStage.Environment;
+    private BootstrapStage? loggedStage;
+    private long stageStarted;
 
     internal async Task<BootstrapResult> RunAsync(CancellationToken cancellationToken)
     {
@@ -143,9 +145,16 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
 
     private void Report(BootstrapStatus status, string message)
     {
+        if (status == BootstrapStatus.Running && loggedStage != stage)
+        {
+            loggedStage = stage;
+            stageStarted = Stopwatch.GetTimestamp();
+            logger.Information("Bootstrap stage {Stage} started", stage);
+        }
         if (status == BootstrapStatus.Completed)
         {
-            logger.ForContext("RemoteDiagnostic", true).Information("Bootstrap stage {Stage} completed", stage);
+            logger.ForContext("RemoteDiagnostic", true).Information("Bootstrap stage {Stage} completed in {DurationMilliseconds:F0} ms",
+                stage, Stopwatch.GetElapsedTime(stageStarted).TotalMilliseconds);
         }
         progress(new BootstrapProgress(stage, status, message));
     }

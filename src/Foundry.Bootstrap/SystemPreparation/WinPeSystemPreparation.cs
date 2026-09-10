@@ -143,10 +143,11 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
             return;
         }
 
-        if ((internetTime.Value - _platform.UtcNow).Duration() <= ClockSkewThreshold)
+        TimeSpan clockSkew = internetTime.Value - _platform.UtcNow;
+        if (clockSkew.Duration() <= ClockSkewThreshold)
         {
             IsClockUsable = true;
-            _logger.Information("System clock is within the allowed internet time threshold.");
+            _logger.Information("System clock is within the allowed internet time threshold. ClockSkewSeconds={ClockSkewSeconds:F0}", clockSkew.TotalSeconds);
             return;
         }
 
@@ -156,6 +157,7 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
             {
                 await _platform.SetSystemTimeAsync(internetTime.Value.ToUniversalTime(), token).ConfigureAwait(false);
                 IsClockUsable = true;
+                _logger.Information("System clock synchronized successfully. CorrectionSeconds={ClockSkewSeconds:F0}", clockSkew.TotalSeconds);
             },
             cancellationToken).ConfigureAwait(false);
     }
@@ -178,9 +180,9 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
             source = "public IP lookup";
         }
 
-        targetTimeZoneId ??= "UTC";
-        if (targetTimeZoneId == "UTC")
+        if (targetTimeZoneId is null)
         {
+            targetTimeZoneId = "UTC";
             source = "bootstrap fallback";
         }
 
@@ -193,7 +195,11 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
         _logger.Information("Applying WinPE timezone. TimeZoneId={TimeZoneId} Source={Source}", targetTimeZoneId, source);
         await TryActionAsync(
             "WinPE timezone could not be updated. Boot will continue.",
-            token => _platform.SetTimeZoneAsync(targetTimeZoneId, token),
+            async token =>
+            {
+                await _platform.SetTimeZoneAsync(targetTimeZoneId, token).ConfigureAwait(false);
+                _logger.Information("WinPE timezone configured successfully. TimeZoneId={TimeZoneId} Source={Source}", targetTimeZoneId, source);
+            },
             cancellationToken).ConfigureAwait(false);
     }
 
