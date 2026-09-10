@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Reflection;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Foundry.Bootstrap.Console;
 using Foundry.Bootstrap.Diagnostics;
@@ -39,6 +40,8 @@ internal static class Program
         string? logPath = null;
         BootstrapLogPersistence? persistence = null;
         bool coordinatorStarted = false;
+        long started = Stopwatch.GetTimestamp();
+        var telemetry = new BootstrapTelemetry();
         using var presenter = new BootstrapConsole();
         using var cancellation = new CancellationTokenSource();
         ConsoleCancelEventHandler cancel = (_, args) => { args.Cancel = true; cancellation.Cancel(); };
@@ -50,12 +53,12 @@ internal static class Program
                 logPath = WritableFilePathResolver.Resolve([Path.Combine(WinPeRoot, "Logs"),
                     Path.Combine(Path.GetTempPath(), "Foundry", "Logs")], "FoundryBootstrap.log");
                 Log.Logger = FoundryLogConfiguration.CreateFileLogger(logPath, "Foundry.Bootstrap", sessionId,
-                    LogEventLevel.Debug, 5);
+                    LogEventLevel.Debug, 5, additionalSink: telemetry);
             }
             catch
             {
                 logPath = null;
-                Log.Logger = FoundryLogConfiguration.CreateDebugLogger("Foundry.Bootstrap", sessionId, LogEventLevel.Debug);
+                Log.Logger = FoundryLogConfiguration.CreateDebugLogger("Foundry.Bootstrap", sessionId, LogEventLevel.Debug, additionalSink: telemetry);
             }
 
             if (!WinPeRuntimeDetector.IsWinPeRuntime())
@@ -70,6 +73,7 @@ internal static class Program
             BootstrapVolume[] volumes = BootstrapEnvironment.EnumerateVolumes().ToArray();
             BootstrapVolume? cache = volumes.FirstOrDefault(volume => volume.IsReady &&
                 string.Equals(volume.Label, "Foundry Cache", StringComparison.OrdinalIgnoreCase));
+            telemetry.Configure(WinPeRoot, cache?.Root);
             persistence = new BootstrapLogPersistence(Path.GetDirectoryName(logPath) ?? Path.Combine(WinPeRoot, "Logs"),
                 cache is null ? null : Path.Combine(cache.Root, "Logs", sessionId),
                 Log.ForContext<BootstrapLogPersistence>());
@@ -85,7 +89,8 @@ internal static class Program
                 Log.ForContext<WinPeSystemPreparation>(), presenter.ReportWarning);
             var launcher = new ApplicationLauncher(Log.ForContext<ApplicationLauncher>());
             var coordinator = new BootstrapCoordinator(context, runtime, preparation, launcher, persistence,
-                Log.ForContext<BootstrapCoordinator>(), presenter.Report);
+                Log.ForContext<BootstrapCoordinator>(), presenter.Report,
+                () => telemetry.StartDelivery(preparation.IsClockUsable), telemetry.Complete);
             coordinatorStarted = true;
             BootstrapResult result = await coordinator.RunAsync(cancellation.Token).ConfigureAwait(false);
             if (result.Outcome != BootstrapOutcome.Succeeded) { presenter.ShowDiagnostics(sessionId, logPath); }
@@ -94,6 +99,7 @@ internal static class Program
         catch (Exception exception)
         {
             Log.Fatal(exception, "Bootstrap could not initialize");
+            telemetry.Complete(new BootstrapResult(BootstrapOutcome.Failed, BootstrapStage.Environment), Stopwatch.GetElapsedTime(started));
             presenter.Report(new BootstrapProgress(BootstrapStage.Environment, BootstrapStatus.Failed,
                 "The boot environment could not be initialized."));
             presenter.ShowDiagnostics(sessionId, logPath);
@@ -107,7 +113,13 @@ internal static class Program
                 try { await persistence.PersistAsync(CancellationToken.None).ConfigureAwait(false); }
                 catch { }
             }
-            await BootstrapLogShutdown.FlushAsync().ConfigureAwait(false);
+            using var shutdown = new CancellationTokenSource(TimeSpan.FromSeconds(2));
+            try
+            {
+                await Task.WhenAll(telemetry.ShutdownAsync(shutdown.Token), BootstrapLogShutdown.FlushAsync())
+                    .WaitAsync(shutdown.Token).ConfigureAwait(false);
+            }
+            catch { }
         }
     }
 }

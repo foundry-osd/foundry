@@ -26,6 +26,7 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     private readonly object _gate = new();
     private readonly Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, IRemoteDiagnosticsExporter> _exporterFactory;
     private readonly int _queueCapacity;
+    private readonly Action<RemoteDiagnosticRecord>? _capture;
     private readonly TimeProvider _timeProvider;
     private ConditionalWeakTable<Exception, ExceptionDedupeState> _seenExceptions = new();
     private readonly Dictionary<string, FingerprintWindowState> _fingerprints = new(StringComparer.Ordinal);
@@ -50,11 +51,13 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     internal PostHogRemoteDiagnosticsSink(
         Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, IRemoteDiagnosticsExporter> exporterFactory,
         int queueCapacity = DefaultQueueCapacity,
-        TimeProvider? timeProvider = null)
+        TimeProvider? timeProvider = null,
+        Action<RemoteDiagnosticRecord>? capture = null)
     {
         ArgumentNullException.ThrowIfNull(exporterFactory);
         ArgumentOutOfRangeException.ThrowIfLessThan(queueCapacity, 1);
         _exporterFactory = exporterFactory;
+        _capture = capture;
         _queueCapacity = queueCapacity;
         _timeProvider = timeProvider ?? TimeProvider.System;
     }
@@ -172,6 +175,17 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
                 var queuedRecord = new QueuedRemoteDiagnosticRecord(
                     Volatile.Read(ref _consentGeneration),
                     record);
+                if (_capture is not null)
+                {
+                    _capture(record);
+                    if (record.ShouldTrackException)
+                    {
+                        _seenExceptions.GetValue(logEvent.Exception!, static _ => new ExceptionDedupeState())
+                            .OperationIds.Add(GetScalarText(logEvent, "OperationId"));
+                    }
+                    return;
+                }
+
                 if (!channel.Writer.TryWrite(queuedRecord))
                 {
                     Interlocked.Increment(ref _droppedRecordCount);
@@ -284,7 +298,7 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
             GetScalarText(logEvent, "OperationId"), GetScalarText(logEvent, "FailedOperationName"),
             GetScalarText(logEvent, "CurrentOperation"), GetScalarText(logEvent, "ProcessOperation"),
             GetScalarText(logEvent, "StepName"), GetScalarText(logEvent, "ToolName"));
-        DateTimeOffset now = _timeProvider.GetUtcNow();
+        long now = _timeProvider.GetTimestamp();
         lock (_gate)
         {
             if (_fingerprints.Count >= MaximumFingerprintEntries && !_fingerprints.ContainsKey(fingerprint))
@@ -292,7 +306,7 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
                 _fingerprints.Clear();
             }
 
-            if (!_fingerprints.TryGetValue(fingerprint, out FingerprintWindowState? state) || now - state.StartedAt >= FingerprintWindow)
+            if (!_fingerprints.TryGetValue(fingerprint, out FingerprintWindowState? state) || _timeProvider.GetElapsedTime(state.StartedAt, now) >= FingerprintWindow)
             {
                 _fingerprints[fingerprint] = new FingerprintWindowState(now, 1);
                 return true;
@@ -342,7 +356,7 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
         }
     }
 
-    private sealed record FingerprintWindowState(DateTimeOffset StartedAt, int Count);
+    private sealed record FingerprintWindowState(long StartedAt, int Count);
 
     private sealed record QueuedRemoteDiagnosticRecord(
         int ConsentGeneration,
@@ -415,10 +429,14 @@ internal sealed class PostHogDiagnosticsExporter : IRemoteDiagnosticsExporter
     public ValueTask ExportAsync(RemoteDiagnosticRecord record, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        _logExporter.Write(CreateLogEvent(record));
-        _exceptionTracker.Track(record);
+        ExportLog(record);
+        ExportException(record);
         return ValueTask.CompletedTask;
     }
+
+    internal void ExportLog(RemoteDiagnosticRecord record) => _logExporter.Write(CreateLogEvent(record));
+
+    internal void ExportException(RemoteDiagnosticRecord record) => _exceptionTracker.Track(record);
 
     internal static LogEvent CreateLogEvent(RemoteDiagnosticRecord record)
     {

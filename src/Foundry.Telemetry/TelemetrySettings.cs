@@ -35,7 +35,7 @@ public sealed record TelemetrySettings
     public string ProjectToken { get; init; } = TelemetryDefaults.ProjectToken;
 
     /// <summary>
-    /// Gets the source of the generated Connect or Deploy runtime payload.
+    /// Gets the source of the generated Bootstrap, Connect, or Deploy runtime payload.
     /// </summary>
     public string RuntimePayloadSource { get; init; } = TelemetryRuntimePayloadSources.Unknown;
 }

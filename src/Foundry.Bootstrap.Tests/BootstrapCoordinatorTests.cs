@@ -14,6 +14,25 @@ namespace Foundry.Bootstrap.Tests;
 public sealed class BootstrapCoordinatorTests
 {
     [Theory]
+    [InlineData(0)]
+    [InlineData(20)]
+    [InlineData(7)]
+    public async Task DiagnosticsObserveOneTerminalOutcomeAndDeliveryFollowsSystemPreparation(int exitCode)
+    {
+        using var fixture = new Fixture { ConnectExit = exitCode, ObserveDiagnostics = true };
+        BootstrapResult result = await fixture.RunAsync();
+        Assert.Equal(exitCode == 0 ? BootstrapOutcome.Succeeded : exitCode == 20 ? BootstrapOutcome.Cancelled : BootstrapOutcome.Failed, result.Outcome);
+        Assert.Single(fixture.Outcomes);
+        Assert.Equal(result, fixture.Outcomes[0]);
+        if (exitCode == 0)
+        {
+            Assert.True(fixture.Calls.IndexOf("system") < fixture.Calls.IndexOf("delivery"));
+            Assert.True(fixture.Calls.IndexOf("delivery") < fixture.Calls.IndexOf("deploy"));
+        }
+        else { Assert.DoesNotContain("delivery", fixture.Calls); }
+    }
+
+    [Theory]
     [InlineData(20, true)]
     [InlineData(21, false)]
     [InlineData(22, false)]
@@ -118,9 +137,13 @@ public sealed class BootstrapCoordinatorTests
         internal bool CancelConnect { get; init; }
         internal bool DeployFails { get; init; }
         internal bool ConnectTimeout { get; init; }
+        internal bool ObserveDiagnostics { get; init; }
+        internal List<BootstrapResult> Outcomes { get; } = [];
 
         internal Task<BootstrapResult> RunAsync() => new BootstrapCoordinator(Context, this, this, this, this,
-            logger, Progress.Add).RunAsync(cancellation.Token);
+            logger, Progress.Add,
+            ObserveDiagnostics ? () => Calls.Add("delivery") : null,
+            ObserveDiagnostics ? (result, _) => Outcomes.Add(result) : null).RunAsync(cancellation.Token);
 
         public Task<string> ResolveAsync(string applicationName, bool skipReleaseLookup, CancellationToken cancellationToken)
         {
