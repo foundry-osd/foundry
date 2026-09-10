@@ -4,7 +4,10 @@
 
 using System.Net;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Foundry.Bootstrap.SystemPreparation;
+using Foundry.Core.Models.Configuration.Deploy;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
@@ -56,6 +59,53 @@ public sealed class WinPeSystemPreparationTests : IDisposable
 
         Assert.Equal("Central Standard Time", Assert.Single(platform.AppliedTimeZoneIds));
         Assert.Equal(2, handler.RequestCount); // Clock probes only; timezone providers are skipped.
+    }
+
+    [Theory]
+    [InlineData(null, "UTC", false)]
+    [InlineData("Central Standard Time", "Central Standard Time", false)]
+    [InlineData("Central Standard Time", "Central Standard Time", true)]
+    public async Task PrepareSystemAsync_ReadsSerializedDeployConfigurationWithOptionalTimeZone(string? configuredTimeZone, string expectedTimeZone, bool pascalCase)
+    {
+        var configuration = new FoundryDeployConfigurationDocument
+        {
+            Localization = new DeployLocalizationSettings { DefaultTimeZoneId = configuredTimeZone }
+        };
+        string json = JsonSerializer.Serialize(configuration, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = pascalCase ? null : JsonNamingPolicy.CamelCase,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+        });
+        File.WriteAllText(Path.Combine(_root, "Config", "foundry.deploy.config.json"), json);
+        var warnings = new List<string>();
+        var platform = new RecordingPlatform { ValidTimeZoneIds = ["UTC", "Central Standard Time"] };
+        var preparation = CreatePreparation(platform, warningCallback: warnings.Add);
+
+        await preparation.PrepareSystemAsync(CancellationToken.None);
+
+        Assert.Equal(expectedTimeZone, Assert.Single(platform.AppliedTimeZoneIds));
+        Assert.DoesNotContain(warnings, warning => warning.StartsWith("Embedded deployment timezone", StringComparison.Ordinal));
+    }
+
+    [Theory]
+    [InlineData("{}", false)]
+    [InlineData("{\"localization\":null}", false)]
+    [InlineData("{\"localization\":{\"defaultTimeZoneId\":null}}", false)]
+    [InlineData("{\"Localization\":{/* optional */ \"DefaultTimeZoneId\":\"UTC\",},}", false)]
+    [InlineData("{", true)]
+    [InlineData("{\"localization\":42}", true)]
+    [InlineData("{\"localization\":{\"defaultTimeZoneId\":42}}", true)]
+    public async Task PrepareSystemAsync_WarnsOnlyForMalformedTimeZoneConfiguration(string json, bool expectedWarning)
+    {
+        File.WriteAllText(Path.Combine(_root, "Config", "foundry.deploy.config.json"), json);
+        var warnings = new List<string>();
+        var platform = new RecordingPlatform { ValidTimeZoneIds = ["UTC"] };
+        var preparation = CreatePreparation(platform, warningCallback: warnings.Add);
+
+        await preparation.PrepareSystemAsync(CancellationToken.None);
+
+        Assert.Equal("UTC", Assert.Single(platform.AppliedTimeZoneIds));
+        Assert.Equal(expectedWarning, warnings.Any(warning => warning.StartsWith("Embedded deployment timezone", StringComparison.Ordinal)));
     }
 
     [Fact]

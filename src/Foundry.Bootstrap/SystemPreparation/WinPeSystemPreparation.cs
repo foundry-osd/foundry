@@ -206,17 +206,28 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
 
         try
         {
-            using JsonDocument document = JsonDocument.Parse(File.ReadAllText(_deployConfigurationPath));
-            return document.RootElement
-                .GetProperty("localization")
-                .GetProperty("defaultTimeZoneId")
-                .GetString();
+            using JsonDocument document = JsonDocument.Parse(File.ReadAllText(_deployConfigurationPath),
+                new JsonDocumentOptions { AllowTrailingCommas = true, CommentHandling = JsonCommentHandling.Skip });
+            JsonElement localization = ReadOptionalProperty(document.RootElement, "localization");
+            if (localization.ValueKind is JsonValueKind.Undefined or JsonValueKind.Null) return null;
+            JsonElement timeZone = ReadOptionalProperty(localization, "defaultTimeZoneId");
+            return timeZone.ValueKind is JsonValueKind.Undefined or JsonValueKind.Null ? null : timeZone.GetString();
         }
-        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or JsonException or InvalidOperationException or KeyNotFoundException)
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or JsonException or InvalidOperationException)
         {
             Warn("Embedded deployment timezone configuration could not be read. Boot will continue with automatic detection.");
             return null;
         }
+    }
+
+    private static JsonElement ReadOptionalProperty(JsonElement element, string name)
+    {
+        JsonElement result = default;
+        foreach (JsonProperty property in element.EnumerateObject())
+        {
+            if (property.Name.Equals(name, StringComparison.OrdinalIgnoreCase)) result = property.Value;
+        }
+        return result;
     }
 
     private async Task<string?> DetectTimeZoneIdAsync(CancellationToken cancellationToken)

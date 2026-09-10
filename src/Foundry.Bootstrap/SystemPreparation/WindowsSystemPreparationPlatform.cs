@@ -7,27 +7,10 @@ using System.Runtime.InteropServices;
 
 namespace Foundry.Bootstrap.SystemPreparation;
 
-/// <summary>Applies preparation through Windows APIs and bounded native tools.</summary>
+/// <summary>Applies preparation through Windows APIs.</summary>
 internal sealed class WindowsSystemPreparationPlatform : ISystemPreparationPlatform
 {
-    private static readonly TimeSpan ToolTimeout = TimeSpan.FromSeconds(5);
-    private readonly IWindowsServiceManager _serviceManager;
-    private readonly IShortToolRunner _toolRunner;
-
-    public WindowsSystemPreparationPlatform()
-        : this(new WindowsServiceManager(), new ShortToolRunner())
-    {
-    }
-
-    internal WindowsSystemPreparationPlatform(
-        IWindowsServiceManager serviceManager,
-        IShortToolRunner toolRunner)
-    {
-        ArgumentNullException.ThrowIfNull(serviceManager);
-        ArgumentNullException.ThrowIfNull(toolRunner);
-        _serviceManager = serviceManager;
-        _toolRunner = toolRunner;
-    }
+    private readonly IWindowsServiceManager _serviceManager = new WindowsServiceManager();
 
     public string? EnvironmentTimeZoneId => Environment.GetEnvironmentVariable("FOUNDRY_WINPE_TIMEZONE_ID");
 
@@ -78,17 +61,10 @@ internal sealed class WindowsSystemPreparationPlatform : ISystemPreparationPlatf
 
     public string? GetCurrentTimeZoneId() => TimeZoneInfo.Local.Id;
 
-    public async Task SetTimeZoneAsync(string timeZoneId, CancellationToken cancellationToken)
+    public Task SetTimeZoneAsync(string timeZoneId, CancellationToken cancellationToken)
     {
-        int exitCode = await _toolRunner.RunAsync(
-            "tzutil.exe",
-            ["/s", timeZoneId],
-            ToolTimeout,
-            cancellationToken).ConfigureAwait(false);
-        if (exitCode != 0)
-        {
-            throw new InvalidOperationException($"Timezone utility returned exit code {exitCode}.");
-        }
+        WindowsTimeZone.Set(timeZoneId, cancellationToken);
+        return Task.CompletedTask;
     }
 
     [DllImport("kernel32.dll", SetLastError = true)]
