@@ -28,6 +28,7 @@ dotnet restore .\src\Foundry.slnx --nologo
 | --- | --- |
 | `Foundry` | WinUI 3 desktop authoring application |
 | `Foundry.Core` | Shared business logic, configuration, validation, media creation, and orchestration |
+| `Foundry.Bootstrap` | .NET console runtime for Windows PE boot orchestration, runtime payload preparation, and startup diagnostics |
 | `Foundry.Connect` | WPF network-provisioning runtime included in boot media |
 | `Foundry.Deploy` | WPF deployment runtime included in boot media |
 | `Foundry.Localization` | Shared cultures and resource-based localization |
@@ -78,7 +79,7 @@ Validate ARM64 when the change affects runtime behavior, packaging, architecture
 
 CI treats build warnings as errors. Existing targeted suppressions remain in effect; fix new warnings instead of adding blanket suppressions.
 
-Foundry OSD publishes without trimming or Native AOT, matching its Velopack packaging settings, and keeps ReadyToRun enabled in Release. Foundry.Connect and Foundry.Deploy retain their self-contained WPF publication without trimming or Native AOT.
+Foundry OSD publishes without trimming or Native AOT, matching its Velopack packaging settings, and keeps ReadyToRun enabled in Release. Foundry.Connect and Foundry.Deploy retain their self-contained WPF publication without trimming or Native AOT. Foundry.Bootstrap is published as a self-contained console application using the same single-file release settings for x64 and ARM64.
 
 Use disposable virtual machines, test disks, non-production tenants, and non-production credentials for manual media and deployment testing. Foundry workflows can erase disks and exercise privileged network or cloud operations.
 
