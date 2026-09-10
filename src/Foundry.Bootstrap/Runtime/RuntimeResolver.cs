@@ -11,7 +11,8 @@ namespace Foundry.Bootstrap.Runtime;
 
 /// <summary>Resolves the existing WinPE payload layout and release policy.</summary>
 internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, string runtimeIdentifier, HttpClient httpClient, ILogger logger,
-    Action<RuntimeDownloadProgress>? progress = null, Func<string, string?>? getEnvironmentVariable = null, Action<string>? warning = null) : IRuntimeResolver
+    Action<RuntimeDownloadProgress>? progress = null, Func<string, string?>? getEnvironmentVariable = null, Action<string>? warning = null,
+    Action<string>? activity = null) : IRuntimeResolver
 {
     private readonly RuntimeTransfer transfer = new(httpClient, progress);
     private readonly Func<string, string?> environment = getEnvironmentVariable ?? Environment.GetEnvironmentVariable;
@@ -175,6 +176,7 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
     }
     private async Task<string> VerifyHashAsync(string applicationName, string archive, string? expected, CancellationToken cancellationToken)
     {
+        activity?.Invoke($"Verifying archive for {applicationName}...");
         string actual = await FileHash.ComputeSha256Async(archive, cancellationToken).ConfigureAwait(false);
         if (!string.IsNullOrWhiteSpace(expected))
         {
@@ -198,6 +200,7 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
             Directory.CreateDirectory(staging);
             string tool = Path.Combine(winPeRoot, "Tools", "7zip", runtimeIdentifier == "win-x64" ? "x64" : "arm64", "7za.exe");
             long extractionStarted = Stopwatch.GetTimestamp();
+            activity?.Invoke($"Extracting files for {applicationName}...");
             logger.Debug("Archive extraction started for {PayloadApplication}; asset {AssetName}", applicationName, assetName);
             await RuntimeArchive.ExtractAsync(tool, archive, staging, cancellationToken).ConfigureAwait(false);
             logger.Debug("Archive extraction completed for {PayloadApplication}; asset {AssetName}; duration {DurationMilliseconds:F0} ms",
@@ -207,6 +210,7 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
             await File.WriteAllLinesAsync(Path.Combine(staging, "manifest"),
                 [$"Tag={tag}", $"Version={version}", $"Asset={assetName}", $"ArchiveSha256={hash}", $"UpdatedUtc={DateTime.UtcNow:O}"], cancellationToken).ConfigureAwait(false);
             cancellationToken.ThrowIfCancellationRequested();
+            activity?.Invoke($"Updating cache for {applicationName}...");
             new RuntimeCache().Promote(staging, cacheRoot);
             logger.Information("Runtime cache ready for {PayloadApplication} on {RuntimeIdentifier}; version {PayloadVersion}; duration {DurationMilliseconds:F0} ms",
                 applicationName, runtimeIdentifier, string.IsNullOrWhiteSpace(version) ? "unknown" : version,

@@ -21,6 +21,7 @@ internal sealed class BootstrapConsole : IDisposable
     private BootstrapProgress? current;
     private BootstrapResult? result;
     private RuntimeDownloadProgress? download;
+    private string? activity;
     private string? diagnosticSession;
     private string? diagnosticLog;
     private long lastOutput = Stopwatch.GetTimestamp();
@@ -67,6 +68,7 @@ internal sealed class BootstrapConsole : IDisposable
             }
             current = value;
             download = null;
+            activity = null;
             int index = (int)value.Stage;
             if (value.Status == BootstrapStatus.Running) stageStarts[index] ??= Stopwatch.GetTimestamp();
             else if (stageStarts[index] is long stageStart)
@@ -85,8 +87,21 @@ internal sealed class BootstrapConsole : IDisposable
         {
             if (stopped || disposed) return;
             download = value;
+            activity = null;
             if (Stopwatch.GetElapsedTime(lastOutput) < TimeSpan.FromSeconds(1)) return;
             if (!Render()) WriteLine(DownloadText(value));
+            lastOutput = Stopwatch.GetTimestamp();
+        }
+    }
+
+    internal void ReportActivity(string message)
+    {
+        lock (gate)
+        {
+            if (stopped || disposed) return;
+            download = null;
+            activity = message;
+            if (!Render()) WriteLine(message);
             lastOutput = Stopwatch.GetTimestamp();
         }
     }
@@ -149,7 +164,7 @@ internal sealed class BootstrapConsole : IDisposable
             if (interactive) Render();
             else if (Stopwatch.GetElapsedTime(lastOutput) >= TimeSpan.FromSeconds(15))
             {
-                WriteLine($"{current.Message} - elapsed {ElapsedText()}");
+                WriteLine($"{activity ?? current.Message} - elapsed {ElapsedText()}");
                 lastOutput = Stopwatch.GetTimestamp();
             }
         }
@@ -266,7 +281,7 @@ internal sealed class BootstrapConsole : IDisposable
             foreach (BootstrapStage stage in Enum.GetValues<BootstrapStage>())
                 Add($"  {StageName(stage),-27}{StatusText(stage),-15}{(width >= 50 ? StageElapsedText(stage) : "")}");
             Add("");
-            Add(stopped ? FinalMessage() : download is not null ? $"Downloading {download.ApplicationName}" : current?.Message ?? "Starting...");
+            Add(stopped ? FinalMessage() : download is not null ? $"Downloading {download.ApplicationName}" : activity ?? current?.Message ?? "Starting...");
             if (download is not null) Add(DownloadProgressText(download));
             Add("");
             Add($"{(stopped ? "Finished in" : "Elapsed:")} {ElapsedText()}");

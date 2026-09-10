@@ -90,7 +90,7 @@ internal static class Program
             using var httpClient = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
             var runtime = new RuntimeResolver(WinPeRoot, context.RuntimeRoot, context.RuntimeIdentifier,
                 httpClient, Log.ForContext<RuntimeResolver>(), presenter.ReportDownload,
-                warning: presenter.ReportWarning);
+                warning: presenter.ReportWarning, activity: presenter.ReportActivity);
             var preparation = new WinPeSystemPreparation(WinPeRoot, httpClient,
                 Log.ForContext<WinPeSystemPreparation>(), presenter.ReportWarning);
             var launcher = new ApplicationLauncher(Log.ForContext<ApplicationLauncher>(),
