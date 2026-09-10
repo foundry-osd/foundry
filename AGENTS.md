@@ -112,8 +112,6 @@ Unit testing rules:
 - Keep test projects aligned with the main project naming and solution structure
 - `Foundry.Core.Tests` owns tests for shared business logic, configuration contracts, validation, selection, transformation, and orchestration in `Foundry.Core`.
 - `Foundry.Bootstrap.Tests` owns tests for boot sequencing, runtime selection, cache rollback, process observation, cancellation, and best-effort system preparation and diagnostics in `Foundry.Bootstrap`.
-- Stage `Foundry.Bootstrap` in `X:\Foundry\Bootstrap` for every ISO and USB boot image; keep it outside the mutable Connect and Deploy caches.
-- Resolve one release snapshot per media build and preserve local debug sources without falling back to GitHub. Publish Bootstrap with the same architecture and single-file settings as Connect and Deploy.
 - `Foundry.Connect.Tests` owns tests for `Foundry.Connect` runtime behavior and its integration with shared `Foundry.Core` contracts.
 - `Foundry.Deploy.Tests` owns tests for `Foundry.Deploy` runtime behavior.
 - `Foundry.Localization.Tests` owns tests for shared localization behavior.
