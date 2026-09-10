@@ -38,6 +38,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeEmbeddedAssetService embeddedAssetService;
     private readonly IWinPeBuildService buildService;
     private readonly IWinPeWorkspacePreparationService workspacePreparationService;
+    private readonly IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService;
     private readonly IWinPeIsoMediaService isoMediaService;
     private readonly IWinPeUsbMediaService usbMediaService;
     private readonly IFilePickerService filePickerService;
@@ -74,6 +75,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeEmbeddedAssetService embeddedAssetService,
         IWinPeBuildService buildService,
         IWinPeWorkspacePreparationService workspacePreparationService,
+        IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService,
         IWinPeIsoMediaService isoMediaService,
         IWinPeUsbMediaService usbMediaService,
         IFilePickerService filePickerService,
@@ -95,6 +97,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.embeddedAssetService = embeddedAssetService;
         this.buildService = buildService;
         this.workspacePreparationService = workspacePreparationService;
+        this.runtimePayloadProvisioningService = runtimePayloadProvisioningService;
         this.isoMediaService = isoMediaService;
         this.usbMediaService = usbMediaService;
         this.filePickerService = filePickerService;
@@ -849,7 +852,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 Constants.WinPeWorkspaceDirectoryPath,
                 Constants.WinPeWorkspaceDirectoryPath,
                 Constants.WinPeWorkspaceDirectoryPath);
-            runtimePayloadProvisioning = AddReleaseConnectProvisioning(runtimePayloadProvisioning);
+            runtimePayloadProvisioning = AddReleaseRuntimeProvisioning(runtimePayloadProvisioning);
             TelemetrySettings connectTelemetrySettings = CreateRuntimeTelemetrySettings(ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect));
             TelemetrySettings deployTelemetrySettings = CreateRuntimeTelemetrySettings(ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy));
 
@@ -892,6 +895,18 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 artifact.MountDirectoryPath,
                 artifact.BootWimPath);
 
+            WinPeRuntimePayloadProvisioningOptions artifactRuntimePayloadProvisioning = runtimePayloadProvisioning with
+            {
+                WorkingDirectoryPath = artifact.WorkingDirectoryPath,
+                MountedImagePath = artifact.MountDirectoryPath,
+                UsbCacheRootPath = string.Empty
+            };
+            telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.PrepareRuntimePayloads);
+            WinPeResult<WinPeRuntimePayloadProvisioningOptions> runtimePreparation =
+                await runtimePayloadProvisioningService.PrepareAsync(artifactRuntimePayloadProvisioning, cancellationToken);
+            EnsureSuccess(runtimePreparation);
+            artifactRuntimePayloadProvisioning = runtimePreparation.Value!;
+
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.GenerateProvisioningPayloads);
             FoundryConnectProvisioningBundle connectBundle = foundryConfigurationStateService.GenerateConnectProvisioningBundle(
                 Path.Combine(artifact.WorkingDirectoryPath, "Provisioning"),
@@ -901,13 +916,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 connectBundle.AssetFiles.Count,
                 connectBundle.MediaSecretsKey is { Length: > 0 },
                 options.IsAutopilotEnabled ? foundryConfigurationStateService.Current.Autopilot.Profiles.Count : 0);
-
-            WinPeRuntimePayloadProvisioningOptions artifactRuntimePayloadProvisioning = runtimePayloadProvisioning with
-            {
-                WorkingDirectoryPath = artifact.WorkingDirectoryPath,
-                MountedImagePath = artifact.MountDirectoryPath,
-                UsbCacheRootPath = string.Empty
-            };
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.PrepareWinPeWorkspace);
             IProgress<WinPeWorkspacePreparationStage> workspacePreparationProgress =
@@ -936,7 +944,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                             deploymentProtectionMaterial,
                             runtimePayloadProvisioning,
                             deployTelemetrySettings),
-                        RuntimePayloadProvisioning = includeRuntimePayloadInImage ? artifactRuntimePayloadProvisioning : null,
+                        RuntimePayloadProvisioning = includeRuntimePayloadInImage
+                            ? artifactRuntimePayloadProvisioning
+                            : artifactRuntimePayloadProvisioning with
+                            {
+                                Connect = artifactRuntimePayloadProvisioning.Connect with { IsEnabled = false },
+                                Deploy = artifactRuntimePayloadProvisioning.Deploy with { IsEnabled = false }
+                            },
                         WinReCacheDirectoryPath = Constants.WinReTempDirectoryPath,
                         Progress = workspacePreparationProgress,
                         DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
@@ -996,7 +1010,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         return new WinPeMountedImageAssetProvisioningOptions
         {
-            BootstrapScriptContent = embeddedAssetService.GetBootstrapScriptContent(),
             CurlExecutableSourcePath = ResolveCurlExecutablePath(),
             SevenZipSourceDirectoryPath = embeddedAssetService.GetSevenZipSourceDirectoryPath(),
             IanaWindowsTimeZoneMapJson = embeddedAssetService.GetIanaWindowsTimeZoneMapJson(),
@@ -1636,7 +1649,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeDiagnostic? diagnostic,
         CancellationToken cancellationToken)
     {
-        WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning = AddReleaseConnectProvisioning(CreateRuntimePayloadProvisioningOptions(
+        WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning = AddReleaseRuntimeProvisioning(CreateRuntimePayloadProvisioningOptions(
             options.Architecture,
             Constants.WinPeWorkspaceDirectoryPath,
             Constants.WinPeWorkspaceDirectoryPath,
@@ -2435,17 +2448,17 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             projectDiscoveryStartPath: FindRepositoryRoot());
     }
 
-    private static WinPeRuntimePayloadProvisioningOptions AddReleaseConnectProvisioning(
+    private static WinPeRuntimePayloadProvisioningOptions AddReleaseRuntimeProvisioning(
         WinPeRuntimePayloadProvisioningOptions options)
     {
-        if (options.Connect.IsEnabled)
-        {
-            return options;
-        }
-
         return options with
         {
-            Connect = new WinPeRuntimePayloadApplicationOptions
+            Bootstrap = options.Bootstrap.IsEnabled ? options.Bootstrap : new WinPeRuntimePayloadApplicationOptions
+            {
+                IsEnabled = true,
+                ProvisioningSource = WinPeProvisioningSource.Release
+            },
+            Connect = options.Connect.IsEnabled ? options.Connect : new WinPeRuntimePayloadApplicationOptions
             {
                 IsEnabled = true,
                 ProvisioningSource = WinPeProvisioningSource.Release

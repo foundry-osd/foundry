@@ -16,7 +16,6 @@ public sealed class WinPeWorkspacePreparationServiceTests
         var customization = new FakeMountedImageCustomizationService();
         var assetProvisioning = new WinPeMountedImageAssetProvisioningOptions
         {
-            BootstrapScriptContent = "bootstrap",
             CurlExecutableSourcePath = Path.Combine(temp.RootPath, "curl.exe"),
             IanaWindowsTimeZoneMapJson = "{}"
         };

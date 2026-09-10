@@ -14,9 +14,6 @@
     <EmbeddedResource Include="Assets\Configuration\iana-windows-timezones.json">
       <LogicalName>Foundry.Core.Configuration.IanaWindowsTimeZones</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="Assets\WinPe\FoundryBootstrap.ps1">
-      <LogicalName>Foundry.Core.WinPe.FoundryBootstrap</LogicalName>
-    </EmbeddedResource>
     <EmbeddedResource Include="Assets\WinPe\ProvisionUsbDisk.ps1">
       <LogicalName>Foundry.Core.WinPe.ProvisionUsbDisk</LogicalName>
     </EmbeddedResource>

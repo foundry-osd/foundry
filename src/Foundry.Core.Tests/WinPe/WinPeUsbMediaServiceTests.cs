@@ -437,6 +437,7 @@ public sealed class WinPeUsbMediaServiceTests
             MountedImagePath = Path.Combine(workspace.RootPath, "mount"),
             UsbCacheRootPath = Path.Combine(workspace.RootPath, "old-cache"),
             WorkingDirectoryPath = Path.Combine(workspace.RootPath, "runtime-work"),
+            Bootstrap = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true },
             Connect = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true },
             Deploy = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
         };
@@ -453,6 +454,7 @@ public sealed class WinPeUsbMediaServiceTests
             cacheRoot);
 
         Assert.Equal(cacheRoot, result.UsbCacheRootPath);
+        Assert.False(result.Bootstrap.IsEnabled);
         Assert.Equal(string.Empty, result.MountedImagePath);
         Assert.Equal(WinPeArchitecture.Arm64, result.Architecture);
         Assert.Same(runtimeOptions.Connect, result.Connect);
@@ -1017,6 +1019,12 @@ public sealed class WinPeUsbMediaServiceTests
 
     private sealed class FakeRuntimePayloadProvisioningService(WinPeResult? result = null) : IWinPeRuntimePayloadProvisioningService
     {
+        public Task<WinPeResult<WinPeRuntimePayloadProvisioningOptions>> PrepareAsync(
+            WinPeRuntimePayloadProvisioningOptions options,
+            CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(WinPeResult<WinPeRuntimePayloadProvisioningOptions>.Success(options));
+        }
         public List<WinPeRuntimePayloadProvisioningOptions> Options { get; } = [];
         public List<IProgress<WinPeDownloadProgress>?> DownloadProgress { get; } = [];
 

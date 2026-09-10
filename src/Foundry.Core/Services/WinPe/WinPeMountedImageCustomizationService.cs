@@ -150,26 +150,9 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             return await FailWithDiscardAsync(internationalizationResult.Error!, session, cancellationToken).ConfigureAwait(false);
         }
 
-        if (options.AssetProvisioning is not null)
-        {
-            ReportProgress(options.Progress, 80, "Provisioning Foundry boot assets.");
-            WinPeResult assetProvisioningResult = await _assetProvisioningService.ProvisionAsync(
-                options.AssetProvisioning with
-                {
-                    MountedImagePath = session.MountDirectoryPath,
-                    Architecture = artifact.Architecture
-                },
-                cancellationToken).ConfigureAwait(false);
-
-            if (!assetProvisioningResult.IsSuccess)
-            {
-                return await FailWithDiscardAsync(assetProvisioningResult.Error!, session, cancellationToken).ConfigureAwait(false);
-            }
-        }
-
         if (options.RuntimePayloadProvisioning is not null)
         {
-            ReportProgress(options.Progress, 85, "Provisioning Foundry runtime payloads.");
+            ReportProgress(options.Progress, 80, "Provisioning Foundry runtime payloads.");
             WinPeResult runtimePayloadResult = await _runtimePayloadProvisioningService.ProvisionAsync(
                 options.RuntimePayloadProvisioning with
                 {
@@ -182,6 +165,23 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             if (!runtimePayloadResult.IsSuccess)
             {
                 return await FailWithDiscardAsync(runtimePayloadResult.Error!, session, cancellationToken).ConfigureAwait(false);
+            }
+        }
+
+        if (options.AssetProvisioning is not null)
+        {
+            ReportProgress(options.Progress, 85, "Provisioning Foundry boot assets.");
+            WinPeResult assetProvisioningResult = await _assetProvisioningService.ProvisionAsync(
+                options.AssetProvisioning with
+                {
+                    MountedImagePath = session.MountDirectoryPath,
+                    Architecture = artifact.Architecture
+                },
+                cancellationToken).ConfigureAwait(false);
+
+            if (!assetProvisioningResult.IsSuccess)
+            {
+                return await FailWithDiscardAsync(assetProvisioningResult.Error!, session, cancellationToken).ConfigureAwait(false);
             }
         }
 

@@ -18,8 +18,9 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         var runner = new FakeCustomizationRunner();
         var driverInjection = new FakeDriverInjectionService();
         var internationalization = new FakeInternationalizationService();
-        var assetProvisioning = new FakeAssetProvisioningService();
-        var runtimePayloadProvisioning = new FakeRuntimePayloadProvisioningService();
+        List<string> provisioningOrder = [];
+        var assetProvisioning = new FakeAssetProvisioningService { OnProvision = () => provisioningOrder.Add("assets") };
+        var runtimePayloadProvisioning = new FakeRuntimePayloadProvisioningService { OnProvision = () => provisioningOrder.Add("runtime") };
         var winRePreparation = new FakeWinRePreparationService();
         var service = new WinPeMountedImageCustomizationService(
             runner,
@@ -44,7 +45,6 @@ public sealed class WinPeMountedImageCustomizationServiceTests
                 DriverPackagePaths = [driverDirectory],
                 AssetProvisioning = new WinPeMountedImageAssetProvisioningOptions
                 {
-                    BootstrapScriptContent = "bootstrap",
                     CurlExecutableSourcePath = Path.Combine(temp.RootPath, "curl.exe"),
                     IanaWindowsTimeZoneMapJson = "{}"
                 },
@@ -54,6 +54,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(["runtime", "assets"], provisioningOrder);
         Assert.False(winRePreparation.WasCalled);
         Assert.Single(assetProvisioning.Options);
         Assert.Equal(temp.Artifact.MountDirectoryPath, assetProvisioning.Options[0].MountedImagePath);
@@ -291,12 +292,14 @@ public sealed class WinPeMountedImageCustomizationServiceTests
 
     private sealed class FakeAssetProvisioningService(WinPeResult? result = null) : IWinPeMountedImageAssetProvisioningService
     {
+        public Action? OnProvision { get; init; }
         public List<WinPeMountedImageAssetProvisioningOptions> Options { get; } = [];
 
         public Task<WinPeResult> ProvisionAsync(
             WinPeMountedImageAssetProvisioningOptions options,
             CancellationToken cancellationToken = default)
         {
+            OnProvision?.Invoke();
             Options.Add(options);
             return Task.FromResult(result ?? WinPeResult.Success());
         }
@@ -304,6 +307,13 @@ public sealed class WinPeMountedImageCustomizationServiceTests
 
     private sealed class FakeRuntimePayloadProvisioningService(WinPeResult? result = null) : IWinPeRuntimePayloadProvisioningService
     {
+        public Action? OnProvision { get; init; }
+        public Task<WinPeResult<WinPeRuntimePayloadProvisioningOptions>> PrepareAsync(
+            WinPeRuntimePayloadProvisioningOptions options,
+            CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(WinPeResult<WinPeRuntimePayloadProvisioningOptions>.Success(options));
+        }
         public List<WinPeRuntimePayloadProvisioningOptions> Options { get; } = [];
         public List<IProgress<WinPeDownloadProgress>?> DownloadProgressItems { get; } = [];
 
@@ -312,6 +322,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             IProgress<WinPeDownloadProgress>? downloadProgress = null,
             CancellationToken cancellationToken = default)
         {
+            OnProvision?.Invoke();
             Options.Add(options);
             DownloadProgressItems.Add(downloadProgress);
             return Task.FromResult(result ?? WinPeResult.Success());
