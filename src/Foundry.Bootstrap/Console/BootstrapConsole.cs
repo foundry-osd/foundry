@@ -258,8 +258,8 @@ internal sealed class BootstrapConsole : IDisposable
         double received = Math.Max(0, value.BytesReceived) / 1048576d;
         if (value.TotalBytes is not > 0) return $"{received:F1} MB transferred";
         double fraction = Math.Clamp((double)value.BytesReceived / value.TotalBytes.Value, 0, 1);
-        int filled = (int)(fraction * 20);
-        return $"{received:F1} MB / {value.TotalBytes.Value / 1048576d:F1} MB  [{new string('=', filled)}{new string(' ', 20 - filled)}] {fraction:P0}";
+        int filled = (int)(fraction * 40);
+        return $"{received:F1} MB / {value.TotalBytes.Value / 1048576d:F1} MB  [{new string('=', filled)}{new string(' ', 40 - filled)}] {fraction:P0}";
     }
 
     private bool Render()
