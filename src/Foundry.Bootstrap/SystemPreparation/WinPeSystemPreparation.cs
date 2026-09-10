@@ -143,10 +143,11 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
             return;
         }
 
-        if ((internetTime.Value - _platform.UtcNow).Duration() <= ClockSkewThreshold)
+        TimeSpan clockSkew = internetTime.Value - _platform.UtcNow;
+        if (clockSkew.Duration() <= ClockSkewThreshold)
         {
             IsClockUsable = true;
-            _logger.Information("System clock is within the allowed internet time threshold.");
+            _logger.Information("System clock is within the allowed internet time threshold. ClockSkewSeconds={ClockSkewSeconds:F0}", clockSkew.TotalSeconds);
             return;
         }
 
@@ -156,6 +157,7 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
             {
                 await _platform.SetSystemTimeAsync(internetTime.Value.ToUniversalTime(), token).ConfigureAwait(false);
                 IsClockUsable = true;
+                _logger.Information("System clock synchronized successfully. CorrectionSeconds={ClockSkewSeconds:F0}", clockSkew.TotalSeconds);
             },
             cancellationToken).ConfigureAwait(false);
     }
@@ -178,9 +180,9 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
             source = "public IP lookup";
         }
 
-        targetTimeZoneId ??= "UTC";
-        if (targetTimeZoneId == "UTC")
+        if (targetTimeZoneId is null)
         {
+            targetTimeZoneId = "UTC";
             source = "bootstrap fallback";
         }
 
@@ -193,7 +195,11 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
         _logger.Information("Applying WinPE timezone. TimeZoneId={TimeZoneId} Source={Source}", targetTimeZoneId, source);
         await TryActionAsync(
             "WinPE timezone could not be updated. Boot will continue.",
-            token => _platform.SetTimeZoneAsync(targetTimeZoneId, token),
+            async token =>
+            {
+                await _platform.SetTimeZoneAsync(targetTimeZoneId, token).ConfigureAwait(false);
+                _logger.Information("WinPE timezone configured successfully. TimeZoneId={TimeZoneId} Source={Source}", targetTimeZoneId, source);
+            },
             cancellationToken).ConfigureAwait(false);
     }
 
@@ -206,17 +212,28 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
 
         try
         {
-            using JsonDocument document = JsonDocument.Parse(File.ReadAllText(_deployConfigurationPath));
-            return document.RootElement
-                .GetProperty("localization")
-                .GetProperty("defaultTimeZoneId")
-                .GetString();
+            using JsonDocument document = JsonDocument.Parse(File.ReadAllText(_deployConfigurationPath),
+                new JsonDocumentOptions { AllowTrailingCommas = true, CommentHandling = JsonCommentHandling.Skip });
+            JsonElement localization = ReadOptionalProperty(document.RootElement, "localization");
+            if (localization.ValueKind is JsonValueKind.Undefined or JsonValueKind.Null) return null;
+            JsonElement timeZone = ReadOptionalProperty(localization, "defaultTimeZoneId");
+            return timeZone.ValueKind is JsonValueKind.Undefined or JsonValueKind.Null ? null : timeZone.GetString();
         }
-        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or JsonException or InvalidOperationException or KeyNotFoundException)
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or JsonException or InvalidOperationException)
         {
             Warn("Embedded deployment timezone configuration could not be read. Boot will continue with automatic detection.");
             return null;
         }
+    }
+
+    private static JsonElement ReadOptionalProperty(JsonElement element, string name)
+    {
+        JsonElement result = default;
+        foreach (JsonProperty property in element.EnumerateObject())
+        {
+            if (property.Name.Equals(name, StringComparison.OrdinalIgnoreCase)) result = property.Value;
+        }
+        return result;
     }
 
     private async Task<string?> DetectTimeZoneIdAsync(CancellationToken cancellationToken)

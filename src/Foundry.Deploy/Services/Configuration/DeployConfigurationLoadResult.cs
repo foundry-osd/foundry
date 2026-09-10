@@ -13,4 +13,7 @@ public sealed record DeployConfigurationLoadResult
     public FoundryDeployConfigurationDocument? Document { get; init; }
     public bool IsBootMediaUpdateRecommended { get; init; }
     public string? FailureMessage { get; init; }
+
+    /// <summary>Preserves the original parse or validation exception for protected startup diagnostics.</summary>
+    public Exception? FailureException { get; init; }
 }

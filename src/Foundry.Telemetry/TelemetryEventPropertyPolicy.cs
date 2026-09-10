@@ -49,7 +49,7 @@ public static class TelemetryEventPropertyPolicy
             [TelemetryEvents.BootstrapFailed] = new(StringComparer.Ordinal)
             {
                 "failure_category", "last_stage", "elapsed_seconds", "child_application",
-                "child_exit_code", "payload_source", "payload_version", "architecture"
+                "child_exit_code", "payload_source", "payload_version", "architecture", "child_startup_stage"
             },
             [TelemetryEvents.AppDailyActive] = new(StringComparer.Ordinal)
             {
@@ -267,12 +267,13 @@ public static class TelemetryEventPropertyPolicy
 
     private static bool IsAllowedBootstrapValue(string key, string value) => key switch
     {
-        "failure_category" => value is "child_exit" or "stage_failed",
+        "failure_category" => value is "child_exit" or "stage_failed" or "readiness_timeout" or "startup_failed" or "capability_invalid",
         "last_stage" => value is "environment" or "connect" or "system" or "deploymentpreparation" or "deploy",
         "child_application" => value is TelemetryApps.FoundryConnect or TelemetryApps.FoundryDeploy or "none",
         "payload_source" => value is TelemetryRuntimePayloadSources.None or TelemetryRuntimePayloadSources.Debug or
             TelemetryRuntimePayloadSources.Release or TelemetryRuntimePayloadSources.Unknown,
         "architecture" => value is "x64" or "arm64",
+        "child_startup_stage" => value is "managed_started" or "configuration_loaded" or "ui_ready" or "startup_failed",
         "payload_version" => value.Length <= 64 && Version.TryParse(value, out _),
         _ => false
     };

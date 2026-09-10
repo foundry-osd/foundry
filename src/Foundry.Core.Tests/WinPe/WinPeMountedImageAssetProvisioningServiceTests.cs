@@ -151,6 +151,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.Equal("curl", await File.ReadAllTextAsync(Path.Combine(image.System32Path, "curl.exe"), TestContext.Current.CancellationToken));
 
         string[] startnetLines = await File.ReadAllLinesAsync(startnetPath, TestContext.Current.CancellationToken);
+        Assert.Equal("@echo off", startnetLines[0]);
         Assert.Contains(startnetLines, line => line.Equals("wpeinit", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(startnetLines, line => line.Equals("echo existing", StringComparison.OrdinalIgnoreCase));
         Assert.Single(startnetLines, line => line.Equals(@"call X:\Foundry\Bootstrap\Launch.cmd", StringComparison.OrdinalIgnoreCase));

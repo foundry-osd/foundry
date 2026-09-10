@@ -4,11 +4,12 @@
 
 using System.Windows;
 using Foundry.Deploy.Services.Localization;
+using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Views;
 
 namespace Foundry.Deploy.Services.Security;
 
-public sealed class DeploymentPasswordDialogService(ILocalizationService localizationService)
+public sealed class DeploymentPasswordDialogService(ILocalizationService localizationService, RuntimeStartupDiagnostics startup)
     : IDeploymentPasswordDialogService
 {
     public DeploymentPasswordPromptResult Prompt(bool previousAttemptFailed)
@@ -28,6 +29,7 @@ public sealed class DeploymentPasswordDialogService(ILocalizationService localiz
             Owner = ResolveOwnerWindow()
         };
 
+        dialog.ContentRendered += (_, _) => startup.ReportUiReady();
         bool? submitted = dialog.ShowDialog();
         if (submitted != true)
         {

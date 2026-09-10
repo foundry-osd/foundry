@@ -4,7 +4,9 @@
 
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Threading;
 using Foundry.Connect.Services.ApplicationLifetime;
+using Foundry.Connect.Services.Runtime;
 using Foundry.Connect.ViewModels;
 using Microsoft.Extensions.Logging;
 
@@ -15,34 +17,52 @@ public partial class MainWindow : Window
     private readonly MainWindowViewModel _viewModel;
     private readonly IApplicationLifetimeService _applicationLifetimeService;
     private readonly ILogger<MainWindow> _logger;
+    private readonly RuntimeStartupDiagnostics _startup;
+    private readonly TaskCompletionSource _rendered = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    private bool _closed;
 
     public MainWindow(
         MainWindowViewModel viewModel,
         IApplicationLifetimeService applicationLifetimeService,
-        ILogger<MainWindow> logger)
+        ILogger<MainWindow> logger,
+        RuntimeStartupDiagnostics startup)
     {
         _viewModel = viewModel;
         _applicationLifetimeService = applicationLifetimeService;
         _logger = logger;
+        _startup = startup;
         InitializeComponent();
         DataContext = viewModel;
         Loaded += OnLoadedAsync;
+        ContentRendered += (_, _) => _rendered.TrySetResult();
+        Closed += (_, _) => { _closed = true; _rendered.TrySetCanceled(); };
     }
 
     private async void OnLoadedAsync(object sender, RoutedEventArgs e)
     {
+        Loaded -= OnLoadedAsync;
         _logger.LogInformation("MainWindow loaded. Starting asynchronous initialization.");
 
         try
         {
-            await _viewModel.InitializeAsync();
+            await _startup.ObserveInitializationAsync(_viewModel.InitializeAsync, WaitForRenderedAsync,
+                () => !_closed && !_applicationLifetimeService.IsExitRequested);
             _logger.LogInformation("MainWindow asynchronous initialization finished.");
+        }
+        catch (OperationCanceledException) when (_closed || _applicationLifetimeService.IsExitRequested)
+        {
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "MainWindow asynchronous initialization failed.");
+            _startup.ReportFailure(ex, "ui_initialization");
             _applicationLifetimeService.Exit(FoundryConnectExitCode.StartupFailure);
         }
+    }
+
+    private async Task WaitForRenderedAsync()
+    {
+        await _rendered.Task;
+        await Dispatcher.InvokeAsync(() => { }, DispatcherPriority.ContextIdle);
     }
 
     protected override void OnClosing(CancelEventArgs e)

@@ -80,20 +80,28 @@ internal static class Program
             BootstrapContext context = BootstrapEnvironment.Create(WinPeRoot, sessionId,
                 RuntimeInformation.OSArchitecture, volumes,
                 path => File.Exists(path) ? File.ReadAllText(path) : null);
+            Log.Information("Bootstrap runtime initialized. Version={Version}; runtime {RuntimeIdentifier}; Connect source {ConnectSource}; Deploy source {DeploySource}; persistent logs {HasPersistentLogs}",
+                typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
+                context.RuntimeIdentifier, context.ConnectIsDebug ? "Debug" : "Release", context.DeployIsDebug ? "Debug" : "Release",
+                context.PersistenceDirectory is not null);
+            Log.Debug("Bootstrap storage selected. RuntimeRoot={RuntimeRoot}; LogPath={LogPath}; PersistenceDirectory={PersistenceDirectory}",
+                context.RuntimeRoot, logPath, context.PersistenceDirectory);
             Directory.CreateDirectory(context.RuntimeRoot);
             using var httpClient = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
             var runtime = new RuntimeResolver(WinPeRoot, context.RuntimeRoot, context.RuntimeIdentifier,
                 httpClient, Log.ForContext<RuntimeResolver>(), presenter.ReportDownload,
-                warning: presenter.ReportWarning);
+                warning: presenter.ReportWarning, activity: presenter.ReportActivity);
             var preparation = new WinPeSystemPreparation(WinPeRoot, httpClient,
                 Log.ForContext<WinPeSystemPreparation>(), presenter.ReportWarning);
-            var launcher = new ApplicationLauncher(Log.ForContext<ApplicationLauncher>());
+            var launcher = new ApplicationLauncher(Log.ForContext<ApplicationLauncher>(),
+                context.PersistenceDirectory ?? Path.Combine(WinPeRoot, "Logs", sessionId),
+                presenter.ReportWarning, telemetry.RecoverChildFailure);
             var coordinator = new BootstrapCoordinator(context, runtime, preparation, launcher, persistence,
                 Log.ForContext<BootstrapCoordinator>(), presenter.Report,
                 () => telemetry.StartDelivery(preparation.IsClockUsable), telemetry.Complete);
             coordinatorStarted = true;
             BootstrapResult result = await coordinator.RunAsync(cancellation.Token).ConfigureAwait(false);
-            if (result.Outcome != BootstrapOutcome.Succeeded) { presenter.ShowDiagnostics(sessionId, logPath); }
+            presenter.Complete(result, sessionId, logPath);
             return result.ExitCode;
         }
         catch (Exception exception)

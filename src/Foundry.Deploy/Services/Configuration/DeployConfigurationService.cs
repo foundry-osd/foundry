@@ -117,7 +117,8 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
             {
                 ConfigurationPath = _configurationPath,
                 Exists = true,
-                FailureMessage = ex.Message
+                FailureMessage = ex.Message,
+                FailureException = ex
             };
         }
     }

@@ -23,7 +23,8 @@ internal sealed record BootstrapPendingRecord(
     Dictionary<string, object>? Properties,
     RemoteDiagnosticRecord? Diagnostic,
     int Attempts = 0,
-    BootstrapDeliveryState State = BootstrapDeliveryState.Pending);
+    BootstrapDeliveryState State = BootstrapDeliveryState.Pending,
+    bool RetainAcknowledgement = false);
 
 /// <summary>Bounds both RAM and disk; callers serialize access and apply consent before replay.</summary>
 internal sealed class BootstrapTelemetryJournal
@@ -43,7 +44,15 @@ internal sealed class BootstrapTelemetryJournal
 
     internal static string Scope(string host, string token, string installation) =>
         Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(
-            string.Join('\n', host.TrimEnd('/').ToLowerInvariant(), token, installation))));
+            string.Join('\n', CanonicalDestination(host), token, installation))));
+
+    private static string CanonicalDestination(string host)
+    {
+        if (!Uri.TryCreate(host, UriKind.Absolute, out Uri? uri)) return host.TrimEnd('/');
+        string userInfo = uri.UserInfo.Length == 0 ? string.Empty : uri.UserInfo + "@";
+        return uri.Scheme.ToLowerInvariant() + "://" + userInfo + uri.Authority.ToLowerInvariant() +
+            uri.AbsolutePath.TrimEnd('/') + uri.Query + uri.Fragment;
+    }
 
     internal void Add(BootstrapPendingRecord record)
     {
@@ -54,12 +63,23 @@ internal sealed class BootstrapTelemetryJournal
         }
     }
 
+    /// <summary>Transfers all destinations in one durable update without replacing prior receipts or attempt counts.</summary>
+    internal bool Import(IReadOnlyList<BootstrapPendingRecord> records)
+    {
+        if (records.Any(record => JsonSerializer.SerializeToUtf8Bytes(record).Length > MaximumRecordBytes)) return false;
+        foreach (BootstrapPendingRecord record in records)
+        {
+            if (!_records.Any(existing => existing.Id == record.Id)) _records.Add(record);
+        }
+        return Save();
+    }
+
     internal bool Update(BootstrapPendingRecord record)
     {
         int index = _records.FindIndex(candidate => candidate.Id == record.Id);
         if (index >= 0)
         {
-            if (record.State == BootstrapDeliveryState.Acknowledged) _records.RemoveAt(index);
+            if (record.State == BootstrapDeliveryState.Acknowledged && !record.RetainAcknowledgement) _records.RemoveAt(index);
             else _records[index] = record;
             return Save();
         }
@@ -88,7 +108,7 @@ internal sealed class BootstrapTelemetryJournal
                     BootstrapPendingRecord? record = JsonSerializer.Deserialize<BootstrapPendingRecord>(line);
                     if (record is not null && record.Id != Guid.Empty && record.Scope is { Length: 64 } &&
                         Enum.IsDefined(record.Destination) && Enum.IsDefined(record.State) && record.Attempts >= 0 &&
-                        record.State != BootstrapDeliveryState.Acknowledged &&
+                        (record.State != BootstrapDeliveryState.Acknowledged || record.RetainAcknowledgement) &&
                         (record.Destination == BootstrapTelemetryDestination.Analytics ? record.Properties is not null :
                             record.Diagnostic is { Attributes: not null, Body: not null } diagnostic && Enum.IsDefined(diagnostic.Level) && diagnostic.Level >= Serilog.Events.LogEventLevel.Information &&
                             (record.Destination != BootstrapTelemetryDestination.Exception ||
@@ -129,6 +149,12 @@ internal sealed class BootstrapTelemetryJournal
         properties["$geoip_disable"] = false;
         return record with { Properties = properties };
     }
+
+    internal static RemoteDiagnosticRecord RevalidateDiagnostic(RemoteDiagnosticRecord record) =>
+        RemoteDiagnosticPropertyPolicy.SanitizePersistedRecord(record with
+        {
+            Attributes = record.Attributes.ToDictionary(pair => pair.Key, pair => Scalar(pair.Value), StringComparer.Ordinal)
+        });
 
     private static BootstrapPendingRecord Normalize(BootstrapPendingRecord record) => record with
     {

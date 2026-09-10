@@ -110,6 +110,10 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         }
 
         lines.Add(BootstrapInvocation);
+        if (!lines[0].Trim().Equals("@echo off", StringComparison.OrdinalIgnoreCase))
+        {
+            lines.Insert(0, "@echo off");
+        }
 
         await File.WriteAllLinesAsync(startnetPath, lines, Utf8NoBom, cancellationToken).ConfigureAwait(false);
     }

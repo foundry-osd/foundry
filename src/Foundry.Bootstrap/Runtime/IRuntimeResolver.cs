@@ -12,4 +12,7 @@ internal interface IRuntimeResolver
 }
 
 /// <summary>Reports measured payload transfer progress; an absent total means the size is unknown.</summary>
-internal sealed record RuntimeDownloadProgress(string ApplicationName, long BytesReceived, long? TotalBytes);
+internal sealed record RuntimeDownloadProgress(string ApplicationName, long BytesReceived, long? TotalBytes, RuntimeProgressPhase Phase = RuntimeProgressPhase.Download);
+
+/// <summary>Identifies the measured payload operation.</summary>
+internal enum RuntimeProgressPhase { Download, Verification, Extraction }

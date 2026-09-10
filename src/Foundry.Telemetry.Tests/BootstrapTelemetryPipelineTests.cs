@@ -211,7 +211,9 @@ public sealed class BootstrapTelemetryPipelineTests
                 first.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Warning, "Warning " + index));
         }
         var transport = new RecordingTransport();
-        await using var replay = Create(transport, folder.Path);
+        await using var replay = Create(transport, folder.Path, time: new TestClock());
+        replay.StartDelivery(clockUsable: false);
+        await transport.WaitForCountAsync(100, TimeSpan.FromSeconds(30));
         await replay.ShutdownAsync(TestContext.Current.CancellationToken);
         Assert.Equal(100, transport.Records.Count);
     }
@@ -371,9 +373,9 @@ public sealed class BootstrapTelemetryPipelineTests
         }
         public Task FlushAsync(CancellationToken cancellationToken) { FlushCount++; return Task.CompletedTask; }
         public ValueTask DisposeAsync() => ValueTask.CompletedTask;
-        internal async Task WaitForCountAsync(int count)
+        internal async Task WaitForCountAsync(int count, TimeSpan? waitTimeout = null)
         {
-            using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(3));
+            using var timeout = new CancellationTokenSource(waitTimeout ?? TimeSpan.FromSeconds(3));
             while (Records.Count < count) await Task.Delay(10, timeout.Token);
         }
     }
