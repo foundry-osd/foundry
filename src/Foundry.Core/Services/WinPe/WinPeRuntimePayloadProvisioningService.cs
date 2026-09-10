@@ -158,10 +158,6 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
 
             return WinPeResult.Success();
         }
-        catch (RuntimePublishException ex)
-        {
-            return WinPeResult.Failure(ex.Diagnostic);
-        }
         catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or NotSupportedException or InvalidOperationException or HttpRequestException or JsonException)
         {
             return WinPeResult.Failure(

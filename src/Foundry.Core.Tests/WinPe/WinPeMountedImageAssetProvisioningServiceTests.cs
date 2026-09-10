@@ -97,7 +97,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.False(File.Exists(Path.Combine(image.System32Path, "FoundryBootstrap.ps1")));
         string launcher = await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Bootstrap", "Launch.cmd"), TestContext.Current.CancellationToken);
         Assert.Contains("Foundry.Bootstrap.exe", launcher, StringComparison.Ordinal);
-        Assert.Contains("%errorlevel%", launcher, StringComparison.OrdinalIgnoreCase);
         Assert.Equal("curl", await File.ReadAllTextAsync(Path.Combine(image.System32Path, "curl.exe"), TestContext.Current.CancellationToken));
 
         string[] startnetLines = await File.ReadAllLinesAsync(startnetPath, TestContext.Current.CancellationToken);

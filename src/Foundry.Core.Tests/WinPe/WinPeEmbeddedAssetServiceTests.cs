@@ -8,9 +8,6 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeEmbeddedAssetServiceTests
 {
-
-
-
     [Fact]
     public void GetUsbProvisioningScriptTemplateContent_ReturnsProvisioningScriptTemplate()
     {
@@ -50,10 +47,4 @@ public sealed class WinPeEmbeddedAssetServiceTests
         Assert.True(File.Exists(Path.Combine(sourceDirectoryPath, "License.txt")));
         Assert.True(File.Exists(Path.Combine(sourceDirectoryPath, "readme.txt")));
     }
-
-
-
-
-
-
 }
