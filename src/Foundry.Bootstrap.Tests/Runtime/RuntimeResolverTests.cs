@@ -193,6 +193,55 @@ public sealed class RuntimeResolverTests : IDisposable
     }
 
     [Fact]
+    public async Task CorruptedEntryWithUnchangedLengthPreservesActiveCache()
+    {
+        string executable = SeedCache();
+        string archivePath = Path.Combine(root, "corrupted.zip");
+        using (ZipArchive archive = ZipFile.Open(archivePath, ZipArchiveMode.Create))
+        {
+            using Stream entry = archive.CreateEntry("Foundry.Connect.exe", CompressionLevel.NoCompression).Open();
+            entry.Write("candidate"u8);
+        }
+        byte[] archiveBytes = File.ReadAllBytes(archivePath);
+        int dataOffset = 30 + BitConverter.ToUInt16(archiveBytes, 26) + BitConverter.ToUInt16(archiveBytes, 28);
+        archiveBytes[dataOffset] ^= 1;
+        File.WriteAllBytes(archivePath, archiveBytes);
+        environment["FOUNDRY_CONNECT_ARCHIVE"] = archivePath;
+        using var client = CreateClient();
+
+        await Assert.ThrowsAsync<InvalidDataException>(() => CreateResolver(client)
+            .ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken));
+
+        Assert.Equal("original", File.ReadAllText(executable));
+        Assert.False(Directory.Exists(Path.GetDirectoryName(executable) + ".staging"));
+        Assert.False(Directory.Exists(Path.GetDirectoryName(executable) + ".previous"));
+        Assert.Empty(requests);
+    }
+
+    [Theory]
+    [InlineData(CompressionLevel.NoCompression)]
+    [InlineData(CompressionLevel.Optimal)]
+    public async Task NativeExtractionValidatesLargeAndEmptyEntries(CompressionLevel compression)
+    {
+        string archivePath = Path.Combine(root, "valid.zip");
+        Directory.CreateDirectory(root);
+        byte[] contents = new byte[200000];
+        new Random(42).NextBytes(contents);
+        using (ZipArchive archive = ZipFile.Open(archivePath, ZipArchiveMode.Create))
+        {
+            using (Stream entry = archive.CreateEntry("payload.bin", compression).Open())
+                entry.Write(contents);
+            archive.CreateEntry("empty.bin", compression);
+        }
+        string destination = Path.Combine(root, "staging");
+
+        await RuntimeArchive.ExtractAsync(archivePath, destination, TestContext.Current.CancellationToken);
+
+        Assert.Equal(contents, File.ReadAllBytes(Path.Combine(destination, "payload.bin")));
+        Assert.Empty(File.ReadAllBytes(Path.Combine(destination, "empty.bin")));
+    }
+
+    [Fact]
     public async Task CancellationDuringExtractionPreservesActiveCacheAndRemovesStaging()
     {
         string executable = SeedCache();
