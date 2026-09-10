@@ -79,6 +79,16 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
                 application, process.Id, capability.ProtocolVersion);
             ApplicationLaunchResult result = await new ApplicationStartupObserver().ObserveAsync(
                 new ObservedApplication(process), ReadStatus, waitForCompletion, cancellationToken).ConfigureAwait(false);
+            if (result.FailureCategory == "startup_failed" && recoverFailure is not null && !process.HasExited)
+            {
+                // Allow orderly child cleanup to release its failure record before terminal telemetry shutdown.
+                using var exitGrace = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+                exitGrace.CancelAfter(TimeSpan.FromSeconds(5));
+                try { await process.WaitForExitAsync(exitGrace.Token).ConfigureAwait(false); }
+                catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested) { }
+                cancellationToken.ThrowIfCancellationRequested();
+                if (process.HasExited) { result = result with { ExitCode = process.ExitCode }; }
+            }
             logger.ForContext("RemoteDiagnostic", true).Information(
                 "Application startup observed for {Component}: {Outcome}; stage {Stage}; exit {ExitCode}; reason {FailureReason}; duration {DurationMilliseconds:F0} ms",
                 application, result.Succeeded ? "Succeeded" : "Stopped", result.LastStage, result.ExitCode, result.FailureCategory,

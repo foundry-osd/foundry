@@ -153,6 +153,66 @@ public sealed class ApplicationLauncherTests
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
+    public async Task StartupFailureRecoveryWaitsForExitWithinBoundedGrace(bool exitsDuringGrace)
+    {
+        string directory = Directory.CreateTempSubdirectory("FoundryStartup-").FullName;
+        Process? fixture = null;
+        bool recovered = false;
+        try
+        {
+            File.WriteAllText(Path.Combine(directory, "foundry.startup.json"), "{\"protocolVersions\":[1]}");
+            using var logger = new LoggerConfiguration().CreateLogger();
+            var launcher = new ApplicationLauncher(logger, Path.Combine(directory, "session"),
+                recoverFailure: (_, _, _) =>
+                {
+                    Assert.True(fixture!.HasExited);
+                    recovered = true;
+                }, startProcess: start =>
+                {
+                    Process child = Process.Start(new ProcessStartInfo("ping.exe", $"-n {(exitsDuringGrace ? 2 : 30)} 127.0.0.1")
+                    {
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    })!;
+                    fixture = Process.GetProcessById(child.Id);
+                    File.WriteAllText(start.Environment["FOUNDRY_STARTUP_STATUS_PATH"]!, System.Text.Json.JsonSerializer.Serialize(new
+                    {
+                        protocolVersion = 1,
+                        sessionId = start.Environment["FOUNDRY_DIAGNOSTIC_SESSION_ID"],
+                        launchId = start.Environment["FOUNDRY_STARTUP_LAUNCH_ID"],
+                        application = "Foundry.Deploy",
+                        processId = child.Id,
+                        stage = "startup_failed",
+                        timestampUtc = DateTimeOffset.UtcNow
+                    }));
+                    return child;
+                });
+            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            ApplicationLaunchResult result = await launcher.StartDeployAsync(Path.Combine(directory, "Foundry.Deploy.exe"),
+                new Dictionary<string, string?> { ["FOUNDRY_DIAGNOSTIC_SESSION_ID"] = "TEST" }, deadline.Token);
+            Assert.False(result.Succeeded);
+            Assert.Equal("startup_failed", result.FailureCategory);
+            Assert.Equal(exitsDuringGrace, recovered);
+            Assert.Equal(exitsDuringGrace, fixture!.HasExited);
+            Assert.Equal(exitsDuringGrace ? 0 : (int?)null, result.ExitCode);
+        }
+        finally
+        {
+            if (fixture is not null)
+            {
+                using (fixture)
+                {
+                    if (!fixture.HasExited) { fixture.Kill(); }
+                    await fixture.WaitForExitAsync(CancellationToken.None);
+                }
+            }
+            Directory.Delete(directory, recursive: true);
+        }
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
     public async Task NegotiatedChildAcknowledgementUsesActualLaunchIdentity(bool connect)
     {
         string directory = Directory.CreateTempSubdirectory("FoundryStartup-").FullName;
