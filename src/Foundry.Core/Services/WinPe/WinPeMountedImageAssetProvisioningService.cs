@@ -14,8 +14,18 @@ namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedImageAssetProvisioningService
 {
-    private const string BootstrapFileName = "FoundryBootstrap.ps1";
-    private const string BootstrapInvocation = @"powershell.exe -ExecutionPolicy Bypass -NoProfile -File X:\Windows\System32\FoundryBootstrap.ps1";
+    private const string BootstrapInvocation = @"call X:\Foundry\Bootstrap\Launch.cmd";
+    private const string BootstrapLauncher = """
+        @echo off
+        setlocal
+        if not exist "X:\Foundry\Logs" mkdir "X:\Foundry\Logs"
+        >"X:\Foundry\Logs\FoundryBootstrap.Launcher.log" echo [%date% %time%] Starting Foundry.Bootstrap.exe
+        "X:\Foundry\Bootstrap\Foundry.Bootstrap.exe"
+        set "bootstrapExitCode=%errorlevel%"
+        >>"X:\Foundry\Logs\FoundryBootstrap.Launcher.log" echo [%date% %time%] Foundry.Bootstrap.exe exited with code %bootstrapExitCode%
+        if not "%bootstrapExitCode%"=="0" if not "%bootstrapExitCode%"=="20" echo Foundry startup failed. See X:\Foundry\Logs for details.
+        exit /b %bootstrapExitCode%
+        """;
     private const string Oa3CfgTemplate = """
         <?xml version="1.0" encoding="utf-8"?>
         <OA3>
@@ -60,9 +70,10 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             Directory.CreateDirectory(system32Path);
             Directory.CreateDirectory(foundryConfigPath);
 
+            File.Delete(Path.Combine(system32Path, "FoundryBootstrap.ps1"));
             await File.WriteAllTextAsync(
-                Path.Combine(system32Path, BootstrapFileName),
-                options.BootstrapScriptContent,
+                Path.Combine(foundryRootPath, "Bootstrap", "Launch.cmd"),
+                BootstrapLauncher.ReplaceLineEndings("\r\n") + "\r\n",
                 Utf8NoBom,
                 cancellationToken).ConfigureAwait(false);
 
@@ -90,15 +101,15 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             ? [.. await File.ReadAllLinesAsync(startnetPath, cancellationToken).ConfigureAwait(false)]
             : [];
 
+        lines.RemoveAll(line => line.Contains("FoundryBootstrap.ps1", StringComparison.OrdinalIgnoreCase) ||
+            line.Trim().Equals(BootstrapInvocation, StringComparison.OrdinalIgnoreCase));
+
         if (!lines.Any(line => line.Trim().Equals("wpeinit", StringComparison.OrdinalIgnoreCase)))
         {
             lines.Insert(0, "wpeinit");
         }
 
-        if (!lines.Any(line => line.Contains(BootstrapFileName, StringComparison.OrdinalIgnoreCase)))
-        {
-            lines.Add(BootstrapInvocation);
-        }
+        lines.Add(BootstrapInvocation);
 
         await File.WriteAllLinesAsync(startnetPath, lines, Utf8NoBom, cancellationToken).ConfigureAwait(false);
     }
@@ -453,12 +464,13 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
                 $"Value: '{options.Architecture}'.");
         }
 
-        if (string.IsNullOrWhiteSpace(options.BootstrapScriptContent))
+        string bootstrapPath = Path.Combine(options.MountedImagePath, "Foundry", "Bootstrap", "Foundry.Bootstrap.exe");
+        if (!File.Exists(bootstrapPath))
         {
             return new WinPeDiagnostic(
                 WinPeErrorCodes.ValidationFailed,
-                "Foundry bootstrap script content is required.",
-                "Set WinPeMountedImageAssetProvisioningOptions.BootstrapScriptContent.");
+                "Foundry.Bootstrap executable is missing from the mounted boot image.",
+                $"Provision the Bootstrap runtime payload before boot assets. Expected '{bootstrapPath}'.");
         }
 
         if (string.IsNullOrWhiteSpace(options.CurlExecutableSourcePath) || !File.Exists(options.CurlExecutableSourcePath))

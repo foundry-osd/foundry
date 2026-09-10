@@ -163,6 +163,9 @@ public sealed class UnattendMediaTests
         {
             string mounted = Path.Combine(root, "mount");
             Directory.CreateDirectory(Path.Combine(mounted, "Windows", "System32"));
+            string bootstrapDirectory = Path.Combine(mounted, "Foundry", "Bootstrap");
+            Directory.CreateDirectory(bootstrapDirectory);
+            File.WriteAllText(Path.Combine(bootstrapDirectory, "Foundry.Bootstrap.exe"), "bootstrap");
             ConfigPath = Path.Combine(mounted, "Foundry", "Config");
             SourcePath = Path.Combine(root, "source.xml");
             File.WriteAllBytes(SourcePath, Content);
@@ -177,7 +180,6 @@ public sealed class UnattendMediaTests
             Options = JsonSerializer.Deserialize<WinPeMountedImageAssetProvisioningOptions>(JsonSerializer.Serialize(new
             {
                 mountedImagePath = mounted,
-                bootstrapScriptContent = "bootstrap",
                 curlExecutableSourcePath = curl,
                 ianaWindowsTimeZoneMapJson = "{}",
                 deployConfigurationJson = deployJson,

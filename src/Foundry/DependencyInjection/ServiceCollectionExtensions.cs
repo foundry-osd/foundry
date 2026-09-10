@@ -125,6 +125,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
         services.AddSingleton<IConfigurationOverviewService, ConfigurationOverviewService>();
         services.AddSingleton<IWinPeEmbeddedAssetService, WinPeEmbeddedAssetService>();
+        services.AddSingleton<IWinPeRuntimePayloadProvisioningService, WinPeRuntimePayloadProvisioningService>();
         services.AddSingleton<IWinPeBuildService, WinPeBuildService>();
         services.AddSingleton<IWinPeWorkspacePreparationService, WinPeWorkspacePreparationService>();
         services.AddSingleton<IWinPeIsoMediaService, WinPeIsoMediaService>();
