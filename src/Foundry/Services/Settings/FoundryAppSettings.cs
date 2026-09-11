@@ -34,11 +34,6 @@ public sealed class FoundryAppSettings
     public UpdateSettings Updates { get; set; } = new();
 
     /// <summary>
-    /// Gets or sets diagnostic and developer-mode preferences.
-    /// </summary>
-    public DiagnosticsSettings Diagnostics { get; set; } = new();
-
-    /// <summary>
     /// Gets or sets anonymous telemetry preferences and identity.
     /// </summary>
     public TelemetryAppSettings Telemetry { get; set; } = new();
@@ -205,17 +200,6 @@ public sealed class UpdateSettings
     /// Gets or sets the last time an update check completed.
     /// </summary>
     public DateTimeOffset? LastCheckedAt { get; set; }
-}
-
-/// <summary>
-/// Stores diagnostic preferences that affect logging and developer-only UI behavior.
-/// </summary>
-public sealed class DiagnosticsSettings
-{
-    /// <summary>
-    /// Gets or sets a value indicating whether developer diagnostics are enabled.
-    /// </summary>
-    public bool DeveloperMode { get; set; }
 }
 
 /// <summary>

@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>การสร้างสื่อ</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>เปิดใช้งานการบันทึกของแอปพลิเคชันระดับดีบัก</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>การวินิจฉัยสำหรับนักพัฒนา</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>เปลี่ยนภาษาของแอปพลิเคชันโดยไม่ต้องรีสตาร์ท Foundry OSD</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>ส่งบันทึกที่ผ่านการลบข้อมูลละเอียดอ่อนและรายละเอียดข้อยกเว้นเพื่อช่วยวินิจฉัยความล้มเหลว โดยจะไม่รวมข้อมูลลับและตัวระบุโดยตรง</value>
+    <value>ส่งบันทึกทุกระดับและบริบททางเทคนิคไปยัง PostHog โดยปกปิดข้อมูลลับสำหรับการยืนยันตัวตน พร้อมรายงานข้อยกเว้นแยกต่างหาก บันทึกจะถูกลบโดยอัตโนมัติหลังจาก 7 วัน</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>เปิดใช้งานการวินิจฉัยระยะไกล</value>

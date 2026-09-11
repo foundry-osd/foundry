@@ -5,17 +5,15 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Channels;
+using Foundry.Utilities.Diagnostics;
 using Microsoft.Extensions.Options;
 using PostHog;
-using Serilog;
 using Serilog.Events;
-using Serilog.Parsing;
-using Serilog.Sinks.OpenTelemetry;
 
 namespace Foundry.Telemetry;
 
 /// <summary>
-/// Sanitizes and queues eligible log events for best-effort PostHog delivery.
+/// Captures complete Logs independently from the conservative, rate-limited Error Tracking channel.
 /// </summary>
 public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, IDisposable
 {
@@ -27,6 +25,11 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     private readonly Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, IRemoteDiagnosticsExporter> _exporterFactory;
     private readonly int _queueCapacity;
     private readonly Action<RemoteDiagnosticRecord>? _capture;
+    private readonly Action<RemoteDiagnosticRecord>? _logCapture;
+    private readonly bool _productionLogs;
+    private ReliableLogPipeline? _logs;
+    private RemoteDiagnosticsOptions? _configuredOptions;
+    private readonly List<Task> _retired = [];
     private readonly TimeProvider _timeProvider;
     private ConditionalWeakTable<Exception, ExceptionDedupeState> _seenExceptions = new();
     private readonly Dictionary<string, FingerprintWindowState> _fingerprints = new(StringComparer.Ordinal);
@@ -44,20 +47,23 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     /// Initializes a production PostHog diagnostics service.
     /// </summary>
     public PostHogRemoteDiagnosticsSink()
-        : this(static (options, context) => new PostHogDiagnosticsExporter(options, context), DefaultQueueCapacity)
+        : this(static (options, _) => new PostHogDiagnosticsExporter(options), DefaultQueueCapacity)
     {
+        _productionLogs = true;
     }
 
     internal PostHogRemoteDiagnosticsSink(
         Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, IRemoteDiagnosticsExporter> exporterFactory,
         int queueCapacity = DefaultQueueCapacity,
         TimeProvider? timeProvider = null,
-        Action<RemoteDiagnosticRecord>? capture = null)
+        Action<RemoteDiagnosticRecord>? capture = null,
+        Action<RemoteDiagnosticRecord>? logCapture = null)
     {
         ArgumentNullException.ThrowIfNull(exporterFactory);
         ArgumentOutOfRangeException.ThrowIfLessThan(queueCapacity, 1);
         _exporterFactory = exporterFactory;
         _capture = capture;
+        _logCapture = logCapture;
         _queueCapacity = queueCapacity;
         _timeProvider = timeProvider ?? TimeProvider.System;
     }
@@ -69,8 +75,14 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     {
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(context);
+        options = options with { LogDirectory = options.LogDirectory ?? RemoteDiagnosticsSink.LogDirectory };
         if (!options.CanSend || Volatile.Read(ref _stopping) != 0)
         {
+            if (_productionLogs && _logs is null && !options.IsEnabled)
+            {
+                using var pending = new DurableLogQueue(RemoteLogStorage.Resolve(options, context));
+                pending.Clear();
+            }
             Disable();
             return;
         }
@@ -84,14 +96,27 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
 
             if (_exporter is not null)
             {
-                Volatile.Write(ref _accepting, 1);
-                return;
+                if (_configuredOptions == options)
+                {
+                    _context = context;
+                    _logs?.Enable();
+                    Volatile.Write(ref _accepting, 1);
+                    return;
+                }
+                Disable();
+                _channel?.Writer.TryComplete();
+                _retired.Add(RetireAsync(_worker, _logs, _exporter));
+                _logs = null;
+                _exporter = null;
             }
 
             try
             {
                 _exporter = _exporterFactory(options, context);
                 _context = context;
+                _configuredOptions = options;
+                if (_productionLogs)
+                    _logs = new ReliableLogPipeline(new OtlpLogTransport(options, context), RemoteLogStorage.Resolve(options, context));
                 _channel = Channel.CreateBounded<QueuedRemoteDiagnosticRecord>(new BoundedChannelOptions(_queueCapacity)
                 {
                     FullMode = BoundedChannelFullMode.Wait,
@@ -124,6 +149,7 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
             Interlocked.Increment(ref _consentGeneration);
             _fingerprints.Clear();
             _seenExceptions = new ConditionalWeakTable<Exception, ExceptionDedupeState>();
+            _logs?.Disable();
         }
     }
 
@@ -131,6 +157,23 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     public void Emit(LogEvent logEvent)
     {
         ArgumentNullException.ThrowIfNull(logEvent);
+        if (Volatile.Read(ref _stopping) != 0 || HasTrueScalar(logEvent, "PostHogTransportInternal")) return;
+        try
+        {
+            lock (_gate)
+            {
+                if (!HasTrueScalar(logEvent, "RemoteDiagnosticsInternal") &&
+                    Volatile.Read(ref _accepting) != 0 && _context is not null && (_logs is not null || _logCapture is not null))
+                {
+                    RemoteDiagnosticRecord log = LogRecordFactory.Create(logEvent, _context);
+                    _logs?.Emit(log);
+                    _logCapture?.Invoke(log);
+                }
+            }
+        }
+#pragma warning disable CA1031 // Local storage/serialization failures must not suppress independent error tracking.
+        catch (Exception ex) { Debug.WriteLine($"Log capture failed: {ex.GetType().Name}"); }
+#pragma warning restore CA1031
         if (Volatile.Read(ref _stopping) != 0 || !ShouldExport(logEvent))
         {
             return;
@@ -217,6 +260,8 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
             _channel?.Writer.TryComplete();
         }
 
+        if (_logs is not null) await _logs.FlushAsync(cancellationToken).ConfigureAwait(false);
+
         await _worker.WaitAsync(cancellationToken).ConfigureAwait(false);
         if (_exporter is not null)
         {
@@ -254,6 +299,8 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
                 Debug.WriteLine($"Remote diagnostics disposal failed: {ex.GetType().Name}");
             }
         }
+        if (_logs is not null) await _logs.DisposeAsync().ConfigureAwait(false);
+        await Task.WhenAll(_retired).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -261,19 +308,24 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     /// </summary>
     public void Dispose() => DisposeAsync().AsTask().GetAwaiter().GetResult();
 
+    private static async Task RetireAsync(Task worker, ReliableLogPipeline? logs, IRemoteDiagnosticsExporter exporter)
+    {
+        try
+        {
+            if (logs is not null) await logs.DisposeAsync().ConfigureAwait(false);
+            await worker.ConfigureAwait(false);
+            await exporter.DisposeAsync().ConfigureAwait(false);
+        }
+#pragma warning disable CA1031 // Superseded diagnostics cannot interrupt settings changes.
+        catch (Exception ex) { Debug.WriteLine($"Retired diagnostics disposal failed: {ex.GetType().Name}"); }
+#pragma warning restore CA1031
+    }
+
     private static bool ShouldExport(LogEvent logEvent)
     {
-        if (HasTrueScalar(logEvent, "RemoteDiagnosticsInternal"))
-        {
-            return false;
-        }
-
-        return logEvent.Level switch
-        {
-            LogEventLevel.Fatal or LogEventLevel.Error or LogEventLevel.Warning => true,
-            LogEventLevel.Information => HasTrueScalar(logEvent, "RemoteDiagnostic"),
-            _ => false
-        };
+        return logEvent.Exception is not null && logEvent.Level >= LogEventLevel.Error
+            && !HasTrueScalar(logEvent, "RemoteDiagnosticsInternal")
+            && !HasTrueScalar(logEvent, "PostHogTransportInternal");
     }
 
     private static bool HasTrueScalar(LogEvent logEvent, string propertyName) =>
@@ -282,12 +334,8 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
 
     private bool TryAcquireFingerprint(LogEvent logEvent)
     {
-        if (HasTrueScalar(logEvent, "RemoteDiagnosticTerminal"))
-        {
-            return true;
-        }
-
-        string exceptionType = logEvent.Exception?.GetType().FullName ?? string.Empty;
+        string exceptionType = logEvent.Exception is LogExceptionSnapshot snapshot
+            ? snapshot.OriginalType : logEvent.Exception?.GetType().FullName ?? string.Empty;
         string failureCode = GetScalarText(logEvent, "FailureCode");
         if (string.IsNullOrEmpty(failureCode))
         {
@@ -368,51 +416,16 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     }
 }
 
+/// <summary>Exports the conservative Error Tracking contract; Logs use acknowledged OTLP delivery.</summary>
 internal sealed class PostHogDiagnosticsExporter : IRemoteDiagnosticsExporter
 {
-    private static readonly HashSet<string> ResourceAttributeNames = new(StringComparer.Ordinal)
-    {
-        "service.name",
-        "service.version",
-        "service.release",
-        "runtime.name",
-        "runtime.architecture"
-    };
-
-    private readonly Serilog.ILogger _logExporter;
     private readonly IPostHogEventClient _eventClient;
     private readonly PostHogExceptionTracker _exceptionTracker;
-    private int _logExporterDisposed;
     private int _disposed;
 
-    public PostHogDiagnosticsExporter(RemoteDiagnosticsOptions options, RemoteDiagnosticsContext context)
+    public PostHogDiagnosticsExporter(RemoteDiagnosticsOptions options)
     {
-        string logsEndpoint = options.HostUrl.TrimEnd('/') + "/i/v1/logs";
-        _logExporter = new LoggerConfiguration()
-            .WriteTo.OpenTelemetry(configuration =>
-            {
-                configuration.LogsEndpoint = logsEndpoint;
-                configuration.Protocol = OtlpProtocol.HttpProtobuf;
-                configuration.Headers = new Dictionary<string, string>(StringComparer.Ordinal)
-                {
-                    ["Authorization"] = $"Bearer {options.ProjectToken}"
-                };
-                configuration.ResourceAttributes = new Dictionary<string, object>(StringComparer.Ordinal)
-                {
-                    ["service.name"] = RemoteDiagnosticPropertyPolicy.SanitizeResourceValue(context.App),
-                    ["service.version"] = RemoteDiagnosticPropertyPolicy.SanitizeResourceValue(context.AppVersion),
-                    ["service.release"] = RemoteDiagnosticPropertyPolicy.SanitizeResourceValue(context.Release),
-                    ["runtime.name"] = RemoteDiagnosticPropertyPolicy.SanitizeResourceValue(context.Runtime),
-                    ["runtime.architecture"] = RemoteDiagnosticPropertyPolicy.SanitizeResourceValue(context.RuntimeArchitecture)
-                };
-                configuration.IncludedData = IncludedData.SpecRequiredResourceAttributes;
-                configuration.BatchingOptions.BatchSizeLimit = 50;
-                configuration.BatchingOptions.QueueLimit = 256;
-                configuration.BatchingOptions.BufferingTimeLimit = TimeSpan.FromSeconds(2);
-            }, ignoreEnvironment: true)
-            .CreateLogger();
-
-        var postHogClient = new PostHogClient(Options.Create(new PostHogOptions
+        var client = new PostHogClient(Options.Create(new PostHogOptions
         {
             ProjectToken = options.ProjectToken,
             HostUrl = new Uri(options.HostUrl, UriKind.Absolute),
@@ -422,79 +435,24 @@ internal sealed class PostHogDiagnosticsExporter : IRemoteDiagnosticsExporter
             FlushAt = 20,
             FlushInterval = TimeSpan.FromSeconds(5)
         }));
-        _eventClient = new PostHogEventClient(postHogClient);
+        _eventClient = new PostHogEventClient(client);
         _exceptionTracker = new PostHogExceptionTracker(_eventClient, options.InstallId);
     }
 
     public ValueTask ExportAsync(RemoteDiagnosticRecord record, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        ExportLog(record);
         ExportException(record);
         return ValueTask.CompletedTask;
     }
 
-    internal void ExportLog(RemoteDiagnosticRecord record) => _logExporter.Write(CreateLogEvent(record));
-
     internal void ExportException(RemoteDiagnosticRecord record) => _exceptionTracker.Track(record);
 
-    internal static LogEvent CreateLogEvent(RemoteDiagnosticRecord record)
-    {
-        var properties = new List<LogEventProperty>(record.Attributes.Count + 3);
-        properties.AddRange(record.Attributes
-            .Where(static attribute => !ResourceAttributeNames.Contains(attribute.Key))
-            .Select(static attribute =>
-                new LogEventProperty(attribute.Key, new ScalarValue(attribute.Value))));
-        if (record.Exception is not null)
-        {
-            properties.Add(new LogEventProperty("exception.type", new ScalarValue(record.Exception.Type)));
-            if (!string.Equals(record.Exception.Message, record.Body, StringComparison.Ordinal))
-            {
-                properties.Add(new LogEventProperty("exception.message", new ScalarValue(record.Exception.Message)));
-            }
-
-            if (!string.IsNullOrWhiteSpace(record.Exception.StackTrace))
-            {
-                properties.Add(new LogEventProperty("exception.stacktrace", new ScalarValue(record.Exception.StackTrace)));
-            }
-        }
-
-        return new LogEvent(
-            record.Timestamp,
-            record.Level,
-            exception: null,
-            CreateLiteralMessageTemplate(record.Body),
-            properties);
-    }
-
-    private static MessageTemplate CreateLiteralMessageTemplate(string message) =>
-        new MessageTemplateParser().Parse(
-            message
-                .Replace("{", "{{", StringComparison.Ordinal)
-                .Replace("}", "}}", StringComparison.Ordinal));
-
-    public async Task FlushAsync(CancellationToken cancellationToken)
-    {
-        await Task.Run(DisposeLogExporter).WaitAsync(cancellationToken).ConfigureAwait(false);
-        await _eventClient.FlushAsync().WaitAsync(cancellationToken).ConfigureAwait(false);
-    }
+    public Task FlushAsync(CancellationToken cancellationToken) => _eventClient.FlushAsync().WaitAsync(cancellationToken);
 
     public async ValueTask DisposeAsync()
     {
-        if (Interlocked.Exchange(ref _disposed, 1) != 0)
-        {
-            return;
-        }
-
-        DisposeLogExporter();
-        await _eventClient.DisposeAsync().ConfigureAwait(false);
-    }
-
-    private void DisposeLogExporter()
-    {
-        if (Interlocked.Exchange(ref _logExporterDisposed, 1) == 0 && _logExporter is IDisposable disposable)
-        {
-            disposable.Dispose();
-        }
+        if (Interlocked.Exchange(ref _disposed, 1) == 0)
+            await _eventClient.DisposeAsync().ConfigureAwait(false);
     }
 }

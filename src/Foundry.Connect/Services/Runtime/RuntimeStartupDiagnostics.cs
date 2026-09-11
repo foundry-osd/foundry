@@ -19,21 +19,23 @@ namespace Foundry.Connect.Services.Runtime;
 public sealed class RuntimeStartupDiagnostics
 {
     private readonly Action<string, string?, string?> _report;
-    private readonly Func<Exception, string, Guid?> _capture;
+    private readonly Func<Exception, LogEvent, string, Guid?> _capture;
     private readonly Func<ILogger> _logger;
+    private readonly TelemetrySettings? _earlySettings;
+    private readonly RemoteDiagnosticsContext? _earlyContext;
     private string? _emergencyPath;
     private int _failed;
     private int _ready;
 
     internal RuntimeStartupDiagnostics(Action<string, string?, string?> report,
-        Func<Exception, string, Guid?> capture, ILogger logger)
+        Func<Exception, LogEvent, string, Guid?> capture, ILogger logger)
     {
         _report = report;
         _capture = capture;
         _logger = () => logger;
     }
 
-    private RuntimeStartupDiagnostics(RuntimeStartupReporter? reporter, TelemetrySettings? settings)
+    internal RuntimeStartupDiagnostics(RuntimeStartupReporter? reporter, TelemetrySettings? settings)
     {
         _report = (stage, category, id) => reporter?.Report(stage, category, id);
         _logger = () => Log.ForContext<RuntimeStartupDiagnostics>();
@@ -43,14 +45,13 @@ public sealed class RuntimeStartupDiagnostics
             RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant(), CultureInfo.CurrentUICulture.Name,
             reporter?.SessionId ?? DiagnosticSessionContext.CurrentSessionId,
             TelemetryApps.FoundryConnect + "@" + FoundryConnectApplicationInfo.Version);
-        _capture = (exception, category) =>
+        _earlySettings = settings;
+        _earlyContext = context;
+        _capture = (exception, entry, category) =>
         {
             if (reporter is null || settings is null) return null;
             var options = new RemoteDiagnosticsOptions(settings.IsRemoteDiagnosticsEnabled,
                 settings.HostUrl, settings.ProjectToken, settings.InstallId);
-            var entry = new LogEvent(DateTimeOffset.UtcNow, LogEventLevel.Fatal, exception,
-                new MessageTemplateParser().Parse("Application startup failed at {FailureReason}."),
-                [new LogEventProperty("FailureReason", new ScalarValue(category))]);
             return ChildStartupFailureExchange.TryCapture(Path.GetDirectoryName(reporter.StatusPath)!,
                 Guid.Parse(reporter.LaunchId), options, context, entry);
         };
@@ -64,6 +65,16 @@ public sealed class RuntimeStartupDiagnostics
         TelemetrySettings? settings = reporter is null ? null : RuntimeTelemetryConsent.ReadSettings(
             @"X:\Foundry\Config\foundry.bootstrap.config.json", childConfigurationPath, configurationRequired);
         return new RuntimeStartupDiagnostics(reporter, settings);
+    }
+
+    /// <summary>Starts the process service with verified managed-startup consent before full configuration loading.</summary>
+    internal void InitializeRemoteDiagnostics(IRemoteDiagnosticsService service)
+    {
+        if (_earlySettings is null || _earlyContext is null) return;
+        var context = new TelemetryContext(_earlyContext.App, _earlyContext.AppVersion,
+            _earlyContext.BuildConfiguration, _earlyContext.Runtime, _earlySettings.RuntimePayloadSource,
+            TelemetryBootMediaTargets.None, _earlyContext.RuntimeArchitecture, _earlyContext.Locale, _earlyContext.SessionId);
+        RemoteDiagnosticsLifecycle.Initialize(service, _earlySettings, context);
     }
 
     /// <summary>Publishes successful configuration loading before the UI is constructed.</summary>
@@ -92,16 +103,27 @@ public sealed class RuntimeStartupDiagnostics
         Guid? recordId = null;
         try
         {
-            if (Volatile.Read(ref _ready) == 0) recordId = _capture(exception, category);
+            var entry = FoundryLogConfiguration.PrepareEvent(new LogEvent(DateTimeOffset.UtcNow, LogEventLevel.Fatal, exception,
+                new MessageTemplateParser().Parse("Application failed at {FailureReason}."),
+                [new LogEventProperty("FailureReason", new ScalarValue(category)),
+                 new LogEventProperty("SourceContext", new ScalarValue(typeof(RuntimeStartupDiagnostics).FullName))]),
+                "Foundry.Connect", DiagnosticSessionContext.CurrentSessionId);
+            try
+            {
+                if (Volatile.Read(ref _ready) == 0) recordId = _capture(exception, entry, category);
+            }
+            catch { }
+            try
+            {
+                _logger().ForContext("RemoteDiagnosticsInternal", recordId.HasValue).Write(entry);
+            }
+            catch { }
         }
         catch { }
-        try
+        finally
         {
-            _logger().ForContext("RemoteDiagnosticsInternal", recordId.HasValue)
-                .Fatal(exception, "Application failed at {FailureReason}.", category);
+            Report(StartupStage.StartupFailed, category, recordId?.ToString("N"));
         }
-        catch { }
-        Report(StartupStage.StartupFailed, category, recordId?.ToString("N"));
     }
 
     private void Report(string stage, string? category = null, string? recordId = null)

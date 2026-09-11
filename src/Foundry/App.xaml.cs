@@ -79,11 +79,9 @@ namespace Foundry
         {
             Host = FoundryHost.Create();
             _ = Host.Services.GetRequiredService<IApplicationProxyService>();
-            IAppSettingsService appSettingsService = Host.Services.GetRequiredService<IAppSettingsService>();
-            SetDeveloperModeEnabled(appSettingsService.Current.Diagnostics.DeveloperMode);
+            InitializeRemoteDiagnostics(Host.Services.GetRequiredService<TelemetrySettings>());
             _ = Host.Services.GetRequiredService<IFoundryConfigurationStateService>();
             Host.Services.GetRequiredService<IApplicationLocalizationService>().InitializeAsync().GetAwaiter().GetResult();
-            InitializeRemoteDiagnostics(Host.Services.GetRequiredService<TelemetrySettings>());
             RegisterWinUiExceptionHandler();
 
             AppLogger.Information("Foundry WinUI host initialized.");
@@ -175,9 +173,9 @@ namespace Foundry
             AppLogger.Debug("Flushing Foundry telemetry events.");
             GetService<ITelemetryService>().FlushAsync().GetAwaiter().GetResult();
             AppLogger.Debug("Foundry telemetry flush completed.");
+            AppLogger.Information("Foundry WinUI application work completed. Closing diagnostics and services.");
             ShutdownRemoteDiagnostics();
             Host.Dispose();
-            AppLogger.Information("Foundry WinUI shutdown completed.");
             Log.CloseAndFlush();
         }
 
@@ -191,24 +189,25 @@ namespace Foundry
 
         private void ShutdownRemoteDiagnostics()
         {
-            AppLogger.Debug("Flushing Foundry remote diagnostics.");
+            ILogger transportLogger = AppLogger.ForContext("PostHogTransportInternal", true);
+            transportLogger.Debug("Flushing Foundry remote diagnostics.");
             using var cancellation = new CancellationTokenSource(RemoteDiagnosticsShutdownTimeout);
             try
             {
                 RemoteDiagnosticsLifecycle.ShutdownAsync(
                     GetService<IRemoteDiagnosticsService>(),
                     cancellation.Token).GetAwaiter().GetResult();
-                AppLogger.Debug("Foundry remote diagnostics flush completed.");
+                transportLogger.Debug("Foundry remote diagnostics flush completed.");
             }
             catch (OperationCanceledException)
             {
-                AppLogger.Warning(
+                transportLogger.Warning(
                     "Foundry remote diagnostics flush timed out after {TimeoutSeconds} seconds.",
                     RemoteDiagnosticsShutdownTimeout.TotalSeconds);
             }
             catch (Exception ex)
             {
-                AppLogger.Warning(ex, "Foundry remote diagnostics shutdown failed.");
+                transportLogger.Warning(ex, "Foundry remote diagnostics shutdown failed.");
             }
         }
 

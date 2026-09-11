@@ -8,7 +8,6 @@ using Foundry.Localization;
 using Foundry.Core.Services.Application;
 using Foundry.Services.Application;
 using Foundry.Services.Localization;
-using Foundry.Services.Settings;
 using Foundry.Utilities.Diagnostics;
 using Microsoft.UI.Xaml.Controls;
 using Serilog;
@@ -17,22 +16,18 @@ namespace Foundry.ViewModels
 {
     public sealed partial class GeneralSettingViewModel : ObservableObject
     {
-        private readonly IAppSettingsService appSettingsService;
         private readonly IExternalProcessLauncher externalProcessLauncher;
         private readonly IApplicationLocalizationService localizationService;
         private readonly IFilePickerService filePickerService;
 
         public GeneralSettingViewModel(
-            IAppSettingsService appSettingsService,
             IExternalProcessLauncher externalProcessLauncher,
             IApplicationLocalizationService localizationService,
             IFilePickerService filePickerService)
         {
-            this.appSettingsService = appSettingsService;
             this.externalProcessLauncher = externalProcessLauncher;
             this.localizationService = localizationService;
             this.filePickerService = filePickerService;
-            IsDeveloperMode = appSettingsService.Current.Diagnostics.DeveloperMode;
             RefreshSupportedLanguages();
         }
 
@@ -41,9 +36,6 @@ namespace Foundry.ViewModels
         public string LogDirectoryPath => LoggerSetup.LogFilePath == "<unavailable>"
             ? LoggerSetup.LogFilePath
             : Path.GetDirectoryName(LoggerSetup.LogFilePath) ?? Constants.LogDirectoryPath;
-
-        [ObservableProperty]
-        public partial bool IsDeveloperMode { get; set; }
 
         [ObservableProperty]
         public partial SupportedCultureOption? SelectedLanguage { get; set; }
@@ -56,13 +48,6 @@ namespace Foundry.ViewModels
             }
 
             await localizationService.SetLanguageAsync(selectedLanguage.Code);
-        }
-
-        partial void OnIsDeveloperModeChanged(bool value)
-        {
-            appSettingsService.Current.Diagnostics.DeveloperMode = value;
-            appSettingsService.Save();
-            SetDeveloperModeEnabled(value);
         }
 
         [RelayCommand]

@@ -150,8 +150,7 @@ public static partial class RemoteDiagnosticPropertyPolicy
         var safeProperties = new List<LogEventProperty>(logEvent.Properties.Count);
         foreach ((string name, LogEventPropertyValue propertyValue) in logEvent.Properties)
         {
-            object safeValue = (AllowedPropertyNames.ContainsKey(name) ||
-                                name is "RemoteDiagnostic" or "RemoteDiagnosticTerminal") &&
+            object safeValue = AllowedPropertyNames.ContainsKey(name) &&
                                TryConvertScalar(propertyValue, out object scalarValue)
                 ? scalarValue
                 : "<redacted>";
@@ -224,11 +223,17 @@ public static partial class RemoteDiagnosticPropertyPolicy
         string? stackTrace = exception.StackTrace is null
             ? null
             : SanitizeStackTrace(exception.StackTrace);
+        string exceptionType = exception is LogExceptionSnapshot snapshot
+            ? snapshot.OriginalType
+            : exception.GetType().FullName ?? exception.GetType().Name;
+        IEnumerable<Exception> children = exception is LogExceptionSnapshot sanitized
+            ? sanitized.InnerExceptions
+            : GetInnerExceptions(exception);
         return new RemoteDiagnosticException(
-            exception.GetType().FullName ?? exception.GetType().Name,
-            GetExceptionMessage(exception, depth == 0 ? safeRootMessage : exception.GetType().FullName ?? exception.GetType().Name),
+            exceptionType,
+            GetExceptionMessage(exception, depth == 0 ? safeRootMessage : exceptionType),
             stackTrace,
-            GetInnerExceptions(exception)
+            children
                 .Select(innerException => CreateException(innerException, safeRootMessage, depth + 1))
                 .OfType<RemoteDiagnosticException>()
                 .ToArray());
@@ -256,8 +261,6 @@ public static partial class RemoteDiagnosticPropertyPolicy
 
     private static string SanitizeAttribute(string? value) =>
         RemoteDiagnosticText.Sanitize(value, MaximumAttributeLength);
-
-    internal static string SanitizeResourceValue(string? value) => SanitizeAttribute(value);
 
     private static string SanitizeStackTrace(string stackTrace)
     {

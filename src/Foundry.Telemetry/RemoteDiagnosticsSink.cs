@@ -14,6 +14,14 @@ namespace Foundry.Telemetry;
 public sealed class RemoteDiagnosticsSink : ILogEventSink
 {
     private static IRemoteDiagnosticsService? _service;
+    private static readonly object Gate = new();
+    private static readonly Queue<LogEvent> Startup = new();
+    private static bool _bufferStartup = true;
+    private static long _startupDropped;
+    internal static string? LogDirectory { get; private set; }
+
+    /// <summary>Sets the process-local outbox root beside the selected local logs, before diagnostics initialization.</summary>
+    public static void SetLogDirectory(string? root) => LogDirectory = root;
 
     private RemoteDiagnosticsSink()
     {
@@ -30,20 +38,50 @@ public sealed class RemoteDiagnosticsSink : ILogEventSink
     public static void SetService(IRemoteDiagnosticsService service)
     {
         ArgumentNullException.ThrowIfNull(service);
-        Volatile.Write(ref _service, service);
+        lock (Gate)
+        {
+            Volatile.Write(ref _service, service);
+            while (Startup.TryDequeue(out LogEvent? logEvent)) service.Emit(logEvent);
+            _bufferStartup = false;
+        }
+        long dropped = Interlocked.Exchange(ref _startupDropped, 0);
+        if (dropped > 0)
+            Serilog.Log.ForContext("PostHogTransportInternal", true).Warning(
+                "Startup log buffer overflowed before diagnostic settings were available. LostRecords={LostRecords}", dropped);
     }
 
     /// <summary>
     /// Removes the registered service. Intended for orderly shutdown and isolated tests.
     /// </summary>
-    public static void Clear() => Volatile.Write(ref _service, null);
+    public static void Clear()
+    {
+        lock (Gate)
+        {
+            Volatile.Write(ref _service, null);
+            Startup.Clear();
+            _startupDropped = 0;
+            _bufferStartup = false;
+        }
+    }
 
     /// <inheritdoc />
     public void Emit(LogEvent logEvent)
     {
         try
         {
-            Volatile.Read(ref _service)?.Emit(logEvent);
+            lock (Gate)
+            {
+                if (_service is not null) _service.Emit(logEvent);
+                else if (_bufferStartup)
+                {
+                    if (Startup.Count == DurableLogQueue.DefaultMaximumRecords)
+                    {
+                        Startup.Dequeue();
+                        _startupDropped++;
+                    }
+                    Startup.Enqueue(logEvent);
+                }
+            }
         }
 #pragma warning disable CA1031 // The delegating sink must never affect application logging.
         catch (Exception ex)

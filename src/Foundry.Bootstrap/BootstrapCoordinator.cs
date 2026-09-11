@@ -59,7 +59,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
                 _ => "This boot stage could not be completed. Check the session log for details."
             };
             Report(status, message);
-            logger.ForContext("RemoteDiagnostic", true).Information("Bootstrap finished with {Outcome} at {Stage}; child exit {ExitCode}; elapsed {DurationMilliseconds} ms",
+            logger.Information("Bootstrap finished with {Outcome} at {Stage}; child exit {ExitCode}; elapsed {DurationMilliseconds} ms",
                 result.Outcome, result.Stage, result.ChildExitCode, Stopwatch.GetElapsedTime(started).TotalMilliseconds);
             try { completed?.Invoke(result, Stopwatch.GetElapsedTime(started)); }
             catch { }
@@ -80,6 +80,9 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         await BestEffortAsync(() => preparation.PrepareNetworkAsync(cancellationToken),
             "Some network preparation was unavailable. Continuing.").ConfigureAwait(false);
         Report(BootstrapStatus.Completed, "Environment prepared");
+
+        await BestEffortAsync(() => preparation.PrepareClockAsync(cancellationToken),
+            "Early clock synchronization was unavailable. Continuing to Foundry Connect.").ConfigureAwait(false);
 
         stage = BootstrapStage.Connect;
         Report(BootstrapStatus.Running, "Preparing Foundry Connect");
@@ -153,7 +156,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         }
         if (status == BootstrapStatus.Completed)
         {
-            logger.ForContext("RemoteDiagnostic", true).Information("Bootstrap stage {Stage} completed in {DurationMilliseconds:F0} ms",
+            logger.Information("Bootstrap stage {Stage} completed in {DurationMilliseconds:F0} ms",
                 stage, Stopwatch.GetElapsedTime(stageStarted).TotalMilliseconds);
         }
         progress(new BootstrapProgress(stage, status, message));

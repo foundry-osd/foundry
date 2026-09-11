@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Media maken</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Logboekregistratie voor de toepassing op debugniveau inschakelen.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostiek voor ontwikkelaars</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Wijzig de applicatietaal zonder Foundry OSD opnieuw te starten.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Verzend opgeschoonde logboeken en details over uitzonderingen om fouten te helpen diagnosticeren. Geheimen en directe identificatoren worden uitgesloten.</value>
+    <value>Alle logniveaus en technische context met afgeschermde authenticatiegeheimen en afzonderlijke uitzonderingsrapporten naar PostHog verzenden. Logs worden na 7 dagen automatisch verwijderd.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Diagnostiek op afstand inschakelen</value>

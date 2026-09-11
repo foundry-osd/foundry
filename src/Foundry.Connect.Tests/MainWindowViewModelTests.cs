@@ -143,11 +143,10 @@ public sealed class MainWindowViewModelTests
         Assert.Equal("network", entry.Properties["FailureKind"]);
         Assert.Equal("http_status", entry.Properties["FailureReason"]);
         Assert.Equal("502", entry.Properties["FailureCode"]);
-        Assert.Equal(true, entry.Properties["RemoteDiagnostic"]);
     }
 
     [Fact]
-    public async Task InitializeAsync_WhenProvisionedSettingsReturnHandledFailure_LogsStructuredRemoteDiagnosticOnce()
+    public async Task InitializeAsync_WhenProvisionedSettingsReturnHandledFailure_LogsStructuredFailureOnce()
     {
         var telemetry = new RecordingTelemetryService();
         var logger = new RecordingLogger<MainWindowViewModel>();
@@ -170,12 +169,11 @@ public sealed class MainWindowViewModelTests
         Assert.Equal("network", entry.Properties["FailureKind"]);
         Assert.Equal("profile_import_failed", entry.Properties["FailureReason"]);
         Assert.Equal("wifi_profile_import_failed", entry.Properties["FailureCode"]);
-        Assert.Equal(true, entry.Properties["RemoteDiagnostic"]);
-        Assert.Single(logger.Entries, item => item.Properties.ContainsKey("RemoteDiagnostic"));
+        Assert.Single(logger.Entries, item => item.Properties.ContainsKey("FailureKind"));
     }
 
     [Fact]
-    public async Task ConnectConfiguredWifiAsync_WhenHandledFailureIsReturned_LogsStructuredRemoteDiagnosticOnce()
+    public async Task ConnectConfiguredWifiAsync_WhenHandledFailureIsReturned_LogsStructuredFailureOnce()
     {
         var telemetry = new RecordingTelemetryService();
         var logger = new RecordingLogger<MainWindowViewModel>();
@@ -200,12 +198,11 @@ public sealed class MainWindowViewModelTests
         Assert.Equal("network", entry.Properties["FailureKind"]);
         Assert.Equal("connect_request_failed", entry.Properties["FailureReason"]);
         Assert.Equal("wifi_connect_request_failed", entry.Properties["FailureCode"]);
-        Assert.Equal(true, entry.Properties["RemoteDiagnostic"]);
-        Assert.Single(logger.Entries, item => item.Properties.ContainsKey("RemoteDiagnostic"));
+        Assert.Single(logger.Entries, item => item.Properties.ContainsKey("FailureKind"));
     }
 
     [Fact]
-    public async Task InitializeAsync_WhenProvisionedSettingsReturnWiredHandledFailure_LogsStructuredWiredRemoteDiagnostic()
+    public async Task InitializeAsync_WhenProvisionedSettingsReturnWiredHandledFailure_LogsStructuredWiredFailure()
     {
         var telemetry = new RecordingTelemetryService();
         var logger = new RecordingLogger<MainWindowViewModel>();
@@ -220,14 +217,14 @@ public sealed class MainWindowViewModelTests
         await viewModel.InitializeAsync();
         viewModel.Dispose();
 
-        LogEntry entry = Assert.Single(logger.Entries, item => item.Properties.ContainsKey("RemoteDiagnostic"));
+        LogEntry entry = Assert.Single(logger.Entries, item => item.Properties.ContainsKey("FailureKind"));
         Assert.Equal("network.apply_provisioned_settings", entry.Properties["NetworkOperation"]);
         Assert.Equal("profile_unavailable", entry.Properties["FailureReason"]);
         Assert.Equal("wired_profile_template_missing", entry.Properties["FailureCode"]);
     }
 
     [Fact]
-    public async Task InitializeAsync_WhenProvisionedSettingsReturnMixedHandledFailures_LogsOneRemoteDiagnosticPerFailure()
+    public async Task InitializeAsync_WhenProvisionedSettingsReturnMixedHandledFailures_LogsOneStructuredEventPerFailure()
     {
         var telemetry = new RecordingTelemetryService();
         var logger = new RecordingLogger<MainWindowViewModel>();
@@ -246,7 +243,7 @@ public sealed class MainWindowViewModelTests
         viewModel.Dispose();
 
         LogEntry[] entries = logger.Entries
-            .Where(item => item.Properties.ContainsKey("RemoteDiagnostic"))
+            .Where(item => item.Properties.ContainsKey("FailureKind"))
             .ToArray();
         Assert.Equal(2, entries.Length);
         Assert.All(entries, entry => Assert.Equal("network.apply_provisioned_settings", entry.Properties["NetworkOperation"]));
@@ -257,7 +254,7 @@ public sealed class MainWindowViewModelTests
     }
 
     [Fact]
-    public async Task InitializeAsync_WhenProvisionedSettingsAreCancelled_DoesNotLogRemoteDiagnosticFailure()
+    public async Task InitializeAsync_WhenProvisionedSettingsAreCancelled_DoesNotLogStructuredFailure()
     {
         var telemetry = new RecordingTelemetryService();
         var logger = new RecordingLogger<MainWindowViewModel>();
@@ -270,11 +267,11 @@ public sealed class MainWindowViewModelTests
         await viewModel.InitializeAsync();
         viewModel.Dispose();
 
-        Assert.DoesNotContain(logger.Entries, item => item.Properties.ContainsKey("RemoteDiagnostic"));
+        Assert.DoesNotContain(logger.Entries, item => item.Properties.ContainsKey("FailureKind"));
     }
 
     [Fact]
-    public async Task InitializeAsync_WhenHandledFailuresAlsoLogLocalServiceDetails_ExportsOneRemoteEligibleWarningPerFailure()
+    public async Task InitializeAsync_WhenHandledFailuresAlsoLogLocalServiceDetails_ForwardsAllLocalDiagnosticEvents()
     {
         using var temporaryDirectory = new TemporaryDirectory();
         string certificatePath = temporaryDirectory.CreateFile("invalid.cer", "not-a-certificate");
@@ -327,13 +324,13 @@ public sealed class MainWindowViewModelTests
             RemoteDiagnosticsSink.Clear();
         }
 
+        Assert.Equal(localSink.Events, remoteDiagnostics.Events);
         Assert.Equal(2, remoteDiagnostics.ExportEligibleWarnings.Count);
         Assert.All(
             remoteDiagnostics.ExportEligibleWarnings,
             warning =>
             {
                 Assert.Equal(LogEventLevel.Warning, warning.Level);
-                Assert.True(HasTrueScalar(warning, "RemoteDiagnostic"));
                 Assert.False(string.IsNullOrWhiteSpace(GetScalarText(warning, "FailureCode")));
             });
         Assert.Contains(
@@ -670,6 +667,7 @@ public sealed class MainWindowViewModelTests
     private sealed class RecordingRemoteDiagnosticsService : IRemoteDiagnosticsService
     {
         public List<LogEvent> ExportEligibleWarnings { get; } = [];
+        public List<LogEvent> Events { get; } = [];
 
         public void Configure(RemoteDiagnosticsOptions options, RemoteDiagnosticsContext context)
         {
@@ -681,6 +679,7 @@ public sealed class MainWindowViewModelTests
 
         public void Emit(LogEvent logEvent)
         {
+            Events.Add(logEvent);
             if (logEvent.Level == LogEventLevel.Warning && !HasTrueScalar(logEvent, "RemoteDiagnosticsInternal"))
             {
                 ExportEligibleWarnings.Add(logEvent);

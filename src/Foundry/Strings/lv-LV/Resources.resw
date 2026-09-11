@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Datu nesēja izveide</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Iespējot lietojumprogrammas atkļūdošanas līmeņa žurnalēšanu.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Izstrādātāja diagnostika</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Mainiet lietojumprogrammas valodu, nerestartējot Foundry OSD.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Nosūtiet attīrītus žurnālus un detalizētu informāciju par izņēmumiem, lai palīdzētu diagnosticēt kļūmes. Noslēpumi un tiešie identifikatori netiek iekļauti.</value>
+    <value>Sūtīt uz PostHog visu līmeņu žurnālus un tehnisko kontekstu ar maskētiem autentifikācijas noslēpumiem, kā arī atsevišķus izņēmumu pārskatus. Žurnāli tiek automātiski dzēsti pēc 7 dienām.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Iespējot attālo diagnostiku</value>

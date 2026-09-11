@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>建立媒體</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>啟用偵錯層級的應用程式記錄。</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>開發人員診斷</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>更改應用程式語言而無需重新啟動Foundry OSD。</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>傳送已清除敏感資訊的記錄和例外狀況詳細資料，以協助診斷失敗。系統不會包含機密資訊和直接識別碼。</value>
+    <value>將所有層級的記錄、技術內容及獨立的例外狀況報告傳送至 PostHog，並遮蔽驗證機密。記錄會在 7 天後自動刪除。</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>啟用遠端診斷</value>

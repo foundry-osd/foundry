@@ -96,14 +96,13 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ["Workflow"] = "deployment"
         });
         _logger.LogInformation(
-            "Starting deployment orchestration. Mode={Mode}, IsDryRun={IsDryRun}, TargetDiskNumber={TargetDiskNumber}, HasTargetComputerName={HasTargetComputerName}, DriverPackSelectionKind={DriverPackSelectionKind}, ApplyFirmwareUpdates={ApplyFirmwareUpdates}, RemoteDiagnostic={RemoteDiagnostic}",
+            "Starting deployment orchestration. Mode={Mode}, IsDryRun={IsDryRun}, TargetDiskNumber={TargetDiskNumber}, HasTargetComputerName={HasTargetComputerName}, DriverPackSelectionKind={DriverPackSelectionKind}, ApplyFirmwareUpdates={ApplyFirmwareUpdates}",
             context.Mode,
             context.IsDryRun,
             context.TargetDiskNumber,
             !string.IsNullOrWhiteSpace(context.TargetComputerName),
             context.DriverPackSelectionKind,
-            context.ApplyFirmwareUpdates,
-            true);
+            context.ApplyFirmwareUpdates);
 
         if (!_operationProgressService.TryStart(OperationKind.Deploy, "Starting Foundry.Deploy orchestration.", 0))
         {
@@ -204,11 +203,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 await executionContext.TrySaveRuntimeStateAsync(cancellationToken).ConfigureAwait(false);
 
                 _logger.LogInformation(
-                    "Executing deployment step {StepIndex}/{StepCount}: {StepName}. RemoteDiagnostic={RemoteDiagnostic}",
+                    "Executing deployment step {StepIndex}/{StepCount}: {StepName}.",
                     i + 1,
                     _steps.Count,
-                    step.Name,
-                    true);
+                    step.Name);
 
                 executionContext.EmitCurrentStep(
                     DeploymentStepState.Running,
@@ -217,11 +215,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     stepSubProgressLabel: $"Starting {step.Name}...");
                 DeploymentStepResult result = await step.ExecuteAsync(executionContext, cancellationToken).ConfigureAwait(false);
                 _logger.LogInformation(
-                    "Deployment step finished. StepName={StepName}, StepState={StepState}, CurrentOperation={CurrentOperation}, RemoteDiagnostic={RemoteDiagnostic}",
+                    "Deployment step finished. StepName={StepName}, StepState={StepState}, CurrentOperation={CurrentOperation}",
                     step.Name,
                     result.State,
-                    runtimeState.CurrentOperation,
-                    true);
+                    runtimeState.CurrentOperation);
 
                 _operationProgressService.Report(CalculateOverallProgressPercent(i + 1), result.Message);
                 executionContext.EmitCurrentStep(
@@ -476,7 +473,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             level,
             eventId: default,
             exception,
-            "Deployment operation finished. OperationId={OperationId}, Outcome={Outcome}, DurationMs={DurationMs}, CompletedStepCount={CompletedStepCount}, FailedStepName={FailedStepName}, FailedOperationName={FailedOperationName}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, Mode={Mode}, IsDryRun={IsDryRun}, Cancelled={Cancelled}, RemoteDiagnostic={RemoteDiagnostic}, RemoteDiagnosticTerminal={RemoteDiagnosticTerminal}",
+            "Deployment operation finished. OperationId={OperationId}, Outcome={Outcome}, DurationMs={DurationMs}, CompletedStepCount={CompletedStepCount}, FailedStepName={FailedStepName}, FailedOperationName={FailedOperationName}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, Mode={Mode}, IsDryRun={IsDryRun}, Cancelled={Cancelled}",
             operationId,
             outcome,
             Math.Round(duration.TotalMilliseconds, 0),
@@ -488,9 +485,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             failure?.Code,
             context.Mode,
             context.IsDryRun,
-            cancelled,
-            true,
-            true);
+            cancelled);
     }
 
     private static string ResolveFailedStepName(DeploymentRuntimeState runtimeState)

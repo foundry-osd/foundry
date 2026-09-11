@@ -8,7 +8,7 @@ using Serilog.Events;
 namespace Foundry.Telemetry;
 
 /// <summary>
-/// Captures sanitized Bootstrap records before connectivity, then drains in the background after preparation.
+/// Captures Bootstrap records before connectivity, then drains in the background after preparation.
 /// A persistent journal is optional; a RAM-backed path does not survive a reboot.
 /// </summary>
 public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
@@ -16,6 +16,7 @@ public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
     private readonly object _gate = new();
     private readonly BootstrapTelemetryJournal _journal;
     private readonly PostHogRemoteDiagnosticsSink _capture;
+    private readonly ReliableLogPipeline? _logs;
     private readonly TelemetryContext _context;
     private readonly string _usageScope;
     private readonly string _diagnosticScope;
@@ -40,13 +41,13 @@ public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
     public BootstrapTelemetryPipeline(TelemetryOptions usage, TelemetryContext context,
         RemoteDiagnosticsOptions diagnostics, RemoteDiagnosticsContext diagnosticContext, string? journalPath)
         : this(usage, context, diagnostics, diagnosticContext, journalPath,
-            () => new BootstrapTelemetryTransport(usage, context, diagnostics, diagnosticContext), TimeProvider.System)
+            () => new BootstrapTelemetryTransport(usage, context, diagnostics), TimeProvider.System)
     {
     }
 
     internal BootstrapTelemetryPipeline(TelemetryOptions usage, TelemetryContext context,
         RemoteDiagnosticsOptions diagnostics, RemoteDiagnosticsContext diagnosticContext, string? journalPath,
-        Func<IBootstrapTelemetryTransport> transportFactory, TimeProvider timeProvider)
+        Func<IBootstrapTelemetryTransport> transportFactory, TimeProvider timeProvider, ILogBatchTransport? logTransport = null)
     {
         _context = context;
         _transportFactory = transportFactory;
@@ -57,10 +58,22 @@ public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
         _diagnosticScope = BootstrapTelemetryJournal.Scope(diagnostics.HostUrl, diagnostics.ProjectToken, diagnostics.InstallId);
         _journal = new BootstrapTelemetryJournal(journalPath);
         PurgeDisallowed();
+        string? logDirectory = journalPath is null ? null : Path.Combine(journalPath + ".logs", _diagnosticScope);
+        if (_diagnosticsEnabled)
+        {
+            _logs = new ReliableLogPipeline(logTransport ?? new OtlpLogTransport(diagnostics, diagnosticContext),
+                logDirectory, startDelivery: false);
+            TransferLegacyLogs();
+        }
+        else if (logDirectory is not null)
+        {
+            using var revoked = new DurableLogQueue(logDirectory);
+            revoked.Clear();
+        }
         _replayIds = _journal.Records.Select(record => record.Id).ToHashSet();
         _previousBootIds = new HashSet<Guid>(_replayIds);
         _capture = new PostHogRemoteDiagnosticsSink(static (_, _) => new CaptureOnlyExporter(),
-            timeProvider: timeProvider, capture: CaptureDiagnostic);
+            timeProvider: timeProvider, capture: CaptureDiagnostic, logCapture: CaptureLog);
         _capture.Configure(diagnostics, diagnosticContext);
     }
 
@@ -71,6 +84,7 @@ public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
         {
             _usageEnabled &= usageEnabled;
             _diagnosticsEnabled &= diagnosticsEnabled;
+            if (!_diagnosticsEnabled) _logs?.Disable();
             PurgeDisallowed();
         }
         // Do not acquire the capture sink lock while holding the journal lock.
@@ -115,18 +129,20 @@ public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
             }
             RemoteDiagnosticRecord diagnostic = failure.Diagnostic;
             bool priorBoot = !diagnostic.Attributes.TryGetValue("session.id", out object? session) || !Equals(session, _context.SessionId);
-            if (priorBoot && _clockUsable && _time.GetUtcNow() - diagnostic.Timestamp > TimeSpan.FromDays(7))
-            {
-                ChildStartupFailureExchange.Retire(launchDirectory);
-                return false;
-            }
-            var records = new List<BootstrapPendingRecord>
-            {
-                ImportedRecord(failure.LogRecordId, BootstrapTelemetryDestination.Log, diagnostic)
-            };
-            if (diagnostic.Exception is not null)
+            bool expiredException = priorBoot && _clockUsable && _time.GetUtcNow() - diagnostic.Timestamp > TimeSpan.FromDays(7);
+            var records = new List<BootstrapPendingRecord>();
+            if (diagnostic.Exception is not null && !expiredException)
                 records.Add(ImportedRecord(failure.RecordId, BootstrapTelemetryDestination.Exception, diagnostic));
-            if (!_journal.Import(records)) return false;
+            if (records.Count > 0 && !_journal.Import(records)) return false;
+            RemoteDiagnosticRecord log = (failure.Log ?? diagnostic) with
+            {
+                Attributes = new Dictionary<string, object>((failure.Log ?? diagnostic).Attributes, StringComparer.Ordinal)
+                {
+                    ["diagnostics.record_id"] = failure.LogRecordId.ToString("N")
+                },
+                ShouldTrackException = false
+            };
+            if (_logs?.TryImport(log) != true) return false;
             foreach (BootstrapPendingRecord record in records)
             {
                 _replayIds.Add(record.Id);
@@ -156,6 +172,7 @@ public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
             if (_stopping) return;
             _clockUsable |= clockUsable;
             Expire();
+            _logs?.StartDelivery();
             StartWorker();
         }
     }
@@ -177,7 +194,13 @@ public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
 
     internal IReadOnlyList<BootstrapPendingRecord> PendingRecords
     {
-        get { lock (_gate) return _journal.Records.ToArray(); }
+        get
+        {
+            lock (_gate)
+                return _journal.Records.Concat((_logs?.PendingRecords ?? []).Select(record =>
+                    new BootstrapPendingRecord(Guid.Parse(record.Attributes["diagnostics.record_id"].ToString()!),
+                        _diagnosticScope, BootstrapTelemetryDestination.Log, record.Timestamp, null, record))).ToArray();
+        }
     }
 
     private void CaptureDiagnostic(RemoteDiagnosticRecord diagnostic)
@@ -185,25 +208,56 @@ public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
         lock (_gate)
         {
             if (!_diagnosticsEnabled || _stopping) return;
-            AddDiagnostic(diagnostic, BootstrapTelemetryDestination.Log);
             if (diagnostic.ShouldTrackException && diagnostic.Exception is not null && diagnostic.Level >= LogEventLevel.Error)
-                AddDiagnostic(diagnostic, BootstrapTelemetryDestination.Exception);
+                AddExceptionDiagnostic(diagnostic);
             Signal();
         }
     }
 
-    private void AddDiagnostic(RemoteDiagnosticRecord diagnostic, BootstrapTelemetryDestination destination)
+    private void AddExceptionDiagnostic(RemoteDiagnosticRecord diagnostic)
     {
         Guid id = Guid.NewGuid();
         var attributes = new Dictionary<string, object>(diagnostic.Attributes, StringComparer.Ordinal)
         {
             ["diagnostics.record_id"] = id.ToString()
         };
-        _journal.Add(new BootstrapPendingRecord(id, _diagnosticScope, destination, diagnostic.Timestamp,
+        _journal.Add(new BootstrapPendingRecord(id, _diagnosticScope, BootstrapTelemetryDestination.Exception, diagnostic.Timestamp,
             null, diagnostic with { Attributes = attributes }));
     }
 
+    private void CaptureLog(RemoteDiagnosticRecord diagnostic)
+    {
+        lock (_gate)
+        {
+            if (!_diagnosticsEnabled || _stopping) return;
+            _logs?.Emit(diagnostic);
+        }
+    }
+
     private void PurgeDisallowed() => _journal.Purge(record => !Allowed(record));
+
+    private void TransferLegacyLogs()
+    {
+        foreach (BootstrapPendingRecord record in _journal.Records.Where(record =>
+            record.Destination == BootstrapTelemetryDestination.Log).ToArray())
+        {
+            if (record.State == BootstrapDeliveryState.Acknowledged)
+            {
+                _journal.Purge(candidate => candidate.Id == record.Id);
+                continue;
+            }
+            RemoteDiagnosticRecord log = record.Diagnostic! with
+            {
+                Attributes = new Dictionary<string, object>(record.Diagnostic!.Attributes, StringComparer.Ordinal)
+                {
+                    ["diagnostics.record_id"] = record.Id.ToString("N")
+                },
+                ShouldTrackException = false
+            };
+            if (_logs?.TryImport(log) == true)
+                _journal.Purge(candidate => candidate.Id == record.Id);
+        }
+    }
 
     private bool Allowed(BootstrapPendingRecord record) => record.Destination == BootstrapTelemetryDestination.Analytics
         ? _usageEnabled && record.Scope == _usageScope
@@ -230,10 +284,15 @@ public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
         }
         try
         {
-            await Task.WhenAll(_worker!, _capture.FlushAsync(_deliveryCancellation.Token))
+            await Task.WhenAll(_worker!, _capture.FlushAsync(_deliveryCancellation.Token),
+                    _logs?.FlushAsync(_deliveryCancellation.Token) ?? Task.CompletedTask)
                 .WaitAsync(_deliveryCancellation.Token).ConfigureAwait(false);
         }
         catch (OperationCanceledException) { }
+        finally
+        {
+            if (_logs is not null) await _logs.DisposeAsync().ConfigureAwait(false);
+        }
     }
 
     private void Signal()
@@ -324,7 +383,7 @@ public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
     {
         foreach (BootstrapPendingRecord record in _journal.Records)
         {
-            if (record.State == BootstrapDeliveryState.Acknowledged || !Allowed(record) || (record.Destination != BootstrapTelemetryDestination.Analytics && record.Attempts >= 3) || _attempted.Contains(record.Id)) continue;
+            if (record.Destination == BootstrapTelemetryDestination.Log || record.State == BootstrapDeliveryState.Acknowledged || !Allowed(record) || (record.Destination != BootstrapTelemetryDestination.Analytics && record.Attempts >= 3) || _attempted.Contains(record.Id)) continue;
             if (_replayIds.Contains(record.Id))
             {
                 if (_replayed >= 100 || _replayElapsed >= TimeSpan.FromSeconds(5)) continue;

@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Stvaranje medija</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Omogući zapisivanje aplikacije na razini otklanjanja pogrešaka.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Dijagnostika za razvojne inženjere</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Promijenite jezik aplikacije bez ponovnog pokretanja Foundry OSD.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Šaljite pročišćene zapisnike i pojedinosti o iznimkama radi lakšeg dijagnosticiranja kvarova. Tajni podaci i izravni identifikatori isključeni su.</value>
+    <value>Šaljite sve razine zapisnika i tehnički kontekst u PostHog uz maskirane autentifikacijske tajne te zasebna izvješća o iznimkama. Zapisnici se automatski brišu nakon 7 dana.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Omogući udaljenu dijagnostiku</value>

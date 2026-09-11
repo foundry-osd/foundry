@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Criação de mídia</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Habilite o registro em log do aplicativo no nível de depuração.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnóstico do desenvolvedor</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Altere o idioma do aplicativo sem reiniciar Foundry OSD.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Envie logs tratados e detalhes de exceções para ajudar a diagnosticar falhas. Segredos e identificadores diretos são excluídos.</value>
+    <value>Enviar ao PostHog todos os níveis de log e o contexto técnico, com os segredos de autenticação ocultos, além de relatórios de exceções separados. Os logs são excluídos automaticamente após 7 dias.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Habilitar diagnóstico remoto</value>

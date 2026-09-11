@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Создание носителя</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Включить ведение журнала приложения на уровне отладки.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Диагностика для разработчиков</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Измените язык приложения без перезапуска Foundry OSD.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Отправляйте очищенные журналы и сведения об исключениях, чтобы помочь диагностировать сбои. Секретные данные и прямые идентификаторы исключаются.</value>
+    <value>Отправлять в PostHog журналы всех уровней и технический контекст с маскированием секретов аутентификации, а также отдельные отчёты об исключениях. Журналы автоматически удаляются через 7 дней.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Включить удалённую диагностику</value>

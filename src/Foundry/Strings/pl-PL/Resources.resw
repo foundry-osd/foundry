@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Tworzenie nośnika</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Włącz rejestrowanie zdarzeń aplikacji na poziomie debugowania.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostyka deweloperska</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Zmień język aplikacji bez ponownego uruchamiania Foundry OSD.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Wysyłaj oczyszczone dzienniki i szczegóły wyjątków, aby ułatwić diagnozowanie awarii. Dane poufne i bezpośrednie identyfikatory są wykluczane.</value>
+    <value>Wysyłaj do PostHog logi wszystkich poziomów i kontekst techniczny z zamaskowanymi sekretami uwierzytelniania oraz osobne raporty wyjątków. Logi są automatycznie usuwane po 7 dniach.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Włącz diagnostykę zdalną</value>
