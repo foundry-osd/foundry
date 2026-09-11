@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Crearea suportului</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Raportează cheile de traducere lipsă și erorile de căutare a resurselor. Toate nivelurile de jurnal rămân activate.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnosticare pentru dezvoltatori</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Schimbați limba aplicației fără a reporni Foundry OSD.</value>
   </data>

@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Adathordozó létrehozása</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Hiányzó fordítási kulcsok és erőforrás-keresési hibák jelentése. Minden naplózási szint engedélyezve marad.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Fejlesztői diagnosztika</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Változtassa meg az alkalmazás nyelvét a Foundry OSD újraindítása nélkül.</value>
   </data>

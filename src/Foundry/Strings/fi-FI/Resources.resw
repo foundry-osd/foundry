@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Median luonti</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Ilmoita puuttuvista käännösavaimista ja resurssihaun virheistä. Kaikki lokitasot pysyvät käytössä.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Kehittäjän diagnostiikka</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Vaihda sovelluksen kieli käynnistämättä uudelleen Foundry OSD.</value>
   </data>

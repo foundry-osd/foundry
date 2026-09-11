@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Skapa media</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Rapportera saknade översättningsnycklar och fel vid resurssökning. Alla loggnivåer förblir aktiverade.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Utvecklardiagnostik</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Ändra applikationsspråk utan att starta om Foundry OSD.</value>
   </data>

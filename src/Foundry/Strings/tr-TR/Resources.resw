@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Medya oluşturma</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Eksik çeviri anahtarlarını ve kaynak arama hatalarını bildirin. Tüm günlük düzeyleri etkin kalır.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Geliştirici tanılaması</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Foundry OSD'yi yeniden başlatmadan uygulama dilini değiştirin.</value>
   </data>

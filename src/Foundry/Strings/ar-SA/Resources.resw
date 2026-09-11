@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>إنشاء الوسائط</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>الإبلاغ عن مفاتيح الترجمة المفقودة وإخفاقات البحث عن الموارد. تظل جميع مستويات سجلات التطبيق مفعّلة.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>تشخيصات المطور</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>قم بتغيير لغة التطبيق دون إعادة تشغيل Foundry OSD.</value>
   </data>

@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Vytvoření média</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Hlásit chybějící překladové klíče a chyby vyhledávání prostředků. Všechny úrovně protokolování zůstávají zapnuté.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostika pro vývojáře</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Změňte jazyk aplikace bez restartování Foundry OSD.</value>
   </data>

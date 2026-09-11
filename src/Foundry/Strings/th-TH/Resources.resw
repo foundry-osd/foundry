@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>การสร้างสื่อ</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>รายงานคีย์คำแปลที่ขาดหายและข้อผิดพลาดในการค้นหาทรัพยากร บันทึกของแอปพลิเคชันทุกระดับยังคงเปิดใช้งานอยู่</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>การวินิจฉัยสำหรับนักพัฒนา</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>เปลี่ยนภาษาของแอปพลิเคชันโดยไม่ต้องรีสตาร์ท Foundry OSD</value>
   </data>

@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Создание носителя</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Сообщать об отсутствующих ключах перевода и ошибках поиска ресурсов. Все уровни журналирования остаются включёнными.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Диагностика для разработчиков</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Измените язык приложения без перезапуска Foundry OSD.</value>
   </data>

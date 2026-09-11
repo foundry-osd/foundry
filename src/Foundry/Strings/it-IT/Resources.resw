@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Creazione supporti</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Segnalare chiavi di traduzione mancanti ed errori nella ricerca delle risorse. Tutti i livelli di log restano attivi.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostica per sviluppatori</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Modificare la lingua dell'applicazione senza riavviare Foundry OSD.</value>
   </data>

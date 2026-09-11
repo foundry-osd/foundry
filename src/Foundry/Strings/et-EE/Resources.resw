@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Meediumi loomine</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Teavita puuduvatest tõlkevõtmetest ja ressursiotsingu tõrgetest. Kõik logitasemed jäävad lubatuks.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Arendaja diagnostika</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Muutke rakenduse keelt ilma Foundry OSD taaskäivitamata.</value>
   </data>

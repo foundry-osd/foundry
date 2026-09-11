@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Media maken</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Ontbrekende vertaalsleutels en fouten bij het zoeken naar resources melden. Alle logniveaus blijven ingeschakeld.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostiek voor ontwikkelaars</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Wijzig de applicatietaal zonder Foundry OSD opnieuw te starten.</value>
   </data>

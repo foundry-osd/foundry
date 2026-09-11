@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Medieoppretting</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Rapporter manglende oversettelsesnøkler og feil ved ressurssøk. Alle loggnivåer forblir aktivert.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Utviklerdiagnostikk</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Endre applikasjonsspråket uten å starte Foundry OSD på nytt.</value>
   </data>

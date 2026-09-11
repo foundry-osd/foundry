@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Ustvarjanje medija</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Poročajte o manjkajočih prevodnih ključih in napakah pri iskanju virov. Vse ravni beleženja ostanejo omogočene.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostika za razvijalce</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Spremenite jezik aplikacije brez ponovnega zagona Foundry OSD.</value>
   </data>

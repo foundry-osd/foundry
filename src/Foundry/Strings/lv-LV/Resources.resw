@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Datu nesēja izveide</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Ziņot par trūkstošām tulkojumu atslēgām un resursu meklēšanas kļūmēm. Visi žurnālu līmeņi paliek iespējoti.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Izstrādātāja diagnostika</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Mainiet lietojumprogrammas valodu, nerestartējot Foundry OSD.</value>
   </data>

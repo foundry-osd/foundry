@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Medieoprettelse</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Rapportér manglende oversættelsesnøgler og fejl ved ressourcesøgning. Alle logniveauer forbliver aktiveret.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Udviklerdiagnosticering</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Skift applikationssproget uden at genstarte Foundry OSD.</value>
   </data>

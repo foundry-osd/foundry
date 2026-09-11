@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Δημιουργία μέσων</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Αναφορά κλειδιών μετάφρασης που λείπουν και αποτυχιών αναζήτησης πόρων. Όλα τα επίπεδα καταγραφής παραμένουν ενεργά.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Διαγνωστικά για προγραμματιστές</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Αλλάξτε τη γλώσσα της εφαρμογής χωρίς επανεκκίνηση του Foundry OSD.</value>
   </data>

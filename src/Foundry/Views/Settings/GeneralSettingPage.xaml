@@ -43,16 +43,6 @@
                 </ComboBox>
             </wct:SettingsCard>
 
-            <wct:SettingsCard x:Name="DeveloperDiagnosticsCard"
-                x:Uid="GeneralSetting_DiagnosticsCard">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xEC7A;" />
-                </wct:SettingsCard.HeaderIcon>
-                <ToggleSwitch
-                    behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
-                    IsOn="{x:Bind ViewModel.IsDeveloperMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </wct:SettingsCard>
-
             <wct:SettingsCard x:Name="ExportDiagnosticsCard">
                 <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE74E;" />

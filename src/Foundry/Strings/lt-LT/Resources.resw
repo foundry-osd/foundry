@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Laikmenos kūrimas</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Pranešti apie trūkstamus vertimo raktus ir išteklių paieškos klaidas. Visi žurnalų lygiai lieka įjungti.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Kūrėjo diagnostika</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Pakeiskite programos kalbą iš naujo nepaleidę Foundry OSD.</value>
   </data>
