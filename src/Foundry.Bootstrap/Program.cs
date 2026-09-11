@@ -37,6 +37,7 @@ internal static class Program
             return arguments is ["--help"] ? 0 : 1;
         }
 
+        DiagnosticClock.Current.InitializeRuntime(null);
         string sessionId = DiagnosticSessionContext.CurrentSessionId;
         string? logPath = null;
         BootstrapLogPersistence? persistence = null;

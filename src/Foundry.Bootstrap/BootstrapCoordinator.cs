@@ -81,6 +81,9 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
             "Some network preparation was unavailable. Continuing.").ConfigureAwait(false);
         Report(BootstrapStatus.Completed, "Environment prepared");
 
+        await BestEffortAsync(() => preparation.PrepareClockAsync(cancellationToken),
+            "Early clock synchronization was unavailable. Continuing to Foundry Connect.").ConfigureAwait(false);
+
         stage = BootstrapStage.Connect;
         Report(BootstrapStatus.Running, "Preparing Foundry Connect");
         string connect;

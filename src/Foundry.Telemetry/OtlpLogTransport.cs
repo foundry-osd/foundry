@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using Google.Protobuf;
+using Foundry.Utilities.Diagnostics;
 using Serilog;
 using Serilog.Events;
 using Serilog.Parsing;
@@ -218,7 +219,19 @@ internal sealed class OtlpLogTransport : ILogBatchTransport
         }
         var template = new MessageTemplateParser().Parse(record.Body
             .Replace("{", "{{", StringComparison.Ordinal).Replace("}", "}}", StringComparison.Ordinal));
-        return new LogEvent(record.Timestamp, record.Level, null, template, properties.Values);
+        bool useIngestionTime = properties.TryGetValue(DiagnosticClock.SynchronizedProperty, out LogEventProperty? clock) &&
+            clock.Value is ScalarValue { Value: false };
+        if (useIngestionTime)
+        {
+            properties.TryAdd(DiagnosticClock.OriginalTimestampProperty, new LogEventProperty(
+                DiagnosticClock.OriginalTimestampProperty, new ScalarValue(record.Timestamp.ToString("O", CultureInfo.InvariantCulture))));
+            properties[DiagnosticClock.TimestampSourceProperty] = new LogEventProperty(
+                DiagnosticClock.TimestampSourceProperty, new ScalarValue("ingestion"));
+        }
+        // UnixEpoch serializes as OTLP time_unix_nano=0: PostHog assigns its receipt time.
+        // The durable record and local event retain the original time and captured clock state.
+        return new LogEvent(useIngestionTime ? DateTimeOffset.UnixEpoch : record.Timestamp,
+            record.Level, null, template, properties.Values);
     }
 
     private static LogEventPropertyValue ConvertValue(object? value) => value switch

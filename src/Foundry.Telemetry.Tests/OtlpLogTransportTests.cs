@@ -14,6 +14,34 @@ namespace Foundry.Telemetry.Tests;
 public sealed class OtlpLogTransportTests
 {
     [Theory]
+    [InlineData(-10, false)]
+    [InlineData(10, false)]
+    [InlineData(-10, true)]
+    [InlineData(10, true)]
+    public async Task SendAsync_UsesIngestionTimeForUnsynchronizedEventsIncludingReplay(int skewHours, bool replay)
+    {
+        using var handler = new RecordingHandler(HttpStatusCode.OK);
+        using var transport = CreateTransport(handler);
+        RemoteDiagnosticRecord record = CreateRecord() with
+        {
+            Timestamp = DateTimeOffset.UtcNow.AddHours(skewHours),
+            Attributes = new Dictionary<string, object> { ["diagnostics.clock_synchronized"] = false }
+        };
+        if (replay) record = JsonSerializer.Deserialize<RemoteDiagnosticRecord>(JsonSerializer.Serialize(record))!;
+
+        await transport.SendAsync([record], CancellationToken.None);
+
+        byte[] resource = Assert.Single(ReadMessages(handler.Body, 1));
+        byte[] scope = Assert.Single(ReadMessages(resource, 2));
+        byte[] log = Assert.Single(ReadMessages(scope, 2));
+        Assert.Equal(0UL, ReadNumber(log, 1, defaultValue: 0));
+        Dictionary<string, byte[]> attributes = ReadAttributes(log, 6);
+        Assert.Equal(record.Timestamp.ToString("O", System.Globalization.CultureInfo.InvariantCulture),
+            ReadString(attributes["diagnostics.original_timestamp"], 1));
+        Assert.Equal("ingestion", ReadString(attributes["diagnostics.timestamp_source"], 1));
+    }
+
+    [Theory]
     [InlineData(false)]
     [InlineData(true)]
     public async Task SendAsync_PreservesAllSeveritiesOriginalTimeStructuredValuesAndLiteralBody(bool replayFromJson)
@@ -255,7 +283,7 @@ public sealed class OtlpLogTransportTests
         return result;
     }
 
-    private static ulong ReadNumber(byte[] data, int field)
+    private static ulong ReadNumber(byte[] data, int field, ulong? defaultValue = null)
     {
         using var input = new CodedInputStream(data);
         uint tag;
@@ -271,7 +299,7 @@ public sealed class OtlpLogTransportTests
             }
             input.SkipLastField();
         }
-        throw new InvalidDataException($"Missing numeric field {field}.");
+        return defaultValue ?? throw new InvalidDataException($"Missing numeric field {field}.");
     }
 
     private sealed class RecordingHandler(HttpStatusCode status, byte[]? response = null, TimeSpan? retryAfter = null,

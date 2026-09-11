@@ -28,6 +28,7 @@ public static class LogEventNormalizer
         result.AddPropertyIfAbsent(new LogEventProperty("diagnostics.record_id", new ScalarValue(Guid.NewGuid().ToString("N"))));
         result.AddPropertyIfAbsent(new LogEventProperty("diagnostics.process_id", new ScalarValue(ProcessId)));
         result.AddPropertyIfAbsent(new LogEventProperty("diagnostics.sequence", new ScalarValue(Interlocked.Increment(ref _sequence))));
+        DiagnosticClock.Current.Enrich(result);
         return result;
     }
 

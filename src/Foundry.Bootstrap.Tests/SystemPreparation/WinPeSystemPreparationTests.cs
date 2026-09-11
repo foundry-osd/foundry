@@ -149,16 +149,19 @@ public sealed class WinPeSystemPreparationTests : IDisposable
     }
 
     [Theory]
-    [InlineData(5, false)]
-    [InlineData(6, true)]
-    public async Task PrepareSystemAsync_UpdatesClockOnlyAboveFiveMinuteSkew(int skewMinutes, bool expectedUpdate)
+    [InlineData(0, false)]
+    [InlineData(1, false)]
+    [InlineData(2, true)]
+    [InlineData(-36000, true)]
+    [InlineData(36000, true)]
+    public async Task PrepareSystemAsync_UpdatesClockAboveOneSecondSkew(int skewSeconds, bool expectedUpdate)
     {
         DateTimeOffset now = new(2026, 9, 10, 10, 0, 0, TimeSpan.Zero);
         var platform = new RecordingPlatform { UtcNow = now, ValidTimeZoneIds = ["UTC"] };
         var handler = new StubHttpHandler(request =>
         {
             var response = new HttpResponseMessage(HttpStatusCode.OK);
-            response.Headers.Date = now.AddMinutes(skewMinutes);
+            response.Headers.Date = now.AddSeconds(skewSeconds);
             return response;
         });
         var preparation = CreatePreparation(platform, handler);
@@ -269,6 +272,75 @@ public sealed class WinPeSystemPreparationTests : IDisposable
 
         Assert.Contains("dot3svc", platform.StartedServices);
         Assert.Equal(expectedWlanStart, platform.StartedServices.Contains("WlanSvc"));
+    }
+
+    [Fact]
+    public async Task PrepareClockAsync_RetriesAfterConnectWhenInitiallyOffline()
+    {
+        var platform = new RecordingPlatform { ValidTimeZoneIds = ["UTC"] };
+        bool online = false;
+        var handler = new StubHttpHandler(_ =>
+        {
+            if (!online) throw new HttpRequestException("Offline");
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Headers.Date = platform.UtcNow.AddHours(-10);
+            return response;
+        });
+        var preparation = CreatePreparation(platform, handler);
+
+        await preparation.PrepareClockAsync(CancellationToken.None);
+        Assert.False(preparation.IsClockUsable);
+        Assert.Empty(platform.AppliedTimeZoneIds);
+        online = true;
+        await preparation.PrepareSystemAsync(CancellationToken.None);
+
+        Assert.True(preparation.IsClockUsable);
+        Assert.Single(platform.AppliedUtcTimes);
+    }
+
+    [Fact]
+    public async Task PrepareClockAsync_DoesNotRepeatSuccessfulProbeOrConfigureTimeZoneEarly()
+    {
+        var platform = new RecordingPlatform { EnvironmentTimeZoneId = "UTC", ValidTimeZoneIds = ["UTC"] };
+        var handler = new StubHttpHandler(_ =>
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Headers.Date = platform.UtcNow;
+            return response;
+        });
+        var preparation = CreatePreparation(platform, handler);
+
+        await preparation.PrepareClockAsync(CancellationToken.None);
+        Assert.True(preparation.IsClockUsable);
+        Assert.Empty(platform.AppliedTimeZoneIds);
+        await preparation.PrepareSystemAsync(CancellationToken.None);
+
+        Assert.Equal(1, handler.RequestCount);
+        Assert.Single(platform.AppliedTimeZoneIds);
+    }
+
+    [Fact]
+    public async Task PrepareClockAsync_ContinuesAfterItsBudgetButPropagatesOperatorCancellation()
+    {
+        using var httpClient = new HttpClient(new StalledHttpHandler());
+        var preparation = new WinPeSystemPreparation(_root, httpClient, Logger.None,
+            new RecordingPlatform(), TimeSpan.FromSeconds(30));
+        await preparation.PrepareClockAsync(TestContext.Current.CancellationToken)
+            .WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
+        Assert.False(preparation.IsClockUsable);
+
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => preparation.PrepareClockAsync(cancellation.Token));
+    }
+
+    private sealed class StalledHttpHandler : HttpMessageHandler
+    {
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken);
+            throw new InvalidOperationException("The request must be cancelled.");
+        }
     }
 
     public void Dispose()
