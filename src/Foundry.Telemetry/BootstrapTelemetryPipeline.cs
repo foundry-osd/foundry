@@ -41,7 +41,7 @@ public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
     public BootstrapTelemetryPipeline(TelemetryOptions usage, TelemetryContext context,
         RemoteDiagnosticsOptions diagnostics, RemoteDiagnosticsContext diagnosticContext, string? journalPath)
         : this(usage, context, diagnostics, diagnosticContext, journalPath,
-            () => new BootstrapTelemetryTransport(usage, context, diagnostics, diagnosticContext), TimeProvider.System)
+            () => new BootstrapTelemetryTransport(usage, context, diagnostics), TimeProvider.System)
     {
     }
 

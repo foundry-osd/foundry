@@ -103,11 +103,10 @@ public sealed class ChildStartupFailureExchangeTests
         Assert.Equal(id, exception.Id);
         Assert.Equal(ChildContext.App, exception.Diagnostic!.Attributes["service.name"]);
         Assert.Equal(ChildContext.SessionId, exception.Diagnostic.Attributes["session.id"]);
-        RemoteDiagnosticsContext resource = BootstrapTelemetryTransport.GetResourceContext(exception.Diagnostic,
-            TelemetryContextFactory.CreateRemoteDiagnosticsContext(ParentContext));
-        Assert.Equal(ChildContext.App, resource.App);
-        Assert.Equal(ChildContext.AppVersion, resource.AppVersion);
-        Assert.Equal(ChildContext.Release, resource.Release);
+        Assert.Equal(ChildContext.AppVersion, exception.Diagnostic.Attributes["service.version"]);
+        Assert.Equal(ChildContext.Runtime, exception.Diagnostic.Attributes["runtime.name"]);
+        Assert.Equal(ChildContext.RuntimeArchitecture, exception.Diagnostic.Attributes["runtime.architecture"]);
+        Assert.Equal(ChildContext.Release, exception.Diagnostic.Attributes["service.release"]);
     }
 
     [Fact]

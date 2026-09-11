@@ -46,7 +46,6 @@ public static class FoundryLogConfiguration
         string sessionId,
         LogEventLevel minimumLevel,
         int retainedFileCountLimit,
-        LoggingLevelSwitch? levelSwitch = null,
         ILogEventSink? additionalSink = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(logFilePath);
@@ -54,8 +53,7 @@ public static class FoundryLogConfiguration
         ArgumentException.ThrowIfNullOrWhiteSpace(sessionId);
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(retainedFileCountLimit);
 
-        var configuration = new LoggerConfiguration();
-        ConfigureMinimumLevel(configuration, minimumLevel, levelSwitch);
+        var configuration = new LoggerConfiguration().MinimumLevel.Is(minimumLevel);
 
         ConfigureEnrichment(configuration, applicationName, sessionId);
         var destinations = new LoggerConfiguration().MinimumLevel.Verbose();
@@ -82,14 +80,12 @@ public static class FoundryLogConfiguration
         string applicationName,
         string sessionId,
         LogEventLevel minimumLevel,
-        LoggingLevelSwitch? levelSwitch = null,
         ILogEventSink? additionalSink = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(applicationName);
         ArgumentException.ThrowIfNullOrWhiteSpace(sessionId);
 
-        var configuration = new LoggerConfiguration();
-        ConfigureMinimumLevel(configuration, minimumLevel, levelSwitch);
+        var configuration = new LoggerConfiguration().MinimumLevel.Is(minimumLevel);
         ConfigureEnrichment(configuration, applicationName, sessionId);
         var destinations = new LoggerConfiguration().MinimumLevel.Verbose();
         ConfigureAdditionalSink(destinations, additionalSink);
@@ -97,21 +93,6 @@ public static class FoundryLogConfiguration
             .WriteTo.Debug(outputTemplate: OutputTemplate, formatProvider: CultureInfo.InvariantCulture)
             .CreateLogger();
         return configuration.WriteTo.Sink(new NormalizingLogSink(output)).CreateLogger();
-    }
-
-    private static void ConfigureMinimumLevel(
-        LoggerConfiguration configuration,
-        LogEventLevel minimumLevel,
-        LoggingLevelSwitch? levelSwitch)
-    {
-        if (levelSwitch is null)
-        {
-            configuration.MinimumLevel.Is(minimumLevel);
-        }
-        else
-        {
-            configuration.MinimumLevel.ControlledBy(levelSwitch);
-        }
     }
 
     private static void ConfigureEnrichment(

@@ -47,7 +47,7 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     /// Initializes a production PostHog diagnostics service.
     /// </summary>
     public PostHogRemoteDiagnosticsSink()
-        : this(static (options, context) => new PostHogDiagnosticsExporter(options, context), DefaultQueueCapacity)
+        : this(static (options, _) => new PostHogDiagnosticsExporter(options), DefaultQueueCapacity)
     {
         _productionLogs = true;
     }
@@ -423,7 +423,7 @@ internal sealed class PostHogDiagnosticsExporter : IRemoteDiagnosticsExporter
     private readonly PostHogExceptionTracker _exceptionTracker;
     private int _disposed;
 
-    public PostHogDiagnosticsExporter(RemoteDiagnosticsOptions options, RemoteDiagnosticsContext context)
+    public PostHogDiagnosticsExporter(RemoteDiagnosticsOptions options)
     {
         var client = new PostHogClient(Options.Create(new PostHogOptions
         {

@@ -17,15 +17,13 @@ internal sealed class BootstrapTelemetryTransport : IBootstrapTelemetryTransport
     private readonly HttpClient _httpClient = new();
     private readonly PostHogTelemetryService _analytics;
     private readonly RemoteDiagnosticsOptions _options;
-    private readonly RemoteDiagnosticsContext _context;
-    private readonly Dictionary<RemoteDiagnosticsContext, PostHogDiagnosticsExporter> _diagnostics = [];
+    private PostHogDiagnosticsExporter? _diagnostics;
 
     internal BootstrapTelemetryTransport(TelemetryOptions usage, TelemetryContext context,
-        RemoteDiagnosticsOptions diagnostics, RemoteDiagnosticsContext diagnosticContext)
+        RemoteDiagnosticsOptions diagnostics)
     {
         _analytics = new PostHogTelemetryService(_httpClient, usage, context);
         _options = diagnostics;
-        _context = diagnosticContext;
     }
 
     public async Task<bool> DeliverAsync(BootstrapPendingRecord record, CancellationToken cancellationToken)
@@ -39,33 +37,19 @@ internal sealed class BootstrapTelemetryTransport : IBootstrapTelemetryTransport
 
         if (record.Destination != BootstrapTelemetryDestination.Exception)
             throw new ArgumentException("Bootstrap Logs use the shared reliable log pipeline.", nameof(record));
-        RemoteDiagnosticsContext context = GetResourceContext(record.Diagnostic!, _context);
-        if (!_diagnostics.TryGetValue(context, out PostHogDiagnosticsExporter? exporter))
-        {
-            exporter = new PostHogDiagnosticsExporter(_options, context);
-            _diagnostics.Add(context, exporter);
-        }
-        exporter.ExportException(record.Diagnostic!);
+        _diagnostics ??= new PostHogDiagnosticsExporter(_options);
+        _diagnostics.ExportException(record.Diagnostic!);
         // The exception SDK only enqueues; its flush method does not expose per-record receipts.
         return false;
     }
 
-    internal static RemoteDiagnosticsContext GetResourceContext(RemoteDiagnosticRecord record, RemoteDiagnosticsContext fallback)
-    {
-        string Attribute(string name, string defaultValue) => record.Attributes.TryGetValue(name, out object? value) && value is string text
-            ? text : defaultValue;
-        return new RemoteDiagnosticsContext(Attribute("service.name", fallback.App), Attribute("service.version", fallback.AppVersion),
-            string.Empty, Attribute("runtime.name", fallback.Runtime), Attribute("runtime.architecture", fallback.RuntimeArchitecture),
-            string.Empty, string.Empty, Attribute("service.release", fallback.Release));
-    }
-
     public Task FlushAsync(CancellationToken cancellationToken) =>
-        Task.WhenAll(_diagnostics.Values.Select(exporter => exporter.FlushAsync(cancellationToken)));
+        _diagnostics?.FlushAsync(cancellationToken) ?? Task.CompletedTask;
 
     public async ValueTask DisposeAsync()
     {
         _httpClient.Dispose();
-        foreach (PostHogDiagnosticsExporter exporter in _diagnostics.Values)
-            await exporter.DisposeAsync().ConfigureAwait(false);
+        if (_diagnostics is not null)
+            await _diagnostics.DisposeAsync().ConfigureAwait(false);
     }
 }
