@@ -20,6 +20,24 @@ public static class FoundryLogConfiguration
         "{UtcTimestamp:yyyy-MM-ddTHH:mm:ss.fff'Z'} [{Level:u3}] [{Application}] [Session:{SessionId}] [{Component}] {Message:lj} {Properties:j}{NewLine}{Exception}";
 
     /// <summary>
+    /// Prepares an event for durable handoff with the same context and masking as local logging,
+    /// without writing to any output. Subsequent logging preserves its identity and timestamp.
+    /// </summary>
+    public static LogEvent PrepareEvent(LogEvent logEvent, string applicationName, string sessionId)
+    {
+        ArgumentNullException.ThrowIfNull(logEvent);
+        ArgumentException.ThrowIfNullOrWhiteSpace(applicationName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(sessionId);
+
+        var configuration = new LoggerConfiguration().MinimumLevel.Verbose();
+        ConfigureEnrichment(configuration, applicationName, sessionId);
+        var sink = new PreparedEventSink();
+        using Logger logger = configuration.WriteTo.Sink(sink).CreateLogger();
+        logger.Write(logEvent);
+        return LogEventNormalizer.Normalize(sink.Event ?? logEvent);
+    }
+
+    /// <summary>
     /// Creates a logger with a stable active filename, size-based rolling, and bounded retention.
     /// </summary>
     public static ILogger CreateFileLogger(
@@ -115,5 +133,11 @@ public static class FoundryLogConfiguration
         {
             configuration.WriteTo.Sink(additionalSink);
         }
+    }
+
+    private sealed class PreparedEventSink : ILogEventSink
+    {
+        public LogEvent? Event { get; private set; }
+        public void Emit(LogEvent logEvent) => Event = logEvent;
     }
 }

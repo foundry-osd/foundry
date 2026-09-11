@@ -11,6 +11,24 @@ namespace Foundry.Telemetry.Tests;
 
 public sealed class LogRecordFactoryTests
 {
+    [Fact]
+    public void Create_PreservesDictionaryValuesWhenDifferentKeyTypesRenderIdentically()
+    {
+        var dictionary = new DictionaryValue([
+            new(new ScalarValue(1), new ScalarValue("numeric")),
+            new(new ScalarValue("1"), new ScalarValue("text")),
+            new(new ScalarValue("1 [2]"), new ScalarValue("existing suffix"))]);
+        var source = new LogEvent(DateTimeOffset.UtcNow, LogEventLevel.Debug, null,
+            new MessageTemplateParser().Parse("Values {@Values}"), [new("Values", dictionary)]);
+
+        RemoteDiagnosticRecord record = LogRecordFactory.Create(source, RemoteDiagnosticsTestData.Context());
+
+        using JsonDocument result = JsonDocument.Parse(JsonSerializer.Serialize(record.Attributes["Values"]));
+        Assert.Equal(3, result.RootElement.EnumerateObject().Count());
+        Assert.Equal(["numeric", "text", "existing suffix"],
+            result.RootElement.EnumerateObject().Select(property => property.Value.GetString()).ToArray());
+    }
+
     [Theory]
     [InlineData("Type")]
     [InlineData("Message")]

@@ -262,8 +262,6 @@ public static partial class RemoteDiagnosticPropertyPolicy
     private static string SanitizeAttribute(string? value) =>
         RemoteDiagnosticText.Sanitize(value, MaximumAttributeLength);
 
-    internal static string SanitizeResourceValue(string? value) => SanitizeAttribute(value);
-
     private static string SanitizeStackTrace(string stackTrace)
     {
         string withoutSourcePaths = StackSourcePathPattern().Replace(stackTrace, " in <redacted:path>");

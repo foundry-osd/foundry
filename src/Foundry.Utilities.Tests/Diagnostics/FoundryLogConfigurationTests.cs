@@ -13,6 +13,34 @@ namespace Foundry.Utilities.Tests.Diagnostics;
 public sealed class FoundryLogConfigurationTests
 {
     [Fact]
+    public void PrepareEvent_EnrichesAndMasksHandoffWithoutChangingSubsequentLogIdentity()
+    {
+        var sink = new CollectingSink();
+        using var logger = (Logger)FoundryLogConfiguration.CreateDebugLogger("Foundry.Test", "SESSION01",
+            LogEventLevel.Verbose, additionalSink: sink);
+        using IDisposable context = Serilog.Context.LogContext.PushProperty("OperationId", "operation-1");
+        using IDisposable secret = Serilog.Context.LogContext.PushProperty("Password", "private-secret");
+        var source = new LogEvent(DateTimeOffset.UtcNow, LogEventLevel.Fatal, new IOException("password=private-secret"),
+            new Serilog.Parsing.MessageTemplateParser().Parse("Startup failed"),
+            [new LogEventProperty("SourceContext", new ScalarValue("Foundry.Test.Startup"))]);
+
+        LogEvent prepared = FoundryLogConfiguration.PrepareEvent(source, "Foundry.Test", "SESSION01");
+        Assert.Empty(sink.Events);
+        var properties = prepared.Properties.ToDictionary();
+        logger.Write(prepared);
+
+        LogEvent logged = Assert.Single(sink.Events);
+        Assert.Equal(prepared.Timestamp, logged.Timestamp);
+        Assert.Equal(properties.Keys.Order(), logged.Properties.Keys.Order());
+        foreach ((string name, LogEventPropertyValue value) in properties)
+            Assert.Equal(value.ToString(), logged.Properties[name].ToString());
+        Assert.Equal("Startup", ((ScalarValue)properties["Component"]).Value);
+        Assert.Equal("operation-1", ((ScalarValue)properties["OperationId"]).Value);
+        Assert.DoesNotContain("private-secret", properties["Password"].ToString(), StringComparison.Ordinal);
+        Assert.DoesNotContain("private-secret", prepared.Exception!.ToString(), StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void CreateFileLogger_UsesInvariantMessageFormattingUnderFrenchCulture()
     {
         using var tempDirectory = new TemporaryDirectory();

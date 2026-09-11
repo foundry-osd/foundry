@@ -107,10 +107,11 @@ public sealed class RuntimeStartupDiagnostics
         Guid? recordId = null;
         try
         {
-            var entry = LogEventNormalizer.Normalize(new LogEvent(DateTimeOffset.UtcNow, LogEventLevel.Fatal, exception,
+            var entry = FoundryLogConfiguration.PrepareEvent(new LogEvent(DateTimeOffset.UtcNow, LogEventLevel.Fatal, exception,
                 new MessageTemplateParser().Parse("Application failed at {FailureReason}."),
                 [new LogEventProperty("FailureReason", new ScalarValue(category)),
-                 new LogEventProperty("SourceContext", new ScalarValue(typeof(RuntimeStartupDiagnostics).FullName))]));
+                 new LogEventProperty("SourceContext", new ScalarValue(typeof(RuntimeStartupDiagnostics).FullName))]),
+                "Foundry.Deploy", DiagnosticSessionContext.CurrentSessionId);
             try
             {
                 if (Volatile.Read(ref _ready) == 0) recordId = _capture(exception, entry, category);

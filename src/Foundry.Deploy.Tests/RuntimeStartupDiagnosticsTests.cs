@@ -5,6 +5,7 @@
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Core.Models.Runtime;
 using Foundry.Telemetry;
+using Foundry.Utilities.Diagnostics;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
@@ -188,15 +189,29 @@ public sealed class RuntimeStartupDiagnosticsTests
     public void StartupFailureExchangeAndLocalLogShareOriginalEventIdentityAndContent()
     {
         var sink = new RecordingLogSink();
-        using var logger = new LoggerConfiguration().WriteTo.Sink(sink).CreateLogger();
+        using var logger = (Logger)FoundryLogConfiguration.CreateDebugLogger("Foundry.Deploy",
+            DiagnosticSessionContext.CurrentSessionId, LogEventLevel.Verbose, additionalSink: sink);
         LogEvent? captured = null;
+        Dictionary<string, LogEventPropertyValue>? capturedProperties = null;
         var startup = new RuntimeStartupDiagnostics((_, _, _) => { },
-            (_, entry, _) => { captured = entry; return Guid.NewGuid(); }, logger);
+            (_, entry, _) =>
+            {
+                captured = entry;
+                capturedProperties = entry.Properties.ToDictionary();
+                return Guid.NewGuid();
+            }, logger);
 
         startup.ReportFailure(new InvalidOperationException("startup failure detail"), "configuration");
 
         LogEvent local = Assert.Single(sink.Events);
         Assert.NotNull(captured);
+        Assert.NotNull(capturedProperties);
+        foreach ((string name, LogEventPropertyValue value) in local.Properties)
+        {
+            if (name == "RemoteDiagnosticsInternal") continue;
+            Assert.True(capturedProperties.TryGetValue(name, out LogEventPropertyValue? capturedValue), name);
+            Assert.Equal(value.ToString(), capturedValue.ToString());
+        }
         Assert.Equal(captured.Properties["diagnostics.record_id"], local.Properties["diagnostics.record_id"]);
         Assert.Equal(captured.Properties["diagnostics.sequence"], local.Properties["diagnostics.sequence"]);
         Assert.Equal(captured.Timestamp, local.Timestamp);

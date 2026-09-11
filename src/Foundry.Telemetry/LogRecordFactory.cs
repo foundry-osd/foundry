@@ -146,11 +146,25 @@ public static class LogRecordFactory
             SequenceValue sequence => sequence.Elements.Select(ConvertValue).ToArray(),
             StructureValue structure => structure.Properties.ToDictionary(property => property.Name,
                 property => ConvertValue(property.Value), StringComparer.Ordinal),
-            DictionaryValue dictionary => dictionary.Elements.ToDictionary(entry =>
-                Convert.ToString(entry.Key.Value, CultureInfo.InvariantCulture) ?? "null",
-                entry => ConvertValue(entry.Value), StringComparer.Ordinal),
+            DictionaryValue dictionary => ConvertDictionary(dictionary),
             _ => LogSecretMasker.Mask(value.ToString())
         };
+    }
+
+    private static Dictionary<string, object?> ConvertDictionary(DictionaryValue dictionary)
+    {
+        var result = new Dictionary<string, object?>(StringComparer.Ordinal);
+        foreach ((ScalarValue key, LogEventPropertyValue value) in dictionary.Elements)
+        {
+            string name = Convert.ToString(key.Value, CultureInfo.InvariantCulture) ?? "null";
+            string uniqueName = name;
+            int occurrence = 1;
+            // OTLP/JSON map keys are strings; distinct scalar keys can have the same text.
+            while (result.ContainsKey(uniqueName))
+                uniqueName = name + " [" + (++occurrence).ToString(CultureInfo.InvariantCulture) + "]";
+            result.Add(uniqueName, ConvertValue(value));
+        }
+        return result;
     }
 
     private static object? ConvertScalar(object? value)
