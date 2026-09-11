@@ -320,15 +320,11 @@ public sealed class DeploymentOrchestratorTests
         Assert.Equal("failed", terminalLog.Properties["Outcome"]);
         Assert.Equal(DeploymentOperationNames.ValidateTargetDisk, terminalLog.Properties["FailedOperationName"]);
         Assert.Equal("missing_target_partition", terminalLog.Properties["FailureCode"]);
-        Assert.Equal(true, terminalLog.Properties["RemoteDiagnostic"]);
-        Assert.Equal(true, terminalLog.Properties["RemoteDiagnosticTerminal"]);
         Assert.Contains(logger.Entries, entry =>
-            entry.Properties.TryGetValue("RemoteDiagnostic", out object? remote) && Equals(remote, true) &&
             entry.Properties.ContainsKey("Mode") && !entry.Properties.ContainsKey("Outcome"));
         Assert.Contains(logger.Entries, entry =>
-            entry.Properties.TryGetValue("RemoteDiagnostic", out object? remote) && Equals(remote, true) &&
             entry.Properties.TryGetValue("StepName", out object? step) && Equals(step, DeploymentStepNames.ValidateTargetConfiguration));
-        Assert.All(logger.Entries.Where(entry => Equals(entry.Properties.GetValueOrDefault("RemoteDiagnostic"), true)),
+        Assert.All(logger.Entries.Where(entry => entry.Properties.ContainsKey("OperationId")),
             entry => Assert.Equal(operationId, entry.Properties["OperationId"]));
     }
 

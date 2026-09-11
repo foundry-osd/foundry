@@ -123,16 +123,11 @@ internal sealed class ApplicationLocalizationService(
         }
         catch (Exception ex)
         {
-            if (appSettingsService.Current.Diagnostics.DeveloperMode)
-            {
-                logger.Warning(ex, "Localized resource lookup failed. Key={Key}, Language={Language}", key, currentLanguage);
-            }
+            logger.Warning(ex, "Localized resource lookup failed. Key={Key}, Language={Language}", key, currentLanguage);
+            return key;
         }
 
-        if (appSettingsService.Current.Diagnostics.DeveloperMode)
-        {
-            logger.Warning("Localized resource key was not found. Key={Key}, Language={Language}", key, currentLanguage);
-        }
+        logger.Warning("Localized resource key was not found. Key={Key}, Language={Language}", key, currentLanguage);
 
         return key;
     }

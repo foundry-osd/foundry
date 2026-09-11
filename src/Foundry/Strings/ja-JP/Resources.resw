@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>メディアの作成</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>アプリケーションのデバッグレベルのログ記録を有効にします。</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>開発者向け診断</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Foundry OSD を再起動せずにアプリケーション言語を変更します。</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>障害の診断に役立てるため、機密情報を除去したログと例外の詳細を送信します。機密情報と直接識別子は除外されます。</value>
+    <value>認証情報の秘密をマスクし、すべてのログレベルと技術的なコンテキスト、および個別の例外レポートを PostHog に送信します。ログは 7 日後に自動削除されます。</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>リモート診断を有効にする</value>

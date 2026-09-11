@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Laikmenos kūrimas</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Įjungti programos žurnalų registravimą derinimo lygiu.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Kūrėjo diagnostika</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Pakeiskite programos kalbą iš naujo nepaleidę Foundry OSD.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Siųskite išvalytus žurnalus ir išsamią išimčių informaciją, kad būtų lengviau diagnozuoti triktis. Slapti duomenys ir tiesioginiai identifikatoriai neįtraukiami.</value>
+    <value>Siųsti į PostHog visų lygių žurnalus ir techninį kontekstą su užmaskuotomis autentifikavimo paslaptimis bei atskiras išimčių ataskaitas. Žurnalai automatiškai ištrinami po 7 dienų.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Įjungti nuotolinę diagnostiką</value>

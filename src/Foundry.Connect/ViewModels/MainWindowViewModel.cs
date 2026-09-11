@@ -1689,14 +1689,13 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             level,
             eventId: default,
             exception,
-            "Network operation failed. Workflow={Workflow}, OperationId={OperationId}, NetworkOperation={NetworkOperation}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RemoteDiagnostic={RemoteDiagnostic}",
+            "Network operation failed. Workflow={Workflow}, OperationId={OperationId}, NetworkOperation={NetworkOperation}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}",
             "connect",
             operationId,
             networkOperation,
             failure.Kind,
             failure.Reason,
-            failure.Code,
-            true);
+            failure.Code);
     }
 
     private IDisposable? BeginNetworkOperationScope(string operationId, string networkOperation) =>

@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Creazione supporti</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Abilita la registrazione dell'applicazione a livello di debug.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostica per sviluppatori</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Modificare la lingua dell'applicazione senza riavviare Foundry OSD.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Invia log ripuliti e dettagli sulle eccezioni per facilitare la diagnosi degli errori. I dati segreti e gli identificatori diretti sono esclusi.</value>
+    <value>Inviare a PostHog tutti i livelli di log e il contesto tecnico, con i segreti di autenticazione mascherati, oltre a rapporti separati sulle eccezioni. I log vengono eliminati automaticamente dopo 7 giorni.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Abilita diagnostica remota</value>

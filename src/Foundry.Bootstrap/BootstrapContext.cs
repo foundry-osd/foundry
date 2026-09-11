@@ -18,6 +18,7 @@ internal sealed record BootstrapContext(string WinPeRoot, string RuntimeRoot, st
     internal IReadOnlyDictionary<string, string?> ChildEnvironment => new Dictionary<string, string?>
     {
         [DiagnosticSessionContext.EnvironmentVariableName] = SessionId,
+        [DiagnosticClock.EnvironmentVariableName] = DiagnosticClock.Current.IsSynchronized == true ? "true" : "false",
         [DiagnosticSessionContext.PersistenceDirectoryEnvironmentVariableName] = PersistenceDirectory,
         ["FOUNDRY_DEPLOYMENT_MODE"] = IsUsb ? "Usb" : "Iso"
     };

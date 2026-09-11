@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Median luonti</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Ota sovelluksen virheenkorjaustason lokikirjaus käyttöön.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Kehittäjän diagnostiikka</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Vaihda sovelluksen kieli käynnistämättä uudelleen Foundry OSD.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Lähetä puhdistetut lokitiedot ja poikkeusten tiedot, jotta virheiden diagnosointi olisi helpompaa. Salaisuudet ja suorat tunnisteet jätetään pois.</value>
+    <value>Lähetä PostHogiin kaikkien tasojen lokit ja tekninen konteksti todennussalaisuudet peitettyinä sekä erilliset poikkeusraportit. Lokit poistetaan automaattisesti 7 päivän kuluttua.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Ota etädiagnostiikka käyttöön</value>

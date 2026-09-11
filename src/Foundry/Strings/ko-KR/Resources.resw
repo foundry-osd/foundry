@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>미디어 만들기</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>디버그 수준 애플리케이션 로깅을 사용합니다.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>개발자 진단</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Foundry OSD을 다시 시작하지 않고 애플리케이션 언어를 변경하세요.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>오류 진단에 도움이 되도록 민감한 정보를 제거한 로그와 예외 세부 정보를 보냅니다. 비밀 정보와 직접 식별자는 제외됩니다.</value>
+    <value>인증 비밀을 마스킹한 모든 수준의 로그와 기술적 컨텍스트 및 별도의 예외 보고서를 PostHog로 보냅니다. 로그는 7일 후 자동으로 삭제됩니다.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>원격 진단 활성화</value>

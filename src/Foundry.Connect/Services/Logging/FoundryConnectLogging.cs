@@ -30,11 +30,12 @@ internal static class FoundryConnectLogging
     public static ILogger CreateLogger(string logFilePath)
     {
         string normalizedLogFilePath = Path.GetFullPath(logFilePath);
+        RemoteDiagnosticsSink.SetLogDirectory(Path.Combine(Path.GetDirectoryName(normalizedLogFilePath)!, "PendingLogs"));
         ILogger logger = FoundryLogConfiguration.CreateFileLogger(
             logFilePath,
             "Foundry.Connect",
             DiagnosticSessionContext.CurrentSessionId,
-            LogEventLevel.Debug,
+            LogEventLevel.Verbose,
             RetainedLogFileCount,
             additionalSink: RemoteDiagnosticsSink.Instance);
 

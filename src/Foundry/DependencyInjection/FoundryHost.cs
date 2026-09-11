@@ -21,6 +21,7 @@ public static class FoundryHost
     {
         HostApplicationBuilder builder = Host.CreateApplicationBuilder();
         builder.Logging.ClearProviders();
+        builder.Logging.SetMinimumLevel(LogLevel.Trace);
         builder.Logging.AddSerilog(dispose: false);
         builder.Services.AddFoundryApplicationServices();
         return builder.Build();

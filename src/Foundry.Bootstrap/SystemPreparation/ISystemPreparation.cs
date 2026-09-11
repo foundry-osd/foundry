@@ -14,6 +14,9 @@ public interface ISystemPreparation
     /// </summary>
     Task PrepareNetworkAsync(CancellationToken cancellationToken);
 
+    /// <summary>Attempts clock synchronization within a short budget before Connect establishes connectivity.</summary>
+    Task PrepareClockAsync(CancellationToken cancellationToken);
+
     /// <summary>
     /// Corrects material clock skew and selects the best available timezone.
     /// </summary>

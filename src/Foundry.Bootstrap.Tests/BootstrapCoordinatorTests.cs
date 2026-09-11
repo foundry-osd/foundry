@@ -14,6 +14,18 @@ namespace Foundry.Bootstrap.Tests;
 public sealed class BootstrapCoordinatorTests
 {
     [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task EarlyClockFailureDoesNotPreventConnectOrThePostConnectRetry(bool fails)
+    {
+        using var fixture = new Fixture { EarlyClockFails = fails };
+        Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
+        Assert.True(fixture.Calls.IndexOf("clock") > fixture.Calls.IndexOf("network"));
+        Assert.True(fixture.Calls.IndexOf("clock") < fixture.Calls.IndexOf("connect"));
+        Assert.True(fixture.Calls.IndexOf("system") > fixture.Calls.IndexOf("connect"));
+    }
+
+    [Theory]
     [InlineData(0)]
     [InlineData(20)]
     [InlineData(7)]
@@ -55,7 +67,7 @@ public sealed class BootstrapCoordinatorTests
         using var fixture = new Fixture();
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(BootstrapOutcome.Succeeded, result.Outcome);
-        Assert.Equal(["network", "Foundry.Connect:True", "connect", "system", "Foundry.Connect:False",
+        Assert.Equal(["network", "clock", "Foundry.Connect:True", "connect", "system", "Foundry.Connect:False",
             "Foundry.Deploy:False", "deploy", "persist"], fixture.Calls);
     }
 
@@ -140,6 +152,7 @@ public sealed class BootstrapCoordinatorTests
         internal bool DeployFails { get; init; }
         internal bool ConnectTimeout { get; init; }
         internal bool ObserveDiagnostics { get; init; }
+        internal bool EarlyClockFails { get; init; }
         internal List<BootstrapResult> Outcomes { get; } = [];
 
         internal Task<BootstrapResult> RunAsync() => new BootstrapCoordinator(Context, this, this, this, this,
@@ -158,6 +171,11 @@ public sealed class BootstrapCoordinatorTests
         }
 
         public Task PrepareNetworkAsync(CancellationToken cancellationToken) { Calls.Add("network"); return Task.CompletedTask; }
+        public Task PrepareClockAsync(CancellationToken cancellationToken)
+        {
+            Calls.Add("clock");
+            return EarlyClockFails ? Task.FromException(new HttpRequestException("Offline")) : Task.CompletedTask;
+        }
         public Task PrepareSystemAsync(CancellationToken cancellationToken)
         {
             Calls.Add("system");

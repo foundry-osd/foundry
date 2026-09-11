@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Meediumi loomine</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Luba rakenduse silumistaseme logimine.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Arendaja diagnostika</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Muutke rakenduse keelt ilma Foundry OSD taaskäivitamata.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Saatke tõrgete diagnoosimiseks puhastatud logid ja erandite üksikasjad. Saladused ja otsesed identifikaatorid jäetakse välja.</value>
+    <value>Saada PostHogi kõigi tasemete logid ja tehniline kontekst koos varjatud autentimissaladustega ning eraldi erandiaruanded. Logid kustutatakse automaatselt 7 päeva pärast.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Luba kaugdiagnostika</value>

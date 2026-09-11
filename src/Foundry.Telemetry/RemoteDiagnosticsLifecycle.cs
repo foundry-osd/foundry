@@ -25,12 +25,14 @@ public static class RemoteDiagnosticsLifecycle
             settings.IsRemoteDiagnosticsEnabled,
             settings.HostUrl,
             settings.ProjectToken,
-            settings.InstallId);
+            settings.InstallId)
+        { LogDirectory = RemoteDiagnosticsSink.LogDirectory };
 
         if (!options.CanSend)
         {
             RemoteDiagnosticsSink.Clear();
             service.Disable();
+            service.Configure(options, TelemetryContextFactory.CreateRemoteDiagnosticsContext(telemetryContext));
             return;
         }
 

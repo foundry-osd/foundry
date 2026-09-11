@@ -22,7 +22,7 @@ public interface IRemoteDiagnosticsService : IAsyncDisposable
     void Disable();
 
     /// <summary>
-    /// Attempts to accept a log event without blocking the caller.
+    /// Captures a log locally for background delivery without waiting for network I/O.
     /// </summary>
     void Emit(LogEvent logEvent);
 

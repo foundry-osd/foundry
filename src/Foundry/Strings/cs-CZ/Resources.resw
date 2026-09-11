@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Vytvoření média</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Povolit protokolování aplikace na úrovni ladění.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnostika pro vývojáře</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Změňte jazyk aplikace bez restartování Foundry OSD.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Odesílejte očištěné protokoly a podrobnosti o výjimkách, které pomohou diagnostikovat selhání. Tajné údaje a přímé identifikátory jsou vyloučeny.</value>
+    <value>Odesílat do PostHog všechny úrovně protokolů a technický kontext s maskovanými ověřovacími tajnými údaji a samostatná hlášení výjimek. Protokoly se automaticky odstraní po 7 dnech.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Povolit vzdálenou diagnostiku</value>

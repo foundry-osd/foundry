@@ -89,7 +89,7 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
                 cancellationToken.ThrowIfCancellationRequested();
                 if (process.HasExited) { result = result with { ExitCode = process.ExitCode }; }
             }
-            logger.ForContext("RemoteDiagnostic", true).Information(
+            logger.Information(
                 "Application startup observed for {Component}: {Outcome}; stage {Stage}; exit {ExitCode}; reason {FailureReason}; duration {DurationMilliseconds:F0} ms",
                 application, result.Succeeded ? "Succeeded" : "Stopped", result.LastStage, result.ExitCode, result.FailureCategory,
                 Stopwatch.GetElapsedTime(launched).TotalMilliseconds);

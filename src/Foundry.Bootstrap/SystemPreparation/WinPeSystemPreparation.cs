@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.Json;
+using Foundry.Utilities.Diagnostics;
 using Serilog;
 
 namespace Foundry.Bootstrap.SystemPreparation;
@@ -12,7 +13,7 @@ namespace Foundry.Bootstrap.SystemPreparation;
 /// </summary>
 public sealed class WinPeSystemPreparation : ISystemPreparation
 {
-    private static readonly TimeSpan ClockSkewThreshold = TimeSpan.FromMinutes(5);
+    private static readonly TimeSpan ClockSkewThreshold = TimeSpan.FromSeconds(1);
     private static readonly Uri[] ClockProbeUris =
     [
         new("http://www.msftconnecttest.com/connecttest.txt"),
@@ -97,6 +98,19 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
             cancellationToken).ConfigureAwait(false);
     }
 
+    public async Task PrepareClockAsync(CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        if (!_platform.IsWinPeSystemDrive || IsClockUsable) return;
+        using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        timeout.CancelAfter(TimeSpan.FromSeconds(2));
+        try { await SynchronizeClockAsync(timeout.Token).ConfigureAwait(false); }
+        catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
+        {
+            _logger.Debug("Early clock synchronization timed out. Continuing to Foundry Connect.");
+        }
+    }
+
     public async Task PrepareSystemAsync(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -106,7 +120,7 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
             return;
         }
 
-        await SynchronizeClockAsync(cancellationToken).ConfigureAwait(false);
+        if (!IsClockUsable) await SynchronizeClockAsync(cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
         await ConfigureTimeZoneAsync(cancellationToken).ConfigureAwait(false);
     }
@@ -147,6 +161,7 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
         if (clockSkew.Duration() <= ClockSkewThreshold)
         {
             IsClockUsable = true;
+            DiagnosticClock.Current.MarkSynchronized();
             _logger.Information("System clock is within the allowed internet time threshold. ClockSkewSeconds={ClockSkewSeconds:F0}", clockSkew.TotalSeconds);
             return;
         }
@@ -157,6 +172,7 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
             {
                 await _platform.SetSystemTimeAsync(internetTime.Value.ToUniversalTime(), token).ConfigureAwait(false);
                 IsClockUsable = true;
+                DiagnosticClock.Current.MarkSynchronized();
                 _logger.Information("System clock synchronized successfully. CorrectionSeconds={ClockSkewSeconds:F0}", clockSkew.TotalSeconds);
             },
             cancellationToken).ConfigureAwait(false);

@@ -51,6 +51,8 @@ namespace Foundry.Views
         {
             TelemetryCard.Header = localizationService.GetString("SettingsPage_TelemetryCard.Header");
             TelemetryCard.Description = localizationService.GetString("SettingsPage_TelemetryCard.Description");
+            RemoteDiagnosticsCard.Header = localizationService.GetString("SettingsPage_RemoteDiagnosticsCard.Header");
+            RemoteDiagnosticsCard.Description = localizationService.GetString("SettingsPage_RemoteDiagnosticsCard.Description");
             ApplyNavigationGuardState();
         }
 

@@ -5,7 +5,7 @@
 namespace Foundry.Telemetry;
 
 /// <summary>
-/// Describes runtime configuration for privacy-filtered remote diagnostics.
+/// Describes runtime configuration for remote Logs and Error Tracking.
 /// </summary>
 /// <param name="IsEnabled">Whether remote diagnostics are enabled.</param>
 /// <param name="HostUrl">PostHog ingestion host.</param>
@@ -17,6 +17,9 @@ public sealed record RemoteDiagnosticsOptions(
     string ProjectToken,
     string InstallId)
 {
+    /// <summary>Optional process-local outbox root; this is not part of generated runtime configuration.</summary>
+    public string? LogDirectory { get; init; }
+
     /// <summary>
     /// Gets whether the exporter has complete configuration and diagnostics are enabled.
     /// </summary>

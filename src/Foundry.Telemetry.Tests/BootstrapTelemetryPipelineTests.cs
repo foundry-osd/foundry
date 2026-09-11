@@ -36,16 +36,15 @@ public sealed class BootstrapTelemetryPipelineTests
     }
 
     [Fact]
-    public async Task Logs_KeepFilterRateLimitAndExceptionDedupe()
+    public async Task Logs_PreserveAllLevelsAndRepetitionsWhileExceptionsRemainDeduplicated()
     {
         var transport = new RecordingTransport();
         await using var pipeline = Create(transport);
-        pipeline.Emit(Event(LogEventLevel.Debug));
-        pipeline.Emit(Event(LogEventLevel.Information));
-        pipeline.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Information, "Milestone", null, ("RemoteDiagnostic", true)));
+        foreach (LogEventLevel level in Enum.GetValues<LogEventLevel>()) pipeline.Emit(Event(level));
+        pipeline.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Information, "Milestone"));
         var exception = new IOException("password=secret");
         for (int index = 0; index < 20; index++) pipeline.Emit(Event(LogEventLevel.Error, exception));
-        Assert.Equal(6, pipeline.PendingRecords.Count(record => record.Destination == BootstrapTelemetryDestination.Log));
+        Assert.Equal(27, pipeline.PendingRecords.Count(record => record.Destination == BootstrapTelemetryDestination.Log));
         Assert.Single(pipeline.PendingRecords, record => record.Destination == BootstrapTelemetryDestination.Exception);
         Assert.DoesNotContain(pipeline.PendingRecords, record => record.Destination == BootstrapTelemetryDestination.Analytics);
     }
@@ -53,7 +52,7 @@ public sealed class BootstrapTelemetryPipelineTests
     [Fact]
     public async Task Delivery_DrainsBeforePreparationRecordsAndContinuesAcceptingNewRecords()
     {
-        var transport = new RecordingTransport();
+        var transport = new RecordingTransport { Acknowledge = _ => true };
         await using var pipeline = Create(transport);
         pipeline.Emit(Event(LogEventLevel.Warning));
         Assert.Empty(transport.Records);
@@ -63,7 +62,7 @@ public sealed class BootstrapTelemetryPipelineTests
         await transport.WaitForCountAsync(2);
         Assert.Equal(0, transport.FlushCount);
         await pipeline.ShutdownAsync(TestContext.Current.CancellationToken);
-        Assert.Equal(1, transport.FlushCount);
+        Assert.Equal(0, transport.FlushCount);
     }
 
     [Fact]
@@ -76,7 +75,7 @@ public sealed class BootstrapTelemetryPipelineTests
     }
 
     [Fact]
-    public async Task Journal_RetainsIdentityTimestampAndCapsUnacknowledgedHandoffsAcrossBoots()
+    public async Task Logs_RetainIdentityAndTimestampAndContinueRetryingAfterThreeBoots()
     {
         using var folder = new TestFolder();
         Guid identity;
@@ -88,7 +87,7 @@ public sealed class BootstrapTelemetryPipelineTests
             identity = pipeline.PendingRecords[0].Id;
             timestamp = pipeline.PendingRecords[0].Timestamp;
             await pipeline.ShutdownAsync(TestContext.Current.CancellationToken);
-            Assert.Equal(BootstrapDeliveryState.HandedToTransport, pipeline.PendingRecords[0].State);
+            Assert.Equal(BootstrapDeliveryState.Pending, pipeline.PendingRecords[0].State);
         }
         for (int boot = 2; boot <= 4; boot++)
         {
@@ -96,11 +95,76 @@ public sealed class BootstrapTelemetryPipelineTests
             await using var pipeline = Create(transport, folder.Path);
             pipeline.StartDelivery(true);
             await pipeline.ShutdownAsync(TestContext.Current.CancellationToken);
-            Assert.Equal(boot <= 3 ? 1 : 0, transport.Records.Count);
+            Assert.Single(transport.Records);
             Assert.Equal(identity, pipeline.PendingRecords[0].Id);
             Assert.Equal(timestamp, pipeline.PendingRecords[0].Timestamp);
-            Assert.Equal(Math.Min(boot, 3), pipeline.PendingRecords[0].Attempts);
+            Assert.Equal(0, pipeline.PendingRecords[0].Attempts);
         }
+    }
+
+    [Fact]
+    public async Task Logs_PreserveLargeMessagesAndStructuredValuesAcrossRestart()
+    {
+        using var folder = new TestFolder();
+        string message = "Driver C:\\Drivers\\network.inf " + new string('x', 300_000);
+        Guid id;
+        DateTimeOffset timestamp;
+        await using (var pipeline = Create(new RecordingTransport(), folder.Path))
+        {
+            pipeline.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Debug, message, null,
+                ("TechnicalValue", "tenant-name"), ("password", "private-secret")));
+            BootstrapPendingRecord pending = Assert.Single(pipeline.PendingRecords);
+            id = pending.Id;
+            timestamp = pending.Timestamp;
+        }
+        var transport = new RecordingTransport { Acknowledge = _ => true };
+        await using var replay = Create(transport, folder.Path);
+        Assert.Empty(transport.Records);
+        await replay.ShutdownAsync(TestContext.Current.CancellationToken);
+        BootstrapPendingRecord sent = Assert.Single(transport.Records);
+        Assert.Equal(id, sent.Id);
+        Assert.Equal(timestamp, sent.Timestamp);
+        Assert.Equal(message, sent.Diagnostic!.Body);
+        Assert.Equal("tenant-name", sent.Diagnostic.Attributes["TechnicalValue"]);
+        Assert.DoesNotContain("private-secret", JsonSerializer.Serialize(sent), StringComparison.Ordinal);
+        Assert.Empty(replay.PendingRecords);
+    }
+
+    [Fact]
+    public async Task LegacyLogs_TransferToSharedQueueWithOriginalIdentityDespiteOldAttemptCap()
+    {
+        using var folder = new TestFolder();
+        Guid id = Guid.NewGuid();
+        RemoteDiagnosticRecord log = LogRecordFactory.Create(Event(LogEventLevel.Verbose),
+            TelemetryContextFactory.CreateRemoteDiagnosticsContext(Context));
+        var journal = new BootstrapTelemetryJournal(folder.Path);
+        journal.Add(new BootstrapPendingRecord(id,
+            BootstrapTelemetryJournal.Scope("https://example.test", "public", "install"),
+            BootstrapTelemetryDestination.Log, log.Timestamp, null, log, Attempts: 3));
+        var transport = new RecordingTransport { Acknowledge = _ => true };
+        await using (var pipeline = Create(transport, folder.Path))
+        {
+            Assert.Empty(File.ReadAllLines(folder.Path));
+            Assert.Equal(id, Assert.Single(pipeline.PendingRecords).Id);
+            await pipeline.ShutdownAsync(TestContext.Current.CancellationToken);
+            Assert.Equal(id, Assert.Single(transport.Records).Id);
+        }
+        await using var next = Create(new RecordingTransport(), folder.Path);
+        Assert.Empty(next.PendingRecords);
+    }
+
+    [Fact]
+    public async Task DisabledConsentOnRestart_PurgesPersistedLogsBeforeFutureOptIn()
+    {
+        using var folder = new TestFolder();
+        await using (var first = Create(new RecordingTransport(), folder.Path))
+            first.Emit(Event(LogEventLevel.Debug));
+        await using (var disabled = Create(new RecordingTransport(), folder.Path, diagnostics: false))
+            Assert.Empty(disabled.PendingRecords);
+        var transport = new RecordingTransport();
+        await using var enabled = Create(transport, folder.Path);
+        await enabled.ShutdownAsync(TestContext.Current.CancellationToken);
+        Assert.Empty(transport.Records);
     }
 
     [Fact]
@@ -141,7 +205,7 @@ public sealed class BootstrapTelemetryPipelineTests
         pipeline.StartDelivery(true);
         await pipeline.ShutdownAsync(TestContext.Current.CancellationToken);
         Assert.Equal(expected, transport.Records.Count);
-        Assert.Equal(expected, File.ReadAllLines(folder.Path).Length);
+        Assert.Equal(expected, pipeline.PendingRecords.Count);
     }
 
     [Fact]
@@ -202,7 +266,7 @@ public sealed class BootstrapTelemetryPipelineTests
     }
 
     [Fact]
-    public async Task Replay_IsLimitedToOneHundredRecordsPerBoot()
+    public async Task Logs_ReplayAllPendingRecordsAcrossMultipleAcknowledgedBatches()
     {
         using var folder = new TestFolder();
         await using (var first = Create(new RecordingTransport(), folder.Path))
@@ -210,12 +274,12 @@ public sealed class BootstrapTelemetryPipelineTests
             for (int index = 0; index < 110; index++)
                 first.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Warning, "Warning " + index));
         }
-        var transport = new RecordingTransport();
+        var transport = new RecordingTransport { Acknowledge = _ => true };
         await using var replay = Create(transport, folder.Path, time: new TestClock());
         replay.StartDelivery(clockUsable: false);
-        await transport.WaitForCountAsync(100, TimeSpan.FromSeconds(30));
+        await transport.WaitForCountAsync(110, TimeSpan.FromSeconds(30));
         await replay.ShutdownAsync(TestContext.Current.CancellationToken);
-        Assert.Equal(100, transport.Records.Count);
+        Assert.Equal(110, transport.Records.Count);
     }
 
     [Fact]
@@ -225,7 +289,7 @@ public sealed class BootstrapTelemetryPipelineTests
         var clock = new TestClock();
         await using (var first = Create(new RecordingTransport(), folder.Path, time: clock))
         {
-            first.Emit(Event(LogEventLevel.Warning));
+            first.Emit(Event(LogEventLevel.Error, new IOException("Failed")));
             first.CaptureTerminalFailure(Failure());
         }
         var transport = new RecordingTransport
@@ -234,7 +298,7 @@ public sealed class BootstrapTelemetryPipelineTests
         };
         await using var replay = Create(transport, folder.Path, time: clock);
         await replay.ShutdownAsync(TestContext.Current.CancellationToken);
-        Assert.Single(transport.Records);
+        Assert.Single(transport.Records, record => record.Destination != BootstrapTelemetryDestination.Log);
     }
 
     [Fact]
@@ -256,7 +320,7 @@ public sealed class BootstrapTelemetryPipelineTests
         await using (var first = Create(new RecordingTransport(), folder.Path))
         {
             first.CaptureTerminalFailure(Failure());
-            first.Emit(Event(LogEventLevel.Warning));
+            first.Emit(Event(LogEventLevel.Error, new IOException("Failed")));
         }
         string[] lines = File.ReadAllLines(folder.Path);
         var record = JsonSerializer.Deserialize<BootstrapPendingRecord>(lines[0])!;
@@ -269,7 +333,7 @@ public sealed class BootstrapTelemetryPipelineTests
         string content = File.ReadAllText(folder.Path);
         Assert.DoesNotContain("private-secret", content, StringComparison.Ordinal);
         Assert.DoesNotContain("not json", content, StringComparison.Ordinal);
-        Assert.Equal(2, transport.Records.Count);
+        Assert.Equal(2, transport.Records.Count(record => record.Destination != BootstrapTelemetryDestination.Log));
     }
 
     [Fact]
@@ -279,7 +343,7 @@ public sealed class BootstrapTelemetryPipelineTests
         await using (var first = Create(new RecordingTransport(), folder.Path))
         {
             first.CaptureTerminalFailure(Failure());
-            first.Emit(Event(LogEventLevel.Warning));
+            first.Emit(Event(LogEventLevel.Error, new IOException("Failed")));
         }
         string[] lines = File.ReadAllLines(folder.Path);
         string invalid = lines[1].Replace("\"Attributes\":{", "\"Attributes\":{\"duration.ms\":1e999,", StringComparison.Ordinal);
@@ -287,7 +351,8 @@ public sealed class BootstrapTelemetryPipelineTests
         var transport = new RecordingTransport();
         await using var replay = Create(transport, folder.Path);
         await replay.ShutdownAsync(TestContext.Current.CancellationToken);
-        Assert.Equal(BootstrapTelemetryDestination.Analytics, Assert.Single(transport.Records).Destination);
+        Assert.Equal(BootstrapTelemetryDestination.Analytics,
+            Assert.Single(transport.Records, record => record.Destination != BootstrapTelemetryDestination.Log).Destination);
     }
 
     [Fact]
@@ -343,7 +408,7 @@ public sealed class BootstrapTelemetryPipelineTests
         bool usage = true, bool diagnostics = true, string installation = "install", TimeProvider? time = null) =>
         new(new TelemetryOptions(usage, "https://example.test", "public", installation), Context,
             new RemoteDiagnosticsOptions(diagnostics, "https://example.test", "public", installation),
-            TelemetryContextFactory.CreateRemoteDiagnosticsContext(Context), path, () => transport, time ?? TimeProvider.System);
+            TelemetryContextFactory.CreateRemoteDiagnosticsContext(Context), path, () => transport, time ?? TimeProvider.System, transport);
 
     private static LogEvent Event(LogEventLevel level, Exception? exception = null) =>
         RemoteDiagnosticsTestData.LogEvent(level, "Bootstrap operation failed", exception);
@@ -358,7 +423,7 @@ public sealed class BootstrapTelemetryPipelineTests
         ["password"] = "private-secret"
     };
 
-    private sealed class RecordingTransport : IBootstrapTelemetryTransport
+    private sealed class RecordingTransport : IBootstrapTelemetryTransport, ILogBatchTransport
     {
         internal ConcurrentQueue<BootstrapPendingRecord> Records { get; } = new();
         internal Func<BootstrapPendingRecord, bool> Acknowledge { get; init; } = _ => false;
@@ -373,6 +438,18 @@ public sealed class BootstrapTelemetryPipelineTests
         }
         public Task FlushAsync(CancellationToken cancellationToken) { FlushCount++; return Task.CompletedTask; }
         public ValueTask DisposeAsync() => ValueTask.CompletedTask;
+        public void Dispose() { }
+        public async Task<LogBatchResult> SendAsync(IReadOnlyList<RemoteDiagnosticRecord> records, CancellationToken cancellationToken)
+        {
+            bool accepted = true;
+            foreach (RemoteDiagnosticRecord record in records)
+            {
+                var pending = new BootstrapPendingRecord(Guid.Parse(record.Attributes["diagnostics.record_id"].ToString()!),
+                    string.Empty, BootstrapTelemetryDestination.Log, record.Timestamp, null, record);
+                accepted &= await DeliverAsync(pending, cancellationToken);
+            }
+            return new LogBatchResult(accepted ? LogBatchDisposition.Accepted : LogBatchDisposition.Retry);
+        }
         internal async Task WaitForCountAsync(int count, TimeSpan? waitTimeout = null)
         {
             using var timeout = new CancellationTokenSource(waitTimeout ?? TimeSpan.FromSeconds(3));

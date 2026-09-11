@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Crearea suportului</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Activați jurnalizarea aplicației la nivel de depanare.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Diagnosticare pentru dezvoltatori</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Schimbați limba aplicației fără a reporni Foundry OSD.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Trimiteți jurnale curățate și detalii despre excepții pentru a ajuta la diagnosticarea erorilor. Se exclud secretele și identificatorii direcți.</value>
+    <value>Trimite către PostHog toate nivelurile de jurnal și contextul tehnic, cu secretele de autentificare mascate, plus rapoarte separate de excepții. Jurnalele sunt șterse automat după 7 zile.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Activați diagnosticarea la distanță</value>

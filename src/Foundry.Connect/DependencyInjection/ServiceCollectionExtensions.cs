@@ -39,7 +39,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(sp => sp.GetRequiredService<IConnectConfigurationService>().Load());
         services.AddSingleton(CreateTelemetryOptions);
         services.AddSingleton(CreateTelemetryContext);
-        services.AddSingleton<IRemoteDiagnosticsService>(_ => new PostHogRemoteDiagnosticsSink());
         services.AddSingleton<ITelemetryService>(sp =>
         {
             TelemetryOptions options = sp.GetRequiredService<TelemetryOptions>();

@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>Δημιουργία μέσων</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Ενεργοποίηση καταγραφής εφαρμογής σε επίπεδο εντοπισμού σφαλμάτων.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>Διαγνωστικά για προγραμματιστές</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>Αλλάξτε τη γλώσσα της εφαρμογής χωρίς επανεκκίνηση του Foundry OSD.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Στείλτε καθαρισμένα αρχεία καταγραφής και λεπτομέρειες εξαιρέσεων για να βοηθήσετε στη διάγνωση αποτυχιών. Τα μυστικά και τα άμεσα αναγνωριστικά εξαιρούνται.</value>
+    <value>Αποστολή όλων των επιπέδων καταγραφής και του τεχνικού πλαισίου στο PostHog με απόκρυψη μυστικών ελέγχου ταυτότητας, καθώς και ξεχωριστών αναφορών εξαιρέσεων. Τα αρχεία καταγραφής διαγράφονται αυτόματα μετά από 7 ημέρες.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Ενεργοποίηση απομακρυσμένων διαγνωστικών</value>

@@ -1743,12 +1743,6 @@
   <data name="GeneralConfiguration_CreateMedia.Header" xml:space="preserve">
     <value>إنشاء الوسائط</value>
   </data>
-  <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>تمكين تسجيل التطبيق على مستوى تصحيح الأخطاء.</value>
-  </data>
-  <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
-    <value>تشخيصات المطور</value>
-  </data>
   <data name="GeneralSetting_LanguageCard.Description" xml:space="preserve">
     <value>قم بتغيير لغة التطبيق دون إعادة تشغيل Foundry OSD.</value>
   </data>
@@ -2338,7 +2332,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>أرسل السجلات المنقّحة وتفاصيل الاستثناءات للمساعدة في تشخيص حالات الفشل. تُستبعد الأسرار والمُعرّفات المباشرة.</value>
+    <value>إرسال جميع مستويات السجلات والسياق التقني إلى PostHog مع إخفاء أسرار المصادقة، بالإضافة إلى تقارير استثناءات منفصلة. تُحذف السجلات تلقائيًا بعد 7 أيام.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>تمكين التشخيص عن بُعد</value>
