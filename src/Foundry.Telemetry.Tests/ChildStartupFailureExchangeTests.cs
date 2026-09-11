@@ -35,15 +35,41 @@ public sealed class ChildStartupFailureExchangeTests
     }
 
     [Fact]
-    public void Capture_RequiresResolvedConsentAndBoundsTheFailureFile()
+    public void Capture_RequiresResolvedConsentAndPreservesFailureLargerThanLegacyLimit()
     {
         using var folder = new TestFolder();
         Assert.Null(ChildStartupFailureExchange.TryCapture(folder.Directory, folder.Launch, Options with { IsEnabled = false },
             ChildContext, Failure(new IOException("Failed"))));
         Assert.False(File.Exists(folder.Exchange));
         var largeFailure = new AggregateException(Enumerable.Range(0, 200).Select(_ => new IOException(new string('x', 2048))));
-        Assert.Null(Capture(folder, largeFailure));
-        Assert.False(File.Exists(folder.Exchange));
+        Assert.NotNull(Capture(folder, largeFailure));
+        Assert.True(new FileInfo(folder.Exchange).Length > 256 * 1024);
+        Assert.True(new FileInfo(folder.Exchange).Length <= ChildStartupFailureExchange.MaximumBytes);
+    }
+
+    [Fact]
+    public async Task Import_PreservesFullChildLogSeparatelyFromConservativeErrorTracking()
+    {
+        using var folder = new TestFolder();
+        string message = "Failed to load C:\\Drivers\\network.inf for {Tenant}";
+        LogEvent source = RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, message, CreateException(),
+            ("Tenant", "ExampleTenant"), ("password", "private-secret"), ("UnrestrictedDetail", new string('x', 5000)));
+        Guid? id = ChildStartupFailureExchange.TryCapture(folder.Directory, folder.Launch, Options, ChildContext, source);
+        Assert.NotNull(id);
+        ChildStartupFailureRecord stored = ChildStartupFailureExchange.Read(folder.Directory, folder.Launch, ChildContext.App)!;
+        Assert.NotNull(stored.Log);
+        Assert.Contains("C:\\Drivers\\network.inf", stored.Log.Body, StringComparison.Ordinal);
+        Assert.Contains("ExampleTenant", stored.Log.Body, StringComparison.Ordinal);
+        Assert.Equal(5000, stored.Log.Attributes["UnrestrictedDetail"].ToString()!.Length);
+        Assert.DoesNotContain("private-secret", JsonSerializer.Serialize(stored), StringComparison.Ordinal);
+        Assert.False(stored.Diagnostic.Attributes.ContainsKey("UnrestrictedDetail"));
+        var transport = new RecordingTransport { AcknowledgeLogs = true };
+        await using var pipeline = Create(transport, folder.Journal);
+        Assert.True(pipeline.ImportChildStartupFailure(folder.Directory, folder.Launch, ChildContext.App, true, id));
+        await pipeline.ShutdownAsync(TestContext.Current.CancellationToken);
+        BootstrapPendingRecord sent = Assert.Single(transport.Records, record => record.Destination == BootstrapTelemetryDestination.Log);
+        Assert.Equal(stored.LogRecordId, sent.Id);
+        Assert.Equal(stored.Log.Body, sent.Diagnostic!.Body);
     }
 
     [Theory]
@@ -85,7 +111,7 @@ public sealed class ChildStartupFailureExchangeTests
     }
 
     [Fact]
-    public async Task Reimport_PreservesPartialReceiptsAndThreeAttemptLimitAcrossBoots()
+    public async Task Reimport_PreservesExceptionAttemptLimitAndStableLogIdentityAcrossBoots()
     {
         using var folder = new TestFolder();
         Guid id = Capture(folder, CreateException())!.Value;
@@ -97,12 +123,13 @@ public sealed class ChildStartupFailureExchangeTests
             await using var pipeline = Create(transport, folder.Journal);
             Assert.True(pipeline.ImportChildStartupFailure(folder.Directory, folder.Launch, ChildContext.App, true));
             await pipeline.ShutdownAsync(TestContext.Current.CancellationToken);
-            Assert.Equal(boot == 1 ? 2 : boot <= 3 ? 1 : 0, transport.Records.Count);
+            Assert.Equal(boot <= 3 ? 2 : 1, transport.Records.Count);
             BootstrapPendingRecord exception = Assert.Single(pipeline.PendingRecords, record => record.Destination == BootstrapTelemetryDestination.Exception);
             Assert.Equal(id, exception.Id);
             Assert.Equal(Math.Min(boot, 3), exception.Attempts);
-            Assert.Equal(BootstrapDeliveryState.Acknowledged,
-                Assert.Single(pipeline.PendingRecords, record => record.Destination == BootstrapTelemetryDestination.Log).State);
+            Assert.DoesNotContain(pipeline.PendingRecords, record => record.Destination == BootstrapTelemetryDestination.Log);
+            Assert.Equal(JsonSerializer.Deserialize<ChildStartupFailureRecord>(exchange)!.LogRecordId,
+                Assert.Single(transport.Records, record => record.Destination == BootstrapTelemetryDestination.Log).Id);
         }
     }
 
@@ -179,8 +206,10 @@ public sealed class ChildStartupFailureExchangeTests
         Assert.Equal(2, transport.Records.Count);
     }
 
-    [Fact]
-    public async Task Recovery_ExpiresPriorBootRecordsOnlyWithUsableClock()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Recovery_ExpiresOldExceptionsButPreservesLogTimestamp(bool startBeforeImport)
     {
         using var folder = new TestFolder();
         var oldContext = ChildContext with { SessionId = "earlier-boot" };
@@ -190,11 +219,14 @@ public sealed class ChildStartupFailureExchangeTests
         Assert.NotNull(ChildStartupFailureExchange.TryCapture(folder.Directory, folder.Launch, Options, oldContext, failure));
         var transport = new RecordingTransport();
         await using var pipeline = Create(transport, folder.Journal);
+        if (startBeforeImport) pipeline.StartDelivery(true);
         Assert.True(pipeline.ImportChildStartupFailure(folder.Directory, folder.Launch, ChildContext.App, true));
-        Assert.Equal(2, pipeline.PendingRecords.Count);
+        Assert.Equal(startBeforeImport ? 1 : 2, pipeline.PendingRecords.Count);
         pipeline.StartDelivery(true);
         await pipeline.ShutdownAsync(TestContext.Current.CancellationToken);
-        Assert.Empty(transport.Records);
+        BootstrapPendingRecord replayed = Assert.Single(transport.Records);
+        Assert.Equal(BootstrapTelemetryDestination.Log, replayed.Destination);
+        Assert.Equal(failure.Timestamp, replayed.Timestamp);
     }
 
     [Fact]
@@ -222,11 +254,11 @@ public sealed class ChildStartupFailureExchangeTests
     }
 
     [Fact]
-    public async Task ImportedDestinations_ShareOneHundredRecordReplayLimit()
+    public async Task ImportedLogs_DoNotConsumeExceptionReplayBudget()
     {
         using var folder = new TestFolder();
-        var transport = new RecordingTransport();
-        await using var pipeline = Create(transport, time: new TestClock());
+        var transport = new RecordingTransport { AcknowledgeLogs = true };
+        await using var pipeline = Create(transport, folder.Journal, time: new TestClock());
         for (int index = 0; index < 60; index++)
         {
             Guid launch = Guid.NewGuid();
@@ -237,9 +269,9 @@ public sealed class ChildStartupFailureExchangeTests
         pipeline.StartDelivery(clockUsable: false);
         using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
         cancellation.CancelAfter(TimeSpan.FromSeconds(30));
-        while (transport.Records.Count < 100) await Task.Delay(10, cancellation.Token);
+        while (transport.Records.Count < 120) await Task.Delay(10, cancellation.Token);
         await pipeline.ShutdownAsync(TestContext.Current.CancellationToken);
-        Assert.Equal(100, transport.Records.Count);
+        Assert.Equal(120, transport.Records.Count);
     }
 
     private static Guid? Capture(TestFolder folder, Exception exception) => ChildStartupFailureExchange.TryCapture(
@@ -258,9 +290,9 @@ public sealed class ChildStartupFailureExchangeTests
         RemoteDiagnosticsOptions? options = null, TimeProvider? time = null) => new(
             new TelemetryOptions(false, Options.HostUrl, Options.ProjectToken, Options.InstallId), ParentContext,
             options ?? Options, TelemetryContextFactory.CreateRemoteDiagnosticsContext(ParentContext), path,
-            () => transport, time ?? TimeProvider.System);
+            () => transport, time ?? TimeProvider.System, transport);
 
-    private sealed class RecordingTransport : IBootstrapTelemetryTransport
+    private sealed class RecordingTransport : IBootstrapTelemetryTransport, ILogBatchTransport
     {
         internal ConcurrentQueue<BootstrapPendingRecord> Records { get; } = new();
         internal bool AcknowledgeLogs { get; init; }
@@ -272,6 +304,14 @@ public sealed class ChildStartupFailureExchangeTests
         }
         public Task FlushAsync(CancellationToken cancellationToken) => Task.CompletedTask;
         public ValueTask DisposeAsync() => ValueTask.CompletedTask;
+        public void Dispose() { }
+        public async Task<LogBatchResult> SendAsync(IReadOnlyList<RemoteDiagnosticRecord> records, CancellationToken cancellationToken)
+        {
+            foreach (RemoteDiagnosticRecord record in records)
+                await DeliverAsync(new BootstrapPendingRecord(Guid.Parse(record.Attributes["diagnostics.record_id"].ToString()!),
+                    string.Empty, BootstrapTelemetryDestination.Log, record.Timestamp, null, record), cancellationToken);
+            return new LogBatchResult(AcknowledgeLogs ? LogBatchDisposition.Accepted : LogBatchDisposition.Retry);
+        }
     }
 
     private sealed class TestClock : TimeProvider

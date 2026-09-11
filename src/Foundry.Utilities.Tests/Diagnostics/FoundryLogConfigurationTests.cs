@@ -13,6 +13,94 @@ namespace Foundry.Utilities.Tests.Diagnostics;
 public sealed class FoundryLogConfigurationTests
 {
     [Fact]
+    public void CreateFileLogger_UsesInvariantMessageFormattingUnderFrenchCulture()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string path = Path.Combine(tempDirectory.Path, "Foundry.log");
+        System.Globalization.CultureInfo original = System.Globalization.CultureInfo.CurrentCulture;
+        try
+        {
+            System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("fr-FR");
+            ILogger logger = FoundryLogConfiguration.CreateFileLogger(path, "Foundry.Test", "SESSION01",
+                LogEventLevel.Verbose, 2);
+            try { logger.Information("Duration {Duration:F2}", 1.25); }
+            finally { (logger as IDisposable)?.Dispose(); }
+        }
+        finally { System.Globalization.CultureInfo.CurrentCulture = original; }
+
+        Assert.Contains("Duration 1.25", File.ReadAllText(path), StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void CreateFileLogger_MasksSecretsBeforeBothOutputsAndPreservesTechnicalContext()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string path = Path.Combine(tempDirectory.Path, "Foundry.log");
+        var sink = new CollectingSink();
+        ILogger logger = FoundryLogConfiguration.CreateFileLogger(path, "Foundry.Test", "SESSION01",
+            LogEventLevel.Verbose, 2, additionalSink: sink);
+        try
+        {
+            logger.Information("Reading {Path} using {Password}; {@Context}", @"C:\Users\alice\boot.wim",
+                "password-value", new { TenantId = "tenant-42", AccessToken = "token-value", Count = 3 });
+            logger.Error(new InvalidOperationException("Request failed: Authorization: Bearer bearer-value\npassword=exception-value"),
+                "GET https://storage.example/image.wim?version=42&sig=signature-value");
+        }
+        finally
+        {
+            (logger as IDisposable)?.Dispose();
+        }
+
+        string local = File.ReadAllText(path);
+        string remote = string.Join("\n", sink.Events.Select(e => e.RenderMessage() + e.Exception));
+        foreach (string output in new[] { local, remote })
+        {
+            Assert.DoesNotContain("password-value", output, StringComparison.Ordinal);
+            Assert.DoesNotContain("token-value", output, StringComparison.Ordinal);
+            Assert.DoesNotContain("bearer-value", output, StringComparison.Ordinal);
+            Assert.DoesNotContain("exception-value", output, StringComparison.Ordinal);
+            Assert.DoesNotContain("signature-value", output, StringComparison.Ordinal);
+            Assert.Contains("alice", output, StringComparison.Ordinal);
+            Assert.Contains("tenant-42", output, StringComparison.Ordinal);
+            Assert.Contains("version=42", output, StringComparison.Ordinal);
+        }
+    }
+
+    [Fact]
+    public void CreateFileLogger_PreservesAllLevelsAndStableIdentityAcrossFanout()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string path = Path.Combine(tempDirectory.Path, "Foundry.log");
+        var sink = new CollectingSink();
+        ILogger logger = FoundryLogConfiguration.CreateFileLogger(path, "Foundry.Test", "SESSION01",
+            LogEventLevel.Verbose, 2, additionalSink: sink);
+        var timestamp = new DateTimeOffset(2026, 9, 10, 12, 34, 56, TimeSpan.Zero);
+        try
+        {
+            foreach (LogEventLevel level in Enum.GetValues<LogEventLevel>())
+            {
+                logger.Write(new LogEvent(timestamp, level, null,
+                    new Serilog.Parsing.MessageTemplateParser().Parse("Repeated diagnostic"), []));
+            }
+        }
+        finally
+        {
+            (logger as IDisposable)?.Dispose();
+        }
+
+        Assert.Equal(6, sink.Events.Count);
+        Assert.All(sink.Events, e => Assert.Equal(timestamp, e.Timestamp));
+        string local = File.ReadAllText(path);
+        Assert.Equal(6, sink.Events.Select(e => e.Properties["diagnostics.record_id"].ToString()).Distinct().Count());
+        foreach (LogEvent entry in sink.Events)
+        {
+            Assert.Contains(((ScalarValue)entry.Properties["diagnostics.record_id"]).Value!.ToString()!, local, StringComparison.Ordinal);
+        }
+        long[] sequences = sink.Events.Select(e => (long)((ScalarValue)e.Properties["diagnostics.sequence"]).Value!).ToArray();
+        Assert.True(sequences.Zip(sequences.Skip(1), (left, right) => left < right).All(value => value));
+    }
+
+    [Fact]
     public void CreateFileLogger_ForwardsEventsToAdditionalSink()
     {
         using var tempDirectory = new TemporaryDirectory();

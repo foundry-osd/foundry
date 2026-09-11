@@ -1744,7 +1744,7 @@
     <value>Medieoppretting</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Aktiver programlogging på feilsøkingsnivå.</value>
+    <value>Rapporter manglende oversettelsesnøkler og feil ved ressurssøk. Alle loggnivåer forblir aktivert.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Utviklerdiagnostikk</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send rensede logger og unntaksdetaljer for å gjøre det enklere å diagnostisere feil. Hemmeligheter og direkte identifikatorer utelates.</value>
+    <value>Send alle loggnivåer og teknisk kontekst til PostHog med maskerte autentiseringshemmeligheter samt separate unntaksrapporter. Logger slettes automatisk etter 7 dager.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Aktiver fjerndiagnostikk</value>

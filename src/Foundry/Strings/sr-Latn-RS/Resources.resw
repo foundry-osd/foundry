@@ -1744,7 +1744,7 @@
     <value>Kreiranje medija</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Omogući evidentiranje aplikacije na nivou otklanjanja grešaka.</value>
+    <value>Prijavljujte nedostajuće ključeve prevoda i greške pri pretrazi resursa. Svi nivoi evidentiranja ostaju omogućeni.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Dijagnostika za programere</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Šaljite prečišćene evidencije i detalje o izuzecima radi lakšeg dijagnostikovanja grešaka. Tajni podaci i direktni identifikatori su isključeni.</value>
+    <value>Šaljite sve nivoe evidencije i tehnički kontekst u PostHog uz maskirane tajne za autentifikaciju i zasebne izveštaje o izuzecima. Evidencije se automatski brišu posle 7 dana.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Omogući udaljenu dijagnostiku</value>

@@ -37,15 +37,16 @@ internal sealed class BootstrapTelemetryTransport : IBootstrapTelemetryTransport
                 .ConfigureAwait(false);
         }
 
+        if (record.Destination != BootstrapTelemetryDestination.Exception)
+            throw new ArgumentException("Bootstrap Logs use the shared reliable log pipeline.", nameof(record));
         RemoteDiagnosticsContext context = GetResourceContext(record.Diagnostic!, _context);
         if (!_diagnostics.TryGetValue(context, out PostHogDiagnosticsExporter? exporter))
         {
             exporter = new PostHogDiagnosticsExporter(_options, context);
             _diagnostics.Add(context, exporter);
         }
-        if (record.Destination == BootstrapTelemetryDestination.Log) exporter.ExportLog(record.Diagnostic!);
-        else exporter.ExportException(record.Diagnostic!);
-        // Both SDK APIs only enqueue. Their flush methods do not expose per-record receipts.
+        exporter.ExportException(record.Diagnostic!);
+        // The exception SDK only enqueues; its flush method does not expose per-record receipts.
         return false;
     }
 

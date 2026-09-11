@@ -7,7 +7,7 @@ using Serilog.Events;
 namespace Foundry.Telemetry;
 
 /// <summary>
-/// Represents a privacy-filtered log record that is safe to enqueue for remote delivery.
+/// Represents a prepared remote record; Logs and Error Tracking apply their own content policies.
 /// </summary>
 public sealed record RemoteDiagnosticRecord(
     DateTimeOffset Timestamp,

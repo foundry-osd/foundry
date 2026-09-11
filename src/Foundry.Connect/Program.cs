@@ -54,10 +54,12 @@ public static class Program
                 startupLogFilePath = "<unavailable>";
                 Log.Logger = FoundryLogConfiguration.CreateDebugLogger(
                     "Foundry.Connect", DiagnosticSessionContext.CurrentSessionId,
-                    Serilog.Events.LogEventLevel.Debug, additionalSink: RemoteDiagnosticsSink.Instance);
+                    Serilog.Events.LogEventLevel.Verbose, additionalSink: RemoteDiagnosticsSink.Instance);
                 Log.ForContext(typeof(Program)).Error(exception, "File logging initialization failed. Falling back to debugger output.");
             }
 
+            remoteDiagnosticsService = new PostHogRemoteDiagnosticsSink();
+            startup.InitializeRemoteDiagnostics(remoteDiagnosticsService);
             programLogger = Log.ForContext(typeof(Program));
             programLogger.Information(
                 "Foundry.Connect bootstrap started. Version={Version}, SessionId={SessionId}, LogFilePath={LogFilePath}",
@@ -67,12 +69,11 @@ public static class Program
 
             ConfigureRuntimeCompatibility();
             stage = "configuration";
-            host = BuildHost(args, startup);
+            host = BuildHost(args, startup, remoteDiagnosticsService);
             _ = host.Services.GetRequiredService<FoundryConnectConfiguration>();
             startup.ReportConfigurationLoaded();
             stage = "services";
             telemetryService = host.Services.GetRequiredService<ITelemetryService>();
-            remoteDiagnosticsService = host.Services.GetRequiredService<IRemoteDiagnosticsService>();
             InitializeRemoteDiagnostics(host.Services, remoteDiagnosticsService);
 
             stage = "ui_startup";
@@ -101,9 +102,10 @@ public static class Program
         }
         finally
         {
-            ShutdownDiagnostics(telemetryService, remoteDiagnosticsService);
             try { host?.Dispose(); }
             catch (Exception exception) { programLogger.Warning(exception, "Application service disposal failed."); }
+            programLogger.Information("Foundry.Connect application shutdown completed. Closing diagnostics.");
+            ShutdownDiagnostics(telemetryService, remoteDiagnosticsService);
             try { Task.Run(() => Log.CloseAndFlushAsync().AsTask()).WaitAsync(DiagnosticsShutdownTimeout).GetAwaiter().GetResult(); }
             catch { }
         }
@@ -166,13 +168,15 @@ public static class Program
         };
     }
 
-    private static IHost BuildHost(string[] args, RuntimeStartupDiagnostics startup)
+    private static IHost BuildHost(string[] args, RuntimeStartupDiagnostics startup, IRemoteDiagnosticsService remoteDiagnosticsService)
     {
         HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
         builder.Logging.ClearProviders();
+        builder.Logging.SetMinimumLevel(LogLevel.Trace);
         builder.Logging.AddSerilog(dispose: false);
         builder.Services.AddSingleton(startup);
         builder.Services.AddFoundryConnectApplicationServices(args);
+        builder.Services.AddSingleton(remoteDiagnosticsService);
         return builder.Build();
     }
 
@@ -185,6 +189,8 @@ public static class Program
 
     private static void ShutdownDiagnostics(ITelemetryService? telemetry, IRemoteDiagnosticsService? diagnostics)
     {
+        Serilog.ILogger transportLogger = Log.ForContext(typeof(Program)).ForContext("PostHogTransportInternal", true);
+        transportLogger.Debug("Flushing remote diagnostics.");
         try
         {
             Task.Run(async () =>
@@ -198,8 +204,12 @@ public static class Program
                 if (diagnostics is not null)
                     await RemoteDiagnosticsLifecycle.ShutdownAsync(diagnostics, timeout.Token).ConfigureAwait(false);
             }).WaitAsync(DiagnosticsShutdownTimeout).GetAwaiter().GetResult();
+            transportLogger.Debug("Remote diagnostics shutdown completed.");
         }
-        catch { }
+        catch (Exception exception)
+        {
+            transportLogger.Warning(exception, "Remote diagnostics shutdown did not complete within the shutdown budget.");
+        }
     }
 
     private static void RegisterGlobalExceptionHandlers(RuntimeStartupDiagnostics startup)

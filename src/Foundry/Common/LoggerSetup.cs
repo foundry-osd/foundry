@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Serilog;
-using Serilog.Core;
 using Serilog.Events;
 using Foundry.Telemetry;
 using Foundry.Utilities.Diagnostics;
@@ -16,7 +15,6 @@ namespace Foundry.Common
     /// </summary>
     public static partial class LoggerSetup
     {
-        private static readonly LoggingLevelSwitch MinimumLevelSwitch = new(LogEventLevel.Information);
         private static bool globalExceptionHandlersRegistered;
         private const int RetainedLogFileCount = 10;
 
@@ -42,6 +40,7 @@ namespace Foundry.Common
                     AppContext.BaseDirectory
                 ],
                 Path.GetFileName(Constants.LogFilePath));
+            RemoteDiagnosticsSink.SetLogDirectory(Path.Combine(Path.GetDirectoryName(LogFilePath)!, "PendingLogs"));
 
             try
             {
@@ -49,10 +48,9 @@ namespace Foundry.Common
                     LogFilePath,
                     "Foundry.OSD",
                     DiagnosticSessionContext.CurrentSessionId,
-                    LogEventLevel.Information,
+                    LogEventLevel.Verbose,
                     RetainedLogFileCount,
-                    MinimumLevelSwitch,
-                    RemoteDiagnosticsSink.Instance);
+                    additionalSink: RemoteDiagnosticsSink.Instance);
             }
             catch (Exception ex)
             {
@@ -61,9 +59,8 @@ namespace Foundry.Common
                 Logger = FoundryLogConfiguration.CreateDebugLogger(
                     "Foundry.OSD",
                     DiagnosticSessionContext.CurrentSessionId,
-                    LogEventLevel.Information,
-                    MinimumLevelSwitch,
-                    RemoteDiagnosticsSink.Instance);
+                    LogEventLevel.Verbose,
+                    additionalSink: RemoteDiagnosticsSink.Instance);
             }
 
             Log.Logger = Logger;
@@ -71,22 +68,6 @@ namespace Foundry.Common
             {
                 SetupLogger.Error(initializationException, "File logging initialization failed. Falling back to debugger output.");
             }
-        }
-
-        /// <summary>
-        /// Updates the minimum logging level used by runtime diagnostics.
-        /// </summary>
-        /// <param name="isEnabled">Whether developer diagnostics should enable debug logging.</param>
-        public static void SetDeveloperModeEnabled(bool isEnabled)
-        {
-            LogEventLevel targetLevel = isEnabled ? LogEventLevel.Debug : LogEventLevel.Information;
-            if (MinimumLevelSwitch.MinimumLevel == targetLevel)
-            {
-                return;
-            }
-
-            MinimumLevelSwitch.MinimumLevel = targetLevel;
-            SetupLogger.Information("Developer diagnostics logging level changed. DeveloperMode={DeveloperMode}, MinimumLevel={MinimumLevel}", isEnabled, targetLevel);
         }
 
         /// <summary>

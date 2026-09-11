@@ -1744,7 +1744,7 @@
     <value>Criação de mídia</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Habilite o registro em log do aplicativo no nível de depuração.</value>
+    <value>Relatar chaves de tradução ausentes e falhas na busca de recursos. Todos os níveis de log permanecem ativos.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Diagnóstico do desenvolvedor</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Envie logs tratados e detalhes de exceções para ajudar a diagnosticar falhas. Segredos e identificadores diretos são excluídos.</value>
+    <value>Enviar ao PostHog todos os níveis de log e o contexto técnico, com os segredos de autenticação ocultos, além de relatórios de exceções separados. Os logs são excluídos automaticamente após 7 dias.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Habilitar diagnóstico remoto</value>

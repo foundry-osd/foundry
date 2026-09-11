@@ -15,7 +15,7 @@ public sealed record TelemetrySettings
     public bool IsEnabled { get; init; } = true;
 
     /// <summary>
-    /// Gets whether privacy-filtered remote diagnostics are enabled for the current runtime.
+    /// Gets whether remote Logs and Error Tracking are enabled for the current runtime.
     /// </summary>
     public bool IsRemoteDiagnosticsEnabled { get; init; } = true;
 

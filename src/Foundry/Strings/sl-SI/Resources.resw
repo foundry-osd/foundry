@@ -1744,7 +1744,7 @@
     <value>Ustvarjanje medija</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Omogoči beleženje dnevnika programa na ravni razhroščevanja.</value>
+    <value>Poročajte o manjkajočih prevodnih ključih in napakah pri iskanju virov. Vse ravni beleženja ostanejo omogočene.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Diagnostika za razvijalce</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Pošiljajte prečiščene dnevnike in podrobnosti o izjemah za lažje diagnosticiranje napak. Skrivnosti in neposredni identifikatorji so izključeni.</value>
+    <value>Pošiljajte vse ravni dnevnikov in tehnični kontekst v PostHog z zakritimi skrivnostmi za preverjanje pristnosti ter ločena poročila o izjemah. Dnevniki se samodejno izbrišejo po 7 dneh.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Omogoči oddaljeno diagnostiko</value>

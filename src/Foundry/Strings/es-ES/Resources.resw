@@ -1744,7 +1744,7 @@
     <value>Creación de medios</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Habilitar el registro de la aplicación en el nivel de depuración.</value>
+    <value>Notificar claves de traducción ausentes y errores de búsqueda de recursos. Todos los niveles de registro permanecen activados.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Diagnósticos para desarrolladores</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Envíe registros saneados y detalles de excepciones para ayudar a diagnosticar errores. Se excluyen los secretos y los identificadores directos.</value>
+    <value>Enviar a PostHog todos los niveles de registro y el contexto técnico, con los secretos de autenticación ocultos, además de informes de excepciones independientes. Los registros se eliminan automáticamente después de 7 días.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Activar diagnósticos remotos</value>

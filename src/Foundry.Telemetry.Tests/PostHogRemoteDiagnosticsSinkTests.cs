@@ -10,25 +10,72 @@ namespace Foundry.Telemetry.Tests;
 public sealed class PostHogRemoteDiagnosticsSinkTests
 {
     [Fact]
-    public async Task Emit_FiltersLevelsAndAllowsExplicitInformationBoundaries()
+    public async Task Configure_NewDestinationRetiresOldExporterAndUsesNewRecordContext()
     {
-        var exporter = new RecordingExporter();
-        await using var service = CreateService(exporter);
-        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+        var original = new RecordingExporter();
+        var replacement = new RecordingExporter();
+        var configured = new List<RemoteDiagnosticsOptions>();
+        await using var service = new PostHogRemoteDiagnosticsSink((options, _) =>
+        {
+            configured.Add(options);
+            return configured.Count == 1 ? original : replacement;
+        });
+        RemoteDiagnosticsOptions firstOptions = RemoteDiagnosticsTestData.EnabledOptions();
+        service.Configure(firstOptions, RemoteDiagnosticsTestData.Context());
+        service.Configure(firstOptions with { ProjectToken = "phc_replacement" },
+            RemoteDiagnosticsTestData.Context() with { SessionId = "session-2" });
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "new destination", new InvalidOperationException("failed")));
+        await service.FlushAsync(TestContext.Current.CancellationToken);
+        await service.DisposeAsync();
 
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Debug, "debug"));
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Information, "ordinary info"));
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(
-            LogEventLevel.Information,
-            "workflow boundary",
-            properties: ("RemoteDiagnostic", true)));
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Warning, "warning"));
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "error"));
+        Assert.Equal(2, configured.Count);
+        Assert.True(original.IsDisposed);
+        Assert.Empty(original.Records);
+        Assert.Equal("session-2", Assert.Single(replacement.Records).Attributes["session.id"]);
+        Assert.Equal("phc_replacement", configured[1].ProjectToken);
+    }
+
+    [Fact]
+    public async Task Configure_ContextChangePreservesPendingRecordsAndExistingDestination()
+    {
+        var exporter = new BlockingExporter();
+        int factoryCalls = 0;
+        await using var service = new PostHogRemoteDiagnosticsSink((_, _) => { factoryCalls++; return exporter; });
+        RemoteDiagnosticsOptions options = RemoteDiagnosticsTestData.EnabledOptions();
+        service.Configure(options, RemoteDiagnosticsTestData.Context());
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "first", new InvalidOperationException("failed")));
+        Assert.True(exporter.Started.Wait(TimeSpan.FromSeconds(2), TestContext.Current.CancellationToken));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "pending", new InvalidOperationException("failed")));
+        service.Configure(options, RemoteDiagnosticsTestData.Context() with { SessionId = "session-2" });
+        exporter.Release.Set();
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "updated", new InvalidOperationException("failed")));
         await service.FlushAsync(TestContext.Current.CancellationToken);
 
-        Assert.Equal(
-            [LogEventLevel.Information, LogEventLevel.Warning, LogEventLevel.Error],
-            exporter.Records.Select(static record => record.Level).ToArray());
+        Assert.Equal(1, factoryCalls);
+        Assert.Equal(["first", "pending", "updated"], exporter.Records.Select(record => record.Body).ToArray());
+        Assert.Equal("session-1", exporter.Records[1].Attributes["session.id"]);
+        Assert.Equal("session-2", exporter.Records[2].Attributes["session.id"]);
+    }
+
+    [Fact]
+    public async Task Emit_CapturesAllSixLogLevelsAndReservesStrictChannelForErrorExceptions()
+    {
+        var exporter = new RecordingExporter();
+        var logs = new List<RemoteDiagnosticRecord>();
+        await using var service = new PostHogRemoteDiagnosticsSink((_, _) => exporter, logCapture: logs.Add);
+        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+
+        foreach (LogEventLevel level in Enum.GetValues<LogEventLevel>())
+        {
+            service.Emit(RemoteDiagnosticsTestData.LogEvent(level, "ordinary log"));
+            service.Emit(RemoteDiagnosticsTestData.LogEvent(level, "exception log", new InvalidOperationException("failed")));
+        }
+        await service.FlushAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(12, logs.Count);
+        Assert.All(Enum.GetValues<LogEventLevel>(), level => Assert.Equal(2, logs.Count(record => record.Level == level)));
+        Assert.Equal([LogEventLevel.Error, LogEventLevel.Fatal], exporter.Records.Select(record => record.Level).ToArray());
+        Assert.Equal(2, exporter.ExceptionEvents.Count);
     }
 
     [Fact]
@@ -43,7 +90,7 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
             });
 
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions() with { IsEnabled = false }, RemoteDiagnosticsTestData.Context());
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "failed"));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "failed", new InvalidOperationException("failed")));
         await service.FlushAsync(TestContext.Current.CancellationToken);
 
         Assert.Equal(0, factoryCalls);
@@ -57,9 +104,9 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
 
         service.Disable();
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "disabled"));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "disabled", new InvalidOperationException("failed")));
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "re-enabled"));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "re-enabled", new InvalidOperationException("failed")));
         await service.FlushAsync(TestContext.Current.CancellationToken);
 
         RemoteDiagnosticRecord record = Assert.Single(exporter.Records);
@@ -72,14 +119,14 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         var exporter = new BlockingExporter();
         await using var service = CreateService(exporter);
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "in-flight"));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "in-flight", new InvalidOperationException("failed")));
         Assert.True(exporter.Started.Wait(TimeSpan.FromSeconds(2), TestContext.Current.CancellationToken));
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "buffered"));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "buffered", new InvalidOperationException("failed")));
 
         service.Disable();
         exporter.Release.Set();
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "after-reenable"));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "after-reenable", new InvalidOperationException("failed")));
         await service.FlushAsync(TestContext.Current.CancellationToken);
 
         Assert.Equal(["in-flight", "after-reenable"], exporter.Records.Select(static record => record.Body).ToArray());
@@ -124,8 +171,8 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
 
         Exception? exception = Record.Exception(() =>
         {
-            service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "first"));
-            service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "second"));
+            service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "first", new InvalidOperationException("failed")));
+            service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "second", new InvalidOperationException("failed")));
         });
         await service.FlushAsync(TestContext.Current.CancellationToken);
 
@@ -192,7 +239,7 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "failed", exception));
         await service.FlushAsync(TestContext.Current.CancellationToken);
 
-        Assert.Equal(2, exporter.Records.Count);
+        Assert.Single(exporter.Records);
         Assert.Single(exporter.ExceptionEvents);
     }
 
@@ -219,20 +266,22 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
     }
 
     [Fact]
-    public async Task Emit_RateLimitsRepeatedFingerprint()
+    public async Task Emit_RepeatedWarningsAreAllCapturedWithoutEnteringErrorTracking()
     {
         var exporter = new RecordingExporter();
-        await using var service = CreateService(exporter);
+        var logs = new List<RemoteDiagnosticRecord>();
+        await using var service = new PostHogRemoteDiagnosticsSink((_, _) => exporter, logCapture: logs.Add);
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
 
-        for (int index = 0; index < 8; index++)
+        for (int index = 0; index < 20; index++)
         {
             service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Warning, "same warning"));
         }
 
         await service.FlushAsync(TestContext.Current.CancellationToken);
 
-        Assert.Equal(5, exporter.Records.Count);
+        Assert.Equal(20, logs.Count);
+        Assert.Empty(exporter.Records);
     }
 
     [Theory]
@@ -249,7 +298,7 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         for (int index = 0; index < 8; index++)
         {
             service.Emit(RemoteDiagnosticsTestData.LogEvent(
-                LogEventLevel.Warning, "same warning", properties: (propertyName, $"value-{index}")));
+                LogEventLevel.Error, "same failure", new InvalidOperationException("failed"), (propertyName, $"value-{index}")));
         }
 
         await service.FlushAsync(TestContext.Current.CancellationToken);
@@ -258,48 +307,52 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
     }
 
     [Fact]
-    public async Task Emit_PreservesDistinctStepsAndLimitsRepeatedStep()
+    public async Task Emit_PreservesEveryInformationStepIncludingRepetitions()
     {
         var exporter = new RecordingExporter();
-        await using var service = CreateService(exporter);
+        var logs = new List<RemoteDiagnosticRecord>();
+        await using var service = new PostHogRemoteDiagnosticsSink((_, _) => exporter, logCapture: logs.Add);
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
         for (int index = 0; index < 8; index++)
         {
             service.Emit(RemoteDiagnosticsTestData.LogEvent(
                 LogEventLevel.Information, "Step starting",
-                properties: [("RemoteDiagnostic", true), ("OperationId", "deployment-1"), ("StepName", $"step-{index}")]));
+                properties: [("OperationId", "deployment-1"), ("StepName", $"step-{index}")]));
         }
 
         for (int index = 0; index < 8; index++)
         {
             service.Emit(RemoteDiagnosticsTestData.LogEvent(
                 LogEventLevel.Information, "Step starting",
-                properties: [("RemoteDiagnostic", true), ("OperationId", "deployment-1"), ("StepName", "step-0")]));
+                properties: [("OperationId", "deployment-1"), ("StepName", "step-0")]));
         }
 
         await service.FlushAsync(TestContext.Current.CancellationToken);
 
-        Assert.Equal(12, exporter.Records.Count);
-        Assert.Equal(8, exporter.Records.Select(record => record.Attributes["workflow.step"]).Distinct().Count());
-        Assert.Equal(5, exporter.Records.Count(record => Equals(record.Attributes["workflow.step"], "step-0")));
+        Assert.Equal(16, logs.Count);
+        Assert.Equal(8, logs.Select(record => record.Attributes["StepName"]).Distinct().Count());
+        Assert.Equal(9, logs.Count(record => Equals(record.Attributes["StepName"], "step-0")));
+        Assert.Empty(exporter.Records);
     }
 
     [Fact]
-    public async Task Emit_TerminalEventBypassesThrottleAndReportsDroppedRecords()
+    public async Task Emit_ReportsErrorTrackingThrottleLossWithoutDroppingLogs()
     {
         var exporter = new RecordingExporter();
-        await using var service = CreateService(exporter);
+        var logs = new List<RemoteDiagnosticRecord>();
+        await using var service = new PostHogRemoteDiagnosticsSink((_, _) => exporter, logCapture: logs.Add);
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
         for (int index = 0; index < 8; index++)
         {
-            service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "failed"));
+            service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "failed", new InvalidOperationException("failed")));
         }
 
         service.Emit(RemoteDiagnosticsTestData.LogEvent(
-            LogEventLevel.Error, "failed", properties: ("RemoteDiagnosticTerminal", true)));
+            LogEventLevel.Error, "another failure", new InvalidOperationException("failed")));
         await service.FlushAsync(TestContext.Current.CancellationToken);
 
         Assert.Equal(6, exporter.Records.Count);
+        Assert.Equal(9, logs.Count);
         Assert.Equal(3L, exporter.Records[^1].Attributes["diagnostics.dropped_record_count"]);
     }
 
@@ -309,11 +362,11 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         var exporter = new BlockingExporter();
         await using var service = CreateService(exporter, queueCapacity: 1);
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "first"));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "first", new InvalidOperationException("failed")));
         Assert.True(exporter.Started.Wait(TimeSpan.FromSeconds(2), TestContext.Current.CancellationToken));
 
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "second"));
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "third"));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "second", new InvalidOperationException("failed")));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "third", new InvalidOperationException("failed")));
 
         Assert.Equal(1, service.DroppedRecordCount);
         exporter.Release.Set();
@@ -326,7 +379,7 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         var exporter = new BlockingExporter();
         await using var service = CreateService(exporter);
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "failed"));
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "failed", new InvalidOperationException("failed")));
         Assert.True(exporter.Started.Wait(TimeSpan.FromSeconds(2), TestContext.Current.CancellationToken));
         using var cancellation = new CancellationTokenSource(TimeSpan.FromMilliseconds(50));
 
@@ -335,8 +388,10 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         exporter.Release.Set();
     }
 
-    [Fact]
-    public async Task Emit_InternalExporterEvent_IsExcluded()
+    [Theory]
+    [InlineData("RemoteDiagnosticsInternal")]
+    [InlineData("PostHogTransportInternal")]
+    public async Task Emit_InternalExporterEvent_IsExcludedFromErrorTracking(string internalProperty)
     {
         var exporter = new RecordingExporter();
         await using var service = CreateService(exporter);
@@ -345,64 +400,11 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         service.Emit(RemoteDiagnosticsTestData.LogEvent(
             LogEventLevel.Error,
             "exporter failure",
-            properties: ("RemoteDiagnosticsInternal", true)));
+            new InvalidOperationException("failed"),
+            properties: (internalProperty, true)));
         await service.FlushAsync(TestContext.Current.CancellationToken);
 
         Assert.Empty(exporter.Records);
-    }
-
-    [Fact]
-    public void CreateLogEvent_DoesNotDuplicateResourceAttributes()
-    {
-        var record = new RemoteDiagnosticRecord(
-            DateTimeOffset.UtcNow,
-            LogEventLevel.Error,
-            "Deployment failed for {Path}",
-            new Dictionary<string, object>
-            {
-                ["service.name"] = "foundry.deploy",
-                ["service.version"] = "1.2.3",
-                ["service.release"] = "foundry.deploy@1.2.3",
-                ["runtime.name"] = "winpe",
-                ["runtime.architecture"] = "x64",
-                ["operation.id"] = "operation-1",
-                ["failure.operation"] = "windows_optional_features.validate"
-            },
-            new RemoteDiagnosticException("System.InvalidOperationException", "redacted", "at Foundry.Run()", []));
-
-        LogEvent logEvent = PostHogDiagnosticsExporter.CreateLogEvent(record);
-
-        Assert.Null(logEvent.Exception);
-        Assert.Equal("Deployment failed for {Path}", logEvent.RenderMessage());
-        Assert.DoesNotContain("DiagnosticBody", logEvent.Properties.Keys, StringComparer.Ordinal);
-        Assert.DoesNotContain("service.name", logEvent.Properties.Keys, StringComparer.Ordinal);
-        Assert.DoesNotContain("service.version", logEvent.Properties.Keys, StringComparer.Ordinal);
-        Assert.DoesNotContain("service.release", logEvent.Properties.Keys, StringComparer.Ordinal);
-        Assert.DoesNotContain("runtime.name", logEvent.Properties.Keys, StringComparer.Ordinal);
-        Assert.DoesNotContain("runtime.architecture", logEvent.Properties.Keys, StringComparer.Ordinal);
-        Assert.Equal("operation-1", Assert.IsType<ScalarValue>(logEvent.Properties["operation.id"]).Value);
-        Assert.Equal(
-            "windows_optional_features.validate",
-            Assert.IsType<ScalarValue>(logEvent.Properties["failure.operation"]).Value);
-        Assert.Equal("redacted", Assert.IsType<ScalarValue>(logEvent.Properties["exception.message"]).Value);
-    }
-
-    [Fact]
-    public void CreateLogEvent_WhenExceptionMessageMatchesBody_DoesNotDuplicateMessage()
-    {
-        LogEvent source = RemoteDiagnosticsTestData.LogEvent(
-            LogEventLevel.Error,
-            "Deployment failed",
-            new InvalidOperationException("private detail"));
-        RemoteDiagnosticRecord record = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(
-            source,
-            RemoteDiagnosticsTestData.Context());
-
-        LogEvent logEvent = PostHogDiagnosticsExporter.CreateLogEvent(record);
-
-        Assert.Equal("Deployment failed", logEvent.RenderMessage());
-        Assert.DoesNotContain("exception.message", logEvent.Properties.Keys, StringComparer.Ordinal);
-        Assert.Contains("exception.type", logEvent.Properties.Keys, StringComparer.Ordinal);
     }
 
     private static PostHogRemoteDiagnosticsSink CreateService(
@@ -422,6 +424,8 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
 
         public bool ThrowOnExport { get; init; }
 
+        public bool IsDisposed { get; private set; }
+
         public virtual ValueTask ExportAsync(RemoteDiagnosticRecord record, CancellationToken cancellationToken)
         {
             ExportAttempts++;
@@ -437,7 +441,11 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
 
         public virtual Task FlushAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 
-        public virtual ValueTask DisposeAsync() => ValueTask.CompletedTask;
+        public virtual ValueTask DisposeAsync()
+        {
+            IsDisposed = true;
+            return ValueTask.CompletedTask;
+        }
     }
 
     private sealed class RecordingEventClient : IPostHogEventClient

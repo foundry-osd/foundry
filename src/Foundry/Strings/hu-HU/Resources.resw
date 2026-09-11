@@ -1744,7 +1744,7 @@
     <value>Adathordozó létrehozása</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Az alkalmazás hibakeresési szintű naplózásának engedélyezése.</value>
+    <value>Hiányzó fordítási kulcsok és erőforrás-keresési hibák jelentése. Minden naplózási szint engedélyezve marad.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Fejlesztői diagnosztika</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Küldjön megtisztított naplókat és kivételadatokat a hibák diagnosztizálásának elősegítéséhez. A titkos adatok és a közvetlen azonosítók kimaradnak.</value>
+    <value>Minden naplózási szint és technikai környezet elküldése a PostHog számára, a hitelesítési titkok maszkolásával és külön kivételjelentésekkel. A naplók 7 nap után automatikusan törlődnek.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Távoli diagnosztika engedélyezése</value>

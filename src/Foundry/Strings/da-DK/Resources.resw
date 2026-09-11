@@ -1744,7 +1744,7 @@
     <value>Medieoprettelse</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Aktivér programlogføring på fejlfindingsniveau.</value>
+    <value>Rapportér manglende oversættelsesnøgler og fejl ved ressourcesøgning. Alle logniveauer forbliver aktiveret.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Udviklerdiagnosticering</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Send rensede logfiler og oplysninger om undtagelser for at hjælpe med at diagnosticere fejl. Hemmeligheder og direkte identifikatorer udelades.</value>
+    <value>Send alle logniveauer og teknisk kontekst til PostHog med maskerede godkendelseshemmeligheder samt separate undtagelsesrapporter. Logfiler slettes automatisk efter 7 dage.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Aktivér fjerndiagnosticering</value>

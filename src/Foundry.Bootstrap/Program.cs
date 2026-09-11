@@ -10,6 +10,7 @@ using Foundry.Bootstrap.Diagnostics;
 using Foundry.Bootstrap.Processes;
 using Foundry.Bootstrap.Runtime;
 using Foundry.Bootstrap.SystemPreparation;
+using Foundry.Telemetry;
 using Foundry.Utilities.Diagnostics;
 using Foundry.Utilities.IO;
 using Foundry.Utilities.Runtime;
@@ -52,13 +53,14 @@ internal static class Program
             {
                 logPath = WritableFilePathResolver.Resolve([Path.Combine(WinPeRoot, "Logs"),
                     Path.Combine(Path.GetTempPath(), "Foundry", "Logs")], "FoundryBootstrap.log");
+                RemoteDiagnosticsSink.SetLogDirectory(Path.Combine(Path.GetDirectoryName(logPath)!, "PendingLogs"));
                 Log.Logger = FoundryLogConfiguration.CreateFileLogger(logPath, "Foundry.Bootstrap", sessionId,
-                    LogEventLevel.Debug, 5, additionalSink: telemetry);
+                    LogEventLevel.Verbose, 5, additionalSink: telemetry);
             }
             catch
             {
                 logPath = null;
-                Log.Logger = FoundryLogConfiguration.CreateDebugLogger("Foundry.Bootstrap", sessionId, LogEventLevel.Debug, additionalSink: telemetry);
+                Log.Logger = FoundryLogConfiguration.CreateDebugLogger("Foundry.Bootstrap", sessionId, LogEventLevel.Verbose, additionalSink: telemetry);
             }
 
             if (!WinPeRuntimeDetector.IsWinPeRuntime())

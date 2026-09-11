@@ -1744,7 +1744,7 @@
     <value>Medya oluşturma</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Uygulama günlüklerinin hata ayıklama düzeyinde kaydedilmesini etkinleştirin.</value>
+    <value>Eksik çeviri anahtarlarını ve kaynak arama hatalarını bildirin. Tüm günlük düzeyleri etkin kalır.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Geliştirici tanılaması</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Hataları tanılamaya yardımcı olmak için hassas bilgilerden arındırılmış günlükleri ve özel durum ayrıntılarını gönderin. Gizli bilgiler ve doğrudan tanımlayıcılar hariç tutulur.</value>
+    <value>Tüm günlük düzeylerini ve teknik bağlamı, kimlik doğrulama sırları maskelenmiş olarak, ayrı özel durum raporlarıyla birlikte PostHog’a gönderin. Günlükler 7 gün sonra otomatik olarak silinir.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Uzaktan tanılamayı etkinleştir</value>

@@ -1744,7 +1744,7 @@
     <value>יצירת מדיה</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>הפעלת רישום יישום ברמת איתור באגים.</value>
+    <value>דיווח על מפתחות תרגום חסרים ועל כשלים בחיפוש משאבים. כל רמות היומן של היישום נשארות פעילות.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>אבחון למפתחים</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>שלח יומנים מנוקים ופרטי חריגות כדי לסייע באבחון תקלות. סודות ומזהים ישירים אינם נכללים.</value>
+    <value>שליחת כל רמות היומן וההקשר הטכני ל-PostHog, תוך מיסוך סודות אימות, וכן דוחות חריגות נפרדים. היומנים נמחקים אוטומטית לאחר 7 ימים.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>הפעלת אבחון מרחוק</value>

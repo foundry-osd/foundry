@@ -1744,7 +1744,7 @@
     <value>Création du média</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Activer la journalisation de l’application au niveau débogage.</value>
+    <value>Signaler les clés de traduction manquantes et les échecs de recherche de ressources. Tous les niveaux de journaux restent activés.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Diagnostics pour les développeurs</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Envoyez des journaux assainis et les détails des exceptions afin de faciliter le diagnostic des défaillances. Les secrets et les identifiants directs sont exclus.</value>
+    <value>Envoyer à PostHog tous les niveaux de journaux et le contexte technique, avec masquage des secrets d’authentification, ainsi que des rapports d’exception distincts. Les journaux sont supprimés automatiquement après 7 jours.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Activer les diagnostics à distance</value>

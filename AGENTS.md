@@ -126,8 +126,10 @@ Logging rules:
 - Use `FoundryLogConfiguration` for application file sinks so Foundry.OSD, Foundry.Bootstrap, Foundry.Connect, and Foundry.Deploy share the same structured text contract
 - Emit UTC timestamps with milliseconds and the Application, Session, and Component context on every application log event
 - Keep one stable active log filename with 10 MB size-based rolling and bounded retention
-- Use Information as the Foundry.OSD default level, with Debug enabled by developer mode
-- Use Debug as the default file level for WinPE Bootstrap, Foundry.Connect, and Foundry.Deploy; keep verbose console output opt-in
+- Use Verbose as the shared application file and PostHog Logs threshold for Foundry.OSD, Bootstrap, Connect, and Deploy; developer mode must not lower this threshold
+- Use one normal structured log call for local and remote output; preserve original timestamps, event identifiers, process order, and ordinary diagnostic context, with targeted authentication-secret masking before both outputs
+- Keep Product Analytics and Error Tracking consent, privacy filtering, and exception deduplication separate from the all-level Logs stream; never add remote-only eligibility markers or per-message rate limiting
+- Keep verbose console output opt-in; pending remote logs must not block the application's primary operation or shutdown indefinitely
 - Write logs only when they add operational or diagnostic value
 - Use the log levels already defined by the project
 - Use Debug for detailed troubleshooting; keep meaningful operation outcomes at Information or above

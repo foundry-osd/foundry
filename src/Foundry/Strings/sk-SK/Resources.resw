@@ -1744,7 +1744,7 @@
     <value>Vytvorenie média</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Povoliť zapisovanie aplikácie do denníka na úrovni ladenia.</value>
+    <value>Hlásiť chýbajúce prekladové kľúče a chyby vyhľadávania prostriedkov. Všetky úrovne protokolovania zostávajú zapnuté.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Diagnostika pre vývojárov</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Odosielajte vyčistené denníky a podrobnosti o výnimkách, ktoré pomôžu diagnostikovať zlyhania. Tajné údaje a priame identifikátory sú vylúčené.</value>
+    <value>Odosielať do PostHog všetky úrovne protokolov a technický kontext s maskovanými overovacími tajnými údajmi a samostatné hlásenia výnimiek. Protokoly sa automaticky odstránia po 7 dňoch.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Povoliť vzdialenú diagnostiku</value>

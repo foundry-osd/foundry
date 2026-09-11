@@ -64,7 +64,8 @@ public sealed class PostHogTelemetryServiceTests
 
             RemoteDiagnosticsSink.Instance.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "Failed"));
 
-            Assert.Equal(0, service.ConfigureCallCount);
+            Assert.Equal(1, service.ConfigureCallCount);
+            Assert.False(Assert.Single(service.Configurations).CanSend);
             Assert.Equal(1, service.DisableCallCount);
             Assert.Equal(0, service.EmitCallCount);
         }
@@ -110,7 +111,8 @@ public sealed class PostHogTelemetryServiceTests
             RemoteDiagnosticsLifecycle.Initialize(service, settings, telemetryContext);
             RemoteDiagnosticsSink.Instance.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "Re-enabled"));
 
-            Assert.Equal(2, service.ConfigureCallCount);
+            Assert.Equal(3, service.ConfigureCallCount);
+            Assert.Equal(new[] { true, false, true }, service.Configurations.Select(options => options.CanSend));
             Assert.Equal(1, service.DisableCallCount);
             Assert.Equal(2, service.EmitCallCount);
         }
@@ -377,6 +379,8 @@ public sealed class PostHogTelemetryServiceTests
 
     private class RecordingRemoteDiagnosticsService : IRemoteDiagnosticsService
     {
+        public List<RemoteDiagnosticsOptions> Configurations { get; } = [];
+
         public int ConfigureCallCount { get; private set; }
 
         public int EmitCallCount { get; private set; }
@@ -388,6 +392,7 @@ public sealed class PostHogTelemetryServiceTests
         public void Configure(RemoteDiagnosticsOptions options, RemoteDiagnosticsContext context)
         {
             ConfigureCallCount++;
+            Configurations.Add(options);
         }
 
         public void Emit(LogEvent logEvent)

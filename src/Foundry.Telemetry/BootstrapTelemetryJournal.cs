@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace Foundry.Telemetry;
 
-/// <summary>Independent destinations retain their own handoff state when another destination fails.</summary>
+/// <summary>Analytics and exceptions retain independent handoff state; Log is retained for legacy journal migration.</summary>
 internal enum BootstrapTelemetryDestination { Analytics, Log, Exception }
 
 /// <summary>Buffered SDK handoff is deliberately distinct from an HTTP receipt.</summary>
@@ -110,7 +110,7 @@ internal sealed class BootstrapTelemetryJournal
                         Enum.IsDefined(record.Destination) && Enum.IsDefined(record.State) && record.Attempts >= 0 &&
                         (record.State != BootstrapDeliveryState.Acknowledged || record.RetainAcknowledgement) &&
                         (record.Destination == BootstrapTelemetryDestination.Analytics ? record.Properties is not null :
-                            record.Diagnostic is { Attributes: not null, Body: not null } diagnostic && Enum.IsDefined(diagnostic.Level) && diagnostic.Level >= Serilog.Events.LogEventLevel.Information &&
+                            record.Diagnostic is { Attributes: not null, Body: not null } diagnostic && Enum.IsDefined(diagnostic.Level) &&
                             (record.Destination != BootstrapTelemetryDestination.Exception ||
                                 diagnostic is { Exception: not null, Level: >= Serilog.Events.LogEventLevel.Error })) &&
                         !_records.Any(candidate => candidate.Id == record.Id))
@@ -129,6 +129,8 @@ internal sealed class BootstrapTelemetryJournal
 
     private static BootstrapPendingRecord Revalidate(BootstrapPendingRecord record)
     {
+        if (record.Destination == BootstrapTelemetryDestination.Log)
+            return record with { Diagnostic = LogRecordFactory.SanitizePersistedRecord(record.Diagnostic!) };
         if (record.Destination != BootstrapTelemetryDestination.Analytics)
         {
             return record with { Diagnostic = RemoteDiagnosticPropertyPolicy.SanitizePersistedRecord(record.Diagnostic!) };
@@ -159,7 +161,7 @@ internal sealed class BootstrapTelemetryJournal
     private static BootstrapPendingRecord Normalize(BootstrapPendingRecord record) => record with
     {
         Properties = record.Properties?.ToDictionary(pair => pair.Key, pair => Scalar(pair.Value), StringComparer.Ordinal),
-        Diagnostic = record.Diagnostic is { } diagnostic ? diagnostic with
+        Diagnostic = record.Destination == BootstrapTelemetryDestination.Log ? record.Diagnostic : record.Diagnostic is { } diagnostic ? diagnostic with
         {
             Attributes = diagnostic.Attributes.ToDictionary(pair => pair.Key, pair => Scalar(pair.Value), StringComparer.Ordinal)
         } : null

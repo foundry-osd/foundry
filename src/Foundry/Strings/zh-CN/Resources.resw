@@ -1744,7 +1744,7 @@
     <value>创建媒体</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>启用调试级应用日志记录。</value>
+    <value>报告缺失的翻译键和资源查找失败。所有应用程序日志级别均保持启用。</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>开发人员诊断</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>发送已清理敏感信息的日志和异常详细信息，以帮助诊断故障。不会包含机密信息和直接标识符。</value>
+    <value>向 PostHog 发送所有级别的日志、技术上下文以及单独的异常报告，并对身份验证机密进行掩码处理。日志会在 7 天后自动删除。</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>启用远程诊断</value>

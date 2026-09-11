@@ -1744,7 +1744,7 @@
     <value>Δημιουργία μέσων</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Ενεργοποίηση καταγραφής εφαρμογής σε επίπεδο εντοπισμού σφαλμάτων.</value>
+    <value>Αναφορά κλειδιών μετάφρασης που λείπουν και αποτυχιών αναζήτησης πόρων. Όλα τα επίπεδα καταγραφής παραμένουν ενεργά.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Διαγνωστικά για προγραμματιστές</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Στείλτε καθαρισμένα αρχεία καταγραφής και λεπτομέρειες εξαιρέσεων για να βοηθήσετε στη διάγνωση αποτυχιών. Τα μυστικά και τα άμεσα αναγνωριστικά εξαιρούνται.</value>
+    <value>Αποστολή όλων των επιπέδων καταγραφής και του τεχνικού πλαισίου στο PostHog με απόκρυψη μυστικών ελέγχου ταυτότητας, καθώς και ξεχωριστών αναφορών εξαιρέσεων. Τα αρχεία καταγραφής διαγράφονται αυτόματα μετά από 7 ημέρες.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Ενεργοποίηση απομακρυσμένων διαγνωστικών</value>

@@ -1744,7 +1744,7 @@
     <value>Criação de suporte</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Ativar o registo da aplicação ao nível de depuração.</value>
+    <value>Comunicar chaves de tradução em falta e falhas na pesquisa de recursos. Todos os níveis de registo permanecem ativos.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Diagnóstico de programador</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Envie registos expurgados e detalhes das exceções para ajudar a diagnosticar falhas. Os segredos e os identificadores diretos são excluídos.</value>
+    <value>Enviar para o PostHog todos os níveis de registo e o contexto técnico, com os segredos de autenticação ocultos, além de relatórios de exceções separados. Os registos são eliminados automaticamente após 7 dias.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Ativar diagnóstico remoto</value>

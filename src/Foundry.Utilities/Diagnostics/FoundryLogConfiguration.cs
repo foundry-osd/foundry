@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Globalization;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
@@ -16,7 +17,7 @@ public static class FoundryLogConfiguration
     public const long DefaultFileSizeLimitBytes = 10 * 1024 * 1024;
 
     public const string OutputTemplate =
-        "{UtcTimestamp:yyyy-MM-ddTHH:mm:ss.fff'Z'} [{Level:u3}] [{Application}] [Session:{SessionId}] [{Component}] {Message:lj}{NewLine}{Exception}";
+        "{UtcTimestamp:yyyy-MM-ddTHH:mm:ss.fff'Z'} [{Level:u3}] [{Application}] [Session:{SessionId}] [{Component}] {Message:lj} {Properties:j}{NewLine}{Exception}";
 
     /// <summary>
     /// Creates a logger with a stable active filename, size-based rolling, and bounded retention.
@@ -39,18 +40,21 @@ public static class FoundryLogConfiguration
         ConfigureMinimumLevel(configuration, minimumLevel, levelSwitch);
 
         ConfigureEnrichment(configuration, applicationName, sessionId);
-        ConfigureAdditionalSink(configuration, additionalSink);
-        return configuration
+        var destinations = new LoggerConfiguration().MinimumLevel.Verbose();
+        ConfigureAdditionalSink(destinations, additionalSink);
+        Logger output = destinations
             .WriteTo.File(
                 logFilePath,
                 outputTemplate: OutputTemplate,
+                formatProvider: CultureInfo.InvariantCulture,
                 fileSizeLimitBytes: DefaultFileSizeLimitBytes,
                 rollOnFileSizeLimit: true,
                 retainedFileCountLimit: retainedFileCountLimit,
                 shared: true,
                 flushToDiskInterval: TimeSpan.FromSeconds(1))
-            .WriteTo.Debug(outputTemplate: OutputTemplate)
+            .WriteTo.Debug(outputTemplate: OutputTemplate, formatProvider: CultureInfo.InvariantCulture)
             .CreateLogger();
+        return configuration.WriteTo.Sink(new NormalizingLogSink(output)).CreateLogger();
     }
 
     /// <summary>
@@ -69,10 +73,12 @@ public static class FoundryLogConfiguration
         var configuration = new LoggerConfiguration();
         ConfigureMinimumLevel(configuration, minimumLevel, levelSwitch);
         ConfigureEnrichment(configuration, applicationName, sessionId);
-        ConfigureAdditionalSink(configuration, additionalSink);
-        return configuration
-            .WriteTo.Debug(outputTemplate: OutputTemplate)
+        var destinations = new LoggerConfiguration().MinimumLevel.Verbose();
+        ConfigureAdditionalSink(destinations, additionalSink);
+        Logger output = destinations
+            .WriteTo.Debug(outputTemplate: OutputTemplate, formatProvider: CultureInfo.InvariantCulture)
             .CreateLogger();
+        return configuration.WriteTo.Sink(new NormalizingLogSink(output)).CreateLogger();
     }
 
     private static void ConfigureMinimumLevel(

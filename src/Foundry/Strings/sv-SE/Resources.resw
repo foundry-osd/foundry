@@ -1744,7 +1744,7 @@
     <value>Skapa media</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Aktivera programloggning på felsökningsnivå.</value>
+    <value>Rapportera saknade översättningsnycklar och fel vid resurssökning. Alla loggnivåer förblir aktiverade.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Utvecklardiagnostik</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Skicka rensade loggar och undantagsinformation för att underlätta diagnostisering av fel. Hemligheter och direkta identifierare utesluts.</value>
+    <value>Skicka alla loggnivåer och teknisk kontext till PostHog med maskerade autentiseringshemligheter samt separata undantagsrapporter. Loggar raderas automatiskt efter 7 dagar.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Aktivera fjärrdiagnostik</value>

@@ -593,7 +593,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             operationProgressService.Report(100, terminalStatus);
             logger.Error(
                 ex,
-                "Final boot media operation failed. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, ToolName={ToolName}, ExitCode={ExitCode}, RetryCount={RetryCount}, FailureSummary={FailureSummary}, RemoteDiagnostic={RemoteDiagnostic}",
+                "Final boot media operation failed. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, ToolName={ToolName}, ExitCode={ExitCode}, RetryCount={RetryCount}, FailureSummary={FailureSummary}",
                 failedStepName,
                 stopwatch.ElapsedMilliseconds,
                 failureDiagnostic.FailureKind,
@@ -602,8 +602,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 failureDiagnostic.ToolName,
                 failureDiagnostic.ExitCode,
                 failureDiagnostic.RetryCount,
-                failureDiagnostic.Message,
-                true);
+                failureDiagnostic.Message);
         }
         catch (OperationCanceledException ex)
         {
@@ -617,14 +616,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 exception: ex);
             logger.Warning(
                 ex,
-                "Final boot media operation cancelled. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RetryCount={RetryCount}, RemoteDiagnostic={RemoteDiagnostic}",
+                "Final boot media operation cancelled. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RetryCount={RetryCount}",
                 telemetryProgressTracker.CurrentStepName,
                 stopwatch.ElapsedMilliseconds,
                 failureDiagnostic.FailureKind,
                 failureDiagnostic.FailureReason,
                 failureDiagnostic.Code,
-                failureDiagnostic.RetryCount,
-                true);
+                failureDiagnostic.RetryCount);
             throw;
         }
         finally

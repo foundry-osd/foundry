@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.Json;
+using Foundry.Utilities.Diagnostics;
 using Serilog.Events;
 
 namespace Foundry.Telemetry;
@@ -12,7 +13,7 @@ public static class ChildStartupFailureExchange
 {
     /// <summary>The bounded record resides beside the launch status, never at a path read from its contents.</summary>
     public const string FileName = "startup-failure.json";
-    internal const int MaximumBytes = 256 * 1024;
+    internal const int MaximumBytes = (int)DurableLogQueue.DefaultMaximumBytes;
     private static readonly object CaptureGate = new();
 
     /// <summary>
@@ -37,9 +38,12 @@ public static class ChildStartupFailureExchange
             string scope = BootstrapTelemetryJournal.Scope(options.HostUrl, options.ProjectToken, options.InstallId);
             ChildStartupFailureRecord? previous = Read(launchDirectory, launchId, context.App);
             if (previous is not null && previous.Scope == scope) return previous.RecordId;
-            Guid id = Guid.NewGuid();
-            var record = new ChildStartupFailureRecord(1, launchId, id, logEvent.Exception is null ? id : Guid.NewGuid(), scope,
-                RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(logEvent, context));
+            LogEvent normalized = LogEventNormalizer.Normalize(logEvent);
+            RemoteDiagnosticRecord log = LogRecordFactory.Create(normalized, context);
+            Guid logId = Guid.Parse(log.Attributes["diagnostics.record_id"].ToString()!);
+            Guid id = logEvent.Exception is null ? logId : Guid.NewGuid();
+            var record = new ChildStartupFailureRecord(1, launchId, id, logId, scope,
+                RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(logEvent, context), log);
             byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(record);
             if (bytes.Length > MaximumBytes) return null;
             Directory.CreateDirectory(Path.GetDirectoryName(path)!);
@@ -83,7 +87,22 @@ public static class ChildStartupFailureExchange
             RemoteDiagnosticRecord diagnostic = BootstrapTelemetryJournal.RevalidateDiagnostic(record.Diagnostic);
             if (application is not (TelemetryApps.FoundryConnect or TelemetryApps.FoundryDeploy) ||
                 !diagnostic.Attributes.TryGetValue("service.name", out object? app) || !Equals(app, application)) return null;
-            return record with { Diagnostic = diagnostic };
+            RemoteDiagnosticRecord? log = record.Log;
+            if (log is not null)
+            {
+                if (log.Attributes is null || log.Body is null ||
+                    log.Level is not (LogEventLevel.Error or LogEventLevel.Fatal)) return null;
+                log = LogRecordFactory.SanitizePersistedRecord(log);
+                if (!log.Attributes.TryGetValue("service.name", out object? logApp) || !Equals(logApp, application)) return null;
+                log = log with
+                {
+                    Attributes = new Dictionary<string, object>(log.Attributes, StringComparer.Ordinal)
+                    {
+                        ["diagnostics.record_id"] = record.LogRecordId.ToString("N")
+                    }
+                };
+            }
+            return record with { Diagnostic = diagnostic, Log = log };
         }
 #pragma warning disable CA1031 // Corrupt or inaccessible exchange files are ignored without affecting startup.
         catch (Exception) { return null; }
@@ -119,4 +138,4 @@ public static class ChildStartupFailureExchange
 
 /// <summary>Credentials are replaced by a destination/installation digest; IDs survive transfer and replay.</summary>
 internal sealed record ChildStartupFailureRecord(int Version, Guid LaunchId, Guid RecordId, Guid LogRecordId,
-    string Scope, RemoteDiagnosticRecord Diagnostic);
+    string Scope, RemoteDiagnosticRecord Diagnostic, RemoteDiagnosticRecord? Log = null);

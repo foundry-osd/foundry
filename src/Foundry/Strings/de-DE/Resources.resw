@@ -1744,7 +1744,7 @@
     <value>Medienerstellung</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Protokollierung der Anwendung auf Debug-Ebene aktivieren.</value>
+    <value>Fehlende Übersetzungsschlüssel und Fehler bei der Ressourcensuche melden. Alle Anwendungsprotokollstufen bleiben aktiviert.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Entwicklerdiagnose</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Senden Sie bereinigte Protokolle und Ausnahmedetails, um Fehler zu diagnostizieren. Geheimnisse und direkte Identifikatoren werden ausgeschlossen.</value>
+    <value>Alle Protokollstufen und technischen Kontext mit maskierten Authentifizierungsgeheimnissen sowie separate Ausnahmeberichte an PostHog senden. Protokolle werden nach 7 Tagen automatisch gelöscht.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Ferndiagnose aktivieren</value>

@@ -270,15 +270,15 @@ public sealed class RemoteDiagnosticPropertyPolicyTests
     }
 
     [Fact]
-    public void CreateSanitizedRecord_RendersInternalMarkersWithoutExportingAttributes()
+    public void CreateSanitizedRecord_RedactsUnreviewedBooleanProperties()
     {
         LogEvent source = CreateLogEvent(LogEventLevel.Information,
-            "Finished. RemoteDiagnostic={RemoteDiagnostic}", null, ("RemoteDiagnostic", true));
+            "Finished. PrivateFlag={PrivateFlag}", null, ("PrivateFlag", true));
 
         RemoteDiagnosticRecord result = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
 
-        Assert.DoesNotContain("<redacted>", result.Body);
-        Assert.DoesNotContain("RemoteDiagnostic", result.Attributes.Keys);
+        Assert.Contains("<redacted>", result.Body);
+        Assert.DoesNotContain("PrivateFlag", result.Attributes.Keys);
     }
 
     [Fact]

@@ -1744,7 +1744,7 @@
     <value>Створення носія</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Увімкнути журналювання програми на рівні налагодження.</value>
+    <value>Повідомляти про відсутні ключі перекладу та помилки пошуку ресурсів. Усі рівні журналювання залишаються ввімкненими.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Діагностика для розробників</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Надсилайте очищені журнали та відомості про винятки, щоб допомогти діагностувати збої. Секретні дані та прямі ідентифікатори виключаються.</value>
+    <value>Надсилати до PostHog журнали всіх рівнів і технічний контекст із маскуванням секретів автентифікації, а також окремі звіти про винятки. Журнали автоматично видаляються через 7 днів.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Увімкнути віддалену діагностику</value>

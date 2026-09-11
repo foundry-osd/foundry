@@ -1744,7 +1744,7 @@
     <value>Създаване на носител</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Description" xml:space="preserve">
-    <value>Активиране на регистрирането на приложението на ниво „Отстраняване на грешки“.</value>
+    <value>Съобщаване за липсващи ключове за превод и грешки при търсене на ресурси. Всички нива на регистриране остават включени.</value>
   </data>
   <data name="GeneralSetting_DiagnosticsCard.Header" xml:space="preserve">
     <value>Диагностика за разработчици</value>
@@ -2338,7 +2338,7 @@
     <value>Proxy</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Description" xml:space="preserve">
-    <value>Изпращайте обезличени регистрационни файлове и подробности за изключенията, за да помогнете при диагностицирането на неизправности. Тайните данни и преките идентификатори се изключват.</value>
+    <value>Изпращане до PostHog на всички нива на регистрационни записи и техническия контекст със скрити тайни за удостоверяване, както и отделни отчети за изключения. Записите се изтриват автоматично след 7 дни.</value>
   </data>
   <data name="SettingsPage_RemoteDiagnosticsCard.Header" xml:space="preserve">
     <value>Активиране на отдалечената диагностика</value>
