@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Distributionsalternativ för Windows</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Öppna</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Aktiv profil</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Automatisk synkronisering</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Profilen sparades, men gamla autentiseringsuppgifter behöver fortfarande tas bort. Försök igen när Windows Autentiseringshanteraren är tillgänglig.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Bekräfta lösenfras</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Motstridiga ändringar kräver ett beslut.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Välj en version eller spara en kopia för att behålla båda. Den andra versionen ersätts.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Fortsätt</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Skapa delad profil</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Ta bort lokal profil</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Ta även bort den delade profilen</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Ta bort den delade profilen för alla installationer? Andra redigerare måste spara sitt arbete som en kopia.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Ta bort denna lokala profil? Exportera först en säkerhetskopia vid behov.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Den delade profilen togs bort. Spara en lokal kopia för att behålla arbetet.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Kom ihåg lösenord, överför profiler och synkronisera delade inställningar.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Exportera krypterad profil</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Exportera återställningsfil</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Åtgärden misslyckades. Kontrollera fil, lösenfras, behörigheter och anslutning.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Glöm autentiseringsuppgifter</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Glöm sparade lösenord och den delade nyckeln för denna lokala profil? Befintliga medier ändras inte.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Distributionsprofiler</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>Den delade historiken är full. Skapa en ny delad lagringsplats.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Importera som kopia</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Inkludera hemligheter och konfidentiella filer</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Fyll i nödvändiga lösenord och källfiler innan du sparar eller publicerar hemligheter.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Anslut via återställningsfil</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Behåll lokal version</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Autentiseringshanteraren i Windows lagrar lösenord för denna Windows-användare på den här datorn.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Sparade autentiseringsuppgifter är otillgängliga för denna Windows-användare.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Hantera</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} filer saknas eller har utelämnats. Kontrollera sökvägarna innan du skapar medier.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Profilnamn</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>Resursen är upptagen eller otillgänglig. Lokalt arbete bevaras.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Lösenfras</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Filer: {1}
+Hemligheter: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Förvara den krypterade återställningsfilen och dess lösenfras utanför den delade mappen.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Kom ihåg lösenord</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Kom ihåg den delade nyckeln</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Byt namn</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Detta ersätter den aktiva konfigurationen. Spara först en kopia för att behålla arbetet.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>Den delade historiken ändrades oväntat. Återställ från en betrodd kopia.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Spara som kopia</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Mottagare med profilnyckeln kan läsa inkluderade hemligheter och privata certifikatnycklar.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Delad mapp</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Använd en enda auktoritativ SMB 3-resurs med obligatorisk kryptering. Molnspeglade mappar stöds inte.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Synkronisera nu</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Synkroniserad</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Profilen använder ett format som inte stöds. Uppdatera Foundry innan du öppnar den.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>En delad uppdatering är klar. Välj Synkronisera nu för att tillämpa den.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Använd delad version</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Fyll i obligatoriska fält, använd en delad UNC-sökväg och ange matchande lösenfraser.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Allmänt</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Kom ihåg lösenord, överför profiler och synkronisera delade inställningar.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Distributionsprofiler</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

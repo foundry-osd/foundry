@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows 部署选项</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>当前配置文件</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>自动同步</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>配置文件已保存，但旧凭据仍需清理。请在 Windows 凭据管理器可用时重试。</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>确认密码短语</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>更改存在冲突，需要选择处理方式。</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>请选择一个版本，或保存副本以保留两个版本。另一个版本将被替换。</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>继续</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>创建共享配置文件</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>删除本地配置文件</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>同时删除共享配置文件</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>要为所有安装删除此共享配置文件吗？其他编辑者必须将自己的工作保存为副本。</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>要删除此本地配置文件吗？如有需要，请先导出备份。</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>共享配置文件已删除。请保存本地副本以保留工作。</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>记住密码、传输配置文件并同步共享设置。</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>导出加密配置文件</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>导出恢复文件</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>操作失败。请检查文件、密码短语、权限和连接。</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>清除已保存的凭据</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>要清除此本地配置文件已保存的密码和共享密钥吗？现有介质不会改变。</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>部署配置文件</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>共享历史记录已满。请创建新的共享存储库。</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>导入为副本</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>包含机密信息和保密文件</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>请先补全必需的密码和源文件，再保存或发布机密信息。</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>通过恢复文件加入</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>保留本地版本</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Windows 凭据管理器会在此电脑上为当前 Windows 用户存储密码。</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>当前 Windows 用户无法使用已保存的凭据。</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>管理</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>有 {0} 个文件缺失或未包含。请在创建介质前检查其路径。</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>配置文件名称</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>共享位置正忙或不可用。本地工作已保留。</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>密码短语</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+文件：{1}
+机密信息：{2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>就绪</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>请将加密恢复文件及其密码短语保管在共享文件夹之外。</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>记住密码</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>记住共享密钥</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>重命名</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>此操作将替换当前配置。请先保存副本以保留工作。</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>共享历史记录发生了意外更改。请从可信副本恢复。</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>另存为副本</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>持有配置文件密钥的接收者可以读取其中的机密信息和证书私钥。</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>共享文件夹</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>请使用唯一的主 SMB 3 共享，并强制启用加密。不支持通过云端镜像同步的文件夹。</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>立即同步</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>已同步</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>此配置文件使用不受支持的格式。请先更新 Foundry 再打开。</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>共享更新已就绪。请选择“立即同步”以应用更新。</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>使用共享版本</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>请填写必填字段，使用 UNC 共享路径，并输入一致的密码短语。</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>一般</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>记住密码、传输配置文件并同步共享设置。</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>部署配置文件</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

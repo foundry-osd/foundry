@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opcije primene operativnog sistema Windows</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Otvori</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Aktivni profil</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Automatska sinhronizacija</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Profil je sačuvan, ali stare akreditive još treba ukloniti. Pokušajte ponovo kada Windows upravljač akreditivima bude dostupan.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Potvrdi pristupnu frazu</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Sukobljene izmene zahtevaju odluku.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Izaberi verziju ili sačuvaj kopiju da zadržiš obe. Druga verzija će biti zamenjena.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Nastavi</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Napravi deljeni profil</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Obriši lokalni profil</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Obriši i deljeni profil</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Obrisati deljeni profil za sve instalacije? Ostali urednici moraju sačuvati svoj rad kao kopiju.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Obrisati ovaj lokalni profil? Po potrebi prvo izvezi rezervnu kopiju.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Deljeni profil je obrisan. Sačuvaj lokalnu kopiju da zadržiš rad.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Zapamtite lozinke, prenesite profile i sinhronizujte deljena podešavanja.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Izvezi šifrovani profil</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Izvezi datoteku za oporavak</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Radnja nije uspela. Proveri datoteku, pristupnu frazu, dozvole i vezu.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Zaboravi akreditive</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Zaboraviti sačuvane lozinke i deljeni ključ ovog lokalnog profila? Postojeći mediji ostaju nepromenjeni.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Profili primene</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>Deljena istorija je puna. Napravi novo deljeno spremište.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Uvezi kao kopiju</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Uključi tajne podatke i poverljive datoteke</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Unesite potrebne lozinke i izvorne datoteke pre pamćenja ili objavljivanja tajni.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Pridruži se datotekom za oporavak</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Zadrži lokalnu verziju</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Windows upravljač akreditivima čuva lozinke za ovog Windows korisnika na ovom računaru.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Sačuvani akreditivi nisu dostupni ovom Windows korisniku.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Upravljaj</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>Broj datoteka koje nedostaju ili su izostavljene: {0}. Proverite njihove putanje pre pravljenja medija.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Naziv profila</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>Deljeni resurs je zauzet ili nedostupan. Lokalni rad je sačuvan.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Pristupna fraza</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Datoteke: {1}
+Tajni podaci: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Spremno</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Šifrovanu datoteku za oporavak i njenu pristupnu frazu čuvaj van deljene fascikle.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Zapamti lozinke</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Zapamti deljeni ključ</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Preimenuj</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Ovo zamenjuje aktivnu konfiguraciju. Prvo sačuvaj kopiju da zadržiš rad.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>Deljena istorija se neočekivano promenila. Vrati pouzdanu kopiju.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Sačuvaj kao kopiju</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Primaoci sa ključem profila mogu čitati uključene tajne podatke i privatne ključeve sertifikata.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Deljena fascikla</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Koristi jedan merodavni SMB 3 resurs sa obaveznim šifrovanjem. Fascikle preslikane u oblaku nisu podržane.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Sinhronizuj sada</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Sinhronizovano</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Ovaj profil koristi nepodržan format. Ažurirajte Foundry pre otvaranja.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Deljeno ažuriranje je spremno. Izaberi Sinhronizuj sada da ga primeniš.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Koristi deljenu verziju</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Popuni obavezna polja, koristi deljenu UNC putanju i unesi jednake pristupne fraze.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>general</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Zapamtite lozinke, prenesite profile i sinhronizujte deljena podešavanja.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Profili primene</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

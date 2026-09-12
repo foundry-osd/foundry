@@ -155,6 +155,9 @@
                                     Command="{x:Bind ViewModel.BrowseWifiCertificateCommand}"
                                     Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
                             </Grid>
+                            <PasswordBox
+                                Header="{x:Bind ViewModel.CertificatePasswordLabel, Mode=OneWay}"
+                                Password="{x:Bind ViewModel.WifiCertificatePassword, Mode=TwoWay}" />
                             <TextBlock
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Text="{x:Bind ViewModel.WifiCertificateValidationMessage, Mode=OneWay}"

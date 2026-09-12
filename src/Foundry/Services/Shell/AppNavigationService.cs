@@ -24,7 +24,7 @@ internal sealed class AppNavigationService(
 
     public ObservableCollection<BreadcrumbEntry> Breadcrumbs { get; } = [];
 
-    private bool CanGoBack => frame?.CanGoBack == true && navigationGuard.State != ShellNavigationState.OperationRunning;
+    private bool CanGoBack => frame?.CanGoBack == true && navigationGuard.State is not (ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending);
 
     public bool IsBreadcrumbVisible =>
         currentRoute?.PageType == typeof(Views.SettingsPage) || currentRoute?.ParentPageType is not null;
@@ -87,7 +87,7 @@ internal sealed class AppNavigationService(
 
     public bool RefreshCurrentPage()
     {
-        if (frame is null || currentRoute is null)
+        if (frame is null || currentRoute is null || !IsRouteEnabled(currentRoute, navigationGuard.State))
         {
             return false;
         }
@@ -268,7 +268,7 @@ internal sealed class AppNavigationService(
 
         if (navigationView?.SettingsItem is NavigationViewItem settingsItem)
         {
-            settingsItem.IsEnabled = navigationGuard.State != ShellNavigationState.OperationRunning;
+            settingsItem.IsEnabled = navigationGuard.State is not (ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending);
         }
 
         if (raiseStateChanged)
@@ -281,7 +281,7 @@ internal sealed class AppNavigationService(
     {
         ShellNavigationState.Ready => true,
         ShellNavigationState.AdkBlocked => route.IsAvailableWhenAdkBlocked,
-        ShellNavigationState.OperationRunning => false,
+        ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending => false,
         _ => false
     };
 }

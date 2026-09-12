@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows-implementatieopties</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Openen</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Actief profiel</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Automatisch synchroniseren</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Het profiel is opgeslagen, maar oude referenties moeten nog worden verwijderd. Probeer het opnieuw wanneer Windows Referentiebeheer beschikbaar is.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Wachtwoordzin bevestigen</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Conflicterende wijzigingen vereisen een beslissing.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Kies een versie of sla een kopie op om beide te bewaren. De andere versie wordt vervangen.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Doorgaan</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Gedeeld profiel maken</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Lokaal profiel verwijderen</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Ook het gedeelde profiel verwijderen</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Het gedeelde profiel voor alle installaties verwijderen? Andere bewerkers moeten hun werk als kopie opslaan.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Dit lokale profiel verwijderen? Exporteer zo nodig eerst een back-up.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Het gedeelde profiel is verwijderd. Sla een lokale kopie op om uw werk te bewaren.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Wachtwoorden onthouden, profielen overdragen en gedeelde instellingen synchroniseren.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Versleuteld profiel exporteren</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Herstelbestand exporteren</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Bewerking mislukt. Controleer bestand, wachtwoordzin, machtigingen en verbinding.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Referenties vergeten</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Opgeslagen wachtwoorden en de gedeelde sleutel voor dit lokale profiel vergeten? Bestaande media blijven ongewijzigd.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Implementatieprofielen</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>De gedeelde geschiedenis is vol. Maak een nieuwe gedeelde opslagplaats.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Importeren als kopie</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Geheimen en vertrouwelijke bestanden opnemen</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Vul vereiste wachtwoorden en bronbestanden aan voordat u geheimen onthoudt of publiceert.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Deelnemen via herstelbestand</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Lokale versie behouden</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Windows Referentiebeheer bewaart wachtwoorden voor deze Windows-gebruiker op deze pc.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Opgeslagen referenties zijn niet beschikbaar voor deze Windows-gebruiker.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Beheren</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} bestanden ontbreken of zijn weggelaten. Controleer hun paden voordat u media maakt.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Profielnaam</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>De share is bezet of niet beschikbaar. Lokaal werk blijft bewaard.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Wachtwoordzin</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Bestanden: {1}
+Geheimen: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Gereed</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Bewaar het versleutelde herstelbestand en de wachtwoordzin buiten de gedeelde map.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Wachtwoorden onthouden</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Gedeelde sleutel onthouden</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Naam wijzigen</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Dit vervangt de actieve configuratie. Sla eerst een kopie op om uw werk te bewaren.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>De gedeelde geschiedenis is onverwacht gewijzigd. Herstel een vertrouwde kopie.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Opslaan als kopie</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Ontvangers met de profielsleutel kunnen opgenomen geheimen en privésleutels van certificaten lezen.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Gedeelde map</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Gebruik één gezaghebbende SMB 3-share met verplichte versleuteling. Cloudgespiegelde mappen worden niet ondersteund.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Nu synchroniseren</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Gesynchroniseerd</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Dit profiel gebruikt een niet-ondersteunde indeling. Werk Foundry bij voordat u het opent.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Een gedeelde update is gereed. Kies Nu synchroniseren om deze toe te passen.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Gedeelde versie gebruiken</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Vul verplichte velden in, gebruik een gedeeld UNC-pad en voer overeenkomende wachtwoordzinnen in.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Algemeen</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Wachtwoorden onthouden, profielen overdragen en gedeelde instellingen synchroniseren.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Implementatieprofielen</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

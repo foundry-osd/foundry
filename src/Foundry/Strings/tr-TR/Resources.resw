@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows dağıtım seçenekleri</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Aç</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Etkin profil</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Otomatik eşitleme</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Profil kaydedildi ancak eski kimlik bilgilerinin temizlenmesi gerekiyor. Windows Kimlik Bilgileri Yöneticisi kullanılabilir olduğunda yeniden deneyin.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Parolayı doğrula</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Çakışan değişiklikler için karar gerekiyor.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Bir sürüm seçin veya ikisini de korumak için bir kopya kaydedin. Diğer sürüm değiştirilecektir.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Devam</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Paylaşılan profil oluştur</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Yerel profili sil</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Paylaşılan profili de sil</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Paylaşılan profil tüm kurulumlar için silinsin mi? Diğer düzenleyenler çalışmalarını kopya olarak kaydetmelidir.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Bu yerel profil silinsin mi? Gerekirse önce bir yedek dışa aktarın.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Paylaşılan profil silindi. Çalışmanızı korumak için yerel bir kopya kaydedin.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Parolaları hatırlayın, profilleri aktarın ve paylaşılan ayarları eşitleyin.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Şifreli profili dışa aktar</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Kurtarma dosyasını dışa aktar</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>İşlem başarısız oldu. Dosyayı, parolayı, izinleri ve bağlantıyı kontrol edin.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Kimlik bilgilerini unut</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Bu yerel profilin kaydedilen parolaları ve paylaşılan anahtarı unutulsun mu? Mevcut medya değişmez.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Dağıtım profilleri</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>Paylaşılan geçmiş dolu. Yeni bir paylaşılan depo oluşturun.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Kopya olarak içe aktar</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Gizli bilgileri ve gizli dosyaları dahil et</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Gizli bilgileri hatırlamadan veya yayımlamadan önce gerekli parolaları ve kaynak dosyaları tamamlayın.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Kurtarma dosyasından katıl</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Yerel sürümü koru</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Windows Kimlik Bilgileri Yöneticisi parolaları bu bilgisayardaki bu Windows kullanıcısı için saklar.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Kaydedilen kimlik bilgileri bu Windows kullanıcısı için kullanılamıyor.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Yönet</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} dosya eksik veya atlanmış. Medya oluşturmadan önce yollarını gözden geçirin.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Profil adı</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>Paylaşım meşgul veya kullanılamıyor. Yerel çalışma korunur.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Parola</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Dosyalar: {1}
+Gizli bilgiler: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Hazır</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Şifreli kurtarma dosyasını ve parolasını paylaşılan klasörün dışında saklayın.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Parolaları hatırla</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Paylaşılan anahtarı hatırla</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Yeniden adlandır</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Bu, etkin yapılandırmayı değiştirir. Çalışmanızı korumak için önce bir kopya kaydedin.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>Paylaşılan geçmiş beklenmedik şekilde değişti. Güvenilir bir kopyadan geri yükleyin.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Kopya olarak kaydet</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Profil anahtarına sahip alıcılar dahil edilen gizli bilgileri ve sertifika özel anahtarlarını okuyabilir.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Paylaşılan klasör</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Şifrelemenin zorunlu olduğu tek bir yetkili SMB 3 paylaşımı kullanın. Buluta yansıtılan klasörler desteklenmez.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Şimdi eşitle</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Eşitlendi</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Bu profil desteklenmeyen bir biçim kullanıyor. Açmadan önce Foundry'yi güncelleyin.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Paylaşılan güncelleme hazır. Uygulamak için Şimdi eşitle'yi seçin.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Paylaşılan sürümü kullan</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Zorunlu alanları doldurun, UNC paylaşım yolu kullanın ve eşleşen parolalar girin.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Genel</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Parolaları hatırlayın, profilleri aktarın ve paylaşılan ayarları eşitleyin.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Dağıtım profilleri</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

@@ -435,7 +435,7 @@ namespace Foundry.Views
         {
             foreach (NavigationViewItem item in NavView.FooterMenuItems.OfType<NavigationViewItem>())
             {
-                item.IsEnabled = state != ShellNavigationState.OperationRunning;
+                item.IsEnabled = state is not (ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending);
             }
         }
 
@@ -457,7 +457,7 @@ namespace Foundry.Views
             ToolTipService.SetToolTip(item, description);
             AutomationProperties.SetName(item, item.Content?.ToString() ?? string.Empty);
             AutomationProperties.SetHelpText(item, description);
-            item.IsEnabled = shellNavigationGuardService.State != ShellNavigationState.OperationRunning;
+            item.IsEnabled = shellNavigationGuardService.State is not (ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending);
         }
 
         private void RefreshUpdateFooterItem()
@@ -499,7 +499,7 @@ namespace Foundry.Views
             AutomationProperties.SetName(item, ViewModel.UpdateFooterTitle);
             AutomationProperties.SetHelpText(item, ViewModel.UpdateFooterToolTip);
             AutomationProperties.SetItemStatus(item, ViewModel.UpdateFooterToolTip);
-            item.IsEnabled = shellNavigationGuardService.State != ShellNavigationState.OperationRunning;
+            item.IsEnabled = shellNavigationGuardService.State is not (ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending);
         }
 
         private void RemoveUpdateFooterItem()
@@ -531,7 +531,7 @@ namespace Foundry.Views
             ToolTipService.SetToolTip(item, description);
             AutomationProperties.SetName(item, item.Content?.ToString() ?? string.Empty);
             AutomationProperties.SetHelpText(item, description);
-            item.IsEnabled = shellNavigationGuardService.State != ShellNavigationState.OperationRunning;
+            item.IsEnabled = shellNavigationGuardService.State is not (ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending);
         }
 
         private void EnsureExternalBugReportFooterItem()
@@ -552,12 +552,12 @@ namespace Foundry.Views
             ToolTipService.SetToolTip(item, description);
             AutomationProperties.SetName(item, item.Content?.ToString() ?? string.Empty);
             AutomationProperties.SetHelpText(item, description);
-            item.IsEnabled = shellNavigationGuardService.State != ShellNavigationState.OperationRunning;
+            item.IsEnabled = shellNavigationGuardService.State is not (ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending);
         }
 
         private void NavigateToUpdateSettingsPage()
         {
-            if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning)
+            if (shellNavigationGuardService.State is ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending)
             {
                 return;
             }
@@ -595,7 +595,7 @@ namespace Foundry.Views
             string failureMessageResourceKey,
             string target)
         {
-            if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning)
+            if (shellNavigationGuardService.State is ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending)
             {
                 return;
             }
@@ -647,7 +647,7 @@ namespace Foundry.Views
 
         private async Task ShowAboutDialogAsync()
         {
-            if (shellNavigationGuardService.State == ShellNavigationState.OperationRunning)
+            if (shellNavigationGuardService.State is ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending)
             {
                 return;
             }

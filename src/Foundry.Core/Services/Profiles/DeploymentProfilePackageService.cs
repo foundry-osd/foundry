@@ -150,6 +150,8 @@ public sealed class DeploymentProfilePackageService : IDeploymentProfilePackageS
 
     private static void ValidateEnvelope(ReadOnlySpan<byte> package, int mode)
     {
+        if (package.Length >= 10 && package[..8].SequenceEqual(Magic) && package[8] > DeploymentProfileDocument.CurrentFormatVersion)
+            throw new NotSupportedException("The encrypted profile format requires a newer Foundry version.");
         if (package.Length <= PayloadOffset + EncryptionOverhead || package.Length > DeploymentProfilePayload.MaximumPayloadBytes + PayloadOffset + EncryptionOverhead
             || !package[..8].SequenceEqual(Magic) || package[8] != DeploymentProfileDocument.CurrentFormatVersion || package[9] != mode
             || BinaryPrimitives.ReadInt32LittleEndian(package.Slice(10, 4)) != (mode == PassphraseMode ? Iterations : 0))

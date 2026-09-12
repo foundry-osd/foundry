@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows 部署選項</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>開啟</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>目前的設定檔</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>自動同步</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>設定檔已儲存，但仍需清除舊認證。請在 Windows 認證管理員可用時重試。</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>確認複雜密碼</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>變更發生衝突，需要決定處理方式。</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>請選擇一個版本，或儲存複本以保留兩個版本。另一個版本將被取代。</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>繼續</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>建立共用設定檔</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>刪除本機設定檔</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>同時刪除共用設定檔</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>要為所有安裝刪除此共用設定檔嗎？其他編輯者必須將自己的工作儲存為複本。</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>要刪除此本機設定檔嗎？如有需要，請先匯出備份。</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>共用設定檔已刪除。請儲存本機複本以保留工作。</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>記住密碼、傳輸設定檔並同步共用設定。</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>匯出加密設定檔</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>匯出復原檔案</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>操作失敗。請檢查檔案、複雜密碼、權限和連線。</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>清除已儲存的認證</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>要清除此本機設定檔已儲存的密碼和共用金鑰嗎？現有媒體不會變更。</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>部署設定檔</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>共用歷程記錄已滿。請建立新的共用存放庫。</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>匯入為複本</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>包含機密資訊和保密檔案</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>請先備妥必要的密碼和來源檔案，再儲存或發佈機密資訊。</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>透過復原檔案加入</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>保留本機版本</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Windows 認證管理員會在這部電腦上為目前的 Windows 使用者儲存密碼。</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>目前的 Windows 使用者無法使用已儲存的認證。</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>管理</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>有 {0} 個檔案遺失或未包含在內。請在建立媒體前檢查其路徑。</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>設定檔名稱</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>共用位置忙碌或無法使用。本機工作會予以保留。</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>複雜密碼</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+檔案：{1}
+機密資訊：{2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>就緒</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>請將加密的復原檔案及其複雜密碼保管在共用資料夾之外。</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>記住密碼</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>記住共用金鑰</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>重新命名</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>此操作將取代目前的組態。請先儲存複本以保留工作。</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>共用歷程記錄發生非預期的變更。請從受信任的複本還原。</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>另存為複本</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>持有設定檔金鑰的收件者可以讀取內含的機密資訊和憑證私密金鑰。</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>共用資料夾</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>請以單一 SMB 3 共用作為正式資料來源，並強制啟用加密。不支援透過雲端鏡像同步的資料夾。</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>立即同步</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>已同步</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>此設定檔使用不支援的格式。請先更新 Foundry 再開啟。</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>共用更新已就緒。請選取「立即同步」以套用更新。</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>使用共用版本</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>請填寫必填欄位、使用 UNC 共用路徑，並輸入相符的複雜密碼。</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>一般</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>記住密碼、傳輸設定檔並同步共用設定。</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>部署設定檔</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

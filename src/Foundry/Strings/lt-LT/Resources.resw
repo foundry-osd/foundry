@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows diegimo parinktys</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Atidaryti</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Aktyvus profilis</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Automatinis sinchronizavimas</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Profilis įrašytas, bet senus kredencialus dar reikia pašalinti. Bandykite dar kartą, kai bus pasiekiamas Windows kredencialų tvarkytuvas.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Patvirtinkite slaptafrazę</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Nesuderinamiems pakeitimams reikia sprendimo.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Pasirinkite versiją arba įrašykite kopiją, kad išsaugotumėte abi. Kita versija bus pakeista.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Tęsti</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Kurti bendrinamą profilį</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Naikinti vietinį profilį</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Taip pat naikinti bendrinamą profilį</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Naikinti bendrinamą profilį visose įdiegtose programose? Kiti redaktoriai turi įrašyti savo darbą kaip kopiją.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Naikinti šį vietinį profilį? Jei reikia, pirmiausia eksportuokite atsarginę kopiją.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Bendrinamas profilis panaikintas. Įrašykite vietinę kopiją, kad išsaugotumėte darbą.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Įsiminkite slaptažodžius, perkelkite profilius ir sinchronizuokite bendrinamus parametrus.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Eksportuoti užšifruotą profilį</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Eksportuoti atkūrimo failą</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Operacija nepavyko. Patikrinkite failą, slaptafrazę, teises ir ryšį.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Pamiršti kredencialus</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Pamiršti šio vietinio profilio įrašytus slaptažodžius ir bendrinamą raktą? Esama laikmena nesikeis.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Diegimo profiliai</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>Bendrinama istorija pilna. Sukurkite naują bendrinamą saugyklą.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Importuoti kaip kopiją</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Įtraukti paslaptis ir konfidencialius failus</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Prieš įsimindami arba skelbdami paslaptis pateikite reikiamus slaptažodžius ir šaltinio failus.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Prisijungti iš atkūrimo failo</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Palikti vietinę versiją</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Windows kredencialų tvarkytuvas saugo slaptažodžius šiam Windows naudotojui šiame kompiuteryje.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Įrašyti kredencialai šiam Windows naudotojui nepasiekiami.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Tvarkyti</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>Trūksta arba praleista {0} failų. Prieš kurdami laikmeną patikrinkite jų kelius.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Profilio pavadinimas</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>Bendrinamas išteklius užimtas arba nepasiekiamas. Vietinis darbas išsaugomas.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Slaptafrazė</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Failai: {1}
+Paslaptys: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Paruošta</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Užšifruotą atkūrimo failą ir jo slaptafrazę laikykite už bendrinamo aplanko ribų.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Įsiminti slaptažodžius</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Įsiminti bendrinamą raktą</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Pervardyti</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Tai pakeis aktyvią konfigūraciją. Pirmiausia įrašykite kopiją, kad išsaugotumėte darbą.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>Bendrinama istorija netikėtai pasikeitė. Atkurkite iš patikimos kopijos.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Įrašyti kopiją</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Gavėjai, turintys profilio raktą, gali skaityti įtrauktas paslaptis ir privačiuosius sertifikatų raktus.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Bendrinamas aplankas</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Naudokite vieną pagrindinį SMB 3 bendrinamą išteklių su privalomu šifravimu. Debesyje dubliuojami aplankai nepalaikomi.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Sinchronizuoti dabar</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Sinchronizuota</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Šis profilis naudoja nepalaikomą formatą. Prieš atidarydami atnaujinkite Foundry.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Paruoštas bendrinamas naujinimas. Norėdami jį pritaikyti, pasirinkite „Sinchronizuoti dabar“.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Naudoti bendrinamą versiją</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Užpildykite privalomus laukus, naudokite UNC bendrinimo kelią ir įveskite sutampančias slaptafrazes.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Generolas</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Įsiminkite slaptažodžius, perkelkite profilius ir sinchronizuokite bendrinamus parametrus.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Diegimo profiliai</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

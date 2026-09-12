@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Параметри розгортання Windows</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Відкрити</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Активний профіль</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Автоматична синхронізація</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Профіль збережено, але старі облікові дані ще потрібно видалити. Повторіть спробу, коли диспетчер облікових даних Windows стане доступним.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Підтвердьте парольну фразу</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Конфліктні зміни потребують рішення.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Виберіть версію або збережіть копію, щоб залишити обидві. Іншу версію буде замінено.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Продовжити</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Створити спільний профіль</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Видалити локальний профіль</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Також видалити спільний профіль</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Видалити спільний профіль для всіх інсталяцій? Інші редактори мають зберегти свою роботу як копію.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Видалити цей локальний профіль? За потреби спочатку експортуйте резервну копію.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Спільний профіль видалено. Збережіть локальну копію, щоб не втратити роботу.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Зберігайте паролі, переносіть профілі та синхронізуйте спільні налаштування.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Експорт зашифрованого профілю</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Експорт файлу відновлення</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Операція не вдалася. Перевірте файл, парольну фразу, дозволи та підключення.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Забути облікові дані</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Забути збережені паролі та спільний ключ цього локального профілю? Наявні носії не зміняться.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Профілі розгортання</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>Спільна історія заповнена. Створіть нове спільне сховище.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Імпортувати як копію</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Включити секрети та конфіденційні файли</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Укажіть потрібні паролі та вихідні файли перед запам’ятовуванням або публікацією секретів.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Приєднатися з файлу відновлення</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Зберегти локальну версію</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Диспетчер облікових даних Windows зберігає паролі для цього користувача Windows на цьому комп’ютері.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Збережені облікові дані недоступні для цього користувача Windows.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Керування</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>Відсутні або пропущені файли: {0}. Перевірте їхні шляхи перед створенням носія.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Ім’я профілю</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>Спільний ресурс зайнятий або недоступний. Локальну роботу збережено.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Парольна фраза</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Файли: {1}
+Секрети: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Зберігайте зашифрований файл відновлення та його парольну фразу поза спільною папкою.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Запам’ятати паролі</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Запам’ятати спільний ключ</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Перейменувати</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Це замінить активну конфігурацію. Спершу збережіть копію, щоб не втратити роботу.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>Спільна історія несподівано змінилася. Відновіть її з надійної копії.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Зберегти як копію</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Одержувачі з ключем профілю можуть читати включені секрети та приватні ключі сертифікатів.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Спільна папка</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Використовуйте один основний спільний ресурс SMB 3 з обов’язковим шифруванням. Папки з дзеркалюванням у хмару не підтримуються.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Синхронізувати зараз</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Синхронізовано</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Цей профіль використовує непідтримуваний формат. Оновіть Foundry перед його відкриттям.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Доступне спільне оновлення. Виберіть «Синхронізувати зараз», щоб застосувати його.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Використати спільну версію</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Заповніть обов’язкові поля, вкажіть спільний шлях UNC і введіть однакові парольні фрази.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Загальний</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Зберігайте паролі, переносіть профілі та синхронізуйте спільні налаштування.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Профілі розгортання</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

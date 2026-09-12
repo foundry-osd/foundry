@@ -99,6 +99,7 @@ namespace Foundry
                 MainWindow mainWindow = GetService<MainWindow>();
                 MainWindow = mainWindow;
                 mainWindow.Closed += OnMainWindowClosed;
+                mainWindow.AppWindow.Closing += OnMainWindowClosing;
 
                 mainWindow.Title = mainWindow.AppWindow.Title = FoundryApplicationInfo.AppNameAndVersion;
                 mainWindow.AppWindow.SetIcon("Assets/AppIcon.ico");
@@ -118,6 +119,7 @@ namespace Foundry
 
         private static async Task InitializeAppAsync()
         {
+            await GetService<DeploymentProfileCoordinator>().InitializeAsync();
             await GetService<IStartupReadinessService>().InitializeAsync();
             await TrackDailyActiveAsync();
             AppLogger.Information("Foundry WinUI startup completed.");
@@ -159,6 +161,49 @@ namespace Foundry
         private static void OnWinUiUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             AppLogger.Fatal(e.Exception, "Unhandled WinUI exception.");
+        }
+
+        private bool closeApproved;
+        private bool closePending;
+
+        private async void OnMainWindowClosing(Microsoft.UI.Windowing.AppWindow sender, Microsoft.UI.Windowing.AppWindowClosingEventArgs args)
+        {
+            if (closeApproved) return;
+            args.Cancel = true;
+            if (GetService<IShellNavigationGuardService>().State is ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending) return;
+            if (closePending) return;
+            closePending = true;
+            try
+            {
+                var coordinator = GetService<DeploymentProfileCoordinator>();
+                using (coordinator.SuspendActivation())
+                {
+                    bool saved;
+                    try { saved = await coordinator.FlushBeforeCloseAsync().WaitAsync(TimeSpan.FromSeconds(10)); }
+                    catch (TimeoutException) { saved = false; }
+                    if (!saved)
+                    {
+                        var localization = GetService<Foundry.Services.Localization.IApplicationLocalizationService>();
+                        var dialog = new ContentDialog
+                        {
+                            XamlRoot = ((FrameworkElement)MainWindow.Content).XamlRoot,
+                            Title = localization.GetString("Profiles.Heading"),
+                            Content = localization.GetString(coordinator.StatusKey == "Profiles.Incomplete" ? "Profiles.Incomplete" : "Profiles.Failed"),
+                            PrimaryButtonText = localization.GetString("Common.Close"),
+                            CloseButtonText = localization.GetString("Common.Cancel"),
+                            DefaultButton = ContentDialogButton.Close
+                        };
+                        if (await dialog.ShowAsync() != ContentDialogResult.Primary) return;
+                    }
+                }
+                closeApproved = true;
+                MainWindow.Close();
+            }
+            catch (Exception ex)
+            {
+                AppLogger.Warning(ex, "Unable to finish saving the active profile before closing.");
+            }
+            finally { closePending = false; }
         }
 
         private void OnMainWindowClosed(object sender, WindowEventArgs args)
