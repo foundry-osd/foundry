@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Выберите версию или сохраните копию, чтобы оставить обе. Другая версия будет заменена.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Выберите файл подключения, полученный от участника вашей команды.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Сохраните файл подключения, чтобы другой компьютер мог использовать эту общую конфигурацию.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Продолжить</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Создать общий профиль</value>
+    <value>Поделиться этой конфигурацией</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Выберите общую сетевую папку для этой конфигурации.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Удалить локальный профиль</value>
@@ -2257,16 +2266,22 @@
     <value>Сохраняйте пароли, переносите профили и синхронизируйте общие настройки.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Экспорт зашифрованного профиля</value>
+    <value>Экспортировать</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Сохранить эту конфигурацию в файл для резервного копирования или другого компьютера.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Выберите пароль для защиты экспортируемого файла. Он понадобится для импорта конфигурации.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Экспорт файла восстановления</value>
+    <value>Сохранить файл подключения</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Операция не выполнена. Проверьте файл, парольную фразу, разрешения и подключение.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Забыть учётные данные</value>
+    <value>Удалить сохранённые пароли и данные доступа</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Забыть сохранённые пароли и общий ключ этого локального профиля? Существующие носители не изменятся.</value>
@@ -2278,7 +2293,10 @@
     <value>Общая история заполнена. Создайте новый общий репозиторий.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Импортировать как копию</value>
+    <value>Импортировать</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Добавить конфигурацию из файла.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Включить секреты и конфиденциальные файлы</value>
@@ -2287,19 +2305,19 @@
     <value>Укажите необходимые пароли и исходные файлы перед сохранением или публикацией секретов.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Подключиться из файла восстановления</value>
+    <value>Подключиться к общей конфигурации</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Сохранить локальную версию</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Диспетчер учётных данных Windows хранит пароли для этого пользователя Windows на этом компьютере.</value>
+    <value>Хранить пароли для вашей учётной записи Windows на этом компьютере.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Сохранённые учётные данные недоступны для этого пользователя Windows.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Управление</value>
+    <value>Другие действия</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>Отсутствуют или пропущены файлы: {0}. Проверьте их пути перед созданием носителя.</value>
@@ -2322,7 +2340,7 @@
     <value>Готово</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Храните зашифрованный файл восстановления и его парольную фразу вне общей папки.</value>
+    <value>Храните файл подключения и его пароль вне общей папки.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Запомнить пароли</value>
@@ -2340,7 +2358,13 @@
     <value>Общая история неожиданно изменилась. Восстановите её из доверенной копии.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Сохранить копию</value>
+    <value>Создать копию</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Настроить</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Поделитесь этой конфигурацией или подключитесь к той, которую уже использует ваша команда.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Получатели с ключом профиля могут читать включённые секреты и закрытые ключи сертификатов.</value>
@@ -2351,8 +2375,17 @@
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Используйте один основной общий ресурс SMB 3 с обязательным шифрованием. Папки, зеркалируемые в облако, не поддерживаются.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Больше не запоминать пароли этой конфигурации на этом компьютере?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Синхронизировать сейчас</value>
+    <value>Синхронизировать</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Синхронизировать</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Поддерживать эту конфигурацию в актуальном состоянии на компьютерах вашей команды.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Синхронизировано</value>

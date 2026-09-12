@@ -35,13 +35,13 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     [ObservableProperty, NotifyPropertyChangedFor(nameof(StatusVisibility))] public partial string Status { get; set; } = string.Empty;
     public bool CanInteract => !IsBusy;
     public bool CanActivate => CanInteract && SelectedProfile is { } selected && selected.LocalId != coordinator.Active?.LocalId;
-    public string ActiveProfileName => coordinator.Active?.DisplayName ?? string.Empty;
+    public string ActiveProfileDescription => coordinator.Active is { } active ? $"{Text("Profiles.Active")}: {active.DisplayName}" : string.Empty;
     public Visibility StatusVisibility => string.IsNullOrEmpty(Status) || Status == Text("Profiles.Ready") ? Visibility.Collapsed : Visibility.Visible;
     public bool HasActive => coordinator.Active is not null;
     public bool IsShared => coordinator.Active?.Enrollment is not null;
     public Visibility SharedVisibility => IsShared ? Visibility.Visible : Visibility.Collapsed;
     public bool RememberSecrets => coordinator.Active?.RememberSecrets == true;
-    public string RememberState => Text(RememberSecrets ? "Common.Enabled" : "Common.Disabled");
+    public string SynchronizeActionText => Text(IsShared ? "Profiles.SyncNow" : "Profiles.Setup");
     public bool SyncEnabled => coordinator.Active?.Enrollment?.IsEnabled == true;
     public Visibility ConflictVisibility => coordinator.HasConflict && coordinator.StatusKey != "Profiles.DeletedRemote" ? Visibility.Visible : Visibility.Collapsed;
     public string Text(string key) => localization.GetString(key);
@@ -100,11 +100,11 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     });
 
     [RelayCommand]
-    private Task RememberAsync() => RunAsync(async () =>
+    private Task ToggleRememberAsync() => RunAsync(async () =>
     {
-        ProfileDialogResponse? result = await DialogAsync(new("Profiles.Remember")
-        { Message = Text("Profiles.LocalPrivacy"), RememberOption = true, Remember = RememberSecrets });
-        if (result is not null) await coordinator.SaveAsync(result.Remember);
+        bool remember = !RememberSecrets;
+        if (await ConfirmAsync("Profiles.Remember", remember ? "Profiles.LocalPrivacy" : "Profiles.StopRemembering"))
+            await coordinator.SaveAsync(remember);
     });
 
     [RelayCommand]
@@ -129,12 +129,12 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     private async Task ExportFileAsync(bool recovery)
     {
         string title = recovery ? "Profiles.ExportRecovery" : "Profiles.Export";
-        string? path = await picker.PickSaveFileAsync(new(Text(title), recovery ? "Foundry-recovery" : "Foundry-profile",
+        string? path = await picker.PickSaveFileAsync(new(Text(title), recovery ? "Foundry-connection" : "Foundry-profile",
             new FilePickerTypeChoice[] { new(Text("Profiles.Heading"), new string[] { ".foundryprofile" }) }, ".foundryprofile"));
         if (path is null) return;
         ProfileDialogResponse? result = await DialogAsync(new(title)
         {
-            Message = Text(recovery ? "Profiles.RecoveryWarning" : "Profiles.ShareWarning"),
+            Message = recovery ? Text("Profiles.RecoveryWarning") : Text("Profiles.ExportProtection") + "\n\n" + Text("Profiles.ShareWarning"),
             Passphrase = true,
             ConfirmPassphrase = true,
             IncludeSecretsOption = !recovery
@@ -145,7 +145,6 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     }
 
     [RelayCommand] private Task ImportAsync() => RunAsync(() => ImportFileAsync(false));
-    [RelayCommand] private Task JoinSharedAsync() => RunAsync(() => ImportFileAsync(true));
 
     private async Task ImportFileAsync(bool join)
     {
@@ -176,15 +175,36 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
         finally { DeploymentProfileSecretBinding.Clear(profile); }
     }
 
-    [RelayCommand]
-    private Task CreateSharedAsync() => RunAsync(async () =>
+    private async Task CreateSharedAsync()
     {
         ProfileDialogResponse? result = await DialogAsync(new("Profiles.CreateShared")
         { Message = Text("Profiles.ShareWarning"), SharePathOption = true, IncludeSecretsOption = true, SharedKeyOption = true });
         if (result is not null) await coordinator.CreateSharedAsync(result.SharePath.Trim(), result.IncludeSecrets, result.RememberKey);
+    }
+
+    [RelayCommand]
+    private Task SynchronizeAsync() => RunAsync(async () =>
+    {
+        if (IsShared)
+        {
+            await coordinator.SynchronizeAsync();
+            return;
+        }
+
+        await SetupSynchronizationCoreAsync();
     });
 
-    [RelayCommand] private Task SynchronizeAsync() => RunAsync(coordinator.SynchronizeAsync);
+    [RelayCommand]
+    private Task SetupSynchronizationAsync() => RunAsync(SetupSynchronizationCoreAsync);
+
+    private async Task SetupSynchronizationCoreAsync()
+    {
+        ProfileDialogResponse? setup = await DialogAsync(new("Profiles.Setup")
+        { Message = Text("Profiles.SetupDescription"), SynchronizationSetupOption = true });
+        if (setup is null) return;
+        if (setup.JoinShared) await ImportFileAsync(true);
+        else await CreateSharedAsync();
+    }
     [RelayCommand] private Task ToggleSyncAsync() => RunAsync(() => coordinator.SetSynchronizationEnabledAsync(!SyncEnabled));
     [RelayCommand] private Task UseRemoteAsync() => ResolveAsync(true);
     [RelayCommand] private Task KeepLocalAsync() => ResolveAsync(false);
@@ -232,12 +252,12 @@ internal sealed record ProfileDialogRequest(string Title)
     public bool ConfirmPassphrase { get; init; }
     public bool IncludeSecretsOption { get; init; }
     public bool RememberOption { get; init; }
-    public bool Remember { get; init; }
     public bool SharedKeyOption { get; init; }
     public bool SharePathOption { get; init; }
     public bool DeleteSharedOption { get; init; }
+    public bool SynchronizationSetupOption { get; init; }
 }
 
 /// <summary>Transient dialog values; callers never log or persist the package passphrase.</summary>
 internal sealed record ProfileDialogResponse(string Name, string Password, bool IncludeSecrets, bool Remember,
-    bool RememberKey, string SharePath, bool DeleteShared);
+    bool RememberKey, string SharePath, bool DeleteShared, bool JoinShared);

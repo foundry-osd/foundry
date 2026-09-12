@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Vyberte verzi nebo uložte kopii pro zachování obou. Druhá verze bude nahrazena.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Vyberte soubor připojení, který vám poskytl někdo z vašeho týmu.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Uložit soubor připojení, aby mohl tuto sdílenou konfiguraci používat i jiný počítač.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Pokračovat</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Vytvořit sdílený profil</value>
+    <value>Sdílet tuto konfiguraci</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Vyberte sdílenou síťovou složku pro tuto konfiguraci.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Odstranit místní profil</value>
@@ -2257,16 +2266,22 @@
     <value>Pamatujte si hesla, přenášejte profily a synchronizujte sdílená nastavení.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Exportovat šifrovaný profil</value>
+    <value>Exportovat</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Uložit tuto konfiguraci do souboru jako zálohu nebo pro jiný počítač.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Zvolte heslo pro ochranu exportovaného souboru. Budete ho potřebovat k importu konfigurace.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Exportovat soubor pro obnovení</value>
+    <value>Uložit soubor připojení</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Operace selhala. Zkontrolujte soubor, heslovou frázi, oprávnění a připojení.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Zapomenout přihlašovací údaje</value>
+    <value>Vymazat uložená hesla a přístupy</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Zapomenout uložená hesla a sdílený klíč tohoto místního profilu? Existující média zůstanou beze změny.</value>
@@ -2278,7 +2293,10 @@
     <value>Sdílená historie je plná. Vytvořte nové sdílené úložiště.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Importovat jako kopii</value>
+    <value>Importovat</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Přidat konfiguraci ze souboru.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Zahrnout tajné údaje a důvěrné soubory</value>
@@ -2287,19 +2305,19 @@
     <value>Před zapamatováním nebo publikováním tajných údajů doplňte požadovaná hesla a zdrojové soubory.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Připojit pomocí souboru pro obnovení</value>
+    <value>Připojit ke sdílené konfiguraci</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Zachovat místní verzi</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Správce pověření Windows ukládá hesla pro tohoto uživatele Windows na tomto počítači.</value>
+    <value>Uchovávat hesla pro váš účet Windows v tomto počítači.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Uložené přihlašovací údaje nejsou tomuto uživateli Windows dostupné.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Spravovat</value>
+    <value>Další možnosti</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>Počet chybějících nebo vynechaných souborů: {0}. Před vytvořením média zkontrolujte jejich cesty.</value>
@@ -2322,7 +2340,7 @@ Tajné údaje: {2}</value>
     <value>Připraveno</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Šifrovaný soubor pro obnovení a jeho heslovou frázi uchovávejte mimo sdílenou složku.</value>
+    <value>Soubor připojení a jeho heslo uchovávejte mimo sdílenou složku.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Zapamatovat hesla</value>
@@ -2340,7 +2358,13 @@ Tajné údaje: {2}</value>
     <value>Sdílená historie se neočekávaně změnila. Obnovte důvěryhodnou kopii.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Uložit jako kopii</value>
+    <value>Duplikovat</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Nastavit</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Sdílet tuto konfiguraci nebo se připojit ke konfiguraci, kterou váš tým již používá.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Příjemci s klíčem profilu mohou číst zahrnuté tajné údaje a soukromé klíče certifikátů.</value>
@@ -2351,8 +2375,17 @@ Tajné údaje: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Použijte jedno autoritativní sdílení SMB 3 s povinným šifrováním. Složky zrcadlené do cloudu nejsou podporovány.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Přestat si pamatovat hesla této konfigurace v tomto počítači?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Synchronizovat nyní</value>
+    <value>Synchronizovat</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Synchronizovat</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Udržovat tuto konfiguraci aktuální na počítačích vašeho týmu.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Synchronizováno</value>

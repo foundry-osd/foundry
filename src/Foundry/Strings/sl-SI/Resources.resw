@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Izberite različico ali shranite kopijo, da ohranite obe. Druga različica bo zamenjana.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Izberite datoteko za povezavo, ki vam jo je poslal član vaše ekipe.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Shrani datoteko za povezavo, da lahko drug računalnik uporablja to konfiguracijo v skupni rabi.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Nadaljuj</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Ustvari skupni profil</value>
+    <value>Deli to konfiguracijo</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Izberite omrežno mapo v skupni rabi za to konfiguracijo.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Izbriši lokalni profil</value>
@@ -2257,16 +2266,22 @@
     <value>Zapomnite si gesla, prenašajte profile in sinhronizirajte skupne nastavitve.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Izvozi šifrirani profil</value>
+    <value>Izvozi</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Shrani to konfiguracijo v datoteko kot varnostno kopijo ali za drug računalnik.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Izberite geslo za zaščito izvožene datoteke. Potrebovali ga boste za uvoz konfiguracije.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Izvozi obnovitveno datoteko</value>
+    <value>Shrani datoteko za povezavo</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Dejanje ni uspelo. Preverite datoteko, geselno frazo, dovoljenja in povezavo.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Pozabi poverilnice</value>
+    <value>Počisti shranjena gesla in dostope</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Pozabim shranjena gesla in skupni ključ tega lokalnega profila? Obstoječi mediji ostanejo nespremenjeni.</value>
@@ -2278,7 +2293,10 @@
     <value>Skupna zgodovina je polna. Ustvarite novo skupno shrambo.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Uvozi kot kopijo</value>
+    <value>Uvozi</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Dodaj konfiguracijo iz datoteke.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Vključi skrivnosti in zaupne datoteke</value>
@@ -2287,19 +2305,19 @@
     <value>Pred shranjevanjem ali objavo skrivnosti izpolnite zahtevana gesla in izvorne datoteke.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Pridruži se z obnovitveno datoteko</value>
+    <value>Poveži se s konfiguracijo v skupni rabi</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Obdrži lokalno različico</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Upravitelj poverilnic Windows shrani gesla za tega uporabnika Windows v tem računalniku.</value>
+    <value>Hrani gesla za svoj račun Windows v tem računalniku.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Shranjene poverilnice temu uporabniku Windows niso na voljo.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Upravljaj</value>
+    <value>Več možnosti</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>Število manjkajočih ali izpuščenih datotek: {0}. Pred ustvarjanjem medija preverite njihove poti.</value>
@@ -2322,7 +2340,7 @@ Skrivnosti: {2}</value>
     <value>Pripravljeno</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Šifrirano obnovitveno datoteko in njeno geselno frazo hranite zunaj mape v skupni rabi.</value>
+    <value>Datoteko za povezavo in njeno geslo hranite zunaj mape v skupni rabi.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Zapomni si gesla</value>
@@ -2340,7 +2358,13 @@ Skrivnosti: {2}</value>
     <value>Skupna zgodovina se je nepričakovano spremenila. Obnovite zaupanja vredno kopijo.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Shrani kot kopijo</value>
+    <value>Podvoji</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Nastavi</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Deli to konfiguracijo ali se poveži s konfiguracijo, ki jo tvoja ekipa že uporablja.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Prejemniki s ključem profila lahko berejo vključene skrivnosti in zasebne ključe potrdil.</value>
@@ -2351,8 +2375,17 @@ Skrivnosti: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Uporabite eno avtoritativno skupno rabo SMB 3 z obveznim šifriranjem. Mape, zrcaljene v oblak, niso podprte.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Želite prenehati pomniti gesla za to konfiguracijo v tem računalniku?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Sinhroniziraj zdaj</value>
+    <value>Sinhroniziraj</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Sinhroniziraj</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Ohranjaj to konfiguracijo posodobljeno v računalnikih svoje ekipe.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Sinhronizirano</value>

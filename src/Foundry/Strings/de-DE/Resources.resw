@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Eine Version auswählen oder eine Kopie speichern, um beide zu behalten. Die andere Version wird ersetzt.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Wählen Sie die Verbindungsdatei aus, die Sie von einem Teammitglied erhalten haben.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Eine Verbindungsdatei speichern, damit ein anderer PC diese geteilte Konfiguration verwenden kann.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Weiter</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Gemeinsames Profil erstellen</value>
+    <value>Diese Konfiguration teilen</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Wählen Sie einen geteilten Netzwerkordner für diese Konfiguration aus.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Lokales Profil löschen</value>
@@ -2257,16 +2266,22 @@
     <value>Kennwörter speichern, Profile übertragen und gemeinsame Einstellungen synchronisieren.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Verschlüsseltes Profil exportieren</value>
+    <value>Exportieren</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Diese Konfiguration zur Sicherung oder für einen anderen PC in einer Datei speichern.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Wählen Sie ein Kennwort zum Schutz der exportierten Datei. Sie benötigen es, um die Konfiguration zu importieren.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Wiederherstellungsdatei exportieren</value>
+    <value>Verbindungsdatei speichern</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Vorgang fehlgeschlagen. Datei, Passphrase, Berechtigungen und Verbindung prüfen.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Anmeldedaten vergessen</value>
+    <value>Gespeicherte Kennwörter und Zugänge löschen</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Gespeicherte Kennwörter und den gemeinsamen Schlüssel dieses lokalen Profils vergessen? Vorhandene Medien bleiben unverändert.</value>
@@ -2278,7 +2293,10 @@
     <value>Der gemeinsame Verlauf ist voll. Ein neues gemeinsames Repository erstellen.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Als Kopie importieren</value>
+    <value>Importieren</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Eine Konfiguration aus einer Datei hinzufügen.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Geheimnisse und vertrauliche Dateien einschließen</value>
@@ -2287,19 +2305,19 @@
     <value>Vervollständigen Sie erforderliche Passwörter und Quelldateien, bevor Sie Geheimnisse speichern oder veröffentlichen.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Mit Wiederherstellungsdatei beitreten</value>
+    <value>Mit einer geteilten Konfiguration verbinden</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Lokale Version behalten</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Die Windows-Anmeldeinformationsverwaltung speichert Kennwörter für diesen Windows-Benutzer auf diesem PC.</value>
+    <value>Kennwörter für Ihr Windows-Konto auf diesem PC speichern.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Gespeicherte Anmeldedaten sind für diesen Windows-Benutzer nicht verfügbar.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Verwalten</value>
+    <value>Weitere Optionen</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>{0} Dateien fehlen oder wurden ausgelassen. Prüfen Sie ihre Pfade vor dem Erstellen des Mediums.</value>
@@ -2322,7 +2340,7 @@ Geheimnisse: {2}</value>
     <value>Bereit</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Die verschlüsselte Wiederherstellungsdatei und ihre Passphrase außerhalb des freigegebenen Ordners aufbewahren.</value>
+    <value>Bewahren Sie die Verbindungsdatei und ihr Kennwort außerhalb des geteilten Ordners auf.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Kennwörter speichern</value>
@@ -2340,7 +2358,13 @@ Geheimnisse: {2}</value>
     <value>Der gemeinsame Verlauf hat sich unerwartet geändert. Aus einer vertrauenswürdigen Kopie wiederherstellen.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Als Kopie speichern</value>
+    <value>Duplizieren</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Einrichten</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Diese Konfiguration teilen oder mit einer Konfiguration verbinden, die Ihr Team bereits verwendet.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Empfänger mit dem Profilschlüssel können enthaltene Geheimnisse und private Zertifikatschlüssel lesen.</value>
@@ -2351,8 +2375,17 @@ Geheimnisse: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Eine maßgebliche SMB-3-Freigabe mit vorgeschriebener Verschlüsselung verwenden. Cloudgespiegelte Ordner werden nicht unterstützt.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Kennwörter für diese Konfiguration auf diesem PC nicht mehr speichern?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Jetzt synchronisieren</value>
+    <value>Synchronisieren</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Synchronisieren</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Diese Konfiguration auf den PCs Ihres Teams aktuell halten.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Synchronisiert</value>

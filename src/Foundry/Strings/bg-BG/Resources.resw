@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Изберете версия или запазете копие, за да запазите и двете. Другата версия ще бъде заменена.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Изберете файла за свързване, предоставен от член на вашия екип.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Запазете файл за свързване, за да може друг компютър да използва тази споделена конфигурация.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Продължаване</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Създаване на споделен профил</value>
+    <value>Споделяне на тази конфигурация</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Изберете споделена мрежова папка за тази конфигурация.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Изтриване на локален профил</value>
@@ -2257,16 +2266,22 @@
     <value>Запомняйте пароли, прехвърляйте профили и синхронизирайте споделени настройки.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Експортиране на шифрован профил</value>
+    <value>Експортиране</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Запазване на тази конфигурация във файл за архивиране или за друг компютър.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Изберете парола за защита на експортирания файл. Ще ви е нужна, за да импортирате конфигурацията.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Експортиране на файл за възстановяване</value>
+    <value>Запазване на файл за свързване</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Операцията е неуспешна. Проверете файла, паролата, разрешенията и връзката.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Забравяне на идентификационни данни</value>
+    <value>Изчистване на запазените пароли и достъп</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Да се забравят ли запазените пароли и споделеният ключ за този локален профил? Съществуващите носители остават непроменени.</value>
@@ -2278,7 +2293,10 @@
     <value>Споделената история е пълна. Създайте ново споделено хранилище.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Импортиране като копие</value>
+    <value>Импортиране</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Добавяне на конфигурация от файл.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Включване на тайни и поверителни файлове</value>
@@ -2287,19 +2305,19 @@
     <value>Попълнете необходимите пароли и изходни файлове, преди да запомняте или публикувате тайни.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Присъединяване чрез файл за възстановяване</value>
+    <value>Свързване със споделена конфигурация</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Запазване на локалната версия</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Диспечерът на идентификационни данни на Windows съхранява паролите за този потребител на този компютър.</value>
+    <value>Запазване на паролите за вашия акаунт в Windows на този компютър.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Запазените идентификационни данни са недостъпни за този потребител на Windows.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Управление</value>
+    <value>Още опции</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>{0} файла липсват или са пропуснати. Проверете пътищата им, преди да създадете носител.</value>
@@ -2322,7 +2340,7 @@
     <value>Готово</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Съхранявайте шифрования файл за възстановяване и паролата му извън споделената папка.</value>
+    <value>Съхранявайте файла за свързване и паролата му извън споделената папка.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Запомняне на пароли</value>
@@ -2340,7 +2358,13 @@
     <value>Споделената история се промени неочаквано. Възстановете от надеждно копие.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Запазване като копие</value>
+    <value>Дублиране</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Настройване</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Споделете тази конфигурация или се свържете с конфигурация, която екипът ви вече използва.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Получателите с ключа на профила могат да четат включените тайни и частни ключове на сертификати.</value>
@@ -2351,8 +2375,17 @@
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Използвайте един основен споделен ресурс SMB 3 със задължително шифроване. Папки, дублирани в облака, не се поддържат.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Да се спре ли запомнянето на пароли за тази конфигурация на този компютър?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Синхронизиране сега</value>
+    <value>Синхронизиране</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Синхронизиране</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Поддържане на тази конфигурация актуална на компютрите на вашия екип.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Синхронизирано</value>

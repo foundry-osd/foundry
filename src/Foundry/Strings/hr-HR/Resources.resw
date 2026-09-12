@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Odaberi verziju ili spremi kopiju da zadržiš obje. Druga verzija bit će zamijenjena.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Odaberite datoteku za povezivanje koju vam je dao netko iz vašeg tima.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Spremi datoteku za povezivanje kako bi drugo računalo moglo koristiti ovu zajedničku konfiguraciju.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Nastavi</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Stvori zajednički profil</value>
+    <value>Podijeli ovu konfiguraciju</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Odaberite zajedničku mrežnu mapu za ovu konfiguraciju.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Izbriši lokalni profil</value>
@@ -2257,16 +2266,22 @@
     <value>Zapamtite lozinke, prenesite profile i sinkronizirajte zajedničke postavke.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Izvezi šifrirani profil</value>
+    <value>Izvezi</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Spremi ovu konfiguraciju u datoteku kao sigurnosnu kopiju ili za drugo računalo.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Odaberite lozinku za zaštitu izvezene datoteke. Trebat će vam za uvoz konfiguracije.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Izvezi datoteku za oporavak</value>
+    <value>Spremi datoteku za povezivanje</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Radnja nije uspjela. Provjeri datoteku, zaporku, dozvole i vezu.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Zaboravi vjerodajnice</value>
+    <value>Izbriši spremljene lozinke i pristupe</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Zaboraviti spremljene lozinke i zajednički ključ ovog lokalnog profila? Postojeći mediji ostaju nepromijenjeni.</value>
@@ -2278,7 +2293,10 @@
     <value>Zajednička povijest je puna. Stvori novo zajedničko spremište.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Uvezi kao kopiju</value>
+    <value>Uvezi</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Dodaj konfiguraciju iz datoteke.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Uključi tajne podatke i povjerljive datoteke</value>
@@ -2287,19 +2305,19 @@
     <value>Unesite potrebne lozinke i izvorne datoteke prije pamćenja ili objavljivanja tajni.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Pridruži se datotekom za oporavak</value>
+    <value>Poveži se sa zajedničkom konfiguracijom</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Zadrži lokalnu verziju</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Upravitelj vjerodajnica sustava Windows pohranjuje lozinke za ovog korisnika sustava Windows na ovom računalu.</value>
+    <value>Zadrži lozinke za svoj račun za Windows na ovom računalu.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Spremljene vjerodajnice nisu dostupne ovom korisniku sustava Windows.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Upravljaj</value>
+    <value>Više mogućnosti</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>Broj datoteka koje nedostaju ili su izostavljene: {0}. Provjerite njihove putanje prije izrade medija.</value>
@@ -2322,7 +2340,7 @@ Tajni podaci: {2}</value>
     <value>Spremno</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Šifriranu datoteku za oporavak i njezinu zaporku čuvaj izvan zajedničke mape.</value>
+    <value>Datoteku za povezivanje i njezinu lozinku čuvajte izvan zajedničke mape.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Zapamti lozinke</value>
@@ -2340,7 +2358,13 @@ Tajni podaci: {2}</value>
     <value>Zajednička povijest neočekivano se promijenila. Vrati pouzdanu kopiju.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Spremi kao kopiju</value>
+    <value>Dupliciraj</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Postavi</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Podijeli ovu konfiguraciju ili se poveži s konfiguracijom koju tvoj tim već koristi.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Primatelji s ključem profila mogu čitati uključene tajne podatke i privatne ključeve certifikata.</value>
@@ -2351,8 +2375,17 @@ Tajni podaci: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Upotrijebi jedan mjerodavni SMB 3 resurs s obveznim šifriranjem. Mape zrcaljene u oblaku nisu podržane.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Prestati pamtiti lozinke za ovu konfiguraciju na ovom računalu?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Sinkroniziraj sada</value>
+    <value>Sinkroniziraj</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Sinkroniziraj</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Održavaj ovu konfiguraciju ažurnom na računalima svog tima.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Sinkronizirano</value>

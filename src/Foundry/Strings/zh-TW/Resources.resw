@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>請選擇一個版本，或儲存複本以保留兩個版本。另一個版本將被取代。</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>選擇團隊成員提供的連線檔案。</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>儲存連線檔案，讓其他電腦可以使用此共用設定。</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>繼續</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>建立共用設定檔</value>
+    <value>共用此設定</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>為此設定選擇一個共用網路資料夾。</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>刪除本機設定檔</value>
@@ -2257,16 +2266,22 @@
     <value>記住密碼、傳輸設定檔並同步共用設定。</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>匯出加密設定檔</value>
+    <value>匯出</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>將此設定儲存至檔案，以便備份或在其他電腦上使用。</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>選擇用來保護匯出檔案的密碼。匯入設定時需要使用此密碼。</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>匯出復原檔案</value>
+    <value>儲存連線檔案</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>操作失敗。請檢查檔案、複雜密碼、權限和連線。</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>清除已儲存的認證</value>
+    <value>清除已儲存的密碼與存取認證</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>要清除此本機設定檔已儲存的密碼和共用金鑰嗎？現有媒體不會變更。</value>
@@ -2278,7 +2293,10 @@
     <value>共用歷程記錄已滿。請建立新的共用存放庫。</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>匯入為複本</value>
+    <value>匯入</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>從檔案新增設定。</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>包含機密資訊和保密檔案</value>
@@ -2287,19 +2305,19 @@
     <value>請先備妥必要的密碼和來源檔案，再儲存或發佈機密資訊。</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>透過復原檔案加入</value>
+    <value>連線到共用設定</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>保留本機版本</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Windows 認證管理員會在這部電腦上為目前的 Windows 使用者儲存密碼。</value>
+    <value>為此電腦上的 Windows 帳戶儲存密碼。</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>目前的 Windows 使用者無法使用已儲存的認證。</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>管理</value>
+    <value>更多選項</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>有 {0} 個檔案遺失或未包含在內。請在建立媒體前檢查其路徑。</value>
@@ -2322,7 +2340,7 @@
     <value>就緒</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>請將加密的復原檔案及其複雜密碼保管在共用資料夾之外。</value>
+    <value>請將連線檔案及其密碼保存在共用資料夾之外。</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>記住密碼</value>
@@ -2340,7 +2358,13 @@
     <value>共用歷程記錄發生非預期的變更。請從受信任的複本還原。</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>另存為複本</value>
+    <value>建立複本</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>共用此設定，或連線到團隊已在使用的設定。</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>持有設定檔金鑰的收件者可以讀取內含的機密資訊和憑證私密金鑰。</value>
@@ -2351,8 +2375,17 @@
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>請以單一 SMB 3 共用作為正式資料來源，並強制啟用加密。不支援透過雲端鏡像同步的資料夾。</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>停止在此電腦上記住此設定的密碼？</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>立即同步</value>
+    <value>同步</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>同步</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>在團隊的各台電腦上保持此設定為最新狀態。</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>已同步</value>

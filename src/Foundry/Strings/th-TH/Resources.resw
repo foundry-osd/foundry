@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>เลือกหนึ่งเวอร์ชัน หรือบันทึกสำเนาเพื่อเก็บทั้งสองเวอร์ชัน อีกเวอร์ชันจะถูกแทนที่</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>เลือกไฟล์การเชื่อมต่อที่ได้รับจากสมาชิกในทีมของคุณ</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>บันทึกไฟล์การเชื่อมต่อเพื่อให้พีซีเครื่องอื่นใช้การกำหนดค่าที่แชร์นี้ได้</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>ดำเนินการต่อ</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>สร้างโปรไฟล์ที่แชร์</value>
+    <value>แชร์การกำหนดค่านี้</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>เลือกโฟลเดอร์เครือข่ายที่แชร์สำหรับการกำหนดค่านี้</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>ลบโปรไฟล์ในเครื่อง</value>
@@ -2257,16 +2266,22 @@
     <value>จดจำรหัสผ่าน โอนโปรไฟล์ และซิงค์การตั้งค่าที่แชร์</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>ส่งออกโปรไฟล์ที่เข้ารหัส</value>
+    <value>ส่งออก</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>บันทึกการกำหนดค่านี้เป็นไฟล์เพื่อสำรองข้อมูลหรือใช้บนพีซีเครื่องอื่น</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>เลือกรหัสผ่านเพื่อป้องกันไฟล์ที่ส่งออก คุณจะต้องใช้รหัสผ่านนี้เพื่อนำเข้าการกำหนดค่า</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>ส่งออกไฟล์กู้คืน</value>
+    <value>บันทึกไฟล์การเชื่อมต่อ</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>ดำเนินการไม่สำเร็จ โปรดตรวจสอบไฟล์ วลีรหัสผ่าน สิทธิ์ และการเชื่อมต่อ</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>ลบข้อมูลประจำตัวที่บันทึกไว้</value>
+    <value>ล้างรหัสผ่านและข้อมูลการเข้าถึงที่บันทึกไว้</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>ต้องการลบรหัสผ่านที่บันทึกไว้และคีย์ที่แชร์ของโปรไฟล์ในเครื่องนี้หรือไม่ สื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
@@ -2278,7 +2293,10 @@
     <value>ประวัติที่แชร์เต็มแล้ว โปรดสร้างที่เก็บข้อมูลที่แชร์ใหม่</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>นำเข้าเป็นสำเนา</value>
+    <value>นำเข้า</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>เพิ่มการกำหนดค่าจากไฟล์</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>รวมข้อมูลลับและไฟล์ที่เป็นความลับ</value>
@@ -2287,19 +2305,19 @@
     <value>โปรดระบุรหัสผ่านและเตรียมไฟล์ต้นทางที่จำเป็นให้ครบก่อนจดจำหรือเผยแพร่ข้อมูลลับ</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>เข้าร่วมผ่านไฟล์กู้คืน</value>
+    <value>เชื่อมต่อกับการกำหนดค่าที่แชร์</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>เก็บเวอร์ชันในเครื่อง</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>ตัวจัดการข้อมูลประจำตัวของ Windows จัดเก็บรหัสผ่านสำหรับผู้ใช้ Windows คนนี้บนพีซีเครื่องนี้</value>
+    <value>เก็บรหัสผ่านสำหรับบัญชี Windows ของคุณบนพีซีเครื่องนี้</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>ผู้ใช้ Windows คนนี้ไม่สามารถใช้ข้อมูลประจำตัวที่บันทึกไว้ได้</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>จัดการ</value>
+    <value>ตัวเลือกเพิ่มเติม</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>มีไฟล์ {0} ไฟล์ที่หายไปหรือไม่ได้รวมไว้ โปรดตรวจสอบเส้นทางของไฟล์เหล่านี้ก่อนสร้างสื่อ</value>
@@ -2322,7 +2340,7 @@
     <value>พร้อม</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>เก็บไฟล์กู้คืนที่เข้ารหัสและวลีรหัสผ่านไว้นอกโฟลเดอร์ที่แชร์</value>
+    <value>เก็บไฟล์การเชื่อมต่อและรหัสผ่านไว้นอกโฟลเดอร์ที่แชร์</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>จดจำรหัสผ่าน</value>
@@ -2340,7 +2358,13 @@
     <value>ประวัติที่แชร์เปลี่ยนแปลงโดยไม่คาดคิด โปรดกู้คืนจากสำเนาที่เชื่อถือได้</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>บันทึกเป็นสำเนา</value>
+    <value>ทำสำเนา</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>ตั้งค่า</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>แชร์การกำหนดค่านี้หรือเชื่อมต่อกับการกำหนดค่าที่ทีมของคุณใช้อยู่แล้ว</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>ผู้รับที่มีคีย์ของโปรไฟล์สามารถอ่านข้อมูลลับและคีย์ส่วนตัวของใบรับรองที่รวมอยู่ได้</value>
@@ -2351,8 +2375,17 @@
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>ใช้ตำแหน่งที่แชร์ผ่าน SMB 3 เพียงแห่งเดียวเป็นแหล่งข้อมูลหลัก และกำหนดให้ต้องเข้ารหัส ไม่รองรับโฟลเดอร์ที่ทำสำเนาผ่านคลาวด์</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>หยุดจดจำรหัสผ่านสำหรับการกำหนดค่านี้บนพีซีเครื่องนี้หรือไม่</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>ซิงค์ตอนนี้</value>
+    <value>ซิงโครไนซ์</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>ซิงโครไนซ์</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>ทำให้การกำหนดค่านี้เป็นปัจจุบันบนพีซีของทีมคุณ</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>ซิงค์แล้ว</value>

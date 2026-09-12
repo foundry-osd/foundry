@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>请选择一个版本，或保存副本以保留两个版本。另一个版本将被替换。</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>选择团队成员提供的连接文件。</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>保存连接文件，让其他电脑可以使用此共享配置。</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>继续</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>创建共享配置文件</value>
+    <value>共享此配置</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>为此配置选择一个共享网络文件夹。</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>删除本地配置文件</value>
@@ -2257,16 +2266,22 @@
     <value>记住密码、传输配置文件并同步共享设置。</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>导出加密配置文件</value>
+    <value>导出</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>将此配置保存到文件，以便备份或在其他电脑上使用。</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>选择用于保护导出文件的密码。导入配置时需要使用此密码。</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>导出恢复文件</value>
+    <value>保存连接文件</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>操作失败。请检查文件、密码短语、权限和连接。</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>清除已保存的凭据</value>
+    <value>清除已保存的密码和访问凭据</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>要清除此本地配置文件已保存的密码和共享密钥吗？现有介质不会改变。</value>
@@ -2278,7 +2293,10 @@
     <value>共享历史记录已满。请创建新的共享存储库。</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>导入为副本</value>
+    <value>导入</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>从文件添加配置。</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>包含机密信息和保密文件</value>
@@ -2287,19 +2305,19 @@
     <value>请先补全必需的密码和源文件，再保存或发布机密信息。</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>通过恢复文件加入</value>
+    <value>连接到共享配置</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>保留本地版本</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Windows 凭据管理器会在此电脑上为当前 Windows 用户存储密码。</value>
+    <value>为此电脑上的 Windows 帐户保存密码。</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>当前 Windows 用户无法使用已保存的凭据。</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>管理</value>
+    <value>更多选项</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>有 {0} 个文件缺失或未包含。请在创建介质前检查其路径。</value>
@@ -2322,7 +2340,7 @@
     <value>就绪</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>请将加密恢复文件及其密码短语保管在共享文件夹之外。</value>
+    <value>请将连接文件及其密码保存在共享文件夹之外。</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>记住密码</value>
@@ -2340,7 +2358,13 @@
     <value>共享历史记录发生了意外更改。请从可信副本恢复。</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>另存为副本</value>
+    <value>创建副本</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>共享此配置，或连接到团队已在使用的配置。</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>持有配置文件密钥的接收者可以读取其中的机密信息和证书私钥。</value>
@@ -2351,8 +2375,17 @@
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>请使用唯一的主 SMB 3 共享，并强制启用加密。不支持通过云端镜像同步的文件夹。</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>停止在此电脑上记住此配置的密码？</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>立即同步</value>
+    <value>同步</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>同步</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>在团队的各台电脑上保持此配置为最新状态。</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>已同步</value>

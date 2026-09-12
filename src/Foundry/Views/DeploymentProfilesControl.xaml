@@ -6,19 +6,6 @@
     xmlns:wct="using:CommunityToolkit.WinUI.Controls">
     <UserControl.Resources>
         <x:Double x:Key="SettingsCardWrapThreshold">1000</x:Double>
-        <Style x:Key="ProfileActionButtonStyle"
-            BasedOn="{StaticResource DefaultButtonStyle}"
-            TargetType="Button">
-            <Setter
-                Property="MinWidth"
-                Value="{ThemeResource FoundryCompactActionMinWidth}" />
-            <Setter
-                Property="HorizontalAlignment"
-                Value="Stretch" />
-            <Setter
-                Property="VerticalAlignment"
-                Value="Stretch" />
-        </Style>
     </UserControl.Resources>
     <Grid>
         <VisualStateManager.VisualStateGroups>
@@ -32,38 +19,8 @@
                             Target="ProfileSelector.Width"
                             Value="{ThemeResource FoundrySettingsActionMinWidth}" />
                         <Setter
-                            Target="ProfileActions.Width"
-                            Value="{ThemeResource FoundryWideInputMinWidth}" />
-                        <Setter
-                            Target="ProfileActions.RowSpacing"
-                            Value="{ThemeResource FoundryInlineControlSpacing}" />
-                        <Setter
-                            Target="SaveCopyButton.(Grid.ColumnSpan)"
-                            Value="2" />
-                        <Setter
-                            Target="ImportButton.(Grid.Column)"
-                            Value="2" />
-                        <Setter
-                            Target="ImportButton.(Grid.ColumnSpan)"
-                            Value="2" />
-                        <Setter
-                            Target="ExportButton.(Grid.Row)"
-                            Value="1" />
-                        <Setter
-                            Target="ExportButton.(Grid.Column)"
-                            Value="0" />
-                        <Setter
-                            Target="ExportButton.(Grid.ColumnSpan)"
-                            Value="2" />
-                        <Setter
-                            Target="ManageButton.(Grid.Row)"
-                            Value="1" />
-                        <Setter
-                            Target="ManageButton.(Grid.Column)"
-                            Value="2" />
-                        <Setter
-                            Target="ManageButton.(Grid.ColumnSpan)"
-                            Value="2" />
+                            Target="ProfileHeaderActions.Orientation"
+                            Value="Vertical" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="WideProfileActions">
@@ -74,161 +31,176 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
-            <wct:SettingsExpander
-                Description="{x:Bind ViewModel.Text('SettingsPage_ProfilesCard.Description')}"
-                Header="{x:Bind ViewModel.Text('SettingsPage_ProfilesCard.Header')}">
+            <wct:SettingsExpander Header="{x:Bind ViewModel.Text('SettingsPage_ProfilesCard.Header')}">
                 <wct:SettingsExpander.HeaderIcon>
                     <FontIcon Glyph="&#xE8A5;" />
                 </wct:SettingsExpander.HeaderIcon>
-                <Grid
+                <wct:SettingsExpander.Description>
+                    <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                        <TextBlock
+                            Text="{x:Bind ViewModel.Text('SettingsPage_ProfilesCard.Description')}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            Text="{x:Bind ViewModel.ActiveProfileDescription, Mode=OneWay}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </wct:SettingsExpander.Description>
+                <StackPanel x:Name="ProfileHeaderActions"
                     Margin="{ThemeResource FoundrySettingsExpanderTrailingAffordanceMargin}"
-                    ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <ComboBox x:Name="ProfileSelector"
-                        Width="{ThemeResource FoundryWideInputMinWidth}"
-                        VerticalAlignment="Center"
-                        AutomationProperties.Name="{x:Bind ViewModel.Text('Profiles.Name')}"
-                        IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
-                        ItemsSource="{x:Bind ViewModel.Profiles}"
-                        SelectedItem="{x:Bind ViewModel.SelectedProfile, Mode=TwoWay}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock
-                                    Text="{Binding DisplayName}"
-                                    TextTrimming="CharacterEllipsis"
-                                    ToolTipService.ToolTip="{Binding DisplayName}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <Button
-                        Grid.Column="1"
+                    Orientation="Horizontal"
+                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                    <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <ComboBox x:Name="ProfileSelector"
+                            Width="{ThemeResource FoundryWideInputMinWidth}"
+                            VerticalAlignment="Center"
+                            AutomationProperties.Name="{x:Bind ViewModel.Text('Profiles.Name')}"
+                            IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+                            ItemsSource="{x:Bind ViewModel.Profiles}"
+                            SelectedItem="{x:Bind ViewModel.SelectedProfile, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Text="{Binding DisplayName}"
+                                        TextTrimming="CharacterEllipsis"
+                                        ToolTipService.ToolTip="{Binding DisplayName}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Button
+                            Grid.Column="1"
+                            MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                            VerticalAlignment="Center"
+                            Command="{x:Bind ViewModel.ActivateCommand}"
+                            Content="{x:Bind ViewModel.Text('Profiles.Activate')}"
+                            IsEnabled="{x:Bind ViewModel.CanActivate, Mode=OneWay}" />
+                    </Grid>
+                    <DropDownButton
                         MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                        HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Command="{x:Bind ViewModel.ActivateCommand}"
-                        Content="{x:Bind ViewModel.Text('Profiles.Activate')}"
-                        IsEnabled="{x:Bind ViewModel.CanActivate, Mode=OneWay}" />
-                </Grid>
+                        Content="{x:Bind ViewModel.Text('Profiles.Manage')}"
+                        IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}">
+                        <DropDownButton.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem
+                                    IsEnabled="False"
+                                    Text="{x:Bind ViewModel.ActiveProfileDescription, Mode=OneWay}" />
+                                <MenuFlyoutSeparator />
+                                <MenuFlyoutItem
+                                    Command="{x:Bind ViewModel.RenameCommand}"
+                                    IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}"
+                                    Text="{x:Bind ViewModel.Text('Profiles.Rename')}" />
+                                <MenuFlyoutItem
+                                    Command="{x:Bind ViewModel.SaveCopyCommand}"
+                                    Text="{x:Bind ViewModel.Text('Profiles.SaveCopy')}" />
+                                <MenuFlyoutSeparator />
+                                <MenuFlyoutItem
+                                    Command="{x:Bind ViewModel.DeleteCommand}"
+                                    IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}"
+                                    Text="{x:Bind ViewModel.Text('Profiles.Delete')}" />
+                            </MenuFlyout>
+                        </DropDownButton.Flyout>
+                    </DropDownButton>
+                </StackPanel>
                 <wct:SettingsExpander.Items>
                     <wct:SettingsCard
-                        Description="{x:Bind ViewModel.ActiveProfileName, Mode=OneWay}"
-                        Header="{x:Bind ViewModel.Text('Profiles.Active')}"
+                        Description="{x:Bind ViewModel.Text('Profiles.ImportDescription')}"
+                        Header="{x:Bind ViewModel.Text('Profiles.Import')}"
                         IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}">
-                        <Grid x:Name="ProfileActions"
-                            Width="{ThemeResource FoundrySettingsControlMaxWidth}"
-                            ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Button x:Name="SaveCopyButton"
-                                Command="{x:Bind ViewModel.SaveCopyCommand}"
-                                Style="{StaticResource ProfileActionButtonStyle}">
-                                <TextBlock
-                                    Text="{x:Bind ViewModel.Text('Profiles.SaveCopy')}"
-                                    TextAlignment="Center"
-                                    TextWrapping="Wrap" />
-                            </Button>
-                            <Button x:Name="ImportButton"
-                                Grid.Column="1"
-                                Command="{x:Bind ViewModel.ImportCommand}"
-                                Style="{StaticResource ProfileActionButtonStyle}">
-                                <TextBlock
-                                    Text="{x:Bind ViewModel.Text('Profiles.Import')}"
-                                    TextAlignment="Center"
-                                    TextWrapping="Wrap" />
-                            </Button>
-                            <Button x:Name="ExportButton"
-                                Grid.Column="2"
-                                Command="{x:Bind ViewModel.ExportCommand}"
-                                IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}"
-                                Style="{StaticResource ProfileActionButtonStyle}">
-                                <TextBlock
-                                    Text="{x:Bind ViewModel.Text('Profiles.Export')}"
-                                    TextAlignment="Center"
-                                    TextWrapping="Wrap" />
-                            </Button>
-                            <DropDownButton x:Name="ManageButton"
-                                Grid.Column="3"
-                                MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Content="{x:Bind ViewModel.Text('Profiles.Manage')}">
-                                <DropDownButton.Flyout>
-                                    <MenuFlyout>
-                                        <MenuFlyoutItem
-                                            Command="{x:Bind ViewModel.RenameCommand}"
-                                            IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}"
-                                            Text="{x:Bind ViewModel.Text('Profiles.Rename')}" />
-                                        <MenuFlyoutSeparator />
-                                        <MenuFlyoutItem
-                                            Command="{x:Bind ViewModel.CreateSharedCommand}"
-                                            IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}"
-                                            Text="{x:Bind ViewModel.Text('Profiles.CreateShared')}" />
-                                        <MenuFlyoutItem
-                                            Command="{x:Bind ViewModel.JoinSharedCommand}"
-                                            Text="{x:Bind ViewModel.Text('Profiles.JoinShared')}" />
-                                        <MenuFlyoutItem
-                                            Command="{x:Bind ViewModel.ExportRecoveryCommand}"
-                                            IsEnabled="{x:Bind ViewModel.IsShared, Mode=OneWay}"
-                                            Text="{x:Bind ViewModel.Text('Profiles.ExportRecovery')}" />
-                                        <MenuFlyoutSeparator />
-                                        <MenuFlyoutItem
-                                            Command="{x:Bind ViewModel.ForgetCommand}"
-                                            IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}"
-                                            Text="{x:Bind ViewModel.Text('Profiles.Forget')}" />
-                                        <MenuFlyoutItem
-                                            Command="{x:Bind ViewModel.DeleteCommand}"
-                                            IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}"
-                                            Text="{x:Bind ViewModel.Text('Profiles.Delete')}" />
-                                    </MenuFlyout>
-                                </DropDownButton.Flyout>
-                            </DropDownButton>
-                        </Grid>
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE8B5;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <Button
+                            MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                            Command="{x:Bind ViewModel.ImportCommand}"
+                            Content="{x:Bind ViewModel.Text('Profiles.Import')}" />
                     </wct:SettingsCard>
                     <wct:SettingsCard
-                        Description="{x:Bind ViewModel.Text('Profiles.LocalPrivacy')}"
-                        Header="{x:Bind ViewModel.Text('Profiles.Remember')}"
+                        Description="{x:Bind ViewModel.Text('Profiles.ExportDescription')}"
+                        Header="{x:Bind ViewModel.Text('Profiles.Export')}"
                         IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}">
-                        <StackPanel
-                            Orientation="Horizontal"
-                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Text="{x:Bind ViewModel.RememberState, Mode=OneWay}" />
-                            <Button
-                                MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
-                                Command="{x:Bind ViewModel.RememberCommand}"
-                                Content="{x:Bind ViewModel.Text('Profiles.Manage')}"
-                                IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}" />
-                        </StackPanel>
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE74E;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <Button
+                            MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                            Command="{x:Bind ViewModel.ExportCommand}"
+                            Content="{x:Bind ViewModel.Text('Profiles.Export')}"
+                            IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard
+                        Description="{x:Bind ViewModel.Text('Profiles.SynchronizeDescription')}"
+                        Header="{x:Bind ViewModel.Text('Profiles.Synchronize')}"
+                        IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE895;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <SplitButton
+                            MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                            Command="{x:Bind ViewModel.SynchronizeCommand}"
+                            Content="{x:Bind ViewModel.SynchronizeActionText, Mode=OneWay}">
+                            <SplitButton.Flyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem
+                                        Command="{x:Bind ViewModel.SetupSynchronizationCommand}"
+                                        Text="{x:Bind ViewModel.Text('Profiles.Setup')}" />
+                                </MenuFlyout>
+                            </SplitButton.Flyout>
+                        </SplitButton>
                     </wct:SettingsCard>
                     <wct:SettingsCard
                         Header="{x:Bind ViewModel.Text('Profiles.AutoSync')}"
                         IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.SharedVisibility, Mode=OneWay}">
-                        <StackPanel
-                            Orientation="Horizontal"
-                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                            <Button
-                                MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
-                                VerticalAlignment="Center"
-                                Command="{x:Bind ViewModel.SynchronizeCommand}"
-                                Content="{x:Bind ViewModel.Text('Profiles.SyncNow')}" />
-                            <ToggleSwitch
-                                behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
-                                AutomationProperties.Name="{x:Bind ViewModel.Text('Profiles.AutoSync')}"
-                                IsOn="{x:Bind ViewModel.SyncEnabled, Mode=OneWay}"
-                                Toggled="AutomaticSyncToggle_Toggled" />
-                        </StackPanel>
+                        <ToggleSwitch
+                            behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                            AutomationProperties.Name="{x:Bind ViewModel.Text('Profiles.AutoSync')}"
+                            IsOn="{x:Bind ViewModel.SyncEnabled, Mode=OneWay}"
+                            Toggled="AutomaticSyncToggle_Toggled" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard
+                        Description="{x:Bind ViewModel.Text('Profiles.ConnectionFileDescription')}"
+                        Header="{x:Bind ViewModel.Text('Profiles.ExportRecovery')}"
+                        IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.SharedVisibility, Mode=OneWay}">
+                        <Button
+                            MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                            Command="{x:Bind ViewModel.ExportRecoveryCommand}"
+                            Content="{x:Bind ViewModel.Text('Profiles.ExportRecovery')}" />
+                    </wct:SettingsCard>
+                    <wct:SettingsCard
+                        Header="{x:Bind ViewModel.Text('Profiles.Remember')}"
+                        IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE72E;" />
+                        </wct:SettingsCard.HeaderIcon>
+                        <wct:SettingsCard.Description>
+                            <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                                <TextBlock
+                                    Text="{x:Bind ViewModel.Text('Profiles.LocalPrivacy')}"
+                                    TextWrapping="Wrap" />
+                                <HyperlinkButton
+                                    Padding="0"
+                                    HorizontalAlignment="Left"
+                                    HorizontalContentAlignment="Left"
+                                    Command="{x:Bind ViewModel.ForgetCommand}"
+                                    IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}">
+                                    <TextBlock
+                                        Text="{x:Bind ViewModel.Text('Profiles.Forget')}"
+                                        TextWrapping="Wrap" />
+                                </HyperlinkButton>
+                            </StackPanel>
+                        </wct:SettingsCard.Description>
+                        <ToggleSwitch
+                            behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                            AutomationProperties.Name="{x:Bind ViewModel.Text('Profiles.Remember')}"
+                            IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}"
+                            IsOn="{x:Bind ViewModel.RememberSecrets, Mode=OneWay}"
+                            Toggled="RememberPasswordsToggle_Toggled" />
                     </wct:SettingsCard>
                 </wct:SettingsExpander.Items>
             </wct:SettingsExpander>
