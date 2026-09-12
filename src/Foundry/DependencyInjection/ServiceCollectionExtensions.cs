@@ -45,6 +45,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<MainWindow>();
 
         services.AddSingleton<IAppSettingsService, JsonAppSettingsService>();
+        services.AddSingleton<Foundry.Utilities.Security.IWindowsCredentialStore, Foundry.Utilities.Security.WindowsCredentialStore>();
         services.AddSingleton<IProxyCredentialStore, ProxyCredentialStore>();
         services.AddSingleton<IApplicationProxyService, ApplicationProxyService>();
         services.AddSingleton(sp =>
