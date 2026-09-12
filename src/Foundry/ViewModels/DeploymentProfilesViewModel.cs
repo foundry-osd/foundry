@@ -30,14 +30,19 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
 
     internal Func<ProfileDialogRequest, Task<ProfileDialogResponse?>>? ShowDialogAsync { get; set; }
     public ObservableCollection<LocalProfileDescriptor> Profiles { get; } = [];
-    [ObservableProperty] public partial LocalProfileDescriptor? SelectedProfile { get; set; }
+    [ObservableProperty, NotifyPropertyChangedFor(nameof(CanActivate))] public partial LocalProfileDescriptor? SelectedProfile { get; set; }
     [ObservableProperty] public partial bool IsBusy { get; set; }
-    [ObservableProperty] public partial string Status { get; set; } = string.Empty;
+    [ObservableProperty, NotifyPropertyChangedFor(nameof(StatusVisibility))] public partial string Status { get; set; } = string.Empty;
     public bool CanInteract => !IsBusy;
+    public bool CanActivate => CanInteract && SelectedProfile is { } selected && selected.LocalId != coordinator.Active?.LocalId;
+    public string ActiveProfileName => coordinator.Active?.DisplayName ?? string.Empty;
     public Visibility BusyVisibility => IsBusy ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility StatusVisibility => string.IsNullOrEmpty(Status) || Status == Text("Profiles.Ready") ? Visibility.Collapsed : Visibility.Visible;
     public bool HasActive => coordinator.Active is not null;
     public bool IsShared => coordinator.Active?.Enrollment is not null;
+    public Visibility SharedVisibility => IsShared ? Visibility.Visible : Visibility.Collapsed;
     public bool RememberSecrets => coordinator.Active?.RememberSecrets == true;
+    public string RememberState => Text(RememberSecrets ? "Common.Enabled" : "Common.Disabled");
     public bool SyncEnabled => coordinator.Active?.Enrollment?.IsEnabled == true;
     public Visibility ConflictVisibility => coordinator.HasConflict && coordinator.StatusKey != "Profiles.DeletedRemote" ? Visibility.Visible : Visibility.Collapsed;
     public string Text(string key) => localization.GetString(key);
@@ -71,6 +76,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     partial void OnIsBusyChanged(bool value)
     {
         OnPropertyChanged(nameof(CanInteract));
+        OnPropertyChanged(nameof(CanActivate));
         OnPropertyChanged(nameof(BusyVisibility));
     }
 

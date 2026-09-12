@@ -43,6 +43,13 @@ public sealed partial class DeploymentProfilesControl : UserControl
 
     private void UpdateLanguage() { ViewModel.Refresh(); Bindings.Update(); }
 
+    private async void AutomaticSyncToggle_Toggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggle || !toggle.IsLoaded || !ViewModel.CanInteract || toggle.IsOn == ViewModel.SyncEnabled) return;
+        await ViewModel.ToggleSyncCommand.ExecuteAsync(null);
+        toggle.IsOn = ViewModel.SyncEnabled;
+    }
+
     private async Task<ProfileDialogResponse?> ShowDialogAsync(ProfileDialogRequest request)
     {
         string T(string key) => localization.GetString(key);
