@@ -39,7 +39,9 @@ namespace Foundry.Common
         public static readonly string OperatingSystemCacheDirectoryPath = Path.Combine(CacheDirectoryPath, "OperatingSystems");
         public static readonly string ToolCacheDirectoryPath = Path.Combine(CacheDirectoryPath, "Tools");
         public static readonly string WorkspacesDirectoryPath = Path.Combine(RootDirectoryPath, "Workspaces");
-        public static readonly string ConfigurationWorkspaceDirectoryPath = Path.Combine(WorkspacesDirectoryPath, "Configuration");
+        public static readonly string ConfigurationWorkspaceDirectoryPath = Path.Combine(UserRootDirectoryPath, "Configuration");
+        public static readonly string DeploymentProfilesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Profiles");
+        public static readonly string LegacyFoundryConfigurationStatePath = Path.Combine(WorkspacesDirectoryPath, "Configuration", "foundry.config.json");
         public static readonly string WinPeWorkspaceDirectoryPath = Path.Combine(WorkspacesDirectoryPath, "WinPe");
         public static readonly string IsoWorkspaceDirectoryPath = Path.Combine(WorkspacesDirectoryPath, "Iso");
         public static readonly string TempDirectoryPath = Path.Combine(RootDirectoryPath, "Temp");

@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>خيارات نشر Windows</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>فتح</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>ملف التعريف النشط</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>المزامنة التلقائية</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>تم حفظ ملف التعريف، لكن لا تزال بيانات الاعتماد القديمة بحاجة إلى إزالة. أعد المحاولة عندما يتاح مدير بيانات الاعتماد في Windows.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>تأكيد عبارة المرور</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>تتطلب التغييرات المتعارضة اتخاذ قرار.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>اختر نسخة أو احفظ نسخة إضافية للاحتفاظ بكلتيهما. سيتم استبدال النسخة الأخرى.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>متابعة</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>إنشاء ملف تعريف مشترك</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>حذف ملف التعريف المحلي</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>حذف ملف التعريف المشترك أيضًا</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>هل تريد حذف ملف التعريف المشترك لجميع عمليات التثبيت؟ يجب على المحررين الآخرين حفظ نسخ من عملهم.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>هل تريد حذف ملف التعريف المحلي هذا؟ صدّر نسخة احتياطية أولًا إذا لزم الأمر.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>تم حذف ملف التعريف المشترك. احفظ نسخة محلية للاحتفاظ بعملك.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>تذكّر كلمات المرور ونقل ملفات التعريف ومزامنة الإعدادات المشتركة.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>تصدير ملف تعريف مشفّر</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>تصدير ملف الاسترداد</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>فشلت العملية. تحقّق من الملف وعبارة المرور والأذونات والاتصال.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>نسيان بيانات الاعتماد</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>هل تريد نسيان كلمات المرور المحفوظة والمفتاح المشترك لملف التعريف المحلي هذا؟ لن تتغير وسائط النشر الحالية.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>ملفات تعريف النشر</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>امتلأ سجل الإصدارات المشترك. أنشئ مستودعًا مشتركًا جديدًا.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>استيراد كنسخة</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>تضمين البيانات السرية والملفات الحساسة</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>أكمل كلمات المرور وملفات المصدر المطلوبة قبل تذكّر البيانات السرية أو نشرها.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>الانضمام باستخدام ملف الاسترداد</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>الاحتفاظ بالنسخة المحلية</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>يحفظ مدير بيانات الاعتماد في Windows كلمات المرور لمستخدم Windows هذا على هذا الكمبيوتر.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>بيانات الاعتماد المحفوظة غير متاحة لمستخدم Windows هذا.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>إدارة</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>هناك {0} من الملفات المفقودة أو غير المضمّنة. راجع مساراتها قبل إنشاء وسائط النشر.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>اسم ملف التعريف</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>المشاركة مشغولة أو غير متاحة. تم الاحتفاظ بالعمل المحلي.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>عبارة المرور</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+الملفات: {1}
+البيانات السرية: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>جاهز</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>احتفظ بملف الاسترداد المشفّر وعبارة المرور الخاصة به خارج المجلد المشترك.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>تذكّر كلمات المرور</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>تذكّر المفتاح المشترك</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>إعادة تسمية</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>سيؤدي هذا إلى استبدال الإعدادات النشطة. احفظ نسخة أولًا للاحتفاظ بعملك.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>تغيّر سجل الإصدارات المشترك بشكل غير متوقع. استعد نسخة موثوقة.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>حفظ نسخة</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>يمكن للمستلمين الذين يملكون مفتاح ملف التعريف قراءة البيانات السرية والمفاتيح الخاصة للشهادات المضمّنة.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>المجلد المشترك</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>استخدم مشاركة SMB 3 مرجعية واحدة مع فرض التشفير. المجلدات المنسوخة عبر المزامنة السحابية غير مدعومة.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>المزامنة الآن</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>تمت المزامنة</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>يستخدم ملف التعريف هذا تنسيقًا غير مدعوم. حدّث Foundry قبل فتحه.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>يتوفر تحديث مشترك. اختر «المزامنة الآن» لتطبيقه.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>استخدام النسخة المشتركة</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>أكمل الحقول المطلوبة، واستخدم مسار مشاركة UNC، وأدخل عبارتي مرور متطابقتين.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>عام</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>تذكّر كلمات المرور ونقل ملفات التعريف ومزامنة الإعدادات المشتركة.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>ملفات تعريف النشر</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

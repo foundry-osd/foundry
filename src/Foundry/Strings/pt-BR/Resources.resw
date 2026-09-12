@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opções de implantação do Windows</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Abrir</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Perfil ativo</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Sincronização automática</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>O perfil foi salvo, mas as credenciais antigas ainda precisam ser removidas. Tente novamente quando o Gerenciador de Credenciais do Windows estiver disponível.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Confirmar frase secreta</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>As alterações conflitantes exigem uma decisão.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Escolha uma versão ou salve uma cópia para preservar ambas. A outra versão será substituída.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Criar perfil compartilhado</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Excluir perfil local</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Excluir também o perfil compartilhado</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Excluir o perfil compartilhado de todas as instalações? Outros editores devem salvar seu trabalho como uma cópia.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Excluir este perfil local? Exporte um backup primeiro, se necessário.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>O perfil compartilhado foi excluído. Salve uma cópia local para preservar seu trabalho.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Lembre senhas, transfira perfis e sincronize configurações compartilhadas.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Exportar perfil criptografado</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Exportar arquivo de recuperação</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>A operação falhou. Verifique o arquivo, a frase secreta, as permissões e a conexão.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Esquecer credenciais</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Esquecer as senhas salvas e a chave compartilhada deste perfil local? As mídias existentes não serão alteradas.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Perfis de implantação</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>O histórico compartilhado está cheio. Crie um novo repositório compartilhado.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Importar como cópia</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Incluir segredos e arquivos confidenciais</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Preencha as senhas e os arquivos de origem necessários antes de lembrar ou publicar segredos.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Ingressar pelo arquivo de recuperação</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Manter versão local</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>O Gerenciador de Credenciais do Windows armazena senhas para este usuário do Windows neste computador.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>As credenciais salvas estão indisponíveis para este usuário do Windows.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Gerenciar</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} arquivos estão ausentes ou foram omitidos. Revise seus caminhos antes de criar a mídia.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Nome do perfil</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>O compartilhamento está ocupado ou indisponível. O trabalho local é preservado.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Frase secreta</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Arquivos: {1}
+Segredos: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Pronto</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Mantenha o arquivo de recuperação criptografado e sua frase secreta fora da pasta compartilhada.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Lembrar senhas</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Lembrar a chave compartilhada</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Renomear</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Isso substitui a configuração ativa. Salve uma cópia primeiro para preservar seu trabalho.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>O histórico compartilhado mudou inesperadamente. Restaure de uma cópia confiável.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Salvar como cópia</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Destinatários com a chave do perfil podem ler os segredos incluídos e as chaves privadas dos certificados.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Pasta compartilhada</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Use um único compartilhamento SMB 3 autoritativo com criptografia obrigatória. Pastas espelhadas na nuvem não são compatíveis.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Sincronizar agora</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Sincronizado</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Este perfil usa um formato incompatível. Atualize o Foundry antes de abri-lo.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Uma atualização compartilhada está pronta. Selecione Sincronizar agora para aplicá-la.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Usar versão compartilhada</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Preencha os campos obrigatórios, use um caminho compartilhado UNC e digite frases secretas iguais.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Geral</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Lembre senhas, transfira perfis e sincronize configurações compartilhadas.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Perfis de implantação</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Επιλογές ανάπτυξης Windows</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Άνοιγμα</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Ενεργό προφίλ</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Αυτόματος συγχρονισμός</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Το προφίλ αποθηκεύτηκε, αλλά τα παλιά διαπιστευτήρια χρειάζονται ακόμη διαγραφή. Δοκιμάστε ξανά όταν η Διαχείριση διαπιστευτηρίων των Windows είναι διαθέσιμη.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Επιβεβαίωση φράσης πρόσβασης</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Οι αντικρουόμενες αλλαγές απαιτούν απόφαση.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Επιλέξτε έκδοση ή αποθηκεύστε αντίγραφο για να διατηρήσετε και τις δύο. Η άλλη έκδοση θα αντικατασταθεί.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Συνέχεια</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Δημιουργία κοινόχρηστου προφίλ</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Διαγραφή τοπικού προφίλ</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Διαγραφή και του κοινόχρηστου προφίλ</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Να διαγραφεί το κοινόχρηστο προφίλ για κάθε εγκατάσταση; Οι άλλοι συντάκτες πρέπει να αποθηκεύσουν την εργασία τους ως αντίγραφο.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Να διαγραφεί αυτό το τοπικό προφίλ; Εξαγάγετε πρώτα αντίγραφο ασφαλείας αν χρειάζεται.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Το κοινόχρηστο προφίλ διαγράφηκε. Αποθηκεύστε τοπικό αντίγραφο για να διατηρήσετε την εργασία σας.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Απομνημόνευση κωδικών, μεταφορά προφίλ και συγχρονισμός κοινόχρηστων ρυθμίσεων.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Εξαγωγή κρυπτογραφημένου προφίλ</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Εξαγωγή αρχείου ανάκτησης</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Η ενέργεια απέτυχε. Ελέγξτε το αρχείο, τη φράση πρόσβασης, τα δικαιώματα και τη σύνδεση.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Διαγραφή διαπιστευτηρίων</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Να διαγραφούν οι αποθηκευμένοι κωδικοί και το κοινόχρηστο κλειδί αυτού του τοπικού προφίλ; Τα υπάρχοντα μέσα δεν αλλάζουν.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Προφίλ ανάπτυξης</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>Το κοινόχρηστο ιστορικό είναι πλήρες. Δημιουργήστε νέο κοινόχρηστο αποθετήριο.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Εισαγωγή ως αντίγραφο</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Συμπερίληψη μυστικών και εμπιστευτικών αρχείων</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Συμπληρώστε τους απαιτούμενους κωδικούς και τα αρχεία προέλευσης πριν απομνημονεύσετε ή δημοσιεύσετε μυστικά.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Σύνδεση από αρχείο ανάκτησης</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Διατήρηση τοπικής έκδοσης</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Η Διαχείριση διαπιστευτηρίων των Windows αποθηκεύει κωδικούς για αυτόν τον χρήστη σε αυτόν τον υπολογιστή.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Τα αποθηκευμένα διαπιστευτήρια δεν είναι διαθέσιμα για αυτόν τον χρήστη Windows.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Διαχείριση</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} αρχεία λείπουν ή έχουν παραλειφθεί. Ελέγξτε τις διαδρομές τους πριν δημιουργήσετε μέσα.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Όνομα προφίλ</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>Ο κοινόχρηστος φάκελος είναι απασχολημένος ή μη διαθέσιμος. Η τοπική εργασία διατηρείται.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Φράση πρόσβασης</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Αρχεία: {1}
+Μυστικά: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Έτοιμο</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Φυλάξτε το κρυπτογραφημένο αρχείο ανάκτησης και τη φράση πρόσβασής του εκτός του κοινόχρηστου φακέλου.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Απομνημόνευση κωδικών</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Απομνημόνευση κοινόχρηστου κλειδιού</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Μετονομασία</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Αυτό αντικαθιστά την ενεργή διαμόρφωση. Αποθηκεύστε πρώτα αντίγραφο για να διατηρήσετε την εργασία σας.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>Το κοινόχρηστο ιστορικό άλλαξε απροσδόκητα. Επαναφέρετε από αξιόπιστο αντίγραφο.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Αποθήκευση ως αντίγραφο</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Οι παραλήπτες με το κλειδί προφίλ μπορούν να διαβάσουν τα συμπεριλαμβανόμενα μυστικά και ιδιωτικά κλειδιά πιστοποιητικών.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Κοινόχρηστος φάκελος</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Χρησιμοποιήστε έναν επίσημο κοινόχρηστο πόρο SMB 3 με υποχρεωτική κρυπτογράφηση. Οι φάκελοι που αντιγράφονται στο cloud δεν υποστηρίζονται.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Συγχρονισμός τώρα</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Συγχρονίστηκε</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Αυτό το προφίλ χρησιμοποιεί μη υποστηριζόμενη μορφή. Ενημερώστε το Foundry πριν το ανοίξετε.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Μια κοινόχρηστη ενημέρωση είναι έτοιμη. Επιλέξτε «Συγχρονισμός τώρα» για εφαρμογή.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Χρήση κοινόχρηστης έκδοσης</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Συμπληρώστε τα απαιτούμενα πεδία, χρησιμοποιήστε κοινόχρηστη διαδρομή UNC και ίδιες φράσεις πρόσβασης.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Στρατηγός</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Απομνημόνευση κωδικών, μεταφορά προφίλ και συγχρονισμός κοινόχρηστων ρυθμίσεων.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Προφίλ ανάπτυξης</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

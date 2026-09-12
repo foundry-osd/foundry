@@ -107,7 +107,6 @@ public sealed class MutableApplicationProxyAuthenticationTests
         public async ValueTask DisposeAsync()
         {
             await shutdown.CancelAsync();
-            listener.Stop();
             try
             {
                 await serverTask;
@@ -117,6 +116,7 @@ public sealed class MutableApplicationProxyAuthenticationTests
             }
             finally
             {
+                listener.Stop();
                 shutdown.Dispose();
             }
         }

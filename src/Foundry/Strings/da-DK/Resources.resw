@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Indstillinger for Windows-udrulning</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Åbn</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Aktiv profil</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Automatisk synkronisering</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Profilen blev gemt, men gamle legitimationsoplysninger skal stadig fjernes. Prøv igen, når Windows Legitimationsstyring er tilgængelig.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Bekræft adgangssætning</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Modstridende ændringer kræver en beslutning.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Vælg en version, eller gem en kopi for at bevare begge. Den anden version erstattes.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Fortsæt</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Opret delt profil</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Slet lokal profil</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Slet også den delte profil</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Slet den delte profil for alle installationer? Andre redaktører skal gemme deres arbejde som en kopi.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Slet denne lokale profil? Eksportér først en sikkerhedskopi, hvis nødvendigt.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Den delte profil blev slettet. Gem en lokal kopi for at bevare arbejdet.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Husk adgangskoder, overfør profiler, og synkroniser delte indstillinger.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Eksportér krypteret profil</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Eksportér gendannelsesfil</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Handlingen mislykkedes. Kontrollér fil, adgangssætning, tilladelser og forbindelse.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Glem legitimationsoplysninger</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Glem gemte adgangskoder og den delte nøgle for denne lokale profil? Eksisterende medier ændres ikke.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Udrulningsprofiler</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>Den delte historik er fuld. Opret et nyt delt lager.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Importér som kopi</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Medtag hemmeligheder og fortrolige filer</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Udfyld nødvendige adgangskoder og kildefiler, før du husker eller udgiver hemmeligheder.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Tilslut via gendannelsesfil</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Behold lokal version</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Windows Legitimationsstyring gemmer adgangskoder for denne Windows-bruger på denne pc.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Gemte legitimationsoplysninger er utilgængelige for denne Windows-bruger.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Administrer</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} filer mangler eller er udeladt. Kontrollér deres stier, før du opretter medier.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Profilnavn</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>Delingen er optaget eller utilgængelig. Lokalt arbejde bevares.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Adgangssætning</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Filer: {1}
+Hemmeligheder: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Opbevar den krypterede gendannelsesfil og dens adgangssætning uden for den delte mappe.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Husk adgangskoder</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Husk den delte nøgle</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Omdøb</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Dette erstatter den aktive konfiguration. Gem først en kopi for at bevare arbejdet.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>Den delte historik blev ændret uventet. Gendan fra en betroet kopi.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Gem som kopi</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Modtagere med profilnøglen kan læse medtagne hemmeligheder og private certifikatnøgler.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Delt mappe</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Brug én autoritativ SMB 3-deling med påkrævet kryptering. Mapper spejlet i skyen understøttes ikke.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Synkroniser nu</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Synkroniseret</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Denne profil bruger et format, der ikke understøttes. Opdater Foundry, før du åbner den.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>En delt opdatering er klar. Vælg Synkroniser nu for at anvende den.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Brug delt version</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Udfyld påkrævede felter, brug en delt UNC-sti, og indtast ens adgangssætninger.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Generelt</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Husk adgangskoder, overfør profiler, og synkroniser delte indstillinger.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Udrulningsprofiler</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opzioni di distribuzione di Windows</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Apri</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Profilo attivo</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Sincronizzazione automatica</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Il profilo è stato salvato, ma alcune vecchie credenziali devono ancora essere rimosse. Riprovare quando Gestione credenziali di Windows sarà disponibile.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Conferma passphrase</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Le modifiche in conflitto richiedono una decisione.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Scegli una versione o salva una copia per conservarle entrambe. L'altra versione verrà sostituita.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Continua</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Crea profilo condiviso</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Elimina profilo locale</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Elimina anche il profilo condiviso</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Eliminare il profilo condiviso per tutte le installazioni? Gli altri utenti devono salvare una copia del proprio lavoro.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Eliminare questo profilo locale? Se necessario, esporta prima un backup.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Il profilo condiviso è stato eliminato. Salva una copia locale per conservare il lavoro.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Memorizza password, trasferisci profili e sincronizza impostazioni condivise.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Esporta profilo crittografato</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Esporta file di ripristino</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Operazione non riuscita. Controlla file, passphrase, autorizzazioni e connessione.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Dimentica credenziali</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Dimenticare le password salvate e la chiave condivisa di questo profilo locale? I supporti esistenti non cambiano.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Profili di distribuzione</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>La cronologia condivisa è piena. Crea un nuovo repository condiviso.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Importa come copia</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Includi segreti e file riservati</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Completare le password e i file di origine richiesti prima di memorizzare o pubblicare segreti.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Partecipa tramite file di ripristino</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Mantieni versione locale</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Gestione credenziali di Windows memorizza le password per questo utente Windows su questo PC.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Le credenziali salvate non sono disponibili per questo utente Windows.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Gestisci</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} file sono mancanti o omessi. Verificare i percorsi prima di creare il supporto.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Nome profilo</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>La condivisione è occupata o non disponibile. Il lavoro locale viene conservato.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Passphrase</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+File: {1}
+Segreti: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Pronto</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Conserva il file di ripristino crittografato e la passphrase fuori dalla cartella condivisa.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Memorizza password</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Memorizza la chiave condivisa</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Rinomina</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>La configurazione attiva verrà sostituita. Salva prima una copia per conservare il lavoro.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>La cronologia condivisa è cambiata inaspettatamente. Ripristina una copia attendibile.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Salva una copia</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>I destinatari con la chiave del profilo possono leggere i segreti e le chiavi private dei certificati inclusi.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Cartella condivisa</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Usa un'unica condivisione SMB 3 autorevole con crittografia obbligatoria. Le cartelle replicate nel cloud non sono supportate.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Sincronizza ora</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Sincronizzato</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Questo profilo usa un formato non supportato. Aggiornare Foundry prima di aprirlo.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>È disponibile un aggiornamento condiviso. Seleziona Sincronizza ora per applicarlo.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Usa versione condivisa</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Compila i campi obbligatori, usa un percorso condiviso UNC e inserisci passphrase uguali.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Generale</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Memorizza password, trasferisci profili e sincronizza impostazioni condivise.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Profili di distribuzione</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

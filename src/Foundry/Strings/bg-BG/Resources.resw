@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Опции за разполагане на Windows</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Отваряне</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Активен профил</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Автоматично синхронизиране</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Профилът е запазен, но старите идентификационни данни все още трябва да бъдат премахнати. Опитайте отново, когато диспечерът на идентификационни данни на Windows е достъпен.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Потвърждаване на паролата</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Конфликтните промени изискват решение.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Изберете версия или запазете копие, за да запазите и двете. Другата версия ще бъде заменена.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Продължаване</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Създаване на споделен профил</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Изтриване на локален профил</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Изтриване и на споделения профил</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Да се изтрие ли споделеният профил за всички инсталации? Другите редактори трябва да запазят работата си като копие.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Да се изтрие ли този локален профил? При нужда първо експортирайте резервно копие.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Споделеният профил е изтрит. Запазете локално копие, за да запазите работата си.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Запомняйте пароли, прехвърляйте профили и синхронизирайте споделени настройки.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Експортиране на шифрован профил</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Експортиране на файл за възстановяване</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Операцията е неуспешна. Проверете файла, паролата, разрешенията и връзката.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Забравяне на идентификационни данни</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Да се забравят ли запазените пароли и споделеният ключ за този локален профил? Съществуващите носители остават непроменени.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Профили за разполагане</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>Споделената история е пълна. Създайте ново споделено хранилище.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Импортиране като копие</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Включване на тайни и поверителни файлове</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Попълнете необходимите пароли и изходни файлове, преди да запомняте или публикувате тайни.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Присъединяване чрез файл за възстановяване</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Запазване на локалната версия</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Диспечерът на идентификационни данни на Windows съхранява паролите за този потребител на този компютър.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Запазените идентификационни данни са недостъпни за този потребител на Windows.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Управление</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} файла липсват или са пропуснати. Проверете пътищата им, преди да създадете носител.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Име на профила</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>Споделената папка е заета или недостъпна. Локалната работа е запазена.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Парола</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Файлове: {1}
+Тайни: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Съхранявайте шифрования файл за възстановяване и паролата му извън споделената папка.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Запомняне на пароли</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Запомняне на споделения ключ</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Преименуване</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Това заменя активната конфигурация. Първо запазете копие, за да запазите работата си.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>Споделената история се промени неочаквано. Възстановете от надеждно копие.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Запазване като копие</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Получателите с ключа на профила могат да четат включените тайни и частни ключове на сертификати.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Споделена папка</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Използвайте един основен споделен ресурс SMB 3 със задължително шифроване. Папки, дублирани в облака, не се поддържат.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Синхронизиране сега</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Синхронизирано</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Този профил използва неподдържан формат. Актуализирайте Foundry, преди да го отворите.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Налична е споделена актуализация. Изберете „Синхронизиране сега“, за да я приложите.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Използване на споделената версия</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Попълнете задължителните полета, използвайте UNC път и въведете еднакви пароли.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>генерал</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Запомняйте пароли, прехвърляйте профили и синхронизирайте споделени настройки.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Профили за разполагане</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

@@ -49,6 +49,8 @@ namespace Foundry.Views
 
         private void ApplyLocalizedText()
         {
+            DeploymentProfilesCard.Header = localizationService.GetString("SettingsPage_ProfilesCard.Header");
+            DeploymentProfilesCard.Description = localizationService.GetString("SettingsPage_ProfilesCard.Description");
             TelemetryCard.Header = localizationService.GetString("SettingsPage_TelemetryCard.Header");
             TelemetryCard.Description = localizationService.GetString("SettingsPage_TelemetryCard.Description");
             RemoteDiagnosticsCard.Header = localizationService.GetString("SettingsPage_RemoteDiagnosticsCard.Header");

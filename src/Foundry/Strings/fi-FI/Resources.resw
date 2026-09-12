@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windowsin käyttöönottoasetukset</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Avaa</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Aktiivinen profiili</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Automaattinen synkronointi</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Profiili tallennettiin, mutta vanhat tunnistetiedot on vielä poistettava. Yritä uudelleen, kun Windowsin tunnistetietojen hallinta on käytettävissä.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Vahvista salalause</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Ristiriitaiset muutokset edellyttävät päätöstä.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Valitse versio tai säilytä molemmat tallentamalla kopio. Toinen versio korvataan.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Jatka</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Luo jaettu profiili</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Poista paikallinen profiili</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Poista myös jaettu profiili</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Poistetaanko jaettu profiili kaikista asennuksista? Muiden muokkaajien on tallennettava työnsä kopiona.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Poistetaanko tämä paikallinen profiili? Vie tarvittaessa ensin varmuuskopio.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Jaettu profiili poistettiin. Säilytä työ tallentamalla paikallinen kopio.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Muista salasanat, siirrä profiileja ja synkronoi jaetut asetukset.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Vie salattu profiili</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Vie palautustiedosto</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Toiminto epäonnistui. Tarkista tiedosto, salalause, oikeudet ja yhteys.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Unohda tunnistetiedot</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Unohdetaanko tämän paikallisen profiilin tallennetut salasanat ja jaettu avain? Nykyiset tietovälineet eivät muutu.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Käyttöönottoprofiilit</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>Jaettu historia on täynnä. Luo uusi jaettu säilö.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Tuo kopiona</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Sisällytä salaisuudet ja luottamukselliset tiedostot</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Täydennä tarvittavat salasanat ja lähdetiedostot ennen salaisuuksien muistamista tai julkaisemista.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Liity palautustiedoston avulla</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Säilytä paikallinen versio</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Windowsin tunnistetietojen hallinta tallentaa salasanat tälle Windows-käyttäjälle tällä tietokoneella.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Tallennetut tunnistetiedot eivät ole tämän Windows-käyttäjän käytettävissä.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Hallitse</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} tiedostoa puuttuu tai on jätetty pois. Tarkista niiden polut ennen tietovälineen luomista.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Profiilin nimi</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>Jako on varattu tai ei käytettävissä. Paikallinen työ säilytetään.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Salalause</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Tiedostot: {1}
+Salaisuudet: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Säilytä salattu palautustiedosto ja sen salalause jaetun kansion ulkopuolella.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Muista salasanat</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Muista jaettu avain</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Nimeä uudelleen</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Tämä korvaa aktiivisen määrityksen. Säilytä työ tallentamalla ensin kopio.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>Jaettu historia muuttui odottamatta. Palauta luotetusta kopiosta.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Tallenna kopiona</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Profiiliavaimen haltijat voivat lukea sisällytetyt salaisuudet ja varmenteiden yksityiset avaimet.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Jaettu kansio</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Käytä yhtä ensisijaista SMB 3 -jakoa, jossa salaus on pakollinen. Pilvipeilattuja kansioita ei tueta.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Synkronoi nyt</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Synkronoitu</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Tämä profiili käyttää muotoa, jota ei tueta. Päivitä Foundry ennen sen avaamista.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Jaettu päivitys on valmis. Ota se käyttöön valitsemalla Synkronoi nyt.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Käytä jaettua versiota</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Täytä pakolliset kentät, käytä jaettua UNC-polkua ja anna samat salalauseet.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Kenraali</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Muista salasanat, siirrä profiileja ja synkronoi jaetut asetukset.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Käyttöönottoprofiilit</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

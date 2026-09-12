@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows-telepítési lehetőségek</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Megnyitás</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Aktív profil</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Automatikus szinkronizálás</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>A profil mentve lett, de a régi hitelesítő adatokat még el kell távolítani. Próbálja újra, amikor a Windows Hitelesítőadat-kezelő elérhető.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Jelmondat megerősítése</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Az ütköző módosításokról dönteni kell.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Válasszon egy verziót, vagy mentsen másolatot mindkettő megtartásához. A másik verzió lecserélődik.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Folytatás</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Megosztott profil létrehozása</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Helyi profil törlése</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>A megosztott profil törlése is</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Törli a megosztott profilt minden telepítéshez? A többi szerkesztőnek másolatként kell mentenie a munkáját.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Törli ezt a helyi profilt? Szükség esetén először exportáljon biztonsági másolatot.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>A megosztott profilt törölték. Munkája megőrzéséhez mentsen helyi másolatot.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Jelszavak megjegyzése, profilok átvitele és megosztott beállítások szinkronizálása.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Titkosított profil exportálása</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Helyreállítási fájl exportálása</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>A művelet sikertelen. Ellenőrizze a fájlt, jelmondatot, jogosultságokat és kapcsolatot.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Hitelesítő adatok elfelejtése</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Elfelejti e helyi profil mentett jelszavait és megosztott kulcsát? A meglévő adathordozók nem változnak.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Telepítési profilok</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>A megosztott előzmények megteltek. Hozzon létre új megosztott tárhelyet.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Importálás másolatként</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Titkos adatok és bizalmas fájlok hozzáadása</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>A titkok megjegyzése vagy közzététele előtt adja meg a szükséges jelszavakat és forrásfájlokat.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Csatlakozás helyreállítási fájllal</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Helyi verzió megtartása</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>A Windows Hitelesítőadat-kezelő ezen a gépen ehhez a Windows-felhasználóhoz tárolja a jelszavakat.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>A mentett hitelesítő adatok nem érhetők el ennek a Windows-felhasználónak.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Kezelés</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} fájl hiányzik vagy ki lett hagyva. Az adathordozó létrehozása előtt ellenőrizze az elérési útjukat.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Profil neve</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>A megosztás foglalt vagy nem érhető el. A helyi munka megmarad.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Jelmondat</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Fájlok: {1}
+Titkos adatok: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Kész</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>A titkosított helyreállítási fájlt és jelmondatát a megosztott mappán kívül tárolja.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Jelszavak megjegyzése</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Megosztott kulcs megjegyzése</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Átnevezés</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Ez lecseréli az aktív konfigurációt. Munkája megőrzéséhez először mentsen másolatot.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>A megosztott előzmények váratlanul megváltoztak. Állítson vissza egy megbízható másolatot.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Mentés másolatként</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>A profilkulccsal rendelkező címzettek olvashatják a mellékelt titkos adatokat és tanúsítványok magánkulcsait.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Megosztott mappa</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Egyetlen mérvadó SMB 3-megosztást használjon kötelező titkosítással. A felhőbe tükrözött mappák nem támogatottak.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Szinkronizálás most</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Szinkronizálva</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Ez a profil nem támogatott formátumot használ. Megnyitása előtt frissítse a Foundryt.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Megosztott frissítés érhető el. Az alkalmazásához válassza a Szinkronizálás most lehetőséget.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Megosztott verzió használata</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Töltse ki a kötelező mezőket, használjon UNC-megosztási útvonalat és egyező jelmondatokat.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>tábornok</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Jelszavak megjegyzése, profilok átvitele és megosztott beállítások szinkronizálása.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Telepítési profilok</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

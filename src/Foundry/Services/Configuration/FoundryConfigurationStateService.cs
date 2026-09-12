@@ -5,6 +5,7 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Profiles;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Autopilot;
 using Foundry.Telemetry;
@@ -17,7 +18,7 @@ using AppSettingsService = Foundry.Services.Settings.IAppSettingsService;
 namespace Foundry.Services.Configuration;
 
 /// <summary>
-/// Maintains the user-facing Foundry configuration state and generates deploy/connect payloads from it.
+/// Maintains authoring configuration, readiness checks and immutable build capture.
 /// </summary>
 /// <remarks>
 /// Secrets that should not be persisted are kept in <see cref="INetworkSecretStateService"/> and
@@ -27,7 +28,6 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 {
     private readonly IFoundryConfigurationService foundryConfigurationService;
     private readonly IDeployConfigurationGenerator deployConfigurationGenerator;
-    private readonly IConnectConfigurationGenerator connectConfigurationGenerator;
     private readonly INetworkSecretStateService networkSecretStateService;
     private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
     private readonly IOobeAccountSecretStateService oobeAccountSecretStateService;
@@ -42,7 +42,6 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public FoundryConfigurationStateService(
         IFoundryConfigurationService foundryConfigurationService,
         IDeployConfigurationGenerator deployConfigurationGenerator,
-        IConnectConfigurationGenerator connectConfigurationGenerator,
         INetworkSecretStateService networkSecretStateService,
         IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
         IOobeAccountSecretStateService oobeAccountSecretStateService,
@@ -52,14 +51,18 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     {
         this.foundryConfigurationService = foundryConfigurationService;
         this.deployConfigurationGenerator = deployConfigurationGenerator;
-        this.connectConfigurationGenerator = connectConfigurationGenerator;
         this.networkSecretStateService = networkSecretStateService;
         this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
         this.oobeAccountSecretStateService = oobeAccountSecretStateService;
         this.autopilotHardwareHashSessionState = autopilotHardwareHashSessionState;
         this.appSettingsService = appSettingsService;
         this.logger = logger.ForContext<FoundryConfigurationStateService>();
-        Current = SanitizeForPersistence(Load());
+        FoundryConfigurationDocument loaded = Load(out bool isLegacyMigration);
+        if (isLegacyMigration)
+        {
+            networkSecretStateService.Update(loaded.Network);
+        }
+        Current = SanitizeForPersistence(loaded);
         Save();
     }
 
@@ -68,6 +71,23 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     /// <inheritdoc />
     public FoundryConfigurationDocument Current { get; private set; }
+
+    /// <inheritdoc />
+    public void Replace(FoundryConfigurationDocument document, Action restoreSecrets)
+    {
+        ArgumentNullException.ThrowIfNull(document);
+        ArgumentNullException.ThrowIfNull(restoreSecrets);
+        FoundryConfigurationDocument candidate = SanitizeForPersistence(document);
+        Save(candidate, throwOnFailure: true);
+        restoreSecrets();
+        networkSecretStateService.Update(document.Network);
+        oobeAccountSecretStateService.Update(document.Customization.Oobe);
+        Current = candidate;
+        validatedUnattendSettings = null;
+        unattendSourceValidations = [];
+        unattendRefreshRevision++;
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
 
     /// <inheritdoc />
     public NetworkMediaReadinessEvaluation NetworkMediaReadiness => EvaluateNetworkMediaReadiness();
@@ -361,8 +381,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    /// <inheritdoc />
-    public string GenerateDeployConfigurationJson(
+    private string GenerateDeployConfigurationJson(
         TelemetrySettings? telemetryOverride = null,
         byte[]? deploymentSecretsKey = null,
         DeployProtectionSettings? protectionSettings = null)
@@ -381,20 +400,35 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     }
 
     /// <inheritdoc />
-    public FoundryConnectProvisioningBundle GenerateConnectProvisioningBundle(string stagingDirectoryPath, TelemetrySettings? telemetryOverride = null)
+    public Task<DeploymentBuildSnapshot> CaptureBuildSnapshotAsync(
+        string privateRootDirectory,
+        CancellationToken cancellationToken = default)
     {
-        FoundryConfigurationDocument document = Current with
+        FoundryConfigurationDocument document = CreateDocumentForDeployGeneration(telemetryOverride: null) with
         {
-            Network = networkSecretStateService.ApplyRequiredSecrets(Current.Network),
-            Telemetry = telemetryOverride ?? Current.Telemetry
+            Network = networkSecretStateService.ApplyRequiredSecrets(Current.Network)
         };
-
-        return connectConfigurationGenerator.CreateProvisioningBundle(document, stagingDirectoryPath);
+        using OobeAccountSecretState accountSecrets = CreateOobeAccountSecretStateForDeployGeneration(document.Customization.Oobe);
+        char[] password = document.General.DeploymentProtection.IsEnabled
+            ? deploymentProtectionSecretStateService.GetConfirmedPasswordCopy()
+            : [];
+        try
+        {
+            return DeploymentBuildSnapshot.CaptureAsync(
+                document, accountSecrets, password, privateRootDirectory, cancellationToken);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+        }
     }
 
-    private FoundryConfigurationDocument Load()
+    private FoundryConfigurationDocument Load(out bool isLegacyMigration)
     {
-        if (!File.Exists(Constants.FoundryConfigurationStatePath))
+        isLegacyMigration = false;
+        string sourcePath = File.Exists(Constants.FoundryConfigurationStatePath)
+            ? Constants.FoundryConfigurationStatePath : Constants.LegacyFoundryConfigurationStatePath;
+        if (!File.Exists(sourcePath))
         {
             logger.Information("Foundry configuration state initialized from defaults.");
             return FoundryConfigurationMigration.ApplyLegacyGeneralSettings(
@@ -404,15 +438,31 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
         try
         {
-            string json = File.ReadAllText(Constants.FoundryConfigurationStatePath);
+            if (new FileInfo(sourcePath).Length > 16 * 1024 * 1024)
+            {
+                throw new NotSupportedException("The saved configuration exceeds the supported size.");
+            }
+
+            string json = File.ReadAllText(sourcePath);
+            using System.Text.Json.JsonDocument parsed = System.Text.Json.JsonDocument.Parse(json);
+            if (parsed.RootElement.TryGetProperty("schemaVersion", out System.Text.Json.JsonElement schema) &&
+                schema.GetInt32() > FoundryConfigurationDocument.CurrentSchemaVersion)
+            {
+                throw new NotSupportedException("The saved configuration requires a newer version of Foundry.");
+            }
+
             FoundryConfigurationDocument document = foundryConfigurationService.Deserialize(json);
+            isLegacyMigration = string.Equals(sourcePath, Constants.LegacyFoundryConfigurationStatePath, StringComparison.OrdinalIgnoreCase);
             logger.Information("Foundry configuration state loaded from disk.");
             return document;
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException or ArgumentException)
         {
             string backupPath = Constants.FoundryConfigurationStatePath + ".invalid";
-            TryMoveInvalidState(backupPath, ex);
+            if (sourcePath == Constants.FoundryConfigurationStatePath)
+            {
+                TryMoveInvalidState(backupPath, ex);
+            }
             return CreateDefaultDocument();
         }
     }
@@ -487,16 +537,6 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         {
             BootMediaCertificate = autopilotHardwareHashSessionState.BootMediaCertificate
         };
-        if (settings.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload &&
-            !autopilotHardwareHashSessionState.HasConnectedTenant)
-        {
-            hardwareHashUpload = hardwareHashUpload with
-            {
-                KnownGroupTags = [],
-                DefaultGroupTag = null
-            };
-        }
-
         return settings with
         {
             HardwareHashUpload = hardwareHashUpload
@@ -514,19 +554,31 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         };
     }
 
-    private void Save()
+    private void Save(FoundryConfigurationDocument? candidate = null, bool throwOnFailure = false)
     {
         try
         {
             Directory.CreateDirectory(Constants.ConfigurationWorkspaceDirectoryPath);
-            FoundryConfigurationDocument document = SanitizeForPersistence(Current);
+            FoundryConfigurationDocument document = candidate ?? SanitizeForPersistence(Current);
             string json = foundryConfigurationService.Serialize(document);
-            File.WriteAllText(Constants.FoundryConfigurationStatePath, json);
+            string temporaryPath = Constants.FoundryConfigurationStatePath + "." + Guid.NewGuid().ToString("N") + ".tmp";
+            try
+            {
+                File.WriteAllText(temporaryPath, json);
+                File.Move(temporaryPath, Constants.FoundryConfigurationStatePath, true);
+            }
+            finally
+            {
+                File.Delete(temporaryPath);
+            }
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             logger.Error(ex, "Failed to persist Foundry configuration state. StatePath={StatePath}", Constants.FoundryConfigurationStatePath);
-            throw;
+            if (throwOnFailure)
+            {
+                throw;
+            }
         }
     }
 
