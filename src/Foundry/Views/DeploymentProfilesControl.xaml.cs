@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.Application;
+using Foundry.Services.Application;
 using Foundry.Services.Localization;
 
 namespace Foundry.Views;
@@ -130,6 +131,7 @@ public sealed partial class DeploymentProfilesControl : UserControl
         content.Children.Add(validation);
         var dialog = new ContentDialog
         {
+            Style = ContentDialogStyleProvider.DefaultStyle,
             XamlRoot = XamlRoot,
             Title = T(request.Title),
             PrimaryButtonText = T("Profiles.Continue"),

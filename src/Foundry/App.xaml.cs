@@ -186,6 +186,7 @@ namespace Foundry
                         var localization = GetService<Foundry.Services.Localization.IApplicationLocalizationService>();
                         var dialog = new ContentDialog
                         {
+                            Style = Foundry.Services.Application.ContentDialogStyleProvider.DefaultStyle,
                             XamlRoot = ((FrameworkElement)MainWindow.Content).XamlRoot,
                             Title = localization.GetString("Profiles.Heading"),
                             Content = localization.GetString(coordinator.StatusKey == "Profiles.Incomplete" ? "Profiles.Incomplete" : "Profiles.Failed"),
