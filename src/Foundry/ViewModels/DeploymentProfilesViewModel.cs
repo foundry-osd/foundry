@@ -36,7 +36,6 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     public bool CanInteract => !IsBusy;
     public bool CanActivate => CanInteract && SelectedProfile is { } selected && selected.LocalId != coordinator.Active?.LocalId;
     public string ActiveProfileName => coordinator.Active?.DisplayName ?? string.Empty;
-    public Visibility BusyVisibility => IsBusy ? Visibility.Visible : Visibility.Collapsed;
     public Visibility StatusVisibility => string.IsNullOrEmpty(Status) || Status == Text("Profiles.Ready") ? Visibility.Collapsed : Visibility.Visible;
     public bool HasActive => coordinator.Active is not null;
     public bool IsShared => coordinator.Active?.Enrollment is not null;
@@ -77,7 +76,6 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     {
         OnPropertyChanged(nameof(CanInteract));
         OnPropertyChanged(nameof(CanActivate));
-        OnPropertyChanged(nameof(BusyVisibility));
     }
 
     [RelayCommand]

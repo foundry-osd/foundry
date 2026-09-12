@@ -263,9 +263,6 @@
                 Text="{x:Bind ViewModel.Status, Mode=OneWay}"
                 TextWrapping="Wrap"
                 Visibility="{x:Bind ViewModel.StatusVisibility, Mode=OneWay}" />
-            <ProgressBar
-                IsIndeterminate="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
-                Visibility="{x:Bind ViewModel.BusyVisibility, Mode=OneWay}" />
         </StackPanel>
     </Grid>
 </UserControl>
