@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>אפשרויות פריסת Windows</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>פתיחה</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>הפרופיל הפעיל</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>סנכרון אוטומטי</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>הפרופיל נשמר, אך עדיין יש להסיר אישורים ישנים. יש לנסות שוב כאשר מנהל האישורים של Windows יהיה זמין.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>אישור ביטוי הסיסמה</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>יש להחליט כיצד לטפל בשינויים המתנגשים.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>יש לבחור גרסה או לשמור עותק כדי לשמר את שתיהן. הגרסה האחרת תוחלף.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>המשך</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>יצירת פרופיל משותף</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>מחיקת פרופיל מקומי</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>מחיקת הפרופיל המשותף גם כן</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>למחוק את הפרופיל המשותף בכל ההתקנות? עורכים אחרים יצטרכו לשמור עותק של עבודתם.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>למחוק פרופיל מקומי זה? במידת הצורך, יש לייצא גיבוי תחילה.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>הפרופיל המשותף נמחק. יש לשמור עותק מקומי כדי לשמר את העבודה.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>שמירת סיסמאות, העברת פרופילים וסנכרון הגדרות משותפות.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>ייצוא פרופיל מוצפן</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>ייצוא קובץ שחזור</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>הפעולה נכשלה. יש לבדוק את הקובץ, ביטוי הסיסמה, ההרשאות והחיבור.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>מחיקת אישורים שמורים</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>למחוק את הסיסמאות השמורות ואת המפתח המשותף של פרופיל מקומי זה? מדיית הפריסה הקיימת לא תשתנה.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>פרופילי פריסה</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>ההיסטוריה המשותפת מלאה. יש ליצור מאגר משותף חדש.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>ייבוא כעותק</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>כלילת נתונים סודיים וקבצים חסויים</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>יש להשלים את הסיסמאות ואת קובצי המקור הנדרשים לפני שמירה או פרסום של נתונים סודיים.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>הצטרפות באמצעות קובץ שחזור</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>שמירת הגרסה המקומית</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>מנהל האישורים של Windows שומר סיסמאות עבור משתמש Windows זה במחשב זה.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>האישורים השמורים אינם זמינים למשתמש Windows זה.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>ניהול</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} קבצים חסרים או לא נכללו. יש לבדוק את הנתיבים שלהם לפני יצירת מדיית הפריסה.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>שם הפרופיל</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>השיתוף תפוס או אינו זמין. העבודה המקומית נשמרת.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>ביטוי סיסמה</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+קבצים: {1}
+נתונים סודיים: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>מוכן</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>יש לשמור את קובץ השחזור המוצפן ואת ביטוי הסיסמה שלו מחוץ לתיקייה המשותפת.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>שמירת סיסמאות</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>שמירת המפתח המשותף</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>שינוי שם</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>פעולה זו תחליף את התצורה הפעילה. יש לשמור עותק תחילה כדי לשמר את העבודה.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>ההיסטוריה המשותפת השתנתה באופן בלתי צפוי. יש לשחזר מעותק מהימן.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>שמירה כעותק</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>נמענים המחזיקים במפתח הפרופיל יכולים לקרוא את הנתונים הסודיים ואת המפתחות הפרטיים של האישורים הכלולים בו.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>תיקייה משותפת</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>יש להשתמש בשיתוף SMB 3 מרכזי יחיד המחייב הצפנה. תיקיות המשוכפלות דרך הענן אינן נתמכות.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>סנכרון עכשיו</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>מסונכרן</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>פרופיל זה משתמש בתבנית שאינה נתמכת. יש לעדכן את Foundry לפני פתיחתו.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>עדכון משותף מוכן. יש לבחור בסנכרון עכשיו כדי להחיל אותו.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>שימוש בגרסה המשותפת</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>יש למלא את שדות החובה, להשתמש בנתיב שיתוף UNC ולהזין ביטויי סיסמה תואמים.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>כללי</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>שמירת סיסמאות, העברת פרופילים וסנכרון הגדרות משותפות.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>פרופילי פריסה</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

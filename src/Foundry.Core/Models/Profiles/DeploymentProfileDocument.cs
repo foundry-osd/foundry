@@ -53,7 +53,7 @@ public sealed record DeploymentProfileAsset
 public enum ProfileValueState { Omitted, Unavailable, Deleted, Blank, Present }
 
 /// <summary>Allowlisted password families, independent of operating-system credential storage names.</summary>
-public enum ProfileSecretPurpose { DeploymentPassword, WifiPassphrase, AdministratorPassword, AdditionalAccountPassword, WiredCertificatePassword, WifiCertificatePassword, AutopilotCertificatePassword }
+public enum ProfileSecretPurpose { DeploymentPassword, WifiPassphrase, AdministratorPassword, AdditionalAccountPassword, WiredCertificatePassword, WifiCertificatePassword, AutopilotCertificatePassword, SharedProfileKey }
 
 /// <summary>Allowlisted portable inputs. Opaque files are included only when the caller explicitly supplies their bytes.</summary>
 public enum ProfileAssetKind { Unattend, WiredProfile, WifiProfile, WiredCertificate, WifiCertificate, AutopilotProfile, AutopilotCertificate }

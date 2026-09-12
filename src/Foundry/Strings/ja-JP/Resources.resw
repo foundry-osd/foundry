@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows 展開オプション</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>開く</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>現在のプロファイル</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>自動同期</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>プロファイルは保存されましたが、古い資格情報の削除が必要です。Windows 資格情報マネージャーが利用可能になったら、もう一度お試しください。</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>パスフレーズの確認</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>変更が競合しています。使用するバージョンを選択してください。</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>使用するバージョンを選択するか、コピーを保存して両方を残してください。もう一方のバージョンは置き換えられます。</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>続行</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>共有プロファイルを作成</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>ローカルプロファイルを削除</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>共有プロファイルも削除</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>すべてのインストール先で共有プロファイルを削除しますか？他の編集者は作業内容をコピーとして保存する必要があります。</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>このローカルプロファイルを削除しますか？必要に応じて、先にバックアップをエクスポートしてください。</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>共有プロファイルは削除されました。作業内容を残すには、ローカルコピーを保存してください。</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>パスワードの保存、プロファイルの転送、共有設定の同期を行います。</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>暗号化プロファイルをエクスポート</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>回復ファイルをエクスポート</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>操作に失敗しました。ファイル、パスフレーズ、アクセス許可、接続を確認してください。</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>保存済み資格情報を削除</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>このローカルプロファイルの保存済みパスワードと共有キーを削除しますか？既存のメディアは変更されません。</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>展開プロファイル</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>共有履歴が上限に達しました。新しい共有リポジトリを作成してください。</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>コピーとしてインポート</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>秘密情報と機密ファイルを含める</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>秘密情報を保存または公開する前に、必要なパスワードとソースファイルをすべて揃えてください。</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>回復ファイルから参加</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>ローカルバージョンを保持</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Windows 資格情報マネージャーは、この PC の現在の Windows ユーザー用にパスワードを保存します。</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>この Windows ユーザーでは、保存済みの資格情報を利用できません。</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>管理</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} 個のファイルが見つからないか、含まれていません。メディアを作成する前にパスを確認してください。</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>プロファイル名</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>共有先が使用中か、利用できません。ローカルの作業内容は保持されます。</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>パスフレーズ</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+ファイル: {1}
+秘密情報: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>準備完了</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>暗号化された回復ファイルとそのパスフレーズは、共有フォルダーの外部に保管してください。</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>パスワードを保存</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>共有キーを保存</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>名前の変更</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>現在の設定が置き換えられます。作業内容を残すには、先にコピーを保存してください。</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>共有履歴が予期せず変更されました。信頼できるコピーから復元してください。</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>コピーとして保存</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>プロファイルのキーを持つ受信者は、含まれている秘密情報や証明書の秘密キーを読み取ることができます。</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>共有フォルダー</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>暗号化を必須にした単一の SMB 3 共有を正規の保存先として使用してください。クラウド経由で複製されるフォルダーはサポートされません。</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>今すぐ同期</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>同期済み</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>このプロファイルはサポートされていない形式を使用しています。開く前に Foundry を更新してください。</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>共有プロファイルの更新があります。「今すぐ同期」を選択して適用してください。</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>共有バージョンを使用</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>必須項目を入力し、UNC 共有パスを指定してください。パスフレーズは確認用と一致させてください。</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>一般</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>パスワードの保存、プロファイルの転送、共有設定の同期を行います。</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>展開プロファイル</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

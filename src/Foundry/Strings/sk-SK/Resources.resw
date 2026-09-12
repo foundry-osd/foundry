@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Možnosti nasadenia Windows</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Otvoriť</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Aktívny profil</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Automatická synchronizácia</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Profil bol uložený, ale staré prihlasovacie údaje treba ešte odstrániť. Skúste to znova, keď bude Správca poverení systému Windows dostupný.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Potvrdiť prístupovú frázu</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Konfliktné zmeny vyžadujú rozhodnutie.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Vyberte verziu alebo uložte kópiu na zachovanie oboch. Druhá verzia sa nahradí.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Pokračovať</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Vytvoriť zdieľaný profil</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Odstrániť miestny profil</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Odstrániť aj zdieľaný profil</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Odstrániť zdieľaný profil pre všetky inštalácie? Ostatní editori musia uložiť svoju prácu ako kópiu.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Odstrániť tento miestny profil? V prípade potreby najprv exportujte zálohu.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Zdieľaný profil bol odstránený. Uložte miestnu kópiu na zachovanie práce.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Zapamätajte si heslá, prenášajte profily a synchronizujte zdieľané nastavenia.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Exportovať šifrovaný profil</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Exportovať súbor na obnovenie</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Operácia zlyhala. Skontrolujte súbor, prístupovú frázu, povolenia a pripojenie.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Zabudnúť prihlasovacie údaje</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Zabudnúť uložené heslá a zdieľaný kľúč tohto miestneho profilu? Existujúce médiá zostanú nezmenené.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Profily nasadenia</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>Zdieľaná história je plná. Vytvorte nové zdieľané úložisko.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Importovať ako kópiu</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Zahrnúť tajné údaje a dôverné súbory</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Pred zapamätaním alebo publikovaním tajných údajov doplňte požadované heslá a zdrojové súbory.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Pripojiť zo súboru na obnovenie</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Ponechať miestnu verziu</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Správca poverení Windows ukladá heslá pre tohto používateľa Windows v tomto počítači.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Uložené prihlasovacie údaje nie sú pre tohto používateľa Windows dostupné.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Spravovať</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>Počet chýbajúcich alebo vynechaných súborov: {0}. Pred vytvorením média skontrolujte ich cesty.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Názov profilu</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>Zdieľanie je zaneprázdnené alebo nedostupné. Miestna práca sa zachová.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Prístupová fráza</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Súbory: {1}
+Tajné údaje: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Pripravené</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Šifrovaný súbor na obnovenie a jeho prístupovú frázu uchovávajte mimo zdieľaného priečinka.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Zapamätať heslá</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Zapamätať zdieľaný kľúč</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Premenovať</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Týmto nahradíte aktívnu konfiguráciu. Najprv uložte kópiu na zachovanie práce.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>Zdieľaná história sa neočakávane zmenila. Obnovte dôveryhodnú kópiu.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Uložiť ako kópiu</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Príjemcovia s kľúčom profilu môžu čítať zahrnuté tajné údaje a súkromné kľúče certifikátov.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Zdieľaný priečinok</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Použite jedno autoritatívne zdieľanie SMB 3 s povinným šifrovaním. Priečinky zrkadlené v cloude nie sú podporované.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Synchronizovať teraz</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Synchronizované</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Tento profil používa nepodporovaný formát. Pred otvorením aktualizujte Foundry.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Zdieľaná aktualizácia je pripravená. Použite ju voľbou Synchronizovať teraz.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Použiť zdieľanú verziu</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Vyplňte povinné polia, použite zdieľanú cestu UNC a zadajte zhodné prístupové frázy.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>generál</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Zapamätajte si heslá, prenášajte profily a synchronizujte zdieľané nastavenia.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Profily nasadenia</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

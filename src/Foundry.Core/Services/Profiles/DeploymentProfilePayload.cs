@@ -48,6 +48,8 @@ internal static class DeploymentProfilePayload
             using JsonDocument json = JsonDocument.Parse(bytes, new() { MaxDepth = 32 });
             ValidateJson(json.RootElement);
             RequireProperties(json.RootElement, "formatVersion", "profileId", "displayName", "configuration", "secrets", "assets");
+            if (json.RootElement.GetProperty("formatVersion").GetInt32() > DeploymentProfileDocument.CurrentFormatVersion)
+                throw new NotSupportedException("The profile payload requires a newer Foundry version.");
             if (json.RootElement.GetProperty("formatVersion").GetInt32() != DeploymentProfileDocument.CurrentFormatVersion)
             {
                 throw new InvalidDataException("The profile payload format is unsupported.");
@@ -55,6 +57,8 @@ internal static class DeploymentProfilePayload
             JsonElement configuration = json.RootElement.GetProperty("configuration");
             RequireProperties(configuration, "schemaVersion");
             int schema = configuration.GetProperty("schemaVersion").GetInt32();
+            if (schema > FoundryConfigurationDocument.CurrentSchemaVersion)
+                throw new NotSupportedException("The profile authoring schema requires a newer Foundry version.");
             if (schema < 1 || schema > FoundryConfigurationDocument.CurrentSchemaVersion)
             {
                 throw new InvalidDataException("The profile authoring schema is unsupported.");
@@ -123,6 +127,7 @@ internal static class DeploymentProfilePayload
         }
         identities.Clear();
         var paths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var singletonKinds = new HashSet<ProfileAssetKind>();
         long totalBytes = 0;
         foreach (DeploymentProfileAsset asset in profile.Assets)
         {
@@ -130,6 +135,10 @@ internal static class DeploymentProfilePayload
                 || !IsIdentity(asset.Id) || !identities.Add(asset.Id) || !IsSafePath(asset.RelativePath) || !paths.Add(asset.RelativePath))
             {
                 throw new InvalidDataException("The profile asset record is invalid.");
+            }
+            if (asset.Kind is not (ProfileAssetKind.Unattend or ProfileAssetKind.AutopilotProfile) && !singletonKinds.Add(asset.Kind))
+            {
+                throw new InvalidDataException("A selected profile dependency cannot have multiple asset records.");
             }
             if (asset.State == ProfileValueState.Present)
             {

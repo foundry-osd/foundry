@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Options de déploiement Windows</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>Ouvrir</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Profil actif</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Synchronisation automatique</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Le profil a été enregistré, mais d’anciens identifiants restent à supprimer. Réessayez lorsque le Gestionnaire d’identification Windows sera disponible.</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Confirmer la phrase secrète</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Les modifications en conflit nécessitent une décision.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Choisir une version ou enregistrer une copie pour conserver les deux. L’autre version sera remplacée.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Continuer</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Créer un profil partagé</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Supprimer le profil local</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Supprimer aussi le profil partagé</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Supprimer le profil partagé pour toutes les installations ? Les autres utilisateurs doivent enregistrer une copie de leur travail.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Supprimer ce profil local ? Exporter d’abord une sauvegarde si nécessaire.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Le profil partagé a été supprimé. Enregistrer une copie locale pour conserver votre travail.</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>Mémoriser les mots de passe, transférer les profils et synchroniser les paramètres partagés.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Exporter le profil chiffré</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Exporter le fichier de récupération</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Échec de l’opération. Vérifier le fichier, la phrase secrète, les autorisations et la connexion.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Oublier les identifiants</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Oublier les mots de passe enregistrés et la clé partagée de ce profil local ? Les supports existants restent inchangés.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Profils de déploiement</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>L’historique partagé est plein. Créer un nouveau dépôt partagé.</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Importer une copie</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Inclure les secrets et fichiers confidentiels</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Renseignez les mots de passe et fichiers sources requis avant de mémoriser ou de publier des secrets.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Rejoindre avec un fichier de récupération</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Conserver la version locale</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Le Gestionnaire d’informations d’identification Windows stocke les mots de passe pour cet utilisateur Windows sur ce PC.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Les identifiants enregistrés sont indisponibles pour cet utilisateur Windows.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Gérer</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} fichiers sont manquants ou omis. Vérifiez leurs chemins avant de créer le support.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Nom du profil</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>Le partage est occupé ou indisponible. Le travail local est conservé.</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Phrase secrète</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Fichiers : {1}
+Secrets : {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Prêt</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Conserver le fichier de récupération chiffré et sa phrase secrète hors du dossier partagé.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Mémoriser les mots de passe</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Mémoriser la clé partagée</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Renommer</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>La configuration active sera remplacée. Enregistrer d’abord une copie pour conserver votre travail.</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>L’historique partagé a changé de façon inattendue. Restaurer une copie de confiance.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Enregistrer une copie</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Les destinataires disposant de la clé du profil peuvent lire les secrets et clés privées de certificat inclus.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Dossier partagé</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Utiliser un seul partage SMB 3 faisant autorité, avec chiffrement obligatoire. Les dossiers répliqués dans le cloud ne sont pas pris en charge.</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Synchroniser maintenant</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Synchronisé</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Ce profil utilise un format non pris en charge. Mettez Foundry à jour avant de l’ouvrir.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Une mise à jour partagée est prête. Sélectionner Synchroniser maintenant pour l’appliquer.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Utiliser la version partagée</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Remplir les champs obligatoires, utiliser un chemin partagé UNC et saisir des phrases secrètes identiques.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Échec de la connexion</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Général</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Mémoriser les mots de passe, transférer les profils et synchroniser les paramètres partagés.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Profils de déploiement</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configurez la manière dont Foundry OSD se connecte aux services en ligne.</value>

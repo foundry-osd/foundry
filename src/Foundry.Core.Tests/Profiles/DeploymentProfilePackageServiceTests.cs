@@ -148,11 +148,10 @@ public sealed class DeploymentProfilePackageServiceTests
     }
 
     [Theory]
-    [InlineData(8)]
     [InlineData(9)]
     [InlineData(10)]
     [InlineData(13)]
-    public void Import_RejectsChangedFormatPurposeAndKdfCostBeforeDerivation(int offset)
+    public void Import_RejectsChangedPurposeAndKdfCostBeforeDerivation(int offset)
     {
         byte[] package = _service.Export(CreateProfile(), "password");
         package[offset] ^= 0x7f;
@@ -176,7 +175,6 @@ public sealed class DeploymentProfilePackageServiceTests
 
     [Theory]
     [InlineData("duplicate")]
-    [InlineData("future-schema")]
     [InlineData("unknown-property")]
     [InlineData("missing-state")]
     [InlineData("invalid-state")]
@@ -189,7 +187,6 @@ public sealed class DeploymentProfilePackageServiceTests
         byte[] invalid = RewriteAuthenticatedPayload(package, key, json => mutation switch
         {
             "duplicate" => json.Replace("\"formatVersion\":1", "\"formatVersion\":1,\"FormatVersion\":1", StringComparison.Ordinal),
-            "future-schema" => json.Replace($"\"schemaVersion\":{FoundryConfigurationDocument.CurrentSchemaVersion}", "\"schemaVersion\":2147483647", StringComparison.Ordinal),
             "unknown-property" => json.Replace("\"displayName\":", "\"nativeTarget\":\"arbitrary\",\"displayName\":", StringComparison.Ordinal),
             "missing-state" => json.Replace("\"state\":0,", string.Empty, StringComparison.Ordinal),
             "invalid-state" => json.Replace("\"state\":0", "\"state\":999", StringComparison.Ordinal),
@@ -200,12 +197,58 @@ public sealed class DeploymentProfilePackageServiceTests
     }
 
     [Fact]
+    public void Decrypt_DistinguishesFutureFormatsFromCorruptData()
+    {
+        byte[] key = new byte[32];
+        byte[] package = _service.Encrypt(CreateProfile(), key, ProfilePackagePurpose.LocalStorage);
+        byte[] futureSchema = RewriteAuthenticatedPayload(package, key, json => json.Replace(
+            $"\"schemaVersion\":{FoundryConfigurationDocument.CurrentSchemaVersion}", "\"schemaVersion\":2147483647", StringComparison.Ordinal));
+        byte[] futurePayload = RewriteAuthenticatedPayload(package, key, json => json.Replace("\"formatVersion\":1", "\"formatVersion\":2", StringComparison.Ordinal));
+        Assert.Throws<NotSupportedException>(() => _service.Decrypt(futureSchema, key, ProfilePackagePurpose.LocalStorage));
+        Assert.Throws<NotSupportedException>(() => _service.Decrypt(futurePayload, key, ProfilePackagePurpose.LocalStorage));
+        package[8]++;
+        Assert.Throws<NotSupportedException>(() => _service.Decrypt(package, key, ProfilePackagePurpose.LocalStorage));
+    }
+
+    [Fact]
     public void Export_RejectsAmbiguousAssetPathsAndSecretStates()
     {
         DeploymentProfileAsset asset = new() { Id = "a", RelativePath = "assets/a.xml", Kind = ProfileAssetKind.Unattend };
         Assert.Throws<InvalidDataException>(() => _service.Export(CreateProfile() with { Assets = [asset, asset with { Id = "b", RelativePath = "ASSETS/A.XML" }] }, "password"));
         DeploymentProfileSecret secret = new() { Identity = "a", State = ProfileValueState.Unavailable, Value = [1] };
         Assert.Throws<InvalidDataException>(() => _service.Export(CreateProfile() with { Secrets = new() { Entries = [secret] } }, "password"));
+    }
+
+    [Theory]
+    [InlineData(ProfileAssetKind.WiredProfile)]
+    [InlineData(ProfileAssetKind.WifiProfile)]
+    [InlineData(ProfileAssetKind.WiredCertificate)]
+    [InlineData(ProfileAssetKind.WifiCertificate)]
+    [InlineData(ProfileAssetKind.AutopilotCertificate)]
+    public void Encrypt_RejectsAmbiguousSingletonAssetsBeforeActivation(ProfileAssetKind kind)
+    {
+        DeploymentProfileAsset asset = new() { Id = "first", Kind = kind, RelativePath = "assets/first.bin" };
+        DeploymentProfileDocument profile = CreateProfile() with
+        {
+            Assets = [asset, asset with { Id = "second", RelativePath = "assets/second.bin" }]
+        };
+
+        Assert.Throws<InvalidDataException>(() => _service.Encrypt(profile, new byte[32], ProfilePackagePurpose.SharedRevision));
+    }
+
+    [Fact]
+    public void EncryptDecrypt_PreservesMultipleAnswerFileAssets()
+    {
+        DeploymentProfileAsset asset = new() { Id = "first", Kind = ProfileAssetKind.Unattend, RelativePath = "assets/first.xml" };
+        DeploymentProfileDocument profile = CreateProfile() with
+        {
+            Assets = [asset, asset with { Id = "second", RelativePath = "assets/second.xml" }]
+        };
+        byte[] key = new byte[32];
+
+        DeploymentProfileDocument imported = _service.Decrypt(_service.Encrypt(profile, key, ProfilePackagePurpose.SharedRevision), key, ProfilePackagePurpose.SharedRevision);
+
+        Assert.Equal(2, imported.Assets.Count);
     }
 
     [Fact]

@@ -2211,6 +2211,164 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>ตัวเลือกการปรับใช้ Windows</value>
   </data>
+  <data name="Profiles.Activate" xml:space="preserve">
+    <value>เปิด</value>
+  </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>โปรไฟล์ที่ใช้งาน</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>ซิงค์อัตโนมัติ</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>บันทึกโปรไฟล์แล้ว แต่ยังต้องล้างข้อมูลประจำตัวเก่า โปรดลองอีกครั้งเมื่อตัวจัดการข้อมูลประจำตัวของ Windows พร้อมใช้งาน</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>ยืนยันวลีรหัสผ่าน</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>การเปลี่ยนแปลงขัดแย้งกัน โปรดเลือกวิธีจัดการ</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>เลือกหนึ่งเวอร์ชัน หรือบันทึกสำเนาเพื่อเก็บทั้งสองเวอร์ชัน อีกเวอร์ชันจะถูกแทนที่</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>ดำเนินการต่อ</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>สร้างโปรไฟล์ที่แชร์</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>ลบโปรไฟล์ในเครื่อง</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>ลบโปรไฟล์ที่แชร์ด้วย</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>ต้องการลบโปรไฟล์ที่แชร์สำหรับการติดตั้งทั้งหมดหรือไม่ ผู้แก้ไขคนอื่นต้องบันทึกงานของตนเป็นสำเนา</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>ต้องการลบโปรไฟล์ในเครื่องนี้หรือไม่ หากจำเป็น ให้ส่งออกข้อมูลสำรองก่อน</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>โปรไฟล์ที่แชร์ถูกลบแล้ว โปรดบันทึกสำเนาในเครื่องเพื่อเก็บงานของคุณไว้</value>
+  </data>
+  <data name="Profiles.Description" xml:space="preserve">
+    <value>จดจำรหัสผ่าน โอนโปรไฟล์ และซิงค์การตั้งค่าที่แชร์</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>ส่งออกโปรไฟล์ที่เข้ารหัส</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>ส่งออกไฟล์กู้คืน</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>ดำเนินการไม่สำเร็จ โปรดตรวจสอบไฟล์ วลีรหัสผ่าน สิทธิ์ และการเชื่อมต่อ</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>ลบข้อมูลประจำตัวที่บันทึกไว้</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>ต้องการลบรหัสผ่านที่บันทึกไว้และคีย์ที่แชร์ของโปรไฟล์ในเครื่องนี้หรือไม่ สื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>โปรไฟล์การปรับใช้</value>
+  </data>
+  <data name="Profiles.HistoryLimit" xml:space="preserve">
+    <value>ประวัติที่แชร์เต็มแล้ว โปรดสร้างที่เก็บข้อมูลที่แชร์ใหม่</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>นำเข้าเป็นสำเนา</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>รวมข้อมูลลับและไฟล์ที่เป็นความลับ</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>โปรดระบุรหัสผ่านและเตรียมไฟล์ต้นทางที่จำเป็นให้ครบก่อนจดจำหรือเผยแพร่ข้อมูลลับ</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>เข้าร่วมผ่านไฟล์กู้คืน</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>เก็บเวอร์ชันในเครื่อง</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>ตัวจัดการข้อมูลประจำตัวของ Windows จัดเก็บรหัสผ่านสำหรับผู้ใช้ Windows คนนี้บนพีซีเครื่องนี้</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>ผู้ใช้ Windows คนนี้ไม่สามารถใช้ข้อมูลประจำตัวที่บันทึกไว้ได้</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>จัดการ</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>มีไฟล์ {0} ไฟล์ที่หายไปหรือไม่ได้รวมไว้ โปรดตรวจสอบเส้นทางของไฟล์เหล่านี้ก่อนสร้างสื่อ</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>ชื่อโปรไฟล์</value>
+  </data>
+  <data name="Profiles.Offline" xml:space="preserve">
+    <value>ตำแหน่งที่แชร์ไม่ว่างหรือไม่พร้อมใช้งาน งานในเครื่องยังคงถูกเก็บไว้</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>วลีรหัสผ่าน</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+ไฟล์: {1}
+ข้อมูลลับ: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>พร้อม</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>เก็บไฟล์กู้คืนที่เข้ารหัสและวลีรหัสผ่านไว้นอกโฟลเดอร์ที่แชร์</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>จดจำรหัสผ่าน</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>จดจำคีย์ที่แชร์</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>เปลี่ยนชื่อ</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>การดำเนินการนี้จะแทนที่การกำหนดค่าที่ใช้งานอยู่ โปรดบันทึกสำเนาก่อนเพื่อเก็บงานของคุณไว้</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>ประวัติที่แชร์เปลี่ยนแปลงโดยไม่คาดคิด โปรดกู้คืนจากสำเนาที่เชื่อถือได้</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>บันทึกเป็นสำเนา</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>ผู้รับที่มีคีย์ของโปรไฟล์สามารถอ่านข้อมูลลับและคีย์ส่วนตัวของใบรับรองที่รวมอยู่ได้</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>โฟลเดอร์ที่แชร์</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>ใช้ตำแหน่งที่แชร์ผ่าน SMB 3 เพียงแห่งเดียวเป็นแหล่งข้อมูลหลัก และกำหนดให้ต้องเข้ารหัส ไม่รองรับโฟลเดอร์ที่ทำสำเนาผ่านคลาวด์</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>ซิงค์ตอนนี้</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>ซิงค์แล้ว</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>โปรไฟล์นี้ใช้รูปแบบที่ไม่รองรับ โปรดอัปเดต Foundry ก่อนเปิด</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>มีการอัปเดตที่แชร์พร้อมใช้งาน เลือกซิงค์ตอนนี้เพื่อนำไปใช้</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>ใช้เวอร์ชันที่แชร์</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>กรอกข้อมูลในช่องที่จำเป็น ใช้เส้นทางที่แชร์แบบ UNC และป้อนวลีรหัสผ่านให้ตรงกัน</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2482,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>ทั่วไป</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>จดจำรหัสผ่าน โอนโปรไฟล์ และซิงค์การตั้งค่าที่แชร์</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>โปรไฟล์การปรับใช้</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>
