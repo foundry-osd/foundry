@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Pasirinkite versiją arba įrašykite kopiją, kad išsaugotumėte abi. Kita versija bus pakeista.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Pasirinkite prisijungimo failą, kurį gavote iš komandos nario.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Išsaugokite prisijungimo failą, kad kitas kompiuteris galėtų naudoti šią bendrinamą konfigūraciją.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Tęsti</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Kurti bendrinamą profilį</value>
+    <value>Bendrinti šią konfigūraciją</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Pasirinkite bendrinamą tinklo aplanką šiai konfigūracijai.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Naikinti vietinį profilį</value>
@@ -2257,16 +2266,22 @@
     <value>Įsiminkite slaptažodžius, perkelkite profilius ir sinchronizuokite bendrinamus parametrus.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Eksportuoti užšifruotą profilį</value>
+    <value>Eksportuoti</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Išsaugoti šią konfigūraciją faile kaip atsarginę kopiją arba kitam kompiuteriui.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Pasirinkite slaptažodį eksportuotam failui apsaugoti. Jo reikės konfigūracijai importuoti.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Eksportuoti atkūrimo failą</value>
+    <value>Išsaugoti prisijungimo failą</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Operacija nepavyko. Patikrinkite failą, slaptafrazę, teises ir ryšį.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Pamiršti kredencialus</value>
+    <value>Išvalyti išsaugotus slaptažodžius ir prieigos duomenis</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Pamiršti šio vietinio profilio įrašytus slaptažodžius ir bendrinamą raktą? Esama laikmena nesikeis.</value>
@@ -2278,7 +2293,10 @@
     <value>Bendrinama istorija pilna. Sukurkite naują bendrinamą saugyklą.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Importuoti kaip kopiją</value>
+    <value>Importuoti</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Pridėti konfigūraciją iš failo.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Įtraukti paslaptis ir konfidencialius failus</value>
@@ -2287,19 +2305,19 @@
     <value>Prieš įsimindami arba skelbdami paslaptis pateikite reikiamus slaptažodžius ir šaltinio failus.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Prisijungti iš atkūrimo failo</value>
+    <value>Prisijungti prie bendrinamos konfigūracijos</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Palikti vietinę versiją</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Windows kredencialų tvarkytuvas saugo slaptažodžius šiam Windows naudotojui šiame kompiuteryje.</value>
+    <value>Saugoti „Windows“ paskyros slaptažodžius šiame kompiuteryje.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Įrašyti kredencialai šiam Windows naudotojui nepasiekiami.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Tvarkyti</value>
+    <value>Daugiau parinkčių</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>Trūksta arba praleista {0} failų. Prieš kurdami laikmeną patikrinkite jų kelius.</value>
@@ -2322,7 +2340,7 @@ Paslaptys: {2}</value>
     <value>Paruošta</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Užšifruotą atkūrimo failą ir jo slaptafrazę laikykite už bendrinamo aplanko ribų.</value>
+    <value>Prisijungimo failą ir jo slaptažodį laikykite ne bendrinamame aplanke.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Įsiminti slaptažodžius</value>
@@ -2340,7 +2358,13 @@ Paslaptys: {2}</value>
     <value>Bendrinama istorija netikėtai pasikeitė. Atkurkite iš patikimos kopijos.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Įrašyti kopiją</value>
+    <value>Dubliuoti</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Nustatyti</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Bendrinkite šią konfigūraciją arba prisijunkite prie tos, kurią jūsų komanda jau naudoja.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Gavėjai, turintys profilio raktą, gali skaityti įtrauktas paslaptis ir privačiuosius sertifikatų raktus.</value>
@@ -2351,8 +2375,17 @@ Paslaptys: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Naudokite vieną pagrindinį SMB 3 bendrinamą išteklių su privalomu šifravimu. Debesyje dubliuojami aplankai nepalaikomi.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Nebesaugoti šios konfigūracijos slaptažodžių šiame kompiuteryje?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Sinchronizuoti dabar</value>
+    <value>Sinchronizuoti</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Sinchronizuoti</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Palaikyti šią konfigūraciją atnaujintą jūsų komandos kompiuteriuose.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Sinchronizuota</value>

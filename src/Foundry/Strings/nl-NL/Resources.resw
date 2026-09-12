@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Kies een versie of sla een kopie op om beide te bewaren. De andere versie wordt vervangen.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Kies het verbindingsbestand dat u van iemand uit uw team hebt ontvangen.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Een verbindingsbestand opslaan zodat een andere pc deze gedeelde configuratie kan gebruiken.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Doorgaan</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Gedeeld profiel maken</value>
+    <value>Deze configuratie delen</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Kies een gedeelde netwerkmap voor deze configuratie.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Lokaal profiel verwijderen</value>
@@ -2257,16 +2266,22 @@
     <value>Wachtwoorden onthouden, profielen overdragen en gedeelde instellingen synchroniseren.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Versleuteld profiel exporteren</value>
+    <value>Exporteren</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Deze configuratie opslaan in een bestand als back-up of voor een andere pc.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Kies een wachtwoord om het geëxporteerde bestand te beveiligen. U hebt het nodig om de configuratie te importeren.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Herstelbestand exporteren</value>
+    <value>Verbindingsbestand opslaan</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Bewerking mislukt. Controleer bestand, wachtwoordzin, machtigingen en verbinding.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Referenties vergeten</value>
+    <value>Opgeslagen wachtwoorden en toegang wissen</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Opgeslagen wachtwoorden en de gedeelde sleutel voor dit lokale profiel vergeten? Bestaande media blijven ongewijzigd.</value>
@@ -2278,7 +2293,10 @@
     <value>De gedeelde geschiedenis is vol. Maak een nieuwe gedeelde opslagplaats.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Importeren als kopie</value>
+    <value>Importeren</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Een configuratie uit een bestand toevoegen.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Geheimen en vertrouwelijke bestanden opnemen</value>
@@ -2287,19 +2305,19 @@
     <value>Vul vereiste wachtwoorden en bronbestanden aan voordat u geheimen onthoudt of publiceert.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Deelnemen via herstelbestand</value>
+    <value>Verbinding maken met een gedeelde configuratie</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Lokale versie behouden</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Windows Referentiebeheer bewaart wachtwoorden voor deze Windows-gebruiker op deze pc.</value>
+    <value>Wachtwoorden voor uw Windows-account op deze pc bewaren.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Opgeslagen referenties zijn niet beschikbaar voor deze Windows-gebruiker.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Beheren</value>
+    <value>Meer opties</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>{0} bestanden ontbreken of zijn weggelaten. Controleer hun paden voordat u media maakt.</value>
@@ -2322,7 +2340,7 @@ Geheimen: {2}</value>
     <value>Gereed</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Bewaar het versleutelde herstelbestand en de wachtwoordzin buiten de gedeelde map.</value>
+    <value>Bewaar het verbindingsbestand en het bijbehorende wachtwoord buiten de gedeelde map.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Wachtwoorden onthouden</value>
@@ -2340,7 +2358,13 @@ Geheimen: {2}</value>
     <value>De gedeelde geschiedenis is onverwacht gewijzigd. Herstel een vertrouwde kopie.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Opslaan als kopie</value>
+    <value>Dupliceren</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Instellen</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Deze configuratie delen of verbinding maken met een configuratie die uw team al gebruikt.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Ontvangers met de profielsleutel kunnen opgenomen geheimen en privésleutels van certificaten lezen.</value>
@@ -2351,8 +2375,17 @@ Geheimen: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Gebruik één gezaghebbende SMB 3-share met verplichte versleuteling. Cloudgespiegelde mappen worden niet ondersteund.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Wachtwoorden voor deze configuratie niet meer onthouden op deze pc?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Nu synchroniseren</value>
+    <value>Synchroniseren</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Synchroniseren</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Deze configuratie op de pc’s van uw team actueel houden.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Gesynchroniseerd</value>

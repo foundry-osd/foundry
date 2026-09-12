@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Valige versioon või salvestage koopia mõlema säilitamiseks. Teine versioon asendatakse.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Vali ühendusfail, mille said oma meeskonnaliikmelt.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Salvesta ühendusfail, et teine arvuti saaks seda jagatud konfiguratsiooni kasutada.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Jätka</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Loo jagatud profiil</value>
+    <value>Jaga seda konfiguratsiooni</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Vali selle konfiguratsiooni jaoks jagatud võrgukaust.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Kustuta kohalik profiil</value>
@@ -2257,16 +2266,22 @@
     <value>Jätke paroolid meelde, teisaldage profiile ja sünkroonige jagatud sätteid.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Ekspordi krüptitud profiil</value>
+    <value>Ekspordi</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Salvesta see konfiguratsioon faili varukoopiaks või teise arvuti jaoks.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Vali eksporditud faili kaitsmiseks parool. Vajad seda konfiguratsiooni importimiseks.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Ekspordi taastefail</value>
+    <value>Salvesta ühendusfail</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Toiming nurjus. Kontrollige faili, paroolifraasi, õigusi ja ühendust.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Unusta identimisteave</value>
+    <value>Kustuta salvestatud paroolid ja juurdepääsud</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Kas unustada selle kohaliku profiili salvestatud paroolid ja jagatud võti? Olemasolev andmekandja ei muutu.</value>
@@ -2278,7 +2293,10 @@
     <value>Jagatud ajalugu on täis. Looge uus jagatud hoidla.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Impordi koopiana</value>
+    <value>Impordi</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Lisa konfiguratsioon failist.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Kaasa saladused ja konfidentsiaalsed failid</value>
@@ -2287,19 +2305,19 @@
     <value>Enne saladuste meeldejätmist või avaldamist täitke nõutud paroolid ja lähtefailid.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Liitu taastefaili kaudu</value>
+    <value>Ühenda jagatud konfiguratsiooniga</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Säilita kohalik versioon</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Windowsi identimisteabe haldur salvestab paroolid selle Windowsi kasutaja jaoks selles arvutis.</value>
+    <value>Säilita oma Windowsi konto paroolid selles arvutis.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Salvestatud identimisteave pole sellele Windowsi kasutajale saadaval.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Halda</value>
+    <value>Rohkem valikuid</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>{0} faili puudub või on välja jäetud. Enne andmekandja loomist kontrollige nende teid.</value>
@@ -2322,7 +2340,7 @@ Saladused: {2}</value>
     <value>Valmis</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Hoidke krüptitud taastefaili ja selle paroolifraasi väljaspool jagatud kausta.</value>
+    <value>Hoia ühendusfaili ja selle parooli väljaspool jagatud kausta.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Jäta paroolid meelde</value>
@@ -2340,7 +2358,13 @@ Saladused: {2}</value>
     <value>Jagatud ajalugu muutus ootamatult. Taastage usaldusväärsest koopiast.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Salvesta koopiana</value>
+    <value>Tee koopia</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Seadista</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Jaga seda konfiguratsiooni või ühenda konfiguratsiooniga, mida sinu meeskond juba kasutab.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Profiilivõtmega adressaadid saavad lugeda kaasatud saladusi ja sertifikaatide privaatvõtmeid.</value>
@@ -2351,8 +2375,17 @@ Saladused: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Kasutage ühte põhilist SMB 3 jagatud ressurssi, kus krüptimine on kohustuslik. Pilve peegeldatavaid kaustu ei toetata.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Kas lõpetada selle konfiguratsiooni paroolide meelespidamine selles arvutis?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Sünkrooni kohe</value>
+    <value>Sünkrooni</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Sünkrooni</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Hoia see konfiguratsioon oma meeskonna arvutites ajakohasena.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Sünkroonitud</value>

@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Choose a version or save a copy to preserve both. The other version will be replaced.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Choose the connection file provided by someone on your team.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Save a connection file so another PC can join this shared configuration.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Create shared profile</value>
+    <value>Share this configuration</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Choose a shared network folder for this configuration.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Delete local profile</value>
@@ -2257,16 +2266,22 @@
     <value>Remember passwords, transfer profiles, and synchronize shared settings.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Export encrypted profile</value>
+    <value>Export</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Save this configuration to a file for backup or another PC.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Choose a password to protect the exported file. You will need it to import the configuration.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Export recovery file</value>
+    <value>Save connection file</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Operation failed. Check the file, passphrase, permissions, and connection.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Forget credentials</value>
+    <value>Clear saved passwords and access</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Forget saved passwords and the shared key for this local profile? Existing media is unchanged.</value>
@@ -2278,7 +2293,10 @@
     <value>Shared history is full. Create a new shared repository.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Import as copy</value>
+    <value>Import</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Add a configuration from a file.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Include secrets and confidential files</value>
@@ -2287,19 +2305,19 @@
     <value>Complete required passwords and source files before remembering or publishing secrets.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Join from recovery file</value>
+    <value>Connect to a shared configuration</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Keep local version</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Windows Credential Manager stores passwords for this Windows user on this PC.</value>
+    <value>Keep passwords for your Windows account on this PC.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Saved credentials are unavailable for this Windows user.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Manage</value>
+    <value>More options</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>{0} files are missing or omitted. Review their paths before building media.</value>
@@ -2322,7 +2340,7 @@ Secrets: {2}</value>
     <value>Ready</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Keep the encrypted recovery file and its passphrase outside the shared folder.</value>
+    <value>Keep the connection file and its password outside the shared folder.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Remember passwords</value>
@@ -2340,7 +2358,13 @@ Secrets: {2}</value>
     <value>Shared history changed unexpectedly. Restore from a trusted copy.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Save as copy</value>
+    <value>Duplicate</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Set up</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Share this configuration or connect to one your team already uses.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Recipients with the profile key can read included secrets and certificate private keys.</value>
@@ -2351,8 +2375,17 @@ Secrets: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Use one authoritative SMB 3 share with encryption required. Cloud-mirrored folders are unsupported.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Stop remembering passwords for this configuration on this PC?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Sync now</value>
+    <value>Synchronize</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Synchronize</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Keep this configuration up to date across your team’s PCs.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Synchronized</value>

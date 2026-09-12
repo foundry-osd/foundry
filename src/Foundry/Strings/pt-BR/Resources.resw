@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Escolha uma versão ou salve uma cópia para preservar ambas. A outra versão será substituída.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Escolha o arquivo de conexão fornecido por alguém da sua equipe.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Salvar um arquivo de conexão para que outro PC possa usar esta configuração compartilhada.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continuar</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Criar perfil compartilhado</value>
+    <value>Compartilhar esta configuração</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Escolha uma pasta de rede compartilhada para esta configuração.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Excluir perfil local</value>
@@ -2257,16 +2266,22 @@
     <value>Lembre senhas, transfira perfis e sincronize configurações compartilhadas.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Exportar perfil criptografado</value>
+    <value>Exportar</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Salvar esta configuração em um arquivo para backup ou para outro PC.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Escolha uma senha para proteger o arquivo exportado. Você precisará dela para importar a configuração.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Exportar arquivo de recuperação</value>
+    <value>Salvar arquivo de conexão</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>A operação falhou. Verifique o arquivo, a frase secreta, as permissões e a conexão.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Esquecer credenciais</value>
+    <value>Limpar senhas e acessos salvos</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Esquecer as senhas salvas e a chave compartilhada deste perfil local? As mídias existentes não serão alteradas.</value>
@@ -2278,7 +2293,10 @@
     <value>O histórico compartilhado está cheio. Crie um novo repositório compartilhado.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Importar como cópia</value>
+    <value>Importar</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Adicionar uma configuração de um arquivo.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Incluir segredos e arquivos confidenciais</value>
@@ -2287,19 +2305,19 @@
     <value>Preencha as senhas e os arquivos de origem necessários antes de lembrar ou publicar segredos.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Ingressar pelo arquivo de recuperação</value>
+    <value>Conectar a uma configuração compartilhada</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Manter versão local</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>O Gerenciador de Credenciais do Windows armazena senhas para este usuário do Windows neste computador.</value>
+    <value>Manter as senhas da sua conta do Windows neste PC.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>As credenciais salvas estão indisponíveis para este usuário do Windows.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Gerenciar</value>
+    <value>Mais opções</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>{0} arquivos estão ausentes ou foram omitidos. Revise seus caminhos antes de criar a mídia.</value>
@@ -2322,7 +2340,7 @@ Segredos: {2}</value>
     <value>Pronto</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Mantenha o arquivo de recuperação criptografado e sua frase secreta fora da pasta compartilhada.</value>
+    <value>Mantenha o arquivo de conexão e sua senha fora da pasta compartilhada.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Lembrar senhas</value>
@@ -2340,7 +2358,13 @@ Segredos: {2}</value>
     <value>O histórico compartilhado mudou inesperadamente. Restaure de uma cópia confiável.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Salvar como cópia</value>
+    <value>Duplicar</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Configurar</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Compartilhar esta configuração ou conectar a uma que sua equipe já utiliza.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Destinatários com a chave do perfil podem ler os segredos incluídos e as chaves privadas dos certificados.</value>
@@ -2351,8 +2375,17 @@ Segredos: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Use um único compartilhamento SMB 3 autoritativo com criptografia obrigatória. Pastas espelhadas na nuvem não são compatíveis.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Parar de lembrar as senhas desta configuração neste PC?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Sincronizar agora</value>
+    <value>Sincronizar</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Sincronizar</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Manter esta configuração atualizada nos PCs da sua equipe.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Sincronizado</value>

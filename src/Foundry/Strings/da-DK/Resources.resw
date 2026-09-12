@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Vælg en version, eller gem en kopi for at bevare begge. Den anden version erstattes.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Vælg den forbindelsesfil, du har modtaget fra en på dit team.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Gem en forbindelsesfil, så en anden pc kan bruge denne delte konfiguration.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Fortsæt</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Opret delt profil</value>
+    <value>Del denne konfiguration</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Vælg en delt netværksmappe til denne konfiguration.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Slet lokal profil</value>
@@ -2257,16 +2266,22 @@
     <value>Husk adgangskoder, overfør profiler, og synkroniser delte indstillinger.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Eksportér krypteret profil</value>
+    <value>Eksportér</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Gem denne konfiguration i en fil som sikkerhedskopi eller til en anden pc.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Vælg en adgangskode til at beskytte den eksporterede fil. Du skal bruge den til at importere konfigurationen.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Eksportér gendannelsesfil</value>
+    <value>Gem forbindelsesfil</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Handlingen mislykkedes. Kontrollér fil, adgangssætning, tilladelser og forbindelse.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Glem legitimationsoplysninger</value>
+    <value>Ryd gemte adgangskoder og adgange</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Glem gemte adgangskoder og den delte nøgle for denne lokale profil? Eksisterende medier ændres ikke.</value>
@@ -2278,7 +2293,10 @@
     <value>Den delte historik er fuld. Opret et nyt delt lager.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Importér som kopi</value>
+    <value>Importér</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Tilføj en konfiguration fra en fil.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Medtag hemmeligheder og fortrolige filer</value>
@@ -2287,19 +2305,19 @@
     <value>Udfyld nødvendige adgangskoder og kildefiler, før du husker eller udgiver hemmeligheder.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Tilslut via gendannelsesfil</value>
+    <value>Opret forbindelse til en delt konfiguration</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Behold lokal version</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Windows Legitimationsstyring gemmer adgangskoder for denne Windows-bruger på denne pc.</value>
+    <value>Gem adgangskoder til din Windows-konto på denne pc.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Gemte legitimationsoplysninger er utilgængelige for denne Windows-bruger.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Administrer</value>
+    <value>Flere indstillinger</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>{0} filer mangler eller er udeladt. Kontrollér deres stier, før du opretter medier.</value>
@@ -2322,7 +2340,7 @@ Hemmeligheder: {2}</value>
     <value>Klar</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Opbevar den krypterede gendannelsesfil og dens adgangssætning uden for den delte mappe.</value>
+    <value>Opbevar forbindelsesfilen og dens adgangskode uden for den delte mappe.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Husk adgangskoder</value>
@@ -2340,7 +2358,13 @@ Hemmeligheder: {2}</value>
     <value>Den delte historik blev ændret uventet. Gendan fra en betroet kopi.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Gem som kopi</value>
+    <value>Duplikér</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Konfigurer</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Del denne konfiguration, eller opret forbindelse til en, dit team allerede bruger.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Modtagere med profilnøglen kan læse medtagne hemmeligheder og private certifikatnøgler.</value>
@@ -2351,8 +2375,17 @@ Hemmeligheder: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Brug én autoritativ SMB 3-deling med påkrævet kryptering. Mapper spejlet i skyen understøttes ikke.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Vil du stoppe med at huske adgangskoder til denne konfiguration på denne pc?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Synkroniser nu</value>
+    <value>Synkroniser</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Synkroniser</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Hold denne konfiguration opdateret på dit teams pc’er.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Synkroniseret</value>

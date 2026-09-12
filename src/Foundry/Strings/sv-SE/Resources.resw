@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Välj en version eller spara en kopia för att behålla båda. Den andra versionen ersätts.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Välj anslutningsfilen som du har fått av någon i ditt team.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Spara en anslutningsfil så att en annan dator kan använda den här delade konfigurationen.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Fortsätt</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Skapa delad profil</value>
+    <value>Dela den här konfigurationen</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Välj en delad nätverksmapp för den här konfigurationen.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Ta bort lokal profil</value>
@@ -2257,16 +2266,22 @@
     <value>Kom ihåg lösenord, överför profiler och synkronisera delade inställningar.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Exportera krypterad profil</value>
+    <value>Exportera</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Spara den här konfigurationen i en fil som säkerhetskopia eller för en annan dator.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Välj ett lösenord för att skydda den exporterade filen. Du behöver det för att importera konfigurationen.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Exportera återställningsfil</value>
+    <value>Spara anslutningsfil</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Åtgärden misslyckades. Kontrollera fil, lösenfras, behörigheter och anslutning.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Glöm autentiseringsuppgifter</value>
+    <value>Rensa sparade lösenord och åtkomster</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Glöm sparade lösenord och den delade nyckeln för denna lokala profil? Befintliga medier ändras inte.</value>
@@ -2278,7 +2293,10 @@
     <value>Den delade historiken är full. Skapa en ny delad lagringsplats.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Importera som kopia</value>
+    <value>Importera</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Lägg till en konfiguration från en fil.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Inkludera hemligheter och konfidentiella filer</value>
@@ -2287,19 +2305,19 @@
     <value>Fyll i nödvändiga lösenord och källfiler innan du sparar eller publicerar hemligheter.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Anslut via återställningsfil</value>
+    <value>Anslut till en delad konfiguration</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Behåll lokal version</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Autentiseringshanteraren i Windows lagrar lösenord för denna Windows-användare på den här datorn.</value>
+    <value>Spara lösenord för ditt Windows-konto på den här datorn.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Sparade autentiseringsuppgifter är otillgängliga för denna Windows-användare.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Hantera</value>
+    <value>Fler alternativ</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>{0} filer saknas eller har utelämnats. Kontrollera sökvägarna innan du skapar medier.</value>
@@ -2322,7 +2340,7 @@ Hemligheter: {2}</value>
     <value>Klar</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Förvara den krypterade återställningsfilen och dess lösenfras utanför den delade mappen.</value>
+    <value>Förvara anslutningsfilen och dess lösenord utanför den delade mappen.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Kom ihåg lösenord</value>
@@ -2340,7 +2358,13 @@ Hemligheter: {2}</value>
     <value>Den delade historiken ändrades oväntat. Återställ från en betrodd kopia.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Spara som kopia</value>
+    <value>Duplicera</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Konfigurera</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Dela den här konfigurationen eller anslut till en som ditt team redan använder.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Mottagare med profilnyckeln kan läsa inkluderade hemligheter och privata certifikatnycklar.</value>
@@ -2351,8 +2375,17 @@ Hemligheter: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Använd en enda auktoritativ SMB 3-resurs med obligatorisk kryptering. Molnspeglade mappar stöds inte.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Sluta komma ihåg lösenord för den här konfigurationen på den här datorn?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Synkronisera nu</value>
+    <value>Synkronisera</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Synkronisera</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Håll den här konfigurationen uppdaterad på teamets datorer.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Synkroniserad</value>

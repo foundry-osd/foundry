@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>使用するバージョンを選択するか、コピーを保存して両方を残してください。もう一方のバージョンは置き換えられます。</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>チームのメンバーから受け取った接続ファイルを選択してください。</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>別の PC でこの共有構成を使用できるように、接続ファイルを保存します。</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>続行</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>共有プロファイルを作成</value>
+    <value>この構成を共有</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>この構成に使用する共有ネットワークフォルダーを選択してください。</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>ローカルプロファイルを削除</value>
@@ -2257,16 +2266,22 @@
     <value>パスワードの保存、プロファイルの転送、共有設定の同期を行います。</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>暗号化プロファイルをエクスポート</value>
+    <value>エクスポート</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>バックアップや別の PC での使用のために、この構成をファイルに保存します。</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>エクスポートするファイルを保護するパスワードを選択してください。構成をインポートするときに必要です。</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>回復ファイルをエクスポート</value>
+    <value>接続ファイルを保存</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>操作に失敗しました。ファイル、パスフレーズ、アクセス許可、接続を確認してください。</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>保存済み資格情報を削除</value>
+    <value>保存したパスワードとアクセス情報を消去</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>このローカルプロファイルの保存済みパスワードと共有キーを削除しますか？既存のメディアは変更されません。</value>
@@ -2278,7 +2293,10 @@
     <value>共有履歴が上限に達しました。新しい共有リポジトリを作成してください。</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>コピーとしてインポート</value>
+    <value>インポート</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>ファイルから構成を追加します。</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>秘密情報と機密ファイルを含める</value>
@@ -2287,19 +2305,19 @@
     <value>秘密情報を保存または公開する前に、必要なパスワードとソースファイルをすべて揃えてください。</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>回復ファイルから参加</value>
+    <value>共有構成に接続</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>ローカルバージョンを保持</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Windows 資格情報マネージャーは、この PC の現在の Windows ユーザー用にパスワードを保存します。</value>
+    <value>この PC の Windows アカウントにパスワードを保存します。</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>この Windows ユーザーでは、保存済みの資格情報を利用できません。</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>管理</value>
+    <value>その他のオプション</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>{0} 個のファイルが見つからないか、含まれていません。メディアを作成する前にパスを確認してください。</value>
@@ -2322,7 +2340,7 @@
     <value>準備完了</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>暗号化された回復ファイルとそのパスフレーズは、共有フォルダーの外部に保管してください。</value>
+    <value>接続ファイルとそのパスワードは共有フォルダーの外に保管してください。</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>パスワードを保存</value>
@@ -2340,7 +2358,13 @@
     <value>共有履歴が予期せず変更されました。信頼できるコピーから復元してください。</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>コピーとして保存</value>
+    <value>複製</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>セットアップ</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>この構成を共有するか、チームが既に使用している構成に接続します。</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>プロファイルのキーを持つ受信者は、含まれている秘密情報や証明書の秘密キーを読み取ることができます。</value>
@@ -2351,8 +2375,17 @@
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>暗号化を必須にした単一の SMB 3 共有を正規の保存先として使用してください。クラウド経由で複製されるフォルダーはサポートされません。</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>この PC でこの構成のパスワードの保存を停止しますか？</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>今すぐ同期</value>
+    <value>同期</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>同期</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>チームの各 PC でこの構成を最新の状態に保ちます。</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>同期済み</value>

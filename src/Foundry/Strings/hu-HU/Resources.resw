@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Válasszon egy verziót, vagy mentsen másolatot mindkettő megtartásához. A másik verzió lecserélődik.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Válassza ki a csapat egyik tagjától kapott csatlakozási fájlt.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Mentsen egy csatlakozási fájlt, hogy egy másik számítógép is használhassa ezt a megosztott konfigurációt.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Folytatás</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Megosztott profil létrehozása</value>
+    <value>Konfiguráció megosztása</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Válasszon megosztott hálózati mappát ehhez a konfigurációhoz.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Helyi profil törlése</value>
@@ -2257,16 +2266,22 @@
     <value>Jelszavak megjegyzése, profilok átvitele és megosztott beállítások szinkronizálása.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Titkosított profil exportálása</value>
+    <value>Exportálás</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>A konfiguráció mentése fájlba biztonsági másolatként vagy egy másik számítógéphez.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Válasszon jelszót az exportált fájl védelméhez. A konfiguráció importálásakor szüksége lesz rá.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Helyreállítási fájl exportálása</value>
+    <value>Csatlakozási fájl mentése</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>A művelet sikertelen. Ellenőrizze a fájlt, jelmondatot, jogosultságokat és kapcsolatot.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Hitelesítő adatok elfelejtése</value>
+    <value>Mentett jelszavak és hozzáférések törlése</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Elfelejti e helyi profil mentett jelszavait és megosztott kulcsát? A meglévő adathordozók nem változnak.</value>
@@ -2278,7 +2293,10 @@
     <value>A megosztott előzmények megteltek. Hozzon létre új megosztott tárhelyet.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Importálás másolatként</value>
+    <value>Importálás</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Konfiguráció hozzáadása fájlból.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Titkos adatok és bizalmas fájlok hozzáadása</value>
@@ -2287,19 +2305,19 @@
     <value>A titkok megjegyzése vagy közzététele előtt adja meg a szükséges jelszavakat és forrásfájlokat.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Csatlakozás helyreállítási fájllal</value>
+    <value>Csatlakozás megosztott konfigurációhoz</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Helyi verzió megtartása</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>A Windows Hitelesítőadat-kezelő ezen a gépen ehhez a Windows-felhasználóhoz tárolja a jelszavakat.</value>
+    <value>Jelszavak megőrzése a Windows-fiókjához ezen a számítógépen.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>A mentett hitelesítő adatok nem érhetők el ennek a Windows-felhasználónak.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Kezelés</value>
+    <value>További lehetőségek</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>{0} fájl hiányzik vagy ki lett hagyva. Az adathordozó létrehozása előtt ellenőrizze az elérési útjukat.</value>
@@ -2322,7 +2340,7 @@ Titkos adatok: {2}</value>
     <value>Kész</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>A titkosított helyreállítási fájlt és jelmondatát a megosztott mappán kívül tárolja.</value>
+    <value>A csatlakozási fájlt és a jelszavát a megosztott mappán kívül tárolja.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Jelszavak megjegyzése</value>
@@ -2340,7 +2358,13 @@ Titkos adatok: {2}</value>
     <value>A megosztott előzmények váratlanul megváltoztak. Állítson vissza egy megbízható másolatot.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Mentés másolatként</value>
+    <value>Másolat készítése</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Beállítás</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Ossza meg ezt a konfigurációt, vagy csatlakozzon a csapata által már használt konfigurációhoz.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>A profilkulccsal rendelkező címzettek olvashatják a mellékelt titkos adatokat és tanúsítványok magánkulcsait.</value>
@@ -2351,8 +2375,17 @@ Titkos adatok: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Egyetlen mérvadó SMB 3-megosztást használjon kötelező titkosítással. A felhőbe tükrözött mappák nem támogatottak.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Ne jegyezze meg többé a konfiguráció jelszavait ezen a számítógépen?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Szinkronizálás most</value>
+    <value>Szinkronizálás</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Szinkronizálás</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>A konfiguráció naprakészen tartása a csapat számítógépein.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Szinkronizálva</value>

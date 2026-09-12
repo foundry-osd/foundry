@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Wybierz wersję lub zapisz kopię, aby zachować obie. Druga wersja zostanie zastąpiona.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Wybierz plik połączenia otrzymany od członka zespołu.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Zapisz plik połączenia, aby inny komputer mógł korzystać z tej udostępnionej konfiguracji.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Kontynuuj</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Utwórz profil współdzielony</value>
+    <value>Udostępnij tę konfigurację</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Wybierz udostępniony folder sieciowy dla tej konfiguracji.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Usuń profil lokalny</value>
@@ -2257,16 +2266,22 @@
     <value>Zapamiętuj hasła, przenoś profile i synchronizuj wspólne ustawienia.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Eksportuj zaszyfrowany profil</value>
+    <value>Eksportuj</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Zapisz tę konfigurację w pliku jako kopię zapasową lub do użycia na innym komputerze.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Wybierz hasło, aby zabezpieczyć eksportowany plik. Będzie potrzebne do zaimportowania konfiguracji.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Eksportuj plik odzyskiwania</value>
+    <value>Zapisz plik połączenia</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Operacja nie powiodła się. Sprawdź plik, frazę hasła, uprawnienia i połączenie.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Zapomnij poświadczenia</value>
+    <value>Wyczyść zapisane hasła i dane dostępu</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Zapomnieć zapisane hasła i wspólny klucz tego profilu lokalnego? Istniejące nośniki pozostaną bez zmian.</value>
@@ -2278,7 +2293,10 @@
     <value>Historia współdzielona jest pełna. Utwórz nowe wspólne repozytorium.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Importuj jako kopię</value>
+    <value>Importuj</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Dodaj konfigurację z pliku.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Dołącz sekrety i poufne pliki</value>
@@ -2287,19 +2305,19 @@
     <value>Uzupełnij wymagane hasła i pliki źródłowe przed zapamiętaniem lub opublikowaniem sekretów.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Dołącz z pliku odzyskiwania</value>
+    <value>Połącz z udostępnioną konfiguracją</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Zachowaj wersję lokalną</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Menedżer poświadczeń Windows przechowuje hasła tego użytkownika Windows na tym komputerze.</value>
+    <value>Zachowaj hasła dla swojego konta Windows na tym komputerze.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Zapisane poświadczenia są niedostępne dla tego użytkownika Windows.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Zarządzaj</value>
+    <value>Więcej opcji</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>Brakuje lub pominięto {0} plików. Sprawdź ich ścieżki przed utworzeniem nośnika.</value>
@@ -2322,7 +2340,7 @@ Sekrety: {2}</value>
     <value>Gotowe</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Zaszyfrowany plik odzyskiwania i jego frazę hasła przechowuj poza udostępnionym folderem.</value>
+    <value>Przechowuj plik połączenia i jego hasło poza udostępnionym folderem.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Zapamiętaj hasła</value>
@@ -2340,7 +2358,13 @@ Sekrety: {2}</value>
     <value>Historia współdzielona zmieniła się nieoczekiwanie. Przywróć zaufaną kopię.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Zapisz jako kopię</value>
+    <value>Duplikuj</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Skonfiguruj</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Udostępnij tę konfigurację lub połącz się z konfiguracją, której Twój zespół już używa.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Odbiorcy posiadający klucz profilu mogą odczytać dołączone sekrety i klucze prywatne certyfikatów.</value>
@@ -2351,8 +2375,17 @@ Sekrety: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Używaj jednego nadrzędnego udziału SMB 3 z wymaganym szyfrowaniem. Foldery replikowane w chmurze nie są obsługiwane.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Przestać zapamiętywać hasła tej konfiguracji na tym komputerze?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Synchronizuj teraz</value>
+    <value>Synchronizuj</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Synchronizuj</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Utrzymuj tę konfigurację aktualną na komputerach swojego zespołu.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Zsynchronizowano</value>

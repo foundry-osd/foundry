@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Επιλέξτε έκδοση ή αποθηκεύστε αντίγραφο για να διατηρήσετε και τις δύο. Η άλλη έκδοση θα αντικατασταθεί.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Επιλέξτε το αρχείο σύνδεσης που σας έδωσε κάποιος από την ομάδα σας.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Αποθηκεύστε ένα αρχείο σύνδεσης ώστε άλλος υπολογιστής να μπορεί να χρησιμοποιήσει αυτήν την κοινόχρηστη διαμόρφωση.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Συνέχεια</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Δημιουργία κοινόχρηστου προφίλ</value>
+    <value>Κοινή χρήση αυτής της διαμόρφωσης</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Επιλέξτε έναν κοινόχρηστο φάκελο δικτύου για αυτήν τη διαμόρφωση.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Διαγραφή τοπικού προφίλ</value>
@@ -2257,16 +2266,22 @@
     <value>Απομνημόνευση κωδικών, μεταφορά προφίλ και συγχρονισμός κοινόχρηστων ρυθμίσεων.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Εξαγωγή κρυπτογραφημένου προφίλ</value>
+    <value>Εξαγωγή</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Αποθήκευση αυτής της διαμόρφωσης σε αρχείο για αντίγραφο ασφαλείας ή για άλλον υπολογιστή.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Επιλέξτε έναν κωδικό πρόσβασης για την προστασία του εξαγόμενου αρχείου. Θα τον χρειαστείτε για την εισαγωγή της διαμόρφωσης.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Εξαγωγή αρχείου ανάκτησης</value>
+    <value>Αποθήκευση αρχείου σύνδεσης</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Η ενέργεια απέτυχε. Ελέγξτε το αρχείο, τη φράση πρόσβασης, τα δικαιώματα και τη σύνδεση.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Διαγραφή διαπιστευτηρίων</value>
+    <value>Εκκαθάριση αποθηκευμένων κωδικών και στοιχείων πρόσβασης</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Να διαγραφούν οι αποθηκευμένοι κωδικοί και το κοινόχρηστο κλειδί αυτού του τοπικού προφίλ; Τα υπάρχοντα μέσα δεν αλλάζουν.</value>
@@ -2278,7 +2293,10 @@
     <value>Το κοινόχρηστο ιστορικό είναι πλήρες. Δημιουργήστε νέο κοινόχρηστο αποθετήριο.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Εισαγωγή ως αντίγραφο</value>
+    <value>Εισαγωγή</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Προσθήκη διαμόρφωσης από αρχείο.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Συμπερίληψη μυστικών και εμπιστευτικών αρχείων</value>
@@ -2287,19 +2305,19 @@
     <value>Συμπληρώστε τους απαιτούμενους κωδικούς και τα αρχεία προέλευσης πριν απομνημονεύσετε ή δημοσιεύσετε μυστικά.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Σύνδεση από αρχείο ανάκτησης</value>
+    <value>Σύνδεση σε κοινόχρηστη διαμόρφωση</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Διατήρηση τοπικής έκδοσης</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Η Διαχείριση διαπιστευτηρίων των Windows αποθηκεύει κωδικούς για αυτόν τον χρήστη σε αυτόν τον υπολογιστή.</value>
+    <value>Διατήρηση κωδικών για τον λογαριασμό σας στα Windows σε αυτόν τον υπολογιστή.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Τα αποθηκευμένα διαπιστευτήρια δεν είναι διαθέσιμα για αυτόν τον χρήστη Windows.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Διαχείριση</value>
+    <value>Περισσότερες επιλογές</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>{0} αρχεία λείπουν ή έχουν παραλειφθεί. Ελέγξτε τις διαδρομές τους πριν δημιουργήσετε μέσα.</value>
@@ -2322,7 +2340,7 @@
     <value>Έτοιμο</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Φυλάξτε το κρυπτογραφημένο αρχείο ανάκτησης και τη φράση πρόσβασής του εκτός του κοινόχρηστου φακέλου.</value>
+    <value>Φυλάξτε το αρχείο σύνδεσης και τον κωδικό του έξω από τον κοινόχρηστο φάκελο.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Απομνημόνευση κωδικών</value>
@@ -2340,7 +2358,13 @@
     <value>Το κοινόχρηστο ιστορικό άλλαξε απροσδόκητα. Επαναφέρετε από αξιόπιστο αντίγραφο.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Αποθήκευση ως αντίγραφο</value>
+    <value>Δημιουργία αντιγράφου</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Ρύθμιση</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Μοιραστείτε αυτήν τη διαμόρφωση ή συνδεθείτε σε κάποια που χρησιμοποιεί ήδη η ομάδα σας.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Οι παραλήπτες με το κλειδί προφίλ μπορούν να διαβάσουν τα συμπεριλαμβανόμενα μυστικά και ιδιωτικά κλειδιά πιστοποιητικών.</value>
@@ -2351,8 +2375,17 @@
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Χρησιμοποιήστε έναν επίσημο κοινόχρηστο πόρο SMB 3 με υποχρεωτική κρυπτογράφηση. Οι φάκελοι που αντιγράφονται στο cloud δεν υποστηρίζονται.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Να σταματήσει η απομνημόνευση κωδικών για αυτήν τη διαμόρφωση σε αυτόν τον υπολογιστή;</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Συγχρονισμός τώρα</value>
+    <value>Συγχρονισμός</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Συγχρονισμός</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Διατήρηση αυτής της διαμόρφωσης ενημερωμένης στους υπολογιστές της ομάδας σας.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Συγχρονίστηκε</value>

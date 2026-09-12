@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Alegeți o versiune sau salvați o copie pentru a le păstra pe ambele. Cealaltă versiune va fi înlocuită.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Alege fișierul de conectare oferit de cineva din echipa ta.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Salvează un fișier de conectare pentru ca alt PC să poată folosi această configurație partajată.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continuă</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Creează profil partajat</value>
+    <value>Partajează această configurație</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Alege un folder de rețea partajat pentru această configurație.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Șterge profilul local</value>
@@ -2257,16 +2266,22 @@
     <value>Memorați parole, transferați profiluri și sincronizați setările partajate.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Exportă profilul criptat</value>
+    <value>Exportă</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Salvează această configurație într-un fișier pentru backup sau pentru alt PC.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Alege o parolă pentru a proteja fișierul exportat. Vei avea nevoie de ea pentru a importa configurația.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Exportă fișierul de recuperare</value>
+    <value>Salvează fișierul de conectare</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Operația a eșuat. Verificați fișierul, fraza de acces, permisiunile și conexiunea.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Uită acreditările</value>
+    <value>Șterge parolele și accesul salvate</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Uitați parolele salvate și cheia partajată a acestui profil local? Mediile existente rămân neschimbate.</value>
@@ -2278,7 +2293,10 @@
     <value>Istoricul partajat este plin. Creați un depozit partajat nou.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Importă ca o copie</value>
+    <value>Importă</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Adaugă o configurație dintr-un fișier.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Include secrete și fișiere confidențiale</value>
@@ -2287,19 +2305,19 @@
     <value>Completați parolele și fișierele sursă necesare înainte de a memora sau publica secrete.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Alătură-te folosind fișierul de recuperare</value>
+    <value>Conectează-te la o configurație partajată</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Păstrează versiunea locală</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Managerul de acreditări Windows stochează parolele acestui utilizator Windows pe acest PC.</value>
+    <value>Păstrează parolele pentru contul tău Windows pe acest PC.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Acreditările salvate nu sunt disponibile pentru acest utilizator Windows.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Gestionează</value>
+    <value>Mai multe opțiuni</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>{0} fișiere lipsesc sau sunt omise. Verificați căile acestora înainte de a crea suportul.</value>
@@ -2322,7 +2340,7 @@ Secrete: {2}</value>
     <value>Pregătit</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Păstrați fișierul de recuperare criptat și fraza sa de acces în afara folderului partajat.</value>
+    <value>Păstrează fișierul de conectare și parola sa în afara folderului partajat.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Memorează parolele</value>
@@ -2340,7 +2358,13 @@ Secrete: {2}</value>
     <value>Istoricul partajat s-a schimbat neașteptat. Restaurați o copie de încredere.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Salvează o copie</value>
+    <value>Duplică</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Configurează</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Partajează această configurație sau conectează-te la una pe care echipa ta o folosește deja.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Destinatarii cu cheia profilului pot citi secretele și cheile private ale certificatelor incluse.</value>
@@ -2351,8 +2375,17 @@ Secrete: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Folosiți o singură partajare SMB 3 autoritativă cu criptare obligatorie. Folderele oglindite în cloud nu sunt acceptate.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Oprești memorarea parolelor acestei configurații pe acest PC?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Sincronizează acum</value>
+    <value>Sincronizează</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Sincronizează</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Menține această configurație actualizată pe PC-urile echipei tale.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Sincronizat</value>

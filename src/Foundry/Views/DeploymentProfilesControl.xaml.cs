@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.Application;
+using Foundry.Services.Application;
 using Foundry.Services.Localization;
 
 namespace Foundry.Views;
@@ -43,6 +44,20 @@ public sealed partial class DeploymentProfilesControl : UserControl
 
     private void UpdateLanguage() { ViewModel.Refresh(); Bindings.Update(); }
 
+    private async void AutomaticSyncToggle_Toggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggle || !toggle.IsLoaded || !ViewModel.CanInteract || toggle.IsOn == ViewModel.SyncEnabled) return;
+        await ViewModel.ToggleSyncCommand.ExecuteAsync(null);
+        toggle.IsOn = ViewModel.SyncEnabled;
+    }
+
+    private async void RememberPasswordsToggle_Toggled(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleSwitch toggle || !toggle.IsLoaded || !ViewModel.CanInteract || toggle.IsOn == ViewModel.RememberSecrets) return;
+        await ViewModel.ToggleRememberCommand.ExecuteAsync(null);
+        toggle.IsOn = ViewModel.RememberSecrets;
+    }
+
     private async Task<ProfileDialogResponse?> ShowDialogAsync(ProfileDialogRequest request)
     {
         string T(string key) => localization.GetString(key);
@@ -52,10 +67,39 @@ public sealed partial class DeploymentProfilesControl : UserControl
         var password = new PasswordBox { Header = T("Profiles.Passphrase"), MaxLength = 1024, PasswordRevealMode = PasswordRevealMode.Hidden };
         var confirmation = new PasswordBox { Header = T("Profiles.ConfirmPassphrase"), MaxLength = 1024, PasswordRevealMode = PasswordRevealMode.Hidden };
         var include = new CheckBox { Content = T("Profiles.IncludeSecrets"), IsChecked = false };
-        var remember = new CheckBox { Content = T("Profiles.Remember"), IsChecked = request.Remember };
+        var remember = new CheckBox { Content = T("Profiles.Remember"), IsChecked = false };
         var sharedKey = new CheckBox { Content = T("Profiles.RememberKey"), IsChecked = false };
         var deleteShared = new CheckBox { Content = T("Profiles.DeleteShared"), IsChecked = false };
+        var joinShared = new RadioButton { GroupName = "SynchronizationSetup", IsChecked = !ViewModel.HasActive };
         var share = new TextBox { Header = T("Profiles.SharedFolder"), PlaceholderText = @"\\server\share\profile", MaxLength = 1024, FlowDirection = FlowDirection.LeftToRight };
+        if (request.SynchronizationSetupOption)
+        {
+            StackPanel ChoiceContent(string heading, string description)
+            {
+                var choice = new StackPanel { Spacing = 4 };
+                choice.Children.Add(new TextBlock { Text = T(heading), TextWrapping = TextWrapping.Wrap });
+                choice.Children.Add(new TextBlock
+                {
+                    Text = T(description),
+                    TextWrapping = TextWrapping.Wrap,
+                    Style = (Style)Application.Current.Resources["FoundryCaptionTextBlockStyle"]
+                });
+                return choice;
+            }
+
+            var createShared = new RadioButton
+            {
+                Content = ChoiceContent("Profiles.CreateShared", "Profiles.CreateSharedDescription"),
+                GroupName = "SynchronizationSetup",
+                IsChecked = ViewModel.HasActive,
+                IsEnabled = ViewModel.HasActive
+            };
+            Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(createShared, T("Profiles.CreateShared"));
+            joinShared.Content = ChoiceContent("Profiles.JoinShared", "Profiles.ConnectDescription");
+            Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(joinShared, T("Profiles.JoinShared"));
+            content.Children.Add(createShared);
+            content.Children.Add(joinShared);
+        }
         if (request.Name is not null) content.Children.Add(name);
         if (request.Passphrase) content.Children.Add(password);
         if (request.ConfirmPassphrase) content.Children.Add(confirmation);
@@ -87,6 +131,7 @@ public sealed partial class DeploymentProfilesControl : UserControl
         content.Children.Add(validation);
         var dialog = new ContentDialog
         {
+            Style = ContentDialogStyleProvider.DefaultStyle,
             XamlRoot = XamlRoot,
             Title = T(request.Title),
             PrimaryButtonText = T("Profiles.Continue"),
@@ -107,7 +152,7 @@ public sealed partial class DeploymentProfilesControl : UserControl
         {
             if (await dialog.ShowAsync() != ContentDialogResult.Primary) return null;
             return new(name.Text, password.Password, include.IsChecked == true, remember.IsChecked == true,
-                sharedKey.IsChecked == true, share.Text, deleteShared.IsChecked == true);
+                sharedKey.IsChecked == true, share.Text, deleteShared.IsChecked == true, joinShared.IsChecked == true);
         }
         finally { password.Password = string.Empty; confirmation.Password = string.Empty; }
     }

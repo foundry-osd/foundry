@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Bir sürüm seçin veya ikisini de korumak için bir kopya kaydedin. Diğer sürüm değiştirilecektir.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Ekibinizden birinin sağladığı bağlantı dosyasını seçin.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>Başka bir bilgisayarın bu paylaşılan yapılandırmayı kullanabilmesi için bağlantı dosyası kaydedin.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Devam</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Paylaşılan profil oluştur</value>
+    <value>Bu yapılandırmayı paylaş</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Bu yapılandırma için paylaşılan bir ağ klasörü seçin.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>Yerel profili sil</value>
@@ -2257,16 +2266,22 @@
     <value>Parolaları hatırlayın, profilleri aktarın ve paylaşılan ayarları eşitleyin.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Şifreli profili dışa aktar</value>
+    <value>Dışa aktar</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Bu yapılandırmayı yedekleme veya başka bir bilgisayarda kullanmak için dosyaya kaydedin.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Dışa aktarılan dosyayı korumak için bir parola seçin. Yapılandırmayı içe aktarmak için bu parolaya ihtiyacınız olacak.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Kurtarma dosyasını dışa aktar</value>
+    <value>Bağlantı dosyasını kaydet</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>İşlem başarısız oldu. Dosyayı, parolayı, izinleri ve bağlantıyı kontrol edin.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Kimlik bilgilerini unut</value>
+    <value>Kaydedilen parolaları ve erişim bilgilerini temizle</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>Bu yerel profilin kaydedilen parolaları ve paylaşılan anahtarı unutulsun mu? Mevcut medya değişmez.</value>
@@ -2278,7 +2293,10 @@
     <value>Paylaşılan geçmiş dolu. Yeni bir paylaşılan depo oluşturun.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Kopya olarak içe aktar</value>
+    <value>İçe aktar</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Bir dosyadan yapılandırma ekleyin.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Gizli bilgileri ve gizli dosyaları dahil et</value>
@@ -2287,19 +2305,19 @@
     <value>Gizli bilgileri hatırlamadan veya yayımlamadan önce gerekli parolaları ve kaynak dosyaları tamamlayın.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Kurtarma dosyasından katıl</value>
+    <value>Paylaşılan bir yapılandırmaya bağlan</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Yerel sürümü koru</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Windows Kimlik Bilgileri Yöneticisi parolaları bu bilgisayardaki bu Windows kullanıcısı için saklar.</value>
+    <value>Windows hesabınızın parolalarını bu bilgisayarda saklayın.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>Kaydedilen kimlik bilgileri bu Windows kullanıcısı için kullanılamıyor.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Yönet</value>
+    <value>Diğer seçenekler</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>{0} dosya eksik veya atlanmış. Medya oluşturmadan önce yollarını gözden geçirin.</value>
@@ -2322,7 +2340,7 @@ Gizli bilgiler: {2}</value>
     <value>Hazır</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Şifreli kurtarma dosyasını ve parolasını paylaşılan klasörün dışında saklayın.</value>
+    <value>Bağlantı dosyasını ve parolasını paylaşılan klasörün dışında saklayın.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Parolaları hatırla</value>
@@ -2340,7 +2358,13 @@ Gizli bilgiler: {2}</value>
     <value>Paylaşılan geçmiş beklenmedik şekilde değişti. Güvenilir bir kopyadan geri yükleyin.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Kopya olarak kaydet</value>
+    <value>Çoğalt</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Kur</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Bu yapılandırmayı paylaşın veya ekibinizin zaten kullandığı bir yapılandırmaya bağlanın.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Profil anahtarına sahip alıcılar dahil edilen gizli bilgileri ve sertifika özel anahtarlarını okuyabilir.</value>
@@ -2351,8 +2375,17 @@ Gizli bilgiler: {2}</value>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Şifrelemenin zorunlu olduğu tek bir yetkili SMB 3 paylaşımı kullanın. Buluta yansıtılan klasörler desteklenmez.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Bu bilgisayarda bu yapılandırmanın parolaları artık hatırlanmasın mı?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Şimdi eşitle</value>
+    <value>Eşitle</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Eşitle</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Bu yapılandırmayı ekibinizin bilgisayarlarında güncel tutun.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>Eşitlendi</value>

@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>יש לבחור גרסה או לשמור עותק כדי לשמר את שתיהן. הגרסה האחרת תוחלף.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>יש לבחור את קובץ החיבור שקיבלת ממישהו בצוות שלך.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>יש לשמור קובץ חיבור כדי שמחשב אחר יוכל להשתמש בתצורה משותפת זו.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>המשך</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>יצירת פרופיל משותף</value>
+    <value>שיתוף תצורה זו</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>יש לבחור תיקיית רשת משותפת עבור תצורה זו.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>מחיקת פרופיל מקומי</value>
@@ -2257,16 +2266,22 @@
     <value>שמירת סיסמאות, העברת פרופילים וסנכרון הגדרות משותפות.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>ייצוא פרופיל מוצפן</value>
+    <value>ייצוא</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>שמירת תצורה זו בקובץ לצורך גיבוי או שימוש במחשב אחר.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>יש לבחור סיסמה להגנה על הקובץ המיוצא. היא תידרש כדי לייבא את התצורה.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>ייצוא קובץ שחזור</value>
+    <value>שמירת קובץ חיבור</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>הפעולה נכשלה. יש לבדוק את הקובץ, ביטוי הסיסמה, ההרשאות והחיבור.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>מחיקת אישורים שמורים</value>
+    <value>ניקוי סיסמאות ופרטי גישה שמורים</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>למחוק את הסיסמאות השמורות ואת המפתח המשותף של פרופיל מקומי זה? מדיית הפריסה הקיימת לא תשתנה.</value>
@@ -2278,7 +2293,10 @@
     <value>ההיסטוריה המשותפת מלאה. יש ליצור מאגר משותף חדש.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>ייבוא כעותק</value>
+    <value>ייבוא</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>הוספת תצורה מקובץ.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>כלילת נתונים סודיים וקבצים חסויים</value>
@@ -2287,19 +2305,19 @@
     <value>יש להשלים את הסיסמאות ואת קובצי המקור הנדרשים לפני שמירה או פרסום של נתונים סודיים.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>הצטרפות באמצעות קובץ שחזור</value>
+    <value>התחברות לתצורה משותפת</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>שמירת הגרסה המקומית</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>מנהל האישורים של Windows שומר סיסמאות עבור משתמש Windows זה במחשב זה.</value>
+    <value>שמירת סיסמאות עבור חשבון Windows שלך במחשב זה.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>האישורים השמורים אינם זמינים למשתמש Windows זה.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>ניהול</value>
+    <value>אפשרויות נוספות</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>{0} קבצים חסרים או לא נכללו. יש לבדוק את הנתיבים שלהם לפני יצירת מדיית הפריסה.</value>
@@ -2322,7 +2340,7 @@
     <value>מוכן</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>יש לשמור את קובץ השחזור המוצפן ואת ביטוי הסיסמה שלו מחוץ לתיקייה המשותפת.</value>
+    <value>יש לשמור את קובץ החיבור ואת הסיסמה שלו מחוץ לתיקייה המשותפת.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>שמירת סיסמאות</value>
@@ -2340,7 +2358,13 @@
     <value>ההיסטוריה המשותפת השתנתה באופן בלתי צפוי. יש לשחזר מעותק מהימן.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>שמירה כעותק</value>
+    <value>שכפול</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>הגדרה</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>ניתן לשתף תצורה זו או להתחבר לתצורה שהצוות שלך כבר משתמש בה.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>נמענים המחזיקים במפתח הפרופיל יכולים לקרוא את הנתונים הסודיים ואת המפתחות הפרטיים של האישורים הכלולים בו.</value>
@@ -2351,8 +2375,17 @@
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>יש להשתמש בשיתוף SMB 3 מרכזי יחיד המחייב הצפנה. תיקיות המשוכפלות דרך הענן אינן נתמכות.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>להפסיק לזכור סיסמאות עבור תצורה זו במחשב זה?</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>סנכרון עכשיו</value>
+    <value>סנכרון</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>סנכרון</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>שמירה על תצורה זו מעודכנת במחשבי הצוות שלך.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>מסונכרן</value>

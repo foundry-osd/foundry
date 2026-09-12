@@ -2232,11 +2232,20 @@
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>اختر نسخة أو احفظ نسخة إضافية للاحتفاظ بكلتيهما. سيتم استبدال النسخة الأخرى.</value>
   </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>اختر ملف الاتصال الذي قدمه لك أحد أعضاء فريقك.</value>
+  </data>
+  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
+    <value>احفظ ملف اتصال ليتمكن كمبيوتر آخر من استخدام هذا التكوين المشترك.</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>متابعة</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>إنشاء ملف تعريف مشترك</value>
+    <value>مشاركة هذا التكوين</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>اختر مجلد شبكة مشتركًا لهذا التكوين.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
     <value>حذف ملف التعريف المحلي</value>
@@ -2257,16 +2266,22 @@
     <value>تذكّر كلمات المرور ونقل ملفات التعريف ومزامنة الإعدادات المشتركة.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>تصدير ملف تعريف مشفّر</value>
+    <value>تصدير</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>حفظ هذا التكوين في ملف للنسخ الاحتياطي أو لاستخدامه على كمبيوتر آخر.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>اختر كلمة مرور لحماية الملف المُصدَّر. ستحتاج إليها لاستيراد التكوين.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>تصدير ملف الاسترداد</value>
+    <value>حفظ ملف الاتصال</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
     <value>فشلت العملية. تحقّق من الملف وعبارة المرور والأذونات والاتصال.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>نسيان بيانات الاعتماد</value>
+    <value>مسح كلمات المرور وبيانات الوصول المحفوظة</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
     <value>هل تريد نسيان كلمات المرور المحفوظة والمفتاح المشترك لملف التعريف المحلي هذا؟ لن تتغير وسائط النشر الحالية.</value>
@@ -2278,7 +2293,10 @@
     <value>امتلأ سجل الإصدارات المشترك. أنشئ مستودعًا مشتركًا جديدًا.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>استيراد كنسخة</value>
+    <value>استيراد</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>إضافة تكوين من ملف.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>تضمين البيانات السرية والملفات الحساسة</value>
@@ -2287,19 +2305,19 @@
     <value>أكمل كلمات المرور وملفات المصدر المطلوبة قبل تذكّر البيانات السرية أو نشرها.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>الانضمام باستخدام ملف الاسترداد</value>
+    <value>الاتصال بتكوين مشترك</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>الاحتفاظ بالنسخة المحلية</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>يحفظ مدير بيانات الاعتماد في Windows كلمات المرور لمستخدم Windows هذا على هذا الكمبيوتر.</value>
+    <value>الاحتفاظ بكلمات المرور لحساب Windows الخاص بك على هذا الكمبيوتر.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
     <value>بيانات الاعتماد المحفوظة غير متاحة لمستخدم Windows هذا.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>إدارة</value>
+    <value>المزيد من الخيارات</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
     <value>هناك {0} من الملفات المفقودة أو غير المضمّنة. راجع مساراتها قبل إنشاء وسائط النشر.</value>
@@ -2322,7 +2340,7 @@
     <value>جاهز</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>احتفظ بملف الاسترداد المشفّر وعبارة المرور الخاصة به خارج المجلد المشترك.</value>
+    <value>احتفظ بملف الاتصال وكلمة مروره خارج المجلد المشترك.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>تذكّر كلمات المرور</value>
@@ -2340,7 +2358,13 @@
     <value>تغيّر سجل الإصدارات المشترك بشكل غير متوقع. استعد نسخة موثوقة.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>حفظ نسخة</value>
+    <value>إنشاء نسخة</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>إعداد</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>شارك هذا التكوين أو اتصل بتكوين يستخدمه فريقك بالفعل.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>يمكن للمستلمين الذين يملكون مفتاح ملف التعريف قراءة البيانات السرية والمفاتيح الخاصة للشهادات المضمّنة.</value>
@@ -2351,8 +2375,17 @@
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>استخدم مشاركة SMB 3 مرجعية واحدة مع فرض التشفير. المجلدات المنسوخة عبر المزامنة السحابية غير مدعومة.</value>
   </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>هل تريد التوقف عن تذكر كلمات المرور لهذا التكوين على هذا الكمبيوتر؟</value>
+  </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>المزامنة الآن</value>
+    <value>مزامنة</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>مزامنة</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>إبقاء هذا التكوين محدثًا على أجهزة الكمبيوتر الخاصة بفريقك.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
     <value>تمت المزامنة</value>
