@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automatisk synkronisering</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Velg et annet navn</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Noen gamle lagrede passord eller tilgangsnøkler kunne ikke fjernes. Prøv igjen når Windows Legitimasjonsbehandling er tilgjengelig.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Versjonen du velger, erstatter den andre. Velg Dupliser først hvis du vil beholde en egen kopi.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Koble til</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Velg tilkoblingsfilen du har fått fra noen på teamet ditt.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Kunne ikke fullføre handlingen. Kontroller filen, filpassordet, tilgangstillatelsene og nettverkstilkoblingen.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Dette mappenavnet er allerede i bruk. Koble til med en tilkoblingsfil, eller gå tilbake og velg et annet navn.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Velg en ny, tom undermappe i den delte mappen. Eksisterende filer forblir uendret.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Noen passord eller kildefiler mangler. Legg dem til før du lagrer eller deler passord.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Bruk et navn uten spesialtegn og uten punktum eller mellomrom til slutt.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Koble til en delt konfigurasjon</value>
@@ -2377,6 +2389,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Delt mappe</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry oppretter en egen mappe her med konfigurasjonens navn.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Bruk samme nettverksmappe på alle PC-er. Den må bruke SMB 3 med påkrevd kryptering. Mapper som synkroniseres med skyen, støttes ikke.</value>

@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automatic sync</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Choose another name</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Some old saved passwords or access keys could not be removed. Try again when Windows Credential Manager is available.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>The version you choose will replace the other one. Choose Duplicate first if you want to keep a separate copy.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Connect</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Choose the connection file provided by someone on your team.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Couldn't complete this action. Check the file, its password, your access permissions, and your network connection.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>This folder name is already in use. Connect using a connection file, or go back and choose another name.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Choose a new, empty subfolder in the shared folder. Existing files will stay unchanged.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Some passwords or source files are missing. Add them before saving or sharing passwords.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Use a name without special characters or a trailing dot or space.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Connect to a shared configuration</value>
@@ -2377,6 +2389,9 @@ Passwords and access keys included: {2}</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Shared folder</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry creates a separate folder here using the configuration name.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Use the same network folder on every PC. It must use SMB 3 with encryption required. Cloud-synced folders are not supported.</value>

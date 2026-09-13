@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>المزامنة التلقائية</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>اختر اسمًا آخر</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>تعذرت إزالة بعض كلمات المرور أو مفاتيح الوصول القديمة المحفوظة. حاول مرة أخرى عندما يكون مدير بيانات اعتماد Windows متاحًا.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>ستحل النسخة التي تختارها محل الأخرى. اختر إنشاء نسخة أولًا إذا أردت الاحتفاظ بنسخة منفصلة.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>اتصال</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>اختر ملف الاتصال الذي قدمه لك أحد أعضاء فريقك.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>تعذر إكمال هذا الإجراء. تحقق من الملف وكلمة مروره وأذونات الوصول واتصال الشبكة.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>اسم المجلد هذا مستخدم بالفعل. اتصل باستخدام ملف اتصال، أو ارجع واختر اسمًا آخر.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>اختر مجلدًا فرعيًا جديدًا وفارغًا داخل المجلد المشترك. ستبقى الملفات الموجودة دون تغيير.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>بعض كلمات المرور أو الملفات المصدر مفقودة. أضفها قبل حفظ كلمات المرور أو مشاركتها.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>استخدم اسمًا لا يحتوي على رموز خاصة ولا ينتهي بنقطة أو مسافة.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>الاتصال بتكوين مشترك</value>
@@ -2377,6 +2389,9 @@
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>المجلد المشترك</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>ينشئ Foundry مجلدًا منفصلًا هنا باستخدام اسم التكوين.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>استخدم مجلد الشبكة نفسه على كل كمبيوتر. يجب أن يستخدم SMB 3 مع اشتراط التشفير. المجلدات التي تتم مزامنتها مع السحابة غير مدعومة.</value>

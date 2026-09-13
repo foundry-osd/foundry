@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Αυτόματος συγχρονισμός</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Επιλέξτε άλλο όνομα</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Δεν ήταν δυνατή η κατάργηση ορισμένων παλιών αποθηκευμένων κωδικών πρόσβασης ή κλειδιών πρόσβασης. Δοκιμάστε ξανά όταν είναι διαθέσιμη η Διαχείριση διαπιστευτηρίων των Windows.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Η έκδοση που θα επιλέξετε θα αντικαταστήσει την άλλη. Επιλέξτε πρώτα Δημιουργία αντιγράφου αν θέλετε να κρατήσετε ξεχωριστό αντίγραφο.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Σύνδεση</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Επιλέξτε το αρχείο σύνδεσης που σας έδωσε κάποιος από την ομάδα σας.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Δεν ήταν δυνατή η ολοκλήρωση αυτής της ενέργειας. Ελέγξτε το αρχείο, τον κωδικό πρόσβασής του, τα δικαιώματα πρόσβασης και τη σύνδεση δικτύου σας.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Αυτό το όνομα φακέλου χρησιμοποιείται ήδη. Συνδεθείτε χρησιμοποιώντας ένα αρχείο σύνδεσης ή επιστρέψτε και επιλέξτε άλλο όνομα.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Επιλέξτε έναν νέο, κενό υποφάκελο στον κοινόχρηστο φάκελο. Τα υπάρχοντα αρχεία θα παραμείνουν αμετάβλητα.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Λείπουν ορισμένοι κωδικοί πρόσβασης ή αρχεία προέλευσης. Προσθέστε τα πριν αποθηκεύσετε ή μοιραστείτε κωδικούς πρόσβασης.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Χρησιμοποιήστε ένα όνομα χωρίς ειδικούς χαρακτήρες και χωρίς τελεία ή κενό στο τέλος.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Σύνδεση σε κοινόχρηστη διαμόρφωση</value>
@@ -2377,6 +2389,9 @@
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Κοινόχρηστος φάκελος</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Το Foundry δημιουργεί εδώ έναν ξεχωριστό φάκελο με το όνομα της διαμόρφωσης.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Χρησιμοποιήστε τον ίδιο φάκελο δικτύου σε κάθε υπολογιστή. Πρέπει να χρησιμοποιεί SMB 3 με υποχρεωτική κρυπτογράφηση. Δεν υποστηρίζονται φάκελοι που συγχρονίζονται με το cloud.</value>

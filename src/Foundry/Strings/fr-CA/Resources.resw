@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Synchronisation automatique</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Choisir un autre nom</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Certains anciens mots de passe ou clés d’accès enregistrés n’ont pas pu être supprimés. Réessayez lorsque le Gestionnaire d’informations d’identification Windows est disponible.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>La version choisie remplacera l’autre. Choisissez d’abord Dupliquer pour conserver une copie séparée.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Se connecter</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Choisissez le fichier de connexion fourni par un membre de votre équipe.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Impossible de terminer cette action. Vérifiez le fichier, son mot de passe, vos autorisations d’accès et votre connexion réseau.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Ce nom de dossier est déjà utilisé. Connectez-vous à l’aide d’un fichier de connexion, ou revenez en arrière et choisissez un autre nom.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Choisissez un nouveau sous-dossier vide dans le dossier partagé. Les fichiers existants resteront inchangés.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Certains mots de passe ou fichiers sources sont manquants. Ajoutez-les avant d’enregistrer ou de partager des mots de passe.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Utilisez un nom sans caractères spéciaux, ni point ou espace à la fin.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Se connecter à une configuration partagée</value>
@@ -2377,6 +2389,9 @@ Mots de passe et clés d’accès inclus : {2}</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Dossier partagé</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry crée ici un dossier distinct portant le nom de la configuration.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Utilisez le même dossier réseau sur chaque PC. Il doit utiliser SMB 3 avec le chiffrement obligatoire. Les dossiers synchronisés dans le nuage ne sont pas pris en charge.</value>

@@ -16,10 +16,10 @@ public sealed partial class DeploymentProfileCoordinator
 {
     private Guid? conflictRevision;
 
-    public async Task CreateSharedAsync(string rootPath, bool includeSecrets, bool rememberKey)
+    public async Task CreateSharedAsync(string parentPath, string configurationName, bool includeSecrets, bool rememberKey)
     {
         EnsureCanActivate();
-        ValidateSharedPath(rootPath);
+        string rootPath = SharedProfileLocation.Resolve(parentPath, configurationName);
         Logger.Information("Shared profile setup started. LocalProfileId={LocalProfileId}, IncludeSecrets={IncludeSecrets}, RememberKey={RememberKey}", Active?.LocalId, includeSecrets, rememberKey);
         await gate.WaitAsync(lifetime.Token);
         try
@@ -43,7 +43,7 @@ public sealed partial class DeploymentProfileCoordinator
                 try
                 {
                     // Persist the enrollment before any shared write so initialization can retry with the same key.
-                    await SaveCurrentAsync(enrollment: enrollment, sharedKey: key);
+                    await SaveCurrentAsync(enrollment: enrollment, sharedKey: key, displayName: configurationName);
                 }
                 finally
                 {
@@ -488,9 +488,8 @@ public sealed partial class DeploymentProfileCoordinator
     /// <summary>Rejects occupied setup targets before replacing the local enrollment; the repository rechecks under its lock.</summary>
     private static void ValidateNewSharedFolder(string path)
     {
-        if (Directory.Exists(path) && Directory.EnumerateFileSystemEntries(path).Any(entry =>
-            !string.Equals(Path.GetFileName(entry), "repository.lock", StringComparison.Ordinal)))
-            throw new SharedProfileOperationException(SharedProfileRepositoryStatus.FolderNotEmpty);
+        if (Directory.Exists(path) || File.Exists(path))
+            throw new SharedProfileFolderExistsException(path);
     }
 
     private static void ValidateSharedPath(string path)
@@ -540,4 +539,10 @@ internal sealed class SharedProfileOperationException(SharedProfileRepositorySta
     : IOException($"The shared profile operation failed: {status}.")
 {
     public SharedProfileRepositoryStatus Status { get; } = status;
+}
+
+/// <summary>Offers connection or another name without replacing an existing shared folder.</summary>
+internal sealed class SharedProfileFolderExistsException(string rootPath) : IOException("The named shared configuration folder already exists.")
+{
+    public string RootPath { get; } = rootPath;
 }

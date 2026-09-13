@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automatyczna synchronizacja</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Wybierz inną nazwę</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Nie udało się usunąć niektórych starych zapisanych haseł lub kluczy dostępu. Spróbuj ponownie, gdy Menedżer poświadczeń systemu Windows będzie dostępny.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Wybrana wersja zastąpi drugą. Jeśli chcesz zachować osobną kopię, najpierw wybierz Duplikuj.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Połącz</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Wybierz plik połączenia otrzymany od członka zespołu.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Nie udało się wykonać działania. Sprawdź plik, jego hasło, uprawnienia dostępu i połączenie sieciowe.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Ta nazwa folderu jest już używana. Połącz się za pomocą pliku połączenia lub wróć i wybierz inną nazwę.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Wybierz nowy, pusty podfolder w folderze udostępnionym. Istniejące pliki pozostaną bez zmian.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Brakuje niektórych haseł lub plików źródłowych. Dodaj je przed zapisaniem lub udostępnieniem haseł.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Użyj nazwy bez znaków specjalnych i bez kropki lub spacji na końcu.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Połącz z udostępnioną konfiguracją</value>
@@ -2377,6 +2389,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Folder udostępniony</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry utworzy tutaj osobny folder o nazwie konfiguracji.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Używaj tego samego folderu sieciowego na każdym komputerze. Musi on korzystać z SMB 3 z wymaganym szyfrowaniem. Foldery synchronizowane z chmurą nie są obsługiwane.</value>

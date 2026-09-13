@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automatisch synchronisieren</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Anderen Namen wählen</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Einige alte gespeicherte Kennwörter oder Zugriffsschlüssel konnten nicht entfernt werden. Versuchen Sie es erneut, wenn die Windows-Anmeldeinformationsverwaltung verfügbar ist.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Die gewählte Version ersetzt die andere. Wählen Sie zuerst Duplizieren, wenn Sie eine separate Kopie behalten möchten.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Verbinden</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Wählen Sie die Verbindungsdatei aus, die Sie von einem Teammitglied erhalten haben.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Diese Aktion konnte nicht abgeschlossen werden. Prüfen Sie die Datei, ihr Kennwort, Ihre Zugriffsrechte und Ihre Netzwerkverbindung.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Dieser Ordnername wird bereits verwendet. Stellen Sie die Verbindung über eine Verbindungsdatei her, oder gehen Sie zurück und wählen Sie einen anderen Namen.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Wählen Sie einen neuen, leeren Unterordner im freigegebenen Ordner. Vorhandene Dateien bleiben unverändert.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Einige Kennwörter oder Quelldateien fehlen. Fügen Sie diese hinzu, bevor Sie Kennwörter speichern oder teilen.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Verwenden Sie einen Namen ohne Sonderzeichen und ohne Punkt oder Leerzeichen am Ende.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Mit einer geteilten Konfiguration verbinden</value>
@@ -2377,6 +2389,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Freigegebener Ordner</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry erstellt hier einen separaten Ordner mit dem Namen der Konfiguration.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Verwenden Sie auf jedem PC denselben Netzwerkordner. Er muss SMB 3 mit verpflichtender Verschlüsselung verwenden. Mit der Cloud synchronisierte Ordner werden nicht unterstützt.</value>

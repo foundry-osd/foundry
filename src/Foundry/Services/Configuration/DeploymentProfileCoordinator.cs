@@ -394,13 +394,13 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     }
 
     private async Task SaveCurrentAsync(bool? rememberSecrets = null, LocalProfileEnrollment? enrollment = null, byte[]? sharedKey = null,
-        long? comparedEditVersion = null)
+        long? comparedEditVersion = null, string? displayName = null)
     {
         LocalProfileDescriptor current = RequireActive();
         long version = editVersion;
         bool remember = rememberSecrets ?? current.RememberSecrets;
         Logger.Debug("Local profile checkpoint started. LocalProfileId={LocalProfileId}, RememberSecrets={RememberSecrets}, EditVersion={EditVersion}", current.LocalId, remember, version);
-        DeploymentProfileDocument profile = await session.CaptureAsync(current.ProfileId, current.DisplayName, remember);
+        DeploymentProfileDocument profile = await session.CaptureAsync(current.ProfileId, displayName ?? current.DisplayName, remember);
         try
         {
             if (remember) EnsureCompleteCheckpoint(profile);

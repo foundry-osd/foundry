@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Автоматическая синхронизация</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Выбрать другое имя</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Не удалось удалить некоторые старые сохранённые пароли или ключи доступа. Повторите попытку, когда Диспетчер учётных данных Windows станет доступен.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Выбранная версия заменит другую. Сначала выберите «Создать копию», если хотите сохранить отдельную копию.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Подключиться</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Выберите файл подключения, полученный от участника вашей команды.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Не удалось выполнить действие. Проверьте файл, его пароль, свои права доступа и подключение к сети.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Это имя папки уже используется. Подключитесь с помощью файла подключения или вернитесь и выберите другое имя.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Выберите новую пустую вложенную папку в общей папке. Существующие файлы останутся без изменений.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Не хватает некоторых паролей или исходных файлов. Добавьте их перед сохранением или передачей паролей.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Используйте имя без специальных символов и без точки или пробела в конце.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Подключиться к общей конфигурации</value>
@@ -2377,6 +2389,9 @@
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Общая папка</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry создаст здесь отдельную папку с именем конфигурации.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Используйте одну и ту же сетевую папку на всех компьютерах. Она должна использовать SMB 3 с обязательным шифрованием. Папки, синхронизируемые с облаком, не поддерживаются.</value>

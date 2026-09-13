@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Otomatik eşitleme</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Başka bir ad seçin</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Kaydedilmiş bazı eski parolalar veya erişim anahtarları kaldırılamadı. Windows Kimlik Bilgisi Yöneticisi kullanılabilir olduğunda yeniden deneyin.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Seçtiğiniz sürüm diğerinin yerini alacak. Ayrı bir kopya saklamak istiyorsanız önce “Çoğalt” seçeneğini kullanın.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Bağlan</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Ekibinizden birinin sağladığı bağlantı dosyasını seçin.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Bu işlem tamamlanamadı. Dosyayı, dosyanın parolasını, erişim izinlerinizi ve ağ bağlantınızı kontrol edin.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Bu klasör adı zaten kullanılıyor. Bir bağlantı dosyası kullanarak bağlanın veya geri dönüp başka bir ad seçin.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Paylaşılan klasörde yeni, boş bir alt klasör seçin. Mevcut dosyalar değişmeden kalacaktır.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Bazı parolalar veya kaynak dosyalar eksik. Parolaları kaydetmeden veya paylaşmadan önce bunları ekleyin.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Özel karakter içermeyen ve nokta veya boşlukla bitmeyen bir ad kullanın.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Paylaşılan bir yapılandırmaya bağlan</value>
@@ -2377,6 +2389,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Paylaşılan klasör</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry burada yapılandırma adını kullanarak ayrı bir klasör oluşturur.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Tüm bilgisayarlarda aynı ağ klasörünü kullanın. Klasör, şifrelemenin zorunlu olduğu SMB 3 kullanmalıdır. Bulutla eşitlenen klasörler desteklenmez.</value>

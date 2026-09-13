@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Sincronizzazione automatica</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Scegli un altro nome</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Non è stato possibile rimuovere alcune vecchie password o chiavi di accesso salvate. Riprova quando Gestione credenziali di Windows è disponibile.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>La versione scelta sostituirà l'altra. Scegli prima Duplica se vuoi conservare una copia separata.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Connetti</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Scegli il file di connessione fornito da un membro del tuo team.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Impossibile completare l'azione. Controlla il file, la sua password, le autorizzazioni di accesso e la connessione di rete.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Questo nome di cartella è già in uso. Connettiti usando un file di connessione oppure torna indietro e scegli un altro nome.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Scegli una nuova sottocartella vuota nella cartella condivisa. I file esistenti rimarranno invariati.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Mancano alcune password o file di origine. Aggiungili prima di salvare o condividere le password.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Usa un nome senza caratteri speciali e senza un punto o uno spazio alla fine.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Connetti a una configurazione condivisa</value>
@@ -2377,6 +2389,9 @@ Password e chiavi di accesso incluse: {2}</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Cartella condivisa</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry crea qui una cartella separata con il nome della configurazione.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Usa la stessa cartella di rete su tutti i PC. Deve usare SMB 3 con crittografia obbligatoria. Le cartelle sincronizzate con il cloud non sono supportate.</value>

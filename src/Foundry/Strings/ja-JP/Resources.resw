@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>自動同期</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>別の名前を選択</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>古い保存済みパスワードまたはアクセスキーの一部を削除できませんでした。Windows 資格情報マネージャーが利用可能になったら、もう一度お試しください。</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>選んだバージョンでもう一方を置き換えます。別のコピーを残すには、先に［複製］を選んでください。</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>接続</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>チームのメンバーから受け取った接続ファイルを選択してください。</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>操作を完了できませんでした。ファイル、ファイルのパスワード、アクセス権限、ネットワーク接続を確認してください。</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>このフォルダー名は既に使用されています。接続ファイルを使って接続するか、戻って別の名前を選択してください。</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>共有フォルダー内の新しい空のサブフォルダーを選択してください。既存のファイルは変更されません。</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>一部のパスワードまたは元のファイルがありません。パスワードを保存または共有する前に追加してください。</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>特殊文字を含まず、末尾がピリオドやスペースでない名前を使用してください。</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>共有構成に接続</value>
@@ -2377,6 +2389,9 @@
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>共有フォルダー</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry はここに構成名を使って専用のフォルダーを作成します。</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>すべての PC で同じネットワークフォルダーを使用してください。SMB 3 を使用し、暗号化を必須に設定する必要があります。クラウドと同期するフォルダーはサポートされていません。</value>

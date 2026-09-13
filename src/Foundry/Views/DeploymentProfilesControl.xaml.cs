@@ -97,12 +97,19 @@ public sealed partial class DeploymentProfilesControl : UserControl
         var name = new TextBox { Header = T("Profiles.Name"), Text = request.Name ?? string.Empty, MaxLength = 120 };
         var password = new PasswordBox { Header = T("Profiles.Passphrase"), MaxLength = 1024, PasswordRevealMode = PasswordRevealMode.Hidden };
         var confirmation = new PasswordBox { Header = T("Profiles.ConfirmPassphrase"), MaxLength = 1024, PasswordRevealMode = PasswordRevealMode.Hidden };
-        var include = new CheckBox { Content = T("Profiles.IncludeSecrets"), IsChecked = false };
+        var include = new CheckBox { Content = T("Profiles.IncludeSecrets"), IsChecked = request.IncludeSecrets };
         var remember = new CheckBox { Content = T("Profiles.Remember"), IsChecked = false };
-        var sharedKey = new CheckBox { Content = T("Profiles.RememberKey"), IsChecked = false };
+        var sharedKey = new CheckBox { Content = T("Profiles.RememberKey"), IsChecked = request.RememberKey };
         var deleteShared = new CheckBox { Content = T("Profiles.DeleteShared"), IsChecked = false };
         var joinShared = new RadioButton { GroupName = "SynchronizationSetup", IsChecked = !ViewModel.HasActive };
-        var share = new TextBox { Header = T("Profiles.SharedFolder"), PlaceholderText = @"\\server\share\profile", MaxLength = 1024, FlowDirection = FlowDirection.LeftToRight };
+        var share = new TextBox
+        {
+            Header = T("Profiles.SharedFolder"),
+            Text = request.SharePath ?? string.Empty,
+            PlaceholderText = request.NamedSharedFolder ? @"\\server\share" : @"\\server\share\Foundry\Configuration",
+            MaxLength = 1024,
+            FlowDirection = FlowDirection.LeftToRight
+        };
         if (request.SynchronizationSetupOption)
         {
             StackPanel ChoiceContent(string heading, string description)
@@ -141,8 +148,22 @@ public sealed partial class DeploymentProfilesControl : UserControl
             content.Children.Add(new TextBlock { Text = T("Profiles.LocalPrivacy"), TextWrapping = TextWrapping.Wrap });
         if (request.SharePathOption)
         {
-            content.Children.Add(share);
-            var browse = new Button { Content = T("Common.Browse") };
+            var folderRow = new Grid
+            {
+                ColumnSpacing = (double)Application.Current.Resources["FoundryInlineControlSpacing"],
+                ColumnDefinitions =
+                {
+                    new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+                    new ColumnDefinition { Width = GridLength.Auto }
+                }
+            };
+            var browse = new Button { Content = T("Common.Browse"), VerticalAlignment = VerticalAlignment.Bottom };
+            Grid.SetColumn(browse, 1);
+            folderRow.Children.Add(share);
+            folderRow.Children.Add(browse);
+            content.Children.Add(folderRow);
+            if (request.NamedSharedFolder)
+                content.Children.Add(new TextBlock { Text = T("Profiles.SharedFolderHint"), TextWrapping = TextWrapping.Wrap });
             browse.Click += async (_, _) =>
             {
                 try
@@ -157,7 +178,6 @@ public sealed partial class DeploymentProfilesControl : UserControl
                     share.PlaceholderText = T("Profiles.Failed");
                 }
             };
-            content.Children.Add(browse);
             content.Children.Add(new TextBlock { Text = T("Profiles.SmbWarning"), TextWrapping = TextWrapping.Wrap });
         }
         if (request.DeleteSharedOption) content.Children.Add(deleteShared);
@@ -168,8 +188,8 @@ public sealed partial class DeploymentProfilesControl : UserControl
             Style = ContentDialogStyleProvider.DefaultStyle,
             XamlRoot = XamlRoot,
             Title = T(request.Title),
-            PrimaryButtonText = T("Profiles.Continue"),
-            CloseButtonText = T("Common.Cancel"),
+            PrimaryButtonText = T(request.PrimaryButtonKey),
+            CloseButtonText = T(request.CloseButtonKey),
             DefaultButton = ContentDialogButton.Close,
             Content = new ScrollViewer { Content = content, MaxHeight = 500 }
         };
@@ -179,8 +199,9 @@ public sealed partial class DeploymentProfilesControl : UserControl
                 request.Passphrase && string.IsNullOrEmpty(password.Password) ||
                 request.ConfirmPassphrase && password.Password != confirmation.Password ||
                 request.SharePathOption && !share.Text.Trim().StartsWith(@"\\", StringComparison.Ordinal);
-            args.Cancel = invalid;
-            validation.Text = invalid ? T("Profiles.Validation") : string.Empty;
+            bool invalidName = request.NamedSharedFolder && !SharedProfileLocation.IsValidName(name.Text);
+            args.Cancel = invalid || invalidName;
+            validation.Text = invalidName ? T("Profiles.InvalidFolderName") : invalid ? T("Profiles.Validation") : string.Empty;
         };
         try
         {

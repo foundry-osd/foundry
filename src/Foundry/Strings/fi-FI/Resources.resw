@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automaattinen synkronointi</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Valitse toinen nimi</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Joitakin vanhoja tallennettuja salasanoja tai käyttöavaimia ei voitu poistaa. Yritä uudelleen, kun Windowsin tunnistetietojen hallinta on käytettävissä.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Valitsemasi versio korvaa toisen. Valitse ensin Monista, jos haluat säilyttää erillisen kopion.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Yhdistä</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Valitse tiimisi jäseneltä saamasi yhteystiedosto.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Toimintoa ei voitu suorittaa. Tarkista tiedosto, sen salasana, käyttöoikeutesi ja verkkoyhteytesi.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Tämä kansion nimi on jo käytössä. Yhdistä yhteystiedoston avulla tai palaa takaisin ja valitse toinen nimi.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Valitse jaetusta kansiosta uusi, tyhjä alikansio. Nykyiset tiedostot säilyvät muuttumattomina.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Joitakin salasanoja tai lähdetiedostoja puuttuu. Lisää ne ennen salasanojen tallentamista tai jakamista.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Käytä nimeä, jossa ei ole erikoismerkkejä eikä pistettä tai välilyöntiä lopussa.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Yhdistä jaettuun määritykseen</value>
@@ -2377,6 +2389,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Jaettu kansio</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry luo tähän erillisen kansion määrityksen nimellä.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Käytä samaa verkkokansiota kaikilla tietokoneilla. Sen on käytettävä SMB 3:a ja pakollista salausta. Pilveen synkronoituja kansioita ei tueta.</value>

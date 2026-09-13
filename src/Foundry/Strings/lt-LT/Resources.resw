@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automatinis sinchronizavimas</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Pasirinkti kitą pavadinimą</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Nepavyko pašalinti kai kurių senų įrašytų slaptažodžių ar prieigos raktų. Bandykite dar kartą, kai bus pasiekiama „Windows“ kredencialų tvarkytuvė.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Pasirinkta versija pakeis kitą. Jei norite išsaugoti atskirą kopiją, pirmiausia pasirinkite „Dubliuoti“.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Prisijungti</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Pasirinkite prisijungimo failą, kurį gavote iš komandos nario.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Nepavyko atlikti veiksmo. Patikrinkite failą, jo slaptažodį, prieigos teises ir tinklo ryšį.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Šis aplanko pavadinimas jau naudojamas. Prisijunkite naudodami ryšio failą arba grįžkite ir pasirinkite kitą pavadinimą.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Bendrinamame aplanke pasirinkite naują tuščią poaplankį. Esami failai liks nepakeisti.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Trūksta kai kurių slaptažodžių ar pradinių failų. Pridėkite juos prieš įrašydami ar bendrindami slaptažodžius.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Naudokite pavadinimą be specialiųjų simbolių ir be taško ar tarpo pabaigoje.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Prisijungti prie bendrinamos konfigūracijos</value>
@@ -2377,6 +2389,9 @@
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Bendrinamas aplankas</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry čia sukuria atskirą aplanką konfigūracijos pavadinimu.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Visuose kompiuteriuose naudokite tą patį tinklo aplanką. Jis turi naudoti SMB 3 su privalomu šifravimu. Su debesimi sinchronizuojami aplankai nepalaikomi.</value>

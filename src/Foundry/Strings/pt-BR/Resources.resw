@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Sincronização automática</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Escolher outro nome</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Não foi possível remover algumas senhas ou chaves de acesso antigas salvas. Tente novamente quando o Gerenciador de Credenciais do Windows estiver disponível.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>A versão escolhida substituirá a outra. Escolha Duplicar primeiro se quiser manter uma cópia separada.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Conectar</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Escolha o arquivo de conexão fornecido por alguém da sua equipe.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Não foi possível concluir a ação. Verifique o arquivo, a senha dele, suas permissões de acesso e a conexão de rede.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Esse nome de pasta já está em uso. Conecte-se usando um arquivo de conexão ou volte e escolha outro nome.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Escolha uma subpasta nova e vazia na pasta compartilhada. Os arquivos existentes permanecerão inalterados.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Faltam algumas senhas ou arquivos de origem. Adicione-os antes de salvar ou compartilhar senhas.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Use um nome sem caracteres especiais e sem ponto ou espaço no final.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Conectar a uma configuração compartilhada</value>
@@ -2377,6 +2389,9 @@ Senhas e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Pasta compartilhada</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>O Foundry cria aqui uma pasta separada com o nome da configuração.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Use a mesma pasta de rede em todos os PCs. Ela deve usar SMB 3 com criptografia obrigatória. Pastas sincronizadas com a nuvem não são compatíveis.</value>

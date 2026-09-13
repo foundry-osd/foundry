@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automatska sinhronizacija</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Izaberite drugo ime</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Neke stare sačuvane lozinke ili pristupni ključevi nisu mogli da se uklone. Pokušajte ponovo kada Windows upravljač akreditivima bude dostupan.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Izabrana verzija će zameniti drugu. Prvo izaberite „Dupliraj” ako želite da zadržite zasebnu kopiju.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Poveži</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Izaberite datoteku za povezivanje koju vam je dao neko iz vašeg tima.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Nije moguće dovršiti ovu radnju. Proverite datoteku, njenu lozinku, dozvole za pristup i mrežnu vezu.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Ovo ime fascikle je već u upotrebi. Povežite se pomoću datoteke za povezivanje ili se vratite i izaberite drugo ime.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Izaberite novu, praznu potfasciklu u deljenoj fascikli. Postojeće datoteke će ostati nepromenjene.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Nedostaju neke lozinke ili izvorne datoteke. Dodajte ih pre čuvanja ili deljenja lozinki.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Koristite ime bez specijalnih znakova i bez tačke ili razmaka na kraju.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Poveži se sa deljenom konfiguracijom</value>
@@ -2377,6 +2389,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Deljena fascikla</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry ovde pravi zasebnu fasciklu sa imenom konfiguracije.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Koristite istu mrežnu fasciklu na svim računarima. Mora da koristi SMB 3 uz obavezno šifrovanje. Fascikle sinhronizovane sa oblakom nisu podržane.</value>

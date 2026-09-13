@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automatisk synkronisering</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Välj ett annat namn</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Vissa gamla sparade lösenord eller åtkomstnycklar kunde inte tas bort. Försök igen när Autentiseringshanteraren i Windows är tillgänglig.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Den version du väljer ersätter den andra. Välj först ”Duplicera” om du vill behålla en separat kopia.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Anslut</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Välj anslutningsfilen som du har fått av någon i ditt team.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Det gick inte att slutföra åtgärden. Kontrollera filen, dess lösenord, dina åtkomstbehörigheter och nätverksanslutningen.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Det här mappnamnet används redan. Anslut med en anslutningsfil eller gå tillbaka och välj ett annat namn.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Välj en ny, tom undermapp i den delade mappen. Befintliga filer förblir oförändrade.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Vissa lösenord eller källfiler saknas. Lägg till dem innan du sparar eller delar lösenord.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Använd ett namn utan specialtecken och utan punkt eller blanksteg i slutet.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Anslut till en delad konfiguration</value>
@@ -2377,6 +2389,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Delad mapp</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry skapar en separat mapp här med konfigurationens namn.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Använd samma nätverksmapp på alla datorer. Den måste använda SMB 3 med obligatorisk kryptering. Mappar som synkroniseras med molnet stöds inte.</value>

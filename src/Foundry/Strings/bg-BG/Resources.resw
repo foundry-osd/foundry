@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Автоматично синхронизиране</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Изберете друго име</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Някои стари запазени пароли или ключове за достъп не можаха да бъдат премахнати. Опитайте отново, когато диспечерът на идентификационни данни на Windows е достъпен.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Избраната версия ще замени другата. Първо изберете Дублиране, ако искате да запазите отделно копие.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Свързване</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Изберете файла за свързване, предоставен от член на вашия екип.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Това действие не можа да бъде завършено. Проверете файла, паролата му, правата си за достъп и мрежовата си връзка.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Това име на папка вече се използва. Свържете се чрез файл за свързване или се върнете и изберете друго име.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Изберете нова, празна подпапка в споделената папка. Съществуващите файлове ще останат непроменени.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Липсват някои пароли или изходни файлове. Добавете ги, преди да запазвате или споделяте пароли.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Използвайте име без специални знаци и без точка или интервал в края.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Свързване със споделена конфигурация</value>
@@ -2377,6 +2389,9 @@
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Споделена папка</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry създава тук отделна папка с името на конфигурацията.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Използвайте една и съща мрежова папка на всеки компютър. Тя трябва да използва SMB 3 със задължително шифроване. Папки, синхронизирани с облака, не се поддържат.</value>

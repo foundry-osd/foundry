@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>ซิงค์อัตโนมัติ</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>เลือกชื่ออื่น</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>ไม่สามารถลบรหัสผ่านหรือคีย์การเข้าถึงเก่าบางรายการที่บันทึกไว้ได้ ลองอีกครั้งเมื่อ Windows Credential Manager พร้อมใช้งาน</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>เวอร์ชันที่คุณเลือกจะแทนที่อีกเวอร์ชัน หากต้องการเก็บสำเนาแยกไว้ ให้เลือก “ทำสำเนา” ก่อน</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>เชื่อมต่อ</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>เลือกไฟล์การเชื่อมต่อที่ได้รับจากสมาชิกในทีมของคุณ</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>ไม่สามารถดำเนินการนี้ให้เสร็จสิ้นได้ ตรวจสอบไฟล์ รหัสผ่านของไฟล์ สิทธิ์การเข้าถึง และการเชื่อมต่อเครือข่ายของคุณ</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>ชื่อโฟลเดอร์นี้มีการใช้งานอยู่แล้ว ให้เชื่อมต่อโดยใช้ไฟล์การเชื่อมต่อ หรือกลับไปเลือกชื่ออื่น</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>เลือกโฟลเดอร์ย่อยใหม่ที่ว่างเปล่าในโฟลเดอร์ที่แชร์ ไฟล์ที่มีอยู่จะไม่ถูกเปลี่ยนแปลง</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>รหัสผ่านหรือไฟล์ต้นทางบางรายการขาดหายไป เพิ่มรายการเหล่านั้นก่อนบันทึกหรือแชร์รหัสผ่าน</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>ใช้ชื่อที่ไม่มีอักขระพิเศษและไม่ลงท้ายด้วยจุดหรือช่องว่าง</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>เชื่อมต่อกับการกำหนดค่าที่แชร์</value>
@@ -2377,6 +2389,9 @@
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>โฟลเดอร์ที่แชร์</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry จะสร้างโฟลเดอร์แยกไว้ที่นี่โดยใช้ชื่อการกำหนดค่า</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>ใช้โฟลเดอร์เครือข่ายเดียวกันบนพีซีทุกเครื่อง โฟลเดอร์ต้องใช้ SMB 3 โดยกำหนดให้ต้องเข้ารหัส ไม่รองรับโฟลเดอร์ที่ซิงค์กับคลาวด์</value>

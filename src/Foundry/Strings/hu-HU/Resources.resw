@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automatikus szinkronizálás</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Másik név választása</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Néhány régi mentett jelszót vagy hozzáférési kulcsot nem sikerült eltávolítani. Próbálja újra, amikor a Windows Hitelesítőadat-kezelő elérhető.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>A kiválasztott verzió felülírja a másikat. Ha külön másolatot szeretne megőrizni, először válassza a Másolat készítése lehetőséget.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Csatlakozás</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Válassza ki a csapat egyik tagjától kapott csatlakozási fájlt.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Nem sikerült befejezni a műveletet. Ellenőrizze a fájlt, annak jelszavát, a hozzáférési engedélyeit és a hálózati kapcsolatot.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Ez a mappanév már használatban van. Csatlakozzon egy kapcsolati fájllal, vagy lépjen vissza, és válasszon másik nevet.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Válasszon egy új, üres almappát a megosztott mappában. A meglévő fájlok változatlanok maradnak.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Néhány jelszó vagy forrásfájl hiányzik. Adja hozzá őket a jelszavak mentése vagy megosztása előtt.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Olyan nevet használjon, amely nem tartalmaz speciális karaktereket, és nem végződik pontra vagy szóközre.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Csatlakozás megosztott konfigurációhoz</value>
@@ -2377,6 +2389,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Megosztott mappa</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>A Foundry itt külön mappát hoz létre a konfiguráció nevével.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Minden számítógépen ugyanazt a hálózati mappát használja. A mappának SMB 3-at kell használnia kötelező titkosítással. A felhővel szinkronizált mappák nem támogatottak.</value>

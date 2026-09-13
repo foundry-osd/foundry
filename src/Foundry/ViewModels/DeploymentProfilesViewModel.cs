@@ -204,7 +204,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
 
     [RelayCommand] private Task ImportAsync() => RunAsync(() => ImportFileAsync(false));
 
-    private async Task ImportFileAsync(bool join)
+    private async Task ImportFileAsync(bool join, string? sharedFolder = null)
     {
         string title = join ? "Profiles.JoinShared" : "Profiles.Import";
         string? path = await picker.PickOpenFileAsync(new(Text(title), new string[] { ".foundryprofile" }));
@@ -224,7 +224,8 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
                 Message = preview + "\n\n" + Text("Profiles.ShareWarning") + "\n\n" + Text("Profiles.ReplaceWarning"),
                 RememberOption = true,
                 SharedKeyOption = join,
-                SharePathOption = join
+                SharePathOption = join,
+                SharePath = sharedFolder
             });
             if (result is null) return;
             if (join) await coordinator.JoinSharedAsync(profile, result.SharePath.Trim(), result.Remember, result.RememberKey);
@@ -235,9 +236,44 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
 
     private async Task CreateSharedAsync()
     {
-        ProfileDialogResponse? result = await DialogAsync(new("Profiles.CreateShared")
-        { Message = Text("Profiles.ShareWarning"), SharePathOption = true, IncludeSecretsOption = true, SharedKeyOption = true });
-        if (result is not null) await coordinator.CreateSharedAsync(result.SharePath.Trim(), result.IncludeSecrets, result.RememberKey);
+        ProfileDialogResponse? previous = null;
+        while (true)
+        {
+            ProfileDialogResponse? result = await DialogAsync(new("Profiles.CreateShared")
+            {
+                Name = previous?.Name ?? coordinator.Active?.DisplayName ?? string.Empty,
+                SharePath = previous?.SharePath,
+                Message = Text("Profiles.ShareWarning"),
+                SharePathOption = true,
+                NamedSharedFolder = true,
+                IncludeSecretsOption = true,
+                SharedKeyOption = true,
+                IncludeSecrets = previous?.IncludeSecrets == true,
+                RememberKey = previous?.RememberKey == true
+            });
+            if (result is null) return;
+            try
+            {
+                await coordinator.CreateSharedAsync(result.SharePath.Trim(), result.Name, result.IncludeSecrets, result.RememberKey);
+                return;
+            }
+            catch (SharedProfileFolderExistsException exception)
+            {
+                Logger.Information("Shared setup found an existing configuration folder; awaiting connection or a new name.");
+                ProfileDialogResponse? connect = await DialogAsync(new("Profiles.CreateShared")
+                {
+                    Message = Text("Profiles.FolderExists"),
+                    PrimaryButtonKey = "Profiles.ConnectAction",
+                    CloseButtonKey = "Profiles.ChooseAnotherName"
+                });
+                if (connect is not null)
+                {
+                    await ImportFileAsync(true, exception.RootPath);
+                    return;
+                }
+                previous = result;
+            }
+        }
     }
 
     [RelayCommand]
@@ -317,6 +353,12 @@ internal sealed record ProfileDialogRequest(string Title)
 {
     public string? Message { get; init; }
     public string? Name { get; init; }
+    public string? SharePath { get; init; }
+    public bool NamedSharedFolder { get; init; }
+    public bool IncludeSecrets { get; init; }
+    public bool RememberKey { get; init; }
+    public string PrimaryButtonKey { get; init; } = "Profiles.Continue";
+    public string CloseButtonKey { get; init; } = "Common.Cancel";
     public bool Passphrase { get; init; }
     public bool ConfirmPassphrase { get; init; }
     public bool IncludeSecretsOption { get; init; }

@@ -2217,6 +2217,9 @@
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Samodejna sinhronizacija</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Izberite drugo ime</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Nekaterih starih shranjenih gesel ali ključev za dostop ni bilo mogoče odstraniti. Poskusite znova, ko bo na voljo Upravitelj poverilnic sistema Windows.</value>
   </data>
@@ -2228,6 +2231,9 @@
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
     <value>Izbrana različica bo zamenjala drugo. Če želite obdržati ločeno kopijo, najprej izberite »Podvoji«.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Poveži</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Izberite datoteko za povezavo, ki vam jo je poslal član vaše ekipe.</value>
@@ -2277,6 +2283,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Dejanja ni bilo mogoče dokončati. Preverite datoteko, njeno geslo, dovoljenja za dostop in omrežno povezavo.</value>
   </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>To ime mape je že v uporabi. Povežite se s povezovalno datoteko ali se vrnite in izberite drugo ime.</value>
+  </data>
   <data name="Profiles.FolderNotEmpty" xml:space="preserve">
     <value>Izberite novo, prazno podmapo v mapi v skupni rabi. Obstoječe datoteke bodo ostale nespremenjene.</value>
   </data>
@@ -2303,6 +2312,9 @@
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Manjkajo nekatera gesla ali izvorne datoteke. Dodajte jih pred shranjevanjem ali deljenjem gesel.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Uporabite ime brez posebnih znakov in brez pike ali presledka na koncu.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Poveži se s konfiguracijo v skupni rabi</value>
@@ -2377,6 +2389,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Mapa v skupni rabi</value>
+  </data>
+  <data name="Profiles.SharedFolderHint" xml:space="preserve">
+    <value>Foundry tukaj ustvari ločeno mapo z imenom konfiguracije.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>V vseh računalnikih uporabljajte isto omrežno mapo. Uporabljati mora SMB 3 z obveznim šifriranjem. Mape, sinhronizirane z oblakom, niso podprte.</value>
