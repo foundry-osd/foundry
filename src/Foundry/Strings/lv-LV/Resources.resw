@@ -2211,6 +2211,272 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows izvietošanas opcijas</value>
   </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Pašreizējie iestatījumi</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Automātiska sinhronizācija</value>
+  </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Izvēlēties citu nosaukumu</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Neizdevās noņemt dažas vecās saglabātās paroles vai piekļuves atslēgas. Mēģiniet vēlreiz, kad būs pieejams Windows akreditācijas datu pārvaldnieks.</value>
+  </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Apstipriniet paroli</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Apstipriniet faila paroli</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Šie iestatījumi ir mainīti šajā datorā, un tos ir mainījis arī kāds cits. Izvēlieties, kuru versiju paturēt.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Izvēlētā versija aizstās otru. Ja vēlaties paturēt atsevišķu kopiju, vispirms izvēlieties “Dublēt”.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Savienot</value>
+  </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Izvēlieties savienojuma failu, ko nodrošinājis kāds no jūsu komandas.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Savienojuma parole</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Citiem datoriem būs nepieciešama šī parole, lai izveidotu savienojumu.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Turpināt</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Kopīgot šo konfigurāciju</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Izvēlieties šai konfigurācijai kopīgotu tīkla mapi.</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Dzēst no šī datora</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Dzēst arī visiem pārējiem</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Vai dzēst šos koplietotos iestatījumus visiem? Ikvienam, kuram ir nesinhronizētas izmaiņas, ir jādublē savi iestatījumi, lai tās saglabātu.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Vai dzēst šos iestatījumus no šī datora? Ja vēlaties rezerves kopiju, vispirms eksportējiet tos.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Šie koplietotie iestatījumi ir izdzēsti. Izvēlieties “Dublēt”, lai paturētu izmaiņas šajā datorā.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Atvienot</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Vai pārtraukt šīs konfigurācijas sinhronizēšanu šajā datorā? Pašreizējie iestatījumi tiks saglabāti. Koplietotā konfigurācija un citi datori netiks mainīti.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Eksportēt</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Saglabāt šo konfigurāciju failā kā rezerves kopiju vai citam datoram.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Izvēlieties paroli eksportētā faila aizsardzībai. Tā būs vajadzīga, lai importētu konfigurāciju.</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Saglabāt savienojuma failu</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Neizdevās pabeigt darbību. Pārbaudiet failu, tā paroli, piekļuves atļaujas un tīkla savienojumu.</value>
+  </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Šis mapes nosaukums jau tiek izmantots. Izveidojiet savienojumu, izmantojot savienojuma failu, vai atgriezieties un izvēlieties citu nosaukumu.</value>
+  </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Koplietotajā mapē izvēlieties jaunu, tukšu apakšmapi. Esošie faili paliks nemainīti.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Notīrīt saglabātās paroles un piekļuves datus</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Vai noņemt šajā datorā saglabātās paroles, Foundry saglabātos konfidenciālos failus un piekļuvi šo iestatījumu sinhronizācijai? Lai sinhronizētu, būs jāpievieno trūkstošā informācija un jāpievienojas vēlreiz. Jau izveidotie datu nesēji netiks mainīti.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Foundry iestatījumi</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Importēt</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Pievienot konfigurāciju no faila.</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Iekļaut paroles un konfidenciālus failus</value>
+  </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Cilvēki, kuri izmanto šo konfigurāciju, var lasīt iekļautās paroles un konfidenciālos failus.</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Trūkst dažu paroļu vai avota failu. Pievienojiet tos pirms paroļu saglabāšanas vai kopīgošanas.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Izmantojiet nosaukumu bez īpašajām rakstzīmēm un bez punkta vai atstarpes beigās.</value>
+  </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Koplietotā konfigurācija ir mainījusies. Pirms savienojuma izveides pārskatiet jaunāko versiju.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Izveidot savienojumu ar kopīgotu konfigurāciju</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Izmantot šī datora versiju</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Uzzināt vairāk</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Saglabāt Windows konta paroles šajā datorā.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Windows nevar atbloķēt šos saglabātos iestatījumus vai piekļuvi to sinhronizācijai jūsu kontam šajā datorā.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Vairāk opciju</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>Trūkstošo vai neiekļauto failu skaits: {0}. Pirms datu nesēja izveides izvēlieties to atrašanās vietas.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Konfigurācijas nosaukums</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Faila parole</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Paroles nesakrīt.</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Iekļautie faili: {1}
+Iekļautās paroles un piekļuves atslēgas: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Gatavs</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Izvēlieties paroli savienojuma faila aizsardzībai. Paroli kopīgojiet atsevišķi. Saglabājiet failu ārpus koplietotās konfigurācijas mapes.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Atcerēties paroles</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Atcerēties šo savienojumu šajā datorā</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Pārdēvēt</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Tas aizstās pašlaik izmantotos iestatījumus. Lai vispirms paturētu kopiju, atceliet un izvēlieties “Dublēt”.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Atjaunot piekļuvi</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>Koplietotajā mapē saglabātās versijas ir negaidīti mainījušās. Atjaunojiet no uzticamas rezerves kopijas.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Dublēt</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Izvēlieties konfigurāciju</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Iestatīt</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Iestatīt sinhronizāciju…</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Kopīgojiet šo konfigurāciju vai izveidojiet savienojumu ar konfigurāciju, ko jūsu komanda jau izmanto.</value>
+  </data>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Kopīgot</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Ikviens, kurš var importēt vai sinhronizēt šos iestatījumus, var nolasīt iekļautās paroles un sertifikātu privātās atslēgas.</value>
+  </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Cita darbība izmanto šo koplietoto mapi. Pēc brīža mēģiniet vēlreiz. Jūsu izmaiņas tiek saglabātas šajā datorā.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Koplietotā mape</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Koplietotā mape nav sasniedzama. Pārbaudiet tās adresi un savu piekļuvi tīklam. Jūsu izmaiņas tiek saglabātas šajā datorā.</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Visos datoros izmantojiet vienu un to pašu tīkla mapi. Tai jāizmanto SMB 3 ar obligātu šifrēšanu. Ar mākoni sinhronizētas mapes netiek atbalstītas.</value>
+  </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Vai pārtraukt atcerēties šīs konfigurācijas paroles šajā datorā?</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Sinhronizēt</value>
+  </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Notiek sinhronizēšana…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Izvēlieties versiju</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Nevar sinhronizēt</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Nav konfigurēts</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>Mape nav pieejama</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Sinhronizējamas izmaiņas</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Gatavs sinhronizēšanai</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>Atjaunināts</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Pieejamas izmaiņas</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Nepieciešama uzmanība</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Sinhronizēt</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Uzturēt šo konfigurāciju atjauninātu jūsu komandas datoros.</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Iestatījumi ir atjaunināti</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Foundry nevar atvērt šo iestatījumu formātu. Atjauniniet Foundry un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Ir pieejamas izmaiņas no cita datora. Izvēlieties “Sinhronizēt”, lai tās lietotu.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Izmantot koplietoto versiju</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Pārbaudiet obligātos laukus. Ja tiek prasīta tīkla mape, izmantojiet ceļu, piemēram, \\server\share\folder. Ja faila paroli ievadāt divreiz, pārliecinieties, ka abi ieraksti sakrīt.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2590,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Ģenerālis</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Dublējiet savus iestatījumus, pārsūtiet tos uz citu datoru vai uzturiet tos sinhronizētus.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Iestatījumu dublēšana un sinhronizēšana</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

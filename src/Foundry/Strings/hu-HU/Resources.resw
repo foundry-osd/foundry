@@ -2211,6 +2211,272 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows-telepítési lehetőségek</value>
   </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Jelenlegi beállítások</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Automatikus szinkronizálás</value>
+  </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Másik név választása</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Néhány régi mentett jelszót vagy hozzáférési kulcsot nem sikerült eltávolítani. Próbálja újra, amikor a Windows Hitelesítőadat-kezelő elérhető.</value>
+  </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Jelszó megerősítése</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Fájljelszó megerősítése</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Ezeket a beállításokat ezen a számítógépen és valaki más is módosította. Válassza ki, melyik verziót szeretné megtartani.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>A kiválasztott verzió felülírja a másikat. Ha külön másolatot szeretne megőrizni, először válassza a Másolat készítése lehetőséget.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Csatlakozás</value>
+  </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Válassza ki a csapat egyik tagjától kapott csatlakozási fájlt.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Csatlakozási jelszó</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Más gépeknek erre a jelszóra lesz szükségük a csatlakozáshoz.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Folytatás</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Konfiguráció megosztása</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Válasszon megosztott hálózati mappát ehhez a konfigurációhoz.</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Törlés erről a számítógépről</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Törlés mindenki számára is</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Törli ezeket a megosztott beállításokat mindenki számára? Akinek nem szinkronizált módosításai vannak, a megőrzésükhöz másolatot kell készítenie a beállításairól.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Törli ezeket a beállításokat erről a számítógépről? Ha biztonsági másolatot szeretne, először exportálja őket.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Ezeket a megosztott beállításokat törölték. A módosítások ezen a számítógépen való megőrzéséhez válassza a Másolat készítése lehetőséget.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Kapcsolat bontása</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Leállítja ennek a konfigurációnak a szinkronizálását ezen a gépen? A jelenlegi beállításai megmaradnak. A megosztott konfiguráció és a többi gép nem változik.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Exportálás</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>A konfiguráció mentése fájlba biztonsági másolatként vagy egy másik számítógéphez.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Válasszon jelszót az exportált fájl védelméhez. A konfiguráció importálásakor szüksége lesz rá.</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Csatlakozási fájl mentése</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Nem sikerült befejezni a műveletet. Ellenőrizze a fájlt, annak jelszavát, a hozzáférési engedélyeit és a hálózati kapcsolatot.</value>
+  </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Ez a mappanév már használatban van. Csatlakozzon egy kapcsolati fájllal, vagy lépjen vissza, és válasszon másik nevet.</value>
+  </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Válasszon egy új, üres almappát a megosztott mappában. A meglévő fájlok változatlanok maradnak.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Mentett jelszavak és hozzáférések törlése</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Eltávolítja ezekhez a beállításokhoz a mentett jelszavakat, a Foundry által mentett bizalmas fájlokat és a szinkronizálási hozzáférést erről a számítógépről? A szinkronizáláshoz meg kell adnia a hiányzó adatokat, és újra csatlakoznia kell. A már létrehozott adathordozók nem változnak.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Foundry-beállítások</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Importálás</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Konfiguráció hozzáadása fájlból.</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Jelszavak és bizalmas fájlok hozzáadása</value>
+  </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>A konfigurációt használó személyek elolvashatják a mellékelt jelszavakat és bizalmas fájlokat.</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Néhány jelszó vagy forrásfájl hiányzik. Adja hozzá őket a jelszavak mentése vagy megosztása előtt.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Olyan nevet használjon, amely nem tartalmaz speciális karaktereket, és nem végződik pontra vagy szóközre.</value>
+  </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>A megosztott konfiguráció megváltozott. Csatlakozás előtt tekintse át a legújabb verziót.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Csatlakozás megosztott konfigurációhoz</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Az ezen a számítógépen lévő verzió használata</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>További információ</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Jelszavak megőrzése a Windows-fiókjához ezen a számítógépen.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>A Windows nem tudja feloldani ezeket a mentett beállításokat vagy a szinkronizálási hozzáférésüket az Ön fiókjával ezen a számítógépen.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>További lehetőségek</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} fájl hiányzik vagy nem került bele. Válassza ki a helyüket az adathordozó létrehozása előtt.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Konfiguráció neve</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Fájljelszó</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>A jelszavak nem egyeznek.</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Mellékelt fájlok: {1}
+Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Kész</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Válasszon jelszót a kapcsolati fájl védelméhez. A jelszót külön ossza meg. A fájlt a megosztott konfiguráció mappáján kívülre mentse.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Jelszavak megjegyzése</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Kapcsolat megjegyzése ezen a számítógépen</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Átnevezés</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Ez felülírja a jelenleg használt beállításokat. Ha előbb másolatot szeretne megőrizni, szakítsa meg a műveletet, és válassza a Másolat készítése lehetőséget.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Hozzáférés visszaállítása</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>A megosztott mappában mentett verziók váratlanul megváltoztak. Állítsa vissza őket egy megbízható biztonsági másolatból.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Másolat készítése</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Válasszon konfigurációt</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Beállítás</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Szinkronizálás beállítása…</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Ossza meg ezt a konfigurációt, vagy csatlakozzon a csapata által már használt konfigurációhoz.</value>
+  </data>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Megosztás</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Bárki, aki importálhatja vagy szinkronizálhatja ezeket a beállításokat, elolvashatja a mellékelt jelszavakat és a tanúsítványok titkos kulcsait.</value>
+  </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Egy másik művelet használja ezt a megosztott mappát. Próbálja újra rövidesen. A módosításai megmaradnak ezen a gépen.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Megosztott mappa</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>A megosztott mappa nem érhető el. Ellenőrizze a címét és a hálózati hozzáférését. A módosításai megmaradnak ezen a gépen.</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Minden számítógépen ugyanazt a hálózati mappát használja. A mappának SMB 3-at kell használnia kötelező titkosítással. A felhővel szinkronizált mappák nem támogatottak.</value>
+  </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Ne jegyezze meg többé a konfiguráció jelszavait ezen a számítógépen?</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Szinkronizálás</value>
+  </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Szinkronizálás…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Válasszon verziót</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Nem sikerült szinkronizálni</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Nincs beállítva</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>A mappa nem érhető el</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Szinkronizálandó módosítások</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Szinkronizálásra kész</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>Naprakész</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Módosítások érhetők el</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Figyelmet igényel</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Szinkronizálás</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>A konfiguráció naprakészen tartása a csapat számítógépein.</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>A beállítások naprakészek</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>A Foundry nem tudja megnyitni ezt a beállításformátumot. Frissítse a Foundryt, és próbálja újra.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Egy másik számítógépről származó módosítások érhetők el. Alkalmazásukhoz válassza a Szinkronizálás lehetőséget.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Megosztott verzió használata</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Ellenőrizze a kötelező mezőket. Ha hálózati mappát kell megadnia, használjon például ilyen elérési utat: \\server\share\folder. Ha kétszer ad meg fájljelszót, ügyeljen arra, hogy a két bejegyzés egyezzen.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2590,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>tábornok</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Készítsen biztonsági mentést a beállításairól, vigye át őket egy másik számítógépre, vagy tartsa őket szinkronban.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Beállítások biztonsági mentése és szinkronizálása</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

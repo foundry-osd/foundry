@@ -4,7 +4,9 @@
 
 namespace Foundry.Core.Services.Application;
 
+/// <summary>Describes an open-file selection; a zero-based initial filter overrides the picker default (-1).</summary>
 public sealed record FileOpenPickerRequest(
     string Title,
     IReadOnlyList<string> FileTypeFilters,
-    string? SuggestedFolderPath = null);
+    string? SuggestedFolderPath = null,
+    int InitialFileTypeIndex = -1);

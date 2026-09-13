@@ -2211,6 +2211,272 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>אפשרויות פריסת Windows</value>
   </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>ההגדרות הנוכחיות</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>סנכרון אוטומטי</value>
+  </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>בחירת שם אחר</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>לא ניתן היה להסיר חלק מהסיסמאות או ממפתחות הגישה הישנים שנשמרו. יש לנסות שוב כאשר מנהל האישורים של Windows זמין.</value>
+  </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>אישור סיסמה</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>אישור סיסמת הקובץ</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>ההגדרות האלה שונו במחשב זה וגם על ידי מישהו אחר. יש לבחור איזו גרסה לשמור.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>הגרסה שתיבחר תחליף את הגרסה האחרת. כדי לשמור עותק נפרד, יש לבחור קודם באפשרות שכפול.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>התחברות</value>
+  </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>יש לבחור את קובץ החיבור שקיבלת ממישהו בצוות שלך.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>סיסמת חיבור</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>מחשבים אחרים יצטרכו סיסמה זו כדי להתחבר.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>המשך</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>שיתוף תצורה זו</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>יש לבחור תיקיית רשת משותפת עבור תצורה זו.</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>מחיקה ממחשב זה</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>מחיקה גם עבור כולם</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>למחוק את ההגדרות המשותפות האלה עבור כולם? מי שיש לו שינויים שלא סונכרנו צריך לשכפל את ההגדרות שלו כדי לשמור אותם.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>למחוק את ההגדרות האלה ממחשב זה? כדי לשמור גיבוי, יש לייצא אותן תחילה.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>ההגדרות המשותפות האלה נמחקו. כדי לשמור את השינויים במחשב זה, יש לבחור באפשרות שכפול.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>ניתוק</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>להפסיק לסנכרן תצורה זו במחשב זה? ההגדרות הנוכחיות שלך יישמרו. התצורה המשותפת והמחשבים האחרים לא ישתנו.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>ייצוא</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>שמירת תצורה זו בקובץ לצורך גיבוי או שימוש במחשב אחר.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>יש לבחור סיסמה להגנה על הקובץ המיוצא. היא תידרש כדי לייבא את התצורה.</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>שמירת קובץ חיבור</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>לא ניתן היה להשלים את הפעולה. יש לבדוק את הקובץ, את הסיסמה שלו, את הרשאות הגישה ואת החיבור לרשת.</value>
+  </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>שם תיקייה זה כבר נמצא בשימוש. יש להתחבר באמצעות קובץ חיבור, או לחזור ולבחור שם אחר.</value>
+  </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>יש לבחור תיקיית משנה חדשה וריקה בתיקייה המשותפת. הקבצים הקיימים יישארו ללא שינוי.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>ניקוי סיסמאות ופרטי גישה שמורים</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>להסיר ממחשב זה את הסיסמאות השמורות, את הקבצים הסודיים שנשמרו על ידי Foundry ואת גישת הסנכרון של ההגדרות האלה? יהיה צורך להוסיף את הפרטים החסרים ולהתחבר מחדש כדי לסנכרן. מדיה שכבר נוצרה לא תשתנה.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>הגדרות Foundry</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>ייבוא</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>הוספת תצורה מקובץ.</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>לכלול סיסמאות וקבצים סודיים</value>
+  </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>אנשים המשתמשים בתצורה זו יכולים לקרוא את הסיסמאות והקבצים החסויים הכלולים בה.</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>חסרות סיסמאות או חסרים קובצי מקור. יש להוסיף אותם לפני שמירה או שיתוף של סיסמאות.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>יש להשתמש בשם ללא תווים מיוחדים וללא נקודה או רווח בסוף.</value>
+  </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>התצורה המשותפת השתנתה. יש לבדוק את הגרסה העדכנית לפני ההתחברות.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>התחברות לתצורה משותפת</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>שימוש בגרסה שבמחשב זה</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>מידע נוסף</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>שמירת סיסמאות עבור חשבון Windows שלך במחשב זה.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>ל-Windows אין אפשרות לפתוח את ההגדרות השמורות האלה או את גישת הסנכרון שלהן עבור החשבון שלך במחשב זה.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>אפשרויות נוספות</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} קבצים חסרים או לא נכללו. יש לבחור את המיקומים שלהם לפני יצירת מדיה.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>שם התצורה</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>סיסמת הקובץ</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>הסיסמאות אינן תואמות.</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+קבצים שנכללו: {1}
+סיסמאות ומפתחות גישה שנכללו: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>מוכן</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>יש לבחור סיסמה להגנה על קובץ החיבור. יש לשתף את הסיסמה בנפרד. יש לשמור את הקובץ מחוץ לתיקיית התצורה המשותפת.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>שמירת סיסמאות</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>לזכור את החיבור הזה במחשב זה</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>שינוי שם</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>פעולה זו תחליף את ההגדרות שבשימוש. כדי לשמור עותק קודם, יש לבטל ולבחור באפשרות שכפול.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>שחזור גישה</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>הגרסאות שנשמרו בתיקייה המשותפת השתנו באופן בלתי צפוי. יש לשחזר מגיבוי מהימן.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>שכפול</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>בחירת תצורה</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>הגדרה</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>הגדרת סנכרון…</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>ניתן לשתף תצורה זו או להתחבר לתצורה שהצוות שלך כבר משתמש בה.</value>
+  </data>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>שיתוף</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>כל מי שיכול לייבא או לסנכרן את ההגדרות האלה יכול לקרוא את הסיסמאות ואת המפתחות הפרטיים של האישורים שנכללו בהן.</value>
+  </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>פעולה אחרת משתמשת בתיקייה המשותפת הזו. יש לנסות שוב בעוד זמן קצר. השינויים שלך נשמרים במחשב זה.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>תיקייה משותפת</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>לא ניתן לגשת לתיקייה המשותפת. יש לבדוק את הכתובת שלה ואת הגישה שלך לרשת. השינויים שלך נשמרים במחשב זה.</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>יש להשתמש באותה תיקיית רשת בכל מחשב. התיקייה חייבת להשתמש ב-SMB 3 עם הצפנה נדרשת. תיקיות המסונכרנות עם הענן אינן נתמכות.</value>
+  </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>להפסיק לזכור סיסמאות עבור תצורה זו במחשב זה?</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>סנכרון</value>
+  </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>מתבצע סנכרון…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>בחירת גרסה</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>לא ניתן לסנכרן</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>לא הוגדר</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>התיקייה אינה זמינה</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>שינויים שממתינים לסנכרון</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>מוכן לסנכרון</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>מעודכן</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>יש שינויים זמינים</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>נדרשת תשומת לב</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>סנכרון</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>שמירה על תצורה זו מעודכנת במחשבי הצוות שלך.</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>ההגדרות מעודכנות</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Foundry לא יכול לפתוח את פורמט ההגדרות הזה. יש לעדכן את Foundry ולנסות שוב.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>זמינים שינויים ממחשב אחר. כדי להחיל אותם, יש לבחור באפשרות סנכרון.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>שימוש בגרסה המשותפת</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>יש לבדוק את שדות החובה. אם נדרשת תיקיית רשת, יש להשתמש בנתיב כגון \\server\share\folder. אם מזינים סיסמת קובץ פעמיים, יש לוודא ששתי ההזנות זהות.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2590,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>כללי</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>גבו את ההגדרות שלכם, העבירו אותן למחשב אחר או שמרו עליהן מסונכרנות.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>גיבוי וסנכרון הגדרות</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

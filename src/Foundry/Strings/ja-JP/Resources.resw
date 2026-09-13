@@ -2211,6 +2211,272 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows 展開オプション</value>
   </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>現在の設定</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>自動同期</value>
+  </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>別の名前を選択</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>古い保存済みパスワードまたはアクセスキーの一部を削除できませんでした。Windows 資格情報マネージャーが利用可能になったら、もう一度お試しください。</value>
+  </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>パスワードの確認</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>ファイルのパスワードを確認</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>この設定は、この PC と他のユーザーの両方によって変更されました。残すバージョンを選んでください。</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>選んだバージョンでもう一方を置き換えます。別のコピーを残すには、先に［複製］を選んでください。</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>接続</value>
+  </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>チームのメンバーから受け取った接続ファイルを選択してください。</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>接続パスワード</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>他の PC が接続するには、このパスワードが必要です。</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>続行</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>この構成を共有</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>この構成に使用する共有ネットワークフォルダーを選択してください。</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>この PC から削除</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>他のすべてのユーザーからも削除</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>この共有設定をすべてのユーザーから削除しますか？未同期の変更がある場合は、設定を複製して変更を残す必要があります。</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>この設定をこの PC から削除しますか？バックアップを残すには、先にエクスポートしてください。</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>この共有設定は削除されました。［複製］を選ぶと、この PC に変更を残せます。</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>切断</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>この PC でこの構成の同期を停止しますか？現在の設定は保持されます。共有構成や他の PC は変更されません。</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>エクスポート</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>バックアップや別の PC での使用のために、この構成をファイルに保存します。</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>エクスポートするファイルを保護するパスワードを選択してください。構成をインポートするときに必要です。</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>接続ファイルを保存</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>操作を完了できませんでした。ファイル、ファイルのパスワード、アクセス権限、ネットワーク接続を確認してください。</value>
+  </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>このフォルダー名は既に使用されています。接続ファイルを使って接続するか、戻って別の名前を選択してください。</value>
+  </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>共有フォルダー内の新しい空のサブフォルダーを選択してください。既存のファイルは変更されません。</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>保存したパスワードとアクセス情報を消去</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>この設定の保存済みパスワード、Foundry が保存した機密ファイル、同期用のアクセス情報をこの PC から削除しますか？同期するには、不足している情報を追加して再接続する必要があります。作成済みのメディアは変更されません。</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Foundry の設定</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>インポート</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>ファイルから構成を追加します。</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>パスワードと機密ファイルを含める</value>
+  </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>この構成を使用する人は、含まれるパスワードや機密ファイルを読むことができます。</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>一部のパスワードまたは元のファイルがありません。パスワードを保存または共有する前に追加してください。</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>特殊文字を含まず、末尾がピリオドやスペースでない名前を使用してください。</value>
+  </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>共有構成が変更されました。接続する前に最新のバージョンを確認してください。</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>共有構成に接続</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>この PC のバージョンを使用</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>詳細情報</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>この PC の Windows アカウントにパスワードを保存します。</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Windows は、この PC のアカウントで、保存された設定または同期用のアクセス情報のロックを解除できません。</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>その他のオプション</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} 個のファイルが見つからないか、含まれていません。メディアを作成する前に、それぞれの保存場所を選んでください。</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>構成の名前</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>ファイルのパスワード</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>パスワードが一致しません。</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+含まれるファイル: {1}
+含まれるパスワードとアクセスキー: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>準備完了</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>接続ファイルを保護するパスワードを設定してください。パスワードはファイルとは別に共有してください。 共有構成のフォルダーの外にファイルを保存してください。</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>パスワードを保存</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>この PC でこの接続を記憶する</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>名前の変更</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>現在使用している設定を置き換えます。先にコピーを残すには、キャンセルして［複製］を選んでください。</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>アクセスを復元</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>共有フォルダーに保存されたバージョンに予期しない変更がありました。信頼できるバックアップから復元してください。</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>構成を選択</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>セットアップ</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>同期を設定…</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>この構成を共有するか、チームが既に使用している構成に接続します。</value>
+  </data>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>共有</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>この設定をインポートまたは同期できる人は、含まれるパスワードと証明書の秘密キーを読むことができます。</value>
+  </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>別の操作がこの共有フォルダーを使用しています。しばらくしてから再試行してください。変更内容はこの PC に保持されます。</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>共有フォルダー</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>共有フォルダーに接続できません。フォルダーのアドレスとネットワークへのアクセスを確認してください。変更内容はこの PC に保持されます。</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>すべての PC で同じネットワークフォルダーを使用してください。SMB 3 を使用し、暗号化を必須に設定する必要があります。クラウドと同期するフォルダーはサポートされていません。</value>
+  </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>この PC でこの構成のパスワードの保存を停止しますか？</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>同期</value>
+  </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>同期中…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>バージョンを選択</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>同期できません</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>未設定</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>フォルダーを利用できません</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>同期する変更があります</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>同期の準備完了</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>最新の状態</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>変更があります</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>確認が必要です</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>同期</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>チームの各 PC でこの構成を最新の状態に保ちます。</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>設定は最新です</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Foundry はこの設定形式を開けません。Foundry を更新して、もう一度お試しください。</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>他の PC からの変更があります。［同期］を選んで適用してください。</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>共有バージョンを使用</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>必須項目を確認してください。ネットワークフォルダーを求められた場合は、\\server\share\folder のようなパスを使用してください。ファイルのパスワードを 2 回入力する場合は、両方が一致していることを確認してください。</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2590,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>一般</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>設定をバックアップしたり、別の PC に転送したり、同期を維持したりできます。</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>設定のバックアップと同期</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

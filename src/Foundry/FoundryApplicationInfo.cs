@@ -25,6 +25,9 @@ public static class FoundryApplicationInfo
     /// </summary>
     public const string DocumentationUrl = "https://docs.foundryosd.com";
 
+    /// <summary>Documentation for sharing deployment configurations and network requirements.</summary>
+    public const string DeploymentProfilesDocumentationUrl = DocumentationUrl + "/foundry-osd/deployment-profiles";
+
     /// <summary>
     /// Gets the ADK documentation URL.
     /// </summary>
