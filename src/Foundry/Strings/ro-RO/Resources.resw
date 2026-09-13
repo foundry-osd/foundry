@@ -2215,22 +2215,22 @@
     <value>Deschide</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
-    <value>Profil activ</value>
+    <value>Setările curente</value>
   </data>
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Sincronizare automată</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Profilul a fost salvat, dar acreditările vechi trebuie încă eliminate. Reîncercați când Managerul de acreditări Windows este disponibil.</value>
+    <value>Unele parole sau chei de acces vechi nu au putut fi eliminate. Încercați din nou când Managerul de acreditări Windows este disponibil.</value>
   </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Confirmă fraza de acces</value>
+    <value>Confirmați parola fișierului</value>
   </data>
   <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Modificările în conflict necesită o decizie.</value>
+    <value>Aceste setări au fost modificate pe acest PC și de altcineva. Alegeți versiunea pe care doriți să o păstrați.</value>
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Alegeți o versiune sau salvați o copie pentru a le păstra pe ambele. Cealaltă versiune va fi înlocuită.</value>
+    <value>Versiunea aleasă o va înlocui pe cealaltă. Alegeți mai întâi „Duplică” dacă doriți să păstrați o copie separată.</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Alege fișierul de conectare oferit de cineva din echipa ta.</value>
@@ -2251,22 +2251,19 @@
     <value>Alege un folder de rețea partajat pentru această configurație.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
-    <value>Șterge profilul local</value>
+    <value>Șterge de pe acest PC</value>
   </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Șterge și profilul partajat</value>
+    <value>Șterge și pentru toată lumea</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Ștergeți profilul partajat pentru toate instalările? Ceilalți editori trebuie să își salveze lucrul ca o copie.</value>
+    <value>Ștergeți aceste setări partajate pentru toată lumea? Cei care au modificări nesincronizate trebuie să își duplice setările pentru a le păstra.</value>
   </data>
   <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Ștergeți acest profil local? Exportați mai întâi o copie de rezervă dacă este necesar.</value>
+    <value>Ștergeți aceste setări de pe acest PC? Exportați-le mai întâi dacă doriți o copie de rezervă.</value>
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Profilul partajat a fost șters. Salvați o copie locală pentru a păstra lucrul.</value>
-  </data>
-  <data name="Profiles.Description" xml:space="preserve">
-    <value>Memorați parole, transferați profiluri și sincronizați setările partajate.</value>
+    <value>Aceste setări partajate au fost șterse. Alegeți „Duplică” pentru a păstra modificările pe acest PC.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exportă</value>
@@ -2281,19 +2278,19 @@
     <value>Salvează fișierul de conectare</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
-    <value>Operația a eșuat. Verificați fișierul, fraza de acces, permisiunile și conexiunea.</value>
+    <value>Acțiunea nu a putut fi finalizată. Verificați fișierul, parola acestuia, permisiunile de acces și conexiunea la rețea.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Șterge parolele și accesul salvate</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Uitați parolele salvate și cheia partajată a acestui profil local? Mediile existente rămân neschimbate.</value>
+    <value>Eliminați parolele salvate, fișierele confidențiale salvate de Foundry și accesul la sincronizare pentru aceste setări de pe acest PC? Va trebui să adăugați datele lipsă și să vă reconectați pentru sincronizare. Suporturile create deja nu se vor modifica.</value>
   </data>
   <data name="Profiles.Heading" xml:space="preserve">
-    <value>Profiluri de implementare</value>
+    <value>Setările Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Istoricul partajat este plin. Creați un depozit partajat nou.</value>
+    <value>Aceste setări partajate au atins limita de actualizări. Partajați-le din nou într-un folder nou din rețea.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importă</value>
@@ -2302,42 +2299,42 @@
     <value>Adaugă o configurație dintr-un fișier.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Include secrete și fișiere confidențiale</value>
+    <value>Include parole și fișiere confidențiale</value>
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Completați parolele și fișierele sursă necesare înainte de a memora sau publica secrete.</value>
+    <value>Lipsesc unele parole sau fișiere sursă. Adăugați-le înainte de a salva sau partaja parole.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Conectează-te la o configurație partajată</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Păstrează versiunea locală</value>
+    <value>Folosește versiunea de pe acest PC</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Păstrează parolele pentru contul tău Windows pe acest PC.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
-    <value>Acreditările salvate nu sunt disponibile pentru acest utilizator Windows.</value>
+    <value>Windows nu poate debloca aceste setări salvate sau accesul lor la sincronizare pentru contul dvs. de pe acest PC.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
     <value>Mai multe opțiuni</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} fișiere lipsesc sau sunt omise. Verificați căile acestora înainte de a crea suportul.</value>
+    <value>{0} fișiere lipsesc sau nu au fost incluse. Selectați locațiile lor înainte de a crea suporturile.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
-    <value>Numele profilului</value>
+    <value>Numele configurației</value>
   </data>
   <data name="Profiles.Offline" xml:space="preserve">
-    <value>Partajarea este ocupată sau indisponibilă. Lucrul local este păstrat.</value>
+    <value>Folderul partajat este ocupat sau nu poate fi accesat. Modificările sunt păstrate pe acest PC.</value>
   </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Frază de acces</value>
+    <value>Parola fișierului</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
-Fișiere: {1}
-Secrete: {2}</value>
+Fișiere incluse: {1}
+Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="Profiles.Ready" xml:space="preserve">
     <value>Pregătit</value>
@@ -2349,16 +2346,16 @@ Secrete: {2}</value>
     <value>Memorează parolele</value>
   </data>
   <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Memorează cheia partajată</value>
+    <value>Reține această conexiune pe acest PC</value>
   </data>
   <data name="Profiles.Rename" xml:space="preserve">
     <value>Redenumește</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Aceasta înlocuiește configurația activă. Salvați mai întâi o copie pentru a păstra lucrul.</value>
+    <value>Această acțiune va înlocui setările pe care le utilizați. Pentru a păstra mai întâi o copie, anulați și alegeți „Duplică”.</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Istoricul partajat s-a schimbat neașteptat. Restaurați o copie de încredere.</value>
+    <value>Versiunile salvate în folderul partajat s-au modificat în mod neașteptat. Restaurați dintr-o copie de rezervă de încredere.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Duplică</value>
@@ -2373,13 +2370,13 @@ Secrete: {2}</value>
     <value>Partajează această configurație sau conectează-te la una pe care echipa ta o folosește deja.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Destinatarii cu cheia profilului pot citi secretele și cheile private ale certificatelor incluse.</value>
+    <value>Oricine poate importa sau sincroniza aceste setări poate citi parolele și cheile private ale certificatelor incluse.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Folder partajat</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Folosiți o singură partajare SMB 3 autoritativă cu criptare obligatorie. Folderele oglindite în cloud nu sunt acceptate.</value>
+    <value>Folosiți același folder din rețea pe toate PC-urile. Acesta trebuie să folosească SMB 3 cu criptare obligatorie. Folderele sincronizate în cloud nu sunt acceptate.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
     <value>Oprești memorarea parolelor acestei configurații pe acest PC?</value>
@@ -2394,19 +2391,19 @@ Secrete: {2}</value>
     <value>Menține această configurație actualizată pe PC-urile echipei tale.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Sincronizat</value>
+    <value>Setările sunt la zi</value>
   </data>
   <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Acest profil folosește un format neacceptat. Actualizați Foundry înainte de a-l deschide.</value>
+    <value>Foundry nu poate deschide acest format de setări. Actualizați Foundry și încercați din nou.</value>
   </data>
   <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>O actualizare partajată este pregătită. Selectați Sincronizează acum pentru a o aplica.</value>
+    <value>Sunt disponibile modificări de pe alt PC. Selectați „Sincronizează” pentru a le aplica.</value>
   </data>
   <data name="Profiles.UseRemote" xml:space="preserve">
     <value>Folosește versiunea partajată</value>
   </data>
   <data name="Profiles.Validation" xml:space="preserve">
-    <value>Completați câmpurile obligatorii, folosiți o cale partajată UNC și introduceți fraze de acces identice.</value>
+    <value>Verificați câmpurile obligatorii. Dacă vi se cere un folder din rețea, folosiți o cale precum \\server\share\folder. Dacă introduceți parola fișierului de două ori, asigurați-vă că ambele valori sunt identice.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>

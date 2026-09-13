@@ -2215,22 +2215,22 @@
     <value>Otevřít</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
-    <value>Aktivní profil</value>
+    <value>Aktuální nastavení</value>
   </data>
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automatická synchronizace</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Profil byl uložen, ale staré přihlašovací údaje je ještě nutné odstranit. Zkuste to znovu, až bude Správce pověření systému Windows dostupný.</value>
+    <value>Některá stará uložená hesla nebo přístupové klíče se nepodařilo odebrat. Zkuste to znovu, až bude dostupný Správce pověření Windows.</value>
   </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Potvrdit heslovou frázi</value>
+    <value>Potvrzení hesla k souboru</value>
   </data>
   <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Konfliktní změny vyžadují rozhodnutí.</value>
+    <value>Tato nastavení byla změněna na tomto počítači i někým jiným. Vyberte verzi, kterou chcete zachovat.</value>
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Vyberte verzi nebo uložte kopii pro zachování obou. Druhá verze bude nahrazena.</value>
+    <value>Vybraná verze nahradí druhou. Pokud chcete zachovat samostatnou kopii, zvolte nejprve Duplikovat.</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Vyberte soubor připojení, který vám poskytl někdo z vašeho týmu.</value>
@@ -2251,22 +2251,19 @@
     <value>Vyberte sdílenou síťovou složku pro tuto konfiguraci.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
-    <value>Odstranit místní profil</value>
+    <value>Odstranit z tohoto počítače</value>
   </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Odstranit také sdílený profil</value>
+    <value>Odstranit také pro všechny</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Odstranit sdílený profil pro všechny instalace? Ostatní editoři musí uložit svou práci jako kopii.</value>
+    <value>Odstranit tato sdílená nastavení pro všechny? Každý, kdo má nesynchronizované změny, musí svá nastavení duplikovat, aby je zachoval.</value>
   </data>
   <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Odstranit tento místní profil? V případě potřeby nejprve exportujte zálohu.</value>
+    <value>Odstranit tato nastavení z tohoto počítače? Pokud chcete zálohu, nejprve je exportujte.</value>
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Sdílený profil byl odstraněn. Uložte místní kopii, abyste zachovali práci.</value>
-  </data>
-  <data name="Profiles.Description" xml:space="preserve">
-    <value>Pamatujte si hesla, přenášejte profily a synchronizujte sdílená nastavení.</value>
+    <value>Tato sdílená nastavení byla odstraněna. Zvolte Duplikovat, pokud chcete zachovat své změny na tomto počítači.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exportovat</value>
@@ -2281,19 +2278,19 @@
     <value>Uložit soubor připojení</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
-    <value>Operace selhala. Zkontrolujte soubor, heslovou frázi, oprávnění a připojení.</value>
+    <value>Tuto akci se nepodařilo dokončit. Zkontrolujte soubor, jeho heslo, svá přístupová oprávnění a síťové připojení.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Vymazat uložená hesla a přístupy</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Zapomenout uložená hesla a sdílený klíč tohoto místního profilu? Existující média zůstanou beze změny.</value>
+    <value>Odebrat uložená hesla, důvěrné soubory uložené aplikací Foundry a přístup k synchronizaci těchto nastavení na tomto počítači? Budete muset doplnit chybějící údaje a znovu se připojit k synchronizaci. Již vytvořená média se nezmění.</value>
   </data>
   <data name="Profiles.Heading" xml:space="preserve">
-    <value>Profily nasazení</value>
+    <value>Nastavení Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Sdílená historie je plná. Vytvořte nové sdílené úložiště.</value>
+    <value>Tato sdílená nastavení dosáhla limitu aktualizací. Sdílejte je znovu v nové síťové složce.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importovat</value>
@@ -2302,42 +2299,42 @@
     <value>Přidat konfiguraci ze souboru.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Zahrnout tajné údaje a důvěrné soubory</value>
+    <value>Zahrnout hesla a důvěrné soubory</value>
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Před zapamatováním nebo publikováním tajných údajů doplňte požadovaná hesla a zdrojové soubory.</value>
+    <value>Některá hesla nebo zdrojové soubory chybí. Doplňte je před uložením nebo sdílením hesel.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Připojit ke sdílené konfiguraci</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Zachovat místní verzi</value>
+    <value>Použít verzi z tohoto počítače</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Uchovávat hesla pro váš účet Windows v tomto počítači.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
-    <value>Uložené přihlašovací údaje nejsou tomuto uživateli Windows dostupné.</value>
+    <value>Windows nemůže pro váš účet na tomto počítači odemknout tato uložená nastavení ani jejich přístup k synchronizaci.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
     <value>Další možnosti</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Počet chybějících nebo vynechaných souborů: {0}. Před vytvořením média zkontrolujte jejich cesty.</value>
+    <value>Chybí {0} souborů nebo nebyly zahrnuty. Před vytvořením média vyberte jejich umístění.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
-    <value>Název profilu</value>
+    <value>Název konfigurace</value>
   </data>
   <data name="Profiles.Offline" xml:space="preserve">
-    <value>Sdílení je zaneprázdněné nebo nedostupné. Místní práce je zachována.</value>
+    <value>Sdílená složka je zaneprázdněná nebo nedostupná. Vaše změny zůstávají uložené na tomto počítači.</value>
   </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Heslová fráze</value>
+    <value>Heslo k souboru</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
-Soubory: {1}
-Tajné údaje: {2}</value>
+Zahrnuté soubory: {1}
+Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="Profiles.Ready" xml:space="preserve">
     <value>Připraveno</value>
@@ -2349,16 +2346,16 @@ Tajné údaje: {2}</value>
     <value>Zapamatovat hesla</value>
   </data>
   <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Zapamatovat sdílený klíč</value>
+    <value>Zapamatovat si toto připojení na tomto počítači</value>
   </data>
   <data name="Profiles.Rename" xml:space="preserve">
     <value>Přejmenovat</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Tím nahradíte aktivní konfiguraci. Nejprve uložte kopii, abyste zachovali práci.</value>
+    <value>Tím se nahradí nastavení, která právě používáte. Pokud chcete nejprve zachovat kopii, akci zrušte a zvolte Duplikovat.</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Sdílená historie se neočekávaně změnila. Obnovte důvěryhodnou kopii.</value>
+    <value>Uložené verze ve sdílené složce se neočekávaně změnily. Obnovte je z důvěryhodné zálohy.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Duplikovat</value>
@@ -2373,13 +2370,13 @@ Tajné údaje: {2}</value>
     <value>Sdílet tuto konfiguraci nebo se připojit ke konfiguraci, kterou váš tým již používá.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Příjemci s klíčem profilu mohou číst zahrnuté tajné údaje a soukromé klíče certifikátů.</value>
+    <value>Každý, kdo může tato nastavení importovat nebo synchronizovat, může přečíst zahrnutá hesla a soukromé klíče certifikátů.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Sdílená složka</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Použijte jedno autoritativní sdílení SMB 3 s povinným šifrováním. Složky zrcadlené do cloudu nejsou podporovány.</value>
+    <value>Na všech počítačích používejte stejnou síťovou složku. Musí používat SMB 3 s povinným šifrováním. Složky synchronizované s cloudem nejsou podporovány.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
     <value>Přestat si pamatovat hesla této konfigurace v tomto počítači?</value>
@@ -2394,19 +2391,19 @@ Tajné údaje: {2}</value>
     <value>Udržovat tuto konfiguraci aktuální na počítačích vašeho týmu.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Synchronizováno</value>
+    <value>Nastavení jsou aktuální</value>
   </data>
   <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Tento profil používá nepodporovaný formát. Před otevřením aktualizujte Foundry.</value>
+    <value>Foundry nemůže otevřít tento formát nastavení. Aktualizujte Foundry a zkuste to znovu.</value>
   </data>
   <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Sdílená aktualizace je připravena. Použijte ji volbou Synchronizovat nyní.</value>
+    <value>Jsou dostupné změny z jiného počítače. Použijte je výběrem Synchronizovat.</value>
   </data>
   <data name="Profiles.UseRemote" xml:space="preserve">
     <value>Použít sdílenou verzi</value>
   </data>
   <data name="Profiles.Validation" xml:space="preserve">
-    <value>Vyplňte povinná pole, použijte sdílenou cestu UNC a zadejte shodné heslové fráze.</value>
+    <value>Zkontrolujte povinná pole. Pokud je požadována síťová složka, použijte cestu jako \\server\share\folder. Pokud zadáváte heslo k souboru dvakrát, musí se obě zadání shodovat.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>

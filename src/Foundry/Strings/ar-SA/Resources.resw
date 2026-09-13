@@ -2215,22 +2215,22 @@
     <value>فتح</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
-    <value>ملف التعريف النشط</value>
+    <value>الإعدادات الحالية</value>
   </data>
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>المزامنة التلقائية</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>تم حفظ ملف التعريف، لكن لا تزال بيانات الاعتماد القديمة بحاجة إلى إزالة. أعد المحاولة عندما يتاح مدير بيانات الاعتماد في Windows.</value>
+    <value>تعذرت إزالة بعض كلمات المرور أو مفاتيح الوصول القديمة المحفوظة. حاول مرة أخرى عندما يكون مدير بيانات اعتماد Windows متاحًا.</value>
   </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>تأكيد عبارة المرور</value>
+    <value>تأكيد كلمة مرور الملف</value>
   </data>
   <data name="Profiles.Conflict" xml:space="preserve">
-    <value>تتطلب التغييرات المتعارضة اتخاذ قرار.</value>
+    <value>تم تغيير هذه الإعدادات على هذا الكمبيوتر ومن قِبل شخص آخر. اختر النسخة التي تريد الاحتفاظ بها.</value>
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>اختر نسخة أو احفظ نسخة إضافية للاحتفاظ بكلتيهما. سيتم استبدال النسخة الأخرى.</value>
+    <value>ستحل النسخة التي تختارها محل الأخرى. اختر إنشاء نسخة أولًا إذا أردت الاحتفاظ بنسخة منفصلة.</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>اختر ملف الاتصال الذي قدمه لك أحد أعضاء فريقك.</value>
@@ -2251,22 +2251,19 @@
     <value>اختر مجلد شبكة مشتركًا لهذا التكوين.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
-    <value>حذف ملف التعريف المحلي</value>
+    <value>حذف من هذا الكمبيوتر</value>
   </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>حذف ملف التعريف المشترك أيضًا</value>
+    <value>الحذف للجميع أيضًا</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>هل تريد حذف ملف التعريف المشترك لجميع عمليات التثبيت؟ يجب على المحررين الآخرين حفظ نسخ من عملهم.</value>
+    <value>هل تريد حذف هذه الإعدادات المشتركة للجميع؟ يجب على أي شخص لديه تغييرات لم تتم مزامنتها إنشاء نسخة من إعداداته للاحتفاظ بها.</value>
   </data>
   <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>هل تريد حذف ملف التعريف المحلي هذا؟ صدّر نسخة احتياطية أولًا إذا لزم الأمر.</value>
+    <value>هل تريد حذف هذه الإعدادات من هذا الكمبيوتر؟ صدّرها أولًا إذا أردت نسخة احتياطية.</value>
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>تم حذف ملف التعريف المشترك. احفظ نسخة محلية للاحتفاظ بعملك.</value>
-  </data>
-  <data name="Profiles.Description" xml:space="preserve">
-    <value>تذكّر كلمات المرور ونقل ملفات التعريف ومزامنة الإعدادات المشتركة.</value>
+    <value>تم حذف هذه الإعدادات المشتركة. اختر إنشاء نسخة للاحتفاظ بتغييراتك على هذا الكمبيوتر.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>تصدير</value>
@@ -2281,19 +2278,19 @@
     <value>حفظ ملف الاتصال</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
-    <value>فشلت العملية. تحقّق من الملف وعبارة المرور والأذونات والاتصال.</value>
+    <value>تعذر إكمال هذا الإجراء. تحقق من الملف وكلمة مروره وأذونات الوصول واتصال الشبكة.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>مسح كلمات المرور وبيانات الوصول المحفوظة</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>هل تريد نسيان كلمات المرور المحفوظة والمفتاح المشترك لملف التعريف المحلي هذا؟ لن تتغير وسائط النشر الحالية.</value>
+    <value>هل تريد إزالة كلمات المرور المحفوظة والملفات السرية التي حفظها Foundry وإمكانية المزامنة لهذه الإعدادات على هذا الكمبيوتر؟ ستحتاج إلى إضافة البيانات الناقصة وإعادة الاتصال للمزامنة. لن تتغير الوسائط التي أنشأتها سابقًا.</value>
   </data>
   <data name="Profiles.Heading" xml:space="preserve">
-    <value>ملفات تعريف النشر</value>
+    <value>إعدادات Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>امتلأ سجل الإصدارات المشترك. أنشئ مستودعًا مشتركًا جديدًا.</value>
+    <value>وصلت هذه الإعدادات المشتركة إلى الحد الأقصى للتحديثات. شاركها مجددًا في مجلد شبكة جديد.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>استيراد</value>
@@ -2302,42 +2299,42 @@
     <value>إضافة تكوين من ملف.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>تضمين البيانات السرية والملفات الحساسة</value>
+    <value>تضمين كلمات المرور والملفات السرية</value>
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>أكمل كلمات المرور وملفات المصدر المطلوبة قبل تذكّر البيانات السرية أو نشرها.</value>
+    <value>بعض كلمات المرور أو الملفات المصدر مفقودة. أضفها قبل حفظ كلمات المرور أو مشاركتها.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>الاتصال بتكوين مشترك</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>الاحتفاظ بالنسخة المحلية</value>
+    <value>استخدام نسخة هذا الكمبيوتر</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>الاحتفاظ بكلمات المرور لحساب Windows الخاص بك على هذا الكمبيوتر.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
-    <value>بيانات الاعتماد المحفوظة غير متاحة لمستخدم Windows هذا.</value>
+    <value>يتعذر على Windows إلغاء قفل هذه الإعدادات المحفوظة أو إمكانية مزامنتها لحسابك على هذا الكمبيوتر.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
     <value>المزيد من الخيارات</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>هناك {0} من الملفات المفقودة أو غير المضمّنة. راجع مساراتها قبل إنشاء وسائط النشر.</value>
+    <value>هناك {0} ملفات مفقودة أو لم يتم تضمينها. حدد مواقعها قبل إنشاء الوسائط.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
-    <value>اسم ملف التعريف</value>
+    <value>اسم التكوين</value>
   </data>
   <data name="Profiles.Offline" xml:space="preserve">
-    <value>المشاركة مشغولة أو غير متاحة. تم الاحتفاظ بالعمل المحلي.</value>
+    <value>المجلد المشترك مشغول أو يتعذر الوصول إليه. تُحفظ تغييراتك على هذا الكمبيوتر.</value>
   </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>عبارة المرور</value>
+    <value>كلمة مرور الملف</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
-الملفات: {1}
-البيانات السرية: {2}</value>
+الملفات المضمنة: {1}
+كلمات المرور ومفاتيح الوصول المضمنة: {2}</value>
   </data>
   <data name="Profiles.Ready" xml:space="preserve">
     <value>جاهز</value>
@@ -2349,16 +2346,16 @@
     <value>تذكّر كلمات المرور</value>
   </data>
   <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>تذكّر المفتاح المشترك</value>
+    <value>تذكر هذا الاتصال على هذا الكمبيوتر</value>
   </data>
   <data name="Profiles.Rename" xml:space="preserve">
     <value>إعادة تسمية</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>سيؤدي هذا إلى استبدال الإعدادات النشطة. احفظ نسخة أولًا للاحتفاظ بعملك.</value>
+    <value>سيؤدي هذا إلى استبدال الإعدادات التي تستخدمها. للاحتفاظ بنسخة أولًا، ألغِ الإجراء واختر إنشاء نسخة.</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
-    <value>تغيّر سجل الإصدارات المشترك بشكل غير متوقع. استعد نسخة موثوقة.</value>
+    <value>تغيرت النسخ المحفوظة في المجلد المشترك بشكل غير متوقع. استعدها من نسخة احتياطية تثق بها.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>إنشاء نسخة</value>
@@ -2373,13 +2370,13 @@
     <value>شارك هذا التكوين أو اتصل بتكوين يستخدمه فريقك بالفعل.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>يمكن للمستلمين الذين يملكون مفتاح ملف التعريف قراءة البيانات السرية والمفاتيح الخاصة للشهادات المضمّنة.</value>
+    <value>يمكن لأي شخص يستطيع استيراد هذه الإعدادات أو مزامنتها قراءة كلمات المرور والمفاتيح الخاصة للشهادات المضمنة.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>المجلد المشترك</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>استخدم مشاركة SMB 3 مرجعية واحدة مع فرض التشفير. المجلدات المنسوخة عبر المزامنة السحابية غير مدعومة.</value>
+    <value>استخدم مجلد الشبكة نفسه على كل كمبيوتر. يجب أن يستخدم SMB 3 مع اشتراط التشفير. المجلدات التي تتم مزامنتها مع السحابة غير مدعومة.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
     <value>هل تريد التوقف عن تذكر كلمات المرور لهذا التكوين على هذا الكمبيوتر؟</value>
@@ -2394,19 +2391,19 @@
     <value>إبقاء هذا التكوين محدثًا على أجهزة الكمبيوتر الخاصة بفريقك.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>تمت المزامنة</value>
+    <value>الإعدادات محدّثة</value>
   </data>
   <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>يستخدم ملف التعريف هذا تنسيقًا غير مدعوم. حدّث Foundry قبل فتحه.</value>
+    <value>لا يستطيع Foundry فتح تنسيق الإعدادات هذا. حدّث Foundry وحاول مرة أخرى.</value>
   </data>
   <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>يتوفر تحديث مشترك. اختر «المزامنة الآن» لتطبيقه.</value>
+    <value>تتوفر تغييرات من كمبيوتر آخر. اختر مزامنة لتطبيقها.</value>
   </data>
   <data name="Profiles.UseRemote" xml:space="preserve">
     <value>استخدام النسخة المشتركة</value>
   </data>
   <data name="Profiles.Validation" xml:space="preserve">
-    <value>أكمل الحقول المطلوبة، واستخدم مسار مشاركة UNC، وأدخل عبارتي مرور متطابقتين.</value>
+    <value>تحقق من الحقول المطلوبة. إذا طُلب مجلد شبكة، فاستخدم مسارًا مثل \\server\share\folder. إذا أدخلت كلمة مرور الملف مرتين، فتأكد من تطابقهما.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>

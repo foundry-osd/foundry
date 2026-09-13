@@ -2215,22 +2215,22 @@
     <value>Öffnen</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
-    <value>Aktives Profil</value>
+    <value>Aktuelle Einstellungen</value>
   </data>
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automatisch synchronisieren</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Das Profil wurde gespeichert, aber alte Anmeldedaten müssen noch entfernt werden. Versuchen Sie es erneut, sobald die Windows-Anmeldeinformationsverwaltung verfügbar ist.</value>
+    <value>Einige alte gespeicherte Kennwörter oder Zugriffsschlüssel konnten nicht entfernt werden. Versuchen Sie es erneut, wenn die Windows-Anmeldeinformationsverwaltung verfügbar ist.</value>
   </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Passphrase bestätigen</value>
+    <value>Dateikennwort bestätigen</value>
   </data>
   <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Widersprüchliche Änderungen erfordern eine Entscheidung.</value>
+    <value>Diese Einstellungen wurden auf diesem PC und von einer anderen Person geändert. Wählen Sie die Version aus, die Sie behalten möchten.</value>
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Eine Version auswählen oder eine Kopie speichern, um beide zu behalten. Die andere Version wird ersetzt.</value>
+    <value>Die gewählte Version ersetzt die andere. Wählen Sie zuerst Duplizieren, wenn Sie eine separate Kopie behalten möchten.</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Wählen Sie die Verbindungsdatei aus, die Sie von einem Teammitglied erhalten haben.</value>
@@ -2251,22 +2251,19 @@
     <value>Wählen Sie einen geteilten Netzwerkordner für diese Konfiguration aus.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
-    <value>Lokales Profil löschen</value>
+    <value>Von diesem PC löschen</value>
   </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Auch das gemeinsame Profil löschen</value>
+    <value>Auch für alle anderen löschen</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Das gemeinsame Profil für alle Installationen löschen? Andere Bearbeiter müssen ihre Arbeit als Kopie speichern.</value>
+    <value>Diese gemeinsamen Einstellungen für alle löschen? Wer noch nicht synchronisierte Änderungen hat, muss seine Einstellungen duplizieren, um sie zu behalten.</value>
   </data>
   <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Dieses lokale Profil löschen? Bei Bedarf zuerst eine Sicherung exportieren.</value>
+    <value>Diese Einstellungen von diesem PC löschen? Exportieren Sie sie zuerst, wenn Sie eine Sicherung behalten möchten.</value>
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Das gemeinsame Profil wurde gelöscht. Eine lokale Kopie zum Erhalt der Arbeit speichern.</value>
-  </data>
-  <data name="Profiles.Description" xml:space="preserve">
-    <value>Kennwörter speichern, Profile übertragen und gemeinsame Einstellungen synchronisieren.</value>
+    <value>Diese gemeinsamen Einstellungen wurden gelöscht. Wählen Sie Duplizieren, um Ihre Änderungen auf diesem PC zu behalten.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exportieren</value>
@@ -2281,19 +2278,19 @@
     <value>Verbindungsdatei speichern</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
-    <value>Vorgang fehlgeschlagen. Datei, Passphrase, Berechtigungen und Verbindung prüfen.</value>
+    <value>Diese Aktion konnte nicht abgeschlossen werden. Prüfen Sie die Datei, ihr Kennwort, Ihre Zugriffsrechte und Ihre Netzwerkverbindung.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Gespeicherte Kennwörter und Zugänge löschen</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Gespeicherte Kennwörter und den gemeinsamen Schlüssel dieses lokalen Profils vergessen? Vorhandene Medien bleiben unverändert.</value>
+    <value>Gespeicherte Kennwörter, von Foundry gespeicherte vertrauliche Dateien und den Synchronisierungszugriff für diese Einstellungen auf diesem PC entfernen? Sie müssen fehlende Angaben ergänzen und die Verbindung zur Synchronisierung erneut einrichten. Bereits erstellte Medien bleiben unverändert.</value>
   </data>
   <data name="Profiles.Heading" xml:space="preserve">
-    <value>Bereitstellungsprofile</value>
+    <value>Foundry-Einstellungen</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Der gemeinsame Verlauf ist voll. Ein neues gemeinsames Repository erstellen.</value>
+    <value>Diese gemeinsamen Einstellungen haben ihre Aktualisierungsgrenze erreicht. Geben Sie sie erneut in einem neuen Netzwerkordner frei.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importieren</value>
@@ -2302,42 +2299,42 @@
     <value>Eine Konfiguration aus einer Datei hinzufügen.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Geheimnisse und vertrauliche Dateien einschließen</value>
+    <value>Kennwörter und vertrauliche Dateien einschließen</value>
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Vervollständigen Sie erforderliche Passwörter und Quelldateien, bevor Sie Geheimnisse speichern oder veröffentlichen.</value>
+    <value>Einige Kennwörter oder Quelldateien fehlen. Fügen Sie diese hinzu, bevor Sie Kennwörter speichern oder teilen.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Mit einer geteilten Konfiguration verbinden</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Lokale Version behalten</value>
+    <value>Version dieses PCs verwenden</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Kennwörter für Ihr Windows-Konto auf diesem PC speichern.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
-    <value>Gespeicherte Anmeldedaten sind für diesen Windows-Benutzer nicht verfügbar.</value>
+    <value>Windows kann diese gespeicherten Einstellungen oder ihren Synchronisierungszugriff für Ihr Konto auf diesem PC nicht entsperren.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
     <value>Weitere Optionen</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} Dateien fehlen oder wurden ausgelassen. Prüfen Sie ihre Pfade vor dem Erstellen des Mediums.</value>
+    <value>{0} Dateien fehlen oder wurden nicht eingeschlossen. Geben Sie ihre Speicherorte an, bevor Sie Medien erstellen.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
-    <value>Profilname</value>
+    <value>Name der Konfiguration</value>
   </data>
   <data name="Profiles.Offline" xml:space="preserve">
-    <value>Die Freigabe ist belegt oder nicht verfügbar. Lokale Arbeit bleibt erhalten.</value>
+    <value>Der freigegebene Ordner ist ausgelastet oder nicht erreichbar. Ihre Änderungen bleiben auf diesem PC gespeichert.</value>
   </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Passphrase</value>
+    <value>Dateikennwort</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
-Dateien: {1}
-Geheimnisse: {2}</value>
+Enthaltene Dateien: {1}
+Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="Profiles.Ready" xml:space="preserve">
     <value>Bereit</value>
@@ -2349,16 +2346,16 @@ Geheimnisse: {2}</value>
     <value>Kennwörter speichern</value>
   </data>
   <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Gemeinsamen Schlüssel speichern</value>
+    <value>Diese Verbindung auf diesem PC speichern</value>
   </data>
   <data name="Profiles.Rename" xml:space="preserve">
     <value>Umbenennen</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Dies ersetzt die aktive Konfiguration. Zuerst eine Kopie speichern, um die Arbeit zu behalten.</value>
+    <value>Dadurch werden die derzeit verwendeten Einstellungen ersetzt. Um zuerst eine Kopie zu behalten, brechen Sie ab und wählen Sie Duplizieren.</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Der gemeinsame Verlauf hat sich unerwartet geändert. Aus einer vertrauenswürdigen Kopie wiederherstellen.</value>
+    <value>Die gespeicherten Versionen im freigegebenen Ordner haben sich unerwartet geändert. Stellen Sie sie aus einer vertrauenswürdigen Sicherung wieder her.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Duplizieren</value>
@@ -2373,13 +2370,13 @@ Geheimnisse: {2}</value>
     <value>Diese Konfiguration teilen oder mit einer Konfiguration verbinden, die Ihr Team bereits verwendet.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Empfänger mit dem Profilschlüssel können enthaltene Geheimnisse und private Zertifikatschlüssel lesen.</value>
+    <value>Alle Personen, die diese Einstellungen importieren oder synchronisieren können, können die enthaltenen Kennwörter und privaten Zertifikatschlüssel lesen.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Freigegebener Ordner</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Eine maßgebliche SMB-3-Freigabe mit vorgeschriebener Verschlüsselung verwenden. Cloudgespiegelte Ordner werden nicht unterstützt.</value>
+    <value>Verwenden Sie auf jedem PC denselben Netzwerkordner. Er muss SMB 3 mit verpflichtender Verschlüsselung verwenden. Mit der Cloud synchronisierte Ordner werden nicht unterstützt.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
     <value>Kennwörter für diese Konfiguration auf diesem PC nicht mehr speichern?</value>
@@ -2394,19 +2391,19 @@ Geheimnisse: {2}</value>
     <value>Diese Konfiguration auf den PCs Ihres Teams aktuell halten.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Synchronisiert</value>
+    <value>Einstellungen sind auf dem neuesten Stand</value>
   </data>
   <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Dieses Profil verwendet ein nicht unterstütztes Format. Aktualisieren Sie Foundry, bevor Sie es öffnen.</value>
+    <value>Foundry kann dieses Einstellungsformat nicht öffnen. Aktualisieren Sie Foundry und versuchen Sie es erneut.</value>
   </data>
   <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Eine gemeinsame Aktualisierung ist bereit. Zum Übernehmen jetzt synchronisieren.</value>
+    <value>Änderungen von einem anderen PC sind verfügbar. Wählen Sie Synchronisieren, um sie zu übernehmen.</value>
   </data>
   <data name="Profiles.UseRemote" xml:space="preserve">
     <value>Gemeinsame Version verwenden</value>
   </data>
   <data name="Profiles.Validation" xml:space="preserve">
-    <value>Pflichtfelder ausfüllen, einen UNC-Freigabepfad verwenden und übereinstimmende Passphrasen eingeben.</value>
+    <value>Prüfen Sie die Pflichtfelder. Wenn ein Netzwerkordner benötigt wird, verwenden Sie einen Pfad wie \\server\share\folder. Wenn Sie ein Dateikennwort zweimal eingeben, müssen beide Eingaben übereinstimmen.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>

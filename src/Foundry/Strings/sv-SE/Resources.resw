@@ -2215,22 +2215,22 @@
     <value>Öppna</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
-    <value>Aktiv profil</value>
+    <value>Aktuella inställningar</value>
   </data>
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automatisk synkronisering</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Profilen sparades, men gamla autentiseringsuppgifter behöver fortfarande tas bort. Försök igen när Windows Autentiseringshanteraren är tillgänglig.</value>
+    <value>Vissa gamla sparade lösenord eller åtkomstnycklar kunde inte tas bort. Försök igen när Autentiseringshanteraren i Windows är tillgänglig.</value>
   </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Bekräfta lösenfras</value>
+    <value>Bekräfta filens lösenord</value>
   </data>
   <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Motstridiga ändringar kräver ett beslut.</value>
+    <value>De här inställningarna har ändrats på den här datorn och av någon annan. Välj vilken version du vill behålla.</value>
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Välj en version eller spara en kopia för att behålla båda. Den andra versionen ersätts.</value>
+    <value>Den version du väljer ersätter den andra. Välj först ”Duplicera” om du vill behålla en separat kopia.</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Välj anslutningsfilen som du har fått av någon i ditt team.</value>
@@ -2251,22 +2251,19 @@
     <value>Välj en delad nätverksmapp för den här konfigurationen.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
-    <value>Ta bort lokal profil</value>
+    <value>Ta bort från den här datorn</value>
   </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Ta även bort den delade profilen</value>
+    <value>Ta även bort för alla</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Ta bort den delade profilen för alla installationer? Andra redigerare måste spara sitt arbete som en kopia.</value>
+    <value>Vill du ta bort de här delade inställningarna för alla? Alla som har osynkroniserade ändringar måste duplicera sina inställningar för att behålla dem.</value>
   </data>
   <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Ta bort denna lokala profil? Exportera först en säkerhetskopia vid behov.</value>
+    <value>Vill du ta bort de här inställningarna från den här datorn? Exportera dem först om du vill ha en säkerhetskopia.</value>
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Den delade profilen togs bort. Spara en lokal kopia för att behålla arbetet.</value>
-  </data>
-  <data name="Profiles.Description" xml:space="preserve">
-    <value>Kom ihåg lösenord, överför profiler och synkronisera delade inställningar.</value>
+    <value>De här delade inställningarna har tagits bort. Välj ”Duplicera” för att behålla dina ändringar på den här datorn.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exportera</value>
@@ -2281,19 +2278,19 @@
     <value>Spara anslutningsfil</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
-    <value>Åtgärden misslyckades. Kontrollera fil, lösenfras, behörigheter och anslutning.</value>
+    <value>Det gick inte att slutföra åtgärden. Kontrollera filen, dess lösenord, dina åtkomstbehörigheter och nätverksanslutningen.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Rensa sparade lösenord och åtkomster</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Glöm sparade lösenord och den delade nyckeln för denna lokala profil? Befintliga medier ändras inte.</value>
+    <value>Vill du ta bort sparade lösenord, konfidentiella filer som Foundry har sparat och åtkomst till synkronisering för de här inställningarna på den här datorn? Du måste lägga till uppgifterna som saknas och ansluta igen för att synkronisera. Media som du redan har skapat ändras inte.</value>
   </data>
   <data name="Profiles.Heading" xml:space="preserve">
-    <value>Distributionsprofiler</value>
+    <value>Inställningar för Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Den delade historiken är full. Skapa en ny delad lagringsplats.</value>
+    <value>De här delade inställningarna har nått sin uppdateringsgräns. Dela dem igen i en ny nätverksmapp.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importera</value>
@@ -2302,42 +2299,42 @@
     <value>Lägg till en konfiguration från en fil.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Inkludera hemligheter och konfidentiella filer</value>
+    <value>Inkludera lösenord och konfidentiella filer</value>
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Fyll i nödvändiga lösenord och källfiler innan du sparar eller publicerar hemligheter.</value>
+    <value>Vissa lösenord eller källfiler saknas. Lägg till dem innan du sparar eller delar lösenord.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Anslut till en delad konfiguration</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Behåll lokal version</value>
+    <value>Använd den här datorns version</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Spara lösenord för ditt Windows-konto på den här datorn.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
-    <value>Sparade autentiseringsuppgifter är otillgängliga för denna Windows-användare.</value>
+    <value>Windows kan inte låsa upp de här sparade inställningarna eller deras synkroniseringsåtkomst för ditt konto på den här datorn.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
     <value>Fler alternativ</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} filer saknas eller har utelämnats. Kontrollera sökvägarna innan du skapar medier.</value>
+    <value>{0} filer saknas eller inkluderades inte. Välj var de finns innan du skapar media.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
-    <value>Profilnamn</value>
+    <value>Konfigurationens namn</value>
   </data>
   <data name="Profiles.Offline" xml:space="preserve">
-    <value>Resursen är upptagen eller otillgänglig. Lokalt arbete bevaras.</value>
+    <value>Den delade mappen är upptagen eller kan inte nås. Dina ändringar behålls på den här datorn.</value>
   </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Lösenfras</value>
+    <value>Filens lösenord</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
-Filer: {1}
-Hemligheter: {2}</value>
+Inkluderade filer: {1}
+Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="Profiles.Ready" xml:space="preserve">
     <value>Klar</value>
@@ -2349,16 +2346,16 @@ Hemligheter: {2}</value>
     <value>Kom ihåg lösenord</value>
   </data>
   <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Kom ihåg den delade nyckeln</value>
+    <value>Kom ihåg den här anslutningen på den här datorn</value>
   </data>
   <data name="Profiles.Rename" xml:space="preserve">
     <value>Byt namn</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Detta ersätter den aktiva konfigurationen. Spara först en kopia för att behålla arbetet.</value>
+    <value>Detta ersätter inställningarna du använder. Om du vill behålla en kopia först avbryter du och väljer ”Duplicera”.</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Den delade historiken ändrades oväntat. Återställ från en betrodd kopia.</value>
+    <value>De sparade versionerna i den delade mappen har ändrats oväntat. Återställ från en säkerhetskopia som du litar på.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Duplicera</value>
@@ -2373,13 +2370,13 @@ Hemligheter: {2}</value>
     <value>Dela den här konfigurationen eller anslut till en som ditt team redan använder.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Mottagare med profilnyckeln kan läsa inkluderade hemligheter och privata certifikatnycklar.</value>
+    <value>Alla som kan importera eller synkronisera de här inställningarna kan läsa de inkluderade lösenorden och certifikatens privata nycklar.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Delad mapp</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Använd en enda auktoritativ SMB 3-resurs med obligatorisk kryptering. Molnspeglade mappar stöds inte.</value>
+    <value>Använd samma nätverksmapp på alla datorer. Den måste använda SMB 3 med obligatorisk kryptering. Mappar som synkroniseras med molnet stöds inte.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
     <value>Sluta komma ihåg lösenord för den här konfigurationen på den här datorn?</value>
@@ -2394,19 +2391,19 @@ Hemligheter: {2}</value>
     <value>Håll den här konfigurationen uppdaterad på teamets datorer.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Synkroniserad</value>
+    <value>Inställningarna är uppdaterade</value>
   </data>
   <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Profilen använder ett format som inte stöds. Uppdatera Foundry innan du öppnar den.</value>
+    <value>Foundry kan inte öppna det här inställningsformatet. Uppdatera Foundry och försök igen.</value>
   </data>
   <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>En delad uppdatering är klar. Välj Synkronisera nu för att tillämpa den.</value>
+    <value>Det finns ändringar från en annan dator. Välj ”Synkronisera” för att tillämpa dem.</value>
   </data>
   <data name="Profiles.UseRemote" xml:space="preserve">
     <value>Använd delad version</value>
   </data>
   <data name="Profiles.Validation" xml:space="preserve">
-    <value>Fyll i obligatoriska fält, använd en delad UNC-sökväg och ange matchande lösenfraser.</value>
+    <value>Kontrollera de obligatoriska fälten. Om en nätverksmapp efterfrågas använder du en sökväg som \\server\share\folder. Om du anger filens lösenord två gånger ska båda vara likadana.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>

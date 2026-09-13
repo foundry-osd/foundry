@@ -2215,22 +2215,22 @@
     <value>Abrir</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
-    <value>Perfil ativo</value>
+    <value>Configurações atuais</value>
   </data>
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Sincronização automática</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>O perfil foi salvo, mas as credenciais antigas ainda precisam ser removidas. Tente novamente quando o Gerenciador de Credenciais do Windows estiver disponível.</value>
+    <value>Não foi possível remover algumas senhas ou chaves de acesso antigas salvas. Tente novamente quando o Gerenciador de Credenciais do Windows estiver disponível.</value>
   </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Confirmar frase secreta</value>
+    <value>Confirmar senha do arquivo</value>
   </data>
   <data name="Profiles.Conflict" xml:space="preserve">
-    <value>As alterações conflitantes exigem uma decisão.</value>
+    <value>Estas configurações foram alteradas neste PC e por outra pessoa. Escolha qual versão manter.</value>
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Escolha uma versão ou salve uma cópia para preservar ambas. A outra versão será substituída.</value>
+    <value>A versão escolhida substituirá a outra. Escolha Duplicar primeiro se quiser manter uma cópia separada.</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Escolha o arquivo de conexão fornecido por alguém da sua equipe.</value>
@@ -2251,22 +2251,19 @@
     <value>Escolha uma pasta de rede compartilhada para esta configuração.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
-    <value>Excluir perfil local</value>
+    <value>Excluir deste PC</value>
   </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Excluir também o perfil compartilhado</value>
+    <value>Excluir também para todos</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Excluir o perfil compartilhado de todas as instalações? Outros editores devem salvar seu trabalho como uma cópia.</value>
+    <value>Excluir estas configurações compartilhadas para todos? Quem tiver alterações não sincronizadas precisará duplicar suas configurações para mantê-las.</value>
   </data>
   <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Excluir este perfil local? Exporte um backup primeiro, se necessário.</value>
+    <value>Excluir estas configurações deste PC? Exporte-as primeiro se quiser um backup.</value>
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>O perfil compartilhado foi excluído. Salve uma cópia local para preservar seu trabalho.</value>
-  </data>
-  <data name="Profiles.Description" xml:space="preserve">
-    <value>Lembre senhas, transfira perfis e sincronize configurações compartilhadas.</value>
+    <value>Estas configurações compartilhadas foram excluídas. Escolha Duplicar para manter suas alterações neste PC.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exportar</value>
@@ -2281,19 +2278,19 @@
     <value>Salvar arquivo de conexão</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
-    <value>A operação falhou. Verifique o arquivo, a frase secreta, as permissões e a conexão.</value>
+    <value>Não foi possível concluir a ação. Verifique o arquivo, a senha dele, suas permissões de acesso e a conexão de rede.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Limpar senhas e acessos salvos</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Esquecer as senhas salvas e a chave compartilhada deste perfil local? As mídias existentes não serão alteradas.</value>
+    <value>Remover deste PC as senhas salvas, os arquivos confidenciais salvos pelo Foundry e o acesso à sincronização destas configurações? Você precisará adicionar os dados que faltam e se conectar novamente para sincronizar. As mídias já criadas não serão alteradas.</value>
   </data>
   <data name="Profiles.Heading" xml:space="preserve">
-    <value>Perfis de implantação</value>
+    <value>Configurações do Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>O histórico compartilhado está cheio. Crie um novo repositório compartilhado.</value>
+    <value>Estas configurações compartilhadas atingiram o limite de atualizações. Compartilhe-as novamente em uma nova pasta de rede.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importar</value>
@@ -2302,42 +2299,42 @@
     <value>Adicionar uma configuração de um arquivo.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Incluir segredos e arquivos confidenciais</value>
+    <value>Incluir senhas e arquivos confidenciais</value>
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Preencha as senhas e os arquivos de origem necessários antes de lembrar ou publicar segredos.</value>
+    <value>Faltam algumas senhas ou arquivos de origem. Adicione-os antes de salvar ou compartilhar senhas.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Conectar a uma configuração compartilhada</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Manter versão local</value>
+    <value>Usar a versão deste PC</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Manter as senhas da sua conta do Windows neste PC.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
-    <value>As credenciais salvas estão indisponíveis para este usuário do Windows.</value>
+    <value>O Windows não consegue desbloquear estas configurações salvas ou o acesso à sincronização delas para sua conta neste PC.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
     <value>Mais opções</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} arquivos estão ausentes ou foram omitidos. Revise seus caminhos antes de criar a mídia.</value>
+    <value>{0} arquivos estão ausentes ou não foram incluídos. Selecione os locais deles antes de criar a mídia.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
-    <value>Nome do perfil</value>
+    <value>Nome da configuração</value>
   </data>
   <data name="Profiles.Offline" xml:space="preserve">
-    <value>O compartilhamento está ocupado ou indisponível. O trabalho local é preservado.</value>
+    <value>A pasta compartilhada está ocupada ou inacessível. Suas alterações são mantidas neste PC.</value>
   </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Frase secreta</value>
+    <value>Senha do arquivo</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
-Arquivos: {1}
-Segredos: {2}</value>
+Arquivos incluídos: {1}
+Senhas e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="Profiles.Ready" xml:space="preserve">
     <value>Pronto</value>
@@ -2349,16 +2346,16 @@ Segredos: {2}</value>
     <value>Lembrar senhas</value>
   </data>
   <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Lembrar a chave compartilhada</value>
+    <value>Lembrar esta conexão neste PC</value>
   </data>
   <data name="Profiles.Rename" xml:space="preserve">
     <value>Renomear</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Isso substitui a configuração ativa. Salve uma cópia primeiro para preservar seu trabalho.</value>
+    <value>Isso substituirá as configurações que você está usando. Para manter uma cópia primeiro, cancele e escolha Duplicar.</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
-    <value>O histórico compartilhado mudou inesperadamente. Restaure de uma cópia confiável.</value>
+    <value>As versões salvas na pasta compartilhada mudaram de forma inesperada. Restaure a partir de um backup confiável.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Duplicar</value>
@@ -2373,13 +2370,13 @@ Segredos: {2}</value>
     <value>Compartilhar esta configuração ou conectar a uma que sua equipe já utiliza.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Destinatários com a chave do perfil podem ler os segredos incluídos e as chaves privadas dos certificados.</value>
+    <value>Qualquer pessoa que possa importar ou sincronizar estas configurações pode ler as senhas e as chaves privadas dos certificados incluídas.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Pasta compartilhada</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Use um único compartilhamento SMB 3 autoritativo com criptografia obrigatória. Pastas espelhadas na nuvem não são compatíveis.</value>
+    <value>Use a mesma pasta de rede em todos os PCs. Ela deve usar SMB 3 com criptografia obrigatória. Pastas sincronizadas com a nuvem não são compatíveis.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
     <value>Parar de lembrar as senhas desta configuração neste PC?</value>
@@ -2394,19 +2391,19 @@ Segredos: {2}</value>
     <value>Manter esta configuração atualizada nos PCs da sua equipe.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Sincronizado</value>
+    <value>As configurações estão atualizadas</value>
   </data>
   <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Este perfil usa um formato incompatível. Atualize o Foundry antes de abri-lo.</value>
+    <value>O Foundry não consegue abrir este formato de configurações. Atualize o Foundry e tente novamente.</value>
   </data>
   <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Uma atualização compartilhada está pronta. Selecione Sincronizar agora para aplicá-la.</value>
+    <value>Há alterações de outro PC disponíveis. Selecione Sincronizar para aplicá-las.</value>
   </data>
   <data name="Profiles.UseRemote" xml:space="preserve">
     <value>Usar versão compartilhada</value>
   </data>
   <data name="Profiles.Validation" xml:space="preserve">
-    <value>Preencha os campos obrigatórios, use um caminho compartilhado UNC e digite frases secretas iguais.</value>
+    <value>Verifique os campos obrigatórios. Se uma pasta de rede for solicitada, use um caminho como \\server\share\folder. Se digitar a senha do arquivo duas vezes, certifique-se de que as duas entradas sejam iguais.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>

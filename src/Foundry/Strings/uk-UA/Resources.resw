@@ -2215,22 +2215,22 @@
     <value>Відкрити</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
-    <value>Активний профіль</value>
+    <value>Поточні налаштування</value>
   </data>
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Автоматична синхронізація</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Профіль збережено, але старі облікові дані ще потрібно видалити. Повторіть спробу, коли диспетчер облікових даних Windows стане доступним.</value>
+    <value>Не вдалося видалити деякі старі збережені паролі або ключі доступу. Спробуйте ще раз, коли Диспетчер облікових даних Windows стане доступним.</value>
   </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Підтвердьте парольну фразу</value>
+    <value>Підтвердьте пароль файлу</value>
   </data>
   <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Конфліктні зміни потребують рішення.</value>
+    <value>Ці налаштування змінено на цьому комп’ютері та іншою людиною. Виберіть версію, яку хочете зберегти.</value>
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Виберіть версію або збережіть копію, щоб залишити обидві. Іншу версію буде замінено.</value>
+    <value>Вибрана версія замінить іншу. Спочатку виберіть «Створити копію», якщо хочете зберегти окрему копію.</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Виберіть файл підключення, отриманий від учасника вашої команди.</value>
@@ -2251,22 +2251,19 @@
     <value>Виберіть спільну мережеву папку для цієї конфігурації.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
-    <value>Видалити локальний профіль</value>
+    <value>Видалити з цього комп’ютера</value>
   </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Також видалити спільний профіль</value>
+    <value>Також видалити для всіх</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Видалити спільний профіль для всіх інсталяцій? Інші редактори мають зберегти свою роботу як копію.</value>
+    <value>Видалити ці спільні налаштування для всіх? Усім, хто має несинхронізовані зміни, потрібно створити копію своїх налаштувань, щоб зберегти їх.</value>
   </data>
   <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Видалити цей локальний профіль? За потреби спочатку експортуйте резервну копію.</value>
+    <value>Видалити ці налаштування з цього комп’ютера? Спочатку експортуйте їх, якщо хочете мати резервну копію.</value>
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Спільний профіль видалено. Збережіть локальну копію, щоб не втратити роботу.</value>
-  </data>
-  <data name="Profiles.Description" xml:space="preserve">
-    <value>Зберігайте паролі, переносіть профілі та синхронізуйте спільні налаштування.</value>
+    <value>Ці спільні налаштування видалено. Виберіть «Створити копію», щоб зберегти свої зміни на цьому комп’ютері.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Експортувати</value>
@@ -2281,19 +2278,19 @@
     <value>Зберегти файл підключення</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
-    <value>Операція не вдалася. Перевірте файл, парольну фразу, дозволи та підключення.</value>
+    <value>Не вдалося виконати цю дію. Перевірте файл, його пароль, свої дозволи на доступ і підключення до мережі.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Видалити збережені паролі й дані доступу</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Забути збережені паролі та спільний ключ цього локального профілю? Наявні носії не зміняться.</value>
+    <value>Видалити збережені паролі, конфіденційні файли, збережені Foundry, і доступ до синхронізації цих налаштувань на цьому комп’ютері? Для синхронізації потрібно буде додати відсутні дані та підключитися знову. Уже створені носії не зміняться.</value>
   </data>
   <data name="Profiles.Heading" xml:space="preserve">
-    <value>Профілі розгортання</value>
+    <value>Налаштування Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Спільна історія заповнена. Створіть нове спільне сховище.</value>
+    <value>Ці спільні налаштування досягли граничної кількості оновлень. Надайте до них спільний доступ знову в новій мережевій папці.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Імпортувати</value>
@@ -2302,42 +2299,42 @@
     <value>Додати конфігурацію з файлу.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Включити секрети та конфіденційні файли</value>
+    <value>Додати паролі та конфіденційні файли</value>
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Укажіть потрібні паролі та вихідні файли перед запам’ятовуванням або публікацією секретів.</value>
+    <value>Бракує деяких паролів або вихідних файлів. Додайте їх перед збереженням або передаванням паролів.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Підключитися до спільної конфігурації</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Зберегти локальну версію</value>
+    <value>Використати версію з цього комп’ютера</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Зберігати паролі для вашого облікового запису Windows на цьому комп’ютері.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
-    <value>Збережені облікові дані недоступні для цього користувача Windows.</value>
+    <value>Windows не може розблокувати ці збережені налаштування або доступ до їх синхронізації для вашого облікового запису на цьому комп’ютері.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
     <value>Інші дії</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Відсутні або пропущені файли: {0}. Перевірте їхні шляхи перед створенням носія.</value>
+    <value>Відсутні або не включені файли: {0}. Виберіть їх розташування перед створенням носіїв.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
-    <value>Ім’я профілю</value>
+    <value>Назва конфігурації</value>
   </data>
   <data name="Profiles.Offline" xml:space="preserve">
-    <value>Спільний ресурс зайнятий або недоступний. Локальну роботу збережено.</value>
+    <value>Спільна папка зайнята або недоступна. Ваші зміни залишаються на цьому комп’ютері.</value>
   </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Парольна фраза</value>
+    <value>Пароль файлу</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
-Файли: {1}
-Секрети: {2}</value>
+Включено файлів: {1}
+Включено паролів і ключів доступу: {2}</value>
   </data>
   <data name="Profiles.Ready" xml:space="preserve">
     <value>Готово</value>
@@ -2349,16 +2346,16 @@
     <value>Запам’ятати паролі</value>
   </data>
   <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Запам’ятати спільний ключ</value>
+    <value>Запам’ятати це підключення на цьому комп’ютері</value>
   </data>
   <data name="Profiles.Rename" xml:space="preserve">
     <value>Перейменувати</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Це замінить активну конфігурацію. Спершу збережіть копію, щоб не втратити роботу.</value>
+    <value>Це замінить налаштування, які ви використовуєте. Щоб спочатку зберегти копію, скасуйте дію та виберіть «Створити копію».</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Спільна історія несподівано змінилася. Відновіть її з надійної копії.</value>
+    <value>Збережені версії в спільній папці несподівано змінилися. Відновіть їх із резервної копії, якій довіряєте.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Створити копію</value>
@@ -2373,13 +2370,13 @@
     <value>Поділіться цією конфігурацією або підключіться до тієї, яку вже використовує ваша команда.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Одержувачі з ключем профілю можуть читати включені секрети та приватні ключі сертифікатів.</value>
+    <value>Кожен, хто може імпортувати або синхронізувати ці налаштування, може прочитати включені паролі та закриті ключі сертифікатів.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Спільна папка</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Використовуйте один основний спільний ресурс SMB 3 з обов’язковим шифруванням. Папки з дзеркалюванням у хмару не підтримуються.</value>
+    <value>Використовуйте ту саму мережеву папку на всіх комп’ютерах. Вона має використовувати SMB 3 з обов’язковим шифруванням. Папки, синхронізовані з хмарою, не підтримуються.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
     <value>Більше не запам’ятовувати паролі цієї конфігурації на цьому комп’ютері?</value>
@@ -2394,19 +2391,19 @@
     <value>Підтримувати цю конфігурацію актуальною на комп’ютерах вашої команди.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Синхронізовано</value>
+    <value>Налаштування актуальні</value>
   </data>
   <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Цей профіль використовує непідтримуваний формат. Оновіть Foundry перед його відкриттям.</value>
+    <value>Foundry не може відкрити цей формат налаштувань. Оновіть Foundry та спробуйте ще раз.</value>
   </data>
   <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Доступне спільне оновлення. Виберіть «Синхронізувати зараз», щоб застосувати його.</value>
+    <value>Доступні зміни з іншого комп’ютера. Виберіть «Синхронізувати», щоб застосувати їх.</value>
   </data>
   <data name="Profiles.UseRemote" xml:space="preserve">
     <value>Використати спільну версію</value>
   </data>
   <data name="Profiles.Validation" xml:space="preserve">
-    <value>Заповніть обов’язкові поля, вкажіть спільний шлях UNC і введіть однакові парольні фрази.</value>
+    <value>Перевірте обов’язкові поля. Якщо потрібна мережева папка, укажіть шлях на зразок \\server\share\folder. Якщо ви вводите пароль файлу двічі, переконайтеся, що обидва значення збігаються.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>

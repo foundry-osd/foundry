@@ -2215,22 +2215,22 @@
     <value>Otwórz</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
-    <value>Aktywny profil</value>
+    <value>Bieżące ustawienia</value>
   </data>
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automatyczna synchronizacja</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Profil został zapisany, ale stare poświadczenia nadal wymagają usunięcia. Spróbuj ponownie, gdy Menedżer poświadczeń systemu Windows będzie dostępny.</value>
+    <value>Nie udało się usunąć niektórych starych zapisanych haseł lub kluczy dostępu. Spróbuj ponownie, gdy Menedżer poświadczeń systemu Windows będzie dostępny.</value>
   </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Potwierdź frazę hasła</value>
+    <value>Potwierdź hasło pliku</value>
   </data>
   <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Sprzeczne zmiany wymagają decyzji.</value>
+    <value>Te ustawienia zostały zmienione na tym komputerze oraz przez inną osobę. Wybierz wersję, którą chcesz zachować.</value>
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Wybierz wersję lub zapisz kopię, aby zachować obie. Druga wersja zostanie zastąpiona.</value>
+    <value>Wybrana wersja zastąpi drugą. Jeśli chcesz zachować osobną kopię, najpierw wybierz Duplikuj.</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Wybierz plik połączenia otrzymany od członka zespołu.</value>
@@ -2251,22 +2251,19 @@
     <value>Wybierz udostępniony folder sieciowy dla tej konfiguracji.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
-    <value>Usuń profil lokalny</value>
+    <value>Usuń z tego komputera</value>
   </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Usuń także profil współdzielony</value>
+    <value>Usuń również dla wszystkich</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Usunąć profil współdzielony dla wszystkich instalacji? Pozostali edytorzy muszą zapisać kopię swojej pracy.</value>
+    <value>Usunąć te współdzielone ustawienia dla wszystkich? Osoby z niezsynchronizowanymi zmianami muszą zduplikować swoje ustawienia, aby zachować zmiany.</value>
   </data>
   <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Usunąć ten profil lokalny? W razie potrzeby najpierw wyeksportuj kopię zapasową.</value>
+    <value>Usunąć te ustawienia z tego komputera? Jeśli chcesz zachować kopię zapasową, najpierw je wyeksportuj.</value>
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Profil współdzielony usunięto. Zapisz kopię lokalną, aby zachować pracę.</value>
-  </data>
-  <data name="Profiles.Description" xml:space="preserve">
-    <value>Zapamiętuj hasła, przenoś profile i synchronizuj wspólne ustawienia.</value>
+    <value>Te współdzielone ustawienia zostały usunięte. Wybierz Duplikuj, aby zachować zmiany na tym komputerze.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Eksportuj</value>
@@ -2281,19 +2278,19 @@
     <value>Zapisz plik połączenia</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
-    <value>Operacja nie powiodła się. Sprawdź plik, frazę hasła, uprawnienia i połączenie.</value>
+    <value>Nie udało się wykonać działania. Sprawdź plik, jego hasło, uprawnienia dostępu i połączenie sieciowe.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Wyczyść zapisane hasła i dane dostępu</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Zapomnieć zapisane hasła i wspólny klucz tego profilu lokalnego? Istniejące nośniki pozostaną bez zmian.</value>
+    <value>Usunąć z tego komputera zapisane hasła, poufne pliki zapisane przez Foundry i dostęp do synchronizacji tych ustawień? Aby synchronizować, trzeba będzie dodać brakujące dane i połączyć się ponownie. Utworzone wcześniej nośniki nie ulegną zmianie.</value>
   </data>
   <data name="Profiles.Heading" xml:space="preserve">
-    <value>Profile wdrażania</value>
+    <value>Ustawienia Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Historia współdzielona jest pełna. Utwórz nowe wspólne repozytorium.</value>
+    <value>Te współdzielone ustawienia osiągnęły limit aktualizacji. Udostępnij je ponownie w nowym folderze sieciowym.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importuj</value>
@@ -2302,42 +2299,42 @@
     <value>Dodaj konfigurację z pliku.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Dołącz sekrety i poufne pliki</value>
+    <value>Dołącz hasła i poufne pliki</value>
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Uzupełnij wymagane hasła i pliki źródłowe przed zapamiętaniem lub opublikowaniem sekretów.</value>
+    <value>Brakuje niektórych haseł lub plików źródłowych. Dodaj je przed zapisaniem lub udostępnieniem haseł.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Połącz z udostępnioną konfiguracją</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Zachowaj wersję lokalną</value>
+    <value>Użyj wersji z tego komputera</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Zachowaj hasła dla swojego konta Windows na tym komputerze.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
-    <value>Zapisane poświadczenia są niedostępne dla tego użytkownika Windows.</value>
+    <value>Windows nie może odblokować tych zapisanych ustawień lub dostępu do ich synchronizacji dla Twojego konta na tym komputerze.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
     <value>Więcej opcji</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Brakuje lub pominięto {0} plików. Sprawdź ich ścieżki przed utworzeniem nośnika.</value>
+    <value>Liczba brakujących lub niedołączonych plików: {0}. Wybierz ich lokalizacje przed utworzeniem nośnika.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
-    <value>Nazwa profilu</value>
+    <value>Nazwa konfiguracji</value>
   </data>
   <data name="Profiles.Offline" xml:space="preserve">
-    <value>Udział jest zajęty lub niedostępny. Praca lokalna jest zachowana.</value>
+    <value>Folder współdzielony jest zajęty lub nie można się z nim połączyć. Zmiany pozostają na tym komputerze.</value>
   </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Fraza hasła</value>
+    <value>Hasło pliku</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
-Pliki: {1}
-Sekrety: {2}</value>
+Dołączone pliki: {1}
+Dołączone hasła i klucze dostępu: {2}</value>
   </data>
   <data name="Profiles.Ready" xml:space="preserve">
     <value>Gotowe</value>
@@ -2349,16 +2346,16 @@ Sekrety: {2}</value>
     <value>Zapamiętaj hasła</value>
   </data>
   <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Zapamiętaj klucz współdzielony</value>
+    <value>Zapamiętaj to połączenie na tym komputerze</value>
   </data>
   <data name="Profiles.Rename" xml:space="preserve">
     <value>Zmień nazwę</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>To zastąpi aktywną konfigurację. Najpierw zapisz kopię, aby zachować pracę.</value>
+    <value>Spowoduje to zastąpienie używanych ustawień. Aby najpierw zachować kopię, anuluj i wybierz Duplikuj.</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Historia współdzielona zmieniła się nieoczekiwanie. Przywróć zaufaną kopię.</value>
+    <value>Wersje zapisane w folderze współdzielonym niespodziewanie się zmieniły. Przywróć je z zaufanej kopii zapasowej.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Duplikuj</value>
@@ -2373,13 +2370,13 @@ Sekrety: {2}</value>
     <value>Udostępnij tę konfigurację lub połącz się z konfiguracją, której Twój zespół już używa.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Odbiorcy posiadający klucz profilu mogą odczytać dołączone sekrety i klucze prywatne certyfikatów.</value>
+    <value>Każdy, kto może importować lub synchronizować te ustawienia, może odczytać dołączone hasła i klucze prywatne certyfikatów.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Folder udostępniony</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Używaj jednego nadrzędnego udziału SMB 3 z wymaganym szyfrowaniem. Foldery replikowane w chmurze nie są obsługiwane.</value>
+    <value>Używaj tego samego folderu sieciowego na każdym komputerze. Musi on korzystać z SMB 3 z wymaganym szyfrowaniem. Foldery synchronizowane z chmurą nie są obsługiwane.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
     <value>Przestać zapamiętywać hasła tej konfiguracji na tym komputerze?</value>
@@ -2394,19 +2391,19 @@ Sekrety: {2}</value>
     <value>Utrzymuj tę konfigurację aktualną na komputerach swojego zespołu.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Zsynchronizowano</value>
+    <value>Ustawienia są aktualne</value>
   </data>
   <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Ten profil używa nieobsługiwanego formatu. Zaktualizuj Foundry przed jego otwarciem.</value>
+    <value>Foundry nie może otworzyć tego formatu ustawień. Zaktualizuj Foundry i spróbuj ponownie.</value>
   </data>
   <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Aktualizacja współdzielona jest gotowa. Wybierz Synchronizuj teraz, aby ją zastosować.</value>
+    <value>Dostępne są zmiany z innego komputera. Wybierz Synchronizuj, aby je zastosować.</value>
   </data>
   <data name="Profiles.UseRemote" xml:space="preserve">
     <value>Użyj wersji współdzielonej</value>
   </data>
   <data name="Profiles.Validation" xml:space="preserve">
-    <value>Wypełnij wymagane pola, użyj ścieżki udziału UNC i wpisz identyczne frazy hasła.</value>
+    <value>Sprawdź wymagane pola. Jeśli wymagany jest folder sieciowy, użyj ścieżki takiej jak \\server\share\folder. Jeśli wpisujesz hasło pliku dwa razy, upewnij się, że oba wpisy są takie same.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>

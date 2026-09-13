@@ -2215,22 +2215,22 @@
     <value>開く</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
-    <value>現在のプロファイル</value>
+    <value>現在の設定</value>
   </data>
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>自動同期</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>プロファイルは保存されましたが、古い資格情報の削除が必要です。Windows 資格情報マネージャーが利用可能になったら、もう一度お試しください。</value>
+    <value>古い保存済みパスワードまたはアクセスキーの一部を削除できませんでした。Windows 資格情報マネージャーが利用可能になったら、もう一度お試しください。</value>
   </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>パスフレーズの確認</value>
+    <value>ファイルのパスワードを確認</value>
   </data>
   <data name="Profiles.Conflict" xml:space="preserve">
-    <value>変更が競合しています。使用するバージョンを選択してください。</value>
+    <value>この設定は、この PC と他のユーザーの両方によって変更されました。残すバージョンを選んでください。</value>
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>使用するバージョンを選択するか、コピーを保存して両方を残してください。もう一方のバージョンは置き換えられます。</value>
+    <value>選んだバージョンでもう一方を置き換えます。別のコピーを残すには、先に［複製］を選んでください。</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>チームのメンバーから受け取った接続ファイルを選択してください。</value>
@@ -2251,22 +2251,19 @@
     <value>この構成に使用する共有ネットワークフォルダーを選択してください。</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
-    <value>ローカルプロファイルを削除</value>
+    <value>この PC から削除</value>
   </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>共有プロファイルも削除</value>
+    <value>他のすべてのユーザーからも削除</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>すべてのインストール先で共有プロファイルを削除しますか？他の編集者は作業内容をコピーとして保存する必要があります。</value>
+    <value>この共有設定をすべてのユーザーから削除しますか？未同期の変更がある場合は、設定を複製して変更を残す必要があります。</value>
   </data>
   <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>このローカルプロファイルを削除しますか？必要に応じて、先にバックアップをエクスポートしてください。</value>
+    <value>この設定をこの PC から削除しますか？バックアップを残すには、先にエクスポートしてください。</value>
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>共有プロファイルは削除されました。作業内容を残すには、ローカルコピーを保存してください。</value>
-  </data>
-  <data name="Profiles.Description" xml:space="preserve">
-    <value>パスワードの保存、プロファイルの転送、共有設定の同期を行います。</value>
+    <value>この共有設定は削除されました。［複製］を選ぶと、この PC に変更を残せます。</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>エクスポート</value>
@@ -2281,19 +2278,19 @@
     <value>接続ファイルを保存</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
-    <value>操作に失敗しました。ファイル、パスフレーズ、アクセス許可、接続を確認してください。</value>
+    <value>操作を完了できませんでした。ファイル、ファイルのパスワード、アクセス権限、ネットワーク接続を確認してください。</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>保存したパスワードとアクセス情報を消去</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>このローカルプロファイルの保存済みパスワードと共有キーを削除しますか？既存のメディアは変更されません。</value>
+    <value>この設定の保存済みパスワード、Foundry が保存した機密ファイル、同期用のアクセス情報をこの PC から削除しますか？同期するには、不足している情報を追加して再接続する必要があります。作成済みのメディアは変更されません。</value>
   </data>
   <data name="Profiles.Heading" xml:space="preserve">
-    <value>展開プロファイル</value>
+    <value>Foundry の設定</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>共有履歴が上限に達しました。新しい共有リポジトリを作成してください。</value>
+    <value>この共有設定は更新回数の上限に達しました。新しいネットワークフォルダーで再度共有してください。</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>インポート</value>
@@ -2302,42 +2299,42 @@
     <value>ファイルから構成を追加します。</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>秘密情報と機密ファイルを含める</value>
+    <value>パスワードと機密ファイルを含める</value>
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>秘密情報を保存または公開する前に、必要なパスワードとソースファイルをすべて揃えてください。</value>
+    <value>一部のパスワードまたは元のファイルがありません。パスワードを保存または共有する前に追加してください。</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>共有構成に接続</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>ローカルバージョンを保持</value>
+    <value>この PC のバージョンを使用</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>この PC の Windows アカウントにパスワードを保存します。</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
-    <value>この Windows ユーザーでは、保存済みの資格情報を利用できません。</value>
+    <value>Windows は、この PC のアカウントで、保存された設定または同期用のアクセス情報のロックを解除できません。</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
     <value>その他のオプション</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} 個のファイルが見つからないか、含まれていません。メディアを作成する前にパスを確認してください。</value>
+    <value>{0} 個のファイルが見つからないか、含まれていません。メディアを作成する前に、それぞれの保存場所を選んでください。</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
-    <value>プロファイル名</value>
+    <value>構成の名前</value>
   </data>
   <data name="Profiles.Offline" xml:space="preserve">
-    <value>共有先が使用中か、利用できません。ローカルの作業内容は保持されます。</value>
+    <value>共有フォルダーが使用中か、アクセスできません。変更はこの PC に保存されています。</value>
   </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>パスフレーズ</value>
+    <value>ファイルのパスワード</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
-ファイル: {1}
-秘密情報: {2}</value>
+含まれるファイル: {1}
+含まれるパスワードとアクセスキー: {2}</value>
   </data>
   <data name="Profiles.Ready" xml:space="preserve">
     <value>準備完了</value>
@@ -2349,16 +2346,16 @@
     <value>パスワードを保存</value>
   </data>
   <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>共有キーを保存</value>
+    <value>この PC でこの接続を記憶する</value>
   </data>
   <data name="Profiles.Rename" xml:space="preserve">
     <value>名前の変更</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>現在の設定が置き換えられます。作業内容を残すには、先にコピーを保存してください。</value>
+    <value>現在使用している設定を置き換えます。先にコピーを残すには、キャンセルして［複製］を選んでください。</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
-    <value>共有履歴が予期せず変更されました。信頼できるコピーから復元してください。</value>
+    <value>共有フォルダーに保存されたバージョンに予期しない変更がありました。信頼できるバックアップから復元してください。</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>複製</value>
@@ -2373,13 +2370,13 @@
     <value>この構成を共有するか、チームが既に使用している構成に接続します。</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>プロファイルのキーを持つ受信者は、含まれている秘密情報や証明書の秘密キーを読み取ることができます。</value>
+    <value>この設定をインポートまたは同期できる人は、含まれるパスワードと証明書の秘密キーを読むことができます。</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>共有フォルダー</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>暗号化を必須にした単一の SMB 3 共有を正規の保存先として使用してください。クラウド経由で複製されるフォルダーはサポートされません。</value>
+    <value>すべての PC で同じネットワークフォルダーを使用してください。SMB 3 を使用し、暗号化を必須に設定する必要があります。クラウドと同期するフォルダーはサポートされていません。</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
     <value>この PC でこの構成のパスワードの保存を停止しますか？</value>
@@ -2394,19 +2391,19 @@
     <value>チームの各 PC でこの構成を最新の状態に保ちます。</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>同期済み</value>
+    <value>設定は最新です</value>
   </data>
   <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>このプロファイルはサポートされていない形式を使用しています。開く前に Foundry を更新してください。</value>
+    <value>Foundry はこの設定形式を開けません。Foundry を更新して、もう一度お試しください。</value>
   </data>
   <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>共有プロファイルの更新があります。「今すぐ同期」を選択して適用してください。</value>
+    <value>他の PC からの変更があります。［同期］を選んで適用してください。</value>
   </data>
   <data name="Profiles.UseRemote" xml:space="preserve">
     <value>共有バージョンを使用</value>
   </data>
   <data name="Profiles.Validation" xml:space="preserve">
-    <value>必須項目を入力し、UNC 共有パスを指定してください。パスフレーズは確認用と一致させてください。</value>
+    <value>必須項目を確認してください。ネットワークフォルダーを求められた場合は、\\server\share\folder のようなパスを使用してください。ファイルのパスワードを 2 回入力する場合は、両方が一致していることを確認してください。</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>

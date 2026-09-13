@@ -2215,22 +2215,22 @@
     <value>Åpne</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
-    <value>Aktiv profil</value>
+    <value>Gjeldende innstillinger</value>
   </data>
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automatisk synkronisering</value>
   </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Profilen ble lagret, men gamle legitimasjoner må fortsatt fjernes. Prøv igjen når Windows Legitimasjonsbehandling er tilgjengelig.</value>
+    <value>Noen gamle lagrede passord eller tilgangsnøkler kunne ikke fjernes. Prøv igjen når Windows Legitimasjonsbehandling er tilgjengelig.</value>
   </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Bekreft passfrase</value>
+    <value>Bekreft filpassord</value>
   </data>
   <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Motstridende endringer krever en avgjørelse.</value>
+    <value>Disse innstillingene er endret både på denne PC-en og av noen andre. Velg hvilken versjon du vil beholde.</value>
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Velg en versjon eller lagre en kopi for å beholde begge. Den andre versjonen erstattes.</value>
+    <value>Versjonen du velger, erstatter den andre. Velg Dupliser først hvis du vil beholde en egen kopi.</value>
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Velg tilkoblingsfilen du har fått fra noen på teamet ditt.</value>
@@ -2251,22 +2251,19 @@
     <value>Velg en delt nettverksmappe for denne konfigurasjonen.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
-    <value>Slett lokal profil</value>
+    <value>Slett fra denne PC-en</value>
   </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Slett også den delte profilen</value>
+    <value>Slett også for alle andre</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Slett den delte profilen for alle installasjoner? Andre redaktører må lagre arbeidet som en kopi.</value>
+    <value>Slette disse delte innstillingene for alle? Alle med usynkroniserte endringer må duplisere innstillingene sine for å beholde dem.</value>
   </data>
   <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Slett denne lokale profilen? Eksporter først en sikkerhetskopi ved behov.</value>
+    <value>Slette disse innstillingene fra denne PC-en? Eksporter dem først hvis du vil ha en sikkerhetskopi.</value>
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Den delte profilen ble slettet. Lagre en lokal kopi for å beholde arbeidet.</value>
-  </data>
-  <data name="Profiles.Description" xml:space="preserve">
-    <value>Husk passord, overfør profiler og synkroniser delte innstillinger.</value>
+    <value>Disse delte innstillingene er slettet. Velg Dupliser for å beholde endringene på denne PC-en.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Eksporter</value>
@@ -2281,19 +2278,19 @@
     <value>Lagre tilkoblingsfil</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
-    <value>Handlingen mislyktes. Kontroller fil, passfrase, tillatelser og tilkobling.</value>
+    <value>Kunne ikke fullføre handlingen. Kontroller filen, filpassordet, tilgangstillatelsene og nettverkstilkoblingen.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Fjern lagrede passord og tilganger</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Glem lagrede passord og den delte nøkkelen for denne lokale profilen? Eksisterende medier endres ikke.</value>
+    <value>Fjerne lagrede passord, fortrolige filer lagret av Foundry og synkroniseringstilgang for disse innstillingene på denne PC-en? Du må legge til de manglende opplysningene og koble til på nytt for å synkronisere. Medier du allerede har opprettet, endres ikke.</value>
   </data>
   <data name="Profiles.Heading" xml:space="preserve">
-    <value>Utrullingsprofiler</value>
+    <value>Foundry-innstillinger</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Den delte historikken er full. Opprett et nytt delt lager.</value>
+    <value>Disse delte innstillingene har nådd grensen for antall oppdateringer. Del dem på nytt i en ny nettverksmappe.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importer</value>
@@ -2302,42 +2299,42 @@
     <value>Legg til en konfigurasjon fra en fil.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Ta med hemmeligheter og fortrolige filer</value>
+    <value>Inkluder passord og fortrolige filer</value>
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Fyll ut nødvendige passord og kildefiler før du husker eller publiserer hemmeligheter.</value>
+    <value>Noen passord eller kildefiler mangler. Legg dem til før du lagrer eller deler passord.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Koble til en delt konfigurasjon</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Behold lokal versjon</value>
+    <value>Bruk denne PC-ens versjon</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Behold passord for Windows-kontoen din på denne PC-en.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
-    <value>Lagret legitimasjon er utilgjengelig for denne Windows-brukeren.</value>
+    <value>Windows kan ikke låse opp disse lagrede innstillingene eller synkroniseringstilgangen deres for kontoen din på denne PC-en.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
     <value>Flere alternativer</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} filer mangler eller er utelatt. Kontroller filbanene før du oppretter medier.</value>
+    <value>{0} filer mangler eller ble ikke inkludert. Velg plasseringene deres før du oppretter medier.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
-    <value>Profilnavn</value>
+    <value>Konfigurasjonsnavn</value>
   </data>
   <data name="Profiles.Offline" xml:space="preserve">
-    <value>Delingen er opptatt eller utilgjengelig. Lokalt arbeid beholdes.</value>
+    <value>Den delte mappen er opptatt eller kan ikke nås. Endringene dine beholdes på denne PC-en.</value>
   </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Passfrase</value>
+    <value>Filpassord</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
-Filer: {1}
-Hemmeligheter: {2}</value>
+Inkluderte filer: {1}
+Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="Profiles.Ready" xml:space="preserve">
     <value>Klar</value>
@@ -2349,16 +2346,16 @@ Hemmeligheter: {2}</value>
     <value>Husk passord</value>
   </data>
   <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Husk den delte nøkkelen</value>
+    <value>Husk denne tilkoblingen på denne PC-en</value>
   </data>
   <data name="Profiles.Rename" xml:space="preserve">
     <value>Gi nytt navn</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Dette erstatter den aktive konfigurasjonen. Lagre først en kopi for å beholde arbeidet.</value>
+    <value>Dette erstatter innstillingene du bruker. Hvis du vil beholde en kopi først, avbryt og velg Dupliser.</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Den delte historikken ble endret uventet. Gjenopprett fra en pålitelig kopi.</value>
+    <value>De lagrede versjonene i den delte mappen er uventet endret. Gjenopprett fra en sikkerhetskopi du stoler på.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Dupliser</value>
@@ -2373,13 +2370,13 @@ Hemmeligheter: {2}</value>
     <value>Del denne konfigurasjonen, eller koble til en som teamet ditt allerede bruker.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Mottakere med profilnøkkelen kan lese inkluderte hemmeligheter og private sertifikatnøkler.</value>
+    <value>Alle som kan importere eller synkronisere disse innstillingene, kan lese de inkluderte passordene og de private sertifikatnøklene.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Delt mappe</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Bruk én autoritativ SMB 3-deling med påkrevd kryptering. Mapper speilet i skyen støttes ikke.</value>
+    <value>Bruk samme nettverksmappe på alle PC-er. Den må bruke SMB 3 med påkrevd kryptering. Mapper som synkroniseres med skyen, støttes ikke.</value>
   </data>
   <data name="Profiles.StopRemembering" xml:space="preserve">
     <value>Slutte å huske passord for denne konfigurasjonen på denne PC-en?</value>
@@ -2394,19 +2391,19 @@ Hemmeligheter: {2}</value>
     <value>Hold denne konfigurasjonen oppdatert på teamets PC-er.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Synkronisert</value>
+    <value>Innstillingene er oppdaterte</value>
   </data>
   <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Denne profilen bruker et format som ikke støttes. Oppdater Foundry før du åpner den.</value>
+    <value>Foundry kan ikke åpne dette innstillingsformatet. Oppdater Foundry og prøv igjen.</value>
   </data>
   <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>En delt oppdatering er klar. Velg Synkroniser nå for å bruke den.</value>
+    <value>Endringer fra en annen PC er tilgjengelige. Velg Synkroniser for å bruke dem.</value>
   </data>
   <data name="Profiles.UseRemote" xml:space="preserve">
     <value>Bruk delt versjon</value>
   </data>
   <data name="Profiles.Validation" xml:space="preserve">
-    <value>Fyll ut påkrevde felt, bruk en delt UNC-bane og angi like passfraser.</value>
+    <value>Kontroller de påkrevde feltene. Hvis du blir bedt om en nettverksmappe, bruker du en bane som \\server\share\folder. Hvis du skriver inn filpassordet to ganger, må begge være like.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
