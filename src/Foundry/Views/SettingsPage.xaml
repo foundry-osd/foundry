@@ -14,13 +14,29 @@
         HorizontalAlignment="Stretch"
         VerticalScrollBarVisibility="Auto">
         <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
-            <views:DeploymentProfilesControl />
             <wct:SettingsCard x:Name="GeneralSettingsCard"
                 x:Uid="SettingsPage_GeneralCard"
                 Click="GeneralSettingsCard_Click"
                 IsClickEnabled="True">
                 <wct:SettingsCard.HeaderIcon>
                     <FontIcon Glyph="&#xE713;" />
+                </wct:SettingsCard.HeaderIcon>
+            </wct:SettingsCard>
+            <wct:SettingsCard x:Name="ThemeSettingsCard"
+                x:Uid="SettingsPage_ThemeCard"
+                Click="ThemeSettingsCard_Click"
+                IsClickEnabled="True">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE790;" />
+                </wct:SettingsCard.HeaderIcon>
+            </wct:SettingsCard>
+            <views:DeploymentProfilesControl />
+            <wct:SettingsCard x:Name="ProxySettingsCard"
+                x:Uid="SettingsPage_ProxyCard"
+                Click="ProxySettingsCard_Click"
+                IsClickEnabled="True">
+                <wct:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE774;" />
                 </wct:SettingsCard.HeaderIcon>
             </wct:SettingsCard>
             <wct:SettingsCard x:Name="TelemetryCard"
@@ -40,22 +56,6 @@
                 <ToggleSwitch x:Name="RemoteDiagnosticsToggle"
                     behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                     IsOn="{x:Bind ViewModel.IsRemoteDiagnosticsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </wct:SettingsCard>
-            <wct:SettingsCard x:Name="ProxySettingsCard"
-                x:Uid="SettingsPage_ProxyCard"
-                Click="ProxySettingsCard_Click"
-                IsClickEnabled="True">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE774;" />
-                </wct:SettingsCard.HeaderIcon>
-            </wct:SettingsCard>
-            <wct:SettingsCard x:Name="ThemeSettingsCard"
-                x:Uid="SettingsPage_ThemeCard"
-                Click="ThemeSettingsCard_Click"
-                IsClickEnabled="True">
-                <wct:SettingsCard.HeaderIcon>
-                    <FontIcon Glyph="&#xE790;" />
-                </wct:SettingsCard.HeaderIcon>
             </wct:SettingsCard>
             <wct:SettingsCard x:Name="UpdateSettingsCard"
                 x:Uid="SettingsPage_UpdateCard"
