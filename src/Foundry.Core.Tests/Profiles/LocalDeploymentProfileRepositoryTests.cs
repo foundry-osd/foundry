@@ -213,6 +213,45 @@ public sealed class LocalDeploymentProfileRepositoryTests : IDisposable
     }
 
     [Fact]
+    public void FailedDeletion_PreservesActiveSelectionAndCommittedRevision()
+    {
+        var repository = CreateRepository();
+        LocalProfileDescriptor original = repository.Save(localId, CreateProfile(), true, null);
+        repository.SetActive(localId);
+        using (var lockedHead = new FileStream(HeadPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+        {
+            Assert.Throws<IOException>(() => repository.Delete(localId, original.Revision));
+        }
+
+        var reopened = CreateRepository();
+        Assert.Equal(original.Revision, Assert.Single(reopened.List()).Revision);
+        Assert.Equal(localId, reopened.GetActive());
+        using LocalProfileSnapshot read = reopened.Read(localId);
+        Assert.Equal(original.Revision, read.Descriptor.Revision);
+        Assert.Single(credentials.Values);
+    }
+
+    [Fact]
+    public void Delete_WhenActivePointerCleanupFails_CommitsDeletionAndRecoversWithoutChangingNewSelection()
+    {
+        var repository = CreateRepository();
+        LocalProfileDescriptor original = repository.Save(localId, CreateProfile(), true, null);
+        Guid otherId = Guid.NewGuid();
+        repository.Save(otherId, CreateProfile(), false, null);
+        repository.SetActive(localId);
+        using (var lockedActive = new FileStream(Path.Combine(root, "active.json"), FileMode.Open, FileAccess.Read, FileShare.Read))
+        {
+            Assert.True(repository.Delete(localId, original.Revision));
+            Assert.Null(repository.GetActive());
+        }
+
+        repository.SetActive(otherId);
+        Assert.Equal(otherId, Assert.Single(CreateRepository().List()).LocalId);
+        Assert.Equal(otherId, repository.GetActive());
+        Assert.Single(credentials.Values);
+    }
+
+    [Fact]
     public void FutureHeadVersion_IsNotOverwrittenOrRemoved()
     {
         var repository = CreateRepository();

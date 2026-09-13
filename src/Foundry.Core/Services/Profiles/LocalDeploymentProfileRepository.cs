@@ -123,6 +123,7 @@ public sealed class LocalDeploymentProfileRepository
         EnsureRecovered(localId);
         LocalProfileDescriptor previous = RequireHead(localId);
         CheckRevision(previous, expectedRevision);
+        _ = ReadActive();
         var journal = new LocalProfileJournal
         {
             LocalId = localId,
@@ -131,10 +132,6 @@ public sealed class LocalDeploymentProfileRepository
             PreviousSharedKeyRevision = previous.SharedKeyRevision
         };
         PublishJournal(journal);
-        if (ReadActive() == localId)
-        {
-            PublishActive(null);
-        }
         File.Delete(HeadPath(localId));
         return !Recover(localId);
     }
@@ -315,6 +312,10 @@ public sealed class LocalDeploymentProfileRepository
         }
         try
         {
+            if (journal.IsDelete && committed && ReadActive() == localId)
+            {
+                PublishActive(null);
+            }
             RetireRevision(localId, committed ? journal.PreviousRevision : journal.NextRevision);
             Guid? retireShared = committed ? journal.PreviousSharedKeyRevision : journal.NextSharedKeyRevision;
             if (retireShared is { } shared && retireShared != keepShared)
