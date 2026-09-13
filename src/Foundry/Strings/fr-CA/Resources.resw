@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Enregistrer un fichier de connexion pour qu’un autre PC puisse rejoindre cette configuration partagée.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Paramètres de connexion…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continuer</value>
   </data>
@@ -2362,6 +2365,9 @@ Secrets : {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Configurer</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Configurer la synchronisation…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Partager cette configuration ou se connecter à une configuration déjà utilisée par votre équipe.</value>

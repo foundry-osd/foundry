@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Tallenna yhteystiedosto, jotta toinen tietokone voi käyttää tätä jaettua määritystä.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Yhteysasetukset…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Jatka</value>
   </data>
@@ -2362,6 +2365,9 @@ Salaisuudet: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Määritä</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Määritä synkronointi…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Jaa tämä määritys tai yhdistä tiimisi jo käyttämään määritykseen.</value>

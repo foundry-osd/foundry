@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Сохраните файл подключения, чтобы другой компьютер мог использовать эту общую конфигурацию.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Параметры подключения…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Продолжить</value>
   </data>
@@ -2362,6 +2365,9 @@
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Настроить</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Настроить синхронизацию…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Поделитесь этой конфигурацией или подключитесь к той, которую уже использует ваша команда.</value>

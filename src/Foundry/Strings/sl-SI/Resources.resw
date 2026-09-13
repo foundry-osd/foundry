@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Shrani datoteko za povezavo, da lahko drug računalnik uporablja to konfiguracijo v skupni rabi.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Nastavitve povezave…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Nadaljuj</value>
   </data>
@@ -2362,6 +2365,9 @@ Skrivnosti: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Nastavi</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Nastavi sinhronizacijo…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Deli to konfiguracijo ali se poveži s konfiguracijo, ki jo tvoja ekipa že uporablja.</value>

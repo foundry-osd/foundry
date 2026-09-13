@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Salvează un fișier de conectare pentru ca alt PC să poată folosi această configurație partajată.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Setări de conectare…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continuă</value>
   </data>
@@ -2362,6 +2365,9 @@ Secrete: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Configurează</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Configurează sincronizarea…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Partajează această configurație sau conectează-te la una pe care echipa ta o folosește deja.</value>

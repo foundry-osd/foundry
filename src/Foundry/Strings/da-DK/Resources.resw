@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Gem en forbindelsesfil, så en anden pc kan bruge denne delte konfiguration.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Forbindelsesindstillinger…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Fortsæt</value>
   </data>
@@ -2362,6 +2365,9 @@ Hemmeligheder: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Konfigurer</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Konfigurer synkronisering…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Del denne konfiguration, eller opret forbindelse til en, dit team allerede bruger.</value>

@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Spara en anslutningsfil så att en annan dator kan använda den här delade konfigurationen.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Anslutningsinställningar…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Fortsätt</value>
   </data>
@@ -2362,6 +2365,9 @@ Hemligheter: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Konfigurera</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Konfigurera synkronisering…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Dela den här konfigurationen eller anslut till en som ditt team redan använder.</value>

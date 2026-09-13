@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Saglabājiet savienojuma failu, lai cits dators varētu izmantot šo kopīgoto konfigurāciju.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Savienojuma iestatījumi…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Turpināt</value>
   </data>
@@ -2362,6 +2365,9 @@ Noslēpumi: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Iestatīt</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Iestatīt sinhronizāciju…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Kopīgojiet šo konfigurāciju vai izveidojiet savienojumu ar konfigurāciju, ko jūsu komanda jau izmanto.</value>

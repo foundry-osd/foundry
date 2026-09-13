@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>บันทึกไฟล์การเชื่อมต่อเพื่อให้พีซีเครื่องอื่นใช้การกำหนดค่าที่แชร์นี้ได้</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>การตั้งค่าการเชื่อมต่อ…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>ดำเนินการต่อ</value>
   </data>
@@ -2362,6 +2365,9 @@
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>ตั้งค่า</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>ตั้งค่าการซิงโครไนซ์…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>แชร์การกำหนดค่านี้หรือเชื่อมต่อกับการกำหนดค่าที่ทีมของคุณใช้อยู่แล้ว</value>

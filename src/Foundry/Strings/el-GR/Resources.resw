@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Αποθηκεύστε ένα αρχείο σύνδεσης ώστε άλλος υπολογιστής να μπορεί να χρησιμοποιήσει αυτήν την κοινόχρηστη διαμόρφωση.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Ρυθμίσεις σύνδεσης…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Συνέχεια</value>
   </data>
@@ -2362,6 +2365,9 @@
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Ρύθμιση</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Ρύθμιση συγχρονισμού…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Μοιραστείτε αυτήν τη διαμόρφωση ή συνδεθείτε σε κάποια που χρησιμοποιεί ήδη η ομάδα σας.</value>

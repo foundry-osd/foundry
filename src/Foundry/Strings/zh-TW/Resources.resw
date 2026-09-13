@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>儲存連線檔案，讓其他電腦可以使用此共用設定。</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>連線設定…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>繼續</value>
   </data>
@@ -2362,6 +2365,9 @@
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>設定</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>設定同步…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>共用此設定，或連線到團隊已在使用的設定。</value>

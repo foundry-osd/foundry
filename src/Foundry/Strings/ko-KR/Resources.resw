@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>다른 PC에서 이 공유 구성을 사용할 수 있도록 연결 파일을 저장합니다.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>연결 설정…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>계속</value>
   </data>
@@ -2362,6 +2365,9 @@
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>설정</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>동기화 설정…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>이 구성을 공유하거나 팀에서 이미 사용하는 구성에 연결합니다.</value>

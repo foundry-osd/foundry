@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Başka bir bilgisayarın bu paylaşılan yapılandırmayı kullanabilmesi için bağlantı dosyası kaydedin.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Bağlantı ayarları…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Devam</value>
   </data>
@@ -2362,6 +2365,9 @@ Gizli bilgiler: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Kur</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Eşitlemeyi ayarla…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Bu yapılandırmayı paylaşın veya ekibinizin zaten kullandığı bir yapılandırmaya bağlanın.</value>

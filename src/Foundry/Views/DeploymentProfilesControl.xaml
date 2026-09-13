@@ -21,6 +21,9 @@
                         <Setter
                             Target="ProfileHeaderActions.Orientation"
                             Value="Vertical" />
+                        <Setter
+                            Target="SynchronizationActions.Orientation"
+                            Value="Vertical" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="WideProfileActions">
@@ -139,18 +142,21 @@
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE895;" />
                         </wct:SettingsCard.HeaderIcon>
-                        <SplitButton
-                            MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
-                            Command="{x:Bind ViewModel.SynchronizeCommand}"
-                            Content="{x:Bind ViewModel.SynchronizeActionText, Mode=OneWay}">
-                            <SplitButton.Flyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem
-                                        Command="{x:Bind ViewModel.SetupSynchronizationCommand}"
-                                        Text="{x:Bind ViewModel.Text('Profiles.Setup')}" />
-                                </MenuFlyout>
-                            </SplitButton.Flyout>
-                        </SplitButton>
+                        <StackPanel x:Name="SynchronizationActions"
+                            Orientation="Horizontal"
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <Button
+                                MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                HorizontalAlignment="Right"
+                                Command="{x:Bind ViewModel.SynchronizeCommand}"
+                                Content="{x:Bind ViewModel.SynchronizeActionText, Mode=OneWay}" />
+                            <Button
+                                MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                HorizontalAlignment="Right"
+                                Command="{x:Bind ViewModel.SetupSynchronizationCommand}"
+                                Content="{x:Bind ViewModel.Text('Profiles.ConnectionSettings')}"
+                                Visibility="{x:Bind ViewModel.SharedVisibility, Mode=OneWay}" />
+                        </StackPanel>
                     </wct:SettingsCard>
                     <wct:SettingsCard
                         Header="{x:Bind ViewModel.Text('Profiles.AutoSync')}"

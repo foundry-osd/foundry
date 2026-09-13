@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>احفظ ملف اتصال ليتمكن كمبيوتر آخر من استخدام هذا التكوين المشترك.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>إعدادات الاتصال…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>متابعة</value>
   </data>
@@ -2362,6 +2365,9 @@
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>إعداد</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>إعداد المزامنة…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>شارك هذا التكوين أو اتصل بتكوين يستخدمه فريقك بالفعل.</value>

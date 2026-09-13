@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Zapisz plik połączenia, aby inny komputer mógł korzystać z tej udostępnionej konfiguracji.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Ustawienia połączenia…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Kontynuuj</value>
   </data>
@@ -2362,6 +2365,9 @@ Sekrety: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Skonfiguruj</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Skonfiguruj synchronizację…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Udostępnij tę konfigurację lub połącz się z konfiguracją, której Twój zespół już używa.</value>

@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Lagre en tilkoblingsfil slik at en annen PC kan bruke denne delte konfigurasjonen.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Tilkoblingsinnstillinger…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Fortsett</value>
   </data>
@@ -2362,6 +2365,9 @@ Hemmeligheter: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Konfigurer</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Konfigurer synkronisering…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Del denne konfigurasjonen, eller koble til en som teamet ditt allerede bruker.</value>

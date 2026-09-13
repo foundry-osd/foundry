@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Guardar um ficheiro de ligação para que outro PC possa utilizar esta configuração partilhada.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Definições de ligação…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continuar</value>
   </data>
@@ -2362,6 +2365,9 @@ Segredos: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Configurar</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Configurar sincronização…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Partilhar esta configuração ou ligar a uma que a sua equipa já utiliza.</value>

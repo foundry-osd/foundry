@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Išsaugokite prisijungimo failą, kad kitas kompiuteris galėtų naudoti šią bendrinamą konfigūraciją.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Ryšio parametrai…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Tęsti</value>
   </data>
@@ -2362,6 +2365,9 @@ Paslaptys: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Nustatyti</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Nustatyti sinchronizavimą…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Bendrinkite šią konfigūraciją arba prisijunkite prie tos, kurią jūsų komanda jau naudoja.</value>

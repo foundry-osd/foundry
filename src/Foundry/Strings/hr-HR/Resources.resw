@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Spremi datoteku za povezivanje kako bi drugo računalo moglo koristiti ovu zajedničku konfiguraciju.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Postavke veze…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Nastavi</value>
   </data>
@@ -2362,6 +2365,9 @@ Tajni podaci: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Postavi</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Postavi sinkronizaciju…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Podijeli ovu konfiguraciju ili se poveži s konfiguracijom koju tvoj tim već koristi.</value>

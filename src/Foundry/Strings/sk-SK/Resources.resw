@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Uložiť súbor pripojenia, aby mohol túto zdieľanú konfiguráciu používať aj iný počítač.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Nastavenia pripojenia…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Pokračovať</value>
   </data>
@@ -2362,6 +2365,9 @@ Tajné údaje: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Nastaviť</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Nastaviť synchronizáciu…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Zdieľať túto konfiguráciu alebo sa pripojiť ku konfigurácii, ktorú váš tím už používa.</value>

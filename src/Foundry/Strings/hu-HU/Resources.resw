@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Mentsen egy csatlakozási fájlt, hogy egy másik számítógép is használhassa ezt a megosztott konfigurációt.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Kapcsolat beállításai…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Folytatás</value>
   </data>
@@ -2362,6 +2365,9 @@ Titkos adatok: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Beállítás</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Szinkronizálás beállítása…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Ossza meg ezt a konfigurációt, vagy csatlakozzon a csapata által már használt konfigurációhoz.</value>

@@ -41,7 +41,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     public bool IsShared => coordinator.Active?.Enrollment is not null;
     public Visibility SharedVisibility => IsShared ? Visibility.Visible : Visibility.Collapsed;
     public bool RememberSecrets => coordinator.Active?.RememberSecrets == true;
-    public string SynchronizeActionText => Text(IsShared ? "Profiles.SyncNow" : "Profiles.Setup");
+    public string SynchronizeActionText => Text(IsShared ? "Profiles.SyncNow" : "Profiles.SetupAction");
     public bool SyncEnabled => coordinator.Active?.Enrollment?.IsEnabled == true;
     public Visibility ConflictVisibility => coordinator.HasConflict && coordinator.StatusKey != "Profiles.DeletedRemote" ? Visibility.Visible : Visibility.Collapsed;
     public string Text(string key) => localization.GetString(key);

@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Een verbindingsbestand opslaan zodat een andere pc deze gedeelde configuratie kan gebruiken.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Verbindingsinstellingen…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Doorgaan</value>
   </data>
@@ -2362,6 +2365,9 @@ Geheimen: {2}</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Instellen</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Synchronisatie instellen…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Deze configuratie delen of verbinding maken met een configuratie die uw team al gebruikt.</value>

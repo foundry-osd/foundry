@@ -2238,6 +2238,9 @@
   <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
     <value>Запазете файл за свързване, за да може друг компютър да използва тази споделена конфигурация.</value>
   </data>
+  <data name="Profiles.ConnectionSettings" xml:space="preserve">
+    <value>Настройки на връзката…</value>
+  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Продължаване</value>
   </data>
@@ -2362,6 +2365,9 @@
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Настройване</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Настройване на синхронизацията…</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Споделете тази конфигурация или се свържете с конфигурация, която екипът ви вече използва.</value>
