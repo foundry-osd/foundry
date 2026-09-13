@@ -23,31 +23,20 @@ internal static class WinPeLanguageUtility
             return string.Empty;
         }
 
-        try
-        {
-            return CultureInfo.GetCultureInfo(normalized).Name;
-        }
-        catch (CultureNotFoundException)
-        {
-            return normalized;
-        }
+        TryCanonicalize(normalized, out string canonicalLanguageCode);
+        return canonicalLanguageCode;
     }
 
-    public static bool TryResolveInputLocale(string languageCode, out string canonicalLanguageCode, out string inputLocale)
+    public static bool TryCanonicalize(string languageCode, out string canonicalLanguageCode)
     {
         try
         {
-            CultureInfo culture = CultureInfo.GetCultureInfo(languageCode);
-            canonicalLanguageCode = culture.Name;
-            int keyboardLayoutId = culture.KeyboardLayoutId;
-            string hex = keyboardLayoutId.ToString("x4", CultureInfo.InvariantCulture);
-            inputLocale = $"{hex}:0000{hex}";
+            canonicalLanguageCode = CultureInfo.GetCultureInfo(languageCode).Name;
             return true;
         }
         catch (CultureNotFoundException)
         {
             canonicalLanguageCode = languageCode;
-            inputLocale = string.Empty;
             return false;
         }
     }
