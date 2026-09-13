@@ -2211,9 +2211,6 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opțiuni de implementare Windows</value>
   </data>
-  <data name="Profiles.Activate" xml:space="preserve">
-    <value>Deschide</value>
-  </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Setările curente</value>
   </data>
@@ -2359,6 +2356,9 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Duplică</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Alegeți o configurație</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Configurează</value>

@@ -19,7 +19,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     private readonly IApplicationLocalizationService localization;
     private readonly IFilePickerService picker;
     private bool attached;
-    private Guid? displayedActiveProfileId;
+    private bool isRefreshing;
 
     internal DeploymentProfilesViewModel(DeploymentProfileCoordinator coordinator,
         IApplicationLocalizationService localization, IFilePickerService picker)
@@ -31,13 +31,11 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
 
     internal Func<ProfileDialogRequest, Task<ProfileDialogResponse?>>? ShowDialogAsync { get; set; }
     public ObservableCollection<LocalProfileDescriptor> Profiles { get; } = [];
-    [ObservableProperty, NotifyPropertyChangedFor(nameof(CanActivate))] public partial LocalProfileDescriptor? SelectedProfile { get; set; }
+    [ObservableProperty] public partial LocalProfileDescriptor? SelectedProfile { get; set; }
     [ObservableProperty] public partial bool IsBusy { get; set; }
     [ObservableProperty, NotifyPropertyChangedFor(nameof(StatusVisibility))] public partial string Status { get; set; } = string.Empty;
     public bool CanInteract => !IsBusy;
     public bool CanSynchronize => CanInteract && !coordinator.IsSynchronizing;
-    public bool CanActivate => CanInteract && SelectedProfile is { } selected && selected.LocalId != coordinator.Active?.LocalId;
-    public string ActiveProfileDescription => coordinator.Active is { } active ? $"{Text("Profiles.Active")}: {active.DisplayName}" : string.Empty;
     public Visibility StatusVisibility => string.IsNullOrEmpty(Status) || Status == Text("Profiles.Ready") || Status == Text("Profiles.Synchronized") ||
         Status == Text("Profiles.Conflict") && ConflictVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
     public bool HasActive => coordinator.Active is not null;
@@ -106,15 +104,19 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
 
     internal void Refresh()
     {
-        Guid? activeId = coordinator.Active?.LocalId;
-        Guid? selectedId = displayedActiveProfileId == activeId ? SelectedProfile?.LocalId ?? activeId : activeId;
-        Profiles.Clear();
-        foreach (LocalProfileDescriptor profile in coordinator.Profiles) Profiles.Add(profile);
-        SelectedProfile = Profiles.FirstOrDefault(profile => profile.LocalId == selectedId)
-            ?? Profiles.FirstOrDefault(profile => profile.LocalId == activeId);
-        displayedActiveProfileId = activeId;
-        Status = Text(coordinator.StatusKey);
-        OnPropertyChanged(string.Empty);
+        isRefreshing = true;
+        try
+        {
+            if (!Profiles.SequenceEqual(coordinator.Profiles))
+            {
+                Profiles.Clear();
+                foreach (LocalProfileDescriptor profile in coordinator.Profiles) Profiles.Add(profile);
+            }
+            SelectedProfile = Profiles.FirstOrDefault(profile => profile.LocalId == coordinator.Active?.LocalId);
+            Status = Text(coordinator.StatusKey);
+            OnPropertyChanged(string.Empty);
+        }
+        finally { isRefreshing = false; }
     }
 
     private void OnChanged(object? sender, EventArgs e) => Refresh();
@@ -129,16 +131,15 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     partial void OnIsBusyChanged(bool value)
     {
         OnPropertyChanged(nameof(CanInteract));
-        OnPropertyChanged(nameof(CanActivate));
         OnPropertyChanged(nameof(CanSynchronize));
     }
 
-    [RelayCommand]
-    private Task ActivateAsync() => RunAsync(async () =>
+    internal async Task SelectProfileAsync(LocalProfileDescriptor selected)
     {
-        if (SelectedProfile is not { } selected || selected.LocalId == coordinator.Active?.LocalId) return;
-        if (await ConfirmAsync("Profiles.Activate", "Profiles.ReplaceWarning")) await coordinator.ActivateAsync(selected.LocalId);
-    });
+        if (isRefreshing || !CanInteract || selected.LocalId == coordinator.Active?.LocalId) return;
+        try { await RunAsync(() => coordinator.ActivateAsync(selected.LocalId)); }
+        finally { SelectedProfile = Profiles.FirstOrDefault(profile => profile.LocalId == coordinator.Active?.LocalId); }
+    }
 
     [RelayCommand]
     private Task SaveCopyAsync() => RunAsync(async () =>

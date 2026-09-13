@@ -2211,9 +2211,6 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows diegimo parinktys</value>
   </data>
-  <data name="Profiles.Activate" xml:space="preserve">
-    <value>Atidaryti</value>
-  </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Dabartiniai nustatymai</value>
   </data>
@@ -2359,6 +2356,9 @@
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Dubliuoti</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Pasirinkite konfigūraciją</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Nustatyti</value>

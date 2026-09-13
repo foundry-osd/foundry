@@ -2211,9 +2211,6 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows 배포 옵션</value>
   </data>
-  <data name="Profiles.Activate" xml:space="preserve">
-    <value>열기</value>
-  </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>현재 설정</value>
   </data>
@@ -2359,6 +2356,9 @@
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>복제</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>구성 선택</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>설정</value>

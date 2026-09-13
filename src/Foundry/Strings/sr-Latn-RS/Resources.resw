@@ -2211,9 +2211,6 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opcije primene operativnog sistema Windows</value>
   </data>
-  <data name="Profiles.Activate" xml:space="preserve">
-    <value>Otvori</value>
-  </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Trenutna podešavanja</value>
   </data>
@@ -2359,6 +2356,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Dupliraj</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Izaberite konfiguraciju</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Podesi</value>

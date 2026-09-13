@@ -71,53 +71,35 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
-            <wct:SettingsExpander Header="{x:Bind ViewModel.Text('SettingsPage_ProfilesCard.Header')}">
+            <wct:SettingsExpander
+                Description="{x:Bind ViewModel.Text('SettingsPage_ProfilesCard.Description')}"
+                Header="{x:Bind ViewModel.Text('SettingsPage_ProfilesCard.Header')}">
                 <wct:SettingsExpander.HeaderIcon>
                     <FontIcon Glyph="&#xE8A5;" />
                 </wct:SettingsExpander.HeaderIcon>
-                <wct:SettingsExpander.Description>
-                    <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
-                        <TextBlock
-                            Text="{x:Bind ViewModel.Text('SettingsPage_ProfilesCard.Description')}"
-                            TextWrapping="Wrap" />
-                        <TextBlock
-                            Text="{x:Bind ViewModel.ActiveProfileDescription, Mode=OneWay}"
-                            TextWrapping="Wrap" />
-                    </StackPanel>
-                </wct:SettingsExpander.Description>
                 <StackPanel x:Name="ProfileHeaderActions"
                     Margin="{ThemeResource FoundrySettingsExpanderTrailingAffordanceMargin}"
+                    VerticalAlignment="Center"
                     Orientation="Horizontal"
                     Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                    <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <ComboBox x:Name="ProfileSelector"
-                            Width="{ThemeResource FoundryWideInputMinWidth}"
-                            VerticalAlignment="Center"
-                            AutomationProperties.Name="{x:Bind ViewModel.Text('Profiles.Name')}"
-                            IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
-                            ItemsSource="{x:Bind ViewModel.Profiles}"
-                            SelectedItem="{x:Bind ViewModel.SelectedProfile, Mode=TwoWay}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock
-                                        Text="{Binding DisplayName}"
-                                        TextTrimming="CharacterEllipsis"
-                                        ToolTipService.ToolTip="{Binding DisplayName}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                        <Button
-                            Grid.Column="1"
-                            MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
-                            VerticalAlignment="Center"
-                            Command="{x:Bind ViewModel.ActivateCommand}"
-                            Content="{x:Bind ViewModel.Text('Profiles.Activate')}"
-                            IsEnabled="{x:Bind ViewModel.CanActivate, Mode=OneWay}" />
-                    </Grid>
+                    <ComboBox x:Name="ProfileSelector"
+                        Width="{ThemeResource FoundryWideInputMinWidth}"
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="{x:Bind ViewModel.Text('Profiles.Active')}"
+                        IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+                        ItemsSource="{x:Bind ViewModel.Profiles}"
+                        PlaceholderText="{x:Bind ViewModel.Text('Profiles.Select')}"
+                        SelectedItem="{x:Bind ViewModel.SelectedProfile, Mode=OneWay}"
+                        SelectionChanged="ProfileSelector_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Text="{Binding DisplayName}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTipService.ToolTip="{Binding DisplayName}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                     <DropDownButton
                         MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                         HorizontalAlignment="Right"
@@ -126,10 +108,6 @@
                         IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}">
                         <DropDownButton.Flyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem
-                                    IsEnabled="False"
-                                    Text="{x:Bind ViewModel.ActiveProfileDescription, Mode=OneWay}" />
-                                <MenuFlyoutSeparator />
                                 <MenuFlyoutItem
                                     Command="{x:Bind ViewModel.RenameCommand}"
                                     IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}"

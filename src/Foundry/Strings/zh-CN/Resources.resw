@@ -2211,9 +2211,6 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows 部署选项</value>
   </data>
-  <data name="Profiles.Activate" xml:space="preserve">
-    <value>打开</value>
-  </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>当前设置</value>
   </data>
@@ -2359,6 +2356,9 @@
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>创建副本</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>选择配置</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>设置</value>

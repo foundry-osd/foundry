@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.ComponentModel;
+using Foundry.Core.Services.Profiles;
 using Foundry.Core.Services.Application;
 using Foundry.Services.Application;
 using Foundry.Services.Localization;
@@ -72,6 +73,13 @@ public sealed partial class DeploymentProfilesControl : UserControl
         if (sender is not ToggleSwitch toggle || !toggle.IsLoaded || !ViewModel.CanInteract || toggle.IsOn == ViewModel.SyncEnabled) return;
         await ViewModel.ToggleSyncCommand.ExecuteAsync(null);
         toggle.IsOn = ViewModel.SyncEnabled;
+    }
+
+    private async void ProfileSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (!IsLoaded || e.AddedItems.FirstOrDefault() is not LocalProfileDescriptor selected) return;
+        await ViewModel.SelectProfileAsync(selected);
+        ProfileSelector.SelectedItem = ViewModel.SelectedProfile;
     }
 
     private async void RememberPasswordsToggle_Toggled(object sender, RoutedEventArgs e)

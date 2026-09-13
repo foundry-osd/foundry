@@ -2211,9 +2211,6 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows-telepítési lehetőségek</value>
   </data>
-  <data name="Profiles.Activate" xml:space="preserve">
-    <value>Megnyitás</value>
-  </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Jelenlegi beállítások</value>
   </data>
@@ -2359,6 +2356,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Másolat készítése</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Válasszon konfigurációt</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Beállítás</value>

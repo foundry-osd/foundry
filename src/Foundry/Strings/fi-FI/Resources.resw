@@ -2211,9 +2211,6 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windowsin käyttöönottoasetukset</value>
   </data>
-  <data name="Profiles.Activate" xml:space="preserve">
-    <value>Avaa</value>
-  </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Nykyiset asetukset</value>
   </data>
@@ -2359,6 +2356,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Monista</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Valitse kokoonpano</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Määritä</value>

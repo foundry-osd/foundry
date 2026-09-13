@@ -2211,9 +2211,6 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Distributionsalternativ för Windows</value>
   </data>
-  <data name="Profiles.Activate" xml:space="preserve">
-    <value>Öppna</value>
-  </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Aktuella inställningar</value>
   </data>
@@ -2359,6 +2356,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Duplicera</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Välj en konfiguration</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Konfigurera</value>

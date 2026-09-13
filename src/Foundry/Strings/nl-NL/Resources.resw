@@ -2211,9 +2211,6 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows-implementatieopties</value>
   </data>
-  <data name="Profiles.Activate" xml:space="preserve">
-    <value>Openen</value>
-  </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Huidige instellingen</value>
   </data>
@@ -2359,6 +2356,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Dupliceren</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Kies een configuratie</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Instellen</value>

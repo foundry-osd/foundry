@@ -2211,9 +2211,6 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Možnosti nasadenia Windows</value>
   </data>
-  <data name="Profiles.Activate" xml:space="preserve">
-    <value>Otvoriť</value>
-  </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Aktuálne nastavenia</value>
   </data>
@@ -2359,6 +2356,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Duplikovať</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Vyberte konfiguráciu</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Nastaviť</value>

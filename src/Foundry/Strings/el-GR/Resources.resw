@@ -2211,9 +2211,6 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Επιλογές ανάπτυξης Windows</value>
   </data>
-  <data name="Profiles.Activate" xml:space="preserve">
-    <value>Άνοιγμα</value>
-  </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Τρέχουσες ρυθμίσεις</value>
   </data>
@@ -2359,6 +2356,9 @@
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Δημιουργία αντιγράφου</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Επιλέξτε μια διαμόρφωση</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Ρύθμιση</value>

@@ -2211,9 +2211,6 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opzioni di distribuzione di Windows</value>
   </data>
-  <data name="Profiles.Activate" xml:space="preserve">
-    <value>Apri</value>
-  </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Impostazioni attuali</value>
   </data>
@@ -2359,6 +2356,9 @@ Password e chiavi di accesso incluse: {2}</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
     <value>Duplica</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Scegli una configurazione</value>
   </data>
   <data name="Profiles.Setup" xml:space="preserve">
     <value>Configura</value>
