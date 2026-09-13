@@ -155,16 +155,19 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
                 try { await SaveCurrentAsync(); }
                 catch (IncompleteProfileCheckpointException)
                 {
-                    Logger.Warning("Creating a settings-only copy while the remembered checkpoint remains incomplete. LocalProfileId={LocalProfileId}", Active.LocalId);
+                    Logger.Warning("Creating a new copy while the remembered checkpoint remains incomplete. LocalProfileId={LocalProfileId}", Active.LocalId);
                 }
             }
             Guid id = Guid.NewGuid();
             long version = editVersion;
-            DeploymentProfileDocument profile = await session.CaptureAsync(id, displayName, false);
+            bool remember = Active?.RememberSecrets ?? true;
+            DeploymentProfileDocument profile = await session.CaptureAsync(id, displayName, remember);
             try
             {
                 EnsureUnchanged(version);
-                LocalProfileDescriptor descriptor = local.Save(id, profile, false, null);
+                // A new profile can retain available values while its first draft is incomplete.
+                // Later saves preserve this checkpoint until all required inputs are complete.
+                LocalProfileDescriptor descriptor = local.Save(id, profile, remember, null);
                 local.SetActive(id);
                 Active = descriptor;
                 persistedEditVersion = editVersion;

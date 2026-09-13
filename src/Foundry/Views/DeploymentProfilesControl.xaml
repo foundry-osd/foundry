@@ -224,6 +224,9 @@
                         Header="{x:Bind ViewModel.Text('Profiles.AutoSync')}"
                         IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.SharedVisibility, Mode=OneWay}">
+                        <wct:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE895;" />
+                        </wct:SettingsCard.HeaderIcon>
                         <ToggleSwitch
                             behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                             AutomationProperties.Name="{x:Bind ViewModel.Text('Profiles.AutoSync')}"

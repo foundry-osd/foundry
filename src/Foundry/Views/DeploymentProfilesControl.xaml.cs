@@ -98,7 +98,7 @@ public sealed partial class DeploymentProfilesControl : UserControl
         var password = new PasswordBox { Header = T(request.NamedSharedFolder || request.ConnectionAccess ? "Profiles.ConnectionPassword" : "Profiles.Passphrase"), MaxLength = 1024, PasswordRevealMode = PasswordRevealMode.Hidden };
         var confirmation = new PasswordBox { Header = T(request.NamedSharedFolder ? "Profiles.ConfirmConnectionPassword" : "Profiles.ConfirmPassphrase"), MaxLength = 1024, PasswordRevealMode = PasswordRevealMode.Hidden };
         var include = new CheckBox { Content = T("Profiles.IncludeSecrets"), IsChecked = request.IncludeSecrets };
-        var remember = new CheckBox { Content = T("Profiles.Remember"), IsChecked = false };
+        var remember = new CheckBox { Content = T("Profiles.Remember"), IsChecked = request.Remember };
         var sharedKey = new CheckBox { Content = T("Profiles.RememberKey"), IsChecked = request.RememberKey };
         var deleteShared = new CheckBox { Content = T("Profiles.DeleteShared"), IsChecked = false };
         var joinShared = new RadioButton { GroupName = "SynchronizationSetup", IsChecked = !ViewModel.HasActive };

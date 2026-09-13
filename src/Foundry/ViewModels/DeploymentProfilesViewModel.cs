@@ -225,6 +225,8 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
                 Message = preview + "\n\n" + Text("Profiles.ShareWarning") + (restore ? string.Empty : "\n\n" + Text("Profiles.ReplaceWarning")),
                 PreferCancel = !restore,
                 RememberOption = !restore,
+                Remember = !profile.Secrets.Entries.Any(secret => secret.State is ProfileValueState.Omitted or ProfileValueState.Unavailable)
+                    && !profile.Assets.Any(asset => asset.State is ProfileValueState.Omitted or ProfileValueState.Unavailable),
                 SharedKeyOption = join,
                 SharePathOption = join && !restore,
                 SharePath = sharedFolder ?? (join ? DeploymentProfileCoordinator.GetSharedFolderHint(profile, path) : null)
@@ -370,6 +372,7 @@ internal sealed record ProfileDialogRequest(string Title)
     public bool ConnectionAccess { get; init; }
     public bool IncludeSecrets { get; init; }
     public bool RememberKey { get; init; }
+    public bool Remember { get; init; } = true;
     public string PrimaryButtonKey { get; init; } = "Profiles.Continue";
     public string CloseButtonKey { get; init; } = "Common.Cancel";
     public bool Passphrase { get; init; }
