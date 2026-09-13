@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Toimingut ei saanud lõpule viia. Kontrollige faili, selle parooli, oma juurdepääsuõigusi ja võrguühendust.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Valige jagatud kaustas uus tühi alamkaust. Olemasolevad failid jäävad muutmata.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Kustuta salvestatud paroolid ja juurdepääsud</value>
   </data>

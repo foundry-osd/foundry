@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Impossible de terminer cette action. Vérifiez le fichier, son mot de passe, vos autorisations d’accès et votre connexion réseau.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Choisissez un nouveau sous-dossier vide dans le dossier partagé. Les fichiers existants resteront inchangés.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Effacer les mots de passe et les accès enregistrés</value>
   </data>

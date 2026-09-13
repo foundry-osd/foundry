@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Bu işlem tamamlanamadı. Dosyayı, dosyanın parolasını, erişim izinlerinizi ve ağ bağlantınızı kontrol edin.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Paylaşılan klasörde yeni, boş bir alt klasör seçin. Mevcut dosyalar değişmeden kalacaktır.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Kaydedilen parolaları ve erişim bilgilerini temizle</value>
   </data>

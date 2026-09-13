@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>De actie kon niet worden voltooid. Controleer het bestand, het bijbehorende wachtwoord, je toegangsrechten en je netwerkverbinding.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Kies een nieuwe, lege submap in de gedeelde map. Bestaande bestanden blijven ongewijzigd.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Opgeslagen wachtwoorden en toegang wissen</value>
   </data>

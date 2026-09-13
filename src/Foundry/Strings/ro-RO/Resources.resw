@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Acțiunea nu a putut fi finalizată. Verificați fișierul, parola acestuia, permisiunile de acces și conexiunea la rețea.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Alegeți un subfolder nou și gol în folderul partajat. Fișierele existente vor rămâne neschimbate.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Șterge parolele și accesul salvate</value>
   </data>

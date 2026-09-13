@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Toimintoa ei voitu suorittaa. Tarkista tiedosto, sen salasana, käyttöoikeutesi ja verkkoyhteytesi.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Valitse jaetusta kansiosta uusi, tyhjä alikansio. Nykyiset tiedostot säilyvät muuttumattomina.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Poista tallennetut salasanat ja käyttöoikeudet</value>
   </data>

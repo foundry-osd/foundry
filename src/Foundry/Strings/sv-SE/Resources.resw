@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Det gick inte att slutföra åtgärden. Kontrollera filen, dess lösenord, dina åtkomstbehörigheter och nätverksanslutningen.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Välj en ny, tom undermapp i den delade mappen. Befintliga filer förblir oförändrade.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Rensa sparade lösenord och åtkomster</value>
   </data>

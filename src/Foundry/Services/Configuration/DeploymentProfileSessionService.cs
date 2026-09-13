@@ -18,6 +18,7 @@ namespace Foundry.Services.Configuration;
 /// <summary>Transfers explicitly selected secrets between profile records and the desktop's volatile authoring state.</summary>
 public sealed class DeploymentProfileSessionService : IDisposable
 {
+    private static readonly Serilog.ILogger Logger = Serilog.Log.ForContext<DeploymentProfileSessionService>();
     private readonly IFoundryConfigurationStateService configurationState;
     private readonly INetworkSecretStateService networkSecrets;
     private readonly IDeploymentProtectionSecretStateService deploymentSecrets;
@@ -141,6 +142,8 @@ public sealed class DeploymentProfileSessionService : IDisposable
                 {
                     RememberSourceMetadata(captured, captured.Configuration);
                 }
+                Logger.Debug("Profile snapshot captured. ProfileId={ProfileId}, IncludeSecrets={IncludeSecrets}, SecretCount={SecretCount}, AssetCount={AssetCount}",
+                    profileId, includeSecrets, captured.Secrets.Entries.Count, captured.Assets.Count);
                 return captured;
             }
             catch
@@ -223,11 +226,13 @@ public sealed class DeploymentProfileSessionService : IDisposable
         accountSecrets.Update(new OobeSettings());
         autopilotSession.ClearTenantConnection();
         autopilotSession.BootMediaCertificate = new();
+        Logger.Debug("Profile session credentials cleared.");
     }
 
     /// <summary>Restores matching secret contexts without establishing an authenticated Graph session.</summary>
     public void Activate(DeploymentProfileDocument profile, FoundryConfigurationDocument materialized)
     {
+        Logger.Debug("Profile session activation started. ProfileId={ProfileId}", profile.ProfileId);
         string? deploymentPassword = Get(ProfileSecretPurpose.DeploymentPassword);
         string? administratorPassword = Get(ProfileSecretPurpose.AdministratorPassword);
         var additionalPasswords = materialized.Customization.Oobe.AdditionalAccounts
@@ -276,6 +281,7 @@ public sealed class DeploymentProfileSessionService : IDisposable
             autopilotSession.BootMediaCertificate = boot;
         });
         RememberSourceMetadata(profile, materialized);
+        Logger.Information("Profile session activation completed. ProfileId={ProfileId}", profile.ProfileId);
 
         string? Get(ProfileSecretPurpose purpose, string? accountId = null)
         {

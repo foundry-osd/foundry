@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Diese Aktion konnte nicht abgeschlossen werden. Prüfen Sie die Datei, ihr Kennwort, Ihre Zugriffsrechte und Ihre Netzwerkverbindung.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Wählen Sie einen neuen, leeren Unterordner im freigegebenen Ordner. Vorhandene Dateien bleiben unverändert.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Gespeicherte Kennwörter und Zugänge löschen</value>
   </data>

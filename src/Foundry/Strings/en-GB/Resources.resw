@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Couldn't complete this action. Check the file, its password, your access permissions, and your network connection.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Choose a new, empty subfolder in the shared folder. Existing files will stay unchanged.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Clear saved passwords and access</value>
   </data>

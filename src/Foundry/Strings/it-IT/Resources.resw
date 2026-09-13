@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Impossibile completare l'azione. Controlla il file, la sua password, le autorizzazioni di accesso e la connessione di rete.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Scegli una nuova sottocartella vuota nella cartella condivisa. I file esistenti rimarranno invariati.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Cancella password e accessi salvati</value>
   </data>

@@ -21,6 +21,7 @@ public sealed partial class DeploymentProfileCoordinator
         CreatePrivateDirectory(directory);
         FileStream lease = OpenStagingLease(directory);
         stagingDirectories.Add(new StagingLease(directory, lease));
+        Logger.Debug("Private profile staging directory created. StagingId={StagingId}", Path.GetFileName(directory));
         return directory;
     }
 
@@ -31,7 +32,10 @@ public sealed partial class DeploymentProfileCoordinator
             using FileStream rootLease = AcquireStagingRootLease();
             CleanupAbandonedStagingDirectoriesCore();
         }
-        catch (Exception exception) when (IsStagingCleanupFailure(exception)) { }
+        catch (Exception exception) when (IsStagingCleanupFailure(exception))
+        {
+            Logger.Debug(exception, "Abandoned profile staging cleanup deferred.");
+        }
     }
 
     private static void CleanupAbandonedStagingDirectoriesCore()
@@ -48,7 +52,10 @@ public sealed partial class DeploymentProfileCoordinator
                 File.Delete(Path.Combine(directory, StagingLeaseFileName));
                 Directory.Delete(directory, false);
             }
-            catch (Exception exception) when (IsStagingCleanupFailure(exception)) { }
+            catch (Exception exception) when (IsStagingCleanupFailure(exception))
+            {
+                Logger.Debug(exception, "Profile staging directory is busy or could not be cleaned. StagingId={StagingId}", Path.GetFileName(directory));
+            }
         }
     }
 
@@ -74,10 +81,16 @@ public sealed partial class DeploymentProfileCoordinator
                     entry.Lease?.Dispose();
                     stagingDirectories.Remove(entry);
                 }
-                catch (Exception exception) when (IsStagingCleanupFailure(exception)) { }
+                catch (Exception exception) when (IsStagingCleanupFailure(exception))
+                {
+                    Logger.Warning(exception, "Profile staging cleanup remains pending. StagingId={StagingId}", Path.GetFileName(entry.Path));
+                }
             }
         }
-        catch (Exception exception) when (IsStagingCleanupFailure(exception)) { }
+        catch (Exception exception) when (IsStagingCleanupFailure(exception))
+        {
+            Logger.Warning(exception, "Profile staging cleanup could not acquire or validate its root.");
+        }
         finally
         {
             if (releaseFailedLeases)

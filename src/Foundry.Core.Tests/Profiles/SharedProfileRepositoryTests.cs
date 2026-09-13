@@ -315,6 +315,41 @@ public sealed class SharedProfileRepositoryTests
         Assert.Null((await repository.LoadAsync(cancellationToken: Cancellation)).Snapshot);
     }
 
+    [Fact]
+    public async Task Initialize_NonemptyUninitializedFolderReturnsSpecificStatusAndPreservesContents()
+    {
+        using var fixture = new RepositoryFixture();
+        Directory.CreateDirectory(fixture.Root);
+        string existingFile = Path.Combine(fixture.Root, "existing.txt");
+        string existingDirectory = Directory.CreateDirectory(Path.Combine(fixture.Root, "existing-folder")).FullName;
+        File.WriteAllText(existingFile, "Existing shared data");
+        using var repository = fixture.Open();
+
+        SharedProfileRepositoryResult result = await repository.InitializeAsync(Cancellation);
+
+        Assert.Equal(SharedProfileRepositoryStatus.FolderNotEmpty, result.Status);
+        Assert.Equal("Existing shared data", File.ReadAllText(existingFile));
+        Assert.True(Directory.Exists(existingDirectory));
+        Assert.False(File.Exists(Path.Combine(fixture.Root, "repository.json")));
+        Assert.False(Directory.Exists(fixture.ProfilePath));
+    }
+
+    [Fact]
+    public async Task Initialize_ExistingRepositoryWithAdditionalFilesStillValidatesEnrollment()
+    {
+        using var fixture = new RepositoryFixture();
+        using (var repository = fixture.Open())
+            Assert.Equal(SharedProfileRepositoryStatus.Success, (await repository.InitializeAsync(Cancellation)).Status);
+        string existingFile = Path.Combine(fixture.Root, "existing.txt");
+        File.WriteAllText(existingFile, "Existing shared data");
+        using var enrolled = fixture.Open();
+        using var wrongKey = fixture.Open(key: RandomNumberGenerator.GetBytes(32));
+
+        Assert.Equal(SharedProfileRepositoryStatus.Success, (await enrolled.InitializeAsync(Cancellation)).Status);
+        Assert.Equal(SharedProfileRepositoryStatus.InvalidData, (await wrongKey.InitializeAsync(Cancellation)).Status);
+        Assert.Equal("Existing shared data", File.ReadAllText(existingFile));
+    }
+
     private sealed class RepositoryFixture : IDisposable
     {
         public string Root { get; } = Path.Combine(Path.GetTempPath(), "FoundrySharedProfileTests", Guid.NewGuid().ToString("N"));

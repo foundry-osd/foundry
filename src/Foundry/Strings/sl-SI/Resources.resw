@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Dejanja ni bilo mogoče dokončati. Preverite datoteko, njeno geslo, dovoljenja za dostop in omrežno povezavo.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Izberite novo, prazno podmapo v mapi v skupni rabi. Obstoječe datoteke bodo ostale nespremenjene.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Počisti shranjena gesla in dostope</value>
   </data>

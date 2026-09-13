@@ -15,7 +15,8 @@ public enum SharedProfileRepositoryStatus
     UnsupportedFormat,
     RollbackDetected,
     HistoryLimitExceeded,
-    NotCommitted
+    NotCommitted,
+    FolderNotEmpty
 }
 
 /// <summary>Bounds untrusted payloads and authenticated ancestry; exhausted history requires explicit maintenance.</summary>

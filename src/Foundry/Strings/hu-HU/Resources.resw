@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Nem sikerült befejezni a műveletet. Ellenőrizze a fájlt, annak jelszavát, a hozzáférési engedélyeit és a hálózati kapcsolatot.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Válasszon egy új, üres almappát a megosztott mappában. A meglévő fájlok változatlanok maradnak.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Mentett jelszavak és hozzáférések törlése</value>
   </data>

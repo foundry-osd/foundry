@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Neizdevās pabeigt darbību. Pārbaudiet failu, tā paroli, piekļuves atļaujas un tīkla savienojumu.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Koplietotajā mapē izvēlieties jaunu, tukšu apakšmapi. Esošie faili paliks nemainīti.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Notīrīt saglabātās paroles un piekļuves datus</value>
   </data>

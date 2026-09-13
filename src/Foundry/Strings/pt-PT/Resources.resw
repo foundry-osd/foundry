@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Não foi possível concluir esta ação. Verifique o ficheiro, a respetiva palavra-passe, as suas permissões de acesso e a ligação à rede.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Escolha uma subpasta nova e vazia na pasta partilhada. Os ficheiros existentes permanecerão inalterados.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Limpar palavras-passe e acessos guardados</value>
   </data>

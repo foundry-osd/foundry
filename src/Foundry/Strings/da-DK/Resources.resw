@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Handlingen kunne ikke fuldføres. Kontrollér filen, dens adgangskode, dine adgangstilladelser og din netværksforbindelse.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Vælg en ny, tom undermappe i den delte mappe. Eksisterende filer forbliver uændrede.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Ryd gemte adgangskoder og adgange</value>
   </data>

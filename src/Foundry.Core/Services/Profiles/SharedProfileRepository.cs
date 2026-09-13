@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Security.Cryptography;
+using Serilog;
+using Serilog.Events;
 
 namespace Foundry.Core.Services.Profiles;
 
@@ -45,7 +47,7 @@ public sealed class SharedProfileRepository : IDisposable
 
     /// <summary>Explicitly creates a new repository or validates an existing enrollment; ordinary operations never initialize storage.</summary>
     public Task<SharedProfileRepositoryResult> InitializeAsync(CancellationToken cancellationToken = default) =>
-        ExecuteAsync((files, token) =>
+        ExecuteAsync("Initialize", (files, token) =>
         {
             if (Volatile.Read(ref initialized) != 0)
             {
@@ -66,7 +68,7 @@ public sealed class SharedProfileRepository : IDisposable
                 // Missing metadata in nonempty storage must not turn an old repository into a fresh one.
                 if (Directory.EnumerateFileSystemEntries(rootPath).Any(path =>
                     !string.Equals(Path.GetFileName(path), "repository.lock", StringComparison.Ordinal)))
-                    throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
+                    throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.FolderNotEmpty);
                 files.WriteSigned(manifestPath, "repository", new RepositoryManifest(1, repositoryId, keyEpoch));
             }
             token.ThrowIfCancellationRequested();
@@ -82,7 +84,7 @@ public sealed class SharedProfileRepository : IDisposable
 
     /// <summary>Authenticates committed ancestry and rejects a head that no longer descends from a locally pinned revision.</summary>
     public Task<SharedProfileRepositoryResult> LoadAsync(Guid? knownRevisionId = null, CancellationToken cancellationToken = default) =>
-        ExecuteAsync((files, token) =>
+        ExecuteAsync("Load", (files, token) =>
         {
             using FileStream journal = files.OpenJournal(journalPath);
             List<RevisionMetadata> history = ReadHistory(files, journal, token, out _);
@@ -110,7 +112,7 @@ public sealed class SharedProfileRepository : IDisposable
         CancellationToken cancellationToken = default)
     {
         if (operationId == Guid.Empty) throw new ArgumentException("An operation identity is required.", nameof(operationId));
-        return ExecuteAsync((files, token) =>
+        return ExecuteAsync("Reconcile", (files, token) =>
         {
             using FileStream journal = files.OpenJournal(journalPath);
             List<RevisionMetadata> history = ReadHistory(files, journal, token, out _);
@@ -138,7 +140,7 @@ public sealed class SharedProfileRepository : IDisposable
             throw new ArgumentException("Operation and revision identities must be nonempty.");
         try
         {
-            return await ExecuteAsync((files, token) =>
+            return await ExecuteAsync(tombstone ? "Tombstone" : "Publish", (files, token) =>
             {
                 ValidateManifest(files);
                 using FileStream journal = files.OpenJournal(journalPath);
@@ -282,7 +284,7 @@ public sealed class SharedProfileRepository : IDisposable
     private HeadMetadata CreateHead(SharedProfileRevision? revision) => new(1, repositoryId, profileId, keyEpoch, revision);
 
     private Task<SharedProfileRepositoryResult> ExecuteAsync(
-        Func<SharedProfileRepositoryFiles, CancellationToken, SharedProfileRepositoryResult> action, CancellationToken cancellationToken)
+        string operation, Func<SharedProfileRepositoryFiles, CancellationToken, SharedProfileRepositoryResult> action, CancellationToken cancellationToken)
     {
         byte[] operationKey;
         lock (keyLock)
@@ -293,17 +295,44 @@ public sealed class SharedProfileRepository : IDisposable
         // Native UNC opens can block despite cancellation. They never execute on the caller's UI thread.
         return Task.Run(() =>
         {
+            ILogger logger = Log.ForContext<SharedProfileRepository>()
+                .ForContext("ProfileOperation", operation)
+                .ForContext("RepositoryId", repositoryId)
+                .ForContext("ProfileId", profileId);
+            LogEventLevel successLevel = operation is "Load" or "Reconcile" ? LogEventLevel.Debug : LogEventLevel.Information;
+            logger.Write(successLevel, "Shared profile repository operation started.");
             try
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                return action(new SharedProfileRepositoryFiles(operationKey), cancellationToken);
+                SharedProfileRepositoryResult result = action(new SharedProfileRepositoryFiles(operationKey), cancellationToken);
+                logger.Write(result.Status is SharedProfileRepositoryStatus.Success or SharedProfileRepositoryStatus.NotCommitted
+                        ? successLevel : LogEventLevel.Warning,
+                    "Shared profile repository operation completed. Status={Status}, RevisionId={RevisionId}",
+                    result.Status, result.CommittedRevisionId ?? result.Snapshot?.Head.RevisionId);
+                return result;
             }
-            catch (SharedProfileRepositoryException exception) { return new(exception.Status); }
-            catch (System.Text.Json.JsonException) { return new(SharedProfileRepositoryStatus.InvalidData); }
-            catch (CryptographicException) { return new(SharedProfileRepositoryStatus.InvalidData); }
-            catch (FormatException) { return new(SharedProfileRepositoryStatus.InvalidData); }
-            catch (IOException) { return new(SharedProfileRepositoryStatus.Unavailable); }
-            catch (UnauthorizedAccessException) { return new(SharedProfileRepositoryStatus.Unavailable); }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+                logger.Write(successLevel, "Shared profile repository operation canceled.");
+                throw;
+            }
+            catch (Exception exception) when (exception is SharedProfileRepositoryException or System.Text.Json.JsonException
+                or CryptographicException or FormatException or IOException or UnauthorizedAccessException)
+            {
+                SharedProfileRepositoryStatus status = exception switch
+                {
+                    SharedProfileRepositoryException repositoryException => repositoryException.Status,
+                    IOException or UnauthorizedAccessException => SharedProfileRepositoryStatus.Unavailable,
+                    _ => SharedProfileRepositoryStatus.InvalidData
+                };
+                logger.Warning(exception, "Shared profile repository operation failed. Status={Status}", status);
+                return new(status);
+            }
+            catch (Exception exception)
+            {
+                logger.Error(exception, "Shared profile repository operation failed unexpectedly.");
+                throw;
+            }
             finally { CryptographicOperations.ZeroMemory(operationKey); }
         });
     }

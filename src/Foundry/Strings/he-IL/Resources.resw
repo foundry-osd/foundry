@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>לא ניתן היה להשלים את הפעולה. יש לבדוק את הקובץ, את הסיסמה שלו, את הרשאות הגישה ואת החיבור לרשת.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>יש לבחור תיקיית משנה חדשה וריקה בתיקייה המשותפת. הקבצים הקיימים יישארו ללא שינוי.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>ניקוי סיסמאות ופרטי גישה שמורים</value>
   </data>

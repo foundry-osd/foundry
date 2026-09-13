@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Nepavyko atlikti veiksmo. Patikrinkite failą, jo slaptažodį, prieigos teises ir tinklo ryšį.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Bendrinamame aplanke pasirinkite naują tuščią poaplankį. Esami failai liks nepakeisti.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Išvalyti išsaugotus slaptažodžius ir prieigos duomenis</value>
   </data>

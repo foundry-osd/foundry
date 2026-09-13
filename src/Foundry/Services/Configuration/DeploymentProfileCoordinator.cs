@@ -13,6 +13,7 @@ namespace Foundry.Services.Configuration;
 /// <summary>Coordinates local profile commits, activation, and background synchronization on the desktop dispatcher.</summary>
 public sealed partial class DeploymentProfileCoordinator : IDisposable
 {
+    private static readonly Serilog.ILogger Logger = Serilog.Log.ForContext<DeploymentProfileCoordinator>();
     private readonly LocalDeploymentProfileRepository local;
     private readonly IDeploymentProfilePackageService packages;
     private readonly DeploymentProfileSessionService session;
@@ -88,6 +89,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     {
         if (initialized) return;
         initialized = true;
+        Logger.Information("Profile initialization started.");
         try
         {
             await Task.Run(CleanupAbandonedStagingDirectories);
@@ -107,6 +109,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             SetFailure(ex);
         }
 
+        Logger.Information("Profile initialization finished. ProfileCount={ProfileCount}, LocalProfileId={LocalProfileId}, StatusKey={StatusKey}", Profiles.Count, Active?.LocalId, StatusKey);
         _ = PollAsync();
     }
 
@@ -127,7 +130,11 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     public async Task<bool> FlushBeforeCloseAsync()
     {
         debounce?.Cancel();
-        if (!await gate.WaitAsync(TimeSpan.FromSeconds(5))) return false;
+        if (!await gate.WaitAsync(TimeSpan.FromSeconds(5)))
+        {
+            Logger.Warning("Profile save before closing timed out while waiting for another operation.");
+            return false;
+        }
         try
         {
             if (Active is not null && editVersion != persistedEditVersion) await SaveCurrentAsync();
@@ -146,7 +153,10 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             if (Active is not null && editVersion != persistedEditVersion)
             {
                 try { await SaveCurrentAsync(); }
-                catch (IncompleteProfileCheckpointException) { }
+                catch (IncompleteProfileCheckpointException)
+                {
+                    Logger.Warning("Creating a settings-only copy while the remembered checkpoint remains incomplete. LocalProfileId={LocalProfileId}", Active.LocalId);
+                }
             }
             Guid id = Guid.NewGuid();
             long version = editVersion;
@@ -389,6 +399,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         LocalProfileDescriptor current = RequireActive();
         long version = editVersion;
         bool remember = rememberSecrets ?? current.RememberSecrets;
+        Logger.Debug("Local profile checkpoint started. LocalProfileId={LocalProfileId}, RememberSecrets={RememberSecrets}, EditVersion={EditVersion}", current.LocalId, remember, version);
         DeploymentProfileDocument profile = await session.CaptureAsync(current.ProfileId, current.DisplayName, remember);
         try
         {
@@ -401,6 +412,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
                 updated?.RememberSharedKey == true ? sharedKey : null));
             persistedEditVersion = version;
             await RefreshAsync();
+            Logger.Debug("Local profile checkpoint completed. LocalProfileId={LocalProfileId}, Revision={Revision}, CleanupPending={CleanupPending}", Active?.LocalId, Active?.Revision, Active?.CleanupPending);
         }
         finally
         {
@@ -502,11 +514,16 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
 
     private static bool IsProfileFailure(Exception exception) => exception is IOException or InvalidDataException or UnauthorizedAccessException or
         System.ComponentModel.Win32Exception or CryptographicException or ArgumentException or InvalidOperationException or NotSupportedException or
-        System.Text.Json.JsonException or FormatException;
+        System.Text.Json.JsonException or FormatException or System.Runtime.InteropServices.COMException;
 
-    private void SetFailure(Exception exception)
+    internal void SetFailure(Exception exception, [System.Runtime.CompilerServices.CallerMemberName] string operation = "")
     {
-        StatusKey = exception is LocalProfileLockedException ? "Profiles.Locked" :
+        Serilog.Events.LogEventLevel level = exception is LocalProfileLockedException or IncompleteProfileCheckpointException or SharedProfileOperationException
+            ? Serilog.Events.LogEventLevel.Warning : Serilog.Events.LogEventLevel.Error;
+        Logger.Write(level, exception, "Profile operation failed. Operation={Operation}, LocalProfileId={LocalProfileId}, SharedStatus={SharedStatus}",
+            operation, Active?.LocalId, (exception as SharedProfileOperationException)?.Status);
+        StatusKey = exception is SharedProfileOperationException shared ? RemoteStatusKey(shared.Status) :
+            exception is LocalProfileLockedException ? "Profiles.Locked" :
             exception is IncompleteProfileCheckpointException ? "Profiles.Incomplete" :
             exception is NotSupportedException ? "Profiles.Unsupported" : "Profiles.Failed";
         Changed?.Invoke(this, EventArgs.Empty);
@@ -522,7 +539,12 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     {
         if (profile.Secrets.Entries.Any(secret => secret.State is ProfileValueState.Unavailable or ProfileValueState.Omitted) ||
             profile.Assets.Any(asset => asset.State is ProfileValueState.Unavailable or ProfileValueState.Omitted))
+        {
+            Logger.Warning("Profile checkpoint is incomplete. UnavailableSecrets={UnavailableSecrets}, UnavailableAssets={UnavailableAssets}",
+                profile.Secrets.Entries.Count(secret => secret.State is ProfileValueState.Unavailable or ProfileValueState.Omitted),
+                profile.Assets.Count(asset => asset.State is ProfileValueState.Unavailable or ProfileValueState.Omitted));
             throw new IncompleteProfileCheckpointException();
+        }
     }
 
     private static Task<byte[]> ReadBoundedAsync(string path, int maximum) => Task.Run(async () =>

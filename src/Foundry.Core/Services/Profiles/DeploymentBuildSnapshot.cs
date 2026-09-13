@@ -13,6 +13,7 @@ using Foundry.Core.Models.Profiles;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 using Foundry.Telemetry;
+using Serilog;
 
 namespace Foundry.Core.Services.Profiles;
 
@@ -132,6 +133,12 @@ public sealed class DeploymentBuildSnapshot : IDisposable
             directoryLease = null;
             File.Delete(Path.Combine(privateDirectory, LeaseFileName));
             Directory.Delete(privateDirectory, recursive: false);
+            Log.ForContext<DeploymentBuildSnapshot>().Debug("Private media snapshot inputs removed.");
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            Log.ForContext<DeploymentBuildSnapshot>().Warning(exception, "Private media snapshot cleanup failed; the inputs remain eligible for a later cleanup.");
+            throw;
         }
         finally
         {
@@ -151,19 +158,39 @@ public sealed class DeploymentBuildSnapshot : IDisposable
             using FileStream rootLease = AcquireRootLease(root);
             CleanupAbandonedCore(root);
         }
-        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException) { }
+        catch (IOException exception) when ((exception.HResult & 0xffff) is 32 or 33)
+        {
+            Log.ForContext<DeploymentBuildSnapshot>().Debug("Abandoned media input cleanup deferred while another snapshot owns the cleanup lock.");
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            Log.ForContext<DeploymentBuildSnapshot>().Warning(exception, "Abandoned media input cleanup could not complete.");
+        }
     }
 
     private async Task<DeploymentBuildSnapshot> PrepareAsync(CancellationToken cancellationToken)
     {
+        Log.ForContext<DeploymentBuildSnapshot>().Information("Media snapshot preparation started.");
         try
         {
             await Task.Run(() => PrepareFiles(cancellationToken), cancellationToken).ConfigureAwait(false);
+            Log.ForContext<DeploymentBuildSnapshot>().Information("Media snapshot preparation completed.");
             return this;
         }
-        catch
+        catch (Exception exception)
         {
-            Dispose();
+            if (exception is OperationCanceledException && cancellationToken.IsCancellationRequested)
+                Log.ForContext<DeploymentBuildSnapshot>().Information("Media snapshot preparation canceled.");
+            else
+                Log.ForContext<DeploymentBuildSnapshot>().Error(exception, "Media snapshot preparation failed.");
+            try
+            {
+                Dispose();
+            }
+            catch (Exception cleanupException) when (cleanupException is IOException or UnauthorizedAccessException)
+            {
+                // Dispose records the cleanup failure; preserve the preparation error for the caller.
+            }
             throw;
         }
     }
@@ -235,8 +262,16 @@ public sealed class DeploymentBuildSnapshot : IDisposable
                 lease.Dispose();
                 File.Delete(Path.Combine(directory, LeaseFileName));
                 Directory.Delete(directory, recursive: false);
+                Log.ForContext<DeploymentBuildSnapshot>().Information("Abandoned private media snapshot inputs removed.");
             }
-            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException) { }
+            catch (IOException exception) when ((exception.HResult & 0xffff) is 32 or 33)
+            {
+                Log.ForContext<DeploymentBuildSnapshot>().Debug("Private media snapshot remains leased and was skipped during cleanup.");
+            }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+            {
+                Log.ForContext<DeploymentBuildSnapshot>().Warning(exception, "Abandoned private media snapshot cleanup failed and will be retried later.");
+            }
         }
     }
 

@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>작업을 완료하지 못했습니다. 파일, 파일 암호, 액세스 권한, 네트워크 연결을 확인하세요.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>공유 폴더 안에서 새 빈 하위 폴더를 선택하세요. 기존 파일은 변경되지 않습니다.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>저장된 암호 및 액세스 정보 지우기</value>
   </data>

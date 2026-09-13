@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Nie udało się wykonać działania. Sprawdź plik, jego hasło, uprawnienia dostępu i połączenie sieciowe.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Wybierz nowy, pusty podfolder w folderze udostępnionym. Istniejące pliki pozostaną bez zmian.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Wyczyść zapisane hasła i dane dostępu</value>
   </data>

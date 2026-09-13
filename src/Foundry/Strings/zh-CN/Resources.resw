@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>无法完成此操作。请检查文件、文件密码、您的访问权限以及网络连接。</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>请选择共享文件夹中一个新的空子文件夹。现有文件将保持不变。</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>清除已保存的密码和访问凭据</value>
   </data>

@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Δεν ήταν δυνατή η ολοκλήρωση αυτής της ενέργειας. Ελέγξτε το αρχείο, τον κωδικό πρόσβασής του, τα δικαιώματα πρόσβασης και τη σύνδεση δικτύου σας.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Επιλέξτε έναν νέο, κενό υποφάκελο στον κοινόχρηστο φάκελο. Τα υπάρχοντα αρχεία θα παραμείνουν αμετάβλητα.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Εκκαθάριση αποθηκευμένων κωδικών και στοιχείων πρόσβασης</value>
   </data>

@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Не вдалося виконати цю дію. Перевірте файл, його пароль, свої дозволи на доступ і підключення до мережі.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Виберіть нову порожню вкладену папку в спільній папці. Наявні файли залишаться без змін.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Видалити збережені паролі й дані доступу</value>
   </data>

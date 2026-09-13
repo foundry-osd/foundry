@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>تعذر إكمال هذا الإجراء. تحقق من الملف وكلمة مروره وأذونات الوصول واتصال الشبكة.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>اختر مجلدًا فرعيًا جديدًا وفارغًا داخل المجلد المشترك. ستبقى الملفات الموجودة دون تغيير.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>مسح كلمات المرور وبيانات الوصول المحفوظة</value>
   </data>

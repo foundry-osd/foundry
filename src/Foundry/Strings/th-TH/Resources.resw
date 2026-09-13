@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>ไม่สามารถดำเนินการนี้ให้เสร็จสิ้นได้ ตรวจสอบไฟล์ รหัสผ่านของไฟล์ สิทธิ์การเข้าถึง และการเชื่อมต่อเครือข่ายของคุณ</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>เลือกโฟลเดอร์ย่อยใหม่ที่ว่างเปล่าในโฟลเดอร์ที่แชร์ ไฟล์ที่มีอยู่จะไม่ถูกเปลี่ยนแปลง</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>ล้างรหัสผ่านและข้อมูลการเข้าถึงที่บันทึกไว้</value>
   </data>

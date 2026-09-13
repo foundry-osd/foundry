@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Това действие не можа да бъде завършено. Проверете файла, паролата му, правата си за достъп и мрежовата си връзка.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Изберете нова, празна подпапка в споделената папка. Съществуващите файлове ще останат непроменени.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Изчистване на запазените пароли и достъп</value>
   </data>

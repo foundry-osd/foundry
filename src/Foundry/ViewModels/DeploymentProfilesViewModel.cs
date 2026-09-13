@@ -4,6 +4,7 @@
 
 using System.Collections.ObjectModel;
 using System.Security.Cryptography;
+using System.Runtime.CompilerServices;
 using Foundry.Core.Models.Profiles;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Profiles;
@@ -15,6 +16,7 @@ namespace Foundry.ViewModels;
 /// <summary>Coordinates profile actions while the view owns native dialog and password-control lifetimes.</summary>
 public sealed partial class DeploymentProfilesViewModel : ObservableObject
 {
+    private static readonly Serilog.ILogger Logger = Serilog.Log.ForContext<DeploymentProfilesViewModel>();
     private readonly DeploymentProfileCoordinator coordinator;
     private readonly IApplicationLocalizationService localization;
     private readonly IFilePickerService picker;
@@ -274,27 +276,38 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     private async Task<bool> ConfirmAsync(string title, string message) =>
         await DialogAsync(new(title) { Message = Text(message) }) is not null;
 
-    private Task<ProfileDialogResponse?> DialogAsync(ProfileDialogRequest request) =>
-        ShowDialogAsync?.Invoke(request) ?? Task.FromResult<ProfileDialogResponse?>(null);
+    private async Task<ProfileDialogResponse?> DialogAsync(ProfileDialogRequest request)
+    {
+        Logger.Debug("Profile dialog started. DialogKey={DialogKey}", request.Title);
+        ProfileDialogResponse? response = ShowDialogAsync is null ? null : await ShowDialogAsync(request);
+        Logger.Debug("Profile dialog finished. DialogKey={DialogKey}, Confirmed={Confirmed}", request.Title, response is not null);
+        return response;
+    }
 
-    private async Task RunAsync(Func<Task> action)
+    private async Task RunAsync(Func<Task> action, [CallerMemberName] string operation = "")
     {
         if (IsBusy) return;
         IsBusy = true;
+        Logger.Information("Profile action started. Operation={Operation}, LocalProfileId={LocalProfileId}", operation, coordinator.Active?.LocalId);
         try
         {
             using IDisposable suspension = coordinator.SuspendActivation();
             await action();
             Refresh();
+            Logger.Information("Profile action finished. Operation={Operation}, StatusKey={StatusKey}, LocalProfileId={LocalProfileId}",
+                operation, coordinator.StatusKey, coordinator.Active?.LocalId);
         }
-        catch (OperationCanceledException) { }
-        catch (LocalProfileLockedException) { Status = Text("Profiles.Locked"); }
-        catch (IncompleteProfileCheckpointException) { Status = Text("Profiles.Incomplete"); }
-        catch (NotSupportedException) { Status = Text("Profiles.Unsupported"); }
+        catch (OperationCanceledException)
+        {
+            Logger.Information("Profile action canceled. Operation={Operation}", operation);
+        }
         catch (Exception exception) when (exception is IOException or InvalidDataException or FormatException or UnauthorizedAccessException or ArgumentException or
-            InvalidOperationException or CryptographicException or System.ComponentModel.Win32Exception or
+            InvalidOperationException or NotSupportedException or CryptographicException or System.ComponentModel.Win32Exception or
             System.Runtime.InteropServices.COMException or System.Text.Json.JsonException)
-        { Status = Text("Profiles.Failed"); }
+        {
+            coordinator.SetFailure(exception, operation);
+            Status = Text(coordinator.StatusKey);
+        }
         finally { IsBusy = false; }
     }
 }

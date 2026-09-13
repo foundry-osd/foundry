@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>操作を完了できませんでした。ファイル、ファイルのパスワード、アクセス権限、ネットワーク接続を確認してください。</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>共有フォルダー内の新しい空のサブフォルダーを選択してください。既存のファイルは変更されません。</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>保存したパスワードとアクセス情報を消去</value>
   </data>

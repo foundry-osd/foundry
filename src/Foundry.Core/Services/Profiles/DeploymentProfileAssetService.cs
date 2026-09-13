@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Profiles;
 using Foundry.Core.Services.Configuration;
+using Serilog;
 
 namespace Foundry.Core.Services.Profiles;
 
@@ -35,6 +36,9 @@ public static class DeploymentProfileAssetService
             Add(file.Id, ProfileAssetKind.Unattend, file.SourcePath, file, configuration.Unattend.IsEnabled, configuration.Unattend.IsEnabled);
         }
 
+        Log.ForContext(typeof(DeploymentProfileAssetService)).Debug(
+            "Profile dependencies captured. AssetCount={AssetCount}, UnavailableCount={UnavailableCount}, IncludeContent={IncludeContent}",
+            assets.Count, assets.Count(asset => asset.State == ProfileValueState.Unavailable), includeContent);
         return assets;
 
         void Add(string id, ProfileAssetKind kind, string? path, UnattendFileSettings? answerFile = null, bool required = false, bool active = true)
@@ -83,6 +87,8 @@ public static class DeploymentProfileAssetService
                 }
                 catch (Exception exception) when (!requireContent && (exception is IOException or UnauthorizedAccessException))
                 {
+                    Log.ForContext(typeof(DeploymentProfileAssetService)).Debug(exception,
+                        "Profile dependency could not be captured; its metadata is retained. AssetKind={AssetKind}, IncludeContent={IncludeContent}", kind, includeContent);
                     if (content is not null) CryptographicOperations.ZeroMemory(content);
                     content = null;
                     state = includeContent ? ProfileValueState.Unavailable : ProfileValueState.Omitted;

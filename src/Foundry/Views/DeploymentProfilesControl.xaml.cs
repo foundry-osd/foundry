@@ -152,7 +152,10 @@ public sealed partial class DeploymentProfilesControl : UserControl
                 }
                 catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException or
                     InvalidOperationException or System.Runtime.InteropServices.COMException)
-                { share.PlaceholderText = T("Profiles.Failed"); }
+                {
+                    Serilog.Log.ForContext<DeploymentProfilesControl>().Warning(exception, "Shared folder selection failed.");
+                    share.PlaceholderText = T("Profiles.Failed");
+                }
             };
             content.Children.Add(browse);
             content.Children.Add(new TextBlock { Text = T("Profiles.SmbWarning"), TextWrapping = TextWrapping.Wrap });

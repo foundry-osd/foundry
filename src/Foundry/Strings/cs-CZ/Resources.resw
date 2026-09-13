@@ -2277,6 +2277,9 @@
   <data name="Profiles.Failed" xml:space="preserve">
     <value>Tuto akci se nepodařilo dokončit. Zkontrolujte soubor, jeho heslo, svá přístupová oprávnění a síťové připojení.</value>
   </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Vyberte novou prázdnou podsložku ve sdílené složce. Stávající soubory zůstanou beze změny.</value>
+  </data>
   <data name="Profiles.Forget" xml:space="preserve">
     <value>Vymazat uložená hesla a přístupy</value>
   </data>

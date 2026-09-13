@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Serilog;
 
 namespace Foundry.Core.Services.Profiles;
 
@@ -32,7 +33,7 @@ internal sealed class SharedProfileRepositoryFiles(byte[] key)
         }
         catch (IOException exception) when ((exception.HResult & 0xffff) is 32 or 33)
         {
-            throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.Busy);
+            throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.Busy, exception);
         }
     }
 
@@ -47,7 +48,7 @@ internal sealed class SharedProfileRepositoryFiles(byte[] key)
         }
         catch (IOException exception) when ((exception.HResult & 0xffff) is 32 or 33)
         {
-            throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.Busy);
+            throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.Busy, exception);
         }
     }
 
@@ -80,6 +81,9 @@ internal sealed class SharedProfileRepositoryFiles(byte[] key)
             committedLength = journal.Position;
         }
         if (records.Count == 0) throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
+        if (committedLength != journal.Length)
+            Log.ForContext<SharedProfileRepositoryFiles>().Warning(
+                "An incomplete shared profile journal tail was ignored. CommittedRecordCount={CommittedRecordCount}", records.Count);
         return new(records, committedLength);
     }
 
@@ -226,7 +230,8 @@ internal sealed class SharedProfileRepositoryFiles(byte[] key)
 }
 
 /// <summary>Internal classified failure; only its status crosses the repository boundary.</summary>
-internal sealed class SharedProfileRepositoryException(SharedProfileRepositoryStatus status) : Exception
+internal sealed class SharedProfileRepositoryException(SharedProfileRepositoryStatus status, Exception? innerException = null)
+    : Exception($"The shared profile repository returned {status}.", innerException)
 {
     internal SharedProfileRepositoryStatus Status { get; } = status;
 }
