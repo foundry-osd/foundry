@@ -75,6 +75,8 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     public IReadOnlyList<LocalProfileDescriptor> Profiles { get; private set; } = [];
     public string StatusKey { get; private set; } = "Profiles.Ready";
     public bool HasConflict { get; private set; }
+    /// <summary>A shared deletion requires an independent copy, rather than ordinary conflict resolution.</summary>
+    public bool IsSharedProfileDeleted { get; private set; }
     /// <summary>Indicates an active synchronization attempt, including automatic checks.</summary>
     public bool IsSynchronizing { get; private set; }
     /// <summary>Includes edits awaiting local autosave as well as unpublished saved changes.</summary>
@@ -157,7 +159,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
                 Active = descriptor;
                 persistedEditVersion = editVersion;
                 ClearSharedKey();
-                HasConflict = false;
+                ClearConflict();
                 await RefreshAsync();
             }
             finally
@@ -234,7 +236,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
                 DeploymentProfileSecretBinding.Clear(profile);
             }
 
-            HasConflict = false;
+            ClearConflict();
             ClearStagingDirectories();
             await RefreshAsync();
         }
@@ -305,7 +307,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             };
             session.Activate(empty, empty.Configuration);
             persistedEditVersion = editVersion;
-            HasConflict = false;
+            ClearConflict();
             await RefreshAsync();
             if (cleanupPending)
             {
@@ -371,7 +373,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             persistedEditVersion = editVersion;
             local.SetActive(descriptor.LocalId);
             ClearSharedKey();
-            HasConflict = false;
+            ClearConflict();
             await RefreshAsync();
         }
         finally
@@ -381,7 +383,8 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         }
     }
 
-    private async Task SaveCurrentAsync(bool? rememberSecrets = null, LocalProfileEnrollment? enrollment = null, byte[]? sharedKey = null)
+    private async Task SaveCurrentAsync(bool? rememberSecrets = null, LocalProfileEnrollment? enrollment = null, byte[]? sharedKey = null,
+        long? comparedEditVersion = null)
     {
         LocalProfileDescriptor current = RequireActive();
         long version = editVersion;
@@ -391,7 +394,8 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         {
             if (remember) EnsureCompleteCheckpoint(profile);
             LocalProfileEnrollment? updated = enrollment ?? current.Enrollment;
-            if (enrollment is null && updated is not null && version != persistedEditVersion)
+            if (updated is not null && (enrollment is null && version != persistedEditVersion ||
+                comparedEditVersion is long compared && version != compared))
                 updated = updated with { IsDirty = true };
             Active = await Task.Run(() => local.Save(current.LocalId, profile, remember, current.Revision, updated,
                 updated?.RememberSharedKey == true ? sharedKey : null));
@@ -424,7 +428,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             Active = descriptor;
             persistedEditVersion = editVersion;
             ClearSharedKey();
-            HasConflict = false;
+            ClearConflict();
         }
         finally
         {
@@ -478,7 +482,8 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         {
             Active = Profiles.FirstOrDefault(profile => profile.LocalId == current.LocalId && profile.Revision == current.Revision) ?? current;
         }
-        StatusKey = Active?.CleanupPending == true ? "Profiles.CleanupPending" : "Profiles.Ready";
+        StatusKey = IsSharedProfileDeleted ? "Profiles.DeletedRemote" : HasConflict ? "Profiles.Conflict" :
+            Active?.CleanupPending == true ? "Profiles.CleanupPending" : "Profiles.Ready";
         Changed?.Invoke(this, EventArgs.Empty);
     }
 

@@ -135,7 +135,7 @@ public sealed partial class DeploymentProfileCoordinator
                 local.SetActive(descriptor.LocalId);
                 ClearSharedKey();
                 sessionSharedKey = key.ToArray();
-                HasConflict = false;
+                ClearConflict();
                 await RefreshAsync();
                 MarkSynchronized();
             }
@@ -155,7 +155,11 @@ public sealed partial class DeploymentProfileCoordinator
         try
         {
             LocalProfileEnrollment enrollment = RequireActive().Enrollment ?? throw new InvalidOperationException("The profile is not shared.");
-            await SaveCurrentAsync(enrollment: enrollment with { IsEnabled = enabled });
+            await SaveCurrentAsync(enrollment: enrollment with
+            {
+                IsEnabled = enabled,
+                IsDirty = enrollment.IsDirty || editVersion != persistedEditVersion
+            });
         }
         finally { gate.Release(); }
     }
@@ -198,8 +202,10 @@ public sealed partial class DeploymentProfileCoordinator
                 SharedProfileRepositoryResult reconciliation = await remote.ReconcileAsync(operationId, enrollment.KnownRevisionId, lifetime.Token);
                 if (reconciliation.Status == SharedProfileRepositoryStatus.Success)
                 {
-                    enrollment = enrollment with { KnownRevisionId = reconciliation.CommittedRevisionId, PendingOperationId = null, IsDirty = true };
-                    await SaveCurrentAsync(enrollment: enrollment);
+                    (bool changed, long version) = await HasChangedSincePendingAsync(current, enrollment, operationId, key);
+                    enrollment = enrollment with { KnownRevisionId = reconciliation.CommittedRevisionId, PendingOperationId = null, IsDirty = changed };
+                    await SaveCurrentAsync(enrollment: enrollment, comparedEditVersion: version);
+                    enrollment = RequireActive().Enrollment!;
                     File.Delete(OutboxPath(current.LocalId, operationId));
                     result = await remote.LoadAsync(enrollment.KnownRevisionId, lifetime.Token);
                     if (result.Status != SharedProfileRepositoryStatus.Success) { SetRemoteStatus(result.Status); return; }
@@ -209,8 +215,10 @@ public sealed partial class DeploymentProfileCoordinator
                     byte[] pending = await ReadBoundedAsync(OutboxPath(current.LocalId, operationId), 16 * 1024 * 1024 + 118);
                     result = await remote.PublishAsync(pending, enrollment.KnownRevisionId, operationId, lifetime.Token);
                     if (result.Status != SharedProfileRepositoryStatus.Success) { SetRemoteStatus(result.Status, result.Snapshot); return; }
-                    enrollment = enrollment with { KnownRevisionId = result.CommittedRevisionId, PendingOperationId = null, IsDirty = true };
-                    await SaveCurrentAsync(enrollment: enrollment);
+                    (bool changed, long version) = await HasChangedSincePendingAsync(current, enrollment, operationId, key);
+                    enrollment = enrollment with { KnownRevisionId = result.CommittedRevisionId, PendingOperationId = null, IsDirty = changed };
+                    await SaveCurrentAsync(enrollment: enrollment, comparedEditVersion: version);
+                    enrollment = RequireActive().Enrollment!;
                     File.Delete(OutboxPath(current.LocalId, operationId));
                 }
                 else { SetRemoteStatus(reconciliation.Status); return; }
@@ -219,6 +227,7 @@ public sealed partial class DeploymentProfileCoordinator
             if (result.Snapshot?.Head.IsTombstone == true)
             {
                 HasConflict = true;
+                IsSharedProfileDeleted = true;
                 conflictRevision = result.Snapshot.Head.RevisionId;
                 StatusKey = "Profiles.DeletedRemote";
                 Changed?.Invoke(this, EventArgs.Empty);
@@ -271,10 +280,28 @@ public sealed partial class DeploymentProfileCoordinator
                 IsDirty = editVersion != version
             });
             File.Delete(OutboxPath(current.LocalId, operationId));
-            HasConflict = false;
             MarkSynchronized();
         }
         finally { DeploymentProfileSecretBinding.Clear(profile); }
+    }
+
+    private async Task<(bool Changed, long Version)> HasChangedSincePendingAsync(LocalProfileDescriptor current,
+        LocalProfileEnrollment enrollment, Guid operationId, byte[] key)
+    {
+        byte[] payload = await ReadBoundedAsync(OutboxPath(current.LocalId, operationId), 16 * 1024 * 1024 + 118);
+        DeploymentProfileDocument pending = packages.Decrypt(payload, key, ProfilePackagePurpose.SharedRevision, SharedContext(enrollment));
+        DeploymentProfileDocument? draft = null;
+        try
+        {
+            long version = editVersion;
+            draft = await session.CaptureAsync(current.ProfileId, current.DisplayName, enrollment.IncludeSecrets);
+            return (!DeploymentProfileProjection.HasSamePortableContent(pending, draft), version);
+        }
+        finally
+        {
+            DeploymentProfileSecretBinding.Clear(pending);
+            if (draft is not null) DeploymentProfileSecretBinding.Clear(draft);
+        }
     }
 
     public async Task ResolveConflictAsync(bool useRemote)
@@ -370,7 +397,7 @@ public sealed partial class DeploymentProfileCoordinator
             }
             Active = descriptor;
             persistedEditVersion = editVersion;
-            HasConflict = false;
+            ClearConflict();
             await RefreshAsync();
             MarkSynchronized();
         }
@@ -390,6 +417,7 @@ public sealed partial class DeploymentProfileCoordinator
 
     private void MarkSynchronized()
     {
+        ClearConflict();
         StatusKey = Active?.CleanupPending == true ? "Profiles.CleanupPending" : "Profiles.Synchronized";
         Changed?.Invoke(this, EventArgs.Empty);
     }
@@ -446,10 +474,11 @@ public sealed partial class DeploymentProfileCoordinator
     private void SetRemoteStatus(SharedProfileRepositoryStatus status, SharedProfileSnapshot? snapshot = null)
     {
         HasConflict = status == SharedProfileRepositoryStatus.Conflict;
+        IsSharedProfileDeleted = HasConflict && snapshot?.Head.IsTombstone == true;
         if (HasConflict) conflictRevision = snapshot?.Head.RevisionId;
         StatusKey = status switch
         {
-            SharedProfileRepositoryStatus.Conflict => "Profiles.Conflict",
+            SharedProfileRepositoryStatus.Conflict => IsSharedProfileDeleted ? "Profiles.DeletedRemote" : "Profiles.Conflict",
             SharedProfileRepositoryStatus.Busy or SharedProfileRepositoryStatus.Unavailable => "Profiles.Offline",
             SharedProfileRepositoryStatus.RollbackDetected => "Profiles.Rollback",
             SharedProfileRepositoryStatus.HistoryLimitExceeded => "Profiles.HistoryLimit",
@@ -457,6 +486,13 @@ public sealed partial class DeploymentProfileCoordinator
             _ => "Profiles.Failed"
         };
         Changed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void ClearConflict()
+    {
+        HasConflict = false;
+        IsSharedProfileDeleted = false;
+        conflictRevision = null;
     }
 
     private sealed record SharedInvitation(int FormatVersion, Guid RepositoryId, Guid ProfileId, int KeyEpoch, bool IncludeSecrets, string Key);

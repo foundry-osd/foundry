@@ -19,6 +19,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     private readonly IApplicationLocalizationService localization;
     private readonly IFilePickerService picker;
     private bool attached;
+    private Guid? displayedActiveProfileId;
 
     internal DeploymentProfilesViewModel(DeploymentProfileCoordinator coordinator,
         IApplicationLocalizationService localization, IFilePickerService picker)
@@ -45,7 +46,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     public bool RememberSecrets => coordinator.Active?.RememberSecrets == true;
     public string SynchronizeActionText => Text(IsShared ? "Profiles.SyncNow" : "Profiles.SetupAction");
     public bool SyncEnabled => coordinator.Active?.Enrollment?.IsEnabled == true;
-    public Visibility ConflictVisibility => coordinator.HasConflict && coordinator.StatusKey != "Profiles.DeletedRemote" ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility ConflictVisibility => coordinator.HasConflict && !coordinator.IsSharedProfileDeleted ? Visibility.Visible : Visibility.Collapsed;
     public string Text(string key) => localization.GetString(key);
 
     public string SynchronizationStatusText => Text($"Profiles.SyncStatus{SynchronizationStatus}");
@@ -75,7 +76,8 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
             if (coordinator.IsSynchronizing) return "Busy";
             if (!IsShared) return "NotConfigured";
             if (coordinator.StatusKey is "Profiles.Failed" or "Profiles.Locked" or "Profiles.Rollback" or "Profiles.Unsupported") return "Error";
-            if (coordinator.HasConflict && coordinator.StatusKey != "Profiles.DeletedRemote") return "Conflict";
+            if (coordinator.IsSharedProfileDeleted) return "Warning";
+            if (coordinator.HasConflict) return "Conflict";
             if (coordinator.StatusKey == "Profiles.Offline") return "Offline";
             if (coordinator.StatusKey is "Profiles.CleanupPending" or "Profiles.HistoryLimit" or "Profiles.Incomplete" or "Profiles.DeletedRemote") return "Warning";
             if (coordinator.StatusKey == "Profiles.UpdateAvailable") return "UpdateAvailable";
@@ -104,9 +106,13 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
 
     internal void Refresh()
     {
+        Guid? activeId = coordinator.Active?.LocalId;
+        Guid? selectedId = displayedActiveProfileId == activeId ? SelectedProfile?.LocalId ?? activeId : activeId;
         Profiles.Clear();
         foreach (LocalProfileDescriptor profile in coordinator.Profiles) Profiles.Add(profile);
-        SelectedProfile = Profiles.FirstOrDefault(profile => profile.LocalId == coordinator.Active?.LocalId);
+        SelectedProfile = Profiles.FirstOrDefault(profile => profile.LocalId == selectedId)
+            ?? Profiles.FirstOrDefault(profile => profile.LocalId == activeId);
+        displayedActiveProfileId = activeId;
         Status = Text(coordinator.StatusKey);
         OnPropertyChanged(string.Empty);
     }
