@@ -2,9 +2,11 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.ComponentModel;
 using Foundry.Core.Services.Application;
 using Foundry.Services.Application;
 using Foundry.Services.Localization;
+using Microsoft.UI.Xaml.Automation.Peers;
 
 namespace Foundry.Views;
 
@@ -13,6 +15,8 @@ public sealed partial class DeploymentProfilesControl : UserControl
 {
     private readonly IApplicationLocalizationService localization = App.GetService<IApplicationLocalizationService>();
     private readonly IFilePickerService picker = App.GetService<IFilePickerService>();
+    private long synchronizationTextCallbackToken;
+    private string lastAnnouncedSynchronizationStatus = string.Empty;
     public DeploymentProfilesViewModel ViewModel { get; } = App.GetService<DeploymentProfilesViewModel>();
 
     public DeploymentProfilesControl()
@@ -25,7 +29,10 @@ public sealed partial class DeploymentProfilesControl : UserControl
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         ViewModel.ShowDialogAsync = ShowDialogAsync;
+        ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         ViewModel.Attach();
+        lastAnnouncedSynchronizationStatus = SynchronizationStatusText.Text;
+        synchronizationTextCallbackToken = SynchronizationStatusText.RegisterPropertyChangedCallback(TextBlock.TextProperty, OnSynchronizationStatusTextChanged);
         localization.LanguageChanged += OnLanguageChanged;
     }
 
@@ -33,6 +40,8 @@ public sealed partial class DeploymentProfilesControl : UserControl
     {
         localization.LanguageChanged -= OnLanguageChanged;
         ViewModel.Detach();
+        ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+        SynchronizationStatusText.UnregisterPropertyChangedCallback(TextBlock.TextProperty, synchronizationTextCallbackToken);
         ViewModel.ShowDialogAsync = null;
     }
 
@@ -43,6 +52,20 @@ public sealed partial class DeploymentProfilesControl : UserControl
     }
 
     private void UpdateLanguage() { ViewModel.Refresh(); Bindings.Update(); }
+
+    private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (string.IsNullOrEmpty(e.PropertyName) || e.PropertyName == nameof(ViewModel.SynchronizationVisualState))
+            VisualStateManager.GoToState(this, ViewModel.SynchronizationVisualState, false);
+    }
+
+    private void OnSynchronizationStatusTextChanged(DependencyObject sender, DependencyProperty property)
+    {
+        string status = SynchronizationStatusText.Text;
+        if (!ViewModel.AnnounceSynchronizationStatus || string.IsNullOrEmpty(status) || status == lastAnnouncedSynchronizationStatus) return;
+        lastAnnouncedSynchronizationStatus = status;
+        FrameworkElementAutomationPeer.FromElement(SynchronizationStatusText)?.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
+    }
 
     private async void AutomaticSyncToggle_Toggled(object sender, RoutedEventArgs e)
     {

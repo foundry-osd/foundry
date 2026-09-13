@@ -2384,6 +2384,36 @@
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>同步</value>
   </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>正在同步…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>选择版本</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>无法同步</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>未设置</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>文件夹不可用</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>有更改待同步</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>准备好同步</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>已是最新</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>有可用更改</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>需要处理</value>
+  </data>
   <data name="Profiles.Synchronize" xml:space="preserve">
     <value>同步</value>
   </data>

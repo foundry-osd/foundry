@@ -2384,6 +2384,36 @@
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Синхронизиране</value>
   </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Синхронизиране…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Изберете версия</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Неуспешно синхронизиране</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Не е настроено</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>Папката е недостъпна</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Промени за синхронизиране</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Готово за синхронизиране</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>Актуално</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Има налични промени</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Нужно е внимание</value>
+  </data>
   <data name="Profiles.Synchronize" xml:space="preserve">
     <value>Синхронизиране</value>
   </data>

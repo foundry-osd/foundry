@@ -2384,6 +2384,36 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Synchroniser</value>
   </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Synchronisation en cours…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Choisissez une version</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Synchronisation impossible</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Non configurée</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>Dossier indisponible</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Modifications à synchroniser</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Prête à synchroniser</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>À jour</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Modifications disponibles</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Nécessite votre attention</value>
+  </data>
   <data name="Profiles.Synchronize" xml:space="preserve">
     <value>Synchroniser</value>
   </data>

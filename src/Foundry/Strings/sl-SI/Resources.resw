@@ -2384,6 +2384,36 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sinhroniziraj</value>
   </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Sinhroniziranje…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Izberite različico</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Sinhronizacija ni mogoča</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Ni nastavljeno</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>Mapa ni na voljo</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Spremembe za sinhronizacijo</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Pripravljeno na sinhronizacijo</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>Posodobljeno</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Spremembe so na voljo</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Zahteva pozornost</value>
+  </data>
   <data name="Profiles.Synchronize" xml:space="preserve">
     <value>Sinhroniziraj</value>
   </data>

@@ -137,6 +137,7 @@ public sealed partial class DeploymentProfileCoordinator
                 sessionSharedKey = key.ToArray();
                 HasConflict = false;
                 await RefreshAsync();
+                MarkSynchronized();
             }
             finally { DeploymentProfileSecretBinding.Clear(profile); }
         }
@@ -170,10 +171,15 @@ public sealed partial class DeploymentProfileCoordinator
         if (!await gate.WaitAsync(0)) return;
         try
         {
+            SetSynchronizing(true);
             await SynchronizeCoreAsync(automatic);
         }
         catch (Exception ex) when (IsProfileFailure(ex)) { SetFailure(ex); }
-        finally { gate.Release(); }
+        finally
+        {
+            gate.Release();
+            SetSynchronizing(false);
+        }
     }
 
     private async Task SynchronizeCoreAsync(bool automatic)
@@ -238,8 +244,7 @@ public sealed partial class DeploymentProfileCoordinator
             }
             else
             {
-                StatusKey = "Profiles.Synchronized";
-                Changed?.Invoke(this, EventArgs.Empty);
+                MarkSynchronized();
             }
         }
         finally { CryptographicOperations.ZeroMemory(key); }
@@ -267,8 +272,7 @@ public sealed partial class DeploymentProfileCoordinator
             });
             File.Delete(OutboxPath(current.LocalId, operationId));
             HasConflict = false;
-            StatusKey = "Profiles.Synchronized";
-            Changed?.Invoke(this, EventArgs.Empty);
+            MarkSynchronized();
         }
         finally { DeploymentProfileSecretBinding.Clear(profile); }
     }
@@ -279,6 +283,7 @@ public sealed partial class DeploymentProfileCoordinator
         await gate.WaitAsync(lifetime.Token);
         try
         {
+            SetSynchronizing(true);
             LocalProfileEnrollment enrollment = RequireActive().Enrollment ?? throw new InvalidOperationException("The profile is not shared.");
             byte[] key = await GetSharedKeyAsync();
             try
@@ -303,7 +308,16 @@ public sealed partial class DeploymentProfileCoordinator
             }
             finally { CryptographicOperations.ZeroMemory(key); }
         }
-        finally { gate.Release(); }
+        catch (Exception ex) when (IsProfileFailure(ex))
+        {
+            SetFailure(ex);
+            throw;
+        }
+        finally
+        {
+            gate.Release();
+            SetSynchronizing(false);
+        }
     }
 
     private async Task AcceptRemoteAsync(SharedProfileSnapshot snapshot, LocalProfileEnrollment enrollment, byte[] key, bool automatic = false)
@@ -326,7 +340,12 @@ public sealed partial class DeploymentProfileCoordinator
             string directory = CreateStagingDirectory();
             var document = await Task.Run(() => DeploymentProfileAssetService.Materialize(profile, directory));
             if (version != editVersion) { SetRemoteStatus(SharedProfileRepositoryStatus.Conflict, snapshot); return; }
-            if (automatic && (!IsSettingsOpen || activationSuspensions > 0 || navigationGuard.State == ShellNavigationState.OperationRunning)) return;
+            if (automatic && (!IsSettingsOpen || activationSuspensions > 0 || navigationGuard.State == ShellNavigationState.OperationRunning))
+            {
+                StatusKey = "Profiles.UpdateAvailable";
+                Changed?.Invoke(this, EventArgs.Empty);
+                return;
+            }
             document = document with
             {
                 General = document.General with
@@ -353,12 +372,26 @@ public sealed partial class DeploymentProfileCoordinator
             persistedEditVersion = editVersion;
             HasConflict = false;
             await RefreshAsync();
+            MarkSynchronized();
         }
         finally
         {
             applying = false;
             DeploymentProfileSecretBinding.Clear(profile);
         }
+    }
+
+    private void SetSynchronizing(bool value)
+    {
+        IsSynchronizing = value;
+        if (value && StatusKey == "Profiles.Synchronized") StatusKey = "Profiles.Ready";
+        SynchronizationStateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void MarkSynchronized()
+    {
+        StatusKey = Active?.CleanupPending == true ? "Profiles.CleanupPending" : "Profiles.Synchronized";
+        Changed?.Invoke(this, EventArgs.Empty);
     }
 
     private async Task<byte[]> GetSharedKeyAsync()

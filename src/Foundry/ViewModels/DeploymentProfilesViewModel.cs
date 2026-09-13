@@ -34,9 +34,11 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     [ObservableProperty] public partial bool IsBusy { get; set; }
     [ObservableProperty, NotifyPropertyChangedFor(nameof(StatusVisibility))] public partial string Status { get; set; } = string.Empty;
     public bool CanInteract => !IsBusy;
+    public bool CanSynchronize => CanInteract && !coordinator.IsSynchronizing;
     public bool CanActivate => CanInteract && SelectedProfile is { } selected && selected.LocalId != coordinator.Active?.LocalId;
     public string ActiveProfileDescription => coordinator.Active is { } active ? $"{Text("Profiles.Active")}: {active.DisplayName}" : string.Empty;
-    public Visibility StatusVisibility => string.IsNullOrEmpty(Status) || Status == Text("Profiles.Ready") ? Visibility.Collapsed : Visibility.Visible;
+    public Visibility StatusVisibility => string.IsNullOrEmpty(Status) || Status == Text("Profiles.Ready") || Status == Text("Profiles.Synchronized") ||
+        Status == Text("Profiles.Conflict") && ConflictVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
     public bool HasActive => coordinator.Active is not null;
     public bool IsShared => coordinator.Active?.Enrollment is not null;
     public Visibility SharedVisibility => IsShared ? Visibility.Visible : Visibility.Collapsed;
@@ -46,12 +48,49 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     public Visibility ConflictVisibility => coordinator.HasConflict && coordinator.StatusKey != "Profiles.DeletedRemote" ? Visibility.Visible : Visibility.Collapsed;
     public string Text(string key) => localization.GetString(key);
 
+    public string SynchronizationStatusText => Text($"Profiles.SyncStatus{SynchronizationStatus}");
+    /// <summary>Suppresses transient background checks while allowing feedback for user-triggered operations.</summary>
+    public bool AnnounceSynchronizationStatus => !coordinator.IsSynchronizing || IsBusy;
+    public string SynchronizationVisualState => SynchronizationStatus switch
+    {
+        "Success" => "SynchronizationSuccess",
+        "Conflict" or "Offline" or "Warning" => "SynchronizationWarning",
+        "Error" => "SynchronizationError",
+        "Busy" or "Pending" or "UpdateAvailable" => "SynchronizationInformational",
+        _ => "SynchronizationNeutral"
+    };
+    public string SynchronizationStatusGlyph => SynchronizationVisualState switch
+    {
+        "SynchronizationSuccess" => "\uE73E",
+        "SynchronizationWarning" => "\uE7BA",
+        "SynchronizationError" => "\uEA39",
+        "SynchronizationInformational" => "\uE895",
+        _ => "\uE946"
+    };
+
+    private string SynchronizationStatus
+    {
+        get
+        {
+            if (coordinator.IsSynchronizing) return "Busy";
+            if (!IsShared) return "NotConfigured";
+            if (coordinator.StatusKey is "Profiles.Failed" or "Profiles.Locked" or "Profiles.Rollback" or "Profiles.Unsupported") return "Error";
+            if (coordinator.HasConflict && coordinator.StatusKey != "Profiles.DeletedRemote") return "Conflict";
+            if (coordinator.StatusKey == "Profiles.Offline") return "Offline";
+            if (coordinator.StatusKey is "Profiles.CleanupPending" or "Profiles.HistoryLimit" or "Profiles.Incomplete" or "Profiles.DeletedRemote") return "Warning";
+            if (coordinator.StatusKey == "Profiles.UpdateAvailable") return "UpdateAvailable";
+            if (coordinator.HasPendingSynchronizationChanges) return "Pending";
+            return coordinator.StatusKey == "Profiles.Synchronized" ? "Success" : "Ready";
+        }
+    }
+
     internal void Attach()
     {
         if (attached) return;
         attached = true;
         coordinator.IsSettingsOpen = true;
         coordinator.Changed += OnChanged;
+        coordinator.SynchronizationStateChanged += OnSynchronizationStateChanged;
         Refresh();
     }
 
@@ -60,6 +99,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
         attached = false;
         coordinator.IsSettingsOpen = false;
         coordinator.Changed -= OnChanged;
+        coordinator.SynchronizationStateChanged -= OnSynchronizationStateChanged;
     }
 
     internal void Refresh()
@@ -72,10 +112,19 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     }
 
     private void OnChanged(object? sender, EventArgs e) => Refresh();
+    private void OnSynchronizationStateChanged(object? sender, EventArgs e)
+    {
+        OnPropertyChanged(nameof(CanSynchronize));
+        OnPropertyChanged(nameof(SynchronizationStatusText));
+        OnPropertyChanged(nameof(SynchronizationVisualState));
+        OnPropertyChanged(nameof(SynchronizationStatusGlyph));
+    }
+
     partial void OnIsBusyChanged(bool value)
     {
         OnPropertyChanged(nameof(CanInteract));
         OnPropertyChanged(nameof(CanActivate));
+        OnPropertyChanged(nameof(CanSynchronize));
     }
 
     [RelayCommand]

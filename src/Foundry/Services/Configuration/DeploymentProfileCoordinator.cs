@@ -69,10 +69,17 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     }
 
     public event EventHandler? Changed;
+    /// <summary>Updates synchronization feedback without rebuilding the profile selector.</summary>
+    public event EventHandler? SynchronizationStateChanged;
     public LocalProfileDescriptor? Active { get; private set; }
     public IReadOnlyList<LocalProfileDescriptor> Profiles { get; private set; } = [];
     public string StatusKey { get; private set; } = "Profiles.Ready";
     public bool HasConflict { get; private set; }
+    /// <summary>Indicates an active synchronization attempt, including automatic checks.</summary>
+    public bool IsSynchronizing { get; private set; }
+    /// <summary>Includes edits awaiting local autosave as well as unpublished saved changes.</summary>
+    public bool HasPendingSynchronizationChanges => Active?.Enrollment is { } enrollment &&
+        (enrollment.IsDirty || enrollment.PendingOperationId is not null || editVersion != persistedEditVersion);
 
     /// <summary>Restores only this Windows user's selected local profile, preserving locked or incompatible data.</summary>
     public async Task InitializeAsync()
@@ -434,6 +441,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         }
         if (applying || Active is null || !initialized) return;
         editVersion++;
+        SynchronizationStateChanged?.Invoke(this, EventArgs.Empty);
         lastEditTick = Environment.TickCount64;
         debounce?.Cancel();
         debounce?.Dispose();

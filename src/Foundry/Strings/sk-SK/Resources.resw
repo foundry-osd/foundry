@@ -2384,6 +2384,36 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Synchronizovať</value>
   </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Synchronizácia…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Vyberte verziu</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Nedá sa synchronizovať</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Nenastavené</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>Priečinok nie je dostupný</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Zmeny na synchronizáciu</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Pripravené na synchronizáciu</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>Aktuálne</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Dostupné zmeny</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Vyžaduje pozornosť</value>
+  </data>
   <data name="Profiles.Synchronize" xml:space="preserve">
     <value>Synchronizovať</value>
   </data>

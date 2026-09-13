@@ -2384,6 +2384,36 @@
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sinchronizuoti</value>
   </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Sinchronizuojama…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Pasirinkite versiją</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Nepavyksta sinchronizuoti</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Nesukonfigūruota</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>Aplankas nepasiekiamas</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Laukiantys sinchronizavimo pakeitimai</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Paruošta sinchronizuoti</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>Atnaujinta</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Yra pakeitimų</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Reikia dėmesio</value>
+  </data>
   <data name="Profiles.Synchronize" xml:space="preserve">
     <value>Sinchronizuoti</value>
   </data>

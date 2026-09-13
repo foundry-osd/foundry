@@ -32,6 +32,43 @@
                     </VisualState.StateTriggers>
                 </VisualState>
             </VisualStateGroup>
+            <VisualStateGroup x:Name="SynchronizationStates">
+                <VisualState x:Name="SynchronizationNeutral">
+                    <VisualState.Setters>
+                        <Setter
+                            Target="SynchronizationStatusIcon.Foreground"
+                            Value="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="SynchronizationInformational">
+                    <VisualState.Setters>
+                        <Setter
+                            Target="SynchronizationStatusIcon.Foreground"
+                            Value="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="SynchronizationSuccess">
+                    <VisualState.Setters>
+                        <Setter
+                            Target="SynchronizationStatusIcon.Foreground"
+                            Value="{ThemeResource SystemFillColorSuccessBrush}" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="SynchronizationWarning">
+                    <VisualState.Setters>
+                        <Setter
+                            Target="SynchronizationStatusIcon.Foreground"
+                            Value="{ThemeResource SystemFillColorCautionBrush}" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="SynchronizationError">
+                    <VisualState.Setters>
+                        <Setter
+                            Target="SynchronizationStatusIcon.Foreground"
+                            Value="{ThemeResource SystemFillColorCriticalBrush}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
             <wct:SettingsExpander Header="{x:Bind ViewModel.Text('SettingsPage_ProfilesCard.Header')}">
@@ -137,24 +174,46 @@
                     </wct:SettingsCard>
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.Text('Profiles.SynchronizeDescription')}"
-                        Header="{x:Bind ViewModel.Text('Profiles.Synchronize')}"
-                        IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}">
+                        Header="{x:Bind ViewModel.Text('Profiles.Synchronize')}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE895;" />
                         </wct:SettingsCard.HeaderIcon>
                         <StackPanel x:Name="SynchronizationActions"
                             Orientation="Horizontal"
                             Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <Grid
+                                MaxWidth="{ThemeResource FoundryStatusTextMaxWidth}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon x:Name="SynchronizationStatusIcon"
+                                    AutomationProperties.AccessibilityView="Raw"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Glyph="{x:Bind ViewModel.SynchronizationStatusGlyph, Mode=OneWay}" />
+                                <TextBlock x:Name="SynchronizationStatusText"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    AutomationProperties.LiveSetting="Polite"
+                                    Text="{x:Bind ViewModel.SynchronizationStatusText, Mode=OneWay}"
+                                    TextWrapping="Wrap" />
+                            </Grid>
                             <Button
                                 MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                                 HorizontalAlignment="Right"
                                 Command="{x:Bind ViewModel.SynchronizeCommand}"
-                                Content="{x:Bind ViewModel.SynchronizeActionText, Mode=OneWay}" />
+                                Content="{x:Bind ViewModel.SynchronizeActionText, Mode=OneWay}"
+                                IsEnabled="{x:Bind ViewModel.CanSynchronize, Mode=OneWay}" />
                             <Button
                                 MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                                 HorizontalAlignment="Right"
                                 Command="{x:Bind ViewModel.SetupSynchronizationCommand}"
                                 Content="{x:Bind ViewModel.Text('Profiles.ConnectionSettings')}"
+                                IsEnabled="{x:Bind ViewModel.CanSynchronize, Mode=OneWay}"
                                 Visibility="{x:Bind ViewModel.SharedVisibility, Mode=OneWay}" />
                         </StackPanel>
                     </wct:SettingsCard>

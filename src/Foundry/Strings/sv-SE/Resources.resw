@@ -2384,6 +2384,36 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Synkronisera</value>
   </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Synkroniserar…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Välj en version</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Kan inte synkronisera</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Inte konfigurerad</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>Mappen är inte tillgänglig</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Ändringar att synkronisera</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Redo att synkronisera</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>Uppdaterad</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Ändringar tillgängliga</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Kräver uppmärksamhet</value>
+  </data>
   <data name="Profiles.Synchronize" xml:space="preserve">
     <value>Synkronisera</value>
   </data>

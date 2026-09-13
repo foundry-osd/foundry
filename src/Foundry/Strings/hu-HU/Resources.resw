@@ -2384,6 +2384,36 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Szinkronizálás</value>
   </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Szinkronizálás…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Válasszon verziót</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Nem sikerült szinkronizálni</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Nincs beállítva</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>A mappa nem érhető el</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Szinkronizálandó módosítások</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Szinkronizálásra kész</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>Naprakész</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Módosítások érhetők el</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Figyelmet igényel</value>
+  </data>
   <data name="Profiles.Synchronize" xml:space="preserve">
     <value>Szinkronizálás</value>
   </data>

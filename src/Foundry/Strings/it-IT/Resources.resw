@@ -2384,6 +2384,36 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="Profiles.SyncNow" xml:space="preserve">
     <value>Sincronizza</value>
   </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Sincronizzazione in corso…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Scegli una versione</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Impossibile sincronizzare</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Non configurata</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>Cartella non disponibile</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Modifiche da sincronizzare</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Pronta per la sincronizzazione</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>Aggiornata</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Modifiche disponibili</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Richiede attenzione</value>
+  </data>
   <data name="Profiles.Synchronize" xml:space="preserve">
     <value>Sincronizza</value>
   </data>
