@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Inställningar för Foundry</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Dessa delade inställningar har nått sin uppdateringsgräns. Koppla från och dela dem sedan i en ny nätverksmapp.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importera</value>
   </data>

@@ -44,7 +44,7 @@ internal sealed class SharedProfileRepositoryFiles(byte[] key)
         try
         {
             return new FileStream(path, create ? FileMode.CreateNew : FileMode.Open,
-                FileAccess.ReadWrite, FileShare.None, bufferSize: 1, FileOptions.WriteThrough);
+                FileAccess.ReadWrite, FileShare.None, bufferSize: 64 * 1024, FileOptions.WriteThrough);
         }
         catch (IOException exception) when ((exception.HResult & 0xffff) is 32 or 33)
         {
@@ -52,39 +52,37 @@ internal sealed class SharedProfileRepositoryFiles(byte[] key)
         }
     }
 
-    /// <summary>Only an incomplete final frame is recoverable; complete malformed or unauthenticated records fail closed.</summary>
-    internal SharedProfileJournal<T> ReadJournal<T>(FileStream journal, int maximumRecords, CancellationToken token)
+    /// <summary>Visits authenticated frames using a bounded read buffer; only an incomplete final frame is recoverable.</summary>
+    internal long ReadJournal<T>(FileStream journal, Action<T> visit, CancellationToken token)
     {
-        if (journal.Length > (long)maximumRecords * (MaximumMetadataBytes + 8))
-            throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.HistoryLimitExceeded);
         journal.Position = 0;
-        var records = new List<T>();
+        long journalLength = journal.Length;
+        long recordCount = 0;
         long committedLength = 0;
         Span<byte> framing = stackalloc byte[4];
-        while (journal.Position < journal.Length)
+        while (journal.Position < journalLength)
         {
             token.ThrowIfCancellationRequested();
-            if (journal.Length - journal.Position < framing.Length) break;
+            if (journalLength - journal.Position < framing.Length) break;
             journal.ReadExactly(framing);
             int length = BinaryPrimitives.ReadInt32LittleEndian(framing);
             if (length is <= 0 or > MaximumMetadataBytes)
                 throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
-            if (journal.Length - journal.Position < length + framing.Length) break;
-            if (records.Count >= maximumRecords)
-                throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.HistoryLimitExceeded);
+            if (journalLength - journal.Position < length + framing.Length) break;
             byte[] content = new byte[length];
             journal.ReadExactly(content);
             journal.ReadExactly(framing);
             if (BinaryPrimitives.ReadInt32LittleEndian(framing) != length)
                 throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
-            records.Add(DeserializeSigned<T>(content, "head"));
+            visit(DeserializeSigned<T>(content, "head"));
+            recordCount++;
             committedLength = journal.Position;
         }
-        if (records.Count == 0) throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
-        if (committedLength != journal.Length)
+        if (recordCount == 0) throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
+        if (committedLength != journalLength)
             Log.ForContext<SharedProfileRepositoryFiles>().Warning(
-                "An incomplete shared profile journal tail was ignored. CommittedRecordCount={CommittedRecordCount}", records.Count);
-        return new(records, committedLength);
+                "An incomplete shared profile journal tail was ignored. CommittedRecordCount={CommittedRecordCount}", recordCount);
+        return committedLength;
     }
 
     /// <summary>Writes and flushes through the already locked handle, including after a durable SMB reconnect.</summary>
@@ -235,6 +233,3 @@ internal sealed class SharedProfileRepositoryException(SharedProfileRepositorySt
 {
     internal SharedProfileRepositoryStatus Status { get; } = status;
 }
-
-/// <summary>Authenticated frames and the end of the last complete frame, observed under an exclusive journal handle.</summary>
-internal sealed record SharedProfileJournal<T>(IReadOnlyList<T> Records, long CommittedLength);

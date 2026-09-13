@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Foundry 설정</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>이 공유 설정이 업데이트 한도에 도달했습니다. 연결을 해제한 다음 새 네트워크 폴더에서 공유하세요.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>가져오기</value>
   </data>

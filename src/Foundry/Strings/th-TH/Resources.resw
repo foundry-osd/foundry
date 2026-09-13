@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>การตั้งค่า Foundry</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>การตั้งค่าที่แชร์เหล่านี้ถึงขีดจำกัดการอัปเดตแล้ว ให้ยกเลิกการเชื่อมต่อ แล้วแชร์ในโฟลเดอร์เครือข่ายใหม่</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>นำเข้า</value>
   </data>

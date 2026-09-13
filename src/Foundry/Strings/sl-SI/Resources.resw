@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Nastavitve za Foundry</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Te nastavitve v skupni rabi so dosegle omejitev posodobitev. Prekinite povezavo in jih nato dajte v skupno rabo v novi omrežni mapi.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Uvozi</value>
   </data>

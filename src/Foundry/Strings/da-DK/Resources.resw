@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Foundry-indstillinger</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Disse delte indstillinger har nået grænsen for opdateringer. Afbryd forbindelsen, og del dem derefter i en ny netværksmappe.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importér</value>
   </data>

@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>„Foundry“ nustatymai</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Šie bendrinami nustatymai pasiekė atnaujinimų limitą. Atsijunkite, tada bendrinkite juos naujame tinklo aplanke.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importuoti</value>
   </data>

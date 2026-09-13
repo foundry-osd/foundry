@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Настройки Foundry</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Эти общие настройки достигли лимита обновлений. Отключитесь, затем предоставьте к ним общий доступ в новой сетевой папке.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Импортировать</value>
   </data>

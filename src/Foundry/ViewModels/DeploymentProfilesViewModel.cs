@@ -80,7 +80,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
             if (coordinator.IsSharedProfileDeleted) return "Warning";
             if (coordinator.HasConflict) return "Conflict";
             if (coordinator.StatusKey is "Profiles.SharedBusy" or "Profiles.SharedUnavailable") return "Offline";
-            if (coordinator.StatusKey is "Profiles.CleanupPending" or "Profiles.HistoryLimit" or "Profiles.Incomplete" or "Profiles.DeletedRemote") return "Warning";
+            if (coordinator.StatusKey is "Profiles.CleanupPending" or "Profiles.Incomplete" or "Profiles.DeletedRemote") return "Warning";
             if (coordinator.StatusKey == "Profiles.UpdateAvailable") return "UpdateAvailable";
             if (coordinator.HasPendingSynchronizationChanges) return "Pending";
             return coordinator.StatusKey == "Profiles.Synchronized" ? "Success" : "Ready";

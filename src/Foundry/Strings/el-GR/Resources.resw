@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Ρυθμίσεις Foundry</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Αυτές οι κοινόχρηστες ρυθμίσεις έχουν φτάσει το όριο ενημερώσεών τους. Αποσυνδεθείτε και, στη συνέχεια, κοινοποιήστε τις σε έναν νέο φάκελο δικτύου.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Εισαγωγή</value>
   </data>

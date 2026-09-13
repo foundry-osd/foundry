@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Configuración de Foundry</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Estos ajustes compartidos han alcanzado su límite de actualizaciones. Desconéctate y vuelve a compartirlos en una nueva carpeta de red.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importar</value>
   </data>

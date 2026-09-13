@@ -488,7 +488,7 @@ public sealed partial class DeploymentProfileCoordinator
 
     private static SharedProfileRepository OpenRemote(LocalProfileEnrollment enrollment, byte[] key) =>
         new(enrollment.RootPath, enrollment.RepositoryId, enrollment.ProfileId, enrollment.KeyEpoch, key,
-            new SharedProfileRepositoryOptions { MaximumPayloadBytes = 16 * 1024 * 1024 + 118, MaximumHistoryCount = 4096 });
+            new SharedProfileRepositoryOptions { MaximumPayloadBytes = 16 * 1024 * 1024 + 118 });
 
     private static byte[] SharedContext(LocalProfileEnrollment enrollment) =>
         Encoding.UTF8.GetBytes($"{enrollment.RepositoryId:N}/{enrollment.ProfileId:N}/{enrollment.KeyEpoch}");
@@ -534,7 +534,6 @@ public sealed partial class DeploymentProfileCoordinator
         SharedProfileRepositoryStatus.Busy => "Profiles.SharedBusy",
         SharedProfileRepositoryStatus.Unavailable => "Profiles.SharedUnavailable",
         SharedProfileRepositoryStatus.RollbackDetected => "Profiles.Rollback",
-        SharedProfileRepositoryStatus.HistoryLimitExceeded => "Profiles.HistoryLimit",
         SharedProfileRepositoryStatus.FolderNotEmpty => "Profiles.FolderNotEmpty",
         SharedProfileRepositoryStatus.UnsupportedFormat => "Profiles.Unsupported",
         _ => "Profiles.Failed"

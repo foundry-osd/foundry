@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Foundry settings</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>These shared settings have reached their update limit. Disconnect, then share them in a new network folder.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Import</value>
   </data>

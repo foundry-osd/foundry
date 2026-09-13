@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Foundry-instellingen</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Deze gedeelde instellingen hebben hun updatelimiet bereikt. Verbreek de verbinding en deel ze vervolgens in een nieuwe netwerkmap.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importeren</value>
   </data>

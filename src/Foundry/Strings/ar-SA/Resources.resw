@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>إعدادات Foundry</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>وصلت هذه الإعدادات المشتركة إلى حد التحديثات المسموح به. اقطع الاتصال، ثم شاركها في مجلد شبكة جديد.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>استيراد</value>
   </data>

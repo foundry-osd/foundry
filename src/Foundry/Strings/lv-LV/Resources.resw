@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Foundry iestatījumi</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Šie koplietotie iestatījumi ir sasnieguši atjauninājumu ierobežojumu. Atvienojieties un pēc tam kopīgojiet tos jaunā tīkla mapē.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importēt</value>
   </data>

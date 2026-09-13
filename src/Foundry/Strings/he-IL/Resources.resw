@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>הגדרות Foundry</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>ההגדרות המשותפות האלה הגיעו למגבלת העדכונים שלהן. יש להתנתק ואז לשתף אותן בתיקיית רשת חדשה.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>ייבוא</value>
   </data>

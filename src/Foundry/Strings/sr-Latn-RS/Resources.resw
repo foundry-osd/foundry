@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Foundry podešavanja</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Ova deljena podešavanja su dostigla ograničenje ažuriranja. Prekinite vezu, a zatim ih podelite u novoj mrežnoj fascikli.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Uvezi</value>
   </data>

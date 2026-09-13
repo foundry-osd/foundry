@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Setările Foundry</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Aceste setări partajate au atins limita de actualizări. Deconectați-vă, apoi partajați-le într-un folder de rețea nou.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importă</value>
   </data>

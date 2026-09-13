@@ -14,16 +14,15 @@ public enum SharedProfileRepositoryStatus
     InvalidData,
     UnsupportedFormat,
     RollbackDetected,
-    HistoryLimitExceeded,
     NotCommitted,
     FolderNotEmpty
 }
 
-/// <summary>Bounds untrusted payloads and authenticated ancestry; exhausted history requires explicit maintenance.</summary>
+/// <summary>Bounds untrusted payload sizes and retained encrypted payloads while preserving committed ancestry.</summary>
 public sealed record SharedProfileRepositoryOptions
 {
     public int MaximumPayloadBytes { get; init; } = 64 * 1024 * 1024;
-    public int MaximumHistoryCount { get; init; } = 512;
+    public int RetainedPayloadCount { get; init; } = 20;
 }
 
 /// <summary>Identifies one authenticated immutable revision, including deletion tombstones.</summary>

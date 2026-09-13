@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Налаштування Foundry</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Ці спільні налаштування досягли ліміту оновлень. Відключіться, а потім надайте до них спільний доступ у новій мережевій папці.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Імпортувати</value>
   </data>

@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Настройки на Foundry</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Тези споделени настройки достигнаха лимита си за актуализации. Прекъснете връзката, след което ги споделете в нова мрежова папка.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Импортиране</value>
   </data>

@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Foundry-beállítások</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Ezek a megosztott beállítások elérték a frissítési korlátjukat. Bontsa a kapcsolatot, majd ossza meg őket egy új hálózati mappában.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importálás</value>
   </data>

@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Foundry-Einstellungen</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Diese freigegebenen Einstellungen haben ihr Aktualisierungslimit erreicht. Trennen Sie die Verbindung und geben Sie sie anschließend in einem neuen Netzwerkordner frei.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importieren</value>
   </data>

@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Foundry 设置</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>这些共享设置已达到更新次数上限。请断开连接，然后在新的网络文件夹中共享。</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>导入</value>
   </data>

@@ -2307,9 +2307,6 @@
   <data name="Profiles.Heading" xml:space="preserve">
     <value>Foundryn asetukset</value>
   </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Nämä jaetut asetukset ovat saavuttaneet päivitysrajan. Katkaise yhteys ja jaa ne sitten uudessa verkkokansiossa.</value>
-  </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Tuo</value>
   </data>
