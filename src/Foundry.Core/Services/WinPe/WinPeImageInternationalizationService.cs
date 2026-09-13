@@ -50,11 +50,11 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
 
         WinPeToolPaths tools = options.Tools!;
         string normalizedLocale = WinPeLanguageUtility.Normalize(options.WinPeLanguage);
-        if (!WinPeLanguageUtility.TryResolveInputLocale(normalizedLocale, out string canonicalLocale, out string inputLocale))
+        if (!WinPeLanguageUtility.TryCanonicalize(normalizedLocale, out string canonicalLocale))
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.ValidationFailed,
-                "The selected WinPE language cannot be converted to a keyboard layout.",
+                "The selected WinPE language is not recognized.",
                 $"Language: '{options.WinPeLanguage}'.");
         }
 
@@ -85,7 +85,6 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
             options.MountedImagePath,
             tools.DismPath,
             canonicalLocale,
-            inputLocale,
             options.WorkingDirectoryPath,
             options.DismProgress,
             cancellationToken).ConfigureAwait(false);
@@ -224,23 +223,22 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
         string mountedImagePath,
         string dismPath,
         string canonicalLocale,
-        string inputLocale,
         string workingDirectoryPath,
         IProgress<WinPeDismProgress>? dismProgress,
         CancellationToken cancellationToken)
     {
-        string[] arguments =
+        string[] operations =
         [
-            $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Set-AllIntl:{canonicalLocale}",
-            $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Set-InputLocale:{inputLocale}"
+            "Set-AllIntl",
+            "Set-InputLocale"
         ];
 
-        foreach (string args in arguments)
+        foreach (string operation in operations)
         {
             WinPeProcessExecution execution = await WinPeDismProcessRunner.RunAsync(
                 _processRunner,
                 dismPath,
-                args,
+                $"/Image:{WinPeProcessRunner.Quote(mountedImagePath)} /{operation}:{canonicalLocale}",
                 workingDirectoryPath,
                 "Applying international settings with DISM.",
                 dismProgress,
@@ -251,7 +249,7 @@ public sealed class WinPeImageInternationalizationService : IWinPeImageInternati
                 return WinPeResult.Failure(execution.ToFailureDiagnostic(
                     WinPeErrorCodes.BuildFailed,
                     "Failed to apply WinPE international settings.",
-                    stage: "Apply boot image international settings",
+                    stage: $"Apply boot image international settings ({operation}:{canonicalLocale})",
                     toolName: "dism.exe"));
             }
         }
