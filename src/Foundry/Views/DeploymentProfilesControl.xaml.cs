@@ -92,10 +92,10 @@ public sealed partial class DeploymentProfilesControl : UserControl
     private async Task<ProfileDialogResponse?> ShowDialogAsync(ProfileDialogRequest request)
     {
         string T(string key) => localization.GetString(key);
-        var content = new StackPanel { Spacing = 12, MinWidth = 280 };
+        var content = new StackPanel { Spacing = 16 };
         if (request.Message is not null) content.Children.Add(new TextBlock { Text = request.Message, TextWrapping = TextWrapping.Wrap });
         var name = new TextBox { Header = T("Profiles.Name"), Text = request.Name ?? string.Empty, MaxLength = 120 };
-        var password = new PasswordBox { Header = T(request.NamedSharedFolder ? "Profiles.ConnectionPassword" : "Profiles.Passphrase"), MaxLength = 1024, PasswordRevealMode = PasswordRevealMode.Hidden };
+        var password = new PasswordBox { Header = T(request.NamedSharedFolder || request.ConnectionAccess ? "Profiles.ConnectionPassword" : "Profiles.Passphrase"), MaxLength = 1024, PasswordRevealMode = PasswordRevealMode.Hidden };
         var confirmation = new PasswordBox { Header = T(request.NamedSharedFolder ? "Profiles.ConfirmConnectionPassword" : "Profiles.ConfirmPassphrase"), MaxLength = 1024, PasswordRevealMode = PasswordRevealMode.Hidden };
         var include = new CheckBox { Content = T("Profiles.IncludeSecrets"), IsChecked = request.IncludeSecrets };
         var remember = new CheckBox { Content = T("Profiles.Remember"), IsChecked = false };
@@ -194,6 +194,7 @@ public sealed partial class DeploymentProfilesControl : UserControl
             if (!request.NamedSharedFolder)
                 content.Children.Add(new TextBlock { Text = T("Profiles.SmbWarning"), TextWrapping = TextWrapping.Wrap });
         }
+        var validation = new TextBlock { Visibility = Visibility.Collapsed, TextWrapping = TextWrapping.Wrap, Foreground = (Microsoft.UI.Xaml.Media.Brush)Application.Current.Resources["SystemFillColorCriticalBrush"] };
         if (request.Passphrase)
         {
             var passwordContent = new StackPanel { Spacing = 4 };
@@ -205,9 +206,17 @@ public sealed partial class DeploymentProfilesControl : UserControl
                     TextWrapping = TextWrapping.Wrap,
                     Style = (Style)Application.Current.Resources["FoundryCaptionTextBlockStyle"]
                 });
+            if (!request.ConfirmPassphrase) passwordContent.Children.Add(validation);
             content.Children.Add(passwordContent);
         }
-        if (request.ConfirmPassphrase) content.Children.Add(confirmation);
+        if (request.ConfirmPassphrase)
+        {
+            var confirmationContent = new StackPanel { Spacing = 4 };
+            confirmationContent.Children.Add(confirmation);
+            confirmationContent.Children.Add(validation);
+            content.Children.Add(confirmationContent);
+        }
+        var options = new StackPanel { Spacing = 8 };
         if (request.IncludeSecretsOption)
         {
             var inclusionContent = new StackPanel { Spacing = 4 };
@@ -226,10 +235,12 @@ public sealed partial class DeploymentProfilesControl : UserControl
                 include.Unchecked += (_, _) => warning.Visibility = Visibility.Collapsed;
                 inclusionContent.Children.Add(warning);
             }
-            content.Children.Add(inclusionContent);
+            options.Children.Add(inclusionContent);
         }
-        if (request.RememberOption) content.Children.Add(remember);
-        if (request.SharedKeyOption) content.Children.Add(sharedKey);
+        if (request.RememberOption) options.Children.Add(remember);
+        if (request.SharedKeyOption) options.Children.Add(sharedKey);
+        if (request.DeleteSharedOption) options.Children.Add(deleteShared);
+        if (options.Children.Count > 0) content.Children.Add(options);
         if (!request.NamedSharedFolder && (request.RememberOption || request.SharedKeyOption))
             content.Children.Add(new TextBlock { Text = T("Profiles.LocalPrivacy"), TextWrapping = TextWrapping.Wrap });
         if (request.NamedSharedFolder)
@@ -240,9 +251,9 @@ public sealed partial class DeploymentProfilesControl : UserControl
                 Padding = new Thickness(0),
                 HorizontalAlignment = HorizontalAlignment.Left
             });
-        if (request.DeleteSharedOption) content.Children.Add(deleteShared);
-        var validation = new TextBlock { TextWrapping = TextWrapping.Wrap, Foreground = (Microsoft.UI.Xaml.Media.Brush)Application.Current.Resources["SystemFillColorCriticalBrush"] };
-        content.Children.Add(validation);
+
+        if (!request.Passphrase) content.Children.Add(validation);
+        var scroll = new ScrollViewer { Content = content, HorizontalScrollMode = ScrollMode.Disabled, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled };
         var dialog = new ContentDialog
         {
             Style = ContentDialogStyleProvider.DefaultStyle,
@@ -250,25 +261,71 @@ public sealed partial class DeploymentProfilesControl : UserControl
             Title = T(request.Title),
             PrimaryButtonText = T(request.PrimaryButtonKey),
             CloseButtonText = T(request.CloseButtonKey),
-            DefaultButton = ContentDialogButton.Close,
-            Content = new ScrollViewer { Content = content, MaxHeight = 500 }
+            DefaultButton = request.PreferCancel ? ContentDialogButton.Close : ContentDialogButton.Primary,
+            Content = scroll
         };
+        XamlRoot root = XamlRoot;
+        void UpdateSize()
+        {
+            double width = Math.Min((double)Application.Current.Resources["FoundryDialogMinWidth"], Math.Max(0, root.Size.Width - 48));
+            dialog.Resources["ContentDialogMinWidth"] = width;
+            dialog.Resources["ContentDialogMaxWidth"] = width;
+            dialog.Resources["ContentDialogMaxHeight"] = Math.Max(0, root.Size.Height - 48);
+            scroll.MaxHeight = Math.Min(500, Math.Max(0, root.Size.Height - 200));
+        }
+        void OnRootChanged(XamlRoot sender, XamlRootChangedEventArgs args) => UpdateSize();
+        string ValidationMessage()
+        {
+            if (request.Name is not null && string.IsNullOrWhiteSpace(name.Text) ||
+                request.Passphrase && string.IsNullOrEmpty(password.Password) ||
+                request.SharePathOption && !share.Text.Trim().StartsWith(@"\\", StringComparison.Ordinal))
+                return T("Profiles.Validation");
+            if (request.NamedSharedFolder && !SharedProfileLocation.IsValidName(name.Text))
+                return T("Profiles.InvalidFolderName");
+            if (request.ConfirmPassphrase && !string.Equals(password.Password, confirmation.Password, StringComparison.Ordinal))
+                return T("Profiles.PasswordMismatch");
+            return string.Empty;
+        }
+        void ShowValidation(string message)
+        {
+            validation.Text = message;
+            validation.Visibility = string.IsNullOrEmpty(message) ? Visibility.Collapsed : Visibility.Visible;
+        }
+        bool attempted = false;
+        void UpdateValidation()
+        {
+            string message = ValidationMessage();
+            dialog.IsPrimaryButtonEnabled = !request.Passphrase || password.Password.Length > 0 &&
+                (!request.ConfirmPassphrase || string.Equals(password.Password, confirmation.Password, StringComparison.Ordinal));
+            bool mismatch = request.ConfirmPassphrase && confirmation.Password.Length > 0 &&
+                !string.Equals(password.Password, confirmation.Password, StringComparison.Ordinal);
+            ShowValidation(attempted ? message : mismatch ? T("Profiles.PasswordMismatch") : string.Empty);
+        }
+        name.TextChanged += (_, _) => UpdateValidation();
+        share.TextChanged += (_, _) => UpdateValidation();
+        password.PasswordChanged += (_, _) => UpdateValidation();
+        confirmation.PasswordChanged += (_, _) => UpdateValidation();
         dialog.PrimaryButtonClick += (_, args) =>
         {
-            bool invalid = request.Name is not null && string.IsNullOrWhiteSpace(name.Text) ||
-                request.Passphrase && string.IsNullOrEmpty(password.Password) ||
-                request.ConfirmPassphrase && password.Password != confirmation.Password ||
-                request.SharePathOption && !share.Text.Trim().StartsWith(@"\\", StringComparison.Ordinal);
-            bool invalidName = request.NamedSharedFolder && !SharedProfileLocation.IsValidName(name.Text);
-            args.Cancel = invalid || invalidName;
-            validation.Text = invalidName ? T("Profiles.InvalidFolderName") : invalid ? T("Profiles.Validation") : string.Empty;
+            attempted = true;
+            string message = ValidationMessage();
+            args.Cancel = !string.IsNullOrEmpty(message);
+            ShowValidation(message);
         };
+        UpdateSize();
+        UpdateValidation();
+        root.Changed += OnRootChanged;
         try
         {
             if (await dialog.ShowAsync() != ContentDialogResult.Primary) return null;
             return new(name.Text, password.Password, include.IsChecked == true, remember.IsChecked == true,
                 sharedKey.IsChecked == true, share.Text, deleteShared.IsChecked == true, joinShared.IsChecked == true);
         }
-        finally { password.Password = string.Empty; confirmation.Password = string.Empty; }
+        finally
+        {
+            root.Changed -= OnRootChanged;
+            password.Password = string.Empty;
+            confirmation.Password = string.Empty;
+        }
     }
 }

@@ -23,6 +23,32 @@ public static class SharedProfileLocation
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(parentPath);
         if (!IsValidName(name)) throw new ArgumentException("Enter a valid shared configuration folder name of at most 120 characters.", nameof(name));
+        return Path.Combine(NormalizeParent(parentPath), "Foundry", name);
+    }
+
+    /// <summary>Uses the selected file's server alias only for the same share and relative folder; backups retain the embedded location.</summary>
+    public static string ResolveConnectionFolder(string embeddedFolder, string? sourcePath)
+    {
+        string embedded = NormalizeParent(embeddedFolder);
+        if (string.IsNullOrWhiteSpace(sourcePath)) return embeddedFolder;
+        try
+        {
+            string normalizedSource = sourcePath.Replace('/', '\\');
+            if (!IsValidSegment(Path.GetFileName(normalizedSource))) return embeddedFolder;
+            string sourceFolder = NormalizeParent(Path.GetDirectoryName(normalizedSource)!);
+            bool sameLocation = embedded[2..].Split('\\').Skip(1)
+                .SequenceEqual(sourceFolder[2..].Split('\\').Skip(1), StringComparer.OrdinalIgnoreCase);
+            return sameLocation ? sourceFolder : embeddedFolder;
+        }
+        catch (ArgumentException)
+        {
+            return embeddedFolder;
+        }
+    }
+
+    private static string NormalizeParent(string parentPath)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(parentPath);
         string parent = parentPath.Replace('/', '\\').TrimEnd('\\');
         if (!parent.StartsWith(@"\\", StringComparison.Ordinal) || parent.StartsWith(@"\\?", StringComparison.Ordinal) ||
             parent.StartsWith(@"\\.", StringComparison.Ordinal) || !Path.IsPathFullyQualified(parent))
@@ -30,7 +56,7 @@ public static class SharedProfileLocation
         string[] segments = parent[2..].Split('\\');
         if (segments.Length < 2 || segments.Any(segment => !IsValidSegment(segment)))
             throw new ArgumentException("The shared parent folder contains an invalid or traversing path segment.", nameof(parentPath));
-        return Path.Combine(parent, "Foundry", name);
+        return parent;
     }
 
     private static bool IsValidSegment(string value) =>

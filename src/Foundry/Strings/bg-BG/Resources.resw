@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Име на конфигурацията</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Споделената папка е заета или недостъпна. Промените ви се запазват на този компютър.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Парола за файла</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Паролите не съвпадат.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Всеки, който може да импортира или синхронизира тези настройки, може да прочете включените пароли и частни ключове на сертификати.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Друга операция използва тази споделена папка. Опитайте отново след малко. Промените ви се запазват на този компютър.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Споделена папка</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Споделената папка е недостъпна. Проверете адреса ѝ и достъпа си до мрежата. Промените ви се запазват на този компютър.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Използвайте една и съща мрежова папка на всеки компютър. Тя трябва да използва SMB 3 със задължително шифроване. Папки, синхронизирани с облака, не се поддържат.</value>

@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Nome da configuração</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>A pasta compartilhada está ocupada ou inacessível. Suas alterações são mantidas neste PC.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Senha do arquivo</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>As senhas não coincidem.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Senhas e chaves de acesso incluídas: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Qualquer pessoa que possa importar ou sincronizar estas configurações pode ler as senhas e as chaves privadas dos certificados incluídas.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Outra operação está usando esta pasta compartilhada. Tente novamente em instantes. Suas alterações são mantidas neste PC.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Pasta compartilhada</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Não é possível acessar a pasta compartilhada. Verifique o endereço dela e seu acesso à rede. Suas alterações são mantidas neste PC.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Use a mesma pasta de rede em todos os PCs. Ela deve usar SMB 3 com criptografia obrigatória. Pastas sincronizadas com a nuvem não são compatíveis.</value>

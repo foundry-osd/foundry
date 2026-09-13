@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfiguratsiooni nimi</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Jagatud kaust on hõivatud või kättesaamatu. Teie muudatused jäävad sellesse arvutisse alles.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Faili parool</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Paroolid ei ühti.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Kõik, kes saavad neid sätteid importida või sünkroonida, saavad lugeda kaasatud paroole ja sertifikaatide privaatvõtmeid.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Seda jagatud kausta kasutab teine toiming. Proovige mõne aja pärast uuesti. Teie muudatused säilivad selles arvutis.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Jagatud kaust</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Jagatud kaustale ei pääse juurde. Kontrollige selle aadressi ja oma võrgupääsu. Teie muudatused säilivad selles arvutis.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Kasutage igas arvutis sama võrgukausta. See peab kasutama SMB 3 protokolli koos kohustusliku krüptimisega. Pilvega sünkroonitud kaustu ei toetata.</value>

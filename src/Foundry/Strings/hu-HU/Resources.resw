@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfiguráció neve</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>A megosztott mappa foglalt vagy nem érhető el. A módosítások megmaradnak ezen a számítógépen.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Fájljelszó</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>A jelszavak nem egyeznek.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Bárki, aki importálhatja vagy szinkronizálhatja ezeket a beállításokat, elolvashatja a mellékelt jelszavakat és a tanúsítványok titkos kulcsait.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Egy másik művelet használja ezt a megosztott mappát. Próbálja újra rövidesen. A módosításai megmaradnak ezen a gépen.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Megosztott mappa</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>A megosztott mappa nem érhető el. Ellenőrizze a címét és a hálózati hozzáférését. A módosításai megmaradnak ezen a gépen.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Minden számítógépen ugyanazt a hálózati mappát használja. A mappának SMB 3-at kell használnia kötelező titkosítással. A felhővel szinkronizált mappák nem támogatottak.</value>

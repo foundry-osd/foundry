@@ -104,4 +104,37 @@ public sealed class SharedProfileLocationTests
     {
         Assert.ThrowsAny<ArgumentException>(() => SharedProfileLocation.Resolve(parent!, "Team"));
     }
+    [Theory]
+    [InlineData(@"\\192.0.2.10\team\Foundry\Default\Connection.foundryprofile", @"\\192.0.2.10\team\Foundry\Default")]
+    [InlineData(@"\\other-alias\TEAM\foundry\default\connection.foundryprofile", @"\\other-alias\TEAM\foundry\default")]
+    [InlineData(@"\\192.0.2.10\team/Foundry/Default/renamed.profile", @"\\192.0.2.10\team\Foundry\Default")]
+    public void ResolveConnectionFolder_PrefersSelectedServerOnlyForMatchingShareAndRelativePath(string source, string expected)
+    {
+        Assert.Equal(expected, SharedProfileLocation.ResolveConnectionFolder(@"\\authoring-host\team\Foundry\Default", source));
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(@"C:\Backup\Connection.foundryprofile")]
+    [InlineData(@"\\other\backups\Foundry\Default\Connection.foundryprofile")]
+    [InlineData(@"\\other\team\Backups\Default\Connection.foundryprofile")]
+    [InlineData(@"\\other\team\Foundry\Default-backup\Connection.foundryprofile")]
+    [InlineData(@"\\other\team\Foundry\Default\Backup\Connection.foundryprofile")]
+    [InlineData(@"\\other\team\Foundry\Default\..\Default\Connection.foundryprofile")]
+    [InlineData(@"\\?\UNC\other\team\Foundry\Default\Connection.foundryprofile")]
+    [InlineData(@"\\.\other\team\Foundry\Default\Connection.foundryprofile")]
+    public void ResolveConnectionFolder_LeavesEmbeddedHintForBackupsAndInvalidSources(string? source)
+    {
+        const string embedded = @"\\authoring-host\team\Foundry\Default";
+        Assert.Equal(embedded, SharedProfileLocation.ResolveConnectionFolder(embedded, source));
+    }
+
+    [Fact]
+    public void ResolveConnectionFolder_IgnoresTrailingEmbeddedSeparatorWhenMatching()
+    {
+        Assert.Equal(@"\\other\team\Foundry\Default", SharedProfileLocation.ResolveConnectionFolder(
+            @"\\authoring-host\team\Foundry\Default\", @"\\other\team\Foundry\Default\Connection.foundryprofile"));
+    }
+
 }

@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>配置名称</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>共享文件夹正忙或无法访问。您的更改会保留在此电脑上。</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>文件密码</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>密码不匹配。</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>任何能够导入或同步这些设置的人，都可以读取其中包含的密码和证书私钥。</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>其他操作正在使用此共享文件夹。请稍后重试。您的更改将保留在此电脑上。</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>共享文件夹</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>无法访问共享文件夹。请检查其地址和您的网络访问权限。您的更改将保留在此电脑上。</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>所有电脑都应使用同一个网络文件夹。该文件夹必须使用 SMB 3 并强制加密。不支持与云端同步的文件夹。</value>

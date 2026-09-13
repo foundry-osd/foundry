@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfigurationens navn</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Den delte mappe er optaget eller kan ikke nås. Dine ændringer gemmes på denne pc.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Filens adgangskode</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Adgangskoderne stemmer ikke overens.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Alle, der kan importere eller synkronisere disse indstillinger, kan læse de medtagne adgangskoder og private certifikatnøgler.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>En anden handling bruger denne delte mappe. Prøv igen om lidt. Dine ændringer gemmes på denne pc.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Delt mappe</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Den delte mappe kan ikke nås. Kontrollér dens adresse og din netværksadgang. Dine ændringer gemmes på denne pc.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Brug den samme netværksmappe på alle pc’er. Den skal bruge SMB 3 med obligatorisk kryptering. Mapper, der synkroniseres med skyen, understøttes ikke.</value>

@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Name der Konfiguration</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Der freigegebene Ordner ist ausgelastet oder nicht erreichbar. Ihre Änderungen bleiben auf diesem PC gespeichert.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Dateikennwort</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Die Kennwörter stimmen nicht überein.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Alle Personen, die diese Einstellungen importieren oder synchronisieren können, können die enthaltenen Kennwörter und privaten Zertifikatschlüssel lesen.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Ein anderer Vorgang verwendet diesen freigegebenen Ordner. Versuchen Sie es in Kürze erneut. Ihre Änderungen bleiben auf diesem PC gespeichert.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Freigegebener Ordner</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Der freigegebene Ordner ist nicht erreichbar. Prüfen Sie seine Adresse und Ihren Netzwerkzugriff. Ihre Änderungen bleiben auf diesem PC gespeichert.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Verwenden Sie auf jedem PC denselben Netzwerkordner. Er muss SMB 3 mit verpflichtender Verschlüsselung verwenden. Mit der Cloud synchronisierte Ordner werden nicht unterstützt.</value>

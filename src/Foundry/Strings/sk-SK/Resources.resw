@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Názov konfigurácie</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Zdieľaný priečinok je zaneprázdnený alebo nedostupný. Vaše zmeny zostávajú v tomto počítači.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Heslo súboru</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Heslá sa nezhodujú.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Každý, kto môže importovať alebo synchronizovať tieto nastavenia, môže čítať zahrnuté heslá a súkromné kľúče certifikátov.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Tento zdieľaný priečinok používa iná operácia. Skúste to znova o chvíľu. Vaše zmeny zostávajú uložené v tomto počítači.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Zdieľaný priečinok</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Zdieľaný priečinok nie je dostupný. Skontrolujte jeho adresu a svoj prístup k sieti. Vaše zmeny zostávajú uložené v tomto počítači.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Používajte rovnaký sieťový priečinok vo všetkých počítačoch. Musí používať SMB 3 s povinným šifrovaním. Priečinky synchronizované s cloudom nie sú podporované.</value>

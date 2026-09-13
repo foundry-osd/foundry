@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Yapılandırma adı</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Paylaşılan klasör meşgul veya erişilemiyor. Değişiklikleriniz bu bilgisayarda saklanıyor.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Dosya parolası</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Parolalar eşleşmiyor.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Bu ayarları içeri aktarabilen veya eşitleyebilen herkes, dahil edilen parolaları ve sertifikaların özel anahtarlarını okuyabilir.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Başka bir işlem bu paylaşılan klasörü kullanıyor. Kısa süre sonra yeniden deneyin. Değişiklikleriniz bu bilgisayarda korunur.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Paylaşılan klasör</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Paylaşılan klasöre ulaşılamıyor. Adresini ve ağ erişiminizi kontrol edin. Değişiklikleriniz bu bilgisayarda korunur.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Tüm bilgisayarlarda aynı ağ klasörünü kullanın. Klasör, şifrelemenin zorunlu olduğu SMB 3 kullanmalıdır. Bulutla eşitlenen klasörler desteklenmez.</value>

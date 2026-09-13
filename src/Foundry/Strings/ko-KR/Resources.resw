@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>구성 이름</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>공유 폴더가 사용 중이거나 연결할 수 없습니다. 변경 사항은 이 PC에 보관됩니다.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>파일 암호</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>암호가 일치하지 않습니다.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>이 설정을 가져오거나 동기화할 수 있는 사람은 포함된 암호와 인증서 개인 키를 읽을 수 있습니다.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>다른 작업이 이 공유 폴더를 사용 중입니다. 잠시 후 다시 시도하세요. 변경 내용은 이 PC에 유지됩니다.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>공유 폴더</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>공유 폴더에 연결할 수 없습니다. 폴더 주소와 네트워크 액세스를 확인하세요. 변경 내용은 이 PC에 유지됩니다.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>모든 PC에서 같은 네트워크 폴더를 사용하세요. SMB 3를 사용하고 암호화를 필수로 설정해야 합니다. 클라우드와 동기화되는 폴더는 지원되지 않습니다.</value>

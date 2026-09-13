@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Název konfigurace</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Sdílená složka je zaneprázdněná nebo nedostupná. Vaše změny zůstávají uložené na tomto počítači.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Heslo k souboru</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Hesla se neshodují.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Každý, kdo může tato nastavení importovat nebo synchronizovat, může přečíst zahrnutá hesla a soukromé klíče certifikátů.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Tuto sdílenou složku používá jiná operace. Zkuste to znovu za chvíli. Vaše změny zůstávají uloženy na tomto počítači.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Sdílená složka</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Sdílená složka není dostupná. Zkontrolujte její adresu a svůj přístup k síti. Vaše změny zůstávají uloženy na tomto počítači.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Na všech počítačích používejte stejnou síťovou složku. Musí používat SMB 3 s povinným šifrováním. Složky synchronizované s cloudem nejsou podporovány.</value>

@@ -79,7 +79,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
             if (coordinator.StatusKey is "Profiles.Failed" or "Profiles.Locked" or "Profiles.Rollback" or "Profiles.Unsupported") return "Error";
             if (coordinator.IsSharedProfileDeleted) return "Warning";
             if (coordinator.HasConflict) return "Conflict";
-            if (coordinator.StatusKey == "Profiles.Offline") return "Offline";
+            if (coordinator.StatusKey is "Profiles.SharedBusy" or "Profiles.SharedUnavailable") return "Offline";
             if (coordinator.StatusKey is "Profiles.CleanupPending" or "Profiles.HistoryLimit" or "Profiles.Incomplete" or "Profiles.DeletedRemote") return "Warning";
             if (coordinator.StatusKey == "Profiles.UpdateAvailable") return "UpdateAvailable";
             if (coordinator.HasPendingSynchronizationChanges) return "Pending";
@@ -162,7 +162,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     private Task ToggleRememberAsync() => RunAsync(async () =>
     {
         bool remember = !RememberSecrets;
-        if (await ConfirmAsync("Profiles.Remember", remember ? "Profiles.LocalPrivacy" : "Profiles.StopRemembering"))
+        if (await ConfirmAsync("Profiles.Remember", remember ? "Profiles.LocalPrivacy" : "Profiles.StopRemembering", preferCancel: !remember))
             await coordinator.SaveAsync(remember);
     });
 
@@ -176,7 +176,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     private Task DeleteAsync() => RunAsync(async () =>
     {
         ProfileDialogResponse? result = await DialogAsync(new("Profiles.Delete")
-        { Message = Text("Profiles.DeleteWarning"), DeleteSharedOption = IsShared });
+        { Message = Text("Profiles.DeleteWarning"), DeleteSharedOption = IsShared, PreferCancel = true });
         if (result is null) return;
         if (result.DeleteShared && !await ConfirmAsync("Profiles.DeleteShared", "Profiles.DeleteSharedWarning")) return;
         await coordinator.DeleteAsync(result.DeleteShared);
@@ -208,9 +208,9 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     private async Task ImportFileAsync(bool join, string? sharedFolder = null, bool restore = false)
     {
         string title = restore ? "Profiles.RestoreAccess" : join ? "Profiles.JoinShared" : "Profiles.Import";
-        string? path = await picker.PickOpenFileAsync(new(Text(title), new string[] { "*", ".foundryprofile" }, InitialFileTypeIndex: 0));
+        string? path = await picker.PickOpenFileAsync(new(Text(title), new string[] { ".foundryprofile" }, InitialFileTypeIndex: 0));
         if (path is null) return;
-        ProfileDialogResponse? password = await DialogAsync(new(title) { Passphrase = true });
+        ProfileDialogResponse? password = await DialogAsync(new(title) { Passphrase = true, ConnectionAccess = join });
         if (password is null) return;
         DeploymentProfileDocument profile = await coordinator.PreviewImportAsync(path, password.Password);
         try
@@ -223,10 +223,11 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
             ProfileDialogResponse? result = await DialogAsync(new(title)
             {
                 Message = preview + "\n\n" + Text("Profiles.ShareWarning") + (restore ? string.Empty : "\n\n" + Text("Profiles.ReplaceWarning")),
+                PreferCancel = !restore,
                 RememberOption = !restore,
                 SharedKeyOption = join,
                 SharePathOption = join && !restore,
-                SharePath = sharedFolder ?? (join ? DeploymentProfileCoordinator.GetSharedFolderHint(profile) : null)
+                SharePath = sharedFolder ?? (join ? DeploymentProfileCoordinator.GetSharedFolderHint(profile, path) : null)
             });
             if (result is null) return;
             if (restore) await coordinator.RestoreSharedAccessAsync(profile, result.RememberKey);
@@ -319,8 +320,8 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
             await coordinator.ResolveConflictAsync(useRemote);
     });
 
-    private async Task<bool> ConfirmAsync(string title, string message) =>
-        await DialogAsync(new(title) { Message = Text(message) }) is not null;
+    private async Task<bool> ConfirmAsync(string title, string message, bool preferCancel = true) =>
+        await DialogAsync(new(title) { Message = Text(message), PreferCancel = preferCancel }) is not null;
 
     private async Task<ProfileDialogResponse?> DialogAsync(ProfileDialogRequest request)
     {
@@ -365,6 +366,8 @@ internal sealed record ProfileDialogRequest(string Title)
     public string? Name { get; init; }
     public string? SharePath { get; init; }
     public bool NamedSharedFolder { get; init; }
+    public bool PreferCancel { get; init; }
+    public bool ConnectionAccess { get; init; }
     public bool IncludeSecrets { get; init; }
     public bool RememberKey { get; init; }
     public string PrimaryButtonKey { get; init; } = "Profiles.Continue";

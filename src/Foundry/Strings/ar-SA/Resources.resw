@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>اسم التكوين</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>المجلد المشترك مشغول أو يتعذر الوصول إليه. تُحفظ تغييراتك على هذا الكمبيوتر.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>كلمة مرور الملف</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>كلمتا المرور غير متطابقتين.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>يمكن لأي شخص يستطيع استيراد هذه الإعدادات أو مزامنتها قراءة كلمات المرور والمفاتيح الخاصة للشهادات المضمنة.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>تستخدم عملية أخرى هذا المجلد المشترك. حاول مرة أخرى بعد قليل. يتم الاحتفاظ بتغييراتك على هذا الكمبيوتر.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>المجلد المشترك</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>يتعذر الوصول إلى المجلد المشترك. تحقق من عنوانه ومن إمكانية وصولك إلى الشبكة. يتم الاحتفاظ بتغييراتك على هذا الكمبيوتر.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>استخدم مجلد الشبكة نفسه على كل كمبيوتر. يجب أن يستخدم SMB 3 مع اشتراط التشفير. المجلدات التي تتم مزامنتها مع السحابة غير مدعومة.</value>

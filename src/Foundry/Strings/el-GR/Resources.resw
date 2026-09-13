@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Όνομα διαμόρφωσης</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Ο κοινόχρηστος φάκελος είναι απασχολημένος ή μη προσβάσιμος. Οι αλλαγές σας διατηρούνται σε αυτόν τον υπολογιστή.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Κωδικός πρόσβασης αρχείου</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Οι κωδικοί πρόσβασης δεν ταιριάζουν.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Όποιος μπορεί να εισαγάγει ή να συγχρονίσει αυτές τις ρυθμίσεις μπορεί να διαβάσει τους κωδικούς πρόσβασης και τα ιδιωτικά κλειδιά πιστοποιητικών που περιλαμβάνονται.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Μια άλλη λειτουργία χρησιμοποιεί αυτόν τον κοινόχρηστο φάκελο. Δοκιμάστε ξανά σε λίγο. Οι αλλαγές σας διατηρούνται σε αυτόν τον υπολογιστή.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Κοινόχρηστος φάκελος</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Δεν είναι δυνατή η πρόσβαση στον κοινόχρηστο φάκελο. Ελέγξτε τη διεύθυνσή του και την πρόσβασή σας στο δίκτυο. Οι αλλαγές σας διατηρούνται σε αυτόν τον υπολογιστή.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Χρησιμοποιήστε τον ίδιο φάκελο δικτύου σε κάθε υπολογιστή. Πρέπει να χρησιμοποιεί SMB 3 με υποχρεωτική κρυπτογράφηση. Δεν υποστηρίζονται φάκελοι που συγχρονίζονται με το cloud.</value>

@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Nombre de la configuración</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>La carpeta compartida está ocupada o no está accesible. Tus cambios se conservan en este PC.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Contraseña del archivo</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Las contraseñas no coinciden.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Cualquier persona que pueda importar o sincronizar esta configuración puede leer las contraseñas y las claves privadas de certificados incluidas.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Otra operación está usando esta carpeta compartida. Inténtalo de nuevo en unos instantes. Tus cambios se conservan en este PC.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Carpeta compartida</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>No se puede acceder a la carpeta compartida. Comprueba su dirección y tu acceso a la red. Tus cambios se conservan en este PC.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Usa la misma carpeta de red en todos los PC. Debe usar SMB 3 con cifrado obligatorio. No se admiten carpetas sincronizadas con la nube.</value>

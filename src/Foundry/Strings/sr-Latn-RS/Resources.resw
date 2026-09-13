@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Naziv konfiguracije</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Deljena fascikla je zauzeta ili nedostupna. Vaše izmene ostaju na ovom računaru.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Lozinka datoteke</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Lozinke se ne podudaraju.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Svako ko može da uveze ili sinhronizuje ova podešavanja može da pročita uključene lozinke i privatne ključeve sertifikata.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Druga operacija koristi ovu deljenu fasciklu. Pokušajte ponovo za nekoliko trenutaka. Vaše promene se čuvaju na ovom računaru.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Deljena fascikla</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Deljena fascikla nije dostupna. Proverite njenu adresu i svoj pristup mreži. Vaše promene se čuvaju na ovom računaru.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Koristite istu mrežnu fasciklu na svim računarima. Mora da koristi SMB 3 uz obavezno šifrovanje. Fascikle sinhronizovane sa oblakom nisu podržane.</value>

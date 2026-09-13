@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>組態名稱</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>共用資料夾忙碌中或無法存取。您的變更會保留在這部電腦上。</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>檔案密碼</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>密碼不相符。</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>任何能匯入或同步這些設定的人，都可以讀取其中包含的密碼和憑證私密金鑰。</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>其他作業正在使用此共用資料夾。請稍後再試。您的變更將保留在這部電腦上。</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>共用資料夾</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>無法存取共用資料夾。請檢查其位址和您的網路存取權。您的變更將保留在這部電腦上。</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>所有電腦都應使用同一個網路資料夾。該資料夾必須使用 SMB 3 並強制加密。不支援與雲端同步的資料夾。</value>

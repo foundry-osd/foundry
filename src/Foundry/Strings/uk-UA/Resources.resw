@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Назва конфігурації</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Спільна папка зайнята або недоступна. Ваші зміни залишаються на цьому комп’ютері.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Пароль файлу</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Паролі не збігаються.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Кожен, хто може імпортувати або синхронізувати ці налаштування, може прочитати включені паролі та закриті ключі сертифікатів.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Інша операція використовує цю спільну папку. Спробуйте ще раз за кілька хвилин. Ваші зміни зберігаються на цьому ПК.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Спільна папка</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Спільна папка недоступна. Перевірте її адресу та свій доступ до мережі. Ваші зміни зберігаються на цьому ПК.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Використовуйте ту саму мережеву папку на всіх комп’ютерах. Вона має використовувати SMB 3 з обов’язковим шифруванням. Папки, синхронізовані з хмарою, не підтримуються.</value>

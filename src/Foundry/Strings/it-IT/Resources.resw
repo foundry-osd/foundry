@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Nome della configurazione</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>La cartella condivisa è occupata o non è raggiungibile. Le modifiche sono conservate su questo PC.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Password del file</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Le password non corrispondono.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Chiunque possa importare o sincronizzare queste impostazioni può leggere le password e le chiavi private dei certificati incluse.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Un’altra operazione sta usando questa cartella condivisa. Riprova tra poco. Le modifiche vengono conservate su questo PC.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Cartella condivisa</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>La cartella condivisa non è raggiungibile. Controlla il suo indirizzo e il tuo accesso alla rete. Le modifiche vengono conservate su questo PC.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Usa la stessa cartella di rete su tutti i PC. Deve usare SMB 3 con crittografia obbligatoria. Le cartelle sincronizzate con il cloud non sono supportate.</value>

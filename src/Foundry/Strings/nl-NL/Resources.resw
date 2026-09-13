@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Configuratienaam</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>De gedeelde map is bezet of niet bereikbaar. Je wijzigingen blijven op deze pc bewaard.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Bestandswachtwoord</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>De wachtwoorden komen niet overeen.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Iedereen die deze instellingen kan importeren of synchroniseren, kan de opgenomen wachtwoorden en persoonlijke certificaatsleutels lezen.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Een andere bewerking gebruikt deze gedeelde map. Probeer het over enkele ogenblikken opnieuw. Je wijzigingen blijven op deze pc bewaard.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Gedeelde map</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>De gedeelde map is niet bereikbaar. Controleer het adres en je netwerktoegang. Je wijzigingen blijven op deze pc bewaard.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Gebruik op elke pc dezelfde netwerkmap. Deze moet SMB 3 gebruiken met verplichte versleuteling. Mappen die met de cloud worden gesynchroniseerd, worden niet ondersteund.</value>

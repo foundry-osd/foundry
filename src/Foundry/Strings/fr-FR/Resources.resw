@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Nom de la configuration</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Le dossier partagé est occupé ou inaccessible. Vos modifications sont conservées sur ce PC.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Mot de passe du fichier</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Les mots de passe ne correspondent pas.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Toute personne pouvant importer ou synchroniser ces paramètres peut lire les mots de passe et les clés privées de certificats inclus.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Une autre opération utilise ce dossier partagé. Réessayez dans quelques instants. Vos modifications sont conservées sur ce PC.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Dossier partagé</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Le dossier partagé est inaccessible. Vérifiez son adresse et votre accès au réseau. Vos modifications sont conservées sur ce PC.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Utilisez le même dossier réseau sur chaque PC. Il doit utiliser SMB 3 avec le chiffrement obligatoire. Les dossiers synchronisés dans le cloud ne sont pas pris en charge.</value>

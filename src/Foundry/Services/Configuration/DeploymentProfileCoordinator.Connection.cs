@@ -16,12 +16,11 @@ public sealed partial class DeploymentProfileCoordinator
         (!enrollment.RememberSharedKey || StatusKey == "Profiles.Locked");
 
     /// <summary>Returns an optional authenticated package hint; legacy connection files still require a folder selection.</summary>
-    public static string? GetSharedFolderHint(DeploymentProfileDocument profile)
+    public static string? GetSharedFolderHint(DeploymentProfileDocument profile, string? sourcePath = null)
     {
         SharedInvitation invitation = ReadSharedInvitation(profile);
         if (string.IsNullOrWhiteSpace(invitation.RootPath)) return null;
-        _ = SharedProfileLocation.Resolve(invitation.RootPath, "Connection");
-        return invitation.RootPath;
+        return SharedProfileLocation.ResolveConnectionFolder(invitation.RootPath, sourcePath);
     }
 
     /// <summary>Removes local enrollment while retaining current settings and the password-retention policy; shared files are untouched.</summary>

@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>שם התצורה</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>התיקייה המשותפת תפוסה או אינה זמינה. השינויים שלך נשמרים במחשב זה.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>סיסמת הקובץ</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>הסיסמאות אינן תואמות.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>כל מי שיכול לייבא או לסנכרן את ההגדרות האלה יכול לקרוא את הסיסמאות ואת המפתחות הפרטיים של האישורים שנכללו בהן.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>פעולה אחרת משתמשת בתיקייה המשותפת הזו. יש לנסות שוב בעוד זמן קצר. השינויים שלך נשמרים במחשב זה.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>תיקייה משותפת</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>לא ניתן לגשת לתיקייה המשותפת. יש לבדוק את הכתובת שלה ואת הגישה שלך לרשת. השינויים שלך נשמרים במחשב זה.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>יש להשתמש באותה תיקיית רשת בכל מחשב. התיקייה חייבת להשתמש ב-SMB 3 עם הצפנה נדרשת. תיקיות המסונכרנות עם הענן אינן נתמכות.</value>

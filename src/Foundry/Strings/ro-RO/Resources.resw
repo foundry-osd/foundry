@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Numele configurației</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Folderul partajat este ocupat sau nu poate fi accesat. Modificările sunt păstrate pe acest PC.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Parola fișierului</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Parolele nu coincid.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Parole și chei de acces incluse: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Oricine poate importa sau sincroniza aceste setări poate citi parolele și cheile private ale certificatelor incluse.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>O altă operațiune folosește acest folder partajat. Încercați din nou în scurt timp. Modificările sunt păstrate pe acest PC.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Folder partajat</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Folderul partajat nu poate fi accesat. Verificați adresa acestuia și accesul la rețea. Modificările sunt păstrate pe acest PC.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Folosiți același folder din rețea pe toate PC-urile. Acesta trebuie să folosească SMB 3 cu criptare obligatorie. Folderele sincronizate în cloud nu sunt acceptate.</value>

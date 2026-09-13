@@ -515,7 +515,8 @@ public sealed partial class DeploymentProfileCoordinator
     private string RemoteStatusKey(SharedProfileRepositoryStatus status) => status switch
     {
         SharedProfileRepositoryStatus.Conflict => IsSharedProfileDeleted ? "Profiles.DeletedRemote" : "Profiles.Conflict",
-        SharedProfileRepositoryStatus.Busy or SharedProfileRepositoryStatus.Unavailable => "Profiles.Offline",
+        SharedProfileRepositoryStatus.Busy => "Profiles.SharedBusy",
+        SharedProfileRepositoryStatus.Unavailable => "Profiles.SharedUnavailable",
         SharedProfileRepositoryStatus.RollbackDetected => "Profiles.Rollback",
         SharedProfileRepositoryStatus.HistoryLimitExceeded => "Profiles.HistoryLimit",
         SharedProfileRepositoryStatus.FolderNotEmpty => "Profiles.FolderNotEmpty",

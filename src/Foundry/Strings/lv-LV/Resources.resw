@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Konfigurācijas nosaukums</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Koplietotā mape ir aizņemta vai nav sasniedzama. Izmaiņas tiek paturētas šajā datorā.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Faila parole</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Paroles nesakrīt.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Ikviens, kurš var importēt vai sinhronizēt šos iestatījumus, var nolasīt iekļautās paroles un sertifikātu privātās atslēgas.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Cita darbība izmanto šo koplietoto mapi. Pēc brīža mēģiniet vēlreiz. Jūsu izmaiņas tiek saglabātas šajā datorā.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Koplietotā mape</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Koplietotā mape nav sasniedzama. Pārbaudiet tās adresi un savu piekļuvi tīklam. Jūsu izmaiņas tiek saglabātas šajā datorā.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Visos datoros izmantojiet vienu un to pašu tīkla mapi. Tai jāizmanto SMB 3 ar obligātu šifrēšanu. Ar mākoni sinhronizētas mapes netiek atbalstītas.</value>

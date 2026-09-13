@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>ชื่อชุดการตั้งค่า</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>โฟลเดอร์ที่แชร์ไม่ว่างหรือไม่สามารถเข้าถึงได้ การเปลี่ยนแปลงของคุณยังคงอยู่บนพีซีเครื่องนี้</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>รหัสผ่านของไฟล์</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>รหัสผ่านไม่ตรงกัน</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>ทุกคนที่นำเข้าหรือซิงค์การตั้งค่าเหล่านี้ได้จะสามารถอ่านรหัสผ่านและคีย์ส่วนตัวของใบรับรองที่รวมไว้ได้</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>มีการดำเนินการอื่นกำลังใช้โฟลเดอร์ที่แชร์นี้ ลองอีกครั้งในอีกสักครู่ การเปลี่ยนแปลงของคุณจะยังคงอยู่บนพีซีเครื่องนี้</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>โฟลเดอร์ที่แชร์</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>ไม่สามารถเข้าถึงโฟลเดอร์ที่แชร์ได้ ตรวจสอบที่อยู่ของโฟลเดอร์และการเข้าถึงเครือข่ายของคุณ การเปลี่ยนแปลงของคุณจะยังคงอยู่บนพีซีเครื่องนี้</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>ใช้โฟลเดอร์เครือข่ายเดียวกันบนพีซีทุกเครื่อง โฟลเดอร์ต้องใช้ SMB 3 โดยกำหนดให้ต้องเข้ารหัส ไม่รองรับโฟลเดอร์ที่ซิงค์กับคลาวด์</value>

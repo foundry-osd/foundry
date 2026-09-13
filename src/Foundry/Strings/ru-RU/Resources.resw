@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Название конфигурации</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Общая папка занята или недоступна. Ваши изменения сохраняются на этом компьютере.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Пароль файла</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Пароли не совпадают.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Любой, кто может импортировать или синхронизировать эти настройки, может прочитать включённые пароли и закрытые ключи сертификатов.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Другая операция использует эту общую папку. Повторите попытку чуть позже. Ваши изменения сохраняются на этом ПК.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Общая папка</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Общая папка недоступна. Проверьте её адрес и доступ к сети. Ваши изменения сохраняются на этом ПК.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Используйте одну и ту же сетевую папку на всех компьютерах. Она должна использовать SMB 3 с обязательным шифрованием. Папки, синхронизируемые с облаком, не поддерживаются.</value>

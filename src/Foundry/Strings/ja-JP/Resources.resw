@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>構成の名前</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>共有フォルダーが使用中か、アクセスできません。変更はこの PC に保存されています。</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>ファイルのパスワード</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>パスワードが一致しません。</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>この設定をインポートまたは同期できる人は、含まれるパスワードと証明書の秘密キーを読むことができます。</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>別の操作がこの共有フォルダーを使用しています。しばらくしてから再試行してください。変更内容はこの PC に保持されます。</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>共有フォルダー</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>共有フォルダーに接続できません。フォルダーのアドレスとネットワークへのアクセスを確認してください。変更内容はこの PC に保持されます。</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>すべての PC で同じネットワークフォルダーを使用してください。SMB 3 を使用し、暗号化を必須に設定する必要があります。クラウドと同期するフォルダーはサポートされていません。</value>

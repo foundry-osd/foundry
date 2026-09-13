@@ -2352,11 +2352,11 @@
   <data name="Profiles.Name" xml:space="preserve">
     <value>Naziv konfiguracije</value>
   </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Zajednička mapa je zauzeta ili nije dostupna. Promjene su sačuvane na ovom računalu.</value>
-  </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
     <value>Lozinka datoteke</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Lozinke se ne podudaraju.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
@@ -2408,8 +2408,14 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Svatko tko može uvesti ili sinkronizirati ove postavke može pročitati uključene lozinke i privatne ključeve certifikata.</value>
   </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Druga operacija koristi ovu zajedničku mapu. Pokušajte ponovno uskoro. Vaše promjene ostaju sačuvane na ovom računalu.</value>
+  </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Zajednička mapa</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Nije moguće pristupiti zajedničkoj mapi. Provjerite njezinu adresu i svoj pristup mreži. Vaše promjene ostaju sačuvane na ovom računalu.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Upotrijebi istu mrežnu mapu na svakom računalu. Mora upotrebljavati SMB 3 uz obvezno šifriranje. Mape koje se sinkroniziraju s oblakom nisu podržane.</value>
