@@ -10,6 +10,24 @@ namespace Foundry.Telemetry.Tests;
 public sealed class PostHogRemoteDiagnosticsSinkTests
 {
     [Fact]
+    public async Task ExportFailure_IsRecordedInLogsWithoutRecapturingTheException()
+    {
+        var exporter = new RecordingExporter { ThrowOnExport = true };
+        var logs = new List<RemoteDiagnosticRecord>();
+        await using var service = new PostHogRemoteDiagnosticsSink((_, _) => exporter, logCapture: logs.Add);
+        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+
+        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "operation failed", new InvalidOperationException("failed")));
+        await service.FlushAsync(TestContext.Current.CancellationToken);
+
+        RemoteDiagnosticRecord failure = Assert.Single(logs, record => record.Body.Contains("Error Tracking delivery failed", StringComparison.Ordinal));
+        Assert.Equal("export_exception", failure.Attributes["FailureReason"]);
+        Assert.False(failure.ShouldTrackException);
+        Assert.Null(failure.Exception);
+        Assert.Equal(1, exporter.ExportAttempts);
+    }
+
+    [Fact]
     public async Task Configure_NewDestinationRetiresOldExporterAndUsesNewRecordContext()
     {
         var original = new RecordingExporter();
@@ -97,10 +115,12 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
     }
 
     [Fact]
-    public async Task Disable_StopsAcceptanceAndConfigureCanReenableExistingTransport()
+    public async Task Disable_StopsAcceptanceAndConfigureCreatesNewTransport()
     {
-        var exporter = new RecordingExporter();
-        await using var service = CreateService(exporter);
+        var original = new RecordingExporter();
+        var replacement = new RecordingExporter();
+        var exporters = new Queue<IRemoteDiagnosticsExporter>([original, replacement]);
+        await using var service = new PostHogRemoteDiagnosticsSink((_, _) => exporters.Dequeue());
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
 
         service.Disable();
@@ -108,35 +128,51 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
         service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "re-enabled", new InvalidOperationException("failed")));
         await service.FlushAsync(TestContext.Current.CancellationToken);
+        await original.Disposed.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
 
-        RemoteDiagnosticRecord record = Assert.Single(exporter.Records);
+        Assert.Empty(original.Records);
+        RemoteDiagnosticRecord record = Assert.Single(replacement.Records);
         Assert.Equal("re-enabled", record.Body);
     }
 
     [Fact]
     public async Task Disable_DropsBufferedRecordsButAllowsInFlightExportToFinish()
     {
-        var exporter = new BlockingExporter();
-        await using var service = CreateService(exporter);
+        var original = new BlockingExporter();
+        var replacement = new RecordingExporter();
+        var exporters = new Queue<IRemoteDiagnosticsExporter>([original, replacement]);
+        await using var service = new PostHogRemoteDiagnosticsSink((_, _) => exporters.Dequeue());
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
         service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "in-flight", new InvalidOperationException("failed")));
-        Assert.True(exporter.Started.Wait(TimeSpan.FromSeconds(2), TestContext.Current.CancellationToken));
+        Assert.True(original.Started.Wait(TimeSpan.FromSeconds(2), TestContext.Current.CancellationToken));
         service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "buffered", new InvalidOperationException("failed")));
 
         service.Disable();
-        exporter.Release.Set();
-        service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
-        service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "after-reenable", new InvalidOperationException("failed")));
-        await service.FlushAsync(TestContext.Current.CancellationToken);
+        try
+        {
+            service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
+            service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "after-reenable", new InvalidOperationException("failed")));
+            await service.FlushAsync(TestContext.Current.CancellationToken);
+            Assert.Empty(original.Records);
+            Assert.False(original.IsDisposed);
+        }
+        finally
+        {
+            original.Release.Set();
+        }
+        await original.Disposed.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
 
-        Assert.Equal(["in-flight", "after-reenable"], exporter.Records.Select(static record => record.Body).ToArray());
+        Assert.Equal("in-flight", Assert.Single(original.Records).Body);
+        Assert.Equal("after-reenable", Assert.Single(replacement.Records).Body);
     }
 
     [Fact]
     public async Task Disable_ReenableResetsRateLimitAndExceptionDedupeState()
     {
-        var exporter = new RecordingExporter();
-        await using var service = CreateService(exporter);
+        var original = new CountingExporter(5);
+        var replacement = new RecordingExporter();
+        var exporters = new Queue<IRemoteDiagnosticsExporter>([original, replacement]);
+        await using var service = new PostHogRemoteDiagnosticsSink((_, _) => exporters.Dequeue());
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
         var firstException = new InvalidOperationException("failed");
 
@@ -149,17 +185,18 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
                 new InvalidOperationException("failed")));
         }
 
-        Assert.True(SpinWait.SpinUntil(
-            () => exporter.Records.Count == 5,
-            TimeSpan.FromSeconds(2)));
+        await original.ExpectedRecordsExported.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
 
         service.Disable();
         service.Configure(RemoteDiagnosticsTestData.EnabledOptions(), RemoteDiagnosticsTestData.Context());
         service.Emit(RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error, "same failure", firstException));
         await service.FlushAsync(TestContext.Current.CancellationToken);
+        await original.Disposed.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
 
-        Assert.Equal(6, exporter.Records.Count);
-        Assert.Equal(6, exporter.ExceptionEvents.Count);
+        Assert.Equal(5, original.Records.Count);
+        Assert.Equal(5, original.ExceptionEvents.Count);
+        Assert.Single(replacement.Records);
+        Assert.Single(replacement.ExceptionEvents);
     }
 
     [Fact]
@@ -426,6 +463,8 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
 
         public bool IsDisposed { get; private set; }
 
+        public TaskCompletionSource Disposed { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
         public virtual ValueTask ExportAsync(RemoteDiagnosticRecord record, CancellationToken cancellationToken)
         {
             ExportAttempts++;
@@ -444,7 +483,19 @@ public sealed class PostHogRemoteDiagnosticsSinkTests
         public virtual ValueTask DisposeAsync()
         {
             IsDisposed = true;
+            Disposed.TrySetResult();
             return ValueTask.CompletedTask;
+        }
+    }
+
+    private sealed class CountingExporter(int expectedCount) : RecordingExporter
+    {
+        public TaskCompletionSource ExpectedRecordsExported { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public override async ValueTask ExportAsync(RemoteDiagnosticRecord record, CancellationToken cancellationToken)
+        {
+            await base.ExportAsync(record, cancellationToken);
+            if (Records.Count == expectedCount) ExpectedRecordsExported.TrySetResult();
         }
     }
 
