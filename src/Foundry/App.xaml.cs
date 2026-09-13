@@ -123,6 +123,7 @@ namespace Foundry
             await Task.Run(() => DeploymentBuildSnapshot.CleanupAbandoned(Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots")));
             await GetService<DeploymentProfileCoordinator>().InitializeAsync();
             await GetService<IStartupReadinessService>().InitializeAsync();
+            GetService<DeploymentProfileCoordinator>().StartAutomaticSynchronization();
             await TrackDailyActiveAsync();
             AppLogger.Information("Foundry WinUI startup completed.");
         }

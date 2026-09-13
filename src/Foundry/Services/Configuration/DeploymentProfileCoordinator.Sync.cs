@@ -174,7 +174,7 @@ public sealed partial class DeploymentProfileCoordinator
 
     public Task SynchronizeAsync() => SynchronizeAsync(false);
 
-    private async Task SynchronizeAsync(bool automatic)
+    private async Task SynchronizeAsync(bool automatic, bool startup = false)
     {
         if (Active?.Enrollment is not { } enrollment || automatic && !enrollment.IsEnabled ||
             navigationGuard.State == ShellNavigationState.OperationRunning ||
@@ -184,8 +184,8 @@ public sealed partial class DeploymentProfileCoordinator
         try
         {
             SetSynchronizing(true);
-            Logger.Debug("Profile synchronization started. LocalProfileId={LocalProfileId}, Automatic={Automatic}, HasPendingChanges={HasPendingChanges}", Active?.LocalId, automatic, HasPendingSynchronizationChanges);
-            await SynchronizeCoreAsync(automatic);
+            Logger.Debug("Profile synchronization started. LocalProfileId={LocalProfileId}, Automatic={Automatic}, Startup={Startup}, HasPendingChanges={HasPendingChanges}", Active?.LocalId, automatic, startup, HasPendingSynchronizationChanges);
+            await SynchronizeCoreAsync(automatic, startup);
             Logger.Debug("Profile synchronization finished. LocalProfileId={LocalProfileId}, StatusKey={StatusKey}", Active?.LocalId, StatusKey);
         }
         catch (OperationCanceledException) when (lifetime.IsCancellationRequested)
@@ -200,7 +200,7 @@ public sealed partial class DeploymentProfileCoordinator
         }
     }
 
-    private async Task SynchronizeCoreAsync(bool automatic)
+    private async Task SynchronizeCoreAsync(bool automatic, bool startup)
     {
         LocalProfileDescriptor current = RequireActive();
         LocalProfileEnrollment enrollment = current.Enrollment!;
@@ -260,13 +260,13 @@ public sealed partial class DeploymentProfileCoordinator
             if (remoteChanged && dirty) { SetRemoteStatus(SharedProfileRepositoryStatus.Conflict, result.Snapshot); return; }
             if (remoteChanged && result.Snapshot is not null)
             {
-                if (automatic && (!IsSettingsOpen || activationSuspensions > 0))
+                if (automatic && !CanAutomaticallyApply(startup))
                 {
                     StatusKey = "Profiles.UpdateAvailable";
                     Changed?.Invoke(this, EventArgs.Empty);
                     return;
                 }
-                await AcceptRemoteAsync(result.Snapshot, enrollment, key, automatic);
+                await AcceptRemoteAsync(result.Snapshot, enrollment, key, automatic, startup);
             }
             else if (dirty)
             {
@@ -371,7 +371,7 @@ public sealed partial class DeploymentProfileCoordinator
         }
     }
 
-    private async Task AcceptRemoteAsync(SharedProfileSnapshot snapshot, LocalProfileEnrollment enrollment, byte[] key, bool automatic = false)
+    private async Task AcceptRemoteAsync(SharedProfileSnapshot snapshot, LocalProfileEnrollment enrollment, byte[] key, bool automatic = false, bool startup = false)
     {
         EnsureCanActivate();
         LocalProfileDescriptor current = RequireActive();
@@ -391,7 +391,7 @@ public sealed partial class DeploymentProfileCoordinator
             string directory = CreateStagingDirectory();
             var document = await Task.Run(() => DeploymentProfileAssetService.Materialize(profile, directory));
             if (version != editVersion) { SetRemoteStatus(SharedProfileRepositoryStatus.Conflict, snapshot); return; }
-            if (automatic && (!IsSettingsOpen || activationSuspensions > 0 || navigationGuard.State == ShellNavigationState.OperationRunning))
+            if (automatic && !CanAutomaticallyApply(startup))
             {
                 StatusKey = "Profiles.UpdateAvailable";
                 Changed?.Invoke(this, EventArgs.Empty);
@@ -455,17 +455,33 @@ public sealed partial class DeploymentProfileCoordinator
         return credential?.Secret.ToArray() ?? throw new LocalProfileLockedException(current.LocalId);
     }
 
+    /// <summary>Starts a nonblocking startup check after shell readiness, followed by checks every 30 seconds.</summary>
+    public void StartAutomaticSynchronization()
+    {
+        if (!initialized || automaticSynchronizationStarted || lifetime.IsCancellationRequested) return;
+        automaticSynchronizationStarted = true;
+        Logger.Information("Automatic profile synchronization scheduled. IntervalSeconds={IntervalSeconds}", 30);
+        _ = PollAsync();
+    }
+
+    private bool CanAutomaticallyApply(bool startup) =>
+        (IsSettingsOpen || startup && editVersion == 0) && activationSuspensions == 0 &&
+        navigationGuard.State is not (ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending);
+
     private async Task PollAsync()
     {
         using PeriodicTimer timer = new(TimeSpan.FromSeconds(30));
         try
         {
-            while (await timer.WaitForNextTickAsync(lifetime.Token))
+            bool startup = true;
+            do
             {
                 Task? synchronization = null;
-                await dispatcher.EnqueueAsync(() => synchronization = SynchronizeAsync(true));
+                await dispatcher.EnqueueAsync(() => synchronization = SynchronizeAsync(true, startup));
                 await synchronization!;
+                startup = false;
             }
+            while (await timer.WaitForNextTickAsync(lifetime.Token));
         }
         catch (OperationCanceledException) { }
     }

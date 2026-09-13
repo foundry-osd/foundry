@@ -26,6 +26,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     private byte[]? sessionSharedKey;
     private bool applying;
     private bool initialized;
+    private bool automaticSynchronizationStarted;
     private long editVersion;
     private long persistedEditVersion;
     private long lastEditTick;
@@ -110,7 +111,6 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         }
 
         Logger.Information("Profile initialization finished. ProfileCount={ProfileCount}, LocalProfileId={LocalProfileId}, StatusKey={StatusKey}", Profiles.Count, Active?.LocalId, StatusKey);
-        _ = PollAsync();
     }
 
     public async Task SaveAsync(bool? rememberSecrets = null)
