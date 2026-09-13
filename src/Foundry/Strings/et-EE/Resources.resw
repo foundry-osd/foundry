@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Kasutage nime, mis ei sisalda erimärke ega lõpe punkti või tühikuga.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Jagatud konfiguratsioon on muutunud. Enne ühendamist vaadake üle uusim versioon.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Ühenda jagatud konfiguratsiooniga</value>
   </data>
@@ -2364,7 +2367,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Valmis</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Valige ühendusfaili kaitsmiseks parool. Jagage parooli eraldi.</value>
+    <value>Valige ühendusfaili kaitsmiseks parool. Jagage parooli eraldi. Salvestage fail väljapoole jagatud konfiguratsiooni kausta.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Jäta paroolid meelde</value>

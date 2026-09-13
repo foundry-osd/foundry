@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Använd ett namn utan specialtecken och utan punkt eller blanksteg i slutet.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Den delade konfigurationen har ändrats. Granska den senaste versionen innan du ansluter.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Anslut till en delad konfiguration</value>
   </data>
@@ -2364,7 +2367,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Klar</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Välj ett lösenord för att skydda anslutningsfilen. Dela lösenordet separat.</value>
+    <value>Välj ett lösenord för att skydda anslutningsfilen. Dela lösenordet separat. Spara filen utanför mappen för den delade konfigurationen.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Kom ihåg lösenord</value>

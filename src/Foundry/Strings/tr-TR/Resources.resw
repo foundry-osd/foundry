@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Özel karakter içermeyen ve nokta veya boşlukla bitmeyen bir ad kullanın.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Paylaşılan yapılandırma değişti. Bağlanmadan önce en son sürümü gözden geçirin.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Paylaşılan bir yapılandırmaya bağlan</value>
   </data>
@@ -2364,7 +2367,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Hazır</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Bağlantı dosyasını korumak için bir parola seçin. Parolayı ayrı olarak paylaşın.</value>
+    <value>Bağlantı dosyasını korumak için bir parola seçin. Parolayı ayrı olarak paylaşın. Dosyayı paylaşılan yapılandırma klasörünün dışına kaydedin.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Parolaları hatırla</value>

@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>请使用不含特殊字符且不以句点或空格结尾的名称。</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>共享配置已更改。连接前请检查最新版本。</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>连接到共享配置</value>
   </data>
@@ -2364,7 +2367,7 @@
     <value>就绪</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>请选择用于保护连接文件的密码。请单独分享密码。</value>
+    <value>请选择用于保护连接文件的密码。请单独分享密码。 请将文件保存在共享配置文件夹之外。</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>记住密码</value>

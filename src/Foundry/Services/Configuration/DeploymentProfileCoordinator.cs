@@ -28,6 +28,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     private bool initialized;
     private bool automaticSynchronizationStarted;
     private long editVersion;
+    private long lastSharedEditVersion;
     private long persistedEditVersion;
     private long lastEditTick;
     private Foundry.Core.Models.Configuration.FoundryConfigurationDocument? observedConfiguration;
@@ -83,7 +84,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     public bool IsSynchronizing { get; private set; }
     /// <summary>Includes edits awaiting local autosave as well as unpublished saved changes.</summary>
     public bool HasPendingSynchronizationChanges => Active?.Enrollment is { } enrollment &&
-        (enrollment.IsDirty || enrollment.PendingOperationId is not null || enrollment.PendingConnectionFile || editVersion != persistedEditVersion);
+        (enrollment.IsDirty || enrollment.PendingOperationId is not null || enrollment.PendingConnectionFile || HasSharedEditsSince(persistedEditVersion));
 
     /// <summary>Restores only this Windows user's selected local profile, preserving locked or incompatible data.</summary>
     public async Task InitializeAsync()
@@ -411,8 +412,8 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         {
             if (remember) EnsureCompleteCheckpoint(profile);
             LocalProfileEnrollment? updated = clearEnrollment ? null : enrollment ?? current.Enrollment;
-            if (updated is not null && (enrollment is null && version != persistedEditVersion ||
-                comparedEditVersion is long compared && version != compared))
+            if (updated is not null && (enrollment is null && HasSharedEditsSince(persistedEditVersion) ||
+                comparedEditVersion is long compared && HasSharedEditsSince(compared)))
                 updated = updated with { IsDirty = true };
             Active = await Task.Run(() => local.Save(current.LocalId, profile, remember, current.Revision, updated,
                 updated?.RememberSharedKey == true ? sharedKey : null));
@@ -456,13 +457,16 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
 
     private void OnEdited(object? sender, EventArgs e)
     {
+        bool affectsSharedContent = true;
         if (ReferenceEquals(sender, configuration))
         {
             if (ReferenceEquals(observedConfiguration, configuration.Current)) return;
+            affectsSharedContent = observedConfiguration is null || HasSharedConfigurationChanges(observedConfiguration, configuration.Current);
             observedConfiguration = configuration.Current;
         }
         if (applying || Active is null || !initialized) return;
         editVersion++;
+        if (affectsSharedContent) lastSharedEditVersion = editVersion;
         SynchronizationStateChanged?.Invoke(this, EventArgs.Empty);
         lastEditTick = Environment.TickCount64;
         debounce?.Cancel();
@@ -470,6 +474,25 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         debounce = CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token);
         _ = AutosaveAsync(debounce.Token);
     }
+
+    private bool HasSharedEditsSince(long version) => lastSharedEditVersion > version;
+
+    // Replaced sections can carry session-only secret changes even when their persisted values are equal.
+    private static bool HasSharedConfigurationChanges(
+        Foundry.Core.Models.Configuration.FoundryConfigurationDocument previous,
+        Foundry.Core.Models.Configuration.FoundryConfigurationDocument current) =>
+        previous.SchemaVersion != current.SchemaVersion ||
+        !ReferenceEquals(previous.Network, current.Network) ||
+        !ReferenceEquals(previous.OperatingSystemSelection, current.OperatingSystemSelection) ||
+        !ReferenceEquals(previous.Localization, current.Localization) ||
+        !ReferenceEquals(previous.Customization, current.Customization) ||
+        !ReferenceEquals(previous.Unattend, current.Unattend) ||
+        !ReferenceEquals(previous.Autopilot, current.Autopilot) ||
+        previous.General with
+        {
+            IsoOutputPath = current.General.IsoOutputPath,
+            CustomDriverDirectoryPath = current.General.CustomDriverDirectoryPath
+        } != current.General;
 
     private async Task AutosaveAsync(CancellationToken token)
     {
@@ -481,8 +504,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             try
             {
                 if (Active is null || editVersion == persistedEditVersion) return;
-                LocalProfileEnrollment? enrollment = Active?.Enrollment;
-                await SaveCurrentAsync(enrollment: enrollment is null ? null : enrollment with { IsDirty = true });
+                await SaveCurrentAsync();
             }
             finally
             {

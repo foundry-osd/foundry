@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Використовуйте назву без спеціальних символів і без крапки чи пробілу в кінці.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Спільна конфігурація змінилася. Перед підключенням перегляньте найновішу версію.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Підключитися до спільної конфігурації</value>
   </data>
@@ -2364,7 +2367,7 @@
     <value>Готово</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Виберіть пароль для захисту файлу підключення. Передайте пароль окремо.</value>
+    <value>Виберіть пароль для захисту файлу підключення. Передайте пароль окремо. Збережіть файл поза папкою спільної конфігурації.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Запам’ятати паролі</value>

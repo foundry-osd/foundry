@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>יש להשתמש בשם ללא תווים מיוחדים וללא נקודה או רווח בסוף.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>התצורה המשותפת השתנתה. יש לבדוק את הגרסה העדכנית לפני ההתחברות.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>התחברות לתצורה משותפת</value>
   </data>
@@ -2364,7 +2367,7 @@
     <value>מוכן</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>יש לבחור סיסמה להגנה על קובץ החיבור. יש לשתף את הסיסמה בנפרד.</value>
+    <value>יש לבחור סיסמה להגנה על קובץ החיבור. יש לשתף את הסיסמה בנפרד. יש לשמור את הקובץ מחוץ לתיקיית התצורה המשותפת.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>שמירת סיסמאות</value>

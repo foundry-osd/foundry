@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Izmantojiet nosaukumu bez īpašajām rakstzīmēm un bez punkta vai atstarpes beigās.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Koplietotā konfigurācija ir mainījusies. Pirms savienojuma izveides pārskatiet jaunāko versiju.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Izveidot savienojumu ar kopīgotu konfigurāciju</value>
   </data>
@@ -2364,7 +2367,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Gatavs</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Izvēlieties paroli savienojuma faila aizsardzībai. Paroli kopīgojiet atsevišķi.</value>
+    <value>Izvēlieties paroli savienojuma faila aizsardzībai. Paroli kopīgojiet atsevišķi. Saglabājiet failu ārpus koplietotās konfigurācijas mapes.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Atcerēties paroles</value>

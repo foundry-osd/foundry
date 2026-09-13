@@ -9,11 +9,12 @@ using Serilog.Events;
 namespace Foundry.Core.Services.Profiles;
 
 /// <summary>Publishes opaque encrypted revisions through a stable, exclusively opened commit journal.</summary>
-public sealed class SharedProfileRepository : IDisposable
+public sealed partial class SharedProfileRepository : IDisposable
 {
     private readonly string rootPath;
     private readonly string profilePath;
     private readonly string journalPath;
+    private readonly string initializationPath;
     private readonly Guid repositoryId;
     private readonly Guid profileId;
     private readonly int keyEpoch;
@@ -39,6 +40,8 @@ public sealed class SharedProfileRepository : IDisposable
         this.rootPath = Path.GetFullPath(rootPath);
         this.profilePath = Path.Combine(this.rootPath, "profiles", profileId.ToString("N"));
         this.journalPath = Path.Combine(profilePath, "head.journal");
+        byte[] initializationIdentity = System.Text.Encoding.UTF8.GetBytes($"Foundry.SharedProfiles.v1/initialize/{repositoryId:N}/{profileId:N}/{keyEpoch}");
+        initializationPath = Path.Combine(this.rootPath, ".initializing-" + Convert.ToHexString(HMACSHA256.HashData(sharedKey, initializationIdentity)));
         this.repositoryId = repositoryId;
         this.profileId = profileId;
         this.keyEpoch = keyEpoch;
@@ -53,31 +56,16 @@ public sealed class SharedProfileRepository : IDisposable
             {
                 using FileStream existingJournal = files.OpenJournal(journalPath);
                 _ = ReadHistory(files, existingJournal, token, out _);
+                CleanupInitialization();
                 return new(SharedProfileRepositoryStatus.Success);
             }
             SharedProfileRepositoryFiles.ValidatePath(rootPath);
             Directory.CreateDirectory(rootPath);
             using FileStream repositoryLock = files.AcquireLock(Path.Combine(rootPath, "repository.lock"));
-            string manifestPath = Path.Combine(rootPath, "repository.json");
-            if (files.Exists(manifestPath))
-            {
-                ValidateManifest(files);
-            }
-            else
-            {
-                // Missing metadata in nonempty storage must not turn an old repository into a fresh one.
-                if (Directory.EnumerateFileSystemEntries(rootPath).Any(path =>
-                    !string.Equals(Path.GetFileName(path), "repository.lock", StringComparison.Ordinal)))
-                    throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.FolderNotEmpty);
-                files.WriteSigned(manifestPath, "repository", new RepositoryManifest(1, repositoryId, keyEpoch));
-            }
-            token.ThrowIfCancellationRequested();
-            bool profileExisted = Directory.Exists(profilePath);
-            Directory.CreateDirectory(profilePath);
-            Directory.CreateDirectory(Path.Combine(profilePath, "revisions"));
-            using FileStream journal = files.OpenJournal(journalPath, create: !profileExisted);
-            if (!profileExisted) files.AppendJournal(journal, 0, CreateHead(null));
+            InitializeStorage(files, token);
+            using FileStream journal = files.OpenJournal(journalPath);
             _ = ReadHistory(files, journal, token, out _);
+            CleanupInitialization();
             Volatile.Write(ref initialized, 1);
             return new(SharedProfileRepositoryStatus.Success);
         }, cancellationToken);

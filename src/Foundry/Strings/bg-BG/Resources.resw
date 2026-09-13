@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Използвайте име без специални знаци и без точка или интервал в края.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Споделената конфигурация е променена. Прегледайте най-новата версия, преди да се свържете.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Свързване със споделена конфигурация</value>
   </data>
@@ -2364,7 +2367,7 @@
     <value>Готово</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Изберете парола за защита на файла за свързване. Споделете паролата отделно.</value>
+    <value>Изберете парола за защита на файла за свързване. Споделете паролата отделно. Запазете файла извън папката на споделената конфигурация.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Запомняне на пароли</value>

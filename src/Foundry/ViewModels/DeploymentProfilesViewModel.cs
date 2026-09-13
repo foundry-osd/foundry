@@ -215,29 +215,67 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
         DeploymentProfileDocument profile = await coordinator.PreviewImportAsync(path, password.Password);
         try
         {
-            int secrets = profile.Secrets.Entries.Count(secret => secret.State is ProfileValueState.Present or ProfileValueState.Blank);
-            int assets = profile.Assets.Count(asset => asset.State == ProfileValueState.Present);
-            string preview = localization.FormatString("Profiles.Preview", profile.DisplayName, assets, secrets);
-            int missingAssets = profile.Assets.Count(asset => asset.State is ProfileValueState.Omitted or ProfileValueState.Unavailable);
-            if (missingAssets > 0) preview += "\n\n" + localization.FormatString("Profiles.MissingAssets", missingAssets);
+            if (join && !restore)
+            {
+                await JoinSharedFileAsync(profile, path, sharedFolder);
+                return;
+            }
             ProfileDialogResponse? result = await DialogAsync(new(title)
             {
-                Message = preview + "\n\n" + Text("Profiles.ShareWarning") + (restore ? string.Empty : "\n\n" + Text("Profiles.ReplaceWarning")),
+                Message = PreviewText(profile) + "\n\n" + Text("Profiles.ShareWarning") + (restore ? string.Empty : "\n\n" + Text("Profiles.ReplaceWarning")),
                 PreferCancel = !restore,
                 RememberOption = !restore,
-                Remember = !profile.Secrets.Entries.Any(secret => secret.State is ProfileValueState.Omitted or ProfileValueState.Unavailable)
-                    && !profile.Assets.Any(asset => asset.State is ProfileValueState.Omitted or ProfileValueState.Unavailable),
-                SharedKeyOption = join,
-                SharePathOption = join && !restore,
-                SharePath = sharedFolder ?? (join ? DeploymentProfileCoordinator.GetSharedFolderHint(profile, path) : null)
+                Remember = CanRemember(profile),
+                SharedKeyOption = restore
             });
             if (result is null) return;
             if (restore) await coordinator.RestoreSharedAccessAsync(profile, result.RememberKey);
-            else if (join) await coordinator.JoinSharedAsync(profile, result.SharePath.Trim(), result.Remember, result.RememberKey);
             else await coordinator.ImportAsCopyAsync(profile, result.Remember);
         }
         finally { DeploymentProfileSecretBinding.Clear(profile); }
     }
+
+    private async Task JoinSharedFileAsync(DeploymentProfileDocument invitation, string sourcePath, string? sharedFolder)
+    {
+        ProfileDialogResponse? folder = await DialogAsync(new("Profiles.JoinShared")
+        {
+            SharePathOption = true,
+            SharePath = sharedFolder ?? DeploymentProfileCoordinator.GetSharedFolderHint(invitation, sourcePath)
+        });
+        if (folder is null) return;
+        string rootPath = folder.SharePath.Trim();
+        ProfileDialogResponse? previous = null;
+        while (true)
+        {
+            using SharedProfilePreview preview = await coordinator.PreviewSharedAsync(invitation, rootPath);
+            ProfileDialogResponse? result = await DialogAsync(new("Profiles.JoinShared")
+            {
+                Message = (previous is null ? string.Empty : Text("Profiles.JoinChanged") + "\n\n") + PreviewText(preview.Profile) +
+                    "\n\n" + Text("Profiles.ShareWarning") + "\n\n" + Text("Profiles.ReplaceWarning"),
+                PreferCancel = true,
+                RememberOption = true,
+                Remember = CanRemember(preview.Profile) && (previous?.Remember ?? true),
+                SharedKeyOption = true,
+                RememberKey = previous?.RememberKey == true
+            });
+            if (result is null) return;
+            if (await coordinator.JoinSharedAsync(invitation, rootPath, result.Remember, result.RememberKey, preview.RevisionId)) return;
+            previous = result;
+        }
+    }
+
+    private string PreviewText(DeploymentProfileDocument profile)
+    {
+        int secrets = profile.Secrets.Entries.Count(secret => secret.State is ProfileValueState.Present or ProfileValueState.Blank);
+        int assets = profile.Assets.Count(asset => asset.State == ProfileValueState.Present);
+        string preview = localization.FormatString("Profiles.Preview", profile.DisplayName, assets, secrets);
+        int missingAssets = profile.Assets.Count(asset => asset.State is ProfileValueState.Omitted or ProfileValueState.Unavailable);
+        return missingAssets > 0 ? preview + "\n\n" + localization.FormatString("Profiles.MissingAssets", missingAssets) : preview;
+    }
+
+    private static bool CanRemember(DeploymentProfileDocument profile) =>
+        !profile.Secrets.Entries.Any(secret => secret.State is ProfileValueState.Omitted or ProfileValueState.Unavailable) &&
+        !profile.Assets.Any(asset => asset.State is ProfileValueState.Omitted or ProfileValueState.Unavailable);
 
     private async Task CreateSharedAsync()
     {

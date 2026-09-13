@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Verwenden Sie einen Namen ohne Sonderzeichen und ohne Punkt oder Leerzeichen am Ende.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Die freigegebene Konfiguration wurde geändert. Prüfen Sie vor dem Verbinden die neueste Version.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Mit einer geteilten Konfiguration verbinden</value>
   </data>
@@ -2364,7 +2367,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Bereit</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Wählen Sie ein Kennwort zum Schutz der Verbindungsdatei. Geben Sie das Kennwort separat weiter.</value>
+    <value>Wählen Sie ein Kennwort zum Schutz der Verbindungsdatei. Geben Sie das Kennwort separat weiter. Speichern Sie die Datei außerhalb des Ordners der freigegebenen Konfiguration.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Kennwörter speichern</value>

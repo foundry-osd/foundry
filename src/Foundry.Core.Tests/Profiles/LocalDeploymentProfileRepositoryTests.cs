@@ -139,7 +139,7 @@ public sealed class LocalDeploymentProfileRepositoryTests : IDisposable
     }
 
     [Fact]
-    public void Forget_CommitsSettingsOnlyDisablesEnrollmentAndRetiresAllOldKeys()
+    public void Save_DisablingRetentionRetiresPriorLocalAndSharedKeys()
     {
         var repository = CreateRepository();
         DeploymentProfileDocument profile = CreateProfile();
@@ -147,7 +147,8 @@ public sealed class LocalDeploymentProfileRepositoryTests : IDisposable
         LocalProfileDescriptor original = repository.Save(localId, profile, true, null, enrollment, new byte[32]);
         string[] priorTargets = credentials.Values.Keys.ToArray();
 
-        LocalProfileDescriptor forgotten = repository.Forget(localId, original.Revision);
+        LocalProfileDescriptor forgotten = repository.Save(localId, profile, false, original.Revision,
+            enrollment with { IsEnabled = false, RememberSharedKey = false });
 
         Assert.False(forgotten.RememberSecrets);
         Assert.False(forgotten.Enrollment!.IsEnabled);
@@ -167,7 +168,7 @@ public sealed class LocalDeploymentProfileRepositoryTests : IDisposable
         LocalProfileDescriptor original = repository.Save(localId, profile, true, null);
         credentials.FailDelete = true;
 
-        LocalProfileDescriptor forgotten = repository.Forget(localId, original.Revision);
+        LocalProfileDescriptor forgotten = repository.Save(localId, profile, false, original.Revision);
 
         Assert.True(forgotten.CleanupPending);
         Assert.NotEqual(original.Revision, forgotten.Revision);

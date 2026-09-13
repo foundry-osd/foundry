@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>請使用不含特殊字元且不以句點或空格結尾的名稱。</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>共用設定已變更。連線前請檢查最新版本。</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>連線到共用設定</value>
   </data>
@@ -2364,7 +2367,7 @@
     <value>就緒</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>請選擇用來保護連線檔案的密碼。請另外分享密碼。</value>
+    <value>請選擇用來保護連線檔案的密碼。請另外分享密碼。 請將檔案儲存在共用設定資料夾之外。</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>記住密碼</value>

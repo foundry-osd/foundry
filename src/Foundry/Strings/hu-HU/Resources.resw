@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Olyan nevet használjon, amely nem tartalmaz speciális karaktereket, és nem végződik pontra vagy szóközre.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>A megosztott konfiguráció megváltozott. Csatlakozás előtt tekintse át a legújabb verziót.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Csatlakozás megosztott konfigurációhoz</value>
   </data>
@@ -2364,7 +2367,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Kész</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Válasszon jelszót a kapcsolati fájl védelméhez. A jelszót külön ossza meg.</value>
+    <value>Válasszon jelszót a kapcsolati fájl védelméhez. A jelszót külön ossza meg. A fájlt a megosztott konfiguráció mappáján kívülre mentse.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Jelszavak megjegyzése</value>

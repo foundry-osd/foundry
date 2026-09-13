@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>특수 문자를 포함하지 않고 마침표나 공백으로 끝나지 않는 이름을 사용하세요.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>공유 구성이 변경되었습니다. 연결하기 전에 최신 버전을 검토하세요.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>공유 구성에 연결</value>
   </data>
@@ -2364,7 +2367,7 @@
     <value>준비됨</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>연결 파일을 보호할 암호를 선택하세요. 암호는 별도로 공유하세요.</value>
+    <value>연결 파일을 보호할 암호를 선택하세요. 암호는 별도로 공유하세요. 공유 구성 폴더 외부에 파일을 저장하세요.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>암호 저장</value>

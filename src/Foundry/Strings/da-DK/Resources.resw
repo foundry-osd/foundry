@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Brug et navn uden specialtegn og uden punktum eller mellemrum til sidst.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Den delte konfiguration er ændret. Gennemgå den nyeste version, før du opretter forbindelse.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Opret forbindelse til en delt konfiguration</value>
   </data>
@@ -2364,7 +2367,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Klar</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Vælg en adgangskode til at beskytte forbindelsesfilen. Del adgangskoden separat.</value>
+    <value>Vælg en adgangskode til at beskytte forbindelsesfilen. Del adgangskoden separat. Gem filen uden for den delte konfigurations mappe.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Husk adgangskoder</value>

@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>ใช้ชื่อที่ไม่มีอักขระพิเศษและไม่ลงท้ายด้วยจุดหรือช่องว่าง</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>การกำหนดค่าที่แชร์มีการเปลี่ยนแปลง ตรวจสอบเวอร์ชันล่าสุดก่อนเชื่อมต่อ</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>เชื่อมต่อกับการกำหนดค่าที่แชร์</value>
   </data>
@@ -2364,7 +2367,7 @@
     <value>พร้อม</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>เลือกรหัสผ่านเพื่อป้องกันไฟล์การเชื่อมต่อ แชร์รหัสผ่านแยกต่างหาก</value>
+    <value>เลือกรหัสผ่านเพื่อป้องกันไฟล์การเชื่อมต่อ แชร์รหัสผ่านแยกต่างหาก บันทึกไฟล์ไว้นอกโฟลเดอร์การกำหนดค่าที่แชร์</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>จดจำรหัสผ่าน</value>

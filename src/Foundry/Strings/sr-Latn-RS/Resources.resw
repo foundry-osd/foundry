@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Koristite ime bez specijalnih znakova i bez tačke ili razmaka na kraju.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Deljena konfiguracija je promenjena. Pregledajte najnoviju verziju pre povezivanja.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Poveži se sa deljenom konfiguracijom</value>
   </data>
@@ -2364,7 +2367,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Spremno</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Izaberite lozinku za zaštitu datoteke za povezivanje. Podelite lozinku zasebno.</value>
+    <value>Izaberite lozinku za zaštitu datoteke za povezivanje. Podelite lozinku zasebno. Sačuvajte datoteku izvan fascikle deljene konfiguracije.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Zapamti lozinke</value>
