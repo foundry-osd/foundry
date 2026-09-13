@@ -8,19 +8,22 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeImageInternationalizationServiceTests
 {
-    [Fact]
-    public async Task ApplyAsync_AddsLanguagePackNeutralAndLocalizedComponentsBeforeIntlSettings()
+    [Theory]
+    [InlineData("fr-FR", "fr-fr")]
+    [InlineData("es-ES", "es-es")]
+    [InlineData("bg-BG", "bg-bg")]
+    public async Task ApplyAsync_AddsPackagesThenAppliesLocaleDefaults(string locale, string packageLanguage)
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-intl-{Guid.NewGuid():N}");
         string mountedImagePath = Path.Combine(root, "mount");
         string workingDirectory = Path.Combine(root, "work");
-        string ocRoot = CreateOptionalComponentRoot(root, "amd64", "fr-fr");
+        string ocRoot = CreateOptionalComponentRoot(root, "amd64", packageLanguage);
         Directory.CreateDirectory(mountedImagePath);
         Directory.CreateDirectory(workingDirectory);
 
-        string languagePack = Path.Combine(ocRoot, "fr-fr", "lp.cab");
+        string languagePack = Path.Combine(ocRoot, packageLanguage, "lp.cab");
         string neutralWmi = Path.Combine(ocRoot, "WinPE-WMI.cab");
-        string localizedWmi = Path.Combine(ocRoot, "fr-fr", "WinPE-WMI_fr-fr.cab");
+        string localizedWmi = Path.Combine(ocRoot, packageLanguage, $"WinPE-WMI_{packageLanguage}.cab");
         string secureStartup = Path.Combine(ocRoot, "WinPE-SecureStartup.cab");
         File.WriteAllText(languagePack, string.Empty);
         File.WriteAllText(neutralWmi, string.Empty);
@@ -42,7 +45,7 @@ public sealed class WinPeImageInternationalizationServiceTests
                         KitsRootPath = root,
                         DismPath = "dism.exe"
                     },
-                    WinPeLanguage = "fr-FR",
+                    WinPeLanguage = locale,
                     WorkingDirectoryPath = workingDirectory
                 },
                 CancellationToken.None);
@@ -54,8 +57,8 @@ public sealed class WinPeImageInternationalizationServiceTests
                 execution => Assert.Contains($"/PackagePath:{WinPeProcessRunner.Quote(neutralWmi)}", execution.Arguments),
                 execution => Assert.Contains($"/PackagePath:{WinPeProcessRunner.Quote(localizedWmi)}", execution.Arguments),
                 execution => Assert.Contains($"/PackagePath:{WinPeProcessRunner.Quote(secureStartup)}", execution.Arguments),
-                execution => Assert.Contains("/Set-AllIntl:fr-FR", execution.Arguments),
-                execution => Assert.Contains("/Set-InputLocale:", execution.Arguments));
+                execution => Assert.Equal($"/English /Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Set-AllIntl:{locale}", execution.Arguments),
+                execution => Assert.Equal($"/English /Image:{WinPeProcessRunner.Quote(mountedImagePath)} /Set-InputLocale:{locale}", execution.Arguments));
         }
         finally
         {
@@ -191,9 +194,10 @@ public sealed class WinPeImageInternationalizationServiceTests
     }
 
     [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task ApplyAsync_WhenDismFails_PreservesBuildFailureClassification(bool failInternationalSettings)
+    [InlineData(null, "Install boot image package")]
+    [InlineData("Set-AllIntl", "Apply boot image international settings (Set-AllIntl:en-US)")]
+    [InlineData("Set-InputLocale", "Apply boot image international settings (Set-InputLocale:en-US)")]
+    public async Task ApplyAsync_WhenDismFails_IdentifiesOperationAndPreservesClassification(string? failedOperation, string expectedStage)
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-intl-{Guid.NewGuid():N}");
         string mountedImagePath = Path.Combine(root, "mount");
@@ -206,8 +210,9 @@ public sealed class WinPeImageInternationalizationServiceTests
 
         var runner = new FakeInternationalizationRunner
         {
-            PackageExitCode = failInternationalSettings ? 0 : 1,
-            InternationalSettingsExitCode = failInternationalSettings ? 5 : 0,
+            PackageExitCode = failedOperation is null ? 1 : 0,
+            InternationalSettingsExitCode = failedOperation is null ? 0 : 87,
+            FailInternationalOperation = failedOperation,
             PackageStandardOutput = "The specified package is not applicable to this image.",
             FailPackagePathContains = "WinPE-SecureStartup"
         };
@@ -232,10 +237,16 @@ public sealed class WinPeImageInternationalizationServiceTests
 
             Assert.False(result.IsSuccess);
             Assert.Equal(WinPeErrorCodes.BuildFailed, result.Error?.Code);
-            Assert.Equal(failInternationalSettings ? 5 : 1, result.Error?.ExitCode);
+            Assert.Equal(failedOperation is null ? 1 : 87, result.Error?.ExitCode);
+            Assert.Equal(expectedStage, result.Error?.Stage);
             Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
             Assert.Equal(WinPeFailureReasons.NonZeroExit, result.Error?.FailureReason);
             Assert.Equal("dism.exe", result.Error?.ToolName);
+            Assert.Contains(failedOperation is null ? "The specified package is not applicable" : "Error: 87", result.Error?.Details, StringComparison.Ordinal);
+            if (failedOperation is not null)
+            {
+                Assert.Contains($"/{failedOperation}:en-US", runner.Executions[^1].Arguments, StringComparison.Ordinal);
+            }
         }
         finally
         {
@@ -346,6 +357,7 @@ public sealed class WinPeImageInternationalizationServiceTests
         public List<WinPeProcessExecution> Executions { get; } = [];
         public int PackageExitCode { get; init; }
         public int InternationalSettingsExitCode { get; init; }
+        public string? FailInternationalOperation { get; init; }
         public string PackageStandardOutput { get; init; } = string.Empty;
         public string? FailPackagePathContains { get; init; }
 
@@ -361,7 +373,8 @@ public sealed class WinPeImageInternationalizationServiceTests
                                       arguments.Contains(FailPackagePathContains, StringComparison.OrdinalIgnoreCase));
             int exitCode = shouldFailPackage
                 ? PackageExitCode
-                : arguments.Contains("/Set-", StringComparison.OrdinalIgnoreCase) ? InternationalSettingsExitCode : 0;
+                : FailInternationalOperation is not null && arguments.Contains($"/{FailInternationalOperation}:", StringComparison.Ordinal)
+                    ? InternationalSettingsExitCode : 0;
 
             var execution = new WinPeProcessExecution
             {
@@ -369,7 +382,7 @@ public sealed class WinPeImageInternationalizationServiceTests
                 FileName = fileName,
                 Arguments = arguments,
                 WorkingDirectory = workingDirectory,
-                StandardOutput = exitCode == 0 ? string.Empty : PackageStandardOutput
+                StandardOutput = exitCode == 0 ? string.Empty : shouldFailPackage ? PackageStandardOutput : $"Error: {exitCode}"
             };
 
             Executions.Add(execution);
