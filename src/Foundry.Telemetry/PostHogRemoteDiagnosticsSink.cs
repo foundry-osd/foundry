@@ -22,11 +22,12 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     private const int MaximumEventsPerFingerprintWindow = 5;
     private static readonly TimeSpan FingerprintWindow = TimeSpan.FromMinutes(1);
     private readonly object _gate = new();
-    private readonly Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, IRemoteDiagnosticsExporter> _exporterFactory;
+    private readonly Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, Action<ExceptionDeliveryFailure>, IRemoteDiagnosticsExporter> _exporterFactory;
     private readonly int _queueCapacity;
     private readonly Action<RemoteDiagnosticRecord>? _capture;
     private readonly Action<RemoteDiagnosticRecord>? _logCapture;
     private readonly bool _productionLogs;
+    private readonly Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, ReliableLogPipeline>? _logPipelineFactory;
     private ReliableLogPipeline? _logs;
     private RemoteDiagnosticsOptions? _configuredOptions;
     private readonly List<Task> _retired = [];
@@ -37,19 +38,23 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     private IRemoteDiagnosticsExporter? _exporter;
     private RemoteDiagnosticsContext? _context;
     private Task _worker = Task.CompletedTask;
+    private Task? _exceptionShutdown;
     private int _accepting;
     private int _stopping;
     private int _disposed;
     private int _consentGeneration;
+    private int _exporterConsentGeneration;
     private long _droppedRecordCount;
 
     /// <summary>
     /// Initializes a production PostHog diagnostics service.
     /// </summary>
     public PostHogRemoteDiagnosticsSink()
-        : this(static (options, _) => new PostHogDiagnosticsExporter(options), DefaultQueueCapacity)
+        : this(static (options, _, report) => new PostHogDiagnosticsExporter(options, report))
     {
         _productionLogs = true;
+        _logPipelineFactory = static (options, context) => new ReliableLogPipeline(
+            new OtlpLogTransport(options, context), RemoteLogStorage.Resolve(options, context));
     }
 
     internal PostHogRemoteDiagnosticsSink(
@@ -58,12 +63,25 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
         TimeProvider? timeProvider = null,
         Action<RemoteDiagnosticRecord>? capture = null,
         Action<RemoteDiagnosticRecord>? logCapture = null)
+        : this((options, context, _) => exporterFactory(options, context), queueCapacity, timeProvider, capture, logCapture)
+    {
+        ArgumentNullException.ThrowIfNull(exporterFactory);
+    }
+
+    internal PostHogRemoteDiagnosticsSink(
+        Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, Action<ExceptionDeliveryFailure>, IRemoteDiagnosticsExporter> exporterFactory,
+        int queueCapacity = DefaultQueueCapacity,
+        TimeProvider? timeProvider = null,
+        Action<RemoteDiagnosticRecord>? capture = null,
+        Action<RemoteDiagnosticRecord>? logCapture = null,
+        Func<RemoteDiagnosticsOptions, RemoteDiagnosticsContext, ReliableLogPipeline>? logPipelineFactory = null)
     {
         ArgumentNullException.ThrowIfNull(exporterFactory);
         ArgumentOutOfRangeException.ThrowIfLessThan(queueCapacity, 1);
         _exporterFactory = exporterFactory;
         _capture = capture;
         _logCapture = logCapture;
+        _logPipelineFactory = logPipelineFactory;
         _queueCapacity = queueCapacity;
         _timeProvider = timeProvider ?? TimeProvider.System;
     }
@@ -96,7 +114,7 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
 
             if (_exporter is not null)
             {
-                if (_configuredOptions == options)
+                if (_configuredOptions == options && _exporterConsentGeneration == _consentGeneration)
                 {
                     _context = context;
                     _logs?.Enable();
@@ -112,11 +130,12 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
 
             try
             {
-                _exporter = _exporterFactory(options, context);
+                int generation = _consentGeneration;
+                _exporter = _exporterFactory(options, context, failure => ReportDeliveryFailure(failure, generation));
+                _exporterConsentGeneration = _consentGeneration;
                 _context = context;
                 _configuredOptions = options;
-                if (_productionLogs)
-                    _logs = new ReliableLogPipeline(new OtlpLogTransport(options, context), RemoteLogStorage.Resolve(options, context));
+                _logs = _logPipelineFactory?.Invoke(options, context);
                 _channel = Channel.CreateBounded<QueuedRemoteDiagnosticRecord>(new BoundedChannelOptions(_queueCapacity)
                 {
                     FullMode = BoundedChannelFullMode.Wait,
@@ -251,21 +270,49 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
     /// <inheritdoc />
     public async Task FlushAsync(CancellationToken cancellationToken)
     {
+        Task shutdown;
         lock (_gate)
         {
             Volatile.Write(ref _accepting, 0);
-        }
-        if (Interlocked.Exchange(ref _stopping, 1) == 0)
-        {
-            _channel?.Writer.TryComplete();
+            if (Interlocked.Exchange(ref _stopping, 1) == 0)
+                _channel?.Writer.TryComplete();
+            shutdown = _exceptionShutdown ??= ShutdownExceptionDeliveryAsync();
         }
 
-        if (_logs is not null) await _logs.FlushAsync(cancellationToken).ConfigureAwait(false);
-
-        await _worker.WaitAsync(cancellationToken).ConfigureAwait(false);
-        if (_exporter is not null)
+        try
         {
-            await _exporter.FlushAsync(cancellationToken).ConfigureAwait(false);
+            await shutdown.WaitAsync(cancellationToken).ConfigureAwait(false);
+        }
+        finally
+        {
+            // SDK disposal drains remaining batches too. After the deadline, late failures stay local.
+            if (_logs is not null) await _logs.FlushAsync(cancellationToken).ConfigureAwait(false);
+        }
+    }
+
+    private async Task ShutdownExceptionDeliveryAsync()
+    {
+        await _worker.ConfigureAwait(false);
+        if (_exporter is null) return;
+        try
+        {
+            await _exporter.FlushAsync(CancellationToken.None).ConfigureAwait(false);
+        }
+#pragma warning disable CA1031 // Shutdown diagnostics must not interrupt application cleanup.
+        catch (Exception)
+#pragma warning restore CA1031
+        {
+            ReportDeliveryFailure(new ExceptionDeliveryFailure("flush_exception"), _exporterConsentGeneration);
+        }
+        try
+        {
+            await _exporter.DisposeAsync().ConfigureAwait(false);
+        }
+#pragma warning disable CA1031 // SDK cleanup may fail after partially draining pending batches.
+        catch (Exception)
+#pragma warning restore CA1031
+        {
+            ReportDeliveryFailure(new ExceptionDeliveryFailure("dispose_exception"), _exporterConsentGeneration);
         }
     }
 
@@ -286,21 +333,14 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
         {
         }
 
-        if (_exporter is not null)
-        {
-            try
-            {
-                await _exporter.DisposeAsync().ConfigureAwait(false);
-            }
-#pragma warning disable CA1031 // Diagnostics transport disposal must not affect application shutdown.
-            catch (Exception ex)
-#pragma warning restore CA1031
-            {
-                Debug.WriteLine($"Remote diagnostics disposal failed: {ex.GetType().Name}");
-            }
-        }
         if (_logs is not null) await _logs.DisposeAsync().ConfigureAwait(false);
-        await Task.WhenAll(_retired).ConfigureAwait(false);
+        try
+        {
+            await Task.WhenAll(_retired).WaitAsync(cancellation.Token).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
+        {
+        }
     }
 
     /// <summary>
@@ -396,12 +436,31 @@ public sealed class PostHogRemoteDiagnosticsSink : IRemoteDiagnosticsService, ID
                 await exporter.ExportAsync(queuedRecord.Record, CancellationToken.None).ConfigureAwait(false);
             }
 #pragma warning disable CA1031 // A failed export must not stop later records from draining.
-            catch (Exception ex)
+            catch (Exception)
 #pragma warning restore CA1031
             {
-                Debug.WriteLine($"Remote diagnostics export failed: {ex.GetType().Name}");
+                ReportDeliveryFailure(new ExceptionDeliveryFailure("export_exception"), queuedRecord.ConsentGeneration);
             }
         }
+    }
+
+    private void ReportDeliveryFailure(ExceptionDeliveryFailure failure, int consentGeneration)
+    {
+        try
+        {
+            LogEvent logEvent = LogEventNormalizer.Normalize(failure.CreateLogEvent());
+            Serilog.Log.Write(logEvent);
+            lock (_gate)
+            {
+                if (consentGeneration != _consentGeneration || _context is null) return;
+                RemoteDiagnosticRecord record = LogRecordFactory.Create(logEvent, _context);
+                _logs?.Emit(record);
+                _logCapture?.Invoke(record);
+            }
+        }
+#pragma warning disable CA1031 // Reporting a delivery failure must never create another export attempt.
+        catch (Exception) { }
+#pragma warning restore CA1031
     }
 
     private sealed record FingerprintWindowState(long StartedAt, int Count);
@@ -423,8 +482,11 @@ internal sealed class PostHogDiagnosticsExporter : IRemoteDiagnosticsExporter
     private readonly PostHogExceptionTracker _exceptionTracker;
     private int _disposed;
 
-    public PostHogDiagnosticsExporter(RemoteDiagnosticsOptions options)
+    public PostHogDiagnosticsExporter(RemoteDiagnosticsOptions options,
+        Action<ExceptionDeliveryFailure>? reportFailure = null,
+        IHttpClientFactory? httpClientFactory = null)
     {
+        reportFailure ??= static failure => Serilog.Log.Write(failure.CreateLogEvent());
         var client = new PostHogClient(Options.Create(new PostHogOptions
         {
             ProjectToken = options.ProjectToken,
@@ -434,9 +496,9 @@ internal sealed class PostHogDiagnosticsExporter : IRemoteDiagnosticsExporter
             MaxBatchSize = 50,
             FlushAt = 20,
             FlushInterval = TimeSpan.FromSeconds(5)
-        }));
+        }), httpClientFactory: httpClientFactory, loggerFactory: new PostHogDeliveryLoggerFactory(reportFailure));
         _eventClient = new PostHogEventClient(client);
-        _exceptionTracker = new PostHogExceptionTracker(_eventClient, options.InstallId);
+        _exceptionTracker = new PostHogExceptionTracker(_eventClient, options.InstallId, reportFailure);
     }
 
     public ValueTask ExportAsync(RemoteDiagnosticRecord record, CancellationToken cancellationToken)

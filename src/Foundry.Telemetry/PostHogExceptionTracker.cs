@@ -38,7 +38,8 @@ internal sealed class PostHogEventClient(PostHogClient client) : IPostHogEventCl
 /// </summary>
 internal sealed partial class PostHogExceptionTracker(
     IPostHogEventClient client,
-    string distinctId)
+    string distinctId,
+    Action<ExceptionDeliveryFailure>? reportFailure = null)
 {
     public void Track(RemoteDiagnosticRecord record)
     {
@@ -77,7 +78,9 @@ internal sealed partial class PostHogExceptionTracker(
 
         if (!client.Capture(distinctId, "$exception", properties, record.Timestamp))
         {
-            System.Diagnostics.Debug.WriteLine("PostHog Error Tracking event was dropped by the SDK queue.");
+            var failure = new ExceptionDeliveryFailure("capture_rejected");
+            if (reportFailure is not null) reportFailure(failure);
+            else Serilog.Log.Write(failure.CreateLogEvent());
         }
     }
 

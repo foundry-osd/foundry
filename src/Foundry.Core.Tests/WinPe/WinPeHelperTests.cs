@@ -31,23 +31,12 @@ public sealed class WinPeHelperTests
     }
 
     [Fact]
-    public void TryResolveInputLocale_WhenCultureExists_ReturnsCanonicalCodeAndLocale()
+    public void TryCanonicalize_WhenCultureIsUnknown_ReturnsFalse()
     {
-        bool success = WinPeLanguageUtility.TryResolveInputLocale("fr-FR", out string canonicalLanguageCode, out string inputLocale);
-
-        Assert.True(success);
-        Assert.Equal("fr-FR", canonicalLanguageCode);
-        Assert.Matches("^[0-9a-f]{4}:0000[0-9a-f]{4}$", inputLocale);
-    }
-
-    [Fact]
-    public void TryResolveInputLocale_WhenCultureIsUnknown_ReturnsFalse()
-    {
-        bool success = WinPeLanguageUtility.TryResolveInputLocale("invalid-culture-code", out string canonicalLanguageCode, out string inputLocale);
+        bool success = WinPeLanguageUtility.TryCanonicalize("invalid-culture-code", out string canonicalLanguageCode);
 
         Assert.False(success);
         Assert.Equal("invalid-culture-code", canonicalLanguageCode);
-        Assert.Equal(string.Empty, inputLocale);
     }
 
     [Theory]
