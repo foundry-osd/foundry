@@ -6,7 +6,7 @@ namespace Foundry.Core.Models.Configuration;
 
 public static class ConfigurationSchemaVersions
 {
-    public const int FoundryCurrent = 14;
+    public const int FoundryCurrent = 15;
 
     public const int ConnectCurrent = 4;
 

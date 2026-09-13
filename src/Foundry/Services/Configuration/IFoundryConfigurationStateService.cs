@@ -3,8 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
-using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Profiles;
 using Foundry.Telemetry;
 
 namespace Foundry.Services.Configuration;
@@ -14,7 +14,7 @@ namespace Foundry.Services.Configuration;
 /// </summary>
 /// <remarks>
 /// <see cref="Current"/> is always safe to persist. Volatile network secrets are kept outside the document and
-/// merged only when <see cref="GenerateConnectProvisioningBundle"/> creates the Connect payload.
+/// merged into a detached document when <see cref="CaptureBuildSnapshotAsync"/> freezes build inputs.
 /// </remarks>
 public interface IFoundryConfigurationStateService
 {
@@ -27,6 +27,12 @@ public interface IFoundryConfigurationStateService
     /// Gets the current Foundry configuration document after removing values that must not be persisted.
     /// </summary>
     FoundryConfigurationDocument Current { get; }
+
+    /// <summary>Persists a validated profile before restoring its local secrets and publishing the active configuration.</summary>
+    void Replace(FoundryConfigurationDocument document, Action restoreSecrets);
+
+    /// <summary>Freezes current configuration and session secrets synchronously, then prepares private build dependencies off-thread.</summary>
+    Task<DeploymentBuildSnapshot> CaptureBuildSnapshotAsync(string privateRootDirectory, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets the detailed network readiness evaluation used for media creation.
@@ -147,23 +153,4 @@ public interface IFoundryConfigurationStateService
     /// <param name="settings">New telemetry settings.</param>
     void UpdateTelemetry(TelemetrySettings settings);
 
-    /// <summary>
-    /// Generates Connect provisioning files after merging required volatile secrets back into the current network settings.
-    /// </summary>
-    /// <param name="stagingDirectoryPath">Directory where provisioning files should be staged.</param>
-    /// <param name="telemetryOverride">Optional runtime telemetry settings used only for the generated Connect document.</param>
-    /// <returns>The generated Connect provisioning bundle.</returns>
-    FoundryConnectProvisioningBundle GenerateConnectProvisioningBundle(string stagingDirectoryPath, TelemetrySettings? telemetryOverride = null);
-
-    /// <summary>
-    /// Generates the Deploy configuration JSON for the current Foundry configuration.
-    /// </summary>
-    /// <param name="telemetryOverride">Optional runtime telemetry settings used only for the generated Deploy document.</param>
-    /// <param name="deploymentSecretsKey">Optional Deploy secret key used for boot-media-only Deploy secrets.</param>
-    /// <param name="protectionSettings">Optional deployment media protection metadata.</param>
-    /// <returns>Serialized Deploy configuration JSON.</returns>
-    string GenerateDeployConfigurationJson(
-        TelemetrySettings? telemetryOverride = null,
-        byte[]? deploymentSecretsKey = null,
-        DeployProtectionSettings? protectionSettings = null);
 }

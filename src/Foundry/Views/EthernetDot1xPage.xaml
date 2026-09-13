@@ -87,6 +87,9 @@
                                     Command="{x:Bind ViewModel.BrowseDot1xCertificateCommand}"
                                     Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
                             </Grid>
+                            <PasswordBox
+                                Header="{x:Bind ViewModel.CertificatePasswordLabel, Mode=OneWay}"
+                                Password="{x:Bind ViewModel.Dot1xCertificatePassword, Mode=TwoWay}" />
                             <TextBlock
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Text="{x:Bind ViewModel.Dot1xCertificateValidationMessage, Mode=OneWay}"

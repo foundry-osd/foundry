@@ -45,6 +45,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<MainWindow>();
 
         services.AddSingleton<IAppSettingsService, JsonAppSettingsService>();
+        services.AddSingleton<Foundry.Utilities.Security.IWindowsCredentialStore, Foundry.Utilities.Security.WindowsCredentialStore>();
         services.AddSingleton<IProxyCredentialStore, ProxyCredentialStore>();
         services.AddSingleton<IApplicationProxyService, ApplicationProxyService>();
         services.AddSingleton(sp =>
@@ -122,6 +123,13 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IOobeAccountSecretStateService, OobeAccountSecretStateService>();
         services.AddSingleton<IOobeAdditionalAccountDialogService, OobeAdditionalAccountDialogService>();
         services.AddSingleton<IFoundryConfigurationStateService, FoundryConfigurationStateService>();
+        services.AddSingleton<Foundry.Core.Services.Profiles.IDeploymentProfilePackageService, Foundry.Core.Services.Profiles.DeploymentProfilePackageService>();
+        services.AddSingleton(sp => new Foundry.Core.Services.Profiles.LocalDeploymentProfileRepository(
+            Constants.DeploymentProfilesDirectoryPath,
+            sp.GetRequiredService<Foundry.Utilities.Security.IWindowsCredentialStore>(),
+            sp.GetRequiredService<Foundry.Core.Services.Profiles.IDeploymentProfilePackageService>()));
+        services.AddSingleton<DeploymentProfileSessionService>();
+        services.AddSingleton<DeploymentProfileCoordinator>();
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
         services.AddSingleton<IConfigurationOverviewService, ConfigurationOverviewService>();
         services.AddSingleton<IWinPeEmbeddedAssetService, WinPeEmbeddedAssetService>();
@@ -158,6 +166,10 @@ public static class ServiceCollectionExtensions
         services.AddTransient<StartMediaViewModel>();
         services.AddTransient<HomeLandingViewModel>();
         services.AddTransient<SettingsPageViewModel>();
+        services.AddTransient(provider => new DeploymentProfilesViewModel(
+            provider.GetRequiredService<DeploymentProfileCoordinator>(),
+            provider.GetRequiredService<IApplicationLocalizationService>(),
+            provider.GetRequiredService<IFilePickerService>()));
         services.AddTransient<GeneralSettingViewModel>();
         services.AddTransient<AdkPageViewModel>();
         services.AddTransient<AppUpdateSettingViewModel>();

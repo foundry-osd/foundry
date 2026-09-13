@@ -1,0 +1,428 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using System.Collections.ObjectModel;
+using System.Security.Cryptography;
+using System.Runtime.CompilerServices;
+using Foundry.Core.Models.Profiles;
+using Foundry.Core.Services.Application;
+using Foundry.Core.Services.Profiles;
+using Foundry.Services.Configuration;
+using Foundry.Services.Localization;
+
+namespace Foundry.ViewModels;
+
+/// <summary>Coordinates profile actions while the view owns native dialog and password-control lifetimes.</summary>
+public sealed partial class DeploymentProfilesViewModel : ObservableObject
+{
+    private static readonly Serilog.ILogger Logger = Serilog.Log.ForContext<DeploymentProfilesViewModel>();
+    private readonly DeploymentProfileCoordinator coordinator;
+    private readonly IApplicationLocalizationService localization;
+    private readonly IFilePickerService picker;
+    private bool attached;
+    private bool isRefreshing;
+
+    internal DeploymentProfilesViewModel(DeploymentProfileCoordinator coordinator,
+        IApplicationLocalizationService localization, IFilePickerService picker)
+    {
+        this.coordinator = coordinator;
+        this.localization = localization;
+        this.picker = picker;
+    }
+
+    internal Func<ProfileDialogRequest, Task<ProfileDialogResponse?>>? ShowDialogAsync { get; set; }
+    public ObservableCollection<LocalProfileDescriptor> Profiles { get; } = [];
+    [ObservableProperty] public partial LocalProfileDescriptor? SelectedProfile { get; set; }
+    [ObservableProperty] public partial bool IsBusy { get; set; }
+    [ObservableProperty, NotifyPropertyChangedFor(nameof(StatusVisibility))] public partial string Status { get; set; } = string.Empty;
+    public bool CanInteract => !IsBusy;
+    public bool CanSynchronize => CanInteract && !coordinator.IsSynchronizing;
+    public Visibility StatusVisibility => string.IsNullOrEmpty(Status) || Status == Text("Profiles.Ready") || Status == Text("Profiles.Synchronized") ||
+        Status == Text("Profiles.Conflict") && ConflictVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+    public bool HasActive => coordinator.Active is not null;
+    public bool IsShared => coordinator.Active?.Enrollment is not null;
+    public bool HasSharedAccess => IsShared && !coordinator.RequiresSharedAccess;
+    public Visibility SharedVisibility => IsShared ? Visibility.Visible : Visibility.Collapsed;
+    public bool RememberSecrets => coordinator.Active?.RememberSecrets == true;
+    public string SynchronizeActionText => Text(coordinator.RequiresSharedAccess ? "Profiles.RestoreAccess" : IsShared ? "Profiles.SyncNow" : "Profiles.SetupAction");
+    public bool SyncEnabled => coordinator.Active?.Enrollment?.IsEnabled == true;
+    public Visibility ConflictVisibility => coordinator.HasConflict && !coordinator.IsSharedProfileDeleted ? Visibility.Visible : Visibility.Collapsed;
+    public string Text(string key) => localization.GetString(key);
+
+    public string SynchronizationStatusText => Text($"Profiles.SyncStatus{SynchronizationStatus}");
+    /// <summary>Suppresses transient background checks while allowing feedback for user-triggered operations.</summary>
+    public bool AnnounceSynchronizationStatus => !coordinator.IsSynchronizing || IsBusy;
+    public string SynchronizationVisualState => SynchronizationStatus switch
+    {
+        "Success" => "SynchronizationSuccess",
+        "Conflict" or "Offline" or "Warning" => "SynchronizationWarning",
+        "Error" => "SynchronizationError",
+        "Busy" or "Pending" or "UpdateAvailable" => "SynchronizationInformational",
+        _ => "SynchronizationNeutral"
+    };
+    public string SynchronizationStatusGlyph => SynchronizationVisualState switch
+    {
+        "SynchronizationSuccess" => "\uE73E",
+        "SynchronizationWarning" => "\uE7BA",
+        "SynchronizationError" => "\uEA39",
+        "SynchronizationInformational" => "\uE895",
+        _ => "\uE946"
+    };
+
+    private string SynchronizationStatus
+    {
+        get
+        {
+            if (coordinator.IsSynchronizing) return "Busy";
+            if (!IsShared) return "NotConfigured";
+            if (coordinator.StatusKey is "Profiles.Failed" or "Profiles.Locked" or "Profiles.Rollback" or "Profiles.Unsupported") return "Error";
+            if (coordinator.IsSharedProfileDeleted) return "Warning";
+            if (coordinator.HasConflict) return "Conflict";
+            if (coordinator.StatusKey is "Profiles.SharedBusy" or "Profiles.SharedUnavailable") return "Offline";
+            if (coordinator.StatusKey is "Profiles.CleanupPending" or "Profiles.Incomplete" or "Profiles.DeletedRemote") return "Warning";
+            if (coordinator.StatusKey == "Profiles.UpdateAvailable") return "UpdateAvailable";
+            if (coordinator.HasPendingSynchronizationChanges) return "Pending";
+            return coordinator.StatusKey == "Profiles.Synchronized" ? "Success" : "Ready";
+        }
+    }
+
+    internal void Attach()
+    {
+        if (attached) return;
+        attached = true;
+        coordinator.IsSettingsOpen = true;
+        coordinator.Changed += OnChanged;
+        coordinator.SynchronizationStateChanged += OnSynchronizationStateChanged;
+        Refresh();
+    }
+
+    internal void Detach()
+    {
+        attached = false;
+        coordinator.IsSettingsOpen = false;
+        coordinator.Changed -= OnChanged;
+        coordinator.SynchronizationStateChanged -= OnSynchronizationStateChanged;
+    }
+
+    internal void Refresh()
+    {
+        isRefreshing = true;
+        try
+        {
+            if (!Profiles.SequenceEqual(coordinator.Profiles))
+            {
+                Profiles.Clear();
+                foreach (LocalProfileDescriptor profile in coordinator.Profiles) Profiles.Add(profile);
+            }
+            SelectedProfile = Profiles.FirstOrDefault(profile => profile.LocalId == coordinator.Active?.LocalId);
+            Status = Text(coordinator.StatusKey);
+            OnPropertyChanged(string.Empty);
+        }
+        finally { isRefreshing = false; }
+    }
+
+    private void OnChanged(object? sender, EventArgs e) => Refresh();
+    private void OnSynchronizationStateChanged(object? sender, EventArgs e)
+    {
+        OnPropertyChanged(nameof(CanSynchronize));
+        OnPropertyChanged(nameof(SynchronizationStatusText));
+        OnPropertyChanged(nameof(SynchronizationVisualState));
+        OnPropertyChanged(nameof(SynchronizationStatusGlyph));
+    }
+
+    partial void OnIsBusyChanged(bool value)
+    {
+        OnPropertyChanged(nameof(CanInteract));
+        OnPropertyChanged(nameof(CanSynchronize));
+    }
+
+    internal async Task SelectProfileAsync(LocalProfileDescriptor selected)
+    {
+        if (isRefreshing || !CanInteract || selected.LocalId == coordinator.Active?.LocalId) return;
+        try { await RunAsync(() => coordinator.ActivateAsync(selected.LocalId)); }
+        finally { SelectedProfile = Profiles.FirstOrDefault(profile => profile.LocalId == coordinator.Active?.LocalId); }
+    }
+
+    [RelayCommand]
+    private Task SaveCopyAsync() => RunAsync(async () =>
+    {
+        ProfileDialogResponse? result = await DialogAsync(new("Profiles.SaveCopy") { Name = coordinator.Active?.DisplayName ?? string.Empty });
+        if (result is not null) await coordinator.SaveAsCopyAsync(result.Name.Trim());
+    });
+
+    [RelayCommand]
+    private Task RenameAsync() => RunAsync(async () =>
+    {
+        ProfileDialogResponse? result = await DialogAsync(new("Profiles.Rename") { Name = coordinator.Active?.DisplayName ?? string.Empty });
+        if (result is not null) await coordinator.RenameAsync(result.Name.Trim());
+    });
+
+    [RelayCommand]
+    private Task ToggleRememberAsync() => RunAsync(async () =>
+    {
+        bool remember = !RememberSecrets;
+        if (await ConfirmAsync("Profiles.Remember", remember ? "Profiles.LocalPrivacy" : "Profiles.StopRemembering", preferCancel: !remember))
+            await coordinator.SaveAsync(remember);
+    });
+
+    [RelayCommand]
+    private Task ForgetAsync() => RunAsync(async () =>
+    {
+        if (await ConfirmAsync("Profiles.Forget", "Profiles.ForgetWarning")) await coordinator.ForgetAsync();
+    });
+
+    [RelayCommand]
+    private Task DeleteAsync() => RunAsync(async () =>
+    {
+        ProfileDialogResponse? result = await DialogAsync(new("Profiles.Delete")
+        { Message = Text("Profiles.DeleteWarning"), DeleteSharedOption = IsShared, PreferCancel = true });
+        if (result is null) return;
+        if (result.DeleteShared && !await ConfirmAsync("Profiles.DeleteShared", "Profiles.DeleteSharedWarning")) return;
+        await coordinator.DeleteAsync(result.DeleteShared);
+    });
+
+    [RelayCommand] private Task ExportAsync() => RunAsync(() => ExportFileAsync(false));
+    [RelayCommand] private Task ExportRecoveryAsync() => RunAsync(() => ExportFileAsync(true));
+
+    private async Task ExportFileAsync(bool recovery)
+    {
+        string title = recovery ? "Profiles.ExportRecovery" : "Profiles.Export";
+        string? path = await picker.PickSaveFileAsync(new(Text(title), recovery ? "Foundry-connection" : "Foundry-profile",
+            new FilePickerTypeChoice[] { new(Text("Profiles.Heading"), new string[] { ".foundryprofile" }) }, ".foundryprofile"));
+        if (path is null) return;
+        ProfileDialogResponse? result = await DialogAsync(new(title)
+        {
+            Message = recovery ? Text("Profiles.RecoveryWarning") : Text("Profiles.ExportProtection") + "\n\n" + Text("Profiles.ShareWarning"),
+            Passphrase = true,
+            ConfirmPassphrase = true,
+            IncludeSecretsOption = !recovery
+        });
+        if (result is null) return;
+        if (recovery) await coordinator.ExportRecoveryAsync(path, result.Password);
+        else await coordinator.ExportAsync(path, result.Password, result.IncludeSecrets);
+    }
+
+    [RelayCommand] private Task ImportAsync() => RunAsync(() => ImportFileAsync(false));
+
+    private async Task ImportFileAsync(bool join, string? sharedFolder = null, bool restore = false)
+    {
+        string title = restore ? "Profiles.RestoreAccess" : join ? "Profiles.JoinShared" : "Profiles.Import";
+        string? path = await picker.PickOpenFileAsync(new(Text(title), new string[] { ".foundryprofile" }, InitialFileTypeIndex: 0));
+        if (path is null) return;
+        ProfileDialogResponse? password = await DialogAsync(new(title) { Passphrase = true, ConnectionAccess = join });
+        if (password is null) return;
+        DeploymentProfileDocument profile = await coordinator.PreviewImportAsync(path, password.Password);
+        try
+        {
+            if (join && !restore)
+            {
+                await JoinSharedFileAsync(profile, path, sharedFolder);
+                return;
+            }
+            ProfileDialogResponse? result = await DialogAsync(new(title)
+            {
+                Message = PreviewText(profile) + "\n\n" + Text("Profiles.ShareWarning") + (restore ? string.Empty : "\n\n" + Text("Profiles.ReplaceWarning")),
+                PreferCancel = !restore,
+                RememberOption = !restore,
+                Remember = CanRemember(profile),
+                SharedKeyOption = restore
+            });
+            if (result is null) return;
+            if (restore) await coordinator.RestoreSharedAccessAsync(profile, result.RememberKey);
+            else await coordinator.ImportAsCopyAsync(profile, result.Remember);
+        }
+        finally { DeploymentProfileSecretBinding.Clear(profile); }
+    }
+
+    private async Task JoinSharedFileAsync(DeploymentProfileDocument invitation, string sourcePath, string? sharedFolder)
+    {
+        ProfileDialogResponse? folder = await DialogAsync(new("Profiles.JoinShared")
+        {
+            SharePathOption = true,
+            SharePath = sharedFolder ?? DeploymentProfileCoordinator.GetSharedFolderHint(invitation, sourcePath)
+        });
+        if (folder is null) return;
+        string rootPath = folder.SharePath.Trim();
+        ProfileDialogResponse? previous = null;
+        while (true)
+        {
+            using SharedProfilePreview preview = await coordinator.PreviewSharedAsync(invitation, rootPath);
+            ProfileDialogResponse? result = await DialogAsync(new("Profiles.JoinShared")
+            {
+                Message = (previous is null ? string.Empty : Text("Profiles.JoinChanged") + "\n\n") + PreviewText(preview.Profile) +
+                    "\n\n" + Text("Profiles.ShareWarning") + "\n\n" + Text("Profiles.ReplaceWarning"),
+                PreferCancel = true,
+                RememberOption = true,
+                Remember = CanRemember(preview.Profile) && (previous?.Remember ?? true),
+                SharedKeyOption = true,
+                RememberKey = previous?.RememberKey == true
+            });
+            if (result is null) return;
+            if (await coordinator.JoinSharedAsync(invitation, rootPath, result.Remember, result.RememberKey, preview.RevisionId)) return;
+            previous = result;
+        }
+    }
+
+    private string PreviewText(DeploymentProfileDocument profile)
+    {
+        int secrets = profile.Secrets.Entries.Count(secret => secret.State is ProfileValueState.Present or ProfileValueState.Blank);
+        int assets = profile.Assets.Count(asset => asset.State == ProfileValueState.Present);
+        string preview = localization.FormatString("Profiles.Preview", profile.DisplayName, assets, secrets);
+        int missingAssets = profile.Assets.Count(asset => asset.State is ProfileValueState.Omitted or ProfileValueState.Unavailable);
+        return missingAssets > 0 ? preview + "\n\n" + localization.FormatString("Profiles.MissingAssets", missingAssets) : preview;
+    }
+
+    private static bool CanRemember(DeploymentProfileDocument profile) =>
+        !profile.Secrets.Entries.Any(secret => secret.State is ProfileValueState.Omitted or ProfileValueState.Unavailable) &&
+        !profile.Assets.Any(asset => asset.State is ProfileValueState.Omitted or ProfileValueState.Unavailable);
+
+    private async Task CreateSharedAsync()
+    {
+        ProfileDialogResponse? previous = null;
+        while (true)
+        {
+            ProfileDialogResponse? result = await DialogAsync(new("Profiles.CreateShared")
+            {
+                Name = previous?.Name ?? coordinator.Active?.DisplayName ?? string.Empty,
+                SharePath = previous?.SharePath,
+                PrimaryButtonKey = "Profiles.ShareAction",
+                Passphrase = true,
+                ConfirmPassphrase = true,
+                SharePathOption = true,
+                NamedSharedFolder = true,
+                IncludeSecretsOption = true,
+                SharedKeyOption = true,
+                IncludeSecrets = previous?.IncludeSecrets == true,
+                RememberKey = previous?.RememberKey == true
+            });
+            if (result is null) return;
+            try
+            {
+                await coordinator.CreateSharedAsync(result.SharePath.Trim(), result.Name, result.IncludeSecrets, result.RememberKey, result.Password);
+                return;
+            }
+            catch (SharedProfileFolderExistsException exception)
+            {
+                Logger.Information("Shared setup found an existing configuration folder; awaiting connection or a new name.");
+                ProfileDialogResponse? connect = await DialogAsync(new("Profiles.CreateShared")
+                {
+                    Message = Text("Profiles.FolderExists"),
+                    PrimaryButtonKey = "Profiles.ConnectAction",
+                    CloseButtonKey = "Profiles.ChooseAnotherName"
+                });
+                if (connect is not null)
+                {
+                    await ImportFileAsync(true, exception.RootPath);
+                    return;
+                }
+                previous = result;
+            }
+        }
+    }
+
+    [RelayCommand]
+    private Task SynchronizeAsync() => RunAsync(async () =>
+    {
+        if (IsShared)
+        {
+            if (coordinator.RequiresSharedAccess) await ImportFileAsync(true, restore: true);
+            else await coordinator.SynchronizeAsync();
+            return;
+        }
+
+        await SetupSynchronizationCoreAsync();
+    });
+
+    [RelayCommand]
+    private Task DisconnectAsync() => RunAsync(async () =>
+    {
+        if (IsShared && await ConfirmAsync("Profiles.Disconnect", "Profiles.DisconnectWarning"))
+            await coordinator.DisconnectAsync();
+    });
+
+    private async Task SetupSynchronizationCoreAsync()
+    {
+        if (IsShared) return;
+        ProfileDialogResponse? setup = await DialogAsync(new("Profiles.Setup")
+        { Message = Text("Profiles.SetupDescription"), SynchronizationSetupOption = true });
+        if (setup is null) return;
+        if (setup.JoinShared) await ImportFileAsync(true);
+        else await CreateSharedAsync();
+    }
+    [RelayCommand] private Task ToggleSyncAsync() => RunAsync(() => coordinator.SetSynchronizationEnabledAsync(!SyncEnabled));
+    [RelayCommand] private Task UseRemoteAsync() => ResolveAsync(true);
+    [RelayCommand] private Task KeepLocalAsync() => ResolveAsync(false);
+
+    private Task ResolveAsync(bool useRemote) => RunAsync(async () =>
+    {
+        if (await ConfirmAsync(useRemote ? "Profiles.UseRemote" : "Profiles.KeepLocal", "Profiles.ConflictWarning"))
+            await coordinator.ResolveConflictAsync(useRemote);
+    });
+
+    private async Task<bool> ConfirmAsync(string title, string message, bool preferCancel = true) =>
+        await DialogAsync(new(title) { Message = Text(message), PreferCancel = preferCancel }) is not null;
+
+    private async Task<ProfileDialogResponse?> DialogAsync(ProfileDialogRequest request)
+    {
+        Logger.Debug("Profile dialog started. DialogKey={DialogKey}", request.Title);
+        ProfileDialogResponse? response = ShowDialogAsync is null ? null : await ShowDialogAsync(request);
+        Logger.Debug("Profile dialog finished. DialogKey={DialogKey}, Confirmed={Confirmed}", request.Title, response is not null);
+        return response;
+    }
+
+    private async Task RunAsync(Func<Task> action, [CallerMemberName] string operation = "")
+    {
+        if (IsBusy) return;
+        IsBusy = true;
+        Logger.Information("Profile action started. Operation={Operation}, LocalProfileId={LocalProfileId}", operation, coordinator.Active?.LocalId);
+        try
+        {
+            using IDisposable suspension = coordinator.SuspendActivation();
+            await action();
+            Refresh();
+            Logger.Information("Profile action finished. Operation={Operation}, StatusKey={StatusKey}, LocalProfileId={LocalProfileId}",
+                operation, coordinator.StatusKey, coordinator.Active?.LocalId);
+        }
+        catch (OperationCanceledException)
+        {
+            Logger.Information("Profile action canceled. Operation={Operation}", operation);
+        }
+        catch (Exception exception) when (exception is IOException or InvalidDataException or FormatException or UnauthorizedAccessException or ArgumentException or
+            InvalidOperationException or NotSupportedException or CryptographicException or System.ComponentModel.Win32Exception or
+            System.Runtime.InteropServices.COMException or System.Text.Json.JsonException)
+        {
+            coordinator.SetFailure(exception, operation);
+            Status = Text(coordinator.StatusKey);
+        }
+        finally { IsBusy = false; }
+    }
+}
+
+/// <summary>Dialog layout inputs; no configuration mutation occurs in the view.</summary>
+internal sealed record ProfileDialogRequest(string Title)
+{
+    public string? Message { get; init; }
+    public string? Name { get; init; }
+    public string? SharePath { get; init; }
+    public bool NamedSharedFolder { get; init; }
+    public bool PreferCancel { get; init; }
+    public bool ConnectionAccess { get; init; }
+    public bool IncludeSecrets { get; init; }
+    public bool RememberKey { get; init; }
+    public bool Remember { get; init; } = true;
+    public string PrimaryButtonKey { get; init; } = "Profiles.Continue";
+    public string CloseButtonKey { get; init; } = "Common.Cancel";
+    public bool Passphrase { get; init; }
+    public bool ConfirmPassphrase { get; init; }
+    public bool IncludeSecretsOption { get; init; }
+    public bool RememberOption { get; init; }
+    public bool SharedKeyOption { get; init; }
+    public bool SharePathOption { get; init; }
+    public bool DeleteSharedOption { get; init; }
+    public bool SynchronizationSetupOption { get; init; }
+}
+
+/// <summary>Transient dialog values; callers never log or persist the package passphrase.</summary>
+internal sealed record ProfileDialogResponse(string Name, string Password, bool IncludeSecrets, bool Remember,
+    bool RememberKey, string SharePath, bool DeleteShared, bool JoinShared);

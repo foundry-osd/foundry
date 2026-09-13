@@ -2211,6 +2211,272 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows dağıtım seçenekleri</value>
   </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Geçerli ayarlar</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Otomatik eşitleme</value>
+  </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Başka bir ad seçin</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Kaydedilmiş bazı eski parolalar veya erişim anahtarları kaldırılamadı. Windows Kimlik Bilgisi Yöneticisi kullanılabilir olduğunda yeniden deneyin.</value>
+  </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Parolayı onaylayın</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Dosya parolasını doğrulayın</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Bu ayarlar hem bu bilgisayarda hem de başka biri tarafından değiştirildi. Hangi sürümü saklamak istediğinizi seçin.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Seçtiğiniz sürüm diğerinin yerini alacak. Ayrı bir kopya saklamak istiyorsanız önce “Çoğalt” seçeneğini kullanın.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Bağlan</value>
+  </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Ekibinizden birinin sağladığı bağlantı dosyasını seçin.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Bağlantı parolası</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Diğer bilgisayarların bağlanmak için bu parolaya ihtiyacı olacaktır.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Devam</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Bu yapılandırmayı paylaş</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Bu yapılandırma için paylaşılan bir ağ klasörü seçin.</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Bu bilgisayardan sil</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Herkes için de sil</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Bu paylaşılan ayarlar herkes için silinsin mi? Eşitlenmemiş değişiklikleri olan kişiler, bunları saklamak için ayarlarını çoğaltmalıdır.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Bu ayarlar bu bilgisayardan silinsin mi? Yedek almak istiyorsanız önce dışarı aktarın.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Bu paylaşılan ayarlar silindi. Değişikliklerinizi bu bilgisayarda saklamak için “Çoğalt” seçeneğini kullanın.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Bağlantıyı kes</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Bu yapılandırmanın bu bilgisayarda eşitlenmesi durdurulsun mu? Geçerli ayarlarınız korunacak. Paylaşılan yapılandırma ve diğer bilgisayarlar değiştirilmeyecek.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Dışa aktar</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Bu yapılandırmayı yedekleme veya başka bir bilgisayarda kullanmak için dosyaya kaydedin.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Dışa aktarılan dosyayı korumak için bir parola seçin. Yapılandırmayı içe aktarmak için bu parolaya ihtiyacınız olacak.</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Bağlantı dosyasını kaydet</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Bu işlem tamamlanamadı. Dosyayı, dosyanın parolasını, erişim izinlerinizi ve ağ bağlantınızı kontrol edin.</value>
+  </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Bu klasör adı zaten kullanılıyor. Bir bağlantı dosyası kullanarak bağlanın veya geri dönüp başka bir ad seçin.</value>
+  </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Paylaşılan klasörde yeni, boş bir alt klasör seçin. Mevcut dosyalar değişmeden kalacaktır.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Kaydedilen parolaları ve erişim bilgilerini temizle</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Bu bilgisayardaki bu ayarlar için kaydedilmiş parolalar, Foundry tarafından kaydedilmiş gizli dosyalar ve eşitleme erişimi kaldırılsın mı? Eşitlemek için eksik bilgileri eklemeniz ve yeniden bağlanmanız gerekecek. Önceden oluşturduğunuz medyalar değişmeyecek.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Foundry ayarları</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>İçe aktar</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Bir dosyadan yapılandırma ekleyin.</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Parolaları ve gizli dosyaları dahil et</value>
+  </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Bu yapılandırmayı kullanan kişiler, dahil edilen parolaları ve gizli dosyaları okuyabilir.</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Bazı parolalar veya kaynak dosyalar eksik. Parolaları kaydetmeden veya paylaşmadan önce bunları ekleyin.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Özel karakter içermeyen ve nokta veya boşlukla bitmeyen bir ad kullanın.</value>
+  </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Paylaşılan yapılandırma değişti. Bağlanmadan önce en son sürümü gözden geçirin.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Paylaşılan bir yapılandırmaya bağlan</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Bu bilgisayardaki sürümü kullan</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Daha fazla bilgi</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Windows hesabınızın parolalarını bu bilgisayarda saklayın.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Windows, bu bilgisayardaki hesabınız için bu kayıtlı ayarların veya eşitleme erişimlerinin kilidini açamıyor.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Diğer seçenekler</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} dosya eksik veya dahil edilmemiş. Medya oluşturmadan önce bu dosyaların konumlarını seçin.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Yapılandırma adı</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Dosya parolası</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Parolalar eşleşmiyor.</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Dahil edilen dosyalar: {1}
+Dahil edilen parolalar ve erişim anahtarları: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Hazır</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Bağlantı dosyasını korumak için bir parola seçin. Parolayı ayrı olarak paylaşın. Dosyayı paylaşılan yapılandırma klasörünün dışına kaydedin.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Parolaları hatırla</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Bu bağlantıyı bu bilgisayarda hatırla</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Yeniden adlandır</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Bu işlem, kullandığınız ayarların yerini alacak. Önce bir kopya saklamak için iptal edin ve “Çoğalt” seçeneğini kullanın.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Erişimi geri yükle</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>Paylaşılan klasördeki kayıtlı sürümler beklenmedik şekilde değişti. Güvendiğiniz bir yedekten geri yükleyin.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Çoğalt</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Bir yapılandırma seçin</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Kur</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Eşitlemeyi ayarla…</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Bu yapılandırmayı paylaşın veya ekibinizin zaten kullandığı bir yapılandırmaya bağlanın.</value>
+  </data>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Paylaş</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Bu ayarları içeri aktarabilen veya eşitleyebilen herkes, dahil edilen parolaları ve sertifikaların özel anahtarlarını okuyabilir.</value>
+  </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Başka bir işlem bu paylaşılan klasörü kullanıyor. Kısa süre sonra yeniden deneyin. Değişiklikleriniz bu bilgisayarda korunur.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Paylaşılan klasör</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Paylaşılan klasöre ulaşılamıyor. Adresini ve ağ erişiminizi kontrol edin. Değişiklikleriniz bu bilgisayarda korunur.</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Tüm bilgisayarlarda aynı ağ klasörünü kullanın. Klasör, şifrelemenin zorunlu olduğu SMB 3 kullanmalıdır. Bulutla eşitlenen klasörler desteklenmez.</value>
+  </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Bu bilgisayarda bu yapılandırmanın parolaları artık hatırlanmasın mı?</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Eşitle</value>
+  </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Eşitleniyor…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Bir sürüm seçin</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Eşitlenemiyor</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Yapılandırılmadı</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>Klasöre erişilemiyor</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Eşitlenecek değişiklikler</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Eşitlemeye hazır</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>Güncel</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Değişiklikler mevcut</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Dikkat gerekiyor</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Eşitle</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Bu yapılandırmayı ekibinizin bilgisayarlarında güncel tutun.</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Ayarlar güncel</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Foundry bu ayar biçimini açamıyor. Foundry'yi güncelleyin ve yeniden deneyin.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Başka bir bilgisayardan gelen değişiklikler var. Uygulamak için “Eşitle” seçeneğini kullanın.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Paylaşılan sürümü kullan</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Zorunlu alanları kontrol edin. Bir ağ klasörü isteniyorsa \\server\share\folder gibi bir yol kullanın. Dosya parolasını iki kez giriyorsanız her iki girişin de aynı olduğundan emin olun.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2590,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Genel</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Ayarlarınızı yedekleyin, başka bir bilgisayara aktarın veya eşitlenmiş halde tutun.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Ayarları yedekleme ve eşitleme</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

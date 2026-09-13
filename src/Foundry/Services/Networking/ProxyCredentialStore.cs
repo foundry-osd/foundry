@@ -2,8 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.ComponentModel;
 using System.Runtime.InteropServices;
+using Foundry.Utilities.Security;
 
 namespace Foundry.Services.Networking;
 
@@ -32,35 +32,26 @@ public interface IProxyCredentialStore
     void Delete();
 }
 
-internal sealed class ProxyCredentialStore : IProxyCredentialStore
+internal sealed class ProxyCredentialStore(IWindowsCredentialStore credentialStore) : IProxyCredentialStore
 {
     private const string TargetName = "FoundryOSD/Proxy";
-    private const int CredentialTypeGeneric = 1;
-    private const int CredentialPersistLocalMachine = 2;
-    private const int ErrorNotFound = 1168;
 
     public ProxyCredential? Read()
     {
-        if (!CredRead(TargetName, CredentialTypeGeneric, 0, out nint credentialPointer))
+        using WindowsCredential? credential = credentialStore.Read(TargetName);
+        if (credential is null)
         {
-            int error = Marshal.GetLastWin32Error();
-            return error == ErrorNotFound ? null : throw new Win32Exception(error);
+            return null;
         }
 
-        try
+        if (credential.Secret.Length % sizeof(char) != 0)
         {
-            NativeCredential credential = Marshal.PtrToStructure<NativeCredential>(credentialPointer);
-            string username = credential.UserName ?? string.Empty;
-            string password = credential.CredentialBlobSize == 0
-                ? string.Empty
-                : Marshal.PtrToStringUni(credential.CredentialBlob, credential.CredentialBlobSize / sizeof(char)) ?? string.Empty;
-            (string domain, string user) = SplitUsername(username);
-            return new ProxyCredential(user, domain, password);
+            throw new InvalidDataException("The stored proxy credential has an invalid password encoding.");
         }
-        finally
-        {
-            CredFree(credentialPointer);
-        }
+
+        string password = new(MemoryMarshal.Cast<byte, char>(credential.Secret));
+        (string domain, string user) = SplitUsername(credential.UserName ?? string.Empty);
+        return new ProxyCredential(user, domain, password);
     }
 
     public void Save(ProxyCredential credential)
@@ -69,42 +60,12 @@ internal sealed class ProxyCredentialStore : IProxyCredentialStore
         string username = string.IsNullOrWhiteSpace(credential.Domain)
             ? credential.Username
             : $"{credential.Domain}\\{credential.Username}";
-        nint passwordPointer = Marshal.StringToCoTaskMemUni(credential.Password);
-        try
-        {
-            var nativeCredential = new NativeCredential
-            {
-                Type = CredentialTypeGeneric,
-                TargetName = TargetName,
-                CredentialBlobSize = credential.Password.Length * sizeof(char),
-                CredentialBlob = passwordPointer,
-                Persist = CredentialPersistLocalMachine,
-                UserName = username
-            };
-
-            if (!CredWrite(ref nativeCredential, 0))
-            {
-                throw new Win32Exception(Marshal.GetLastWin32Error());
-            }
-        }
-        finally
-        {
-            Marshal.ZeroFreeCoTaskMemUnicode(passwordPointer);
-        }
+        credentialStore.Write(TargetName, MemoryMarshal.AsBytes(credential.Password.AsSpan()), username);
     }
 
     public void Delete()
     {
-        if (CredDelete(TargetName, CredentialTypeGeneric, 0))
-        {
-            return;
-        }
-
-        int error = Marshal.GetLastWin32Error();
-        if (error != ErrorNotFound)
-        {
-            throw new Win32Exception(error);
-        }
+        credentialStore.Delete(TargetName);
     }
 
     private static (string Domain, string Username) SplitUsername(string value)
@@ -114,36 +75,4 @@ internal sealed class ProxyCredentialStore : IProxyCredentialStore
             ? (value[..separator], value[(separator + 1)..])
             : (string.Empty, value);
     }
-
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    private struct NativeCredential
-    {
-        public int Flags;
-        public int Type;
-        public string TargetName;
-        public string? Comment;
-        public long LastWritten;
-        public int CredentialBlobSize;
-        public nint CredentialBlob;
-        public int Persist;
-        public int AttributeCount;
-        public nint Attributes;
-        public string? TargetAlias;
-        public string UserName;
-    }
-
-    [DllImport("advapi32.dll", EntryPoint = "CredReadW", CharSet = CharSet.Unicode, SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool CredRead(string target, int type, int flags, out nint credential);
-
-    [DllImport("advapi32.dll", EntryPoint = "CredWriteW", CharSet = CharSet.Unicode, SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool CredWrite(ref NativeCredential credential, int flags);
-
-    [DllImport("advapi32.dll", EntryPoint = "CredDeleteW", CharSet = CharSet.Unicode, SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool CredDelete(string target, int type, int flags);
-
-    [DllImport("advapi32.dll")]
-    private static extern void CredFree(nint buffer);
 }

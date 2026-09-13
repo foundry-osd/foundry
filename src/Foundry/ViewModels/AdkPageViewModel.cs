@@ -159,6 +159,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
 
     private async Task RunBlockingAdkOperationAsync(Func<CancellationToken, Task<AdkInstallationStatus>> operation)
     {
+        if (shellNavigationGuardService.State is ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending) return;
         // ADK setup can display UAC and modifies machine-level components, so the shell blocks navigation while it runs.
         shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
 

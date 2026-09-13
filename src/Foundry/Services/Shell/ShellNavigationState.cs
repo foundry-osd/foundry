@@ -22,5 +22,10 @@ public enum ShellNavigationState
     /// <summary>
     /// Navigation is restricted while a long-running operation is active.
     /// </summary>
-    OperationRunning
+    OperationRunning,
+
+    /// <summary>
+    /// Navigation is restricted while a profile action owns its own dialog.
+    /// </summary>
+    InteractionPending
 }

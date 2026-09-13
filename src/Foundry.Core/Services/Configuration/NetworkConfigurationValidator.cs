@@ -89,9 +89,17 @@ public static class NetworkConfigurationValidator
 
         return settings with
         {
+            Dot1x = settings.Dot1x with
+            {
+                CertificatePfxPassword = null,
+                CertificatePfxPasswordSecret = null
+            },
             Wifi = settings.Wifi with
             {
-                Passphrase = null
+                Passphrase = null,
+                PassphraseSecret = null,
+                CertificatePfxPassword = null,
+                CertificatePfxPasswordSecret = null
             }
         };
     }

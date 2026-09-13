@@ -28,6 +28,18 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     private bool isApplyingState = true;
     private bool isSavingState;
 
+    [ObservableProperty]
+    public partial string CertificatePasswordLabel { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    public partial string Dot1xCertificatePassword { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    public partial string WifiCertificatePassword { get; set; } = string.Empty;
+
+    partial void OnDot1xCertificatePasswordChanged(string value) => SaveState();
+    partial void OnWifiCertificatePasswordChanged(string value) => SaveState();
+
     public NetworkConfigurationViewModel(
         IFoundryConfigurationStateService configurationStateService,
         INetworkSecretStateService networkSecretStateService,
@@ -403,6 +415,10 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
     partial void OnDot1xCertificatePathChanged(string value)
     {
+        if (!isApplyingState)
+        {
+            Dot1xCertificatePassword = string.Empty;
+        }
         SaveState();
         RefreshPresentationState();
     }
@@ -439,6 +455,11 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
     partial void OnWifiSsidChanged(string value)
     {
+        if (!isApplyingState)
+        {
+            WifiPassphrase = string.Empty;
+            networkSecretStateService.ClearPersonalWifiPassphrase();
+        }
         SaveState();
         RefreshPresentationState();
     }
@@ -494,6 +515,10 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
     partial void OnWifiCertificatePathChanged(string value)
     {
+        if (!isApplyingState)
+        {
+            WifiCertificatePassword = string.Empty;
+        }
         SaveState();
         RefreshPresentationState();
     }
@@ -553,10 +578,12 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     private void ApplyState(NetworkSettings settings)
     {
         isApplyingState = true;
+        settings = networkSecretStateService.ApplyRequiredSecrets(settings);
         IsDot1xEnabled = settings.Dot1x.IsEnabled;
         Dot1xProfileTemplatePath = settings.Dot1x.ProfileTemplatePath ?? string.Empty;
         IsDot1xCertificateRequired = settings.Dot1x.RequiresCertificate;
         Dot1xCertificatePath = settings.Dot1x.CertificatePath ?? string.Empty;
+        Dot1xCertificatePassword = settings.Dot1x.CertificatePfxPassword ?? string.Empty;
 
         IsWifiProvisioned = settings.WifiProvisioned || settings.Wifi.IsEnabled;
         IsWifiConfigured = settings.Wifi.IsEnabled;
@@ -566,6 +593,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         WifiEnterpriseProfileTemplatePath = settings.Wifi.EnterpriseProfileTemplatePath ?? string.Empty;
         IsWifiCertificateRequired = settings.Wifi.RequiresCertificate;
         WifiCertificatePath = settings.Wifi.CertificatePath ?? string.Empty;
+        WifiCertificatePassword = settings.Wifi.CertificatePfxPassword ?? string.Empty;
         IsWiredDot1xProfileRoamingEnabled = settings.RoamWiredDot1xProfileToWindows;
         IsWiredDot1xPrivateKeyMaterialRoamingRequested = settings.RoamWiredDot1xPrivateKeyMaterialToWindows;
         IsWifiProfileRoamingEnabled = settings.RoamWifiProfileToWindows;
@@ -610,6 +638,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
                 AuthenticationMode = NetworkAuthenticationMode.MachineOnly,
                 AllowRuntimeCredentials = false,
                 RequiresCertificate = IsDot1xEnabled && IsDot1xCertificateRequired,
+                CertificatePfxPassword = IsDot1xCertificatePathEnabled ? Dot1xCertificatePassword : null,
                 CertificatePath = IsDot1xCertificatePathEnabled && !string.IsNullOrWhiteSpace(Dot1xCertificatePath)
                     ? Dot1xCertificatePath.Trim()
                     : null
@@ -634,6 +663,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
                 EnterpriseAuthenticationMode = NetworkAuthenticationMode.UserOnly,
                 AllowRuntimeCredentials = false,
                 RequiresCertificate = IsWifiEnterpriseSectionEnabled && IsWifiCertificateRequired,
+                CertificatePfxPassword = IsWifiCertificatePathEnabled ? WifiCertificatePassword : null,
                 CertificatePath = IsWifiCertificatePathEnabled && !string.IsNullOrWhiteSpace(WifiCertificatePath)
                     ? WifiCertificatePath.Trim()
                     : null
@@ -662,6 +692,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     {
         ProfileTemplateLabel = localizationService.GetString("Network.ProfileTemplateLabel");
         Dot1xCertificateLabel = localizationService.GetString("Dot1x.CertificateLabel");
+        CertificatePasswordLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePasswordLabel");
         RequiresCertificateText = localizationService.GetString("Network.RequiresCertificateLabel");
         WifiConfiguredText = localizationService.GetString("Wifi.ConfigureLabel");
         WifiSsidLabel = localizationService.GetString("Wifi.SsidLabel");

@@ -152,8 +152,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public string InteractiveHardwareHashUploadActionText => GetProvisioningModeActionText(AutopilotProvisioningMode.InteractiveHardwareHashUpload);
     public bool IsHardwareHashCertificateExpired => hardwareHashUploadSettings.ActiveCertificate?.ExpiresOnUtc is DateTimeOffset expiresOnUtc &&
                                                     expiresOnUtc <= DateTimeOffset.UtcNow;
-    public Visibility BootMediaCertificateVisibility => HasConnectedTenantInCurrentSession &&
-                                                        HasCertificates
+    public Visibility BootMediaCertificateVisibility => HasBootMediaCertificateRegistration
         ? Visibility.Visible
         : Visibility.Collapsed;
     public string BootMediaCertificatePfxPath => hardwareHashUploadSettings.BootMediaCertificate.PfxPath ?? string.Empty;
@@ -189,6 +188,15 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         : hardwareHashUploadSettings.DefaultGroupTag!;
     private bool HasTenantRegistration => !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.TenantId) &&
                                           !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.ClientId);
+    private bool HasSavedCertificateRegistration => HasTenantRegistration &&
+        !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.ApplicationObjectId) &&
+        !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.Tenant.ServicePrincipalObjectId) &&
+        !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.ActiveCertificate?.KeyId) &&
+        !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.ActiveCertificate.Thumbprint) &&
+        hardwareHashUploadSettings.ActiveCertificate.ExpiresOnUtc > DateTimeOffset.UtcNow;
+    private bool HasBootMediaCertificateRegistration => HasConnectedTenantInCurrentSession
+        ? HasCertificates
+        : HasSavedCertificateRegistration;
 
     private bool HasConnectedTenantInCurrentSession
     {
@@ -833,6 +841,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         isApplyingState = true;
         try
         {
+            AutopilotBootMediaCertificateSettings previousCertificate = hardwareHashUploadSettings.BootMediaCertificate;
             IsAutopilotEnabled = settings.IsEnabled;
             provisioningMode = Enum.IsDefined(settings.ProvisioningMode)
                 ? settings.ProvisioningMode
@@ -841,6 +850,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             {
                 BootMediaCertificate = hardwareHashSessionState.BootMediaCertificate
             };
+            if (!ReferenceEquals(previousCertificate, hardwareHashUploadSettings.BootMediaCertificate))
+            {
+                ResetBootMediaCertificateValidationState();
+            }
             tenantOnboardingStatus = hardwareHashSessionState.TenantOnboardingStatus;
             ReplaceCertificates(HasConnectedTenantInCurrentSession ? hardwareHashSessionState.Certificates : []);
             ReplaceDefaultGroupTagOptions(hardwareHashUploadSettings.KnownGroupTags, hardwareHashUploadSettings.DefaultGroupTag);
@@ -1277,8 +1290,19 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                         AutopilotCertificateEntryViewModel? matchingCertificate = FindTenantCertificateByThumbprint(validation.Thumbprint);
                         if (matchingCertificate is null)
                         {
-                            bootMediaCertificateValidationCode = AutopilotPfxValidationCode.ThumbprintMismatch;
-                            hardwareHashUploadSettings = hardwareHashUploadSettings with { ActiveCertificate = null };
+                            bool matchesSavedCertificate = !HasConnectedTenantInCurrentSession &&
+                                HasSavedCertificateRegistration &&
+                                validation.ExpiresOnUtc > DateTimeOffset.UtcNow &&
+                                string.Equals(NormalizeThumbprint(hardwareHashUploadSettings.ActiveCertificate?.Thumbprint),
+                                    NormalizeThumbprint(validation.Thumbprint), StringComparison.OrdinalIgnoreCase);
+                            if (!matchesSavedCertificate)
+                            {
+                                bootMediaCertificateValidationCode = AutopilotPfxValidationCode.ThumbprintMismatch;
+                                if (HasConnectedTenantInCurrentSession)
+                                {
+                                    hardwareHashUploadSettings = hardwareHashUploadSettings with { ActiveCertificate = null };
+                                }
+                            }
                             bootMediaCertificate = bootMediaCertificate with
                             {
                                 ValidatedThumbprint = validation.Thumbprint,
@@ -1317,6 +1341,22 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             BootMediaCertificate = bootMediaCertificate
         };
         hardwareHashSessionState.BootMediaCertificate = bootMediaCertificate;
+    }
+
+    private void ResetBootMediaCertificateValidationState()
+    {
+        AutopilotBootMediaCertificateSettings certificate = hardwareHashUploadSettings.BootMediaCertificate;
+        isBootMediaCertificateFileMissing = false;
+        bootMediaCertificateValidationCode = string.IsNullOrWhiteSpace(certificate.PfxPath)
+            ? AutopilotPfxValidationCode.PfxRequired
+            : string.IsNullOrWhiteSpace(certificate.PfxPassword)
+                ? AutopilotPfxValidationCode.PasswordRequired
+                : string.IsNullOrWhiteSpace(certificate.ValidatedThumbprint)
+                    ? AutopilotPfxValidationCode.InvalidPfx
+                    : string.Equals(NormalizeThumbprint(hardwareHashUploadSettings.ActiveCertificate?.Thumbprint),
+                        NormalizeThumbprint(certificate.ValidatedThumbprint), StringComparison.OrdinalIgnoreCase)
+                        ? AutopilotPfxValidationCode.Valid
+                        : AutopilotPfxValidationCode.ThumbprintMismatch;
     }
 
     private void ClearBootMediaCertificateIfActiveCertificateChanged()
@@ -1587,8 +1627,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         return IsAutopilotEnabled &&
                IsHardwareHashUploadMode &&
                !IsBusy &&
-               HasConnectedTenantInCurrentSession &&
-               HasCertificates;
+               HasBootMediaCertificateRegistration;
     }
 
     private static string? NormalizeThumbprint(string? thumbprint)

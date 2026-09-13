@@ -2211,6 +2211,272 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opcje wdrażania systemu Windows</value>
   </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Bieżące ustawienia</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Automatyczna synchronizacja</value>
+  </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Wybierz inną nazwę</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Nie udało się usunąć niektórych starych zapisanych haseł lub kluczy dostępu. Spróbuj ponownie, gdy Menedżer poświadczeń systemu Windows będzie dostępny.</value>
+  </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Potwierdź hasło</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Potwierdź hasło pliku</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Te ustawienia zostały zmienione na tym komputerze oraz przez inną osobę. Wybierz wersję, którą chcesz zachować.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Wybrana wersja zastąpi drugą. Jeśli chcesz zachować osobną kopię, najpierw wybierz Duplikuj.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Połącz</value>
+  </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Wybierz plik połączenia otrzymany od członka zespołu.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Hasło połączenia</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Inne komputery będą potrzebować tego hasła, aby się połączyć.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Kontynuuj</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Udostępnij tę konfigurację</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Wybierz udostępniony folder sieciowy dla tej konfiguracji.</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Usuń z tego komputera</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Usuń również dla wszystkich</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Usunąć te współdzielone ustawienia dla wszystkich? Osoby z niezsynchronizowanymi zmianami muszą zduplikować swoje ustawienia, aby zachować zmiany.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Usunąć te ustawienia z tego komputera? Jeśli chcesz zachować kopię zapasową, najpierw je wyeksportuj.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Te współdzielone ustawienia zostały usunięte. Wybierz Duplikuj, aby zachować zmiany na tym komputerze.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Rozłącz</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Zatrzymać synchronizację tej konfiguracji na tym komputerze? Bieżące ustawienia zostaną zachowane. Udostępniona konfiguracja i pozostałe komputery nie zostaną zmienione.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Eksportuj</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Zapisz tę konfigurację w pliku jako kopię zapasową lub do użycia na innym komputerze.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Wybierz hasło, aby zabezpieczyć eksportowany plik. Będzie potrzebne do zaimportowania konfiguracji.</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Zapisz plik połączenia</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Nie udało się wykonać działania. Sprawdź plik, jego hasło, uprawnienia dostępu i połączenie sieciowe.</value>
+  </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Ta nazwa folderu jest już używana. Połącz się za pomocą pliku połączenia lub wróć i wybierz inną nazwę.</value>
+  </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Wybierz nowy, pusty podfolder w folderze udostępnionym. Istniejące pliki pozostaną bez zmian.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Wyczyść zapisane hasła i dane dostępu</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Usunąć z tego komputera zapisane hasła, poufne pliki zapisane przez Foundry i dostęp do synchronizacji tych ustawień? Aby synchronizować, trzeba będzie dodać brakujące dane i połączyć się ponownie. Utworzone wcześniej nośniki nie ulegną zmianie.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Ustawienia Foundry</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Importuj</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Dodaj konfigurację z pliku.</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Dołącz hasła i poufne pliki</value>
+  </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Osoby korzystające z tej konfiguracji mogą odczytać dołączone hasła i poufne pliki.</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Brakuje niektórych haseł lub plików źródłowych. Dodaj je przed zapisaniem lub udostępnieniem haseł.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Użyj nazwy bez znaków specjalnych i bez kropki lub spacji na końcu.</value>
+  </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Udostępniona konfiguracja uległa zmianie. Przed połączeniem sprawdź najnowszą wersję.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Połącz z udostępnioną konfiguracją</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Użyj wersji z tego komputera</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Dowiedz się więcej</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Zachowaj hasła dla swojego konta Windows na tym komputerze.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Windows nie może odblokować tych zapisanych ustawień lub dostępu do ich synchronizacji dla Twojego konta na tym komputerze.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Więcej opcji</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>Liczba brakujących lub niedołączonych plików: {0}. Wybierz ich lokalizacje przed utworzeniem nośnika.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Nazwa konfiguracji</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Hasło pliku</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Hasła nie są zgodne.</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Dołączone pliki: {1}
+Dołączone hasła i klucze dostępu: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Gotowe</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Wybierz hasło chroniące plik połączenia. Udostępnij hasło osobno. Zapisz plik poza folderem udostępnionej konfiguracji.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Zapamiętaj hasła</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Zapamiętaj to połączenie na tym komputerze</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Zmień nazwę</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Spowoduje to zastąpienie używanych ustawień. Aby najpierw zachować kopię, anuluj i wybierz Duplikuj.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Przywróć dostęp</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>Wersje zapisane w folderze współdzielonym niespodziewanie się zmieniły. Przywróć je z zaufanej kopii zapasowej.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Duplikuj</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Wybierz konfigurację</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Skonfiguruj</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Skonfiguruj synchronizację…</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Udostępnij tę konfigurację lub połącz się z konfiguracją, której Twój zespół już używa.</value>
+  </data>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Udostępnij</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Każdy, kto może importować lub synchronizować te ustawienia, może odczytać dołączone hasła i klucze prywatne certyfikatów.</value>
+  </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Inna operacja korzysta z tego folderu udostępnionego. Spróbuj ponownie za chwilę. Twoje zmiany są zachowane na tym komputerze.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Folder udostępniony</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Folder udostępniony jest nieosiągalny. Sprawdź jego adres i swój dostęp do sieci. Twoje zmiany są zachowane na tym komputerze.</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Używaj tego samego folderu sieciowego na każdym komputerze. Musi on korzystać z SMB 3 z wymaganym szyfrowaniem. Foldery synchronizowane z chmurą nie są obsługiwane.</value>
+  </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Przestać zapamiętywać hasła tej konfiguracji na tym komputerze?</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Synchronizuj</value>
+  </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Synchronizowanie…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Wybierz wersję</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Nie można zsynchronizować</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Nie skonfigurowano</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>Folder jest niedostępny</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Zmiany do zsynchronizowania</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Gotowe do synchronizacji</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>Aktualne</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Dostępne zmiany</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Wymaga uwagi</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Synchronizuj</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Utrzymuj tę konfigurację aktualną na komputerach swojego zespołu.</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Ustawienia są aktualne</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Foundry nie może otworzyć tego formatu ustawień. Zaktualizuj Foundry i spróbuj ponownie.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Dostępne są zmiany z innego komputera. Wybierz Synchronizuj, aby je zastosować.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Użyj wersji współdzielonej</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Sprawdź wymagane pola. Jeśli wymagany jest folder sieciowy, użyj ścieżki takiej jak \\server\share\folder. Jeśli wpisujesz hasło pliku dwa razy, upewnij się, że oba wpisy są takie same.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2590,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Generał</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Twórz kopie zapasowe ustawień, przenoś je na inny komputer lub dbaj o ich synchronizację.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Kopie zapasowe i synchronizacja ustawień</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

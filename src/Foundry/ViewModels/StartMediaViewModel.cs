@@ -5,7 +5,6 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using Foundry.Core.Models.Configuration;
@@ -13,6 +12,7 @@ using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Media;
+using Foundry.Core.Services.Profiles;
 using Foundry.Core.Services.Telemetry;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
@@ -44,7 +44,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IFilePickerService filePickerService;
     private readonly IFoundryConfigurationStateService foundryConfigurationStateService;
     private readonly IConfigurationOverviewService configurationOverviewService;
-    private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
     private readonly INetworkSecretStateService networkSecretStateService;
     private readonly ITelemetryService telemetryService;
     private readonly IOperationProgressService operationProgressService;
@@ -81,7 +80,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IFilePickerService filePickerService,
         IFoundryConfigurationStateService foundryConfigurationStateService,
         IConfigurationOverviewService configurationOverviewService,
-        IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
         INetworkSecretStateService networkSecretStateService,
         ITelemetryService telemetryService,
         IOperationProgressService operationProgressService,
@@ -103,7 +101,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.filePickerService = filePickerService;
         this.foundryConfigurationStateService = foundryConfigurationStateService;
         this.configurationOverviewService = configurationOverviewService;
-        this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
         this.networkSecretStateService = networkSecretStateService;
         this.telemetryService = telemetryService;
         this.operationProgressService = operationProgressService;
@@ -400,13 +397,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task CreateIsoAsync()
     {
-        if (IsMediaOperationRunning || isRefreshingUnattendSources)
+        if (IsMediaOperationRunning || isRefreshingUnattendSources || shellNavigationGuardService.State != ShellNavigationState.Ready)
         {
             return;
         }
 
         await RefreshUnattendSourcesAsync();
-        if (isDisposed)
+        if (isDisposed || shellNavigationGuardService.State != ShellNavigationState.Ready)
         {
             return;
         }
@@ -430,13 +427,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task CreateUsbAsync()
     {
-        if (IsMediaOperationRunning || isRefreshingUnattendSources)
+        if (IsMediaOperationRunning || isRefreshingUnattendSources || shellNavigationGuardService.State != ShellNavigationState.Ready)
         {
             return;
         }
 
         await RefreshUnattendSourcesAsync();
-        if (isDisposed)
+        if (isDisposed || shellNavigationGuardService.State != ShellNavigationState.Ready)
         {
             return;
         }
@@ -461,32 +458,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return;
         }
 
-        WinPeUsbDiskCandidate selectedDisk = options.SelectedUsbDisk;
-        bool confirmed = await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
-            localizationService.GetString("StartMedia.CreateUsb.ConfirmTitle"),
-            string.Format(
-                localizationService.GetString("StartMedia.CreateUsb.ConfirmMessage"),
-                selectedDisk.DiskNumber,
-                selectedDisk.FriendlyName,
-                FormatByteSize(selectedDisk.SizeBytes)),
-            localizationService.GetString("StartMedia.CreateUsb.ConfirmPrimary"),
-            localizationService.GetString("Common.Cancel")));
-
-        if (!confirmed)
-        {
-            logger.Information(
-                "Final USB media creation cancelled before formatting. DiskNumber={DiskNumber}, DiskName={DiskName}",
-                selectedDisk.DiskNumber,
-                selectedDisk.FriendlyName);
-            return;
-        }
-
         await RunFinalMediaOperationAsync(FinalMediaTarget.Usb, options);
     }
 
     private async Task RunFinalMediaOperationAsync(FinalMediaTarget target, MediaPreflightOptions options)
     {
-        if (IsMediaOperationRunning)
+        if (IsMediaOperationRunning || shellNavigationGuardService.State != ShellNavigationState.Ready)
         {
             return;
         }
@@ -495,7 +472,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         ResetProgressLogSampling();
         RefreshEvaluation();
         // Final media operations can format disks or overwrite ISO output, so the shell remains locked until completion.
-        shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
+        shellNavigationGuardService.SetState(ShellNavigationState.InteractionPending);
         string terminalStatus = string.Empty;
         string? successMessage = null;
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -513,6 +490,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         };
         WinPeDiagnostic? failureDiagnostic = null;
         DeploymentMediaProtectionMaterial? deploymentProtectionMaterial = null;
+        DeploymentBuildSnapshot? snapshot = null;
+        FoundryConfigurationDocument capturedConfiguration = foundryConfigurationStateService.Current;
+        bool shouldTrackMedia = true;
 
         using IDisposable operationIdScope = LogContext.PushProperty("OperationId", operationId);
         using IDisposable workflowScope = LogContext.PushProperty("Workflow", "boot_media_creation");
@@ -522,7 +502,21 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         try
         {
-            deploymentProtectionMaterial = CreateDeploymentProtectionMaterial();
+            options = options with
+            {
+                DriverVendors = options.DriverVendors.ToArray(),
+                AvailableWinPeLanguages = options.AvailableWinPeLanguages.ToArray()
+            };
+            snapshot = await foundryConfigurationStateService.CaptureBuildSnapshotAsync(
+                Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots"), CancellationToken.None);
+            capturedConfiguration = snapshot.Configuration;
+            options = options with { CustomDriverDirectoryPath = capturedConfiguration.General.CustomDriverDirectoryPath };
+            if (target == FinalMediaTarget.Usb && !await ConfirmUsbFormattingAsync(options.SelectedUsbDisk!))
+            {
+                shouldTrackMedia = false;
+                return;
+            }
+            deploymentProtectionMaterial = snapshot.CreateDeploymentProtectionMaterial();
             string startStatus = target switch
             {
                 FinalMediaTarget.Iso => localizationService.GetString("StartMedia.Operation.CreatingIso"),
@@ -531,6 +525,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             };
 
             operationProgressService.Start(OperationKind.MediaCreation, startStatus);
+            shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
             logger.Information(
                 "Final media creation started. Target={Target}, Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, IsoOutputPath={IsoOutputPath}, UsbDiskNumber={UsbDiskNumber}, UsbDiskName={UsbDiskName}",
                 target,
@@ -542,12 +537,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
             if (target == FinalMediaTarget.Iso)
             {
-                _ = await CreateIsoMediaAsync(options, deploymentProtectionMaterial, telemetryProgressTracker, CancellationToken.None);
+                _ = await CreateIsoMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, CancellationToken.None);
                 successMessage = localizationService.GetString("StartMedia.Operation.IsoSuccessMessage");
             }
             else if (target == FinalMediaTarget.UsbUpdate)
             {
-                WinPeUsbProvisionResult usbResult = await UpdateUsbMediaAsync(options, deploymentProtectionMaterial, telemetryProgressTracker, CancellationToken.None);
+                WinPeUsbProvisionResult usbResult = await UpdateUsbMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, CancellationToken.None);
                 successMessage = string.Format(
                     CultureInfo.CurrentCulture,
                     localizationService.GetString("StartMedia.Operation.UsbUpdateSuccessMessage"),
@@ -556,7 +551,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             }
             else
             {
-                WinPeUsbProvisionResult usbResult = await CreateUsbMediaAsync(options, deploymentProtectionMaterial, telemetryProgressTracker, CancellationToken.None);
+                WinPeUsbProvisionResult usbResult = await CreateUsbMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, CancellationToken.None);
                 successMessage = string.Format(
                     CultureInfo.CurrentCulture,
                     localizationService.GetString("StartMedia.Operation.UsbSuccessMessage"),
@@ -628,26 +623,67 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         finally
         {
             deploymentProtectionMaterial?.Dispose();
-            await TrackMediaCreatedAsync(
-                target,
-                options,
-                success,
-                success ? null : telemetryProgressTracker.CurrentStepName,
-                stopwatch.Elapsed,
-                operationId,
-                failureDiagnostic,
-                CancellationToken.None);
-            shellNavigationGuardService.SetState(adkService.CurrentStatus.CanCreateMedia
-                ? ShellNavigationState.Ready
-                : ShellNavigationState.AdkBlocked);
-            operationProgressService.Reset(terminalStatus);
-            IsMediaOperationRunning = false;
-            RefreshEvaluation();
+            try
+            {
+                snapshot?.Dispose();
+            }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+            {
+                logger.Warning(exception, "Private media build sources could not be fully removed.");
+            }
+            try
+            {
+                if (shouldTrackMedia)
+                {
+                    await TrackMediaCreatedAsync(
+                        target,
+                        options,
+                        capturedConfiguration,
+                        success,
+                        success ? null : telemetryProgressTracker.CurrentStepName,
+                        stopwatch.Elapsed,
+                        operationId,
+                        failureDiagnostic,
+                        CancellationToken.None);
+                }
+            }
+            finally
+            {
+
+                shellNavigationGuardService.SetState(adkService.CurrentStatus.CanCreateMedia
+                    ? ShellNavigationState.Ready
+                    : ShellNavigationState.AdkBlocked);
+                operationProgressService.Reset(terminalStatus);
+                IsMediaOperationRunning = false;
+                RefreshEvaluation();
+            }
         }
+    }
+
+    private async Task<bool> ConfirmUsbFormattingAsync(WinPeUsbDiskCandidate selectedDisk)
+    {
+        bool confirmed = await dialogService.ConfirmAsync(new ConfirmationDialogRequest(
+            localizationService.GetString("StartMedia.CreateUsb.ConfirmTitle"),
+            string.Format(
+                localizationService.GetString("StartMedia.CreateUsb.ConfirmMessage"),
+                selectedDisk.DiskNumber,
+                selectedDisk.FriendlyName,
+                FormatByteSize(selectedDisk.SizeBytes)),
+            localizationService.GetString("StartMedia.CreateUsb.ConfirmPrimary"),
+            localizationService.GetString("Common.Cancel")));
+        if (!confirmed)
+        {
+            logger.Information(
+                "Final USB media creation cancelled before formatting. DiskNumber={DiskNumber}, DiskName={DiskName}",
+                selectedDisk.DiskNumber,
+                selectedDisk.FriendlyName);
+        }
+        return confirmed;
     }
 
     private async Task<string> CreateIsoMediaAsync(
         MediaPreflightOptions options,
+        DeploymentBuildSnapshot snapshot,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         MediaCreationTelemetryProgressTracker telemetryProgressTracker,
         CancellationToken cancellationToken)
@@ -658,6 +694,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
+                snapshot,
                 includeRuntimePayloadInImage: true,
                 deploymentProtectionMaterial,
                 telemetryProgressTracker: telemetryProgressTracker,
@@ -693,6 +730,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private async Task<WinPeUsbProvisionResult> CreateUsbMediaAsync(
         MediaPreflightOptions options,
+        DeploymentBuildSnapshot snapshot,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         MediaCreationTelemetryProgressTracker telemetryProgressTracker,
         CancellationToken cancellationToken)
@@ -709,6 +747,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
+                snapshot,
                 includeRuntimePayloadInImage: false,
                 deploymentProtectionMaterial,
                 telemetryProgressTracker: telemetryProgressTracker,
@@ -761,6 +800,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private async Task<WinPeUsbProvisionResult> UpdateUsbMediaAsync(
         MediaPreflightOptions options,
+        DeploymentBuildSnapshot snapshot,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         MediaCreationTelemetryProgressTracker telemetryProgressTracker,
         CancellationToken cancellationToken)
@@ -777,6 +817,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
+                snapshot,
                 includeRuntimePayloadInImage: false,
                 deploymentProtectionMaterial,
                 telemetryProgressTracker: telemetryProgressTracker,
@@ -827,6 +868,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private async Task<PreparedMediaWorkspace> PrepareMediaWorkspaceAsync(
         MediaPreflightOptions options,
+        DeploymentBuildSnapshot snapshot,
         bool includeRuntimePayloadInImage,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         MediaCreationTelemetryProgressTracker telemetryProgressTracker,
@@ -851,8 +893,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 Constants.WinPeWorkspaceDirectoryPath,
                 Constants.WinPeWorkspaceDirectoryPath);
             runtimePayloadProvisioning = AddReleaseRuntimeProvisioning(runtimePayloadProvisioning);
-            TelemetrySettings connectTelemetrySettings = CreateRuntimeTelemetrySettings(ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect));
-            TelemetrySettings deployTelemetrySettings = CreateRuntimeTelemetrySettings(ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy));
+            TelemetrySettings connectTelemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect) };
+            TelemetrySettings deployTelemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy) };
 
             logger.Debug(
                 "Final media workspace preparation started. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, SignatureMode={SignatureMode}, BootImageSource={BootImageSource}, IncludeRuntimePayloadInImage={IncludeRuntimePayloadInImage}, DriverVendorCount={DriverVendorCount}, HasCustomDriverDirectory={HasCustomDriverDirectory}, IsAutopilotEnabled={IsAutopilotEnabled}, IsConnectRuntimeProvisioningEnabled={IsConnectRuntimeProvisioningEnabled}, ConnectRuntimeSource={ConnectRuntimeSource}, IsDeployRuntimeProvisioningEnabled={IsDeployRuntimeProvisioningEnabled}, DeployRuntimeSource={DeployRuntimeSource}",
@@ -906,14 +948,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             artifactRuntimePayloadProvisioning = runtimePreparation.Value!;
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.GenerateProvisioningPayloads);
-            FoundryConnectProvisioningBundle connectBundle = foundryConfigurationStateService.GenerateConnectProvisioningBundle(
+            FoundryConnectProvisioningBundle connectBundle = snapshot.CreateConnectProvisioningBundle(
                 Path.Combine(artifact.WorkingDirectoryPath, "Provisioning"),
                 connectTelemetrySettings);
             logger.Debug(
                 "Generated local provisioning payloads. ConnectAssetFileCount={ConnectAssetFileCount}, HasMediaSecretsKey={HasMediaSecretsKey}, AutopilotProfileCount={AutopilotProfileCount}",
                 connectBundle.AssetFiles.Count,
                 connectBundle.MediaSecretsKey is { Length: > 0 },
-                options.IsAutopilotEnabled ? foundryConfigurationStateService.Current.Autopilot.Profiles.Count : 0);
+                options.IsAutopilotEnabled ? snapshot.Configuration.Autopilot.Profiles.Count : 0);
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.PrepareWinPeWorkspace);
             IProgress<WinPeWorkspacePreparationStage> workspacePreparationProgress =
@@ -937,6 +979,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                         WinPeLanguage = options.WinPeLanguage,
                         AssetProvisioning = CreateAssetProvisioningOptions(
                             options,
+                            snapshot,
                             tools,
                             connectBundle,
                             deploymentProtectionMaterial,
@@ -990,6 +1033,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private WinPeMountedImageAssetProvisioningOptions CreateAssetProvisioningOptions(
         MediaPreflightOptions options,
+        DeploymentBuildSnapshot snapshot,
         WinPeToolPaths tools,
         FoundryConnectProvisioningBundle connectBundle,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
@@ -1013,46 +1057,28 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             IanaWindowsTimeZoneMapJson = embeddedAssetService.GetIanaWindowsTimeZoneMapJson(),
             FoundryBootstrapConfiguration = new FoundryBootstrapConfigurationDocument
             {
-                Telemetry = CreateRuntimeTelemetrySettings(ResolveRuntimePayloadSource(runtimePayloadProvisioning.Bootstrap))
+                Telemetry = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Bootstrap) }
             },
             FoundryConnectConfigurationJson = connectBundle.ConfigurationJson,
-            DeployConfigurationJson = foundryConfigurationStateService.GenerateDeployConfigurationJson(
+            DeployConfigurationJson = snapshot.GenerateDeployConfigurationJson(
                 deployTelemetrySettings,
                 deploymentProtectionMaterial.DeploymentKey,
                 deploymentProtectionMaterial.Settings),
             NetworkSecretsKey = connectBundle.MediaSecretsKey,
             DeploymentSecretsKey = deploymentProtectionMaterial.DeploymentKey,
             IsDeploymentProtectionEnabled = deploymentProtectionMaterial.Settings.IsEnabled,
-            Unattend = foundryConfigurationStateService.Current.Unattend,
+            Unattend = snapshot.Configuration.Unattend,
             FoundryConnectAssetFiles = connectBundle.AssetFiles,
             AutopilotProvisioningMode = options.IsAutopilotEnabled
                 ? options.AutopilotProvisioningMode
                 : AutopilotProvisioningMode.JsonProfile,
             Oa3ToolSourcePath = oa3ToolSourcePath,
             AutopilotProfiles = options.IsAutopilotEnabled && options.AutopilotProvisioningMode == AutopilotProvisioningMode.JsonProfile
-                ? foundryConfigurationStateService.Current.Autopilot.Profiles
+                ? snapshot.Configuration.Autopilot.Profiles
                 : [],
             ConnectProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Connect),
             DeployProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Deploy)
         };
-    }
-
-    private DeploymentMediaProtectionMaterial CreateDeploymentProtectionMaterial()
-    {
-        if (!foundryConfigurationStateService.Current.General.DeploymentProtection.IsEnabled)
-        {
-            return DeploymentMediaProtectionService.CreateUnprotected();
-        }
-
-        char[] password = deploymentProtectionSecretStateService.GetConfirmedPasswordCopy();
-        try
-        {
-            return DeploymentMediaProtectionService.CreateProtected(password);
-        }
-        finally
-        {
-            CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
-        }
     }
 
     private static WinPeProvisioningSource ResolveProvisioningSource(WinPeRuntimePayloadApplicationOptions options)
@@ -1644,6 +1670,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private async Task TrackMediaCreatedAsync(
         FinalMediaTarget target,
         MediaPreflightOptions options,
+        FoundryConfigurationDocument capturedConfiguration,
         bool success,
         string? failedStepName,
         TimeSpan duration,
@@ -1670,7 +1697,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             bootMediaTarget,
             bootMediaUsbOperation,
             options,
-            foundryConfigurationStateService.Current,
+            capturedConfiguration,
             success,
             failedStepName,
             duration,

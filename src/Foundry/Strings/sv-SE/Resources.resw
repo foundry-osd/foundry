@@ -2211,6 +2211,272 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Distributionsalternativ för Windows</value>
   </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Aktuella inställningar</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Automatisk synkronisering</value>
+  </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Välj ett annat namn</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Vissa gamla sparade lösenord eller åtkomstnycklar kunde inte tas bort. Försök igen när Autentiseringshanteraren i Windows är tillgänglig.</value>
+  </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Bekräfta lösenord</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Bekräfta filens lösenord</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>De här inställningarna har ändrats på den här datorn och av någon annan. Välj vilken version du vill behålla.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Den version du väljer ersätter den andra. Välj först ”Duplicera” om du vill behålla en separat kopia.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Anslut</value>
+  </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Välj anslutningsfilen som du har fått av någon i ditt team.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Anslutningslösenord</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Andra datorer behöver det här lösenordet för att ansluta.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Fortsätt</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Dela den här konfigurationen</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Välj en delad nätverksmapp för den här konfigurationen.</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Ta bort från den här datorn</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Ta även bort för alla</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Vill du ta bort de här delade inställningarna för alla? Alla som har osynkroniserade ändringar måste duplicera sina inställningar för att behålla dem.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Vill du ta bort de här inställningarna från den här datorn? Exportera dem först om du vill ha en säkerhetskopia.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>De här delade inställningarna har tagits bort. Välj ”Duplicera” för att behålla dina ändringar på den här datorn.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Koppla från</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Vill du sluta synkronisera den här konfigurationen på den här datorn? Dina nuvarande inställningar behålls. Den delade konfigurationen och andra datorer ändras inte.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Exportera</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Spara den här konfigurationen i en fil som säkerhetskopia eller för en annan dator.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Välj ett lösenord för att skydda den exporterade filen. Du behöver det för att importera konfigurationen.</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Spara anslutningsfil</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Det gick inte att slutföra åtgärden. Kontrollera filen, dess lösenord, dina åtkomstbehörigheter och nätverksanslutningen.</value>
+  </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Det här mappnamnet används redan. Anslut med en anslutningsfil eller gå tillbaka och välj ett annat namn.</value>
+  </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Välj en ny, tom undermapp i den delade mappen. Befintliga filer förblir oförändrade.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Rensa sparade lösenord och åtkomster</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Vill du ta bort sparade lösenord, konfidentiella filer som Foundry har sparat och åtkomst till synkronisering för de här inställningarna på den här datorn? Du måste lägga till uppgifterna som saknas och ansluta igen för att synkronisera. Media som du redan har skapat ändras inte.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Inställningar för Foundry</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Importera</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Lägg till en konfiguration från en fil.</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Inkludera lösenord och konfidentiella filer</value>
+  </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Personer som använder den här konfigurationen kan läsa de inkluderade lösenorden och konfidentiella filerna.</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Vissa lösenord eller källfiler saknas. Lägg till dem innan du sparar eller delar lösenord.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Använd ett namn utan specialtecken och utan punkt eller blanksteg i slutet.</value>
+  </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Den delade konfigurationen har ändrats. Granska den senaste versionen innan du ansluter.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Anslut till en delad konfiguration</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Använd den här datorns version</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Läs mer</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Spara lösenord för ditt Windows-konto på den här datorn.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Windows kan inte låsa upp de här sparade inställningarna eller deras synkroniseringsåtkomst för ditt konto på den här datorn.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Fler alternativ</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} filer saknas eller inkluderades inte. Välj var de finns innan du skapar media.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Konfigurationens namn</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Filens lösenord</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Lösenorden stämmer inte överens.</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Inkluderade filer: {1}
+Inkluderade lösenord och åtkomstnycklar: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Välj ett lösenord för att skydda anslutningsfilen. Dela lösenordet separat. Spara filen utanför mappen för den delade konfigurationen.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Kom ihåg lösenord</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Kom ihåg den här anslutningen på den här datorn</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Byt namn</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Detta ersätter inställningarna du använder. Om du vill behålla en kopia först avbryter du och väljer ”Duplicera”.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Återställ åtkomst</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>De sparade versionerna i den delade mappen har ändrats oväntat. Återställ från en säkerhetskopia som du litar på.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Duplicera</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Välj en konfiguration</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Konfigurera</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Konfigurera synkronisering…</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Dela den här konfigurationen eller anslut till en som ditt team redan använder.</value>
+  </data>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Dela</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Alla som kan importera eller synkronisera de här inställningarna kan läsa de inkluderade lösenorden och certifikatens privata nycklar.</value>
+  </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>En annan åtgärd använder den här delade mappen. Försök igen om en stund. Dina ändringar sparas på den här datorn.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Delad mapp</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Den delade mappen kan inte nås. Kontrollera dess adress och din nätverksåtkomst. Dina ändringar sparas på den här datorn.</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Använd samma nätverksmapp på alla datorer. Den måste använda SMB 3 med obligatorisk kryptering. Mappar som synkroniseras med molnet stöds inte.</value>
+  </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Sluta komma ihåg lösenord för den här konfigurationen på den här datorn?</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Synkronisera</value>
+  </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Synkroniserar…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Välj en version</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Kan inte synkronisera</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Inte konfigurerad</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>Mappen är inte tillgänglig</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Ändringar att synkronisera</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Redo att synkronisera</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>Uppdaterad</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Ändringar tillgängliga</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Kräver uppmärksamhet</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Synkronisera</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Håll den här konfigurationen uppdaterad på teamets datorer.</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Inställningarna är uppdaterade</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Foundry kan inte öppna det här inställningsformatet. Uppdatera Foundry och försök igen.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Det finns ändringar från en annan dator. Välj ”Synkronisera” för att tillämpa dem.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Använd delad version</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Kontrollera de obligatoriska fälten. Om en nätverksmapp efterfrågas använder du en sökväg som \\server\share\folder. Om du anger filens lösenord två gånger ska båda vara likadana.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2590,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Allmänt</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Säkerhetskopiera dina inställningar, överför dem till en annan dator eller håll dem synkroniserade.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Säkerhetskopiering och synkronisering av inställningar</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

@@ -2211,6 +2211,272 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Možnosti nasadenia Windows</value>
   </data>
+  <data name="Profiles.Active" xml:space="preserve">
+    <value>Aktuálne nastavenia</value>
+  </data>
+  <data name="Profiles.AutoSync" xml:space="preserve">
+    <value>Automatická synchronizácia</value>
+  </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Vybrať iný názov</value>
+  </data>
+  <data name="Profiles.CleanupPending" xml:space="preserve">
+    <value>Niektoré staré uložené heslá alebo prístupové kľúče sa nepodarilo odstrániť. Skúste to znova, keď bude k dispozícii Správca poverení systému Windows.</value>
+  </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Potvrďte heslo</value>
+  </data>
+  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
+    <value>Potvrďte heslo súboru</value>
+  </data>
+  <data name="Profiles.Conflict" xml:space="preserve">
+    <value>Tieto nastavenia boli zmenené v tomto počítači aj niekým iným. Vyberte, ktorú verziu chcete ponechať.</value>
+  </data>
+  <data name="Profiles.ConflictWarning" xml:space="preserve">
+    <value>Vybratá verzia nahradí druhú. Ak si chcete ponechať samostatnú kópiu, najprv vyberte možnosť „Duplikovať“.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Pripojiť</value>
+  </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Vyberte súbor pripojenia, ktorý vám poskytol niekto z vášho tímu.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Heslo na pripojenie</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Ostatné počítače budú potrebovať toto heslo na pripojenie.</value>
+  </data>
+  <data name="Profiles.Continue" xml:space="preserve">
+    <value>Pokračovať</value>
+  </data>
+  <data name="Profiles.CreateShared" xml:space="preserve">
+    <value>Zdieľať túto konfiguráciu</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Vyberte zdieľaný sieťový priečinok pre túto konfiguráciu.</value>
+  </data>
+  <data name="Profiles.Delete" xml:space="preserve">
+    <value>Odstrániť z tohto počítača</value>
+  </data>
+  <data name="Profiles.DeleteShared" xml:space="preserve">
+    <value>Odstrániť aj pre všetkých</value>
+  </data>
+  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
+    <value>Odstrániť tieto zdieľané nastavenia pre všetkých? Každý, kto má nesynchronizované zmeny, si musí vytvoriť kópiu svojich nastavení, aby si ich ponechal.</value>
+  </data>
+  <data name="Profiles.DeleteWarning" xml:space="preserve">
+    <value>Odstrániť tieto nastavenia z tohto počítača? Ak chcete zálohu, najprv ich exportujte.</value>
+  </data>
+  <data name="Profiles.DeletedRemote" xml:space="preserve">
+    <value>Tieto zdieľané nastavenia boli odstránené. Vyberte možnosť „Duplikovať“, aby ste si ponechali zmeny v tomto počítači.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Odpojiť</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Zastaviť synchronizáciu tejto konfigurácie v tomto počítači? Vaše aktuálne nastavenia sa zachovajú. Zdieľaná konfigurácia ani ostatné počítače sa nezmenia.</value>
+  </data>
+  <data name="Profiles.Export" xml:space="preserve">
+    <value>Exportovať</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Uložiť túto konfiguráciu do súboru ako zálohu alebo pre iný počítač.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Vyberte heslo na ochranu exportovaného súboru. Budete ho potrebovať na import konfigurácie.</value>
+  </data>
+  <data name="Profiles.ExportRecovery" xml:space="preserve">
+    <value>Uložiť súbor pripojenia</value>
+  </data>
+  <data name="Profiles.Failed" xml:space="preserve">
+    <value>Túto akciu sa nepodarilo dokončiť. Skontrolujte súbor, jeho heslo, svoje prístupové oprávnenia a sieťové pripojenie.</value>
+  </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>Tento názov priečinka sa už používa. Pripojte sa pomocou súboru pripojenia alebo sa vráťte a vyberte iný názov.</value>
+  </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Vyberte nový prázdny podpriečinok v zdieľanom priečinku. Existujúce súbory zostanú nezmenené.</value>
+  </data>
+  <data name="Profiles.Forget" xml:space="preserve">
+    <value>Vymazať uložené heslá a prístupy</value>
+  </data>
+  <data name="Profiles.ForgetWarning" xml:space="preserve">
+    <value>Odstrániť uložené heslá, dôverné súbory uložené aplikáciou Foundry a prístup k synchronizácii týchto nastavení v tomto počítači? Bude potrebné doplniť chýbajúce údaje a znova sa pripojiť na synchronizáciu. Už vytvorené médiá sa nezmenia.</value>
+  </data>
+  <data name="Profiles.Heading" xml:space="preserve">
+    <value>Nastavenia Foundry</value>
+  </data>
+  <data name="Profiles.Import" xml:space="preserve">
+    <value>Importovať</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Pridať konfiguráciu zo súboru.</value>
+  </data>
+  <data name="Profiles.IncludeSecrets" xml:space="preserve">
+    <value>Zahrnúť heslá a dôverné súbory</value>
+  </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Ľudia používajúci túto konfiguráciu môžu čítať zahrnuté heslá a dôverné súbory.</value>
+  </data>
+  <data name="Profiles.Incomplete" xml:space="preserve">
+    <value>Chýbajú niektoré heslá alebo zdrojové súbory. Doplňte ich pred ukladaním alebo zdieľaním hesiel.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Použite názov bez špeciálnych znakov a bez bodky alebo medzery na konci.</value>
+  </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Zdieľaná konfigurácia sa zmenila. Pred pripojením skontrolujte najnovšiu verziu.</value>
+  </data>
+  <data name="Profiles.JoinShared" xml:space="preserve">
+    <value>Pripojiť k zdieľanej konfigurácii</value>
+  </data>
+  <data name="Profiles.KeepLocal" xml:space="preserve">
+    <value>Použiť verziu z tohto počítača</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Ďalšie informácie</value>
+  </data>
+  <data name="Profiles.LocalPrivacy" xml:space="preserve">
+    <value>Uchovávať heslá pre vaše konto Windows v tomto počítači.</value>
+  </data>
+  <data name="Profiles.Locked" xml:space="preserve">
+    <value>Windows nedokáže odomknúť tieto uložené nastavenia ani ich prístup k synchronizácii pre váš účet v tomto počítači.</value>
+  </data>
+  <data name="Profiles.Manage" xml:space="preserve">
+    <value>Ďalšie možnosti</value>
+  </data>
+  <data name="Profiles.MissingAssets" xml:space="preserve">
+    <value>{0} súborov chýba alebo neboli zahrnuté. Pred vytvorením médií vyberte ich umiestnenia.</value>
+  </data>
+  <data name="Profiles.Name" xml:space="preserve">
+    <value>Názov konfigurácie</value>
+  </data>
+  <data name="Profiles.Passphrase" xml:space="preserve">
+    <value>Heslo súboru</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Heslá sa nezhodujú.</value>
+  </data>
+  <data name="Profiles.Preview" xml:space="preserve">
+    <value>{0}
+Zahrnuté súbory: {1}
+Zahrnuté heslá a prístupové kľúče: {2}</value>
+  </data>
+  <data name="Profiles.Ready" xml:space="preserve">
+    <value>Pripravené</value>
+  </data>
+  <data name="Profiles.RecoveryWarning" xml:space="preserve">
+    <value>Zvoľte heslo na ochranu súboru pripojenia. Heslo zdieľajte samostatne. Uložte súbor mimo priečinka zdieľanej konfigurácie.</value>
+  </data>
+  <data name="Profiles.Remember" xml:space="preserve">
+    <value>Zapamätať heslá</value>
+  </data>
+  <data name="Profiles.RememberKey" xml:space="preserve">
+    <value>Zapamätať si toto pripojenie v tomto počítači</value>
+  </data>
+  <data name="Profiles.Rename" xml:space="preserve">
+    <value>Premenovať</value>
+  </data>
+  <data name="Profiles.ReplaceWarning" xml:space="preserve">
+    <value>Táto akcia nahradí nastavenia, ktoré používate. Ak si chcete najprv ponechať kópiu, zrušte akciu a vyberte možnosť „Duplikovať“.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Obnoviť prístup</value>
+  </data>
+  <data name="Profiles.Rollback" xml:space="preserve">
+    <value>Uložené verzie v zdieľanom priečinku sa neočakávane zmenili. Obnovte ich zo zálohy, ktorej dôverujete.</value>
+  </data>
+  <data name="Profiles.SaveCopy" xml:space="preserve">
+    <value>Duplikovať</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Vyberte konfiguráciu</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Nastaviť</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Nastaviť synchronizáciu…</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Zdieľať túto konfiguráciu alebo sa pripojiť ku konfigurácii, ktorú váš tím už používa.</value>
+  </data>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Zdieľať</value>
+  </data>
+  <data name="Profiles.ShareWarning" xml:space="preserve">
+    <value>Každý, kto môže importovať alebo synchronizovať tieto nastavenia, môže čítať zahrnuté heslá a súkromné kľúče certifikátov.</value>
+  </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Tento zdieľaný priečinok používa iná operácia. Skúste to znova o chvíľu. Vaše zmeny zostávajú uložené v tomto počítači.</value>
+  </data>
+  <data name="Profiles.SharedFolder" xml:space="preserve">
+    <value>Zdieľaný priečinok</value>
+  </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Zdieľaný priečinok nie je dostupný. Skontrolujte jeho adresu a svoj prístup k sieti. Vaše zmeny zostávajú uložené v tomto počítači.</value>
+  </data>
+  <data name="Profiles.SmbWarning" xml:space="preserve">
+    <value>Používajte rovnaký sieťový priečinok vo všetkých počítačoch. Musí používať SMB 3 s povinným šifrovaním. Priečinky synchronizované s cloudom nie sú podporované.</value>
+  </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Prestať si pamätať heslá tejto konfigurácie v tomto počítači?</value>
+  </data>
+  <data name="Profiles.SyncNow" xml:space="preserve">
+    <value>Synchronizovať</value>
+  </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Synchronizácia…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Vyberte verziu</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Nedá sa synchronizovať</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Nenastavené</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>Priečinok nie je dostupný</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Zmeny na synchronizáciu</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Pripravené na synchronizáciu</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>Aktuálne</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Dostupné zmeny</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Vyžaduje pozornosť</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Synchronizovať</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Udržiavať túto konfiguráciu aktuálnu v počítačoch vášho tímu.</value>
+  </data>
+  <data name="Profiles.Synchronized" xml:space="preserve">
+    <value>Nastavenia sú aktuálne</value>
+  </data>
+  <data name="Profiles.Unsupported" xml:space="preserve">
+    <value>Foundry nedokáže otvoriť tento formát nastavení. Aktualizujte Foundry a skúste to znova.</value>
+  </data>
+  <data name="Profiles.UpdateAvailable" xml:space="preserve">
+    <value>Sú dostupné zmeny z iného počítača. Vyberte možnosť „Synchronizovať“, aby sa použili.</value>
+  </data>
+  <data name="Profiles.UseRemote" xml:space="preserve">
+    <value>Použiť zdieľanú verziu</value>
+  </data>
+  <data name="Profiles.Validation" xml:space="preserve">
+    <value>Skontrolujte povinné polia. Ak sa požaduje sieťový priečinok, použite cestu ako \\server\share\folder. Ak zadávate heslo súboru dvakrát, skontrolujte, či sa obe zhodujú.</value>
+  </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
   </data>
@@ -2324,6 +2590,12 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>generál</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
+    <value>Zálohujte svoje nastavenia, preneste ich do iného počítača alebo ich udržiavajte synchronizované.</value>
+  </data>
+  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
+    <value>Zálohovanie a synchronizácia nastavení</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>
