@@ -24,6 +24,9 @@
                         <Setter
                             Target="SynchronizationActions.Orientation"
                             Value="Vertical" />
+                        <Setter
+                            Target="RememberPasswordActions.Orientation"
+                            Value="Vertical" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="WideProfileActions">
@@ -216,34 +219,32 @@
                             Content="{x:Bind ViewModel.Text('Profiles.ExportRecovery')}" />
                     </wct:SettingsCard>
                     <wct:SettingsCard
+                        Description="{x:Bind ViewModel.Text('Profiles.LocalPrivacy')}"
                         Header="{x:Bind ViewModel.Text('Profiles.Remember')}"
                         IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE72E;" />
                         </wct:SettingsCard.HeaderIcon>
-                        <wct:SettingsCard.Description>
-                            <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
-                                <TextBlock
-                                    Text="{x:Bind ViewModel.Text('Profiles.LocalPrivacy')}"
-                                    TextWrapping="Wrap" />
-                                <HyperlinkButton
-                                    Padding="0"
-                                    HorizontalAlignment="Left"
-                                    HorizontalContentAlignment="Left"
-                                    Command="{x:Bind ViewModel.ForgetCommand}"
-                                    IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}">
-                                    <TextBlock
-                                        Text="{x:Bind ViewModel.Text('Profiles.Forget')}"
-                                        TextWrapping="Wrap" />
-                                </HyperlinkButton>
-                            </StackPanel>
-                        </wct:SettingsCard.Description>
-                        <ToggleSwitch
-                            behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
-                            AutomationProperties.Name="{x:Bind ViewModel.Text('Profiles.Remember')}"
-                            IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}"
-                            IsOn="{x:Bind ViewModel.RememberSecrets, Mode=OneWay}"
-                            Toggled="RememberPasswordsToggle_Toggled" />
+                        <StackPanel x:Name="RememberPasswordActions"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal"
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                            <Button
+                                MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Command="{x:Bind ViewModel.ForgetCommand}"
+                                Content="{x:Bind ViewModel.Text('Profiles.Forget')}"
+                                IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}" />
+                            <ToggleSwitch
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('Profiles.Remember')}"
+                                IsEnabled="{x:Bind ViewModel.HasActive, Mode=OneWay}"
+                                IsOn="{x:Bind ViewModel.RememberSecrets, Mode=OneWay}"
+                                Toggled="RememberPasswordsToggle_Toggled" />
+                        </StackPanel>
                     </wct:SettingsCard>
                 </wct:SettingsExpander.Items>
             </wct:SettingsExpander>
