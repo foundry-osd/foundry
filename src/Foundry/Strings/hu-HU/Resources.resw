@@ -2523,10 +2523,10 @@ Titkos adatok: {2}</value>
     <value>tábornok</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Jelszavak megjegyzése, profilok átvitele és megosztott beállítások szinkronizálása.</value>
+    <value>Készítsen biztonsági mentést a beállításairól, vigye át őket egy másik számítógépre, vagy tartsa őket szinkronban.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Telepítési profilok</value>
+    <value>Beállítások biztonsági mentése és szinkronizálása</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

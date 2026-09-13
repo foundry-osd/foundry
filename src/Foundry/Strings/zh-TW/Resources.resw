@@ -2523,10 +2523,10 @@
     <value>一般</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>記住密碼、傳輸設定檔並同步共用設定。</value>
+    <value>備份設定、將設定傳輸至另一台電腦，或讓設定保持同步。</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>部署設定檔</value>
+    <value>設定備份與同步</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

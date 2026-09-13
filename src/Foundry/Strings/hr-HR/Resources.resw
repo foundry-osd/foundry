@@ -2523,10 +2523,10 @@ Tajni podaci: {2}</value>
     <value>General</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Zapamtite lozinke, prenesite profile i sinkronizirajte zajedničke postavke.</value>
+    <value>Sigurnosno kopirajte svoje postavke, prenesite ih na drugo računalo ili ih održavajte sinkroniziranima.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Profili implementacije</value>
+    <value>Sigurnosno kopiranje i sinkronizacija postavki</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

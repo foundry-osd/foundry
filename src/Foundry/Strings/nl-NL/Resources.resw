@@ -2523,10 +2523,10 @@ Geheimen: {2}</value>
     <value>Algemeen</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Wachtwoorden onthouden, profielen overdragen en gedeelde instellingen synchroniseren.</value>
+    <value>Maak een back-up van je instellingen, zet ze over naar een andere pc of houd ze gesynchroniseerd.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Implementatieprofielen</value>
+    <value>Back-up en synchronisatie van instellingen</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

@@ -2523,10 +2523,10 @@ Saladused: {2}</value>
     <value>Kindral</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Jätke paroolid meelde, teisaldage profiile ja sünkroonige jagatud sätteid.</value>
+    <value>Varundage oma sätted, teisaldage need teise arvutisse või hoidke neid sünkroonis.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Juurutusprofiilid</value>
+    <value>Sätete varundamine ja sünkroonimine</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

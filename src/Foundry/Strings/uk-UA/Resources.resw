@@ -2523,10 +2523,10 @@
     <value>Загальний</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Зберігайте паролі, переносіть профілі та синхронізуйте спільні налаштування.</value>
+    <value>Створюйте резервні копії налаштувань, переносьте їх на інший комп’ютер або підтримуйте їх синхронізацію.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Профілі розгортання</value>
+    <value>Резервне копіювання та синхронізація налаштувань</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

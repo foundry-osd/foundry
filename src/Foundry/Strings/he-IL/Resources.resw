@@ -2523,10 +2523,10 @@
     <value>כללי</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>שמירת סיסמאות, העברת פרופילים וסנכרון הגדרות משותפות.</value>
+    <value>גבו את ההגדרות שלכם, העבירו אותן למחשב אחר או שמרו עליהן מסונכרנות.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>פרופילי פריסה</value>
+    <value>גיבוי וסנכרון הגדרות</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

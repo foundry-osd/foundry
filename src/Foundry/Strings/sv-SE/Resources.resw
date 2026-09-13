@@ -2523,10 +2523,10 @@ Hemligheter: {2}</value>
     <value>Allmänt</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Kom ihåg lösenord, överför profiler och synkronisera delade inställningar.</value>
+    <value>Säkerhetskopiera dina inställningar, överför dem till en annan dator eller håll dem synkroniserade.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Distributionsprofiler</value>
+    <value>Säkerhetskopiering och synkronisering av inställningar</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

@@ -2523,10 +2523,10 @@ Noslēpumi: {2}</value>
     <value>Ģenerālis</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Atcerieties paroles, pārsūtiet profilus un sinhronizējiet koplietotos iestatījumus.</value>
+    <value>Dublējiet savus iestatījumus, pārsūtiet tos uz citu datoru vai uzturiet tos sinhronizētus.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Izvietošanas profili</value>
+    <value>Iestatījumu dublēšana un sinhronizēšana</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

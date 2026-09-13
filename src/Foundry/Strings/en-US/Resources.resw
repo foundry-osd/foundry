@@ -2523,10 +2523,10 @@ Secrets: {2}</value>
     <value>General</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Remember passwords, transfer profiles, and synchronize shared settings.</value>
+    <value>Back up your settings, transfer them to another PC, or keep them in sync.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Deployment profiles</value>
+    <value>Settings backup and sync</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

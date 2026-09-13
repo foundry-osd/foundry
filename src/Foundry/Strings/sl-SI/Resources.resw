@@ -2523,10 +2523,10 @@ Skrivnosti: {2}</value>
     <value>Splošno</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Zapomnite si gesla, prenašajte profile in sinhronizirajte skupne nastavitve.</value>
+    <value>Varnostno kopirajte svoje nastavitve, prenesite jih v drug računalnik ali jih ohranjajte sinhronizirane.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Profili uvajanja</value>
+    <value>Varnostno kopiranje in sinhronizacija nastavitev</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

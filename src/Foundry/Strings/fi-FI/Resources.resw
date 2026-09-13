@@ -2523,10 +2523,10 @@ Salaisuudet: {2}</value>
     <value>Kenraali</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Muista salasanat, siirrä profiileja ja synkronoi jaetut asetukset.</value>
+    <value>Varmuuskopioi asetuksesi, siirrä ne toiselle tietokoneelle tai pidä ne synkronoituina.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Käyttöönottoprofiilit</value>
+    <value>Asetusten varmuuskopiointi ja synkronointi</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

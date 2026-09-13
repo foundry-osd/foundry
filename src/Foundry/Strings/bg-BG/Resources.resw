@@ -2523,10 +2523,10 @@
     <value>генерал</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Запомняйте пароли, прехвърляйте профили и синхронизирайте споделени настройки.</value>
+    <value>Архивирайте настройките си, прехвърляйте ги на друг компютър или ги поддържайте синхронизирани.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Профили за разполагане</value>
+    <value>Архивиране и синхронизиране на настройки</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

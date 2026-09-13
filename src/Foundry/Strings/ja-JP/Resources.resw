@@ -2523,10 +2523,10 @@
     <value>一般</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>パスワードの保存、プロファイルの転送、共有設定の同期を行います。</value>
+    <value>設定をバックアップしたり、別の PC に転送したり、同期を維持したりできます。</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>展開プロファイル</value>
+    <value>設定のバックアップと同期</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

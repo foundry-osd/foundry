@@ -2523,10 +2523,10 @@ Segredos: {2}</value>
     <value>Geral</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Memorizar palavras-passe, transferir perfis e sincronizar definições partilhadas.</value>
+    <value>Faça uma cópia de segurança das suas definições, transfira-as para outro PC ou mantenha-as sincronizadas.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Perfis de implementação</value>
+    <value>Cópia de segurança e sincronização de definições</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

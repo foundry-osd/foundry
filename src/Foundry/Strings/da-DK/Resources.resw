@@ -2523,10 +2523,10 @@ Hemmeligheder: {2}</value>
     <value>Generelt</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Husk adgangskoder, overfør profiler, og synkroniser delte indstillinger.</value>
+    <value>Sikkerhedskopiér dine indstillinger, overfør dem til en anden pc, eller hold dem synkroniseret.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Udrulningsprofiler</value>
+    <value>Sikkerhedskopiering og synkronisering af indstillinger</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

@@ -2523,10 +2523,10 @@ Tajné údaje: {2}</value>
     <value>generál</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Zapamätajte si heslá, prenášajte profily a synchronizujte zdieľané nastavenia.</value>
+    <value>Zálohujte svoje nastavenia, preneste ich do iného počítača alebo ich udržiavajte synchronizované.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Profily nasadenia</value>
+    <value>Zálohovanie a synchronizácia nastavení</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

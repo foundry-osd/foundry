@@ -2523,10 +2523,10 @@
     <value>Στρατηγός</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Απομνημόνευση κωδικών, μεταφορά προφίλ και συγχρονισμός κοινόχρηστων ρυθμίσεων.</value>
+    <value>Δημιουργήστε αντίγραφα ασφαλείας των ρυθμίσεών σας, μεταφέρετέ τις σε άλλον υπολογιστή ή διατηρήστε τις συγχρονισμένες.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Προφίλ ανάπτυξης</value>
+    <value>Αντίγραφα ασφαλείας και συγχρονισμός ρυθμίσεων</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

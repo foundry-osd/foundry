@@ -2523,10 +2523,10 @@ Gizli bilgiler: {2}</value>
     <value>Genel</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Parolaları hatırlayın, profilleri aktarın ve paylaşılan ayarları eşitleyin.</value>
+    <value>Ayarlarınızı yedekleyin, başka bir bilgisayara aktarın veya eşitlenmiş halde tutun.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Dağıtım profilleri</value>
+    <value>Ayarları yedekleme ve eşitleme</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>
