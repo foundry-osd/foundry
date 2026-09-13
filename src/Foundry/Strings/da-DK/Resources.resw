@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Nogle gamle gemte adgangskoder eller adgangsnøgler kunne ikke fjernes. Prøv igen, når Windows Legitimationsstyring er tilgængelig.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Bekræft adgangskode</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Bekræft filens adgangskode</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Vælg den forbindelsesfil, du har modtaget fra en på dit team.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Adgangskode til forbindelse</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Andre pc’er skal bruge denne adgangskode for at oprette forbindelse.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Fortsæt</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Medtag adgangskoder og fortrolige filer</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Personer, der bruger denne konfiguration, kan læse de inkluderede adgangskoder og fortrolige filer.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Nogle adgangskoder eller kildefiler mangler. Tilføj dem, før du gemmer eller deler adgangskoder.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Brug denne pc’s version</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Læs mere</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Gem adgangskoder til din Windows-konto på denne pc.</value>
@@ -2387,17 +2402,14 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Del denne konfiguration, eller opret forbindelse til en, dit team allerede bruger.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>Der oprettes en adgangskodebeskyttet forbindelsesfil i denne mappe, så andre pc’er kan oprette forbindelse.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Del</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Alle, der kan importere eller synkronisere disse indstillinger, kan læse de medtagne adgangskoder og private certifikatnøgler.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Delt mappe</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry opretter en separat mappe her med konfigurationens navn.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Brug den samme netværksmappe på alle pc’er. Den skal bruge SMB 3 med obligatorisk kryptering. Mapper, der synkroniseres med skyen, understøttes ikke.</value>

@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Certains anciens mots de passe ou clés d’accès enregistrés n’ont pas pu être supprimés. Réessayez lorsque le Gestionnaire d’informations d’identification Windows est disponible.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Confirmer le mot de passe</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Confirmer le mot de passe du fichier</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Choisissez le fichier de connexion fourni par un membre de votre équipe.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Mot de passe de connexion</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Les autres PC auront besoin de ce mot de passe pour se connecter.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continuer</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Inclure les mots de passe et les fichiers confidentiels</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Les personnes qui utilisent cette configuration peuvent lire les mots de passe et les fichiers confidentiels inclus.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Certains mots de passe ou fichiers sources sont manquants. Ajoutez-les avant d’enregistrer ou de partager des mots de passe.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Utiliser la version de ce PC</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>En savoir plus</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Conserver les mots de passe de votre compte Windows sur ce PC.</value>
@@ -2387,17 +2402,14 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Partager cette configuration ou se connecter à une configuration déjà utilisée par votre équipe.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>Un fichier de connexion protégé par un mot de passe est créé dans ce dossier pour permettre aux autres PC de se connecter.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Partager</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Toute personne pouvant importer ou synchroniser ces paramètres peut lire les mots de passe et les clés privées de certificats inclus.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Dossier partagé</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry crée ici un dossier distinct portant le nom de la configuration.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Utilisez le même dossier réseau sur chaque PC. Il doit utiliser SMB 3 avec le chiffrement obligatoire. Les dossiers synchronisés dans le cloud ne sont pas pris en charge.</value>

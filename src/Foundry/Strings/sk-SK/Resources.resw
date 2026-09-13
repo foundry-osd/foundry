@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Niektoré staré uložené heslá alebo prístupové kľúče sa nepodarilo odstrániť. Skúste to znova, keď bude k dispozícii Správca poverení systému Windows.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Potvrďte heslo</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Potvrďte heslo súboru</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Vyberte súbor pripojenia, ktorý vám poskytol niekto z vášho tímu.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Heslo na pripojenie</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Ostatné počítače budú potrebovať toto heslo na pripojenie.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Pokračovať</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Zahrnúť heslá a dôverné súbory</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Ľudia používajúci túto konfiguráciu môžu čítať zahrnuté heslá a dôverné súbory.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Chýbajú niektoré heslá alebo zdrojové súbory. Doplňte ich pred ukladaním alebo zdieľaním hesiel.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Použiť verziu z tohto počítača</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Ďalšie informácie</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Uchovávať heslá pre vaše konto Windows v tomto počítači.</value>
@@ -2387,17 +2402,14 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Zdieľať túto konfiguráciu alebo sa pripojiť ku konfigurácii, ktorú váš tím už používa.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>V tomto priečinku sa vytvorí súbor pripojenia chránený heslom, aby sa mohli pripojiť ďalšie počítače.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Zdieľať</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Každý, kto môže importovať alebo synchronizovať tieto nastavenia, môže čítať zahrnuté heslá a súkromné kľúče certifikátov.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Zdieľaný priečinok</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry tu vytvorí samostatný priečinok s názvom konfigurácie.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Používajte rovnaký sieťový priečinok vo všetkých počítačoch. Musí používať SMB 3 s povinným šifrovaním. Priečinky synchronizované s cloudom nie sú podporované.</value>

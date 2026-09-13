@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Nie udało się usunąć niektórych starych zapisanych haseł lub kluczy dostępu. Spróbuj ponownie, gdy Menedżer poświadczeń systemu Windows będzie dostępny.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Potwierdź hasło</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Potwierdź hasło pliku</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Wybierz plik połączenia otrzymany od członka zespołu.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Hasło połączenia</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Inne komputery będą potrzebować tego hasła, aby się połączyć.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Kontynuuj</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Dołącz hasła i poufne pliki</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Osoby korzystające z tej konfiguracji mogą odczytać dołączone hasła i poufne pliki.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Brakuje niektórych haseł lub plików źródłowych. Dodaj je przed zapisaniem lub udostępnieniem haseł.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Użyj wersji z tego komputera</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Dowiedz się więcej</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Zachowaj hasła dla swojego konta Windows na tym komputerze.</value>
@@ -2387,17 +2402,14 @@ Dołączone hasła i klucze dostępu: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Udostępnij tę konfigurację lub połącz się z konfiguracją, której Twój zespół już używa.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>W tym folderze zostanie utworzony chroniony hasłem plik połączenia, dzięki któremu inne komputery będą mogły się połączyć.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Udostępnij</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Każdy, kto może importować lub synchronizować te ustawienia, może odczytać dołączone hasła i klucze prywatne certyfikatów.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Folder udostępniony</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry utworzy tutaj osobny folder o nazwie konfiguracji.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Używaj tego samego folderu sieciowego na każdym komputerze. Musi on korzystać z SMB 3 z wymaganym szyfrowaniem. Foldery synchronizowane z chmurą nie są obsługiwane.</value>

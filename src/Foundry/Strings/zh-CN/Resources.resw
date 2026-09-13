@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>部分旧的已保存密码或访问密钥未能删除。请在 Windows 凭据管理器可用时重试。</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>确认密码</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>确认文件密码</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>选择团队成员提供的连接文件。</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>连接密码</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>其他电脑需要此密码才能连接。</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>继续</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>包含密码和机密文件</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>使用此配置的人可以读取其中包含的密码和机密文件。</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>缺少部分密码或源文件。请先补充，再保存或共享密码。</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>使用此电脑上的版本</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>了解更多</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>为此电脑上的 Windows 帐户保存密码。</value>
@@ -2387,17 +2402,14 @@
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>共享此配置，或连接到团队已在使用的配置。</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>将在此文件夹中创建一个受密码保护的连接文件，以便其他电脑连接。</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>共享</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>任何能够导入或同步这些设置的人，都可以读取其中包含的密码和证书私钥。</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>共享文件夹</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry 会在此处创建一个以配置名称命名的独立文件夹。</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>所有电脑都应使用同一个网络文件夹。该文件夹必须使用 SMB 3 并强制加密。不支持与云端同步的文件夹。</value>

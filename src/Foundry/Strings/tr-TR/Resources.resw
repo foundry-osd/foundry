@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Kaydedilmiş bazı eski parolalar veya erişim anahtarları kaldırılamadı. Windows Kimlik Bilgisi Yöneticisi kullanılabilir olduğunda yeniden deneyin.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Parolayı onaylayın</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Dosya parolasını doğrulayın</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Ekibinizden birinin sağladığı bağlantı dosyasını seçin.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Bağlantı parolası</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Diğer bilgisayarların bağlanmak için bu parolaya ihtiyacı olacaktır.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Devam</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Parolaları ve gizli dosyaları dahil et</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Bu yapılandırmayı kullanan kişiler, dahil edilen parolaları ve gizli dosyaları okuyabilir.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Bazı parolalar veya kaynak dosyalar eksik. Parolaları kaydetmeden veya paylaşmadan önce bunları ekleyin.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Bu bilgisayardaki sürümü kullan</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Daha fazla bilgi</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Windows hesabınızın parolalarını bu bilgisayarda saklayın.</value>
@@ -2387,17 +2402,14 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Bu yapılandırmayı paylaşın veya ekibinizin zaten kullandığı bir yapılandırmaya bağlanın.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>Diğer bilgisayarların bağlanabilmesi için bu klasörde parola korumalı bir bağlantı dosyası oluşturulur.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Paylaş</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Bu ayarları içeri aktarabilen veya eşitleyebilen herkes, dahil edilen parolaları ve sertifikaların özel anahtarlarını okuyabilir.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Paylaşılan klasör</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry burada yapılandırma adını kullanarak ayrı bir klasör oluşturur.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Tüm bilgisayarlarda aynı ağ klasörünü kullanın. Klasör, şifrelemenin zorunlu olduğu SMB 3 kullanmalıdır. Bulutla eşitlenen klasörler desteklenmez.</value>

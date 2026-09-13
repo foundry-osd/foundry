@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Sommige oude opgeslagen wachtwoorden of toegangssleutels konden niet worden verwijderd. Probeer het opnieuw wanneer Windows Referentiebeheer beschikbaar is.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Wachtwoord bevestigen</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Bestandswachtwoord bevestigen</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Kies het verbindingsbestand dat u van iemand uit uw team hebt ontvangen.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Verbindingswachtwoord</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Andere pc’s hebben dit wachtwoord nodig om verbinding te maken.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Doorgaan</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Wachtwoorden en vertrouwelijke bestanden opnemen</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Mensen die deze configuratie gebruiken, kunnen de opgenomen wachtwoorden en vertrouwelijke bestanden lezen.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Sommige wachtwoorden of bronbestanden ontbreken. Voeg ze toe voordat je wachtwoorden opslaat of deelt.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>De versie van deze pc gebruiken</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Meer informatie</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Wachtwoorden voor uw Windows-account op deze pc bewaren.</value>
@@ -2387,17 +2402,14 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Deze configuratie delen of verbinding maken met een configuratie die uw team al gebruikt.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>In deze map wordt een met een wachtwoord beveiligd verbindingsbestand gemaakt, zodat andere pc’s verbinding kunnen maken.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Delen</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Iedereen die deze instellingen kan importeren of synchroniseren, kan de opgenomen wachtwoorden en persoonlijke certificaatsleutels lezen.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Gedeelde map</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry maakt hier een aparte map met de naam van de configuratie.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Gebruik op elke pc dezelfde netwerkmap. Deze moet SMB 3 gebruiken met verplichte versleuteling. Mappen die met de cloud worden gesynchroniseerd, worden niet ondersteund.</value>

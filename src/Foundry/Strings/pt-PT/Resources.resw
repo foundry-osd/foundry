@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Não foi possível remover algumas palavras-passe ou chaves de acesso antigas. Tente novamente quando o Gestor de Credenciais do Windows estiver disponível.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Confirmar palavra-passe</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Confirmar palavra-passe do ficheiro</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Escolha o ficheiro de ligação fornecido por alguém da sua equipa.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Palavra-passe de ligação</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Os outros PCs precisarão desta palavra-passe para se ligarem.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continuar</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Incluir palavras-passe e ficheiros confidenciais</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>As pessoas que utilizam esta configuração podem ler as palavras-passe e os ficheiros confidenciais incluídos.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Faltam algumas palavras-passe ou ficheiros de origem. Adicione-os antes de guardar ou partilhar palavras-passe.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Usar a versão deste PC</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Saiba mais</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Guardar as palavras-passe da sua conta do Windows neste PC.</value>
@@ -2387,17 +2402,14 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Partilhar esta configuração ou ligar a uma que a sua equipa já utiliza.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>É criado nesta pasta um ficheiro de ligação protegido por palavra-passe para que outros PCs se possam ligar.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Partilhar</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Qualquer pessoa que possa importar ou sincronizar estas definições pode ler as palavras-passe e as chaves privadas dos certificados incluídas.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Pasta partilhada</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>O Foundry cria aqui uma pasta separada com o nome da configuração.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Use a mesma pasta de rede em todos os PCs. A pasta tem de usar SMB 3 com encriptação obrigatória. Não são suportadas pastas sincronizadas com a nuvem.</value>

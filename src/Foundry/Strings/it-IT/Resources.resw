@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Non è stato possibile rimuovere alcune vecchie password o chiavi di accesso salvate. Riprova quando Gestione credenziali di Windows è disponibile.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Conferma password</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Conferma password del file</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Scegli il file di connessione fornito da un membro del tuo team.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Password di connessione</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Gli altri PC avranno bisogno di questa password per connettersi.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continua</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Includi password e file riservati</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Le persone che usano questa configurazione possono leggere le password e i file riservati inclusi.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Mancano alcune password o file di origine. Aggiungili prima di salvare o condividere le password.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Usa la versione di questo PC</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Scopri di più</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Conserva le password del tuo account Windows su questo PC.</value>
@@ -2387,17 +2402,14 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Condividi questa configurazione o connettiti a una già utilizzata dal tuo team.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>In questa cartella viene creato un file di connessione protetto da password per consentire ad altri PC di connettersi.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Condividi</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Chiunque possa importare o sincronizzare queste impostazioni può leggere le password e le chiavi private dei certificati incluse.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Cartella condivisa</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry crea qui una cartella separata con il nome della configurazione.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Usa la stessa cartella di rete su tutti i PC. Deve usare SMB 3 con crittografia obbligatoria. Le cartelle sincronizzate con il cloud non sono supportate.</value>

@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Néhány régi mentett jelszót vagy hozzáférési kulcsot nem sikerült eltávolítani. Próbálja újra, amikor a Windows Hitelesítőadat-kezelő elérhető.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Jelszó megerősítése</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Fájljelszó megerősítése</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Válassza ki a csapat egyik tagjától kapott csatlakozási fájlt.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Csatlakozási jelszó</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Más gépeknek erre a jelszóra lesz szükségük a csatlakozáshoz.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Folytatás</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Jelszavak és bizalmas fájlok hozzáadása</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>A konfigurációt használó személyek elolvashatják a mellékelt jelszavakat és bizalmas fájlokat.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Néhány jelszó vagy forrásfájl hiányzik. Adja hozzá őket a jelszavak mentése vagy megosztása előtt.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Az ezen a számítógépen lévő verzió használata</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>További információ</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Jelszavak megőrzése a Windows-fiókjához ezen a számítógépen.</value>
@@ -2387,17 +2402,14 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Ossza meg ezt a konfigurációt, vagy csatlakozzon a csapata által már használt konfigurációhoz.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>Ebben a mappában jelszóval védett kapcsolati fájl jön létre, hogy más gépek is csatlakozhassanak.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Megosztás</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Bárki, aki importálhatja vagy szinkronizálhatja ezeket a beállításokat, elolvashatja a mellékelt jelszavakat és a tanúsítványok titkos kulcsait.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Megosztott mappa</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>A Foundry itt külön mappát hoz létre a konfiguráció nevével.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Minden számítógépen ugyanazt a hálózati mappát használja. A mappának SMB 3-at kell használnia kötelező titkosítással. A felhővel szinkronizált mappák nem támogatottak.</value>

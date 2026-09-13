@@ -95,8 +95,8 @@ public sealed partial class DeploymentProfilesControl : UserControl
         var content = new StackPanel { Spacing = 12, MinWidth = 280 };
         if (request.Message is not null) content.Children.Add(new TextBlock { Text = request.Message, TextWrapping = TextWrapping.Wrap });
         var name = new TextBox { Header = T("Profiles.Name"), Text = request.Name ?? string.Empty, MaxLength = 120 };
-        var password = new PasswordBox { Header = T("Profiles.Passphrase"), MaxLength = 1024, PasswordRevealMode = PasswordRevealMode.Hidden };
-        var confirmation = new PasswordBox { Header = T("Profiles.ConfirmPassphrase"), MaxLength = 1024, PasswordRevealMode = PasswordRevealMode.Hidden };
+        var password = new PasswordBox { Header = T(request.NamedSharedFolder ? "Profiles.ConnectionPassword" : "Profiles.Passphrase"), MaxLength = 1024, PasswordRevealMode = PasswordRevealMode.Hidden };
+        var confirmation = new PasswordBox { Header = T(request.NamedSharedFolder ? "Profiles.ConfirmConnectionPassword" : "Profiles.ConfirmPassphrase"), MaxLength = 1024, PasswordRevealMode = PasswordRevealMode.Hidden };
         var include = new CheckBox { Content = T("Profiles.IncludeSecrets"), IsChecked = request.IncludeSecrets };
         var remember = new CheckBox { Content = T("Profiles.Remember"), IsChecked = false };
         var sharedKey = new CheckBox { Content = T("Profiles.RememberKey"), IsChecked = request.RememberKey };
@@ -154,9 +154,29 @@ public sealed partial class DeploymentProfilesControl : UserControl
             Grid.SetColumn(browse, 1);
             folderRow.Children.Add(share);
             folderRow.Children.Add(browse);
-            content.Children.Add(folderRow);
+            var folderContent = new StackPanel { Spacing = 4 };
+            folderContent.Children.Add(folderRow);
+            content.Children.Add(folderContent);
             if (request.NamedSharedFolder)
-                content.Children.Add(new TextBlock { Text = T("Profiles.SharedFolderHint"), TextWrapping = TextWrapping.Wrap });
+            {
+                var destination = new TextBlock
+                {
+                    TextWrapping = TextWrapping.Wrap,
+                    FlowDirection = FlowDirection.LeftToRight,
+                    IsTextSelectionEnabled = true,
+                    Style = (Style)Application.Current.Resources["FoundryCaptionTextBlockStyle"]
+                };
+                folderContent.Children.Add(destination);
+                void UpdateDestination()
+                {
+                    try { destination.Text = SharedProfileLocation.Resolve(share.Text.Trim(), name.Text); }
+                    catch (ArgumentException) { destination.Text = string.Empty; }
+                    destination.Visibility = string.IsNullOrEmpty(destination.Text) ? Visibility.Collapsed : Visibility.Visible;
+                }
+                name.TextChanged += (_, _) => UpdateDestination();
+                share.TextChanged += (_, _) => UpdateDestination();
+                UpdateDestination();
+            }
             browse.Click += async (_, _) =>
             {
                 try
@@ -171,15 +191,55 @@ public sealed partial class DeploymentProfilesControl : UserControl
                     share.PlaceholderText = T("Profiles.Failed");
                 }
             };
-            content.Children.Add(new TextBlock { Text = T("Profiles.SmbWarning"), TextWrapping = TextWrapping.Wrap });
+            if (!request.NamedSharedFolder)
+                content.Children.Add(new TextBlock { Text = T("Profiles.SmbWarning"), TextWrapping = TextWrapping.Wrap });
         }
-        if (request.Passphrase) content.Children.Add(password);
+        if (request.Passphrase)
+        {
+            var passwordContent = new StackPanel { Spacing = 4 };
+            passwordContent.Children.Add(password);
+            if (request.NamedSharedFolder)
+                passwordContent.Children.Add(new TextBlock
+                {
+                    Text = T("Profiles.ConnectionPasswordHint"),
+                    TextWrapping = TextWrapping.Wrap,
+                    Style = (Style)Application.Current.Resources["FoundryCaptionTextBlockStyle"]
+                });
+            content.Children.Add(passwordContent);
+        }
         if (request.ConfirmPassphrase) content.Children.Add(confirmation);
-        if (request.IncludeSecretsOption) content.Children.Add(include);
+        if (request.IncludeSecretsOption)
+        {
+            var inclusionContent = new StackPanel { Spacing = 4 };
+            inclusionContent.Children.Add(include);
+            if (request.NamedSharedFolder)
+            {
+                var warning = new TextBlock
+                {
+                    Text = T("Profiles.IncludedSecretsWarning"),
+                    TextWrapping = TextWrapping.Wrap,
+                    Visibility = include.IsChecked == true ? Visibility.Visible : Visibility.Collapsed,
+                    Style = (Style)Application.Current.Resources["FoundryCaptionTextBlockStyle"]
+                };
+                Microsoft.UI.Xaml.Automation.AutomationProperties.SetLiveSetting(warning, Microsoft.UI.Xaml.Automation.Peers.AutomationLiveSetting.Polite);
+                include.Checked += (_, _) => warning.Visibility = Visibility.Visible;
+                include.Unchecked += (_, _) => warning.Visibility = Visibility.Collapsed;
+                inclusionContent.Children.Add(warning);
+            }
+            content.Children.Add(inclusionContent);
+        }
         if (request.RememberOption) content.Children.Add(remember);
         if (request.SharedKeyOption) content.Children.Add(sharedKey);
-        if (request.RememberOption || request.SharedKeyOption)
+        if (!request.NamedSharedFolder && (request.RememberOption || request.SharedKeyOption))
             content.Children.Add(new TextBlock { Text = T("Profiles.LocalPrivacy"), TextWrapping = TextWrapping.Wrap });
+        if (request.NamedSharedFolder)
+            content.Children.Add(new HyperlinkButton
+            {
+                Content = T("Profiles.LearnMore"),
+                NavigateUri = new Uri(FoundryApplicationInfo.DeploymentProfilesDocumentationUrl + "#create-a-shared-profile"),
+                Padding = new Thickness(0),
+                HorizontalAlignment = HorizontalAlignment.Left
+            });
         if (request.DeleteSharedOption) content.Children.Add(deleteShared);
         var validation = new TextBlock { TextWrapping = TextWrapping.Wrap, Foreground = (Microsoft.UI.Xaml.Media.Brush)Application.Current.Resources["SystemFillColorCriticalBrush"] };
         content.Children.Add(validation);

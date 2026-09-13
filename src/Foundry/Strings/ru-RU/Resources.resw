@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Не удалось удалить некоторые старые сохранённые пароли или ключи доступа. Повторите попытку, когда Диспетчер учётных данных Windows станет доступен.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Подтвердите пароль</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Подтвердите пароль файла</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Выберите файл подключения, полученный от участника вашей команды.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Пароль подключения</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Другим ПК потребуется этот пароль для подключения.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Продолжить</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Включить пароли и конфиденциальные файлы</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Люди, использующие эту конфигурацию, могут читать включённые в неё пароли и конфиденциальные файлы.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Не хватает некоторых паролей или исходных файлов. Добавьте их перед сохранением или передачей паролей.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Использовать версию с этого компьютера</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Подробнее</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Хранить пароли для вашей учётной записи Windows на этом компьютере.</value>
@@ -2387,17 +2402,14 @@
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Поделитесь этой конфигурацией или подключитесь к той, которую уже использует ваша команда.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>В этой папке создаётся защищённый паролем файл подключения, чтобы другие ПК могли подключиться.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Поделиться</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Любой, кто может импортировать или синхронизировать эти настройки, может прочитать включённые пароли и закрытые ключи сертификатов.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Общая папка</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry создаст здесь отдельную папку с именем конфигурации.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Используйте одну и ту же сетевую папку на всех компьютерах. Она должна использовать SMB 3 с обязательным шифрованием. Папки, синхронизируемые с облаком, не поддерживаются.</value>

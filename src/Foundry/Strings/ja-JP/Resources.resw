@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>古い保存済みパスワードまたはアクセスキーの一部を削除できませんでした。Windows 資格情報マネージャーが利用可能になったら、もう一度お試しください。</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>パスワードの確認</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>ファイルのパスワードを確認</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>チームのメンバーから受け取った接続ファイルを選択してください。</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>接続パスワード</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>他の PC が接続するには、このパスワードが必要です。</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>続行</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>パスワードと機密ファイルを含める</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>この構成を使用する人は、含まれるパスワードや機密ファイルを読むことができます。</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>一部のパスワードまたは元のファイルがありません。パスワードを保存または共有する前に追加してください。</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>この PC のバージョンを使用</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>詳細情報</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>この PC の Windows アカウントにパスワードを保存します。</value>
@@ -2387,17 +2402,14 @@
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>この構成を共有するか、チームが既に使用している構成に接続します。</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>他の PC が接続できるように、このフォルダーにパスワードで保護された接続ファイルが作成されます。</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>共有</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>この設定をインポートまたは同期できる人は、含まれるパスワードと証明書の秘密キーを読むことができます。</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>共有フォルダー</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry はここに構成名を使って専用のフォルダーを作成します。</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>すべての PC で同じネットワークフォルダーを使用してください。SMB 3 を使用し、暗号化を必須に設定する必要があります。クラウドと同期するフォルダーはサポートされていません。</value>

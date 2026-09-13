@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Unele parole sau chei de acces vechi nu au putut fi eliminate. Încercați din nou când Managerul de acreditări Windows este disponibil.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Confirmați parola</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Confirmați parola fișierului</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Alege fișierul de conectare oferit de cineva din echipa ta.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Parolă de conectare</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Celelalte PC-uri vor avea nevoie de această parolă pentru a se conecta.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continuă</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Include parole și fișiere confidențiale</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Persoanele care folosesc această configurație pot citi parolele și fișierele confidențiale incluse.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Lipsesc unele parole sau fișiere sursă. Adăugați-le înainte de a salva sau partaja parole.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Folosește versiunea de pe acest PC</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Aflați mai multe</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Păstrează parolele pentru contul tău Windows pe acest PC.</value>
@@ -2387,17 +2402,14 @@ Parole și chei de acces incluse: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Partajează această configurație sau conectează-te la una pe care echipa ta o folosește deja.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>În acest folder se creează un fișier de conexiune protejat prin parolă, astfel încât alte PC-uri să se poată conecta.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Partajare</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Oricine poate importa sau sincroniza aceste setări poate citi parolele și cheile private ale certificatelor incluse.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Folder partajat</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry creează aici un folder separat cu numele configurației.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Folosiți același folder din rețea pe toate PC-urile. Acesta trebuie să folosească SMB 3 cu criptare obligatorie. Folderele sincronizate în cloud nu sunt acceptate.</value>

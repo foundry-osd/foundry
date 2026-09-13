@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Neizdevās noņemt dažas vecās saglabātās paroles vai piekļuves atslēgas. Mēģiniet vēlreiz, kad būs pieejams Windows akreditācijas datu pārvaldnieks.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Apstipriniet paroli</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Apstipriniet faila paroli</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Izvēlieties savienojuma failu, ko nodrošinājis kāds no jūsu komandas.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Savienojuma parole</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Citiem datoriem būs nepieciešama šī parole, lai izveidotu savienojumu.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Turpināt</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Iekļaut paroles un konfidenciālus failus</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Cilvēki, kuri izmanto šo konfigurāciju, var lasīt iekļautās paroles un konfidenciālos failus.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Trūkst dažu paroļu vai avota failu. Pievienojiet tos pirms paroļu saglabāšanas vai kopīgošanas.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Izmantot šī datora versiju</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Uzzināt vairāk</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Saglabāt Windows konta paroles šajā datorā.</value>
@@ -2387,17 +2402,14 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Kopīgojiet šo konfigurāciju vai izveidojiet savienojumu ar konfigurāciju, ko jūsu komanda jau izmanto.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>Šajā mapē tiek izveidots ar paroli aizsargāts savienojuma fails, lai citi datori varētu izveidot savienojumu.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Kopīgot</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Ikviens, kurš var importēt vai sinhronizēt šos iestatījumus, var nolasīt iekļautās paroles un sertifikātu privātās atslēgas.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Koplietotā mape</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry šeit izveido atsevišķu mapi ar konfigurācijas nosaukumu.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Visos datoros izmantojiet vienu un to pašu tīkla mapi. Tai jāizmanto SMB 3 ar obligātu šifrēšanu. Ar mākoni sinhronizētas mapes netiek atbalstītas.</value>

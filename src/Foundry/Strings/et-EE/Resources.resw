@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Mõnda vana salvestatud parooli või juurdepääsuvõtit ei saanud eemaldada. Proovige uuesti, kui Windowsi identimisteabe haldur on saadaval.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Kinnitage parool</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Kinnitage faili parool</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Vali ühendusfail, mille said oma meeskonnaliikmelt.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Ühenduse parool</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Teised arvutid vajavad ühenduse loomiseks seda parooli.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Jätka</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Kaasa paroolid ja konfidentsiaalsed failid</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Seda konfiguratsiooni kasutavad inimesed saavad lugeda kaasatud paroole ja konfidentsiaalseid faile.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Mõned paroolid või lähtefailid on puudu. Lisage need enne paroolide salvestamist või jagamist.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Kasuta selle arvuti versiooni</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Lisateave</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Säilita oma Windowsi konto paroolid selles arvutis.</value>
@@ -2387,17 +2402,14 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Jaga seda konfiguratsiooni või ühenda konfiguratsiooniga, mida sinu meeskond juba kasutab.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>Sellesse kausta luuakse parooliga kaitstud ühendusfail, et teised arvutid saaksid ühenduse luua.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Jaga</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Kõik, kes saavad neid sätteid importida või sünkroonida, saavad lugeda kaasatud paroole ja sertifikaatide privaatvõtmeid.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Jagatud kaust</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry loob siia eraldi kausta konfiguratsiooni nimega.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Kasutage igas arvutis sama võrgukausta. See peab kasutama SMB 3 protokolli koos kohustusliku krüptimisega. Pilvega sünkroonitud kaustu ei toetata.</value>

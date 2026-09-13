@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Some old saved passwords or access keys could not be removed. Try again when Windows Credential Manager is available.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Confirm file password</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Choose the connection file provided by someone on your team.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Connection password</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Other PCs will need this password to connect.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continue</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Include passwords and confidential files</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>People using this configuration can read the included passwords and confidential files.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Some passwords or source files are missing. Add them before saving or sharing passwords.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Use this PC's version</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Learn more</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Keep passwords for your Windows account on this PC.</value>
@@ -2387,17 +2402,14 @@ Passwords and access keys included: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Share this configuration or connect to one your team already uses.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>A password-protected connection file is created in this folder so other PCs can connect.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Share</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Anyone who can import or synchronize these settings can read the included passwords and certificate private keys.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Shared folder</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry creates a separate folder here using the configuration name.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Use the same network folder on every PC. It must use SMB 3 with encryption required. Cloud-synced folders are not supported.</value>

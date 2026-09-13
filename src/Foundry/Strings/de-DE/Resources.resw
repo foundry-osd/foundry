@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Einige alte gespeicherte Kennwörter oder Zugriffsschlüssel konnten nicht entfernt werden. Versuchen Sie es erneut, wenn die Windows-Anmeldeinformationsverwaltung verfügbar ist.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Kennwort bestätigen</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Dateikennwort bestätigen</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Wählen Sie die Verbindungsdatei aus, die Sie von einem Teammitglied erhalten haben.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Verbindungskennwort</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Andere PCs benötigen dieses Kennwort, um eine Verbindung herzustellen.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Weiter</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Kennwörter und vertrauliche Dateien einschließen</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Personen, die diese Konfiguration verwenden, können die enthaltenen Kennwörter und vertraulichen Dateien lesen.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Einige Kennwörter oder Quelldateien fehlen. Fügen Sie diese hinzu, bevor Sie Kennwörter speichern oder teilen.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Version dieses PCs verwenden</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Weitere Informationen</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Kennwörter für Ihr Windows-Konto auf diesem PC speichern.</value>
@@ -2387,17 +2402,14 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Diese Konfiguration teilen oder mit einer Konfiguration verbinden, die Ihr Team bereits verwendet.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>In diesem Ordner wird eine kennwortgeschützte Verbindungsdatei erstellt, damit andere PCs eine Verbindung herstellen können.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Freigeben</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Alle Personen, die diese Einstellungen importieren oder synchronisieren können, können die enthaltenen Kennwörter und privaten Zertifikatschlüssel lesen.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Freigegebener Ordner</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry erstellt hier einen separaten Ordner mit dem Namen der Konfiguration.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Verwenden Sie auf jedem PC denselben Netzwerkordner. Er muss SMB 3 mit verpflichtender Verschlüsselung verwenden. Mit der Cloud synchronisierte Ordner werden nicht unterstützt.</value>

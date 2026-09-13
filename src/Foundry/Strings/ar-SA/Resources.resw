@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>تعذرت إزالة بعض كلمات المرور أو مفاتيح الوصول القديمة المحفوظة. حاول مرة أخرى عندما يكون مدير بيانات اعتماد Windows متاحًا.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>تأكيد كلمة المرور</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>تأكيد كلمة مرور الملف</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>اختر ملف الاتصال الذي قدمه لك أحد أعضاء فريقك.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>كلمة مرور الاتصال</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>ستحتاج أجهزة الكمبيوتر الأخرى إلى كلمة المرور هذه للاتصال.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>متابعة</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>تضمين كلمات المرور والملفات السرية</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>يمكن للأشخاص الذين يستخدمون هذا التكوين قراءة كلمات المرور والملفات السرية المضمنة.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>بعض كلمات المرور أو الملفات المصدر مفقودة. أضفها قبل حفظ كلمات المرور أو مشاركتها.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>استخدام نسخة هذا الكمبيوتر</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>معرفة المزيد</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>الاحتفاظ بكلمات المرور لحساب Windows الخاص بك على هذا الكمبيوتر.</value>
@@ -2387,17 +2402,14 @@
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>شارك هذا التكوين أو اتصل بتكوين يستخدمه فريقك بالفعل.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>يتم إنشاء ملف اتصال محمي بكلمة مرور في هذا المجلد لتتمكن أجهزة الكمبيوتر الأخرى من الاتصال.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>مشاركة</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>يمكن لأي شخص يستطيع استيراد هذه الإعدادات أو مزامنتها قراءة كلمات المرور والمفاتيح الخاصة للشهادات المضمنة.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>المجلد المشترك</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>ينشئ Foundry مجلدًا منفصلًا هنا باستخدام اسم التكوين.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>استخدم مجلد الشبكة نفسه على كل كمبيوتر. يجب أن يستخدم SMB 3 مع اشتراط التشفير. المجلدات التي تتم مزامنتها مع السحابة غير مدعومة.</value>

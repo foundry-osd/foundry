@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Nepavyko pašalinti kai kurių senų įrašytų slaptažodžių ar prieigos raktų. Bandykite dar kartą, kai bus pasiekiama „Windows“ kredencialų tvarkytuvė.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Patvirtinkite slaptažodį</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Patvirtinkite failo slaptažodį</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Pasirinkite prisijungimo failą, kurį gavote iš komandos nario.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Prisijungimo slaptažodis</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Kitiems kompiuteriams reikės šio slaptažodžio, kad galėtų prisijungti.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Tęsti</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Įtraukti slaptažodžius ir konfidencialius failus</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Šią konfigūraciją naudojantys žmonės gali skaityti įtrauktus slaptažodžius ir konfidencialius failus.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Trūksta kai kurių slaptažodžių ar pradinių failų. Pridėkite juos prieš įrašydami ar bendrindami slaptažodžius.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Naudoti šio kompiuterio versiją</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Sužinoti daugiau</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Saugoti „Windows“ paskyros slaptažodžius šiame kompiuteryje.</value>
@@ -2387,17 +2402,14 @@
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Bendrinkite šią konfigūraciją arba prisijunkite prie tos, kurią jūsų komanda jau naudoja.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>Šiame aplanke sukuriamas slaptažodžiu apsaugotas ryšio failas, kad galėtų prisijungti kiti kompiuteriai.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Bendrinti</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Visi, kas gali importuoti ar sinchronizuoti šiuos nustatymus, gali perskaityti įtrauktus slaptažodžius ir sertifikatų privačiuosius raktus.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Bendrinamas aplankas</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry čia sukuria atskirą aplanką konfigūracijos pavadinimu.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Visuose kompiuteriuose naudokite tą patį tinklo aplanką. Jis turi naudoti SMB 3 su privalomu šifravimu. Su debesimi sinchronizuojami aplankai nepalaikomi.</value>

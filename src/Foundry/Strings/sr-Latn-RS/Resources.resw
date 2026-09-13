@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Neke stare sačuvane lozinke ili pristupni ključevi nisu mogli da se uklone. Pokušajte ponovo kada Windows upravljač akreditivima bude dostupan.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Potvrdite lozinku</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Potvrdite lozinku datoteke</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Izaberite datoteku za povezivanje koju vam je dao neko iz vašeg tima.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Lozinka za povezivanje</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Drugim računarima će biti potrebna ova lozinka za povezivanje.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Nastavi</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Uključi lozinke i poverljive datoteke</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Osobe koje koriste ovu konfiguraciju mogu da čitaju uključene lozinke i poverljive datoteke.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Nedostaju neke lozinke ili izvorne datoteke. Dodajte ih pre čuvanja ili deljenja lozinki.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Koristi verziju sa ovog računara</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Saznajte više</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Čuvaj lozinke za svoj Windows nalog na ovom računaru.</value>
@@ -2387,17 +2402,14 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Podeli ovu konfiguraciju ili se poveži sa konfiguracijom koju tvoj tim već koristi.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>U ovoj fascikli se pravi datoteka za povezivanje zaštićena lozinkom kako bi drugi računari mogli da se povežu.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Podeli</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Svako ko može da uveze ili sinhronizuje ova podešavanja može da pročita uključene lozinke i privatne ključeve sertifikata.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Deljena fascikla</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry ovde pravi zasebnu fasciklu sa imenom konfiguracije.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Koristite istu mrežnu fasciklu na svim računarima. Mora da koristi SMB 3 uz obavezno šifrovanje. Fascikle sinhronizovane sa oblakom nisu podržane.</value>

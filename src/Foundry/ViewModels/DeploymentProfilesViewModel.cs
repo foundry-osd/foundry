@@ -245,7 +245,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
             {
                 Name = previous?.Name ?? coordinator.Active?.DisplayName ?? string.Empty,
                 SharePath = previous?.SharePath,
-                Message = Text("Profiles.ShareWarning") + "\n\n" + Text("Profiles.ShareConnectionHint"),
+                PrimaryButtonKey = "Profiles.ShareAction",
                 Passphrase = true,
                 ConfirmPassphrase = true,
                 SharePathOption = true,

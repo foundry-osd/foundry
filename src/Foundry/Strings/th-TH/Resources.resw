@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>ไม่สามารถลบรหัสผ่านหรือคีย์การเข้าถึงเก่าบางรายการที่บันทึกไว้ได้ ลองอีกครั้งเมื่อ Windows Credential Manager พร้อมใช้งาน</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>ยืนยันรหัสผ่าน</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>ยืนยันรหัสผ่านของไฟล์</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>เลือกไฟล์การเชื่อมต่อที่ได้รับจากสมาชิกในทีมของคุณ</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>รหัสผ่านการเชื่อมต่อ</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>พีซีเครื่องอื่นจะต้องใช้รหัสผ่านนี้เพื่อเชื่อมต่อ</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>ดำเนินการต่อ</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>รวมรหัสผ่านและไฟล์ลับ</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>ผู้ที่ใช้การกำหนดค่านี้สามารถอ่านรหัสผ่านและไฟล์ลับที่รวมไว้ได้</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>รหัสผ่านหรือไฟล์ต้นทางบางรายการขาดหายไป เพิ่มรายการเหล่านั้นก่อนบันทึกหรือแชร์รหัสผ่าน</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>ใช้เวอร์ชันของพีซีเครื่องนี้</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>เรียนรู้เพิ่มเติม</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>เก็บรหัสผ่านสำหรับบัญชี Windows ของคุณบนพีซีเครื่องนี้</value>
@@ -2387,17 +2402,14 @@
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>แชร์การกำหนดค่านี้หรือเชื่อมต่อกับการกำหนดค่าที่ทีมของคุณใช้อยู่แล้ว</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>ระบบจะสร้างไฟล์การเชื่อมต่อที่ป้องกันด้วยรหัสผ่านในโฟลเดอร์นี้ เพื่อให้พีซีเครื่องอื่นสามารถเชื่อมต่อได้</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>แชร์</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>ทุกคนที่นำเข้าหรือซิงค์การตั้งค่าเหล่านี้ได้จะสามารถอ่านรหัสผ่านและคีย์ส่วนตัวของใบรับรองที่รวมไว้ได้</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>โฟลเดอร์ที่แชร์</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry จะสร้างโฟลเดอร์แยกไว้ที่นี่โดยใช้ชื่อการกำหนดค่า</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>ใช้โฟลเดอร์เครือข่ายเดียวกันบนพีซีทุกเครื่อง โฟลเดอร์ต้องใช้ SMB 3 โดยกำหนดให้ต้องเข้ารหัส ไม่รองรับโฟลเดอร์ที่ซิงค์กับคลาวด์</value>

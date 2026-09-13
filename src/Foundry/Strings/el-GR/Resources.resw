@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Δεν ήταν δυνατή η κατάργηση ορισμένων παλιών αποθηκευμένων κωδικών πρόσβασης ή κλειδιών πρόσβασης. Δοκιμάστε ξανά όταν είναι διαθέσιμη η Διαχείριση διαπιστευτηρίων των Windows.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Επιβεβαίωση κωδικού</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Επιβεβαίωση κωδικού πρόσβασης αρχείου</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Επιλέξτε το αρχείο σύνδεσης που σας έδωσε κάποιος από την ομάδα σας.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Κωδικός σύνδεσης</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Οι άλλοι υπολογιστές θα χρειαστούν αυτόν τον κωδικό για να συνδεθούν.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Συνέχεια</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Συμπερίληψη κωδικών πρόσβασης και εμπιστευτικών αρχείων</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Όσοι χρησιμοποιούν αυτή τη διαμόρφωση μπορούν να διαβάσουν τους κωδικούς πρόσβασης και τα εμπιστευτικά αρχεία που περιλαμβάνονται.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Λείπουν ορισμένοι κωδικοί πρόσβασης ή αρχεία προέλευσης. Προσθέστε τα πριν αποθηκεύσετε ή μοιραστείτε κωδικούς πρόσβασης.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Χρήση της έκδοσης αυτού του υπολογιστή</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Μάθετε περισσότερα</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Διατήρηση κωδικών για τον λογαριασμό σας στα Windows σε αυτόν τον υπολογιστή.</value>
@@ -2387,17 +2402,14 @@
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Μοιραστείτε αυτήν τη διαμόρφωση ή συνδεθείτε σε κάποια που χρησιμοποιεί ήδη η ομάδα σας.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>Σε αυτόν τον φάκελο δημιουργείται ένα αρχείο σύνδεσης που προστατεύεται με κωδικό πρόσβασης, ώστε να μπορούν να συνδεθούν άλλοι υπολογιστές.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Κοινή χρήση</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Όποιος μπορεί να εισαγάγει ή να συγχρονίσει αυτές τις ρυθμίσεις μπορεί να διαβάσει τους κωδικούς πρόσβασης και τα ιδιωτικά κλειδιά πιστοποιητικών που περιλαμβάνονται.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Κοινόχρηστος φάκελος</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Το Foundry δημιουργεί εδώ έναν ξεχωριστό φάκελο με το όνομα της διαμόρφωσης.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Χρησιμοποιήστε τον ίδιο φάκελο δικτύου σε κάθε υπολογιστή. Πρέπει να χρησιμοποιεί SMB 3 με υποχρεωτική κρυπτογράφηση. Δεν υποστηρίζονται φάκελοι που συγχρονίζονται με το cloud.</value>

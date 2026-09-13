@@ -2223,6 +2223,9 @@
   <data name="Profiles.CleanupPending" xml:space="preserve">
     <value>Joitakin vanhoja tallennettuja salasanoja tai käyttöavaimia ei voitu poistaa. Yritä uudelleen, kun Windowsin tunnistetietojen hallinta on käytettävissä.</value>
   </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Vahvista salasana</value>
+  </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
     <value>Vahvista tiedoston salasana</value>
   </data>
@@ -2237,6 +2240,12 @@
   </data>
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Valitse tiimisi jäseneltä saamasi yhteystiedosto.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Yhteyden salasana</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Muut tietokoneet tarvitsevat tämän salasanan yhteyden muodostamiseen.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Jatka</value>
@@ -2310,6 +2319,9 @@
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
     <value>Sisällytä salasanat ja luottamukselliset tiedostot</value>
   </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Tätä määritystä käyttävät henkilöt voivat lukea mukana olevat salasanat ja luottamukselliset tiedostot.</value>
+  </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
     <value>Joitakin salasanoja tai lähdetiedostoja puuttuu. Lisää ne ennen salasanojen tallentamista tai jakamista.</value>
   </data>
@@ -2321,6 +2333,9 @@
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
     <value>Käytä tämän tietokoneen versiota</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Lisätietoja</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
     <value>Säilytä Windows-tilisi salasanat tällä tietokoneella.</value>
@@ -2387,17 +2402,14 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Jaa tämä määritys tai yhdistä tiimisi jo käyttämään määritykseen.</value>
   </data>
-  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
-    <value>Tähän kansioon luodaan salasanalla suojattu yhteystiedosto, jotta muut tietokoneet voivat muodostaa yhteyden.</value>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Jaa</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Kaikki, jotka voivat tuoda tai synkronoida nämä asetukset, voivat lukea mukana olevat salasanat ja varmenteiden yksityiset avaimet.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Jaettu kansio</value>
-  </data>
-  <data name="Profiles.SharedFolderHint" xml:space="preserve">
-    <value>Foundry luo tähän erillisen kansion määrityksen nimellä.</value>
   </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
     <value>Käytä samaa verkkokansiota kaikilla tietokoneilla. Sen on käytettävä SMB 3:a ja pakollista salausta. Pilveen synkronoituja kansioita ei tueta.</value>
