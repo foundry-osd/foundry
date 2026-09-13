@@ -131,6 +131,47 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
     }
 
     [Fact]
+    public async Task Dispose_WhenSourceIsLocked_ClearsSecretsAndRetriesFileCleanup()
+    {
+        using var secrets = new OobeAccountSecretState();
+        DeploymentBuildSnapshot snapshot = await DeploymentBuildSnapshot.CaptureAsync(new(), secrets, [], root, TestContext.Current.CancellationToken);
+        string directory = Assert.Single(Directory.EnumerateDirectories(root));
+        string path = Path.Combine(directory, "confidential.xml");
+        File.WriteAllText(path, "private-source");
+        using (FileStream locked = new(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+        {
+            Assert.Throws<IOException>(snapshot.Dispose);
+            Assert.Throws<ObjectDisposedException>(() => snapshot.CreateDeploymentProtectionMaterial());
+        }
+
+        snapshot.Dispose();
+
+        Assert.False(Directory.Exists(directory));
+    }
+
+    [Fact]
+    public async Task CaptureAsync_RemovesAbandonedSourcesAndPreservesLiveSnapshots()
+    {
+        using var secrets = new OobeAccountSecretState();
+        using DeploymentBuildSnapshot active = await DeploymentBuildSnapshot.CaptureAsync(new(), secrets, [], root, TestContext.Current.CancellationToken);
+        string activeDirectory = Assert.Single(Directory.EnumerateDirectories(root));
+        string activeSource = Path.Combine(activeDirectory, "active.xml");
+        File.WriteAllText(activeSource, "active-source");
+        string abandonedDirectory = Path.Combine(root, Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(abandonedDirectory);
+        File.WriteAllText(Path.Combine(abandonedDirectory, "confidential.xml"), "abandoned-source");
+        string unrelatedDirectory = Path.Combine(root, "unrelated");
+        Directory.CreateDirectory(unrelatedDirectory);
+        File.WriteAllText(Path.Combine(unrelatedDirectory, "keep.xml"), "keep-source");
+
+        using DeploymentBuildSnapshot next = await DeploymentBuildSnapshot.CaptureAsync(new(), secrets, [], root, TestContext.Current.CancellationToken);
+
+        Assert.False(Directory.Exists(abandonedDirectory));
+        Assert.Equal("active-source", File.ReadAllText(activeSource));
+        Assert.True(Directory.Exists(unrelatedDirectory));
+    }
+
+    [Fact]
     public async Task CaptureAsync_PreservesAutopilotSessionMetadataPasswordAndExactPfxBytes()
     {
         Directory.CreateDirectory(root);

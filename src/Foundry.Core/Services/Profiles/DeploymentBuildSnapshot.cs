@@ -21,6 +21,7 @@ public sealed class DeploymentBuildSnapshot : IDisposable
 {
     private const long MaximumDriverBytes = 2L * 1024 * 1024 * 1024;
     private const int MaximumDriverEntries = 10_000;
+    private const string LeaseFileName = ".lease";
     private readonly OobeAccountSecretState accountSecrets = new();
     private readonly char[] deploymentPassword;
     private readonly char[]? wifiPassphrase;
@@ -31,6 +32,7 @@ public sealed class DeploymentBuildSnapshot : IDisposable
     private readonly string privateDirectory;
     private FoundryConfigurationDocument configuration;
     private bool isDisposed;
+    private FileStream? directoryLease;
 
     private DeploymentBuildSnapshot(FoundryConfigurationDocument source, ReadOnlySpan<char> password, string root)
     {
@@ -109,22 +111,47 @@ public sealed class DeploymentBuildSnapshot : IDisposable
     /// <summary>Clears owned password buffers and removes the private staging directory; cleanup errors are surfaced to the caller.</summary>
     public void Dispose()
     {
-        if (isDisposed)
+        if (!isDisposed)
         {
-            return;
+            isDisposed = true;
+            accountSecrets.Dispose();
+            Clear(deploymentPassword);
+            Clear(wifiPassphrase);
+            Clear(wiredCertificatePassword);
+            Clear(wifiCertificatePassword);
+            Clear(autopilotCertificatePassword);
         }
-        isDisposed = true;
-        accountSecrets.Dispose();
-        Clear(deploymentPassword);
-        Clear(wifiPassphrase);
-        Clear(wiredCertificatePassword);
-        Clear(wifiCertificatePassword);
-        Clear(autopilotCertificatePassword);
-        if (Directory.Exists(privateDirectory)
-            && string.Equals(Path.GetDirectoryName(Path.GetFullPath(privateDirectory)), privateRootDirectory, StringComparison.OrdinalIgnoreCase))
+        try
         {
-            Directory.Delete(privateDirectory, recursive: true);
+            if (!Directory.Exists(privateDirectory)) return;
+            using FileStream rootLease = AcquireRootLease(privateRootDirectory);
+            ValidateOwnedDirectory(privateDirectory, privateRootDirectory);
+            directoryLease ??= OpenDirectoryLease(privateDirectory);
+            DeleteSnapshotContents(privateDirectory);
+            directoryLease.Dispose();
+            directoryLease = null;
+            File.Delete(Path.Combine(privateDirectory, LeaseFileName));
+            Directory.Delete(privateDirectory, recursive: false);
         }
+        finally
+        {
+            directoryLease?.Dispose();
+            directoryLease = null;
+        }
+    }
+
+    /// <summary>Removes abandoned private media inputs without disturbing leased builds or following redirected paths.</summary>
+    public static void CleanupAbandoned(string privateRootDirectory)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(privateRootDirectory);
+        string root = Path.GetFullPath(privateRootDirectory);
+        if (!Directory.Exists(root)) return;
+        try
+        {
+            using FileStream rootLease = AcquireRootLease(root);
+            CleanupAbandonedCore(root);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException) { }
     }
 
     private async Task<DeploymentBuildSnapshot> PrepareAsync(CancellationToken cancellationToken)
@@ -167,7 +194,8 @@ public sealed class DeploymentBuildSnapshot : IDisposable
 
     private void CreatePrivateDirectory()
     {
-        Directory.CreateDirectory(privateRootDirectory);
+        using FileStream rootLease = AcquireRootLease(privateRootDirectory);
+        CleanupAbandonedCore(privateRootDirectory);
         using WindowsIdentity identity = WindowsIdentity.GetCurrent();
         SecurityIdentifier user = identity.User ?? throw new InvalidOperationException("The current Windows user is unavailable.");
         var security = new DirectorySecurity();
@@ -175,6 +203,88 @@ public sealed class DeploymentBuildSnapshot : IDisposable
         security.AddAccessRule(new FileSystemAccessRule(user, FileSystemRights.FullControl,
             InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
         new DirectoryInfo(privateDirectory).Create(security);
+        directoryLease = OpenDirectoryLease(privateDirectory);
+    }
+
+    private static FileStream AcquireRootLease(string root)
+    {
+        ValidateNoReparseAncestors(root);
+        Directory.CreateDirectory(root);
+        string path = Path.Combine(root, ".cleanup-lock");
+        ValidateNoReparseAncestors(path);
+        return new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+    }
+
+    private static FileStream OpenDirectoryLease(string directory)
+    {
+        string path = Path.Combine(directory, LeaseFileName);
+        ValidateNoReparseAncestors(path);
+        return new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+    }
+
+    private static void CleanupAbandonedCore(string root)
+    {
+        foreach (string directory in Directory.EnumerateDirectories(root).Take(1024))
+        {
+            if (!Guid.TryParseExact(Path.GetFileName(directory), "N", out _)) continue;
+            try
+            {
+                ValidateOwnedDirectory(directory, root);
+                using FileStream lease = OpenDirectoryLease(directory);
+                DeleteSnapshotContents(directory);
+                lease.Dispose();
+                File.Delete(Path.Combine(directory, LeaseFileName));
+                Directory.Delete(directory, recursive: false);
+            }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException) { }
+        }
+    }
+
+    private static void DeleteSnapshotContents(string directory)
+    {
+        Stack<string> pending = new();
+        List<string> directories = [];
+        pending.Push(directory);
+        int entries = 0;
+        while (pending.TryPop(out string? current))
+        {
+            ValidateNoReparseAncestors(current);
+            directories.Add(current);
+            foreach (string path in Directory.EnumerateFileSystemEntries(current))
+            {
+                if (current == directory && Path.GetFileName(path) == LeaseFileName) continue;
+                if (++entries > MaximumDriverEntries + 1024)
+                    throw new IOException("The private media inputs exceed the cleanup entry limit.");
+                ValidateNoReparseAncestors(path);
+                if ((File.GetAttributes(path) & FileAttributes.Directory) != 0) pending.Push(path);
+                else File.Delete(path);
+            }
+        }
+        for (int index = directories.Count - 1; index > 0; index--)
+            Directory.Delete(directories[index], recursive: false);
+    }
+
+    private static void ValidateOwnedDirectory(string directory, string root)
+    {
+        string fullPath = Path.GetFullPath(directory);
+        if (!string.Equals(Path.GetDirectoryName(fullPath), root, StringComparison.OrdinalIgnoreCase) ||
+            !Guid.TryParseExact(Path.GetFileName(fullPath), "N", out _))
+            throw new IOException("The private media inputs are outside the owned directory.");
+        ValidateNoReparseAncestors(fullPath);
+    }
+
+    private static void ValidateNoReparseAncestors(string path)
+    {
+        for (string? current = Path.GetFullPath(path); current is not null; current = Path.GetDirectoryName(current))
+        {
+            try
+            {
+                if ((File.GetAttributes(current) & FileAttributes.ReparsePoint) != 0)
+                    throw new IOException("Private media inputs cannot use a redirected path.");
+            }
+            catch (FileNotFoundException) { }
+            catch (DirectoryNotFoundException) { }
+        }
     }
 
     private static void CopyDrivers(string source, string destination, CancellationToken cancellationToken)

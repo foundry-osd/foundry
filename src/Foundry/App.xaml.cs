@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.DependencyInjection;
+using Foundry.Core.Services.Profiles;
 using Foundry.Services.Configuration;
 using Foundry.Services.Appearance;
 using Foundry.Services.Localization;
@@ -119,6 +120,7 @@ namespace Foundry
 
         private static async Task InitializeAppAsync()
         {
+            await Task.Run(() => DeploymentBuildSnapshot.CleanupAbandoned(Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots")));
             await GetService<DeploymentProfileCoordinator>().InitializeAsync();
             await GetService<IStartupReadinessService>().InitializeAsync();
             await TrackDailyActiveAsync();
