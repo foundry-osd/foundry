@@ -11,7 +11,7 @@ using Foundry.Core.Services.Profiles;
 
 namespace Foundry.Core.Tests.Profiles;
 
-public sealed class SharedProfileRepositoryTests
+public sealed partial class SharedProfileRepositoryTests
 {
     private static CancellationToken Cancellation => TestContext.Current.CancellationToken;
 
@@ -155,20 +155,26 @@ public sealed class SharedProfileRepositoryTests
     }
 
     [Fact]
-    public async Task BoundedHistory_RefusesNewPublicationWithoutDeletingCommittedHistory()
+    public async Task Retention_PublishesPastTheWindowAndKeepsOldClientsAndRetriesWorking()
     {
         using var fixture = new RepositoryFixture();
-        using var repository = fixture.Open(new() { MaximumHistoryCount = 2 });
+        using var repository = fixture.Open(new() { RetainedPayloadCount = 2 });
         await repository.InitializeAsync(Cancellation);
-        SharedProfileSnapshot first = (await repository.PublishAsync([1], null, Guid.NewGuid(), Cancellation)).Snapshot!;
+        Guid firstOperation = Guid.NewGuid();
+        SharedProfileSnapshot first = (await repository.PublishAsync([1], null, firstOperation, Cancellation)).Snapshot!;
         SharedProfileSnapshot second = (await repository.PublishAsync([2], first.Head.RevisionId, Guid.NewGuid(), Cancellation)).Snapshot!;
+        SharedProfileRepositoryResult third = await repository.PublishAsync([3], second.Head.RevisionId, Guid.NewGuid(), Cancellation);
 
-        Assert.Equal(SharedProfileRepositoryStatus.HistoryLimitExceeded,
-            (await repository.PublishAsync([3], second.Head.RevisionId, Guid.NewGuid(), Cancellation)).Status);
-        Assert.Equal(second.Head.RevisionId, (await repository.LoadAsync(first.Head.RevisionId, Cancellation)).Snapshot!.Head.RevisionId);
-        using var constrainedReader = fixture.Open(new() { MaximumHistoryCount = 1 });
-        Assert.Equal(SharedProfileRepositoryStatus.HistoryLimitExceeded,
-            (await constrainedReader.ReconcileAsync(Guid.NewGuid(), cancellationToken: Cancellation)).Status);
+        Assert.Equal(SharedProfileRepositoryStatus.Success, third.Status);
+        Assert.Equal(2, Directory.GetFiles(fixture.ProfilePath, "*.payload", SearchOption.AllDirectories).Length);
+        Assert.Equal(third.Snapshot!.Head.RevisionId, (await repository.LoadAsync(first.Head.RevisionId, Cancellation)).Snapshot!.Head.RevisionId);
+        Assert.Equal(first.Head.RevisionId, (await repository.ReconcileAsync(firstOperation, first.Head.RevisionId, Cancellation)).CommittedRevisionId);
+        SharedProfileRepositoryResult retry = await repository.PublishAsync([1], null, firstOperation, Cancellation);
+        Assert.Equal(SharedProfileRepositoryStatus.Success, retry.Status);
+        Assert.Equal(first.Head.RevisionId, retry.CommittedRevisionId);
+        Assert.Equal(3, retry.Snapshot!.Head.Sequence);
+        Assert.Equal(SharedProfileRepositoryStatus.InvalidData, (await repository.PublishAsync([9], null, firstOperation, Cancellation)).Status);
+        Assert.Equal(SharedProfileRepositoryStatus.Conflict, (await repository.PublishAsync([4], first.Head.RevisionId, Guid.NewGuid(), Cancellation)).Status);
     }
 
     [Fact]
@@ -278,11 +284,12 @@ public sealed class SharedProfileRepositoryTests
         SharedProfileSnapshot first = (await repository.PublishAsync([1], null, Guid.NewGuid(), Cancellation)).Snapshot!;
         var files = new SharedProfileRepositoryFiles(fixture.Key);
         using FileStream staleHandle = files.OpenJournal(fixture.HeadPath);
-        SharedProfileJournal<JsonElement> observed = files.ReadJournal<JsonElement>(staleHandle, 10, Cancellation);
+        JsonElement observed = default;
+        long committedLength = files.ReadJournal<JsonElement>(staleHandle, record => observed = record, Cancellation);
         staleHandle.Dispose();
         SharedProfileSnapshot second = (await repository.PublishAsync([2], first.Head.RevisionId, Guid.NewGuid(), Cancellation)).Snapshot!;
 
-        Assert.Throws<ObjectDisposedException>(() => files.AppendJournal(staleHandle, observed.CommittedLength, observed.Records[^1]));
+        Assert.Throws<ObjectDisposedException>(() => files.AppendJournal(staleHandle, committedLength, observed));
         Assert.Equal(second.Head.RevisionId, (await repository.LoadAsync(second.Head.RevisionId, Cancellation)).Snapshot!.Head.RevisionId);
     }
 
@@ -313,6 +320,41 @@ public sealed class SharedProfileRepositoryTests
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => repository.PublishAsync([1], null, Guid.NewGuid(), canceled.Token));
         Assert.Null((await repository.LoadAsync(cancellationToken: Cancellation)).Snapshot);
+    }
+
+    [Fact]
+    public async Task Initialize_NonemptyUninitializedFolderReturnsSpecificStatusAndPreservesContents()
+    {
+        using var fixture = new RepositoryFixture();
+        Directory.CreateDirectory(fixture.Root);
+        string existingFile = Path.Combine(fixture.Root, "existing.txt");
+        string existingDirectory = Directory.CreateDirectory(Path.Combine(fixture.Root, "existing-folder")).FullName;
+        File.WriteAllText(existingFile, "Existing shared data");
+        using var repository = fixture.Open();
+
+        SharedProfileRepositoryResult result = await repository.InitializeAsync(Cancellation);
+
+        Assert.Equal(SharedProfileRepositoryStatus.FolderNotEmpty, result.Status);
+        Assert.Equal("Existing shared data", File.ReadAllText(existingFile));
+        Assert.True(Directory.Exists(existingDirectory));
+        Assert.False(File.Exists(Path.Combine(fixture.Root, "repository.json")));
+        Assert.False(Directory.Exists(fixture.ProfilePath));
+    }
+
+    [Fact]
+    public async Task Initialize_ExistingRepositoryWithAdditionalFilesStillValidatesEnrollment()
+    {
+        using var fixture = new RepositoryFixture();
+        using (var repository = fixture.Open())
+            Assert.Equal(SharedProfileRepositoryStatus.Success, (await repository.InitializeAsync(Cancellation)).Status);
+        string existingFile = Path.Combine(fixture.Root, "existing.txt");
+        File.WriteAllText(existingFile, "Existing shared data");
+        using var enrolled = fixture.Open();
+        using var wrongKey = fixture.Open(key: RandomNumberGenerator.GetBytes(32));
+
+        Assert.Equal(SharedProfileRepositoryStatus.Success, (await enrolled.InitializeAsync(Cancellation)).Status);
+        Assert.Equal(SharedProfileRepositoryStatus.InvalidData, (await wrongKey.InitializeAsync(Cancellation)).Status);
+        Assert.Equal("Existing shared data", File.ReadAllText(existingFile));
     }
 
     private sealed class RepositoryFixture : IDisposable

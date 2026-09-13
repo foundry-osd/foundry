@@ -2211,163 +2211,268 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windowsi juurutussuvandid</value>
   </data>
-  <data name="Profiles.Activate" xml:space="preserve">
-    <value>Ava</value>
-  </data>
   <data name="Profiles.Active" xml:space="preserve">
-    <value>Aktiivne profiil</value>
+    <value>Praegused sätted</value>
   </data>
   <data name="Profiles.AutoSync" xml:space="preserve">
     <value>Automaatne sünkroonimine</value>
   </data>
+  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
+    <value>Valige teine nimi</value>
+  </data>
   <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Profiil salvestati, kuid vanad identimisandmed tuleb veel eemaldada. Proovige uuesti, kui Windowsi identimisteabe haldur on saadaval.</value>
+    <value>Mõnda vana salvestatud parooli või juurdepääsuvõtit ei saanud eemaldada. Proovige uuesti, kui Windowsi identimisteabe haldur on saadaval.</value>
+  </data>
+  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
+    <value>Kinnitage parool</value>
   </data>
   <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Kinnita paroolifraas</value>
+    <value>Kinnitage faili parool</value>
   </data>
   <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Vastuolulised muudatused nõuavad otsust.</value>
+    <value>Neid sätteid on muudetud selles arvutis ja keegi teine on neid samuti muutnud. Valige, millise versiooni soovite alles jätta.</value>
   </data>
   <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Valige versioon või salvestage koopia mõlema säilitamiseks. Teine versioon asendatakse.</value>
+    <value>Valitud versioon asendab teise. Kui soovite eraldi koopiat alles jätta, valige esmalt Tee koopia.</value>
+  </data>
+  <data name="Profiles.ConnectAction" xml:space="preserve">
+    <value>Ühenda</value>
+  </data>
+  <data name="Profiles.ConnectDescription" xml:space="preserve">
+    <value>Vali ühendusfail, mille said oma meeskonnaliikmelt.</value>
+  </data>
+  <data name="Profiles.ConnectionPassword" xml:space="preserve">
+    <value>Ühenduse parool</value>
+  </data>
+  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
+    <value>Teised arvutid vajavad ühenduse loomiseks seda parooli.</value>
   </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Jätka</value>
   </data>
   <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Loo jagatud profiil</value>
+    <value>Jaga seda konfiguratsiooni</value>
+  </data>
+  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
+    <value>Vali selle konfiguratsiooni jaoks jagatud võrgukaust.</value>
   </data>
   <data name="Profiles.Delete" xml:space="preserve">
-    <value>Kustuta kohalik profiil</value>
+    <value>Kustuta sellest arvutist</value>
   </data>
   <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Kustuta ka jagatud profiil</value>
+    <value>Kustuta ka kõigi teiste jaoks</value>
   </data>
   <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Kas kustutada jagatud profiil kõigist installidest? Teised muutjad peavad oma töö koopiana salvestama.</value>
+    <value>Kas kustutada need jagatud sätted kõigi jaoks? Kõik, kellel on sünkroonimata muudatusi, peavad nende säilitamiseks oma sätted dubleerima.</value>
   </data>
   <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Kas kustutada see kohalik profiil? Vajaduse korral eksportige esmalt varukoopia.</value>
+    <value>Kas kustutada need sätted sellest arvutist? Kui soovite varukoopiat, eksportige need esmalt.</value>
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Jagatud profiil kustutati. Töö säilitamiseks salvestage kohalik koopia.</value>
+    <value>Need jagatud sätted on kustutatud. Muudatuste säilitamiseks selles arvutis valige Tee koopia.</value>
   </data>
-  <data name="Profiles.Description" xml:space="preserve">
-    <value>Jätke paroolid meelde, teisaldage profiile ja sünkroonige jagatud sätteid.</value>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Katkesta ühendus</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Kas lõpetada selle konfiguratsiooni sünkroonimine selles arvutis? Teie praegused sätted säilivad. Jagatud konfiguratsiooni ja teisi arvuteid ei muudeta.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
-    <value>Ekspordi krüptitud profiil</value>
+    <value>Ekspordi</value>
+  </data>
+  <data name="Profiles.ExportDescription" xml:space="preserve">
+    <value>Salvesta see konfiguratsioon faili varukoopiaks või teise arvuti jaoks.</value>
+  </data>
+  <data name="Profiles.ExportProtection" xml:space="preserve">
+    <value>Vali eksporditud faili kaitsmiseks parool. Vajad seda konfiguratsiooni importimiseks.</value>
   </data>
   <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Ekspordi taastefail</value>
+    <value>Salvesta ühendusfail</value>
   </data>
   <data name="Profiles.Failed" xml:space="preserve">
-    <value>Toiming nurjus. Kontrollige faili, paroolifraasi, õigusi ja ühendust.</value>
+    <value>Toimingut ei saanud lõpule viia. Kontrollige faili, selle parooli, oma juurdepääsuõigusi ja võrguühendust.</value>
+  </data>
+  <data name="Profiles.FolderExists" xml:space="preserve">
+    <value>See kaustanimi on juba kasutusel. Ühendage ühendusfaili abil või minge tagasi ja valige teine nimi.</value>
+  </data>
+  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
+    <value>Valige jagatud kaustas uus tühi alamkaust. Olemasolevad failid jäävad muutmata.</value>
   </data>
   <data name="Profiles.Forget" xml:space="preserve">
-    <value>Unusta identimisteave</value>
+    <value>Kustuta salvestatud paroolid ja juurdepääsud</value>
   </data>
   <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Kas unustada selle kohaliku profiili salvestatud paroolid ja jagatud võti? Olemasolev andmekandja ei muutu.</value>
+    <value>Kas eemaldada nende sätete salvestatud paroolid, Foundry salvestatud konfidentsiaalsed failid ja sünkroonimise juurdepääs sellest arvutist? Sünkroonimiseks peate lisama puuduvad andmed ja uuesti ühenduse looma. Juba loodud andmekandjad ei muutu.</value>
   </data>
   <data name="Profiles.Heading" xml:space="preserve">
-    <value>Juurutusprofiilid</value>
-  </data>
-  <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Jagatud ajalugu on täis. Looge uus jagatud hoidla.</value>
+    <value>Foundry sätted</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
-    <value>Impordi koopiana</value>
+    <value>Impordi</value>
+  </data>
+  <data name="Profiles.ImportDescription" xml:space="preserve">
+    <value>Lisa konfiguratsioon failist.</value>
   </data>
   <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Kaasa saladused ja konfidentsiaalsed failid</value>
+    <value>Kaasa paroolid ja konfidentsiaalsed failid</value>
+  </data>
+  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
+    <value>Seda konfiguratsiooni kasutavad inimesed saavad lugeda kaasatud paroole ja konfidentsiaalseid faile.</value>
   </data>
   <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Enne saladuste meeldejätmist või avaldamist täitke nõutud paroolid ja lähtefailid.</value>
+    <value>Mõned paroolid või lähtefailid on puudu. Lisage need enne paroolide salvestamist või jagamist.</value>
+  </data>
+  <data name="Profiles.InvalidFolderName" xml:space="preserve">
+    <value>Kasutage nime, mis ei sisalda erimärke ega lõpe punkti või tühikuga.</value>
   </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Liitu taastefaili kaudu</value>
+    <value>Ühenda jagatud konfiguratsiooniga</value>
   </data>
   <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Säilita kohalik versioon</value>
+    <value>Kasuta selle arvuti versiooni</value>
+  </data>
+  <data name="Profiles.LearnMore" xml:space="preserve">
+    <value>Lisateave</value>
   </data>
   <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Windowsi identimisteabe haldur salvestab paroolid selle Windowsi kasutaja jaoks selles arvutis.</value>
+    <value>Säilita oma Windowsi konto paroolid selles arvutis.</value>
   </data>
   <data name="Profiles.Locked" xml:space="preserve">
-    <value>Salvestatud identimisteave pole sellele Windowsi kasutajale saadaval.</value>
+    <value>Windows ei saa teie konto jaoks selles arvutis neid salvestatud sätteid ega nende sünkroonimise juurdepääsu avada.</value>
   </data>
   <data name="Profiles.Manage" xml:space="preserve">
-    <value>Halda</value>
+    <value>Rohkem valikuid</value>
   </data>
   <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>{0} faili puudub või on välja jäetud. Enne andmekandja loomist kontrollige nende teid.</value>
+    <value>{0} faili on puudu või jäid lisamata. Valige enne andmekandja loomist nende asukohad.</value>
   </data>
   <data name="Profiles.Name" xml:space="preserve">
-    <value>Profiili nimi</value>
-  </data>
-  <data name="Profiles.Offline" xml:space="preserve">
-    <value>Jagatud ressurss on hõivatud või kättesaamatu. Kohalik töö säilib.</value>
+    <value>Konfiguratsiooni nimi</value>
   </data>
   <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Paroolifraas</value>
+    <value>Faili parool</value>
+  </data>
+  <data name="Profiles.PasswordMismatch" xml:space="preserve">
+    <value>Paroolid ei ühti.</value>
   </data>
   <data name="Profiles.Preview" xml:space="preserve">
     <value>{0}
-Failid: {1}
-Saladused: {2}</value>
+Kaasatud failid: {1}
+Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="Profiles.Ready" xml:space="preserve">
     <value>Valmis</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Hoidke krüptitud taastefaili ja selle paroolifraasi väljaspool jagatud kausta.</value>
+    <value>Valige ühendusfaili kaitsmiseks parool. Jagage parooli eraldi.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Jäta paroolid meelde</value>
   </data>
   <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Jäta jagatud võti meelde</value>
+    <value>Jäta see ühendus selles arvutis meelde</value>
   </data>
   <data name="Profiles.Rename" xml:space="preserve">
     <value>Nimeta ümber</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>See asendab aktiivse konfiguratsiooni. Töö säilitamiseks salvestage esmalt koopia.</value>
+    <value>See asendab praegu kasutatavad sätted. Kui soovite esmalt koopiat säilitada, tühistage ja valige Tee koopia.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Taasta juurdepääs</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Jagatud ajalugu muutus ootamatult. Taastage usaldusväärsest koopiast.</value>
+    <value>Jagatud kausta salvestatud versioonid on ootamatult muutunud. Taastage usaldusväärsest varukoopiast.</value>
   </data>
   <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Salvesta koopiana</value>
+    <value>Tee koopia</value>
+  </data>
+  <data name="Profiles.Select" xml:space="preserve">
+    <value>Valige konfiguratsioon</value>
+  </data>
+  <data name="Profiles.Setup" xml:space="preserve">
+    <value>Seadista</value>
+  </data>
+  <data name="Profiles.SetupAction" xml:space="preserve">
+    <value>Seadista sünkroonimine…</value>
+  </data>
+  <data name="Profiles.SetupDescription" xml:space="preserve">
+    <value>Jaga seda konfiguratsiooni või ühenda konfiguratsiooniga, mida sinu meeskond juba kasutab.</value>
+  </data>
+  <data name="Profiles.ShareAction" xml:space="preserve">
+    <value>Jaga</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Profiilivõtmega adressaadid saavad lugeda kaasatud saladusi ja sertifikaatide privaatvõtmeid.</value>
+    <value>Kõik, kes saavad neid sätteid importida või sünkroonida, saavad lugeda kaasatud paroole ja sertifikaatide privaatvõtmeid.</value>
+  </data>
+  <data name="Profiles.SharedBusy" xml:space="preserve">
+    <value>Seda jagatud kausta kasutab teine toiming. Proovige mõne aja pärast uuesti. Teie muudatused säilivad selles arvutis.</value>
   </data>
   <data name="Profiles.SharedFolder" xml:space="preserve">
     <value>Jagatud kaust</value>
   </data>
+  <data name="Profiles.SharedUnavailable" xml:space="preserve">
+    <value>Jagatud kaustale ei pääse juurde. Kontrollige selle aadressi ja oma võrgupääsu. Teie muudatused säilivad selles arvutis.</value>
+  </data>
   <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Kasutage ühte põhilist SMB 3 jagatud ressurssi, kus krüptimine on kohustuslik. Pilve peegeldatavaid kaustu ei toetata.</value>
+    <value>Kasutage igas arvutis sama võrgukausta. See peab kasutama SMB 3 protokolli koos kohustusliku krüptimisega. Pilvega sünkroonitud kaustu ei toetata.</value>
+  </data>
+  <data name="Profiles.StopRemembering" xml:space="preserve">
+    <value>Kas lõpetada selle konfiguratsiooni paroolide meelespidamine selles arvutis?</value>
   </data>
   <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Sünkrooni kohe</value>
+    <value>Sünkrooni</value>
+  </data>
+  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
+    <value>Sünkroonimine…</value>
+  </data>
+  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
+    <value>Valige versioon</value>
+  </data>
+  <data name="Profiles.SyncStatusError" xml:space="preserve">
+    <value>Sünkroonimine pole võimalik</value>
+  </data>
+  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
+    <value>Seadistamata</value>
+  </data>
+  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
+    <value>Kaust pole saadaval</value>
+  </data>
+  <data name="Profiles.SyncStatusPending" xml:space="preserve">
+    <value>Sünkroonimist ootavad muudatused</value>
+  </data>
+  <data name="Profiles.SyncStatusReady" xml:space="preserve">
+    <value>Sünkroonimiseks valmis</value>
+  </data>
+  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
+    <value>Ajakohane</value>
+  </data>
+  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
+    <value>Muudatused on saadaval</value>
+  </data>
+  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
+    <value>Vajab tähelepanu</value>
+  </data>
+  <data name="Profiles.Synchronize" xml:space="preserve">
+    <value>Sünkrooni</value>
+  </data>
+  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
+    <value>Hoia see konfiguratsioon oma meeskonna arvutites ajakohasena.</value>
   </data>
   <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Sünkroonitud</value>
+    <value>Sätted on ajakohased</value>
   </data>
   <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>See profiil kasutab toetamata vormingut. Enne selle avamist värskendage Foundryt.</value>
+    <value>Foundry ei saa seda sätete vormingut avada. Värskendage Foundryt ja proovige uuesti.</value>
   </data>
   <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Jagatud värskendus on valmis. Rakendamiseks valige „Sünkrooni kohe”.</value>
+    <value>Saadaval on muudatused teisest arvutist. Nende rakendamiseks valige Sünkrooni.</value>
   </data>
   <data name="Profiles.UseRemote" xml:space="preserve">
     <value>Kasuta jagatud versiooni</value>
   </data>
   <data name="Profiles.Validation" xml:space="preserve">
-    <value>Täitke nõutud väljad, kasutage UNC jagatud teed ja sisestage kattuvad paroolifraasid.</value>
+    <value>Kontrollige kohustuslikke välju. Kui küsitakse võrgukausta, kasutage näiteks teed \\server\share\folder. Kui sisestate faili parooli kaks korda, veenduge, et mõlemad sisestused kattuvad.</value>
   </data>
   <data name="Proxy.Status.FailedTitle" xml:space="preserve">
     <value>Connection failed</value>
@@ -2484,10 +2589,10 @@ Saladused: {2}</value>
     <value>Kindral</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Jätke paroolid meelde, teisaldage profiile ja sünkroonige jagatud sätteid.</value>
+    <value>Varundage oma sätted, teisaldage need teise arvutisse või hoidke neid sünkroonis.</value>
   </data>
   <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Juurutusprofiilid</value>
+    <value>Sätete varundamine ja sünkroonimine</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Profiles;
 using Foundry.Utilities.Security;
+using Serilog;
 
 namespace Foundry.Core.Services.Profiles;
 
@@ -123,6 +124,7 @@ public sealed class LocalDeploymentProfileRepository
         EnsureRecovered(localId);
         LocalProfileDescriptor previous = RequireHead(localId);
         CheckRevision(previous, expectedRevision);
+        _ = ReadActive();
         var journal = new LocalProfileJournal
         {
             LocalId = localId,
@@ -131,10 +133,6 @@ public sealed class LocalDeploymentProfileRepository
             PreviousSharedKeyRevision = previous.SharedKeyRevision
         };
         PublishJournal(journal);
-        if (ReadActive() == localId)
-        {
-            PublishActive(null);
-        }
         File.Delete(HeadPath(localId));
         return !Recover(localId);
     }
@@ -221,7 +219,11 @@ public sealed class LocalDeploymentProfileRepository
             _ = TryRecover(descriptor.LocalId);
             throw;
         }
-        return descriptor with { CleanupPending = !Recover(descriptor.LocalId) };
+        bool cleanupPending = !Recover(descriptor.LocalId);
+        Log.ForContext<LocalDeploymentProfileRepository>().Debug(
+            "Local profile revision committed. LocalProfileId={LocalProfileId}, RevisionId={RevisionId}, CleanupPending={CleanupPending}",
+            descriptor.LocalId, descriptor.Revision, cleanupPending);
+        return descriptor with { CleanupPending = cleanupPending };
     }
 
     private Guid? ResolveSharedKeyRevision(Guid localId, LocalProfileDescriptor? previous, LocalProfileEnrollment? enrollment, byte[]? sharedKey)
@@ -293,6 +295,7 @@ public sealed class LocalDeploymentProfileRepository
         {
             return true;
         }
+        Log.ForContext<LocalDeploymentProfileRepository>().Debug("Recovering local profile journal. LocalProfileId={LocalProfileId}", localId);
         LocalProfileJournal journal = LocalProfileStorage.ReadJson<LocalProfileJournal>(path);
         ValidateJournal(journal, localId);
         LocalProfileDescriptor? head = ReadHead(localId);
@@ -315,6 +318,10 @@ public sealed class LocalDeploymentProfileRepository
         }
         try
         {
+            if (journal.IsDelete && committed && ReadActive() == localId)
+            {
+                PublishActive(null);
+            }
             RetireRevision(localId, committed ? journal.PreviousRevision : journal.NextRevision);
             Guid? retireShared = committed ? journal.PreviousSharedKeyRevision : journal.NextSharedKeyRevision;
             if (retireShared is { } shared && retireShared != keepShared)
@@ -322,10 +329,15 @@ public sealed class LocalDeploymentProfileRepository
                 credentials.Delete(CredentialTarget(localId, shared, shared: true));
             }
             File.Delete(path);
+            Log.ForContext<LocalDeploymentProfileRepository>().Debug(
+                "Local profile journal recovery completed. LocalProfileId={LocalProfileId}, WasCommitted={WasCommitted}, WasDelete={WasDelete}",
+                localId, committed, journal.IsDelete);
             return true;
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or Win32Exception)
         {
+            Log.ForContext<LocalDeploymentProfileRepository>().Warning(exception,
+                "Local profile journal cleanup remains pending. LocalProfileId={LocalProfileId}", localId);
             return false;
         }
     }
@@ -338,6 +350,8 @@ public sealed class LocalDeploymentProfileRepository
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or Win32Exception)
         {
+            Log.ForContext<LocalDeploymentProfileRepository>().Warning(exception,
+                "Local profile journal cleanup remains pending. LocalProfileId={LocalProfileId}", localId);
             return false;
         }
     }

@@ -6,6 +6,7 @@ using Foundry.Services.Localization;
 using Foundry.Services.Networking;
 using Foundry.Services.Settings;
 using Microsoft.UI.Xaml.Controls;
+using Serilog;
 
 namespace Foundry.ViewModels;
 
@@ -58,6 +59,11 @@ public sealed partial class ProxySettingViewModel : ObservableObject
         }
         catch (Exception ex)
         {
+            Log.ForContext<ProxySettingViewModel>().Error(
+                ex,
+                "Failed to apply proxy settings. Method={Method}, AuthenticationMode={AuthenticationMode}",
+                Method,
+                AuthenticationMode);
             SetStatus("Proxy.Status.InvalidTitle", ex.Message, InfoBarSeverity.Error, false);
         }
     }
@@ -74,6 +80,11 @@ public sealed partial class ProxySettingViewModel : ObservableObject
         }
         catch (Exception ex)
         {
+            Log.ForContext<ProxySettingViewModel>().Error(
+                ex,
+                "Proxy connection test failed. Method={Method}, AuthenticationMode={AuthenticationMode}",
+                Method,
+                AuthenticationMode);
             SetStatus("Proxy.Status.FailedTitle", ex.Message, InfoBarSeverity.Error, false);
         }
         finally

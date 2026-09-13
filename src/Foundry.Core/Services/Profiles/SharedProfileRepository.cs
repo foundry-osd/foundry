@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Security.Cryptography;
+using Serilog;
+using Serilog.Events;
 
 namespace Foundry.Core.Services.Profiles;
 
@@ -32,7 +34,7 @@ public sealed class SharedProfileRepository : IDisposable
         if (sharedKey.Length != 32) throw new ArgumentException("A 32-byte enrollment key is required.", nameof(sharedKey));
         this.options = options ?? new();
         if (this.options.MaximumPayloadBytes is < 1 or > 256 * 1024 * 1024 ||
-            this.options.MaximumHistoryCount is < 1 or > 4096)
+            this.options.RetainedPayloadCount is < 1 or > 4096)
             throw new ArgumentOutOfRangeException(nameof(options));
         this.rootPath = Path.GetFullPath(rootPath);
         this.profilePath = Path.Combine(this.rootPath, "profiles", profileId.ToString("N"));
@@ -45,7 +47,7 @@ public sealed class SharedProfileRepository : IDisposable
 
     /// <summary>Explicitly creates a new repository or validates an existing enrollment; ordinary operations never initialize storage.</summary>
     public Task<SharedProfileRepositoryResult> InitializeAsync(CancellationToken cancellationToken = default) =>
-        ExecuteAsync((files, token) =>
+        ExecuteAsync("Initialize", (files, token) =>
         {
             if (Volatile.Read(ref initialized) != 0)
             {
@@ -66,7 +68,7 @@ public sealed class SharedProfileRepository : IDisposable
                 // Missing metadata in nonempty storage must not turn an old repository into a fresh one.
                 if (Directory.EnumerateFileSystemEntries(rootPath).Any(path =>
                     !string.Equals(Path.GetFileName(path), "repository.lock", StringComparison.Ordinal)))
-                    throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
+                    throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.FolderNotEmpty);
                 files.WriteSigned(manifestPath, "repository", new RepositoryManifest(1, repositoryId, keyEpoch));
             }
             token.ThrowIfCancellationRequested();
@@ -82,12 +84,12 @@ public sealed class SharedProfileRepository : IDisposable
 
     /// <summary>Authenticates committed ancestry and rejects a head that no longer descends from a locally pinned revision.</summary>
     public Task<SharedProfileRepositoryResult> LoadAsync(Guid? knownRevisionId = null, CancellationToken cancellationToken = default) =>
-        ExecuteAsync((files, token) =>
+        ExecuteAsync("Load", (files, token) =>
         {
             using FileStream journal = files.OpenJournal(journalPath);
-            List<RevisionMetadata> history = ReadHistory(files, journal, token, out _);
-            EnsureKnownRevision(history, knownRevisionId);
-            return new(SharedProfileRepositoryStatus.Success, ReadSnapshot(files, history));
+            AuthenticatedHistory history = ReadHistory(files, journal, token, out _, knownRevisionId);
+            EnsureKnownRevision(history);
+            return new(SharedProfileRepositoryStatus.Success, ReadSnapshot(files, history.Head));
         }, cancellationToken);
 
     /// <summary>Copies encrypted input immediately, then publishes only if the locked head still equals the expected base.</summary>
@@ -100,7 +102,7 @@ public sealed class SharedProfileRepository : IDisposable
         return PublishCoreAsync(encryptedPayload.ToArray(), expectedRevisionId, operationId, false, cancellationToken);
     }
 
-    /// <summary>Publishes a deletion revision conditionally; no files or committed ancestry are removed.</summary>
+    /// <summary>Publishes a deletion revision conditionally, preserving committed ancestry and applying normal payload retention.</summary>
     public Task<SharedProfileRepositoryResult> TombstoneAsync(Guid expectedRevisionId, Guid operationId,
         CancellationToken cancellationToken = default) =>
         PublishCoreAsync([], expectedRevisionId, operationId, true, cancellationToken);
@@ -110,14 +112,14 @@ public sealed class SharedProfileRepository : IDisposable
         CancellationToken cancellationToken = default)
     {
         if (operationId == Guid.Empty) throw new ArgumentException("An operation identity is required.", nameof(operationId));
-        return ExecuteAsync((files, token) =>
+        return ExecuteAsync("Reconcile", (files, token) =>
         {
             using FileStream journal = files.OpenJournal(journalPath);
-            List<RevisionMetadata> history = ReadHistory(files, journal, token, out _);
-            EnsureKnownRevision(history, knownRevisionId);
-            RevisionMetadata? committed = history.Find(revision => revision.Revision.OperationId == operationId);
+            AuthenticatedHistory history = ReadHistory(files, journal, token, out _, knownRevisionId, operationId);
+            EnsureKnownRevision(history);
+            RevisionMetadata? committed = history.CommittedOperation;
             return new(committed is null ? SharedProfileRepositoryStatus.NotCommitted : SharedProfileRepositoryStatus.Success,
-                ReadSnapshot(files, history), committed?.Revision.RevisionId);
+                ReadSnapshot(files, history.Head), committed?.Revision.RevisionId);
         }, cancellationToken);
     }
 
@@ -138,27 +140,25 @@ public sealed class SharedProfileRepository : IDisposable
             throw new ArgumentException("Operation and revision identities must be nonempty.");
         try
         {
-            return await ExecuteAsync((files, token) =>
+            return await ExecuteAsync(tombstone ? "Tombstone" : "Publish", (files, token) =>
             {
                 ValidateManifest(files);
                 using FileStream journal = files.OpenJournal(journalPath);
-                List<RevisionMetadata> history = ReadHistory(files, journal, token, out long committedLength);
+                AuthenticatedHistory history = ReadHistory(files, journal, token, out long committedLength, expectedRevisionId, operationId);
                 string hash = Convert.ToHexString(SHA256.HashData(payload));
-                RevisionMetadata? previous = history.Find(revision => revision.Revision.OperationId == operationId);
+                RevisionMetadata? previous = history.CommittedOperation;
                 if (previous is not null)
                 {
                     if (previous.Revision.ParentRevisionId != expectedRevisionId || previous.Revision.IsTombstone != tombstone ||
                         previous.PayloadLength != payload.Length || previous.PayloadHash != hash)
                         throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
-                    return new(SharedProfileRepositoryStatus.Success, ReadSnapshot(files, history), previous.Revision.RevisionId);
+                    return new(SharedProfileRepositoryStatus.Success, ReadSnapshot(files, history.Head), previous.Revision.RevisionId);
                 }
 
-                EnsureKnownRevision(history, expectedRevisionId);
-                SharedProfileSnapshot? current = ReadSnapshot(files, history);
+                EnsureKnownRevision(history);
+                SharedProfileSnapshot? current = ReadSnapshot(files, history.Head);
                 if (current?.Head.RevisionId != expectedRevisionId || current?.Head.IsTombstone == true)
                     return new(SharedProfileRepositoryStatus.Conflict, current);
-                if (history.Count >= options.MaximumHistoryCount)
-                    throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.HistoryLimitExceeded);
 
                 var revision = new SharedProfileRevision(repositoryId, profileId, Guid.NewGuid(), expectedRevisionId,
                     operationId, (current?.Head.Sequence ?? 0) + 1, keyEpoch, tombstone);
@@ -168,6 +168,9 @@ public sealed class SharedProfileRepository : IDisposable
                 files.WriteSigned(RevisionPath(revision.RevisionId, ".json"), "revision", metadata);
                 token.ThrowIfCancellationRequested();
                 files.AppendJournal(journal, committedLength, CreateHead(revision));
+                history.CommittedRevisionIds.Add(revision.RevisionId);
+                RetainPayload(history.RetainedPayloads, revision);
+                CleanupOldPayloads(history, token);
                 return new(SharedProfileRepositoryStatus.Success, new(revision, payload.ToArray()), revision.RevisionId);
             }, cancellationToken).ConfigureAwait(false);
         }
@@ -177,74 +180,117 @@ public sealed class SharedProfileRepository : IDisposable
         }
     }
 
-    private List<RevisionMetadata> ReadHistory(SharedProfileRepositoryFiles files, FileStream journal,
-        CancellationToken token, out long committedLength)
+    private AuthenticatedHistory ReadHistory(SharedProfileRepositoryFiles files, FileStream journal,
+        CancellationToken token, out long committedLength, Guid? knownRevisionId = null, Guid? operationId = null)
     {
         ValidateManifest(files);
-        SharedProfileJournal<HeadMetadata> commits = files.ReadJournal<HeadMetadata>(journal, options.MaximumHistoryCount + 1, token);
-        committedLength = commits.CommittedLength;
-        ValidateCommits(commits.Records);
-        HeadMetadata head = commits.Records[^1];
-        if (head.Revision is null) return [];
-        var history = new List<RevisionMetadata>();
+        SharedProfileRevision? head = null;
+        SharedProfileRevision? committedOperation = null;
+        bool knownFound = knownRevisionId is null;
+        bool initialRecord = true;
+        long sequence = 0;
+        // Compact identity sets preserve duplicate detection without retaining historical metadata or payloads.
         var revisions = new HashSet<Guid>();
         var operations = new HashSet<Guid>();
-        Guid? next = head.Revision.RevisionId;
-        long sequence = head.Revision.Sequence;
-        while (next is Guid id)
+        var retainedPayloads = new Queue<Guid>();
+        committedLength = files.ReadJournal<HeadMetadata>(journal, commit =>
         {
-            token.ThrowIfCancellationRequested();
-            if (history.Count >= options.MaximumHistoryCount)
-                throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.HistoryLimitExceeded);
-            RevisionMetadata item = files.ReadSigned<RevisionMetadata>(RevisionPath(id, ".json"), "revision");
-            ValidateVersion(item.FormatVersion);
-            ValidateRevision(item.Revision);
-            if (item.Revision.RevisionId != id || item.Revision.Sequence != sequence || !revisions.Add(id) ||
-                !operations.Add(item.Revision.OperationId) || item.PayloadLength < 0 || item.PayloadLength > options.MaximumPayloadBytes ||
-                item.PayloadHash is not { Length: 64 } || !item.PayloadHash.All(Uri.IsHexDigit) ||
-                item.Revision.IsTombstone != (item.PayloadLength == 0) ||
-                item.Revision != commits.Records[commits.Records.Count - 1 - history.Count].Revision ||
-                history.Count > 0 && item.Revision.IsTombstone)
-                throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
-            history.Add(item);
-            next = item.Revision.ParentRevisionId;
-            sequence--;
-        }
-        if (sequence != 0 || history.Count != commits.Records.Count - 1)
-            throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
-        return history;
-    }
-
-    private void ValidateCommits(IReadOnlyList<HeadMetadata> commits)
-    {
-        SharedProfileRevision? previous = null;
-        for (int index = 0; index < commits.Count; index++)
-        {
-            HeadMetadata commit = commits[index];
             ValidateVersion(commit.FormatVersion);
             if (commit.RepositoryId != repositoryId || commit.ProfileId != profileId || commit.KeyEpoch != keyEpoch)
                 throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
-            if (index == 0)
+            if (initialRecord)
             {
+                initialRecord = false;
                 if (commit.Revision is not null) throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
-                continue;
+                return;
             }
             ValidateRevision(commit.Revision);
-            if (commit.Revision!.Sequence != index || commit.Revision.ParentRevisionId != previous?.RevisionId || previous?.IsTombstone == true)
+            SharedProfileRevision revision = commit.Revision!;
+            if (revision.Sequence != ++sequence || revision.ParentRevisionId != head?.RevisionId || head?.IsTombstone == true ||
+                !revisions.Add(revision.RevisionId) || !operations.Add(revision.OperationId))
                 throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
-            previous = commit.Revision;
-        }
+            if (revision.RevisionId == knownRevisionId) knownFound = true;
+            if (revision.OperationId == operationId) committedOperation = revision;
+            head = revision;
+            RetainPayload(retainedPayloads, revision);
+        }, token);
+        RevisionMetadata? headMetadata = head is null ? null : ReadRevisionMetadata(files, head);
+        RevisionMetadata? operationMetadata = committedOperation is null ? null :
+            committedOperation == head ? headMetadata : ReadRevisionMetadata(files, committedOperation);
+        return new(headMetadata, operationMetadata, knownFound, revisions, retainedPayloads);
     }
 
-    private SharedProfileSnapshot? ReadSnapshot(SharedProfileRepositoryFiles files, List<RevisionMetadata> history)
+    private RevisionMetadata ReadRevisionMetadata(SharedProfileRepositoryFiles files, SharedProfileRevision revision)
     {
-        if (history.Count == 0) return null;
-        RevisionMetadata head = history[0];
+        RevisionMetadata item = files.ReadSigned<RevisionMetadata>(RevisionPath(revision.RevisionId, ".json"), "revision");
+        ValidateVersion(item.FormatVersion);
+        if (item.Revision != revision || item.PayloadLength < 0 || item.PayloadLength > options.MaximumPayloadBytes ||
+            item.PayloadHash is not { Length: 64 } || !item.PayloadHash.All(Uri.IsHexDigit) ||
+            revision.IsTombstone != (item.PayloadLength == 0))
+            throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
+        return item;
+    }
+
+    private SharedProfileSnapshot? ReadSnapshot(SharedProfileRepositoryFiles files, RevisionMetadata? head)
+    {
+        if (head is null) return null;
         byte[] payload = head.Revision.IsTombstone ? [] : files.ReadBytes(RevisionPath(head.Revision.RevisionId, ".payload"), options.MaximumPayloadBytes);
         if (payload.Length != head.PayloadLength || !string.Equals(Convert.ToHexString(SHA256.HashData(payload)), head.PayloadHash, StringComparison.Ordinal))
             throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.InvalidData);
         return new(head.Revision, payload);
     }
+
+    private void RetainPayload(Queue<Guid> retained, SharedProfileRevision revision)
+    {
+        if (revision.IsTombstone) return;
+        retained.Enqueue(revision.RevisionId);
+        if (retained.Count > options.RetainedPayloadCount) retained.Dequeue();
+    }
+
+    private void CleanupOldPayloads(AuthenticatedHistory history, CancellationToken token)
+    {
+        if (token.IsCancellationRequested) return;
+        var retained = new HashSet<Guid>(history.RetainedPayloads);
+        string directory = Path.Combine(profilePath, "revisions");
+        int removed = 0;
+        int failed = 0;
+        Exception? firstFailure = null;
+        ILogger logger = Log.ForContext<SharedProfileRepository>()
+            .ForContext("RepositoryId", repositoryId).ForContext("ProfileId", profileId);
+        try
+        {
+            SharedProfileRepositoryFiles.ValidatePath(directory);
+            foreach (string path in Directory.EnumerateFiles(directory, "*.payload", SearchOption.TopDirectoryOnly))
+            {
+                if (token.IsCancellationRequested) break;
+                if (!Guid.TryParseExact(Path.GetFileNameWithoutExtension(path), "N", out Guid revisionId) ||
+                    !history.CommittedRevisionIds.Contains(revisionId) || retained.Contains(revisionId)) continue;
+                try
+                {
+                    SharedProfileRepositoryFiles.ValidatePath(path);
+                    File.Delete(path);
+                    removed++;
+                }
+                catch (Exception exception) when (IsCleanupFailure(exception))
+                {
+                    failed++;
+                    firstFailure ??= exception;
+                }
+            }
+        }
+        catch (Exception exception) when (IsCleanupFailure(exception))
+        {
+            failed++;
+            firstFailure ??= exception;
+        }
+        if (removed > 0 || failed > 0)
+            logger.Write(failed == 0 ? LogEventLevel.Debug : LogEventLevel.Warning, firstFailure,
+                "Shared profile payload retention finished. RemovedPayloadCount={RemovedPayloadCount}, FailedPayloadCount={FailedPayloadCount}, RetainedPayloadLimit={RetainedPayloadLimit}",
+                removed, failed, options.RetainedPayloadCount);
+    }
+
+    private static bool IsCleanupFailure(Exception exception) =>
+        exception is IOException or UnauthorizedAccessException or System.Security.SecurityException or SharedProfileRepositoryException;
 
     private void ValidateManifest(SharedProfileRepositoryFiles files)
     {
@@ -270,9 +316,9 @@ public sealed class SharedProfileRepository : IDisposable
             version > 1 ? SharedProfileRepositoryStatus.UnsupportedFormat : SharedProfileRepositoryStatus.InvalidData);
     }
 
-    private static void EnsureKnownRevision(List<RevisionMetadata> history, Guid? knownRevisionId)
+    private static void EnsureKnownRevision(AuthenticatedHistory history)
     {
-        if (knownRevisionId is not null && !history.Any(item => item.Revision.RevisionId == knownRevisionId))
+        if (!history.KnownRevisionFound)
             throw new SharedProfileRepositoryException(SharedProfileRepositoryStatus.RollbackDetected);
     }
 
@@ -282,7 +328,7 @@ public sealed class SharedProfileRepository : IDisposable
     private HeadMetadata CreateHead(SharedProfileRevision? revision) => new(1, repositoryId, profileId, keyEpoch, revision);
 
     private Task<SharedProfileRepositoryResult> ExecuteAsync(
-        Func<SharedProfileRepositoryFiles, CancellationToken, SharedProfileRepositoryResult> action, CancellationToken cancellationToken)
+        string operation, Func<SharedProfileRepositoryFiles, CancellationToken, SharedProfileRepositoryResult> action, CancellationToken cancellationToken)
     {
         byte[] operationKey;
         lock (keyLock)
@@ -293,20 +339,50 @@ public sealed class SharedProfileRepository : IDisposable
         // Native UNC opens can block despite cancellation. They never execute on the caller's UI thread.
         return Task.Run(() =>
         {
+            ILogger logger = Log.ForContext<SharedProfileRepository>()
+                .ForContext("ProfileOperation", operation)
+                .ForContext("RepositoryId", repositoryId)
+                .ForContext("ProfileId", profileId);
+            LogEventLevel successLevel = operation is "Load" or "Reconcile" ? LogEventLevel.Debug : LogEventLevel.Information;
+            logger.Write(successLevel, "Shared profile repository operation started.");
             try
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                return action(new SharedProfileRepositoryFiles(operationKey), cancellationToken);
+                SharedProfileRepositoryResult result = action(new SharedProfileRepositoryFiles(operationKey), cancellationToken);
+                logger.Write(result.Status is SharedProfileRepositoryStatus.Success or SharedProfileRepositoryStatus.NotCommitted
+                        ? successLevel : LogEventLevel.Warning,
+                    "Shared profile repository operation completed. Status={Status}, RevisionId={RevisionId}",
+                    result.Status, result.CommittedRevisionId ?? result.Snapshot?.Head.RevisionId);
+                return result;
             }
-            catch (SharedProfileRepositoryException exception) { return new(exception.Status); }
-            catch (System.Text.Json.JsonException) { return new(SharedProfileRepositoryStatus.InvalidData); }
-            catch (CryptographicException) { return new(SharedProfileRepositoryStatus.InvalidData); }
-            catch (FormatException) { return new(SharedProfileRepositoryStatus.InvalidData); }
-            catch (IOException) { return new(SharedProfileRepositoryStatus.Unavailable); }
-            catch (UnauthorizedAccessException) { return new(SharedProfileRepositoryStatus.Unavailable); }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+                logger.Write(successLevel, "Shared profile repository operation canceled.");
+                throw;
+            }
+            catch (Exception exception) when (exception is SharedProfileRepositoryException or System.Text.Json.JsonException
+                or CryptographicException or FormatException or IOException or UnauthorizedAccessException)
+            {
+                SharedProfileRepositoryStatus status = exception switch
+                {
+                    SharedProfileRepositoryException repositoryException => repositoryException.Status,
+                    IOException or UnauthorizedAccessException => SharedProfileRepositoryStatus.Unavailable,
+                    _ => SharedProfileRepositoryStatus.InvalidData
+                };
+                logger.Warning(exception, "Shared profile repository operation failed. Status={Status}", status);
+                return new(status);
+            }
+            catch (Exception exception)
+            {
+                logger.Error(exception, "Shared profile repository operation failed unexpectedly.");
+                throw;
+            }
             finally { CryptographicOperations.ZeroMemory(operationKey); }
         });
     }
+
+    private sealed record AuthenticatedHistory(RevisionMetadata? Head, RevisionMetadata? CommittedOperation,
+        bool KnownRevisionFound, HashSet<Guid> CommittedRevisionIds, Queue<Guid> RetainedPayloads);
 
     private sealed record RepositoryManifest(int FormatVersion, Guid RepositoryId, int KeyEpoch);
     private sealed record HeadMetadata(int FormatVersion, Guid RepositoryId, Guid ProfileId, int KeyEpoch, SharedProfileRevision? Revision);

@@ -13,6 +13,7 @@ namespace Foundry.Services.Configuration;
 /// <summary>Coordinates local profile commits, activation, and background synchronization on the desktop dispatcher.</summary>
 public sealed partial class DeploymentProfileCoordinator : IDisposable
 {
+    private static readonly Serilog.ILogger Logger = Serilog.Log.ForContext<DeploymentProfileCoordinator>();
     private readonly LocalDeploymentProfileRepository local;
     private readonly IDeploymentProfilePackageService packages;
     private readonly DeploymentProfileSessionService session;
@@ -25,6 +26,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     private byte[]? sessionSharedKey;
     private bool applying;
     private bool initialized;
+    private bool automaticSynchronizationStarted;
     private long editVersion;
     private long persistedEditVersion;
     private long lastEditTick;
@@ -69,16 +71,26 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     }
 
     public event EventHandler? Changed;
+    /// <summary>Updates synchronization feedback without rebuilding the profile selector.</summary>
+    public event EventHandler? SynchronizationStateChanged;
     public LocalProfileDescriptor? Active { get; private set; }
     public IReadOnlyList<LocalProfileDescriptor> Profiles { get; private set; } = [];
     public string StatusKey { get; private set; } = "Profiles.Ready";
     public bool HasConflict { get; private set; }
+    /// <summary>A shared deletion requires an independent copy, rather than ordinary conflict resolution.</summary>
+    public bool IsSharedProfileDeleted { get; private set; }
+    /// <summary>Indicates an active synchronization attempt, including automatic checks.</summary>
+    public bool IsSynchronizing { get; private set; }
+    /// <summary>Includes edits awaiting local autosave as well as unpublished saved changes.</summary>
+    public bool HasPendingSynchronizationChanges => Active?.Enrollment is { } enrollment &&
+        (enrollment.IsDirty || enrollment.PendingOperationId is not null || enrollment.PendingConnectionFile || editVersion != persistedEditVersion);
 
     /// <summary>Restores only this Windows user's selected local profile, preserving locked or incompatible data.</summary>
     public async Task InitializeAsync()
     {
         if (initialized) return;
         initialized = true;
+        Logger.Information("Profile initialization started.");
         try
         {
             await Task.Run(CleanupAbandonedStagingDirectories);
@@ -98,7 +110,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             SetFailure(ex);
         }
 
-        _ = PollAsync();
+        Logger.Information("Profile initialization finished. ProfileCount={ProfileCount}, LocalProfileId={LocalProfileId}, StatusKey={StatusKey}", Profiles.Count, Active?.LocalId, StatusKey);
     }
 
     public async Task SaveAsync(bool? rememberSecrets = null)
@@ -118,7 +130,11 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     public async Task<bool> FlushBeforeCloseAsync()
     {
         debounce?.Cancel();
-        if (!await gate.WaitAsync(TimeSpan.FromSeconds(5))) return false;
+        if (!await gate.WaitAsync(TimeSpan.FromSeconds(5)))
+        {
+            Logger.Warning("Profile save before closing timed out while waiting for another operation.");
+            return false;
+        }
         try
         {
             if (Active is not null && editVersion != persistedEditVersion) await SaveCurrentAsync();
@@ -137,20 +153,26 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             if (Active is not null && editVersion != persistedEditVersion)
             {
                 try { await SaveCurrentAsync(); }
-                catch (IncompleteProfileCheckpointException) { }
+                catch (IncompleteProfileCheckpointException)
+                {
+                    Logger.Warning("Creating a new copy while the remembered checkpoint remains incomplete. LocalProfileId={LocalProfileId}", Active.LocalId);
+                }
             }
             Guid id = Guid.NewGuid();
             long version = editVersion;
-            DeploymentProfileDocument profile = await session.CaptureAsync(id, displayName, false);
+            bool remember = Active?.RememberSecrets ?? true;
+            DeploymentProfileDocument profile = await session.CaptureAsync(id, displayName, remember);
             try
             {
                 EnsureUnchanged(version);
-                LocalProfileDescriptor descriptor = local.Save(id, profile, false, null);
+                // A new profile can retain available values while its first draft is incomplete.
+                // Later saves preserve this checkpoint until all required inputs are complete.
+                LocalProfileDescriptor descriptor = local.Save(id, profile, remember, null);
                 local.SetActive(id);
                 Active = descriptor;
                 persistedEditVersion = editVersion;
                 ClearSharedKey();
-                HasConflict = false;
+                ClearConflict();
                 await RefreshAsync();
             }
             finally
@@ -208,9 +230,11 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
                 RememberSharedKey = false,
                 IsEnabled = false,
                 PendingOperationId = null,
+                PendingConnectionFile = false,
                 IsDirty = true
             };
             Active = local.Save(current.LocalId, profile, false, current.Revision, enrollment);
+            CleanupLocalTransferFiles(current);
             debounce?.Cancel();
             ClearSharedKey();
             try
@@ -227,7 +251,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
                 DeploymentProfileSecretBinding.Clear(profile);
             }
 
-            HasConflict = false;
+            ClearConflict();
             ClearStagingDirectories();
             await RefreshAsync();
         }
@@ -280,6 +304,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
                 finally { CryptographicOperations.ZeroMemory(key); }
             }
             bool cleanupPending = await Task.Run(() => local.Delete(current.LocalId, current.Revision));
+            CleanupLocalTransferFiles(current);
             debounce?.Cancel();
             applying = true;
             Active = null;
@@ -298,7 +323,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             };
             session.Activate(empty, empty.Configuration);
             persistedEditVersion = editVersion;
-            HasConflict = false;
+            ClearConflict();
             await RefreshAsync();
             if (cleanupPending)
             {
@@ -364,7 +389,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             persistedEditVersion = editVersion;
             local.SetActive(descriptor.LocalId);
             ClearSharedKey();
-            HasConflict = false;
+            ClearConflict();
             await RefreshAsync();
         }
         finally
@@ -374,22 +399,26 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         }
     }
 
-    private async Task SaveCurrentAsync(bool? rememberSecrets = null, LocalProfileEnrollment? enrollment = null, byte[]? sharedKey = null)
+    private async Task SaveCurrentAsync(bool? rememberSecrets = null, LocalProfileEnrollment? enrollment = null, byte[]? sharedKey = null,
+        long? comparedEditVersion = null, string? displayName = null, bool clearEnrollment = false)
     {
         LocalProfileDescriptor current = RequireActive();
         long version = editVersion;
         bool remember = rememberSecrets ?? current.RememberSecrets;
-        DeploymentProfileDocument profile = await session.CaptureAsync(current.ProfileId, current.DisplayName, remember);
+        Logger.Debug("Local profile checkpoint started. LocalProfileId={LocalProfileId}, RememberSecrets={RememberSecrets}, EditVersion={EditVersion}", current.LocalId, remember, version);
+        DeploymentProfileDocument profile = await session.CaptureAsync(current.ProfileId, displayName ?? current.DisplayName, remember);
         try
         {
             if (remember) EnsureCompleteCheckpoint(profile);
-            LocalProfileEnrollment? updated = enrollment ?? current.Enrollment;
-            if (enrollment is null && updated is not null && version != persistedEditVersion)
+            LocalProfileEnrollment? updated = clearEnrollment ? null : enrollment ?? current.Enrollment;
+            if (updated is not null && (enrollment is null && version != persistedEditVersion ||
+                comparedEditVersion is long compared && version != compared))
                 updated = updated with { IsDirty = true };
             Active = await Task.Run(() => local.Save(current.LocalId, profile, remember, current.Revision, updated,
                 updated?.RememberSharedKey == true ? sharedKey : null));
             persistedEditVersion = version;
             await RefreshAsync();
+            Logger.Debug("Local profile checkpoint completed. LocalProfileId={LocalProfileId}, Revision={Revision}, CleanupPending={CleanupPending}", Active?.LocalId, Active?.Revision, Active?.CleanupPending);
         }
         finally
         {
@@ -417,7 +446,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             Active = descriptor;
             persistedEditVersion = editVersion;
             ClearSharedKey();
-            HasConflict = false;
+            ClearConflict();
         }
         finally
         {
@@ -434,6 +463,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         }
         if (applying || Active is null || !initialized) return;
         editVersion++;
+        SynchronizationStateChanged?.Invoke(this, EventArgs.Empty);
         lastEditTick = Environment.TickCount64;
         debounce?.Cancel();
         debounce?.Dispose();
@@ -470,7 +500,8 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         {
             Active = Profiles.FirstOrDefault(profile => profile.LocalId == current.LocalId && profile.Revision == current.Revision) ?? current;
         }
-        StatusKey = Active?.CleanupPending == true ? "Profiles.CleanupPending" : "Profiles.Ready";
+        StatusKey = IsSharedProfileDeleted ? "Profiles.DeletedRemote" : HasConflict ? "Profiles.Conflict" :
+            Active?.CleanupPending == true ? "Profiles.CleanupPending" : "Profiles.Ready";
         Changed?.Invoke(this, EventArgs.Empty);
     }
 
@@ -489,11 +520,16 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
 
     private static bool IsProfileFailure(Exception exception) => exception is IOException or InvalidDataException or UnauthorizedAccessException or
         System.ComponentModel.Win32Exception or CryptographicException or ArgumentException or InvalidOperationException or NotSupportedException or
-        System.Text.Json.JsonException or FormatException;
+        System.Text.Json.JsonException or FormatException or System.Runtime.InteropServices.COMException;
 
-    private void SetFailure(Exception exception)
+    internal void SetFailure(Exception exception, [System.Runtime.CompilerServices.CallerMemberName] string operation = "")
     {
-        StatusKey = exception is LocalProfileLockedException ? "Profiles.Locked" :
+        Serilog.Events.LogEventLevel level = exception is LocalProfileLockedException or IncompleteProfileCheckpointException or SharedProfileOperationException
+            ? Serilog.Events.LogEventLevel.Warning : Serilog.Events.LogEventLevel.Error;
+        Logger.Write(level, exception, "Profile operation failed. Operation={Operation}, LocalProfileId={LocalProfileId}, SharedStatus={SharedStatus}",
+            operation, Active?.LocalId, (exception as SharedProfileOperationException)?.Status);
+        StatusKey = exception is SharedProfileOperationException shared ? RemoteStatusKey(shared.Status) :
+            exception is LocalProfileLockedException ? "Profiles.Locked" :
             exception is IncompleteProfileCheckpointException ? "Profiles.Incomplete" :
             exception is NotSupportedException ? "Profiles.Unsupported" : "Profiles.Failed";
         Changed?.Invoke(this, EventArgs.Empty);
@@ -509,7 +545,12 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     {
         if (profile.Secrets.Entries.Any(secret => secret.State is ProfileValueState.Unavailable or ProfileValueState.Omitted) ||
             profile.Assets.Any(asset => asset.State is ProfileValueState.Unavailable or ProfileValueState.Omitted))
+        {
+            Logger.Warning("Profile checkpoint is incomplete. UnavailableSecrets={UnavailableSecrets}, UnavailableAssets={UnavailableAssets}",
+                profile.Secrets.Entries.Count(secret => secret.State is ProfileValueState.Unavailable or ProfileValueState.Omitted),
+                profile.Assets.Count(asset => asset.State is ProfileValueState.Unavailable or ProfileValueState.Omitted));
             throw new IncompleteProfileCheckpointException();
+        }
     }
 
     private static Task<byte[]> ReadBoundedAsync(string path, int maximum) => Task.Run(async () =>

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.DependencyInjection;
+using Foundry.Core.Services.Profiles;
 using Foundry.Services.Configuration;
 using Foundry.Services.Appearance;
 using Foundry.Services.Localization;
@@ -119,8 +120,10 @@ namespace Foundry
 
         private static async Task InitializeAppAsync()
         {
+            await Task.Run(() => DeploymentBuildSnapshot.CleanupAbandoned(Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots")));
             await GetService<DeploymentProfileCoordinator>().InitializeAsync();
             await GetService<IStartupReadinessService>().InitializeAsync();
+            GetService<DeploymentProfileCoordinator>().StartAutomaticSynchronization();
             await TrackDailyActiveAsync();
             AppLogger.Information("Foundry WinUI startup completed.");
         }
@@ -186,6 +189,7 @@ namespace Foundry
                         var localization = GetService<Foundry.Services.Localization.IApplicationLocalizationService>();
                         var dialog = new ContentDialog
                         {
+                            Style = Foundry.Services.Application.ContentDialogStyleProvider.DefaultStyle,
                             XamlRoot = ((FrameworkElement)MainWindow.Content).XamlRoot,
                             Title = localization.GetString("Profiles.Heading"),
                             Content = localization.GetString(coordinator.StatusKey == "Profiles.Incomplete" ? "Profiles.Incomplete" : "Profiles.Failed"),

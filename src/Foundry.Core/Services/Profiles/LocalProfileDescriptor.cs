@@ -38,6 +38,9 @@ public sealed record LocalProfileEnrollment
     public bool IsEnabled { get; init; }
     public bool RememberSharedKey { get; init; }
     public bool IncludeSecrets { get; init; }
+    /// <summary>An encrypted connection package is staged locally until its shared publication is acknowledged.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool PendingConnectionFile { get; init; }
 }
 
 /// <summary>Owns decrypted profile secret and asset buffers for one committed revision.</summary>

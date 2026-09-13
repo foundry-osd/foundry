@@ -16,16 +16,38 @@ using Foundry.Services.Autopilot;
 namespace Foundry.Services.Configuration;
 
 /// <summary>Transfers explicitly selected secrets between profile records and the desktop's volatile authoring state.</summary>
-public sealed class DeploymentProfileSessionService(
-    IFoundryConfigurationStateService configurationState,
-    INetworkSecretStateService networkSecrets,
-    IDeploymentProtectionSecretStateService deploymentSecrets,
-    IOobeAccountSecretStateService accountSecrets,
-    IAutopilotHardwareHashSessionState autopilotSession)
+public sealed class DeploymentProfileSessionService : IDisposable
 {
+    private static readonly Serilog.ILogger Logger = Serilog.Log.ForContext<DeploymentProfileSessionService>();
+    private readonly IFoundryConfigurationStateService configurationState;
+    private readonly INetworkSecretStateService networkSecrets;
+    private readonly IDeploymentProtectionSecretStateService deploymentSecrets;
+    private readonly IOobeAccountSecretStateService accountSecrets;
+    private readonly IAutopilotHardwareHashSessionState autopilotSession;
+    private DeploymentProfileDocument? sourceMetadata;
+    private FoundryConfigurationDocument? materializedSourceMetadata;
+
+    public DeploymentProfileSessionService(
+        IFoundryConfigurationStateService configurationState,
+        INetworkSecretStateService networkSecrets,
+        IDeploymentProtectionSecretStateService deploymentSecrets,
+        IOobeAccountSecretStateService accountSecrets,
+        IAutopilotHardwareHashSessionState autopilotSession)
+    {
+        this.configurationState = configurationState;
+        this.networkSecrets = networkSecrets;
+        this.deploymentSecrets = deploymentSecrets;
+        this.accountSecrets = accountSecrets;
+        this.autopilotSession = autopilotSession;
+        configurationState.StateChanged += OnConfigurationChanged;
+    }
+
     /// <summary>Freezes configuration and owned password buffers before reading source files off the UI thread.</summary>
     public Task<DeploymentProfileDocument> CaptureAsync(Guid profileId, string displayName, bool includeSecrets)
     {
+        DeploymentProfileDocument? baseline = sourceMetadata;
+        FoundryConfigurationDocument? materializedBaseline = materializedSourceMetadata;
+        FoundryConfigurationDocument authoring = configurationState.Current;
         FoundryConfigurationDocument configuration = configurationState.Current with
         {
             Network = networkSecrets.ApplyRequiredSecrets(configurationState.Current.Network),
@@ -98,10 +120,10 @@ public sealed class DeploymentProfileSessionService(
         {
             try
             {
-                return await Task.Run(() =>
+                DeploymentProfileDocument captured = await Task.Run(() =>
                 {
                     profile = profile with { Assets = DeploymentProfileAssetService.Capture(profile.Configuration, includeSecrets) };
-                    return profile with
+                    profile = profile with
                     {
                         Secrets = new DeploymentProfileSecrets
                         {
@@ -111,7 +133,18 @@ public sealed class DeploymentProfileSessionService(
                             }).ToArray()
                         }
                     };
-                }).ConfigureAwait(false);
+                    return baseline is not null && materializedBaseline is not null
+                        ? DeploymentProfileMerge.PreserveOmittedSourceMetadata(profile, baseline, materializedBaseline, includeSecrets)
+                        : profile;
+                });
+                if (ReferenceEquals(configurationState.Current, authoring) && ReferenceEquals(sourceMetadata, baseline) &&
+                    (baseline is null || baseline.ProfileId == profileId))
+                {
+                    RememberSourceMetadata(captured, captured.Configuration);
+                }
+                Logger.Debug("Profile snapshot captured. ProfileId={ProfileId}, IncludeSecrets={IncludeSecrets}, SecretCount={SecretCount}, AssetCount={AssetCount}",
+                    profileId, includeSecrets, captured.Secrets.Entries.Count, captured.Assets.Count);
+                return captured;
             }
             catch
             {
@@ -186,16 +219,20 @@ public sealed class DeploymentProfileSessionService(
     /// <summary>Clears volatile credentials without reading or writing configuration storage.</summary>
     public void ClearSensitiveState()
     {
+        sourceMetadata = null;
+        materializedSourceMetadata = null;
         networkSecrets.Update(new NetworkSettings());
         deploymentSecrets.Clear();
         accountSecrets.Update(new OobeSettings());
         autopilotSession.ClearTenantConnection();
         autopilotSession.BootMediaCertificate = new();
+        Logger.Debug("Profile session credentials cleared.");
     }
 
     /// <summary>Restores matching secret contexts without establishing an authenticated Graph session.</summary>
     public void Activate(DeploymentProfileDocument profile, FoundryConfigurationDocument materialized)
     {
+        Logger.Debug("Profile session activation started. ProfileId={ProfileId}", profile.ProfileId);
         string? deploymentPassword = Get(ProfileSecretPurpose.DeploymentPassword);
         string? administratorPassword = Get(ProfileSecretPurpose.AdministratorPassword);
         var additionalPasswords = materialized.Customization.Oobe.AdditionalAccounts
@@ -243,6 +280,8 @@ public sealed class DeploymentProfileSessionService(
             }
             autopilotSession.BootMediaCertificate = boot;
         });
+        RememberSourceMetadata(profile, materialized);
+        Logger.Information("Profile session activation completed. ProfileId={ProfileId}", profile.ProfileId);
 
         string? Get(ProfileSecretPurpose purpose, string? accountId = null)
         {
@@ -255,5 +294,56 @@ public sealed class DeploymentProfileSessionService(
                 _ => null
             };
         }
+    }
+
+    /// <summary>Stops tracking source identity changes when the desktop session ends.</summary>
+    public void Dispose()
+    {
+        configurationState.StateChanged -= OnConfigurationChanged;
+        sourceMetadata = null;
+        materializedSourceMetadata = null;
+    }
+
+    private void RememberSourceMetadata(DeploymentProfileDocument profile, FoundryConfigurationDocument materialized)
+    {
+        sourceMetadata = profile with
+        {
+            Configuration = FreezeConfiguration(profile.Configuration),
+            Assets = profile.Assets.Select(asset => asset with
+            {
+                State = asset.State == ProfileValueState.Present ? ProfileValueState.Omitted : asset.State,
+                Content = null
+            }).ToArray(),
+            Secrets = new DeploymentProfileSecrets
+            {
+                Entries = profile.Secrets.Entries.Select(secret => secret with
+                {
+                    State = secret.State is ProfileValueState.Present or ProfileValueState.Blank ? ProfileValueState.Omitted : secret.State,
+                    Value = null
+                }).ToArray()
+            }
+        };
+        materializedSourceMetadata = FreezeConfiguration(materialized);
+    }
+
+    private void OnConfigurationChanged(object? sender, EventArgs e)
+    {
+        if (sourceMetadata is null || materializedSourceMetadata is null) return;
+        FoundryConfigurationDocument current = configurationState.Current with
+        {
+            Autopilot = configurationState.Current.Autopilot with
+            {
+                HardwareHashUpload = configurationState.Current.Autopilot.HardwareHashUpload with
+                {
+                    BootMediaCertificate = autopilotSession.BootMediaCertificate with { PfxPassword = null }
+                }
+            }
+        };
+        current = FreezeConfiguration(current);
+        // Discard invalidated metadata immediately so toggling a source off and back on cannot revive it.
+        sourceMetadata = DeploymentProfileMerge.PreserveOmittedSourceMetadata(
+            new DeploymentProfileDocument { ProfileId = sourceMetadata.ProfileId, Configuration = current },
+            sourceMetadata, materializedSourceMetadata, includeSecrets: false);
+        materializedSourceMetadata = current;
     }
 }

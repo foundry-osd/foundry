@@ -463,6 +463,10 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             {
                 TryMoveInvalidState(backupPath, ex);
             }
+            else
+            {
+                logger.Warning(ex, "Legacy Foundry configuration could not be loaded. Defaults were restored. SourceKind={SourceKind}", "Legacy");
+            }
             return CreateDefaultDocument();
         }
     }

@@ -151,13 +151,23 @@ public sealed class DeploymentProfilePackageService : IDeploymentProfilePackageS
     private static void ValidateEnvelope(ReadOnlySpan<byte> package, int mode)
     {
         if (package.Length >= 10 && package[..8].SequenceEqual(Magic) && package[8] > DeploymentProfileDocument.CurrentFormatVersion)
-            throw new NotSupportedException("The encrypted profile format requires a newer Foundry version.");
-        if (package.Length <= PayloadOffset + EncryptionOverhead || package.Length > DeploymentProfilePayload.MaximumPayloadBytes + PayloadOffset + EncryptionOverhead
-            || !package[..8].SequenceEqual(Magic) || package[8] != DeploymentProfileDocument.CurrentFormatVersion || package[9] != mode
-            || BinaryPrimitives.ReadInt32LittleEndian(package.Slice(10, 4)) != (mode == PassphraseMode ? Iterations : 0))
-        {
-            throw new InvalidDataException("The encrypted profile format, purpose, size or key derivation parameters are invalid.");
-        }
+            throw new NotSupportedException($"The encrypted profile format requires a newer Foundry version. Version={package[8]}, SupportedVersion={DeploymentProfileDocument.CurrentFormatVersion}.");
+
+        int minimumSize = PayloadOffset + EncryptionOverhead + 1;
+        int maximumSize = DeploymentProfilePayload.MaximumPayloadBytes + PayloadOffset + EncryptionOverhead;
+        if (package.Length < minimumSize || package.Length > maximumSize)
+            throw new InvalidDataException($"The encrypted profile size is invalid. Size={package.Length}, MinimumSize={minimumSize}, MaximumSize={maximumSize}.");
+        if (!package[..8].SequenceEqual(Magic))
+            throw new InvalidDataException("The encrypted profile signature is invalid.");
+        if (package[8] != DeploymentProfileDocument.CurrentFormatVersion)
+            throw new InvalidDataException($"The encrypted profile format version is invalid. Version={package[8]}, ExpectedVersion={DeploymentProfileDocument.CurrentFormatVersion}.");
+        if (package[9] != mode)
+            throw new InvalidDataException($"The encrypted profile purpose is invalid for this operation. Purpose={package[9]}, ExpectedPurpose={mode}.");
+
+        int iterations = BinaryPrimitives.ReadInt32LittleEndian(package.Slice(10, 4));
+        int expectedIterations = mode == PassphraseMode ? Iterations : 0;
+        if (iterations != expectedIterations)
+            throw new InvalidDataException($"The encrypted profile key derivation parameters are invalid. Iterations={iterations}, ExpectedIterations={expectedIterations}.");
     }
 
     private static void ValidatePassphrase(ReadOnlySpan<char> passphrase)

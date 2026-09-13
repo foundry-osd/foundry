@@ -213,6 +213,45 @@ public sealed class LocalDeploymentProfileRepositoryTests : IDisposable
     }
 
     [Fact]
+    public void FailedDeletion_PreservesActiveSelectionAndCommittedRevision()
+    {
+        var repository = CreateRepository();
+        LocalProfileDescriptor original = repository.Save(localId, CreateProfile(), true, null);
+        repository.SetActive(localId);
+        using (var lockedHead = new FileStream(HeadPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+        {
+            Assert.Throws<IOException>(() => repository.Delete(localId, original.Revision));
+        }
+
+        var reopened = CreateRepository();
+        Assert.Equal(original.Revision, Assert.Single(reopened.List()).Revision);
+        Assert.Equal(localId, reopened.GetActive());
+        using LocalProfileSnapshot read = reopened.Read(localId);
+        Assert.Equal(original.Revision, read.Descriptor.Revision);
+        Assert.Single(credentials.Values);
+    }
+
+    [Fact]
+    public void Delete_WhenActivePointerCleanupFails_CommitsDeletionAndRecoversWithoutChangingNewSelection()
+    {
+        var repository = CreateRepository();
+        LocalProfileDescriptor original = repository.Save(localId, CreateProfile(), true, null);
+        Guid otherId = Guid.NewGuid();
+        repository.Save(otherId, CreateProfile(), false, null);
+        repository.SetActive(localId);
+        using (var lockedActive = new FileStream(Path.Combine(root, "active.json"), FileMode.Open, FileAccess.Read, FileShare.Read))
+        {
+            Assert.True(repository.Delete(localId, original.Revision));
+            Assert.Null(repository.GetActive());
+        }
+
+        repository.SetActive(otherId);
+        Assert.Equal(otherId, Assert.Single(CreateRepository().List()).LocalId);
+        Assert.Equal(otherId, repository.GetActive());
+        Assert.Single(credentials.Values);
+    }
+
+    [Fact]
     public void FutureHeadVersion_IsNotOverwrittenOrRemoved()
     {
         var repository = CreateRepository();
@@ -296,6 +335,36 @@ public sealed class LocalDeploymentProfileRepositoryTests : IDisposable
 
         Assert.Throws<InvalidDataException>(() => repository.List());
         Assert.Equal(count, credentials.Values.Count);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void SaveRead_ConnectionPublicationStateSurvivesRestartAndLegacyMetadataOmitsFalse(bool pending)
+    {
+        DeploymentProfileDocument profile = CreateProfile();
+        LocalProfileEnrollment enrollment = CreateEnrollment(profile.ProfileId) with { PendingConnectionFile = pending };
+        CreateRepository().Save(localId, profile, true, null, enrollment, new byte[32]);
+        JsonObject metadata = JsonNode.Parse(File.ReadAllText(HeadPath))!.AsObject();
+        Assert.Equal(pending, metadata["enrollment"]!.AsObject().ContainsKey("pendingConnectionFile"));
+
+        using LocalProfileSnapshot restored = CreateRepository().Read(localId);
+
+        Assert.Equal(pending, restored.Descriptor.Enrollment!.PendingConnectionFile);
+        Assert.Equal("synthetic-secret-keep-exact", Encoding.UTF8.GetString(Assert.Single(restored.Profile.Secrets.Entries).Value!));
+        Assert.Equal(enrollment.RepositoryId, restored.Descriptor.Enrollment.RepositoryId);
+    }
+
+    [Fact]
+    public void Read_ConnectionPublicationStateCannotBeChangedOutsideAuthenticatedRevision()
+    {
+        DeploymentProfileDocument profile = CreateProfile();
+        CreateRepository().Save(localId, profile, true, null, CreateEnrollment(profile.ProfileId), new byte[32]);
+        JsonObject metadata = JsonNode.Parse(File.ReadAllText(HeadPath))!.AsObject();
+        metadata["enrollment"]!["pendingConnectionFile"] = true;
+        File.WriteAllText(HeadPath, metadata.ToJsonString());
+
+        Assert.ThrowsAny<CryptographicException>(() => CreateRepository().Read(localId));
     }
 
     private string HeadPath => Path.Combine(root, "profiles", localId.ToString("N"), "head.json");

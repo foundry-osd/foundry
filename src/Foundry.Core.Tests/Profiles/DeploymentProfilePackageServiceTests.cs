@@ -148,6 +148,66 @@ public sealed class DeploymentProfilePackageServiceTests
     }
 
     [Theory]
+    [InlineData(ProfilePackagePurpose.LocalStorage)]
+    [InlineData(ProfilePackagePurpose.SharedRevision)]
+    public void Import_IdentifiesInternalStoragePurpose(ProfilePackagePurpose purpose)
+    {
+        byte[] package = _service.Encrypt(CreateProfile(), new byte[32], purpose);
+
+        InvalidDataException exception = Assert.Throws<InvalidDataException>(() => _service.Import(package, "password"));
+
+        Assert.Contains($"Purpose={(int)purpose}", exception.Message);
+        Assert.Contains("ExpectedPurpose=1", exception.Message);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(118)]
+    [InlineData(16 * 1024 * 1024 + 119)]
+    public void Import_IdentifiesInvalidEnvelopeSize(int size)
+    {
+        InvalidDataException exception = Assert.Throws<InvalidDataException>(() => _service.Import(new byte[size], "password"));
+
+        Assert.Contains($"Size={size}", exception.Message);
+    }
+
+    [Fact]
+    public void Import_IdentifiesInvalidSignature()
+    {
+        byte[] package = _service.Export(CreateProfile(), "password");
+        package[0] ^= 1;
+
+        InvalidDataException exception = Assert.Throws<InvalidDataException>(() => _service.Import(package, "password"));
+
+        Assert.Contains("signature", exception.Message);
+        Assert.DoesNotContain("FNDRYPRF", exception.Message);
+    }
+
+    [Fact]
+    public void Import_IdentifiesInvalidFormatVersion()
+    {
+        byte[] package = _service.Export(CreateProfile(), "password");
+        package[8] = 0;
+
+        InvalidDataException exception = Assert.Throws<InvalidDataException>(() => _service.Import(package, "password"));
+
+        Assert.Contains("Version=0", exception.Message);
+        Assert.Contains("ExpectedVersion=1", exception.Message);
+    }
+
+    [Fact]
+    public void Import_IdentifiesInvalidKdfCostBeforeDerivation()
+    {
+        byte[] package = _service.Export(CreateProfile(), "password");
+        System.Buffers.Binary.BinaryPrimitives.WriteInt32LittleEndian(package.AsSpan(10, 4), -1);
+
+        InvalidDataException exception = Assert.Throws<InvalidDataException>(() => _service.Import(package, "password"));
+
+        Assert.Contains("Iterations=-1", exception.Message);
+        Assert.Contains("ExpectedIterations=600000", exception.Message);
+    }
+
+    [Theory]
     [InlineData(9)]
     [InlineData(10)]
     [InlineData(13)]

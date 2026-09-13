@@ -2,7 +2,9 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Profiles;
 using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;
 
@@ -11,6 +13,33 @@ namespace Foundry.Core.Services.Profiles;
 /// <summary>Removes host paths, session secrets, runtime envelopes and local telemetry before transfer or activation.</summary>
 public static class DeploymentProfileProjection
 {
+    /// <summary>Compares transferable settings and confidential values independently of host paths and record order.</summary>
+    public static bool HasSamePortableContent(DeploymentProfileDocument left, DeploymentProfileDocument right)
+    {
+        byte[]? leftPayload = null;
+        byte[]? rightPayload = null;
+        try
+        {
+            leftPayload = DeploymentProfilePayload.Serialize(OrderRecords(left), portable: true);
+            rightPayload = DeploymentProfilePayload.Serialize(OrderRecords(right), portable: true);
+            return leftPayload.AsSpan().SequenceEqual(rightPayload);
+        }
+        finally
+        {
+            if (leftPayload is not null) CryptographicOperations.ZeroMemory(leftPayload);
+            if (rightPayload is not null) CryptographicOperations.ZeroMemory(rightPayload);
+        }
+
+        static DeploymentProfileDocument OrderRecords(DeploymentProfileDocument profile) => profile with
+        {
+            Assets = profile.Assets.OrderBy(asset => asset.Id, StringComparer.Ordinal).ThenBy(asset => asset.Kind).ToArray(),
+            Secrets = new()
+            {
+                Entries = profile.Secrets.Entries.OrderBy(secret => secret.Purpose).ThenBy(secret => secret.Identity, StringComparer.Ordinal).ToArray()
+            }
+        };
+    }
+
     public static FoundryConfigurationDocument CreatePortable(FoundryConfigurationDocument configuration)
     {
         ArgumentNullException.ThrowIfNull(configuration);
