@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Użyj nazwy bez znaków specjalnych i bez kropki lub spacji na końcu.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Udostępniona konfiguracja uległa zmianie. Przed połączeniem sprawdź najnowszą wersję.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Połącz z udostępnioną konfiguracją</value>
   </data>
@@ -2364,7 +2367,7 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Gotowe</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Wybierz hasło chroniące plik połączenia. Udostępnij hasło osobno.</value>
+    <value>Wybierz hasło chroniące plik połączenia. Udostępnij hasło osobno. Zapisz plik poza folderem udostępnionej konfiguracji.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Zapamiętaj hasła</value>

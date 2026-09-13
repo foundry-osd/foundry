@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Gebruik een naam zonder speciale tekens en zonder punt of spatie aan het einde.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>De gedeelde configuratie is gewijzigd. Controleer de nieuwste versie voordat je verbinding maakt.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Verbinding maken met een gedeelde configuratie</value>
   </data>
@@ -2364,7 +2367,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Gereed</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Kies een wachtwoord om het verbindingsbestand te beveiligen. Deel het wachtwoord apart.</value>
+    <value>Kies een wachtwoord om het verbindingsbestand te beveiligen. Deel het wachtwoord apart. Sla het bestand buiten de map van de gedeelde configuratie op.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Wachtwoorden onthouden</value>

@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Použite názov bez špeciálnych znakov a bez bodky alebo medzery na konci.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Zdieľaná konfigurácia sa zmenila. Pred pripojením skontrolujte najnovšiu verziu.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Pripojiť k zdieľanej konfigurácii</value>
   </data>
@@ -2364,7 +2367,7 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Pripravené</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Zvoľte heslo na ochranu súboru pripojenia. Heslo zdieľajte samostatne.</value>
+    <value>Zvoľte heslo na ochranu súboru pripojenia. Heslo zdieľajte samostatne. Uložte súbor mimo priečinka zdieľanej konfigurácie.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Zapamätať heslá</value>

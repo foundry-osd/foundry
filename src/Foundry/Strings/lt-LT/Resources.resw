@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Naudokite pavadinimą be specialiųjų simbolių ir be taško ar tarpo pabaigoje.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Bendrinama konfigūracija pasikeitė. Prieš prisijungdami peržiūrėkite naujausią versiją.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Prisijungti prie bendrinamos konfigūracijos</value>
   </data>
@@ -2364,7 +2367,7 @@
     <value>Paruošta</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Pasirinkite slaptažodį ryšio failui apsaugoti. Slaptažodį perduokite atskirai.</value>
+    <value>Pasirinkite slaptažodį ryšio failui apsaugoti. Slaptažodį perduokite atskirai. Išsaugokite failą už bendrinamos konfigūracijos aplanko ribų.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Įsiminti slaptažodžius</value>

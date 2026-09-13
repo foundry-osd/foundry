@@ -38,12 +38,12 @@ internal sealed class SharedProfileRepositoryFiles(byte[] key)
     }
 
     /// <summary>The stable journal handle is both the exclusive lock and the only route for committing a head.</summary>
-    internal FileStream OpenJournal(string path, bool create = false)
+    internal FileStream OpenJournal(string path)
     {
         ValidatePath(path);
         try
         {
-            return new FileStream(path, create ? FileMode.CreateNew : FileMode.Open,
+            return new FileStream(path, FileMode.Open,
                 FileAccess.ReadWrite, FileShare.None, bufferSize: 64 * 1024, FileOptions.WriteThrough);
         }
         catch (IOException exception) when ((exception.HResult & 0xffff) is 32 or 33)
@@ -132,6 +132,16 @@ internal sealed class SharedProfileRepositoryFiles(byte[] key)
     internal void WriteSigned<T>(string path, string purpose, T value)
     {
         WriteBytes(path, SerializeSigned(purpose, value));
+    }
+
+    /// <summary>Rebuilds an unpublished record only inside the caller's authenticated initialization namespace.</summary>
+    internal void WriteStagedSigned<T>(string path, string purpose, T value)
+    {
+        byte[] bytes = SerializeSigned(purpose, value);
+        ValidatePath(path);
+        using FileStream stream = new(path, FileMode.Create, FileAccess.Write, FileShare.None);
+        stream.Write(bytes);
+        stream.Flush(flushToDisk: true);
     }
 
     private byte[] SerializeSigned<T>(string purpose, T value)

@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Use um nome sem caracteres especiais e sem ponto ou espaço no final.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>A configuração compartilhada foi alterada. Revise a versão mais recente antes de se conectar.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Conectar a uma configuração compartilhada</value>
   </data>
@@ -2364,7 +2367,7 @@ Senhas e chaves de acesso incluídas: {2}</value>
     <value>Pronto</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Escolha uma senha para proteger o arquivo de conexão. Compartilhe a senha separadamente.</value>
+    <value>Escolha uma senha para proteger o arquivo de conexão. Compartilhe a senha separadamente. Salve o arquivo fora da pasta da configuração compartilhada.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Lembrar senhas</value>

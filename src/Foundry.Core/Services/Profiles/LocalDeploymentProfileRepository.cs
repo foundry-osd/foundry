@@ -99,23 +99,6 @@ public sealed class LocalDeploymentProfileRepository
         return SaveRevision(localId, profile, rememberSecrets, previous, enrollment, sharedKey);
     }
 
-    /// <summary>Commits settings without secret/asset bytes, disables automatic shared access, then retires earlier keys.</summary>
-    public LocalProfileDescriptor Forget(Guid localId, Guid expectedRevision)
-    {
-        ValidateId(localId);
-        using FileStream lease = AcquireLock();
-        EnsureRecovered(localId);
-        LocalProfileDescriptor previous = RequireHead(localId);
-        CheckRevision(previous, expectedRevision);
-        using LocalProfileSnapshot snapshot = ReadSnapshot(previous);
-        LocalProfileEnrollment? enrollment = previous.Enrollment is null ? null : previous.Enrollment with
-        {
-            RememberSharedKey = false,
-            IsEnabled = false
-        };
-        return SaveRevision(localId, snapshot.Profile, false, previous, enrollment, null);
-    }
-
     /// <summary>Deletes a committed local profile. Returns true if committed deletion still has journaled cleanup pending.</summary>
     public bool Delete(Guid localId, Guid expectedRevision)
     {

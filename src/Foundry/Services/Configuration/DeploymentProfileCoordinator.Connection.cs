@@ -134,7 +134,7 @@ public sealed partial class DeploymentProfileCoordinator
         await SaveCurrentAsync(enrollment: enrollment with
         {
             PendingConnectionFile = false,
-            IsDirty = enrollment.IsDirty || editVersion != persistedEditVersion
+            IsDirty = enrollment.IsDirty || HasSharedEditsSince(persistedEditVersion)
         });
         TryDeleteTransferFile(staged);
         MarkSynchronized();

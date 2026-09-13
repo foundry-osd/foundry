@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Χρησιμοποιήστε ένα όνομα χωρίς ειδικούς χαρακτήρες και χωρίς τελεία ή κενό στο τέλος.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Η κοινόχρηστη διαμόρφωση άλλαξε. Ελέγξτε την πιο πρόσφατη έκδοση πριν συνδεθείτε.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Σύνδεση σε κοινόχρηστη διαμόρφωση</value>
   </data>
@@ -2364,7 +2367,7 @@
     <value>Έτοιμο</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Επιλέξτε έναν κωδικό πρόσβασης για την προστασία του αρχείου σύνδεσης. Κοινοποιήστε τον κωδικό πρόσβασης ξεχωριστά.</value>
+    <value>Επιλέξτε έναν κωδικό πρόσβασης για την προστασία του αρχείου σύνδεσης. Κοινοποιήστε τον κωδικό πρόσβασης ξεχωριστά. Αποθηκεύστε το αρχείο έξω από τον φάκελο της κοινόχρηστης διαμόρφωσης.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Απομνημόνευση κωδικών</value>

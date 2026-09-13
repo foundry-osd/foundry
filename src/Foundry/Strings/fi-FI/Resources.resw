@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Käytä nimeä, jossa ei ole erikoismerkkejä eikä pistettä tai välilyöntiä lopussa.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Jaettu määritys on muuttunut. Tarkista uusin versio ennen yhteyden muodostamista.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Yhdistä jaettuun määritykseen</value>
   </data>
@@ -2364,7 +2367,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Valmis</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Valitse salasana yhteystiedoston suojaamiseksi. Jaa salasana erikseen.</value>
+    <value>Valitse salasana yhteystiedoston suojaamiseksi. Jaa salasana erikseen. Tallenna tiedosto jaetun määrityksen kansion ulkopuolelle.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Muista salasanat</value>

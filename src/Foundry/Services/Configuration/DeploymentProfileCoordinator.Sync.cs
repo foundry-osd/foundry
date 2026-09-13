@@ -92,19 +92,19 @@ public sealed partial class DeploymentProfileCoordinator
         finally { CryptographicOperations.ZeroMemory(key); }
     }
 
-    public async Task JoinSharedAsync(DeploymentProfileDocument invitationProfile, string rootPath, bool rememberSecrets, bool rememberKey)
+    /// <summary>Joins the reviewed shared revision, returning false when a newer revision requires another preview.</summary>
+    public async Task<bool> JoinSharedAsync(DeploymentProfileDocument invitationProfile, string rootPath, bool rememberSecrets, bool rememberKey, Guid expectedRevisionId)
     {
         EnsureCanActivate();
         ValidateSharedPath(rootPath);
         SharedInvitation invitation = ReadSharedInvitation(invitationProfile);
-        byte[] key = Convert.FromBase64String(invitation.Key);
-        if (key.Length != 32) throw new InvalidDataException("Invalid recovery key.");
         await gate.WaitAsync(lifetime.Token);
+        byte[] key = [];
         try
         {
+            key = Convert.FromBase64String(invitation.Key);
+            if (key.Length != 32) throw new InvalidDataException("Invalid recovery key.");
             if (Active?.Enrollment is not null) throw new InvalidOperationException("Disconnect the current configuration before connecting to another shared configuration.");
-            if (Active is not null && editVersion != persistedEditVersion) await SaveCurrentAsync();
-            long version = editVersion;
             LocalProfileEnrollment enrollment = new()
             {
                 RootPath = rootPath,
@@ -120,6 +120,9 @@ public sealed partial class DeploymentProfileCoordinator
             RequireSuccess(result);
             SharedProfileSnapshot head = result.Snapshot ?? throw new InvalidDataException("The shared profile has no revision.");
             if (head.Head.IsTombstone) throw new InvalidDataException("The shared profile was deleted.");
+            if (head.Head.RevisionId != expectedRevisionId) return false;
+            if (Active is not null && editVersion != persistedEditVersion) await SaveCurrentAsync();
+            long version = editVersion;
             DeploymentProfileDocument profile = packages.Decrypt(head.EncryptedPayload, key, ProfilePackagePurpose.SharedRevision, SharedContext(enrollment));
             try
             {
@@ -146,6 +149,7 @@ public sealed partial class DeploymentProfileCoordinator
                 ClearConflict();
                 await RefreshAsync();
                 MarkSynchronized();
+                return true;
             }
             finally { DeploymentProfileSecretBinding.Clear(profile); }
         }
@@ -166,7 +170,7 @@ public sealed partial class DeploymentProfileCoordinator
             await SaveCurrentAsync(enrollment: enrollment with
             {
                 IsEnabled = enabled,
-                IsDirty = enrollment.IsDirty || editVersion != persistedEditVersion
+                IsDirty = enrollment.IsDirty || HasSharedEditsSince(persistedEditVersion)
             });
         }
         finally { gate.Release(); }
@@ -256,7 +260,7 @@ public sealed partial class DeploymentProfileCoordinator
             }
 
             bool remoteChanged = result.Snapshot?.Head.RevisionId != enrollment.KnownRevisionId;
-            bool dirty = enrollment.IsDirty || editVersion != persistedEditVersion;
+            bool dirty = enrollment.IsDirty || HasSharedEditsSince(persistedEditVersion);
             if (remoteChanged && dirty) { SetRemoteStatus(SharedProfileRepositoryStatus.Conflict, result.Snapshot); return; }
             if (remoteChanged && result.Snapshot is not null)
             {
@@ -300,7 +304,7 @@ public sealed partial class DeploymentProfileCoordinator
             {
                 KnownRevisionId = result.CommittedRevisionId,
                 PendingOperationId = null,
-                IsDirty = editVersion != version
+                IsDirty = HasSharedEditsSince(version)
             });
             File.Delete(OutboxPath(current.LocalId, operationId));
             Logger.Information("Profile publication committed. LocalProfileId={LocalProfileId}, PublicationId={PublicationId}, RevisionId={RevisionId}", current.LocalId, operationId, result.CommittedRevisionId);

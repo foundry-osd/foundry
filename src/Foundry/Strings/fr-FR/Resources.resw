@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Utilisez un nom sans caractères spéciaux, ni point ou espace à la fin.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>La configuration partagée a changé. Vérifiez la dernière version avant de vous connecter.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Se connecter à une configuration partagée</value>
   </data>
@@ -2364,7 +2367,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Prêt</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Choisissez un mot de passe pour protéger le fichier de connexion. Communiquez le mot de passe séparément.</value>
+    <value>Choisissez un mot de passe pour protéger le fichier de connexion. Communiquez le mot de passe séparément. Enregistrez le fichier en dehors du dossier de la configuration partagée.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Mémoriser les mots de passe</value>

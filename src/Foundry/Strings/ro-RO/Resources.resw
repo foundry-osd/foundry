@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Folosiți un nume fără caractere speciale și fără punct sau spațiu la final.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Configurația partajată s-a schimbat. Verificați cea mai recentă versiune înainte de conectare.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Conectează-te la o configurație partajată</value>
   </data>
@@ -2364,7 +2367,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Pregătit</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Alegeți o parolă pentru a proteja fișierul de conexiune. Comunicați parola separat.</value>
+    <value>Alegeți o parolă pentru a proteja fișierul de conexiune. Comunicați parola separat. Salvați fișierul în afara folderului configurației partajate.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Memorează parolele</value>

@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>استخدم اسمًا لا يحتوي على رموز خاصة ولا ينتهي بنقطة أو مسافة.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>تغير التكوين المشترك. راجع أحدث إصدار قبل الاتصال.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>الاتصال بتكوين مشترك</value>
   </data>
@@ -2364,7 +2367,7 @@
     <value>جاهز</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>اختر كلمة مرور لحماية ملف الاتصال. شارك كلمة المرور بشكل منفصل.</value>
+    <value>اختر كلمة مرور لحماية ملف الاتصال. شارك كلمة المرور بشكل منفصل. احفظ الملف خارج مجلد التكوين المشترك.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>تذكّر كلمات المرور</value>

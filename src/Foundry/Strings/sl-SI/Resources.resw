@@ -2325,6 +2325,9 @@
   <data name="Profiles.InvalidFolderName" xml:space="preserve">
     <value>Uporabite ime brez posebnih znakov in brez pike ali presledka na koncu.</value>
   </data>
+  <data name="Profiles.JoinChanged" xml:space="preserve">
+    <value>Konfiguracija v skupni rabi se je spremenila. Pred povezovanjem preglejte najnovejšo različico.</value>
+  </data>
   <data name="Profiles.JoinShared" xml:space="preserve">
     <value>Poveži se s konfiguracijo v skupni rabi</value>
   </data>
@@ -2364,7 +2367,7 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Pripravljeno</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Izberite geslo za zaščito povezovalne datoteke. Geslo posredujte ločeno.</value>
+    <value>Izberite geslo za zaščito povezovalne datoteke. Geslo posredujte ločeno. Datoteko shranite zunaj mape konfiguracije v skupni rabi.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Zapomni si gesla</value>
