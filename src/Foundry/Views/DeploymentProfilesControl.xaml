@@ -35,6 +35,23 @@
                     </VisualState.StateTriggers>
                 </VisualState>
             </VisualStateGroup>
+            <VisualStateGroup>
+                <VisualState x:Name="CompactConflictActions">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter
+                            Target="ConflictActions.Orientation"
+                            Value="Vertical" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="WideConflictActions">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1200" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
             <VisualStateGroup x:Name="SynchronizationStates">
                 <VisualState x:Name="SynchronizationNeutral">
                     <VisualState.Setters>
@@ -251,8 +268,13 @@
                 Message="{x:Bind ViewModel.Text('Profiles.ConflictWarning')}"
                 Severity="Warning"
                 Visibility="{x:Bind ViewModel.ConflictVisibility, Mode=OneWay}">
-                <ContentControl IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}">
-                    <StackPanel Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                <ContentControl
+                    Margin="0,0,16,16"
+                    HorizontalContentAlignment="Stretch"
+                    IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}">
+                    <StackPanel x:Name="ConflictActions"
+                        Orientation="Horizontal"
+                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
                         <Button
                             MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                             Command="{x:Bind ViewModel.UseRemoteCommand}"
