@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Ekibinizden birinin sağladığı bağlantı dosyasını seçin.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Başka bir bilgisayarın bu paylaşılan yapılandırmayı kullanabilmesi için bağlantı dosyası kaydedin.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Bağlantı ayarları…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Devam</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Bu paylaşılan ayarlar silindi. Değişikliklerinizi bu bilgisayarda saklamak için “Çoğalt” seçeneğini kullanın.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Bağlantıyı kes</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Bu yapılandırmanın bu bilgisayarda eşitlenmesi durdurulsun mu? Geçerli ayarlarınız korunacak. Paylaşılan yapılandırma ve diğer bilgisayarlar değiştirilmeyecek.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Dışa aktar</value>
@@ -2299,7 +2299,7 @@
     <value>Foundry ayarları</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Bu paylaşılan ayarlar güncelleme sınırına ulaştı. Bunları yeni bir ağ klasöründe yeniden paylaşın.</value>
+    <value>Bu paylaşılan ayarlar güncelleme sınırına ulaştı. Bağlantıyı kesin, ardından bunları yeni bir ağ klasöründe paylaşın.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>İçe aktar</value>
@@ -2352,7 +2352,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Hazır</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Bağlantı dosyasını ve parolasını paylaşılan klasörün dışında saklayın.</value>
+    <value>Bağlantı dosyasını korumak için bir parola seçin. Parolayı ayrı olarak paylaşın.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Parolaları hatırla</value>
@@ -2365,6 +2365,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Bu işlem, kullandığınız ayarların yerini alacak. Önce bir kopya saklamak için iptal edin ve “Çoğalt” seçeneğini kullanın.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Erişimi geri yükle</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Paylaşılan klasördeki kayıtlı sürümler beklenmedik şekilde değişti. Güvendiğiniz bir yedekten geri yükleyin.</value>
@@ -2383,6 +2386,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Bu yapılandırmayı paylaşın veya ekibinizin zaten kullandığı bir yapılandırmaya bağlanın.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>Diğer bilgisayarların bağlanabilmesi için bu klasörde parola korumalı bir bağlantı dosyası oluşturulur.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Bu ayarları içeri aktarabilen veya eşitleyebilen herkes, dahil edilen parolaları ve sertifikaların özel anahtarlarını okuyabilir.</value>

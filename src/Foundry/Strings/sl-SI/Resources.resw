@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Izberite datoteko za povezavo, ki vam jo je poslal član vaše ekipe.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Shrani datoteko za povezavo, da lahko drug računalnik uporablja to konfiguracijo v skupni rabi.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Nastavitve povezave…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Nadaljuj</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Te nastavitve v skupni rabi so bile izbrisane. Izberite »Podvoji«, da obdržite spremembe v tem računalniku.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Prekini povezavo</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Želite ustaviti sinhronizacijo te konfiguracije v tem računalniku? Trenutne nastavitve bodo ohranjene. Konfiguracija v skupni rabi in drugi računalniki ne bodo spremenjeni.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Izvozi</value>
@@ -2299,7 +2299,7 @@
     <value>Nastavitve za Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Te nastavitve v skupni rabi so dosegle omejitev posodobitev. Znova jih dajte v skupno rabo v novi omrežni mapi.</value>
+    <value>Te nastavitve v skupni rabi so dosegle omejitev posodobitev. Prekinite povezavo in jih nato dajte v skupno rabo v novi omrežni mapi.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Uvozi</value>
@@ -2352,7 +2352,7 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Pripravljeno</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Datoteko za povezavo in njeno geslo hranite zunaj mape v skupni rabi.</value>
+    <value>Izberite geslo za zaščito povezovalne datoteke. Geslo posredujte ločeno.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Zapomni si gesla</value>
@@ -2365,6 +2365,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>To bo zamenjalo nastavitve, ki jih uporabljate. Če želite najprej obdržati kopijo, prekličite in izberite »Podvoji«.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Obnovi dostop</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Shranjene različice v mapi v skupni rabi so se nepričakovano spremenile. Obnovite jih iz varnostne kopije, ki ji zaupate.</value>
@@ -2383,6 +2386,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Deli to konfiguracijo ali se poveži s konfiguracijo, ki jo tvoja ekipa že uporablja.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>V tej mapi se ustvari povezovalna datoteka, zaščitena z geslom, da se lahko povežejo drugi računalniki.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Vsakdo, ki lahko uvozi ali sinhronizira te nastavitve, lahko prebere vključena gesla in zasebne ključe potrdil.</value>

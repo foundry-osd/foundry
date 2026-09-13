@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Pasirinkite prisijungimo failą, kurį gavote iš komandos nario.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Išsaugokite prisijungimo failą, kad kitas kompiuteris galėtų naudoti šią bendrinamą konfigūraciją.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Ryšio parametrai…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Tęsti</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Šie bendrinami nustatymai ištrinti. Pasirinkite „Dubliuoti“, kad išsaugotumėte pakeitimus šiame kompiuteryje.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Atsijungti</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Nebesinchronizuoti šios konfigūracijos šiame kompiuteryje? Dabartiniai nustatymai bus išsaugoti. Bendrinama konfigūracija ir kiti kompiuteriai nebus pakeisti.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Eksportuoti</value>
@@ -2299,7 +2299,7 @@
     <value>„Foundry“ nustatymai</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Šie bendrinami nustatymai pasiekė atnaujinimų skaičiaus ribą. Bendrinkite juos iš naujo naujame tinklo aplanke.</value>
+    <value>Šie bendrinami nustatymai pasiekė atnaujinimų limitą. Atsijunkite, tada bendrinkite juos naujame tinklo aplanke.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importuoti</value>
@@ -2352,7 +2352,7 @@
     <value>Paruošta</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Prisijungimo failą ir jo slaptažodį laikykite ne bendrinamame aplanke.</value>
+    <value>Pasirinkite slaptažodį ryšio failui apsaugoti. Slaptažodį perduokite atskirai.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Įsiminti slaptažodžius</value>
@@ -2365,6 +2365,9 @@
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Tai pakeis šiuo metu naudojamus nustatymus. Jei pirmiausia norite išsaugoti kopiją, atšaukite ir pasirinkite „Dubliuoti“.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Atkurti prieigą</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Bendrinamame aplanke įrašytos versijos netikėtai pasikeitė. Atkurkite iš atsarginės kopijos, kuria pasitikite.</value>
@@ -2383,6 +2386,9 @@
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Bendrinkite šią konfigūraciją arba prisijunkite prie tos, kurią jūsų komanda jau naudoja.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>Šiame aplanke sukuriamas slaptažodžiu apsaugotas ryšio failas, kad galėtų prisijungti kiti kompiuteriai.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Visi, kas gali importuoti ar sinchronizuoti šiuos nustatymus, gali perskaityti įtrauktus slaptažodžius ir sertifikatų privačiuosius raktus.</value>

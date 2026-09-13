@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Выберите файл подключения, полученный от участника вашей команды.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Сохраните файл подключения, чтобы другой компьютер мог использовать эту общую конфигурацию.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Параметры подключения…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Продолжить</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Эти общие настройки удалены. Выберите «Создать копию», чтобы сохранить свои изменения на этом компьютере.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Отключиться</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Остановить синхронизацию этой конфигурации на этом ПК? Текущие настройки будут сохранены. Общая конфигурация и другие ПК не изменятся.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Экспортировать</value>
@@ -2299,7 +2299,7 @@
     <value>Настройки Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Эти общие настройки достигли предельного числа обновлений. Откройте к ним общий доступ заново в новой сетевой папке.</value>
+    <value>Эти общие настройки достигли лимита обновлений. Отключитесь, затем предоставьте к ним общий доступ в новой сетевой папке.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Импортировать</value>
@@ -2352,7 +2352,7 @@
     <value>Готово</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Храните файл подключения и его пароль вне общей папки.</value>
+    <value>Выберите пароль для защиты файла подключения. Передайте пароль отдельно.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Запомнить пароли</value>
@@ -2365,6 +2365,9 @@
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Это действие заменит используемые настройки. Чтобы сначала сохранить копию, отмените действие и выберите «Создать копию».</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Восстановить доступ</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Сохранённые версии в общей папке неожиданно изменились. Восстановите их из резервной копии, которой доверяете.</value>
@@ -2383,6 +2386,9 @@
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Поделитесь этой конфигурацией или подключитесь к той, которую уже использует ваша команда.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>В этой папке создаётся защищённый паролем файл подключения, чтобы другие ПК могли подключиться.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Любой, кто может импортировать или синхронизировать эти настройки, может прочитать включённые пароли и закрытые ключи сертификатов.</value>

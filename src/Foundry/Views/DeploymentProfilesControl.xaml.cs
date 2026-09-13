@@ -139,13 +139,6 @@ public sealed partial class DeploymentProfilesControl : UserControl
             content.Children.Add(joinShared);
         }
         if (request.Name is not null) content.Children.Add(name);
-        if (request.Passphrase) content.Children.Add(password);
-        if (request.ConfirmPassphrase) content.Children.Add(confirmation);
-        if (request.IncludeSecretsOption) content.Children.Add(include);
-        if (request.RememberOption) content.Children.Add(remember);
-        if (request.SharedKeyOption) content.Children.Add(sharedKey);
-        if (request.RememberOption || request.SharedKeyOption)
-            content.Children.Add(new TextBlock { Text = T("Profiles.LocalPrivacy"), TextWrapping = TextWrapping.Wrap });
         if (request.SharePathOption)
         {
             var folderRow = new Grid
@@ -180,6 +173,13 @@ public sealed partial class DeploymentProfilesControl : UserControl
             };
             content.Children.Add(new TextBlock { Text = T("Profiles.SmbWarning"), TextWrapping = TextWrapping.Wrap });
         }
+        if (request.Passphrase) content.Children.Add(password);
+        if (request.ConfirmPassphrase) content.Children.Add(confirmation);
+        if (request.IncludeSecretsOption) content.Children.Add(include);
+        if (request.RememberOption) content.Children.Add(remember);
+        if (request.SharedKeyOption) content.Children.Add(sharedKey);
+        if (request.RememberOption || request.SharedKeyOption)
+            content.Children.Add(new TextBlock { Text = T("Profiles.LocalPrivacy"), TextWrapping = TextWrapping.Wrap });
         if (request.DeleteSharedOption) content.Children.Add(deleteShared);
         var validation = new TextBlock { TextWrapping = TextWrapping.Wrap, Foreground = (Microsoft.UI.Xaml.Media.Brush)Application.Current.Resources["SystemFillColorCriticalBrush"] };
         content.Children.Add(validation);

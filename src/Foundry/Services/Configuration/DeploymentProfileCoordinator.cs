@@ -82,7 +82,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     public bool IsSynchronizing { get; private set; }
     /// <summary>Includes edits awaiting local autosave as well as unpublished saved changes.</summary>
     public bool HasPendingSynchronizationChanges => Active?.Enrollment is { } enrollment &&
-        (enrollment.IsDirty || enrollment.PendingOperationId is not null || editVersion != persistedEditVersion);
+        (enrollment.IsDirty || enrollment.PendingOperationId is not null || enrollment.PendingConnectionFile || editVersion != persistedEditVersion);
 
     /// <summary>Restores only this Windows user's selected local profile, preserving locked or incompatible data.</summary>
     public async Task InitializeAsync()
@@ -227,9 +227,11 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
                 RememberSharedKey = false,
                 IsEnabled = false,
                 PendingOperationId = null,
+                PendingConnectionFile = false,
                 IsDirty = true
             };
             Active = local.Save(current.LocalId, profile, false, current.Revision, enrollment);
+            CleanupLocalTransferFiles(current);
             debounce?.Cancel();
             ClearSharedKey();
             try
@@ -299,6 +301,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
                 finally { CryptographicOperations.ZeroMemory(key); }
             }
             bool cleanupPending = await Task.Run(() => local.Delete(current.LocalId, current.Revision));
+            CleanupLocalTransferFiles(current);
             debounce?.Cancel();
             applying = true;
             Active = null;
@@ -394,7 +397,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     }
 
     private async Task SaveCurrentAsync(bool? rememberSecrets = null, LocalProfileEnrollment? enrollment = null, byte[]? sharedKey = null,
-        long? comparedEditVersion = null, string? displayName = null)
+        long? comparedEditVersion = null, string? displayName = null, bool clearEnrollment = false)
     {
         LocalProfileDescriptor current = RequireActive();
         long version = editVersion;
@@ -404,7 +407,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         try
         {
             if (remember) EnsureCompleteCheckpoint(profile);
-            LocalProfileEnrollment? updated = enrollment ?? current.Enrollment;
+            LocalProfileEnrollment? updated = clearEnrollment ? null : enrollment ?? current.Enrollment;
             if (updated is not null && (enrollment is null && version != persistedEditVersion ||
                 comparedEditVersion is long compared && version != compared))
                 updated = updated with { IsDirty = true };

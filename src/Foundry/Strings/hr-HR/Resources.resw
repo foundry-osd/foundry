@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Odaberite datoteku za povezivanje koju vam je dao netko iz vašeg tima.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Spremi datoteku za povezivanje kako bi drugo računalo moglo koristiti ovu zajedničku konfiguraciju.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Postavke veze…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Nastavi</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Ove zajedničke postavke su izbrisane. Odaberi Dupliciraj kako bi sačuvao promjene na ovom računalu.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Odspoji</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Želite li zaustaviti sinkronizaciju ove konfiguracije na ovom računalu? Vaše trenutačne postavke bit će sačuvane. Zajednička konfiguracija i druga računala neće se promijeniti.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Izvezi</value>
@@ -2299,7 +2299,7 @@
     <value>Postavke Foundryja</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Ove su zajedničke postavke dosegnule ograničenje broja ažuriranja. Ponovno ih podijeli u novoj mrežnoj mapi.</value>
+    <value>Ove zajedničke postavke dosegnule su ograničenje ažuriranja. Odspojite se, a zatim ih podijelite u novoj mrežnoj mapi.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Uvezi</value>
@@ -2352,7 +2352,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Spremno</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Datoteku za povezivanje i njezinu lozinku čuvajte izvan zajedničke mape.</value>
+    <value>Odaberite lozinku za zaštitu datoteke za povezivanje. Lozinku podijelite zasebno.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Zapamti lozinke</value>
@@ -2365,6 +2365,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Ovo će zamijeniti postavke koje upotrebljavaš. Da najprije sačuvaš kopiju, odustani i odaberi Dupliciraj.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Vrati pristup</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Spremljene verzije u zajedničkoj mapi neočekivano su se promijenile. Vrati ih iz sigurnosne kopije kojoj vjeruješ.</value>
@@ -2383,6 +2386,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Podijeli ovu konfiguraciju ili se poveži s konfiguracijom koju tvoj tim već koristi.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>U ovoj se mapi stvara datoteka za povezivanje zaštićena lozinkom kako bi se druga računala mogla povezati.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Svatko tko može uvesti ili sinkronizirati ove postavke može pročitati uključene lozinke i privatne ključeve certifikata.</value>

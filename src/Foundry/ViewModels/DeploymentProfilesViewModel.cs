@@ -42,9 +42,10 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
         Status == Text("Profiles.Conflict") && ConflictVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
     public bool HasActive => coordinator.Active is not null;
     public bool IsShared => coordinator.Active?.Enrollment is not null;
+    public bool HasSharedAccess => IsShared && !coordinator.RequiresSharedAccess;
     public Visibility SharedVisibility => IsShared ? Visibility.Visible : Visibility.Collapsed;
     public bool RememberSecrets => coordinator.Active?.RememberSecrets == true;
-    public string SynchronizeActionText => Text(IsShared ? "Profiles.SyncNow" : "Profiles.SetupAction");
+    public string SynchronizeActionText => Text(coordinator.RequiresSharedAccess ? "Profiles.RestoreAccess" : IsShared ? "Profiles.SyncNow" : "Profiles.SetupAction");
     public bool SyncEnabled => coordinator.Active?.Enrollment?.IsEnabled == true;
     public Visibility ConflictVisibility => coordinator.HasConflict && !coordinator.IsSharedProfileDeleted ? Visibility.Visible : Visibility.Collapsed;
     public string Text(string key) => localization.GetString(key);
@@ -204,10 +205,10 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
 
     [RelayCommand] private Task ImportAsync() => RunAsync(() => ImportFileAsync(false));
 
-    private async Task ImportFileAsync(bool join, string? sharedFolder = null)
+    private async Task ImportFileAsync(bool join, string? sharedFolder = null, bool restore = false)
     {
-        string title = join ? "Profiles.JoinShared" : "Profiles.Import";
-        string? path = await picker.PickOpenFileAsync(new(Text(title), new string[] { ".foundryprofile" }));
+        string title = restore ? "Profiles.RestoreAccess" : join ? "Profiles.JoinShared" : "Profiles.Import";
+        string? path = await picker.PickOpenFileAsync(new(Text(title), new string[] { "*", ".foundryprofile" }, InitialFileTypeIndex: 0));
         if (path is null) return;
         ProfileDialogResponse? password = await DialogAsync(new(title) { Passphrase = true });
         if (password is null) return;
@@ -221,14 +222,15 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
             if (missingAssets > 0) preview += "\n\n" + localization.FormatString("Profiles.MissingAssets", missingAssets);
             ProfileDialogResponse? result = await DialogAsync(new(title)
             {
-                Message = preview + "\n\n" + Text("Profiles.ShareWarning") + "\n\n" + Text("Profiles.ReplaceWarning"),
-                RememberOption = true,
+                Message = preview + "\n\n" + Text("Profiles.ShareWarning") + (restore ? string.Empty : "\n\n" + Text("Profiles.ReplaceWarning")),
+                RememberOption = !restore,
                 SharedKeyOption = join,
-                SharePathOption = join,
-                SharePath = sharedFolder
+                SharePathOption = join && !restore,
+                SharePath = sharedFolder ?? (join ? DeploymentProfileCoordinator.GetSharedFolderHint(profile) : null)
             });
             if (result is null) return;
-            if (join) await coordinator.JoinSharedAsync(profile, result.SharePath.Trim(), result.Remember, result.RememberKey);
+            if (restore) await coordinator.RestoreSharedAccessAsync(profile, result.RememberKey);
+            else if (join) await coordinator.JoinSharedAsync(profile, result.SharePath.Trim(), result.Remember, result.RememberKey);
             else await coordinator.ImportAsCopyAsync(profile, result.Remember);
         }
         finally { DeploymentProfileSecretBinding.Clear(profile); }
@@ -243,7 +245,9 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
             {
                 Name = previous?.Name ?? coordinator.Active?.DisplayName ?? string.Empty,
                 SharePath = previous?.SharePath,
-                Message = Text("Profiles.ShareWarning"),
+                Message = Text("Profiles.ShareWarning") + "\n\n" + Text("Profiles.ShareConnectionHint"),
+                Passphrase = true,
+                ConfirmPassphrase = true,
                 SharePathOption = true,
                 NamedSharedFolder = true,
                 IncludeSecretsOption = true,
@@ -254,7 +258,7 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
             if (result is null) return;
             try
             {
-                await coordinator.CreateSharedAsync(result.SharePath.Trim(), result.Name, result.IncludeSecrets, result.RememberKey);
+                await coordinator.CreateSharedAsync(result.SharePath.Trim(), result.Name, result.IncludeSecrets, result.RememberKey, result.Password);
                 return;
             }
             catch (SharedProfileFolderExistsException exception)
@@ -281,7 +285,8 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     {
         if (IsShared)
         {
-            await coordinator.SynchronizeAsync();
+            if (coordinator.RequiresSharedAccess) await ImportFileAsync(true, restore: true);
+            else await coordinator.SynchronizeAsync();
             return;
         }
 
@@ -289,10 +294,15 @@ public sealed partial class DeploymentProfilesViewModel : ObservableObject
     });
 
     [RelayCommand]
-    private Task SetupSynchronizationAsync() => RunAsync(SetupSynchronizationCoreAsync);
+    private Task DisconnectAsync() => RunAsync(async () =>
+    {
+        if (IsShared && await ConfirmAsync("Profiles.Disconnect", "Profiles.DisconnectWarning"))
+            await coordinator.DisconnectAsync();
+    });
 
     private async Task SetupSynchronizationCoreAsync()
     {
+        if (IsShared) return;
         ProfileDialogResponse? setup = await DialogAsync(new("Profiles.Setup")
         { Message = Text("Profiles.SetupDescription"), SynchronizationSetupOption = true });
         if (setup is null) return;

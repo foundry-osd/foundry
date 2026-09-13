@@ -118,6 +118,11 @@
                                 <MenuFlyoutItem
                                     Command="{x:Bind ViewModel.SaveCopyCommand}"
                                     Text="{x:Bind ViewModel.Text('Profiles.SaveCopy')}" />
+                                <MenuFlyoutItem
+                                    Command="{x:Bind ViewModel.ExportRecoveryCommand}"
+                                    IsEnabled="{x:Bind ViewModel.HasSharedAccess, Mode=OneWay}"
+                                    Text="{x:Bind ViewModel.Text('Profiles.ExportRecovery')}"
+                                    Visibility="{x:Bind ViewModel.SharedVisibility, Mode=OneWay}" />
                                 <MenuFlyoutSeparator />
                                 <MenuFlyoutItem
                                     Command="{x:Bind ViewModel.DeleteCommand}"
@@ -192,8 +197,8 @@
                             <Button
                                 MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                                 HorizontalAlignment="Right"
-                                Command="{x:Bind ViewModel.SetupSynchronizationCommand}"
-                                Content="{x:Bind ViewModel.Text('Profiles.ConnectionSettings')}"
+                                Command="{x:Bind ViewModel.DisconnectCommand}"
+                                Content="{x:Bind ViewModel.Text('Profiles.Disconnect')}"
                                 IsEnabled="{x:Bind ViewModel.CanSynchronize, Mode=OneWay}"
                                 Visibility="{x:Bind ViewModel.SharedVisibility, Mode=OneWay}" />
                         </StackPanel>
@@ -205,18 +210,9 @@
                         <ToggleSwitch
                             behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                             AutomationProperties.Name="{x:Bind ViewModel.Text('Profiles.AutoSync')}"
+                            IsEnabled="{x:Bind ViewModel.HasSharedAccess, Mode=OneWay}"
                             IsOn="{x:Bind ViewModel.SyncEnabled, Mode=OneWay}"
                             Toggled="AutomaticSyncToggle_Toggled" />
-                    </wct:SettingsCard>
-                    <wct:SettingsCard
-                        Description="{x:Bind ViewModel.Text('Profiles.ConnectionFileDescription')}"
-                        Header="{x:Bind ViewModel.Text('Profiles.ExportRecovery')}"
-                        IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.SharedVisibility, Mode=OneWay}">
-                        <Button
-                            MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
-                            Command="{x:Bind ViewModel.ExportRecoveryCommand}"
-                            Content="{x:Bind ViewModel.Text('Profiles.ExportRecovery')}" />
                     </wct:SettingsCard>
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.Text('Profiles.LocalPrivacy')}"

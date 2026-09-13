@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Valitse tiimisi jäseneltä saamasi yhteystiedosto.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Tallenna yhteystiedosto, jotta toinen tietokone voi käyttää tätä jaettua määritystä.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Yhteysasetukset…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Jatka</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Nämä jaetut asetukset on poistettu. Valitse Monista, jos haluat säilyttää muutoksesi tällä tietokoneella.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Katkaise yhteys</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Lopetetaanko tämän määrityksen synkronointi tällä tietokoneella? Nykyiset asetuksesi säilytetään. Jaettua määritystä ja muita tietokoneita ei muuteta.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Vie</value>
@@ -2299,7 +2299,7 @@
     <value>Foundryn asetukset</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Näiden jaettujen asetusten päivitysraja on saavutettu. Jaa ne uudelleen uudessa verkkokansiossa.</value>
+    <value>Nämä jaetut asetukset ovat saavuttaneet päivitysrajan. Katkaise yhteys ja jaa ne sitten uudessa verkkokansiossa.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Tuo</value>
@@ -2352,7 +2352,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Valmis</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Säilytä yhteystiedosto ja sen salasana jaetun kansion ulkopuolella.</value>
+    <value>Valitse salasana yhteystiedoston suojaamiseksi. Jaa salasana erikseen.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Muista salasanat</value>
@@ -2365,6 +2365,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Tämä korvaa käytössäsi olevat asetukset. Jos haluat säilyttää kopion ensin, peruuta ja valitse Monista.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Palauta käyttöoikeus</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Jaettuun kansioon tallennetut versiot ovat muuttuneet odottamattomasti. Palauta ne luotettavasta varmuuskopiosta.</value>
@@ -2383,6 +2386,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Jaa tämä määritys tai yhdistä tiimisi jo käyttämään määritykseen.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>Tähän kansioon luodaan salasanalla suojattu yhteystiedosto, jotta muut tietokoneet voivat muodostaa yhteyden.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Kaikki, jotka voivat tuoda tai synkronoida nämä asetukset, voivat lukea mukana olevat salasanat ja varmenteiden yksityiset avaimet.</value>

@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>יש לבחור את קובץ החיבור שקיבלת ממישהו בצוות שלך.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>יש לשמור קובץ חיבור כדי שמחשב אחר יוכל להשתמש בתצורה משותפת זו.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>הגדרות חיבור…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>המשך</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>ההגדרות המשותפות האלה נמחקו. כדי לשמור את השינויים במחשב זה, יש לבחור באפשרות שכפול.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>ניתוק</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>להפסיק לסנכרן תצורה זו במחשב זה? ההגדרות הנוכחיות שלך יישמרו. התצורה המשותפת והמחשבים האחרים לא ישתנו.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>ייצוא</value>
@@ -2299,7 +2299,7 @@
     <value>הגדרות Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>ההגדרות המשותפות האלה הגיעו למגבלת העדכונים. יש לשתף אותן מחדש בתיקיית רשת חדשה.</value>
+    <value>ההגדרות המשותפות האלה הגיעו למגבלת העדכונים שלהן. יש להתנתק ואז לשתף אותן בתיקיית רשת חדשה.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>ייבוא</value>
@@ -2352,7 +2352,7 @@
     <value>מוכן</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>יש לשמור את קובץ החיבור ואת הסיסמה שלו מחוץ לתיקייה המשותפת.</value>
+    <value>יש לבחור סיסמה להגנה על קובץ החיבור. יש לשתף את הסיסמה בנפרד.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>שמירת סיסמאות</value>
@@ -2365,6 +2365,9 @@
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>פעולה זו תחליף את ההגדרות שבשימוש. כדי לשמור עותק קודם, יש לבטל ולבחור באפשרות שכפול.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>שחזור גישה</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>הגרסאות שנשמרו בתיקייה המשותפת השתנו באופן בלתי צפוי. יש לשחזר מגיבוי מהימן.</value>
@@ -2383,6 +2386,9 @@
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>ניתן לשתף תצורה זו או להתחבר לתצורה שהצוות שלך כבר משתמש בה.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>בתיקייה זו נוצר קובץ חיבור המוגן בסיסמה כדי שמחשבים אחרים יוכלו להתחבר.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>כל מי שיכול לייבא או לסנכרן את ההגדרות האלה יכול לקרוא את הסיסמאות ואת המפתחות הפרטיים של האישורים שנכללו בהן.</value>

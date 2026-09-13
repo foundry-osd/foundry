@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>選擇團隊成員提供的連線檔案。</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>儲存連線檔案，讓其他電腦可以使用此共用設定。</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>連線設定…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>繼續</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>這些共用設定已刪除。請選擇「建立複本」，以在這部電腦上保留您的變更。</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>中斷連線</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>停止在這部電腦上同步此設定嗎？目前的設定將予以保留。共用設定和其他電腦將不受影響。</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>匯出</value>
@@ -2299,7 +2299,7 @@
     <value>Foundry 設定</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>這些共用設定已達更新次數上限。請在新的網路資料夾中重新共用。</value>
+    <value>這些共用設定已達到更新次數上限。請中斷連線，然後在新的網路資料夾中共用。</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>匯入</value>
@@ -2352,7 +2352,7 @@
     <value>就緒</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>請將連線檔案及其密碼保存在共用資料夾之外。</value>
+    <value>請選擇用來保護連線檔案的密碼。請另外分享密碼。</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>記住密碼</value>
@@ -2365,6 +2365,9 @@
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>此操作將取代您目前使用的設定。如果想先保留複本，請取消並選擇「建立複本」。</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>還原存取權</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>共用資料夾中儲存的版本發生非預期的變更。請從您信任的備份還原。</value>
@@ -2383,6 +2386,9 @@
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>共用此設定，或連線到團隊已在使用的設定。</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>此資料夾中會建立一個受密碼保護的連線檔案，讓其他電腦可以連線。</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>任何能匯入或同步這些設定的人，都可以讀取其中包含的密碼和憑證私密金鑰。</value>

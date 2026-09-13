@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>اختر ملف الاتصال الذي قدمه لك أحد أعضاء فريقك.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>احفظ ملف اتصال ليتمكن كمبيوتر آخر من استخدام هذا التكوين المشترك.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>إعدادات الاتصال…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>متابعة</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>تم حذف هذه الإعدادات المشتركة. اختر إنشاء نسخة للاحتفاظ بتغييراتك على هذا الكمبيوتر.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>قطع الاتصال</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>هل تريد إيقاف مزامنة هذا التكوين على هذا الكمبيوتر؟ سيتم الاحتفاظ بإعداداتك الحالية. لن يتغير التكوين المشترك أو أجهزة الكمبيوتر الأخرى.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>تصدير</value>
@@ -2299,7 +2299,7 @@
     <value>إعدادات Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>وصلت هذه الإعدادات المشتركة إلى الحد الأقصى للتحديثات. شاركها مجددًا في مجلد شبكة جديد.</value>
+    <value>وصلت هذه الإعدادات المشتركة إلى حد التحديثات المسموح به. اقطع الاتصال، ثم شاركها في مجلد شبكة جديد.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>استيراد</value>
@@ -2352,7 +2352,7 @@
     <value>جاهز</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>احتفظ بملف الاتصال وكلمة مروره خارج المجلد المشترك.</value>
+    <value>اختر كلمة مرور لحماية ملف الاتصال. شارك كلمة المرور بشكل منفصل.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>تذكّر كلمات المرور</value>
@@ -2365,6 +2365,9 @@
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>سيؤدي هذا إلى استبدال الإعدادات التي تستخدمها. للاحتفاظ بنسخة أولًا، ألغِ الإجراء واختر إنشاء نسخة.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>استعادة الوصول</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>تغيرت النسخ المحفوظة في المجلد المشترك بشكل غير متوقع. استعدها من نسخة احتياطية تثق بها.</value>
@@ -2383,6 +2386,9 @@
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>شارك هذا التكوين أو اتصل بتكوين يستخدمه فريقك بالفعل.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>يتم إنشاء ملف اتصال محمي بكلمة مرور في هذا المجلد لتتمكن أجهزة الكمبيوتر الأخرى من الاتصال.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>يمكن لأي شخص يستطيع استيراد هذه الإعدادات أو مزامنتها قراءة كلمات المرور والمفاتيح الخاصة للشهادات المضمنة.</value>

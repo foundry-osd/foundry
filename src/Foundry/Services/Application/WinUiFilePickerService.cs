@@ -19,7 +19,8 @@ public sealed class WinUiFilePickerService : IFilePickerService
 
         var picker = new FileOpenPicker(App.MainWindow.AppWindow.Id)
         {
-            Title = request.Title
+            Title = request.Title,
+            InitialFileTypeIndex = request.InitialFileTypeIndex
         };
 
         foreach (string filter in NormalizeFileTypeFilters(request.FileTypeFilters))
@@ -59,7 +60,8 @@ public sealed class WinUiFilePickerService : IFilePickerService
 
         var picker = new FileOpenPicker(App.MainWindow.AppWindow.Id)
         {
-            Title = request.Title
+            Title = request.Title,
+            InitialFileTypeIndex = request.InitialFileTypeIndex
         };
         foreach (string filter in NormalizeFileTypeFilters(request.FileTypeFilters))
         {

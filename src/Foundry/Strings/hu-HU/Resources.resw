@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Válassza ki a csapat egyik tagjától kapott csatlakozási fájlt.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Mentsen egy csatlakozási fájlt, hogy egy másik számítógép is használhassa ezt a megosztott konfigurációt.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Kapcsolat beállításai…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Folytatás</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Ezeket a megosztott beállításokat törölték. A módosítások ezen a számítógépen való megőrzéséhez válassza a Másolat készítése lehetőséget.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Kapcsolat bontása</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Leállítja ennek a konfigurációnak a szinkronizálását ezen a gépen? A jelenlegi beállításai megmaradnak. A megosztott konfiguráció és a többi gép nem változik.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exportálás</value>
@@ -2299,7 +2299,7 @@
     <value>Foundry-beállítások</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Ezek a megosztott beállítások elérték a frissítések megengedett számát. Ossza meg őket újra egy új hálózati mappában.</value>
+    <value>Ezek a megosztott beállítások elérték a frissítési korlátjukat. Bontsa a kapcsolatot, majd ossza meg őket egy új hálózati mappában.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importálás</value>
@@ -2352,7 +2352,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Kész</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>A csatlakozási fájlt és a jelszavát a megosztott mappán kívül tárolja.</value>
+    <value>Válasszon jelszót a kapcsolati fájl védelméhez. A jelszót külön ossza meg.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Jelszavak megjegyzése</value>
@@ -2365,6 +2365,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Ez felülírja a jelenleg használt beállításokat. Ha előbb másolatot szeretne megőrizni, szakítsa meg a műveletet, és válassza a Másolat készítése lehetőséget.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Hozzáférés visszaállítása</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>A megosztott mappában mentett verziók váratlanul megváltoztak. Állítsa vissza őket egy megbízható biztonsági másolatból.</value>
@@ -2383,6 +2386,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Ossza meg ezt a konfigurációt, vagy csatlakozzon a csapata által már használt konfigurációhoz.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>Ebben a mappában jelszóval védett kapcsolati fájl jön létre, hogy más gépek is csatlakozhassanak.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Bárki, aki importálhatja vagy szinkronizálhatja ezeket a beállításokat, elolvashatja a mellékelt jelszavakat és a tanúsítványok titkos kulcsait.</value>

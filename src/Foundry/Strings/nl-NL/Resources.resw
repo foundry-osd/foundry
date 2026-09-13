@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Kies het verbindingsbestand dat u van iemand uit uw team hebt ontvangen.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Een verbindingsbestand opslaan zodat een andere pc deze gedeelde configuratie kan gebruiken.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Verbindingsinstellingen…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Doorgaan</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Deze gedeelde instellingen zijn verwijderd. Kies Dupliceren om je wijzigingen op deze pc te behouden.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Verbinding verbreken</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Stoppen met het synchroniseren van deze configuratie op deze pc? Je huidige instellingen blijven behouden. De gedeelde configuratie en andere pc’s worden niet gewijzigd.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exporteren</value>
@@ -2299,7 +2299,7 @@
     <value>Foundry-instellingen</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Deze gedeelde instellingen hebben het maximale aantal updates bereikt. Deel ze opnieuw in een nieuwe netwerkmap.</value>
+    <value>Deze gedeelde instellingen hebben hun updatelimiet bereikt. Verbreek de verbinding en deel ze vervolgens in een nieuwe netwerkmap.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importeren</value>
@@ -2352,7 +2352,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Gereed</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Bewaar het verbindingsbestand en het bijbehorende wachtwoord buiten de gedeelde map.</value>
+    <value>Kies een wachtwoord om het verbindingsbestand te beveiligen. Deel het wachtwoord apart.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Wachtwoorden onthouden</value>
@@ -2365,6 +2365,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Dit vervangt de instellingen die je gebruikt. Annuleer en kies Dupliceren als je eerst een kopie wilt behouden.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Toegang herstellen</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>De opgeslagen versies in de gedeelde map zijn onverwacht gewijzigd. Herstel ze vanuit een back-up die je vertrouwt.</value>
@@ -2383,6 +2386,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Deze configuratie delen of verbinding maken met een configuratie die uw team al gebruikt.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>In deze map wordt een met een wachtwoord beveiligd verbindingsbestand gemaakt, zodat andere pc’s verbinding kunnen maken.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Iedereen die deze instellingen kan importeren of synchroniseren, kan de opgenomen wachtwoorden en persoonlijke certificaatsleutels lezen.</value>

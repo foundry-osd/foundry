@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Izaberite datoteku za povezivanje koju vam je dao neko iz vašeg tima.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Sačuvaj datoteku za povezivanje kako bi drugi računar mogao da koristi ovu deljenu konfiguraciju.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Podešavanja veze…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Nastavi</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Ova deljena podešavanja su izbrisana. Izaberite „Dupliraj” da biste zadržali izmene na ovom računaru.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Prekini vezu</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Želite li da zaustavite sinhronizaciju ove konfiguracije na ovom računaru? Vaša trenutna podešavanja će biti sačuvana. Deljena konfiguracija i drugi računari neće biti promenjeni.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Izvezi</value>
@@ -2299,7 +2299,7 @@
     <value>Foundry podešavanja</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Ova deljena podešavanja su dostigla ograničenje broja ažuriranja. Ponovo ih podelite u novoj mrežnoj fascikli.</value>
+    <value>Ova deljena podešavanja su dostigla ograničenje ažuriranja. Prekinite vezu, a zatim ih podelite u novoj mrežnoj fascikli.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Uvezi</value>
@@ -2352,7 +2352,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Spremno</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Datoteku za povezivanje i njenu lozinku čuvajte van deljene fascikle.</value>
+    <value>Izaberite lozinku za zaštitu datoteke za povezivanje. Podelite lozinku zasebno.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Zapamti lozinke</value>
@@ -2365,6 +2365,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Ovo će zameniti podešavanja koja koristite. Da biste prvo zadržali kopiju, otkažite i izaberite „Dupliraj”.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Vrati pristup</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Sačuvane verzije u deljenoj fascikli su neočekivano promenjene. Vratite ih iz rezervne kopije kojoj verujete.</value>
@@ -2383,6 +2386,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Podeli ovu konfiguraciju ili se poveži sa konfiguracijom koju tvoj tim već koristi.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>U ovoj fascikli se pravi datoteka za povezivanje zaštićena lozinkom kako bi drugi računari mogli da se povežu.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Svako ko može da uveze ili sinhronizuje ova podešavanja može da pročita uključene lozinke i privatne ključeve sertifikata.</value>

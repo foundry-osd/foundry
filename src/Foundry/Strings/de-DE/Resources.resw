@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Wählen Sie die Verbindungsdatei aus, die Sie von einem Teammitglied erhalten haben.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Eine Verbindungsdatei speichern, damit ein anderer PC diese geteilte Konfiguration verwenden kann.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Verbindungseinstellungen…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Weiter</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Diese gemeinsamen Einstellungen wurden gelöscht. Wählen Sie Duplizieren, um Ihre Änderungen auf diesem PC zu behalten.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Trennen</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Die Synchronisierung dieser Konfiguration auf diesem PC beenden? Ihre aktuellen Einstellungen bleiben erhalten. Die freigegebene Konfiguration und andere PCs werden nicht geändert.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exportieren</value>
@@ -2299,7 +2299,7 @@
     <value>Foundry-Einstellungen</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Diese gemeinsamen Einstellungen haben ihre Aktualisierungsgrenze erreicht. Geben Sie sie erneut in einem neuen Netzwerkordner frei.</value>
+    <value>Diese freigegebenen Einstellungen haben ihr Aktualisierungslimit erreicht. Trennen Sie die Verbindung und geben Sie sie anschließend in einem neuen Netzwerkordner frei.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importieren</value>
@@ -2352,7 +2352,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Bereit</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Bewahren Sie die Verbindungsdatei und ihr Kennwort außerhalb des geteilten Ordners auf.</value>
+    <value>Wählen Sie ein Kennwort zum Schutz der Verbindungsdatei. Geben Sie das Kennwort separat weiter.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Kennwörter speichern</value>
@@ -2365,6 +2365,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Dadurch werden die derzeit verwendeten Einstellungen ersetzt. Um zuerst eine Kopie zu behalten, brechen Sie ab und wählen Sie Duplizieren.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Zugriff wiederherstellen</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Die gespeicherten Versionen im freigegebenen Ordner haben sich unerwartet geändert. Stellen Sie sie aus einer vertrauenswürdigen Sicherung wieder her.</value>
@@ -2383,6 +2386,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Diese Konfiguration teilen oder mit einer Konfiguration verbinden, die Ihr Team bereits verwendet.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>In diesem Ordner wird eine kennwortgeschützte Verbindungsdatei erstellt, damit andere PCs eine Verbindung herstellen können.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Alle Personen, die diese Einstellungen importieren oder synchronisieren können, können die enthaltenen Kennwörter und privaten Zertifikatschlüssel lesen.</value>

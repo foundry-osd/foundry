@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Изберете файла за свързване, предоставен от член на вашия екип.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Запазете файл за свързване, за да може друг компютър да използва тази споделена конфигурация.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Настройки на връзката…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Продължаване</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Тези споделени настройки са изтрити. Изберете Дублиране, за да запазите промените си на този компютър.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Прекъсване на връзката</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Да се спре ли синхронизирането на тази конфигурация на този компютър? Текущите ви настройки ще бъдат запазени. Споделената конфигурация и другите компютри няма да бъдат променени.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Експортиране</value>
@@ -2299,7 +2299,7 @@
     <value>Настройки на Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Тези споделени настройки са достигнали лимита си за актуализации. Споделете ги отново в нова мрежова папка.</value>
+    <value>Тези споделени настройки достигнаха лимита си за актуализации. Прекъснете връзката, след което ги споделете в нова мрежова папка.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Импортиране</value>
@@ -2352,7 +2352,7 @@
     <value>Готово</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Съхранявайте файла за свързване и паролата му извън споделената папка.</value>
+    <value>Изберете парола за защита на файла за свързване. Споделете паролата отделно.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Запомняне на пароли</value>
@@ -2365,6 +2365,9 @@
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Това ще замени настройките, които използвате. За да запазите първо копие, отменете и изберете Дублиране.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Възстановяване на достъпа</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Запазените версии в споделената папка са се променили неочаквано. Възстановете от резервно копие, на което имате доверие.</value>
@@ -2383,6 +2386,9 @@
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Споделете тази конфигурация или се свържете с конфигурация, която екипът ви вече използва.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>В тази папка се създава защитен с парола файл за свързване, чрез който могат да се свържат други компютри.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Всеки, който може да импортира или синхронизира тези настройки, може да прочете включените пароли и частни ключове на сертификати.</value>

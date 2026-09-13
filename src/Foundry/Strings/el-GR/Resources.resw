@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Επιλέξτε το αρχείο σύνδεσης που σας έδωσε κάποιος από την ομάδα σας.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Αποθηκεύστε ένα αρχείο σύνδεσης ώστε άλλος υπολογιστής να μπορεί να χρησιμοποιήσει αυτήν την κοινόχρηστη διαμόρφωση.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Ρυθμίσεις σύνδεσης…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Συνέχεια</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Αυτές οι κοινόχρηστες ρυθμίσεις διαγράφηκαν. Επιλέξτε Δημιουργία αντιγράφου για να κρατήσετε τις αλλαγές σας σε αυτόν τον υπολογιστή.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Αποσύνδεση</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Να διακοπεί ο συγχρονισμός αυτής της διαμόρφωσης σε αυτόν τον υπολογιστή; Οι τρέχουσες ρυθμίσεις σας θα διατηρηθούν. Η κοινόχρηστη διαμόρφωση και οι άλλοι υπολογιστές δεν θα αλλάξουν.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Εξαγωγή</value>
@@ -2299,7 +2299,7 @@
     <value>Ρυθμίσεις Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Αυτές οι κοινόχρηστες ρυθμίσεις έφτασαν το όριο ενημερώσεών τους. Μοιραστείτε τις ξανά σε νέο φάκελο δικτύου.</value>
+    <value>Αυτές οι κοινόχρηστες ρυθμίσεις έχουν φτάσει το όριο ενημερώσεών τους. Αποσυνδεθείτε και, στη συνέχεια, κοινοποιήστε τις σε έναν νέο φάκελο δικτύου.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Εισαγωγή</value>
@@ -2352,7 +2352,7 @@
     <value>Έτοιμο</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Φυλάξτε το αρχείο σύνδεσης και τον κωδικό του έξω από τον κοινόχρηστο φάκελο.</value>
+    <value>Επιλέξτε έναν κωδικό πρόσβασης για την προστασία του αρχείου σύνδεσης. Κοινοποιήστε τον κωδικό πρόσβασης ξεχωριστά.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Απομνημόνευση κωδικών</value>
@@ -2365,6 +2365,9 @@
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Αυτό θα αντικαταστήσει τις ρυθμίσεις που χρησιμοποιείτε. Για να κρατήσετε πρώτα ένα αντίγραφο, ακυρώστε και επιλέξτε Δημιουργία αντιγράφου.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Επαναφορά πρόσβασης</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Οι αποθηκευμένες εκδόσεις στον κοινόχρηστο φάκελο άλλαξαν απρόσμενα. Κάντε επαναφορά από αντίγραφο ασφαλείας που εμπιστεύεστε.</value>
@@ -2383,6 +2386,9 @@
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Μοιραστείτε αυτήν τη διαμόρφωση ή συνδεθείτε σε κάποια που χρησιμοποιεί ήδη η ομάδα σας.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>Σε αυτόν τον φάκελο δημιουργείται ένα αρχείο σύνδεσης που προστατεύεται με κωδικό πρόσβασης, ώστε να μπορούν να συνδεθούν άλλοι υπολογιστές.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Όποιος μπορεί να εισαγάγει ή να συγχρονίσει αυτές τις ρυθμίσεις μπορεί να διαβάσει τους κωδικούς πρόσβασης και τα ιδιωτικά κλειδιά πιστοποιητικών που περιλαμβάνονται.</value>

@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Izvēlieties savienojuma failu, ko nodrošinājis kāds no jūsu komandas.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Saglabājiet savienojuma failu, lai cits dators varētu izmantot šo kopīgoto konfigurāciju.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Savienojuma iestatījumi…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Turpināt</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Šie koplietotie iestatījumi ir izdzēsti. Izvēlieties “Dublēt”, lai paturētu izmaiņas šajā datorā.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Atvienot</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Vai pārtraukt šīs konfigurācijas sinhronizēšanu šajā datorā? Pašreizējie iestatījumi tiks saglabāti. Koplietotā konfigurācija un citi datori netiks mainīti.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Eksportēt</value>
@@ -2299,7 +2299,7 @@
     <value>Foundry iestatījumi</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Šie koplietotie iestatījumi ir sasnieguši atjauninājumu skaita ierobežojumu. Kopīgojiet tos vēlreiz jaunā tīkla mapē.</value>
+    <value>Šie koplietotie iestatījumi ir sasnieguši atjauninājumu ierobežojumu. Atvienojieties un pēc tam kopīgojiet tos jaunā tīkla mapē.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importēt</value>
@@ -2352,7 +2352,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Gatavs</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Glabājiet savienojuma failu un tā paroli ārpus kopīgotās mapes.</value>
+    <value>Izvēlieties paroli savienojuma faila aizsardzībai. Paroli kopīgojiet atsevišķi.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Atcerēties paroles</value>
@@ -2365,6 +2365,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Tas aizstās pašlaik izmantotos iestatījumus. Lai vispirms paturētu kopiju, atceliet un izvēlieties “Dublēt”.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Atjaunot piekļuvi</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Koplietotajā mapē saglabātās versijas ir negaidīti mainījušās. Atjaunojiet no uzticamas rezerves kopijas.</value>
@@ -2383,6 +2386,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Kopīgojiet šo konfigurāciju vai izveidojiet savienojumu ar konfigurāciju, ko jūsu komanda jau izmanto.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>Šajā mapē tiek izveidots ar paroli aizsargāts savienojuma fails, lai citi datori varētu izveidot savienojumu.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Ikviens, kurš var importēt vai sinhronizēt šos iestatījumus, var nolasīt iekļautās paroles un sertifikātu privātās atslēgas.</value>

@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>เลือกไฟล์การเชื่อมต่อที่ได้รับจากสมาชิกในทีมของคุณ</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>บันทึกไฟล์การเชื่อมต่อเพื่อให้พีซีเครื่องอื่นใช้การกำหนดค่าที่แชร์นี้ได้</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>การตั้งค่าการเชื่อมต่อ…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>ดำเนินการต่อ</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>การตั้งค่าที่แชร์เหล่านี้ถูกลบแล้ว เลือก “ทำสำเนา” เพื่อเก็บการเปลี่ยนแปลงของคุณไว้บนพีซีเครื่องนี้</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>ยกเลิกการเชื่อมต่อ</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>หยุดซิงโครไนซ์การกำหนดค่านี้บนพีซีเครื่องนี้หรือไม่? การตั้งค่าปัจจุบันของคุณจะยังคงอยู่ การกำหนดค่าที่แชร์และพีซีเครื่องอื่นจะไม่ถูกเปลี่ยนแปลง</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>ส่งออก</value>
@@ -2299,7 +2299,7 @@
     <value>การตั้งค่า Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>การตั้งค่าที่แชร์เหล่านี้ถึงขีดจำกัดจำนวนการอัปเดตแล้ว แชร์อีกครั้งในโฟลเดอร์เครือข่ายใหม่</value>
+    <value>การตั้งค่าที่แชร์เหล่านี้ถึงขีดจำกัดการอัปเดตแล้ว ให้ยกเลิกการเชื่อมต่อ แล้วแชร์ในโฟลเดอร์เครือข่ายใหม่</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>นำเข้า</value>
@@ -2352,7 +2352,7 @@
     <value>พร้อม</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>เก็บไฟล์การเชื่อมต่อและรหัสผ่านไว้นอกโฟลเดอร์ที่แชร์</value>
+    <value>เลือกรหัสผ่านเพื่อป้องกันไฟล์การเชื่อมต่อ แชร์รหัสผ่านแยกต่างหาก</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>จดจำรหัสผ่าน</value>
@@ -2365,6 +2365,9 @@
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>การดำเนินการนี้จะแทนที่การตั้งค่าที่คุณกำลังใช้ หากต้องการเก็บสำเนาไว้ก่อน ให้ยกเลิกแล้วเลือก “ทำสำเนา”</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>กู้คืนการเข้าถึง</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>เวอร์ชันที่บันทึกไว้ในโฟลเดอร์ที่แชร์มีการเปลี่ยนแปลงโดยไม่คาดคิด กู้คืนจากข้อมูลสำรองที่คุณเชื่อถือ</value>
@@ -2383,6 +2386,9 @@
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>แชร์การกำหนดค่านี้หรือเชื่อมต่อกับการกำหนดค่าที่ทีมของคุณใช้อยู่แล้ว</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>ระบบจะสร้างไฟล์การเชื่อมต่อที่ป้องกันด้วยรหัสผ่านในโฟลเดอร์นี้ เพื่อให้พีซีเครื่องอื่นสามารถเชื่อมต่อได้</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>ทุกคนที่นำเข้าหรือซิงค์การตั้งค่าเหล่านี้ได้จะสามารถอ่านรหัสผ่านและคีย์ส่วนตัวของใบรับรองที่รวมไว้ได้</value>

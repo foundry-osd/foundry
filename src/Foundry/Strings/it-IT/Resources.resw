@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Scegli il file di connessione fornito da un membro del tuo team.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Salva un file di connessione per consentire a un altro PC di usare questa configurazione condivisa.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Impostazioni di connessione…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continua</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Queste impostazioni condivise sono state eliminate. Scegli Duplica per conservare le tue modifiche su questo PC.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Disconnetti</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Interrompere la sincronizzazione di questa configurazione su questo PC? Le impostazioni attuali verranno mantenute. La configurazione condivisa e gli altri PC non verranno modificati.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Esporta</value>
@@ -2299,7 +2299,7 @@
     <value>Impostazioni di Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Queste impostazioni condivise hanno raggiunto il limite di aggiornamenti. Condividile di nuovo in una nuova cartella di rete.</value>
+    <value>Queste impostazioni condivise hanno raggiunto il limite di aggiornamenti. Disconnettiti, poi condividile in una nuova cartella di rete.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importa</value>
@@ -2352,7 +2352,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Pronto</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Conserva il file di connessione e la sua password fuori dalla cartella condivisa.</value>
+    <value>Scegli una password per proteggere il file di connessione. Condividi la password separatamente.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Memorizza password</value>
@@ -2365,6 +2365,9 @@ Password e chiavi di accesso incluse: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Questa operazione sostituirà le impostazioni in uso. Per conservarne prima una copia, annulla e scegli Duplica.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Ripristina accesso</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Le versioni salvate nella cartella condivisa sono cambiate in modo imprevisto. Ripristina da un backup attendibile.</value>
@@ -2383,6 +2386,9 @@ Password e chiavi di accesso incluse: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Condividi questa configurazione o connettiti a una già utilizzata dal tuo team.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>In questa cartella viene creato un file di connessione protetto da password per consentire ad altri PC di connettersi.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Chiunque possa importare o sincronizzare queste impostazioni può leggere le password e le chiavi private dei certificati incluse.</value>

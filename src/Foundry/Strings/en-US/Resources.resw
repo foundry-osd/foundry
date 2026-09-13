@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Choose the connection file provided by someone on your team.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Save a connection file so another PC can join this shared configuration.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Connection settings…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>These shared settings were deleted. Choose Duplicate to keep your changes on this PC.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Disconnect</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Stop synchronizing this configuration on this PC? Your current settings will be kept. The shared configuration and other PCs will not be changed.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Export</value>
@@ -2299,7 +2299,7 @@
     <value>Foundry settings</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>These shared settings have reached their update limit. Share them again in a new network folder.</value>
+    <value>These shared settings have reached their update limit. Disconnect, then share them in a new network folder.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Import</value>
@@ -2352,7 +2352,7 @@ Passwords and access keys included: {2}</value>
     <value>Ready</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Keep the connection file and its password outside the shared folder.</value>
+    <value>Choose a password to protect the connection file. Share the password separately.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Remember passwords</value>
@@ -2365,6 +2365,9 @@ Passwords and access keys included: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>This will replace the settings you are using. To keep a copy first, cancel and choose Duplicate.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Restore access</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>The saved versions in the shared folder have changed unexpectedly. Restore from a backup you trust.</value>
@@ -2383,6 +2386,9 @@ Passwords and access keys included: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Share this configuration or connect to one your team already uses.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>A password-protected connection file is created in this folder so other PCs can connect.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Anyone who can import or synchronize these settings can read the included passwords and certificate private keys.</value>

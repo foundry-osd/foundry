@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>选择团队成员提供的连接文件。</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>保存连接文件，让其他电脑可以使用此共享配置。</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>连接设置…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>继续</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>这些共享设置已被删除。请选择“创建副本”以在此电脑上保留您的更改。</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>断开连接</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>停止在此电脑上同步此配置？当前设置将保留。共享配置和其他电脑不会受到影响。</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>导出</value>
@@ -2299,7 +2299,7 @@
     <value>Foundry 设置</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>这些共享设置已达到更新次数上限。请在新的网络文件夹中重新共享。</value>
+    <value>这些共享设置已达到更新次数上限。请断开连接，然后在新的网络文件夹中共享。</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>导入</value>
@@ -2352,7 +2352,7 @@
     <value>就绪</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>请将连接文件及其密码保存在共享文件夹之外。</value>
+    <value>请选择用于保护连接文件的密码。请单独分享密码。</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>记住密码</value>
@@ -2365,6 +2365,9 @@
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>此操作将替换您正在使用的设置。如果想先保留副本，请取消并选择“创建副本”。</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>恢复访问</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>共享文件夹中保存的版本发生了意外变化。请从您信任的备份恢复。</value>
@@ -2383,6 +2386,9 @@
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>共享此配置，或连接到团队已在使用的配置。</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>将在此文件夹中创建一个受密码保护的连接文件，以便其他电脑连接。</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>任何能够导入或同步这些设置的人，都可以读取其中包含的密码和证书私钥。</value>

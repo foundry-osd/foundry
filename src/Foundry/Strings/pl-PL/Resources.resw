@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Wybierz plik połączenia otrzymany od członka zespołu.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Zapisz plik połączenia, aby inny komputer mógł korzystać z tej udostępnionej konfiguracji.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Ustawienia połączenia…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Kontynuuj</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Te współdzielone ustawienia zostały usunięte. Wybierz Duplikuj, aby zachować zmiany na tym komputerze.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Rozłącz</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Zatrzymać synchronizację tej konfiguracji na tym komputerze? Bieżące ustawienia zostaną zachowane. Udostępniona konfiguracja i pozostałe komputery nie zostaną zmienione.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Eksportuj</value>
@@ -2299,7 +2299,7 @@
     <value>Ustawienia Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Te współdzielone ustawienia osiągnęły limit aktualizacji. Udostępnij je ponownie w nowym folderze sieciowym.</value>
+    <value>Te udostępnione ustawienia osiągnęły limit aktualizacji. Rozłącz się, a następnie udostępnij je w nowym folderze sieciowym.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importuj</value>
@@ -2352,7 +2352,7 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Gotowe</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Przechowuj plik połączenia i jego hasło poza udostępnionym folderem.</value>
+    <value>Wybierz hasło chroniące plik połączenia. Udostępnij hasło osobno.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Zapamiętaj hasła</value>
@@ -2365,6 +2365,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Spowoduje to zastąpienie używanych ustawień. Aby najpierw zachować kopię, anuluj i wybierz Duplikuj.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Przywróć dostęp</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Wersje zapisane w folderze współdzielonym niespodziewanie się zmieniły. Przywróć je z zaufanej kopii zapasowej.</value>
@@ -2383,6 +2386,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Udostępnij tę konfigurację lub połącz się z konfiguracją, której Twój zespół już używa.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>W tym folderze zostanie utworzony chroniony hasłem plik połączenia, dzięki któremu inne komputery będą mogły się połączyć.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Każdy, kto może importować lub synchronizować te ustawienia, może odczytać dołączone hasła i klucze prywatne certyfikatów.</value>

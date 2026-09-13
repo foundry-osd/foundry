@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Choisissez le fichier de connexion fourni par un membre de votre équipe.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Enregistrer un fichier de connexion pour qu’un autre PC puisse rejoindre cette configuration partagée.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Paramètres de connexion…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continuer</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Ces paramètres partagés ont été supprimés. Choisissez Dupliquer pour conserver vos modifications sur ce PC.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Déconnecter</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Arrêter de synchroniser cette configuration sur ce PC ? Vos paramètres actuels seront conservés. La configuration partagée et les autres PC ne seront pas modifiés.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exporter</value>
@@ -2299,7 +2299,7 @@
     <value>Paramètres Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Ces paramètres partagés ont atteint leur limite de mises à jour. Partagez-les à nouveau dans un nouveau dossier réseau.</value>
+    <value>Ces paramètres partagés ont atteint leur limite de mises à jour. Déconnectez-vous, puis partagez-les dans un nouveau dossier réseau.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importer</value>
@@ -2352,7 +2352,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Prêt</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Conservez le fichier de connexion et son mot de passe en dehors du dossier partagé.</value>
+    <value>Choisissez un mot de passe pour protéger le fichier de connexion. Communiquez le mot de passe séparément.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Mémoriser les mots de passe</value>
@@ -2365,6 +2365,9 @@ Mots de passe et clés d’accès inclus : {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Cette action remplacera les paramètres que vous utilisez. Pour en conserver une copie, annulez et choisissez Dupliquer.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Rétablir l’accès</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Les versions enregistrées dans le dossier partagé ont changé de manière inattendue. Restaurez-les à partir d’une sauvegarde fiable.</value>
@@ -2383,6 +2386,9 @@ Mots de passe et clés d’accès inclus : {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Partager cette configuration ou se connecter à une configuration déjà utilisée par votre équipe.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>Un fichier de connexion protégé par un mot de passe est créé dans ce dossier pour permettre aux autres PC de se connecter.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Toute personne pouvant importer ou synchroniser ces paramètres peut lire les mots de passe et les clés privées de certificats inclus.</value>

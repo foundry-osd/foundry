@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Vyberte súbor pripojenia, ktorý vám poskytol niekto z vášho tímu.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Uložiť súbor pripojenia, aby mohol túto zdieľanú konfiguráciu používať aj iný počítač.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Nastavenia pripojenia…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Pokračovať</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Tieto zdieľané nastavenia boli odstránené. Vyberte možnosť „Duplikovať“, aby ste si ponechali zmeny v tomto počítači.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Odpojiť</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Zastaviť synchronizáciu tejto konfigurácie v tomto počítači? Vaše aktuálne nastavenia sa zachovajú. Zdieľaná konfigurácia ani ostatné počítače sa nezmenia.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exportovať</value>
@@ -2299,7 +2299,7 @@
     <value>Nastavenia Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Tieto zdieľané nastavenia dosiahli limit aktualizácií. Znova ich zdieľajte v novom sieťovom priečinku.</value>
+    <value>Tieto zdieľané nastavenia dosiahli limit aktualizácií. Odpojte sa a potom ich zdieľajte v novom sieťovom priečinku.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importovať</value>
@@ -2352,7 +2352,7 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Pripravené</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Súbor pripojenia a jeho heslo uchovávajte mimo zdieľaného priečinka.</value>
+    <value>Zvoľte heslo na ochranu súboru pripojenia. Heslo zdieľajte samostatne.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Zapamätať heslá</value>
@@ -2365,6 +2365,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Táto akcia nahradí nastavenia, ktoré používate. Ak si chcete najprv ponechať kópiu, zrušte akciu a vyberte možnosť „Duplikovať“.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Obnoviť prístup</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Uložené verzie v zdieľanom priečinku sa neočakávane zmenili. Obnovte ich zo zálohy, ktorej dôverujete.</value>
@@ -2383,6 +2386,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Zdieľať túto konfiguráciu alebo sa pripojiť ku konfigurácii, ktorú váš tím už používa.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>V tomto priečinku sa vytvorí súbor pripojenia chránený heslom, aby sa mohli pripojiť ďalšie počítače.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Každý, kto môže importovať alebo synchronizovať tieto nastavenia, môže čítať zahrnuté heslá a súkromné kľúče certifikátov.</value>

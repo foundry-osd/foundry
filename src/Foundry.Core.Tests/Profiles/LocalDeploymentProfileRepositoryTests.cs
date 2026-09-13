@@ -337,6 +337,36 @@ public sealed class LocalDeploymentProfileRepositoryTests : IDisposable
         Assert.Equal(count, credentials.Values.Count);
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void SaveRead_ConnectionPublicationStateSurvivesRestartAndLegacyMetadataOmitsFalse(bool pending)
+    {
+        DeploymentProfileDocument profile = CreateProfile();
+        LocalProfileEnrollment enrollment = CreateEnrollment(profile.ProfileId) with { PendingConnectionFile = pending };
+        CreateRepository().Save(localId, profile, true, null, enrollment, new byte[32]);
+        JsonObject metadata = JsonNode.Parse(File.ReadAllText(HeadPath))!.AsObject();
+        Assert.Equal(pending, metadata["enrollment"]!.AsObject().ContainsKey("pendingConnectionFile"));
+
+        using LocalProfileSnapshot restored = CreateRepository().Read(localId);
+
+        Assert.Equal(pending, restored.Descriptor.Enrollment!.PendingConnectionFile);
+        Assert.Equal("synthetic-secret-keep-exact", Encoding.UTF8.GetString(Assert.Single(restored.Profile.Secrets.Entries).Value!));
+        Assert.Equal(enrollment.RepositoryId, restored.Descriptor.Enrollment.RepositoryId);
+    }
+
+    [Fact]
+    public void Read_ConnectionPublicationStateCannotBeChangedOutsideAuthenticatedRevision()
+    {
+        DeploymentProfileDocument profile = CreateProfile();
+        CreateRepository().Save(localId, profile, true, null, CreateEnrollment(profile.ProfileId), new byte[32]);
+        JsonObject metadata = JsonNode.Parse(File.ReadAllText(HeadPath))!.AsObject();
+        metadata["enrollment"]!["pendingConnectionFile"] = true;
+        File.WriteAllText(HeadPath, metadata.ToJsonString());
+
+        Assert.ThrowsAny<CryptographicException>(() => CreateRepository().Read(localId));
+    }
+
     private string HeadPath => Path.Combine(root, "profiles", localId.ToString("N"), "head.json");
     private LocalDeploymentProfileRepository CreateRepository() => new(root, credentials, new DeploymentProfilePackageService());
     private static DeploymentProfileDocument CreateProfile() => new()

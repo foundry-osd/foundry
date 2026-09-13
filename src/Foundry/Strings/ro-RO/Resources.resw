@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Alege fișierul de conectare oferit de cineva din echipa ta.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Salvează un fișier de conectare pentru ca alt PC să poată folosi această configurație partajată.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Setări de conectare…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continuă</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Aceste setări partajate au fost șterse. Alegeți „Duplică” pentru a păstra modificările pe acest PC.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Deconectare</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Opriți sincronizarea acestei configurații pe acest PC? Setările actuale vor fi păstrate. Configurația partajată și celelalte PC-uri nu vor fi modificate.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exportă</value>
@@ -2299,7 +2299,7 @@
     <value>Setările Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Aceste setări partajate au atins limita de actualizări. Partajați-le din nou într-un folder nou din rețea.</value>
+    <value>Aceste setări partajate au atins limita de actualizări. Deconectați-vă, apoi partajați-le într-un folder de rețea nou.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importă</value>
@@ -2352,7 +2352,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Pregătit</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Păstrează fișierul de conectare și parola sa în afara folderului partajat.</value>
+    <value>Alegeți o parolă pentru a proteja fișierul de conexiune. Comunicați parola separat.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Memorează parolele</value>
@@ -2365,6 +2365,9 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Această acțiune va înlocui setările pe care le utilizați. Pentru a păstra mai întâi o copie, anulați și alegeți „Duplică”.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Restabilire acces</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Versiunile salvate în folderul partajat s-au modificat în mod neașteptat. Restaurați dintr-o copie de rezervă de încredere.</value>
@@ -2383,6 +2386,9 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Partajează această configurație sau conectează-te la una pe care echipa ta o folosește deja.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>În acest folder se creează un fișier de conexiune protejat prin parolă, astfel încât alte PC-uri să se poată conecta.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Oricine poate importa sau sincroniza aceste setări poate citi parolele și cheile private ale certificatelor incluse.</value>

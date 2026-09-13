@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Vali ühendusfail, mille said oma meeskonnaliikmelt.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Salvesta ühendusfail, et teine arvuti saaks seda jagatud konfiguratsiooni kasutada.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Ühenduse sätted…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Jätka</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Need jagatud sätted on kustutatud. Muudatuste säilitamiseks selles arvutis valige Tee koopia.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Katkesta ühendus</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Kas lõpetada selle konfiguratsiooni sünkroonimine selles arvutis? Teie praegused sätted säilivad. Jagatud konfiguratsiooni ja teisi arvuteid ei muudeta.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Ekspordi</value>
@@ -2299,7 +2299,7 @@
     <value>Foundry sätted</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Need jagatud sätted on jõudnud värskenduste piirini. Jagage neid uuesti uues võrgukaustas.</value>
+    <value>Need jagatud sätted on saavutanud uuenduste piirangu. Katkestage ühendus ja jagage neid seejärel uues võrgukaustas.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Impordi</value>
@@ -2352,7 +2352,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Valmis</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Hoia ühendusfaili ja selle parooli väljaspool jagatud kausta.</value>
+    <value>Valige ühendusfaili kaitsmiseks parool. Jagage parooli eraldi.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Jäta paroolid meelde</value>
@@ -2365,6 +2365,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>See asendab praegu kasutatavad sätted. Kui soovite esmalt koopiat säilitada, tühistage ja valige Tee koopia.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Taasta juurdepääs</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>Jagatud kausta salvestatud versioonid on ootamatult muutunud. Taastage usaldusväärsest varukoopiast.</value>
@@ -2383,6 +2386,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Jaga seda konfiguratsiooni või ühenda konfiguratsiooniga, mida sinu meeskond juba kasutab.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>Sellesse kausta luuakse parooliga kaitstud ühendusfail, et teised arvutid saaksid ühenduse luua.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Kõik, kes saavad neid sätteid importida või sünkroonida, saavad lugeda kaasatud paroole ja sertifikaatide privaatvõtmeid.</value>

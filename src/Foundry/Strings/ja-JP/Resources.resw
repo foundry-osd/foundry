@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>チームのメンバーから受け取った接続ファイルを選択してください。</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>別の PC でこの共有構成を使用できるように、接続ファイルを保存します。</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>接続設定…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>続行</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>この共有設定は削除されました。［複製］を選ぶと、この PC に変更を残せます。</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>切断</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>この PC でこの構成の同期を停止しますか？現在の設定は保持されます。共有構成や他の PC は変更されません。</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>エクスポート</value>
@@ -2299,7 +2299,7 @@
     <value>Foundry の設定</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>この共有設定は更新回数の上限に達しました。新しいネットワークフォルダーで再度共有してください。</value>
+    <value>これらの共有設定は更新回数の上限に達しました。切断してから、新しいネットワークフォルダーで共有してください。</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>インポート</value>
@@ -2352,7 +2352,7 @@
     <value>準備完了</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>接続ファイルとそのパスワードは共有フォルダーの外に保管してください。</value>
+    <value>接続ファイルを保護するパスワードを設定してください。パスワードはファイルとは別に共有してください。</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>パスワードを保存</value>
@@ -2365,6 +2365,9 @@
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>現在使用している設定を置き換えます。先にコピーを残すには、キャンセルして［複製］を選んでください。</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>アクセスを復元</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>共有フォルダーに保存されたバージョンに予期しない変更がありました。信頼できるバックアップから復元してください。</value>
@@ -2383,6 +2386,9 @@
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>この構成を共有するか、チームが既に使用している構成に接続します。</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>他の PC が接続できるように、このフォルダーにパスワードで保護された接続ファイルが作成されます。</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>この設定をインポートまたは同期できる人は、含まれるパスワードと証明書の秘密キーを読むことができます。</value>

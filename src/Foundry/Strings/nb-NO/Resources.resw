@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Velg tilkoblingsfilen du har fått fra noen på teamet ditt.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Lagre en tilkoblingsfil slik at en annen PC kan bruke denne delte konfigurasjonen.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Tilkoblingsinnstillinger…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Fortsett</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Disse delte innstillingene er slettet. Velg Dupliser for å beholde endringene på denne PC-en.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Koble fra</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Vil du slutte å synkronisere denne konfigurasjonen på denne PC-en? De gjeldende innstillingene dine beholdes. Den delte konfigurasjonen og andre PC-er blir ikke endret.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Eksporter</value>
@@ -2299,7 +2299,7 @@
     <value>Foundry-innstillinger</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Disse delte innstillingene har nådd grensen for antall oppdateringer. Del dem på nytt i en ny nettverksmappe.</value>
+    <value>Disse delte innstillingene har nådd oppdateringsgrensen. Koble fra, og del dem deretter i en ny nettverksmappe.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importer</value>
@@ -2352,7 +2352,7 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Klar</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Oppbevar tilkoblingsfilen og passordet utenfor den delte mappen.</value>
+    <value>Velg et passord for å beskytte tilkoblingsfilen. Del passordet separat.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Husk passord</value>
@@ -2365,6 +2365,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Dette erstatter innstillingene du bruker. Hvis du vil beholde en kopi først, avbryt og velg Dupliser.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Gjenopprett tilgang</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>De lagrede versjonene i den delte mappen er uventet endret. Gjenopprett fra en sikkerhetskopi du stoler på.</value>
@@ -2383,6 +2386,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Del denne konfigurasjonen, eller koble til en som teamet ditt allerede bruker.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>Det opprettes en passordbeskyttet tilkoblingsfil i denne mappen slik at andre PC-er kan koble til.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Alle som kan importere eller synkronisere disse innstillingene, kan lese de inkluderte passordene og de private sertifikatnøklene.</value>

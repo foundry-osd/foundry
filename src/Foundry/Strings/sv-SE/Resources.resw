@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Välj anslutningsfilen som du har fått av någon i ditt team.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Spara en anslutningsfil så att en annan dator kan använda den här delade konfigurationen.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Anslutningsinställningar…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Fortsätt</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>De här delade inställningarna har tagits bort. Välj ”Duplicera” för att behålla dina ändringar på den här datorn.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Koppla från</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Vill du sluta synkronisera den här konfigurationen på den här datorn? Dina nuvarande inställningar behålls. Den delade konfigurationen och andra datorer ändras inte.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exportera</value>
@@ -2299,7 +2299,7 @@
     <value>Inställningar för Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>De här delade inställningarna har nått sin uppdateringsgräns. Dela dem igen i en ny nätverksmapp.</value>
+    <value>Dessa delade inställningar har nått sin uppdateringsgräns. Koppla från och dela dem sedan i en ny nätverksmapp.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importera</value>
@@ -2352,7 +2352,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Klar</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Förvara anslutningsfilen och dess lösenord utanför den delade mappen.</value>
+    <value>Välj ett lösenord för att skydda anslutningsfilen. Dela lösenordet separat.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Kom ihåg lösenord</value>
@@ -2365,6 +2365,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Detta ersätter inställningarna du använder. Om du vill behålla en kopia först avbryter du och väljer ”Duplicera”.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Återställ åtkomst</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>De sparade versionerna i den delade mappen har ändrats oväntat. Återställ från en säkerhetskopia som du litar på.</value>
@@ -2383,6 +2386,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Dela den här konfigurationen eller anslut till en som ditt team redan använder.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>En lösenordsskyddad anslutningsfil skapas i den här mappen så att andra datorer kan ansluta.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Alla som kan importera eller synkronisera de här inställningarna kan läsa de inkluderade lösenorden och certifikatens privata nycklar.</value>

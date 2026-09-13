@@ -4,7 +4,6 @@
 
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json;
 using Foundry.Core.Models.Profiles;
 using Foundry.Core.Services.Profiles;
 using Foundry.Services.Shell;
@@ -16,7 +15,7 @@ public sealed partial class DeploymentProfileCoordinator
 {
     private Guid? conflictRevision;
 
-    public async Task CreateSharedAsync(string parentPath, string configurationName, bool includeSecrets, bool rememberKey)
+    public async Task CreateSharedAsync(string parentPath, string configurationName, bool includeSecrets, bool rememberKey, string passphrase)
     {
         EnsureCanActivate();
         string rootPath = SharedProfileLocation.Resolve(parentPath, configurationName);
@@ -25,6 +24,7 @@ public sealed partial class DeploymentProfileCoordinator
         try
         {
             LocalProfileDescriptor current = RequireActive();
+            if (current.Enrollment is not null) throw new InvalidOperationException("Disconnect the current configuration before sharing it again.");
             await Task.Run(() => ValidateNewSharedFolder(rootPath), lifetime.Token);
             byte[] key = RandomNumberGenerator.GetBytes(32);
             try
@@ -38,8 +38,17 @@ public sealed partial class DeploymentProfileCoordinator
                     IsDirty = true,
                     IsEnabled = true,
                     IncludeSecrets = includeSecrets,
-                    RememberSharedKey = rememberKey
+                    RememberSharedKey = rememberKey,
+                    PendingConnectionFile = true
                 };
+                string staged = ConnectionOutboxPath(current.LocalId, enrollment.RepositoryId);
+                byte[] connection = await CreateConnectionPackageAsync(enrollment, configurationName, key, passphrase, requireComplete: true);
+                await Task.Run(() =>
+                {
+                    ValidateNoReparseAncestors(staged);
+                    CreatePrivateDirectory(Path.GetDirectoryName(staged)!);
+                });
+                await WriteAtomicAsync(staged, connection);
                 try
                 {
                     // Persist the enrollment before any shared write so initialization can retry with the same key.
@@ -51,6 +60,10 @@ public sealed partial class DeploymentProfileCoordinator
                     {
                         ClearSharedKey();
                         sessionSharedKey = key.ToArray();
+                    }
+                    else
+                    {
+                        TryCleanupUncommittedConnectionFile(current.LocalId, enrollment.RepositoryId);
                     }
                 }
             }
@@ -72,40 +85,24 @@ public sealed partial class DeploymentProfileCoordinator
         if (absolute.StartsWith(sharedRoot, StringComparison.OrdinalIgnoreCase))
             throw new InvalidOperationException("Store the recovery package outside the shared repository.");
         byte[] key = await GetSharedKeyAsync();
-        DeploymentProfileDocument profile = await session.CaptureAsync(current.ProfileId, current.DisplayName, enrollment.IncludeSecrets);
         try
         {
-            var invitation = new SharedInvitation(1, enrollment.RepositoryId, current.ProfileId, enrollment.KeyEpoch, enrollment.IncludeSecrets, Convert.ToBase64String(key));
-            DeploymentProfileSecret recovery = new()
-            {
-                Purpose = ProfileSecretPurpose.SharedProfileKey,
-                Identity = "shared-enrollment",
-                State = ProfileValueState.Present,
-                Value = JsonSerializer.SerializeToUtf8Bytes(invitation)
-            };
-            profile = profile with { Secrets = new DeploymentProfileSecrets { Entries = profile.Secrets.Entries.Append(recovery).ToArray() } };
-            await WriteAtomicAsync(path, await Task.Run(() => packages.Export(profile, passphrase.AsSpan())));
+            await WriteAtomicAsync(path, await CreateConnectionPackageAsync(enrollment, current.DisplayName, key, passphrase));
         }
-        finally
-        {
-            CryptographicOperations.ZeroMemory(key);
-            DeploymentProfileSecretBinding.Clear(profile);
-        }
+        finally { CryptographicOperations.ZeroMemory(key); }
     }
 
     public async Task JoinSharedAsync(DeploymentProfileDocument invitationProfile, string rootPath, bool rememberSecrets, bool rememberKey)
     {
         EnsureCanActivate();
         ValidateSharedPath(rootPath);
-        DeploymentProfileSecret record = invitationProfile.Secrets.Entries.Single(secret => secret.Purpose == ProfileSecretPurpose.SharedProfileKey);
-        SharedInvitation invitation = JsonSerializer.Deserialize<SharedInvitation>(record.Value!) ?? throw new InvalidDataException("Invalid recovery package.");
-        if (invitation.FormatVersion != 1 || invitation.RepositoryId == Guid.Empty || invitation.ProfileId != invitationProfile.ProfileId || invitation.KeyEpoch < 1)
-            throw new InvalidDataException("Invalid recovery identity.");
+        SharedInvitation invitation = ReadSharedInvitation(invitationProfile);
         byte[] key = Convert.FromBase64String(invitation.Key);
         if (key.Length != 32) throw new InvalidDataException("Invalid recovery key.");
         await gate.WaitAsync(lifetime.Token);
         try
         {
+            if (Active?.Enrollment is not null) throw new InvalidOperationException("Disconnect the current configuration before connecting to another shared configuration.");
             if (Active is not null && editVersion != persistedEditVersion) await SaveCurrentAsync();
             long version = editVersion;
             LocalProfileEnrollment enrollment = new()
@@ -279,6 +276,8 @@ public sealed partial class DeploymentProfileCoordinator
             {
                 MarkSynchronized();
             }
+            if (!HasConflict && RequireActive().Enrollment is { KnownRevisionId: not null, PendingOperationId: null, PendingConnectionFile: true })
+                await PublishConnectionFileAsync();
         }
         finally { CryptographicOperations.ZeroMemory(key); }
     }
@@ -444,7 +443,7 @@ public sealed partial class DeploymentProfileCoordinator
     private void MarkSynchronized()
     {
         ClearConflict();
-        StatusKey = Active?.CleanupPending == true ? "Profiles.CleanupPending" : "Profiles.Synchronized";
+        StatusKey = Active?.CleanupPending == true ? "Profiles.CleanupPending" : HasPendingSynchronizationChanges ? "Profiles.Ready" : "Profiles.Synchronized";
         Changed?.Invoke(this, EventArgs.Empty);
     }
 
@@ -531,7 +530,7 @@ public sealed partial class DeploymentProfileCoordinator
         conflictRevision = null;
     }
 
-    private sealed record SharedInvitation(int FormatVersion, Guid RepositoryId, Guid ProfileId, int KeyEpoch, bool IncludeSecrets, string Key);
+    private sealed record SharedInvitation(int FormatVersion, Guid RepositoryId, Guid ProfileId, int KeyEpoch, bool IncludeSecrets, string Key, string? RootPath = null);
 }
 
 /// <summary>Preserves the repository outcome so callers can show an actionable failure.</summary>

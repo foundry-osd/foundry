@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Escolha o ficheiro de ligação fornecido por alguém da sua equipa.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Guardar um ficheiro de ligação para que outro PC possa utilizar esta configuração partilhada.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Definições de ligação…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Continuar</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Estas definições partilhadas foram eliminadas. Escolha «Duplicar» para manter as suas alterações neste PC.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Desligar</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Parar de sincronizar esta configuração neste PC? As suas definições atuais serão mantidas. A configuração partilhada e os outros PCs não serão alterados.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Exportar</value>
@@ -2299,7 +2299,7 @@
     <value>Definições do Foundry</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Estas definições partilhadas atingiram o limite de atualizações. Partilhe-as novamente numa nova pasta de rede.</value>
+    <value>Estas definições partilhadas atingiram o limite de atualizações. Desligue-se e partilhe-as numa nova pasta de rede.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importar</value>
@@ -2352,7 +2352,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Pronto</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Guarde o ficheiro de ligação e a respetiva palavra-passe fora da pasta partilhada.</value>
+    <value>Escolha uma palavra-passe para proteger o ficheiro de ligação. Partilhe a palavra-passe separadamente.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Memorizar palavras-passe</value>
@@ -2365,6 +2365,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Esta ação irá substituir as definições que está a utilizar. Para guardar primeiro uma cópia, cancele e escolha «Duplicar».</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Restaurar acesso</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>As versões guardadas na pasta partilhada foram alteradas inesperadamente. Restaure a partir de uma cópia de segurança de confiança.</value>
@@ -2383,6 +2386,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Partilhar esta configuração ou ligar a uma que a sua equipa já utiliza.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>É criado nesta pasta um ficheiro de ligação protegido por palavra-passe para que outros PCs se possam ligar.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Qualquer pessoa que possa importar ou sincronizar estas definições pode ler as palavras-passe e as chaves privadas dos certificados incluídas.</value>

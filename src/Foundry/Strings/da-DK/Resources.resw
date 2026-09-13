@@ -2238,12 +2238,6 @@
   <data name="Profiles.ConnectDescription" xml:space="preserve">
     <value>Vælg den forbindelsesfil, du har modtaget fra en på dit team.</value>
   </data>
-  <data name="Profiles.ConnectionFileDescription" xml:space="preserve">
-    <value>Gem en forbindelsesfil, så en anden pc kan bruge denne delte konfiguration.</value>
-  </data>
-  <data name="Profiles.ConnectionSettings" xml:space="preserve">
-    <value>Forbindelsesindstillinger…</value>
-  </data>
   <data name="Profiles.Continue" xml:space="preserve">
     <value>Fortsæt</value>
   </data>
@@ -2267,6 +2261,12 @@
   </data>
   <data name="Profiles.DeletedRemote" xml:space="preserve">
     <value>Disse delte indstillinger er slettet. Vælg Duplikér for at beholde dine ændringer på denne pc.</value>
+  </data>
+  <data name="Profiles.Disconnect" xml:space="preserve">
+    <value>Afbryd forbindelsen</value>
+  </data>
+  <data name="Profiles.DisconnectWarning" xml:space="preserve">
+    <value>Vil du stoppe synkroniseringen af denne konfiguration på denne pc? Dine aktuelle indstillinger bevares. Den delte konfiguration og andre pc’er ændres ikke.</value>
   </data>
   <data name="Profiles.Export" xml:space="preserve">
     <value>Eksportér</value>
@@ -2299,7 +2299,7 @@
     <value>Foundry-indstillinger</value>
   </data>
   <data name="Profiles.HistoryLimit" xml:space="preserve">
-    <value>Disse delte indstillinger har nået deres opdateringsgrænse. Del dem igen i en ny netværksmappe.</value>
+    <value>Disse delte indstillinger har nået grænsen for opdateringer. Afbryd forbindelsen, og del dem derefter i en ny netværksmappe.</value>
   </data>
   <data name="Profiles.Import" xml:space="preserve">
     <value>Importér</value>
@@ -2352,7 +2352,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Klar</value>
   </data>
   <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Opbevar forbindelsesfilen og dens adgangskode uden for den delte mappe.</value>
+    <value>Vælg en adgangskode til at beskytte forbindelsesfilen. Del adgangskoden separat.</value>
   </data>
   <data name="Profiles.Remember" xml:space="preserve">
     <value>Husk adgangskoder</value>
@@ -2365,6 +2365,9 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   </data>
   <data name="Profiles.ReplaceWarning" xml:space="preserve">
     <value>Dette erstatter de indstillinger, du bruger. Hvis du vil beholde en kopi først, skal du annullere og vælge Duplikér.</value>
+  </data>
+  <data name="Profiles.RestoreAccess" xml:space="preserve">
+    <value>Gendan adgang</value>
   </data>
   <data name="Profiles.Rollback" xml:space="preserve">
     <value>De gemte versioner i den delte mappe er ændret uventet. Gendan fra en sikkerhedskopi, du har tillid til.</value>
@@ -2383,6 +2386,9 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   </data>
   <data name="Profiles.SetupDescription" xml:space="preserve">
     <value>Del denne konfiguration, eller opret forbindelse til en, dit team allerede bruger.</value>
+  </data>
+  <data name="Profiles.ShareConnectionHint" xml:space="preserve">
+    <value>Der oprettes en adgangskodebeskyttet forbindelsesfil i denne mappe, så andre pc’er kan oprette forbindelse.</value>
   </data>
   <data name="Profiles.ShareWarning" xml:space="preserve">
     <value>Alle, der kan importere eller synkronisere disse indstillinger, kan læse de medtagne adgangskoder og private certifikatnøgler.</value>
