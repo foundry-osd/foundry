@@ -30,7 +30,6 @@ internal sealed record WindowsSourceCatalogItem
     public required int BuildUbr { get; init; }
     public required string Architecture { get; init; }
     public required string LanguageCode { get; init; }
-    public required string Edition { get; init; }
     public required string ClientType { get; init; }
     public required string LicenseChannel { get; init; }
     public required string FileName { get; init; }

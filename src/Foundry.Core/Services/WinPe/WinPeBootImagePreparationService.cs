@@ -753,7 +753,6 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             BuildUbr = ParseInt(ReadElement(item, "BuildUbr")),
             Architecture = NormalizeArchitecture(ReadElement(item, "Architecture")),
             LanguageCode = ReadElement(item, "LanguageCode"),
-            Edition = ReadElement(item, "Edition"),
             ClientType = ReadElement(item, "ClientType"),
             LicenseChannel = ReadElement(item, "LicenseChannel"),
             FileName = ReadElement(item, "FileName"),
