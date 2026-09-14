@@ -178,6 +178,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         Assert.Equal("dotnet", execution.FileName);
         Assert.Contains("publish", execution.Arguments);
         Assert.Contains("-r win-arm64", execution.Arguments);
+        Assert.Contains("/p:Platform=ARM64", execution.Arguments);
         Assert.Contains("/p:PublishSingleFile=true", execution.Arguments);
         Assert.True(File.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", "Runtime", "Foundry.Deploy", "win-arm64", "Foundry.Deploy.exe")));
     }
@@ -212,6 +213,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         Assert.Equal("dotnet", execution.FileName);
         Assert.Contains("publish", execution.Arguments);
         Assert.Contains("-r win-x64", execution.Arguments);
+        Assert.Contains("/p:Platform=x64", execution.Arguments);
         Assert.Contains("/p:PublishSingleFile=true", execution.Arguments);
         Assert.True(File.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", "Runtime", "Foundry.Connect", "win-x64", "Foundry.Connect.exe")));
     }
