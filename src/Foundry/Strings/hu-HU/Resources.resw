@@ -2900,6 +2900,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
     <value>Nyelvi és választható összetevők alkalmazása.</value>
   </data>
+  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
+    <value>A rendszerindító lemezkép függőségei készen állnak.</value>
+  </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>WinPE munkaterület létrehozása.</value>
   </data>
@@ -2960,8 +2963,8 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
     <value>Szerelési kép DISM-val.</value>
   </data>
-  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
-    <value>A WinRE képindex feloldása DISM-val.</value>
+  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
+    <value>A Windows képindex feloldása DISM-val.</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
     <value>Tartalom letöltése.</value>
@@ -2972,14 +2975,14 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>{0} telepítési összetevők letöltése.</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
-    <value>WinRE forráscsomag letöltése.</value>
+  <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
+    <value>Windows forráscsomag letöltése.</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
     <value>A rendszerindítási aláírási szabályzat kiértékelése.</value>
   </data>
-  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
-    <value>Windows kép exportálása a WinRE kinyeréséhez.</value>
+  <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
+    <value>Windows-lemezkép exportálása a rendszerindító lemezkép előkészítéséhez.</value>
   </data>
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
     <value>A média végső létrehozása nem sikerült.</value>
@@ -3014,8 +3017,8 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Szerelési rendszerindító kép.</value>
   </data>
-  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
-    <value>WinRE forráskép beszerelése.</value>
+  <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
+    <value>Windows forráskép beszerelése.</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
     <value>USB lemez megnyitása.</value>
@@ -3038,8 +3041,8 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
     <value>USB lemezattribútumok előkészítése.</value>
   </data>
-  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
-    <value>WinRE forráscsomag előkészítése.</value>
+  <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
+    <value>Windows forráscsomag előkészítése.</value>
   </data>
   <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
     <value>WinPE munkaterület előkészítése.</value>
@@ -3059,20 +3062,20 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
     <value>Illesztőprogram-csomagok feloldása.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
-    <value>WinRE képindex feloldása.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Windows képindex feloldása.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
-    <value>WinRE forráskatalógus feloldása.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
+    <value>Windows forráskatalógus feloldása.</value>
   </data>
   <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
     <value>A MakeWinPEMedia futtatása ISO számára.</value>
   </data>
-  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
-    <value>Kiválasztott WinRE forráscsomag.</value>
+  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
+    <value>Kiválasztott Windows forráscsomag.</value>
   </data>
-  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
-    <value>WinRE Wi-Fi függőségek fokozatba állítása.</value>
+  <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
+    <value>A rendszerindító lemezkép függőségeinek előkészítése.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>USB adathordozó frissítése.</value>
@@ -3092,23 +3095,11 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
     <value>Az USB rendszerindító partíció sikeresen frissült. Rendszerindító kötet: {0}. Gyorsítótár-kötet: {1}.</value>
   </data>
-  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Gyorsítótárazott WinRE forráscsomag használata.</value>
-  </data>
-  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Gyorsítótárazott WinRE-forráscsomag érvényesítése.</value>
-  </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB cél érvényesítése.</value>
   </data>
-  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
-    <value>WinRE forráscsomag érvényesítése.</value>
-  </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB rendszerindító adathordozó ellenőrzése.</value>
-  </data>
-  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
-    <value>A WinRE Wi-Fi rendszerindító lemezkép készen áll.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tekintse át a készenlétet, válasszon ISO vagy USB kimenetet, majd indítsa el az adathordozó létrehozását.</value>

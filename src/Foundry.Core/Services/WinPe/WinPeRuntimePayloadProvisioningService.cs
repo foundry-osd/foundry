@@ -288,12 +288,15 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             File.Delete(archivePath);
         }
 
+        // Project references may not inherit the RID; propagate Platform to keep every assembly on the target architecture.
+        string platform = runtimeIdentifier == "win-arm64" ? "ARM64" : "x64";
         string publishArguments = string.Join(
             " ",
             "publish",
             WinPeProcessRunner.Quote(projectPath),
             "-c", "Release",
             "-r", runtimeIdentifier,
+            $"/p:Platform={platform}",
             "--self-contained", "true",
             "/p:PublishSingleFile=true",
             "/p:EnableCompressionInSingleFile=true",

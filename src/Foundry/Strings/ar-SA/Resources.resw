@@ -2900,6 +2900,9 @@
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
     <value>تطبيق اللغة والمكونات الاختيارية.</value>
   </data>
+  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
+    <value>تبعيات صورة التمهيد جاهزة.</value>
+  </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>إنشاء مساحة عمل WinPE.</value>
   </data>
@@ -2960,8 +2963,8 @@
   <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
     <value>تركيب الصورة باستخدام DISM.</value>
   </data>
-  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
-    <value>حل فهرس صور WinRE باستخدام DISM.</value>
+  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
+    <value>تحديد فهرس صورة Windows باستخدام DISM.</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
     <value>جارٍ تنزيل المحتوى.</value>
@@ -2972,14 +2975,14 @@
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>تنزيل مكونات النشر {0}.</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
-    <value>تنزيل حزمة مصدر WinRE.</value>
+  <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
+    <value>تنزيل حزمة مصدر Windows.</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
     <value>تقييم سياسة توقيع التمهيد.</value>
   </data>
-  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
-    <value>تصدير صورة Windows لاستخراج WinRE.</value>
+  <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
+    <value>تصدير صورة Windows لتحضير صورة التمهيد.</value>
   </data>
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
     <value>فشل إنشاء الوسائط النهائية.</value>
@@ -3014,8 +3017,8 @@
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>تركيب صورة التمهيد.</value>
   </data>
-  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
-    <value>تركيب صورة مصدر WinRE.</value>
+  <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
+    <value>تركيب صورة مصدر Windows.</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
     <value>فتح القرص USB.</value>
@@ -3038,8 +3041,8 @@
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
     <value>تحضير سمات القرص USB.</value>
   </data>
-  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
-    <value>تحضير حزمة مصدر WinRE.</value>
+  <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
+    <value>تحضير حزمة مصدر Windows.</value>
   </data>
   <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
     <value>تحضير مساحة العمل WinPE.</value>
@@ -3059,20 +3062,20 @@
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
     <value>حل حزم برامج التشغيل.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
-    <value>حل مشكلة فهرس الصور WinRE.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
+    <value>تحديد فهرس صورة Windows.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
-    <value>حل كتالوج مصدر WinRE.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
+    <value>حل كتالوج مصدر Windows.</value>
   </data>
   <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
     <value>تشغيل MakeWinPEMedia لـ ISO.</value>
   </data>
-  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
-    <value>الحزمة المصدرية المحددة لـ WinRE.</value>
+  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
+    <value>الحزمة المصدرية المحددة لـ Windows.</value>
   </data>
-  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
-    <value>تنظيم تبعيات WinRE Wi-Fi.</value>
+  <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
+    <value>تجهيز تبعيات صورة التمهيد.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>تحديث وسيط USB.</value>
@@ -3092,23 +3095,11 @@
   <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
     <value>تم تحديث قسم تمهيد USB بنجاح. وحدة التمهيد: {0}. وحدة التخزين المؤقتة: {1}.</value>
   </data>
-  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
-    <value>استخدام حزمة مصدر WinRE المخزنة مؤقتًا.</value>
-  </data>
-  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
-    <value>التحقق من صحة حزمة مصدر WinRE المخزنة مؤقتًا.</value>
-  </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>التحقق من صحة الهدف USB.</value>
   </data>
-  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
-    <value>التحقق من صحة حزمة مصدر WinRE.</value>
-  </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>التحقق من USB وسائط التمهيد.</value>
-  </data>
-  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
-    <value>صورة التمهيد WinRE Wi-Fi جاهزة.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>راجع الجاهزية واختر إخراج ISO أو USB ثم ابدأ إنشاء الوسائط.</value>

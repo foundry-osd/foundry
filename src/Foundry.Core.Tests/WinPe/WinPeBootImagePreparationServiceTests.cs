@@ -9,8 +9,83 @@ using System.Text;
 
 namespace Foundry.Core.Tests.WinPe;
 
-public sealed class WinReBootImagePreparationServiceTests
+public sealed class WinPeBootImagePreparationServiceTests
 {
+    [Theory]
+    [InlineData("x64", "en-us", 26100)]
+    [InlineData("arm64", "fr-fr", 26100)]
+    [InlineData("arm64", "en-us", 26200)]
+    public void SelectCatalogCandidates_RejectsIncompatibleArm64Sources(string architecture, string language, int build)
+    {
+        string catalog = CreateCatalogXml(string.Empty)
+            .Replace("<Architecture>x64</Architecture>", $"<Architecture>{architecture}</Architecture>")
+            .Replace("<LanguageCode>en-us</LanguageCode>", $"<LanguageCode>{language}</LanguageCode>")
+            .Replace("<BuildMajor>26100</BuildMajor>", $"<BuildMajor>{build}</BuildMajor>");
+
+        var result = WinPeBootImagePreparationService.SelectCatalogCandidates(catalog, WinPeArchitecture.Arm64, "en-US");
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.WinReSourceSelectionFailed, result.Error?.Code);
+    }
+
+    [Theory]
+    [InlineData(WinPeBootImageSource.WinPe, null, false)]
+    [InlineData(WinPeBootImageSource.WinReWifi, null, false)]
+    [InlineData(WinPeBootImageSource.WinReWifi, "dwrite.dll", false)]
+    [InlineData(WinPeBootImageSource.WinReWifi, "dwrite.dll", true)]
+    public async Task PrepareAsync_ForArm64_StagesGraphicsOrFailsBeforeReplacement(WinPeBootImageSource bootImageSource, string? invalidFile, bool wrongArchitecture)
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-arm64-{Guid.NewGuid():N}");
+        string bootWim = Path.Combine(root, "boot.wim");
+        string cache = Path.Combine(root, "cache");
+        Directory.CreateDirectory(cache);
+        File.WriteAllText(bootWim, "original");
+        File.WriteAllText(Path.Combine(cache, "source.esd"), "cached source");
+        string catalog = CreateCatalogXml(string.Empty).Replace("<Architecture>x64</Architecture>", "<Architecture>arm64</Architecture>");
+        var runner = new FakeWinPeProcessRunner
+        {
+            InvalidGraphicsFile = invalidFile,
+            WrongGraphicsArchitecture = wrongArchitecture,
+            IncludeWirelessSupport = bootImageSource == WinPeBootImageSource.WinReWifi
+        };
+        var service = new WinPeBootImagePreparationService(runner, new HttpClient(new StaticCatalogHandler(catalog)));
+
+        try
+        {
+            var result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
+            {
+                Artifact = new WinPeBuildArtifact { Architecture = WinPeArchitecture.Arm64, BootWimPath = bootWim, WorkingDirectoryPath = root },
+                Tools = new WinPeToolPaths { DismPath = "dism.exe" },
+                WinPeLanguage = "en-US",
+                CacheDirectoryPath = cache,
+                BootImageSource = bootImageSource
+            }, TestContext.Current.CancellationToken);
+
+            Assert.Single(runner.Executions, execution => execution.Arguments.Contains("/Export-Image", StringComparison.Ordinal));
+            Assert.Single(runner.Executions, execution => execution.Arguments.Contains("/Mount-Image", StringComparison.Ordinal));
+            Assert.Single(runner.Executions, execution => execution.Arguments.Contains("/Discard", StringComparison.Ordinal));
+            if (invalidFile is not null)
+            {
+                Assert.False(result.IsSuccess);
+                Assert.Contains(invalidFile, result.Error?.Details);
+                Assert.Equal("original", File.ReadAllText(bootWim));
+                return;
+            }
+
+            Assert.True(result.IsSuccess, result.Error?.Details);
+            Assert.Equal(bootImageSource == WinPeBootImageSource.WinReWifi ? "winre" : "original", File.ReadAllText(bootWim));
+            Assert.Equal(new[] { "d3d9.dll", "d3dcompiler_47.dll", "dwrite.dll", "winmm.dll" },
+                result.Value!.DependencyFiles.Where(file => !file.OverwriteExisting).Select(file => file.FileName).Order(StringComparer.Ordinal));
+            Assert.Equal(bootImageSource == WinPeBootImageSource.WinReWifi ? 2 : 0,
+                result.Value.DependencyFiles.Count(file => file.OverwriteExisting));
+            Assert.All(result.Value.DependencyFiles, file => Assert.True(File.Exists(file.StagedPath)));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
     [Fact]
     public void SelectCatalogCandidates_Filters24H2ArchitectureAndLanguage()
     {
@@ -61,8 +136,8 @@ public sealed class WinReBootImagePreparationServiceTests
                                   </Catalog>
                                   """;
 
-        WinPeResult<IReadOnlyList<WinReSourceCandidate>> result =
-            WinReBootImagePreparationService.SelectCatalogCandidates(catalogXml, WinPeArchitecture.X64, "fr-FR");
+        WinPeResult<IReadOnlyList<WindowsSourceCandidate>> result =
+            WinPeBootImagePreparationService.SelectCatalogCandidates(catalogXml, WinPeArchitecture.X64, "fr-FR");
 
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
@@ -99,7 +174,7 @@ public sealed class WinReBootImagePreparationServiceTests
                                   Size : 18,123,456 bytes
                                   """;
 
-        WinPeResult<int> result = WinReBootImagePreparationService.ResolveImageIndexFromOutput(dismOutput, "Pro");
+        WinPeResult<int> result = WinPeBootImagePreparationService.ResolveImageIndexFromOutput(dismOutput, "Pro");
 
         Assert.True(result.IsSuccess);
         Assert.Equal(6, result.Value);
@@ -113,7 +188,7 @@ public sealed class WinReBootImagePreparationServiceTests
 
         try
         {
-            WinPeResult result = await WinReBootImagePreparationService.ValidateHashIfRequestedAsync(
+            WinPeResult result = await WinPeBootImagePreparationService.ValidateHashIfRequestedAsync(
                 filePath,
                 "DFB316701857783DAC69A14D1FE3FD60CFF21D56E830BAF7F0E3871BD73EEE39",
                 CancellationToken.None);
@@ -127,7 +202,7 @@ public sealed class WinReBootImagePreparationServiceTests
     }
 
     [Fact]
-    public void PrepareWirelessDependencyFiles_StagesRequiredFiles()
+    public void PrepareDependencyFiles_ForX64Wifi_StagesWirelessFiles()
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-winre-{Guid.NewGuid():N}");
         string mountedImagePath = Path.Combine(root, "mounted");
@@ -139,8 +214,8 @@ public sealed class WinReBootImagePreparationServiceTests
 
         try
         {
-            WinPeResult<WinReBootImagePreparationResult> result =
-                WinReBootImagePreparationService.PrepareWirelessDependencyFiles(mountedImagePath, dependencyPath);
+            WinPeResult<WinPeBootImagePreparationResult> result =
+                WinPeBootImagePreparationService.PrepareDependencyFiles(mountedImagePath, dependencyPath, WinPeArchitecture.X64, WinPeBootImageSource.WinReWifi);
 
             Assert.True(result.IsSuccess);
             Assert.NotNull(result.Value);
@@ -158,7 +233,7 @@ public sealed class WinReBootImagePreparationServiceTests
     [InlineData("/Get-ImageInfo", 5, true)]
     [InlineData("/Export-Image", 2, true)]
     [InlineData(null, 0, false)]
-    public async Task ReplaceBootWimAsync_ValidatesProcessResultsAndExportedImage(string? failingOperation, int exitCode, bool createExport)
+    public async Task PrepareAsync_ValidatesProcessResultsAndExportedImage(string? failingOperation, int exitCode, bool createExport)
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-winre-replace-{Guid.NewGuid():N}");
         string workingPath = Path.Combine(root, "workspace");
@@ -176,14 +251,14 @@ public sealed class WinReBootImagePreparationServiceTests
         string catalogXml = CreateCatalogXml(cachedSourceHash);
 
         var runner = new FakeWinPeProcessRunner { FailingOperation = failingOperation, ExitCode = exitCode, CreateExport = createExport };
-        var service = new WinReBootImagePreparationService(
+        var service = new WinPeBootImagePreparationService(
             runner,
             new HttpClient(new StaticCatalogHandler(catalogXml)));
 
         try
         {
-            WinPeResult<WinReBootImagePreparationResult> result = await service.ReplaceBootWimAsync(
-                new WinReBootImagePreparationOptions
+            WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(
+                new WinPeBootImagePreparationOptions
                 {
                     Artifact = new WinPeBuildArtifact
                     {
@@ -261,6 +336,9 @@ public sealed class WinReBootImagePreparationServiceTests
         public string? FailingOperation { get; init; }
         public int ExitCode { get; init; }
         public bool CreateExport { get; init; } = true;
+        public string? InvalidGraphicsFile { get; init; }
+        public bool WrongGraphicsArchitecture { get; init; }
+        public bool IncludeWirelessSupport { get; init; } = true;
 
         public Task<WinPeProcessExecution> RunAsync(
             string fileName,
@@ -319,7 +397,7 @@ public sealed class WinReBootImagePreparationServiceTests
                    """;
         }
 
-        private static void HandleSideEffects(string arguments)
+        private void HandleSideEffects(string arguments)
         {
             if (arguments.Contains("/Export-Image", StringComparison.OrdinalIgnoreCase))
             {
@@ -336,10 +414,41 @@ public sealed class WinReBootImagePreparationServiceTests
                 string system32Path = Path.Combine(mountDirectory, "Windows", "System32");
                 Directory.CreateDirectory(recoveryPath);
                 Directory.CreateDirectory(system32Path);
-                File.WriteAllText(Path.Combine(recoveryPath, "winre.wim"), "winre");
-                File.WriteAllText(Path.Combine(system32Path, "dmcmnutils.dll"), "dm");
-                File.WriteAllText(Path.Combine(system32Path, "mdmregistration.dll"), "mdm");
+                if (IncludeWirelessSupport)
+                {
+                    File.WriteAllText(Path.Combine(recoveryPath, "winre.wim"), "winre");
+                    File.WriteAllText(Path.Combine(system32Path, "dmcmnutils.dll"), "dm");
+                    File.WriteAllText(Path.Combine(system32Path, "mdmregistration.dll"), "mdm");
+                }
+                foreach (string fileName in new[] { "d3dcompiler_47.dll", "d3d9.dll", "dwrite.dll", "winmm.dll" })
+                {
+                    if (fileName == InvalidGraphicsFile && !WrongGraphicsArchitecture)
+                    {
+                        continue;
+                    }
+                    WritePortableExecutable(Path.Combine(system32Path, fileName),
+                        fileName == InvalidGraphicsFile ? (ushort)0x8664 : (ushort)0xAA64);
+                }
             }
+        }
+
+        private static void WritePortableExecutable(string path, ushort machine)
+        {
+            using var stream = File.Create(path);
+            using var writer = new BinaryWriter(stream);
+            stream.SetLength(512);
+            writer.Write((ushort)0x5A4D);
+            stream.Position = 0x3C;
+            writer.Write(0x80);
+            stream.Position = 0x80;
+            writer.Write(0x00004550);
+            writer.Write(machine);
+            stream.Position = 0x94;
+            writer.Write((ushort)0xF0);
+            writer.Write((ushort)0x2022);
+            writer.Write((ushort)0x20B);
+            stream.Position = 0x104;
+            writer.Write(16);
         }
 
         private static string ExtractArgumentPath(string arguments, string name)

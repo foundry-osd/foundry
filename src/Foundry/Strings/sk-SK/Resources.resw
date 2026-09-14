@@ -2900,6 +2900,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
     <value>Použitie jazyka a voliteľných komponentov.</value>
   </data>
+  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
+    <value>Závislosti spúšťacieho obrazu sú pripravené.</value>
+  </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>Vytvorenie pracovného priestoru WinPE.</value>
   </data>
@@ -2960,8 +2963,8 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
     <value>Pripája sa obrázok pomocou DISM.</value>
   </data>
-  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
-    <value>Vyriešenie indexu obrázkov WinRE pomocou DISM.</value>
+  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Zisťovanie indexu obrazu Windows pomocou DISM.</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
     <value>Sťahovanie obsahu.</value>
@@ -2972,14 +2975,14 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Sťahovanie komponentov nasadenia {0}.</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
-    <value>Sťahovanie zdrojového balíka WinRE.</value>
+  <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
+    <value>Sťahovanie zdrojového balíka Windows.</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
     <value>Hodnotenie politiky zavádzania podpisov.</value>
   </data>
-  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
-    <value>Exportuje sa obrázok Windows na extrakciu WinRE.</value>
+  <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
+    <value>Export obrazu Windows na prípravu spúšťacieho obrazu.</value>
   </data>
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
     <value>Konečné vytvorenie média zlyhalo.</value>
@@ -3014,8 +3017,8 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Pripája sa zavádzací obraz.</value>
   </data>
-  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
-    <value>Pripája sa zdrojový obraz WinRE.</value>
+  <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
+    <value>Pripája sa zdrojový obraz Windows.</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
     <value>Otváranie disku USB.</value>
@@ -3038,8 +3041,8 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
     <value>Príprava atribútov disku USB.</value>
   </data>
-  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
-    <value>Príprava zdrojového balíka WinRE.</value>
+  <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
+    <value>Príprava zdrojového balíka Windows.</value>
   </data>
   <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
     <value>Príprava pracovného priestoru WinPE.</value>
@@ -3059,20 +3062,20 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
     <value>Riešenie balíkov ovládačov.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
-    <value>Riešenie indexu obrázkov WinRE.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Zisťovanie indexu obrazu Windows.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
-    <value>Riešenie zdrojového katalógu WinRE.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
+    <value>Riešenie zdrojového katalógu Windows.</value>
   </data>
   <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
     <value>Spustenie MakeWinPEMedia pre ISO.</value>
   </data>
-  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
-    <value>Vybraný zdrojový balík WinRE.</value>
+  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
+    <value>Vybraný zdrojový balík Windows.</value>
   </data>
-  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
-    <value>Príprava závislostí WinRE Wi-Fi.</value>
+  <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
+    <value>Príprava závislostí spúšťacieho obrazu.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Aktualizuje sa médium USB.</value>
@@ -3092,23 +3095,11 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
     <value>Spúšťacia partícia USB bola úspešne aktualizovaná. Spúšťací zväzok: {0}. Zväzok vyrovnávacej pamäte: {1}.</value>
   </data>
-  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Použitie zdrojového balíka WinRE uloženého vo vyrovnávacej pamäti.</value>
-  </data>
-  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Overuje sa zdrojový balík WinRE uložený vo vyrovnávacej pamäti.</value>
-  </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Overuje sa cieľ USB.</value>
   </data>
-  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
-    <value>Overuje sa zdrojový balík WinRE.</value>
-  </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Overenie zavádzacieho média USB.</value>
-  </data>
-  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
-    <value>Spúšťací obraz WinRE Wi-Fi je pripravený.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Skontrolujte pripravenosť, vyberte výstup ISO alebo USB a spustite vytvorenie média.</value>

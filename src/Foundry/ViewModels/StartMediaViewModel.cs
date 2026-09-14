@@ -1225,19 +1225,16 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             "Provisioning Foundry runtime payloads." => "StartMedia.Operation.ProvisioningRuntimePayloads",
             "Committing image changes." => "StartMedia.Operation.CommittingImageChanges",
             "Image customization completed." => "StartMedia.Operation.ImageCustomizationCompleted",
-            "Resolving WinRE source catalog." => "StartMedia.Operation.ResolvingWinReSourceCatalog",
-            "Selected WinRE source package." => "StartMedia.Operation.SelectedWinReSourcePackage",
-            "Preparing WinRE source package." => "StartMedia.Operation.PreparingWinReSourcePackage",
-            "Validating cached WinRE source package." => "StartMedia.Operation.ValidatingCachedWinReSourcePackage",
-            "Using cached WinRE source package." => "StartMedia.Operation.UsingCachedWinReSourcePackage",
-            "Downloading WinRE source package." => "StartMedia.Operation.DownloadingWinReSourcePackage",
-            "Validating WinRE source package." => "StartMedia.Operation.ValidatingWinReSourcePackage",
-            "Resolving WinRE image index." => "StartMedia.Operation.ResolvingWinReImageIndex",
-            "Exporting Windows image for WinRE extraction." => "StartMedia.Operation.ExportingWinReSourceImage",
-            "Mounting WinRE source image." => "StartMedia.Operation.MountingWinReSourceImage",
-            "Staging WinRE Wi-Fi dependencies." => "StartMedia.Operation.StagingWinReWifiDependencies",
+            "Resolving Windows source catalog." => "StartMedia.Operation.ResolvingWindowsSourceCatalog",
+            "Selected Windows source package." => "StartMedia.Operation.SelectedWindowsSourcePackage",
+            "Preparing Windows source package." => "StartMedia.Operation.PreparingWindowsSourcePackage",
+            "Downloading Windows source package." => "StartMedia.Operation.DownloadingWindowsSourcePackage",
+            "Resolving Windows image index." => "StartMedia.Operation.ResolvingWindowsImageIndex",
+            "Exporting Windows image for boot image preparation." => "StartMedia.Operation.ExportingWindowsSourceImage",
+            "Mounting Windows source image." => "StartMedia.Operation.MountingWindowsSourceImage",
+            "Staging boot image dependencies." => "StartMedia.Operation.StagingBootImageDependencies",
             "Replacing boot image with WinRE." => "StartMedia.Operation.ReplacingBootImageWithWinRe",
-            "WinRE Wi-Fi boot image is ready." => "StartMedia.Operation.WinReWifiBootImageReady",
+            "Boot image dependencies are ready." => "StartMedia.Operation.BootImageDependenciesReady",
             _ => string.Empty
         };
 
@@ -1248,13 +1245,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private string LocalizeDownloadStatus(string status)
     {
-        if (status.StartsWith("Downloading WinRE source package", StringComparison.Ordinal))
+        if (status.StartsWith("Downloading Windows source package", StringComparison.Ordinal))
         {
             int suffixIndex = status.IndexOf('(', StringComparison.Ordinal);
             string suffix = suffixIndex >= 0
                 ? $" {status[suffixIndex..]}"
                 : string.Empty;
-            return localizationService.GetString("StartMedia.Operation.DownloadingWinReSourcePackage") + suffix;
+            return localizationService.GetString("StartMedia.Operation.DownloadingWindowsSourcePackage") + suffix;
         }
 
         if (status.StartsWith("Downloading driver package", StringComparison.Ordinal))
@@ -1290,7 +1287,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         string resourceKey = status switch
         {
             "Exporting Windows image with DISM." => "StartMedia.Operation.DismExportingWindowsImage",
-            "Resolving WinRE image index with DISM." => "StartMedia.Operation.DismResolvingWinReImageIndex",
+            "Resolving Windows image index with DISM." => "StartMedia.Operation.DismResolvingWindowsImageIndex",
             "Mounting image with DISM." => "StartMedia.Operation.DismMountingImage",
             "Injecting drivers with DISM." => "StartMedia.Operation.DismInjectingDrivers",
             "Applying language pack with DISM." => "StartMedia.Operation.DismApplyingLanguagePack",

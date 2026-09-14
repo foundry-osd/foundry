@@ -2900,6 +2900,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
     <value>Keele ja valikuliste komponentide rakendamine.</value>
   </data>
+  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
+    <value>Alglaadimispildi sõltuvused on valmis.</value>
+  </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>WinPE tööruumi loomine.</value>
   </data>
@@ -2960,8 +2963,8 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
     <value>Paigalduskujutis DISM.</value>
   </data>
-  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
-    <value>WinRE pildiindeksi lahendamine DISM abil.</value>
+  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Windows pildiindeksi lahendamine DISM abil.</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
     <value>Sisu allalaadimine.</value>
@@ -2972,14 +2975,14 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>{0} juurutuskomponentide allalaadimine.</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
-    <value>WinRE lähtepaketi allalaadimine.</value>
+  <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
+    <value>Windows lähtepaketi allalaadimine.</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
     <value>Alglaadimissignatuuri hindamine.</value>
   </data>
-  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
-    <value>Windows pildi eksportimine WinRE ekstraheerimiseks.</value>
+  <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
+    <value>Windowsi pildi eksportimine alglaadimispildi ettevalmistamiseks.</value>
   </data>
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
     <value>Lõplik meedia loomine ebaõnnestus.</value>
@@ -3014,8 +3017,8 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Paigalduslaadimispilt.</value>
   </data>
-  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
-    <value>WinRE lähtepildi paigaldamine.</value>
+  <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
+    <value>Windows lähtepildi paigaldamine.</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
     <value>USB ketta avamine.</value>
@@ -3038,8 +3041,8 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
     <value>USB kettaatribuutide ettevalmistamine.</value>
   </data>
-  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
-    <value>WinRE lähtepaketi ettevalmistamine.</value>
+  <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
+    <value>Windows lähtepaketi ettevalmistamine.</value>
   </data>
   <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
     <value>WinPE tööruumi ettevalmistamine.</value>
@@ -3059,20 +3062,20 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
     <value>Draiveripakettide lahendamine.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
-    <value>WinRE pildiindeksi lahendamine.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Windows pildiindeksi lahendamine.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
-    <value>WinRE lähtekataloogi lahendamine.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
+    <value>Windows lähtekataloogi lahendamine.</value>
   </data>
   <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
     <value>MakeWinPEMedia käivitamine ISO jaoks.</value>
   </data>
-  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
-    <value>Valitud WinRE lähtepakett.</value>
+  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
+    <value>Valitud Windows lähtepakett.</value>
   </data>
-  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
-    <value>WinRE Wi-Fi sõltuvuste lavastamine.</value>
+  <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
+    <value>Alglaadimispildi sõltuvuste ettevalmistamine.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>USB-meediumi värskendamine.</value>
@@ -3092,23 +3095,11 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
     <value>USB alglaadimispartitsioon värskendati edukalt. Alglaadimisköide: {0}. Vahemäluköide: {1}.</value>
   </data>
-  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Vahemällu salvestatud WinRE lähtepaketi kasutamine.</value>
-  </data>
-  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Vahemällu salvestatud WinRE lähtepaketi valideerimine.</value>
-  </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB sihtmärgi kinnitamine.</value>
   </data>
-  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
-    <value>WinRE lähtepaketi valideerimine.</value>
-  </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB alglaadimismeediumi kontrollimine.</value>
-  </data>
-  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
-    <value>WinRE Wi-Fi alglaadimispilt on valmis.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Kontrollige valmisolekut, valige ISO või USB väljund ja alustage meediumi loomist.</value>
