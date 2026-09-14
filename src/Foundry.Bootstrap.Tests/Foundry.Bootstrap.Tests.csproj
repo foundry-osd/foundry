@@ -5,7 +5,7 @@
     <RuntimeIdentifiers></RuntimeIdentifiers>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="xunit.v3" Version="4.0.0" />
+    <PackageReference Include="xunit.v3" Version="4.0.1" />
     <ProjectReference Include="..\Foundry.Bootstrap\Foundry.Bootstrap.csproj" />
   </ItemGroup>
 </Project>
