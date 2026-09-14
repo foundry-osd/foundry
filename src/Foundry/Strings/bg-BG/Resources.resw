@@ -2900,6 +2900,9 @@
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
     <value>Прилагане на език и незадължителни компоненти.</value>
   </data>
+  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
+    <value>Зависимостите на образа за зареждане са готови.</value>
+  </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>Създаване на WinPE работно пространство.</value>
   </data>
@@ -2960,8 +2963,8 @@
   <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
     <value>Изображение за монтиране с DISM.</value>
   </data>
-  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
-    <value>Разрешаване на WinRE индекс на изображение с DISM.</value>
+  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Определяне на индекса на образа на Windows с DISM.</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
     <value>Изтегляне на съдържание.</value>
@@ -2972,14 +2975,14 @@
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Изтегляне на {0} компоненти за внедряване.</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
-    <value>Изтегля се изходният пакет на WinRE.</value>
+  <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
+    <value>Изтегля се изходният пакет на Windows.</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
     <value>Оценяване на правилата за подписване при зареждане.</value>
   </data>
-  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
-    <value>Експортиране на Windows изображение за извличане на WinRE.</value>
+  <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
+    <value>Експортиране на образ на Windows за подготовка на образа за зареждане.</value>
   </data>
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
     <value>Окончателното създаване на медия е неуспешно.</value>
@@ -3014,8 +3017,8 @@
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Монтиране на начално изображение.</value>
   </data>
-  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
-    <value>Монтиране на изходното изображение на WinRE.</value>
+  <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
+    <value>Монтиране на изходното изображение на Windows.</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
     <value>Отваряне на USB диск.</value>
@@ -3038,8 +3041,8 @@
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
     <value>Подготовка на USB дискови атрибути.</value>
   </data>
-  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
-    <value>Подготовка на WinRE изходен пакет.</value>
+  <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
+    <value>Подготовка на Windows изходен пакет.</value>
   </data>
   <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
     <value>Подготвя се WinPE работно пространство.</value>
@@ -3059,20 +3062,20 @@
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
     <value>Разрешаване на пакети с драйвери.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
-    <value>Разрешаване на WinRE индекс на изображение.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Определяне на индекса на образа на Windows.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
-    <value>Разрешаване на изходния каталог на WinRE.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
+    <value>Разрешаване на изходния каталог на Windows.</value>
   </data>
   <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
     <value>Стартиране на MakeWinPEMedia за ISO.</value>
   </data>
-  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
-    <value>Избран изходен пакет на WinRE.</value>
+  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
+    <value>Избран изходен пакет на Windows.</value>
   </data>
-  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
-    <value>Постановка на WinRE Wi-Fi зависимости.</value>
+  <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
+    <value>Подготовка на зависимостите на образа за зареждане.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Актуализиране на USB носител.</value>
@@ -3092,23 +3095,11 @@
   <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
     <value>Дялът за зареждане на USB беше актуализиран успешно. Том за зареждане: {0}. Кеш том: {1}.</value>
   </data>
-  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Използване на кеширан изходен пакет на WinRE.</value>
-  </data>
-  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Валидиране на кеширания изходен пакет на WinRE.</value>
-  </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Потвърждаване на целта USB.</value>
   </data>
-  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
-    <value>Проверка на изходния пакет на WinRE.</value>
-  </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Проверка на USB носител за зареждане.</value>
-  </data>
-  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
-    <value>Изображението за стартиране на WinRE Wi-Fi е готово.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Прегледайте готовността, изберете ISO или USB изход и стартирайте създаването на носител.</value>

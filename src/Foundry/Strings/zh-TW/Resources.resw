@@ -2900,6 +2900,9 @@
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
     <value>應用語言和可選組件。</value>
   </data>
+  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
+    <value>啟動映像相依性已準備就緒。</value>
+  </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>建立 WinPE 工作區。</value>
   </data>
@@ -2960,8 +2963,8 @@
   <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
     <value>使用DISM 安裝映像。</value>
   </data>
-  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
-    <value>使用 DISM 解析 WinRE 影像索引。</value>
+  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
+    <value>使用 DISM 解析 Windows 影像索引。</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
     <value>下載內容。</value>
@@ -2972,14 +2975,14 @@
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>正在下載{0}部署元件。</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
-    <value>下載WinRE原始碼包。</value>
+  <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
+    <value>正在下載 Windows 來源套件。</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
     <value>評估啟動簽名策略。</value>
   </data>
-  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
-    <value>匯出 Windows 影像以進行 WinRE 擷取。</value>
+  <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
+    <value>正在匯出 Windows 映像以準備啟動映像。</value>
   </data>
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
     <value>最終媒體創建失敗。</value>
@@ -3014,8 +3017,8 @@
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>安裝啟動映像。</value>
   </data>
-  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
-    <value>掛載 WinRE 來源映像。</value>
+  <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
+    <value>掛載 Windows 來源映像。</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
     <value>開啟USB磁碟。</value>
@@ -3038,8 +3041,8 @@
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
     <value>準備USB磁碟屬性。</value>
   </data>
-  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
-    <value>準備WinRE源碼包。</value>
+  <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
+    <value>正在準備 Windows 來源套件。</value>
   </data>
   <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
     <value>正在準備WinPE工作區。</value>
@@ -3059,20 +3062,20 @@
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
     <value>解決驅動程式包。</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
-    <value>正在解析 WinRE 影像索引。</value>
+  <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
+    <value>正在解析 Windows 影像索引。</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
-    <value>正在解析 WinRE 來源目錄。</value>
+  <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
+    <value>正在解析 Windows 來源目錄。</value>
   </data>
   <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
     <value>為 ISO 運行 MakeWinPEMedia。</value>
   </data>
-  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
-    <value>選用WinRE源碼包。</value>
+  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
+    <value>已選取 Windows 來源套件。</value>
   </data>
-  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
-    <value>暫存 WinRE Wi-Fi 依賴項。</value>
+  <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
+    <value>正在暫存啟動映像相依性。</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>正在更新 USB 媒體。</value>
@@ -3092,23 +3095,11 @@
   <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
     <value>USB 開機分割區已成功更新。開機磁碟區: {0}。快取磁碟區: {1}。</value>
   </data>
-  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
-    <value>使用快取的 WinRE 來源包。</value>
-  </data>
-  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
-    <value>驗證快取的 WinRE 來源包。</value>
-  </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>正在驗證USB目標。</value>
   </data>
-  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
-    <value>驗證 WinRE 來源包。</value>
-  </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>正在驗證 USB 啟動媒體。</value>
-  </data>
-  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
-    <value>WinRE Wi-Fi 啟動映像已準備就緒。</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>檢閱就緒狀態，選擇 ISO 或 USB 輸出，然後開始建立媒體。</value>

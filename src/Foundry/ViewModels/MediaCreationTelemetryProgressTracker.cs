@@ -16,13 +16,13 @@ internal sealed class MediaCreationTelemetryProgressTracker : ILogEventEnricher
     private static readonly IReadOnlyList<StatusStepMapping> CustomizationStatusMappings =
     (StatusStepMapping[])
     [
-        new("Resolving WinRE source catalog", MediaCreationStepNames.ResolveWinReSourceCatalog),
-        new("Selected WinRE source package", MediaCreationStepNames.SelectWinReSourcePackage),
-        new("Preparing WinRE source package", MediaCreationStepNames.PrepareWinReSourcePackage),
-        new("Resolving WinRE image index", MediaCreationStepNames.ResolveWinReImageIndex),
+        new("Resolving Windows source catalog", MediaCreationStepNames.ResolveWinReSourceCatalog),
+        new("Selected Windows source package", MediaCreationStepNames.SelectWinReSourcePackage),
+        new("Preparing Windows source package", MediaCreationStepNames.PrepareWinReSourcePackage),
+        new("Resolving Windows image index", MediaCreationStepNames.ResolveWinReImageIndex),
         new("Exporting Windows image", MediaCreationStepNames.ExportWinReSourceImage),
-        new("Mounting WinRE source image", MediaCreationStepNames.MountWinReSourceImage),
-        new("Staging WinRE Wi-Fi dependencies", MediaCreationStepNames.StageWinReWifiDependencies),
+        new("Mounting Windows source image", MediaCreationStepNames.MountWinReSourceImage),
+        new("Staging boot image dependencies", MediaCreationStepNames.StageWinReWifiDependencies),
         new("Replacing boot image with WinRE", MediaCreationStepNames.ReplaceBootImageWithWinRe),
         new("Preparing boot image customization", MediaCreationStepNames.CustomizeBootImage),
         new("Mounting boot image", MediaCreationStepNames.MountBootImage),
@@ -39,7 +39,7 @@ internal sealed class MediaCreationTelemetryProgressTracker : ILogEventEnricher
     (StatusStepMapping[])
     [
         new("Downloading driver package", MediaCreationStepNames.DownloadWinPeDriverPackage),
-        new("Downloading WinRE source package", MediaCreationStepNames.DownloadWinReSourcePackage),
+        new("Downloading Windows source package", MediaCreationStepNames.DownloadWinReSourcePackage),
         new("Downloading Foundry.Connect runtime payload", MediaCreationStepNames.DownloadConnectRuntimePayload),
         new("Downloading Foundry.Deploy runtime payload", MediaCreationStepNames.DownloadDeployRuntimePayload)
     ];

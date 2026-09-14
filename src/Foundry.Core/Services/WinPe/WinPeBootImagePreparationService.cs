@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Globalization;
+using System.Reflection.PortableExecutable;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Foundry.Utilities.IO;
@@ -11,8 +12,14 @@ using Foundry.Utilities.Progress;
 
 namespace Foundry.Core.Services.WinPe;
 
-public sealed partial class WinReBootImagePreparationService : IWinReBootImagePreparationService
+/// <summary>
+/// Stages boot dependencies from one Windows source mount and optionally replaces the boot image with WinRE.
+/// </summary>
+public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparationService
 {
+    /// <summary>
+    /// Identifies the shared operating system catalog used to select Windows source packages.
+    /// </summary>
     public static readonly Uri DefaultOperatingSystemCatalogUri =
         new("https://raw.githubusercontent.com/foundry-osd/catalog/refs/heads/main/Cache/OS/OperatingSystem.xml");
 
@@ -22,22 +29,31 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         "mdmregistration.dll"
     ];
 
+    private static readonly string[] RequiredArm64GraphicsDependencyFiles =
+    [
+        "d3dcompiler_47.dll",
+        "d3d9.dll",
+        "dwrite.dll",
+        "winmm.dll"
+    ];
+
     private readonly IWinPeProcessRunner _processRunner;
     private readonly HttpClient _httpClient;
 
-    public WinReBootImagePreparationService()
+    public WinPeBootImagePreparationService()
         : this(new WinPeProcessRunner(), new HttpClient())
     {
     }
 
-    internal WinReBootImagePreparationService(IWinPeProcessRunner processRunner, HttpClient httpClient)
+    internal WinPeBootImagePreparationService(IWinPeProcessRunner processRunner, HttpClient httpClient)
     {
         _processRunner = processRunner;
         _httpClient = httpClient;
     }
 
-    public async Task<WinPeResult<WinReBootImagePreparationResult>> ReplaceBootWimAsync(
-        WinReBootImagePreparationOptions options,
+    /// <inheritdoc />
+    public async Task<WinPeResult<WinPeBootImagePreparationResult>> PrepareAsync(
+        WinPeBootImagePreparationOptions options,
         CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -45,11 +61,11 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         WinPeDiagnostic? validationError = ValidateOptions(options);
         if (validationError is not null)
         {
-            return WinPeResult<WinReBootImagePreparationResult>.Failure(validationError);
+            return WinPeResult<WinPeBootImagePreparationResult>.Failure(validationError);
         }
 
-        ReportProgress(options.Progress, 2, "Resolving WinRE source catalog.");
-        WinPeResult<IReadOnlyList<WinReSourceCandidate>> candidatesResult = await SelectCatalogCandidatesAsync(
+        ReportProgress(options.Progress, 2, "Resolving Windows source catalog.");
+        WinPeResult<IReadOnlyList<WindowsSourceCandidate>> candidatesResult = await SelectCatalogCandidatesAsync(
             options.CatalogUri,
             options.Artifact.Architecture,
             options.WinPeLanguage,
@@ -57,14 +73,14 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
 
         if (!candidatesResult.IsSuccess)
         {
-            return WinPeResult<WinReBootImagePreparationResult>.Failure(candidatesResult.Error!);
+            return WinPeResult<WinPeBootImagePreparationResult>.Failure(candidatesResult.Error!);
         }
 
-        ReportProgress(options.Progress, 4, "Selected WinRE source package.");
+        ReportProgress(options.Progress, 4, "Selected Windows source package.");
         var failures = new List<WinPeDiagnostic>();
-        foreach (WinReSourceCandidate candidate in candidatesResult.Value!)
+        foreach (WindowsSourceCandidate candidate in candidatesResult.Value!)
         {
-            WinPeResult<WinReBootImagePreparationResult> result = await TryReplaceBootWimFromSourceAsync(
+            WinPeResult<WinPeBootImagePreparationResult> result = await TryPrepareFromSourceAsync(
                 options,
                 candidate,
                 cancellationToken).ConfigureAwait(false);
@@ -77,22 +93,26 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             failures.Add(result.Error!);
         }
 
-        return WinPeResult<WinReBootImagePreparationResult>.Failure(failures[^1] with
+        return WinPeResult<WinPeBootImagePreparationResult>.Failure(failures[^1] with
         {
             Code = WinPeErrorCodes.WinReExtractionFailed,
-            Message = "Failed to prepare a WinRE Wi-Fi boot image from every matching operating system source.",
-            Details = string.Join(Environment.NewLine + Environment.NewLine, failures.Select(failure => failure.Details ?? failure.Message))
+            Message = "Failed to prepare boot image dependencies from every matching operating system source.",
+            Details = string.Join(Environment.NewLine + Environment.NewLine,
+                failures.Select(failure => string.Join(Environment.NewLine, failure.Message, failure.Details)))
         });
     }
 
-    internal static WinPeResult<IReadOnlyList<WinReSourceCandidate>> SelectCatalogCandidates(
+    /// <summary>
+    /// Selects Pro and Enterprise fallback sources matching the boot language, architecture, and supported 26100 build line.
+    /// </summary>
+    internal static WinPeResult<IReadOnlyList<WindowsSourceCandidate>> SelectCatalogCandidates(
         string catalogXml,
         WinPeArchitecture architecture,
         string languageCode)
     {
         if (string.IsNullOrWhiteSpace(catalogXml))
         {
-            return WinPeResult<IReadOnlyList<WinReSourceCandidate>>.Failure(
+            return WinPeResult<IReadOnlyList<WindowsSourceCandidate>>.Failure(
                 WinPeErrorCodes.OperatingSystemCatalogParseFailed,
                 "The operating system catalog is empty.");
         }
@@ -103,11 +123,12 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             string normalizedLanguage = WinPeLanguageUtility.Normalize(languageCode);
             XDocument document = XDocument.Parse(catalogXml);
 
-            List<WinReCatalogItem> matchingItems = document.Descendants("Item")
+            List<WindowsSourceCatalogItem> matchingItems = document.Descendants("Item")
                 .Select(ParseCatalogItem)
                 .Where(item =>
                     item.WindowsRelease.Equals("11", StringComparison.OrdinalIgnoreCase) &&
                     item.ReleaseId.Equals("24H2", StringComparison.OrdinalIgnoreCase) &&
+                    item.BuildMajor == 26100 &&
                     item.Architecture.Equals(normalizedArchitecture, StringComparison.OrdinalIgnoreCase) &&
                     WinPeLanguageUtility.Normalize(item.LanguageCode).Equals(normalizedLanguage, StringComparison.OrdinalIgnoreCase) &&
                     !string.IsNullOrWhiteSpace(item.Url))
@@ -120,13 +141,13 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                     .First())
                 .ToList();
 
-            WinReCatalogItem? proSource = SelectPreferredSourceItem(matchingItems, "CLIENTCONSUMER");
-            WinReCatalogItem? enterpriseSource = SelectPreferredSourceItem(matchingItems, "CLIENTBUSINESS");
+            WindowsSourceCatalogItem? proSource = SelectPreferredSourceItem(matchingItems, "CLIENTCONSUMER");
+            WindowsSourceCatalogItem? enterpriseSource = SelectPreferredSourceItem(matchingItems, "CLIENTBUSINESS");
 
-            var candidates = new List<WinReSourceCandidate>(2);
+            var candidates = new List<WindowsSourceCandidate>(2);
             if (proSource is not null)
             {
-                candidates.Add(new WinReSourceCandidate
+                candidates.Add(new WindowsSourceCandidate
                 {
                     RequestedEdition = "Pro",
                     Source = proSource
@@ -135,7 +156,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
 
             if (enterpriseSource is not null)
             {
-                candidates.Add(new WinReSourceCandidate
+                candidates.Add(new WindowsSourceCandidate
                 {
                     RequestedEdition = "Enterprise",
                     Source = enterpriseSource
@@ -144,17 +165,17 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
 
             if (candidates.Count == 0)
             {
-                return WinPeResult<IReadOnlyList<WinReSourceCandidate>>.Failure(
+                return WinPeResult<IReadOnlyList<WindowsSourceCandidate>>.Failure(
                     WinPeErrorCodes.WinReSourceSelectionFailed,
-                    "No Windows 11 24H2 WinRE source matched the requested architecture and language.",
+                    "No Windows 11 24H2 Windows source matched the requested architecture and language.",
                     $"Architecture={normalizedArchitecture}, Language={normalizedLanguage}");
             }
 
-            return WinPeResult<IReadOnlyList<WinReSourceCandidate>>.Success(candidates);
+            return WinPeResult<IReadOnlyList<WindowsSourceCandidate>>.Success(candidates);
         }
         catch (Exception ex) when (ex is InvalidOperationException or FormatException)
         {
-            return WinPeResult<IReadOnlyList<WinReSourceCandidate>>.Failure(new WinPeDiagnostic(
+            return WinPeResult<IReadOnlyList<WindowsSourceCandidate>>.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.OperatingSystemCatalogParseFailed,
                 "Failed to parse the operating system catalog.",
                 ex.Message,
@@ -186,7 +207,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
 
         return WinPeResult.Failure(
             WinPeErrorCodes.HashMismatch,
-            "The cached WinRE source package failed hash validation.",
+            "The cached Windows source package failed hash validation.",
             $"Expected SHA256={normalizedExpectedHash}; Actual SHA256={actualHash}.");
     }
 
@@ -217,9 +238,14 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         return WinPeResult<int>.Success(match.Index);
     }
 
-    internal static WinPeResult<WinReBootImagePreparationResult> PrepareWirelessDependencyFiles(
+    /// <summary>
+    /// Stages all required dependencies before source discard; graphics binaries must be ARM64 and preserve existing boot files.
+    /// </summary>
+    internal static WinPeResult<WinPeBootImagePreparationResult> PrepareDependencyFiles(
         string mountedImagePath,
-        string dependencyDirectoryPath)
+        string dependencyDirectoryPath,
+        WinPeArchitecture architecture,
+        WinPeBootImageSource bootImageSource)
     {
         string sourceSystem32Path = Path.Combine(mountedImagePath, "Windows", "System32");
 
@@ -227,43 +253,75 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         {
             Directory.CreateDirectory(dependencyDirectoryPath);
 
-            var dependencyFiles = new List<WinReDependencyFile>(RequiredWirelessDependencyFiles.Length);
-            foreach (string fileName in RequiredWirelessDependencyFiles)
+            IEnumerable<string> requiredFiles = bootImageSource == WinPeBootImageSource.WinReWifi
+                ? RequiredWirelessDependencyFiles
+                : [];
+            if (architecture == WinPeArchitecture.Arm64)
+            {
+                requiredFiles = requiredFiles.Concat(RequiredArm64GraphicsDependencyFiles);
+            }
+
+            var dependencyFiles = new List<WinPeDependencyFile>();
+            foreach (string fileName in requiredFiles)
             {
                 string sourcePath = Path.Combine(sourceSystem32Path, fileName);
                 if (!File.Exists(sourcePath))
                 {
-                    return WinPeResult<WinReBootImagePreparationResult>.Failure(
+                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(
                         WinPeErrorCodes.WinReExtractionFailed,
-                        $"The selected operating system image is missing the required wireless dependency '{fileName}'.",
+                        $"The selected operating system image is missing the required boot dependency '{fileName}'.",
                         $"Expected path: '{sourcePath}'.");
+                }
+
+                bool isGraphicsDependency = RequiredArm64GraphicsDependencyFiles.Contains(fileName, StringComparer.OrdinalIgnoreCase);
+                if (isGraphicsDependency && !IsArm64Image(sourcePath))
+                {
+                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(
+                        WinPeErrorCodes.WinReExtractionFailed,
+                        $"The required graphics dependency '{fileName}' is not a valid ARM64 image.",
+                        $"Source path: '{sourcePath}'.");
                 }
 
                 string stagedPath = Path.Combine(dependencyDirectoryPath, fileName);
                 File.Copy(sourcePath, stagedPath, overwrite: true);
-                dependencyFiles.Add(new WinReDependencyFile
+                dependencyFiles.Add(new WinPeDependencyFile
                 {
                     FileName = fileName,
-                    StagedPath = stagedPath
+                    StagedPath = stagedPath,
+                    OverwriteExisting = !isGraphicsDependency
                 });
             }
 
-            return WinPeResult<WinReBootImagePreparationResult>.Success(new WinReBootImagePreparationResult
+            return WinPeResult<WinPeBootImagePreparationResult>.Success(new WinPeBootImagePreparationResult
             {
                 DependencyFiles = dependencyFiles
             });
         }
         catch (Exception ex)
         {
-            return WinPeResult<WinReBootImagePreparationResult>.Failure(new WinPeDiagnostic(
+            return WinPeResult<WinPeBootImagePreparationResult>.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.WinReExtractionFailed,
-                "Failed to stage required wireless dependency files from the mounted operating system image.",
+                "Failed to stage required boot dependency files from the mounted operating system image.",
                 ex.Message,
                 exception: ex));
         }
     }
 
-    private async Task<WinPeResult<IReadOnlyList<WinReSourceCandidate>>> SelectCatalogCandidatesAsync(
+    private static bool IsArm64Image(string path)
+    {
+        try
+        {
+            using FileStream stream = File.OpenRead(path);
+            using var reader = new PEReader(stream);
+            return reader.PEHeaders.PEHeader is not null && reader.PEHeaders.CoffHeader.Machine == Machine.Arm64;
+        }
+        catch (BadImageFormatException)
+        {
+            return false;
+        }
+    }
+
+    private async Task<WinPeResult<IReadOnlyList<WindowsSourceCandidate>>> SelectCatalogCandidatesAsync(
         Uri catalogUri,
         WinPeArchitecture architecture,
         string languageCode,
@@ -276,7 +334,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         }
         catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or InvalidOperationException)
         {
-            return WinPeResult<IReadOnlyList<WinReSourceCandidate>>.Failure(new WinPeDiagnostic(
+            return WinPeResult<IReadOnlyList<WindowsSourceCandidate>>.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.OperatingSystemCatalogFetchFailed,
                 "Failed to download the operating system catalog.",
                 ex.Message,
@@ -284,16 +342,16 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         }
     }
 
-    private async Task<WinPeResult<WinReBootImagePreparationResult>> TryReplaceBootWimFromSourceAsync(
-        WinReBootImagePreparationOptions options,
-        WinReSourceCandidate candidate,
+    private async Task<WinPeResult<WinPeBootImagePreparationResult>> TryPrepareFromSourceAsync(
+        WinPeBootImagePreparationOptions options,
+        WindowsSourceCandidate candidate,
         CancellationToken cancellationToken)
     {
         string candidateName = PathSegment.Sanitize(candidate.RequestedEdition);
-        string sourceDirectory = Path.Combine(options.Artifact.WorkingDirectoryPath, $"winre-source-{candidateName}");
+        string sourceDirectory = Path.Combine(options.Artifact.WorkingDirectoryPath, $"windows-source-{candidateName}");
         string exportDirectory = Path.Combine(sourceDirectory, "export");
         string mountDirectory = Path.Combine(sourceDirectory, "install-mount");
-        string dependencyDirectory = Path.Combine(sourceDirectory, "wireless-support");
+        string dependencyDirectory = Path.Combine(sourceDirectory, "boot-dependencies");
         string installWimPath = Path.Combine(exportDirectory, "install.wim");
 
         WinPeMountSession? session = null;
@@ -301,7 +359,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         {
             DirectoryOperations.Recreate(sourceDirectory);
             Directory.CreateDirectory(exportDirectory);
-            ReportProgress(options.Progress, 5, "Preparing WinRE source package.");
+            ReportProgress(options.Progress, 5, "Preparing Windows source package.");
 
             WinPeResult<string> sourcePathResult = await EnsureDownloadedAsync(
                 options.CacheDirectoryPath,
@@ -311,56 +369,56 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
 
             if (!sourcePathResult.IsSuccess)
             {
-                return WinPeResult<WinReBootImagePreparationResult>.Failure(sourcePathResult.Error!);
+                return WinPeResult<WinPeBootImagePreparationResult>.Failure(sourcePathResult.Error!);
             }
 
-            ReportProgress(options.Progress, 16, "Resolving WinRE image index.");
+            ReportProgress(options.Progress, 16, "Resolving Windows image index.");
             WinPeResult<int> indexResult = await ResolveImageIndexAsync(
                 options.Tools.DismPath,
                 sourcePathResult.Value!,
                 candidate.RequestedEdition,
                 options.Artifact.WorkingDirectoryPath,
-                CreateDismProgress(options.Progress, 16, "Resolving WinRE image index."),
+                CreateDismProgress(options.Progress, 16, "Resolving Windows image index."),
                 cancellationToken).ConfigureAwait(false);
 
             if (!indexResult.IsSuccess)
             {
-                return WinPeResult<WinReBootImagePreparationResult>.Failure(indexResult.Error!);
+                return WinPeResult<WinPeBootImagePreparationResult>.Failure(indexResult.Error!);
             }
 
-            ReportProgress(options.Progress, 19, "Exporting Windows image for WinRE extraction.");
+            ReportProgress(options.Progress, 19, "Exporting Windows image for boot image preparation.");
             WinPeProcessExecution exportResult = await WinPeDismProcessRunner.RunAsync(
                 _processRunner,
                 options.Tools.DismPath,
                 $"/Export-Image /SourceImageFile:{WinPeProcessRunner.Quote(sourcePathResult.Value!)} /SourceIndex:{indexResult.Value} /DestinationImageFile:{WinPeProcessRunner.Quote(installWimPath)} /Compress:max /CheckIntegrity",
                 options.Artifact.WorkingDirectoryPath,
                 "Exporting Windows image with DISM.",
-                CreateDismProgress(options.Progress, 19, "Exporting Windows image for WinRE extraction."),
+                CreateDismProgress(options.Progress, 19, "Exporting Windows image for boot image preparation."),
                 cancellationToken).ConfigureAwait(false);
 
             if (!exportResult.IsSuccess)
             {
-                return WinPeResult<WinReBootImagePreparationResult>.Failure(exportResult.ToFailureDiagnostic(
+                return WinPeResult<WinPeBootImagePreparationResult>.Failure(exportResult.ToFailureDiagnostic(
                     WinPeErrorCodes.WinReExtractionFailed,
-                    $"Failed to export the {candidate.RequestedEdition} image from the WinRE source package.",
-                    stage: "Export WinRE source image",
+                    $"Failed to export the {candidate.RequestedEdition} image from the Windows source package.",
+                    stage: "Export Windows source image",
                     toolName: "dism.exe"));
             }
 
             if (!File.Exists(installWimPath))
             {
-                return WinPeResult<WinReBootImagePreparationResult>.Failure(new WinPeDiagnostic(
+                return WinPeResult<WinPeBootImagePreparationResult>.Failure(new WinPeDiagnostic(
                     WinPeErrorCodes.WinReExtractionFailed,
                     "DISM completed without producing the exported Windows image.",
                     exportResult.ToDiagnosticText(),
-                    stage: "Export WinRE source image",
+                    stage: "Export Windows source image",
                     exitCode: exportResult.ExitCode,
                     failureKind: WinPeFailureKinds.Process,
                     failureReason: WinPeFailureReasons.ArtifactMissing,
                     toolName: "dism.exe"));
             }
 
-            ReportProgress(options.Progress, 24, "Mounting WinRE source image.");
+            ReportProgress(options.Progress, 24, "Mounting Windows source image.");
             WinPeResult<WinPeMountSession> mountResult = await WinPeMountSession.MountAsync(
                 _processRunner,
                 options.Tools.DismPath,
@@ -368,16 +426,16 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                 mountDirectory,
                 options.Artifact.WorkingDirectoryPath,
                 cancellationToken,
-                CreateDismProgress(options.Progress, 24, "Mounting WinRE source image.")).ConfigureAwait(false);
+                CreateDismProgress(options.Progress, 24, "Mounting Windows source image.")).ConfigureAwait(false);
 
             if (!mountResult.IsSuccess)
             {
-                return WinPeResult<WinReBootImagePreparationResult>.Failure(mountResult.Error!);
+                return WinPeResult<WinPeBootImagePreparationResult>.Failure(mountResult.Error!);
             }
 
             session = mountResult.Value!;
             string winRePath = Path.Combine(mountDirectory, "Windows", "System32", "Recovery", "winre.wim");
-            if (!File.Exists(winRePath))
+            if (options.BootImageSource == WinPeBootImageSource.WinReWifi && !File.Exists(winRePath))
             {
                 return await FailWithDiscardAsync(
                     new WinPeDiagnostic(
@@ -388,30 +446,35 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                     cancellationToken).ConfigureAwait(false);
             }
 
-            ReportProgress(options.Progress, 27, "Staging WinRE Wi-Fi dependencies.");
-            WinPeResult<WinReBootImagePreparationResult> dependencyResult = PrepareWirelessDependencyFiles(
+            ReportProgress(options.Progress, 27, "Staging boot image dependencies.");
+            WinPeResult<WinPeBootImagePreparationResult> dependencyResult = PrepareDependencyFiles(
                 mountDirectory,
-                dependencyDirectory);
+                dependencyDirectory,
+                options.Artifact.Architecture,
+                options.BootImageSource);
 
             if (!dependencyResult.IsSuccess)
             {
                 return await FailWithDiscardAsync(dependencyResult.Error!, session, cancellationToken).ConfigureAwait(false);
             }
 
-            ReportProgress(options.Progress, 29, "Replacing boot image with WinRE.");
-            Directory.CreateDirectory(Path.GetDirectoryName(options.Artifact.BootWimPath)!);
-            File.Copy(winRePath, options.Artifact.BootWimPath, overwrite: true);
+            if (options.BootImageSource == WinPeBootImageSource.WinReWifi)
+            {
+                ReportProgress(options.Progress, 29, "Replacing boot image with WinRE.");
+                Directory.CreateDirectory(Path.GetDirectoryName(options.Artifact.BootWimPath)!);
+                File.Copy(winRePath, options.Artifact.BootWimPath, overwrite: true);
+            }
 
             WinPeResult discardResult = await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
             session = null;
             if (!discardResult.IsSuccess)
             {
-                return WinPeResult<WinReBootImagePreparationResult>.Failure(discardResult.Error!);
+                return WinPeResult<WinPeBootImagePreparationResult>.Failure(discardResult.Error!);
             }
 
             TryDeleteDirectory(exportDirectory);
             TryDeleteDirectory(mountDirectory);
-            ReportProgress(options.Progress, 30, "WinRE Wi-Fi boot image is ready.");
+            ReportProgress(options.Progress, 30, "Boot image dependencies are ready.");
             return dependencyResult;
         }
         catch (Exception ex)
@@ -421,16 +484,16 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                 return await FailWithDiscardAsync(
                     new WinPeDiagnostic(
                         WinPeErrorCodes.WinReExtractionFailed,
-                        "Failed to replace boot.wim with a WinRE Wi-Fi source image.",
+                        "Failed to prepare boot image dependencies from the Windows source image.",
                         ex.Message,
                         exception: ex),
                     session,
                     cancellationToken).ConfigureAwait(false);
             }
 
-            return WinPeResult<WinReBootImagePreparationResult>.Failure(new WinPeDiagnostic(
+            return WinPeResult<WinPeBootImagePreparationResult>.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.WinReExtractionFailed,
-                "Failed to replace boot.wim with a WinRE Wi-Fi source image.",
+                "Failed to prepare boot image dependencies from the Windows source image.",
                 ex.Message,
                 exception: ex));
         }
@@ -445,7 +508,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
 
     private async Task<WinPeResult<string>> EnsureDownloadedAsync(
         string cacheDirectoryPath,
-        WinReCatalogItem source,
+        WindowsSourceCatalogItem source,
         IProgress<WinPeDownloadProgress>? progress,
         CancellationToken cancellationToken)
     {
@@ -472,13 +535,13 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         {
             return WinPeResult<string>.Failure(
                 WinPeErrorCodes.DownloadFailed,
-                "The WinRE source package URL is invalid.",
+                "The Windows source package URL is invalid.",
                 source.Url);
         }
 
         try
         {
-            ReportDownloadProgress(progress, 0, "Downloading WinRE source package.");
+            ReportDownloadProgress(progress, 0, "Downloading Windows source package.");
             using HttpResponseMessage response = await _httpClient.GetAsync(
                 sourceUri,
                 HttpCompletionOption.ResponseHeadersRead,
@@ -511,7 +574,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             TryDeleteFile(temporaryDownloadPath);
             return WinPeResult<string>.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.DownloadFailed,
-                "Failed to download the WinRE source package.",
+                "Failed to download the Windows source package.",
                 ex.Message,
                 exception: ex));
         }
@@ -560,14 +623,14 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
                     ReportDownloadProgress(
                         progress,
                         downloadPercent,
-                        $"Downloading WinRE source package ({FormatBytes(copiedBytes)} / {FormatBytes(totalBytes.GetValueOrDefault())}).");
+                        $"Downloading Windows source package ({FormatBytes(copiedBytes)} / {FormatBytes(totalBytes.GetValueOrDefault())}).");
                     return;
                 }
 
                 ReportDownloadProgress(
                     progress,
                     null,
-                    $"Downloading WinRE source package ({FormatBytes(copiedBytes)} downloaded).");
+                    $"Downloading Windows source package ({FormatBytes(copiedBytes)}).");
             },
             cancellationToken).ConfigureAwait(false);
 
@@ -576,7 +639,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             ReportDownloadProgress(
                 progress,
                 100,
-                $"Downloading WinRE source package ({FormatBytes(bytesWritten)} / {FormatBytes(totalBytes.Value)}).");
+                $"Downloading Windows source package ({FormatBytes(bytesWritten)} / {FormatBytes(totalBytes.Value)}).");
         }
     }
 
@@ -593,7 +656,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             dismPath,
             $"/Get-ImageInfo /ImageFile:{WinPeProcessRunner.Quote(sourceImagePath)}",
             workingDirectory,
-            "Resolving WinRE image index with DISM.",
+            "Resolving Windows image index with DISM.",
             dismProgress,
             cancellationToken).ConfigureAwait(false);
 
@@ -601,21 +664,21 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         {
             return WinPeResult<int>.Failure(imageInfoResult.ToFailureDiagnostic(
                 WinPeErrorCodes.WinReIndexResolutionFailed,
-                "Failed to inspect the WinRE source package image indexes.",
-                stage: "Inspect WinRE source image",
+                "Failed to inspect the Windows source package image indexes.",
+                stage: "Inspect Windows source image",
                 toolName: "dism.exe"));
         }
 
         return ResolveImageIndexFromOutput(imageInfoResult.StandardOutput, requestedEdition);
     }
 
-    private static WinPeDiagnostic? ValidateOptions(WinReBootImagePreparationOptions? options)
+    private static WinPeDiagnostic? ValidateOptions(WinPeBootImagePreparationOptions? options)
     {
         if (options is null)
         {
             return new WinPeDiagnostic(
                 WinPeErrorCodes.ValidationFailed,
-                "WinRE boot image preparation options are required.");
+                "Boot image preparation options are required.");
         }
 
         if (string.IsNullOrWhiteSpace(options.Artifact.WorkingDirectoryPath))
@@ -643,13 +706,13 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         {
             return new WinPeDiagnostic(
                 WinPeErrorCodes.ValidationFailed,
-                "WinRE source cache directory path is required.");
+                "Windows source cache directory path is required.");
         }
 
         return null;
     }
 
-    private static string BuildCachedSourcePath(string cacheDirectoryPath, WinReCatalogItem source)
+    private static string BuildCachedSourcePath(string cacheDirectoryPath, WindowsSourceCatalogItem source)
     {
         string fileName = string.IsNullOrWhiteSpace(source.FileName)
             ? $"{source.ReleaseId}-{source.Architecture}-{source.LanguageCode}.esd"
@@ -660,7 +723,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             PathSegment.Sanitize(fileName));
     }
 
-    private static async Task<WinPeResult<WinReBootImagePreparationResult>> FailWithDiscardAsync(
+    private static async Task<WinPeResult<WinPeBootImagePreparationResult>> FailWithDiscardAsync(
         WinPeDiagnostic primaryDiagnostic,
         WinPeMountSession session,
         CancellationToken cancellationToken)
@@ -668,7 +731,7 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         WinPeResult discardResult = await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
         if (discardResult.IsSuccess)
         {
-            return WinPeResult<WinReBootImagePreparationResult>.Failure(primaryDiagnostic);
+            return WinPeResult<WinPeBootImagePreparationResult>.Failure(primaryDiagnostic);
         }
 
         string details = string.Join(
@@ -677,12 +740,12 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             "Discard diagnostics:",
             discardResult.Error?.Details ?? string.Empty).Trim();
 
-        return WinPeResult<WinReBootImagePreparationResult>.Failure(primaryDiagnostic with { Details = details });
+        return WinPeResult<WinPeBootImagePreparationResult>.Failure(primaryDiagnostic with { Details = details });
     }
 
-    private static WinReCatalogItem ParseCatalogItem(XElement item)
+    private static WindowsSourceCatalogItem ParseCatalogItem(XElement item)
     {
-        return new WinReCatalogItem
+        return new WindowsSourceCatalogItem
         {
             WindowsRelease = ReadElement(item, "WindowsRelease"),
             ReleaseId = ReadElement(item, "ReleaseId"),
@@ -690,7 +753,6 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
             BuildUbr = ParseInt(ReadElement(item, "BuildUbr")),
             Architecture = NormalizeArchitecture(ReadElement(item, "Architecture")),
             LanguageCode = ReadElement(item, "LanguageCode"),
-            Edition = ReadElement(item, "Edition"),
             ClientType = ReadElement(item, "ClientType"),
             LicenseChannel = ReadElement(item, "LicenseChannel"),
             FileName = ReadElement(item, "FileName"),
@@ -812,8 +874,8 @@ public sealed partial class WinReBootImagePreparationService : IWinReBootImagePr
         };
     }
 
-    private static WinReCatalogItem? SelectPreferredSourceItem(
-        IEnumerable<WinReCatalogItem> items,
+    private static WindowsSourceCatalogItem? SelectPreferredSourceItem(
+        IEnumerable<WindowsSourceCatalogItem> items,
         string clientType)
     {
         return items

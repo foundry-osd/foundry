@@ -2900,6 +2900,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
     <value>Dilin ve isteğe bağlı bileşenlerin uygulanması.</value>
   </data>
+  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
+    <value>Önyükleme görüntüsü bağımlılıkları hazır.</value>
+  </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>WinPE çalışma alanı oluşturuluyor.</value>
   </data>
@@ -2960,8 +2963,8 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
     <value>DISM ile montaj görüntüsü.</value>
   </data>
-  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
-    <value>DISM ile WinRE görüntü dizini çözümleniyor.</value>
+  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
+    <value>DISM ile Windows görüntü dizini çözümleniyor.</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
     <value>İçerik indiriliyor.</value>
@@ -2972,14 +2975,14 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>{0} dağıtım bileşenleri indiriliyor.</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
-    <value>WinRE kaynak paketi indiriliyor.</value>
+  <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
+    <value>Windows kaynak paketi indiriliyor.</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
     <value>Önyükleme imza ilkesinin değerlendirilmesi.</value>
   </data>
-  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
-    <value>WinRE çıkartması için Windows görüntüsü dışa aktarılıyor.</value>
+  <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
+    <value>Önyükleme görüntüsünü hazırlamak için Windows görüntüsü dışa aktarılıyor.</value>
   </data>
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
     <value>Son medya oluşturma işlemi başarısız oldu.</value>
@@ -3014,8 +3017,8 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Önyükleme görüntüsünün montajı.</value>
   </data>
-  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
-    <value>WinRE kaynak görüntüsünün montajı.</value>
+  <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
+    <value>Windows kaynak görüntüsünün montajı.</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
     <value>USB diski açılıyor.</value>
@@ -3038,8 +3041,8 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
     <value>USB disk nitelikleri hazırlanıyor.</value>
   </data>
-  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
-    <value>WinRE kaynak paketinin hazırlanması.</value>
+  <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
+    <value>Windows kaynak paketinin hazırlanması.</value>
   </data>
   <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
     <value>WinPE çalışma alanı hazırlanıyor.</value>
@@ -3059,20 +3062,20 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
     <value>Sürücü paketlerinin çözümlenmesi.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
-    <value>WinRE görüntü dizini çözümleniyor.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Windows görüntü dizini çözümleniyor.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
-    <value>WinRE kaynak kataloğunun çözümlenmesi.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
+    <value>Windows kaynak kataloğunun çözümlenmesi.</value>
   </data>
   <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
     <value>ISO için MakeWinPEMedia'yı çalıştırma.</value>
   </data>
-  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
-    <value>Seçilen WinRE kaynak paketi.</value>
+  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
+    <value>Seçilen Windows kaynak paketi.</value>
   </data>
-  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
-    <value>WinRE Wi-Fi bağımlılıklarını hazırlama.</value>
+  <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
+    <value>Önyükleme görüntüsü bağımlılıkları hazırlanıyor.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>USB medyası güncelleniyor.</value>
@@ -3092,23 +3095,11 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
     <value>USB önyükleme bölümü başarıyla güncellendi. Önyükleme birimi: {0}. Önbellek birimi: {1}.</value>
   </data>
-  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Önbelleğe alınmış WinRE kaynak paketini kullanma.</value>
-  </data>
-  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Önbelleğe alınmış WinRE kaynak paketi doğrulanıyor.</value>
-  </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB hedefi doğrulanıyor.</value>
   </data>
-  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
-    <value>WinRE kaynak paketi doğrulanıyor.</value>
-  </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>USB önyükleme ortamı doğrulanıyor.</value>
-  </data>
-  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
-    <value>WinRE Wi-Fi önyükleme görüntüsü hazır.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Hazırlığı gözden geçirin, ISO veya USB çıktısını seçin ve medya oluşturmayı başlatın.</value>
