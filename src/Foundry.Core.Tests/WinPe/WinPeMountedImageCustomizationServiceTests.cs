@@ -21,7 +21,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         List<string> provisioningOrder = [];
         var assetProvisioning = new FakeAssetProvisioningService { OnProvision = () => provisioningOrder.Add("assets") };
         var runtimePayloadProvisioning = new FakeRuntimePayloadProvisioningService { OnProvision = () => provisioningOrder.Add("runtime") };
-        var winRePreparation = new FakeWinRePreparationService();
+        var winRePreparation = new FakeBootImagePreparationService();
         var service = new WinPeMountedImageCustomizationService(
             runner,
             driverInjection,
@@ -84,7 +84,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             new FakeInternationalizationService(WinPeResult.Failure(diagnostic)),
             new FakeAssetProvisioningService(),
             new FakeRuntimePayloadProvisioningService(),
-            new FakeWinRePreparationService());
+            new FakeBootImagePreparationService());
 
         WinPeResult result = await service.CustomizeAsync(
             new WinPeMountedImageCustomizationOptions
@@ -138,11 +138,11 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             new FakeInternationalizationService(),
             new FakeAssetProvisioningService(),
             new FakeRuntimePayloadProvisioningService(),
-            new FakeWinRePreparationService(new WinReBootImagePreparationResult
+            new FakeBootImagePreparationService(new WinPeBootImagePreparationResult
             {
                 DependencyFiles =
                 [
-                    new WinReDependencyFile
+                    new WinPeDependencyFile
                     {
                         FileName = "dmcmnutils.dll",
                         StagedPath = stagedDependency
@@ -164,6 +164,129 @@ public sealed class WinPeMountedImageCustomizationServiceTests
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.Single(driverInjection.Options);
+    }
+
+    [Theory]
+    [InlineData(WinPeBootImageSource.WinPe)]
+    [InlineData(WinPeBootImageSource.WinReWifi)]
+    public async Task CustomizeAsync_ForArm64_PreparesOnceAndPreservesGraphicsProvidedByOptionalComponents(WinPeBootImageSource bootImageSource)
+    {
+        using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        string stagedPath = Path.Combine(temp.RootPath, "d3dcompiler_47.dll");
+        File.WriteAllText(stagedPath, "graphics dependency");
+        string system32 = Path.Combine(temp.Artifact.MountDirectoryPath, "Windows", "System32");
+        Directory.CreateDirectory(system32);
+        string shellPath = Path.Combine(system32, "winpeshl.ini");
+        File.WriteAllText(shellPath, "original shell");
+        var preparation = new FakeBootImagePreparationService(new WinPeBootImagePreparationResult
+        {
+            DependencyFiles =
+            [
+                new WinPeDependencyFile { FileName = "d3dcompiler_47.dll", StagedPath = stagedPath, OverwriteExisting = false },
+                new WinPeDependencyFile { FileName = "dwrite.dll", StagedPath = stagedPath, OverwriteExisting = false }
+            ]
+        });
+        var runner = new FakeCustomizationRunner();
+        var service = new WinPeMountedImageCustomizationService(
+            runner,
+            new FakeDriverInjectionService(),
+            new FakeInternationalizationService
+            {
+                OnApply = () =>
+                {
+                    Assert.False(File.Exists(Path.Combine(system32, "d3dcompiler_47.dll")));
+                    File.WriteAllText(Path.Combine(system32, "dwrite.dll"), "optional component");
+                }
+            },
+            new FakeAssetProvisioningService(),
+            new FakeRuntimePayloadProvisioningService(),
+            preparation);
+
+        WinPeResult result = await service.CustomizeAsync(new WinPeMountedImageCustomizationOptions
+        {
+            Artifact = temp.Artifact with { Architecture = WinPeArchitecture.Arm64 },
+            Tools = temp.Tools,
+            BootImageSource = bootImageSource,
+            WinPeLanguage = "fr-FR",
+            WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache")
+        }, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        WinPeBootImagePreparationOptions sourceOptions = Assert.Single(preparation.Options);
+        Assert.Equal(bootImageSource, sourceOptions.BootImageSource);
+        Assert.Equal(WinPeArchitecture.Arm64, sourceOptions.Artifact.Architecture);
+        Assert.Equal("fr-FR", sourceOptions.WinPeLanguage);
+        Assert.Equal(Path.Combine(temp.RootPath, "cache"), sourceOptions.CacheDirectoryPath);
+        Assert.Equal("graphics dependency", File.ReadAllText(Path.Combine(system32, "d3dcompiler_47.dll")));
+        Assert.Equal("optional component", File.ReadAllText(Path.Combine(system32, "dwrite.dll")));
+        Assert.Equal(bootImageSource == WinPeBootImageSource.WinPe, File.Exists(shellPath));
+        Assert.Single(runner.Executions, item => item.Arguments.Contains("/Mount-Image", StringComparison.Ordinal));
+        Assert.Single(runner.Executions, item => item.Arguments.Contains("/Commit", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task CustomizeAsync_WhenStagedGraphicsFileIsMissing_DiscardsBootImageWithoutCommit()
+    {
+        using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        var runner = new FakeCustomizationRunner();
+        var service = new WinPeMountedImageCustomizationService(
+            runner,
+            new FakeDriverInjectionService(),
+            new FakeInternationalizationService(),
+            new FakeAssetProvisioningService(),
+            new FakeRuntimePayloadProvisioningService(),
+            new FakeBootImagePreparationService(new WinPeBootImagePreparationResult
+            {
+                DependencyFiles =
+                [
+                    new WinPeDependencyFile
+                    {
+                        FileName = "d3dcompiler_47.dll",
+                        StagedPath = Path.Combine(temp.RootPath, "missing.dll"),
+                        OverwriteExisting = false
+                    }
+                ]
+            }));
+
+        WinPeResult result = await service.CustomizeAsync(new WinPeMountedImageCustomizationOptions
+        {
+            Artifact = temp.Artifact with { Architecture = WinPeArchitecture.Arm64 },
+            Tools = temp.Tools,
+            WinPeLanguage = "en-US",
+            WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache")
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Contains("d3dcompiler_47.dll", result.Error?.Message);
+        Assert.Single(runner.Executions, item => item.Arguments.Contains("/Discard", StringComparison.Ordinal));
+        Assert.DoesNotContain(runner.Executions, item => item.Arguments.Contains("/Commit", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task CustomizeAsync_WhenArm64SourcePreparationFails_DoesNotMountBootImage()
+    {
+        using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        var runner = new FakeCustomizationRunner();
+        var diagnostic = new WinPeDiagnostic(WinPeErrorCodes.WinReExtractionFailed, "source unavailable");
+        var service = new WinPeMountedImageCustomizationService(
+            runner,
+            new FakeDriverInjectionService(),
+            new FakeInternationalizationService(),
+            new FakeAssetProvisioningService(),
+            new FakeRuntimePayloadProvisioningService(),
+            new FakeBootImagePreparationService { Failure = diagnostic });
+
+        WinPeResult result = await service.CustomizeAsync(new WinPeMountedImageCustomizationOptions
+        {
+            Artifact = temp.Artifact with { Architecture = WinPeArchitecture.Arm64 },
+            Tools = temp.Tools,
+            WinPeLanguage = "en-US",
+            WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache")
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Same(diagnostic, result.Error);
+        Assert.Empty(runner.Executions);
     }
 
     private sealed class TempWinPeArtifact : IDisposable
@@ -280,11 +403,13 @@ public sealed class WinPeMountedImageCustomizationServiceTests
     private sealed class FakeInternationalizationService(WinPeResult? result = null) : IWinPeImageInternationalizationService
     {
         public List<WinPeImageInternationalizationOptions> Options { get; } = [];
+        public Action? OnApply { get; init; }
 
         public Task<WinPeResult> ApplyAsync(
             WinPeImageInternationalizationOptions options,
             CancellationToken cancellationToken = default)
         {
+            OnApply?.Invoke();
             Options.Add(options);
             return Task.FromResult(result ?? WinPeResult.Success());
         }
@@ -329,17 +454,23 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         }
     }
 
-    private sealed class FakeWinRePreparationService(WinReBootImagePreparationResult? result = null) : IWinReBootImagePreparationService
+    private sealed class FakeBootImagePreparationService(WinPeBootImagePreparationResult? result = null) : IWinPeBootImagePreparationService
     {
-        public bool WasCalled { get; private set; }
+        public bool WasCalled => Options.Count > 0;
+        public List<WinPeBootImagePreparationOptions> Options { get; } = [];
+        public WinPeDiagnostic? Failure { get; init; }
 
-        public Task<WinPeResult<WinReBootImagePreparationResult>> ReplaceBootWimAsync(
-            WinReBootImagePreparationOptions options,
+        public Task<WinPeResult<WinPeBootImagePreparationResult>> PrepareAsync(
+            WinPeBootImagePreparationOptions options,
             CancellationToken cancellationToken = default)
         {
-            WasCalled = true;
-            return Task.FromResult(WinPeResult<WinReBootImagePreparationResult>.Success(
-                result ?? new WinReBootImagePreparationResult
+            Options.Add(options);
+            if (Failure is not null)
+            {
+                return Task.FromResult(WinPeResult<WinPeBootImagePreparationResult>.Failure(Failure));
+            }
+            return Task.FromResult(WinPeResult<WinPeBootImagePreparationResult>.Success(
+                result ?? new WinPeBootImagePreparationResult
                 {
                     DependencyFiles = []
                 }));

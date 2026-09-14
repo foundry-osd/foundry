@@ -62,6 +62,8 @@ Operating system, driver pack, firmware, and WinPE metadata come from the mainta
 
 > [!NOTE]
 > Foundry OSD runs on Windows 10 and Windows 11. It creates x64 or ARM64 deployment media using the Windows ADK and matching Windows PE add-on. Available Windows releases are catalog-driven; check [Supported versions](https://docs.foundryosd.com/reference/supported-versions) before deployment.
+>
+> For ARM64 media, Foundry automatically downloads and caches a Windows 11 24H2 image matching the boot language to prepare the required graphics dependencies. This uses the same Windows source as Wi-Fi media preparation; enabling both prepares their dependencies from one mounted source image. The Windows SDK is not required.
 
 > [!IMPORTANT]
 > Creating USB media erases the selected USB device. Deploying Windows can erase or repartition the selected target disk. Validate your configuration and test it on representative hardware before production use.

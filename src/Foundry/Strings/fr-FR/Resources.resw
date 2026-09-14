@@ -2900,6 +2900,9 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
     <value>Application de la langue et des composants optionnels.</value>
   </data>
+  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
+    <value>Les dépendances de l'image de démarrage sont prêtes.</value>
+  </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>Création de l'espace de travail WinPE.</value>
   </data>
@@ -2960,8 +2963,8 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
     <value>Montage de l'image avec DISM.</value>
   </data>
-  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
-    <value>Résolution de l'index de l'image WinRE avec DISM.</value>
+  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Résolution de l'index de l'image Windows avec DISM.</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
     <value>Téléchargement du contenu.</value>
@@ -2972,14 +2975,14 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Téléchargement des composants de déploiement {0}.</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
-    <value>Téléchargement du package source WinRE.</value>
+  <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
+    <value>Téléchargement du package source Windows.</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
     <value>Évaluation de la stratégie de signature de démarrage.</value>
   </data>
-  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
-    <value>Export de l'image Windows pour l'extraction WinRE.</value>
+  <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
+    <value>Exportation de l'image Windows pour préparer l'image de démarrage.</value>
   </data>
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
     <value>La création du média final a échoué.</value>
@@ -3014,8 +3017,8 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Montage de l'image de démarrage.</value>
   </data>
-  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
-    <value>Montage de l'image source WinRE.</value>
+  <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
+    <value>Montage de l'image source Windows.</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
     <value>Ouverture du disque USB.</value>
@@ -3038,8 +3041,8 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
     <value>Préparation des attributs du disque USB.</value>
   </data>
-  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
-    <value>Préparation du package source WinRE.</value>
+  <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
+    <value>Préparation du package source Windows.</value>
   </data>
   <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
     <value>Préparation de l'espace de travail WinPE.</value>
@@ -3059,20 +3062,20 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
     <value>Résolution des packages de pilotes.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
-    <value>Résolution de l'index de l'image WinRE.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Résolution de l'index de l'image Windows.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
-    <value>Résolution du catalogue source WinRE.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
+    <value>Résolution du catalogue source Windows.</value>
   </data>
   <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
     <value>Exécution de MakeWinPEMedia pour l'ISO.</value>
   </data>
-  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
-    <value>Package source WinRE sélectionné.</value>
+  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
+    <value>Package source Windows sélectionné.</value>
   </data>
-  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
-    <value>Préparation des dépendances Wi-Fi WinRE.</value>
+  <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
+    <value>Préparation des dépendances de l'image de démarrage.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Mise à jour du support USB.</value>
@@ -3092,23 +3095,11 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
     <value>La partition de démarrage USB a été mise à jour avec succès. Volume de démarrage : {0}. Volume de cache : {1}.</value>
   </data>
-  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Utilisation du package source WinRE en cache.</value>
-  </data>
-  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Validation du package source WinRE en cache.</value>
-  </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Validation de la cible USB.</value>
   </data>
-  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
-    <value>Validation du package source WinRE.</value>
-  </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Vérification du média de démarrage USB.</value>
-  </data>
-  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
-    <value>L'image de démarrage WinRE Wi-Fi est prête.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Vérifiez la disponibilité, choisissez une sortie ISO ou USB, puis démarrez la création du média.</value>

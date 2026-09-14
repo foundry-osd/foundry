@@ -60,12 +60,12 @@ public sealed record WinPeWorkspacePreparationOptions
     public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
 
     /// <summary>
-    /// Gets the cache directory used for WinRE sources when recovery media support is required.
+    /// Gets the Windows source cache shared by Wi-Fi and ARM64 boot image preparation.
     /// </summary>
     public string WinReCacheDirectoryPath { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets the optional WinRE catalog URI used to resolve downloadable recovery sources.
+    /// Gets the optional catalog URI used to resolve Windows sources for Wi-Fi and ARM64 dependencies.
     /// </summary>
     public Uri? WinReCatalogUri { get; init; }
 

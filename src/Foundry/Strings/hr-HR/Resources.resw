@@ -2900,6 +2900,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
     <value>Primjena jezika i izbornih komponenti.</value>
   </data>
+  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
+    <value>Ovisnosti slike za pokretanje su spremne.</value>
+  </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>Stvaranje WinPE radnog prostora.</value>
   </data>
@@ -2960,8 +2963,8 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
     <value>Slika montiranja s DISM.</value>
   </data>
-  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
-    <value>Rješavanje WinRE indeksa slika pomoću DISM.</value>
+  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Rješavanje Windows indeksa slika pomoću DISM.</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
     <value>Preuzimanje sadržaja.</value>
@@ -2972,14 +2975,14 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Preuzimanje {0} komponenti za implementaciju.</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
-    <value>Preuzimanje WinRE izvornog paketa.</value>
+  <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
+    <value>Preuzimanje Windows izvornog paketa.</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
     <value>Procjena politike potpisivanja pokretanja.</value>
   </data>
-  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
-    <value>Izvoz Windows slike za WinRE ekstrakciju.</value>
+  <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
+    <value>Izvoz slike sustava Windows za pripremu slike za pokretanje.</value>
   </data>
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
     <value>Konačna izrada medija nije uspjela.</value>
@@ -3014,8 +3017,8 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Postavljanje slike za pokretanje.</value>
   </data>
-  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
-    <value>Postavljanje WinRE izvorne slike.</value>
+  <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
+    <value>Postavljanje Windows izvorne slike.</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
     <value>Otvaranje USB diska.</value>
@@ -3038,8 +3041,8 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
     <value>Priprema USB atributa diska.</value>
   </data>
-  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
-    <value>Priprema WinRE izvornog paketa.</value>
+  <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
+    <value>Priprema Windows izvornog paketa.</value>
   </data>
   <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
     <value>Priprema WinPE radnog prostora.</value>
@@ -3059,20 +3062,20 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
     <value>Rješavanje paketa upravljačkih programa.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
-    <value>Rješavanje WinRE indeksa slika.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Rješavanje Windows indeksa slika.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
-    <value>Rješavanje WinRE izvornog kataloga.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
+    <value>Rješavanje Windows izvornog kataloga.</value>
   </data>
   <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
     <value>Pokretanje MakeWinPEMedia za ISO.</value>
   </data>
-  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
-    <value>Odabrani WinRE izvorni paket.</value>
+  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
+    <value>Odabrani Windows izvorni paket.</value>
   </data>
-  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
-    <value>Postavljanje WinRE Wi-Fi ovisnosti.</value>
+  <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
+    <value>Priprema ovisnosti slike za pokretanje.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Ažuriranje USB medija.</value>
@@ -3092,23 +3095,11 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
     <value>USB particija za pokretanje uspješno je ažurirana. Volumen za pokretanje: {0}. Volumen predmemorije: {1}.</value>
   </data>
-  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Korištenje predmemoriranog WinRE izvornog paketa.</value>
-  </data>
-  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Provjera valjanosti predmemoriranog WinRE izvornog paketa.</value>
-  </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Potvrđivanje cilja USB.</value>
   </data>
-  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
-    <value>Provjera WinRE izvornog paketa.</value>
-  </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Provjera USB medija za pokretanje.</value>
-  </data>
-  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
-    <value>Slika za pokretanje WinRE Wi-Fi je spremna.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pregledajte spremnost, odaberite ISO ili USB izlaz i pokrenite stvaranje medija.</value>

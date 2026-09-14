@@ -2900,6 +2900,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
     <value>Aplicarea limbajului și a componentelor opționale.</value>
   </data>
+  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
+    <value>Dependențele imaginii de pornire sunt pregătite.</value>
+  </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>Se creează WinPE spațiu de lucru.</value>
   </data>
@@ -2960,8 +2963,8 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
     <value>Imagine de montare cu DISM.</value>
   </data>
-  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
-    <value>Rezolvarea indexului imaginii WinRE cu DISM.</value>
+  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Rezolvarea indexului imaginii Windows cu DISM.</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
     <value>Descărcarea conținutului.</value>
@@ -2972,14 +2975,14 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Descărcarea componentelor de implementare {0}.</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
-    <value>Se descarcă pachetul sursă WinRE.</value>
+  <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
+    <value>Se descarcă pachetul sursă Windows.</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
     <value>Evaluarea politicii de semnătură de boot.</value>
   </data>
-  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
-    <value>Se exportă imaginea Windows pentru extragerea WinRE.</value>
+  <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
+    <value>Se exportă imaginea Windows pentru pregătirea imaginii de pornire.</value>
   </data>
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
     <value>Crearea finală a conținutului media nu a reușit.</value>
@@ -3014,8 +3017,8 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Montarea imaginii boot.</value>
   </data>
-  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
-    <value>Montarea imaginii sursă WinRE.</value>
+  <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
+    <value>Montarea imaginii sursă Windows.</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
     <value>Deschiderea discului USB.</value>
@@ -3038,8 +3041,8 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
     <value>Se pregătesc atributele discului USB.</value>
   </data>
-  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
-    <value>Se pregătește pachetul sursă WinRE.</value>
+  <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
+    <value>Se pregătește pachetul sursă Windows.</value>
   </data>
   <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
     <value>Se pregătește spațiul de lucru WinPE.</value>
@@ -3059,20 +3062,20 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
     <value>Rezolvarea pachetelor de drivere.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
-    <value>Rezolvarea indexului de imagine WinRE.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Rezolvarea indexului de imagine Windows.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
-    <value>Rezolvarea catalogului sursă WinRE.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
+    <value>Rezolvarea catalogului sursă Windows.</value>
   </data>
   <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
     <value>Rularea MakeWinPEMedia pentru ISO.</value>
   </data>
-  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
-    <value>Pachetul sursă WinRE selectat.</value>
+  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
+    <value>Pachetul sursă Windows selectat.</value>
   </data>
-  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
-    <value>Staging WinRE Wi-Fi dependențe.</value>
+  <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
+    <value>Se pregătesc dependențele imaginii de pornire.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Se actualizează suportul USB.</value>
@@ -3092,23 +3095,11 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
     <value>Partiția de pornire USB a fost actualizată cu succes. Volum de pornire: {0}. Volum cache: {1}.</value>
   </data>
-  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Folosind pachetul sursă WinRE stocat în cache.</value>
-  </data>
-  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Validarea pachetului sursă WinRE stocat în cache.</value>
-  </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Se validează USB ținta.</value>
   </data>
-  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
-    <value>Validarea pachetului sursă WinRE.</value>
-  </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Se verifică USB suportul de pornire.</value>
-  </data>
-  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
-    <value>Imaginea de pornire WinRE Wi-Fi este gata.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revizuiți starea, alegeți ieșirea ISO sau USB și porniți crearea suportului.</value>

@@ -45,17 +45,17 @@ public sealed record WinPeMountedImageCustomizationOptions
     public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
 
     /// <summary>
-    /// Gets the cache path used for WinRE downloads.
+    /// Gets the Windows source cache shared by Wi-Fi and ARM64 boot image preparation.
     /// </summary>
     public string WinReCacheDirectoryPath { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets the optional WinRE catalog URI.
+    /// Gets the optional Windows source catalog URI for Wi-Fi and ARM64 dependencies.
     /// </summary>
     public Uri? WinReCatalogUri { get; init; }
 
     /// <summary>
-    /// Gets download progress callbacks for WinRE and driver artifacts.
+    /// Gets download progress callbacks for Windows source and driver artifacts.
     /// </summary>
     public IProgress<WinPeDownloadProgress>? DownloadProgress { get; init; }
 

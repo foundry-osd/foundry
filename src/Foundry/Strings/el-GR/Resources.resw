@@ -2900,6 +2900,9 @@
   <data name="StartMedia.Operation.ApplyingLanguageAndComponents" xml:space="preserve">
     <value>Εφαρμογή γλώσσας και προαιρετικών στοιχείων.</value>
   </data>
+  <data name="StartMedia.Operation.BootImageDependenciesReady" xml:space="preserve">
+    <value>Οι εξαρτήσεις της εικόνας εκκίνησης είναι έτοιμες.</value>
+  </data>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>Δημιουργία χώρου εργασίας WinPE.</value>
   </data>
@@ -2960,8 +2963,8 @@
   <data name="StartMedia.Operation.DismMountingImage" xml:space="preserve">
     <value>Τοποθέτηση εικόνας με DISM.</value>
   </data>
-  <data name="StartMedia.Operation.DismResolvingWinReImageIndex" xml:space="preserve">
-    <value>Επίλυση ευρετηρίου εικόνας WinRE με DISM.</value>
+  <data name="StartMedia.Operation.DismResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Επίλυση ευρετηρίου εικόνας Windows με DISM.</value>
   </data>
   <data name="StartMedia.Operation.Downloading" xml:space="preserve">
     <value>Λήψη περιεχομένου.</value>
@@ -2972,14 +2975,14 @@
   <data name="StartMedia.Operation.DownloadingRuntimePayloadFormat" xml:space="preserve">
     <value>Λήψη στοιχείων ανάπτυξης {0}.</value>
   </data>
-  <data name="StartMedia.Operation.DownloadingWinReSourcePackage" xml:space="preserve">
-    <value>Λήψη πακέτου πηγής WinRE.</value>
+  <data name="StartMedia.Operation.DownloadingWindowsSourcePackage" xml:space="preserve">
+    <value>Λήψη πακέτου πηγής Windows.</value>
   </data>
   <data name="StartMedia.Operation.EvaluatingSignaturePolicy" xml:space="preserve">
     <value>Αξιολόγηση της πολιτικής υπογραφής εκκίνησης.</value>
   </data>
-  <data name="StartMedia.Operation.ExportingWinReSourceImage" xml:space="preserve">
-    <value>Εξαγωγή εικόνας Windows για εξαγωγή WinRE.</value>
+  <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
+    <value>Εξαγωγή εικόνας Windows για την προετοιμασία της εικόνας εκκίνησης.</value>
   </data>
   <data name="StartMedia.Operation.Failed" xml:space="preserve">
     <value>Η τελική δημιουργία πολυμέσων απέτυχε.</value>
@@ -3014,8 +3017,8 @@
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Εικόνα μπότας τοποθέτησης.</value>
   </data>
-  <data name="StartMedia.Operation.MountingWinReSourceImage" xml:space="preserve">
-    <value>Τοποθέτηση εικόνας πηγής WinRE.</value>
+  <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
+    <value>Τοποθέτηση εικόνας πηγής Windows.</value>
   </data>
   <data name="StartMedia.Operation.OpeningUsbDisk" xml:space="preserve">
     <value>Άνοιγμα του δίσκου USB.</value>
@@ -3038,8 +3041,8 @@
   <data name="StartMedia.Operation.PreparingUsbDiskAttributes" xml:space="preserve">
     <value>Προετοιμασία χαρακτηριστικών δίσκου USB.</value>
   </data>
-  <data name="StartMedia.Operation.PreparingWinReSourcePackage" xml:space="preserve">
-    <value>Προετοιμασία πακέτου πηγής WinRE.</value>
+  <data name="StartMedia.Operation.PreparingWindowsSourcePackage" xml:space="preserve">
+    <value>Προετοιμασία πακέτου πηγής Windows.</value>
   </data>
   <data name="StartMedia.Operation.PreparingWorkspace" xml:space="preserve">
     <value>Προετοιμασία του χώρου εργασίας WinPE.</value>
@@ -3059,20 +3062,20 @@
   <data name="StartMedia.Operation.ResolvingDrivers" xml:space="preserve">
     <value>Επίλυση πακέτων προγραμμάτων οδήγησης.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReImageIndex" xml:space="preserve">
-    <value>Επίλυση ευρετηρίου εικόνας WinRE.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsImageIndex" xml:space="preserve">
+    <value>Επίλυση ευρετηρίου εικόνας Windows.</value>
   </data>
-  <data name="StartMedia.Operation.ResolvingWinReSourceCatalog" xml:space="preserve">
-    <value>Επίλυση καταλόγου πηγών WinRE.</value>
+  <data name="StartMedia.Operation.ResolvingWindowsSourceCatalog" xml:space="preserve">
+    <value>Επίλυση καταλόγου πηγών Windows.</value>
   </data>
   <data name="StartMedia.Operation.RunningMakeWinPeMediaIso" xml:space="preserve">
     <value>Εκτέλεση του MakeWinPEMedia για ISO.</value>
   </data>
-  <data name="StartMedia.Operation.SelectedWinReSourcePackage" xml:space="preserve">
-    <value>Επιλεγμένο πακέτο πηγής WinRE.</value>
+  <data name="StartMedia.Operation.SelectedWindowsSourcePackage" xml:space="preserve">
+    <value>Επιλεγμένο πακέτο πηγής Windows.</value>
   </data>
-  <data name="StartMedia.Operation.StagingWinReWifiDependencies" xml:space="preserve">
-    <value>Σταδιοποίηση εξαρτήσεων WinRE Wi-Fi.</value>
+  <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
+    <value>Προετοιμασία εξαρτήσεων της εικόνας εκκίνησης.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Ενημέρωση μέσου USB.</value>
@@ -3092,23 +3095,11 @@
   <data name="StartMedia.Operation.UsbUpdateSuccessMessage" xml:space="preserve">
     <value>Το διαμέρισμα εκκίνησης USB ενημερώθηκε με επιτυχία. Τόμος εκκίνησης: {0}. Τόμος cache: {1}.</value>
   </data>
-  <data name="StartMedia.Operation.UsingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Χρησιμοποιώντας προσωρινά αποθηκευμένο πακέτο πηγής WinRE.</value>
-  </data>
-  <data name="StartMedia.Operation.ValidatingCachedWinReSourcePackage" xml:space="preserve">
-    <value>Επικύρωση αποθηκευμένου πακέτου πηγής WinRE.</value>
-  </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Επικύρωση στόχου USB.</value>
   </data>
-  <data name="StartMedia.Operation.ValidatingWinReSourcePackage" xml:space="preserve">
-    <value>Επικύρωση πακέτου πηγής WinRE.</value>
-  </data>
   <data name="StartMedia.Operation.VerifyingUsbMedia" xml:space="preserve">
     <value>Επαλήθευση μέσων εκκίνησης USB.</value>
-  </data>
-  <data name="StartMedia.Operation.WinReWifiBootImageReady" xml:space="preserve">
-    <value>Η εικόνα εκκίνησης WinRE Wi-Fi είναι έτοιμη.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Ελέγξτε την ετοιμότητα, επιλέξτε έξοδο ISO ή USB και ξεκινήστε τη δημιουργία μέσου.</value>
