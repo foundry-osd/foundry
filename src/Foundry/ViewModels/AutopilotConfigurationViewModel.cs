@@ -12,6 +12,7 @@ using Foundry.Core.Services.Configuration;
 using Foundry.Services.Autopilot;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
+using Microsoft.Identity.Client;
 using Microsoft.UI.Xaml;
 using Serilog;
 
@@ -547,6 +548,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             logger.Information("Autopilot tenant download was canceled.");
             return;
         }
+        catch (AuthenticationFailedException ex) when (ex.InnerException is MsalClientException { ErrorCode: MsalError.AuthenticationCanceledError })
+        {
+            logger.Warning("Autopilot tenant download was canceled during authentication.");
+        }
         catch (Exception ex) when (ex is InvalidOperationException or HttpRequestException or JsonException or AuthenticationFailedException)
         {
             string failureMessage = localizationService.FormatString("Autopilot.DownloadFailedFormat", ex.Message);
@@ -649,6 +654,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                     CreateTenantOnboardingResultMessage(result.Status)));
             }
         }
+        catch (AuthenticationFailedException ex) when (ex.InnerException is MsalClientException { ErrorCode: MsalError.AuthenticationCanceledError })
+        {
+            logger.Warning("Autopilot hardware hash tenant onboarding was canceled during authentication.");
+        }
         catch (Exception ex) when (ex is AuthenticationFailedException or HttpRequestException or InvalidOperationException or JsonException)
         {
             logger.Error(ex, "Autopilot hardware hash tenant onboarding failed.");
@@ -698,6 +707,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                 result.Certificates.Count);
 
             await certificateDialogService.ShowCreatedAsync(outputPath, result.GeneratedPassword);
+        }
+        catch (AuthenticationFailedException ex) when (ex.InnerException is MsalClientException { ErrorCode: MsalError.AuthenticationCanceledError })
+        {
+            logger.Warning("Autopilot hardware hash certificate creation was canceled during authentication.");
         }
         catch (Exception ex) when (ex is AuthenticationFailedException or HttpRequestException or InvalidOperationException or IOException or UnauthorizedAccessException)
         {
@@ -761,6 +774,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                 "Autopilot hardware hash certificate retirement completed. RemovedCertificateCount={RemovedCertificateCount}, RemainingCertificateCount={RemainingCertificateCount}",
                 certificatesToRemove.Length,
                 result.Certificates.Count);
+        }
+        catch (AuthenticationFailedException ex) when (ex.InnerException is MsalClientException { ErrorCode: MsalError.AuthenticationCanceledError })
+        {
+            logger.Warning("Autopilot hardware hash certificate retirement was canceled during authentication.");
         }
         catch (Exception ex) when (ex is AuthenticationFailedException or HttpRequestException or InvalidOperationException or JsonException)
         {
