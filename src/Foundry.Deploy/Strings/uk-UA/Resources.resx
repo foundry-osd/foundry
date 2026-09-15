@@ -284,6 +284,9 @@ ErrorCode=0x80070005
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Невдалий крок: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Не вдалося встановити захищене з’єднання. Перевірте дату й час на пристрої та довірені сертифікати на завантажувальному носії, зокрема сертифікат HTTPS-проксі, якщо він використовується.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Відомості про помилку</value>
   </data>

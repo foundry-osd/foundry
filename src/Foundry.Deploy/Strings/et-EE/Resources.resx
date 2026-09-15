@@ -284,6 +284,9 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Nurjunud samm: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Turvalist ühendust ei saanud luua. Kontrollige seadme kuupäeva ja kellaaega ning alglaadimiskandja usaldatud sertifikaate, sealhulgas võimaliku HTTPS-puhverserveri sertifikaati.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Tõrke üksikasjad</value>
   </data>

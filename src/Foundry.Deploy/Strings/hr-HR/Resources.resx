@@ -284,6 +284,9 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Neuspjeli korak: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Nije moguće uspostaviti sigurnu vezu. Provjerite datum i vrijeme uređaja te pouzdane certifikate na mediju za pokretanje, uključujući certifikat HTTPS proxy poslužitelja ako se koristi.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Pojedinosti o pogrešci</value>
   </data>

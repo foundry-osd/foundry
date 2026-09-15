@@ -284,6 +284,9 @@
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>失敗的步驟：{0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>無法建立安全連線。請檢查裝置的日期與時間，以及開機媒體中的受信任憑證，包括所用 HTTPS Proxy 的憑證。</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>錯誤詳細資料</value>
   </data>

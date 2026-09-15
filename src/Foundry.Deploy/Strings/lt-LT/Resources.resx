@@ -284,6 +284,9 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Nepavykęs veiksmas: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Nepavyko užmegzti saugaus ryšio. Patikrinkite įrenginio datą ir laiką bei patikimus sertifikatus paleidimo laikmenoje, įskaitant HTTPS tarpinio serverio sertifikatą, jei toks serveris naudojamas.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Klaidos informacija</value>
   </data>

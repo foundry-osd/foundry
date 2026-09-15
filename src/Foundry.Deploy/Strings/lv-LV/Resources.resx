@@ -284,6 +284,9 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Neizdevusies darbība: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Neizdevās izveidot drošu savienojumu. Pārbaudiet ierīces datumu un laiku, kā arī uzticamos sertifikātus sāknēšanas datu nesējā, tostarp HTTPS starpniekservera sertifikātu, ja tāds tiek izmantots.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Informācija par kļūdu</value>
   </data>

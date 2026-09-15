@@ -16,7 +16,7 @@ public sealed class OperatingSystemCatalogService : IOperatingSystemCatalogServi
 {
     private const int SupportedSchemaVersion = 4;
     private const string CatalogUri = "https://raw.githubusercontent.com/foundry-osd/catalog/refs/heads/main/Cache/OS/OperatingSystem.xml";
-    private static readonly HttpClient HttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(60));
+    private static readonly HttpClient HttpClient = DeploymentHttpClientFactory.Create(TimeSpan.FromMinutes(60));
     private readonly ILogger<OperatingSystemCatalogService> _logger;
 
     public OperatingSystemCatalogService(ILogger<OperatingSystemCatalogService> logger)

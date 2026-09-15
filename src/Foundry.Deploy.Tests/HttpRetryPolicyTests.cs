@@ -11,6 +11,29 @@ namespace Foundry.Deploy.Tests;
 public sealed class HttpRetryPolicyTests
 {
     [Fact]
+    public async Task ExecuteAsync_WhenTlsHandshakeFails_DoesNotRetry()
+    {
+        int attempts = 0;
+        var failure = new HttpRequestException(HttpRequestError.SecureConnectionError, "TLS handshake failed");
+
+        HttpRequestException actual = await Assert.ThrowsAsync<HttpRequestException>(() =>
+            HttpRetryPolicy.ExecuteAsync(
+                _ =>
+                {
+                    attempts++;
+                    throw failure;
+                },
+                NullLogger.Instance,
+                "download catalog",
+                retryCount: 3,
+                retryDelay: TimeSpan.Zero,
+                cancellationToken: TestContext.Current.CancellationToken));
+
+        Assert.Same(failure, actual);
+        Assert.Equal(1, attempts);
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WhenFailureIsTransient_RetriesUntilSuccess()
     {
         int attempts = 0;

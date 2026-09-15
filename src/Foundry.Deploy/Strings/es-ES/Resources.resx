@@ -284,6 +284,9 @@ Acción: Verifique los atributos del disco y vuelva a intentar la implementació
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Paso fallido: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>No se pudo establecer una conexión segura. Compruebe la fecha y la hora del dispositivo y los certificados de confianza del medio de arranque, incluido el certificado de cualquier proxy HTTPS.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Detalles del error</value>
   </data>

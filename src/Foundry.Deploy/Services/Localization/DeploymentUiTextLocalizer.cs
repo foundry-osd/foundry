@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.RegularExpressions;
+using Foundry.Deploy.Services.Http;
 
 namespace Foundry.Deploy.Services.Localization;
 
@@ -62,6 +63,7 @@ public static partial class DeploymentUiTextLocalizer
         return value switch
         {
             "Waiting for deployment..." => LocalizationText.GetString("Status.WaitingForDeployment"),
+            HttpConnectionFailure.SecureConnectionMessage => LocalizationText.GetString("Error.SecureConnectionFailed"),
             "Waiting for progress..." => LocalizationText.GetString("Status.WaitingForProgress"),
             "Preparing deployment..." => LocalizationText.GetString("Status.PreparingDeployment"),
             "Deployment cancelled." => LocalizationText.GetString("Status.DeploymentCancelled"),

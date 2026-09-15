@@ -284,6 +284,9 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Krok zakończony niepowodzeniem: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Nie można nawiązać bezpiecznego połączenia. Sprawdź datę i godzinę urządzenia oraz zaufane certyfikaty na nośniku rozruchowym, w tym certyfikat serwera proxy HTTPS, jeśli jest używany.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Szczegóły błędu</value>
   </data>

@@ -284,6 +284,9 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Neuspešen korak: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Varne povezave ni bilo mogoče vzpostaviti. Preverite datum in uro naprave ter zaupanja vredna potrdila na zagonskem mediju, vključno s potrdilom morebitnega posredniškega strežnika HTTPS.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Podrobnosti napake</value>
   </data>

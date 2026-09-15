@@ -284,6 +284,9 @@
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>失败的步骤：{0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>无法建立安全连接。请检查设备的日期和时间，以及启动介质中的受信任证书，包括所用 HTTPS 代理的证书。</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>错误详细信息</value>
   </data>

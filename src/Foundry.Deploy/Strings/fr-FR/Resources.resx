@@ -284,6 +284,9 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Étape en échec : {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Impossible d’établir une connexion sécurisée. Vérifiez la date et l’heure de l’appareil ainsi que les certificats de confiance du support de démarrage, y compris le certificat d’un éventuel proxy HTTPS.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Détails de l’erreur</value>
   </data>

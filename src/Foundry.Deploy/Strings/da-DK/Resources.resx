@@ -284,6 +284,9 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value>
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Mislykket trin: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Der kunne ikke oprettes en sikker forbindelse. Kontrollér enhedens dato og klokkeslæt samt de betroede certifikater på startmediet, herunder certifikatet for en eventuel HTTPS-proxy.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Fejldetaljer</value>
   </data>

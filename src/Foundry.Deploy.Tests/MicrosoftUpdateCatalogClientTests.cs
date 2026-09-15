@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Net;
 using Foundry.Deploy.Services.DriverPacks;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -9,6 +10,49 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class MicrosoftUpdateCatalogClientTests
 {
+    [Theory]
+    [InlineData(false, 1)]
+    [InlineData(true, 2)]
+    public async Task IsAvailableAsync_WhenTlsFails_PropagatesWithoutFallbackOrRetry(bool failOnGet, int expectedRequests)
+    {
+        var failure = new HttpRequestException(HttpRequestError.SecureConnectionError, "TLS failure");
+        using var handler = new AvailabilityHandler(request => failOnGet && request.Method == HttpMethod.Head
+            ? new HttpResponseMessage(HttpStatusCode.MethodNotAllowed)
+            : throw failure);
+        using var client = new HttpClient(handler);
+        var service = new MicrosoftUpdateCatalogClient(NullLogger<MicrosoftUpdateCatalogClient>.Instance, client);
+
+        HttpRequestException actual = await Assert.ThrowsAsync<HttpRequestException>(() => service.IsAvailableAsync(TestContext.Current.CancellationToken));
+
+        Assert.Same(failure, actual);
+        Assert.Equal(expectedRequests, handler.Requests);
+    }
+
+    [Theory]
+    [InlineData(HttpStatusCode.OK, true)]
+    [InlineData(HttpStatusCode.NotFound, false)]
+    public async Task IsAvailableAsync_WhenHeadIsUnsupported_PreservesGetFallback(HttpStatusCode getStatus, bool expected)
+    {
+        using var handler = new AvailabilityHandler(request => new HttpResponseMessage(
+            request.Method == HttpMethod.Head ? HttpStatusCode.MethodNotAllowed : getStatus));
+        using var client = new HttpClient(handler);
+        var service = new MicrosoftUpdateCatalogClient(NullLogger<MicrosoftUpdateCatalogClient>.Instance, client);
+
+        Assert.Equal(expected, await service.IsAvailableAsync(TestContext.Current.CancellationToken));
+        Assert.Equal(2, handler.Requests);
+    }
+
+    private sealed class AvailabilityHandler(Func<HttpRequestMessage, HttpResponseMessage> response) : HttpMessageHandler
+    {
+        public int Requests { get; private set; }
+
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            Requests++;
+            return Task.FromResult(response(request));
+        }
+    }
+
     [Fact]
     public void ParseDownloads_DecodesBase64HashesAndFileName()
     {

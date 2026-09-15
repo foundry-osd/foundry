@@ -284,6 +284,9 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Mislykket trinn: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Kunne ikke opprette en sikker tilkobling. Kontroller enhetens dato og klokkeslett og de klarerte sertifikatene på oppstartsmediet, inkludert sertifikatet til en eventuell HTTPS-proxy.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Feildetaljer</value>
   </data>

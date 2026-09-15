@@ -284,6 +284,9 @@
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Неуспешна стъпка: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Не може да се установи защитена връзка. Проверете датата и часа на устройството и доверените сертификати в носителя за стартиране, включително сертификата на HTTPS прокси сървъра, ако се използва такъв.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Подробности за грешката</value>
   </data>

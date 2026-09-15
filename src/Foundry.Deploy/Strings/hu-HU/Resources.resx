@@ -284,6 +284,9 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Sikertelen lépés: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Nem sikerült biztonságos kapcsolatot létrehozni. Ellenőrizze az eszköz dátumát és idejét, valamint a rendszerindító adathordozó megbízható tanúsítványait, beleértve az esetleges HTTPS-proxy tanúsítványát is.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Hiba részletei</value>
   </data>

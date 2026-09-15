@@ -284,6 +284,9 @@
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Сбой на этапе: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Не удалось установить защищённое соединение. Проверьте дату и время на устройстве и доверенные сертификаты на загрузочном носителе, включая сертификат HTTPS-прокси, если он используется.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Сведения об ошибке</value>
   </data>
