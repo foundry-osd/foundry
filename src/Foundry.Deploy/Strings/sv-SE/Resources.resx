@@ -284,6 +284,9 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Misslyckat steg: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Det gick inte att upprätta en säker anslutning. Kontrollera enhetens datum och tid samt de betrodda certifikaten på startmediet, inklusive certifikatet för en eventuell HTTPS-proxy.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Felinformation</value>
   </data>

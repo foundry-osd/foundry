@@ -284,6 +284,9 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Mislukte stap: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Er kon geen beveiligde verbinding worden gemaakt. Controleer de datum en tijd van het apparaat en de vertrouwde certificaten op het opstartmedium, inclusief het certificaat van een eventuele HTTPS-proxy.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Foutdetails</value>
   </data>

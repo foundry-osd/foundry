@@ -284,6 +284,9 @@
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>실패한 단계: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>보안 연결을 설정할 수 없습니다. 장치의 날짜와 시간, 부팅 미디어의 신뢰할 수 있는 인증서를 확인하세요. HTTPS 프록시를 사용하는 경우 해당 인증서도 확인하세요.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>오류 세부 정보</value>
   </data>

@@ -82,6 +82,11 @@ public static class HttpRetryPolicy
 
     private static bool IsRetryable(Exception exception, CancellationToken cancellationToken)
     {
+        if (HttpConnectionFailure.IsSecureConnectionFailure(exception))
+        {
+            return false;
+        }
+
         if (exception is OperationCanceledException)
         {
             return !cancellationToken.IsCancellationRequested;

@@ -284,6 +284,9 @@ Aktion: Überprüfen Sie die Festplattenattribute und wiederholen Sie die Bereit
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Fehlgeschlagener Schritt: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Es konnte keine sichere Verbindung hergestellt werden. Prüfen Sie Datum und Uhrzeit des Geräts sowie die vertrauenswürdigen Zertifikate auf dem Startmedium, einschließlich des Zertifikats eines gegebenenfalls verwendeten HTTPS-Proxys.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Fehlerdetails</value>
   </data>

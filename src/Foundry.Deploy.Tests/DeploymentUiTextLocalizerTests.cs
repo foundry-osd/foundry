@@ -4,12 +4,30 @@
 
 using System.Globalization;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.Http;
 using Foundry.Deploy.Services.Localization;
 
 namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentUiTextLocalizerTests : IDisposable
 {
+    [Theory]
+    [InlineData("en-US")]
+    [MemberData(nameof(LocalizationResourceTests.SatelliteCultures), MemberType = typeof(LocalizationResourceTests))]
+    public void LocalizeMessage_TlsGuidanceIsPresentInEveryCulture(string cultureName)
+    {
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(cultureName);
+        var resources = LocalizationText.ResourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, false);
+        Assert.NotNull(resources);
+        string? expected = resources.GetString("Error.SecureConnectionFailed");
+        Assert.False(string.IsNullOrWhiteSpace(expected));
+        Assert.Equal(expected, DeploymentUiTextLocalizer.LocalizeMessage(HttpConnectionFailure.SecureConnectionMessage));
+        if (!cultureName.StartsWith("en-", StringComparison.Ordinal))
+        {
+            Assert.NotEqual(HttpConnectionFailure.SecureConnectionMessage, expected);
+        }
+    }
+
     private readonly CultureInfo _originalCulture = CultureInfo.CurrentCulture;
     private readonly CultureInfo _originalUiCulture = CultureInfo.CurrentUICulture;
 

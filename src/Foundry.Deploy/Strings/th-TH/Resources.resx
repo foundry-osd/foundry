@@ -284,6 +284,9 @@
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>ขั้นตอนที่ล้มเหลว: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>ไม่สามารถสร้างการเชื่อมต่อที่ปลอดภัยได้ ตรวจสอบวันที่และเวลาของอุปกรณ์ รวมถึงใบรับรองที่เชื่อถือได้ในสื่อสำหรับบูต และใบรับรองของพร็อกซี HTTPS หากมี</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>รายละเอียดข้อผิดพลาด</value>
   </data>

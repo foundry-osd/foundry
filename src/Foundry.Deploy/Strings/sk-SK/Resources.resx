@@ -284,6 +284,9 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Neúspešný krok: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Nepodarilo sa vytvoriť zabezpečené pripojenie. Skontrolujte dátum a čas zariadenia a dôveryhodné certifikáty na spúšťacom médiu vrátane certifikátu prípadného HTTPS proxy servera.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Podrobnosti o chybe</value>
   </data>

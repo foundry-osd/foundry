@@ -9,6 +9,7 @@ using Foundry.Core.Services.Telemetry;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Hardware;
+using Foundry.Deploy.Services.Http;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Telemetry;
@@ -359,7 +360,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return new DeploymentResult
             {
                 IsSuccess = false,
-                Message = ex.Message,
+                Message = HttpConnectionFailure.GetMessage(ex),
                 LogsDirectoryPath = ResolveLogsDirectory(executionContext, runtimeState)
             };
         }

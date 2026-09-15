@@ -14,7 +14,7 @@ namespace Foundry.Deploy.Services.DriverPacks;
 
 public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
 {
-    private static readonly HttpClient HttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(5));
+    private static readonly HttpClient HttpClient = DeploymentHttpClientFactory.Create(TimeSpan.FromMinutes(5));
     private static readonly Uri HomeUri = new("https://www.catalog.update.microsoft.com/Home.aspx");
     private static readonly Uri DownloadDialogUri = new("https://www.catalog.update.microsoft.com/DownloadDialog.aspx");
     private static readonly Regex DownloadPropertyRegex = new(
@@ -22,10 +22,20 @@ public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
         RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     private readonly ILogger<MicrosoftUpdateCatalogClient> _logger;
+    private readonly HttpClient _httpClient;
 
     public MicrosoftUpdateCatalogClient(ILogger<MicrosoftUpdateCatalogClient> logger)
+        : this(logger, HttpClient)
+    {
+    }
+
+    /// <summary>
+    /// Uses a caller-owned HTTP client for catalog requests.
+    /// </summary>
+    internal MicrosoftUpdateCatalogClient(ILogger<MicrosoftUpdateCatalogClient> logger, HttpClient httpClient)
     {
         _logger = logger;
+        _httpClient = httpClient;
     }
 
     public async Task<bool> IsAvailableAsync(CancellationToken cancellationToken = default)
@@ -42,7 +52,7 @@ public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
                 return true;
             }
         }
-        catch (Exception ex)
+        catch (Exception ex) when (!HttpConnectionFailure.IsSecureConnectionFailure(ex))
         {
             _logger.LogWarning(ex, "Microsoft Update Catalog HEAD request failed. Falling back to GET.");
         }
@@ -56,7 +66,7 @@ public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
 
             return response.IsSuccessStatusCode;
         }
-        catch (Exception ex)
+        catch (Exception ex) when (!HttpConnectionFailure.IsSecureConnectionFailure(ex))
         {
             _logger.LogWarning(ex, "Microsoft Update Catalog GET request failed.");
             return false;
@@ -217,7 +227,7 @@ public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
                 {
                     using HttpRequestMessage request = requestFactory();
                     ApplyNoCacheHeaders(request);
-                    return await HttpClient
+                    return await _httpClient
                         .SendAsync(request, HttpCompletionOption.ResponseHeadersRead, ct)
                         .ConfigureAwait(false);
                 },
@@ -238,7 +248,7 @@ public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
                 {
                     using HttpRequestMessage request = new(HttpMethod.Get, requestUri);
                     ApplyNoCacheHeaders(request);
-                    using HttpResponseMessage response = await HttpClient
+                    using HttpResponseMessage response = await _httpClient
                         .SendAsync(request, HttpCompletionOption.ResponseContentRead, ct)
                         .ConfigureAwait(false);
                     response.EnsureSuccessStatusCode();
@@ -265,7 +275,7 @@ public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
                         Content = new FormUrlEncodedContent(formValues)
                     };
                     ApplyNoCacheHeaders(request);
-                    using HttpResponseMessage response = await HttpClient
+                    using HttpResponseMessage response = await _httpClient
                         .SendAsync(request, HttpCompletionOption.ResponseContentRead, ct)
                         .ConfigureAwait(false);
                     response.EnsureSuccessStatusCode();
