@@ -51,5 +51,5 @@ public sealed class WinPeRuntimeReleaseSnapshot
 /// </summary>
 /// <param name="Name">The release archive name.</param>
 /// <param name="DownloadUrl">The archive download URL.</param>
-/// <param name="Digest">The optional digest supplied by GitHub.</param>
+/// <param name="Digest">The digest supplied by GitHub, required to be valid SHA256 before downloading an archive.</param>
 internal sealed record WinPeRuntimeReleaseAsset(string Name, string DownloadUrl, string Digest);

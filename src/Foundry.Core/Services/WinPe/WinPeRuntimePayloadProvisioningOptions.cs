@@ -30,6 +30,11 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     public string UsbCacheRootPath { get; init; } = string.Empty;
 
     /// <summary>
+    /// Gets whether original Connect and Deploy archives enter the image. Trust anchors always enter the image.
+    /// </summary>
+    public bool IncludePayloadsInImage { get; init; } = true;
+
+    /// <summary>
     /// Gets the Bootstrap payload staged only into the mounted image.
     /// </summary>
     public WinPeRuntimePayloadApplicationOptions Bootstrap { get; init; } = new();

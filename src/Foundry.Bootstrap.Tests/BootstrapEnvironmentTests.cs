@@ -10,6 +10,13 @@ namespace Foundry.Bootstrap.Tests;
 
 public sealed class BootstrapEnvironmentTests
 {
+    [Fact]
+    public void AmbiguousCacheVolumesCannotSelectAnArbitraryRuntimeOrigin()
+    {
+        Assert.Throws<InvalidDataException>(() => BootstrapEnvironment.Create(@"X:\Foundry", "SESSION", Architecture.X64,
+            [new BootstrapVolume(@"D:\", true, "Foundry Cache"), new BootstrapVolume(@"E:\", true, "Foundry Cache")], _ => null));
+    }
+
     [Theory]
     [InlineData(Architecture.X64, "win-x64")]
     [InlineData(Architecture.Arm64, "win-arm64")]

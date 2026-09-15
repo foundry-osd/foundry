@@ -86,17 +86,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
 
         stage = BootstrapStage.Connect;
         Report(BootstrapStatus.Running, "Preparing Foundry Connect");
-        string connect;
-        try
-        {
-            connect = await runtime.ResolveAsync("Foundry.Connect", true, cancellationToken).ConfigureAwait(false);
-        }
-        catch (Exception exception) when (exception is not OperationCanceledException && !context.ConnectIsDebug)
-        {
-            logger.Warning(exception, "Provisioned Connect runtime unavailable; resolving release content");
-            Report(BootstrapStatus.Warning, "Foundry Connect needs to be downloaded. Continuing.");
-            connect = await runtime.ResolveAsync("Foundry.Connect", false, cancellationToken).ConfigureAwait(false);
-        }
+        string connect = await runtime.ResolveAsync("Foundry.Connect", context.ConnectIsDebug, cancellationToken).ConfigureAwait(false);
 
         Report(BootstrapStatus.Running, "Waiting for Foundry Connect");
         ApplicationLaunchResult connectResult = await launcher.RunConnectAsync(connect, context.ConnectConfigurationPath,
@@ -121,8 +111,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         Report(BootstrapStatus.Running, "Preparing the deployment application");
         if (context.IsUsb && !context.ConnectIsDebug)
         {
-            await BestEffortAsync(async () =>
-                await runtime.ResolveAsync("Foundry.Connect", false, cancellationToken).ConfigureAwait(false),
+            await BestEffortAsync(() => runtime.RefreshAsync("Foundry.Connect", cancellationToken),
                 "Foundry Connect could not be updated. Continuing.").ConfigureAwait(false);
         }
 

@@ -139,6 +139,9 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
             else { start.Environment[key] = value; }
         }
 
+        // The resolver supplies a fresh authenticated payload directory. Native bundle extraction must share that trust boundary.
+        start.Environment["DOTNET_BUNDLE_EXTRACT_BASE_DIR"] = Path.Combine(start.WorkingDirectory, ".bundle", Guid.NewGuid().ToString("N"));
+
         return start;
     }
 
