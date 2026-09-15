@@ -284,6 +284,9 @@
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Αποτυχημένο βήμα: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η δημιουργία ασφαλούς σύνδεσης. Ελέγξτε την ημερομηνία και την ώρα της συσκευής και τα αξιόπιστα πιστοποιητικά στο μέσο εκκίνησης, συμπεριλαμβανομένου του πιστοποιητικού τυχόν διακομιστή μεσολάβησης HTTPS.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Λεπτομέρειες σφάλματος</value>
   </data>

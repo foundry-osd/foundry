@@ -284,6 +284,9 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Passo com falha: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Não foi possível estabelecer uma ligação segura. Verifique a data e a hora do dispositivo e os certificados fidedignos no suporte de arranque, incluindo o certificado de qualquer proxy HTTPS.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Detalhes do erro</value>
   </data>

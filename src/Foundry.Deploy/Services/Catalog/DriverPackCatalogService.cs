@@ -14,7 +14,7 @@ namespace Foundry.Deploy.Services.Catalog;
 public sealed class DriverPackCatalogService : IDriverPackCatalogService
 {
     private const string CatalogUri = "https://raw.githubusercontent.com/foundry-osd/catalog/refs/heads/main/Cache/DriverPack/DriverPack_Unified.xml";
-    private static readonly HttpClient HttpClient = InsecureHttpClientFactory.Create(TimeSpan.FromMinutes(60));
+    private static readonly HttpClient HttpClient = DeploymentHttpClientFactory.Create(TimeSpan.FromMinutes(60));
     private readonly ILogger<DriverPackCatalogService> _logger;
 
     public DriverPackCatalogService(ILogger<DriverPackCatalogService> logger)

@@ -284,6 +284,9 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Epäonnistunut vaihe: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Suojattua yhteyttä ei voitu muodostaa. Tarkista laitteen päivämäärä ja kellonaika sekä käynnistystietovälineen luotetut varmenteet, myös mahdollisen HTTPS-välityspalvelimen varmenne.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Virheen tiedot</value>
   </data>

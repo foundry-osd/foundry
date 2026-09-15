@@ -284,6 +284,9 @@
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>失敗したステップ: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>安全な接続を確立できませんでした。デバイスの日付と時刻、および起動メディア内の信頼された証明書を確認してください。HTTPS プロキシを使用している場合は、その証明書も確認してください。</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>エラーの詳細</value>
   </data>

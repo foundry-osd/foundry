@@ -284,6 +284,9 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Pas nereușit: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Nu s-a putut stabili o conexiune securizată. Verificați data și ora dispozitivului și certificatele de încredere de pe suportul de pornire, inclusiv certificatul unui eventual proxy HTTPS.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Detalii despre eroare</value>
   </data>

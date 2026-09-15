@@ -284,6 +284,9 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Başarısız adım: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Güvenli bağlantı kurulamadı. Cihazın tarih ve saatini ve varsa HTTPS proxy sertifikası dahil olmak üzere önyükleme medyanızdaki güvenilen sertifikaları kontrol edin.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Hata ayrıntıları</value>
   </data>

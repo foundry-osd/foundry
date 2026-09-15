@@ -6,6 +6,7 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Hardware;
+using Foundry.Deploy.Services.Http;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Telemetry;
@@ -17,6 +18,39 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentOrchestratorTests
 {
+    [Fact]
+    public async Task RunAsync_WhenTlsFails_ReturnsActionableMessage()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var orchestrator = CreateOrchestrator(DeploymentStepNames.ExecutionOrder.Select(name =>
+            name == DeploymentStepNames.DownloadOperatingSystemImage
+                ? (IDeploymentStep)new TlsFailingStep()
+                : new SucceedingStep(name)));
+
+        DeploymentResult result = await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "LAB01",
+            DriverPackSelectionKind = DriverPackSelectionKind.None,
+            OperatingSystem = new OperatingSystemCatalogItem()
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(HttpConnectionFailure.SecureConnectionMessage, result.Message);
+    }
+
+    private sealed class TlsFailingStep : IDeploymentStep
+    {
+        public string Name => DeploymentStepNames.DownloadOperatingSystemImage;
+
+        public Task<DeploymentStepResult> ExecuteAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+        {
+            return Task.FromException<DeploymentStepResult>(new HttpRequestException(HttpRequestError.SecureConnectionError, "TLS handshake failed"));
+        }
+    }
+
     [Theory]
     [InlineData(false, "native")]
     [InlineData(true, "custom")]

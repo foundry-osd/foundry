@@ -284,6 +284,9 @@
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>الخطوة الفاشلة: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>تعذر إنشاء اتصال آمن. تحقق من تاريخ الجهاز ووقته ومن الشهادات الموثوقة في وسائط الإقلاع، بما في ذلك شهادة وكيل HTTPS إن وُجد.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>تفاصيل الخطأ</value>
   </data>

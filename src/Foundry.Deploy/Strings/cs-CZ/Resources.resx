@@ -284,6 +284,9 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Neúspěšný krok: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>Nepodařilo se navázat zabezpečené připojení. Zkontrolujte datum a čas zařízení a důvěryhodné certifikáty na spouštěcím médiu, včetně certifikátu případného HTTPS proxy serveru.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Podrobnosti o chybě</value>
   </data>

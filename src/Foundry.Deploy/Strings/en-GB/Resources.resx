@@ -284,6 +284,9 @@ Action: Verify disk attributes and retry deployment.</value>
   <data name="Error.FailedStepFormat" xml:space="preserve">
     <value>Failed step: {0}</value>
   </data>
+  <data name="Error.SecureConnectionFailed" xml:space="preserve">
+    <value>A secure connection could not be established. Check the device date and time and the trusted certificates in your boot media, including any HTTPS proxy certificate.</value>
+  </data>
   <data name="Error.TechnicalDetailsTitle" xml:space="preserve">
     <value>Error details</value>
   </data>
