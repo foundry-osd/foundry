@@ -24,8 +24,7 @@ internal static class BootstrapEnvironment
         IEnumerable<BootstrapVolume> volumes, Func<string, string?> readProvisioningSource)
     {
         string runtimeIdentifier = ResolveRuntimeIdentifier(architecture);
-        BootstrapVolume? cache = volumes.FirstOrDefault(volume => volume.IsReady &&
-            string.Equals(volume.Label, "Foundry Cache", StringComparison.OrdinalIgnoreCase));
+        BootstrapVolume? cache = ResolveCacheVolume(volumes);
         return new BootstrapContext(winPeRoot,
             Path.Combine(cache?.Root ?? winPeRoot, "Runtime"), runtimeIdentifier, sessionId,
             cache is null ? null : Path.Combine(cache.Root, "Logs", sessionId),
@@ -41,6 +40,16 @@ internal static class BootstrapEnvironment
             catch (IOException) { return false; }
             catch (UnauthorizedAccessException) { return false; }
         }
+    }
+
+    /// <summary>Rejects ambiguous cache discovery before any runtime or diagnostic data uses a volume.</summary>
+    internal static BootstrapVolume? ResolveCacheVolume(IEnumerable<BootstrapVolume> volumes)
+    {
+        BootstrapVolume[] candidates = volumes.Where(volume => volume.IsReady &&
+            string.Equals(volume.Label, "Foundry Cache", StringComparison.OrdinalIgnoreCase)).Take(2).ToArray();
+        if (candidates.Length > 1)
+            throw new InvalidDataException("Multiple Foundry Cache volumes are connected. Disconnect the other deployment media and restart.");
+        return candidates.SingleOrDefault();
     }
 
     internal static IEnumerable<BootstrapVolume> EnumerateVolumes()

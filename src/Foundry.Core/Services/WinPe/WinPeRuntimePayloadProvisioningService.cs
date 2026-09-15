@@ -4,6 +4,8 @@
 
 using System.IO.Compression;
 using System.Text.Json;
+using Foundry.Core.Models.Runtime;
+using Foundry.Core.Services.Runtime;
 using Foundry.Utilities.IO;
 using Foundry.Utilities.Progress;
 
@@ -33,9 +35,17 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
     }
 
     /// <inheritdoc />
-    public async Task<WinPeResult<WinPeRuntimePayloadProvisioningOptions>> PrepareAsync(
+    public Task<WinPeResult<WinPeRuntimePayloadProvisioningOptions>> PrepareAsync(
         WinPeRuntimePayloadProvisioningOptions options,
         CancellationToken cancellationToken = default)
+    {
+        return PrepareCoreAsync(options, null, cancellationToken);
+    }
+
+    private async Task<WinPeResult<WinPeRuntimePayloadProvisioningOptions>> PrepareCoreAsync(
+        WinPeRuntimePayloadProvisioningOptions options,
+        IProgress<WinPeDownloadProgress>? downloadProgress,
+        CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         WinPeDiagnostic? validationError = ValidateOptions(options, requireDestination: false);
@@ -68,10 +78,25 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                     await GetReleaseSnapshotAsync(cancellationToken).ConfigureAwait(false);
                 foreach (var application in releaseApplications)
                 {
-                    snapshot.GetAsset(ResolveReleaseAssetName(application.Name, runtimeIdentifier));
+                    WinPeRuntimeReleaseAsset asset = snapshot.GetAsset(ResolveReleaseAssetName(application.Name, runtimeIdentifier));
+                    if (!TryReadSha256Digest(asset.Digest, out _))
+                    {
+                        throw new InvalidDataException($"Release asset '{asset.Name}' requires a valid SHA256 digest.");
+                    }
                 }
 
                 options = options with { ReleaseSnapshot = snapshot };
+                foreach (var application in releaseApplications)
+                {
+                    WinPeRuntimePayloadApplicationOptions preparedApplication = await PrepareApplicationAsync(
+                        application.Name, application.Options, options, runtimeIdentifier, downloadProgress, cancellationToken).ConfigureAwait(false);
+                    options = application.Name switch
+                    {
+                        "Foundry.Bootstrap" => options with { Bootstrap = preparedApplication },
+                        "Foundry.Connect" => options with { Connect = preparedApplication },
+                        _ => options with { Deploy = preparedApplication }
+                    };
+                }
             }
 
             return WinPeResult<WinPeRuntimePayloadProvisioningOptions>.Success(options);
@@ -100,15 +125,49 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             return applicationOptions;
         }
 
+        return await PrepareApplicationAsync(applicationName, applicationOptions, options, runtimeIdentifier, null, cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<WinPeRuntimePayloadApplicationOptions> PrepareApplicationAsync(
+        string applicationName,
+        WinPeRuntimePayloadApplicationOptions applicationOptions,
+        WinPeRuntimePayloadProvisioningOptions options,
+        string runtimeIdentifier,
+        IProgress<WinPeDownloadProgress>? downloadProgress,
+        CancellationToken cancellationToken)
+    {
+        string expectedHash = applicationOptions.ArchiveSha256;
+        if (applicationOptions.ProvisioningSource == WinPeProvisioningSource.Release && string.IsNullOrWhiteSpace(applicationOptions.ArchivePath))
+        {
+            WinPeRuntimeReleaseAsset asset = options.ReleaseSnapshot!.GetAsset(ResolveReleaseAssetName(applicationName, runtimeIdentifier));
+            if (!TryReadSha256Digest(asset.Digest, out expectedHash))
+            {
+                throw new InvalidDataException($"Release asset '{asset.Name}' requires a valid SHA256 digest.");
+            }
+        }
+
         string archivePath = await ResolveArchivePathAsync(applicationName, applicationOptions,
-            options.WorkingDirectoryPath, runtimeIdentifier, null, null, cancellationToken).ConfigureAwait(false);
-        using ZipArchive archive = ZipFile.OpenRead(archivePath);
+            options.WorkingDirectoryPath, runtimeIdentifier, options.ReleaseSnapshot, downloadProgress, cancellationToken).ConfigureAwait(false);
+        await using FileStream stream = File.OpenRead(archivePath);
+        string hash = await ComputeArchiveHashAsync(stream, cancellationToken).ConfigureAwait(false);
+        if (!string.IsNullOrEmpty(expectedHash) &&
+            !string.Equals(expectedHash, hash, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidDataException($"Prepared {applicationName} archive SHA256 changed after preparation.");
+        }
+
+        using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
         if (archive.GetEntry($"{applicationName}.exe") is null)
         {
             throw new InvalidOperationException($"{applicationName} archive did not contain the expected executable '{applicationName}.exe'.");
         }
 
-        return applicationOptions with { ArchivePath = archivePath };
+        if (applicationName == "Foundry.Bootstrap")
+        {
+            ValidateBootstrapCapability(archive);
+        }
+
+        return applicationOptions with { ArchivePath = archivePath, ArchiveSha256 = hash };
     }
 
     public async Task<WinPeResult> ProvisionAsync(
@@ -124,7 +183,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             return WinPeResult.Failure(validationError);
         }
 
-        WinPeResult<WinPeRuntimePayloadProvisioningOptions> prepared = await PrepareAsync(options, cancellationToken).ConfigureAwait(false);
+        WinPeResult<WinPeRuntimePayloadProvisioningOptions> prepared = await PrepareCoreAsync(options, downloadProgress, cancellationToken).ConfigureAwait(false);
         if (!prepared.IsSuccess)
         {
             return WinPeResult.Failure(prepared.Error!);
@@ -137,7 +196,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
             {
                 await ProvisionApplicationAsync("Foundry.Bootstrap", options.Bootstrap, options,
-                    runtimeIdentifier, downloadProgress, cancellationToken).ConfigureAwait(false);
+                    runtimeIdentifier, cancellationToken).ConfigureAwait(false);
             }
 
             await ProvisionApplicationAsync(
@@ -145,7 +204,6 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 options.Connect,
                 options,
                 runtimeIdentifier,
-                downloadProgress,
                 cancellationToken).ConfigureAwait(false);
 
             await ProvisionApplicationAsync(
@@ -153,8 +211,15 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 options.Deploy,
                 options,
                 runtimeIdentifier,
-                downloadProgress,
                 cancellationToken).ConfigureAwait(false);
+
+            if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
+            {
+                RuntimePayloadTrust.WriteManifest(Path.Combine(Path.GetFullPath(options.MountedImagePath), "Foundry"),
+                    new[] { (Name: "Foundry.Connect", Options: options.Connect), (Name: "Foundry.Deploy", Options: options.Deploy) }
+                        .Where(application => application.Options.IsEnabled)
+                        .Select(application => new RuntimePayloadArchiveTrust(application.Name, runtimeIdentifier, application.Options.ArchiveSha256)));
+            }
 
             return WinPeResult.Success();
         }
@@ -173,7 +238,6 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         WinPeRuntimePayloadApplicationOptions applicationOptions,
         WinPeRuntimePayloadProvisioningOptions options,
         string runtimeIdentifier,
-        IProgress<WinPeDownloadProgress>? downloadProgress,
         CancellationToken cancellationToken)
     {
         if (!applicationOptions.IsEnabled)
@@ -181,42 +245,71 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             return;
         }
 
-        string archivePath = await ResolveArchivePathAsync(
-            applicationName,
-            applicationOptions,
-            options.WorkingDirectoryPath,
-            runtimeIdentifier,
-            options.ReleaseSnapshot,
-            downloadProgress,
-            cancellationToken).ConfigureAwait(false);
-
-        string extractionRoot = Path.Combine(
-            options.WorkingDirectoryPath,
-            "RuntimePayloads",
-            applicationName,
-            runtimeIdentifier);
-
-        try
+        await using FileStream source = File.OpenRead(applicationOptions.ArchivePath);
+        string hash = await ComputeArchiveHashAsync(source, cancellationToken).ConfigureAwait(false);
+        if (!string.Equals(hash, applicationOptions.ArchiveSha256, StringComparison.OrdinalIgnoreCase))
         {
-            DirectoryOperations.Recreate(extractionRoot);
-            ZipFile.ExtractToDirectory(archivePath, extractionRoot);
-            string executablePath = Path.Combine(extractionRoot, $"{applicationName}.exe");
-            if (!File.Exists(executablePath))
+            throw new InvalidDataException($"Prepared {applicationName} archive SHA256 changed before provisioning.");
+        }
+
+        if (applicationName == "Foundry.Bootstrap")
+        {
+            using var archive = new ZipArchive(source, ZipArchiveMode.Read);
+            foreach (string destinationRoot in ResolveDestinationRoots(applicationName, options, runtimeIdentifier))
             {
-                throw new InvalidOperationException(
-                    $"{applicationName} archive did not contain the expected executable '{applicationName}.exe'.");
+                DirectoryOperations.Recreate(destinationRoot);
+                archive.ExtractToDirectory(destinationRoot);
+            }
+        }
+        else
+        {
+            if (!options.IncludePayloadsInImage && !string.IsNullOrWhiteSpace(options.MountedImagePath))
+            {
+                string imageRuntime = Path.Combine(Path.GetFullPath(options.MountedImagePath), "Foundry", "Runtime", applicationName, runtimeIdentifier);
+                if (Directory.Exists(imageRuntime))
+                {
+                    Directory.Delete(imageRuntime, recursive: true);
+                }
             }
 
             foreach (string destinationRoot in ResolveDestinationRoots(applicationName, options, runtimeIdentifier))
             {
-                CopyDirectory(extractionRoot, destinationRoot);
+                DirectoryOperations.Recreate(destinationRoot);
+                await using var destination = File.Create(Path.Combine(destinationRoot, "original.zip"));
+                source.Position = 0;
+                await source.CopyToAsync(destination, cancellationToken).ConfigureAwait(false);
             }
-
-            RemoveLegacyConnectSeed(applicationName, options);
         }
-        finally
+
+        RemoveLegacyConnectSeed(applicationName, options);
+    }
+
+    private static async Task<string> ComputeArchiveHashAsync(FileStream stream, CancellationToken cancellationToken)
+    {
+        byte[] hash = await System.Security.Cryptography.SHA256.HashDataAsync(stream, cancellationToken).ConfigureAwait(false);
+        stream.Position = 0;
+        return Convert.ToHexString(hash).ToLowerInvariant();
+    }
+
+    private static void ValidateBootstrapCapability(ZipArchive archive)
+    {
+        ZipArchiveEntry[] entries = archive.Entries.Where(entry =>
+            entry.FullName.Equals(RuntimePayloadTrust.CapabilityFileName, StringComparison.OrdinalIgnoreCase)).ToArray();
+        if (entries.Length != 1)
         {
-            TryDeleteDirectory(extractionRoot);
+            throw new InvalidDataException("Bootstrap archive must contain a supported runtime trust capability marker.");
+        }
+
+        using Stream stream = entries[0].Open();
+        using JsonDocument document = JsonDocument.Parse(stream);
+        JsonElement root = document.RootElement;
+        if (root.ValueKind != JsonValueKind.Object ||
+            root.EnumerateObject().Count(property => property.Name == "runtimeTrustVersion") != 1 ||
+            !root.TryGetProperty("runtimeTrustVersion", out JsonElement capability) ||
+            capability.ValueKind != JsonValueKind.Number ||
+            !capability.TryGetInt32(out int version) || version != 1)
+        {
+            throw new InvalidDataException("Bootstrap archive runtime trust capability is unsupported or malformed.");
         }
     }
 
@@ -277,17 +370,12 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         string runtimeIdentifier,
         CancellationToken cancellationToken)
     {
-        string debugWorkspace = Path.Combine(workingDirectoryPath, "DebugRuntime", applicationName);
+        string debugWorkspace = Path.Combine(workingDirectoryPath, "DebugRuntime", applicationName, Guid.NewGuid().ToString("N"));
         string publishDirectory = Path.Combine(debugWorkspace, "publish", runtimeIdentifier);
         string archivePath = Path.Combine(debugWorkspace, $"{applicationName}-{runtimeIdentifier}.zip");
 
         DirectoryOperations.Recreate(publishDirectory);
         Directory.CreateDirectory(debugWorkspace);
-        if (File.Exists(archivePath))
-        {
-            File.Delete(archivePath);
-        }
-
         // Project references may not inherit the RID; propagate Platform to keep every assembly on the target architecture.
         string platform = runtimeIdentifier == "win-arm64" ? "ARM64" : "x64";
         string publishArguments = string.Join(
@@ -349,15 +437,10 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         CancellationToken cancellationToken)
     {
         string assetName = ResolveReleaseAssetName(applicationName, runtimeIdentifier);
-        string releaseWorkspace = Path.Combine(workingDirectoryPath, "ReleaseRuntime", applicationName);
+        string releaseWorkspace = Path.Combine(workingDirectoryPath, "ReleaseRuntime", applicationName, Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(releaseWorkspace);
 
         string archivePath = Path.Combine(releaseWorkspace, assetName);
-        if (File.Exists(archivePath))
-        {
-            File.Delete(archivePath);
-        }
-
         WinPeRuntimeReleaseAsset asset = releaseSnapshot.GetAsset(assetName);
 
         using HttpRequestMessage request = CreateGitHubRequest(asset.DownloadUrl);
@@ -424,7 +507,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
     {
         if (!TryReadSha256Digest(digest, out string expectedSha256))
         {
-            return;
+            throw new InvalidDataException("Release archive requires a valid SHA256 digest.");
         }
 
         string actualSha256 = await FileHash.ComputeSha256Async(archivePath, cancellationToken).ConfigureAwait(false);
@@ -521,7 +604,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             return false;
         }
 
-        string value = digest[prefix.Length..].Trim();
+        string value = digest[prefix.Length..];
         if (value.Length != 64 || value.Any(character => !Uri.IsHexDigit(character)))
         {
             return false;
@@ -567,7 +650,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             yield break;
         }
 
-        if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
+        if (options.IncludePayloadsInImage && !string.IsNullOrWhiteSpace(options.MountedImagePath))
         {
             yield return Path.Combine(
                 Path.GetFullPath(options.MountedImagePath),
@@ -604,25 +687,6 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             }
 
             TryDeleteFile(Path.Combine(root, "Foundry", "Seed", "Foundry.Connect.zip"));
-        }
-    }
-
-    private static void CopyDirectory(string sourceDirectoryPath, string destinationDirectoryPath)
-    {
-        DirectoryOperations.Recreate(destinationDirectoryPath);
-
-        foreach (string directoryPath in Directory.EnumerateDirectories(sourceDirectoryPath, "*", SearchOption.AllDirectories))
-        {
-            string relativeDirectoryPath = Path.GetRelativePath(sourceDirectoryPath, directoryPath);
-            Directory.CreateDirectory(Path.Combine(destinationDirectoryPath, relativeDirectoryPath));
-        }
-
-        foreach (string filePath in Directory.EnumerateFiles(sourceDirectoryPath, "*", SearchOption.AllDirectories))
-        {
-            string relativeFilePath = Path.GetRelativePath(sourceDirectoryPath, filePath);
-            string destinationFilePath = Path.Combine(destinationDirectoryPath, relativeFilePath);
-            Directory.CreateDirectory(Path.GetDirectoryName(destinationFilePath)!);
-            File.Copy(filePath, destinationFilePath, overwrite: true);
         }
     }
 
@@ -679,21 +743,6 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             if (File.Exists(path))
             {
                 File.Delete(path);
-            }
-        }
-        catch
-        {
-            // Best-effort cleanup.
-        }
-    }
-
-    private static void TryDeleteDirectory(string path)
-    {
-        try
-        {
-            if (Directory.Exists(path))
-            {
-                Directory.Delete(path, recursive: true);
             }
         }
         catch

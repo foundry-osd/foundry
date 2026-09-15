@@ -985,13 +985,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                             deploymentProtectionMaterial,
                             runtimePayloadProvisioning,
                             deployTelemetrySettings),
-                        RuntimePayloadProvisioning = includeRuntimePayloadInImage
-                            ? artifactRuntimePayloadProvisioning
-                            : artifactRuntimePayloadProvisioning with
-                            {
-                                Connect = artifactRuntimePayloadProvisioning.Connect with { IsEnabled = false },
-                                Deploy = artifactRuntimePayloadProvisioning.Deploy with { IsEnabled = false }
-                            },
+                        RuntimePayloadProvisioning = artifactRuntimePayloadProvisioning with
+                        {
+                            IncludePayloadsInImage = includeRuntimePayloadInImage
+                        },
                         WinReCacheDirectoryPath = Constants.WinReTempDirectoryPath,
                         Progress = workspacePreparationProgress,
                         DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(

@@ -7,11 +7,11 @@ namespace Foundry.Core.Services.WinPe;
 public interface IWinPeRuntimePayloadProvisioningService
 {
     /// <summary>
-    /// Prepares local archives and captures one release snapshot for the media build.
+    /// Prepares every enabled archive, verifies release digests from one release snapshot, and pins the exact bytes for later stages.
     /// </summary>
     /// <param name="options">The payload sources and target architecture. Destinations may be assigned later.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>Options containing prepared local archives and validated release metadata, or a failure.</returns>
+    /// <returns>Options containing reusable archive paths and pinned SHA256 hashes, or a failure.</returns>
     Task<WinPeResult<WinPeRuntimePayloadProvisioningOptions>> PrepareAsync(
         WinPeRuntimePayloadProvisioningOptions options,
         CancellationToken cancellationToken = default);

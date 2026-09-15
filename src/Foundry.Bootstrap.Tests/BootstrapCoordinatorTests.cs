@@ -67,7 +67,7 @@ public sealed class BootstrapCoordinatorTests
         using var fixture = new Fixture();
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(BootstrapOutcome.Succeeded, result.Outcome);
-        Assert.Equal(["network", "clock", "Foundry.Connect:True", "connect", "system", "Foundry.Connect:False",
+        Assert.Equal(["network", "clock", "Foundry.Connect:False", "connect", "system", "Foundry.Connect:Refresh",
             "Foundry.Deploy:False", "deploy", "persist"], fixture.Calls);
     }
 
@@ -78,11 +78,12 @@ public sealed class BootstrapCoordinatorTests
         fixture.Context = fixture.Context with { PersistenceDirectory = null, ConnectIsDebug = true, DeployIsDebug = true };
         Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
         Assert.DoesNotContain("Foundry.Connect:False", fixture.Calls);
+        Assert.DoesNotContain("Foundry.Connect:Refresh", fixture.Calls);
         Assert.Contains("Foundry.Deploy:True", fixture.Calls);
     }
 
     [Fact]
-    public async Task MissingConnectCacheMayResolveReleaseBeforeLaunching()
+    public async Task ConnectChecksForVerifiedUpdatesBeforeLaunching()
     {
         using var fixture = new Fixture { MissingConnectCache = true };
         Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
@@ -168,6 +169,12 @@ public sealed class BootstrapCoordinatorTests
                 throw new FileNotFoundException();
             }
             return Task.FromResult(applicationName + ".exe");
+        }
+
+        public Task RefreshAsync(string applicationName, CancellationToken cancellationToken)
+        {
+            Calls.Add(applicationName + ":Refresh");
+            return Task.CompletedTask;
         }
 
         public Task PrepareNetworkAsync(CancellationToken cancellationToken) { Calls.Add("network"); return Task.CompletedTask; }
