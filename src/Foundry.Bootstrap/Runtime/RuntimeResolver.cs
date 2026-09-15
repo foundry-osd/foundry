@@ -2,14 +2,13 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Diagnostics;
 using System.Text.Json;
-using System.Security.Cryptography;
+using Foundry.Core.Services.Runtime;
 using Serilog;
 
 namespace Foundry.Bootstrap.Runtime;
 
-/// <summary>Resolves the existing WinPE payload layout and release policy.</summary>
+/// <summary>Authenticates original media archives offline and updated archives against fresh release metadata.</summary>
 internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, string runtimeIdentifier, HttpClient httpClient, ILogger logger,
     Action<RuntimeDownloadProgress>? progress = null, Func<string, string?>? getEnvironmentVariable = null, Action<string>? warning = null,
     Action<string>? activity = null) : IRuntimeResolver
@@ -17,223 +16,110 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
     private readonly RuntimeTransfer transfer = new(httpClient, progress);
     private readonly Func<string, string?> environment = getEnvironmentVariable ?? Environment.GetEnvironmentVariable;
 
+    /// <summary>Returns a complete authenticated payload in boot-owned storage, retained for the child's lifetime.</summary>
+    public Task<string> ResolveAsync(string applicationName, bool skipReleaseLookup, CancellationToken cancellationToken) =>
+        ResolveCoreAsync(applicationName, skipReleaseLookup, retainPayload: true, cancellationToken);
+
     /// <inheritdoc />
-    public async Task<string> ResolveAsync(string applicationName, bool skipReleaseLookup, CancellationToken cancellationToken)
+    public async Task RefreshAsync(string applicationName, CancellationToken cancellationToken) =>
+        await ResolveCoreAsync(applicationName, skipReleaseLookup: false, retainPayload: false, cancellationToken).ConfigureAwait(false);
+
+    private async Task<string> ResolveCoreAsync(string applicationName, bool skipReleaseLookup, bool retainPayload, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        if (applicationName is not ("Foundry.Connect" or "Foundry.Deploy")) throw new ArgumentOutOfRangeException(nameof(applicationName));
-        if (runtimeIdentifier is not ("win-x64" or "win-arm64")) throw new PlatformNotSupportedException($"Unsupported runtime '{runtimeIdentifier}'.");
-        string applicationRoot = Path.Combine(runtimeRoot, applicationName);
-        Directory.CreateDirectory(applicationRoot);
-        string cacheRoot = Path.Combine(applicationRoot, runtimeIdentifier);
-        string assetName = $"{applicationName}-{runtimeIdentifier}.zip";
-        string downloadPath = Path.Combine(applicationRoot, assetName + ".download");
+        string originalArchive = RuntimePayloadTrust.GetBaselineArchivePath(runtimeRoot, applicationName, runtimeIdentifier);
+        string currentArchive = Path.Combine(Path.GetDirectoryName(originalArchive)!, "current.zip");
+        var preparation = new RuntimePayloadPreparation(winPeRoot, transfer, logger, progress, activity, retainPayload);
         string prefix = applicationName == "Foundry.Connect" ? "FOUNDRY_CONNECT" : "FOUNDRY_DEPLOY";
         string archiveOverride = ReadEnvironment(prefix + "_ARCHIVE");
-        string tagOverride = ReadEnvironment(prefix + "_RELEASE_TAG");
-        if (tagOverride.Length == 0) tagOverride = ReadEnvironment("FOUNDRY_RELEASE_TAG");
-        string? embeddedArchive = applicationName == "Foundry.Deploy" ? Path.Combine(winPeRoot, "Seed", "Foundry.Deploy.zip") : null;
-        if (skipReleaseLookup && archiveOverride.Length == 0 && File.Exists(embeddedArchive)) archiveOverride = embeddedArchive;
+        if (archiveOverride.Length > 0)
+        {
+            // Overrides are explicit operator inputs, never an implicit escape from media authentication.
+            string expected = RuntimePayloadPreparation.RequireHash(ReadEnvironment(prefix + "_ARCHIVE_SHA256"));
+            logger.Information("Preparing authenticated archive override for {PayloadApplication}", applicationName);
+            return await preparation.PrepareAsync(archiveOverride, expected, applicationName, cancellationToken).ConfigureAwait(false);
+        }
+        if (skipReleaseLookup) return await OriginalAsync().ConfigureAwait(false);
 
+        string tag = ReadEnvironment(prefix + "_RELEASE_TAG");
+        if (tag.Length == 0) tag = ReadEnvironment("FOUNDRY_RELEASE_TAG");
+        string releaseUrl = "https://api.github.com/repos/foundry-osd/foundry/releases/" +
+            (tag.Length == 0 ? "latest" : "tags/" + Uri.EscapeDataString(tag));
         try
         {
-            if (archiveOverride.Length > 0)
-            {
-                logger.Information("Resolving {PayloadApplication} for {RuntimeIdentifier} from {PayloadSource}; replacing cached content",
-                    applicationName, runtimeIdentifier, Equal(archiveOverride, embeddedArchive) ? "embedded seed" : "archive override");
-                await SaveArchiveAsync(archiveOverride, downloadPath, applicationName, cancellationToken).ConfigureAwait(false);
-                string hash = await VerifyHashAsync(applicationName, downloadPath, ReadEnvironment(prefix + "_ARCHIVE_SHA256"), cancellationToken).ConfigureAwait(false);
-                return await UpdateCacheAsync(downloadPath, cacheRoot, applicationName, assetName, "", "", hash, cancellationToken).ConfigureAwait(false);
-            }
-            if (skipReleaseLookup)
-            {
-                string executable = ResolveCached(cacheRoot, applicationName);
-                logger.Information("Selected provisioned cache for {PayloadApplication} on {RuntimeIdentifier}; release lookup skipped",
-                    applicationName, runtimeIdentifier);
-                return executable;
-            }
+            // Connect may be needed to establish networking, so its online lookup must yield promptly to the original payload.
+            using var lookupDeadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            if (applicationName == "Foundry.Connect") lookupDeadline.CancelAfter(TimeSpan.FromSeconds(5));
+            using JsonDocument release = await transfer.ReadReleaseAsync(releaseUrl, lookupDeadline.Token).ConfigureAwait(false);
+            string assetName = $"{applicationName}-{runtimeIdentifier}.zip";
+            JsonElement[] assets = release.RootElement.GetProperty("assets").EnumerateArray()
+                .Where(item => string.Equals(item.GetProperty("name").GetString(), assetName, StringComparison.Ordinal)).ToArray();
+            if (assets.Length != 1) throw new InvalidDataException($"Release must contain exactly one '{assetName}' asset.");
+            JsonElement asset = assets[0];
+            string? digest = asset.TryGetProperty("digest", out JsonElement value) && value.ValueKind == JsonValueKind.String
+                ? value.GetString() : null;
+            string expectedHash = RuntimePayloadPreparation.RequireHash(
+                digest?.StartsWith("sha256:", StringComparison.OrdinalIgnoreCase) == true ? digest[7..] : null);
 
-            JsonDocument release;
-            string releaseUrl = "https://api.github.com/repos/foundry-osd/foundry/releases/" +
-                (tagOverride.Length == 0 ? "latest" : "tags/" + Uri.EscapeDataString(tagOverride));
-            try
+            if (File.Exists(currentArchive))
             {
-                release = await transfer.ReadReleaseAsync(releaseUrl, cancellationToken).ConfigureAwait(false);
-            }
-            catch (Exception exception) when (!cancellationToken.IsCancellationRequested)
-            {
-                logger.Warning(exception, "Release lookup failed for {PayloadApplication}; using available fallback", applicationName);
-                return await FallbackAsync("Release lookup failed.").ConfigureAwait(false);
-            }
-
-            using (release)
-            {
-                string tag = release.RootElement.GetProperty("tag_name").GetString() ?? "";
-                string version = tag.Trim();
-                if (version.StartsWith('v') || version.StartsWith('V')) version = version[1..];
-                JsonElement asset = release.RootElement.GetProperty("assets").EnumerateArray()
-                    .FirstOrDefault(item => string.Equals(item.GetProperty("name").GetString(), assetName, StringComparison.OrdinalIgnoreCase));
-                if (asset.ValueKind == JsonValueKind.Undefined) throw new InvalidDataException($"Release does not contain '{assetName}'.");
-                string? digest = asset.TryGetProperty("digest", out JsonElement digestElement) ? digestElement.GetString() : null;
-                string? expectedHash = digest?.StartsWith("sha256:", StringComparison.OrdinalIgnoreCase) == true ? digest[7..].Trim() : null;
-                if (IsCacheCurrent(cacheRoot, applicationName, assetName, tag, version, expectedHash))
-                {
-                    logger.Information("Selected current cache for {PayloadApplication} on {RuntimeIdentifier}; release version {PayloadVersion}",
-                        applicationName, runtimeIdentifier, version);
-                    return ResolveCached(cacheRoot, applicationName);
-                }
-                logger.Information("Selected release version {PayloadVersion} for {PayloadApplication} on {RuntimeIdentifier}; cache refresh required",
-                    version, applicationName, runtimeIdentifier);
                 try
                 {
-                    if (string.IsNullOrWhiteSpace(expectedHash)) logger.Warning("No supported SHA256 digest supplied for {PayloadApplication}; continuing without digest validation", applicationName);
-                    string url = asset.GetProperty("browser_download_url").GetString() ?? throw new InvalidDataException("Release asset has no download URL.");
-                    await SaveArchiveAsync(url, downloadPath, applicationName, cancellationToken).ConfigureAwait(false);
-                    string hash = await VerifyHashAsync(applicationName, downloadPath, expectedHash, cancellationToken).ConfigureAwait(false);
-                    return await UpdateCacheAsync(downloadPath, cacheRoot, applicationName, assetName, tag, version, hash, cancellationToken).ConfigureAwait(false);
+                    string executable = await preparation.PrepareAsync(currentArchive, expectedHash, applicationName, cancellationToken).ConfigureAwait(false);
+                    logger.Information("Selected authenticated cached update for {PayloadApplication} on {RuntimeIdentifier}", applicationName, runtimeIdentifier);
+                    return executable;
                 }
-                catch (Exception exception) when (!cancellationToken.IsCancellationRequested)
+                catch (Exception exception) when (CanFallBack(exception, cancellationToken))
                 {
-                    logger.Warning(exception, "Cache refresh failed for {PayloadApplication}; using available fallback", applicationName);
-                    return await FallbackAsync("Application update failed.").ConfigureAwait(false);
+                    logger.Warning(exception, "Cached runtime update could not be authenticated for {PayloadApplication}; downloading a replacement", applicationName);
                 }
             }
+
+            string? downloadUrl = asset.GetProperty("browser_download_url").GetString();
+            if (!Uri.TryCreate(downloadUrl, UriKind.Absolute, out Uri? uri) || uri.Scheme != Uri.UriSchemeHttps)
+                throw new InvalidDataException("Runtime release asset must use HTTPS.");
+            return await preparation.PrepareAsync(downloadUrl!, expectedHash, applicationName, cancellationToken,
+                archive => PersistUpdateAsync(archive, currentArchive, applicationName, cancellationToken)).ConfigureAwait(false);
         }
-        finally
+        catch (Exception exception) when (CanFallBack(exception, cancellationToken))
         {
-            try { File.Delete(downloadPath); }
-            catch (Exception exception) { logger.Warning(exception, "Could not remove temporary payload download for {PayloadApplication}", applicationName); }
+            logger.Warning(exception, "Online runtime verification failed for {PayloadApplication}; trying the original boot-media payload", applicationName);
+            string executable = await OriginalAsync().ConfigureAwait(false);
+            warning?.Invoke("Online runtime verification failed. Continuing with the original application provisioned on the boot media.");
+            return executable;
         }
 
-        async Task<string> FallbackAsync(string reason)
+        async Task<string> OriginalAsync()
         {
             cancellationToken.ThrowIfCancellationRequested();
-            if (File.Exists(Path.Combine(cacheRoot, applicationName + ".exe")))
-            {
-                string executable = ResolveCached(cacheRoot, applicationName);
-                logger.Information("Selected cached fallback for {PayloadApplication} on {RuntimeIdentifier}; reason {FailureReason}",
-                    applicationName, runtimeIdentifier, reason);
-                warning?.Invoke(reason + " Continuing with the cached application.");
-                return executable;
-            }
-            if (!File.Exists(embeddedArchive)) return ResolveCached(cacheRoot, applicationName);
-            logger.Warning("Using embedded archive fallback for {PayloadApplication}", applicationName);
-            await SaveArchiveAsync(embeddedArchive!, downloadPath, applicationName, cancellationToken).ConfigureAwait(false);
-            string hash = await VerifyHashAsync(applicationName, downloadPath, null, cancellationToken).ConfigureAwait(false);
-            string embeddedExecutable = await UpdateCacheAsync(downloadPath, cacheRoot, applicationName, assetName, "", "", hash, cancellationToken).ConfigureAwait(false);
-            warning?.Invoke(reason + " Continuing with the application included on the boot media.");
-            return embeddedExecutable;
+            string? expected = RuntimePayloadTrust.ReadArchiveHash(winPeRoot, applicationName, runtimeIdentifier);
+            string imageArchive = RuntimePayloadTrust.GetBaselineArchivePath(Path.Combine(winPeRoot, "Runtime"), applicationName, runtimeIdentifier);
+            string source = File.Exists(imageArchive) ? imageArchive : originalArchive;
+            if (expected is null || !File.Exists(source))
+                throw new InvalidDataException($"No authenticated original {applicationName} payload is available. Recreate the boot media or connect to the network to obtain a verified runtime.");
+            string executable = await preparation.PrepareAsync(source, expected, applicationName, cancellationToken).ConfigureAwait(false);
+            logger.Information("Selected authenticated original boot-media payload for {PayloadApplication} on {RuntimeIdentifier}", applicationName, runtimeIdentifier);
+            return executable;
         }
     }
 
     private string ReadEnvironment(string name) => environment(name)?.Trim() ?? "";
 
-    private static string ResolveCached(string cacheRoot, string applicationName)
+    private async Task PersistUpdateAsync(string source, string destination, string applicationName, CancellationToken cancellationToken)
     {
-        string executable = Path.Combine(cacheRoot, applicationName + ".exe");
-        if (!File.Exists(executable)) throw new FileNotFoundException($"No cached {applicationName} executable is available.", executable);
-        return executable;
-    }
-
-    private static bool IsCacheCurrent(string cacheRoot, string applicationName, string assetName, string tag, string version, string? expectedHash)
-    {
-        string executable = Path.Combine(cacheRoot, applicationName + ".exe");
-        if (!File.Exists(executable)) return false;
-        string manifestPath = Path.Combine(cacheRoot, "manifest");
-        var manifest = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        if (File.Exists(manifestPath))
-        {
-            foreach (string line in File.ReadLines(manifestPath))
-            {
-                int separator = line.IndexOf('=');
-                if (separator > 0) manifest[line[..separator].Trim()] = line[(separator + 1)..].Trim();
-            }
-        }
-        if (manifest.Count > 0)
-        {
-            if (!Equal(manifest.GetValueOrDefault("Asset"), assetName)) return false;
-            if (!string.IsNullOrWhiteSpace(expectedHash)) return Equal(manifest.GetValueOrDefault("ArchiveSha256"), expectedHash);
-            if (!string.IsNullOrWhiteSpace(manifest.GetValueOrDefault("Tag"))) return Equal(manifest["Tag"], tag);
-            if (!string.IsNullOrWhiteSpace(manifest.GetValueOrDefault("Version"))) return Equal(manifest["Version"], version);
-        }
-        string? cachedVersion = FileVersionInfo.GetVersionInfo(executable).FileVersion?.Trim();
-        return !string.IsNullOrWhiteSpace(cachedVersion) && Equal(cachedVersion, version);
-    }
-
-    private static bool Equal(string? left, string? right) => string.Equals(left, right, StringComparison.OrdinalIgnoreCase);
-
-    private async Task SaveArchiveAsync(string source, string destination, string applicationName, CancellationToken cancellationToken)
-    {
-        bool remote = Uri.TryCreate(source, UriKind.Absolute, out Uri? uri) &&
-            (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
-        string operation = remote ? "Download" : "Local copy";
-        string assetName = $"{applicationName}-{runtimeIdentifier}.zip";
-        long started = Stopwatch.GetTimestamp();
-        logger.Debug("{TransferOperation} started for {PayloadApplication}; asset {AssetName}", operation, applicationName, assetName);
-        await transfer.SaveAsync(source, destination, applicationName, cancellationToken).ConfigureAwait(false);
-        logger.Debug("{TransferOperation} completed for {PayloadApplication}; asset {AssetName}; received {BytesReceived} bytes; duration {DurationMilliseconds:F0} ms",
-            operation, applicationName, assetName, new FileInfo(destination).Length, Stopwatch.GetElapsedTime(started).TotalMilliseconds);
-    }
-    private async Task<string> VerifyHashAsync(string applicationName, string archive, string? expected, CancellationToken cancellationToken)
-    {
-        activity?.Invoke($"Verifying archive for {applicationName}...");
-        using var hash = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
-        await using var input = new FileStream(archive, FileMode.Open, FileAccess.Read, FileShare.Read,
-            81920, FileOptions.Asynchronous | FileOptions.SequentialScan);
-        byte[] buffer = new byte[81920];
-        long received = 0;
-        progress?.Invoke(new(applicationName, 0, input.Length, RuntimeProgressPhase.Verification));
-        int read;
-        while ((read = await input.ReadAsync(buffer, cancellationToken).ConfigureAwait(false)) > 0)
-        {
-            hash.AppendData(buffer, 0, read);
-            received += read;
-            progress?.Invoke(new(applicationName, received, input.Length, RuntimeProgressPhase.Verification));
-        }
-        string actual = Convert.ToHexString(hash.GetHashAndReset());
-        if (!string.IsNullOrWhiteSpace(expected))
-        {
-            string normalized = expected.Trim();
-            if (normalized.Length != 64 || normalized.Any(character => !Uri.IsHexDigit(character))) throw new InvalidDataException("Invalid archive SHA256 value.");
-            if (!Equal(actual, normalized)) throw new InvalidDataException("Archive SHA256 mismatch.");
-            logger.Debug("Archive SHA256 validation passed for {PayloadApplication}", applicationName);
-        }
-        else logger.Debug("Archive SHA256 calculated for {PayloadApplication}; no expected digest was available for validation", applicationName);
-        return actual;
-    }
-
-    private async Task<string> UpdateCacheAsync(string archive, string cacheRoot, string applicationName, string assetName,
-        string tag, string version, string hash, CancellationToken cancellationToken)
-    {
-        long started = Stopwatch.GetTimestamp();
-        string staging = cacheRoot + ".staging";
-        RuntimeCache.DeleteDirectory(staging);
         try
         {
-            Directory.CreateDirectory(staging);
-            long extractionStarted = Stopwatch.GetTimestamp();
-            activity?.Invoke($"Extracting files for {applicationName}...");
-            logger.Debug("Archive extraction started for {PayloadApplication}; asset {AssetName}", applicationName, assetName);
-            await RuntimeArchive.ExtractAsync(archive, staging, cancellationToken,
-                (bytes, total) => progress?.Invoke(new(applicationName, bytes, total, RuntimeProgressPhase.Extraction))).ConfigureAwait(false);
-            logger.Debug("Archive extraction completed for {PayloadApplication}; asset {AssetName}; duration {DurationMilliseconds:F0} ms",
-                applicationName, assetName, Stopwatch.GetElapsedTime(extractionStarted).TotalMilliseconds);
-            string executable = ResolveCached(staging, applicationName);
-            if (string.IsNullOrWhiteSpace(version)) version = FileVersionInfo.GetVersionInfo(executable).FileVersion?.Trim() ?? "";
-            await File.WriteAllLinesAsync(Path.Combine(staging, "manifest"),
-                [$"Tag={tag}", $"Version={version}", $"Asset={assetName}", $"ArchiveSha256={hash}", $"UpdatedUtc={DateTime.UtcNow:O}"], cancellationToken).ConfigureAwait(false);
-            cancellationToken.ThrowIfCancellationRequested();
-            activity?.Invoke($"Updating cache for {applicationName}...");
-            new RuntimeCache().Promote(staging, cacheRoot);
-            logger.Information("Runtime cache ready for {PayloadApplication} on {RuntimeIdentifier}; version {PayloadVersion}; duration {DurationMilliseconds:F0} ms",
-                applicationName, runtimeIdentifier, string.IsNullOrWhiteSpace(version) ? "unknown" : version,
-                Stopwatch.GetElapsedTime(started).TotalMilliseconds);
-            return ResolveCached(cacheRoot, applicationName);
+            await RuntimeArchiveCache.StoreAsync(source, destination, cancellationToken).ConfigureAwait(false);
+            logger.Information("Verified runtime update cached for {PayloadApplication}; future reuse requires online verification", applicationName);
         }
-        finally
+        catch (Exception exception) when (CanFallBack(exception, cancellationToken))
         {
-            try { RuntimeCache.DeleteDirectory(staging); }
-            catch (Exception exception) { logger.Warning(exception, "Could not remove staging directory for {PayloadApplication}", applicationName); }
+            logger.Warning(exception, "Verified runtime could not be cached for {PayloadApplication}; continuing from boot-owned storage", applicationName);
+            warning?.Invoke("The verified runtime could not be saved to the cache. This boot can continue.");
         }
     }
+
+    private static bool CanFallBack(Exception exception, CancellationToken cancellationToken) =>
+        !cancellationToken.IsCancellationRequested && exception is IOException or InvalidDataException or UnauthorizedAccessException or
+            HttpRequestException or OperationCanceledException or JsonException or InvalidOperationException or KeyNotFoundException;
 }

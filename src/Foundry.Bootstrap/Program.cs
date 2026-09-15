@@ -74,8 +74,7 @@ internal static class Program
             }
 
             BootstrapVolume[] volumes = BootstrapEnvironment.EnumerateVolumes().ToArray();
-            BootstrapVolume? cache = volumes.FirstOrDefault(volume => volume.IsReady &&
-                string.Equals(volume.Label, "Foundry Cache", StringComparison.OrdinalIgnoreCase));
+            BootstrapVolume? cache = BootstrapEnvironment.ResolveCacheVolume(volumes);
             telemetry.Configure(WinPeRoot, cache?.Root);
             persistence = new BootstrapLogPersistence(Path.GetDirectoryName(logPath) ?? Path.Combine(WinPeRoot, "Logs"),
                 cache is null ? null : Path.Combine(cache.Root, "Logs", sessionId),
