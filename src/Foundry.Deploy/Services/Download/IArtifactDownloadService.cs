@@ -6,6 +6,11 @@ namespace Foundry.Deploy.Services.Download;
 
 public interface IArtifactDownloadService
 {
+    /// <summary>
+    /// Downloads or reuses an artifact, checking its bytes against <paramref name="expectedHash"/>
+    /// when supplied by trusted catalog metadata. Cache sidecars are not trusted or required.
+    /// Hashless artifacts retain legacy reuse behavior without an integrity guarantee.
+    /// </summary>
     Task<ArtifactDownloadResult> DownloadAsync(
         string sourceUrl,
         string destinationPath,
