@@ -2,6 +2,9 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Deployment;
@@ -11,6 +14,7 @@ using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
 
@@ -88,14 +92,57 @@ public sealed class DeploymentPayloadCacheFallbackTests
             downloadService.DestinationPath);
     }
 
+    [Theory]
+    [InlineData(DeploymentMode.Usb, false)]
+    [InlineData(DeploymentMode.Usb, true)]
+    [InlineData(DeploymentMode.Iso, false)]
+    [InlineData(DeploymentMode.Iso, true)]
+    public async Task DownloadStep_WhenCacheManifestIsForged_HandsVerifiedBytesToNextStep(DeploymentMode mode, bool driverPack)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        byte[] content = Encoding.UTF8.GetBytes("original-content");
+        string expectedHash = Convert.ToHexString(SHA256.HashData(content));
+        DeploymentStepExecutionContext context = CreateExecutionContext(
+            workspace, content.Length, content.Length, expectedHash, mode);
+        string cacheRoot = mode == DeploymentMode.Iso ? workspace.TargetFoundryRoot : workspace.UsbCacheRoot;
+        string destinationPath = driverPack
+            ? Path.Combine(cacheRoot, "Cache", "DriverPacks", "Contoso", "drivers.cab")
+            : Path.Combine(cacheRoot, "Cache", "OperatingSystems", "install.wim");
+        Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
+        await File.WriteAllTextAsync(destinationPath, "tampered-content", TestContext.Current.CancellationToken);
+        await ArtifactDownloadServiceTests.WriteLegacyManifestAsync(destinationPath, expectedHash, "SHA256");
+        using var client = new HttpClient(new PayloadHttpMessageHandler(content));
+        var downloadService = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+        DeploymentStepBase step = driverPack
+            ? new DownloadDriverPackStep(new FakeMicrosoftUpdateCatalogDriverService(), downloadService)
+            : new DownloadOperatingSystemImageStep(downloadService);
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        string? returnedPath = driverPack
+            ? context.RuntimeState.DownloadedDriverPackPath
+            : context.RuntimeState.DownloadedOperatingSystemPath;
+        Assert.Equal(destinationPath, returnedPath);
+        Assert.Equal(content, await File.ReadAllBytesAsync(returnedPath!, TestContext.Current.CancellationToken));
+    }
+
+    private sealed class PayloadHttpMessageHandler(byte[] content) : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) =>
+            Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = new ByteArrayContent(content) });
+    }
+
     private static DeploymentStepExecutionContext CreateExecutionContext(
         TempDeploymentWorkspace workspace,
         long operatingSystemSizeBytes = 1,
-        long driverPackSizeBytes = 1)
+        long driverPackSizeBytes = 1,
+        string expectedHash = "",
+        DeploymentMode mode = DeploymentMode.Usb)
     {
         var request = new DeploymentContext
         {
-            Mode = DeploymentMode.Usb,
+            Mode = mode,
             CacheRootPath = workspace.UsbRuntimeRoot,
             TargetDiskNumber = 1,
             TargetComputerName = "LAB01",
@@ -103,7 +150,8 @@ public sealed class DeploymentPayloadCacheFallbackTests
             {
                 FileName = "install.wim",
                 Url = "https://example.test/install.wim",
-                SizeBytes = operatingSystemSizeBytes
+                SizeBytes = operatingSystemSizeBytes,
+                Sha256 = expectedHash
             },
             DriverPackSelectionKind = DriverPackSelectionKind.OemCatalog,
             DriverPack = new DriverPackCatalogItem
@@ -112,7 +160,8 @@ public sealed class DeploymentPayloadCacheFallbackTests
                 Name = "Contoso Driver Pack",
                 FileName = "drivers.cab",
                 DownloadUrl = "https://example.test/drivers.cab",
-                SizeBytes = driverPackSizeBytes
+                SizeBytes = driverPackSizeBytes,
+                Sha256 = expectedHash
             },
             IsDryRun = false
         };
@@ -120,7 +169,7 @@ public sealed class DeploymentPayloadCacheFallbackTests
         var runtimeState = new DeploymentRuntimeState
         {
             WorkspaceRoot = workspace.WorkspaceRoot,
-            Mode = DeploymentMode.Usb,
+            Mode = mode,
             TargetFoundryRoot = workspace.TargetFoundryRoot,
             ResolvedCache = new CacheResolution
             {

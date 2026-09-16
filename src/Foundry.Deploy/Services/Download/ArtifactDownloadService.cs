@@ -42,9 +42,10 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
     {
         string effectiveSourceUrl = WindowsUpdateContentUrl.Normalize(sourceUrl);
 
-        _logger.LogInformation("Starting artifact download. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}",
+        _logger.LogInformation("Starting artifact download. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}, ArtifactKind={ArtifactKind}",
             sourceUrl,
-            destinationPath);
+            destinationPath,
+            artifactKind);
 
         if (string.IsNullOrWhiteSpace(sourceUrl))
         {
@@ -80,12 +81,10 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
 
             if (File.Exists(destinationPath) &&
                 await TryUseExistingArtifactAsync(
-                    sourceUrl,
                     destinationPath,
                     normalizedExpectedHash,
                     hashAlgorithm,
                     expectedSizeBytes,
-                    artifactKind,
                     cancellationToken,
                     progress).ConfigureAwait(false))
             {
@@ -119,20 +118,6 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 .ConfigureAwait(false);
             await EnsureDownloadedHashAsync(destinationPath, normalizedExpectedHash, hashAlgorithm, downloadedArtifact, cancellationToken).ConfigureAwait(false);
 
-            if (normalizedExpectedHash is not null && hashAlgorithm is not null)
-            {
-                await ArtifactCacheManifestService
-                    .WriteAsync(
-                        destinationPath,
-                        sourceUrl,
-                        artifactKind,
-                        normalizedExpectedHash,
-                        hashAlgorithm.Value.Name ?? string.Empty,
-                        expectedSizeBytes,
-                        cancellationToken)
-                    .ConfigureAwait(false);
-            }
-
             _logger.LogInformation("Artifact downloaded via HttpClient. DestinationPath={DestinationPath}", destinationPath);
             return new ArtifactDownloadResult
             {
@@ -156,12 +141,10 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
     }
 
     private async Task<bool> TryUseExistingArtifactAsync(
-        string sourceUrl,
         string destinationPath,
         string? normalizedExpectedHash,
         HashAlgorithmName? hashAlgorithm,
         long? expectedSizeBytes,
-        string? artifactKind,
         CancellationToken cancellationToken,
         IProgress<DownloadProgress>? progress)
     {
@@ -178,39 +161,29 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
 
         if (normalizedExpectedHash is null || hashAlgorithm is null)
         {
+            _logger.LogWarning(
+                "Reusing an unverified artifact because no expected hash is available. DestinationPath={DestinationPath}",
+                destinationPath);
             progress?.Report(new DownloadProgress(artifact.Length, artifact.Length));
             return true;
         }
 
-        if (ArtifactCacheManifestService.TryValidate(
-                destinationPath,
-                normalizedExpectedHash,
-                hashAlgorithm.Value.Name ?? string.Empty,
-                expectedSizeBytes,
-                _logger,
-                out _))
-        {
-            progress?.Report(new DownloadProgress(artifact.Length, artifact.Length));
-            return true;
-        }
-
+        // Adjacent metadata and file timestamps cannot authenticate cache bytes.
+        _logger.LogInformation(
+            "Verifying cached artifact hash. DestinationPath={DestinationPath}, HashAlgorithm={HashAlgorithm}",
+            destinationPath,
+            hashAlgorithm.Value.Name);
         string actualHash = await ComputeHashAsync(destinationPath, hashAlgorithm.Value, cancellationToken).ConfigureAwait(false);
         if (!string.Equals(normalizedExpectedHash, actualHash, StringComparison.OrdinalIgnoreCase))
         {
+            _logger.LogWarning(
+                "Cached artifact hash mismatch; downloading a replacement. DestinationPath={DestinationPath}, HashAlgorithm={HashAlgorithm}",
+                destinationPath,
+                hashAlgorithm.Value.Name);
             return false;
         }
 
-        await ArtifactCacheManifestService
-            .WriteAsync(
-                destinationPath,
-                sourceUrl,
-                artifactKind,
-                normalizedExpectedHash,
-                hashAlgorithm.Value.Name ?? string.Empty,
-                expectedSizeBytes,
-                cancellationToken)
-            .ConfigureAwait(false);
-
+        _logger.LogInformation("Cached artifact hash verified. DestinationPath={DestinationPath}", destinationPath);
         progress?.Report(new DownloadProgress(artifact.Length, artifact.Length));
         return true;
     }
