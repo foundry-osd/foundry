@@ -1809,8 +1809,23 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private static long? ParseImageSize(string output)
     {
         string value = ParseImageProperty(output, "Size");
-        Match match = Regex.Match(value, @"^([0-9]+|[0-9]{1,3}(?:,[0-9]{3})+) bytes$", RegexOptions.IgnoreCase);
-        return match.Success && long.TryParse(match.Groups[1].Value, NumberStyles.AllowThousands,
+        // /English leaves regional numeric grouping intact; validate it before removing the separator.
+        Match match = Regex.Match(value,
+            @"^(?<size>[0-9]+|[0-9]{1,3}(?<separator>[,.\u0020\u00A0\u202F])[0-9]{3}(?:\k<separator>[0-9]{3})*) bytes$",
+            RegexOptions.IgnoreCase);
+        if (!match.Success)
+        {
+            return null;
+        }
+
+        string sizeText = match.Groups["size"].Value;
+        string separator = match.Groups["separator"].Value;
+        if (separator.Length > 0)
+        {
+            sizeText = sizeText.Replace(separator, string.Empty, StringComparison.Ordinal);
+        }
+
+        return long.TryParse(sizeText, NumberStyles.None,
             CultureInfo.InvariantCulture, out long size) && size > 0 ? size : null;
     }
 

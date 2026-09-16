@@ -19,28 +19,58 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class WindowsDeploymentServiceTests
 {
-    [Fact]
-    public async Task InspectImageAsync_CapturesKnownSetupMediaExpansionInTheSamePass()
+    [Theory]
+    [InlineData(",")]
+    [InlineData(".")]
+    [InlineData(" ")]
+    [InlineData("\u00A0")]
+    [InlineData("\u202F")]
+    [InlineData("")]
+    public async Task InspectImageAsync_RegionalSizes_PreservesExactOsAndSetupMediaBytes(string separator)
     {
         using var workspace = new TemporaryWorkspace();
         string imagePath = Path.Combine(workspace.RootPath, "image.esd");
         await File.WriteAllTextAsync(imagePath, "image", TestContext.Current.CancellationToken);
+        string imageSize = "26,839,601,777".Replace(",", separator, StringComparison.Ordinal);
+        string setupSize = "277,641,908".Replace(",", separator, StringComparison.Ordinal);
         var runner = new RecordingProcessRunner
         {
             ResultFactory = arguments => new ProcessExecutionResult
             {
                 ExitCode = 0,
                 StandardOutput = arguments.Contains("/Index:1", StringComparison.Ordinal)
-                    ? "Index : 1\nName : Windows Setup Media\nSize : 100 bytes"
-                    : arguments.Contains("/Index:2", StringComparison.Ordinal)
-                        ? "Index : 2\nEdition ID : Professional\nSize : 10 bytes"
-                        : "Index : 1\nName : Windows Setup Media\nIndex : 2\nName : Windows 11 Pro"
+                    ? $"Index : 1\r\nName : Windows Setup Media\r\nSize : {setupSize} bytes\r\n"
+                    : arguments.Contains("/Index:9", StringComparison.Ordinal)
+                        ? $"""
+                            Index : 9
+                            Name : Windows 11 Professionnel
+                            Description : Windows 11 Professionnel
+                            Size : {imageSize} bytes
+                            WIM Bootable : No
+                            Architecture : x64
+                            Hal : <undefined>
+                            Version : 10.0.26200
+                            ServicePack Build : 9457
+                            ServicePack Level : 0
+                            Edition : Professional
+                            Installation : Client
+                            ProductType : WinNT
+                            ProductSuite : Terminal Server
+                            System Root : WINDOWS
+                            Directories : 35246
+                            Files : 154552
+                            Languages :
+                                    fr-FR (Default)
+                            The operation completed successfully.
+                            """
+                        : "Index : 1\r\nName : Windows Setup Media\r\nIndex : 9\r\nName : Windows 11 Professionnel\r\n"
             }
         };
         var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
         WindowsImageMetadata image = await service.InspectImageAsync(imagePath, "Pro", workspace.RootPath, TestContext.Current.CancellationToken);
-        Assert.Equal(100, image.SetupMediaSizeBytes);
-        Assert.Equal(10, image.SizeBytes);
+        Assert.Equal(277641908L, image.SetupMediaSizeBytes);
+        Assert.Equal(26839601777L, image.SizeBytes);
+        Assert.Equal(9, image.Index);
         Assert.Equal(3, runner.Calls.Count);
     }
 
@@ -51,6 +81,12 @@ public sealed class WindowsDeploymentServiceTests
     [InlineData("1,23 bytes")]
     [InlineData("9223372036854775808 bytes")]
     [InlineData("5 GB")]
+    [InlineData("26\u202F839\u202F60\u202F1777 bytes")]
+    [InlineData("26\u202F839,601\u202F777 bytes")]
+    [InlineData("26 839.601 777 bytes")]
+    [InlineData("26\t839\t601\t777 bytes")]
+    [InlineData("26\u202F839\u202F601\u202F777.0 bytes")]
+    [InlineData("9\u202F223\u202F372\u202F036\u202F854\u202F775\u202F808 bytes")]
     public async Task InspectImageAsync_MalformedExpandedSize_FailsClosed(string size)
     {
         using var workspace = new TemporaryWorkspace();
