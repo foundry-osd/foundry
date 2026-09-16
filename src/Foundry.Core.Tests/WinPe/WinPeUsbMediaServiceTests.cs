@@ -4,6 +4,7 @@
 
 using System.Text;
 using Foundry.Core.Services.WinPe;
+using Foundry.Utilities.Storage;
 
 namespace Foundry.Core.Tests.WinPe;
 
@@ -68,7 +69,9 @@ public sealed class WinPeUsbMediaServiceTests
                 TargetDiskNumber = 2,
                 ExpectedDiskFriendlyName = "Expected USB",
                 ExpectedDiskSerialNumber = "SERIAL-1",
-                ExpectedDiskUniqueId = "UNIQUE-1"
+                ExpectedDiskUniqueId = "UNIQUE-1",
+                ExpectedDiskBusType = "USB",
+                ExpectedDiskSizeBytes = 64UL * 1024UL * 1024UL * 1024UL
             },
             new WinPeUsbDiskIdentity
             {
@@ -198,13 +201,13 @@ public sealed class WinPeUsbMediaServiceTests
     public void BuildPowerShellProvisioningScript_WhenGptQuickFormat_CreatesBootAndCachePartitionsWithExplicitTypesWithoutActive()
     {
         string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
-            diskNumber: 7,
+            expectedIdentity: ConfirmedIdentity(7),
             partitionStyle: UsbPartitionStyle.Gpt,
             formatMode: UsbFormatMode.Quick);
 
         Assert.Contains("$diskNumber = 7", script, StringComparison.Ordinal);
         Assert.Contains("$partitionStyle = 'GPT'", script, StringComparison.Ordinal);
-        Assert.Contains("Initialize-Disk -Number $diskNumber -PartitionStyle $partitionStyle", script, StringComparison.Ordinal);
+        Assert.Contains("Initialize-Disk -InputObject $foundryConfirmedDisk -PartitionStyle $partitionStyle", script, StringComparison.Ordinal);
         Assert.Contains("if ($partitionStyle -eq 'GPT')", script, StringComparison.Ordinal);
         Assert.Contains("Size = 2048MB", script, StringComparison.Ordinal);
         Assert.Contains("$bootPartitionArguments['GptType'] = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'", script, StringComparison.OrdinalIgnoreCase);
@@ -221,7 +224,7 @@ public sealed class WinPeUsbMediaServiceTests
     public void BuildPowerShellProvisioningScript_WhenClearedDiskKeepsPreviousStyle_ResetsPartitionStyle()
     {
         string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
-            diskNumber: 7,
+            expectedIdentity: ConfirmedIdentity(7),
             partitionStyle: UsbPartitionStyle.Gpt,
             formatMode: UsbFormatMode.Quick);
 
@@ -237,7 +240,7 @@ public sealed class WinPeUsbMediaServiceTests
     public void BuildPowerShellProvisioningScript_WhenFormattingFreshPartitions_UsesStorageAssignedDriveLetters()
     {
         string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
-            diskNumber: 7,
+            expectedIdentity: ConfirmedIdentity(7),
             partitionStyle: UsbPartitionStyle.Gpt,
             formatMode: UsbFormatMode.Quick);
 
@@ -262,7 +265,7 @@ public sealed class WinPeUsbMediaServiceTests
     public void BuildPowerShellProvisioningScript_WhenRecreatingUsb_ReleasesTargetAccessPathsBeforeClearingDisk()
     {
         string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
-            diskNumber: 7,
+            expectedIdentity: ConfirmedIdentity(7),
             partitionStyle: UsbPartitionStyle.Gpt,
             formatMode: UsbFormatMode.Quick);
 
@@ -271,9 +274,9 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("Remove-PartitionAccessPath", script, StringComparison.Ordinal);
         Assert.True(
             script.IndexOf("Clear-FoundryUsbTargetAccessPaths", StringComparison.Ordinal) <
-            script.IndexOf("Clear-Disk -Number $diskNumber", StringComparison.Ordinal));
+            script.IndexOf("Clear-Disk -InputObject $foundryConfirmedDisk", StringComparison.Ordinal));
         Assert.True(
-            script.IndexOf("Clear-Disk -Number $diskNumber", StringComparison.Ordinal) <
+            script.IndexOf("Clear-Disk -InputObject $foundryConfirmedDisk", StringComparison.Ordinal) <
             script.IndexOf("$bootPartition = New-Partition @bootPartitionArguments", StringComparison.Ordinal));
     }
 
@@ -281,7 +284,7 @@ public sealed class WinPeUsbMediaServiceTests
     public void BuildPowerShellProvisioningScript_WhenCreatingPartitions_WaitsForVolumesBeforeFormatting()
     {
         string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
-            diskNumber: 7,
+            expectedIdentity: ConfirmedIdentity(7),
             partitionStyle: UsbPartitionStyle.Gpt,
             formatMode: UsbFormatMode.Quick);
 
@@ -300,7 +303,7 @@ public sealed class WinPeUsbMediaServiceTests
     public void BuildPowerShellProvisioningScript_WhenFormattingUsb_EmitsProgressMarkers()
     {
         string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
-            diskNumber: 7,
+            expectedIdentity: ConfirmedIdentity(7),
             partitionStyle: UsbPartitionStyle.Gpt,
             formatMode: UsbFormatMode.Quick);
 
@@ -314,7 +317,7 @@ public sealed class WinPeUsbMediaServiceTests
     public void BuildPowerShellProvisioningScript_WhenFormattingUsb_EmitsVerboseMarkers()
     {
         string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
-            diskNumber: 7,
+            expectedIdentity: ConfirmedIdentity(7),
             partitionStyle: UsbPartitionStyle.Gpt,
             formatMode: UsbFormatMode.Quick);
 
@@ -377,7 +380,7 @@ public sealed class WinPeUsbMediaServiceTests
     public void BuildPowerShellProvisioningScript_WhenMbrCompleteFormat_MarksBootPartitionActiveAndFullFormat()
     {
         string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
-            diskNumber: 8,
+            expectedIdentity: ConfirmedIdentity(8),
             partitionStyle: UsbPartitionStyle.Mbr,
             formatMode: UsbFormatMode.Complete);
 
@@ -397,13 +400,13 @@ public sealed class WinPeUsbMediaServiceTests
     public void BuildPowerShellBootPartitionUpdateScript_WhenUpdatingUsb_FormatsOnlyExistingBootVolume()
     {
         string script = WinPeUsbMediaService.BuildPowerShellBootPartitionUpdateScript(
-            diskNumber: 9,
+            expectedIdentity: ConfirmedIdentity(9),
             bootDriveLetter: "S:",
             formatMode: UsbFormatMode.Quick);
 
         Assert.Contains("$diskNumber = 9", script, StringComparison.Ordinal);
         Assert.Contains("$bootDriveLetter = 'S'", script, StringComparison.Ordinal);
-        Assert.Contains("Get-Partition -DiskNumber $diskNumber", script, StringComparison.Ordinal);
+        Assert.Contains("Get-Partition -Disk $foundryConfirmedDisk", script, StringComparison.Ordinal);
         Assert.Contains("Format-Volume @bootFormatArguments", script, StringComparison.Ordinal);
         Assert.Contains("NewFileSystemLabel = 'BOOT'", script, StringComparison.Ordinal);
         Assert.DoesNotContain("Clear-Disk", script, StringComparison.OrdinalIgnoreCase);
@@ -516,7 +519,11 @@ public sealed class WinPeUsbMediaServiceTests
             new UsbOutputOptions
             {
                 TargetDiskNumber = 9,
-                ExpectedDiskFriendlyName = "Internal"
+                ExpectedDiskFriendlyName = "Internal SSD",
+                ExpectedDiskSerialNumber = "SERIAL",
+                ExpectedDiskUniqueId = "UNIQUE",
+                ExpectedDiskBusType = "NVMe",
+                ExpectedDiskSizeBytes = 64000000000
             },
             new WinPeBuildArtifact { WorkingDirectoryPath = workspace.RootPath },
             new WinPeToolPaths { PowerShellPath = "pwsh.exe" },
@@ -547,6 +554,10 @@ public sealed class WinPeUsbMediaServiceTests
             {
                 TargetDiskNumber = 9,
                 ExpectedDiskFriendlyName = "Safe USB",
+                ExpectedDiskSerialNumber = "SERIAL",
+                ExpectedDiskUniqueId = "UNIQUE",
+                ExpectedDiskBusType = "USB",
+                ExpectedDiskSizeBytes = 64000000000,
                 PartitionStyle = UsbPartitionStyle.Gpt,
                 FormatMode = UsbFormatMode.Quick
             },
@@ -584,6 +595,10 @@ public sealed class WinPeUsbMediaServiceTests
             {
                 TargetDiskNumber = 9,
                 ExpectedDiskFriendlyName = "Safe USB",
+                ExpectedDiskSerialNumber = "SERIAL",
+                ExpectedDiskUniqueId = "UNIQUE",
+                ExpectedDiskBusType = "USB",
+                ExpectedDiskSizeBytes = 64000000000,
                 PartitionStyle = UsbPartitionStyle.Gpt,
                 FormatMode = UsbFormatMode.Quick
             },
@@ -623,6 +638,10 @@ public sealed class WinPeUsbMediaServiceTests
             {
                 TargetDiskNumber = 9,
                 ExpectedDiskFriendlyName = "Safe USB",
+                ExpectedDiskSerialNumber = "SERIAL",
+                ExpectedDiskUniqueId = "UNIQUE",
+                ExpectedDiskBusType = "USB",
+                ExpectedDiskSizeBytes = 64000000000,
                 PartitionStyle = UsbPartitionStyle.Gpt,
                 FormatMode = UsbFormatMode.Quick,
                 Progress = progress
@@ -671,6 +690,10 @@ public sealed class WinPeUsbMediaServiceTests
             {
                 TargetDiskNumber = 9,
                 ExpectedDiskFriendlyName = "Safe USB",
+                ExpectedDiskSerialNumber = "SERIAL",
+                ExpectedDiskUniqueId = "UNIQUE",
+                ExpectedDiskBusType = "USB",
+                ExpectedDiskSizeBytes = 64000000000,
                 Progress = progress
             },
             new WinPeBuildArtifact
@@ -687,7 +710,7 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains(runner.Executions, execution => execution.FileName.EndsWith("robocopy.exe", StringComparison.OrdinalIgnoreCase));
         Assert.DoesNotContain(runner.Executions, execution => execution.Arguments.Contains("Clear-Disk", StringComparison.Ordinal));
         Assert.DoesNotContain(runner.Executions, execution => execution.Arguments.Contains("Foundry Cache", StringComparison.Ordinal));
-        string layoutScript = DecodePowerShellEncodedCommand(runner.Executions[1].Arguments);
+        string layoutScript = runner.Scripts[1];
         Assert.Contains("Add-PartitionAccessPath", layoutScript, StringComparison.Ordinal);
         Assert.Contains("-AssignDriveLetter", layoutScript, StringComparison.Ordinal);
         Assert.Contains("Get-Volume -Partition", layoutScript, StringComparison.Ordinal);
@@ -733,6 +756,10 @@ public sealed class WinPeUsbMediaServiceTests
             {
                 TargetDiskNumber = 9,
                 ExpectedDiskFriendlyName = "Safe USB",
+                ExpectedDiskSerialNumber = "SERIAL",
+                ExpectedDiskUniqueId = "UNIQUE",
+                ExpectedDiskBusType = "USB",
+                ExpectedDiskSizeBytes = 64000000000,
                 RuntimePayloadProvisioning = runtimeOptions,
                 DownloadProgress = downloadProgress,
                 Progress = progress
@@ -790,6 +817,10 @@ public sealed class WinPeUsbMediaServiceTests
             {
                 TargetDiskNumber = 9,
                 ExpectedDiskFriendlyName = "Safe USB",
+                ExpectedDiskSerialNumber = "SERIAL",
+                ExpectedDiskUniqueId = "UNIQUE",
+                ExpectedDiskBusType = "USB",
+                ExpectedDiskSizeBytes = 64000000000,
                 RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions
                 {
                     WorkingDirectoryPath = Path.Combine(workspace.RootPath, "runtime-work"),
@@ -827,7 +858,11 @@ public sealed class WinPeUsbMediaServiceTests
             new UsbOutputOptions
             {
                 TargetDiskNumber = 9,
-                ExpectedDiskFriendlyName = "Safe USB"
+                ExpectedDiskFriendlyName = "Safe USB",
+                ExpectedDiskSerialNumber = "SERIAL",
+                ExpectedDiskUniqueId = "UNIQUE",
+                ExpectedDiskBusType = "USB",
+                ExpectedDiskSizeBytes = 64000000000
             },
             new WinPeBuildArtifact
             {
@@ -901,7 +936,7 @@ public sealed class WinPeUsbMediaServiceTests
         var service = new WinPeUsbMediaService(runner);
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.ProvisionAndPopulateAsync(
-            new UsbOutputOptions { TargetDiskNumber = 9, ExpectedDiskFriendlyName = "Safe USB" },
+            new UsbOutputOptions { TargetDiskNumber = 9, ExpectedDiskFriendlyName = "Safe USB", ExpectedDiskSerialNumber = "SERIAL", ExpectedDiskUniqueId = "UNIQUE", ExpectedDiskBusType = "USB", ExpectedDiskSizeBytes = 64000000000 },
             new WinPeBuildArtifact { WorkingDirectoryPath = workspace.RootPath },
             new WinPeToolPaths { PowerShellPath = "pwsh.exe" }, false, CancellationToken.None);
 
@@ -912,8 +947,12 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Equal("Partition and format USB disk", result.Error?.Stage);
     }
 
+    private static DiskIdentity ConfirmedIdentity(int number) => new(number, "UNIQUE", "SERIAL", "Safe USB", "USB", 64000000000);
+
     private sealed class FakeSequenceRunner(params string[] outputs) : IWinPeProcessRunner
     {
+        public List<string> Scripts { get; } = [];
+
         private readonly Queue<string> _outputs = new(outputs);
         public int FailureExitCode { get; init; }
 
@@ -926,6 +965,9 @@ public sealed class WinPeUsbMediaServiceTests
             CancellationToken cancellationToken,
             IReadOnlyDictionary<string, string>? environmentOverrides = null)
         {
+            Scripts.Add(arguments.Contains("-File ", StringComparison.Ordinal)
+                ? File.ReadAllText(arguments[(arguments.IndexOf("-File ", StringComparison.Ordinal) + 6)..].Trim('"'))
+                : fileName == "pwsh.exe" ? DecodePowerShellEncodedCommand(arguments) : string.Empty);
             var execution = new WinPeProcessExecution
             {
                 FileName = fileName,

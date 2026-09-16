@@ -2942,6 +2942,12 @@
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>自定义启动映像。</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>USB 驱动器标识缺失、不明确或已更改。请刷新 USB 驱动器列表并重新选择驱动器。</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>无法再安全地修改所选 USB 驱动器。请刷新 USB 驱动器列表并选择另一个 USB 驱动器。</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>使用DISM 应用国际设置。</value>
   </data>

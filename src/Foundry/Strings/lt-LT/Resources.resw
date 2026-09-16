@@ -2942,6 +2942,12 @@
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Įkrovos vaizdo tinkinimas.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Trūksta USB disko identifikavimo duomenų, jie nėra vienareikšmiai arba pasikeitė. Atnaujinkite USB diskų sąrašą ir pasirinkite diską iš naujo.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Pasirinkto USB disko nebegalima saugiai keisti. Atnaujinkite USB diskų sąrašą ir pasirinkite kitą USB diską.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Tarptautinių nustatymų taikymas naudojant DISM.</value>
   </data>

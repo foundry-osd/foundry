@@ -242,6 +242,9 @@ Acción: Verifique los atributos del disco y vuelva a intentar la implementació
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Disco {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>La identidad del disco no está disponible, es ambigua o ha cambiado. Reinicie Foundry Deploy y vuelva a seleccionar el disco.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>El disco de destino {0} está bloqueado: {1}</value>
   </data>

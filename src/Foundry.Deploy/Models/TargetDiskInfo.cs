@@ -2,10 +2,17 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text.Json.Serialization;
+using Foundry.Utilities.Storage;
+
 namespace Foundry.Deploy.Models;
 
 public sealed record TargetDiskInfo
 {
+    /// <summary>Gets raw device identity kept separately from localized display values.</summary>
+    [JsonIgnore]
+    public DiskIdentity? Identity { get; init; }
+
     public int DiskNumber { get; init; }
     public string FriendlyName { get; init; } = string.Empty;
     public string SerialNumber { get; init; } = string.Empty;

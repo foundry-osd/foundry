@@ -242,6 +242,9 @@
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>القرص {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>هوية القرص مفقودة أو ملتبسة أو تغيرت. أعد تشغيل Foundry Deploy وحدد القرص مرة أخرى.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>القرص الهدف {0} محظور: {1}</value>
   </data>

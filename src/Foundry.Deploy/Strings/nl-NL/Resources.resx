@@ -242,6 +242,9 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Schijf {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>De identiteit van de schijf ontbreekt, is niet eenduidig of is gewijzigd. Start Foundry Deploy opnieuw en selecteer de schijf opnieuw.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Doelschijf {0} is geblokkeerd: {1}</value>
   </data>

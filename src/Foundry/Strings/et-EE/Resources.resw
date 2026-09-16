@@ -2942,6 +2942,12 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Alglaadimispildi kohandamine.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>USB-ketta identiteet puudub, on mitmetähenduslik või on muutunud. Värskendage USB-ketaste loendit ja valige ketas uuesti.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Valitud USB-ketast ei saa enam turvaliselt muuta. Värskendage USB-ketaste loendit ja valige teine USB-ketas.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Rahvusvaheliste sätete rakendamine DISM.</value>
   </data>

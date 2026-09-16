@@ -2942,6 +2942,12 @@
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Προσαρμογή της εικόνας εκκίνησης.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Η ταυτότητα της μονάδας USB λείπει, δεν είναι μοναδική ή έχει αλλάξει. Ανανεώστε τη λίστα μονάδων USB και επιλέξτε ξανά τη μονάδα.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Η επιλεγμένη μονάδα USB δεν μπορεί πλέον να τροποποιηθεί με ασφάλεια. Ανανεώστε τη λίστα μονάδων USB και επιλέξτε άλλη μονάδα USB.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Εφαρμογή διεθνών ρυθμίσεων με DISM.</value>
   </data>

@@ -242,6 +242,9 @@
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>ディスク {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>ディスクの識別情報がないか、一意でないか、変更されています。Foundry Deploy を再起動し、ディスクを再選択してください。</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>ターゲット ディスク {0} がブロックされています: {1}</value>
   </data>

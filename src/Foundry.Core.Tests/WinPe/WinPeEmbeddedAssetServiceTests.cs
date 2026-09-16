@@ -15,12 +15,10 @@ public sealed class WinPeEmbeddedAssetServiceTests
 
         string content = service.GetUsbProvisioningScriptTemplateContent();
 
-        Assert.Contains("Clear-Disk -Number $diskNumber", content, StringComparison.Ordinal);
         Assert.Contains("{{DISK_NUMBER}}", content, StringComparison.Ordinal);
+        Assert.Contains("{{DISK_GUARD}}", content, StringComparison.Ordinal);
         Assert.Contains("{{PARTITION_STYLE}}", content, StringComparison.Ordinal);
-        Assert.Contains("AssignDriveLetter = $true", content, StringComparison.Ordinal);
-        Assert.Contains("$bootDriveLetter = $bootPartition.DriveLetter", content, StringComparison.Ordinal);
-        Assert.Contains("$cacheDriveLetter = $cachePartition.DriveLetter", content, StringComparison.Ordinal);
+        Assert.Contains("{{FULL_FORMAT}}", content, StringComparison.Ordinal);
     }
 
     [Fact]

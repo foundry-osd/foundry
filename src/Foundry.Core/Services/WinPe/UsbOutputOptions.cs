@@ -13,6 +13,10 @@ public sealed record UsbOutputOptions
     public string ExpectedDiskFriendlyName { get; init; } = string.Empty;
     public string ExpectedDiskSerialNumber { get; init; } = string.Empty;
     public string ExpectedDiskUniqueId { get; init; } = string.Empty;
+    /// <summary>The bus type captured with the disk selection before confirmation.</summary>
+    public string ExpectedDiskBusType { get; init; } = string.Empty;
+    /// <summary>The exact capacity captured with the disk selection before confirmation.</summary>
+    public ulong ExpectedDiskSizeBytes { get; init; }
     public UsbPartitionStyle PartitionStyle { get; init; } = UsbPartitionStyle.Gpt;
     public UsbFormatMode FormatMode { get; init; } = UsbFormatMode.Quick;
     public string? WorkingDirectoryPath { get; init; }

@@ -242,6 +242,9 @@
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Δίσκος {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Η ταυτότητα του δίσκου λείπει, δεν είναι μοναδική ή έχει αλλάξει. Επανεκκινήστε το Foundry Deploy και επιλέξτε ξανά τον δίσκο.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Ο δίσκος στόχος {0} είναι αποκλεισμένος: {1}</value>
   </data>

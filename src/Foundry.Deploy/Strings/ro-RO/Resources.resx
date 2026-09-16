@@ -242,6 +242,9 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Disc {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Identitatea discului lipsește, este ambiguă sau s-a modificat. Reporniți Foundry Deploy și selectați din nou discul.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Discul țintă {0} este blocat: {1}</value>
   </data>

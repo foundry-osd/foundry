@@ -6,6 +6,7 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Localization;
+using Foundry.Utilities.Storage;
 using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 
 namespace Foundry.Deploy.Services.Deployment;
@@ -77,6 +78,14 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
         }
 
+        DiskIdentity? confirmedIdentity = effectiveTargetDisk.Identity;
+        if (!request.IsDryRun && (confirmedIdentity is not { IsUsable: true } ||
+                                 confirmedIdentity.Number != effectiveTargetDisk.DiskNumber))
+        {
+            return DeploymentLaunchPreparationResult.Failure(
+                normalizedComputerName, LocalizationText.GetString("Disk.IdentityCannotBeConfirmed"));
+        }
+
         if (request.DriverPackSelectionKind == DriverPackSelectionKind.OemCatalog &&
             request.SelectedDriverPack is null)
         {
@@ -100,6 +109,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             Mode = request.Mode,
             CacheRootPath = request.CacheRootPath,
             TargetDiskNumber = effectiveTargetDisk.DiskNumber,
+            TargetDiskIdentity = confirmedIdentity,
             Unattend = request.Unattend,
             TargetComputerName = request.UsesCustomUnattend ? string.Empty : normalizedComputerName,
             OperatingSystem = request.SelectedOperatingSystem,

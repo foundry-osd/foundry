@@ -2942,6 +2942,12 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Přizpůsobení spouštěcího obrazu.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Identita USB disku chybí, je nejednoznačná nebo se změnila. Obnovte seznam USB disků a vyberte disk znovu.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Vybraný USB disk již nelze bezpečně upravovat. Obnovte seznam USB disků a vyberte jiný USB disk.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Použití mezinárodních nastavení pomocí DISM.</value>
   </data>

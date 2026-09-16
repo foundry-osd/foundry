@@ -2942,6 +2942,12 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Käynnistyskuvan mukauttaminen.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>USB-aseman tunnistetiedot puuttuvat, eivät ole yksiselitteisiä tai ovat muuttuneet. Päivitä USB-asemien luettelo ja valitse asema uudelleen.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Valittua USB-asemaa ei voi enää muokata turvallisesti. Päivitä USB-asemien luettelo ja valitse toinen USB-asema.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Kansainvälisten asetusten käyttäminen DISM:lla.</value>
   </data>

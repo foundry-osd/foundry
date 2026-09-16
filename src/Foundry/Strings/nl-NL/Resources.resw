@@ -2942,6 +2942,12 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Het opstartimage aanpassen.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>De identiteit van het USB-station ontbreekt, is niet eenduidig of is gewijzigd. Vernieuw de lijst met USB-stations en selecteer het station opnieuw.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Het geselecteerde USB-station kan niet meer veilig worden gewijzigd. Vernieuw de lijst met USB-stations en selecteer een ander USB-station.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Internationale instellingen toepassen met DISM.</value>
   </data>

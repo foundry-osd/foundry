@@ -10,6 +10,8 @@ using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 
+using Foundry.Utilities.Storage;
+
 namespace Foundry.Deploy.Tests;
 
 internal sealed class DriverApplicationStepTestFixture : IDisposable
@@ -110,7 +112,7 @@ internal sealed class RecordingDriverApplicationService : IWindowsDeploymentServ
         return Task.CompletedTask;
     }
 
-    public Task<DeploymentTargetLayout> PrepareTargetDiskAsync(int diskNumber, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+    public Task<DeploymentTargetLayout> PrepareTargetDiskAsync(DiskIdentity confirmedIdentity, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
     public Task<int> ResolveImageIndexAsync(string imagePath, string requestedEdition, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
@@ -174,7 +176,7 @@ internal sealed class DriverApplicationOperationProgressService : IOperationProg
 
 internal sealed class DriverApplicationTargetDiskService : ITargetDiskService
 {
-    public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default) => Task.FromResult<IReadOnlyList<TargetDiskInfo>>([]);
+    public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default, bool includeExcludedDisks = false) => Task.FromResult<IReadOnlyList<TargetDiskInfo>>([]);
 
     public Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default) => Task.FromResult<int?>(null);
 }

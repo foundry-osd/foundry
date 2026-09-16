@@ -897,7 +897,7 @@ public sealed class DeploymentOrchestratorTests
 
     private sealed class FakeTargetDiskService : ITargetDiskService
     {
-        public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default)
+        public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default, bool includeExcludedDisks = false)
         {
             return Task.FromResult<IReadOnlyList<TargetDiskInfo>>([]);
         }

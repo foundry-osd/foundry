@@ -242,6 +242,9 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Disque {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>L’identité du disque est absente, ambiguë ou a changé. Redémarrez Foundry Deploy et sélectionnez à nouveau le disque.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Le disque cible {0} est bloqué : {1}</value>
   </data>

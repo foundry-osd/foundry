@@ -242,6 +242,9 @@
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>디스크 {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>디스크 식별 정보가 없거나, 모호하거나, 변경되었습니다. Foundry Deploy를 다시 시작하고 디스크를 다시 선택하세요.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>대상 디스크 {0}이 차단되었습니다: {1}</value>
   </data>

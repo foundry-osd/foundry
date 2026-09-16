@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Deploy.Models.Configuration;
+using Foundry.Utilities.Storage;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -14,12 +15,12 @@ public interface IWindowsDeploymentService
     /// <summary>
     /// Cleans and repartitions the target disk for UEFI Windows deployment.
     /// </summary>
-    /// <param name="diskNumber">The disk number to partition.</param>
+    /// <param name="confirmedIdentity">The device identity retained from the final erasure confirmation.</param>
     /// <param name="workingDirectory">The directory used for temporary scripts.</param>
     /// <param name="cancellationToken">A token used to cancel diskpart execution.</param>
     /// <returns>The resulting target partition layout.</returns>
     Task<DeploymentTargetLayout> PrepareTargetDiskAsync(
-        int diskNumber,
+        DiskIdentity confirmedIdentity,
         string workingDirectory,
         CancellationToken cancellationToken = default);
 

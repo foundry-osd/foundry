@@ -2942,6 +2942,12 @@ Dołączone hasła i klucze dostępu: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Dostosowywanie obrazu rozruchowego.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Tożsamość dysku USB jest niedostępna, niejednoznaczna lub uległa zmianie. Odśwież listę dysków USB i wybierz dysk ponownie.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Wybranego dysku USB nie można już bezpiecznie modyfikować. Odśwież listę dysków USB i wybierz inny dysk USB.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Stosowanie ustawień międzynarodowych za pomocą DISM.</value>
   </data>

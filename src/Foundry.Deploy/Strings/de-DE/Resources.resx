@@ -242,6 +242,9 @@ Aktion: Überprüfen Sie die Festplattenattribute und wiederholen Sie die Bereit
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Datenträger {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Die Datenträgeridentität fehlt, ist nicht eindeutig oder hat sich geändert. Starten Sie Foundry Deploy neu und wählen Sie den Datenträger erneut aus.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Zielfestplatte {0} ist blockiert: {1}</value>
   </data>

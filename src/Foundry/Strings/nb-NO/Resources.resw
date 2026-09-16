@@ -2942,6 +2942,12 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Tilpasse oppstartsbildet.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>USB-stasjonens identitet mangler, er tvetydig eller har blitt endret. Oppdater listen over USB-stasjoner og velg stasjonen på nytt.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Den valgte USB-stasjonen kan ikke lenger endres trygt. Oppdater listen over USB-stasjoner og velg en annen USB-stasjon.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Bruker internasjonale innstillinger med DISM.</value>
   </data>

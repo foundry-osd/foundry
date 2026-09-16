@@ -2942,6 +2942,12 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Prilagođavanje slike za pokretanje.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Identitet USB diska nedostaje, nije jednoznačan ili se promijenio. Osvježite popis USB diskova i ponovno odaberite disk.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Odabrani USB disk više nije sigurno mijenjati. Osvježite popis USB diskova i odaberite drugi USB disk.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Primjena međunarodnih postavki pomoću DISM.</value>
   </data>

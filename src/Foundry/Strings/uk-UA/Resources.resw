@@ -2942,6 +2942,12 @@
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Налаштування образу завантаження.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Ідентифікаційні дані USB-накопичувача відсутні, неоднозначні або змінилися. Оновіть список USB-накопичувачів і виберіть накопичувач повторно.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Вибраний USB-накопичувач більше не можна безпечно змінювати. Оновіть список USB-накопичувачів і виберіть інший USB-накопичувач.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Застосування міжнародних налаштувань за допомогою DISM.</value>
   </data>
