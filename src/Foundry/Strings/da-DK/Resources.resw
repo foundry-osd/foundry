@@ -1690,7 +1690,7 @@
     <value>Bekræft adgangskode</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Kræv en teknikeradgangskode, før en installation startes.</value>
+    <value>Kræv en teknikeradgangskode, før en installation startes. Indlejrede legitimationsoplysninger til netværk er fortsat tilgængelige uden denne adgangskode.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Adgangskodebeskyttelse</value>
@@ -1699,7 +1699,7 @@
     <value>Adgangskode</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Adgangskoden kan ikke gendannes. Legitimationsoplysninger og Autopilot-profiler på beskyttede medier krypteres med den.</value>
+    <value>Opbevar denne adgangskode sikkert. Den beskytter adgangskoder til lokale Windows-konti, legitimationsoplysninger og profiler til Autopilot samt brugerdefinerede svarfiler.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Adgangskode til installation</value>

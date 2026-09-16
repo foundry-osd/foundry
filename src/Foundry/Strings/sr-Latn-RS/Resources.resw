@@ -1690,7 +1690,7 @@
     <value>Potvrdite lozinku</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Zahtevaj lozinku tehničara pre pokretanja primene.</value>
+    <value>Zahtevaj lozinku tehničara pre primene. Ugrađeni mrežni akreditivi ostaju dostupni bez ove lozinke.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Zaštita lozinkom</value>
@@ -1699,7 +1699,7 @@
     <value>Lozinka</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Lozinku nije moguće oporaviti. Akreditivi i Autopilot profili na zaštićenom medijumu šifruju se pomoću nje.</value>
+    <value>Čuvajte ovu lozinku na sigurnom. Ona štiti lozinke lokalnih Windows naloga, Autopilot akreditive i profile, kao i prilagođene datoteke odgovora.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Lozinka za primenu</value>

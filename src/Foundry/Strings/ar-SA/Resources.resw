@@ -1690,7 +1690,7 @@
     <value>تأكيد كلمة المرور</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>اطلب كلمة مرور فني قبل بدء عملية النشر.</value>
+    <value>اطلب كلمة مرور فني قبل بدء عملية النشر. تظل بيانات اعتماد الشبكة المضمنة متاحة دون كلمة المرور هذه.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>الحماية بكلمة مرور</value>
@@ -1699,7 +1699,7 @@
     <value>كلمة المرور</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>لا يمكن استرداد كلمة المرور. يتم استخدامها لتشفير بيانات الاعتماد وملفات تعريف Autopilot الموجودة على الوسائط المحمية.</value>
+    <value>احتفظ بكلمة المرور هذه في مكان آمن. فهي تحمي كلمات مرور حسابات Windows المحلية وبيانات اعتماد Autopilot وملفات تعريفه وملفات الإجابات المخصصة.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>كلمة مرور النشر</value>

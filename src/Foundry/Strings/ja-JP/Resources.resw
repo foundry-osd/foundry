@@ -1690,7 +1690,7 @@
     <value>パスワードの確認</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>展開を開始する前に技術者用パスワードを要求します。</value>
+    <value>展開を開始する前に技術者用パスワードを要求します。埋め込まれたネットワーク資格情報は、このパスワードがなくてもアクセスできます。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>パスワード保護</value>
@@ -1699,7 +1699,7 @@
     <value>パスワード</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>パスワードは復元できません。保護されたメディア上の資格情報と Autopilot プロファイルは、このパスワードで暗号化されます。</value>
+    <value>このパスワードは安全に保管してください。Windows のローカル アカウントのパスワード、Autopilot の資格情報とプロファイル、およびカスタム応答ファイルを保護します。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>展開パスワード</value>

@@ -1690,7 +1690,7 @@
     <value>Patvirtinkite slaptažodį</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Reikalauti techniko slaptažodžio prieš pradedant diegimą.</value>
+    <value>Reikalauti techniko slaptažodžio prieš pradedant diegimą. Įterptieji tinklo prisijungimo duomenys lieka pasiekiami be šio slaptažodžio.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Apsauga slaptažodžiu</value>
@@ -1699,7 +1699,7 @@
     <value>Slaptažodis</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Slaptažodžio atkurti negalima. Apsaugotoje laikmenoje esantys prisijungimo duomenys ir „Autopilot“ profiliai juo užšifruojami.</value>
+    <value>Saugiai laikykite šį slaptažodį. Jis apsaugo vietinių „Windows“ paskyrų slaptažodžius, „Autopilot“ prisijungimo duomenis ir profilius bei pasirinktinius atsakymų failus.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Diegimo slaptažodis</value>

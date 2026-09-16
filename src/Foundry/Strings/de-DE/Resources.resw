@@ -1690,7 +1690,7 @@
     <value>Kennwort bestätigen</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Vor dem Start einer Bereitstellung ein Technikerkennwort anfordern.</value>
+    <value>Vor dem Start einer Bereitstellung ein Technikerkennwort anfordern. Eingebettete Netzwerkanmeldeinformationen bleiben ohne dieses Kennwort zugänglich.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Kennwortschutz</value>
@@ -1699,7 +1699,7 @@
     <value>Kennwort</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Das Kennwort kann nicht wiederhergestellt werden. Anmeldeinformationen und Autopilot-Profile auf geschützten Medien werden damit verschlüsselt.</value>
+    <value>Bewahren Sie dieses Kennwort sicher auf. Es schützt Kennwörter lokaler Windows-Konten, Autopilot-Anmeldeinformationen und -Profile sowie benutzerdefinierte Antwortdateien.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Bereitstellungskennwort</value>

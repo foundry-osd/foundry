@@ -1690,7 +1690,7 @@
     <value>Επιβεβαίωση κωδικού πρόσβασης</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Να απαιτείται κωδικός πρόσβασης τεχνικού πριν από την έναρξη μιας ανάπτυξης.</value>
+    <value>Να απαιτείται κωδικός πρόσβασης τεχνικού πριν από την έναρξη μιας ανάπτυξης. Τα ενσωματωμένα διαπιστευτήρια δικτύου παραμένουν προσβάσιμα χωρίς αυτόν τον κωδικό πρόσβασης.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Προστασία με κωδικό πρόσβασης</value>
@@ -1699,7 +1699,7 @@
     <value>Κωδικός πρόσβασης</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Δεν είναι δυνατή η ανάκτηση του κωδικού πρόσβασης. Τα διαπιστευτήρια και τα προφίλ Autopilot στα προστατευμένα μέσα κρυπτογραφούνται με αυτόν.</value>
+    <value>Φυλάξτε αυτόν τον κωδικό πρόσβασης με ασφάλεια. Προστατεύει τους κωδικούς πρόσβασης των τοπικών λογαριασμών Windows, τα διαπιστευτήρια και τα προφίλ Autopilot και τα προσαρμοσμένα αρχεία απαντήσεων.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Κωδικός πρόσβασης ανάπτυξης</value>

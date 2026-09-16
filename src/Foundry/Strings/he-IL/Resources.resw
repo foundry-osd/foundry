@@ -1690,7 +1690,7 @@
     <value>אישור הסיסמה</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>דרוש סיסמת טכנאי לפני התחלת פריסה.</value>
+    <value>דרוש סיסמת טכנאי לפני התחלת פריסה. פרטי הכניסה לרשת המוטמעים נשארים נגישים ללא סיסמה זו.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>הגנה באמצעות סיסמה</value>
@@ -1699,7 +1699,7 @@
     <value>סיסמה</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>לא ניתן לשחזר את הסיסמה. פרטי הכניסה ופרופילי Autopilot במדיה המוגנת מוצפנים באמצעותה.</value>
+    <value>שמור על סיסמה זו במקום בטוח. היא מגנה על סיסמאות של חשבונות Windows מקומיים, על פרטי הכניסה והפרופילים של Autopilot ועל קובצי תשובות מותאמים אישית.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>סיסמת פריסה</value>

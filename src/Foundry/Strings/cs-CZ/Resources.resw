@@ -1690,7 +1690,7 @@
     <value>Potvrďte heslo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Před zahájením nasazení vyžadovat heslo technika.</value>
+    <value>Před zahájením nasazení vyžadovat heslo technika. Vložené síťové přihlašovací údaje zůstávají přístupné i bez tohoto hesla.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Ochrana heslem</value>
@@ -1699,7 +1699,7 @@
     <value>Heslo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Heslo nelze obnovit. Přihlašovací údaje a profily Autopilot na chráněném médiu jsou tímto heslem zašifrovány.</value>
+    <value>Uchovejte toto heslo v bezpečí. Chrání hesla místních účtů Windows, přihlašovací údaje a profily Autopilot a vlastní soubory odpovědí.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Heslo pro nasazení</value>

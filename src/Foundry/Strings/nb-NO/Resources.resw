@@ -1690,7 +1690,7 @@
     <value>Bekreft passord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Krev et teknikerpassord før en distribusjon startes.</value>
+    <value>Krev et teknikerpassord før distribusjon. Innebygd påloggingsinformasjon for nettverk er fortsatt tilgjengelig uten dette passordet.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Passordbeskyttelse</value>
@@ -1699,7 +1699,7 @@
     <value>Passord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Passordet kan ikke gjenopprettes. Påloggingsinformasjon og Autopilot-profiler på beskyttede medier krypteres med passordet.</value>
+    <value>Oppbevar dette passordet trygt. Det beskytter passord for lokale Windows-kontoer, påloggingsinformasjon og profiler for Autopilot og egendefinerte svarfiler.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Distribusjonspassord</value>

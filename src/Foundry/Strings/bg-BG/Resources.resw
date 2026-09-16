@@ -1690,7 +1690,7 @@
     <value>Потвърдете паролата</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Изискване на парола на техник преди започване на разполагането.</value>
+    <value>Изискване на парола на техник преди започване на разполагането. Вградените мрежови идентификационни данни остават достъпни без тази парола.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Защита с парола</value>
@@ -1699,7 +1699,7 @@
     <value>Парола</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Паролата не може да бъде възстановена. С нея се шифроват идентификационните данни и профилите на Autopilot в защитения носител.</value>
+    <value>Пазете тази парола на сигурно място. Тя защитава паролите на локалните акаунти в Windows, идентификационните данни и профилите на Autopilot и потребителските файлове с отговори.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Парола за разполагане</value>

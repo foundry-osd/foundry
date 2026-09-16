@@ -1690,7 +1690,7 @@
     <value>Conferma password</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Richiedi la password di un tecnico prima di avviare una distribuzione.</value>
+    <value>Richiedi la password di un tecnico prima di avviare una distribuzione. Le credenziali di rete incorporate rimangono accessibili senza questa password.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Protezione con password</value>
@@ -1699,7 +1699,7 @@
     <value>Password</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>La password non può essere recuperata. Le credenziali e i profili Autopilot presenti sul supporto protetto vengono crittografati con questa password.</value>
+    <value>Conserva questa password al sicuro. Protegge le password degli account locali di Windows, le credenziali e i profili Autopilot e i file di risposte personalizzati.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Password di distribuzione</value>

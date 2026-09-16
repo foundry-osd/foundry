@@ -1690,7 +1690,7 @@
     <value>确认密码</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>开始部署前要求输入技术人员密码。</value>
+    <value>部署前要求输入技术人员密码。嵌入的网络凭据在没有此密码的情况下仍可访问。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>密码保护</value>
@@ -1699,7 +1699,7 @@
     <value>密码</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>密码无法恢复。受保护介质上的凭据和 Autopilot 配置文件将使用该密码加密。</value>
+    <value>请妥善保管此密码。它用于保护本地 Windows 帐户密码、Autopilot 凭据和配置文件，以及自定义应答文件。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>部署密码</value>

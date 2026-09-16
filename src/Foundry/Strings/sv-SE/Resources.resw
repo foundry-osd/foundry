@@ -1690,7 +1690,7 @@
     <value>Bekräfta lösenord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Kräv ett teknikerlösenord innan en distribution startas.</value>
+    <value>Kräv ett teknikerlösenord före distributionen. Inbäddade autentiseringsuppgifter för nätverk är fortfarande tillgängliga utan detta lösenord.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Lösenordsskydd</value>
@@ -1699,7 +1699,7 @@
     <value>Lösenord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Lösenordet kan inte återställas. Autentiseringsuppgifter och Autopilot-profiler på det skyddade mediet krypteras med det.</value>
+    <value>Förvara detta lösenord säkert. Det skyddar lösenord för lokala Windows-konton, autentiseringsuppgifter och profiler för Autopilot samt egna svarsfiler.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Distributionslösenord</value>

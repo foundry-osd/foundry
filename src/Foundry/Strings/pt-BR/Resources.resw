@@ -1690,7 +1690,7 @@
     <value>Confirmar senha</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Exija uma senha de técnico antes de iniciar uma implantação.</value>
+    <value>Exija uma senha de técnico antes da implantação. As credenciais de rede incorporadas permanecem acessíveis sem essa senha.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Proteção por senha</value>
@@ -1699,7 +1699,7 @@
     <value>Senha</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>A senha não pode ser recuperada. As credenciais e os perfis do Autopilot na mídia protegida são criptografados com ela.</value>
+    <value>Mantenha essa senha em segurança. Ela protege as senhas de contas locais do Windows, as credenciais e os perfis do Autopilot e os arquivos de resposta personalizados.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Senha de implantação</value>

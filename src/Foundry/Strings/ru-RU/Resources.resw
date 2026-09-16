@@ -1690,7 +1690,7 @@
     <value>Подтвердите пароль</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Требовать пароль технического специалиста перед началом развертывания.</value>
+    <value>Требовать пароль технического специалиста перед развертыванием. Встроенные сетевые учетные данные остаются доступными без этого пароля.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Защита паролем</value>
@@ -1699,7 +1699,7 @@
     <value>Пароль</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Пароль невозможно восстановить. Учетные данные и профили Autopilot на защищенном носителе шифруются с его помощью.</value>
+    <value>Храните этот пароль в надежном месте. Он защищает пароли локальных учетных записей Windows, учетные данные и профили Autopilot, а также пользовательские файлы ответов.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Пароль развертывания</value>

@@ -1690,7 +1690,7 @@
     <value>確認密碼</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>開始部署前要求輸入技術人員密碼。</value>
+    <value>部署前要求輸入技術人員密碼。內嵌的網路認證在沒有此密碼的情況下仍可存取。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>密碼保護</value>
@@ -1699,7 +1699,7 @@
     <value>密碼</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>密碼無法復原。受保護媒體上的認證和 Autopilot 設定檔會使用此密碼加密。</value>
+    <value>請妥善保管此密碼。它用於保護本機 Windows 帳戶密碼、Autopilot 認證和設定檔，以及自訂回應檔案。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>部署密碼</value>
