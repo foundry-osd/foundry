@@ -449,6 +449,33 @@ Continuare con la distribuzione?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Sistema operativo</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Impossibile preparare la cache dell’immagine. Controllare lo spazio libero e l’accesso in scrittura alla cache.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>Il disco di destinazione non dispone di spazio sufficiente per i requisiti di distribuzione noti. Selezionare un disco più capiente.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>L’edizione di Windows selezionata non è disponibile o non è identificabile in modo univoco. Selezionare un’altra immagine.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>La dimensione dell’immagine dopo l’applicazione non è disponibile o non è valida. Selezionare un’altra immagine.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>I metadati della dimensione o dell’hash dell’immagine non sono validi. Aggiornare il catalogo dei sistemi operativi.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>L’URL dell’immagine deve usare HTTP o HTTPS. Aggiornare il catalogo dei sistemi operativi.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Impossibile confermare lo stato di preparazione alla distribuzione. Riavviare la distribuzione prima di preparare il disco.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>L’origine dell’immagine non è disponibile. Controllare la connessione e aggiornare il catalogo dei sistemi operativi.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Impossibile verificare lo spazio libero sul volume di destinazione. Controllare il disco di destinazione prima di riprovare la distribuzione.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Scadenza del certificato</value>
   </data>
@@ -659,6 +686,9 @@ Continuare con la distribuzione?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Inizializzare distribuzione</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Verifica lo stato di preparazione alla distribuzione</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Preparare il disco</value>
   </data>
@@ -715,6 +745,12 @@ Continuare con la distribuzione?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Verifica conflitto disco cache...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Verifica dello stato di preparazione alla distribuzione...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Verifica dell’accesso all’origine...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Controllo dei dispositivi Windows Autopilot ({0} rimanenti)...</value>
@@ -1123,6 +1159,15 @@ Continuare con la distribuzione?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Personalizzazioni pre-OOBE organizzate (simulazione).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Immagine e requisiti di capacità noti verificati prima della preparazione del disco.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Stato di preparazione alla distribuzione verificato (simulazione).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Accesso all’origine e requisiti di capacità noti verificati. La convalida completa dell’immagine termina dopo la preparazione del disco.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Ambiente di ripristino configurato.</value>

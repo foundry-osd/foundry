@@ -24,11 +24,33 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     /// <summary>Holds credential-bearing bytes only in memory between validation and staging.</summary>
     internal Unattend.UnattendSnapshot? UnattendSnapshot { get; set; }
 
+    /// <summary>Holds readiness evidence only for this execution and protects an externally prepared image.</summary>
+    internal DeploymentPreflightState? Preflight { get; set; }
+
+    /// <summary>Proves a cache path is on a known physical disk other than the target; WinPE RAM is never external staging.</summary>
+    internal async Task<bool> IsExternalStorageAsync(string path, CancellationToken cancellationToken)
+    {
+        string? root = Path.GetPathRoot(Path.GetFullPath(path));
+        if (string.Equals(root, @"X:\", StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        int? number = await _targetDiskService.GetDiskNumberForPathAsync(path, cancellationToken).ConfigureAwait(false);
+        if (number == Request.TargetDiskNumber)
+        {
+            throw Steps.PreflightDeploymentStep.Guard("Preflight.CacheUnavailable", "cache_on_target_disk");
+        }
+        return number is >= 0 && number.Value != Request.TargetDiskNumber;
+    }
+
     /// <summary>Releases sensitive answer-file content on every terminal deployment outcome.</summary>
     public void Dispose()
     {
         UnattendSnapshot?.Dispose();
         UnattendSnapshot = null;
+        Preflight?.Dispose();
+        Preflight = null;
     }
 
     private const string WinPeRoot = @"X:\Foundry";

@@ -18,7 +18,7 @@ public sealed class ProcessRunnerAdapterTests
     {
         using var workspace = new TemporaryDirectory();
         string encodedCommand = Convert.ToBase64String(
-            Encoding.Unicode.GetBytes("[Console]::Out.WriteLine('raw-output')"));
+            Encoding.Unicode.GetBytes("[Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false); [Console]::Out.WriteLine('Éducation 日本語')"));
         string arguments = $"-NoLogo -NoProfile -NonInteractive -EncodedCommand {encodedCommand}";
 
         ProcessExecutionResult result = await CreateRunner().RunAsync(
@@ -29,7 +29,7 @@ public sealed class ProcessRunnerAdapterTests
 
         Assert.True(result.IsSuccess);
         Assert.Equal(arguments, result.Arguments);
-        Assert.Equal("raw-output", result.StandardOutput.Trim());
+        Assert.Equal("Éducation 日本語", result.StandardOutput.Trim());
     }
 
     [Fact]

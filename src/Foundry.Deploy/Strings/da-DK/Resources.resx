@@ -449,6 +449,33 @@ Vil du fortsætte med implementeringen?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operativsystem</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Afbildningens cache kan ikke klargøres. Kontrollér den ledige plads og skriveadgangen til den.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>Der er ikke nok plads på måldisken til de kendte krav til udrulningen. Vælg en større disk.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>Den valgte Windows-udgave er ikke tilgængelig eller kan ikke identificeres entydigt. Vælg en anden afbildning.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>Afbildningens størrelse efter anvendelse er ikke tilgængelig eller er ugyldig. Vælg en anden afbildning.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Metadata for afbildningens størrelse eller hash er ugyldige. Opdatér kataloget over operativsystemer.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>Afbildningens URL skal bruge HTTP eller HTTPS. Opdatér kataloget over operativsystemer.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Det kunne ikke bekræftes, at udrulningen er klar. Start udrulningen igen, før du klargør disken.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>Afbildningens kilde er ikke tilgængelig. Kontrollér forbindelsen, og opdatér kataloget over operativsystemer.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Den ledige plads på måldiskenheden kunne ikke kontrolleres. Kontrollér måldisken, før du forsøger at udrulle igen.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Certifikatets udløb</value>
   </data>
@@ -659,6 +686,9 @@ Vil du fortsætte med implementeringen?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Initialiser implementering</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Kontrollér, om udrulningen er klar</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Forbered disk</value>
   </data>
@@ -715,6 +745,12 @@ Vil du fortsætte med implementeringen?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Kontrollerer cachediskkonflikt...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Kontrollerer, om udrulningen er klar...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Kontrollerer adgang til kilden...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Kontrollerer Windows Autopilot enheder ({0} tilbage)...</value>
@@ -1123,6 +1159,15 @@ Vil du fortsætte med implementeringen?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Præ-OOBE tilpasninger iscenesat (simulering).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Afbildningen og de kendte kapacitetskrav er kontrolleret før klargøring af disken.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Det er kontrolleret, om udrulningen er klar (simulering).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Adgang til kilden og de kendte kapacitetskrav er kontrolleret. Den fulde validering af afbildningen afsluttes efter klargøring af disken.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Gendannelsesmiljø konfigureret.</value>

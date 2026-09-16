@@ -449,6 +449,33 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Операционна система</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Кешът за образа не може да бъде подготвен. Проверете свободното място и достъпа за запис в него.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>На целевия диск няма достатъчно място за известните изисквания за разполагане. Изберете диск с по-голям капацитет.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>Избраното издание на Windows е недостъпно или не може да бъде определено еднозначно. Изберете друг образ.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>Размерът на образа след прилагане е недостъпен или невалиден. Изберете друг образ.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Метаданните за размера или хеша на образа са невалидни. Обновете каталога с операционни системи.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>URL адресът на образа трябва да използва HTTP или HTTPS. Обновете каталога с операционни системи.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Готовността за разполагане не може да бъде потвърдена. Стартирайте разполагането отново, преди да подготвите диска.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>Източникът на образа е недостъпен. Проверете връзката и обновете каталога с операционни системи.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Свободното място на целевия том не можа да бъде проверено. Проверете целевия диск, преди да опитате разполагането отново.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Изтичане на сертификата</value>
   </data>
@@ -659,6 +686,9 @@
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Инициализирай внедряването</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Проверка на готовността за разполагане</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Подготви диска</value>
   </data>
@@ -715,6 +745,12 @@
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Проверява се конфликт на кеш диск...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Проверка на готовността за разполагане...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Проверка на достъпа до източника...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Проверяват се Windows Autopilot устройства ({0} оставащи)...</value>
@@ -1123,6 +1159,15 @@
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Поетапни персонализации преди OOBE (симулация).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Образът и известните изисквания за капацитет са проверени преди подготовката на диска.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Готовността за разполагане е проверена (симулация).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Достъпът до източника и известните изисквания за капацитет са проверени. Пълната проверка на образа завършва след подготовката на диска.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Конфигурирана среда за възстановяване.</value>

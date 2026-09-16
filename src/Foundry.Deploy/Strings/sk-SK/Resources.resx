@@ -449,6 +449,33 @@ Pokračovať v nasadzovaní?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operačný systém</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Vyrovnávaciu pamäť obrazu nemožno pripraviť. Skontrolujte v nej voľné miesto a prístup na zápis.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>Na cieľovom disku nie je dostatok miesta na známe požiadavky nasadenia. Vyberte väčší disk.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>Vybraté vydanie systému Windows nie je dostupné alebo ho nemožno jednoznačne určiť. Vyberte iný obraz.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>Veľkosť obrazu po použití nie je dostupná alebo je neplatná. Vyberte iný obraz.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Metaúdaje o veľkosti alebo hodnote hash obrazu sú neplatné. Obnovte katalóg operačných systémov.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>URL obrazu musí používať HTTP alebo HTTPS. Obnovte katalóg operačných systémov.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Pripravenosť na nasadenie sa nepodarilo potvrdiť. Pred prípravou disku spustite nasadenie znova.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>Zdroj obrazu nie je dostupný. Skontrolujte pripojenie a obnovte katalóg operačných systémov.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Voľné miesto na cieľovom zväzku sa nepodarilo overiť. Pred ďalším pokusom o nasadenie skontrolujte cieľový disk.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Platnosť certifikátu</value>
   </data>
@@ -659,6 +686,9 @@ Pokračovať v nasadzovaní?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Inicializuj nasadenie</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Overiť pripravenosť na nasadenie</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Priprav disk</value>
   </data>
@@ -715,6 +745,12 @@ Pokračovať v nasadzovaní?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Kontroluje sa konflikt vyrovnávacieho disku...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Overovanie pripravenosti na nasadenie...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Overovanie prístupu k zdroju...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Kontrola zariadení Windows Autopilot (zostáva {0})...</value>
@@ -1123,6 +1159,15 @@ Pokračovať v nasadzovaní?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Pripravené úpravy pred OOBE (simulácia).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Obraz a známe požiadavky na kapacitu boli overené pred prípravou disku.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Pripravenosť na nasadenie bola overená (simulácia).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Prístup k zdroju a známe požiadavky na kapacitu boli overené. Úplné overenie obrazu sa dokončí po príprave disku.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Prostredie obnovy je nakonfigurované.</value>

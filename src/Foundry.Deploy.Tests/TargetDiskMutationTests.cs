@@ -65,7 +65,7 @@ public sealed class TargetDiskMutationTests
             case "malformed_safety": disk["IsBoot"] = "false"; break;
         }
         using var runner = new GuardedDiskProcessRunner(disks, queryFails: scenario == "query_failed");
-        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         DeploymentOperationException exception = await Assert.ThrowsAsync<DeploymentOperationException>(() => service.PrepareTargetDiskAsync(
             expected, runner.WorkingDirectory, TestContext.Current.CancellationToken));
@@ -90,7 +90,7 @@ public sealed class TargetDiskMutationTests
             expected = expected with { UniqueId = "" };
         }
         using var runner = new GuardedDiskProcessRunner([disk]);
-        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         DeploymentTargetLayout layout = await service.PrepareTargetDiskAsync(
             expected, runner.WorkingDirectory, TestContext.Current.CancellationToken);
@@ -115,7 +115,7 @@ public sealed class TargetDiskMutationTests
     public async Task PrepareTargetDiskAsync_WhenDiskPartFails_PreservesProcessFailureAndRemovesSnapshot()
     {
         using var runner = new GuardedDiskProcessRunner([CreateDisk()], diskPartExitCode: 37);
-        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         DeploymentProcessException exception = await Assert.ThrowsAsync<DeploymentProcessException>(() =>
             service.PrepareTargetDiskAsync(CreateIdentity(), runner.WorkingDirectory, TestContext.Current.CancellationToken));
@@ -129,7 +129,7 @@ public sealed class TargetDiskMutationTests
     public async Task PrepareTargetDiskAsync_WhenIdentityIsUnusable_DoesNotStartAProcess()
     {
         using var runner = new GuardedDiskProcessRunner([CreateDisk()]);
-        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         await Assert.ThrowsAsync<DeploymentOperationException>(() => service.PrepareTargetDiskAsync(
             CreateIdentity() with { UniqueId = "", SerialNumber = "" }, runner.WorkingDirectory, TestContext.Current.CancellationToken));
@@ -141,7 +141,7 @@ public sealed class TargetDiskMutationTests
     public async Task PrepareTargetDiskAsync_WhenSnapshotCleanupFails_PreservesValidationFailure()
     {
         using var runner = new GuardedDiskProcessRunner([], lockGuard: true);
-        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         DeploymentOperationException exception = await Assert.ThrowsAsync<DeploymentOperationException>(() =>
             service.PrepareTargetDiskAsync(CreateIdentity(), runner.WorkingDirectory, TestContext.Current.CancellationToken));

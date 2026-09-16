@@ -449,6 +449,33 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Λειτουργικό σύστημα</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Δεν είναι δυνατή η προετοιμασία της προσωρινής μνήμης του ειδώλου. Ελέγξτε τον ελεύθερο χώρο και την πρόσβαση εγγραφής σε αυτήν.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>Ο δίσκος προορισμού δεν διαθέτει αρκετό χώρο για τις γνωστές απαιτήσεις ανάπτυξης. Επιλέξτε μεγαλύτερο δίσκο.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>Η επιλεγμένη έκδοση Windows δεν είναι διαθέσιμη ή δεν μπορεί να προσδιοριστεί με σαφήνεια. Επιλέξτε άλλο είδωλο.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>Το μέγεθος του ειδώλου μετά την εφαρμογή του δεν είναι διαθέσιμο ή δεν είναι έγκυρο. Επιλέξτε άλλο είδωλο.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Τα μεταδεδομένα μεγέθους ή κατακερματισμού του ειδώλου δεν είναι έγκυρα. Ανανεώστε τον κατάλογο λειτουργικών συστημάτων.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>Το URL του ειδώλου πρέπει να χρησιμοποιεί HTTP ή HTTPS. Ανανεώστε τον κατάλογο λειτουργικών συστημάτων.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η επιβεβαίωση της ετοιμότητας ανάπτυξης. Ξεκινήστε ξανά την ανάπτυξη πριν προετοιμάσετε τον δίσκο.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>Η πηγή του ειδώλου δεν είναι διαθέσιμη. Ελέγξτε τη σύνδεση και ανανεώστε τον κατάλογο λειτουργικών συστημάτων.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Δεν ήταν δυνατός ο έλεγχος του ελεύθερου χώρου στον τόμο προορισμού. Ελέγξτε τον δίσκο προορισμού πριν επιχειρήσετε ξανά την ανάπτυξη.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Λήξη πιστοποιητικού</value>
   </data>
@@ -659,6 +686,9 @@
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Αρχικοποίηση ανάπτυξης</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Έλεγχος ετοιμότητας ανάπτυξης</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Προετοιμασία δίσκου</value>
   </data>
@@ -715,6 +745,12 @@
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Έλεγχος διένεξης δίσκου προσωρινής μνήμης...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Γίνεται έλεγχος ετοιμότητας ανάπτυξης...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Γίνεται έλεγχος πρόσβασης στην πηγή...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Έλεγχος συσκευών Windows Autopilot (απομένει {0})...</value>
@@ -1123,6 +1159,15 @@
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Σταδιακές προσαρμογές πριν από το OOBE (προσομοίωση).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Το είδωλο και οι γνωστές απαιτήσεις χωρητικότητας ελέγχθηκαν πριν από την προετοιμασία του δίσκου.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Η ετοιμότητα ανάπτυξης ελέγχθηκε (προσομοίωση).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Η πρόσβαση στην πηγή και οι γνωστές απαιτήσεις χωρητικότητας ελέγχθηκαν. Η πλήρης επικύρωση του ειδώλου ολοκληρώνεται μετά την προετοιμασία του δίσκου.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Ρυθμίστηκε το περιβάλλον ανάκτησης.</value>

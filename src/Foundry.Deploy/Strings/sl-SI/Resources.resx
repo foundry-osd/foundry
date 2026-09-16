@@ -449,6 +449,33 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operacijski sistem</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Predpomnilnika slike ni mogoče pripraviti. Preverite prosti prostor in pravice za pisanje vanj.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>Na ciljnem disku ni dovolj prostora za znane zahteve uvajanja. Izberite disk z večjo zmogljivostjo.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>Izbrana izdaja sistema Windows ni na voljo ali je ni mogoče enolično določiti. Izberite drugo sliko.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>Velikost slike po uporabi na disku ni na voljo ali ni veljavna. Izberite drugo sliko.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Metapodatki o velikosti ali zgoščeni vrednosti slike niso veljavni. Osvežite katalog operacijskih sistemov.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>URL slike mora uporabljati HTTP ali HTTPS. Osvežite katalog operacijskih sistemov.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Pripravljenosti na uvajanje ni bilo mogoče potrditi. Pred pripravo diska znova zaženite uvajanje.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>Vir slike ni na voljo. Preverite povezavo in osvežite katalog operacijskih sistemov.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Prostega prostora na ciljnem nosilcu ni bilo mogoče preveriti. Pred ponovnim poskusom uvajanja preverite ciljni disk.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Potek veljavnosti potrdila</value>
   </data>
@@ -659,6 +686,9 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Inicializiraj namestitev</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Preveri pripravljenost na uvajanje</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Pripravi disk</value>
   </data>
@@ -715,6 +745,12 @@ Ali želite nadaljevati z uvajanjem?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Preverjanje konflikta diska predpomnilnika...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Preverjanje pripravljenosti na uvajanje...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Preverjanje dostopa do vira...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Preverjanje Windows Autopilot naprav ({0} preostalih)...</value>
@@ -1123,6 +1159,15 @@ Ali želite nadaljevati z uvajanjem?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Izvedene prilagoditve pred OOBE (simulacija).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Slika in znane zahteve glede zmogljivosti so bile preverjene pred pripravo diska.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Pripravljenost na uvajanje je bila preverjena (simulacija).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Dostop do vira in znane zahteve glede zmogljivosti so bili preverjeni. Celovito preverjanje veljavnosti slike se konča po pripravi diska.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Obnovitveno okolje je konfigurirano.</value>

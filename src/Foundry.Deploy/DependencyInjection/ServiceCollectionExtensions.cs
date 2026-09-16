@@ -115,6 +115,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IArtifactDownloadService, ArtifactDownloadService>();
         services.AddSingleton<IDriverPackStrategyResolver, DriverPackStrategyResolver>();
         services.AddSingleton<IDriverPackExtractionService, DriverPackExtractionService>();
+        services.AddSingleton<IWindowsImageInfoReader, NativeDismImageInfoReader>();
         services.AddSingleton<IWindowsDeploymentService, WindowsDeploymentService>();
         services.AddSingleton<ISetupCompleteScriptService, SetupCompleteScriptService>();
         services.AddSingleton<IPreOobeScriptProvisioningService, PreOobeScriptProvisioningService>();
@@ -158,6 +159,9 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStep, GatherDeploymentVariablesStep>();
         services.AddSingleton<IDeploymentStep, InitializeDeploymentWorkspaceStep>();
         services.AddSingleton<IDeploymentStep, PrepareTargetDiskLayoutStep>();
+        services.AddSingleton<IDeploymentStorageService, DeploymentStorageService>();
+        services.AddSingleton<IImageSourceProbe, ImageSourceProbe>();
+        services.AddSingleton<IDeploymentStep, PreflightDeploymentStep>();
         services.AddSingleton<IDeploymentStep, ProvisionAutopilotStep>();
         services.AddSingleton<IDeploymentStep, ResolveCacheStrategyStep>();
         services.AddSingleton<IDeploymentStep, SealRecoveryPartitionStep>();

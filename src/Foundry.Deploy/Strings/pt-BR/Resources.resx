@@ -449,6 +449,33 @@ Continuar com a implantação?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Sistema operacional</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Não é possível preparar o cache da imagem. Verifique o espaço livre e o acesso de gravação no cache.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>O disco de destino não tem espaço suficiente para os requisitos de implantação conhecidos. Selecione um disco de maior capacidade.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>A edição do Windows selecionada está indisponível ou não pode ser identificada de forma inequívoca. Selecione outra imagem.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>O tamanho da imagem após a aplicação está indisponível ou é inválido. Selecione outra imagem.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Os metadados de tamanho ou hash da imagem são inválidos. Atualize o catálogo de sistemas operacionais.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>A URL da imagem deve usar HTTP ou HTTPS. Atualize o catálogo de sistemas operacionais.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Não foi possível confirmar a prontidão para implantação. Reinicie a implantação antes de preparar o disco.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>A origem da imagem está indisponível. Verifique a conexão e atualize o catálogo de sistemas operacionais.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Não foi possível verificar o espaço livre no volume de destino. Verifique o disco de destino antes de tentar a implantação novamente.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Expiração do certificado</value>
   </data>
@@ -659,6 +686,9 @@ Continuar com a implantação?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Inicializar implantação</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Verificar a prontidão para implantação</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Preparar disco</value>
   </data>
@@ -715,6 +745,12 @@ Continuar com a implantação?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Verificando conflito de disco de cache...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Verificando a prontidão para implantação...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Verificando o acesso à origem...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Verificando dispositivos Windows Autopilot ({0} restantes)...</value>
@@ -1123,6 +1159,15 @@ Continuar com a implantação?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Customizações pré-OOBE preparadas (simulação).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>A imagem e os requisitos de capacidade conhecidos foram verificados antes da preparação do disco.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Prontidão para implantação verificada (simulação).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>O acesso à origem e os requisitos de capacidade conhecidos foram verificados. A validação completa da imagem termina após a preparação do disco.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Ambiente de recuperação configurado.</value>

@@ -25,6 +25,7 @@ public static partial class DeploymentUiTextLocalizer
             "Initialize deployment workspace" => LocalizationText.GetString("Step.InitializeDeploymentWorkspace"),
             "Validate target configuration" => LocalizationText.GetString("Step.ValidateTargetConfiguration"),
             "Resolve cache strategy" => LocalizationText.GetString("Step.ResolveCacheStrategy"),
+            "Check deployment readiness" => LocalizationText.GetString("Step.PreflightDeployment"),
             "Prepare target disk layout" => LocalizationText.GetString("Step.PrepareTargetDiskLayout"),
             "Download operating system image" => LocalizationText.GetString("Step.DownloadOperatingSystemImage"),
             "Validate custom answer file" => LocalizationText.GetString("Step.ValidateCustomUnattend"),
@@ -63,6 +64,11 @@ public static partial class DeploymentUiTextLocalizer
         return value switch
         {
             "Waiting for deployment..." => LocalizationText.GetString("Status.WaitingForDeployment"),
+            "Checking deployment readiness..." => LocalizationText.GetString("StepMessage.CheckingDeploymentReadiness"),
+            "Checking source access..." => LocalizationText.GetString("StepMessage.CheckingSourceAccess"),
+            "Image and known capacity checked before disk preparation." => LocalizationText.GetString("StepResult.PreflightExternalReady"),
+            "Source access and known capacity checked. Full image validation finishes after disk preparation." => LocalizationText.GetString("StepResult.PreflightTargetReady"),
+            "Deployment readiness checked (simulation)." => LocalizationText.GetString("StepResult.PreflightSimulation"),
             HttpConnectionFailure.SecureConnectionMessage => LocalizationText.GetString("Error.SecureConnectionFailed"),
             "Waiting for progress..." => LocalizationText.GetString("Status.WaitingForProgress"),
             "Preparing deployment..." => LocalizationText.GetString("Status.PreparingDeployment"),

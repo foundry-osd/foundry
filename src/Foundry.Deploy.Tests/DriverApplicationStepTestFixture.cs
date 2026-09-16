@@ -94,7 +94,7 @@ internal sealed class DriverApplicationStepTestFixture : IDisposable
     }
 }
 
-internal sealed class RecordingDriverApplicationService : IWindowsDeploymentService
+internal class RecordingDriverApplicationService : IWindowsDeploymentService
 {
     public int WindowsApplyCount { get; private set; }
 
@@ -112,15 +112,15 @@ internal sealed class RecordingDriverApplicationService : IWindowsDeploymentServ
         return Task.CompletedTask;
     }
 
-    public Task<DeploymentTargetLayout> PrepareTargetDiskAsync(DiskIdentity confirmedIdentity, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+    public virtual Task<DeploymentTargetLayout> PrepareTargetDiskAsync(DiskIdentity confirmedIdentity, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
-    public Task<int> ResolveImageIndexAsync(string imagePath, string requestedEdition, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+    public virtual Task<WindowsImageMetadata> InspectImageAsync(string imagePath, string requestedEdition, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
-    public Task ApplyImageAsync(string imagePath, int imageIndex, string windowsPartitionRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? progress = null) => throw new NotSupportedException();
+    public virtual Task ApplyImageAsync(string imagePath, int imageIndex, string windowsPartitionRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? progress = null) => throw new NotSupportedException();
 
-    public Task<string?> GetAppliedWindowsEditionAsync(string windowsPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+    public virtual Task<string?> GetAppliedWindowsEditionAsync(string windowsPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
-    public Task ConfigureBootAsync(string windowsPartitionRoot, string systemPartitionRoot, int operatingSystemBuildMajor, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+    public virtual Task ConfigureBootAsync(string windowsPartitionRoot, string systemPartitionRoot, int operatingSystemBuildMajor, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
     public Task ConfigureOfflineComputerNameAsync(string windowsPartitionRoot, string computerName, string processorArchitecture, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
