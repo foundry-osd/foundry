@@ -449,6 +449,33 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>オペレーティングシステム</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>イメージキャッシュを準備できません。キャッシュの空き容量と書き込み権限を確認してください。</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>既知の展開要件を満たすための空き容量が対象ディスクにありません。容量の大きいディスクを選択してください。</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>選択した Windows エディションを利用できないか、一意に特定できません。別のイメージを選択してください。</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>イメージの適用後のサイズを取得できないか、サイズが無効です。別のイメージを選択してください。</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>イメージのサイズまたはハッシュのメタデータが無効です。オペレーティングシステムのカタログを更新してください。</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>イメージの URL には HTTP または HTTPS を使用する必要があります。オペレーティングシステムのカタログを更新してください。</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>展開の準備ができていることを確認できませんでした。ディスクを準備する前に、展開を再開始してください。</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>イメージのソースを利用できません。接続を確認し、オペレーティングシステムのカタログを更新してください。</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>対象ボリュームの空き容量を確認できませんでした。展開を再試行する前に、対象ディスクを確認してください。</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>証明書の有効期限</value>
   </data>
@@ -659,6 +686,9 @@
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>展開を初期化</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>展開の準備状況を確認</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>ディスクを準備</value>
   </data>
@@ -715,6 +745,12 @@
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>キャッシュ ディスクの競合を確認しています...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>展開の準備状況を確認しています...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>ソースへのアクセスを確認しています...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Windows Autopilot デバイスをチェックしています ({0} 残り)...</value>
@@ -1123,6 +1159,15 @@
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>OOBE 前のカスタマイズが段階的に行われました (シミュレーション)。</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>ディスクの準備前に、イメージと既知の容量要件を確認しました。</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>展開の準備状況を確認しました（シミュレーション）。</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>ソースへのアクセスと既知の容量要件を確認しました。イメージの完全な検証は、ディスクの準備後に完了します。</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>リカバリ環境が構成されました。</value>

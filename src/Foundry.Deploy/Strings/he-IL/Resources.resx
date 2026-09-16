@@ -449,6 +449,33 @@ ErrorCode=0x80070005
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>מערכת הפעלה</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>לא ניתן להכין את המטמון של קובץ התמונה. יש לבדוק את השטח הפנוי בו ואת הרשאות הכתיבה אליו.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>אין בדיסק היעד די שטח פנוי לדרישות הפריסה הידועות. יש לבחור דיסק בעל קיבולת גדולה יותר.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>מהדורת Windows שנבחרה אינה זמינה או שלא ניתן לזהות אותה באופן חד-משמעי. יש לבחור קובץ תמונה אחר.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>גודל קובץ התמונה לאחר החלתו אינו זמין או אינו תקין. יש לבחור קובץ תמונה אחר.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>המטא-נתונים של גודל קובץ התמונה או של ערך הגיבוב שלו אינם תקינים. יש לרענן את קטלוג מערכות ההפעלה.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>כתובת ה-URL של קובץ התמונה חייבת להשתמש ב-HTTP או ב-HTTPS. יש לרענן את קטלוג מערכות ההפעלה.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>לא ניתן היה לאשר את המוכנות לפריסה. יש להתחיל את הפריסה מחדש לפני הכנת הדיסק.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>המקור של קובץ התמונה אינו זמין. יש לבדוק את החיבור ולרענן את קטלוג מערכות ההפעלה.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>לא ניתן היה לבדוק את השטח הפנוי באמצעי האחסון של היעד. יש לבדוק את דיסק היעד לפני ניסיון נוסף לפריסה.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>תפוגה של תעודה</value>
   </data>
@@ -659,6 +686,9 @@ ErrorCode=0x80070005
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>אתחול פריסה</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>בדיקת מוכנות לפריסה</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>הכנת דיסק</value>
   </data>
@@ -715,6 +745,12 @@ ErrorCode=0x80070005
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>בודק התנגשות דיסק מטמון...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>בודק מוכנות לפריסה...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>בודק גישה למקור...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>בודק התקני Windows Autopilot (נותרו {0})...</value>
@@ -1123,6 +1159,15 @@ ErrorCode=0x80070005
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>התאמות אישיות לפני OOBE בשלבים (סימולציה).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>קובץ התמונה ודרישות הקיבולת הידועות נבדקו לפני הכנת הדיסק.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>המוכנות לפריסה נבדקה (הדמיה).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>הגישה למקור ודרישות הקיבולת הידועות נבדקו. האימות המלא של קובץ התמונה מסתיים לאחר הכנת הדיסק.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>הוגדרה סביבת שחזור.</value>

@@ -449,6 +449,33 @@ Continue with deployment?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operating system</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>The image cache cannot be prepared. Check its free space and write access.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>The target disk does not have enough space for the known deployment requirements. Select a larger disk.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>The selected Windows edition is unavailable or ambiguous. Select another image.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>The image's expanded size is unavailable or invalid. Select another image.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>The image size or hash metadata is invalid. Refresh the operating system catalogue.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>The image URL must use HTTP or HTTPS. Refresh the operating system catalogue.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Deployment readiness could not be confirmed. Restart deployment before preparing the disk.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>The image source is unavailable. Check the connection and refresh the operating system catalogue.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Target volume free space could not be checked. Check the target disk before retrying deployment.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Certificate expiration</value>
   </data>
@@ -659,6 +686,9 @@ Continue with deployment?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Initialize deployment</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Check deployment readiness</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Prepare disk</value>
   </data>
@@ -715,6 +745,12 @@ Continue with deployment?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Checking cache disk conflict...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Checking deployment readiness...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Checking source access...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Checking Windows Autopilot devices ({0} remaining)...</value>
@@ -1123,6 +1159,15 @@ Continue with deployment?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Pre-OOBE customisations staged (simulation).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Image and known capacity checked before disk preparation.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Deployment readiness checked (simulation).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Source access and known capacity checked. Full image validation finishes after disk preparation.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Recovery environment configured.</value>

@@ -21,7 +21,19 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        string osDirectory = context.ResolveOperatingSystemCacheRoot(context.Request.OperatingSystem.SizeBytes);
+        if (context.Preflight is { UsesTargetStorage: false } prepared)
+        {
+            if (!prepared.Matches(context))
+            {
+                DeploymentOperationException failure = PreflightDeploymentStep.Guard("Preflight.NotReady", "preflight_not_ready");
+                return DeploymentStepResult.Failed(failure.Message, failure.Failure);
+            }
+            return DeploymentStepResult.Succeeded("Operating system image resolved from cache.");
+        }
+
+        string osDirectory = context.Preflight?.UsesTargetStorage == true
+            ? Path.Combine(context.EnsureTargetFoundryRoot(), "Cache", "OperatingSystems")
+            : context.ResolveOperatingSystemCacheRoot(context.Request.OperatingSystem.SizeBytes);
         Directory.CreateDirectory(osDirectory);
         const string stepMessage = "Downloading OS image...";
 

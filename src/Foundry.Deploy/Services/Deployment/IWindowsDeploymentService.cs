@@ -25,17 +25,15 @@ public interface IWindowsDeploymentService
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Resolves the WIM/ESD image index matching a requested edition.
+    /// Inspects WIM/ESD metadata without mounting or applying the image. Requires exactly one matching edition and a positive expanded size.
     /// </summary>
     /// <param name="imagePath">Path to the WIM or ESD image.</param>
     /// <param name="requestedEdition">Windows edition name requested by the catalog.</param>
-    /// <param name="workingDirectory">Directory used for temporary scripts and command output.</param>
     /// <param name="cancellationToken">Token that cancels image inspection.</param>
-    /// <returns>The image index matching the requested edition.</returns>
-    Task<int> ResolveImageIndexAsync(
+    /// <returns>The selected image metadata, including known setup-media expansion.</returns>
+    Task<WindowsImageMetadata> InspectImageAsync(
         string imagePath,
         string requestedEdition,
-        string workingDirectory,
         CancellationToken cancellationToken = default);
 
     /// <summary>

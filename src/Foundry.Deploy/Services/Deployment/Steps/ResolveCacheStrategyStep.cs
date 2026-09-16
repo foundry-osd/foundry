@@ -72,6 +72,6 @@ public sealed class ResolveCacheStrategyStep : DeploymentStepBase
             $"Cache conflict: cache path '{resolvedCache.RootPath}' is on target disk {context.Request.TargetDiskNumber}. " +
             "Deployment is blocked to avoid writing deployment cache on the destination disk.";
         await context.AppendLogAsync(DeploymentLogLevel.Error, message, cancellationToken).ConfigureAwait(false);
-        throw new InvalidOperationException(message);
+        throw PreflightDeploymentStep.Guard("Preflight.CacheUnavailable", "cache_on_target_disk");
     }
 }

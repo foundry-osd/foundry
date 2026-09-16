@@ -449,6 +449,33 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>ระบบปฏิบัติการ</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>ไม่สามารถเตรียมแคชของอิมเมจได้ โปรดตรวจสอบพื้นที่ว่างและสิทธิ์ในการเขียนลงแคช</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>ดิสก์เป้าหมายมีพื้นที่ไม่เพียงพอสำหรับข้อกำหนดการปรับใช้ที่ทราบ โปรดเลือกดิสก์ที่มีความจุมากขึ้น</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>รุ่นของ Windows ที่เลือกไม่พร้อมใช้งานหรือไม่สามารถระบุได้อย่างชัดเจน โปรดเลือกอิมเมจอื่น</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>ไม่พบข้อมูลขนาดของอิมเมจหลังจากนำไปใช้กับดิสก์ หรือข้อมูลไม่ถูกต้อง โปรดเลือกอิมเมจอื่น</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>เมทาดาทาของขนาดหรือค่าแฮชของอิมเมจไม่ถูกต้อง โปรดรีเฟรชแค็ตตาล็อกระบบปฏิบัติการ</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>URL ของอิมเมจต้องใช้ HTTP หรือ HTTPS โปรดรีเฟรชแค็ตตาล็อกระบบปฏิบัติการ</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>ไม่สามารถยืนยันความพร้อมในการปรับใช้ได้ โปรดเริ่มการปรับใช้ใหม่ก่อนเตรียมดิสก์</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>แหล่งที่มาของอิมเมจไม่พร้อมใช้งาน โปรดตรวจสอบการเชื่อมต่อและรีเฟรชแค็ตตาล็อกระบบปฏิบัติการ</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>ไม่สามารถตรวจสอบพื้นที่ว่างบนโวลุมเป้าหมายได้ โปรดตรวจสอบดิสก์เป้าหมายก่อนลองปรับใช้อีกครั้ง</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>ใบรับรองหมดอายุ</value>
   </data>
@@ -659,6 +686,9 @@
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>เริ่มต้นการปรับใช้</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>ตรวจสอบความพร้อมในการปรับใช้</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>เตรียมดิสก์</value>
   </data>
@@ -715,6 +745,12 @@
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>กำลังตรวจสอบข้อขัดแย้งของดิสก์แคช...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>กำลังตรวจสอบความพร้อมในการปรับใช้...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>กำลังตรวจสอบการเข้าถึงแหล่งที่มา...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>กำลังตรวจสอบอุปกรณ์ Windows Autopilot ({0} ที่เหลืออยู่)...</value>
@@ -1123,6 +1159,15 @@
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>การปรับแต่ง Pre-OOBE เป็นฉาก (การจำลอง)</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>ตรวจสอบอิมเมจและข้อกำหนดด้านความจุที่ทราบแล้วก่อนเตรียมดิสก์</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>ตรวจสอบความพร้อมในการปรับใช้แล้ว (การจำลอง)</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>ตรวจสอบการเข้าถึงแหล่งที่มาและข้อกำหนดด้านความจุที่ทราบแล้ว การตรวจสอบความถูกต้องของอิมเมจอย่างครบถ้วนจะเสร็จสิ้นหลังจากเตรียมดิสก์</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>กำหนดค่าสภาพแวดล้อมการกู้คืนแล้ว</value>

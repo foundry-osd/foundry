@@ -21,6 +21,8 @@ public static class DeploymentOperationNames
     public const string ValidateTargetDisk = "target_disk.validate";
     public const string DetectHardware = "hardware.detect";
     public const string ResolveCache = "cache.resolve";
+    public const string PreflightDeployment = "deployment.preflight";
+    public const string ProbeOperatingSystemSource = "os_image.probe";
     public const string ValidateCacheTargetDisk = "cache.validate_target_disk";
     public const string PrepareTargetDisk = "target_disk.prepare";
     public const string PartitionTargetDisk = "target_disk.partition";
@@ -76,6 +78,7 @@ public static class DeploymentOperationNames
             DeploymentStepNames.InitializeDeploymentWorkspace => InitializeWorkspace,
             DeploymentStepNames.ValidateTargetConfiguration => ValidateTarget,
             DeploymentStepNames.ResolveCacheStrategy => ResolveCache,
+            DeploymentStepNames.PreflightDeployment => PreflightDeployment,
             DeploymentStepNames.PrepareTargetDiskLayout => PrepareTargetDisk,
             DeploymentStepNames.DownloadOperatingSystemImage => DownloadOperatingSystemImage,
             DeploymentStepNames.DownloadDriverPack => DownloadDriverPack,

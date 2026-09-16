@@ -449,6 +449,33 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Betriebssystem</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Der Abbildcache kann nicht vorbereitet werden. Prüfen Sie den freien Speicherplatz und den Schreibzugriff auf den Cache.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>Auf dem Zieldatenträger ist nicht genügend Speicherplatz für die bekannten Bereitstellungsanforderungen vorhanden. Wählen Sie einen größeren Datenträger aus.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>Die ausgewählte Windows-Edition ist nicht verfügbar oder nicht eindeutig. Wählen Sie ein anderes Abbild aus.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>Die Größe des Abbilds nach dem Anwenden ist nicht verfügbar oder ungültig. Wählen Sie ein anderes Abbild aus.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Die Metadaten zur Größe oder zum Hashwert des Abbilds sind ungültig. Aktualisieren Sie den Betriebssystemkatalog.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>Die URL des Abbilds muss HTTP oder HTTPS verwenden. Aktualisieren Sie den Betriebssystemkatalog.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Die Bereitschaft für die Bereitstellung konnte nicht bestätigt werden. Starten Sie die Bereitstellung erneut, bevor Sie den Datenträger vorbereiten.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>Die Quelle des Abbilds ist nicht verfügbar. Prüfen Sie die Verbindung und aktualisieren Sie den Betriebssystemkatalog.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Der freie Speicherplatz auf dem Zielvolume konnte nicht geprüft werden. Prüfen Sie den Zieldatenträger, bevor Sie die Bereitstellung erneut versuchen.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Ablauf des Zertifikats</value>
   </data>
@@ -659,6 +686,9 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Bereitstellung initialisieren</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Bereitschaft für die Bereitstellung prüfen</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Datenträger vorbereiten</value>
   </data>
@@ -715,6 +745,12 @@ Mit der Bereitstellung fortfahren?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Cache-Festplattenkonflikt wird überprüft...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Bereitschaft für die Bereitstellung wird geprüft...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Zugriff auf die Quelle wird geprüft...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Windows Autopilot Geräte werden überprüft (verbleibende ({0})...</value>
@@ -1123,6 +1159,15 @@ Mit der Bereitstellung fortfahren?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Inszenierte Anpassungen vor der OOBE (Simulation).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Abbild und bekannte Kapazitätsanforderungen wurden vor der Datenträgervorbereitung geprüft.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Bereitschaft für die Bereitstellung wurde geprüft (Simulation).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Zugriff auf die Quelle und bekannte Kapazitätsanforderungen wurden geprüft. Die vollständige Abbildprüfung wird nach der Datenträgervorbereitung abgeschlossen.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Wiederherstellungsumgebung konfiguriert.</value>

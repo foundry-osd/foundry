@@ -110,6 +110,7 @@ public sealed class DeploymentOrchestratorTests
             DeploymentStepNames.ValidateCustomUnattend,
             DeploymentStepNames.ValidateTargetConfiguration,
             DeploymentStepNames.ResolveCacheStrategy,
+            DeploymentStepNames.PreflightDeployment,
             DeploymentStepNames.PrepareTargetDiskLayout,
             DeploymentStepNames.DownloadOperatingSystemImage,
             DeploymentStepNames.ApplyOperatingSystemImage,

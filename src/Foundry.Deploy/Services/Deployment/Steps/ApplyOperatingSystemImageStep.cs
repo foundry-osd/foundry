@@ -11,10 +11,12 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
 {
     private readonly IWindowsDeploymentService _windowsDeploymentService;
+    private readonly IDeploymentStorageService _storageService;
 
-    public ApplyOperatingSystemImageStep(IWindowsDeploymentService windowsDeploymentService)
+    public ApplyOperatingSystemImageStep(IWindowsDeploymentService windowsDeploymentService, IDeploymentStorageService? storageService = null)
     {
         _windowsDeploymentService = windowsDeploymentService;
+        _storageService = storageService ?? new DeploymentStorageService();
     }
 
     public override string Name => DeploymentStepNames.ApplyOperatingSystemImage;
@@ -52,10 +54,43 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
             applyStepMessage,
             "Inspecting image...",
             DeploymentOperationNames.InspectOperatingSystemImage);
-        int imageIndex = await _windowsDeploymentService
-            .ResolveImageIndexAsync(imagePath, context.Request.OperatingSystem.Edition, workingDirectory, cancellationToken)
-            .ConfigureAwait(false);
+        WindowsImageMetadata metadata;
+        try
+        {
+            DeploymentPreflightState? preflight = context.Preflight;
+            if (preflight is { UsesTargetStorage: false } && !preflight.Matches(context))
+            {
+                throw PreflightDeploymentStep.Guard("Preflight.NotReady", "preflight_not_ready");
+            }
+            metadata = preflight?.Image ?? await _windowsDeploymentService
+                .InspectImageAsync(imagePath, context.Request.OperatingSystem.Edition, cancellationToken)
+                .ConfigureAwait(false);
+            long actualArchiveBytes = preflight?.UsesTargetStorage == false ? 0 : new FileInfo(imagePath).Length;
+            long targetDriverBytes = preflight?.TargetDriverBytes ?? 0;
+            DeploymentCapacityPolicy.EnsureTargetCapacity(context, metadata, actualArchiveBytes, targetDriverBytes);
+            long remainingBytes = DeploymentCapacityPolicy.RequiredWindowsBytes(metadata, 0, targetDriverBytes,
+                DeploymentCapacityPolicy.NeedsOptionalFeatureSource(context));
+            long? availableBytes = _storageService.GetAvailableBytes(context.RuntimeState.TargetWindowsPartitionRoot);
+            if (availableBytes is null)
+            {
+                throw PreflightDeploymentStep.Guard("Preflight.TargetSpaceUnavailable", "target_space_unavailable");
+            }
+            if (availableBytes.Value < remainingBytes)
+            {
+                throw DeploymentCapacityPolicy.Failure();
+            }
+        }
+        catch (DeploymentOperationException exception)
+        {
+            return DeploymentStepResult.Failed(exception.Message, exception.Failure);
+        }
+        catch (OverflowException)
+        {
+            DeploymentOperationException exception = PreflightDeploymentStep.Guard("Preflight.InvalidMetadata", "invalid_capacity_metadata");
+            return DeploymentStepResult.Failed(exception.Message, exception.Failure);
+        }
 
+        int imageIndex = metadata.Index;
         context.RuntimeState.AppliedImageIndex = imageIndex;
 
         string scratchDirectory = Path.Combine(targetFoundryRoot, "Temp", "Dism");

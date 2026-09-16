@@ -449,6 +449,33 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Операционная система</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Не удается подготовить кэш образа. Проверьте свободное место и доступ на запись в кэш.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>На целевом диске недостаточно места для известных требований развертывания. Выберите диск большей емкости.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>Выбранный выпуск Windows недоступен или не может быть определен однозначно. Выберите другой образ.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>Размер образа после применения недоступен или недействителен. Выберите другой образ.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Метаданные размера или хеша образа недействительны. Обновите каталог операционных систем.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>URL образа должен использовать HTTP или HTTPS. Обновите каталог операционных систем.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Не удалось подтвердить готовность к развертыванию. Перезапустите развертывание перед подготовкой диска.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>Источник образа недоступен. Проверьте подключение и обновите каталог операционных систем.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Не удалось проверить свободное место на целевом томе. Проверьте целевой диск перед повторной попыткой развертывания.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Срок действия сертификата</value>
   </data>
@@ -659,6 +686,9 @@
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Инициализация развертывания</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Проверить готовность к развертыванию</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Подготовка диска</value>
   </data>
@@ -715,6 +745,12 @@
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Проверка конфликта кэш-диска...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Проверка готовности к развертыванию...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Проверка доступа к источнику...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Проверка устройств Windows Autopilot ({0} осталось)...</value>
@@ -1123,6 +1159,15 @@
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Предварительные настройки перед OOBE (моделирование).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Образ и известные требования к емкости проверены до подготовки диска.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Готовность к развертыванию проверена (симуляция).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Доступ к источнику и известные требования к емкости проверены. Полная проверка образа завершится после подготовки диска.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Среда восстановления настроена.</value>

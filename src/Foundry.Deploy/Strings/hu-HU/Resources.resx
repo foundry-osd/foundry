@@ -449,6 +449,33 @@ Folytatja a telepítést?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operációs rendszer</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>A lemezkép gyorsítótára nem készíthető elő. Ellenőrizze a szabad helyet és az írási jogosultságokat.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>A céllemezen nincs elegendő hely az ismert telepítési követelmények teljesítéséhez. Válasszon nagyobb lemezt.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>A kiválasztott Windows-kiadás nem érhető el, vagy nem azonosítható egyértelműen. Válasszon másik lemezképet.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>A lemezkép alkalmazás utáni mérete nem érhető el vagy érvénytelen. Válasszon másik lemezképet.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>A lemezkép méretére vagy kivonatára vonatkozó metaadatok érvénytelenek. Frissítse az operációs rendszerek katalógusát.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>A lemezkép URL-címének HTTP vagy HTTPS protokollt kell használnia. Frissítse az operációs rendszerek katalógusát.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>A telepítési készenlétet nem sikerült megerősíteni. A lemez előkészítése előtt indítsa újra a telepítést.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>A lemezkép forrása nem érhető el. Ellenőrizze a kapcsolatot, és frissítse az operációs rendszerek katalógusát.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>A célköteten lévő szabad helyet nem sikerült ellenőrizni. A telepítés újbóli megkísérlése előtt ellenőrizze a céllemezt.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Tanúsítvány lejárata</value>
   </data>
@@ -659,6 +686,9 @@ Folytatja a telepítést?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Telepítés inicializálása</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Telepítési készenlét ellenőrzése</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Lemez előkészítése</value>
   </data>
@@ -715,6 +745,12 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>A gyorsítótár lemezütközésének ellenőrzése...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Telepítési készenlét ellenőrzése...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>A forrás elérhetőségének ellenőrzése...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Windows Autopilot eszközök ellenőrzése ({0} maradt)...</value>
@@ -1123,6 +1159,15 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Az OOBE előtti testreszabások szakaszban (szimuláció).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>A lemezkép és az ismert kapacitáskövetelmények ellenőrzése a lemez előkészítése előtt megtörtént.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>A telepítési készenlét ellenőrzése megtörtént (szimuláció).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>A forrás elérhetőségének és az ismert kapacitáskövetelményeknek az ellenőrzése megtörtént. A lemezkép teljes ellenőrzése a lemez előkészítése után fejeződik be.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Helyreállítási környezet konfigurálva.</value>

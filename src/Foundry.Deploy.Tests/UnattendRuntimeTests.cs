@@ -228,7 +228,7 @@ public sealed class UnattendRuntimeTests
     {
         using var fixture = new Fixture();
         var runner = new RecordingProcessRunner();
-        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
         using DeploymentStepExecutionContext context = fixture.CreateContext();
         context.RuntimeState.Oobe = new DeployOobeSettings { IsEnabled = true, EnableAdministratorAccount = true, AdministratorPasswordSecret = new() };
         context.RuntimeState.AiComponentRemoval = new DeployAiComponentRemovalSettings { IsEnabled = true, DisableRecall = true };

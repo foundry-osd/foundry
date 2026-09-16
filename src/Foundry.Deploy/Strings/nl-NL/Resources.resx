@@ -449,6 +449,33 @@ Doorgaan met de implementatie?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Besturingssysteem</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>De cache voor de installatiekopie kan niet worden voorbereid. Controleer de vrije ruimte en schrijftoegang tot de cache.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>De doelschijf heeft onvoldoende ruimte voor de bekende implementatievereisten. Selecteer een grotere schijf.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>De geselecteerde Windows-editie is niet beschikbaar of kan niet eenduidig worden bepaald. Selecteer een andere installatiekopie.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>De grootte van de installatiekopie na het toepassen is niet beschikbaar of ongeldig. Selecteer een andere installatiekopie.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>De metagegevens voor de grootte of hash van de installatiekopie zijn ongeldig. Vernieuw de catalogus met besturingssystemen.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>De URL van de installatiekopie moet HTTP of HTTPS gebruiken. Vernieuw de catalogus met besturingssystemen.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Er kon niet worden bevestigd dat de implementatie gereed is. Start de implementatie opnieuw voordat u de schijf voorbereidt.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>De bron van de installatiekopie is niet beschikbaar. Controleer de verbinding en vernieuw de catalogus met besturingssystemen.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>De vrije ruimte op het doelvolume kon niet worden gecontroleerd. Controleer de doelschijf voordat u de implementatie opnieuw probeert.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Vervaldatum certificaat</value>
   </data>
@@ -659,6 +686,9 @@ Doorgaan met de implementatie?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Implementatie initialiseren</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Controleren of de implementatie gereed is</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Schijf voorbereiden</value>
   </data>
@@ -715,6 +745,12 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Conflict cacheschijf controleren...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Controleren of de implementatie gereed is...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Toegang tot de bron controleren...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Windows Autopilot apparaten ({0} resterend) controleren...</value>
@@ -1123,6 +1159,15 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Pre-OOBE-aanpassingen geënsceneerd (simulatie).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>De installatiekopie en bekende capaciteitsvereisten zijn gecontroleerd voordat de schijf wordt voorbereid.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Er is gecontroleerd of de implementatie gereed is (simulatie).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>De toegang tot de bron en bekende capaciteitsvereisten zijn gecontroleerd. De volledige validatie van de installatiekopie wordt voltooid nadat de schijf is voorbereid.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Herstelomgeving geconfigureerd.</value>

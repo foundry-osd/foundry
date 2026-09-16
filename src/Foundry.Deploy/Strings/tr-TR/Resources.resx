@@ -449,6 +449,33 @@ Dağıtıma devam edilsin mi?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>İşletim sistemi</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Görüntü önbelleği hazırlanamadı. Boş alanını ve yazma erişimini denetleyin.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>Hedef diskte bilinen dağıtım gereksinimleri için yeterli alan yok. Daha büyük bir disk seçin.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>Seçilen Windows sürümü kullanılamıyor veya kesin olarak belirlenemiyor. Başka bir görüntü seçin.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>Görüntünün uygulandıktan sonraki boyutu mevcut değil veya geçersiz. Başka bir görüntü seçin.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Görüntünün boyut veya karma meta verileri geçersiz. İşletim sistemi kataloğunu yenileyin.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>Görüntünün URL adresi HTTP veya HTTPS kullanmalıdır. İşletim sistemi kataloğunu yenileyin.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Dağıtım hazırlığı doğrulanamadı. Diski hazırlamadan önce dağıtımı yeniden başlatın.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>Görüntü kaynağı kullanılamıyor. Bağlantıyı denetleyin ve işletim sistemi kataloğunu yenileyin.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Hedef birimdeki boş alan denetlenemedi. Dağıtımı yeniden denemeden önce hedef diski denetleyin.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Sertifikanın geçerlilik süresi</value>
   </data>
@@ -659,6 +686,9 @@ Dağıtıma devam edilsin mi?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Dağıtımı başlat</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Dağıtım hazırlığını denetle</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Diski hazırla</value>
   </data>
@@ -715,6 +745,12 @@ Dağıtıma devam edilsin mi?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Önbellek disk çakışması kontrol ediliyor...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Dağıtım hazırlığı denetleniyor...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Kaynağa erişim denetleniyor...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Windows Autopilot cihazlar kontrol ediliyor ({0} kalan)...</value>
@@ -1123,6 +1159,15 @@ Dağıtıma devam edilsin mi?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>OOBE öncesi özelleştirmeler aşamalı (simülasyon).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Disk hazırlanmadan önce görüntü ve bilinen kapasite gereksinimleri denetlendi.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Dağıtım hazırlığı denetlendi (simülasyon).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Kaynağa erişim ve bilinen kapasite gereksinimleri denetlendi. Görüntünün tam doğrulaması disk hazırlandıktan sonra tamamlanır.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Kurtarma ortamı yapılandırıldı.</value>

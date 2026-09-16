@@ -449,6 +449,33 @@ Continuer le déploiement?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Système d’exploitation</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Le cache de l’image ne peut pas être préparé. Vérifiez son espace libre et les droits d’écriture.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>Le disque cible ne dispose pas d’assez d’espace pour les besoins de déploiement connus. Sélectionnez un disque de plus grande capacité.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>L’édition de Windows sélectionnée est indisponible ou ne peut pas être identifiée de façon univoque. Sélectionnez une autre image.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>La taille de l’image après son application est indisponible ou invalide. Sélectionnez une autre image.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Les métadonnées de taille ou de hachage de l’image sont invalides. Actualisez le catalogue des systèmes d’exploitation.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>L’URL de l’image doit utiliser HTTP ou HTTPS. Actualisez le catalogue des systèmes d’exploitation.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>L’état de préparation du déploiement n’a pas pu être confirmé. Relancez le déploiement avant de préparer le disque.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>La source de l’image est indisponible. Vérifiez la connexion et actualisez le catalogue des systèmes d’exploitation.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>L’espace libre du volume cible n’a pas pu être vérifié. Vérifiez le disque cible avant de réessayer le déploiement.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Expiration du certificat</value>
   </data>
@@ -659,6 +686,9 @@ Continuer le déploiement?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Initialiser le déploiement</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Vérifier si le déploiement est prêt</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Préparer le disque</value>
   </data>
@@ -715,6 +745,12 @@ Continuer le déploiement?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Vérification du conflit de disque de cache...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Vérification de l’état de préparation du déploiement...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Vérification de l’accès à la source...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Vérification des Windows Autopilot appareils ({0} restants)...</value>
@@ -1123,6 +1159,15 @@ Continuer le déploiement?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Personnalisations pré-OOBE mises en scène (simulation).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>L’image et les besoins en capacité connus ont été vérifiés avant la préparation du disque.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>L’état de préparation du déploiement a été vérifié (simulation).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>L’accès à la source et les besoins en capacité connus ont été vérifiés. La validation complète de l’image se termine après la préparation du disque.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Environnement de récupération configuré.</value>

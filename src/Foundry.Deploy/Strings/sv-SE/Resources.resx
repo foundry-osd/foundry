@@ -449,6 +449,33 @@ Fortsätt med implementeringen?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operativsystem</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Avbildningscachen kan inte förberedas. Kontrollera ledigt utrymme och skrivåtkomst till cachen.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>Måldisken har inte tillräckligt med utrymme för de kända distributionskraven. Välj en större disk.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>Den valda Windows-utgåvan är inte tillgänglig eller kan inte identifieras entydigt. Välj en annan avbildning.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>Avbildningens storlek efter att den har tillämpats är inte tillgänglig eller är ogiltig. Välj en annan avbildning.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Metadata för avbildningens storlek eller hash är ogiltiga. Uppdatera operativsystemskatalogen.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>Avbildningens URL måste använda HTTP eller HTTPS. Uppdatera operativsystemskatalogen.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Det gick inte att bekräfta att distributionen är redo. Starta om distributionen innan du förbereder disken.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>Avbildningskällan är inte tillgänglig. Kontrollera anslutningen och uppdatera operativsystemskatalogen.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Det gick inte att kontrollera ledigt utrymme på målvolymen. Kontrollera måldisken innan du försöker distribuera igen.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Certifikats giltighetstid</value>
   </data>
@@ -659,6 +686,9 @@ Fortsätt med implementeringen?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Initiera distribution</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Kontrollera om distributionen är redo</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Förbered disk</value>
   </data>
@@ -715,6 +745,12 @@ Fortsätt med implementeringen?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Kontrollerar cachediskkonflikt...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Kontrollerar om distributionen är redo...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Kontrollerar åtkomst till källan...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Kontrollerar Windows Autopilot enheter ({0} återstår)...</value>
@@ -1123,6 +1159,15 @@ Fortsätt med implementeringen?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Pre-OOBE-anpassningar stegvis (simulering).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Avbildningen och kända kapacitetskrav har kontrollerats före diskförberedelsen.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Det har kontrollerats om distributionen är redo (simulering).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Åtkomst till källan och kända kapacitetskrav har kontrollerats. Den fullständiga valideringen av avbildningen slutförs efter diskförberedelsen.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Återställningsmiljö konfigurerad.</value>

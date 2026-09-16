@@ -15,6 +15,7 @@ public static class DeploymentStepNames
     public const string InitializeDeploymentWorkspace = "Initialize deployment workspace";
     public const string ValidateTargetConfiguration = "Validate target configuration";
     public const string ResolveCacheStrategy = "Resolve cache strategy";
+    public const string PreflightDeployment = "Check deployment readiness";
     public const string PrepareTargetDiskLayout = "Prepare target disk layout";
     public const string DownloadOperatingSystemImage = "Download operating system image";
     public const string DownloadDriverPack = "Download driver pack";
@@ -43,6 +44,7 @@ public static class DeploymentStepNames
         ValidateCustomUnattend,
         ValidateTargetConfiguration,
         ResolveCacheStrategy,
+        PreflightDeployment,
         PrepareTargetDiskLayout,
         DownloadOperatingSystemImage,
         ApplyOperatingSystemImage,
