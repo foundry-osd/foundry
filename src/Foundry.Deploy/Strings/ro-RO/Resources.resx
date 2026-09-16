@@ -449,6 +449,33 @@ Continuați cu implementarea?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Sistem de operare</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Memoria cache a imaginii nu poate fi pregătită. Verificați spațiul liber și accesul la scriere în aceasta.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>Discul țintă nu are suficient spațiu pentru cerințele de implementare cunoscute. Selectați un disc cu o capacitate mai mare.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>Ediția Windows selectată nu este disponibilă sau nu poate fi identificată fără ambiguitate. Selectați altă imagine.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>Dimensiunea imaginii după aplicare nu este disponibilă sau nu este validă. Selectați altă imagine.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Metadatele privind dimensiunea sau hashul imaginii nu sunt valide. Reîmprospătați catalogul sistemelor de operare.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>Adresa URL a imaginii trebuie să utilizeze HTTP sau HTTPS. Reîmprospătați catalogul sistemelor de operare.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Nu s-a putut confirma pregătirea pentru implementare. Reporniți implementarea înainte de pregătirea discului.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>Sursa imaginii nu este disponibilă. Verificați conexiunea și reîmprospătați catalogul sistemelor de operare.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Nu s-a putut verifica spațiul liber de pe volumul țintă. Verificați discul țintă înainte de a reîncerca implementarea.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Expirarea certificatului</value>
   </data>
@@ -659,6 +686,9 @@ Continuați cu implementarea?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Inițializează implementarea</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Verifică pregătirea pentru implementare</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Pregătește discul</value>
   </data>
@@ -715,6 +745,12 @@ Continuați cu implementarea?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Se verifică conflictul discului cache...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Se verifică pregătirea pentru implementare...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Se verifică accesul la sursă...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Se verifică dispozitivele Windows Autopilot ({0} rămase)...</value>
@@ -1123,6 +1159,15 @@ Continuați cu implementarea?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Personalizări pre-OOBE puse în scenă (simulare).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Imaginea și cerințele de capacitate cunoscute au fost verificate înainte de pregătirea discului.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Pregătirea pentru implementare a fost verificată (simulare).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Accesul la sursă și cerințele de capacitate cunoscute au fost verificate. Validarea completă a imaginii se încheie după pregătirea discului.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Mediu de recuperare configurat.</value>

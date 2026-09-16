@@ -449,6 +449,33 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>作業系統</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>無法準備映像快取。請檢查其可用空間與寫入權限。</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>目標磁碟沒有足夠的空間可滿足已知部署需求。請選取容量更大的磁碟。</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>所選的 Windows 版本無法使用或無法明確識別。請選取其他映像。</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>映像套用後的大小資訊無法取得或無效。請選取其他映像。</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>映像大小或雜湊中繼資料無效。請重新整理作業系統目錄。</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>映像 URL 必須使用 HTTP 或 HTTPS。請重新整理作業系統目錄。</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>無法確認部署準備狀態。請在準備磁碟之前重新啟動部署。</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>映像來源無法使用。請檢查連線並重新整理作業系統目錄。</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>無法檢查目標磁碟區的可用空間。請檢查目標磁碟，再重試部署。</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>憑證過期</value>
   </data>
@@ -659,6 +686,9 @@
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>初始化部署</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>檢查部署準備狀態</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>準備磁碟</value>
   </data>
@@ -715,6 +745,12 @@
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>檢查快取磁碟衝突...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>正在檢查部署準備狀態...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>正在檢查是否可存取來源...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>正在檢查 Windows Autopilot 設備（{0} 剩餘）...</value>
@@ -1123,6 +1159,15 @@
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>預 OOBE 定制已上演（模擬）。</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>已在準備磁碟之前檢查映像與已知容量需求。</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>已檢查部署準備狀態（模擬）。</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>已檢查來源是否可存取及已知容量需求。完整的映像驗證將在準備磁碟後完成。</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>恢復環境已配置。</value>

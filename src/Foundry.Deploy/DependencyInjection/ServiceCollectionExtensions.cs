@@ -158,6 +158,9 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStep, GatherDeploymentVariablesStep>();
         services.AddSingleton<IDeploymentStep, InitializeDeploymentWorkspaceStep>();
         services.AddSingleton<IDeploymentStep, PrepareTargetDiskLayoutStep>();
+        services.AddSingleton<IDeploymentStorageService, DeploymentStorageService>();
+        services.AddSingleton<IImageSourceProbe, ImageSourceProbe>();
+        services.AddSingleton<IDeploymentStep, PreflightDeploymentStep>();
         services.AddSingleton<IDeploymentStep, ProvisionAutopilotStep>();
         services.AddSingleton<IDeploymentStep, ResolveCacheStrategyStep>();
         services.AddSingleton<IDeploymentStep, SealRecoveryPartitionStep>();

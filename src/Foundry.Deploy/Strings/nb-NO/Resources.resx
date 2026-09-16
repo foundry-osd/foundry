@@ -449,6 +449,33 @@ Vil du fortsette med distribusjonen?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operativsystem</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Avbildningshurtigbufferen kan ikke klargjøres. Kontroller ledig plass og skrivetilgang til den.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>Måldisken har ikke nok plass til de kjente distribusjonskravene. Velg en større disk.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>Den valgte Windows-utgaven er utilgjengelig eller kan ikke identifiseres entydig. Velg en annen avbildning.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>Avbildningens størrelse etter installasjon er utilgjengelig eller ugyldig. Velg en annen avbildning.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Metadata for avbildningens størrelse eller hash er ugyldige. Oppdater operativsystemkatalogen.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>Avbildningens URL må bruke HTTP eller HTTPS. Oppdater operativsystemkatalogen.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Det kunne ikke bekreftes at distribusjonen er klar. Start distribusjonen på nytt før du klargjør disken.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>Avbildningskilden er utilgjengelig. Kontroller tilkoblingen og oppdater operativsystemkatalogen.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Ledig plass på målvolumet kunne ikke kontrolleres. Kontroller måldisken før du prøver distribusjonen på nytt.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Sertifikat utløper</value>
   </data>
@@ -659,6 +686,9 @@ Vil du fortsette med distribusjonen?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Initialiser utrulling</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Kontroller om distribusjonen er klar</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Forbered disk</value>
   </data>
@@ -715,6 +745,12 @@ Vil du fortsette med distribusjonen?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Sjekker bufferdiskkonflikt...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Kontrollerer om distribusjonen er klar...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Kontrollerer tilgang til kilden...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Sjekker Windows Autopilot enheter ({0} gjenstår)...</value>
@@ -1123,6 +1159,15 @@ Vil du fortsette med distribusjonen?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Pre-OOBE-tilpasninger iscenesatt (simulering).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Avbildningen og kjente kapasitetskrav er kontrollert før klargjøring av disken.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Det er kontrollert om distribusjonen er klar (simulering).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Tilgang til kilden og kjente kapasitetskrav er kontrollert. Full validering av avbildningen fullføres etter klargjøring av disken.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Gjenopprettingsmiljø konfigurert.</value>

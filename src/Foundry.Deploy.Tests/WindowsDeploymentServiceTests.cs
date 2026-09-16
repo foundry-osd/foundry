@@ -20,7 +20,76 @@ namespace Foundry.Deploy.Tests;
 public sealed class WindowsDeploymentServiceTests
 {
     [Fact]
-    public async Task ResolveImageIndexAsync_WhenSourceDisappears_RecordsPostFailureSourceState()
+    public async Task InspectImageAsync_CapturesKnownSetupMediaExpansionInTheSamePass()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "image.esd");
+        await File.WriteAllTextAsync(imagePath, "image", TestContext.Current.CancellationToken);
+        var runner = new RecordingProcessRunner
+        {
+            ResultFactory = arguments => new ProcessExecutionResult
+            {
+                ExitCode = 0,
+                StandardOutput = arguments.Contains("/Index:1", StringComparison.Ordinal)
+                    ? "Index : 1\nName : Windows Setup Media\nSize : 100 bytes"
+                    : arguments.Contains("/Index:2", StringComparison.Ordinal)
+                        ? "Index : 2\nEdition ID : Professional\nSize : 10 bytes"
+                        : "Index : 1\nName : Windows Setup Media\nIndex : 2\nName : Windows 11 Pro"
+            }
+        };
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
+        WindowsImageMetadata image = await service.InspectImageAsync(imagePath, "Pro", workspace.RootPath, TestContext.Current.CancellationToken);
+        Assert.Equal(100, image.SetupMediaSizeBytes);
+        Assert.Equal(10, image.SizeBytes);
+        Assert.Equal(3, runner.Calls.Count);
+    }
+
+    [Theory]
+    [InlineData("0 bytes")]
+    [InlineData("-1 bytes")]
+    [InlineData("1.5 bytes")]
+    [InlineData("1,23 bytes")]
+    [InlineData("9223372036854775808 bytes")]
+    [InlineData("5 GB")]
+    public async Task InspectImageAsync_MalformedExpandedSize_FailsClosed(string size)
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "image.esd");
+        await File.WriteAllTextAsync(imagePath, "image", TestContext.Current.CancellationToken);
+        var runner = new RecordingProcessRunner
+        {
+            Result = new ProcessExecutionResult { ExitCode = 0, StandardOutput = $"Index : 1\nEdition ID : Professional\nSize : {size}" }
+        };
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
+        DeploymentOperationException exception = await Assert.ThrowsAsync<DeploymentOperationException>(() =>
+            service.InspectImageAsync(imagePath, "Pro", workspace.RootPath, TestContext.Current.CancellationToken));
+        Assert.Equal("invalid_image_metadata", exception.Failure.Code);
+    }
+
+    [Fact]
+    public async Task InspectImage_WithoutExpandedSize_RejectsMetadata()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "image.esd");
+        await File.WriteAllTextAsync(imagePath, "image", TestContext.Current.CancellationToken);
+        var processRunner = new RecordingProcessRunner
+        {
+            ResultFactory = arguments => new ProcessExecutionResult
+            {
+                ExitCode = 0,
+                StandardOutput = arguments.Contains("/Index:", StringComparison.Ordinal)
+                    ? "Index : 1\nEdition : Professional\n"
+                    : "Index : 1\nName : Windows 11 Pro\n"
+            }
+        };
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+
+        await Assert.ThrowsAsync<DeploymentOperationException>(() =>
+            service.InspectImageAsync(imagePath, "Pro", workspace.RootPath, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task InspectImageAsync_WhenSourceDisappears_RecordsPostFailureSourceState()
     {
         using var workspace = new TemporaryWorkspace();
         string imagePath = Path.Combine(workspace.RootPath, "private-image.esd");
@@ -37,7 +106,7 @@ public sealed class WindowsDeploymentServiceTests
         var service = new WindowsDeploymentService(processRunner, logger);
 
         DeploymentProcessException exception = await Assert.ThrowsAsync<DeploymentProcessException>(() =>
-            service.ResolveImageIndexAsync(imagePath, "Pro", workspace.RootPath, TestContext.Current.CancellationToken));
+            service.InspectImageAsync(imagePath, "Pro", workspace.RootPath, TestContext.Current.CancellationToken));
 
         Assert.Equal("Deployment process exited with code 21.", exception.RemoteDiagnosticMessage);
         Assert.Equal(DeploymentOperationNames.InspectOperatingSystemImage, logger.Properties["CurrentOperation"]);
@@ -443,7 +512,7 @@ public sealed class WindowsDeploymentServiceTests
     }
 
     [Fact]
-    public async Task ResolveImageIndexAsync_WhenRequestedEditionIsMissing_ThrowsBeforeImageApplication()
+    public async Task InspectImageAsync_WhenRequestedEditionIsMissing_ThrowsBeforeImageApplication()
     {
         using var workspace = new TemporaryWorkspace();
         string imagePath = Path.Combine(workspace.RootPath, "consumer.esd");
@@ -453,7 +522,7 @@ public sealed class WindowsDeploymentServiceTests
             ResultFactory = arguments => arguments.Contains("/Index:4", StringComparison.OrdinalIgnoreCase)
                 ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 4\nEdition : Core" }
                 : arguments.Contains("/Index:9", StringComparison.OrdinalIgnoreCase)
-                    ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 9\nEdition : Professional" }
+                    ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 9\nEdition : Professional\nSize : 16,136,958,857 bytes" }
                     : new ProcessExecutionResult
                     {
                         ExitCode = 0,
@@ -471,20 +540,20 @@ public sealed class WindowsDeploymentServiceTests
         };
         var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
 
-        InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
-            service.ResolveImageIndexAsync(
+        DeploymentOperationException exception = await Assert.ThrowsAsync<DeploymentOperationException>(() =>
+            service.InspectImageAsync(
                 imagePath,
                 "Enterprise",
                 workspace.RootPath,
                 TestContext.Current.CancellationToken));
 
-        Assert.Contains("Enterprise", exception.Message, StringComparison.Ordinal);
-        Assert.Contains("4: Core", exception.Message, StringComparison.Ordinal);
-        Assert.Contains("9: Professional", exception.Message, StringComparison.Ordinal);
+        Assert.Equal("invalid_image_edition", exception.Failure.Code);
+
+
     }
 
     [Fact]
-    public async Task ResolveImageIndexAsync_WhenSingleImageDoesNotMatchRequestedEdition_Throws()
+    public async Task InspectImageAsync_WhenSingleImageDoesNotMatchRequestedEdition_Throws()
     {
         using var workspace = new TemporaryWorkspace();
         string imagePath = Path.Combine(workspace.RootPath, "setup-media.esd");
@@ -502,8 +571,8 @@ public sealed class WindowsDeploymentServiceTests
         };
         var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
 
-        await Assert.ThrowsAsync<InvalidOperationException>(() =>
-            service.ResolveImageIndexAsync(
+        await Assert.ThrowsAsync<DeploymentOperationException>(() =>
+            service.InspectImageAsync(
                 imagePath,
                 "Enterprise",
                 workspace.RootPath,
@@ -511,7 +580,7 @@ public sealed class WindowsDeploymentServiceTests
     }
 
     [Fact]
-    public async Task ResolveImageIndexAsync_DoesNotSelectNVariantForNonNEdition()
+    public async Task InspectImageAsync_DoesNotSelectNVariantForNonNEdition()
     {
         using var workspace = new TemporaryWorkspace();
         string imagePath = Path.Combine(workspace.RootPath, "consumer.esd");
@@ -521,7 +590,7 @@ public sealed class WindowsDeploymentServiceTests
             ResultFactory = arguments => arguments.Contains("/Index:5", StringComparison.OrdinalIgnoreCase)
                 ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 5\nEdition : ProfessionalN" }
                 : arguments.Contains("/Index:9", StringComparison.OrdinalIgnoreCase)
-                    ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 9\nEdition : Professional" }
+                    ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 9\nEdition : Professional\nSize : 16,136,958,857 bytes" }
                     : new ProcessExecutionResult
                     {
                         ExitCode = 0,
@@ -536,13 +605,13 @@ public sealed class WindowsDeploymentServiceTests
         };
         var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
 
-        int imageIndex = await service.ResolveImageIndexAsync(
+        WindowsImageMetadata metadata = await service.InspectImageAsync(
             imagePath,
             "Pro",
             workspace.RootPath,
             TestContext.Current.CancellationToken);
 
-        Assert.Equal(9, imageIndex);
+        Assert.Equal(9, metadata.Index);
     }
 
     [Theory]
@@ -556,7 +625,7 @@ public sealed class WindowsDeploymentServiceTests
     [InlineData("Pro N", "ProfessionalN", 11)]
     [InlineData("Enterprise", "Enterprise", 12)]
     [InlineData("Enterprise N", "EnterpriseN", 13)]
-    public async Task ResolveImageIndexAsync_ResolvesExactEditionIdFromDetailedImageMetadata(
+    public async Task InspectImageAsync_ResolvesExactEditionIdFromDetailedImageMetadata(
         string edition,
         string editionId,
         int expectedIndex)
@@ -574,6 +643,7 @@ public sealed class WindowsDeploymentServiceTests
                         Index : {expectedIndex}
                         Name : Nom Windows localise arbitraire
                         Edition : {editionId}
+                        Size : 16,136,958,857 bytes
                         """
                 }
                 : arguments.Contains("/Index:", StringComparison.OrdinalIgnoreCase)
@@ -599,18 +669,21 @@ public sealed class WindowsDeploymentServiceTests
         };
         var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
 
-        int imageIndex = await service.ResolveImageIndexAsync(
+        WindowsImageMetadata metadata = await service.InspectImageAsync(
             imagePath,
             edition,
             workspace.RootPath,
             TestContext.Current.CancellationToken);
 
-        Assert.Equal(expectedIndex, imageIndex);
+        Assert.Equal(expectedIndex, metadata.Index);
+        Assert.Equal(16136958857L, metadata.SizeBytes);
+        Assert.Equal(editionId, metadata.EditionId);
+        Assert.Equal(3, processRunner.Calls.Count);
         Assert.Contains(processRunner.Calls, call => call.Contains($"/Index:{expectedIndex}", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
-    public async Task ResolveImageIndexAsync_WhenEditionIdOccursMoreThanOnce_ThrowsWithoutFallback()
+    public async Task InspectImageAsync_WhenEditionIdOccursMoreThanOnce_ThrowsWithoutFallback()
     {
         using var workspace = new TemporaryWorkspace();
         string imagePath = Path.Combine(workspace.RootPath, "windows.esd");
@@ -618,19 +691,19 @@ public sealed class WindowsDeploymentServiceTests
         var processRunner = new RecordingProcessRunner
         {
             ResultFactory = arguments => arguments.Contains("/Index:", StringComparison.OrdinalIgnoreCase)
-                ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = $"Index : {ParseRequestedIndex(arguments)}\nEdition : Professional" }
+                ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = $"Index : {ParseRequestedIndex(arguments)}\nEdition : Professional\nSize : 16,136,958,857 bytes" }
                 : new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 8\nName : Pro first\n\nIndex : 9\nName : Pro second" }
         };
         var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
 
-        InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
-            service.ResolveImageIndexAsync(
+        DeploymentOperationException exception = await Assert.ThrowsAsync<DeploymentOperationException>(() =>
+            service.InspectImageAsync(
                 imagePath,
                 "Pro",
                 workspace.RootPath,
                 TestContext.Current.CancellationToken));
 
-        Assert.Contains("found 2", exception.Message, StringComparison.Ordinal);
+        Assert.Equal("invalid_image_edition", exception.Failure.Code);
     }
 
     [Theory]

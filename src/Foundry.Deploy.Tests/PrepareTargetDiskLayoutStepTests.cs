@@ -18,11 +18,26 @@ namespace Foundry.Deploy.Tests;
 public sealed class PrepareTargetDiskLayoutStepTests
 {
     [Fact]
+    public async Task ExecuteAsync_WithoutPreflight_DoesNotPrepareDisk()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var service = new FakeWindowsDeploymentService(workspace);
+        var step = new PrepareTargetDiskLayoutStep(service, new ReadySourceProbe());
+        DeploymentStepExecutionContext context = CreateExecutionContext(workspace, DeploymentMode.Usb, includePreflight: false);
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("preflight_not_ready", result.Failure?.Code);
+        Assert.Equal(0, service.PreparationCalls);
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WhenIsoMode_PreparesTargetWorkspaceWithoutEagerPayloadCacheFolders()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         var service = new FakeWindowsDeploymentService(workspace);
-        var step = new PrepareTargetDiskLayoutStep(service);
+        var step = new PrepareTargetDiskLayoutStep(service, new ReadySourceProbe());
         DeploymentStepExecutionContext context = CreateExecutionContext(workspace, DeploymentMode.Iso);
 
         DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
@@ -42,7 +57,7 @@ public sealed class PrepareTargetDiskLayoutStepTests
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         var service = new FakeWindowsDeploymentService(workspace);
-        var step = new PrepareTargetDiskLayoutStep(service);
+        var step = new PrepareTargetDiskLayoutStep(service, new ReadySourceProbe());
         DeploymentStepExecutionContext context = CreateExecutionContext(workspace, DeploymentMode.Usb, omitIdentity: true);
 
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
@@ -62,7 +77,7 @@ public sealed class PrepareTargetDiskLayoutStepTests
                 DeploymentFailure.Guard(DeploymentOperationNames.ValidateTargetDisk,
                     DeploymentFailureReasons.InvalidState, "target_disk_identity_mismatch"), "Select the disk again.")
         };
-        var step = new PrepareTargetDiskLayoutStep(service);
+        var step = new PrepareTargetDiskLayoutStep(service, new ReadySourceProbe());
         DeploymentStepExecutionContext context = CreateExecutionContext(workspace, DeploymentMode.Usb);
 
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
@@ -78,7 +93,7 @@ public sealed class PrepareTargetDiskLayoutStepTests
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         var service = new FakeWindowsDeploymentService(workspace);
-        var step = new PrepareTargetDiskLayoutStep(service);
+        var step = new PrepareTargetDiskLayoutStep(service, new ReadySourceProbe());
         DeploymentStepExecutionContext context = CreateExecutionContext(workspace, DeploymentMode.Usb,
             isDryRun: true, omitIdentity: true);
 
@@ -93,14 +108,15 @@ public sealed class PrepareTargetDiskLayoutStepTests
         TempDeploymentWorkspace workspace,
         DeploymentMode mode,
         bool isDryRun = false,
-        bool omitIdentity = false)
+        bool omitIdentity = false,
+        bool includePreflight = true)
     {
         var request = new DeploymentContext
         {
             Mode = mode,
             CacheRootPath = workspace.CacheRuntimeRoot,
             TargetDiskNumber = 1,
-            TargetDiskIdentity = omitIdentity ? null : new DiskIdentity(1, "", "SERIAL-1", "Disk 1", "SATA", 4096),
+            TargetDiskIdentity = omitIdentity ? null : new DiskIdentity(1, "", "SERIAL-1", "Disk 1", "SATA", 64UL * 1024 * 1024 * 1024),
             TargetComputerName = "LAB01",
             OperatingSystem = new OperatingSystemCatalogItem(),
             DriverPackSelectionKind = DriverPackSelectionKind.None,
@@ -118,7 +134,7 @@ public sealed class PrepareTargetDiskLayoutStepTests
             }
         };
 
-        return new DeploymentStepExecutionContext(
+        var context = new DeploymentStepExecutionContext(
             request,
             runtimeState,
             [],
@@ -126,6 +142,16 @@ public sealed class PrepareTargetDiskLayoutStepTests
             new FakeDeploymentLogService(),
             new FakeTargetDiskService(),
             _ => { });
+        if (includePreflight)
+        {
+            context.Preflight = new DeploymentPreflightState { CacheRoot = workspace.CacheRuntimeRoot, UsesTargetStorage = true };
+        }
+        return context;
+    }
+
+    private sealed class ReadySourceProbe : IImageSourceProbe
+    {
+        public Task<long?> ProbeAsync(string sourceUrl, CancellationToken cancellationToken = default) => Task.FromResult<long?>(null);
     }
 
     private sealed class FakeWindowsDeploymentService : IWindowsDeploymentService
@@ -160,7 +186,7 @@ public sealed class PrepareTargetDiskLayoutStepTests
             });
         }
 
-        public Task<int> ResolveImageIndexAsync(
+        public Task<WindowsImageMetadata> InspectImageAsync(
             string imagePath,
             string requestedEdition,
             string workingDirectory,
@@ -351,7 +377,7 @@ public sealed class PrepareTargetDiskLayoutStepTests
             [
                 new TargetDiskInfo
                 {
-                    Identity = new DiskIdentity(1, "", "SERIAL-1", "Disk 1", "SATA", 4096),
+                    Identity = new DiskIdentity(1, "", "SERIAL-1", "Disk 1", "SATA", 64UL * 1024 * 1024 * 1024),
                     DiskNumber = 1,
                     FriendlyName = "Disk 1",
                     IsSelectable = true

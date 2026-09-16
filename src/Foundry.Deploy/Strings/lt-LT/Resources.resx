@@ -449,6 +449,33 @@ Tęsti diegimą?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operacinė sistema</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Nepavyksta paruošti atvaizdo podėlio. Patikrinkite laisvą vietą ir rašymo į podėlį teises.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>Tiksliniame diske nepakanka vietos žinomiems diegimo reikalavimams. Pasirinkite didesnės talpos diską.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>Pasirinktas Windows leidimas nepasiekiamas arba jo negalima vienareikšmiškai nustatyti. Pasirinkite kitą atvaizdą.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>Atvaizdo dydis jį pritaikius nežinomas arba netinkamas. Pasirinkite kitą atvaizdą.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Atvaizdo dydžio arba maišos metaduomenys netinkami. Atnaujinkite operacinių sistemų katalogą.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>Atvaizdo URL turi naudoti HTTP arba HTTPS. Atnaujinkite operacinių sistemų katalogą.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Nepavyko patvirtinti pasirengimo diegti. Prieš ruošdami diską, pradėkite diegimą iš naujo.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>Atvaizdo šaltinis nepasiekiamas. Patikrinkite ryšį ir atnaujinkite operacinių sistemų katalogą.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Nepavyko patikrinti laisvos vietos tiksliniame tome. Prieš bandydami diegti dar kartą, patikrinkite tikslinį diską.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Sertifikato galiojimo laikas</value>
   </data>
@@ -659,6 +686,9 @@ Tęsti diegimą?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Inicializuok diegimą</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Tikrinti pasirengimą diegti</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Paruošk diską</value>
   </data>
@@ -715,6 +745,12 @@ Tęsti diegimą?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Tikrinamas talpyklos disko konfliktas...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Tikrinamas pasirengimas diegti...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Tikrinama prieiga prie šaltinio...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Tikrinami Windows Autopilot įrenginiai (liko {0})...</value>
@@ -1123,6 +1159,15 @@ Tęsti diegimą?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Parengti pritaikymai prieš OOBE (modeliavimas).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Atvaizdas ir žinomi talpos reikalavimai patikrinti prieš ruošiant diską.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Pasirengimas diegti patikrintas (modeliavimas).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Prieiga prie šaltinio ir žinomi talpos reikalavimai patikrinti. Išsamus atvaizdo tikrinimas baigiamas paruošus diską.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Sukonfigūruota atkūrimo aplinka.</value>

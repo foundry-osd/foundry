@@ -449,6 +449,33 @@ Vai turpināt izvietošanu?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operētājsistēma</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Attēla kešatmiņu nevar sagatavot. Pārbaudiet tās brīvo vietu un rakstīšanas piekļuvi.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>Mērķa diskā nepietiek vietas zināmajām izvietošanas prasībām. Atlasiet disku ar lielāku ietilpību.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>Atlasītais Windows izdevums nav pieejams vai nav viennozīmīgi nosakāms. Atlasiet citu attēlu.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>Attēla aizņemtās vietas apjoms diskā pēc tā izvietošanas nav pieejams vai nav derīgs. Atlasiet citu attēlu.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Attēla lieluma vai jaucējvērtības metadati nav derīgi. Atsvaidziniet operētājsistēmu katalogu.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>Attēla URL jāizmanto HTTP vai HTTPS. Atsvaidziniet operētājsistēmu katalogu.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Neizdevās apstiprināt gatavību izvietošanai. Pirms diska sagatavošanas sāciet izvietošanu no jauna.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>Attēla avots nav pieejams. Pārbaudiet savienojumu un atsvaidziniet operētājsistēmu katalogu.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Neizdevās pārbaudīt brīvo vietu mērķa sējumā. Pirms atkārtota izvietošanas mēģinājuma pārbaudiet mērķa disku.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Sertifikāta derīguma termiņš</value>
   </data>
@@ -659,6 +686,9 @@ Vai turpināt izvietošanu?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Inicializē izvēršanu</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Pārbaudīt gatavību izvietošanai</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Sagatavo disku</value>
   </data>
@@ -715,6 +745,12 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Notiek kešatmiņas diska konflikta pārbaude...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Tiek pārbaudīta gatavība izvietošanai...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Tiek pārbaudīta piekļuve avotam...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Notiek Windows Autopilot ierīču pārbaude (atlikusi {0})...</value>
@@ -1123,6 +1159,15 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Pirms OOBE inscenēti pielāgojumi (simulācija).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Attēls un zināmās ietilpības prasības ir pārbaudītas pirms diska sagatavošanas.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Gatavība izvietošanai ir pārbaudīta (simulācija).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Piekļuve avotam un zināmās ietilpības prasības ir pārbaudītas. Pilnīga attēla validācija tiek pabeigta pēc diska sagatavošanas.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Atkopšanas vide ir konfigurēta.</value>

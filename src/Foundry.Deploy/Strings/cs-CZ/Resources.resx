@@ -449,6 +449,33 @@ Pokračovat v nasazování?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operační systém</value>
   </data>
+  <data name="Preflight.CacheUnavailable" xml:space="preserve">
+    <value>Mezipaměť bitové kopie nelze připravit. Zkontrolujte v ní volné místo a oprávnění k zápisu.</value>
+  </data>
+  <data name="Preflight.InsufficientCapacity" xml:space="preserve">
+    <value>Na cílovém disku není dostatek místa pro známé požadavky nasazení. Vyberte větší disk.</value>
+  </data>
+  <data name="Preflight.InvalidEdition" xml:space="preserve">
+    <value>Vybraná edice Windows není dostupná nebo ji nelze jednoznačně určit. Vyberte jinou bitovou kopii.</value>
+  </data>
+  <data name="Preflight.InvalidImageMetadata" xml:space="preserve">
+    <value>Velikost bitové kopie po použití není dostupná nebo je neplatná. Vyberte jinou bitovou kopii.</value>
+  </data>
+  <data name="Preflight.InvalidMetadata" xml:space="preserve">
+    <value>Metadata velikosti nebo hodnoty hash bitové kopie jsou neplatná. Aktualizujte katalog operačních systémů.</value>
+  </data>
+  <data name="Preflight.InvalidSource" xml:space="preserve">
+    <value>URL bitové kopie musí používat HTTP nebo HTTPS. Aktualizujte katalog operačních systémů.</value>
+  </data>
+  <data name="Preflight.NotReady" xml:space="preserve">
+    <value>Připravenost k nasazení se nepodařilo potvrdit. Před přípravou disku spusťte nasazení znovu.</value>
+  </data>
+  <data name="Preflight.SourceUnavailable" xml:space="preserve">
+    <value>Zdroj bitové kopie není dostupný. Zkontrolujte připojení a aktualizujte katalog operačních systémů.</value>
+  </data>
+  <data name="Preflight.TargetSpaceUnavailable" xml:space="preserve">
+    <value>Volné místo na cílovém svazku se nepodařilo ověřit. Před dalším pokusem o nasazení zkontrolujte cílový disk.</value>
+  </data>
   <data name="Preparation.AutopilotHardwareHashCertificateExpiration" xml:space="preserve">
     <value>Vypršení platnosti certifikátu</value>
   </data>
@@ -659,6 +686,9 @@ Pokračovat v nasazování?</value>
   <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
     <value>Inicializuj nasazení</value>
   </data>
+  <data name="Step.PreflightDeployment" xml:space="preserve">
+    <value>Ověřit připravenost k nasazení</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
     <value>Připrav disk</value>
   </data>
@@ -715,6 +745,12 @@ Pokračovat v nasazování?</value>
   </data>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Kontrola konfliktu mezipaměti disku...</value>
+  </data>
+  <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
+    <value>Ověřování připravenosti k nasazení...</value>
+  </data>
+  <data name="StepMessage.CheckingSourceAccess" xml:space="preserve">
+    <value>Ověřování přístupu ke zdroji...</value>
   </data>
   <data name="StepMessage.CheckingWindowsAutopilotDevicesFormat" xml:space="preserve">
     <value>Kontrola zařízení Windows Autopilot (zbývá {0})...</value>
@@ -1123,6 +1159,15 @@ Pokračovat v nasazování?</value>
   </data>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Připravené úpravy před OOBE (simulace).</value>
+  </data>
+  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
+    <value>Bitová kopie a známé požadavky na kapacitu byly ověřeny před přípravou disku.</value>
+  </data>
+  <data name="StepResult.PreflightSimulation" xml:space="preserve">
+    <value>Připravenost k nasazení byla ověřena (simulace).</value>
+  </data>
+  <data name="StepResult.PreflightTargetReady" xml:space="preserve">
+    <value>Přístup ke zdroji a známé požadavky na kapacitu byly ověřeny. Úplné ověření bitové kopie se dokončí po přípravě disku.</value>
   </data>
   <data name="StepResult.RecoveryEnvironmentConfigured" xml:space="preserve">
     <value>Prostředí obnovy je nakonfigurováno.</value>

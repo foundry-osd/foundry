@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -27,9 +28,6 @@ namespace Foundry.Deploy.Services.Deployment;
 /// </summary>
 public sealed class WindowsDeploymentService : IWindowsDeploymentService
 {
-    private const int EfiPartitionSizeMb = 260;
-    private const int MsrPartitionSizeMb = 16;
-    private const int RecoveryPartitionSizeMb = 5120;
     private const string RecoveryPartitionLabel = "Recovery";
     private const string RecoveryPartitionGuid = "de94bba4-06d1-4d40-a16a-bfd50179d6ac";
     private const string RecoveryPartitionAttributes = "0x8000000000000001";
@@ -80,7 +78,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         _logger.LogInformation(
             "Preparing target disk layout. DiskNumber={DiskNumber}, RecoveryPartitionSizeMb={RecoveryPartitionSizeMb}, WorkingDirectory={WorkingDirectory}",
             diskNumber,
-            RecoveryPartitionSizeMb,
+            DeploymentCapacityPolicy.RecoveryPartitionSizeMb,
             workingDirectory);
         (char systemLetter, char windowsLetter, char recoveryLetter) = GetPartitionLetters();
         Directory.CreateDirectory(workingDirectory);
@@ -93,11 +91,11 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             "attributes disk clear readonly noerr",
             "clean",
             "convert gpt",
-            $"create partition efi size={EfiPartitionSizeMb}",
+            $"create partition efi size={DeploymentCapacityPolicy.EfiPartitionSizeMb}",
             "format quick fs=fat32 label=System",
             $"assign letter={systemLetter}",
-            $"create partition msr size={MsrPartitionSizeMb}",
-            $"create partition primary size={RecoveryPartitionSizeMb}",
+            $"create partition msr size={DeploymentCapacityPolicy.MsrPartitionSizeMb}",
+            $"create partition primary size={DeploymentCapacityPolicy.RecoveryPartitionSizeMb}",
             $"set id=\"{RecoveryPartitionGuid}\"",
             $"gpt attributes={RecoveryPartitionAttributes}",
             $"format quick fs=ntfs label={RecoveryPartitionLabel}",
@@ -201,7 +199,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             LocalizationText.GetString("Disk.IdentityCannotBeConfirmed"));
 
     /// <inheritdoc />
-    public async Task<int> ResolveImageIndexAsync(
+    public async Task<WindowsImageMetadata> InspectImageAsync(
         string imagePath,
         string requestedEdition,
         string workingDirectory,
@@ -244,13 +242,13 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         IReadOnlyList<int> imageIndexes = ParseImageIndexes(execution.StandardOutput);
         if (imageIndexes.Count == 0)
         {
-            throw new InvalidOperationException($"The operating system image does not expose any image indexes: '{imagePath}'.");
+            throw ImageValidationFailure("Preflight.InvalidImageMetadata", "invalid_image_metadata");
         }
 
         WindowsEditionDefinition? requestedDefinition = WindowsEditionCatalog.Find(requestedEdition);
         if (requestedDefinition is null)
         {
-            throw new InvalidOperationException($"Windows edition '{requestedEdition}' is not supported.");
+            throw ImageValidationFailure("Preflight.InvalidEdition", "invalid_image_edition");
         }
 
         var imageMetadata = new List<ImageIndexMetadata>(imageIndexes.Count);
@@ -278,7 +276,11 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                     detailedExecution.ExitCode);
             }
 
-            imageMetadata.Add(new ImageIndexMetadata(imageIndex, ParseEditionId(detailedExecution.StandardOutput)));
+            imageMetadata.Add(new ImageIndexMetadata(
+                imageIndex,
+                ParseEditionId(detailedExecution.StandardOutput),
+                ParseImageSize(detailedExecution.StandardOutput),
+                ParseImageProperty(detailedExecution.StandardOutput, "Name")));
         }
 
         ImageIndexMetadata[] matches = imageMetadata
@@ -291,15 +293,28 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 ", ",
                 imageMetadata.Select(item => $"{item.Index}: {item.EditionId}"));
 
-            throw new InvalidOperationException(
-                $"Expected exactly one '{requestedDefinition.EditionId}' image for Windows edition '{requestedDefinition.Name}' in '{imagePath}', " +
-                $"but found {matches.Length}. Available edition IDs: {availableEditionIds}.");
+            _logger.LogWarning("Image edition selection failed. RequestedEditionId={RequestedEditionId}, MatchCount={MatchCount}, AvailableEditionIds={AvailableEditionIds}",
+                requestedDefinition.EditionId, matches.Length, availableEditionIds);
+            throw ImageValidationFailure("Preflight.InvalidEdition", "invalid_image_edition");
         }
 
-        int resolvedIndex = matches[0].Index;
+        ImageIndexMetadata selected = matches[0];
+        if (selected.SizeBytes is not > 0)
+        {
+            throw ImageValidationFailure("Preflight.InvalidImageMetadata", "invalid_image_metadata");
+        }
+
+        ImageIndexMetadata[] setupImages = imageMetadata.Where(item =>
+            item.Name.Equals("Windows Setup Media", StringComparison.OrdinalIgnoreCase)).ToArray();
+        int resolvedIndex = selected.Index;
         _logger.LogInformation("Resolved OS image index {ImageIndex} for ImagePath={ImagePath}", resolvedIndex, imagePath);
-        return resolvedIndex;
+        return new WindowsImageMetadata(resolvedIndex, selected.EditionId, selected.SizeBytes.Value,
+            setupImages.Length == 1 ? setupImages[0].SizeBytes : null);
     }
+
+    private static DeploymentOperationException ImageValidationFailure(string key, string code) => new(
+        DeploymentFailure.Guard(DeploymentOperationNames.InspectOperatingSystemImage,
+            DeploymentFailureReasons.InvalidPayload, code), LocalizationText.GetString(key));
 
     private static IReadOnlyDictionary<string, object?> GetImageSourceDiagnostics(string imagePath)
     {
@@ -1791,7 +1806,15 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         return match.Success ? match.Groups[1].Value.Trim() : string.Empty;
     }
 
-    private sealed record ImageIndexMetadata(int Index, string EditionId);
+    private static long? ParseImageSize(string output)
+    {
+        string value = ParseImageProperty(output, "Size");
+        Match match = Regex.Match(value, @"^([0-9]+|[0-9]{1,3}(?:,[0-9]{3})+) bytes$", RegexOptions.IgnoreCase);
+        return match.Success && long.TryParse(match.Groups[1].Value, NumberStyles.AllowThousands,
+            CultureInfo.InvariantCulture, out long size) && size > 0 ? size : null;
+    }
+
+    private sealed record ImageIndexMetadata(int Index, string EditionId, long? SizeBytes, string Name);
 
     private sealed record WindowsOptionalFeatureWorkItem(
         DeployWindowsOptionalFeatureAction Action,
