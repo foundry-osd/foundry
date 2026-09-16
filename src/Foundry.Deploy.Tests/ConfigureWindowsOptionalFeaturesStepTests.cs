@@ -13,6 +13,8 @@ using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 
+using Foundry.Utilities.Storage;
+
 namespace Foundry.Deploy.Tests;
 
 public sealed class ConfigureWindowsOptionalFeaturesStepTests
@@ -260,7 +262,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
             return Task.FromResult(Result);
         }
 
-        public Task<DeploymentTargetLayout> PrepareTargetDiskAsync(int diskNumber, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+        public Task<DeploymentTargetLayout> PrepareTargetDiskAsync(DiskIdentity confirmedIdentity, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
         public Task<int> ResolveImageIndexAsync(string imagePath, string requestedEdition, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
         public Task ApplyImageAsync(string imagePath, int imageIndex, string windowsPartitionRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? progress = null) => throw new NotSupportedException();
         public Task<string?> GetAppliedWindowsEditionAsync(string windowsPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
@@ -312,7 +314,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
 
     private sealed class FakeTargetDiskService : ITargetDiskService
     {
-        public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default)
+        public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default, bool includeExcludedDisks = false)
             => Task.FromResult<IReadOnlyList<TargetDiskInfo>>([]);
 
         public Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default)

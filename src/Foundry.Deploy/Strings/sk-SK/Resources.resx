@@ -242,6 +242,9 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Disk {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Identita disku chýba, nie je jednoznačná alebo sa zmenila. Reštartujte Foundry Deploy a znova vyberte disk.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Cieľový disk {0} je zablokovaný: {1}</value>
   </data>

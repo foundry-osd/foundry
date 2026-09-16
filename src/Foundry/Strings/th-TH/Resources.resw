@@ -2942,6 +2942,12 @@
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>การปรับแต่งอิมเมจสำหรับบูต</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>ข้อมูลระบุตัวตนของไดรฟ์ USB ขาดหายไป ไม่ชัดเจน หรือมีการเปลี่ยนแปลง รีเฟรชรายการไดรฟ์ USB แล้วเลือกไดรฟ์อีกครั้ง</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>ไม่สามารถแก้ไขไดรฟ์ USB ที่เลือกได้อย่างปลอดภัยอีกต่อไป รีเฟรชรายการไดรฟ์ USB แล้วเลือกไดรฟ์ USB อื่น</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>ใช้การตั้งค่าสากลด้วย DISM</value>
   </data>

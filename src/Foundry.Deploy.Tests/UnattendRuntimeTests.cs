@@ -422,7 +422,12 @@ public sealed class UnattendRuntimeTests
             Mode = DeploymentMode.Iso,
             CacheRootPath = Root,
             TargetComputerName = "",
-            SelectedTargetDisk = new TargetDiskInfo { DiskNumber = 1, IsSelectable = true },
+            SelectedTargetDisk = new TargetDiskInfo
+            {
+                DiskNumber = 1,
+                Identity = new Foundry.Utilities.Storage.DiskIdentity(1, "", "SERIAL-1", "Target", "SATA", 4096),
+                IsSelectable = true
+            },
             SelectedOperatingSystem = new OperatingSystemCatalogItem { Architecture = "amd64" },
             DriverPackSelectionKind = DriverPackSelectionKind.None,
             SelectedDriverPack = null,
@@ -443,7 +448,7 @@ public sealed class UnattendRuntimeTests
     }
     private sealed class Disks : ITargetDiskService
     {
-        public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default) => Task.FromResult<IReadOnlyList<TargetDiskInfo>>([]);
+        public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default, bool includeExcludedDisks = false) => Task.FromResult<IReadOnlyList<TargetDiskInfo>>([]);
         public Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default) => Task.FromResult<int?>(null);
     }
     private sealed class RecordingProcessRunner : IProcessRunner

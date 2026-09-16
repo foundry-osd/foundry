@@ -242,6 +242,9 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Ketas {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Ketta identiteet puudub, on mitmetähenduslik või on muutunud. Taaskäivitage Foundry Deploy ja valige ketas uuesti.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Sihtketas {0} on blokeeritud: {1}</value>
   </data>

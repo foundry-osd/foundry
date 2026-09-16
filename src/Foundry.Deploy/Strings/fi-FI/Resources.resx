@@ -242,6 +242,9 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Levy {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Levyn tunnistetiedot puuttuvat, eivät ole yksiselitteisiä tai ovat muuttuneet. Käynnistä Foundry Deploy uudelleen ja valitse levy uudelleen.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Kohdelevy {0} on estetty: {1}</value>
   </data>

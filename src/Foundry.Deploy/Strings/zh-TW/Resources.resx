@@ -242,6 +242,9 @@
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>磁碟{0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>磁碟識別資訊遺失、不明確或已變更。請重新啟動 Foundry Deploy 並再次選取磁碟。</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>目標磁碟{0}被封鎖：{1}</value>
   </data>

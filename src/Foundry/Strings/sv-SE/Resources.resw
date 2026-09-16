@@ -2942,6 +2942,12 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Anpassa startbilden.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>USB-enhetens identitet saknas, är tvetydig eller har ändrats. Uppdatera listan över USB-enheter och välj enheten igen.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Den valda USB-enheten kan inte längre ändras säkert. Uppdatera listan över USB-enheter och välj en annan USB-enhet.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Tillämpa internationella inställningar med DISM.</value>
   </data>

@@ -242,6 +242,9 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Disco {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>L’identità del disco è mancante, ambigua o è cambiata. Riavvia Foundry Deploy e seleziona nuovamente il disco.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Il disco di destinazione {0} è bloccato: {1}</value>
   </data>

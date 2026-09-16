@@ -242,6 +242,9 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Disk {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Identiteta diska manjka, je dvoumna ali se je spremenila. Znova zaženite Foundry Deploy in znova izberite disk.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Ciljni disk {0} je blokiran: {1}</value>
   </data>

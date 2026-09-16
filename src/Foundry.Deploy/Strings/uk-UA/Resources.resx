@@ -242,6 +242,9 @@ ErrorCode=0x80070005
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Диск {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Ідентифікаційні дані диска відсутні, неоднозначні або змінилися. Перезапустіть Foundry Deploy і виберіть диск повторно.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Цільовий диск {0} заблоковано: {1}</value>
   </data>

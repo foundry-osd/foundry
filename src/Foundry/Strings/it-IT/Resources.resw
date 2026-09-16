@@ -2942,6 +2942,12 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Personalizzazione dell'immagine di avvio.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>L’identità dell’unità USB è mancante, ambigua o è cambiata. Aggiorna l’elenco delle unità USB e seleziona nuovamente l’unità.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>L’unità USB selezionata non può più essere modificata in sicurezza. Aggiorna l’elenco delle unità USB e seleziona un’altra unità USB.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Applicazione delle impostazioni internazionali con DISM.</value>
   </data>

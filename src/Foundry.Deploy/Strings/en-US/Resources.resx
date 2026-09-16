@@ -242,6 +242,9 @@ Action: Verify disk attributes and retry deployment.</value>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Disk {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>The disk identity is missing, ambiguous or has changed. Restart Foundry Deploy and select the disk again.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Target disk {0} is blocked: {1}</value>
   </data>

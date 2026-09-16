@@ -13,6 +13,33 @@ namespace Foundry.Deploy.Tests;
 public sealed class TargetDiskServiceTests
 {
     [Fact]
+    public async Task GetDisksAsync_WhenSerialIsSharedWithExcludedUsbDisk_BlocksTarget()
+    {
+        DiskInfo[] snapshots =
+        [
+            new(1, "Target", "SHARED", "SATA", "RAW", 4096, false, false, false, false, false),
+            new(2, "Bridge", "SHARED", "USB", "GPT", 4096, false, false, false, false, true)
+        ];
+        var service = CreateService(getDisks: _ => Task.FromResult<IReadOnlyList<DiskInfo>>(snapshots));
+
+        TargetDiskInfo disk = Assert.Single(await service.GetDisksAsync(TestContext.Current.CancellationToken));
+
+        Assert.False(disk.IsSelectable);
+        Assert.Equal(LocalizationText.GetString("Disk.IdentityCannotBeConfirmed"), disk.SelectionWarning);
+    }
+
+    [Fact]
+    public async Task GetDisksAsync_WhenHardwareIdentityIsMissing_BlocksTarget()
+    {
+        var service = CreateService(getDisks: _ => Task.FromResult<IReadOnlyList<DiskInfo>>(
+            [new(1, "Target", "", "SATA", "RAW", 4096, false, false, false, false, false)]));
+
+        TargetDiskInfo disk = Assert.Single(await service.GetDisksAsync(TestContext.Current.CancellationToken));
+
+        Assert.False(disk.IsSelectable);
+    }
+
+    [Fact]
     public async Task GetDisksAsync_MapsFactsAndAppliesTargetSelectionPolicy()
     {
         DiskInfo[] snapshots =
@@ -35,6 +62,38 @@ public sealed class TargetDiskServiceTests
         Assert.False(disks[2].IsSelectable);
         Assert.Equal(LocalizationText.GetString("Disk.BlockedSystemDisk"), disks[2].SelectionWarning);
         Assert.Equal(LocalizationText.GetString("Common.Unknown"), disks[2].SerialNumber);
+        Assert.Equal(string.Empty, disks[2].Identity!.SerialNumber);
+    }
+
+    [Fact]
+    public async Task GetDisksAsync_WhenSerialIsMissingOrDuplicated_UsesDistinctUniqueIds()
+    {
+        DiskInfo[] snapshots =
+        [
+            new(1, "Target", "", "SATA", "RAW", 4096, false, false, false, false, false) { UniqueId = "UID-1" },
+            new(2, "Target", "SHARED", "SATA", "GPT", 4096, false, false, false, false, false) { UniqueId = "UID-2" },
+            new(3, "Target", "SHARED", "SATA", "GPT", 4096, false, false, false, false, false) { UniqueId = "UID-3" }
+        ];
+        var service = CreateService(getDisks: _ => Task.FromResult<IReadOnlyList<DiskInfo>>(snapshots));
+
+        IReadOnlyList<TargetDiskInfo> disks = await service.GetDisksAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(3, disks.Count);
+        Assert.All(disks, disk => Assert.True(disk.IsSelectable));
+        Assert.Equal("UID-1", disks[0].Identity!.UniqueId);
+        Assert.Empty(disks[0].Identity!.SerialNumber);
+    }
+
+    [Fact]
+    public async Task GetDisksAsync_WhenRequestedForValidation_RetainsExcludedUsbDisks()
+    {
+        var service = CreateService(getDisks: _ => Task.FromResult<IReadOnlyList<DiskInfo>>(
+            [new(2, "USB", "USB-2", "USB", "GPT", 4096, false, false, false, false, true)]));
+
+        TargetDiskInfo disk = Assert.Single(await service.GetDisksAsync(TestContext.Current.CancellationToken, includeExcludedDisks: true));
+
+        Assert.Equal("USB-2", disk.Identity!.SerialNumber);
+        Assert.False(disk.IsSelectable);
     }
 
     [Fact]

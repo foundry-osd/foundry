@@ -242,6 +242,9 @@
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>磁盘{0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>磁盘标识缺失、不明确或已更改。请重启 Foundry Deploy 并重新选择磁盘。</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>目标磁盘{0}被阻止：{1}</value>
   </data>

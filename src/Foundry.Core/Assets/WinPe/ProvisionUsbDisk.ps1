@@ -37,7 +37,7 @@ function Clear-FoundryUsbTargetAccessPaths {
             }
 
             Write-FoundryUsbVerbose "Removing existing USB access path $accessPath from partition $($partition.PartitionNumber)."
-            Remove-PartitionAccessPath -DiskNumber $diskNumber -PartitionNumber $partition.PartitionNumber -AccessPath $accessPath -ErrorAction Stop
+            Remove-PartitionAccessPath -InputObject $partition -AccessPath $accessPath -ErrorAction Stop
         }
     }
 }
@@ -49,19 +49,20 @@ $fullFormat = {{FULL_FORMAT}}
 Write-FoundryUsbVerbose "Provisioning disk $diskNumber. PartitionStyle=$partitionStyle, FullFormat=$fullFormat."
 
 Write-FoundryUsbProgress 21 'Opening USB disk.'
-$disk = Get-Disk -Number $diskNumber -ErrorAction Stop
+{{DISK_GUARD}}
+$disk = $foundryConfirmedDisk
 Write-FoundryUsbVerbose "Disk opened. Number=$($disk.Number), FriendlyName=$($disk.FriendlyName), PartitionStyle=$($disk.PartitionStyle), Size=$($disk.Size), IsOffline=$($disk.IsOffline), IsReadOnly=$($disk.IsReadOnly)."
 
 Write-FoundryUsbProgress 23 'Preparing USB disk attributes.'
-if ($disk.IsOffline) { Set-Disk -Number $diskNumber -IsOffline $false -ErrorAction Stop }
-if ($disk.IsReadOnly) { Set-Disk -Number $diskNumber -IsReadOnly $false -ErrorAction Stop }
+if ($disk.IsOffline) { Set-Disk -InputObject $foundryConfirmedDisk -IsOffline $false -ErrorAction Stop }
+if ($disk.IsReadOnly) { Set-Disk -InputObject $foundryConfirmedDisk -IsReadOnly $false -ErrorAction Stop }
 Clear-FoundryUsbTargetAccessPaths
 Update-HostStorageCache -ErrorAction SilentlyContinue
 Update-Disk -Number $diskNumber -ErrorAction SilentlyContinue
 Write-FoundryUsbVerbose 'USB disk attributes prepared.'
 
 Write-FoundryUsbProgress 26 'Clearing USB partition table.'
-Clear-Disk -Number $diskNumber -RemoveData -RemoveOEM -Confirm:$false -ErrorAction Stop
+Clear-Disk -InputObject $foundryConfirmedDisk -RemoveData -RemoveOEM -Confirm:$false -ErrorAction Stop
 Update-HostStorageCache -ErrorAction SilentlyContinue
 Update-Disk -Number $diskNumber -ErrorAction SilentlyContinue
 Write-FoundryUsbVerbose 'USB partition table cleared and host storage cache refreshed.'
@@ -69,7 +70,7 @@ Write-FoundryUsbVerbose 'USB partition table cleared and host storage cache refr
 Write-FoundryUsbProgress 32 'Initializing USB partition table.'
 $disk = Get-Disk -Number $diskNumber -ErrorAction Stop
 if ($disk.PartitionStyle -eq 'RAW') {
-    Initialize-Disk -Number $diskNumber -PartitionStyle $partitionStyle -ErrorAction Stop
+    Initialize-Disk -InputObject $foundryConfirmedDisk -PartitionStyle $partitionStyle -ErrorAction Stop
 } elseif ([string]$disk.PartitionStyle -ne $partitionStyle) {
     Write-FoundryUsbVerbose "Disk partition style remains $($disk.PartitionStyle); using diskpart to reset to $partitionStyle."
     $diskPartResetScriptPath = Join-Path $PWD 'foundry-usb-reset.txt'

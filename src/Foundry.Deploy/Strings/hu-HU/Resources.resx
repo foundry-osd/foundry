@@ -242,6 +242,9 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Lemez {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>A lemez azonosítója hiányzik, nem egyértelmű vagy megváltozott. Indítsa újra a Foundry Deploy alkalmazást, és válassza ki újra a lemezt.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>A {0} céllemez le van tiltva: {1}</value>
   </data>

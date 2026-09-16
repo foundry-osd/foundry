@@ -24,7 +24,8 @@ public sealed class TargetDiskService : ITargetDiskService
     }
 
     public async Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        bool includeExcludedDisks = false)
     {
         _logger.LogInformation("Querying target disks.");
 
@@ -34,11 +35,12 @@ public sealed class TargetDiskService : ITargetDiskService
                 .GetDisksAsync(cancellationToken)
                 .ConfigureAwait(false);
             var disks = new List<TargetDiskInfo>();
+            DiskIdentity[] identities = snapshots.Select(DiskIdentity.FromDiskInfo).ToArray();
 
             foreach (DiskInfo snapshot in snapshots)
             {
-                TargetDiskInfo disk = MapDisk(snapshot);
-                if (ShouldExcludeFromTargets(disk))
+                TargetDiskInfo disk = MapDisk(snapshot, identities);
+                if (!includeExcludedDisks && ShouldExcludeFromTargets(disk))
                 {
                     _logger.LogInformation(
                         "Skipping disk {DiskNumber} from target selection because it is attached over USB. FriendlyName={FriendlyName}",
@@ -85,16 +87,24 @@ public sealed class TargetDiskService : ITargetDiskService
         }
     }
 
-    private static TargetDiskInfo MapDisk(DiskInfo snapshot)
+    private static TargetDiskInfo MapDisk(DiskInfo snapshot, IReadOnlyList<DiskIdentity> identities)
     {
         string warning = BuildSelectionWarning(
             snapshot.IsSystem,
             snapshot.IsBoot,
             snapshot.IsReadOnly,
             snapshot.IsOffline);
+        DiskIdentity identity = DiskIdentity.FromDiskInfo(snapshot);
+        if (string.IsNullOrEmpty(warning) &&
+            (identity.Resolve(identities) is null ||
+             string.Equals(snapshot.BusType, "USB", StringComparison.OrdinalIgnoreCase)))
+        {
+            warning = LocalizationText.GetString("Disk.IdentityCannotBeConfirmed");
+        }
 
         return new TargetDiskInfo
         {
+            Identity = identity,
             DiskNumber = snapshot.Number,
             FriendlyName = NormalizeValue(snapshot.FriendlyName),
             SerialNumber = NormalizeValue(snapshot.SerialNumber),

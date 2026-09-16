@@ -2942,6 +2942,12 @@ Passwords and access keys included: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Customizing the boot image.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>The USB drive identity is missing, ambiguous or has changed. Refresh the USB drive list and select the drive again.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>The selected USB drive is no longer safe to modify. Refresh the USB drive list and select another USB drive.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Applying international settings with DISM.</value>
   </data>

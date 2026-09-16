@@ -18,4 +18,10 @@ public sealed record DiskInfo(
     bool IsBoot,
     bool IsReadOnly,
     bool IsOffline,
-    bool IsRemovable);
+    bool IsRemovable)
+{
+    /// <summary>
+    /// Gets the Windows storage device identifier without changing its representation.
+    /// </summary>
+    public string UniqueId { get; init; } = string.Empty;
+}

@@ -2,7 +2,9 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text.Json.Serialization;
 using Foundry.Deploy.Models;
+using Foundry.Utilities.Storage;
 using Foundry.Deploy.Models.Configuration;
 using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
 
@@ -33,6 +35,10 @@ public sealed record DeploymentContext
     /// Gets the target disk number selected for deployment.
     /// </summary>
     public required int TargetDiskNumber { get; init; }
+
+    /// <summary>Gets the in-memory device identity captured before erasure confirmation.</summary>
+    [JsonIgnore]
+    public DiskIdentity? TargetDiskIdentity { get; init; }
 
     /// <summary>
     /// Gets the target computer name written into unattend.xml.
