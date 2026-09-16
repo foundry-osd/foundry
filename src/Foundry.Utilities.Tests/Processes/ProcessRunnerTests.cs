@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text;
 using Foundry.Utilities.Processes;
 using Foundry.Utilities.Tests.IO;
 
@@ -9,6 +10,37 @@ namespace Foundry.Utilities.Tests.Processes;
 
 public sealed class ProcessRunnerTests
 {
+    [Theory]
+    [InlineData(850)]
+    [InlineData(437)]
+    [InlineData(1252)]
+    [InlineData(65001)]
+    public async Task RunAsync_WithOutputEncoding_DecodesBothStreamsAndCallbacks(int codePage)
+    {
+        using var workspace = new TemporaryDirectory();
+        Encoding encoding = CodePagesEncodingProvider.Instance.GetEncoding(codePage) ?? Encoding.GetEncoding(codePage);
+        const string expected = "Size : 26\u00A0839\u00A0601\u00A0777 bytes";
+        await File.WriteAllBytesAsync(Path.Combine(workspace.Path, "output.bin"),
+            encoding.GetBytes(expected + "\r\n"), TestContext.Current.CancellationToken);
+        var outputLines = new List<string>();
+        var errorLines = new List<string>();
+        ProcessExecutionRequest request = ProcessExecutionRequest.FromRawArguments(
+            GetCommandProcessor(), "/d /c \"type output.bin & type output.bin 1>&2\"", workspace.Path) with
+        {
+            OutputEncoding = encoding,
+            OnOutputData = outputLines.Add,
+            OnErrorData = errorLines.Add
+        };
+
+        ProcessExecutionResult result = await new ProcessRunner().RunAsync(request, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess);
+        Assert.Equal(expected, result.StandardOutput.Trim());
+        Assert.Equal(expected, result.StandardError.Trim());
+        Assert.Equal([expected], outputLines);
+        Assert.Equal([expected], errorLines);
+    }
+
     [Fact]
     public async Task RunAsync_WithArgumentList_PreservesWhitespaceInArgument()
     {

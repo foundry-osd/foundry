@@ -19,6 +19,40 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class WindowsDeploymentServiceTests
 {
+    [Fact]
+    public async Task InspectImageAsync_CapturedOemOutput_PreservesExpandedSize()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "image.esd");
+        await File.WriteAllTextAsync(imagePath, "image", TestContext.Current.CancellationToken);
+        // Reproduce the supplied WinPE CP850 output, including literal FF grouping bytes.
+        byte[] outputBytes = Encoding.ASCII.GetBytes(
+            "Index : 9\r\nName : Windows 11 Professionnel\r\nSize : 26?839?601?777 bytes\r\nEdition : Professional\r\n");
+        for (int i = 0; i < outputBytes.Length; i++)
+        {
+            if (outputBytes[i] == (byte)'?')
+            {
+                outputBytes[i] = 0xFF;
+            }
+        }
+        await File.WriteAllBytesAsync(Path.Combine(workspace.RootPath, "dism-output.bin"), outputBytes, TestContext.Current.CancellationToken);
+        ProcessExecutionRequest request = ProcessExecutionRequest.FromRawArguments(
+            Path.Combine(Environment.SystemDirectory, "cmd.exe"), "/d /c type dism-output.bin", workspace.RootPath) with
+        {
+            OutputEncoding = CodePagesEncodingProvider.Instance.GetEncoding(850)
+        };
+        ProcessExecutionResult captured = await new Foundry.Utilities.Processes.ProcessRunner()
+            .RunAsync(request, TestContext.Current.CancellationToken);
+        Assert.True(captured.IsSuccess);
+        var service = new WindowsDeploymentService(new RecordingProcessRunner { Result = captured },
+            NullLogger<WindowsDeploymentService>.Instance);
+
+        WindowsImageMetadata metadata = await service.InspectImageAsync(imagePath, "Pro", workspace.RootPath, TestContext.Current.CancellationToken);
+
+        Assert.Equal(9, metadata.Index);
+        Assert.Equal(26839601777L, metadata.SizeBytes);
+    }
+
     [Theory]
     [InlineData(",")]
     [InlineData(".")]
@@ -87,6 +121,7 @@ public sealed class WindowsDeploymentServiceTests
     [InlineData("26\t839\t601\t777 bytes")]
     [InlineData("26\u202F839\u202F601\u202F777.0 bytes")]
     [InlineData("9\u202F223\u202F372\u202F036\u202F854\u202F775\u202F808 bytes")]
+    [InlineData("26\uFFFD839\uFFFD601\uFFFD777 bytes")]
     public async Task InspectImageAsync_MalformedExpandedSize_FailsClosed(string size)
     {
         using var workspace = new TemporaryWorkspace();

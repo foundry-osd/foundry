@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text;
+
 namespace Foundry.Utilities.Processes;
 
 /// <summary>
@@ -58,6 +60,12 @@ public sealed record ProcessExecutionRequest
     /// Gets environment values to set or remove. A <see langword="null"/> value removes the variable.
     /// </summary>
     public IReadOnlyDictionary<string, string?>? EnvironmentOverrides { get; init; }
+
+    /// <summary>
+    /// Gets the encoding used to decode both redirected output streams, or <see langword="null"/> for UTF-8.
+    /// This does not change the encoding emitted by the child process.
+    /// </summary>
+    public Encoding? OutputEncoding { get; init; }
 
     /// <summary>
     /// Gets a callback invoked for each standard-output line.

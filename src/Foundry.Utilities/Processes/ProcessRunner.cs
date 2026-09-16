@@ -9,7 +9,7 @@ using System.Text;
 namespace Foundry.Utilities.Processes;
 
 /// <summary>
-/// Runs a process with redirected UTF-8 output and cancellation-aware tree termination.
+/// Runs a process with redirected output (UTF-8 by default) and cancellation-aware tree termination.
 /// </summary>
 public sealed class ProcessRunner
 {
@@ -43,8 +43,8 @@ public sealed class ProcessRunner
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             CreateNoWindow = true,
-            StandardOutputEncoding = Encoding.UTF8,
-            StandardErrorEncoding = Encoding.UTF8
+            StandardOutputEncoding = request.OutputEncoding ?? Encoding.UTF8,
+            StandardErrorEncoding = request.OutputEncoding ?? Encoding.UTF8
         };
 
         string argumentsDisplay;
