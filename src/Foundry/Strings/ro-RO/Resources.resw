@@ -2942,6 +2942,12 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Personalizarea imaginii de boot.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Identitatea discului lipsește, este ambiguă sau s-a modificat. Reîmprospătați lista de discuri și selectați din nou discul.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Discul selectat nu mai poate fi modificat în siguranță. Reîmprospătați lista de discuri și selectați alt disc.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Aplicarea setărilor internaționale cu DISM.</value>
   </data>

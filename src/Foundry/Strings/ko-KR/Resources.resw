@@ -2942,6 +2942,12 @@
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>부팅 이미지를 사용자 정의합니다.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>디스크 식별 정보가 없거나, 모호하거나, 변경되었습니다. 디스크 목록을 새로 고친 후 디스크를 다시 선택하세요.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>선택한 디스크를 더 이상 안전하게 수정할 수 없습니다. 디스크 목록을 새로 고친 후 다른 디스크를 선택하세요.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>DISM을 사용하여 국제 설정을 적용합니다.</value>
   </data>

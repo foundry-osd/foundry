@@ -242,6 +242,9 @@ ErrorCode=0x80070005
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>דיסק {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>זהות הדיסק חסרה, אינה חד-משמעית או השתנתה. הפעל מחדש את Foundry Deploy ובחר את הדיסק שוב.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>דיסק היעד {0} חסום: {1}</value>
   </data>

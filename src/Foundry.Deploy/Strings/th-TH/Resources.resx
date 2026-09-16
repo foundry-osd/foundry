@@ -242,6 +242,9 @@
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>ดิสก์ {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>ข้อมูลระบุตัวตนของดิสก์ขาดหายไป ไม่ชัดเจน หรือมีการเปลี่ยนแปลง เริ่ม Foundry Deploy ใหม่แล้วเลือกดิสก์อีกครั้ง</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>ดิสก์เป้าหมาย {0} ถูกบล็อก: {1}</value>
   </data>

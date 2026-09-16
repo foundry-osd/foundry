@@ -2942,6 +2942,12 @@
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Настройка загрузочного образа.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Идентификационные данные диска отсутствуют, неоднозначны или изменились. Обновите список дисков и выберите диск повторно.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Выбранный диск больше нельзя безопасно изменять. Обновите список дисков и выберите другой диск.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Применение международных настроек с помощью DISM.</value>
   </data>

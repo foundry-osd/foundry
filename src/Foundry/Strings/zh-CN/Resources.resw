@@ -2942,6 +2942,12 @@
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>自定义启动映像。</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>磁盘标识缺失、不明确或已更改。请刷新磁盘列表并重新选择磁盘。</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>无法再安全地修改所选磁盘。请刷新磁盘列表并选择另一个磁盘。</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>使用DISM 应用国际设置。</value>
   </data>

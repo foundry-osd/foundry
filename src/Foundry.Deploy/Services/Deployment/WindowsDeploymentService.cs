@@ -14,8 +14,10 @@ using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Deployment.Unattend;
+using Foundry.Deploy.Services.Localization;
 using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 using Foundry.Utilities.Processes;
+using Foundry.Utilities.Storage;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Deployment;
@@ -63,14 +65,17 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
     /// <inheritdoc />
     public async Task<DeploymentTargetLayout> PrepareTargetDiskAsync(
-        int diskNumber,
+        DiskIdentity confirmedIdentity,
         string workingDirectory,
         CancellationToken cancellationToken = default)
     {
-        if (diskNumber < 0)
+        ArgumentNullException.ThrowIfNull(confirmedIdentity);
+        if (!confirmedIdentity.IsUsable)
         {
-            throw new ArgumentOutOfRangeException(nameof(diskNumber), "Target disk number must be 0 or greater.");
+            throw CreateDiskIdentityException();
         }
+
+        int diskNumber = confirmedIdentity.Number;
 
         _logger.LogInformation(
             "Preparing target disk layout. DiskNumber={DiskNumber}, RecoveryPartitionSizeMb={RecoveryPartitionSizeMb}, WorkingDirectory={WorkingDirectory}",
@@ -105,12 +110,66 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         string scriptPath = Path.Combine(workingDirectory, "diskpart-os-target.txt");
         await File.WriteAllLinesAsync(scriptPath, scriptLines, cancellationToken).ConfigureAwait(false);
 
-        await RunRequiredProcessAsync(
-            "diskpart.exe",
-            $"/s \"{scriptPath}\"",
-            workingDirectory,
-            $"Disk partitioning failed for disk {diskNumber}",
-            cancellationToken).ConfigureAwait(false);
+        // The in-process recheck narrows the check-to-use gap; DiskPart cannot consume a retained device handle.
+        string guardedScript = $$"""
+            $ErrorActionPreference = 'Stop'
+            try {
+                {{WindowsDiskIdentityGuard.CreateScript(confirmedIdentity)}}
+                foreach ($property in @('IsSystem', 'IsBoot', 'IsReadOnly', 'IsOffline')) {
+                    if ($foundryConfirmedDisk.$property -isnot [bool] -or $foundryConfirmedDisk.$property) {
+                        throw '{{WindowsDiskIdentityGuard.FailureMarker}}'
+                    }
+                }
+                if ([string]::IsNullOrWhiteSpace([string]$foundryConfirmedDisk.BusType) -or
+                    [string]::Equals(([string]$foundryConfirmedDisk.BusType).Trim(), 'USB', [StringComparison]::OrdinalIgnoreCase)) {
+                    throw '{{WindowsDiskIdentityGuard.FailureMarker}}'
+                }
+                & diskpart.exe /s '{{scriptPath.Replace("'", "''", StringComparison.Ordinal)}}'
+                exit $LASTEXITCODE
+            } catch {
+                if ($_.Exception.Message.Contains('{{WindowsDiskIdentityGuard.FailureMarker}}')) {
+                    [Console]::Error.WriteLine('{{WindowsDiskIdentityGuard.FailureMarker}}')
+                    exit 87
+                }
+                [Console]::Error.WriteLine('Target disk preparation failed: ' + $_.Exception.Message)
+                exit 1
+            }
+            """;
+        string guardPath = Path.Combine(workingDirectory, $"disk-identity-{Guid.NewGuid():N}.ps1");
+        try
+        {
+            // Keep device identifiers out of process arguments and remove the temporary snapshot on every outcome.
+            await File.WriteAllTextAsync(guardPath, guardedScript, new UTF8Encoding(encoderShouldEmitUTF8Identifier: true), cancellationToken)
+                .ConfigureAwait(false);
+            ProcessExecutionResult execution = await _processRunner.RunAsync(
+                "powershell.exe",
+                ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", guardPath],
+                workingDirectory,
+                cancellationToken).ConfigureAwait(false);
+            if (!execution.IsSuccess)
+            {
+                if (execution.StandardError.Contains(WindowsDiskIdentityGuard.FailureMarker, StringComparison.Ordinal))
+                {
+                    _logger.LogWarning("Target disk identity or eligibility changed before partitioning. DiskNumber={DiskNumber}", diskNumber);
+                    throw CreateDiskIdentityException();
+                }
+
+                throw new DeploymentProcessException(
+                    $"Disk partitioning failed for disk {diskNumber}.{Environment.NewLine}{execution.ToDiagnosticText()}",
+                    execution.ExitCode);
+            }
+        }
+        finally
+        {
+            try
+            {
+                File.Delete(guardPath);
+            }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+            {
+                _logger.LogWarning(exception, "Could not remove the temporary disk identity script. Path={Path}", guardPath);
+            }
+        }
 
         string systemPartitionRoot = $"{systemLetter}:\\";
         string windowsPartitionRoot = $"{windowsLetter}:\\";
@@ -132,6 +191,14 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             RecoveryPartitionLetter = recoveryLetter
         };
     }
+
+    private static DeploymentOperationException CreateDiskIdentityException()
+        => new(
+            DeploymentFailure.Guard(
+                DeploymentOperationNames.ValidateTargetDisk,
+                DeploymentFailureReasons.InvalidState,
+                "target_disk_identity_mismatch"),
+            LocalizationText.GetString("Disk.IdentityCannotBeConfirmed"));
 
     /// <inheritdoc />
     public async Task<int> ResolveImageIndexAsync(

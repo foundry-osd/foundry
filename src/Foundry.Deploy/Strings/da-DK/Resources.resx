@@ -242,6 +242,9 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Disk {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Diskens identitet mangler, er tvetydig eller er ændret. Genstart Foundry Deploy, og vælg disken igen.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Måldisk {0} er blokeret: {1}</value>
   </data>

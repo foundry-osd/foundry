@@ -11,6 +11,32 @@ namespace Foundry.Utilities.Tests.Storage;
 public sealed class WindowsDiskInspectorTests
 {
     [Fact]
+    public async Task GetDisksAsync_WhenPowerShellReturnsDeviceIdentity_PreservesIt()
+    {
+        var inspector = CreatePowerShellInspector("throw 'Unexpected partition query.'", """
+            [pscustomobject]@{
+                Number = 3
+                UniqueId = ' UID-3 '
+                FriendlyName = 'Device'
+                SerialNumber = 'SERIAL-3'
+                BusType = 'USB'
+                PartitionStyle = 'RAW'
+                Size = 64000000000
+                IsSystem = $false
+                IsBoot = $false
+                IsReadOnly = $false
+                IsOffline = $false
+                IsRemovable = $true
+            }
+            """);
+
+        DiskInfo disk = Assert.Single(await inspector.GetDisksAsync(TestContext.Current.CancellationToken));
+
+        Assert.Equal(" UID-3 ", disk.UniqueId);
+        Assert.True(DiskIdentity.FromDiskInfo(disk).IsUsable);
+    }
+
+    [Fact]
     public async Task GetDisksAsync_ParsesRawDiskFacts()
     {
         ProcessExecutionRequest? capturedRequest = null;
@@ -21,6 +47,7 @@ public sealed class WindowsDiskInspectorTests
                 """
                 {
                   "Number":"2",
+                  "UniqueId":" UNIQUE-2 ",
                   "FriendlyName":" NVMe Disk ",
                   "SerialNumber":" SERIAL-2 ",
                   "BusType":" NVMe ",
@@ -39,6 +66,7 @@ public sealed class WindowsDiskInspectorTests
             await inspector.GetDisksAsync(TestContext.Current.CancellationToken));
 
         Assert.Equal(2, disk.Number);
+        Assert.Equal(" UNIQUE-2 ", disk.UniqueId);
         Assert.Equal("NVMe Disk", disk.FriendlyName);
         Assert.Equal("SERIAL-2", disk.SerialNumber);
         Assert.Equal("NVMe", disk.BusType);
@@ -76,6 +104,7 @@ public sealed class WindowsDiskInspectorTests
         IReadOnlyList<DiskInfo> disks = await inspector.GetDisksAsync(TestContext.Current.CancellationToken);
 
         Assert.Equal([3, 1], disks.Select(static disk => disk.Number));
+        Assert.All(disks, static disk => Assert.Empty(disk.UniqueId));
     }
 
     [Fact]
@@ -276,7 +305,9 @@ public sealed class WindowsDiskInspectorTests
             () => inspector.GetDisksAsync(cancellationSource.Token));
     }
 
-    private static WindowsDiskInspector CreatePowerShellInspector(string partitionQueryBody)
+    private static WindowsDiskInspector CreatePowerShellInspector(
+        string partitionQueryBody,
+        string diskQueryBody = "throw 'Unexpected disk query.'")
     {
         return new WindowsDiskInspector((request, cancellationToken) =>
         {
@@ -284,10 +315,17 @@ public sealed class WindowsDiskInspectorTests
             int encodedCommandIndex = Array.IndexOf(arguments, "-EncodedCommand") + 1;
             string script = Encoding.Unicode.GetString(Convert.FromBase64String(arguments[encodedCommandIndex]));
             string stub = $$"""
+                $PSModuleAutoLoadingPreference = 'None'
+                Import-Module Microsoft.PowerShell.Utility -ErrorAction Stop
                 function Get-Partition {
                     [CmdletBinding()]
                     param([char]$DriveLetter)
                     {{partitionQueryBody}}
+                }
+                function Get-Disk {
+                    [CmdletBinding()]
+                    param()
+                    {{diskQueryBody}}
                 }
                 """;
             arguments[encodedCommandIndex] = Convert.ToBase64String(Encoding.Unicode.GetBytes(stub + "\n" + script));

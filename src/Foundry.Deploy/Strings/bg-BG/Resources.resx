@@ -242,6 +242,9 @@
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Диск {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Идентичността на диска липсва, не е еднозначна или е променена. Рестартирайте Foundry Deploy и изберете диска отново.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Целевият диск {0} е блокиран: {1}</value>
   </data>

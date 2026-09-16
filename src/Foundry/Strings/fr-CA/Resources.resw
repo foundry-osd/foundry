@@ -2942,6 +2942,12 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Personnalisation de l'image de démarrage.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>L’identité du disque est absente, ambiguë ou a changé. Actualisez la liste des disques et sélectionnez de nouveau le disque.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Le disque sélectionné ne peut plus être modifié en toute sécurité. Actualisez la liste des disques et sélectionnez un autre disque.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Application des paramètres internationaux avec DISM.</value>
   </data>

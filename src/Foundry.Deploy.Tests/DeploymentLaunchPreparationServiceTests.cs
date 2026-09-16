@@ -7,11 +7,49 @@ using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Deployment;
 using System.Globalization;
+using System.Text.Json;
+using Foundry.Utilities.Storage;
 
 namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentLaunchPreparationServiceTests
 {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void Prepare_WhenIdentityIsMissingOrUnusable_FailsBeforeConfirmation(bool missing)
+    {
+        var shell = new FakeApplicationShellService();
+        var service = new DeploymentLaunchPreparationService(shell);
+        TargetDiskInfo disk = CreateDisk() with
+        {
+            Identity = missing ? null : new DiskIdentity(3, "", "", "NVMe Disk", "NVMe", 4096)
+        };
+
+        DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(disk));
+
+        Assert.False(result.IsReadyToStart);
+        Assert.Equal(0, shell.ConfirmationCallCount);
+        Assert.NotNull(result.FailureMessage);
+    }
+
+    [Fact]
+    public void Prepare_RetainsRawConfirmedIdentityWithoutPersistingIt()
+    {
+        var shell = new FakeApplicationShellService();
+        var service = new DeploymentLaunchPreparationService(shell);
+        TargetDiskInfo disk = CreateDisk() with { SerialNumber = "Localized display only" };
+
+        DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(disk));
+
+        Assert.True(result.IsReadyToStart);
+        Assert.Equal(1, shell.ConfirmationCallCount);
+        Assert.Equal("SERIAL-3", result.Context!.TargetDiskIdentity!.SerialNumber);
+        Assert.Equal(256UL * 1024 * 1024 * 1024, result.Context.TargetDiskIdentity.SizeBytes);
+        Assert.DoesNotContain("SERIAL-3", JsonSerializer.Serialize(result.Context), StringComparison.Ordinal);
+        Assert.DoesNotContain("SERIAL-3", JsonSerializer.Serialize(disk), StringComparison.Ordinal);
+    }
+
     [Theory]
     [InlineData("123456789012345")]
     [InlineData(" 123_456 ")]
@@ -265,14 +303,14 @@ public sealed class DeploymentLaunchPreparationServiceTests
             var shell = new FakeApplicationShellService { ConfirmationResult = true };
             var service = new DeploymentLaunchPreparationService(shell);
 
-            TargetDiskInfo targetDisk = CreateDisk(sizeBytes: 0);
+            TargetDiskInfo targetDisk = CreateDisk();
 
             service.Prepare(CreateRequest(selectedTargetDisk: targetDisk));
 
             Assert.Equal("Confirmer l’effacement du disque", shell.LastConfirmationTitle);
             Assert.Contains("Cela effacera toutes les données du disque sélectionné et installera le système d’exploitation sélectionné.", shell.LastConfirmationMessage);
             Assert.Contains("Disque : 3", shell.LastConfirmationMessage);
-            Assert.Contains("Taille : Taille inconnue", shell.LastConfirmationMessage);
+            Assert.Contains("Taille : 256,0 GiB", shell.LastConfirmationMessage);
             Assert.Contains("Continuer le déploiement ?", shell.LastConfirmationMessage);
         }
         finally
@@ -335,6 +373,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
     {
         return new TargetDiskInfo
         {
+            Identity = new DiskIdentity(3, "", "SERIAL-3", "NVMe Disk", "NVMe", sizeBytes),
             DiskNumber = 3,
             FriendlyName = "NVMe Disk",
             BusType = "NVMe",

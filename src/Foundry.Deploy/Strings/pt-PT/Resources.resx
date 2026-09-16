@@ -242,6 +242,9 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Disco {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>A identidade do disco está em falta, é ambígua ou foi alterada. Reinicie o Foundry Deploy e selecione novamente o disco.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>O disco de destino {0} está bloqueado: {1}</value>
   </data>

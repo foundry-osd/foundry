@@ -242,6 +242,9 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Disk {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Diskens identitet saknas, är tvetydig eller har ändrats. Starta om Foundry Deploy och välj disken igen.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Måldisken {0} är blockerad: {1}</value>
   </data>

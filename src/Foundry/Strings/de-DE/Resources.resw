@@ -2942,6 +2942,12 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Anpassen des Boot-Images.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Die Datenträgeridentität fehlt, ist nicht eindeutig oder hat sich geändert. Aktualisieren Sie die Datenträgerliste und wählen Sie den Datenträger erneut aus.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Der ausgewählte Datenträger kann nicht mehr sicher geändert werden. Aktualisieren Sie die Datenträgerliste und wählen Sie einen anderen Datenträger aus.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Anwenden internationaler Einstellungen mit DISM.</value>
   </data>

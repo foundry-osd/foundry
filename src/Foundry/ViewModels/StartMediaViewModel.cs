@@ -582,9 +582,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 : failureDiagnostic.Stage;
             telemetryProgressTracker.SetCurrentStep(failedStepName);
             string failedStatus = localizationService.GetString("StartMedia.Operation.Failed");
-            terminalStatus = string.IsNullOrWhiteSpace(ex.Message)
+            string failureMessage = failureDiagnostic.Code switch
+            {
+                WinPeErrorCodes.UsbIdentityMismatch => localizationService.GetString("StartMedia.Operation.DiskIdentityCannotBeConfirmed"),
+                WinPeErrorCodes.UsbUnsafeTarget => localizationService.GetString("StartMedia.Operation.DiskNoLongerSafe"),
+                _ => ex.Message
+            };
+            terminalStatus = string.IsNullOrWhiteSpace(failureMessage)
                 ? failedStatus
-                : $"{failedStatus} {ex.Message}";
+                : $"{failedStatus} {failureMessage}";
             operationProgressService.Report(100, terminalStatus);
             logger.Error(
                 ex,
@@ -741,6 +747,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             throw new InvalidOperationException(localizationService.GetString("StartMedia.BlockingReason.NoUsbTarget"));
         }
 
+        WinPeUsbDiskCandidate selectedDisk = options.SelectedUsbDisk;
         PreparedMediaWorkspace? workspace = null;
 
         try
@@ -753,7 +760,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 telemetryProgressTracker: telemetryProgressTracker,
                 cancellationToken);
 
-            WinPeUsbDiskCandidate selectedDisk = options.SelectedUsbDisk;
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.CreateUsbMedia);
             logger.Debug(
                 "Creating USB media. DiskNumber={DiskNumber}, DiskName={DiskName}, PartitionStyle={PartitionStyle}, FormatMode={FormatMode}, MediaDirectoryPath={MediaDirectoryPath}, UseBootEx={UseBootEx}",
@@ -771,6 +777,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     ExpectedDiskFriendlyName = selectedDisk.FriendlyName,
                     ExpectedDiskSerialNumber = selectedDisk.SerialNumber,
                     ExpectedDiskUniqueId = selectedDisk.UniqueId,
+                    ExpectedDiskBusType = selectedDisk.BusType,
+                    ExpectedDiskSizeBytes = selectedDisk.SizeBytes,
                     PartitionStyle = options.UsbPartitionStyle,
                     FormatMode = options.UsbFormatMode,
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
@@ -811,6 +819,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             throw new InvalidOperationException(localizationService.GetString("StartMedia.BlockingReason.NoUsbTarget"));
         }
 
+        WinPeUsbDiskCandidate selectedDisk = options.SelectedUsbDisk;
         PreparedMediaWorkspace? workspace = null;
 
         try
@@ -823,7 +832,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 telemetryProgressTracker: telemetryProgressTracker,
                 cancellationToken);
 
-            WinPeUsbDiskCandidate selectedDisk = options.SelectedUsbDisk;
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.UpdateUsbMedia);
             logger.Debug(
                 "Updating USB boot partition. DiskNumber={DiskNumber}, DiskName={DiskName}, FormatMode={FormatMode}, MediaDirectoryPath={MediaDirectoryPath}, UseBootEx={UseBootEx}",
@@ -840,6 +848,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     ExpectedDiskFriendlyName = selectedDisk.FriendlyName,
                     ExpectedDiskSerialNumber = selectedDisk.SerialNumber,
                     ExpectedDiskUniqueId = selectedDisk.UniqueId,
+                    ExpectedDiskBusType = selectedDisk.BusType,
+                    ExpectedDiskSizeBytes = selectedDisk.SizeBytes,
                     FormatMode = options.UsbFormatMode,
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
                     DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(

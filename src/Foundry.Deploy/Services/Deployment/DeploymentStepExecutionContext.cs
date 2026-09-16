@@ -8,8 +8,10 @@ using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Utilities.Progress;
+using Foundry.Utilities.Storage;
 using Serilog;
 
 namespace Foundry.Deploy.Services.Deployment;
@@ -378,22 +380,27 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     public async Task<(TargetDiskInfo? SelectedDisk, DeploymentStepResult? Failure)> TryGetValidatedTargetDiskAsync(
         CancellationToken cancellationToken = default)
     {
-        IReadOnlyList<TargetDiskInfo> disks = await _targetDiskService.GetDisksAsync(cancellationToken).ConfigureAwait(false);
-        TargetDiskInfo? selectedDisk = disks.FirstOrDefault(disk => disk.DiskNumber == Request.TargetDiskNumber);
-        if (selectedDisk is null)
+        IReadOnlyList<TargetDiskInfo> disks = await _targetDiskService
+            .GetDisksAsync(cancellationToken, includeExcludedDisks: true).ConfigureAwait(false);
+        DiskIdentity? expected = Request.TargetDiskIdentity;
+        DiskIdentity? resolved = expected?.Resolve(disks.Select(static disk => disk.Identity).OfType<DiskIdentity>());
+        if (expected is null || expected.Number != Request.TargetDiskNumber || resolved is null)
         {
             return (null, DeploymentStepResult.Failed(
-                $"Target disk {Request.TargetDiskNumber} is no longer present.",
+                LocalizationText.GetString("Disk.IdentityCannotBeConfirmed"),
                 DeploymentFailure.Guard(
                     DeploymentOperationNames.ValidateTargetDisk,
-                    DeploymentFailureReasons.MissingResource,
-                    "target_disk_not_found")));
+                    DeploymentFailureReasons.InvalidState,
+                    "target_disk_identity_mismatch")));
         }
 
-        if (!selectedDisk.IsSelectable)
+        TargetDiskInfo selectedDisk = disks.Single(disk => ReferenceEquals(disk.Identity, resolved));
+        if (!selectedDisk.IsSelectable || selectedDisk.IsSystem || selectedDisk.IsBoot ||
+            selectedDisk.IsReadOnly || selectedDisk.IsOffline ||
+            string.Equals(selectedDisk.BusType, "USB", StringComparison.OrdinalIgnoreCase))
         {
             return (null, DeploymentStepResult.Failed(
-                $"Target disk {Request.TargetDiskNumber} is blocked: {selectedDisk.SelectionWarning}",
+                LocalizationText.GetString("Disk.IdentityCannotBeConfirmed"),
                 DeploymentFailure.Guard(
                     DeploymentOperationNames.ValidateTargetDisk,
                     DeploymentFailureReasons.InvalidState,

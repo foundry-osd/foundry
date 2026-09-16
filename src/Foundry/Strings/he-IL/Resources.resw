@@ -2942,6 +2942,12 @@
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>התאמה אישית של תמונת האתחול.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>זהות הדיסק חסרה, אינה חד-משמעית או השתנתה. רענן את רשימת הדיסקים ובחר את הדיסק שוב.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>כבר לא ניתן לשנות את הדיסק שנבחר בבטחה. רענן את רשימת הדיסקים ובחר דיסק אחר.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>החלת הגדרות בינלאומיות עם DISM.</value>
   </data>

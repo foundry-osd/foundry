@@ -38,12 +38,20 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
             "Preparing target disk layout...",
             "Partitioning target disk...",
             DeploymentOperationNames.PartitionTargetDisk);
-        DeploymentTargetLayout layout = await _windowsDeploymentService
-            .PrepareTargetDiskAsync(
-                context.Request.TargetDiskNumber,
-                workingDirectory,
-                cancellationToken)
-            .ConfigureAwait(false);
+        DeploymentTargetLayout layout;
+        try
+        {
+            layout = await _windowsDeploymentService
+                .PrepareTargetDiskAsync(
+                    context.Request.TargetDiskIdentity!,
+                    workingDirectory,
+                    cancellationToken)
+                .ConfigureAwait(false);
+        }
+        catch (DeploymentOperationException exception) when (exception.Failure.Kind == DeploymentFailureKinds.Validation)
+        {
+            return DeploymentStepResult.Failed(exception.Message, exception.Failure);
+        }
 
         context.RuntimeState.TargetSystemPartitionRoot = layout.SystemPartitionRoot;
         context.RuntimeState.TargetWindowsPartitionRoot = layout.WindowsPartitionRoot;

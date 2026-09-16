@@ -242,6 +242,9 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Dysk {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Tożsamość dysku jest niedostępna, niejednoznaczna lub uległa zmianie. Uruchom ponownie Foundry Deploy i wybierz dysk ponownie.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Dysk docelowy {0} jest zablokowany: {1}</value>
   </data>

@@ -13,6 +13,8 @@ using Serilog;
 using Serilog.Core;
 using Serilog.Events;
 
+using Foundry.Utilities.Storage;
+
 namespace Foundry.Deploy.Tests;
 
 [Collection(nameof(SerilogCollection))]
@@ -148,8 +150,101 @@ public sealed class DeploymentStepExecutionContextTests
         Assert.NotNull(result?.Failure);
         Assert.Equal(DeploymentOperationNames.ValidateTargetDisk, result.Failure.OperationName);
         Assert.Equal(DeploymentFailureKinds.Validation, result.Failure.Kind);
-        Assert.Equal(DeploymentFailureReasons.MissingResource, result.Failure.Reason);
-        Assert.Equal("target_disk_not_found", result.Failure.Code);
+        Assert.Equal(DeploymentFailureReasons.InvalidState, result.Failure.Reason);
+        Assert.Equal("target_disk_identity_mismatch", result.Failure.Code);
+    }
+
+    [Fact]
+    public async Task TryGetValidatedTargetDiskAsync_WhenSameNumberDiskIsReplaced_RejectsReplacement()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var replacement = new TargetDiskInfo
+        {
+            Identity = new DiskIdentity(1, "", "REPLACEMENT", "Target", "SATA", 4096),
+            DiskNumber = 1,
+            FriendlyName = "Target",
+            SerialNumber = "REPLACEMENT",
+            BusType = "SATA",
+            SizeBytes = 4096,
+            IsSelectable = true
+        };
+        DeploymentStepExecutionContext context = CreateExecutionContext(
+            workspace.RootPath,
+            Path.Combine(workspace.CacheRootPath, "Runtime"),
+            targetDiskService: new FakeTargetDiskService([replacement]));
+
+        (TargetDiskInfo? selected, DeploymentStepResult? failure) = await context.TryGetValidatedTargetDiskAsync(
+            TestContext.Current.CancellationToken);
+
+        Assert.Null(selected);
+        Assert.NotNull(failure?.Failure);
+        Assert.Equal(DeploymentFailureKinds.Validation, failure.Failure.Kind);
+    }
+
+    [Theory]
+    [InlineData("uid_disappeared")]
+    [InlineData("duplicate_usb")]
+    [InlineData("renumbered")]
+    [InlineData("system")]
+    [InlineData("boot")]
+    [InlineData("readonly")]
+    [InlineData("offline")]
+    [InlineData("usb")]
+    public async Task TryGetValidatedTargetDiskAsync_WhenIdentityOrEligibilityChanges_RejectsTarget(string scenario)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        DiskIdentity expected = new(1, "UID-1", "ORIGINAL", "Target", "SATA", 4096);
+        var disk = new TargetDiskInfo
+        {
+            Identity = expected,
+            DiskNumber = 1,
+            BusType = "SATA",
+            IsSelectable = true
+        };
+        TargetDiskInfo[] disks = [disk];
+        disks = scenario switch
+        {
+            "uid_disappeared" => [disk with { Identity = expected with { UniqueId = "" } }],
+            "duplicate_usb" => [disk, disk with { DiskNumber = 2, BusType = "USB", Identity = expected with { Number = 2, BusType = "USB" } }],
+            "renumbered" => [disk with { DiskNumber = 2, Identity = expected with { Number = 2 } }],
+            "system" => [disk with { IsSystem = true }],
+            "boot" => [disk with { IsBoot = true }],
+            "readonly" => [disk with { IsReadOnly = true }],
+            "offline" => [disk with { IsOffline = true }],
+            "usb" => [disk with { BusType = "USB" }],
+            _ => disks
+        };
+        DeploymentStepExecutionContext context = CreateExecutionContext(
+            workspace.RootPath, Path.Combine(workspace.CacheRootPath, "Runtime"),
+            targetDiskService: new FakeTargetDiskService(disks), expectedIdentity: expected);
+
+        (TargetDiskInfo? selected, DeploymentStepResult? failure) = await context.TryGetValidatedTargetDiskAsync(
+            TestContext.Current.CancellationToken);
+
+        Assert.Null(selected);
+        Assert.Equal(DeploymentFailureKinds.Validation, failure?.Failure?.Kind);
+    }
+
+    [Fact]
+    public async Task TryGetValidatedTargetDiskAsync_WhenConfirmedIdentityMatches_AllowsTarget()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var disk = new TargetDiskInfo
+        {
+            Identity = new DiskIdentity(1, "", "ORIGINAL", "Target", "SATA", 4096),
+            DiskNumber = 1,
+            BusType = "SATA",
+            IsSelectable = true
+        };
+        DeploymentStepExecutionContext context = CreateExecutionContext(
+            workspace.RootPath, Path.Combine(workspace.CacheRootPath, "Runtime"),
+            targetDiskService: new FakeTargetDiskService([disk]));
+
+        (TargetDiskInfo? selected, DeploymentStepResult? failure) = await context.TryGetValidatedTargetDiskAsync(
+            TestContext.Current.CancellationToken);
+
+        Assert.Same(disk, selected);
+        Assert.Null(failure);
     }
 
     [Fact]
@@ -158,6 +253,7 @@ public sealed class DeploymentStepExecutionContextTests
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         var disk = new TargetDiskInfo
         {
+            Identity = new DiskIdentity(1, "", "ORIGINAL", "Target", "SATA", 4096),
             DiskNumber = 1,
             IsSelectable = false,
             SelectionWarning = "System disk"
@@ -256,13 +352,15 @@ public sealed class DeploymentStepExecutionContextTests
         IDeploymentLogService? logService = null,
         ITargetDiskService? targetDiskService = null,
         string? operationId = null,
-        Action<DeploymentStepProgress>? emitStepProgress = null)
+        Action<DeploymentStepProgress>? emitStepProgress = null,
+        DiskIdentity? expectedIdentity = null)
     {
         var request = new DeploymentContext
         {
             Mode = mode,
             CacheRootPath = resolvedCacheRootPath,
             TargetDiskNumber = 1,
+            TargetDiskIdentity = expectedIdentity ?? new DiskIdentity(1, "", "ORIGINAL", "Target", "SATA", 4096),
             TargetComputerName = "LAB01",
             OperatingSystem = new OperatingSystemCatalogItem(),
             DriverPackSelectionKind = DriverPackSelectionKind.None,
@@ -506,9 +604,11 @@ public sealed class DeploymentStepExecutionContextTests
 
     private sealed class FakeTargetDiskService(IReadOnlyList<TargetDiskInfo> disks) : ITargetDiskService
     {
-        public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default)
+        public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default, bool includeExcludedDisks = false)
         {
-            return Task.FromResult(disks);
+            return Task.FromResult<IReadOnlyList<TargetDiskInfo>>(includeExcludedDisks
+                ? disks
+                : disks.Where(disk => !string.Equals(disk.BusType, "USB", StringComparison.OrdinalIgnoreCase)).ToArray());
         }
 
         public Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default)

@@ -20,6 +20,7 @@ public sealed class WindowsDiskInspector : IWindowsDiskInspector
         $result = foreach ($disk in $disks) {
             [pscustomobject]@{
                 Number = [int]$disk.Number
+                UniqueId = [string]$disk.UniqueId
                 FriendlyName = [string]$disk.FriendlyName
                 SerialNumber = [string]$disk.SerialNumber
                 BusType = [string]$disk.BusType
@@ -174,10 +175,13 @@ if ($null -eq $partition) {{
             ReadRequiredBool(element, "IsBoot"),
             ReadRequiredBool(element, "IsReadOnly"),
             ReadRequiredBool(element, "IsOffline"),
-            ReadBool(element, "IsRemovable"));
+            ReadBool(element, "IsRemovable"))
+        {
+            UniqueId = ReadString(element, "UniqueId", trim: false)
+        };
     }
 
-    private static string ReadString(JsonElement root, string propertyName)
+    private static string ReadString(JsonElement root, string propertyName, bool trim = true)
     {
         if (!root.TryGetProperty(propertyName, out JsonElement property) ||
             property.ValueKind is JsonValueKind.Null or JsonValueKind.Undefined)
@@ -185,9 +189,10 @@ if ($null -eq $partition) {{
             return string.Empty;
         }
 
-        return property.ValueKind == JsonValueKind.String
-            ? property.GetString()?.Trim() ?? string.Empty
-            : property.ToString().Trim();
+        string value = property.ValueKind == JsonValueKind.String
+            ? property.GetString() ?? string.Empty
+            : property.ToString();
+        return trim ? value.Trim() : value;
     }
 
     private static int ReadRequiredNonNegativeInt(JsonElement root, string propertyName)

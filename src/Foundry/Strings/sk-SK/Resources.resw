@@ -2942,6 +2942,12 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Prispôsobenie bootovacieho obrazu.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Identita disku chýba, nie je jednoznačná alebo sa zmenila. Obnovte zoznam diskov a znova vyberte disk.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Vybraný disk už nemožno bezpečne upravovať. Obnovte zoznam diskov a vyberte iný disk.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Použitie medzinárodných nastavení pomocou DISM.</value>
   </data>

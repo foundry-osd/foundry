@@ -2942,6 +2942,12 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>A rendszerindító kép testreszabása.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>A lemez azonosítója hiányzik, nem egyértelmű vagy megváltozott. Frissítse a lemezek listáját, és válassza ki újra a lemezt.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>A kiválasztott lemez már nem módosítható biztonságosan. Frissítse a lemezek listáját, és válasszon másik lemezt.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Nemzetközi beállítások alkalmazása DISM.</value>
   </data>

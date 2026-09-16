@@ -2942,6 +2942,12 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Anpassa startbilden.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Diskens identitet saknas, är tvetydig eller har ändrats. Uppdatera disklistan och välj disken igen.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Den valda disken kan inte längre ändras säkert. Uppdatera disklistan och välj en annan disk.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Tillämpa internationella inställningar med DISM.</value>
   </data>

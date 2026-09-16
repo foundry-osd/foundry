@@ -2942,6 +2942,12 @@
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>ブートイメージのカスタマイズ。</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>ディスクの識別情報がないか、一意でないか、変更されています。ディスク一覧を更新し、ディスクを再選択してください。</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>選択したディスクは安全に変更できなくなりました。ディスク一覧を更新し、別のディスクを選択してください。</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>DISM を使用して国際設定を適用します。</value>
   </data>

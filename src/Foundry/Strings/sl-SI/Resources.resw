@@ -2942,6 +2942,12 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Prilagajanje zagonske slike.</value>
   </data>
+  <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Identiteta diska manjka, je dvoumna ali se je spremenila. Osvežite seznam diskov in znova izberite disk.</value>
+  </data>
+  <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
+    <value>Izbranega diska ni več mogoče varno spreminjati. Osvežite seznam diskov in izberite drug disk.</value>
+  </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Uporaba mednarodnih nastavitev z DISM.</value>
   </data>

@@ -242,6 +242,9 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Diskas {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Trūksta disko identifikavimo duomenų, jie nėra vienareikšmiai arba pasikeitė. Paleiskite Foundry Deploy iš naujo ir pasirinkite diską iš naujo.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Tikslinis diskas {0} užblokuotas: {1}</value>
   </data>

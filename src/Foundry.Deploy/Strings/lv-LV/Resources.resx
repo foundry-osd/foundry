@@ -242,6 +242,9 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="Disk.DisplayLabelFormat" xml:space="preserve">
     <value>Disks {0} | {1} | {2} | {3}{4}</value>
   </data>
+  <data name="Disk.IdentityCannotBeConfirmed" xml:space="preserve">
+    <value>Diska identitātes dati nav pieejami, nav viennozīmīgi vai ir mainījušies. Restartējiet Foundry Deploy un vēlreiz atlasiet disku.</value>
+  </data>
   <data name="Disk.TargetBlockedFormat" xml:space="preserve">
     <value>Mērķa disks {0} ir bloķēts: {1}</value>
   </data>
