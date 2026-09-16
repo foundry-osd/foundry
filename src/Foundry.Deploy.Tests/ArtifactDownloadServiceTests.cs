@@ -13,16 +13,61 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class ArtifactDownloadServiceTests
 {
-    [Fact]
-    public async Task DownloadAsync_WhenLegacyCacheIsHashValid_WritesManifestAndReusesCache()
+    [Theory]
+    [InlineData("SHA1", false)]
+    [InlineData("SHA256", false)]
+    [InlineData("SHA1", true)]
+    [InlineData("SHA256", true)]
+    public async Task DownloadAsync_WhenCacheBytesMatch_ReusesCache(string algorithm, bool withManifest)
     {
         using TempDirectory temp = TempDirectory.Create();
         string destinationPath = Path.Combine(temp.Path, "install.esd");
         byte[] content = Encoding.UTF8.GetBytes("valid cached content");
         await File.WriteAllBytesAsync(destinationPath, content, TestContext.Current.CancellationToken);
-        string expectedHash = ComputeSha256(content);
+        string expectedHash = ComputeHash(content, algorithm);
+        if (withManifest)
+        {
+            await WriteLegacyManifestAsync(destinationPath, expectedHash, algorithm);
+        }
 
-        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance);
+        using var client = new HttpClient(new ThrowingHttpMessageHandler());
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+
+        ArtifactDownloadResult result = await service.DownloadAsync(
+            "https://example.test/install.esd",
+            destinationPath,
+            expectedHash.ToLowerInvariant(),
+            expectedSizeBytes: content.Length,
+            artifactKind: "OperatingSystemImage",
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.False(result.Downloaded);
+        Assert.Equal("cache-hit", result.Method);
+        Assert.Equal(content.Length, result.SizeBytes);
+        Assert.Equal(content, await File.ReadAllBytesAsync(result.DestinationPath, TestContext.Current.CancellationToken));
+    }
+
+    [Theory]
+    [InlineData("SHA1")]
+    [InlineData("SHA256")]
+    public async Task DownloadAsync_WhenManifestIsForged_RedownloadsAndVerifiesBytes(string algorithm)
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destinationPath = Path.Combine(temp.Path, "install.esd");
+        byte[] content = Encoding.UTF8.GetBytes("tampered-content");
+        byte[] expectedContent = Encoding.UTF8.GetBytes("original-content");
+        string expectedHash = ComputeHash(expectedContent, algorithm);
+        await File.WriteAllBytesAsync(destinationPath, content, TestContext.Current.CancellationToken);
+        DateTimeOffset lastWriteTime = DateTimeOffset.UtcNow.AddMinutes(-3);
+        File.SetLastWriteTimeUtc(destinationPath, lastWriteTime.UtcDateTime);
+
+        await WriteLegacyManifestAsync(destinationPath, expectedHash, algorithm);
+
+        var handler = new StaticHttpMessageHandler(expectedContent);
+        using var client = new HttpClient(handler);
+        var service = new ArtifactDownloadService(
+            NullLogger<ArtifactDownloadService>.Instance,
+            client);
 
         ArtifactDownloadResult result = await service.DownloadAsync(
             "https://example.test/install.esd",
@@ -32,65 +77,10 @@ public sealed class ArtifactDownloadServiceTests
             artifactKind: "OperatingSystemImage",
             cancellationToken: TestContext.Current.CancellationToken);
 
-        string manifestPath = $"{destinationPath}.manifest.json";
-        Assert.False(result.Downloaded);
-        Assert.Equal("cache-hit", result.Method);
-        Assert.True(File.Exists(manifestPath));
-
-        using FileStream stream = File.OpenRead(manifestPath);
-        ArtifactCacheManifest? manifest = await JsonSerializer.DeserializeAsync<ArtifactCacheManifest>(
-            stream,
-            cancellationToken: TestContext.Current.CancellationToken);
-
-        Assert.NotNull(manifest);
-        Assert.Equal(1, manifest.Version);
-        Assert.Equal("OperatingSystemImage", manifest.ArtifactKind);
-        Assert.Equal("SHA256", manifest.HashAlgorithm);
-        Assert.Equal(expectedHash, manifest.ExpectedHash);
-        Assert.Equal(content.Length, manifest.ExpectedSizeBytes);
-        Assert.Equal(content.Length, manifest.FileSizeBytes);
-    }
-
-    [Fact]
-    public async Task DownloadAsync_WhenManifestMatches_UsesFastCacheHitWithoutRehashing()
-    {
-        using TempDirectory temp = TempDirectory.Create();
-        string destinationPath = Path.Combine(temp.Path, "install.esd");
-        byte[] content = Encoding.UTF8.GetBytes("tampered-content");
-        await File.WriteAllBytesAsync(destinationPath, content, TestContext.Current.CancellationToken);
-        DateTimeOffset lastWriteTime = DateTimeOffset.UtcNow.AddMinutes(-3);
-        File.SetLastWriteTimeUtc(destinationPath, lastWriteTime.UtcDateTime);
-
-        await WriteManifestAsync(
-            destinationPath,
-            new ArtifactCacheManifest
-            {
-                ArtifactKind = "OperatingSystemImage",
-                SourceUrl = "https://example.test/install.esd",
-                HashAlgorithm = "SHA256",
-                ExpectedHash = new string('A', 64),
-                ExpectedSizeBytes = content.Length,
-                FileSizeBytes = content.Length,
-                FileLastWriteTimeUtc = lastWriteTime,
-                ValidatedAtUtc = DateTimeOffset.UtcNow.AddMinutes(-2)
-            });
-
-        var handler = new ThrowingHttpMessageHandler();
-        var service = new ArtifactDownloadService(
-            NullLogger<ArtifactDownloadService>.Instance,
-            new HttpClient(handler));
-
-        ArtifactDownloadResult result = await service.DownloadAsync(
-            "https://example.test/install.esd",
-            destinationPath,
-            new string('A', 64),
-            expectedSizeBytes: content.Length,
-            artifactKind: "OperatingSystemImage",
-            cancellationToken: TestContext.Current.CancellationToken);
-
-        Assert.False(result.Downloaded);
-        Assert.Equal("cache-hit", result.Method);
-        Assert.Equal(0, handler.RequestCount);
+        Assert.True(result.Downloaded);
+        Assert.Equal("httpclient", result.Method);
+        Assert.Equal(1, handler.RequestCount);
+        Assert.Equal(expectedContent, await File.ReadAllBytesAsync(result.DestinationPath, TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -122,7 +112,7 @@ public sealed class ArtifactDownloadServiceTests
     }
 
     [Fact]
-    public async Task DownloadAsync_WhenDownloadedHashMatches_WritesManifestWithoutSecondFileHashPass()
+    public async Task DownloadAsync_WhenDownloadedHashMatches_ReturnsVerifiedContent()
     {
         using TempDirectory temp = TempDirectory.Create();
         string destinationPath = Path.Combine(temp.Path, "firmware.cab");
@@ -131,6 +121,7 @@ public sealed class ArtifactDownloadServiceTests
         var service = new ArtifactDownloadService(
             NullLogger<ArtifactDownloadService>.Instance,
             new HttpClient(new StaticHttpMessageHandler(downloadedContent)));
+        var reports = new List<DownloadProgress>();
 
         ArtifactDownloadResult result = await service.DownloadAsync(
             "https://example.test/firmware.cab",
@@ -138,10 +129,15 @@ public sealed class ArtifactDownloadServiceTests
             expectedHash,
             expectedSizeBytes: downloadedContent.Length,
             artifactKind: "MicrosoftUpdateCatalogFirmware",
-            cancellationToken: TestContext.Current.CancellationToken);
+            cancellationToken: TestContext.Current.CancellationToken,
+            progress: new InlineProgress<DownloadProgress>(reports.Add));
 
         Assert.True(result.Downloaded);
-        Assert.True(File.Exists($"{destinationPath}.manifest.json"));
+        Assert.Equal(downloadedContent.Length, result.SizeBytes);
+        Assert.Equal(downloadedContent, await File.ReadAllBytesAsync(result.DestinationPath, TestContext.Current.CancellationToken));
+        Assert.All(reports, value => Assert.Equal(DownloadPhase.Downloading, value.Phase));
+        Assert.Equal(0, reports[0].BytesProcessed);
+        Assert.Equal(downloadedContent.Length, reports[^1].BytesProcessed);
     }
 
     [Fact]
@@ -166,19 +162,202 @@ public sealed class ArtifactDownloadServiceTests
         Assert.Contains("Hash verification failed", exception.Message, StringComparison.OrdinalIgnoreCase);
     }
 
-    private static async Task WriteManifestAsync(string destinationPath, ArtifactCacheManifest manifest)
+    [Theory]
+    [InlineData("SHA1")]
+    [InlineData("SHA256")]
+    public async Task DownloadAsync_WhenCacheChangesWithOriginalSizeAndTimestamp_Redownloads(string algorithm)
     {
+        using TempDirectory temp = TempDirectory.Create();
+        string destinationPath = Path.Combine(temp.Path, "driver.exe");
+        byte[] content = Encoding.UTF8.GetBytes("original-content");
+        string expectedHash = ComputeHash(content, algorithm);
+        var handler = new StaticHttpMessageHandler(content);
+        using var client = new HttpClient(handler);
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+        await service.DownloadAsync("https://example.test/driver.exe", destinationPath, expectedHash,
+            cancellationToken: TestContext.Current.CancellationToken);
+        await WriteLegacyManifestAsync(destinationPath, expectedHash, algorithm);
+        DateTime originalTimestamp = File.GetLastWriteTimeUtc(destinationPath);
+        byte[] changedContent = (byte[])content.Clone();
+        changedContent[0] ^= 0xFF;
+        await File.WriteAllBytesAsync(destinationPath, changedContent, TestContext.Current.CancellationToken);
+        File.SetLastWriteTimeUtc(destinationPath, originalTimestamp);
+
+        ArtifactDownloadResult result = await service.DownloadAsync(
+            "https://example.test/driver.exe", destinationPath, expectedHash,
+            expectedSizeBytes: content.Length, cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.True(result.Downloaded);
+        Assert.Equal(2, handler.RequestCount);
+        Assert.Equal(content, await File.ReadAllBytesAsync(result.DestinationPath, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task DownloadAsync_WhenForgedCacheAndReplacementAreInvalid_ThrowsHashVerificationError()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destinationPath = Path.Combine(temp.Path, "driver.cab");
+        byte[] content = Encoding.UTF8.GetBytes("unexpected payload");
+        await File.WriteAllBytesAsync(destinationPath, content, TestContext.Current.CancellationToken);
+        string expectedHash = new('B', 64);
+        await WriteLegacyManifestAsync(destinationPath, expectedHash, "SHA256");
+        using var client = new HttpClient(new StaticHttpMessageHandler(content));
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+
+        InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.DownloadAsync("https://example.test/driver.cab", destinationPath, expectedHash,
+                expectedSizeBytes: content.Length, cancellationToken: TestContext.Current.CancellationToken));
+
+        Assert.Contains("Hash verification failed", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task DownloadAsync_WhenCacheVerificationIsCancelled_DoesNotReturnCacheHitOrDownload(bool cancelDuringHashing)
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destinationPath = Path.Combine(temp.Path, "install.esd");
+        byte[] content = new byte[256 * 1024];
+        new Random(41).NextBytes(content);
+        await File.WriteAllBytesAsync(destinationPath, content, TestContext.Current.CancellationToken);
+        string expectedHash = ComputeSha256(content);
+        await WriteLegacyManifestAsync(destinationPath, expectedHash, "SHA256");
+        using var client = new HttpClient(new ThrowingHttpMessageHandler());
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+        using var cancellation = new CancellationTokenSource();
+        if (!cancelDuringHashing)
+        {
+            cancellation.Cancel();
+        }
+
+        var reports = new List<DownloadProgress>();
+        var progress = new InlineProgress<DownloadProgress>(value =>
+        {
+            reports.Add(value);
+            if (cancelDuringHashing && value.BytesProcessed > 0 && value.BytesProcessed < content.Length)
+            {
+                cancellation.Cancel();
+            }
+        });
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+            service.DownloadAsync("https://example.test/install.esd", destinationPath, expectedHash,
+                cancellationToken: cancellation.Token, progress: progress));
+        Assert.Equal(content, await File.ReadAllBytesAsync(destinationPath, TestContext.Current.CancellationToken));
+        Assert.DoesNotContain(reports, value => value.BytesProcessed == content.Length);
+    }
+
+    [Theory]
+    [InlineData("SHA1")]
+    [InlineData("SHA256")]
+    public async Task DownloadAsync_WhenVerifyingCache_ReportsActualIntermediateByteCounts(string algorithm)
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destinationPath = Path.Combine(temp.Path, "install.esd");
+        byte[] content = new byte[256 * 1024];
+        new Random(73).NextBytes(content);
+        await File.WriteAllBytesAsync(destinationPath, content, TestContext.Current.CancellationToken);
+        using var client = new HttpClient(new ThrowingHttpMessageHandler());
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+        var reports = new List<DownloadProgress>();
+
+        ArtifactDownloadResult result = await service.DownloadAsync(
+            "https://example.test/install.esd", destinationPath, ComputeHash(content, algorithm),
+            cancellationToken: TestContext.Current.CancellationToken,
+            progress: new InlineProgress<DownloadProgress>(reports.Add));
+
+        Assert.False(result.Downloaded);
+        Assert.Equal(0, reports[0].BytesProcessed);
+        Assert.Contains(reports, value => value.BytesProcessed > 0 && value.BytesProcessed < content.Length);
+        Assert.All(reports, value => Assert.Equal(content.Length, value.TotalBytes));
+        Assert.All(reports, value => Assert.Equal(DownloadPhase.VerifyingCache, value.Phase));
+        Assert.Equal(content.Length, reports[^1].BytesProcessed);
+        Assert.Equal(reports.Select(value => value.BytesProcessed).Order(), reports.Select(value => value.BytesProcessed));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task DownloadAsync_WhenLegacySidecarCannotBeUsed_ReusesValidBytes(bool sidecarIsDirectory)
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destinationPath = Path.Combine(temp.Path, "install.esd");
+        byte[] content = Encoding.UTF8.GetBytes("valid cached content");
+        await File.WriteAllBytesAsync(destinationPath, content, TestContext.Current.CancellationToken);
+        if (sidecarIsDirectory)
+        {
+            Directory.CreateDirectory($"{destinationPath}.manifest.json");
+        }
+        else
+        {
+            await File.WriteAllTextAsync($"{destinationPath}.manifest.json", "{invalid", TestContext.Current.CancellationToken);
+        }
+
+        using var client = new HttpClient(new ThrowingHttpMessageHandler());
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+        ArtifactDownloadResult result = await service.DownloadAsync(
+            "https://example.test/install.esd", destinationPath, ComputeSha256(content),
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.False(result.Downloaded);
+        Assert.Equal(content, await File.ReadAllBytesAsync(result.DestinationPath, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task DownloadAsync_WhenLegacyArtifactHasNoExpectedHash_PreservesSizeBasedReuse()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destinationPath = Path.Combine(temp.Path, "driver.cab");
+        byte[] content = Encoding.UTF8.GetBytes("legacy payload without catalog digest");
+        await File.WriteAllBytesAsync(destinationPath, content, TestContext.Current.CancellationToken);
+        using var client = new HttpClient(new ThrowingHttpMessageHandler());
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+        var reports = new List<DownloadProgress>();
+
+        ArtifactDownloadResult result = await service.DownloadAsync(
+            "https://example.test/driver.cab", destinationPath, expectedSizeBytes: content.Length,
+            cancellationToken: TestContext.Current.CancellationToken,
+            progress: new InlineProgress<DownloadProgress>(reports.Add));
+
+        Assert.False(result.Downloaded);
+        Assert.Equal(content, await File.ReadAllBytesAsync(result.DestinationPath, TestContext.Current.CancellationToken));
+        Assert.DoesNotContain(reports, value => value.Phase == DownloadPhase.VerifyingCache);
+    }
+
+    internal static async Task WriteLegacyManifestAsync(string destinationPath, string expectedHash, string algorithm)
+    {
+        FileInfo artifact = new(destinationPath);
         await using FileStream stream = File.Create($"{destinationPath}.manifest.json");
         await JsonSerializer.SerializeAsync(
             stream,
-            manifest,
-            new JsonSerializerOptions { WriteIndented = true },
-            TestContext.Current.CancellationToken);
+            new
+            {
+                Version = 1,
+                ArtifactKind = "OperatingSystemImage",
+                SourceUrl = "https://example.test/install.esd",
+                HashAlgorithm = algorithm,
+                ExpectedHash = expectedHash,
+                ExpectedSizeBytes = artifact.Length,
+                FileSizeBytes = artifact.Length,
+                FileLastWriteTimeUtc = new DateTimeOffset(artifact.LastWriteTimeUtc, TimeSpan.Zero),
+                ValidatedAtUtc = DateTimeOffset.UtcNow,
+                ValidatedBy = "Foundry.Deploy"
+            },
+            cancellationToken: TestContext.Current.CancellationToken);
     }
+
+    private static string ComputeHash(byte[] content, string algorithm) =>
+        Convert.ToHexString(algorithm == "SHA1" ? SHA1.HashData(content) : SHA256.HashData(content));
 
     private static string ComputeSha256(byte[] content)
     {
         return Convert.ToHexString(SHA256.HashData(content));
+    }
+
+    private sealed class InlineProgress<T>(Action<T> report) : IProgress<T>
+    {
+        public void Report(T value) => report(value);
     }
 
     private sealed class StaticHttpMessageHandler(byte[] content) : HttpMessageHandler
@@ -197,12 +376,9 @@ public sealed class ArtifactDownloadServiceTests
 
     private sealed class ThrowingHttpMessageHandler : HttpMessageHandler
     {
-        public int RequestCount { get; private set; }
-
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            RequestCount++;
-            throw new InvalidOperationException("HTTP should not be used for a manifest-backed cache hit.");
+            throw new InvalidOperationException("HTTP must not be used for a valid cache hit.");
         }
     }
 

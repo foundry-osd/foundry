@@ -4,4 +4,13 @@
 
 namespace Foundry.Deploy.Services.Download;
 
-public readonly record struct DownloadProgress(long BytesDownloaded, long? TotalBytes);
+/// <summary>
+/// Reports bytes processed within one artifact phase. Counts restart when the phase changes.
+/// </summary>
+/// <param name="BytesProcessed">Bytes hashed or downloaded in the current phase.</param>
+/// <param name="TotalBytes">Total bytes in the current phase, when known.</param>
+/// <param name="Phase">Distinguishes cache verification from a network download.</param>
+public readonly record struct DownloadProgress(
+    long BytesProcessed,
+    long? TotalBytes,
+    DownloadPhase Phase = DownloadPhase.Downloading);

@@ -63,7 +63,7 @@ public sealed class DeploymentHttpClientTests
     }
 
     [Fact]
-    public async Task DownloadAsync_WhenCertificateIsUntrusted_DoesNotPublishPayloadOrManifest()
+    public async Task DownloadAsync_WhenCertificateIsUntrusted_DoesNotPublishPayload()
     {
         DirectoryInfo directory = Directory.CreateTempSubdirectory("foundry-tls-download-");
         try
@@ -77,7 +77,6 @@ public sealed class DeploymentHttpClientTests
 
             Assert.Equal(HttpRequestError.SecureConnectionError, exception.HttpRequestError);
             Assert.False(File.Exists(destination));
-            Assert.False(File.Exists($"{destination}.manifest.json"));
             Assert.False(server.PayloadRequested);
         }
         finally

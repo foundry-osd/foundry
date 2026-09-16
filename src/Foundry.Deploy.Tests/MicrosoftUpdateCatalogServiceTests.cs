@@ -2,6 +2,9 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
@@ -74,6 +77,56 @@ public sealed class MicrosoftUpdateCatalogServiceTests
         Assert.True(File.Exists(expectedRawPath));
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task CatalogDownload_WhenCacheManifestIsForged_StagesVerifiedReplacement(bool firmware)
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string rawDirectory = Path.Combine(temp.Path, "raw");
+        string cacheDirectory = Path.Combine(temp.Path, "cache");
+        string cachePath = Path.Combine(cacheDirectory, "update-1", "driver-amd64.cab");
+        byte[] content = Encoding.UTF8.GetBytes("original-content");
+        string expectedHash = Convert.ToHexString(SHA256.HashData(content));
+        Directory.CreateDirectory(Path.GetDirectoryName(cachePath)!);
+        await File.WriteAllTextAsync(cachePath, "tampered-content", TestContext.Current.CancellationToken);
+        await ArtifactDownloadServiceTests.WriteLegacyManifestAsync(cachePath, expectedHash, "SHA256");
+        var catalogClient = new FakeMicrosoftUpdateCatalogClient { Sha256 = expectedHash };
+        using var client = new HttpClient(new PayloadHttpMessageHandler(content));
+        var downloadService = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+
+        if (firmware)
+        {
+            var service = new MicrosoftUpdateCatalogFirmwareService(
+                new FakeArchiveExtractionService(), catalogClient, downloadService,
+                NullLogger<MicrosoftUpdateCatalogFirmwareService>.Instance);
+            MicrosoftUpdateCatalogFirmwareResult result = await service.DownloadAsync(
+                new HardwareProfile { SystemFirmwareHardwareId = "UEFI\\RES_{FIRMWARE}" }, "x64",
+                rawDirectory, Path.Combine(temp.Path, "extracted"), cacheDirectory, TestContext.Current.CancellationToken);
+            Assert.True(result.IsUpdateAvailable);
+        }
+        else
+        {
+            var service = new MicrosoftUpdateCatalogDriverService(
+                new FakeArchiveExtractionService(), catalogClient, downloadService,
+                NullLogger<MicrosoftUpdateCatalogDriverService>.Instance);
+            MicrosoftUpdateCatalogDriverResult result = await service.DownloadAsync(
+                CreateHardwareProfile(), new OperatingSystemCatalogItem { ReleaseId = "24H2", Architecture = "x64" },
+                rawDirectory, cacheDirectory, TestContext.Current.CancellationToken);
+            Assert.True(result.IsPayloadAvailable);
+        }
+
+        string stagedPath = Path.Combine(rawDirectory, "update-1", "driver-amd64.cab");
+        Assert.Equal(content, await File.ReadAllBytesAsync(stagedPath, TestContext.Current.CancellationToken));
+        Assert.Equal(content, await File.ReadAllBytesAsync(cachePath, TestContext.Current.CancellationToken));
+    }
+
+    private sealed class PayloadHttpMessageHandler(byte[] content) : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) =>
+            Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = new ByteArrayContent(content) });
+    }
+
     private static HardwareProfile CreateHardwareProfile()
     {
         return new HardwareProfile
@@ -93,6 +146,8 @@ public sealed class MicrosoftUpdateCatalogServiceTests
 
     private sealed class FakeMicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
     {
+        public string Sha256 { get; init; } = new('B', 64);
+
         public Task<bool> IsAvailableAsync(CancellationToken cancellationToken = default)
         {
             return Task.FromResult(true);
@@ -128,7 +183,7 @@ public sealed class MicrosoftUpdateCatalogServiceTests
                     DownloadUrl = "https://example.test/driver-amd64.cab",
                     FileName = "driver-amd64.cab",
                     Sha1 = new string('A', 40),
-                    Sha256 = new string('B', 64)
+                    Sha256 = Sha256
                 }
             ];
 
