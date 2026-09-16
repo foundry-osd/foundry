@@ -1690,7 +1690,7 @@
     <value>Confirmați parola</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Solicitați parola unui tehnician înainte de a începe o implementare.</value>
+    <value>Solicitați parola unui tehnician înainte de implementare. Datele de autentificare în rețea încorporate rămân accesibile fără această parolă.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Protecție prin parolă</value>
@@ -1699,7 +1699,7 @@
     <value>Parolă</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Parola nu poate fi recuperată. Datele de autentificare și profilurile Autopilot de pe suportul protejat sunt criptate cu aceasta.</value>
+    <value>Păstrați această parolă în siguranță. Ea protejează parolele conturilor locale Windows, datele de autentificare și profilurile Autopilot, precum și fișierele de răspuns personalizate.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Parolă de implementare</value>

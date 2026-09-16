@@ -1690,7 +1690,7 @@
     <value>Potvrdite lozinku</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Zahtijevajte lozinku tehničara prije pokretanja implementacije.</value>
+    <value>Zahtijevajte lozinku tehničara prije pokretanja implementacije. Ugrađene mrežne vjerodajnice ostaju dostupne bez ove lozinke.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Zaštita lozinkom</value>
@@ -1699,7 +1699,7 @@
     <value>Lozinka</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Lozinku nije moguće oporaviti. Vjerodajnice i profili za Autopilot na zaštićenom mediju šifrirani su tom lozinkom.</value>
+    <value>Čuvajte ovu lozinku na sigurnom. Ona štiti lozinke lokalnih računa sustava Windows, vjerodajnice i profile za Autopilot te prilagođene datoteke odgovora.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Lozinka za implementaciju</value>

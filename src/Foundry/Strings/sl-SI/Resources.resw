@@ -1690,7 +1690,7 @@
     <value>Potrdite geslo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Pred začetkom uvajanja zahtevajte geslo tehnika.</value>
+    <value>Pred uvajanjem zahtevajte geslo tehnika. Vdelane omrežne poverilnice ostanejo dostopne brez tega gesla.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Zaščita z geslom</value>
@@ -1699,7 +1699,7 @@
     <value>Geslo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Gesla ni mogoče obnoviti. Poverilnice in profili Autopilot na zaščitenem mediju so šifrirani z njim.</value>
+    <value>To geslo hranite na varnem. Ščiti gesla lokalnih računov Windows, poverilnice in profile Autopilot ter datoteke odgovorov po meri.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Geslo za uvajanje</value>

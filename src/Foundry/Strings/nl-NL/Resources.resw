@@ -1690,7 +1690,7 @@
     <value>Wachtwoord bevestigen</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Vereis een technicuswachtwoord voordat een implementatie wordt gestart.</value>
+    <value>Vereis een technicuswachtwoord vóór de implementatie. Ingesloten netwerkreferenties blijven toegankelijk zonder dit wachtwoord.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Wachtwoordbeveiliging</value>
@@ -1699,7 +1699,7 @@
     <value>Wachtwoord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Het wachtwoord kan niet worden hersteld. Referenties en Autopilot-profielen op beveiligde media worden ermee versleuteld.</value>
+    <value>Bewaar dit wachtwoord veilig. Het beschermt wachtwoorden voor lokale Windows-accounts, Autopilot-referenties en -profielen en aangepaste antwoordbestanden.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Implementatiewachtwoord</value>

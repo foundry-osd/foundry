@@ -1690,7 +1690,7 @@
     <value>ยืนยันรหัสผ่าน</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>กำหนดให้ป้อนรหัสผ่านของช่างเทคนิคก่อนเริ่มการปรับใช้</value>
+    <value>กำหนดให้ป้อนรหัสผ่านของช่างเทคนิคก่อนการปรับใช้ ข้อมูลประจำตัวเครือข่ายที่ฝังไว้ยังคงเข้าถึงได้โดยไม่ต้องใช้รหัสผ่านนี้</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>การป้องกันด้วยรหัสผ่าน</value>
@@ -1699,7 +1699,7 @@
     <value>รหัสผ่าน</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>ไม่สามารถกู้คืนรหัสผ่านได้ ข้อมูลประจำตัวและโปรไฟล์ Autopilot ในสื่อที่มีการป้องกันจะถูกเข้ารหัสด้วยรหัสผ่านนี้</value>
+    <value>เก็บรักษารหัสผ่านนี้ให้ปลอดภัย รหัสผ่านนี้ปกป้องรหัสผ่านของบัญชี Windows ภายในเครื่อง ข้อมูลประจำตัวและโปรไฟล์ Autopilot และไฟล์คำตอบที่กำหนดเอง</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>รหัสผ่านการปรับใช้</value>

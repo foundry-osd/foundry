@@ -1690,7 +1690,7 @@
     <value>Potwierdź hasło</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Wymagaj hasła technika przed rozpoczęciem wdrożenia.</value>
+    <value>Wymagaj hasła technika przed wdrożeniem. Osadzone sieciowe dane uwierzytelniające pozostają dostępne bez tego hasła.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Ochrona hasłem</value>
@@ -1699,7 +1699,7 @@
     <value>Hasło</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Hasła nie można odzyskać. Dane uwierzytelniające i profile Autopilot na chronionym nośniku są nim szyfrowane.</value>
+    <value>Przechowuj to hasło w bezpiecznym miejscu. Chroni ono hasła lokalnych kont systemu Windows, dane uwierzytelniające i profile Autopilot oraz niestandardowe pliki odpowiedzi.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Hasło wdrożenia</value>

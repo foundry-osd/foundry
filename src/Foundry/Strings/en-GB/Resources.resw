@@ -1690,7 +1690,7 @@
     <value>Confirm password</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Require a technician password before starting a deployment.</value>
+    <value>Require a technician password before deployment. Embedded network credentials remain accessible without this password.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Password protection</value>
@@ -1699,7 +1699,7 @@
     <value>Password</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>The password cannot be recovered. Credentials and Autopilot profiles on protected media are encrypted with it.</value>
+    <value>Keep this password safe. It protects local Windows account passwords, Autopilot credentials and profiles, and custom answer files.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Deployment password</value>

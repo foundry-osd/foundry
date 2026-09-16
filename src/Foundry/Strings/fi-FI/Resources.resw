@@ -1690,7 +1690,7 @@
     <value>Vahvista salasana</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Vaadi teknikon salasana ennen käyttöönoton aloittamista.</value>
+    <value>Vaadi teknikon salasana ennen käyttöönoton aloittamista. Upotetut verkon tunnistetiedot ovat edelleen käytettävissä ilman tätä salasanaa.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Salasanasuojaus</value>
@@ -1699,7 +1699,7 @@
     <value>Salasana</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Salasanaa ei voi palauttaa. Suojatun median tunnistetiedot ja Autopilot-profiilit salataan sillä.</value>
+    <value>Säilytä tämä salasana turvallisesti. Se suojaa paikallisten Windows-tilien salasanat, Autopilot-tunnistetiedot ja -profiilit sekä mukautetut vastaustiedostot.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Käyttöönoton salasana</value>

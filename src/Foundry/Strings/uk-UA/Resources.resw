@@ -1690,7 +1690,7 @@
     <value>Підтвердьте пароль</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Вимагати пароль технічного спеціаліста перед початком розгортання.</value>
+    <value>Вимагати пароль технічного спеціаліста перед розгортанням. Вбудовані мережеві облікові дані залишаються доступними без цього пароля.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Захист паролем</value>
@@ -1699,7 +1699,7 @@
     <value>Пароль</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Пароль неможливо відновити. Облікові дані та профілі Autopilot на захищеному носії шифруються за його допомогою.</value>
+    <value>Зберігайте цей пароль у безпечному місці. Він захищає паролі локальних облікових записів Windows, облікові дані та профілі Autopilot, а також власні файли відповідей.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Пароль розгортання</value>

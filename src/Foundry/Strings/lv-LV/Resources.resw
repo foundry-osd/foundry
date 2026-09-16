@@ -1690,7 +1690,7 @@
     <value>Apstipriniet paroli</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Pieprasīt tehniķa paroli pirms izvietošanas sākšanas.</value>
+    <value>Pieprasīt tehniķa paroli pirms izvietošanas. Iegultie tīkla akreditācijas dati paliek pieejami bez šīs paroles.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Aizsardzība ar paroli</value>
@@ -1699,7 +1699,7 @@
     <value>Parole</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Paroli nevar atkopt. Ar to tiek šifrēti aizsargātajā datu nesējā esošie akreditācijas dati un Autopilot profili.</value>
+    <value>Glabājiet šo paroli drošībā. Tā aizsargā lokālo Windows kontu paroles, Autopilot akreditācijas datus un profilus, kā arī pielāgotos atbilžu failus.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Izvietošanas parole</value>

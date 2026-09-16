@@ -1690,7 +1690,7 @@
     <value>Jelszó megerősítése</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>A telepítés megkezdése előtt technikusi jelszó megkövetelése.</value>
+    <value>A telepítés megkezdése előtt technikusi jelszó megkövetelése. A beágyazott hálózati hitelesítő adatok e jelszó nélkül is hozzáférhetők maradnak.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Jelszavas védelem</value>
@@ -1699,7 +1699,7 @@
     <value>Jelszó</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>A jelszó nem állítható helyre. A védett adathordozón lévő hitelesítő adatok és Autopilot-profilok ezzel vannak titkosítva.</value>
+    <value>Őrizze biztonságosan ezt a jelszót. Védi a helyi Windows-fiókok jelszavait, az Autopilot hitelesítő adatait és profiljait, valamint az egyéni válaszfájlokat.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Telepítési jelszó</value>
