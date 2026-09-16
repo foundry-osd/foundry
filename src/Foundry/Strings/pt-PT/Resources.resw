@@ -1690,7 +1690,7 @@
     <value>Confirmar palavra-passe</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Exigir uma palavra-passe de técnico antes de iniciar uma implementação.</value>
+    <value>Exigir uma palavra-passe de técnico antes da implementação. As credenciais de rede incorporadas continuam acessíveis sem esta palavra-passe.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Proteção por palavra-passe</value>
@@ -1699,7 +1699,7 @@
     <value>Palavra-passe</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Não é possível recuperar a palavra-passe. As credenciais e os perfis do Autopilot no suporte protegido são encriptados com esta palavra-passe.</value>
+    <value>Guarde esta palavra-passe em segurança. Protege as palavras-passe das contas locais do Windows, as credenciais e os perfis do Autopilot e os ficheiros de resposta personalizados.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Palavra-passe de implementação</value>

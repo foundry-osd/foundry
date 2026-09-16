@@ -1690,7 +1690,7 @@
     <value>Parolayı doğrulayın</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Dağıtımı başlatmadan önce teknisyen parolası isteyin.</value>
+    <value>Dağıtımdan önce teknisyen parolası isteyin. Gömülü ağ kimlik bilgileri bu parola olmadan erişilebilir durumda kalır.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Parola koruması</value>
@@ -1699,7 +1699,7 @@
     <value>Parola</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Parola kurtarılamaz. Korumalı medyadaki kimlik bilgileri ve Autopilot profilleri bu parolayla şifrelenir.</value>
+    <value>Bu parolayı güvende tutun. Yerel Windows hesaplarının parolalarını, Autopilot kimlik bilgilerini ve profillerini ve özel yanıt dosyalarını korur.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Dağıtım parolası</value>

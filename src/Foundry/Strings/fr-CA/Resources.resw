@@ -1690,7 +1690,7 @@
     <value>Confirmer le mot de passe</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Exiger le mot de passe d’un technicien avant de lancer un déploiement.</value>
+    <value>Exiger un mot de passe technicien avant le déploiement. Les informations d’identification réseau intégrées restent accessibles sans ce mot de passe.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Protection par mot de passe</value>
@@ -1699,7 +1699,7 @@
     <value>Mot de passe</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Le mot de passe ne peut pas être récupéré. Il sert à chiffrer les informations d’identification et les profils Autopilot sur les supports protégés.</value>
+    <value>Conservez ce mot de passe en lieu sûr. Il protège les mots de passe des comptes Windows locaux, les informations d’identification et les profils Autopilot, ainsi que les fichiers de réponses personnalisés.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Mot de passe de déploiement</value>

@@ -1690,7 +1690,7 @@
     <value>Confirmar contraseña</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Solicitar la contraseña de un técnico antes de iniciar una implementación.</value>
+    <value>Solicitar la contraseña de un técnico antes de iniciar una implementación. Las credenciales de red incorporadas siguen siendo accesibles sin esta contraseña.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Protección con contraseña</value>
@@ -1699,7 +1699,7 @@
     <value>Contraseña</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>La contraseña no se puede recuperar. Las credenciales y los perfiles de Autopilot del medio protegido se cifran con ella.</value>
+    <value>Guarde esta contraseña en un lugar seguro. Protege las contraseñas de las cuentas locales de Windows, las credenciales y los perfiles de Autopilot y los archivos de respuesta personalizados.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Contraseña de implementación</value>

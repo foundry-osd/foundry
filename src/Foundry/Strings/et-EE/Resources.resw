@@ -1690,7 +1690,7 @@
     <value>Kinnita parool</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Nõua enne juurutamise alustamist tehniku parooli.</value>
+    <value>Nõua enne juurutamise alustamist tehniku parooli. Manustatud võrgu identimisteave jääb kättesaadavaks ka ilma selle paroolita.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Paroolikaitse</value>
@@ -1699,7 +1699,7 @@
     <value>Parool</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Parooli ei saa taastada. Kaitstud andmekandjal olevad identimisteave ja Autopiloti profiilid krüptitakse selle parooliga.</value>
+    <value>Hoidke seda parooli turvaliselt. See kaitseb kohalike Windowsi kontode paroole, Autopiloti identimisteavet ja profiile ning kohandatud vastusefaile.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Juurutusparool</value>
