@@ -2943,10 +2943,10 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Přizpůsobení spouštěcího obrazu.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>Identita disku chybí, je nejednoznačná nebo se změnila. Obnovte seznam disků a vyberte disk znovu.</value>
+    <value>Identita USB disku chybí, je nejednoznačná nebo se změnila. Obnovte seznam USB disků a vyberte disk znovu.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>Vybraný disk již nelze bezpečně upravovat. Obnovte seznam disků a vyberte jiný disk.</value>
+    <value>Vybraný USB disk již nelze bezpečně upravovat. Obnovte seznam USB disků a vyberte jiný USB disk.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Použití mezinárodních nastavení pomocí DISM.</value>

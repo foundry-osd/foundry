@@ -2943,10 +2943,10 @@
     <value>Настройка загрузочного образа.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>Идентификационные данные диска отсутствуют, неоднозначны или изменились. Обновите список дисков и выберите диск повторно.</value>
+    <value>Идентификационные данные USB-накопителя отсутствуют, неоднозначны или изменились. Обновите список USB-накопителей и выберите накопитель повторно.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>Выбранный диск больше нельзя безопасно изменять. Обновите список дисков и выберите другой диск.</value>
+    <value>Выбранный USB-накопитель больше нельзя безопасно изменять. Обновите список USB-накопителей и выберите другой USB-накопитель.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Применение международных настроек с помощью DISM.</value>

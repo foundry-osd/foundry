@@ -2943,10 +2943,10 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Önyükleme görüntüsünü özelleştirme.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>Disk kimliği eksik, belirsiz veya değişmiş. Disk listesini yenileyin ve diski yeniden seçin.</value>
+    <value>USB sürücüsünün kimliği eksik, belirsiz veya değişmiş. USB sürücüsü listesini yenileyin ve sürücüyü yeniden seçin.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>Seçilen disk artık güvenli bir şekilde değiştirilemez. Disk listesini yenileyin ve başka bir disk seçin.</value>
+    <value>Seçilen USB sürücüsü artık güvenli bir şekilde değiştirilemez. USB sürücüsü listesini yenileyin ve başka bir USB sürücüsü seçin.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>DISM ile uluslararası ayarlar uygulanıyor.</value>

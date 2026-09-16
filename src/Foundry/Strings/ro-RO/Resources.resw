@@ -2943,10 +2943,10 @@ Parole și chei de acces incluse: {2}</value>
     <value>Personalizarea imaginii de boot.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>Identitatea discului lipsește, este ambiguă sau s-a modificat. Reîmprospătați lista de discuri și selectați din nou discul.</value>
+    <value>Identitatea unității USB lipsește, este ambiguă sau s-a modificat. Reîmprospătați lista de unități USB și selectați din nou unitatea.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>Discul selectat nu mai poate fi modificat în siguranță. Reîmprospătați lista de discuri și selectați alt disc.</value>
+    <value>Unitatea USB selectată nu mai poate fi modificată în siguranță. Reîmprospătați lista de unități USB și selectați altă unitate USB.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Aplicarea setărilor internaționale cu DISM.</value>

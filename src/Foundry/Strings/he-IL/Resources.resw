@@ -2943,10 +2943,10 @@
     <value>התאמה אישית של תמונת האתחול.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>זהות הדיסק חסרה, אינה חד-משמעית או השתנתה. רענן את רשימת הדיסקים ובחר את הדיסק שוב.</value>
+    <value>זהות כונן ה-USB חסרה, אינה חד-משמעית או השתנתה. רענן את רשימת כונני ה-USB ובחר את הכונן שוב.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>כבר לא ניתן לשנות את הדיסק שנבחר בבטחה. רענן את רשימת הדיסקים ובחר דיסק אחר.</value>
+    <value>כבר לא ניתן לשנות את כונן ה-USB שנבחר בבטחה. רענן את רשימת כונני ה-USB ובחר כונן USB אחר.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>החלת הגדרות בינלאומיות עם DISM.</value>

@@ -2943,10 +2943,10 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Personnalisation de l'image de démarrage.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>L’identité du disque est absente, ambiguë ou a changé. Actualisez la liste des disques et sélectionnez de nouveau le disque.</value>
+    <value>L’identité du disque USB est absente, ambiguë ou a changé. Actualisez la liste des disques USB et sélectionnez-le de nouveau.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>Le disque sélectionné ne peut plus être modifié en toute sécurité. Actualisez la liste des disques et sélectionnez un autre disque.</value>
+    <value>Le disque USB sélectionné ne peut plus être modifié en toute sécurité. Actualisez la liste des disques USB et sélectionnez-en un autre.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Application des paramètres internationaux avec DISM.</value>

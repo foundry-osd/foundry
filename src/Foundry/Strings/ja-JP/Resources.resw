@@ -2943,10 +2943,10 @@
     <value>ブートイメージのカスタマイズ。</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>ディスクの識別情報がないか、一意でないか、変更されています。ディスク一覧を更新し、ディスクを再選択してください。</value>
+    <value>USB ドライブの識別情報がないか、一意でないか、変更されています。USB ドライブ一覧を更新し、ドライブを再選択してください。</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>選択したディスクは安全に変更できなくなりました。ディスク一覧を更新し、別のディスクを選択してください。</value>
+    <value>選択した USB ドライブは安全に変更できなくなりました。USB ドライブ一覧を更新し、別の USB ドライブを選択してください。</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>DISM を使用して国際設定を適用します。</value>

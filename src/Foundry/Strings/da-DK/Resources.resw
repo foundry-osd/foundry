@@ -2943,10 +2943,10 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Tilpasning af boot-billedet.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>Diskens identitet mangler, er tvetydig eller er ændret. Opdater disklisten, og vælg disken igen.</value>
+    <value>USB-drevets identitet mangler, er tvetydig eller er ændret. Opdater listen over USB-drev, og vælg drevet igen.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>Den valgte disk kan ikke længere ændres sikkert. Opdater disklisten, og vælg en anden disk.</value>
+    <value>Det valgte USB-drev kan ikke længere ændres sikkert. Opdater listen over USB-drev, og vælg et andet USB-drev.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Anvendelse af internationale indstillinger med DISM.</value>

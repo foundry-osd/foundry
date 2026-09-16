@@ -2943,10 +2943,10 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Dostosowywanie obrazu rozruchowego.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>Tożsamość dysku jest niedostępna, niejednoznaczna lub uległa zmianie. Odśwież listę dysków i wybierz dysk ponownie.</value>
+    <value>Tożsamość dysku USB jest niedostępna, niejednoznaczna lub uległa zmianie. Odśwież listę dysków USB i wybierz dysk ponownie.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>Wybranego dysku nie można już bezpiecznie modyfikować. Odśwież listę dysków i wybierz inny dysk.</value>
+    <value>Wybranego dysku USB nie można już bezpiecznie modyfikować. Odśwież listę dysków USB i wybierz inny dysk USB.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Stosowanie ustawień międzynarodowych za pomocą DISM.</value>

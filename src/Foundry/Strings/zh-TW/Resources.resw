@@ -2943,10 +2943,10 @@
     <value>自訂啟動映像。</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>磁碟識別資訊遺失、不明確或已變更。請重新整理磁碟清單並再次選取磁碟。</value>
+    <value>USB 磁碟機識別資訊遺失、不明確或已變更。請重新整理 USB 磁碟機清單並再次選取磁碟機。</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>已無法安全地修改選取的磁碟。請重新整理磁碟清單並選取其他磁碟。</value>
+    <value>已無法安全地修改選取的 USB 磁碟機。請重新整理 USB 磁碟機清單並選取其他 USB 磁碟機。</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>使用DISM 應用國際設定。</value>

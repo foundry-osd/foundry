@@ -2943,10 +2943,10 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Sāknēšanas attēla pielāgošana.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>Diska identitātes dati nav pieejami, nav viennozīmīgi vai ir mainījušies. Atsvaidziniet disku sarakstu un vēlreiz atlasiet disku.</value>
+    <value>USB diska identitātes dati nav pieejami, nav viennozīmīgi vai ir mainījušies. Atsvaidziniet USB disku sarakstu un vēlreiz atlasiet disku.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>Atlasīto disku vairs nevar droši mainīt. Atsvaidziniet disku sarakstu un atlasiet citu disku.</value>
+    <value>Atlasīto USB disku vairs nevar droši mainīt. Atsvaidziniet USB disku sarakstu un atlasiet citu USB disku.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Starptautisko iestatījumu lietošana ar DISM.</value>

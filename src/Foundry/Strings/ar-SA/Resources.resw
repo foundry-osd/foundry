@@ -2943,10 +2943,10 @@
     <value>تخصيص صورة التمهيد.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>هوية القرص مفقودة أو ملتبسة أو تغيرت. حدّث قائمة الأقراص وحدد القرص مرة أخرى.</value>
+    <value>هوية قرص USB مفقودة أو ملتبسة أو تغيرت. حدّث قائمة أقراص USB وحدد القرص مرة أخرى.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>لم يعد تعديل القرص المحدد آمنًا. حدّث قائمة الأقراص وحدد قرصًا آخر.</value>
+    <value>لم يعد تعديل قرص USB المحدد آمنًا. حدّث قائمة أقراص USB وحدد قرص USB آخر.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>تطبيق الإعدادات الدولية مع DISM.</value>

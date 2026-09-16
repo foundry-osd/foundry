@@ -2943,10 +2943,10 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Prispôsobenie bootovacieho obrazu.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>Identita disku chýba, nie je jednoznačná alebo sa zmenila. Obnovte zoznam diskov a znova vyberte disk.</value>
+    <value>Identita USB disku chýba, nie je jednoznačná alebo sa zmenila. Obnovte zoznam USB diskov a znova vyberte disk.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>Vybraný disk už nemožno bezpečne upravovať. Obnovte zoznam diskov a vyberte iný disk.</value>
+    <value>Vybraný USB disk už nemožno bezpečne upravovať. Obnovte zoznam USB diskov a vyberte iný USB disk.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Použitie medzinárodných nastavení pomocou DISM.</value>

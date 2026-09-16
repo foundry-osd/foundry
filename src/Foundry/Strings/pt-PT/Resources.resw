@@ -2943,10 +2943,10 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Personalizando a imagem de inicialização.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>A identidade do disco está em falta, é ambígua ou foi alterada. Atualize a lista de discos e selecione novamente o disco.</value>
+    <value>A identidade da unidade USB está em falta, é ambígua ou foi alterada. Atualize a lista de unidades USB e selecione novamente a unidade.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>O disco selecionado já não pode ser modificado em segurança. Atualize a lista de discos e selecione outro disco.</value>
+    <value>A unidade USB selecionada já não pode ser modificada em segurança. Atualize a lista de unidades USB e selecione outra unidade USB.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Aplicando configurações internacionais com DISM.</value>

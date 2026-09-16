@@ -2943,10 +2943,10 @@
     <value>Персонализиране на изображението за зареждане.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>Идентичността на диска липсва, не е еднозначна или е променена. Обновете списъка с дискове и изберете диска отново.</value>
+    <value>Идентичността на USB диска липсва, не е еднозначна или е променена. Обновете списъка с USB дискове и изберете диска отново.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>Избраният диск вече не може да бъде променян безопасно. Обновете списъка с дискове и изберете друг диск.</value>
+    <value>Избраният USB диск вече не може да бъде променян безопасно. Обновете списъка с USB дискове и изберете друг USB диск.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Прилагане на международни настройки с DISM.</value>

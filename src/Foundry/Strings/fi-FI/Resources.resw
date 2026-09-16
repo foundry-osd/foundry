@@ -2943,10 +2943,10 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Käynnistyskuvan mukauttaminen.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>Levyn tunnistetiedot puuttuvat, eivät ole yksiselitteisiä tai ovat muuttuneet. Päivitä levyluettelo ja valitse levy uudelleen.</value>
+    <value>USB-aseman tunnistetiedot puuttuvat, eivät ole yksiselitteisiä tai ovat muuttuneet. Päivitä USB-asemien luettelo ja valitse asema uudelleen.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>Valittua levyä ei voi enää muokata turvallisesti. Päivitä levyluettelo ja valitse toinen levy.</value>
+    <value>Valittua USB-asemaa ei voi enää muokata turvallisesti. Päivitä USB-asemien luettelo ja valitse toinen USB-asema.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Kansainvälisten asetusten käyttäminen DISM:lla.</value>

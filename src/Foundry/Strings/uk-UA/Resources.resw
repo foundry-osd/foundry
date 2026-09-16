@@ -2943,10 +2943,10 @@
     <value>Налаштування образу завантаження.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>Ідентифікаційні дані диска відсутні, неоднозначні або змінилися. Оновіть список дисків і виберіть диск повторно.</value>
+    <value>Ідентифікаційні дані USB-накопичувача відсутні, неоднозначні або змінилися. Оновіть список USB-накопичувачів і виберіть накопичувач повторно.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>Вибраний диск більше не можна безпечно змінювати. Оновіть список дисків і виберіть інший диск.</value>
+    <value>Вибраний USB-накопичувач більше не можна безпечно змінювати. Оновіть список USB-накопичувачів і виберіть інший USB-накопичувач.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Застосування міжнародних налаштувань за допомогою DISM.</value>

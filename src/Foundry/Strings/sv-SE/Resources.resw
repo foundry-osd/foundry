@@ -2943,10 +2943,10 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Anpassa startbilden.</value>
   </data>
   <data name="StartMedia.Operation.DiskIdentityCannotBeConfirmed" xml:space="preserve">
-    <value>Diskens identitet saknas, är tvetydig eller har ändrats. Uppdatera disklistan och välj disken igen.</value>
+    <value>USB-enhetens identitet saknas, är tvetydig eller har ändrats. Uppdatera listan över USB-enheter och välj enheten igen.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>Den valda disken kan inte längre ändras säkert. Uppdatera disklistan och välj en annan disk.</value>
+    <value>Den valda USB-enheten kan inte längre ändras säkert. Uppdatera listan över USB-enheter och välj en annan USB-enhet.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Tillämpa internationella inställningar med DISM.</value>
