@@ -5,6 +5,7 @@
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
@@ -17,6 +18,34 @@ namespace Foundry.Deploy.Tests;
 [Collection(nameof(SerilogCollection))]
 public sealed class DeploymentStepExecutionContextTests
 {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void CreateDownloadProgressReporter_WhenVerificationEnds_RestartsDownloadProgress(bool knownDownloadSize)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var reports = new List<DeploymentStepProgress>();
+        DeploymentStepExecutionContext context = CreateExecutionContext(
+            workspace.RootPath, workspace.CacheRootPath, emitStepProgress: reports.Add);
+        context.SetCurrentStep(new SucceedingDeploymentStep("download_image"), 1);
+        IProgress<DownloadProgress> progress = context.CreateDownloadProgressReporter("OS image", "os_image.download");
+
+        progress.Report(new DownloadProgress(128 * 1024, 256 * 1024, DownloadPhase.VerifyingCache));
+        progress.Report(new DownloadProgress(0, knownDownloadSize ? 256 * 1024 : null));
+        progress.Report(new DownloadProgress(64 * 1024, 256 * 1024));
+
+        Assert.Equal(3, reports.Count);
+        Assert.Equal("Checking cache...", reports[0].Message);
+        Assert.Equal($"Checking cache: 50% ({128:F1} KB / {256:F1} KB)", reports[0].StepSubProgressLabel);
+        Assert.Equal(50d, reports[0].StepSubProgressPercent);
+        Assert.False(reports[0].StepSubProgressIndeterminate);
+        Assert.Equal("Downloading OS image...", reports[1].Message);
+        Assert.Equal(knownDownloadSize ? $"0% (0 B / {256:F1} KB)" : "0 B downloaded", reports[1].StepSubProgressLabel);
+        Assert.Equal(knownDownloadSize ? 0d : (double?)null, reports[1].StepSubProgressPercent);
+        Assert.Equal($"25% ({64:F1} KB / {256:F1} KB)", reports[2].StepSubProgressLabel);
+        Assert.Equal(25d, reports[2].StepSubProgressPercent);
+    }
+
     [Fact]
     public void ResolvePreferredHash_PrefersPrimaryHashWhenPresent()
     {
@@ -226,7 +255,8 @@ public sealed class DeploymentStepExecutionContextTests
         string? targetFoundryRoot = null,
         IDeploymentLogService? logService = null,
         ITargetDiskService? targetDiskService = null,
-        string? operationId = null)
+        string? operationId = null,
+        Action<DeploymentStepProgress>? emitStepProgress = null)
     {
         var request = new DeploymentContext
         {
@@ -259,7 +289,7 @@ public sealed class DeploymentStepExecutionContextTests
             new FakeOperationProgressService(),
             logService ?? new FakeDeploymentLogService(),
             targetDiskService ?? new FakeTargetDiskService([]),
-            _ => { });
+            emitStepProgress ?? (_ => { }));
     }
 
     private sealed class TempDeploymentWorkspace : IDisposable

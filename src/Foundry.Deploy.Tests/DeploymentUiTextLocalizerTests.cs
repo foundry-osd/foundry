@@ -14,6 +14,24 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [Theory]
     [InlineData("en-US")]
     [MemberData(nameof(LocalizationResourceTests.SatelliteCultures), MemberType = typeof(LocalizationResourceTests))]
+    public void LocalizeMessage_CacheProgressUsesEachCulturesResources(string cultureName)
+    {
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(cultureName);
+        var resources = LocalizationText.ResourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, false);
+        Assert.NotNull(resources);
+        string? label = resources.GetString("StepMessage.CheckingCache");
+        string? format = resources.GetString("StepProgress.PercentFormat");
+        Assert.False(string.IsNullOrWhiteSpace(label));
+        Assert.False(string.IsNullOrWhiteSpace(format));
+        string expected = string.Format(CultureInfo.CurrentUICulture, format, label.TrimEnd('.'), "50")
+            + " (128 KB / 256 KB)";
+
+        Assert.Equal(expected, DeploymentUiTextLocalizer.LocalizeMessage("Checking cache: 50% (128 KB / 256 KB)"));
+    }
+
+    [Theory]
+    [InlineData("en-US")]
+    [MemberData(nameof(LocalizationResourceTests.SatelliteCultures), MemberType = typeof(LocalizationResourceTests))]
     public void LocalizeMessage_TlsGuidanceIsPresentInEveryCulture(string cultureName)
     {
         CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(cultureName);
@@ -75,6 +93,7 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("Extracting: 25%", "Extraction : 25 %")]
     [InlineData("Applying: 50%", "Application : 50 %")]
     [InlineData("Staging: 75%", "Préparation : 75 %")]
+    [InlineData("Checking cache: 50% (128 KB / 256 KB)", "Vérification du cache : 50 % (128 KB / 256 KB)")]
     public void LocalizeMessage_TranslatesGeneratedStepPercentLabels(string input, string expected)
     {
         CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");

@@ -387,7 +387,8 @@ public static partial class DeploymentUiTextLocalizer
             string localizedLabel = LocalizeProgressLabel(rawLabel);
             if (!localizedLabel.Equals(rawLabel, StringComparison.Ordinal))
             {
-                return LocalizationText.Format("StepProgress.PercentFormat", localizedLabel, match.Groups["percent"].Value);
+                return LocalizationText.Format("StepProgress.PercentFormat", localizedLabel, match.Groups["percent"].Value)
+                    + match.Groups["bytes"].Value;
             }
         }
 
@@ -494,7 +495,7 @@ public static partial class DeploymentUiTextLocalizer
     [GeneratedRegex(@"^Target disk (?<disk>\d+) is blocked: (?<warning>.+)$")]
     private static partial Regex TargetDiskBlockedRegex();
 
-    [GeneratedRegex(@"^(?<label>.+): (?<percent>\d+(?:[.,]\d+)?)%$")]
+    [GeneratedRegex(@"^(?<label>.+): (?<percent>\d+(?:[.,]\d+)?)%(?<bytes> \([^()]+ / [^()]+\))?$")]
     private static partial Regex StepPercentLabelRegex();
 
     [GeneratedRegex(@"^(?<size>.+) downloaded$")]

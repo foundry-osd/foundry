@@ -497,7 +497,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     }
 
     /// <summary>
-    /// Creates a progress adapter that maps artifact download progress to shell and step progress.
+    /// Maps artifact verification and download progress to the shell, resetting counts between phases.
     /// </summary>
     /// <param name="artifactLabel">User-facing artifact label.</param>
     /// <param name="operationName">Stable logical operation name.</param>
@@ -507,19 +507,28 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         string operationName)
     {
         SetCurrentOperation(operationName);
+        DownloadPhase? lastPhase = null;
         double? lastReportedPercent = null;
         long nextUnknownTotalReportThreshold = 0;
 
         return new DelegateProgress<DownloadProgress>(progress =>
         {
+            if (progress.Phase != lastPhase)
+            {
+                lastPhase = progress.Phase;
+                lastReportedPercent = null;
+                nextUnknownTotalReportThreshold = 0;
+            }
+
+            bool isVerifyingCache = progress.Phase == DownloadPhase.VerifyingCache;
             string details;
             double? stepSubProgressPercent = null;
             bool stepSubProgressIndeterminate = true;
 
             if (progress.TotalBytes is long totalBytes && totalBytes > 0)
             {
-                double percent = TransferProgress.CalculatePercentage(progress.BytesDownloaded, totalBytes) ?? 0d;
-                bool isFinal = progress.BytesDownloaded >= totalBytes;
+                double percent = TransferProgress.CalculatePercentage(progress.BytesProcessed, totalBytes) ?? 0d;
+                bool isFinal = progress.BytesProcessed >= totalBytes;
                 if (!isFinal &&
                     lastReportedPercent.HasValue &&
                     percent <= lastReportedPercent.Value)
@@ -528,24 +537,29 @@ public sealed class DeploymentStepExecutionContext : IDisposable
                 }
 
                 lastReportedPercent = percent;
-                details = $"{percent:0.#}% ({FormatByteSize(progress.BytesDownloaded)} / {FormatByteSize(totalBytes)})";
+                details = $"{percent:0.#}% ({FormatByteSize(progress.BytesProcessed)} / {FormatByteSize(totalBytes)})";
+                if (isVerifyingCache)
+                {
+                    details = $"Checking cache: {details}";
+                }
+
                 stepSubProgressPercent = percent;
                 stepSubProgressIndeterminate = false;
             }
             else
             {
-                bool shouldReport = progress.BytesDownloaded == 0 ||
-                                    progress.BytesDownloaded >= nextUnknownTotalReportThreshold;
+                bool shouldReport = progress.BytesProcessed == 0 ||
+                                    progress.BytesProcessed >= nextUnknownTotalReportThreshold;
                 if (!shouldReport)
                 {
                     return;
                 }
 
-                nextUnknownTotalReportThreshold = progress.BytesDownloaded + UnknownTotalDownloadProgressIncrementBytes;
-                details = $"{FormatByteSize(progress.BytesDownloaded)} downloaded";
+                nextUnknownTotalReportThreshold = progress.BytesProcessed + UnknownTotalDownloadProgressIncrementBytes;
+                details = isVerifyingCache ? "Checking cache..." : $"{FormatByteSize(progress.BytesProcessed)} downloaded";
             }
 
-            string stepMessage = $"Downloading {artifactLabel}...";
+            string stepMessage = isVerifyingCache ? "Checking cache..." : $"Downloading {artifactLabel}...";
             ReportCurrentStepProgress(stepMessage);
             EmitCurrentStep(
                 DeploymentStepState.Running,

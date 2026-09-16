@@ -4,7 +4,6 @@
 
 using System.Net;
 using System.Security.Cryptography;
-using System.Text;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Deployment;
@@ -93,29 +92,44 @@ public sealed class DeploymentPayloadCacheFallbackTests
     }
 
     [Theory]
-    [InlineData(DeploymentMode.Usb, false)]
-    [InlineData(DeploymentMode.Usb, true)]
-    [InlineData(DeploymentMode.Iso, false)]
-    [InlineData(DeploymentMode.Iso, true)]
-    public async Task DownloadStep_WhenCacheManifestIsForged_HandsVerifiedBytesToNextStep(DeploymentMode mode, bool driverPack)
+    [InlineData(DeploymentMode.Usb, false, false)]
+    [InlineData(DeploymentMode.Usb, true, false)]
+    [InlineData(DeploymentMode.Iso, false, false)]
+    [InlineData(DeploymentMode.Iso, true, false)]
+    [InlineData(DeploymentMode.Usb, false, true)]
+    [InlineData(DeploymentMode.Usb, true, true)]
+    [InlineData(DeploymentMode.Iso, false, true)]
+    [InlineData(DeploymentMode.Iso, true, true)]
+    public async Task DownloadStep_WhenCheckingCache_ReportsVerificationAndUsesExpectedBytes(
+        DeploymentMode mode, bool driverPack, bool validCache)
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
-        byte[] content = Encoding.UTF8.GetBytes("original-content");
+        byte[] content = new byte[256 * 1024];
+        new Random(53).NextBytes(content);
         string expectedHash = Convert.ToHexString(SHA256.HashData(content));
+        var reports = new List<DeploymentStepProgress>();
         DeploymentStepExecutionContext context = CreateExecutionContext(
-            workspace, content.Length, content.Length, expectedHash, mode);
+            workspace, content.Length, content.Length, expectedHash, mode, reports.Add);
         string cacheRoot = mode == DeploymentMode.Iso ? workspace.TargetFoundryRoot : workspace.UsbCacheRoot;
         string destinationPath = driverPack
             ? Path.Combine(cacheRoot, "Cache", "DriverPacks", "Contoso", "drivers.cab")
             : Path.Combine(cacheRoot, "Cache", "OperatingSystems", "install.wim");
         Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
-        await File.WriteAllTextAsync(destinationPath, "tampered-content", TestContext.Current.CancellationToken);
+        byte[] cachedContent = (byte[])content.Clone();
+        if (!validCache)
+        {
+            cachedContent[0] ^= 0xFF;
+        }
+
+        await File.WriteAllBytesAsync(destinationPath, cachedContent, TestContext.Current.CancellationToken);
         await ArtifactDownloadServiceTests.WriteLegacyManifestAsync(destinationPath, expectedHash, "SHA256");
-        using var client = new HttpClient(new PayloadHttpMessageHandler(content));
+        var handler = new PayloadHttpMessageHandler(content);
+        using var client = new HttpClient(handler);
         var downloadService = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
         DeploymentStepBase step = driverPack
             ? new DownloadDriverPackStep(new FakeMicrosoftUpdateCatalogDriverService(), downloadService)
             : new DownloadOperatingSystemImageStep(downloadService);
+        context.SetCurrentStep(step, 1);
 
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
 
@@ -125,12 +139,38 @@ public sealed class DeploymentPayloadCacheFallbackTests
             : context.RuntimeState.DownloadedOperatingSystemPath;
         Assert.Equal(destinationPath, returnedPath);
         Assert.Equal(content, await File.ReadAllBytesAsync(returnedPath!, TestContext.Current.CancellationToken));
+        Assert.Equal(validCache ? 0 : 1, handler.RequestCount);
+        DeploymentStepProgress[] verification = reports
+            .Where(value => value.Message == "Checking cache..." && value.StepSubProgressPercent.HasValue)
+            .ToArray();
+        Assert.Equal(0d, verification[0].StepSubProgressPercent);
+        Assert.Contains(verification, value => value.StepSubProgressPercent is > 0 and < 100);
+        Assert.All(verification, value => Assert.StartsWith("Checking cache: ", value.StepSubProgressLabel));
+        DeploymentStepProgress[] downloading = reports
+            .Where(value => value.Message?.StartsWith("Downloading ", StringComparison.Ordinal) == true && value.StepSubProgressPercent.HasValue)
+            .ToArray();
+        if (validCache)
+        {
+            Assert.Equal(100d, verification[^1].StepSubProgressPercent);
+            Assert.Empty(downloading);
+        }
+        else
+        {
+            Assert.DoesNotContain(verification, value => value.StepSubProgressPercent == 100);
+            Assert.Equal(0d, downloading[0].StepSubProgressPercent);
+            Assert.Equal(100d, downloading[^1].StepSubProgressPercent);
+        }
     }
 
     private sealed class PayloadHttpMessageHandler(byte[] content) : HttpMessageHandler
     {
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) =>
-            Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = new ByteArrayContent(content) });
+        public int RequestCount { get; private set; }
+
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            RequestCount++;
+            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = new ByteArrayContent(content) });
+        }
     }
 
     private static DeploymentStepExecutionContext CreateExecutionContext(
@@ -138,7 +178,8 @@ public sealed class DeploymentPayloadCacheFallbackTests
         long operatingSystemSizeBytes = 1,
         long driverPackSizeBytes = 1,
         string expectedHash = "",
-        DeploymentMode mode = DeploymentMode.Usb)
+        DeploymentMode mode = DeploymentMode.Usb,
+        Action<DeploymentStepProgress>? emitStepProgress = null)
     {
         var request = new DeploymentContext
         {
@@ -185,7 +226,7 @@ public sealed class DeploymentPayloadCacheFallbackTests
             new FakeOperationProgressService(),
             new FakeDeploymentLogService(),
             new FakeTargetDiskService(),
-            _ => { });
+            emitStepProgress ?? (_ => { }));
     }
 
     private sealed class CapturingArtifactDownloadService : IArtifactDownloadService
