@@ -4,8 +4,6 @@
 
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Text;
 using Foundry.Telemetry;
 using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
@@ -83,11 +81,6 @@ public sealed class ProcessRunner : IProcessRunner
         string argumentsDisplay,
         CancellationToken cancellationToken)
     {
-        if (Path.GetFileName(request.FileName).Equals("dism.exe", StringComparison.OrdinalIgnoreCase))
-        {
-            request = request with { OutputEncoding = GetDismOutputEncoding() };
-        }
-
         _logger.LogDebug(
             "Starting process. FileName={FileName}, Arguments={Arguments}, WorkingDirectory={WorkingDirectory}",
             request.FileName,
@@ -141,17 +134,4 @@ public sealed class ProcessRunner : IProcessRunner
             }
         };
     }
-
-    private static Encoding GetDismOutputEncoding()
-    {
-        // DISM uses the OS OEM code page when run without a console; /English only selects its language.
-        int codePage = checked((int)GetOEMCP());
-        return codePage == Encoding.UTF8.CodePage
-            ? Encoding.UTF8
-            : CodePagesEncodingProvider.Instance.GetEncoding(codePage)
-                ?? throw new NotSupportedException($"The Windows OEM code page {codePage} is not supported.");
-    }
-
-    [DllImport("kernel32.dll", ExactSpelling = true)]
-    private static extern uint GetOEMCP();
 }

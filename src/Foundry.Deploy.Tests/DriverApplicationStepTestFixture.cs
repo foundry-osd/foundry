@@ -114,7 +114,7 @@ internal class RecordingDriverApplicationService : IWindowsDeploymentService
 
     public virtual Task<DeploymentTargetLayout> PrepareTargetDiskAsync(DiskIdentity confirmedIdentity, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
-    public virtual Task<WindowsImageMetadata> InspectImageAsync(string imagePath, string requestedEdition, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+    public virtual Task<WindowsImageMetadata> InspectImageAsync(string imagePath, string requestedEdition, CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
     public virtual Task ApplyImageAsync(string imagePath, int imageIndex, string windowsPartitionRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? progress = null) => throw new NotSupportedException();
 

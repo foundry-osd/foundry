@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
@@ -20,166 +21,79 @@ namespace Foundry.Deploy.Tests;
 public sealed class WindowsDeploymentServiceTests
 {
     [Fact]
-    public async Task InspectImageAsync_CapturedOemOutput_PreservesExpandedSize()
+    public async Task InspectImageAsync_PreservesExactOsAndSetupMediaBytesWithoutConsoleOutput()
     {
         using var workspace = new TemporaryWorkspace();
         string imagePath = Path.Combine(workspace.RootPath, "image.esd");
         await File.WriteAllTextAsync(imagePath, "image", TestContext.Current.CancellationToken);
-        // Reproduce the supplied WinPE CP850 output, including literal FF grouping bytes.
-        byte[] outputBytes = Encoding.ASCII.GetBytes(
-            "Index : 9\r\nName : Windows 11 Professionnel\r\nSize : 26?839?601?777 bytes\r\nEdition : Professional\r\n");
-        for (int i = 0; i < outputBytes.Length; i++)
-        {
-            if (outputBytes[i] == (byte)'?')
-            {
-                outputBytes[i] = 0xFF;
-            }
-        }
-        await File.WriteAllBytesAsync(Path.Combine(workspace.RootPath, "dism-output.bin"), outputBytes, TestContext.Current.CancellationToken);
-        ProcessExecutionRequest request = ProcessExecutionRequest.FromRawArguments(
-            Path.Combine(Environment.SystemDirectory, "cmd.exe"), "/d /c type dism-output.bin", workspace.RootPath) with
-        {
-            OutputEncoding = CodePagesEncodingProvider.Instance.GetEncoding(850)
-        };
-        ProcessExecutionResult captured = await new Foundry.Utilities.Processes.ProcessRunner()
-            .RunAsync(request, TestContext.Current.CancellationToken);
-        Assert.True(captured.IsSuccess);
-        var service = new WindowsDeploymentService(new RecordingProcessRunner { Result = captured },
-            NullLogger<WindowsDeploymentService>.Instance);
+        var runner = new RecordingProcessRunner();
+        var reader = new StubWindowsImageInfoReader(
+            Image(1, "", 277641908, "Windows Setup Media"),
+            Image(9, "Professional", 26839601777, "Windows 11 Professionnel"));
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance, reader);
 
-        WindowsImageMetadata metadata = await service.InspectImageAsync(imagePath, "Pro", workspace.RootPath, TestContext.Current.CancellationToken);
+        WindowsImageMetadata metadata = await service.InspectImageAsync(imagePath, "Pro", TestContext.Current.CancellationToken);
 
         Assert.Equal(9, metadata.Index);
         Assert.Equal(26839601777L, metadata.SizeBytes);
+        Assert.Equal(277641908L, metadata.SetupMediaSizeBytes);
+        Assert.Empty(runner.Calls);
     }
 
     [Theory]
-    [InlineData(",")]
-    [InlineData(".")]
-    [InlineData(" ")]
-    [InlineData("\u00A0")]
-    [InlineData("\u202F")]
-    [InlineData("")]
-    public async Task InspectImageAsync_RegionalSizes_PreservesExactOsAndSetupMediaBytes(string separator)
+    [InlineData(0UL)]
+    [InlineData(9223372036854775808UL)]
+    public async Task InspectImageAsync_WhenExpandedSizeCannotBeUsed_RejectsMetadata(ulong size)
     {
         using var workspace = new TemporaryWorkspace();
         string imagePath = Path.Combine(workspace.RootPath, "image.esd");
         await File.WriteAllTextAsync(imagePath, "image", TestContext.Current.CancellationToken);
-        string imageSize = "26,839,601,777".Replace(",", separator, StringComparison.Ordinal);
-        string setupSize = "277,641,908".Replace(",", separator, StringComparison.Ordinal);
-        var runner = new RecordingProcessRunner
-        {
-            ResultFactory = arguments => new ProcessExecutionResult
-            {
-                ExitCode = 0,
-                StandardOutput = arguments.Contains("/Index:1", StringComparison.Ordinal)
-                    ? $"Index : 1\r\nName : Windows Setup Media\r\nSize : {setupSize} bytes\r\n"
-                    : arguments.Contains("/Index:9", StringComparison.Ordinal)
-                        ? $"""
-                            Index : 9
-                            Name : Windows 11 Professionnel
-                            Description : Windows 11 Professionnel
-                            Size : {imageSize} bytes
-                            WIM Bootable : No
-                            Architecture : x64
-                            Hal : <undefined>
-                            Version : 10.0.26200
-                            ServicePack Build : 9457
-                            ServicePack Level : 0
-                            Edition : Professional
-                            Installation : Client
-                            ProductType : WinNT
-                            ProductSuite : Terminal Server
-                            System Root : WINDOWS
-                            Directories : 35246
-                            Files : 154552
-                            Languages :
-                                    fr-FR (Default)
-                            The operation completed successfully.
-                            """
-                        : "Index : 1\r\nName : Windows Setup Media\r\nIndex : 9\r\nName : Windows 11 Professionnel\r\n"
-            }
-        };
-        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
-        WindowsImageMetadata image = await service.InspectImageAsync(imagePath, "Pro", workspace.RootPath, TestContext.Current.CancellationToken);
-        Assert.Equal(277641908L, image.SetupMediaSizeBytes);
-        Assert.Equal(26839601777L, image.SizeBytes);
-        Assert.Equal(9, image.Index);
-        Assert.Equal(3, runner.Calls.Count);
-    }
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance,
+            new StubWindowsImageInfoReader(Image(9, "Professional", size)));
 
-    [Theory]
-    [InlineData("0 bytes")]
-    [InlineData("-1 bytes")]
-    [InlineData("1.5 bytes")]
-    [InlineData("1,23 bytes")]
-    [InlineData("9223372036854775808 bytes")]
-    [InlineData("5 GB")]
-    [InlineData("26\u202F839\u202F60\u202F1777 bytes")]
-    [InlineData("26\u202F839,601\u202F777 bytes")]
-    [InlineData("26 839.601 777 bytes")]
-    [InlineData("26\t839\t601\t777 bytes")]
-    [InlineData("26\u202F839\u202F601\u202F777.0 bytes")]
-    [InlineData("9\u202F223\u202F372\u202F036\u202F854\u202F775\u202F808 bytes")]
-    [InlineData("26\uFFFD839\uFFFD601\uFFFD777 bytes")]
-    public async Task InspectImageAsync_MalformedExpandedSize_FailsClosed(string size)
-    {
-        using var workspace = new TemporaryWorkspace();
-        string imagePath = Path.Combine(workspace.RootPath, "image.esd");
-        await File.WriteAllTextAsync(imagePath, "image", TestContext.Current.CancellationToken);
-        var runner = new RecordingProcessRunner
-        {
-            Result = new ProcessExecutionResult { ExitCode = 0, StandardOutput = $"Index : 1\nEdition ID : Professional\nSize : {size}" }
-        };
-        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance);
         DeploymentOperationException exception = await Assert.ThrowsAsync<DeploymentOperationException>(() =>
-            service.InspectImageAsync(imagePath, "Pro", workspace.RootPath, TestContext.Current.CancellationToken));
+            service.InspectImageAsync(imagePath, "Pro", TestContext.Current.CancellationToken));
+
         Assert.Equal("invalid_image_metadata", exception.Failure.Code);
     }
 
     [Fact]
-    public async Task InspectImage_WithoutExpandedSize_RejectsMetadata()
+    public async Task InspectImageAsync_WhenNoImagesAreReturned_RejectsMetadata()
     {
         using var workspace = new TemporaryWorkspace();
         string imagePath = Path.Combine(workspace.RootPath, "image.esd");
         await File.WriteAllTextAsync(imagePath, "image", TestContext.Current.CancellationToken);
-        var processRunner = new RecordingProcessRunner
-        {
-            ResultFactory = arguments => new ProcessExecutionResult
-            {
-                ExitCode = 0,
-                StandardOutput = arguments.Contains("/Index:", StringComparison.Ordinal)
-                    ? "Index : 1\nEdition : Professional\n"
-                    : "Index : 1\nName : Windows 11 Pro\n"
-            }
-        };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance,
+            new StubWindowsImageInfoReader());
 
-        await Assert.ThrowsAsync<DeploymentOperationException>(() =>
-            service.InspectImageAsync(imagePath, "Pro", workspace.RootPath, TestContext.Current.CancellationToken));
+        DeploymentOperationException exception = await Assert.ThrowsAsync<DeploymentOperationException>(() =>
+            service.InspectImageAsync(imagePath, "Pro", TestContext.Current.CancellationToken));
+
+        Assert.Equal("invalid_image_metadata", exception.Failure.Code);
     }
 
     [Fact]
-    public async Task InspectImageAsync_WhenSourceDisappears_RecordsPostFailureSourceState()
+    public async Task InspectImageAsync_WhenSourceDisappears_PreservesNativeFailureAndSourceState()
     {
         using var workspace = new TemporaryWorkspace();
         string imagePath = Path.Combine(workspace.RootPath, "private-image.esd");
         await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
         var logger = new ScopeRecordingLogger();
-        var processRunner = new RecordingProcessRunner
+        var reader = new StubWindowsImageInfoReader
         {
-            ResultFactory = _ =>
+            Read = _ =>
             {
                 File.Delete(imagePath);
-                return new ProcessExecutionResult { ExitCode = 21 };
+                throw new COMException("Image inspection failed.", unchecked((int)0x80070015));
             }
         };
-        var service = new WindowsDeploymentService(processRunner, logger);
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), logger, reader);
 
-        DeploymentProcessException exception = await Assert.ThrowsAsync<DeploymentProcessException>(() =>
-            service.InspectImageAsync(imagePath, "Pro", workspace.RootPath, TestContext.Current.CancellationToken));
+        DeploymentOperationException exception = await Assert.ThrowsAsync<DeploymentOperationException>(() =>
+            service.InspectImageAsync(imagePath, "Pro", TestContext.Current.CancellationToken));
 
-        Assert.Equal("Deployment process exited with code 21.", exception.RemoteDiagnosticMessage);
+        Assert.Equal("invalid_image_metadata", exception.Failure.Code);
+        Assert.Equal(unchecked((int)0x80070015), Assert.IsType<COMException>(exception.InnerException).HResult);
         Assert.Equal(DeploymentOperationNames.InspectOperatingSystemImage, logger.Properties["CurrentOperation"]);
         Assert.Equal("esd", logger.Properties["ImageFormat"]);
         Assert.Equal(false, logger.Properties["SourceExists"]);
@@ -192,7 +106,7 @@ public sealed class WindowsDeploymentServiceTests
     {
         using var workspace = new TemporaryWorkspace();
         var processRunner = new RecordingProcessRunner();
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         WindowsOptionalFeatureServicingResult result = await service.ConfigureOfflineWindowsOptionalFeaturesAsync(
             Path.Combine(workspace.RootPath, "setup.esd"),
@@ -225,7 +139,7 @@ public sealed class WindowsDeploymentServiceTests
                 }
                 : new ProcessExecutionResult { ExitCode = 0 }
         };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         WindowsOptionalFeatureServicingResult result = await service.ConfigureOfflineWindowsOptionalFeaturesAsync(
             Path.Combine(workspace.RootPath, "setup.esd"),
@@ -271,7 +185,7 @@ public sealed class WindowsDeploymentServiceTests
         {
             Result = new ProcessExecutionResult { ExitCode = 0, StandardOutput = "NetFx4-AdvSrvs | Enabled" }
         };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         WindowsOptionalFeatureServicingResult result = await service.ConfigureOfflineWindowsOptionalFeaturesAsync(
             Path.Combine(workspace.RootPath, "setup.esd"),
@@ -309,7 +223,7 @@ public sealed class WindowsDeploymentServiceTests
                 StandardOutput = "Feature Name State"
             }
         };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
             service.ConfigureOfflineWindowsOptionalFeaturesAsync(
@@ -338,7 +252,7 @@ public sealed class WindowsDeploymentServiceTests
         {
             Result = new ProcessExecutionResult { ExitCode = 0, StandardOutput = "TelnetClient | Enabled" }
         };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
         string windowsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
 
         await Assert.ThrowsAsync<ArgumentException>(() =>
@@ -384,35 +298,6 @@ public sealed class WindowsDeploymentServiceTests
                     };
                 }
 
-                if (arguments.Contains("/Get-ImageInfo", StringComparison.OrdinalIgnoreCase) &&
-                    arguments.Contains("/Index:3", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new ProcessExecutionResult
-                    {
-                        ExitCode = 0,
-                        StandardOutput = "Index : 3\nName : Windows Setup Media\nArchitecture : <undefined>\nVersion : <undefined>"
-                    };
-                }
-
-                if (arguments.Contains("/Get-ImageInfo", StringComparison.OrdinalIgnoreCase) &&
-                    arguments.Contains("/Index:9", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new ProcessExecutionResult
-                    {
-                        ExitCode = 0,
-                        StandardOutput = "Index : 9\nName : Windows 11 Enterprise\nArchitecture : x64\nVersion : 10.0.26200"
-                    };
-                }
-
-                if (arguments.Contains("/Get-ImageInfo", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new ProcessExecutionResult
-                    {
-                        ExitCode = 0,
-                        StandardOutput = "Index : 3\nName : Windows Setup Media\n\nIndex : 9\nName : Windows 11 Enterprise"
-                    };
-                }
-
                 if (arguments.Contains("/Apply-Image", StringComparison.OrdinalIgnoreCase))
                 {
                     applyDirectoryExisted = Directory.Exists(sourceDirectory);
@@ -426,7 +311,8 @@ public sealed class WindowsDeploymentServiceTests
                 return new ProcessExecutionResult { ExitCode = 0 };
             }
         };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance,
+            new StubWindowsImageInfoReader(Image(3, "", 277641908, "Windows Setup Media", "unknown"), Image(9, "Enterprise")));
 
         WindowsOptionalFeatureServicingResult result = await service.ConfigureOfflineWindowsOptionalFeaturesAsync(
             imagePath,
@@ -444,8 +330,6 @@ public sealed class WindowsDeploymentServiceTests
 
         Assert.True(result.MatchingSourceUsed);
         Assert.True(applyDirectoryExisted);
-        Assert.Contains(processRunner.Calls, call => call.Contains("/Get-ImageInfo", StringComparison.OrdinalIgnoreCase) && call.Contains("/Index:9", StringComparison.OrdinalIgnoreCase));
-        Assert.DoesNotContain(processRunner.Calls, call => call.Contains("/Get-ImageInfo", StringComparison.OrdinalIgnoreCase) && call.Contains("/Index:3", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(processRunner.Calls, call => call.Contains("/Apply-Image", StringComparison.OrdinalIgnoreCase) && call.Contains("/Index:3", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(processRunner.Calls, call => call.Contains("/Enable-Feature", StringComparison.OrdinalIgnoreCase) && call.Contains($"/Source:{Path.Combine(sourceDirectory, "sources", "sxs")}", StringComparison.OrdinalIgnoreCase));
         Assert.False(Directory.Exists(scratchDirectory));
@@ -472,25 +356,6 @@ public sealed class WindowsDeploymentServiceTests
                     };
                 }
 
-                if (arguments.Contains("/Get-ImageInfo", StringComparison.OrdinalIgnoreCase) &&
-                    arguments.Contains("/Index:9", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new ProcessExecutionResult
-                    {
-                        ExitCode = 0,
-                        StandardOutput = "Index : 9\nName : Windows 11 Enterprise\nArchitecture : ARM64\nVersion : 10.0.26200"
-                    };
-                }
-
-                if (arguments.Contains("/Get-ImageInfo", StringComparison.OrdinalIgnoreCase))
-                {
-                    return new ProcessExecutionResult
-                    {
-                        ExitCode = 0,
-                        StandardOutput = "Index : 3\nName : Windows Setup Media\n\nIndex : 9\nName : Windows 11 Enterprise"
-                    };
-                }
-
                 if (arguments.Contains("/Apply-Image", StringComparison.OrdinalIgnoreCase))
                 {
                     string sxsDirectory = Path.Combine(sourceDirectory, "sources", "sxs");
@@ -503,7 +368,8 @@ public sealed class WindowsDeploymentServiceTests
                 return new ProcessExecutionResult { ExitCode = 0 };
             }
         };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance,
+            new StubWindowsImageInfoReader(Image(3, "", 277641908, "Windows Setup Media", "unknown"), Image(9, "Enterprise", architecture: "arm64")));
 
         InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
             service.ConfigureOfflineWindowsOptionalFeaturesAsync(
@@ -532,7 +398,7 @@ public sealed class WindowsDeploymentServiceTests
         {
             Result = new ProcessExecutionResult { ExitCode = 0, StandardOutput = "TelnetClient | Disabled with Payload Removed" }
         };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
             service.ConfigureOfflineWindowsOptionalFeaturesAsync(
@@ -558,7 +424,7 @@ public sealed class WindowsDeploymentServiceTests
     {
         using var workspace = new TemporaryWorkspace();
         var processRunner = new RecordingProcessRunner();
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         await Assert.ThrowsAsync<InvalidOperationException>(() =>
             service.ConfigureOfflineWindowsOptionalFeaturesAsync(
@@ -582,107 +448,23 @@ public sealed class WindowsDeploymentServiceTests
         Assert.Empty(processRunner.Calls);
     }
 
-    [Fact]
-    public async Task InspectImageAsync_WhenRequestedEditionIsMissing_ThrowsBeforeImageApplication()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task InspectImageAsync_WhenRequestedEditionIsMissing_ThrowsWithoutFallback(bool setupOnly)
     {
         using var workspace = new TemporaryWorkspace();
-        string imagePath = Path.Combine(workspace.RootPath, "consumer.esd");
+        string imagePath = Path.Combine(workspace.RootPath, "image.esd");
         await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
-        var processRunner = new RecordingProcessRunner
-        {
-            ResultFactory = arguments => arguments.Contains("/Index:4", StringComparison.OrdinalIgnoreCase)
-                ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 4\nEdition : Core" }
-                : arguments.Contains("/Index:9", StringComparison.OrdinalIgnoreCase)
-                    ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 9\nEdition : Professional\nSize : 16,136,958,857 bytes" }
-                    : new ProcessExecutionResult
-                    {
-                        ExitCode = 0,
-                        StandardOutput = """
-                    Index : 1
-                    Name : Windows Setup Media
-
-                    Index : 4
-                    Name : Windows 11 Home
-
-                    Index : 9
-                    Name : Windows 11 Pro
-                    """
-                    }
-        };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var reader = setupOnly
+            ? new StubWindowsImageInfoReader(Image(1, "", 277641908, "Windows Setup Media"))
+            : new StubWindowsImageInfoReader(Image(4, "Core"), Image(9, "Professional"));
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance, reader);
 
         DeploymentOperationException exception = await Assert.ThrowsAsync<DeploymentOperationException>(() =>
-            service.InspectImageAsync(
-                imagePath,
-                "Enterprise",
-                workspace.RootPath,
-                TestContext.Current.CancellationToken));
+            service.InspectImageAsync(imagePath, "Enterprise", TestContext.Current.CancellationToken));
 
         Assert.Equal("invalid_image_edition", exception.Failure.Code);
-
-
-    }
-
-    [Fact]
-    public async Task InspectImageAsync_WhenSingleImageDoesNotMatchRequestedEdition_Throws()
-    {
-        using var workspace = new TemporaryWorkspace();
-        string imagePath = Path.Combine(workspace.RootPath, "setup-media.esd");
-        await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
-        var processRunner = new RecordingProcessRunner
-        {
-            Result = new ProcessExecutionResult
-            {
-                ExitCode = 0,
-                StandardOutput = """
-                    Index : 1
-                    Name : Windows Setup Media
-                    """
-            }
-        };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
-
-        await Assert.ThrowsAsync<DeploymentOperationException>(() =>
-            service.InspectImageAsync(
-                imagePath,
-                "Enterprise",
-                workspace.RootPath,
-                TestContext.Current.CancellationToken));
-    }
-
-    [Fact]
-    public async Task InspectImageAsync_DoesNotSelectNVariantForNonNEdition()
-    {
-        using var workspace = new TemporaryWorkspace();
-        string imagePath = Path.Combine(workspace.RootPath, "consumer.esd");
-        await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
-        var processRunner = new RecordingProcessRunner
-        {
-            ResultFactory = arguments => arguments.Contains("/Index:5", StringComparison.OrdinalIgnoreCase)
-                ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 5\nEdition : ProfessionalN" }
-                : arguments.Contains("/Index:9", StringComparison.OrdinalIgnoreCase)
-                    ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 9\nEdition : Professional\nSize : 16,136,958,857 bytes" }
-                    : new ProcessExecutionResult
-                    {
-                        ExitCode = 0,
-                        StandardOutput = """
-                    Index : 5
-                    Name : Windows 11 Pro N
-
-                    Index : 9
-                    Name : Windows 11 Pro
-                    """
-                    }
-        };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
-
-        WindowsImageMetadata metadata = await service.InspectImageAsync(
-            imagePath,
-            "Pro",
-            workspace.RootPath,
-            TestContext.Current.CancellationToken);
-
-        Assert.Equal(9, metadata.Index);
     }
 
     [Theory]
@@ -696,61 +478,36 @@ public sealed class WindowsDeploymentServiceTests
     [InlineData("Pro N", "ProfessionalN", 11)]
     [InlineData("Enterprise", "Enterprise", 12)]
     [InlineData("Enterprise N", "EnterpriseN", 13)]
-    public async Task InspectImageAsync_ResolvesExactEditionIdFromDetailedImageMetadata(
-        string edition,
-        string editionId,
-        int expectedIndex)
+    public async Task InspectImageAsync_SelectsExactEditionFromNativeMetadata(string edition, string editionId, int expectedIndex)
     {
         using var workspace = new TemporaryWorkspace();
         string imagePath = Path.Combine(workspace.RootPath, "windows.esd");
         await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
-        var processRunner = new RecordingProcessRunner
-        {
-            ResultFactory = arguments => arguments.Contains($"/Index:{expectedIndex}", StringComparison.OrdinalIgnoreCase)
-                ? new ProcessExecutionResult
-                {
-                    ExitCode = 0,
-                    StandardOutput = $"""
-                        Index : {expectedIndex}
-                        Name : Nom Windows localise arbitraire
-                        Edition : {editionId}
-                        Size : 16,136,958,857 bytes
-                        """
-                }
-                : arguments.Contains("/Index:", StringComparison.OrdinalIgnoreCase)
-                    ? new ProcessExecutionResult
-                    {
-                        ExitCode = 0,
-                        StandardOutput = """
-                            Index : 1
-                            Name : Windows Setup Media
-                            """
-                    }
-                    : new ProcessExecutionResult
-                    {
-                        ExitCode = 0,
-                        StandardOutput = $"""
-                        Index : 1
-                        Name : Windows Setup Media
+        var reader = new StubWindowsImageInfoReader(
+            Image(1, "", 277641908, "Windows Setup Media"),
+            Image(2, editionId + "Other"),
+            Image(expectedIndex, editionId, 16136958857, "Localized Windows name"));
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance, reader);
 
-                        Index : {expectedIndex}
-                        Name : Nom Windows localise arbitraire
-                        """
-                    }
-        };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
-
-        WindowsImageMetadata metadata = await service.InspectImageAsync(
-            imagePath,
-            edition,
-            workspace.RootPath,
-            TestContext.Current.CancellationToken);
+        WindowsImageMetadata metadata = await service.InspectImageAsync(imagePath, edition, TestContext.Current.CancellationToken);
 
         Assert.Equal(expectedIndex, metadata.Index);
         Assert.Equal(16136958857L, metadata.SizeBytes);
         Assert.Equal(editionId, metadata.EditionId);
-        Assert.Equal(3, processRunner.Calls.Count);
-        Assert.Contains(processRunner.Calls, call => call.Contains($"/Index:{expectedIndex}", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Fact]
+    public async Task InspectImageAsync_DoesNotSelectNVariantForNonNEdition()
+    {
+        using var workspace = new TemporaryWorkspace();
+        string imagePath = Path.Combine(workspace.RootPath, "windows.esd");
+        await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance,
+            new StubWindowsImageInfoReader(Image(5, "ProfessionalN"), Image(9, "Professional")));
+
+        WindowsImageMetadata metadata = await service.InspectImageAsync(imagePath, "Pro", TestContext.Current.CancellationToken);
+
+        Assert.Equal(9, metadata.Index);
     }
 
     [Fact]
@@ -759,20 +516,11 @@ public sealed class WindowsDeploymentServiceTests
         using var workspace = new TemporaryWorkspace();
         string imagePath = Path.Combine(workspace.RootPath, "windows.esd");
         await File.WriteAllTextAsync(imagePath, string.Empty, TestContext.Current.CancellationToken);
-        var processRunner = new RecordingProcessRunner
-        {
-            ResultFactory = arguments => arguments.Contains("/Index:", StringComparison.OrdinalIgnoreCase)
-                ? new ProcessExecutionResult { ExitCode = 0, StandardOutput = $"Index : {ParseRequestedIndex(arguments)}\nEdition : Professional\nSize : 16,136,958,857 bytes" }
-                : new ProcessExecutionResult { ExitCode = 0, StandardOutput = "Index : 8\nName : Pro first\n\nIndex : 9\nName : Pro second" }
-        };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance,
+            new StubWindowsImageInfoReader(Image(8, "Professional"), Image(9, "Professional")));
 
         DeploymentOperationException exception = await Assert.ThrowsAsync<DeploymentOperationException>(() =>
-            service.InspectImageAsync(
-                imagePath,
-                "Pro",
-                workspace.RootPath,
-                TestContext.Current.CancellationToken));
+            service.InspectImageAsync(imagePath, "Pro", TestContext.Current.CancellationToken));
 
         Assert.Equal("invalid_image_edition", exception.Failure.Code);
     }
@@ -793,7 +541,7 @@ public sealed class WindowsDeploymentServiceTests
         Directory.CreateDirectory(Path.GetDirectoryName(bcdBootPath)!);
         await File.WriteAllTextAsync(bcdBootPath, string.Empty, TestContext.Current.CancellationToken);
         var processRunner = new RecordingProcessRunner();
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         await service.ConfigureBootAsync(
             windowsRoot,
@@ -816,7 +564,7 @@ public sealed class WindowsDeploymentServiceTests
         string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
         string expectedBcdBootPath = Path.Combine(windowsRoot, "Windows", "System32", "bcdboot.exe");
         var processRunner = new RecordingProcessRunner();
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         FileNotFoundException exception = await Assert.ThrowsAsync<FileNotFoundException>(() =>
             service.ConfigureBootAsync(
@@ -847,7 +595,7 @@ public sealed class WindowsDeploymentServiceTests
                 StandardError = "diagnostic"
             }
         };
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         DeploymentProcessException exception = await Assert.ThrowsAsync<DeploymentProcessException>(() =>
             service.ConfigureBootAsync(
@@ -872,7 +620,7 @@ public sealed class WindowsDeploymentServiceTests
         string windowsRoot = Path.Combine(workspace.RootPath, "WindowsRoot");
         Directory.CreateDirectory(windowsRoot);
 
-        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         await service.ConfigureOfflineComputerNameAsync(
             windowsRoot,
@@ -906,7 +654,7 @@ public sealed class WindowsDeploymentServiceTests
             </unattend>
             """, TestContext.Current.CancellationToken);
 
-        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         await service.ConfigureOfflineComputerNameAsync(
             windowsRoot,
@@ -928,7 +676,7 @@ public sealed class WindowsDeploymentServiceTests
         string windowsRoot = CreateWindowsRoot(workspace);
         string workingDirectory = Path.Combine(workspace.RootPath, "Work");
         var processRunner = new RecordingProcessRunner();
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         await service.ConfigureOfflineOobeAsync(
             windowsRoot,
@@ -972,7 +720,7 @@ public sealed class WindowsDeploymentServiceTests
         string windowsRoot = CreateWindowsRoot(workspace);
         string workingDirectory = Path.Combine(workspace.RootPath, "Work");
         var processRunner = new RecordingProcessRunner();
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         await service.ConfigureOfflineOobeAsync(
             windowsRoot,
@@ -993,7 +741,7 @@ public sealed class WindowsDeploymentServiceTests
     {
         using var workspace = new TemporaryWorkspace();
         string windowsRoot = CreateWindowsRoot(workspace);
-        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         await service.ConfigureOfflineOobeAsync(
             windowsRoot,
@@ -1037,6 +785,7 @@ public sealed class WindowsDeploymentServiceTests
         var service = new WindowsDeploymentService(
             new NoOpProcessRunner(),
             NullLogger<WindowsDeploymentService>.Instance,
+            new StubWindowsImageInfoReader(),
             keyProvider);
 
         await service.ConfigureOfflineOobeAsync(
@@ -1075,6 +824,7 @@ public sealed class WindowsDeploymentServiceTests
         var service = new WindowsDeploymentService(
             new NoOpProcessRunner(),
             NullLogger<WindowsDeploymentService>.Instance,
+            new StubWindowsImageInfoReader(),
             new StaticDeploymentSecretKeyProvider(key));
 
         await service.ConfigureOfflineOobeAsync(
@@ -1149,7 +899,7 @@ public sealed class WindowsDeploymentServiceTests
                                 new XElement(ns + "LocalAccount",
                                     new XElement(ns + "Name", "ExistingUser"))))))))
             .Save(unattendPath);
-        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         await service.ConfigureOfflineOobeAsync(
             windowsRoot,
@@ -1192,7 +942,7 @@ public sealed class WindowsDeploymentServiceTests
         using var workspace = new TemporaryWorkspace();
         byte[] key = RandomNumberGenerator.GetBytes(DeployMediaSecretEnvelopeProtector.KeySizeBytes);
         const string plaintext = "Missing-Key-Password-DoNotLeak";
-        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         InvalidOperationException exception = await Assert.ThrowsAsync<InvalidOperationException>(
             () => service.ConfigureOfflineOobeAsync(
@@ -1218,7 +968,7 @@ public sealed class WindowsDeploymentServiceTests
         string windowsRoot = CreateWindowsRoot(workspace);
         string workingDirectory = Path.Combine(workspace.RootPath, "Work");
         var processRunner = new RecordingProcessRunner();
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         await service.ConfigureOfflineAiComponentRemovalAsync(
             windowsRoot,
@@ -1260,7 +1010,7 @@ public sealed class WindowsDeploymentServiceTests
         string windowsRoot = CreateWindowsRoot(workspace);
         string workingDirectory = Path.Combine(workspace.RootPath, "Work");
         var processRunner = new RecordingProcessRunner();
-        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance);
+        var service = new WindowsDeploymentService(processRunner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
         await service.ConfigureOfflineAiComponentRemovalAsync(
             windowsRoot,
@@ -1282,11 +1032,8 @@ public sealed class WindowsDeploymentServiceTests
         return windowsRoot;
     }
 
-    private static int ParseRequestedIndex(string arguments)
-    {
-        string value = arguments[(arguments.LastIndexOf("/Index:", StringComparison.OrdinalIgnoreCase) + 7)..];
-        return int.Parse(value);
-    }
+    private static WindowsImageInfo Image(int index, string edition, ulong size = 16136958857, string name = "Windows", string architecture = "x64")
+        => new(index, name, edition, size, architecture, new Version(10, 0, 26200));
 
     private static Foundry.Deploy.Models.Configuration.SecretEnvelope EncryptSecret(string plaintext, byte[] key)
     {

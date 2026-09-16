@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Runtime.InteropServices;
 using System.Text;
 using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging;
@@ -31,44 +30,6 @@ public sealed class ProcessRunnerAdapterTests
         Assert.True(result.IsSuccess);
         Assert.Equal(arguments, result.Arguments);
         Assert.Equal("Éducation 日本語", result.StandardOutput.Trim());
-    }
-
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task RunAsync_Dism_DecodesOemBytesInBothStreams(bool useArgumentList)
-    {
-        using var workspace = new TemporaryDirectory();
-        // This executable only replays fixture bytes; no DISM or image operation runs.
-        string executablePath = Path.Combine(workspace.Path, "DiSm.ExE");
-        File.Copy(GetCommandProcessor(), executablePath);
-        string outputPath = Path.Combine(workspace.Path, "output.txt");
-        Encoding encoding = CodePagesEncodingProvider.Instance.GetEncoding((int)GetOEMCP())
-            ?? Encoding.GetEncoding((int)GetOEMCP());
-        const string fixture = "Size : 26\u00A0839\u00A0601\u00A0777 bytes; Éducation 日本語";
-        byte[] outputBytes = encoding.GetBytes(fixture + "\r\n");
-        // Some OEM pages cannot represent NBSP; expect the text actually emitted by the fixture.
-        string expected = encoding.GetString(outputBytes).Trim();
-        await File.WriteAllBytesAsync(outputPath, outputBytes, TestContext.Current.CancellationToken);
-        await File.WriteAllTextAsync(Path.Combine(workspace.Path, "emit.cmd"),
-            "@echo off\r\ntype output.txt\r\ntype output.txt 1>&2\r\n", TestContext.Current.CancellationToken);
-        var outputLines = new List<string>();
-        var errorLines = new List<string>();
-
-        ProcessExecutionResult result = useArgumentList
-            ? await CreateRunner().RunAsync(executablePath, ["/d", "/c", "call", "emit.cmd"], workspace.Path,
-                outputLines.Add, errorLines.Add, TestContext.Current.CancellationToken)
-            : await CreateRunner().RunAsync(executablePath, "/d /c call emit.cmd", workspace.Path,
-                TestContext.Current.CancellationToken);
-
-        Assert.True(result.IsSuccess);
-        Assert.Equal(expected, result.StandardOutput.Trim());
-        Assert.Equal(expected, result.StandardError.Trim());
-        if (useArgumentList)
-        {
-            Assert.Equal([expected], outputLines);
-            Assert.Equal([expected], errorLines);
-        }
     }
 
     [Fact]
@@ -165,9 +126,6 @@ public sealed class ProcessRunnerAdapterTests
             new UtilityProcessRunner(),
             NullLogger<DeployProcessRunner>.Instance);
     }
-
-    [DllImport("kernel32.dll", ExactSpelling = true)]
-    private static extern uint GetOEMCP();
 
     private static string GetCommandProcessor()
     {

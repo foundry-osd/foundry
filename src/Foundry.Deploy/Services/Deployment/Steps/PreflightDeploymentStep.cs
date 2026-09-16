@@ -66,9 +66,7 @@ public sealed class PreflightDeploymentStep(
                 sourceSize = sourceLease.Length;
                 if (sourceSize <= 0) throw Guard("Preflight.InvalidImageMetadata", "invalid_image_metadata");
                 context.EmitCurrentStepIndeterminate("Checking deployment readiness...", "Inspecting image...", DeploymentOperationNames.InspectOperatingSystemImage);
-                string workingDirectory = context.ResolveWorkspaceTempPath("Deployment");
-                Directory.CreateDirectory(workingDirectory);
-                image = await windowsDeploymentService.InspectImageAsync(imagePath, context.Request.OperatingSystem.Edition, workingDirectory, cancellationToken).ConfigureAwait(false);
+                image = await windowsDeploymentService.InspectImageAsync(imagePath, context.Request.OperatingSystem.Edition, cancellationToken).ConfigureAwait(false);
                 // Use current headroom after the actual transfer, rather than trusting catalog archive sizes.
                 targetDriverBytes = ResolveTargetDriverBytes(context, storageService.GetAvailableBytes(imageDirectory));
                 DeploymentCapacityPolicy.EnsureTargetCapacity(context, image, 0, targetDriverBytes);

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
@@ -112,6 +113,7 @@ public sealed class DeploymentPreflightTests
     [InlineData("missing_edition")]
     [InlineData("ambiguous_edition")]
     [InlineData("invalid_size")]
+    [InlineData("native_image_error")]
     [InlineData("small_target")]
     [InlineData("invalid_hash")]
     [InlineData("empty_hash_separators")]
@@ -140,7 +142,7 @@ public sealed class DeploymentPreflightTests
     {
         using var fixture = new PipelineFixture();
         Assert.Equal(DeploymentStepState.Succeeded, (await fixture.RunAsync()).State);
-        Assert.Equal(["download", "inspect", "inspect", "partition", "apply:1"], fixture.Events);
+        Assert.Equal(["download", "inspect", "partition", "apply:1"], fixture.Events);
         Assert.Contains(fixture.Progress, item => item.StepSubProgressPercent == 100 && !item.StepSubProgressIndeterminate);
     }
 
@@ -152,7 +154,7 @@ public sealed class DeploymentPreflightTests
         using var fixture = new PipelineFixture { Mode = mode };
         fixture.Storage.AvailableBytes = 0;
         Assert.Equal(DeploymentStepState.Succeeded, (await fixture.RunAsync()).State);
-        Assert.Equal(["probe", "probe", "partition", "download", "inspect", "inspect", "apply:1"], fixture.Events);
+        Assert.Equal(["probe", "probe", "partition", "download", "inspect", "apply:1"], fixture.Events);
         Assert.StartsWith(fixture.WindowsRoot, fixture.Context!.RuntimeState.DownloadedOperatingSystemPath, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -178,7 +180,7 @@ public sealed class DeploymentPreflightTests
         Assert.Equal(DeploymentStepState.Succeeded, (await fixture.RunAsync()).State);
         Assert.DoesNotContain("download", fixture.Events);
         Assert.DoesNotContain("probe", fixture.Events);
-        Assert.Equal(2, fixture.Events.Count(item => item == "inspect"));
+        Assert.Single(fixture.Events, item => item == "inspect");
         Assert.Contains(fixture.Progress, item => item.StepSubProgressLabel?.Contains("Checking cache", StringComparison.Ordinal) == true);
     }
 
@@ -419,10 +421,10 @@ public sealed class DeploymentPreflightTests
             public PipelineWindows(PipelineFixture fixture)
             {
                 _fixture = fixture;
-                _real = new WindowsDeploymentService(new PipelineProcess(fixture), NullLogger<WindowsDeploymentService>.Instance);
+                _real = new WindowsDeploymentService(new RejectingProcessRunner(), NullLogger<WindowsDeploymentService>.Instance, new PipelineImageInfoReader(fixture));
             }
-            public override Task<WindowsImageMetadata> InspectImageAsync(string imagePath, string requestedEdition, string workingDirectory, CancellationToken cancellationToken = default)
-                => _real.InspectImageAsync(imagePath, requestedEdition, workingDirectory, cancellationToken);
+            public override Task<WindowsImageMetadata> InspectImageAsync(string imagePath, string requestedEdition, CancellationToken cancellationToken = default)
+                => _real.InspectImageAsync(imagePath, requestedEdition, cancellationToken);
             public override Task<DeploymentTargetLayout> PrepareTargetDiskAsync(DiskIdentity confirmedIdentity, string workingDirectory, CancellationToken cancellationToken = default)
             {
                 _fixture.Events.Add("partition");
@@ -434,24 +436,35 @@ public sealed class DeploymentPreflightTests
             public override Task<string?> GetAppliedWindowsEditionAsync(string windowsPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default) => Task.FromResult<string?>("Professional");
         }
 
-        private sealed class PipelineProcess(PipelineFixture fixture) : IProcessRunner
+        private sealed class RejectingProcessRunner : IProcessRunner
         {
             public Task<ProcessExecutionResult> RunAsync(string fileName, string arguments, string workingDirectory, CancellationToken cancellationToken = default)
-            {
-                Assert.Equal("dism.exe", fileName);
-                Assert.Contains("/Get-ImageInfo", arguments, StringComparison.Ordinal);
-                fixture.Events.Add("inspect");
-                string output = fixture.OptionalFeatureId is not null && arguments.Contains("/Index:2", StringComparison.Ordinal)
-                    ? "Index : 2\nName : Windows Setup Media\nSize : 100 bytes\n"
-                    : arguments.Contains("/Index:", StringComparison.Ordinal)
-                    ? $"Index : 1\nName : Windows 11 Pro\nEdition : {(fixture.Failure == "missing_edition" ? "Core" : "Professional")}\nSize : {(fixture.Failure == "invalid_size" ? "unknown" : "10 bytes")}\n"
-                    : "Index : 1\nName : Windows 11 Pro\n" + (fixture.Failure == "ambiguous_edition" ? "Index : 2\nName : Duplicate\n"
-                        : fixture.OptionalFeatureId is not null ? "Index : 2\nName : Windows Setup Media\n" : "");
-                return Task.FromResult(new ProcessExecutionResult { ExitCode = 0, StandardOutput = output });
-            }
-            public Task<ProcessExecutionResult> RunAsync(string fileName, IEnumerable<string> arguments, string workingDirectory, CancellationToken cancellationToken = default) => RunAsync(fileName, string.Join(' ', arguments), workingDirectory, cancellationToken);
-            public Task<ProcessExecutionResult> RunAsync(string fileName, IEnumerable<string> arguments, string workingDirectory, Action<string>? onOutputData, Action<string>? onErrorData, CancellationToken cancellationToken = default) => RunAsync(fileName, arguments, workingDirectory, cancellationToken);
+                => throw new InvalidOperationException("Image inspection must not start a process.");
+            public Task<ProcessExecutionResult> RunAsync(string fileName, IEnumerable<string> arguments, string workingDirectory, CancellationToken cancellationToken = default)
+                => throw new InvalidOperationException("Image inspection must not start a process.");
+            public Task<ProcessExecutionResult> RunAsync(string fileName, IEnumerable<string> arguments, string workingDirectory, Action<string>? onOutputData, Action<string>? onErrorData, CancellationToken cancellationToken = default)
+                => throw new InvalidOperationException("Image inspection must not start a process.");
         }
+
+        private sealed class PipelineImageInfoReader(PipelineFixture fixture) : IWindowsImageInfoReader
+        {
+            public Task<IReadOnlyList<WindowsImageInfo>> ReadAsync(string imagePath, CancellationToken cancellationToken = default)
+            {
+                Assert.True(File.Exists(imagePath));
+                fixture.Events.Add("inspect");
+                if (fixture.Failure == "native_image_error")
+                    throw new COMException("Native image inspection failed.", unchecked((int)0x8007000D));
+                var image = new WindowsImageInfo(1, "Windows 11 Pro", fixture.Failure == "missing_edition" ? "Core" : "Professional",
+                    fixture.Failure == "invalid_size" ? 0UL : 10UL, "x64", new Version(10, 0, 26200));
+                var images = new List<WindowsImageInfo> { image };
+                if (fixture.Failure == "ambiguous_edition")
+                    images.Add(image with { Index = 2 });
+                else if (fixture.OptionalFeatureId is not null)
+                    images.Add(image with { Index = 2, Name = "Windows Setup Media", EditionId = "", SizeBytes = 100 });
+                return Task.FromResult<IReadOnlyList<WindowsImageInfo>>(images);
+            }
+        }
+
     }
 
     private sealed class FakeStorage : IDeploymentStorageService

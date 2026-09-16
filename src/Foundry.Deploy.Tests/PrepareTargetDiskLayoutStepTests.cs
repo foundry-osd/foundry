@@ -189,7 +189,6 @@ public sealed class PrepareTargetDiskLayoutStepTests
         public Task<WindowsImageMetadata> InspectImageAsync(
             string imagePath,
             string requestedEdition,
-            string workingDirectory,
             CancellationToken cancellationToken = default)
         {
             throw new NotSupportedException();

@@ -115,6 +115,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IArtifactDownloadService, ArtifactDownloadService>();
         services.AddSingleton<IDriverPackStrategyResolver, DriverPackStrategyResolver>();
         services.AddSingleton<IDriverPackExtractionService, DriverPackExtractionService>();
+        services.AddSingleton<IWindowsImageInfoReader, NativeDismImageInfoReader>();
         services.AddSingleton<IWindowsDeploymentService, WindowsDeploymentService>();
         services.AddSingleton<ISetupCompleteScriptService, SetupCompleteScriptService>();
         services.AddSingleton<IPreOobeScriptProvisioningService, PreOobeScriptProvisioningService>();

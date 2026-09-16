@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
-using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -36,6 +35,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private const string AdministratorActivationCommand =
         "powershell.exe -NoProfile -NonInteractive -Command \"Get-LocalUser|Where-Object SID -like '*-500'|Enable-LocalUser -ErrorAction Stop\"";
     private readonly IProcessRunner _processRunner;
+    private readonly IWindowsImageInfoReader _imageInfoReader;
     private readonly ILogger<WindowsDeploymentService> _logger;
     private readonly UnattendDocumentService _unattendDocumentService;
     private readonly OobePolicyRegistryWriter _oobePolicyRegistryWriter;
@@ -47,13 +47,16 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     /// </summary>
     /// <param name="processRunner">The process runner used for diskpart, DISM, bcdboot, and winrecfg.</param>
     /// <param name="logger">The logger used for deployment diagnostics.</param>
+    /// <param name="imageInfoReader">Reads structured image metadata independently of console formatting.</param>
     /// <param name="deploymentSecretKeyProvider">The provider used to decrypt account passwords at the unattend-writing boundary.</param>
     public WindowsDeploymentService(
         IProcessRunner processRunner,
         ILogger<WindowsDeploymentService> logger,
+        IWindowsImageInfoReader imageInfoReader,
         IDeploymentSecretKeyProvider? deploymentSecretKeyProvider = null)
     {
         _processRunner = processRunner;
+        _imageInfoReader = imageInfoReader;
         _logger = logger;
         _unattendDocumentService = new UnattendDocumentService();
         _oobePolicyRegistryWriter = new OobePolicyRegistryWriter(processRunner);
@@ -202,7 +205,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     public async Task<WindowsImageMetadata> InspectImageAsync(
         string imagePath,
         string requestedEdition,
-        string workingDirectory,
         CancellationToken cancellationToken = default)
     {
         using IDisposable? operationScope = _logger.BeginScope(new Dictionary<string, object?>
@@ -222,25 +224,8 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         }
 
         _logger.LogInformation("Resolving OS image index. ImagePath={ImagePath}, RequestedEdition={RequestedEdition}", imagePath, requestedEdition);
-        ProcessExecutionResult execution = await _processRunner
-            .RunAsync(
-                "dism.exe",
-                $"/English /Get-ImageInfo /ImageFile:\"{imagePath}\"",
-                workingDirectory,
-                cancellationToken)
-            .ConfigureAwait(false);
-
-        if (!execution.IsSuccess)
-        {
-            using IDisposable? sourceScope = _logger.BeginScope(GetImageSourceDiagnostics(imagePath));
-            _logger.LogError("Failed to resolve OS image index for {ImagePath}. Diagnostic={Diagnostic}", imagePath, execution.ToDiagnosticText());
-            throw new DeploymentProcessException(
-                $"Unable to resolve image index for '{imagePath}'.{Environment.NewLine}{execution.ToDiagnosticText()}",
-                execution.ExitCode);
-        }
-
-        IReadOnlyList<int> imageIndexes = ParseImageIndexes(execution.StandardOutput);
-        if (imageIndexes.Count == 0)
+        IReadOnlyList<WindowsImageInfo> imageMetadata = await ReadImageInfoAsync(imagePath, cancellationToken).ConfigureAwait(false);
+        if (imageMetadata.Count == 0)
         {
             throw ImageValidationFailure("Preflight.InvalidImageMetadata", "invalid_image_metadata");
         }
@@ -251,39 +236,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             throw ImageValidationFailure("Preflight.InvalidEdition", "invalid_image_edition");
         }
 
-        var imageMetadata = new List<ImageIndexMetadata>(imageIndexes.Count);
-        foreach (int imageIndex in imageIndexes)
-        {
-            using IDisposable? imageScope = _logger.BeginScope(new Dictionary<string, object?> { ["ImageIndex"] = imageIndex });
-            ProcessExecutionResult detailedExecution = await _processRunner
-                .RunAsync(
-                    "dism.exe",
-                    $"/English /Get-ImageInfo /ImageFile:\"{imagePath}\" /Index:{imageIndex}",
-                    workingDirectory,
-                    cancellationToken)
-                .ConfigureAwait(false);
-
-            if (!detailedExecution.IsSuccess)
-            {
-                using IDisposable? sourceScope = _logger.BeginScope(GetImageSourceDiagnostics(imagePath));
-                _logger.LogError(
-                    "Failed to inspect OS image index {ImageIndex} for {ImagePath}. Diagnostic={Diagnostic}",
-                    imageIndex,
-                    imagePath,
-                    detailedExecution.ToDiagnosticText());
-                throw new DeploymentProcessException(
-                    $"Unable to inspect image index {imageIndex} in '{imagePath}'.{Environment.NewLine}{detailedExecution.ToDiagnosticText()}",
-                    detailedExecution.ExitCode);
-            }
-
-            imageMetadata.Add(new ImageIndexMetadata(
-                imageIndex,
-                ParseEditionId(detailedExecution.StandardOutput),
-                ParseImageSize(detailedExecution.StandardOutput),
-                ParseImageProperty(detailedExecution.StandardOutput, "Name")));
-        }
-
-        ImageIndexMetadata[] matches = imageMetadata
+        WindowsImageInfo[] matches = imageMetadata
             .Where(item => item.EditionId.Equals(requestedDefinition.EditionId, StringComparison.OrdinalIgnoreCase))
             .ToArray();
 
@@ -298,18 +251,36 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             throw ImageValidationFailure("Preflight.InvalidEdition", "invalid_image_edition");
         }
 
-        ImageIndexMetadata selected = matches[0];
-        if (selected.SizeBytes is not > 0)
+        WindowsImageInfo selected = matches[0];
+        if (selected.Index < 1 || selected.SizeBytes is 0 or > long.MaxValue)
         {
             throw ImageValidationFailure("Preflight.InvalidImageMetadata", "invalid_image_metadata");
         }
 
-        ImageIndexMetadata[] setupImages = imageMetadata.Where(item =>
+        WindowsImageInfo[] setupImages = imageMetadata.Where(item =>
             item.Name.Equals("Windows Setup Media", StringComparison.OrdinalIgnoreCase)).ToArray();
         int resolvedIndex = selected.Index;
-        _logger.LogInformation("Resolved OS image index {ImageIndex} for ImagePath={ImagePath}", resolvedIndex, imagePath);
-        return new WindowsImageMetadata(resolvedIndex, selected.EditionId, selected.SizeBytes.Value,
-            setupImages.Length == 1 ? setupImages[0].SizeBytes : null);
+        _logger.LogInformation("Resolved OS image metadata using the native DISM API. ImageIndex={ImageIndex}, EditionId={EditionId}, ExpandedSizeBytes={ExpandedSizeBytes}, ImagePath={ImagePath}",
+            resolvedIndex, selected.EditionId, selected.SizeBytes, imagePath);
+        return new WindowsImageMetadata(resolvedIndex, selected.EditionId, (long)selected.SizeBytes,
+            setupImages.Length == 1 && setupImages[0].SizeBytes is > 0 and <= long.MaxValue ? (long)setupImages[0].SizeBytes : null);
+    }
+
+    private async Task<IReadOnlyList<WindowsImageInfo>> ReadImageInfoAsync(string imagePath, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return await _imageInfoReader.ReadAsync(imagePath, cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception exception) when (exception is not OperationCanceledException)
+        {
+            using IDisposable? sourceScope = _logger.BeginScope(GetImageSourceDiagnostics(imagePath));
+            _logger.LogError(exception, "Native DISM image inspection failed. ImagePath={ImagePath}, HResult={HResult}", imagePath, $"0x{exception.HResult:X8}");
+            throw new DeploymentOperationException(
+                DeploymentFailure.Guard(DeploymentOperationNames.InspectOperatingSystemImage,
+                    DeploymentFailureReasons.InvalidPayload, "invalid_image_metadata"),
+                LocalizationText.GetString("Preflight.InvalidImageMetadata"), exception);
+        }
     }
 
     private static DeploymentOperationException ImageValidationFailure(string key, string code) => new(
@@ -952,7 +923,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
                 OptionalFeatureSourceMetadata metadata = await ResolveOptionalFeatureSourceMetadataAsync(
                         setupMediaImagePath,
                         appliedImageIndex,
-                        workingDirectory,
                         cancellationToken)
                     .ConfigureAwait(false);
                 await RunRequiredProcessAsync(
@@ -1580,43 +1550,28 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     private async Task<OptionalFeatureSourceMetadata> ResolveOptionalFeatureSourceMetadataAsync(
         string imagePath,
         int appliedImageIndex,
-        string workingDirectory,
         CancellationToken cancellationToken)
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(appliedImageIndex, 1);
 
-        ProcessExecutionResult summary = await RunRequiredProcessAsync(
-            "dism.exe",
-            ["/English", "/Get-ImageInfo", $"/ImageFile:{imagePath}"],
-            workingDirectory,
-            $"Failed to inspect setup-media image '{imagePath}'",
-            cancellationToken).ConfigureAwait(false);
-        (int Index, string Name)[] matches = Regex.Matches(
-                summary.StandardOutput ?? string.Empty,
-                @"^\s*Index\s*:\s*(?<index>\d+)\s*$\s*^\s*Name\s*:\s*(?<name>.+?)\s*$",
-                RegexOptions.IgnoreCase | RegexOptions.Multiline)
-            .Select(match => (
-                int.Parse(match.Groups["index"].Value),
-                match.Groups["name"].Value.Trim()))
-            .Where(item => string.Equals(item.Item2, "Windows Setup Media", StringComparison.OrdinalIgnoreCase))
-            .ToArray();
-        if (matches.Length != 1)
+        IReadOnlyList<WindowsImageInfo> images = await ReadImageInfoAsync(imagePath, cancellationToken).ConfigureAwait(false);
+        WindowsImageInfo[] setupImages = images.Where(image =>
+            image.Name.Equals("Windows Setup Media", StringComparison.OrdinalIgnoreCase)).ToArray();
+        if (setupImages.Length != 1)
         {
             throw new InvalidOperationException(
                 $"Setup-media image '{imagePath}' must contain exactly one image named 'Windows Setup Media'.");
         }
 
-        ProcessExecutionResult detail = await RunRequiredProcessAsync(
-            "dism.exe",
-            ["/English", "/Get-ImageInfo", $"/ImageFile:{imagePath}", $"/Index:{appliedImageIndex}"],
-            workingDirectory,
-            $"Failed to inspect applied Windows image index {appliedImageIndex}",
-            cancellationToken).ConfigureAwait(false);
+        WindowsImageInfo[] appliedImages = images.Where(image => image.Index == appliedImageIndex).ToArray();
+        if (appliedImages.Length != 1)
+        {
+            throw new InvalidOperationException($"Applied Windows image index {appliedImageIndex} is unavailable or ambiguous in '{imagePath}'.");
+        }
+
+        WindowsImageInfo appliedImage = appliedImages[0];
         return new OptionalFeatureSourceMetadata(
-            matches[0].Index,
-            appliedImageIndex,
-            ParseImageProperty(detail.StandardOutput, "Architecture"),
-            ParseImageProperty(detail.StandardOutput, "Version"));
+            setupImages[0].Index, appliedImageIndex, appliedImage.Architecture, appliedImage.Version.ToString());
     }
 
     private static string ValidateMatchingNetFx3Source(
@@ -1775,61 +1730,6 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
     {
         parent.Element(elementNamespace + elementName)?.Remove();
     }
-
-    private static IReadOnlyList<int> ParseImageIndexes(string output)
-    {
-        if (string.IsNullOrWhiteSpace(output))
-        {
-            return [];
-        }
-
-        return Regex.Matches(output, @"^\s*Index\s*:\s*(\d+)\s*$", RegexOptions.IgnoreCase | RegexOptions.Multiline)
-            .Select(match => int.Parse(match.Groups[1].Value))
-            .Distinct()
-            .ToArray();
-    }
-
-    private static string ParseEditionId(string output)
-    {
-        string editionId = ParseImageProperty(output, "Edition ID");
-        return !string.IsNullOrWhiteSpace(editionId)
-            ? editionId
-            : ParseImageProperty(output, "Edition");
-    }
-
-    private static string ParseImageProperty(string output, string propertyName)
-    {
-        Match match = Regex.Match(
-            output,
-            $@"^\s*{Regex.Escape(propertyName)}\s*:\s*(.+)\s*$",
-            RegexOptions.IgnoreCase | RegexOptions.Multiline);
-        return match.Success ? match.Groups[1].Value.Trim() : string.Empty;
-    }
-
-    private static long? ParseImageSize(string output)
-    {
-        string value = ParseImageProperty(output, "Size");
-        // /English leaves regional numeric grouping intact; validate it before removing the separator.
-        Match match = Regex.Match(value,
-            @"^(?<size>[0-9]+|[0-9]{1,3}(?<separator>[,.\u0020\u00A0\u202F])[0-9]{3}(?:\k<separator>[0-9]{3})*) bytes$",
-            RegexOptions.IgnoreCase);
-        if (!match.Success)
-        {
-            return null;
-        }
-
-        string sizeText = match.Groups["size"].Value;
-        string separator = match.Groups["separator"].Value;
-        if (separator.Length > 0)
-        {
-            sizeText = sizeText.Replace(separator, string.Empty, StringComparison.Ordinal);
-        }
-
-        return long.TryParse(sizeText, NumberStyles.None,
-            CultureInfo.InvariantCulture, out long size) && size > 0 ? size : null;
-    }
-
-    private sealed record ImageIndexMetadata(int Index, string EditionId, long? SizeBytes, string Name);
 
     private sealed record WindowsOptionalFeatureWorkItem(
         DeployWindowsOptionalFeatureAction Action,

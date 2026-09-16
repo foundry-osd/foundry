@@ -63,7 +63,7 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
                 throw PreflightDeploymentStep.Guard("Preflight.NotReady", "preflight_not_ready");
             }
             metadata = preflight?.Image ?? await _windowsDeploymentService
-                .InspectImageAsync(imagePath, context.Request.OperatingSystem.Edition, workingDirectory, cancellationToken)
+                .InspectImageAsync(imagePath, context.Request.OperatingSystem.Edition, cancellationToken)
                 .ConfigureAwait(false);
             long actualArchiveBytes = preflight?.UsesTargetStorage == false ? 0 : new FileInfo(imagePath).Length;
             long targetDriverBytes = preflight?.TargetDriverBytes ?? 0;
