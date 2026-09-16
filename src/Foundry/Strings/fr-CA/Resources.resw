@@ -2946,7 +2946,7 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>L’identité du disque USB est absente, ambiguë ou a changé. Actualisez la liste des disques USB et sélectionnez-le de nouveau.</value>
   </data>
   <data name="StartMedia.Operation.DiskNoLongerSafe" xml:space="preserve">
-    <value>Le disque USB sélectionné ne peut plus être modifié en toute sécurité. Actualisez la liste des disques USB et sélectionnez-en un autre.</value>
+    <value>Le disque USB sélectionné ne peut plus être modifié en toute sécurité. Actualisez la liste des disques USB et sélectionnez un autre disque USB.</value>
   </data>
   <data name="StartMedia.Operation.DismApplyingInternationalSettings" xml:space="preserve">
     <value>Application des paramètres internationaux avec DISM.</value>
