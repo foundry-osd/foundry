@@ -4,6 +4,7 @@
 
 using System.Runtime.InteropServices;
 using Foundry.Utilities.IO;
+using Foundry.Utilities.Networking;
 using Foundry.Utilities.Progress;
 
 namespace Foundry.Core.Services.WinPe;
@@ -81,16 +82,19 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
             string extractPath = Path.Combine(extractRootPath, normalizedFolderName);
             DirectoryOperations.Recreate(extractPath);
 
+            cancellationToken.ThrowIfCancellationRequested();
+            // Extraction must release its output files before cancellation permits workspace cleanup.
             WinPeResult extractionResult = await ExtractPackageAsync(
                 downloadPath,
                 extractPath,
-                cancellationToken).ConfigureAwait(false);
+                CancellationToken.None).ConfigureAwait(false);
 
             if (!extractionResult.IsSuccess)
             {
                 return WinPeResult<WinPePreparedDriverSet>.Failure(extractionResult.Error!);
             }
 
+            cancellationToken.ThrowIfCancellationRequested();
             extractedDirectories.Add(extractPath);
         }
 
@@ -159,43 +163,47 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
             string status = BuildDriverDownloadStatus(destinationPath, packageNumber, packageCount);
             ReportDownloadProgress(progress, 0, status);
 
-            using HttpResponseMessage response = await _httpClient.GetAsync(
-                uri,
-                HttpCompletionOption.ResponseHeadersRead,
-                cancellationToken).ConfigureAwait(false);
-
-            if (!response.IsSuccessStatusCode)
+            return await HttpTransfer.RunAsync(async (transferToken, reportProgress) =>
             {
-                return WinPeResult.Failure(
-                    WinPeErrorCodes.DownloadFailed,
-                    "Driver package download failed.",
-                    $"URI: '{sourceUri}', HTTP status: {(int)response.StatusCode} {response.ReasonPhrase}",
-                    failureKind: WinPeFailureKinds.Network,
-                    failureReason: WinPeFailureReasons.HttpStatus);
-            }
+                using HttpResponseMessage response = await _httpClient.GetAsync(
+                    uri,
+                    HttpCompletionOption.ResponseHeadersRead,
+                    transferToken).ConfigureAwait(false);
 
-            Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
-            long? totalBytes = response.Content.Headers.ContentLength;
-            await using Stream sourceStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-            await using FileStream destinationStream = new(
-                destinationPath,
-                FileMode.Create,
-                FileAccess.Write,
-                FileShare.None,
-                81920,
-                useAsync: true);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return WinPeResult.Failure(
+                        WinPeErrorCodes.DownloadFailed,
+                        "Driver package download failed.",
+                        $"URI: '{sourceUri}', HTTP status: {(int)response.StatusCode} {response.ReasonPhrase}",
+                        failureKind: WinPeFailureKinds.Network,
+                        failureReason: WinPeFailureReasons.HttpStatus);
+                }
 
-            await CopyDownloadToFileAsync(
-                sourceStream,
-                destinationStream,
-                totalBytes,
-                status,
-                progress,
-                cancellationToken).ConfigureAwait(false);
-            return WinPeResult.Success();
+                Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
+                long? totalBytes = response.Content.Headers.ContentLength;
+                await using Stream sourceStream = await response.Content.ReadAsStreamAsync(transferToken).ConfigureAwait(false);
+                await using FileStream destinationStream = new(
+                    destinationPath,
+                    FileMode.Create,
+                    FileAccess.Write,
+                    FileShare.None,
+                    81920,
+                    useAsync: true);
+
+                await CopyDownloadToFileAsync(
+                    sourceStream,
+                    destinationStream,
+                    totalBytes,
+                    status,
+                    progress,
+                    reportProgress,
+                    transferToken).ConfigureAwait(false);
+                return WinPeResult.Success();
+            }, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex) when (
-            ex is HttpRequestException or IOException or UnauthorizedAccessException or TaskCanceledException &&
+            ex is HttpRequestException or IOException or UnauthorizedAccessException or TimeoutException &&
             !cancellationToken.IsCancellationRequested)
         {
             return WinPeResult.Failure(
@@ -205,7 +213,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
                 failureKind: ex is UnauthorizedAccessException ? WinPeFailureKinds.FileSystem : WinPeFailureKinds.Network,
                 failureReason: ex switch
                 {
-                    TaskCanceledException => WinPeFailureReasons.Timeout,
+                    TimeoutException => WinPeFailureReasons.Timeout,
                     UnauthorizedAccessException => WinPeFailureReasons.AccessDenied,
                     HttpRequestException { StatusCode: not null } => WinPeFailureReasons.HttpStatus,
                     _ => WinPeFailureReasons.Transport
@@ -220,6 +228,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
         long? totalBytes,
         string status,
         IProgress<WinPeDownloadProgress>? progress,
+        Action reportProgress,
         CancellationToken cancellationToken)
     {
         int lastReportedPercent = -1;
@@ -228,6 +237,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
             destinationStream,
             copiedBytes =>
             {
+                reportProgress();
                 double? percentage = TransferProgress.CalculatePercentage(copiedBytes, totalBytes);
                 if (percentage.HasValue)
                 {

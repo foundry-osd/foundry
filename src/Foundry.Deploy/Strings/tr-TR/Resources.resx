@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Hayır Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>İptal edilen dağıtım sayfası</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Dağıtım sayfaları</value>
   </data>
@@ -587,8 +590,14 @@ Dağıtıma devam edilsin mi?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Başka bir işlem zaten çalışıyor.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>İptal istendi. Geçerli işlemin güvenli bir şekilde tamamlanması bekleniyor.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Dağıtım iptal edildi.</value>
+    <value>Dağıtım iptal edildi</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Dağıtım durduruldu. Hedef disk tamamlanmamış bir kurulum içerebilir.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>Devam ediyor...</value>
@@ -611,6 +620,9 @@ Dağıtıma devam edilsin mi?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>{0} başlatılıyor...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>İptal edildi</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Adım tamamlandı.</value>
   </data>
@@ -628,6 +640,9 @@ Dağıtıma devam edilsin mi?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Sistem yeniden başlat</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Aktarım zaman aşımına uğradı. Bağlantınızı kontrol edip yeniden deneyin.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Bilinmeyen adım</value>

@@ -12,6 +12,114 @@ namespace Foundry.Core.Tests.WinPe;
 public sealed class WinPeBootImagePreparationServiceTests
 {
     [Theory]
+    [InlineData("/Export-Image")]
+    [InlineData("/Mount-Image")]
+    public async Task PrepareAsync_WhenServicingFailsDuringCancellation_PreservesFailureWithoutTryingFallback(string stage)
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-source-failure-{Guid.NewGuid():N}");
+        string cache = Path.Combine(root, "cache");
+        Directory.CreateDirectory(cache);
+        using var caller = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        byte[] source = Encoding.UTF8.GetBytes("cached source");
+        await File.WriteAllBytesAsync(Path.Combine(cache, "source.esd"), source, TestContext.Current.CancellationToken);
+        string catalog = CreateCatalogXml(Convert.ToHexString(SHA256.HashData(source)));
+        string fallback = catalog.Replace("<Catalog>", "", StringComparison.Ordinal).Replace("</Catalog>", "", StringComparison.Ordinal)
+            .Replace("Professional", "Enterprise", StringComparison.Ordinal).Replace("CLIENTCONSUMER", "CLIENTBUSINESS", StringComparison.Ordinal)
+            .Replace("source.esd", "enterprise.esd", StringComparison.Ordinal);
+        catalog = catalog.Replace("</Catalog>", fallback + "</Catalog>", StringComparison.Ordinal);
+        var runner = new FakeWinPeProcessRunner
+        {
+            FailingOperation = stage,
+            ExitCode = 5,
+            OnRun = (arguments, _) => { if (arguments.Contains(stage, StringComparison.Ordinal)) caller.Cancel(); }
+        };
+        using var client = new HttpClient(new StaticCatalogHandler(catalog));
+        var service = new WinPeBootImagePreparationService(runner, client);
+        try
+        {
+            WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
+            {
+                Artifact = new WinPeBuildArtifact { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(root, "boot.wim"), WorkingDirectoryPath = root },
+                Tools = new WinPeToolPaths { DismPath = "dism.exe" },
+                WinPeLanguage = "en-US",
+                CacheDirectoryPath = cache,
+                BootImageSource = WinPeBootImageSource.WinReWifi
+            }, caller.Token);
+            Assert.False(result.IsSuccess);
+            Assert.Equal(5, result.Error?.ExitCode);
+            Assert.Equal(WinPeFailureReasons.NonZeroExit, result.Error?.FailureReason);
+            Assert.Single(runner.Executions, execution => execution.Arguments.Contains(stage, StringComparison.Ordinal));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
+    public async Task PrepareAsync_WhenCatalogRequestIsCancelled_PropagatesCallerCancellation()
+    {
+        using var cancellation = new CancellationTokenSource();
+        using var client = new HttpClient(new CancelledCatalogHandler(cancellation));
+        var service = new WinPeBootImagePreparationService(new FakeWinPeProcessRunner(), client);
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.PrepareAsync(new WinPeBootImagePreparationOptions
+        {
+            Artifact = new WinPeBuildArtifact { Architecture = WinPeArchitecture.X64, BootWimPath = "boot.wim", WorkingDirectoryPath = Path.GetTempPath() },
+            Tools = new WinPeToolPaths { DismPath = "dism.exe" },
+            WinPeLanguage = "en-US",
+            CacheDirectoryPath = Path.GetTempPath(),
+            BootImageSource = WinPeBootImageSource.WinReWifi
+        }, cancellation.Token));
+    }
+
+    [Theory]
+    [InlineData("/Export-Image", false)]
+    [InlineData("/Mount-Image", true)]
+    public async Task PrepareAsync_WhenCancelledDuringServicing_FinishesStageAndDiscardsBeforeCancellation(string stage, bool expectsDiscard)
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-source-cancel-{Guid.NewGuid():N}");
+        string cache = Path.Combine(root, "cache");
+        Directory.CreateDirectory(cache);
+        File.WriteAllText(Path.Combine(cache, "source.esd"), "cached source");
+        using var cancellation = new CancellationTokenSource();
+        var runner = new FakeWinPeProcessRunner
+        {
+            OnRun = (arguments, token) =>
+            {
+                if (arguments.Contains(stage, StringComparison.Ordinal))
+                {
+                    cancellation.Cancel();
+                    Assert.False(token.CanBeCanceled);
+                }
+                if (arguments.Contains("/Discard", StringComparison.Ordinal))
+                {
+                    Assert.False(token.CanBeCanceled);
+                }
+            }
+        };
+        using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(string.Empty)));
+        var service = new WinPeBootImagePreparationService(runner, client);
+        try
+        {
+            await Assert.ThrowsAsync<OperationCanceledException>(() => service.PrepareAsync(new WinPeBootImagePreparationOptions
+            {
+                Artifact = new WinPeBuildArtifact { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(root, "boot.wim"), WorkingDirectoryPath = root },
+                Tools = new WinPeToolPaths { DismPath = "dism.exe" },
+                WinPeLanguage = "en-US",
+                CacheDirectoryPath = cache,
+                BootImageSource = WinPeBootImageSource.WinReWifi
+            }, cancellation.Token));
+            Assert.Equal(expectsDiscard, runner.Executions.Any(execution => execution.Arguments.Contains("/Discard", StringComparison.Ordinal)));
+            Assert.False(File.Exists(Path.Combine(root, "boot.wim")));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Theory]
     [InlineData("x64", "en-us", 26100)]
     [InlineData("arm64", "fr-fr", 26100)]
     [InlineData("arm64", "en-us", 26200)]
@@ -330,8 +438,18 @@ public sealed class WinPeBootImagePreparationServiceTests
         }
     }
 
+    private sealed class CancelledCatalogHandler(CancellationTokenSource cancellation) : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            cancellation.Cancel();
+            return Task.FromCanceled<HttpResponseMessage>(cancellationToken);
+        }
+    }
+
     private sealed class FakeWinPeProcessRunner : IWinPeProcessRunner
     {
+        public Action<string, CancellationToken>? OnRun { get; init; }
         public List<WinPeProcessExecution> Executions { get; } = [];
         public string? FailingOperation { get; init; }
         public int ExitCode { get; init; }
@@ -347,6 +465,7 @@ public sealed class WinPeBootImagePreparationServiceTests
             CancellationToken cancellationToken,
             IReadOnlyDictionary<string, string>? environmentOverrides = null)
         {
+            OnRun?.Invoke(arguments, cancellationToken);
             var execution = new WinPeProcessExecution
             {
                 ExitCode = FailingOperation is not null && arguments.Contains(FailingOperation, StringComparison.Ordinal) ? ExitCode : 0,

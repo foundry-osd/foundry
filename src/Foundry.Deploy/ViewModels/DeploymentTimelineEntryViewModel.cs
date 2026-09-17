@@ -33,13 +33,14 @@ public sealed partial class DeploymentTimelineEntryViewModel : ObservableObject
     private string stateAutomationText;
 
     public bool IsCompleted => State is DeploymentStepState.Succeeded or DeploymentStepState.Skipped;
-    public bool IsActive => State is DeploymentStepState.Running or DeploymentStepState.Failed;
+    public bool IsActive => State is DeploymentStepState.Running or DeploymentStepState.Failed or DeploymentStepState.Cancelled;
 
     public string Glyph => State switch
     {
         DeploymentStepState.Succeeded or DeploymentStepState.Skipped => "\uE930",
         DeploymentStepState.Running => "\uE915",
         DeploymentStepState.Failed => "\uEA39",
+        DeploymentStepState.Cancelled => "\uE711",
         _ => "\uECCA"
     };
 

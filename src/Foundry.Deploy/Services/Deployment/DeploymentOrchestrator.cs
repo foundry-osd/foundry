@@ -81,6 +81,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     /// <inheritdoc />
     public event EventHandler<DeploymentStepProgress>? StepProgressChanged;
 
+    /// <inheritdoc />
+    public event EventHandler? CompletionStarting;
+
     private static string FormatStepNames(IReadOnlyCollection<string> stepNames)
     {
         return stepNames.Count == 0 ? "none" : string.Join(", ", stepNames);
@@ -176,9 +179,25 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         };
 
         DeploymentStepExecutionContext? executionContext = null;
+        bool isCancellationDeferred = false;
+        bool isCompletionStarting = false;
+        bool succeeded = false;
+        string terminalStatus = "Deployment failed.";
+
+        void BeginCompletion()
+        {
+            if (isCompletionStarting)
+            {
+                return;
+            }
+
+            isCompletionStarting = true;
+            CompletionStarting?.Invoke(this, EventArgs.Empty);
+        }
 
         try
         {
+            cancellationToken.ThrowIfCancellationRequested();
             _logger.LogInformation("Deployment workspace root resolved to '{WorkspaceRoot}'.", runtimeState.WorkspaceRoot);
             executionContext = new DeploymentStepExecutionContext(
                 context,
@@ -214,7 +233,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     $"Starting {step.Name}.",
                     stepSubProgressIndeterminate: true,
                     stepSubProgressLabel: $"Starting {step.Name}...");
-                DeploymentStepResult result = await step.ExecuteAsync(executionContext, cancellationToken).ConfigureAwait(false);
+                cancellationToken.ThrowIfCancellationRequested();
+                isCancellationDeferred = !context.IsDryRun && !CanCancelActiveStep(step.Name);
+                CancellationToken stepToken = isCancellationDeferred ? CancellationToken.None : cancellationToken;
+                DeploymentStepResult result = await step.ExecuteAsync(executionContext, stepToken).ConfigureAwait(false);
+                isCancellationDeferred = false;
                 _logger.LogInformation(
                     "Deployment step finished. StepName={StepName}, StepState={StepState}, CurrentOperation={CurrentOperation}",
                     step.Name,
@@ -244,10 +267,15 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     runtimeState.CompletedSteps.Add(step.Name);
                 }
 
-                await executionContext.TrySaveRuntimeStateAsync(cancellationToken).ConfigureAwait(false);
+                // Record completed mutation before honoring a pending request; this state is needed for diagnostics.
+                await executionContext.TrySaveRuntimeStateAsync(CancellationToken.None).ConfigureAwait(false);
+                cancellationToken.ThrowIfCancellationRequested();
             }
 
-            _operationProgressService.Complete("Deployment orchestration completed.");
+            // Close the UI acceptance window before committing one terminal outcome. A request
+            // accepted before the synchronous acknowledgement still wins this final check.
+            BeginCompletion();
+            cancellationToken.ThrowIfCancellationRequested();
             LogTerminalOutcome(
                 LogLevel.Information,
                 exception: null,
@@ -270,6 +298,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 stopwatch.Elapsed,
                 CancellationToken.None).ConfigureAwait(false);
 
+            succeeded = true;
+            terminalStatus = "Deployment orchestration completed.";
             return new DeploymentResult
             {
                 IsSuccess = true,
@@ -277,9 +307,10 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 LogsDirectoryPath = ResolveLogsDirectory(executionContext)
             };
         }
-        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested && !isCancellationDeferred)
         {
-            _operationProgressService.Fail("Deployment cancelled.");
+            BeginCompletion();
+            terminalStatus = "Deployment cancelled.";
             string failedStepName = ResolveFailedStepName(runtimeState);
             DeploymentFailure cancellationFailure = new(
                 runtimeState.CurrentOperation,
@@ -317,18 +348,19 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return new DeploymentResult
             {
                 IsSuccess = false,
+                IsCancelled = true,
                 Message = "Deployment cancelled.",
                 LogsDirectoryPath = ResolveLogsDirectory(executionContext, runtimeState)
             };
         }
         catch (Exception ex)
         {
+            BeginCompletion();
             DeploymentFailure failure = DeploymentFailureClassifier.Classify(
                 ex,
                 runtimeState.CurrentOperation);
             string failedStepName = ResolveFailedStepName(runtimeState);
             ApplyTerminalFailure(runtimeState, failedStepName, failure);
-            _operationProgressService.Fail("Deployment failed.");
             if (executionContext is not null)
             {
                 await executionContext.TrySaveRuntimeStateAsync(CancellationToken.None).ConfigureAwait(false);
@@ -360,15 +392,34 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return new DeploymentResult
             {
                 IsSuccess = false,
-                Message = HttpConnectionFailure.GetMessage(ex),
+                Message = failure.Kind == DeploymentFailureKinds.Timeout ? "Transfer timed out." : HttpConnectionFailure.GetMessage(ex),
                 LogsDirectoryPath = ResolveLogsDirectory(executionContext, runtimeState)
             };
         }
         finally
         {
             executionContext?.Dispose();
+            if (succeeded)
+            {
+                _operationProgressService.Complete(terminalStatus);
+            }
+            else
+            {
+                _operationProgressService.Fail(terminalStatus);
+            }
         }
     }
+
+    // New live stages defer cancellation by default so a process kill cannot interrupt target mutation or servicing cleanup.
+    private static bool CanCancelActiveStep(string stepName) => stepName is
+        DeploymentStepNames.GatherDeploymentVariables or
+        DeploymentStepNames.ValidateCustomUnattend or
+        DeploymentStepNames.ValidateTargetConfiguration or
+        DeploymentStepNames.ResolveCacheStrategy or
+        DeploymentStepNames.PreflightDeployment or
+        DeploymentStepNames.DownloadOperatingSystemImage or
+        DeploymentStepNames.DownloadDriverPack or
+        DeploymentStepNames.DownloadFirmwareUpdate;
 
     private Task TrackDeploymentCompletedAsync(
         string operationId,

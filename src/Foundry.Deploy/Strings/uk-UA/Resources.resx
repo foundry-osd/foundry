@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Ні Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Сторінка скасованого розгортання</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Сторінки розгортання</value>
   </data>
@@ -587,8 +590,14 @@ ErrorCode=0x80070005
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Інша операція вже виконується.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Надіслано запит на скасування. Очікування безпечного завершення поточної операції.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Розгортання скасовано.</value>
+    <value>Розгортання скасовано</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Розгортання зупинено. На цільовому диску може залишитися незавершене встановлення.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>В процесі...</value>
@@ -611,6 +620,9 @@ ErrorCode=0x80070005
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Запуск {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Скасовано</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Крок завершено.</value>
   </data>
@@ -628,6 +640,9 @@ ErrorCode=0x80070005
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Перезавантаження системи</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Час очікування передавання минув. Перевірте з’єднання та спробуйте ще раз.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Невідомий крок</value>

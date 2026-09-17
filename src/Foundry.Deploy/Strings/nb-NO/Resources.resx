@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nei Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Side for kansellert implementering</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Implementeringssider</value>
   </data>
@@ -587,8 +590,14 @@ Vil du fortsette med distribusjonen?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>En annen operasjon kjører allerede.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Avbryting er forespurt. Venter på at den gjeldende operasjonen skal fullføres på en trygg måte.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Implementeringen kansellert.</value>
+    <value>Implementeringen kansellert</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Implementeringen ble stoppet. Måldisken kan inneholde en ufullstendig installasjon.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>Pågår...</value>
@@ -611,6 +620,9 @@ Vil du fortsette med distribusjonen?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Starter {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Avbrutt</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Trinn fullført.</value>
   </data>
@@ -628,6 +640,9 @@ Vil du fortsette med distribusjonen?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Systemet starter på nytt</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Tidsavbrudd under overføringen. Kontroller tilkoblingen og prøv igjen.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Ukjent trinn</value>

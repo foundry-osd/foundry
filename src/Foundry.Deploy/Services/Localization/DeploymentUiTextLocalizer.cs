@@ -73,6 +73,7 @@ public static partial class DeploymentUiTextLocalizer
             "Waiting for progress..." => LocalizationText.GetString("Status.WaitingForProgress"),
             "Preparing deployment..." => LocalizationText.GetString("Status.PreparingDeployment"),
             "Deployment cancelled." => LocalizationText.GetString("Status.DeploymentCancelled"),
+            "Transfer timed out." => LocalizationText.GetString("Status.TransferTimedOut"),
             "Starting step..." => LocalizationText.GetString("Status.StartingStep"),
             "Step completed." => LocalizationText.GetString("Status.StepCompleted"),
             "Step failed." => LocalizationText.GetString("Status.StepFailed"),

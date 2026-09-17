@@ -52,7 +52,8 @@ public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
                 return true;
             }
         }
-        catch (Exception ex) when (!HttpConnectionFailure.IsSecureConnectionFailure(ex))
+        catch (Exception ex) when (!HttpConnectionFailure.IsSecureConnectionFailure(ex) &&
+                                   !(ex is OperationCanceledException && cancellationToken.IsCancellationRequested))
         {
             _logger.LogWarning(ex, "Microsoft Update Catalog HEAD request failed. Falling back to GET.");
         }
@@ -66,7 +67,8 @@ public sealed class MicrosoftUpdateCatalogClient : IMicrosoftUpdateCatalogClient
 
             return response.IsSuccessStatusCode;
         }
-        catch (Exception ex) when (!HttpConnectionFailure.IsSecureConnectionFailure(ex))
+        catch (Exception ex) when (!HttpConnectionFailure.IsSecureConnectionFailure(ex) &&
+                                   !(ex is OperationCanceledException && cancellationToken.IsCancellationRequested))
         {
             _logger.LogWarning(ex, "Microsoft Update Catalog GET request failed.");
             return false;

@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>No Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Cancelled page</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Deployment pages</value>
   </data>
@@ -587,8 +590,14 @@ Continue with deployment?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Another operation is already running.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Cancellation requested. Waiting for the current operation to finish safely.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Deployment cancelled.</value>
+    <value>Deployment cancelled</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Deployment stopped. The target disk may contain an incomplete installation.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>In progress...</value>
@@ -611,6 +620,9 @@ Continue with deployment?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Starting {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Step completed.</value>
   </data>
@@ -628,6 +640,9 @@ Continue with deployment?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>System reboot</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>The transfer timed out. Check your connection and try again.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Unknown step</value>

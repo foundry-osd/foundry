@@ -142,6 +142,9 @@
                         <MenuItem
                             Command="{Binding ShowDebugErrorPageCommand}"
                             Header="{Binding Strings[Debug.ErrorPageCommand]}" />
+                        <MenuItem
+                            Command="{Binding ShowDebugCancelledPageCommand}"
+                            Header="{Binding Strings[Debug.CancelledPageCommand]}" />
                     </MenuItem>
                 </MenuItem>
                 <MenuItem

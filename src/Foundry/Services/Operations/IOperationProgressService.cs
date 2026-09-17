@@ -24,8 +24,14 @@ public interface IOperationProgressService
     /// </summary>
     /// <param name="kind">Operation category that drives shell behavior. <see cref="OperationKind.None"/> is rejected.</param>
     /// <param name="status">Initial user-visible status text.</param>
+    /// <param name="cancel">Optional request to cancel the operation at its next safe boundary.</param>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="kind"/> is <see cref="OperationKind.None"/>.</exception>
-    void Start(OperationKind kind, string status);
+    void Start(OperationKind kind, string status, Action? cancel = null);
+
+    /// <summary>
+    /// Requests cancellation once while preserving running state until the operation finishes cleanup.
+    /// </summary>
+    void RequestCancellation();
 
     /// <summary>
     /// Updates primary operation progress and clears secondary progress when an operation is active.

@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>ไม่ Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>หน้าการยกเลิกการทำให้ใช้งานได้</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>หน้าการปรับใช้</value>
   </data>
@@ -587,8 +590,14 @@
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>การดำเนินการอื่นกำลังทำงานอยู่แล้ว</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>ได้รับคำขอยกเลิกแล้ว กำลังรอให้การดำเนินการปัจจุบันเสร็จสิ้นอย่างปลอดภัย</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>ยกเลิกการทำให้ใช้งานได้แล้ว</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>หยุดการทำให้ใช้งานได้แล้ว ดิสก์เป้าหมายอาจมีการติดตั้งที่ยังไม่สมบูรณ์</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>อยู่ระหว่างดำเนินการ...</value>
@@ -611,6 +620,9 @@
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>เริ่ม {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>ยกเลิกแล้ว</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>เสร็จสิ้นขั้นตอน.</value>
   </data>
@@ -628,6 +640,9 @@
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>รีบูตระบบ</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>หมดเวลาการถ่ายโอน ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>ขั้นตอนที่ไม่รู้จัก</value>

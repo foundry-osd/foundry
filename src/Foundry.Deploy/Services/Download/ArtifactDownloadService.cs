@@ -19,16 +19,18 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
 
     private readonly HttpClient _httpClient;
     private readonly ILogger<ArtifactDownloadService> _logger;
+    private readonly TimeProvider _timeProvider;
 
     public ArtifactDownloadService(ILogger<ArtifactDownloadService> logger)
         : this(logger, DefaultHttpClient)
     {
     }
 
-    internal ArtifactDownloadService(ILogger<ArtifactDownloadService> logger, HttpClient httpClient)
+    internal ArtifactDownloadService(ILogger<ArtifactDownloadService> logger, HttpClient httpClient, TimeProvider? timeProvider = null)
     {
         _logger = logger;
         _httpClient = httpClient;
+        _timeProvider = timeProvider ?? TimeProvider.System;
     }
 
     public async Task<ArtifactDownloadResult> DownloadAsync(
@@ -40,6 +42,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         CancellationToken cancellationToken = default,
         IProgress<DownloadProgress>? progress = null)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         string effectiveSourceUrl = WindowsUpdateContentUrl.Normalize(sourceUrl);
 
         _logger.LogInformation("Starting artifact download. SourceUrl={SourceUrl}, DestinationPath={DestinationPath}, ArtifactKind={ArtifactKind}",
@@ -69,6 +72,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 effectiveSourceUrl);
         }
 
+        bool transferStarted = false;
         try
         {
             string? normalizedExpectedHash = null;
@@ -99,22 +103,21 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 };
             }
 
-            DownloadedArtifact downloadedArtifact = new(null);
-            await HttpRetryPolicy
-                .ExecuteAsync(
-                    async ct =>
-                    {
-                        downloadedArtifact = await DownloadWithHttpClientAsync(
+            transferStarted = true;
+            DownloadedArtifact downloadedArtifact = await HttpTransfer.RunAsync(
+                (transferToken, reportProgress) => HttpRetryPolicy.ExecuteAsync(
+                    ct => DownloadWithHttpClientAsync(
                                 effectiveSourceUrl,
                                 destinationPath,
                                 hashAlgorithm,
                                 progress,
-                                ct)
-                            .ConfigureAwait(false);
-                    },
+                                reportProgress,
+                                ct),
                     _logger,
                     "Artifact download",
-                    cancellationToken)
+                    transferToken),
+                cancellationToken,
+                _timeProvider)
                 .ConfigureAwait(false);
             EnsureDownloadedHash(destinationPath, normalizedExpectedHash, hashAlgorithm, downloadedArtifact);
 
@@ -127,8 +130,21 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 SizeBytes = new FileInfo(destinationPath).Length
             };
         }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            if (transferStarted)
+            {
+                DeleteInterruptedDownload(destinationPath);
+            }
+            _logger.LogInformation("Artifact download cancelled. DestinationPath={DestinationPath}", destinationPath);
+            throw;
+        }
         catch (Exception ex)
         {
+            if (ex is TimeoutException && transferStarted)
+            {
+                DeleteInterruptedDownload(destinationPath);
+            }
             _logger.LogError(
                 ex,
                 "Artifact download failed. SourceUrl={SourceUrl}, EffectiveSourceUrl={EffectiveSourceUrl}, SourceHost={SourceHost}, DestinationPath={DestinationPath}",
@@ -137,6 +153,18 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 TryGetSourceHost(effectiveSourceUrl),
                 destinationPath);
             throw;
+        }
+    }
+
+    private void DeleteInterruptedDownload(string path)
+    {
+        try
+        {
+            File.Delete(path);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            _logger.LogWarning(exception, "Could not remove interrupted download. DestinationPath={DestinationPath}", path);
         }
     }
 
@@ -191,6 +219,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         string destinationPath,
         HashAlgorithmName? hashAlgorithm,
         IProgress<DownloadProgress>? progress,
+        Action reportProgress,
         CancellationToken cancellationToken)
     {
         using HttpResponseMessage response = await _httpClient
@@ -222,6 +251,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
             incrementalHash?.AppendData(buffer.AsSpan(0, bytesRead));
             await destinationStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
             bytesDownloaded += bytesRead;
+            reportProgress();
 
             DateTimeOffset now = DateTimeOffset.UtcNow;
             if (progress is not null && now >= nextReportAt)

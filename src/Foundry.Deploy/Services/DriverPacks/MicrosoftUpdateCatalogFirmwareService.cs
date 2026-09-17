@@ -153,6 +153,7 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
 
         for (int index = 0; index < cabFiles.Length; index++)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             string cabPath = cabFiles[index];
             string folderName = ResolveExpandedFolderName(cabPath, sourceDirectory);
             string cabDestination = Path.Combine(destinationDirectory, MicrosoftUpdateCatalogSupport.SanitizePathSegment(folderName));
@@ -165,9 +166,11 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
                     cabPath,
                     cabDestination,
                     destinationDirectory,
-                    cancellationToken,
+                    CancellationToken.None,
                     CreateMappedProgress(progress, rangeStart, rangeEnd))
                 .ConfigureAwait(false);
+            // Await the extraction process before honoring cancellation or starting another archive.
+            cancellationToken.ThrowIfCancellationRequested();
         }
 
         return Directory.EnumerateFiles(destinationDirectory, "*.inf", SearchOption.AllDirectories).Count();

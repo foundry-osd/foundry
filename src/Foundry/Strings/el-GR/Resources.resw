@@ -2633,6 +2633,9 @@
   <data name="Shell.OperationRunning" xml:space="preserve">
     <value>Λειτουργία σε εξέλιξη</value>
   </data>
+  <data name="Shell.OperationStopping" xml:space="preserve">
+    <value>Γίνεται ασφαλής διακοπή. Η τρέχουσα λειτουργία στον δίσκο ή στην εικόνα ενδέχεται να πρέπει να ολοκληρωθεί πριν ολοκληρωθεί η εκκαθάριση.</value>
+  </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
     <value>Επιλέξτε την αρχιτεκτονική εκκίνησης και τη λειτουργία υπογραφής εκκίνησης.</value>
   </data>
@@ -2906,6 +2909,9 @@
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>Δημιουργία χώρου εργασίας WinPE.</value>
   </data>
+  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+    <value>Η δημιουργία μέσου ακυρώθηκε.</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Έλεγχος της ασφάλειας στόχου USB.</value>
   </data>
@@ -3082,6 +3088,9 @@
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
     <value>Προετοιμασία εξαρτήσεων της εικόνας εκκίνησης.</value>
+  </data>
+  <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
+    <value>Έληξε το χρονικό όριο της μεταφοράς. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Ενημέρωση μέσου USB.</value>

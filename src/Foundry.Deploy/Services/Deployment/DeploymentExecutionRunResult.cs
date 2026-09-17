@@ -7,6 +7,10 @@ namespace Foundry.Deploy.Services.Deployment;
 public sealed record DeploymentExecutionRunResult
 {
     public required bool IsSuccess { get; init; }
+    /// <summary>
+    /// Gets whether execution stopped in response to caller cancellation.
+    /// </summary>
+    public bool IsCancelled { get; init; }
     public required string Message { get; init; }
     public string LogsDirectoryPath { get; init; } = string.Empty;
 }

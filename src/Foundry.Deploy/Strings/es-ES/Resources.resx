@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>No Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Página de despliegue cancelado</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Páginas de implementación</value>
   </data>
@@ -587,8 +590,14 @@ Sistema operativo: {4}
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Ya se está ejecutando otra operación.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Cancelación solicitada. Esperando a que la operación actual finalice de forma segura.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Despliegue cancelado.</value>
+    <value>Despliegue cancelado</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Despliegue detenido. El disco de destino puede contener una instalación incompleta.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>En curso...</value>
@@ -611,6 +620,9 @@ Sistema operativo: {4}
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Iniciando {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Cancelado</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Paso completado.</value>
   </data>
@@ -628,6 +640,9 @@ Sistema operativo: {4}
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Reinicio del sistema</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Se agotó el tiempo de espera de la transferencia. Compruebe su conexión e inténtelo de nuevo.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Paso desconocido</value>

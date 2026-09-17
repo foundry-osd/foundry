@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Não Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Página de implantação cancelada</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Páginas de implantação</value>
   </data>
@@ -587,8 +590,14 @@ Continuar com a implantação?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Outra operação já está em execução.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Cancelamento solicitado. A aguardar que a operação atual termine em segurança.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Implantação cancelada.</value>
+    <value>Implantação cancelada</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Implementação interrompida. O disco de destino pode conter uma instalação incompleta.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>Em andamento...</value>
@@ -611,6 +620,9 @@ Continuar com a implantação?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Iniciando {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Cancelado</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Etapa concluída.</value>
   </data>
@@ -628,6 +640,9 @@ Continuar com a implantação?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Reinicialização do sistema</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>O tempo limite da transferência foi excedido. Verifique a sua ligação e tente novamente.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Etapa desconhecida</value>

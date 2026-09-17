@@ -2633,6 +2633,9 @@
   <data name="Shell.OperationRunning" xml:space="preserve">
     <value>מבצע בעיצומו</value>
   </data>
+  <data name="Shell.OperationStopping" xml:space="preserve">
+    <value>מתבצעת עצירה בטוחה. ייתכן שהפעולה הנוכחית בדיסק או בתמונת הדיסק צריכה להסתיים לפני השלמת הניקוי.</value>
+  </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
     <value>בחר את ארכיטקטורת האתחול ומצב חתימת האתחול.</value>
   </data>
@@ -2906,6 +2909,9 @@
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>יצירת סביבת עבודה WinPE.</value>
   </data>
+  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+    <value>יצירת המדיה בוטלה.</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>בדיקת USB בטיחות היעד.</value>
   </data>
@@ -3082,6 +3088,9 @@
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
     <value>הכנת רכיבי התלות של תמונת האתחול.</value>
+  </data>
+  <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
+    <value>הזמן שהוקצב להעברה הסתיים. יש לבדוק את החיבור ולנסות שוב.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>מעדכן מדיית USB.</value>

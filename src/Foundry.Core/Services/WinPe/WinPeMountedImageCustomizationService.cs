@@ -83,13 +83,16 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         }
 
         ReportProgress(options.Progress, 30, "Mounting boot image.");
+        cancellationToken.ThrowIfCancellationRequested();
+        // DISM mutations finish before cancellation is observed; ownership of a successful
+        // mount must be captured first so cancellation always disposes the mount session.
         WinPeResult<WinPeMountSession> mountResult = await WinPeMountSession.MountAsync(
             _processRunner,
             tools.DismPath,
             artifact.BootWimPath,
             artifact.MountDirectoryPath,
             artifact.WorkingDirectoryPath,
-            cancellationToken,
+            CancellationToken.None,
             CreateDismProgress(options.Progress, 30, "Mounting boot image.")).ConfigureAwait(false);
 
         if (!mountResult.IsSuccess)
@@ -98,6 +101,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         }
 
         await using WinPeMountSession session = mountResult.Value!;
+        cancellationToken.ThrowIfCancellationRequested();
 
         if (options.BootImageSource == WinPeBootImageSource.WinReWifi)
         {
@@ -108,30 +112,31 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                         WinPeErrorCodes.InternalError,
                         "WinRE Wi-Fi preparation did not return dependency metadata.",
                         null),
-                    session,
-                    cancellationToken).ConfigureAwait(false);
+                    session).ConfigureAwait(false);
             }
 
             WinPeResult adjustmentsResult = ApplyWinReWifiAdjustments(session.MountDirectoryPath, preparationResult);
             if (!adjustmentsResult.IsSuccess)
             {
-                return await FailWithDiscardAsync(adjustmentsResult.Error!, session, cancellationToken).ConfigureAwait(false);
+                return await FailWithDiscardAsync(adjustmentsResult.Error!, session).ConfigureAwait(false);
             }
         }
 
         ReportProgress(options.Progress, 45, "Injecting drivers into mounted image.");
+        cancellationToken.ThrowIfCancellationRequested();
         WinPeResult driverInjectionResult = await InjectDriversAsync(
             session.MountDirectoryPath,
             options.DriverPackagePaths,
             tools.DismPath,
             artifact.WorkingDirectoryPath,
             options.Progress,
-            cancellationToken).ConfigureAwait(false);
+            CancellationToken.None).ConfigureAwait(false);
 
         if (!driverInjectionResult.IsSuccess)
         {
-            return await FailWithDiscardAsync(driverInjectionResult.Error!, session, cancellationToken).ConfigureAwait(false);
+            return await FailWithDiscardAsync(driverInjectionResult.Error!, session).ConfigureAwait(false);
         }
+        cancellationToken.ThrowIfCancellationRequested();
 
         ReportProgress(options.Progress, 65, "Applying language and optional components.");
         WinPeResult internationalizationResult = await _imageInternationalizationService.ApplyAsync(
@@ -144,12 +149,13 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                 WorkingDirectoryPath = artifact.WorkingDirectoryPath,
                 DismProgress = CreateDismProgress(options.Progress, 65, "Applying language and optional components.")
             },
-            cancellationToken).ConfigureAwait(false);
+            CancellationToken.None).ConfigureAwait(false);
 
         if (!internationalizationResult.IsSuccess)
         {
-            return await FailWithDiscardAsync(internationalizationResult.Error!, session, cancellationToken).ConfigureAwait(false);
+            return await FailWithDiscardAsync(internationalizationResult.Error!, session).ConfigureAwait(false);
         }
+        cancellationToken.ThrowIfCancellationRequested();
 
         if (preparationResult is not null)
         {
@@ -159,7 +165,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                 preparationResult.DependencyFiles.Where(file => !file.OverwriteExisting));
             if (!dependenciesResult.IsSuccess)
             {
-                return await FailWithDiscardAsync(dependenciesResult.Error!, session, cancellationToken).ConfigureAwait(false);
+                return await FailWithDiscardAsync(dependenciesResult.Error!, session).ConfigureAwait(false);
             }
         }
 
@@ -177,12 +183,13 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
 
             if (!runtimePayloadResult.IsSuccess)
             {
-                return await FailWithDiscardAsync(runtimePayloadResult.Error!, session, cancellationToken).ConfigureAwait(false);
+                return await FailWithDiscardAsync(runtimePayloadResult.Error!, session).ConfigureAwait(false);
             }
         }
 
         if (options.AssetProvisioning is not null)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             ReportProgress(options.Progress, 85, "Provisioning Foundry boot assets.");
             WinPeResult assetProvisioningResult = await _assetProvisioningService.ProvisionAsync(
                 options.AssetProvisioning with
@@ -190,20 +197,23 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                     MountedImagePath = session.MountDirectoryPath,
                     Architecture = artifact.Architecture
                 },
-                cancellationToken).ConfigureAwait(false);
+                CancellationToken.None).ConfigureAwait(false);
 
             if (!assetProvisioningResult.IsSuccess)
             {
-                return await FailWithDiscardAsync(assetProvisioningResult.Error!, session, cancellationToken).ConfigureAwait(false);
+                return await FailWithDiscardAsync(assetProvisioningResult.Error!, session).ConfigureAwait(false);
             }
+            cancellationToken.ThrowIfCancellationRequested();
         }
 
         ReportProgress(options.Progress, 90, "Committing image changes.");
+        cancellationToken.ThrowIfCancellationRequested();
         WinPeResult commitResult = await session.CommitAsync(
-            cancellationToken,
+            CancellationToken.None,
             CreateDismProgress(options.Progress, 90, "Committing image changes.")).ConfigureAwait(false);
         if (commitResult.IsSuccess)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             ReportProgress(options.Progress, 100, "Image customization completed.");
         }
 
@@ -311,10 +321,9 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
 
     private static async Task<WinPeResult> FailWithDiscardAsync(
         WinPeDiagnostic primaryDiagnostic,
-        WinPeMountSession session,
-        CancellationToken cancellationToken)
+        WinPeMountSession session)
     {
-        WinPeResult discardResult = await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
+        WinPeResult discardResult = await session.DiscardAsync(CancellationToken.None).ConfigureAwait(false);
         if (discardResult.IsSuccess)
         {
             return WinPeResult.Failure(primaryDiagnostic);

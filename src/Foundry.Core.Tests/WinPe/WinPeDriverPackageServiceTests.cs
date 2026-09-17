@@ -11,6 +11,41 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeDriverPackageServiceTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task PrepareAsync_WhenCancelledDuringExtraction_WaitsForStageAndPreservesFailures(bool fails)
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-driver-cancel-{Guid.NewGuid():N}");
+        using var caller = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        using var client = new HttpClient(new StaticPackageHandler([42]));
+        var runner = new FakeExtractionRunner(onRun: token =>
+        {
+            Assert.False(token.CanBeCanceled);
+            caller.Cancel();
+        }, exitCode: fails ? 5 : 0);
+        var service = new WinPeDriverPackageService(runner, client, "7za.exe");
+        try
+        {
+            Task<WinPeResult<WinPePreparedDriverSet>> operation = service.PrepareAsync(
+                [CreatePackage()], Path.Combine(root, "downloads"), Path.Combine(root, "extracted"), null, caller.Token);
+            if (fails)
+            {
+                WinPeResult<WinPePreparedDriverSet> result = await operation;
+                Assert.False(result.IsSuccess);
+                Assert.Equal(WinPeErrorCodes.DriverExtractionFailed, result.Error?.Code);
+            }
+            else
+            {
+                await Assert.ThrowsAnyAsync<OperationCanceledException>(() => operation);
+            }
+        }
+        finally
+        {
+            if (Directory.Exists(root)) Directory.Delete(root, recursive: true);
+        }
+    }
+
     [Fact]
     public async Task PrepareAsync_DownloadsValidatesAndExtractsPackage()
     {
@@ -124,7 +159,7 @@ public sealed class WinPeDriverPackageServiceTests
     }
 
     [Fact]
-    public async Task PrepareAsync_WhenHttpClientTimesOut_PreservesTimeoutException()
+    public async Task PrepareAsync_WhenHttpClientTimesOut_ClassifiesTimeoutAndPreservesCause()
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-driver-package-{Guid.NewGuid():N}");
         var timeout = new TaskCanceledException("The request timed out.");
@@ -144,7 +179,8 @@ public sealed class WinPeDriverPackageServiceTests
 
             Assert.False(result.IsSuccess);
             Assert.Equal(WinPeFailureReasons.Timeout, result.Error?.FailureReason);
-            Assert.Same(timeout, result.Error?.Exception);
+            TimeoutException failure = Assert.IsType<TimeoutException>(result.Error?.Exception);
+            Assert.Same(timeout, failure.InnerException);
         }
         finally
         {
@@ -182,7 +218,7 @@ public sealed class WinPeDriverPackageServiceTests
         }
     }
 
-    private sealed class FakeExtractionRunner(bool createInf = true) : IWinPeProcessRunner
+    private sealed class FakeExtractionRunner(bool createInf = true, Action<CancellationToken>? onRun = null, int exitCode = 0) : IWinPeProcessRunner
     {
         public List<WinPeProcessExecution> Executions { get; } = [];
 
@@ -193,6 +229,7 @@ public sealed class WinPeDriverPackageServiceTests
             CancellationToken cancellationToken,
             IReadOnlyDictionary<string, string>? environmentOverrides = null)
         {
+            onRun?.Invoke(cancellationToken);
             Executions.Add(new WinPeProcessExecution
             {
                 FileName = fileName,
@@ -208,6 +245,7 @@ public sealed class WinPeDriverPackageServiceTests
 
             return Task.FromResult(new WinPeProcessExecution
             {
+                ExitCode = exitCode,
                 FileName = fileName,
                 Arguments = arguments,
                 WorkingDirectory = workingDirectory
