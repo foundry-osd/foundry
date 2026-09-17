@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>아니요 Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>취소된 배포 페이지</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>배포 페이지</value>
   </data>
@@ -591,7 +594,7 @@
     <value>취소가 요청되었습니다. 현재 작업이 안전하게 완료될 때까지 기다리는 중입니다.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>배포가 취소되었습니다.</value>
+    <value>배포가 취소되었습니다</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>배포가 중지되었습니다. 대상 디스크에 불완전한 설치가 남아 있을 수 있습니다.</value>

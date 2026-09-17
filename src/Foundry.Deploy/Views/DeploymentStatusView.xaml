@@ -234,13 +234,6 @@
                         TextAlignment="Center"
                         TextWrapping="Wrap"
                         Visibility="{Binding DataContext.IsCancellationPending, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    <Button
-                        MinWidth="140"
-                        Margin="0,12,0,0"
-                        HorizontalAlignment="Center"
-                        Command="{Binding DataContext.CancelDeploymentCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                        Content="{Binding Strings[Common.Cancel]}"
-                        Visibility="{Binding DataContext.IsDeploymentRunning, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
             </Grid>
 
@@ -333,13 +326,34 @@
             </Grid>
         </Grid>
 
-        <TextBlock
-            Margin="260,0,260,24"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Bottom"
-            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-            Style="{StaticResource BodyTextBlockStyle}"
-            Text="{Binding StepCounterText}"
-            TextAlignment="Center" />
+        <Grid
+            MinHeight="32"
+            Margin="24,0,24,24"
+            VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="230" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource BodyTextBlockStyle}"
+                Text="{Binding StepCounterText}"
+                TextAlignment="Center" />
+            <Grid
+                Grid.Column="2"
+                Visibility="{Binding IsProgressPage, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Button
+                    MinWidth="140"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Command="{Binding DataContext.CancelDeploymentCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                    Content="{Binding Strings[Common.Cancel]}"
+                    Visibility="{Binding DataContext.IsDeploymentRunning, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

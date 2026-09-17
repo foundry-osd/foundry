@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nee Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Pagina voor geannuleerde implementatie</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Implementatiepagina's</value>
   </data>
@@ -591,7 +594,7 @@ Doorgaan met de implementatie?</value>
     <value>Annulering aangevraagd. Er wordt gewacht totdat de huidige bewerking veilig is voltooid.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Implementatie geannuleerd.</value>
+    <value>Implementatie geannuleerd</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Implementatie gestopt. De doelschijf bevat mogelijk een onvolledige installatie.</value>

@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nem Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Megszakított telepítés oldala</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Bevezetési oldalak</value>
   </data>
@@ -591,7 +594,7 @@ Folytatja a telepítést?</value>
     <value>Megszakítás kérve. Várakozás az aktuális művelet biztonságos befejezésére.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>A telepítés megszakadt.</value>
+    <value>A telepítés megszakadt</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>A telepítés leállt. A céllemezen hiányos telepítés maradhatott.</value>

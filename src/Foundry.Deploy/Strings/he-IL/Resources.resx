@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>לא Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>דף פריסה שבוטלה</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>דפי פריסה</value>
   </data>
@@ -591,7 +594,7 @@ ErrorCode=0x80070005
     <value>התבקש ביטול. ממתינים לסיום בטוח של הפעולה הנוכחית.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>הפריסה בוטלה.</value>
+    <value>הפריסה בוטלה</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>הפריסה נעצרה. ייתכן שדיסק היעד מכיל התקנה חלקית.</value>

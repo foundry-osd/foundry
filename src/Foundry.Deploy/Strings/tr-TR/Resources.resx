@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Hayır Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>İptal edilen dağıtım sayfası</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Dağıtım sayfaları</value>
   </data>
@@ -591,7 +594,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>İptal istendi. Geçerli işlemin güvenli bir şekilde tamamlanması bekleniyor.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Dağıtım iptal edildi.</value>
+    <value>Dağıtım iptal edildi</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Dağıtım durduruldu. Hedef disk tamamlanmamış bir kurulum içerebilir.</value>

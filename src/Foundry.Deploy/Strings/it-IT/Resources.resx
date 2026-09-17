@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>No Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Pagina di distribuzione annullata</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Pagine di distribuzione</value>
   </data>
@@ -591,7 +594,7 @@ Continuare con la distribuzione?</value>
     <value>Annullamento richiesto. In attesa che l’operazione corrente termini in sicurezza.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Distribuzione annullata.</value>
+    <value>Distribuzione annullata</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Distribuzione arrestata. Il disco di destinazione potrebbe contenere un’installazione incompleta.</value>

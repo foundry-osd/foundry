@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>لا Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>صفحة الإلغاء</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>صفحات النشر</value>
   </data>
@@ -591,7 +594,7 @@
     <value>تم طلب الإلغاء. جارٍ انتظار اكتمال العملية الحالية بأمان.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>تم إلغاء النشر.</value>
+    <value>تم إلغاء النشر</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>توقف النشر. قد يحتوي القرص المستهدف على تثبيت غير مكتمل.</value>

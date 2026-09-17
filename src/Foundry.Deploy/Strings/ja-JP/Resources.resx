@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>いいえ Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>キャンセルページ</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>導入ページ</value>
   </data>
@@ -591,7 +594,7 @@
     <value>キャンセルが要求されました。現在の操作が安全に完了するのを待っています。</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>デプロイメントがキャンセルされました。</value>
+    <value>デプロイメントがキャンセルされました</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>デプロイメントが停止しました。ターゲットディスクに未完了のインストールが残っている可能性があります。</value>

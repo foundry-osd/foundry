@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Ei Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Perutun käyttöönoton sivu</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Käyttöönottosivut</value>
   </data>
@@ -591,7 +594,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Peruutusta pyydetty. Odotetaan nykyisen toiminnon turvallista valmistumista.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Käyttöönotto peruttu.</value>
+    <value>Käyttöönotto peruttu</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Käyttöönotto pysäytetty. Kohdelevyllä voi olla keskeneräinen asennus.</value>

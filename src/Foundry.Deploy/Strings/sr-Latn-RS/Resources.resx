@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Ne Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Stranica otkazane primene</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Stranice za primenu</value>
   </data>
@@ -591,7 +594,7 @@ Operativni sistem: {4}
     <value>Zatraženo je otkazivanje. Čeka se da se trenutna operacija bezbedno završi.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Primena je otkazana.</value>
+    <value>Primena je otkazana</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Primena je zaustavljena. Ciljni disk može da sadrži nepotpunu instalaciju.</value>

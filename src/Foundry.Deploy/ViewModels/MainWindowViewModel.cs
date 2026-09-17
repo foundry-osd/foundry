@@ -69,6 +69,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [NotifyCanExecuteChangedFor(nameof(ShowDebugProgressPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(ShowDebugSuccessPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(ShowDebugErrorPageCommand))]
+    [NotifyCanExecuteChangedFor(nameof(ShowDebugCancelledPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(SetDebugAutopilotModeCommand))]
     [NotifyCanExecuteChangedFor(nameof(CancelDeploymentCommand))]
     private bool isDeploymentRunning;
@@ -433,6 +434,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             "ErrorCode=0x80070005\n" +
             "Details: Access denied while mounting image to target path.\n" +
             "Action: Verify disk attributes and retry deployment.");
+    }
+
+    [RelayCommand(CanExecute = nameof(CanShowDebugPages))]
+    private void ShowDebugCancelledPage()
+    {
+        Session.ShowDebugCancelled(Preparation.EffectiveComputerName);
     }
 
     private void OnWizardContextStateChanged(object? sender, EventArgs e)

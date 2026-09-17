@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Ei Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Tühistatud kasutuselevõtu leht</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Juurutamise lehed</value>
   </data>
@@ -591,7 +594,7 @@ Kas jätkata juurutamisega?</value>
     <value>Tühistamist on taotletud. Oodatakse praeguse toimingu ohutut lõppemist.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Kasutuselevõtt tühistati.</value>
+    <value>Kasutuselevõtt tühistati</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Kasutuselevõtt peatati. Sihtkettal võib olla pooleli jäänud installatsioon.</value>

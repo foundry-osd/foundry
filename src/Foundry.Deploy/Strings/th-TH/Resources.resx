@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>ไม่ Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>หน้าการยกเลิกการทำให้ใช้งานได้</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>หน้าการปรับใช้</value>
   </data>

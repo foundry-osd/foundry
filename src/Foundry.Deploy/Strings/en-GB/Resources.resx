@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>No Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Cancelled page</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Deployment pages</value>
   </data>
@@ -591,7 +594,7 @@ Continue with deployment?</value>
     <value>Cancellation requested. Waiting for the current operation to finish safely.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Deployment cancelled.</value>
+    <value>Deployment cancelled</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Deployment stopped. The target disk may contain an incomplete installation.</value>

@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Ne Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Stranica otkazane implementacije</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Stranice za implementaciju</value>
   </data>
@@ -591,7 +594,7 @@ Nastaviti s implementacijom?</value>
     <value>Zatraženo je otkazivanje. Čeka se siguran dovršetak trenutačne operacije.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Implementacija je otkazana.</value>
+    <value>Implementacija je otkazana</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Implementacija je zaustavljena. Ciljni disk može sadržavati nepotpunu instalaciju.</value>

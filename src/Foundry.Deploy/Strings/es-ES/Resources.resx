@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>No Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Página de despliegue cancelado</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Páginas de implementación</value>
   </data>
@@ -591,7 +594,7 @@ Sistema operativo: {4}
     <value>Cancelación solicitada. Esperando a que la operación actual finalice de forma segura.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Despliegue cancelado.</value>
+    <value>Despliegue cancelado</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Despliegue detenido. El disco de destino puede contener una instalación incompleta.</value>

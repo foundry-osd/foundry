@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nu Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Pagina de implementare anulată</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Pagini de implementare</value>
   </data>
@@ -591,7 +594,7 @@ Continuați cu implementarea?</value>
     <value>S-a solicitat anularea. Se așteaptă încheierea în siguranță a operației curente.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Implementarea a fost anulată.</value>
+    <value>Implementarea a fost anulată</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Implementarea a fost oprită. Discul țintă poate conține o instalare incompletă.</value>

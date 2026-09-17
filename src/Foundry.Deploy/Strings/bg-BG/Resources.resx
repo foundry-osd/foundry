@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Не Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Страница за отменено внедряване</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Страници за внедряване</value>
   </data>
@@ -591,7 +594,7 @@
     <value>Заявено е отменяне. Изчаква се безопасното завършване на текущата операция.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Внедряването е отменено.</value>
+    <value>Внедряването е отменено</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Внедряването е спряно. Целевият диск може да съдържа непълна инсталация.</value>

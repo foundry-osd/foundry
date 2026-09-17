@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Нет Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Страница отменённого развертывания</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Страницы развертывания</value>
   </data>
@@ -591,7 +594,7 @@
     <value>Запрошена отмена. Ожидание безопасного завершения текущей операции.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Развертывание отменено.</value>
+    <value>Развертывание отменено</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Развертывание остановлено. На целевом диске может остаться незавершенная установка.</value>

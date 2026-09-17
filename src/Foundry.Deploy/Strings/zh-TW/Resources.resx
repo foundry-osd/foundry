@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>沒有Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>取消頁面</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>部署頁面</value>
   </data>
@@ -591,7 +594,7 @@
     <value>已要求取消。正在等待目前的作業安全完成。</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>部署已取消。</value>
+    <value>部署已取消</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>部署已停止。目標磁碟上可能有未完成的安裝。</value>

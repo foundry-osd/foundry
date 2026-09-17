@@ -340,6 +340,27 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         CurrentPage = DeploymentPage.Error;
     }
 
+    /// <summary>
+    /// Previews cancellation using the same terminal transition as a cancelled deployment.
+    /// </summary>
+    public void ShowDebugCancelled(string computerName)
+    {
+        int currentStepIndex = _deploymentOrchestrator.PlannedSteps
+            .ToList().IndexOf(DeploymentStepNames.ApplyOperatingSystemImage) + 1;
+        ShowDebugProgress(
+            computerName,
+            currentStepIndex,
+            _deploymentOrchestrator.PlannedSteps.Count,
+            DeploymentStepNames.ApplyOperatingSystemImage,
+            progressPercent: 42);
+        ApplyExecutionRunResult(new DeploymentExecutionRunResult
+        {
+            IsSuccess = false,
+            IsCancelled = true,
+            Message = "Deployment cancelled."
+        });
+    }
+
     [RelayCommand]
     private void OpenLogFile()
     {

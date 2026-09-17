@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nein Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Seite für abgebrochene Bereitstellung</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Bereitstellungsseiten</value>
   </data>
@@ -591,7 +594,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Abbruch angefordert. Es wird gewartet, bis der aktuelle Vorgang sicher abgeschlossen ist.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Bereitstellung abgebrochen.</value>
+    <value>Bereitstellung abgebrochen</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Bereitstellung gestoppt. Die Zielfestplatte enthält möglicherweise eine unvollständige Installation.</value>

@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Pas d’Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Page du déploiement annulé</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Pages de déploiement</value>
   </data>
@@ -591,7 +594,7 @@ Continuer le déploiement ?</value>
     <value>Annulation demandée. En attente de la fin de l’opération en cours pour un arrêt en toute sécurité.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Déploiement annulé.</value>
+    <value>Déploiement annulé</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Déploiement arrêté. Le disque cible peut contenir une installation incomplète.</value>

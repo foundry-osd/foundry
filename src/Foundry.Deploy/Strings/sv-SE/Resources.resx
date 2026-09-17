@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nej Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Sida för avbruten implementering</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Implementeringssidor</value>
   </data>
@@ -591,7 +594,7 @@ Fortsätt med implementeringen?</value>
     <value>Avbrott har begärts. Väntar på att den aktuella åtgärden ska slutföras på ett säkert sätt.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Implementeringen avbröts.</value>
+    <value>Implementeringen avbröts</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Implementeringen stoppades. Måldisken kan innehålla en ofullständig installation.</value>

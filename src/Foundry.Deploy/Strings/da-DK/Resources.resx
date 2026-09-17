@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nej Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Side for annulleret implementering</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Implementeringssider</value>
   </data>
@@ -591,7 +594,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Der er anmodet om annullering. Venter på, at den aktuelle handling afsluttes på en sikker måde.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Implementeringen blev annulleret.</value>
+    <value>Implementeringen blev annulleret</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Implementeringen blev stoppet. Måldisken kan indeholde en ufuldstændig installation.</value>

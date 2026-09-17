@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Ne Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Stran preklicane razporeditve</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Strani za uvajanje</value>
   </data>
@@ -591,7 +594,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Zahtevan je preklic. Čakanje na varen zaključek trenutnega postopka.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Razporeditev preklicana.</value>
+    <value>Razporeditev preklicana</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Uvajanje je ustavljeno. Ciljni disk lahko vsebuje nedokončano namestitev.</value>

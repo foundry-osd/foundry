@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Ні Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Сторінка скасованого розгортання</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Сторінки розгортання</value>
   </data>
@@ -591,7 +594,7 @@ ErrorCode=0x80070005
     <value>Надіслано запит на скасування. Очікування безпечного завершення поточної операції.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Розгортання скасовано.</value>
+    <value>Розгортання скасовано</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Розгортання зупинено. На цільовому диску може залишитися незавершене встановлення.</value>

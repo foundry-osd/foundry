@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nie Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Stránka zrušeného nasadenia</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Stránky nasadenia</value>
   </data>
@@ -591,7 +594,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Bolo vyžiadané zrušenie. Čaká sa na bezpečné dokončenie aktuálnej operácie.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Nasadenie bolo zrušené.</value>
+    <value>Nasadenie bolo zrušené</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Nasadenie bolo zastavené. Cieľový disk môže obsahovať neúplnú inštaláciu.</value>

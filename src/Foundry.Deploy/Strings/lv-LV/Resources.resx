@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nē Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Atceltas izvietošanas lapa</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Izvietošanas lapas</value>
   </data>
@@ -591,7 +594,7 @@ Vai turpināt izvietošanu?</value>
     <value>Pieprasīta atcelšana. Tiek gaidīts, līdz pašreizējā operācija tiks droši pabeigta.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Izvietošana atcelta.</value>
+    <value>Izvietošana atcelta</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Izvietošana apturēta. Mērķa diskā var būt nepabeigta instalācija.</value>

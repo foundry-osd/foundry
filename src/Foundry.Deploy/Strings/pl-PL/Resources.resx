@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nie Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Strona anulowanego wdrożenia</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Strony wdrożeniowe</value>
   </data>
@@ -591,7 +594,7 @@ Kontynuować wdrażanie?</value>
     <value>Zażądano anulowania. Trwa oczekiwanie na bezpieczne zakończenie bieżącej operacji.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Wdrożenie anulowane.</value>
+    <value>Wdrożenie anulowane</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Wdrożenie zatrzymane. Dysk docelowy może zawierać niekompletną instalację.</value>

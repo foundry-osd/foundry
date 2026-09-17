@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Όχι Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Σελίδα ακυρωμένης ανάπτυξης</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Σελίδες ανάπτυξης</value>
   </data>
@@ -591,7 +594,7 @@
     <value>Ζητήθηκε ακύρωση. Αναμονή για την ασφαλή ολοκλήρωση της τρέχουσας λειτουργίας.</value>
   </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Η ανάπτυξη ακυρώθηκε.</value>
+    <value>Η ανάπτυξη ακυρώθηκε</value>
   </data>
   <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
     <value>Η ανάπτυξη διακόπηκε. Ο δίσκος προορισμού ενδέχεται να περιέχει μια ημιτελή εγκατάσταση.</value>
