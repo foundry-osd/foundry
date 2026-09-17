@@ -8,10 +8,8 @@ namespace Foundry.Utilities.Tests.Networking;
 
 public sealed class HttpTransferTests
 {
-    [Theory]
-    [InlineData(0, "overall")]
-    [InlineData(1, "inactivity")]
-    public async Task RunAsync_WhenDeadlineExpires_CancelsUnderlyingWorkAndWaitsForCleanup(int timerIndex, string reason)
+    [Fact]
+    public async Task RunAsync_WhenInactivityDeadlineExpires_CancelsUnderlyingWorkAndWaitsForCleanup()
     {
         var clock = new ControlledTimeProvider();
         var cleaningUp = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -33,13 +31,12 @@ public sealed class HttpTransferTests
 
         try
         {
-            Assert.Equal(2, clock.Timers.Count);
-            clock.Timers[timerIndex].Fire();
+            clock.Advance(TimeSpan.FromMinutes(2));
             await cleaningUp.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
             Assert.False(transfer.IsCompleted);
             cleanupFinished.SetResult();
             TimeoutException error = await Assert.ThrowsAsync<TimeoutException>(() => transfer);
-            Assert.Contains(reason, error.Message, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("inactivity", error.Message, StringComparison.OrdinalIgnoreCase);
             Assert.All(clock.Timers, timer => Assert.True(timer.Disposed));
         }
         finally
@@ -51,10 +48,10 @@ public sealed class HttpTransferTests
     }
 
     [Fact]
-    public async Task RunAsync_WhenTransferProgressesSlowly_AllowsMoreThanOneInactivityPeriod()
+    public async Task RunAsync_WhenProgressStops_TimesOutTwoMinutesAfterLastProgress()
     {
         var clock = new ControlledTimeProvider();
-        int result = await HttpTransfer.RunAsync((token, progress) =>
+        TimeoutException failure = await Assert.ThrowsAsync<TimeoutException>(() => HttpTransfer.RunAsync((token, progress) =>
         {
             for (int chunk = 0; chunk < 5; chunk++)
             {
@@ -62,27 +59,31 @@ public sealed class HttpTransferTests
                 token.ThrowIfCancellationRequested();
                 progress();
             }
-            return Task.FromResult(7);
-        }, TestContext.Current.CancellationToken, clock);
-        Assert.Equal(7, result);
+            clock.Advance(TimeSpan.FromSeconds(119));
+            token.ThrowIfCancellationRequested();
+            clock.Advance(TimeSpan.FromSeconds(1));
+            return Task.FromResult(true);
+        }, TestContext.Current.CancellationToken, clock));
+        Assert.Contains("inactivity", failure.Message, StringComparison.OrdinalIgnoreCase);
         Assert.All(clock.Timers, timer => Assert.True(timer.Disposed));
     }
 
     [Fact]
-    public async Task RunAsync_WhenProgressContinues_StillEnforcesOverallDeadline()
+    public async Task RunAsync_WhenProgressContinues_AllowsMultiHourTransfers()
     {
         var clock = new ControlledTimeProvider();
-        TimeoutException failure = await Assert.ThrowsAsync<TimeoutException>(() => HttpTransfer.RunAsync((token, progress) =>
+        bool completed = await HttpTransfer.RunAsync((token, progress) =>
         {
-            for (int chunk = 0; chunk < 30; chunk++)
+            for (int chunk = 0; chunk < 180; chunk++)
             {
                 clock.Advance(TimeSpan.FromMinutes(1));
                 token.ThrowIfCancellationRequested();
                 progress();
             }
             return Task.FromResult(true);
-        }, TestContext.Current.CancellationToken, clock));
-        Assert.Contains("overall", failure.Message, StringComparison.OrdinalIgnoreCase);
+        }, TestContext.Current.CancellationToken, clock);
+        Assert.True(completed);
+        Assert.All(clock.Timers, timer => Assert.True(timer.Disposed));
     }
 
     [Fact]

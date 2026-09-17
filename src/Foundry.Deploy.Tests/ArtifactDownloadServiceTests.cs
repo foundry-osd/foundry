@@ -37,7 +37,7 @@ public sealed class ArtifactDownloadServiceTests
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             RequestCount++;
-            clock.Fire(1);
+            clock.Fire();
             await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken);
             throw new InvalidOperationException("A stalled header request should be cancelled.");
         }
@@ -67,7 +67,7 @@ public sealed class ArtifactDownloadServiceTests
             await server.GetStream().WriteAsync(
                 Encoding.ASCII.GetBytes("HTTP/1.1 200 OK\r\nContent-Length: 1000\r\n\r\nx"), TestContext.Current.CancellationToken);
             await bodyStarted.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
-            clock.Fire(1);
+            clock.Fire();
             TimeoutException failure = await Assert.ThrowsAsync<TimeoutException>(() => transfer.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken));
             Assert.True(transfer.IsCompleted);
             Assert.Contains("inactivity", failure.Message, StringComparison.OrdinalIgnoreCase);
@@ -81,15 +81,14 @@ public sealed class ArtifactDownloadServiceTests
     }
 
     [Theory]
-    [InlineData(0, false)]
-    [InlineData(1, false)]
-    [InlineData(1, true)]
-    public async Task DownloadAsync_WhenBodyStalls_TimesOutAndRemovesPartialFile(int timerIndex, bool partialBody)
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task DownloadAsync_WhenBodyStalls_TimesOutAndRemovesPartialFile(bool partialBody)
     {
         using TempDirectory temp = TempDirectory.Create();
         string destination = Path.Combine(temp.Path, "image.esd");
         var clock = new DeadlineTimeProvider();
-        using var stream = new StallingStream(partialBody, () => clock.Fire(timerIndex));
+        using var stream = new StallingStream(partialBody, clock.Fire);
         using var handler = new StreamHttpMessageHandler(stream);
         using var client = new HttpClient(handler);
         var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client, clock);
@@ -123,11 +122,11 @@ public sealed class ArtifactDownloadServiceTests
 
     private sealed class DeadlineTimeProvider : TimeProvider
     {
-        private readonly List<Action> _callbacks = [];
-        public void Fire(int index) => _callbacks[index]();
+        private Action? _expire;
+        public void Fire() => _expire!();
         public override ITimer CreateTimer(TimerCallback callback, object? state, TimeSpan dueTime, TimeSpan period)
         {
-            _callbacks.Add(() => callback(state));
+            _expire = () => callback(state);
             return new DeadlineTimer();
         }
         private sealed class DeadlineTimer : ITimer
