@@ -2633,6 +2633,9 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="Shell.OperationRunning" xml:space="preserve">
     <value>Operazione in corso</value>
   </data>
+  <data name="Shell.OperationStopping" xml:space="preserve">
+    <value>Arresto in sicurezza. Potrebbe essere necessario attendere il termine dell’operazione corrente sul disco o sull’immagine prima che la pulizia possa essere completata.</value>
+  </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
     <value>Seleziona l'architettura di avvio e la modalità di firma di avvio.</value>
   </data>
@@ -2906,6 +2909,9 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>Creazione dell'area di lavoro WinPE.</value>
   </data>
+  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+    <value>Creazione del supporto annullata.</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Controllo della sicurezza del target USB.</value>
   </data>
@@ -3082,6 +3088,9 @@ Password e chiavi di accesso incluse: {2}</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
     <value>Preparazione delle dipendenze dell'immagine di avvio.</value>
+  </data>
+  <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
+    <value>Il tempo di attesa per il trasferimento è scaduto. Verificare la connessione e riprovare.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Aggiornamento del supporto USB.</value>

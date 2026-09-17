@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nej Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Side for annulleret implementering</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Implementeringssider</value>
   </data>
@@ -587,8 +590,14 @@ Vil du fortsætte med implementeringen?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>En anden operation kører allerede.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Der er anmodet om annullering. Venter på, at den aktuelle handling afsluttes på en sikker måde.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Implementeringen blev annulleret.</value>
+    <value>Implementeringen blev annulleret</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Implementeringen blev stoppet. Måldisken kan indeholde en ufuldstændig installation.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>I gang...</value>
@@ -611,6 +620,9 @@ Vil du fortsætte med implementeringen?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Starter {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Annulleret</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Trin gennemført.</value>
   </data>
@@ -628,6 +640,9 @@ Vil du fortsætte med implementeringen?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>System genstart</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Tidsgrænsen for overførslen blev overskredet. Kontrollér forbindelsen, og prøv igen.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Ukendt trin</value>

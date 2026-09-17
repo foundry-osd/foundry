@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Нет Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Страница отменённого развертывания</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Страницы развертывания</value>
   </data>
@@ -587,8 +590,14 @@
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Другая операция уже выполняется.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Запрошена отмена. Ожидание безопасного завершения текущей операции.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Развертывание отменено.</value>
+    <value>Развертывание отменено</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Развертывание остановлено. На целевом диске может остаться незавершенная установка.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>В процессе...</value>
@@ -611,6 +620,9 @@
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Начинаем {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Отменено</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Шаг завершен.</value>
   </data>
@@ -628,6 +640,9 @@
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Перезагрузка системы</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Истекло время ожидания передачи. Проверьте подключение и повторите попытку.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Неизвестный шаг</value>

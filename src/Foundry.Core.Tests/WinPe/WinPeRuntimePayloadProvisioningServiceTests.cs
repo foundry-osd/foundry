@@ -13,6 +13,33 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeRuntimePayloadProvisioningServiceTests
 {
+    [Fact]
+    public async Task PrepareAsync_WhenCancelledDuringLocalPublish_WaitsForPublisherAndSkipsArchive()
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        string projectPath = Path.Combine(workspace.RootPath, "Foundry.Connect.csproj");
+        File.WriteAllText(projectPath, "<Project />");
+        using var cancellation = new CancellationTokenSource();
+        var runner = new FakeRuntimeProcessRunner
+        {
+            OnRun = token =>
+            {
+                cancellation.Cancel();
+                Assert.False(token.CanBeCanceled);
+            }
+        };
+        var service = new WinPeRuntimePayloadProvisioningService(runner);
+
+        await Assert.ThrowsAsync<OperationCanceledException>(() => service.PrepareAsync(new WinPeRuntimePayloadProvisioningOptions
+        {
+            WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            Connect = new() { IsEnabled = true, ProjectPath = projectPath }
+        }, cancellation.Token));
+
+        Assert.Single(runner.Executions);
+        Assert.Empty(Directory.GetFiles(workspace.WorkingDirectoryPath, "*.zip", SearchOption.AllDirectories));
+    }
+
     [Theory]
     [InlineData(WinPeArchitecture.X64, "win-x64")]
     [InlineData(WinPeArchitecture.Arm64, "win-arm64")]
@@ -695,6 +722,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
 
     private sealed class FakeRuntimeProcessRunner : IWinPeProcessRunner
     {
+        public Action<CancellationToken>? OnRun { get; init; }
         public List<WinPeProcessExecution> Executions { get; } = [];
         public int ExitCode { get; init; }
         public bool CreateOutput { get; init; } = true;
@@ -706,6 +734,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             CancellationToken cancellationToken,
             IReadOnlyDictionary<string, string>? environmentOverrides = null)
         {
+            OnRun?.Invoke(cancellationToken);
             string outputDirectory = ExtractOutputDirectory(arguments);
             Directory.CreateDirectory(outputDirectory);
             string executableName = arguments.Contains("Foundry.Bootstrap.csproj", StringComparison.OrdinalIgnoreCase)

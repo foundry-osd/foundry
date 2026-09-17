@@ -85,7 +85,8 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 candidate,
                 cancellationToken).ConfigureAwait(false);
 
-            if (result.IsSuccess)
+            // Preserve a completed servicing failure when cancellation prevents trying another source.
+            if (result.IsSuccess || cancellationToken.IsCancellationRequested)
             {
                 return result;
             }
@@ -332,12 +333,16 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             string catalogXml = await _httpClient.GetStringAsync(catalogUri, cancellationToken).ConfigureAwait(false);
             return SelectCatalogCandidates(catalogXml, architecture, languageCode);
         }
-        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or InvalidOperationException)
+        catch (Exception ex) when (
+            ex is HttpRequestException or InvalidOperationException ||
+            ex is TaskCanceledException && !cancellationToken.IsCancellationRequested)
         {
             return WinPeResult<IReadOnlyList<WindowsSourceCandidate>>.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.OperatingSystemCatalogFetchFailed,
                 "Failed to download the operating system catalog.",
                 ex.Message,
+                failureKind: WinPeFailureKinds.Network,
+                failureReason: ex is TaskCanceledException ? WinPeFailureReasons.Timeout : null,
                 exception: ex));
         }
     }
@@ -387,6 +392,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             }
 
             ReportProgress(options.Progress, 19, "Exporting Windows image for boot image preparation.");
+            cancellationToken.ThrowIfCancellationRequested();
             WinPeProcessExecution exportResult = await WinPeDismProcessRunner.RunAsync(
                 _processRunner,
                 options.Tools.DismPath,
@@ -394,7 +400,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 options.Artifact.WorkingDirectoryPath,
                 "Exporting Windows image with DISM.",
                 CreateDismProgress(options.Progress, 19, "Exporting Windows image for boot image preparation."),
-                cancellationToken).ConfigureAwait(false);
+                CancellationToken.None).ConfigureAwait(false);
 
             if (!exportResult.IsSuccess)
             {
@@ -404,6 +410,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                     stage: "Export Windows source image",
                     toolName: "dism.exe"));
             }
+            cancellationToken.ThrowIfCancellationRequested();
 
             if (!File.Exists(installWimPath))
             {
@@ -419,13 +426,14 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             }
 
             ReportProgress(options.Progress, 24, "Mounting Windows source image.");
+            cancellationToken.ThrowIfCancellationRequested();
             WinPeResult<WinPeMountSession> mountResult = await WinPeMountSession.MountAsync(
                 _processRunner,
                 options.Tools.DismPath,
                 installWimPath,
                 mountDirectory,
                 options.Artifact.WorkingDirectoryPath,
-                cancellationToken,
+                CancellationToken.None,
                 CreateDismProgress(options.Progress, 24, "Mounting Windows source image.")).ConfigureAwait(false);
 
             if (!mountResult.IsSuccess)
@@ -434,6 +442,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             }
 
             session = mountResult.Value!;
+            cancellationToken.ThrowIfCancellationRequested();
             string winRePath = Path.Combine(mountDirectory, "Windows", "System32", "Recovery", "winre.wim");
             if (options.BootImageSource == WinPeBootImageSource.WinReWifi && !File.Exists(winRePath))
             {
@@ -442,8 +451,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                         WinPeErrorCodes.WinReExtractionFailed,
                         "The selected operating system image does not contain winre.wim.",
                         $"Expected path: '{winRePath}'."),
-                    session,
-                    cancellationToken).ConfigureAwait(false);
+                    session).ConfigureAwait(false);
             }
 
             ReportProgress(options.Progress, 27, "Staging boot image dependencies.");
@@ -455,7 +463,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
 
             if (!dependencyResult.IsSuccess)
             {
-                return await FailWithDiscardAsync(dependencyResult.Error!, session, cancellationToken).ConfigureAwait(false);
+                return await FailWithDiscardAsync(dependencyResult.Error!, session).ConfigureAwait(false);
             }
 
             if (options.BootImageSource == WinPeBootImageSource.WinReWifi)
@@ -465,19 +473,20 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 File.Copy(winRePath, options.Artifact.BootWimPath, overwrite: true);
             }
 
-            WinPeResult discardResult = await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
+            WinPeResult discardResult = await session.DiscardAsync(CancellationToken.None).ConfigureAwait(false);
             session = null;
             if (!discardResult.IsSuccess)
             {
                 return WinPeResult<WinPeBootImagePreparationResult>.Failure(discardResult.Error!);
             }
+            cancellationToken.ThrowIfCancellationRequested();
 
             TryDeleteDirectory(exportDirectory);
             TryDeleteDirectory(mountDirectory);
             ReportProgress(options.Progress, 30, "Boot image dependencies are ready.");
             return dependencyResult;
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is not OperationCanceledException)
         {
             if (session is not null)
             {
@@ -487,8 +496,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                         "Failed to prepare boot image dependencies from the Windows source image.",
                         ex.Message,
                         exception: ex),
-                    session,
-                    cancellationToken).ConfigureAwait(false);
+                    session).ConfigureAwait(false);
             }
 
             return WinPeResult<WinPeBootImagePreparationResult>.Failure(new WinPeDiagnostic(
@@ -542,33 +550,38 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
         try
         {
             ReportDownloadProgress(progress, 0, "Downloading Windows source package.");
-            using HttpResponseMessage response = await _httpClient.GetAsync(
-                sourceUri,
-                HttpCompletionOption.ResponseHeadersRead,
-                cancellationToken).ConfigureAwait(false);
-
-            response.EnsureSuccessStatusCode();
-            long? totalBytes = response.Content.Headers.ContentLength;
-            await using Stream sourceStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-            await using (FileStream destinationStream = new(
-                             temporaryDownloadPath,
-                             FileMode.Create,
-                             FileAccess.Write,
-                             FileShare.None,
-                             81920,
-                             useAsync: true))
+            await HttpTransfer.RunAsync(async (transferToken, reportProgress) =>
             {
-                await CopyDownloadToFileAsync(
-                    sourceStream,
-                    destinationStream,
-                    totalBytes,
-                    progress,
-                    cancellationToken).ConfigureAwait(false);
-            }
+                using HttpResponseMessage response = await _httpClient.GetAsync(
+                    sourceUri,
+                    HttpCompletionOption.ResponseHeadersRead,
+                    transferToken).ConfigureAwait(false);
+
+                response.EnsureSuccessStatusCode();
+                long? totalBytes = response.Content.Headers.ContentLength;
+                await using Stream sourceStream = await response.Content.ReadAsStreamAsync(transferToken).ConfigureAwait(false);
+                await using (FileStream destinationStream = new(
+                                 temporaryDownloadPath,
+                                 FileMode.Create,
+                                 FileAccess.Write,
+                                 FileShare.None,
+                                 81920,
+                                 useAsync: true))
+                {
+                    await CopyDownloadToFileAsync(
+                        sourceStream,
+                        destinationStream,
+                        totalBytes,
+                        progress,
+                        reportProgress,
+                        transferToken).ConfigureAwait(false);
+                }
+                return true;
+            }, cancellationToken).ConfigureAwait(false);
 
             File.Move(temporaryDownloadPath, sourceCachePath, overwrite: true);
         }
-        catch (Exception ex) when (ex is HttpRequestException or IOException or UnauthorizedAccessException)
+        catch (Exception ex) when (ex is HttpRequestException or IOException or UnauthorizedAccessException or TimeoutException)
         {
             TryDeleteFile(sourceCachePath);
             TryDeleteFile(temporaryDownloadPath);
@@ -602,6 +615,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
         FileStream destinationStream,
         long? totalBytes,
         IProgress<WinPeDownloadProgress>? progress,
+        Action reportProgress,
         CancellationToken cancellationToken)
     {
         int lastReportedPercent = -1;
@@ -610,6 +624,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             destinationStream,
             copiedBytes =>
             {
+                reportProgress();
                 double? percentage = TransferProgress.CalculatePercentage(copiedBytes, totalBytes);
                 if (percentage.HasValue)
                 {
@@ -725,10 +740,9 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
 
     private static async Task<WinPeResult<WinPeBootImagePreparationResult>> FailWithDiscardAsync(
         WinPeDiagnostic primaryDiagnostic,
-        WinPeMountSession session,
-        CancellationToken cancellationToken)
+        WinPeMountSession session)
     {
-        WinPeResult discardResult = await session.DiscardAsync(cancellationToken).ConfigureAwait(false);
+        WinPeResult discardResult = await session.DiscardAsync(CancellationToken.None).ConfigureAwait(false);
         if (discardResult.IsSuccess)
         {
             return WinPeResult<WinPeBootImagePreparationResult>.Failure(primaryDiagnostic);

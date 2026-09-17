@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nie Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Stránka zrušeného nasadenia</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Stránky nasadenia</value>
   </data>
@@ -587,8 +590,14 @@ Pokračovať v nasadzovaní?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Ďalšia operácia už prebieha.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Bolo vyžiadané zrušenie. Čaká sa na bezpečné dokončenie aktuálnej operácie.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Nasadenie bolo zrušené.</value>
+    <value>Nasadenie bolo zrušené</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Nasadenie bolo zastavené. Cieľový disk môže obsahovať neúplnú inštaláciu.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>Prebieha...</value>
@@ -611,6 +620,9 @@ Pokračovať v nasadzovaní?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Začína {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Zrušené</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Krok dokončený.</value>
   </data>
@@ -628,6 +640,9 @@ Pokračovať v nasadzovaní?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Reštart systému</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Časový limit prenosu uplynul. Skontrolujte pripojenie a skúste to znova.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Neznámy krok</value>

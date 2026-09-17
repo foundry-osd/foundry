@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Pas d’Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Page du déploiement annulé</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Pages de déploiement</value>
   </data>
@@ -587,8 +590,14 @@ Continuer le déploiement ?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Une autre opération est déjà en cours.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Annulation demandée. En attente de la fin de l’opération en cours pour un arrêt en toute sécurité.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Déploiement annulé.</value>
+    <value>Déploiement annulé</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Déploiement arrêté. Le disque cible peut contenir une installation incomplète.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>En cours...</value>
@@ -611,6 +620,9 @@ Continuer le déploiement ?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Démarrage de {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Annulé</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Étape terminée.</value>
   </data>
@@ -628,6 +640,9 @@ Continuer le déploiement ?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Redémarrage système</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Le délai d’attente du transfert est dépassé. Vérifiez votre connexion et réessayez.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Étape inconnue</value>

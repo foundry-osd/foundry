@@ -13,6 +13,30 @@ public sealed class MicrosoftUpdateCatalogClientTests
     [Theory]
     [InlineData(false, 1)]
     [InlineData(true, 2)]
+    public async Task IsAvailableAsync_WhenCallerCancels_PropagatesWithoutFallback(bool cancelOnGet, int expectedRequests)
+    {
+        using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        using var handler = new AvailabilityHandler(request =>
+        {
+            if (cancelOnGet && request.Method == HttpMethod.Head)
+            {
+                return new HttpResponseMessage(HttpStatusCode.MethodNotAllowed);
+            }
+
+            cancellation.Cancel();
+            throw new OperationCanceledException(cancellation.Token);
+        });
+        using var client = new HttpClient(handler);
+        var service = new MicrosoftUpdateCatalogClient(NullLogger<MicrosoftUpdateCatalogClient>.Instance, client);
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.IsAvailableAsync(cancellation.Token));
+
+        Assert.Equal(expectedRequests, handler.Requests);
+    }
+
+    [Theory]
+    [InlineData(false, 1)]
+    [InlineData(true, 2)]
     public async Task IsAvailableAsync_WhenTlsFails_PropagatesWithoutFallbackOrRetry(bool failOnGet, int expectedRequests)
     {
         var failure = new HttpRequestException(HttpRequestError.SecureConnectionError, "TLS failure");

@@ -2633,6 +2633,9 @@
   <data name="Shell.OperationRunning" xml:space="preserve">
     <value>작업 진행 중</value>
   </data>
+  <data name="Shell.OperationStopping" xml:space="preserve">
+    <value>안전하게 중지하는 중입니다. 정리를 완료하려면 현재 디스크 또는 이미지 작업이 끝날 때까지 기다려야 할 수 있습니다.</value>
+  </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
     <value>부팅 아키텍처와 부팅 서명 모드를 선택합니다.</value>
   </data>
@@ -2906,6 +2909,9 @@
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>WinPE 작업공간을 만드는 중입니다.</value>
   </data>
+  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+    <value>미디어 생성이 취소되었습니다.</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>USB 대상의 안전성을 확인하는 중입니다.</value>
   </data>
@@ -3082,6 +3088,9 @@
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
     <value>부팅 이미지 종속성을 준비하는 중입니다.</value>
+  </data>
+  <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
+    <value>전송 시간이 초과되었습니다. 연결을 확인하고 다시 시도하세요.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>USB 미디어를 업데이트하는 중입니다.</value>

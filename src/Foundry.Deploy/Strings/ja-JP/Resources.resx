@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>いいえ Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>キャンセルページ</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>導入ページ</value>
   </data>
@@ -587,8 +590,14 @@
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>別の操作がすでに実行中です。</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>キャンセルが要求されました。現在の操作が安全に完了するのを待っています。</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>デプロイメントがキャンセルされました。</value>
+    <value>デプロイメントがキャンセルされました</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>デプロイメントが停止しました。ターゲットディスクに未完了のインストールが残っている可能性があります。</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>進行中...</value>
@@ -611,6 +620,9 @@
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>{0} を開始します...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>キャンセル済み</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>ステップが完了しました。</value>
   </data>
@@ -628,6 +640,9 @@
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>システムの再起動</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>転送がタイムアウトしました。接続を確認して、もう一度お試しください。</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>不明なステップ</value>

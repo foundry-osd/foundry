@@ -50,6 +50,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private bool _isInitialized;
     private bool _isDisposed;
     private Task? _initializationTask;
+    private CancellationTokenSource? _deploymentCancellation;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(PreviousWizardStepCommand))]
@@ -68,8 +69,18 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [NotifyCanExecuteChangedFor(nameof(ShowDebugProgressPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(ShowDebugSuccessPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(ShowDebugErrorPageCommand))]
+    [NotifyCanExecuteChangedFor(nameof(ShowDebugCancelledPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(SetDebugAutopilotModeCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CancelDeploymentCommand))]
     private bool isDeploymentRunning;
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(CancelDeploymentCommand))]
+    private bool isCancellationPending;
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(CancelDeploymentCommand))]
+    private bool isCompletionStarting;
 
     [ObservableProperty]
     private bool isBootMediaUpdateRecommended;
@@ -160,6 +171,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             IsDebugSafeMode,
             networkAdapterSnapshotProvider);
         Session.PropertyChanged += OnSessionPropertyChanged;
+        _deploymentOrchestrator.CompletionStarting += OnDeploymentCompletionStarting;
         LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
         RefreshSupportedCultures();
     }
@@ -342,6 +354,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         RunOnUi(() =>
         {
+            _deploymentCancellation = new CancellationTokenSource();
+            IsCancellationPending = false;
+            IsCompletionStarting = false;
             IsDeploymentRunning = true;
             Session.BeginDeployment(Preparation.EffectiveComputerName, _deploymentOrchestrator.PlannedSteps.Count);
         });
@@ -349,7 +364,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         try
         {
             DeploymentExecutionRunResult executionRunResult = await _deploymentExecutionService
-                .ExecuteAsync(launchPreparation.Context)
+                .ExecuteAsync(launchPreparation.Context, _deploymentCancellation!.Token)
                 .ConfigureAwait(false);
 
             RunOnUi(() => Session.ApplyExecutionRunResult(executionRunResult));
@@ -359,8 +374,32 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             RunOnUi(() =>
             {
                 IsDeploymentRunning = false;
+                IsCancellationPending = false;
+                _deploymentCancellation?.Dispose();
+                _deploymentCancellation = null;
             });
         }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanCancelDeployment))]
+    private void CancelDeployment()
+    {
+        if (!CanCancelDeployment())
+        {
+            return;
+        }
+
+        IsCancellationPending = true;
+        _deploymentCancellation!.Cancel();
+    }
+
+    private bool CanCancelDeployment() => IsDeploymentRunning && !IsCancellationPending && !IsCompletionStarting && _deploymentCancellation is not null;
+
+    private void OnDeploymentCompletionStarting(object? sender, EventArgs e)
+    {
+        // A synchronous dispatcher handoff closes cancellation before the orchestrator selects
+        // its terminal outcome, including the later telemetry and result-dispatch interval.
+        RunOnUi(() => IsCompletionStarting = true);
     }
 
     [RelayCommand(CanExecute = nameof(CanShowDebugPages))]
@@ -395,6 +434,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             "ErrorCode=0x80070005\n" +
             "Details: Access denied while mounting image to target path.\n" +
             "Action: Verify disk attributes and retry deployment.");
+    }
+
+    [RelayCommand(CanExecute = nameof(CanShowDebugPages))]
+    private void ShowDebugCancelledPage()
+    {
+        Session.ShowDebugCancelled(Preparation.EffectiveComputerName);
     }
 
     private void OnWizardContextStateChanged(object? sender, EventArgs e)
@@ -830,6 +875,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         _wizardContext.StateChanged -= OnWizardContextStateChanged;
         Session.PropertyChanged -= OnSessionPropertyChanged;
+        _deploymentOrchestrator.CompletionStarting -= OnDeploymentCompletionStarting;
         LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;
         _wizardContext.Dispose();
         Session.Dispose();

@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>לא Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>דף פריסה שבוטלה</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>דפי פריסה</value>
   </data>
@@ -587,8 +590,14 @@ ErrorCode=0x80070005
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>פעולה נוספת כבר פועלת.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>התבקש ביטול. ממתינים לסיום בטוח של הפעולה הנוכחית.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>הפריסה בוטלה.</value>
+    <value>הפריסה בוטלה</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>הפריסה נעצרה. ייתכן שדיסק היעד מכיל התקנה חלקית.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>בתהליך...</value>
@@ -611,6 +620,9 @@ ErrorCode=0x80070005
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>מתחיל {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>בוטל</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>שלב הושלם.</value>
   </data>
@@ -628,6 +640,9 @@ ErrorCode=0x80070005
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>אתחול המערכת</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>הזמן שהוקצב להעברה הסתיים. יש לבדוק את החיבור ולנסות שוב.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>צעד לא ידוע</value>

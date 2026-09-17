@@ -2633,6 +2633,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="Shell.OperationRunning" xml:space="preserve">
     <value>Operacija v teku</value>
   </data>
+  <data name="Shell.OperationStopping" xml:space="preserve">
+    <value>Poteka varno ustavljanje. Trenutni postopek na disku ali sliki se bo morda moral končati, preden bo čiščenje dokončano.</value>
+  </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
     <value>Izberite zagonsko arhitekturo in način zagonskega podpisa.</value>
   </data>
@@ -2906,6 +2909,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>Ustvarjanje WinPE delovnega prostora.</value>
   </data>
+  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+    <value>Ustvarjanje medija je preklicano.</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Preverjanje varnosti cilja USB.</value>
   </data>
@@ -3082,6 +3088,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
     <value>Priprava odvisnosti zagonske slike.</value>
+  </data>
+  <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
+    <value>Časovna omejitev prenosa je potekla. Preverite povezavo in poskusite znova.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Posodabljanje medija USB.</value>

@@ -8,6 +8,42 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeMountedImageCustomizationServiceTests
 {
+    [Theory]
+    [InlineData("/Mount-Image", true)]
+    [InlineData("/Commit", false)]
+    public async Task CustomizeAsync_WhenCancelledDuringServicing_FinishesStageAndUnmountsBeforeCancellation(string stage, bool expectsDiscard)
+    {
+        using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        using var cancellation = new CancellationTokenSource();
+        var runner = new FakeCustomizationRunner
+        {
+            OnRun = (arguments, token) =>
+            {
+                if (arguments.Contains(stage, StringComparison.Ordinal))
+                {
+                    cancellation.Cancel();
+                }
+                Assert.False(token.CanBeCanceled);
+            }
+        };
+        var internationalization = new FakeInternationalizationService();
+        var service = new WinPeMountedImageCustomizationService(
+            runner, new FakeDriverInjectionService(), internationalization,
+            new FakeAssetProvisioningService(), new FakeRuntimePayloadProvisioningService(), new FakeBootImagePreparationService());
+
+        await Assert.ThrowsAsync<OperationCanceledException>(() => service.CustomizeAsync(
+            new WinPeMountedImageCustomizationOptions
+            {
+                Artifact = temp.Artifact,
+                Tools = temp.Tools,
+                WinPeLanguage = "en-US"
+            }, cancellation.Token));
+
+        Assert.Equal(expectsDiscard, runner.Executions.Any(execution => execution.Arguments.Contains("/Discard", StringComparison.Ordinal)));
+        Assert.Equal(expectsDiscard ? 0 : 1, internationalization.Options.Count);
+        Assert.Equal(2, runner.Executions.Count);
+    }
+
     [Fact]
     public async Task CustomizeAsync_ForStandardBootImage_MountsInjectsInternationalizesAndCommits()
     {
@@ -344,6 +380,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
 
     private sealed class FakeCustomizationRunner : IWinPeProcessRunner
     {
+        public Action<string, CancellationToken>? OnRun { get; init; }
         public int DiscardExitCode { get; init; }
         public List<WinPeProcessExecution> Executions { get; } = [];
 
@@ -354,6 +391,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             CancellationToken cancellationToken,
             IReadOnlyDictionary<string, string>? environmentOverrides = null)
         {
+            OnRun?.Invoke(arguments, cancellationToken);
             var execution = new WinPeProcessExecution
             {
                 ExitCode = arguments.Contains("/Discard", StringComparison.Ordinal) ? DiscardExitCode : 0,

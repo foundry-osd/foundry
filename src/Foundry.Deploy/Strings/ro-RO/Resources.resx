@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nu Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Pagina de implementare anulată</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Pagini de implementare</value>
   </data>
@@ -587,8 +590,14 @@ Continuați cu implementarea?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>O altă operațiune este deja în curs de desfășurare.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>S-a solicitat anularea. Se așteaptă încheierea în siguranță a operației curente.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Implementarea a fost anulată.</value>
+    <value>Implementarea a fost anulată</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Implementarea a fost oprită. Discul țintă poate conține o instalare incompletă.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>În curs...</value>
@@ -611,6 +620,9 @@ Continuați cu implementarea?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Începând cu {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Anulat</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Pas finalizat.</value>
   </data>
@@ -628,6 +640,9 @@ Continuați cu implementarea?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Repornirea sistemului</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Timpul de așteptare pentru transfer a expirat. Verificați conexiunea și încercați din nou.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Pas necunoscut</value>

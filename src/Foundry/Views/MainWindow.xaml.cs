@@ -272,11 +272,13 @@ namespace Foundry.Views
                 RequestedTheme = RootGrid.ActualTheme,
                 Title = localizationService.GetString("Shell.OperationRunning"),
                 Content = CreateOperationDialogContent(),
+                PrimaryButtonText = operationProgressService.State.CanCancel ? localizationService.GetString("Common.Cancel") : string.Empty,
                 DefaultButton = ContentDialogButton.None
             };
 
             operationDialogCanClose = false;
             dialog.Closing += OnOperationDialogClosing;
+            dialog.PrimaryButtonClick += OnOperationDialogCancelClick;
             operationDialog = dialog;
 
             try
@@ -286,6 +288,7 @@ namespace Foundry.Views
             finally
             {
                 dialog.Closing -= OnOperationDialogClosing;
+                dialog.PrimaryButtonClick -= OnOperationDialogCancelClick;
                 if (ReferenceEquals(operationDialog, dialog))
                 {
                     operationDialog = null;
@@ -406,6 +409,7 @@ namespace Foundry.Views
 
             operationDialogCanClose = true;
             operationDialog.Title = localizationService.GetString("Shell.OperationCompleted");
+            operationDialog.PrimaryButtonText = string.Empty;
             operationDialog.CloseButtonText = localizationService.GetString("Common.Close");
             operationDialog.DefaultButton = ContentDialogButton.Close;
             ApplyOperationState(operationProgressService.State);
@@ -429,6 +433,12 @@ namespace Foundry.Views
             {
                 args.Cancel = true;
             }
+        }
+
+        private void OnOperationDialogCancelClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            args.Cancel = true;
+            operationProgressService.RequestCancellation();
         }
 
         private void ApplyFooterItemsState(ShellNavigationState state)
@@ -663,6 +673,11 @@ namespace Foundry.Views
 
         private void ApplyOperationState(OperationProgressState state)
         {
+            if (operationDialog is not null)
+            {
+                operationDialog.IsPrimaryButtonEnabled = state.CanCancel;
+            }
+
             if (operationStatusText is not null)
             {
                 operationStatusText.Text = GetOperationDialogStatusText();
@@ -670,12 +685,12 @@ namespace Foundry.Views
 
             if (operationProgressBar is not null)
             {
-                operationProgressBar.Value = operationDialogCanClose ? 100 : state.Progress;
+                operationProgressBar.Value = state.Progress;
             }
 
             if (operationProgressPercentText is not null)
             {
-                operationProgressPercentText.Text = FormatProgressPercent(operationDialogCanClose ? 100 : state.Progress);
+                operationProgressPercentText.Text = FormatProgressPercent(state.Progress);
             }
 
             if (operationProgressRing is not null)
@@ -709,6 +724,11 @@ namespace Foundry.Views
 
         private string GetOperationDialogStatusText()
         {
+            if (operationProgressService.State.IsCancellationRequested)
+            {
+                return localizationService.GetString("Shell.OperationStopping");
+            }
+
             return !string.IsNullOrWhiteSpace(operationProgressService.State.Status)
                 ? operationProgressService.State.Status
                 : localizationService.GetString("Shell.OperationRunning");

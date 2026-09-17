@@ -2633,6 +2633,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   <data name="Shell.OperationRunning" xml:space="preserve">
     <value>Operacja w toku</value>
   </data>
+  <data name="Shell.OperationStopping" xml:space="preserve">
+    <value>Trwa bezpieczne zatrzymywanie. Przed zakończeniem czyszczenia może być konieczne ukończenie bieżącej operacji na dysku lub obrazie.</value>
+  </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
     <value>Wybierz architekturę rozruchową i tryb podpisu rozruchowego.</value>
   </data>
@@ -2906,6 +2909,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>Tworzenie przestrzeni roboczej WinPE.</value>
   </data>
+  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+    <value>Tworzenie nośnika zostało anulowane.</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Sprawdzanie bezpieczeństwa celu USB.</value>
   </data>
@@ -3082,6 +3088,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
     <value>Przygotowywanie zależności obrazu rozruchowego.</value>
+  </data>
+  <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
+    <value>Upłynął limit czasu przesyłania. Sprawdź połączenie i spróbuj ponownie.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Aktualizowanie nośnika USB.</value>

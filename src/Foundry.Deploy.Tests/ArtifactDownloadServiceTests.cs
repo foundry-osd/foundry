@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Net;
+using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -13,6 +14,168 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class ArtifactDownloadServiceTests
 {
+    [Fact]
+    public async Task DownloadAsync_WhenHeadersStall_TimesOutWithoutStartingBodyOrRetrying()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destination = Path.Combine(temp.Path, "image.esd");
+        var clock = new DeadlineTimeProvider();
+        using var handler = new StalledHeadersHandler(clock);
+        using var client = new HttpClient(handler);
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client, clock);
+
+        await Assert.ThrowsAsync<TimeoutException>(() => service.DownloadAsync(
+            "https://example.test/image.esd", destination, cancellationToken: TestContext.Current.CancellationToken));
+
+        Assert.Equal(1, handler.RequestCount);
+        Assert.False(File.Exists(destination));
+    }
+
+    private sealed class StalledHeadersHandler(DeadlineTimeProvider clock) : HttpMessageHandler
+    {
+        public int RequestCount { get; private set; }
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            RequestCount++;
+            clock.Fire();
+            await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken);
+            throw new InvalidOperationException("A stalled header request should be cancelled.");
+        }
+    }
+
+    [Fact]
+    public async Task DownloadAsync_WhenRealServerStallsAfterHeaders_DeadlineStopsBodyRead()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destination = Path.Combine(temp.Path, "image.esd");
+        using var listener = new TcpListener(IPAddress.Loopback, 0);
+        listener.Start();
+        int port = ((IPEndPoint)listener.LocalEndpoint).Port;
+        var clock = new DeadlineTimeProvider();
+        using var handler = new SocketsHttpHandler { UseProxy = false };
+        using var client = new HttpClient(handler);
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client, clock);
+        var bodyStarted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        using var caller = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        Task<ArtifactDownloadResult> transfer = service.DownloadAsync(
+            $"http://127.0.0.1:{port}/image.esd", destination, cancellationToken: caller.Token,
+            progress: new InlineProgress<DownloadProgress>(value => { if (value.BytesProcessed > 0) bodyStarted.TrySetResult(); }));
+        try
+        {
+            using TcpClient server = await listener.AcceptTcpClientAsync(TestContext.Current.CancellationToken)
+                .AsTask().WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
+            await server.GetStream().WriteAsync(
+                Encoding.ASCII.GetBytes("HTTP/1.1 200 OK\r\nContent-Length: 1000\r\n\r\nx"), TestContext.Current.CancellationToken);
+            await bodyStarted.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
+            clock.Fire();
+            TimeoutException failure = await Assert.ThrowsAsync<TimeoutException>(() => transfer.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken));
+            Assert.True(transfer.IsCompleted);
+            Assert.Contains("inactivity", failure.Message, StringComparison.OrdinalIgnoreCase);
+            Assert.False(File.Exists(destination));
+        }
+        finally
+        {
+            caller.Cancel();
+            try { await transfer; } catch (Exception) { }
+        }
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task DownloadAsync_WhenBodyStalls_TimesOutAndRemovesPartialFile(bool partialBody)
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destination = Path.Combine(temp.Path, "image.esd");
+        var clock = new DeadlineTimeProvider();
+        using var stream = new StallingStream(partialBody, clock.Fire);
+        using var handler = new StreamHttpMessageHandler(stream);
+        using var client = new HttpClient(handler);
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client, clock);
+
+        await Assert.ThrowsAsync<TimeoutException>(() => service.DownloadAsync(
+            "https://example.test/image.esd", destination, cancellationToken: TestContext.Current.CancellationToken));
+
+        Assert.Equal(1, handler.RequestCount);
+        Assert.True(stream.Disposed);
+        Assert.False(File.Exists(destination));
+    }
+
+    [Fact]
+    public async Task DownloadAsync_WhenCancelledDuringBodyRead_RemovesPartialFileWithoutRetry()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destination = Path.Combine(temp.Path, "image.esd");
+        using var caller = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        using var stream = new StallingStream(true, caller.Cancel);
+        using var handler = new StreamHttpMessageHandler(stream);
+        using var client = new HttpClient(handler);
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.DownloadAsync(
+            "https://example.test/image.esd", destination, cancellationToken: caller.Token));
+
+        Assert.Equal(1, handler.RequestCount);
+        Assert.True(stream.Disposed);
+        Assert.False(File.Exists(destination));
+    }
+
+    private sealed class DeadlineTimeProvider : TimeProvider
+    {
+        private Action? _expire;
+        public void Fire() => _expire!();
+        public override ITimer CreateTimer(TimerCallback callback, object? state, TimeSpan dueTime, TimeSpan period)
+        {
+            _expire = () => callback(state);
+            return new DeadlineTimer();
+        }
+        private sealed class DeadlineTimer : ITimer
+        {
+            public bool Change(TimeSpan dueTime, TimeSpan period) => true;
+            public void Dispose() { }
+            public ValueTask DisposeAsync() => ValueTask.CompletedTask;
+        }
+    }
+
+    private sealed class StreamHttpMessageHandler(Stream stream) : HttpMessageHandler
+    {
+        public int RequestCount { get; private set; }
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            RequestCount++;
+            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = new StreamContent(stream) });
+        }
+    }
+
+    private sealed class StallingStream(bool partialBody, Action stalled) : Stream
+    {
+        private bool _hasRead;
+        public bool Disposed { get; private set; }
+        public override bool CanRead => true;
+        public override bool CanSeek => false;
+        public override bool CanWrite => false;
+        public override long Length => throw new NotSupportedException();
+        public override long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
+        public override async ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default)
+        {
+            if (partialBody && !_hasRead)
+            {
+                _hasRead = true;
+                buffer.Span[0] = 42;
+                return 1;
+            }
+            stalled();
+            await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken);
+            return 0;
+        }
+        protected override void Dispose(bool disposing) { Disposed = true; base.Dispose(disposing); }
+        public override void Flush() => throw new NotSupportedException();
+        public override int Read(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+        public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
+        public override void SetLength(long value) => throw new NotSupportedException();
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+    }
+
     [Theory]
     [InlineData("SHA1", false)]
     [InlineData("SHA256", false)]

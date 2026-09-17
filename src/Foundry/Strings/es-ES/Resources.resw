@@ -2633,6 +2633,9 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="Shell.OperationRunning" xml:space="preserve">
     <value>Operación en curso</value>
   </data>
+  <data name="Shell.OperationStopping" xml:space="preserve">
+    <value>Deteniendo de forma segura. Es posible que la operación actual con el disco o la imagen deba finalizar antes de que se complete la limpieza.</value>
+  </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
     <value>Seleccione la arquitectura de inicio y el modo de firma de inicio.</value>
   </data>
@@ -2906,6 +2909,9 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>Creando WinPE espacio de trabajo.</value>
   </data>
+  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+    <value>Creación de medios cancelada.</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Comprobando USB la seguridad del objetivo.</value>
   </data>
@@ -3082,6 +3088,9 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
     <value>Preparando las dependencias de la imagen de arranque.</value>
+  </data>
+  <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
+    <value>Se agotó el tiempo de espera de la transferencia. Compruebe su conexión e inténtelo de nuevo.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Actualizando medio USB.</value>

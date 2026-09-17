@@ -10,5 +10,6 @@ public enum DeploymentStepState
     Running,
     Succeeded,
     Failed,
-    Skipped
+    Skipped,
+    Cancelled
 }

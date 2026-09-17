@@ -28,12 +28,13 @@ public sealed class DeploymentExecutionService : IDeploymentExecutionService
         _logger = logger;
     }
 
-    public async Task<DeploymentExecutionRunResult> ExecuteAsync(DeploymentContext context)
+    public async Task<DeploymentExecutionRunResult> ExecuteAsync(DeploymentContext context, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(context);
 
         try
         {
+            cancellationToken.ThrowIfCancellationRequested();
             DeployConfigurationLoadResult configuration = _configurationService.LoadOptional();
             if (configuration.Exists && configuration.Document is null)
             {
@@ -49,19 +50,31 @@ public sealed class DeploymentExecutionService : IDeploymentExecutionService
             }
 
             DeploymentResult result = await _deploymentOrchestrator
-                .RunAsync(context)
+                .RunAsync(context, cancellationToken)
                 .ConfigureAwait(false);
 
             _logger.LogInformation(
-                "Deployment run completed. IsSuccess={IsSuccess}, LogsDirectoryPath={LogsDirectoryPath}",
+                "Deployment run completed. IsSuccess={IsSuccess}, IsCancelled={IsCancelled}, LogsDirectoryPath={LogsDirectoryPath}",
                 result.IsSuccess,
+                result.IsCancelled,
                 result.LogsDirectoryPath);
 
             return new DeploymentExecutionRunResult
             {
                 IsSuccess = result.IsSuccess,
+                IsCancelled = result.IsCancelled,
                 Message = result.Message,
                 LogsDirectoryPath = result.LogsDirectoryPath
+            };
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            _logger.LogInformation("Deployment execution cancelled.");
+            return new DeploymentExecutionRunResult
+            {
+                IsSuccess = false,
+                IsCancelled = true,
+                Message = "Deployment cancelled."
             };
         }
         catch (Exception ex)
@@ -70,7 +83,7 @@ public sealed class DeploymentExecutionService : IDeploymentExecutionService
             return new DeploymentExecutionRunResult
             {
                 IsSuccess = false,
-                Message = ex.Message
+                Message = ex is TimeoutException or OperationCanceledException ? "Transfer timed out." : ex.Message
             };
         }
     }

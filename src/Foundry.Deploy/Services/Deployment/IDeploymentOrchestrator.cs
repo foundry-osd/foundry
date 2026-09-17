@@ -20,6 +20,13 @@ public interface IDeploymentOrchestrator
     event EventHandler<DeploymentStepProgress>? StepProgressChanged;
 
     /// <summary>
+    /// Occurs synchronously before committing the terminal outcome. UI consumers must stop accepting
+    /// cancellation before returning; previously accepted requests are checked afterward.
+    /// The operation remains busy until terminal persistence, telemetry and cleanup finish.
+    /// </summary>
+    event EventHandler? CompletionStarting;
+
+    /// <summary>
     /// Executes the deployment request when no other deployment is active.
     /// </summary>
     /// <param name="context">Deployment request selected by the user.</param>

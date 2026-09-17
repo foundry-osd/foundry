@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>没有Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>取消页面</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>部署页面</value>
   </data>
@@ -587,8 +590,14 @@
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>另一个操作已经在运行。</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>已请求取消。正在等待当前操作安全完成。</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>部署已取消。</value>
+    <value>部署已取消</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>部署已停止。目标磁盘上可能存在未完成的安装。</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>进行中...</value>
@@ -611,6 +620,9 @@
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>开始{0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>已取消</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>步骤已完成。</value>
   </data>
@@ -628,6 +640,9 @@
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>系统重启</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>传输超时。请检查连接后重试。</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>未知步骤</value>

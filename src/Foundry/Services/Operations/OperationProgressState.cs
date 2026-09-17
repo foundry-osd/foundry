@@ -30,6 +30,16 @@ public sealed record OperationProgressState(
     public bool IsRunning => Kind != OperationKind.None;
 
     /// <summary>
+    /// Gets whether the operation currently accepts a user cancellation request.
+    /// </summary>
+    public bool CanCancel { get; init; }
+
+    /// <summary>
+    /// Gets whether the operation is stopping at a safe boundary and still owns its resources.
+    /// </summary>
+    public bool IsCancellationRequested { get; init; }
+
+    /// <summary>
     /// Gets a value indicating whether nested progress should be shown.
     /// </summary>
     public bool HasSecondaryProgress => SecondaryProgress.HasValue || !string.IsNullOrWhiteSpace(SecondaryStatus);

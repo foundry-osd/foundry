@@ -153,6 +153,9 @@
   <data name="Debug.Autopilot.NoAutopilot" xml:space="preserve">
     <value>Nee Autopilot</value>
   </data>
+  <data name="Debug.CancelledPageCommand" xml:space="preserve">
+    <value>Pagina voor geannuleerde implementatie</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Implementatiepagina's</value>
   </data>
@@ -587,8 +590,14 @@ Doorgaan met de implementatie?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Er loopt al een andere operatie.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Annulering aangevraagd. Er wordt gewacht totdat de huidige bewerking veilig is voltooid.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
-    <value>Implementatie geannuleerd.</value>
+    <value>Implementatie geannuleerd</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Implementatie gestopt. De doelschijf bevat mogelijk een onvolledige installatie.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>In uitvoering...</value>
@@ -611,6 +620,9 @@ Doorgaan met de implementatie?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>{0} starten...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Geannuleerd</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Stap voltooid.</value>
   </data>
@@ -628,6 +640,9 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Systeem opnieuw opstarten</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>De overdracht heeft de tijdslimiet overschreden. Controleer uw verbinding en probeer het opnieuw.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Onbekende stap</value>

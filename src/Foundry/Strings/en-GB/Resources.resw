@@ -2633,6 +2633,9 @@ Passwords and access keys included: {2}</value>
   <data name="Shell.OperationRunning" xml:space="preserve">
     <value>Operation in progress</value>
   </data>
+  <data name="Shell.OperationStopping" xml:space="preserve">
+    <value>Stopping safely. The current disk or image operation may need to finish before cleanup completes.</value>
+  </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
     <value>Select the boot architecture and boot signature mode.</value>
   </data>
@@ -2906,6 +2909,9 @@ Passwords and access keys included: {2}</value>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>Creating WinPE workspace.</value>
   </data>
+  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+    <value>Media creation cancelled.</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Checking USB target safety.</value>
   </data>
@@ -3082,6 +3088,9 @@ Passwords and access keys included: {2}</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
     <value>Staging boot image dependencies.</value>
+  </data>
+  <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
+    <value>The transfer timed out. Check your connection and try again.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Updating USB media.</value>

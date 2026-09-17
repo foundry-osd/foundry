@@ -6,5 +6,8 @@ namespace Foundry.Deploy.Services.Deployment;
 
 public interface IDeploymentExecutionService
 {
-    Task<DeploymentExecutionRunResult> ExecuteAsync(DeploymentContext context);
+    /// <summary>
+    /// Executes an authorized deployment, observing cancellation only after active mutation and cleanup finish safely.
+    /// </summary>
+    Task<DeploymentExecutionRunResult> ExecuteAsync(DeploymentContext context, CancellationToken cancellationToken = default);
 }

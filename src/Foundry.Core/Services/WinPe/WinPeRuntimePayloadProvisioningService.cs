@@ -7,6 +7,7 @@ using System.Text.Json;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 using Foundry.Utilities.IO;
+using Foundry.Utilities.Networking;
 using Foundry.Utilities.Progress;
 
 namespace Foundry.Core.Services.WinPe;
@@ -105,7 +106,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         {
             return WinPeResult<WinPeRuntimePayloadProvisioningOptions>.Failure(ex.Diagnostic);
         }
-        catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or NotSupportedException or InvalidOperationException or HttpRequestException or JsonException)
+        catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or NotSupportedException or InvalidOperationException or HttpRequestException or JsonException or TimeoutException)
         {
             return WinPeResult<WinPeRuntimePayloadProvisioningOptions>.Failure(
                 WinPeErrorCodes.BuildFailed, "Failed to prepare Foundry runtime payloads.", ex.Message, exception: ex);
@@ -394,11 +395,14 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             "/p:GenerateDocumentationFile=false",
             "-o", WinPeProcessRunner.Quote(publishDirectory));
 
+        cancellationToken.ThrowIfCancellationRequested();
+        // Publishing writes into the workspace that cancellation will remove; wait for
+        // the publisher to exit before allowing that cleanup or the next stage.
         WinPeProcessExecution publish = await _processRunner.RunAsync(
             "dotnet",
             publishArguments,
             workingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
+            CancellationToken.None).ConfigureAwait(false);
 
         if (!publish.IsSuccess)
         {
@@ -408,6 +412,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 stage: "runtime.publish",
                 toolName: "dotnet"));
         }
+        cancellationToken.ThrowIfCancellationRequested();
 
         string executablePath = Path.Combine(publishDirectory, $"{applicationName}.exe");
         if (!File.Exists(executablePath))
@@ -443,27 +448,32 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         string archivePath = Path.Combine(releaseWorkspace, assetName);
         WinPeRuntimeReleaseAsset asset = releaseSnapshot.GetAsset(assetName);
 
-        using HttpRequestMessage request = CreateGitHubRequest(asset.DownloadUrl);
-        using HttpResponseMessage response = await _httpClient.SendAsync(
-            request,
-            HttpCompletionOption.ResponseHeadersRead,
-            cancellationToken).ConfigureAwait(false);
-        response.EnsureSuccessStatusCode();
-
-        string status = $"Downloading {applicationName} runtime payload.";
-        ReportDownloadProgress(downloadProgress, 0, status);
-
-        await using (Stream source = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false))
-        await using (FileStream destination = File.Create(archivePath))
+        await HttpTransfer.RunAsync(async (transferToken, reportProgress) =>
         {
-            await CopyDownloadToFileAsync(
-                source,
-                destination,
-                response.Content.Headers.ContentLength,
-                status,
-                downloadProgress,
-                cancellationToken).ConfigureAwait(false);
-        }
+            using HttpRequestMessage request = CreateGitHubRequest(asset.DownloadUrl);
+            using HttpResponseMessage response = await _httpClient.SendAsync(
+                request,
+                HttpCompletionOption.ResponseHeadersRead,
+                transferToken).ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+
+            string status = $"Downloading {applicationName} runtime payload.";
+            ReportDownloadProgress(downloadProgress, 0, status);
+
+            await using (Stream source = await response.Content.ReadAsStreamAsync(transferToken).ConfigureAwait(false))
+            await using (FileStream destination = File.Create(archivePath))
+            {
+                await CopyDownloadToFileAsync(
+                    source,
+                    destination,
+                    response.Content.Headers.ContentLength,
+                    status,
+                    downloadProgress,
+                    reportProgress,
+                    transferToken).ConfigureAwait(false);
+            }
+            return true;
+        }, cancellationToken).ConfigureAwait(false);
 
         await ValidateArchiveDigestAsync(archivePath, asset.Digest, cancellationToken).ConfigureAwait(false);
         return archivePath;
@@ -525,6 +535,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         long? totalBytes,
         string status,
         IProgress<WinPeDownloadProgress>? progress,
+        Action reportProgress,
         CancellationToken cancellationToken)
     {
         int lastReportedPercent = -1;
@@ -533,6 +544,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             destinationStream,
             copiedBytes =>
             {
+                reportProgress();
                 double? percentage = TransferProgress.CalculatePercentage(copiedBytes, totalBytes);
                 if (percentage.HasValue)
                 {
