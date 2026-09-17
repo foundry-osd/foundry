@@ -30,6 +30,20 @@ public partial class MainWindow : Window
         ContentRendered += (_, _) => _rendered.TrySetResult();
     }
 
+    protected override void OnClosing(CancelEventArgs e)
+    {
+        if (_viewModel.IsDeploymentRunning)
+        {
+            e.Cancel = true;
+            if (_viewModel.CancelDeploymentCommand.CanExecute(null))
+            {
+                _viewModel.CancelDeploymentCommand.Execute(null);
+            }
+        }
+
+        base.OnClosing(e);
+    }
+
     protected override void OnClosed(EventArgs e)
     {
         _closed = true;

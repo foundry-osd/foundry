@@ -587,8 +587,14 @@ Jatketaanko käyttöönottoa?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Toinen operaatio on jo käynnissä.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Peruutusta pyydetty. Odotetaan nykyisen toiminnon turvallista valmistumista.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>Käyttöönotto peruttu.</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Käyttöönotto pysäytetty. Kohdelevyllä voi olla keskeneräinen asennus.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>Meneillään...</value>
@@ -611,6 +617,9 @@ Jatketaanko käyttöönottoa?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Alkaen {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Peruutettu</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Vaihe suoritettu.</value>
   </data>
@@ -628,6 +637,9 @@ Jatketaanko käyttöönottoa?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Järjestelmän uudelleenkäynnistys</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Siirron aikakatkaisu. Tarkista yhteys ja yritä uudelleen.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Tuntematon askel</value>

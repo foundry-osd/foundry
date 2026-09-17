@@ -587,8 +587,14 @@ Vai turpināt izvietošanu?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Jau notiek cita operācija.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Pieprasīta atcelšana. Tiek gaidīts, līdz pašreizējā operācija tiks droši pabeigta.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>Izvietošana atcelta.</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Izvietošana apturēta. Mērķa diskā var būt nepabeigta instalācija.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>Notiek...</value>
@@ -611,6 +617,9 @@ Vai turpināt izvietošanu?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Sākot ar {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Atcelts</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Solis pabeigts.</value>
   </data>
@@ -628,6 +637,9 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Sistēmas atsāknēšana</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Pārsūtīšanai atvēlētais laiks ir beidzies. Pārbaudiet savienojumu un mēģiniet vēlreiz.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Nezināms solis</value>

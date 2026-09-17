@@ -38,7 +38,6 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
     {
         context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing completion logs...", DeploymentOperationNames.WriteLogs);
         await context.AppendLogAsync(DeploymentLogLevel.Info, stepLogMessage, cancellationToken).ConfigureAwait(false);
-        await context.AppendLogAsync(DeploymentLogLevel.Info, "[SUCCESS] Deployment orchestration completed.", cancellationToken).ConfigureAwait(false);
 
         context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing deployment summary...", DeploymentOperationNames.WriteSummary);
         string summaryPath = await PersistFinalArtifactsAsync(context, cancellationToken).ConfigureAwait(false);

@@ -587,8 +587,14 @@ Continuare con la distribuzione?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Un'altra operazione è già in corso.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Annullamento richiesto. In attesa che l’operazione corrente termini in sicurezza.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>Distribuzione annullata.</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Distribuzione arrestata. Il disco di destinazione potrebbe contenere un’installazione incompleta.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>In corso...</value>
@@ -611,6 +617,9 @@ Continuare con la distribuzione?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Inizio {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Annullato</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Passaggio completato.</value>
   </data>
@@ -628,6 +637,9 @@ Continuare con la distribuzione?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Riavvio del sistema</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Il tempo di attesa per il trasferimento è scaduto. Verificare la connessione e riprovare.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Passaggio sconosciuto</value>

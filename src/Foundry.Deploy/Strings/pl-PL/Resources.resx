@@ -587,8 +587,14 @@ Kontynuować wdrażanie?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Inna operacja już trwa.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Zażądano anulowania. Trwa oczekiwanie na bezpieczne zakończenie bieżącej operacji.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>Wdrożenie anulowane.</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Wdrożenie zatrzymane. Dysk docelowy może zawierać niekompletną instalację.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>W toku...</value>
@@ -611,6 +617,9 @@ Kontynuować wdrażanie?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Rozpoczęcie {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Anulowano</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Krok ukończony.</value>
   </data>
@@ -628,6 +637,9 @@ Kontynuować wdrażanie?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Ponowne uruchomienie systemu</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Upłynął limit czasu przesyłania. Sprawdź połączenie i spróbuj ponownie.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Nieznany krok</value>

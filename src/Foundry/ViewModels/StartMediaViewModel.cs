@@ -469,6 +469,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         IsMediaOperationRunning = true;
+        using var operationCancellation = new CancellationTokenSource();
+        CancellationToken cancellationToken = operationCancellation.Token;
         ResetProgressLogSampling();
         RefreshEvaluation();
         // Final media operations can format disks or overwrite ISO output, so the shell remains locked until completion.
@@ -507,16 +509,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 DriverVendors = options.DriverVendors.ToArray(),
                 AvailableWinPeLanguages = options.AvailableWinPeLanguages.ToArray()
             };
-            snapshot = await foundryConfigurationStateService.CaptureBuildSnapshotAsync(
-                Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots"), CancellationToken.None);
-            capturedConfiguration = snapshot.Configuration;
-            options = options with { CustomDriverDirectoryPath = capturedConfiguration.General.CustomDriverDirectoryPath };
             if (target == FinalMediaTarget.Usb && !await ConfirmUsbFormattingAsync(options.SelectedUsbDisk!))
             {
                 shouldTrackMedia = false;
                 return;
             }
-            deploymentProtectionMaterial = snapshot.CreateDeploymentProtectionMaterial();
             string startStatus = target switch
             {
                 FinalMediaTarget.Iso => localizationService.GetString("StartMedia.Operation.CreatingIso"),
@@ -524,7 +521,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 _ => localizationService.GetString("StartMedia.Operation.CreatingUsb")
             };
 
-            operationProgressService.Start(OperationKind.MediaCreation, startStatus);
+            operationProgressService.Start(OperationKind.MediaCreation, startStatus, operationCancellation.Cancel);
             shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
             logger.Information(
                 "Final media creation started. Target={Target}, Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, IsoOutputPath={IsoOutputPath}, UsbDiskNumber={UsbDiskNumber}, UsbDiskName={UsbDiskName}",
@@ -535,14 +532,21 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate ? options.SelectedUsbDisk?.DiskNumber : null,
                 target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate ? options.SelectedUsbDisk?.FriendlyName : null);
 
+            snapshot = await foundryConfigurationStateService.CaptureBuildSnapshotAsync(
+                Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots"), cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+            capturedConfiguration = snapshot.Configuration;
+            options = options with { CustomDriverDirectoryPath = capturedConfiguration.General.CustomDriverDirectoryPath };
+            deploymentProtectionMaterial = snapshot.CreateDeploymentProtectionMaterial();
+
             if (target == FinalMediaTarget.Iso)
             {
-                _ = await CreateIsoMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, CancellationToken.None);
+                _ = await CreateIsoMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
                 successMessage = localizationService.GetString("StartMedia.Operation.IsoSuccessMessage");
             }
             else if (target == FinalMediaTarget.UsbUpdate)
             {
-                WinPeUsbProvisionResult usbResult = await UpdateUsbMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, CancellationToken.None);
+                WinPeUsbProvisionResult usbResult = await UpdateUsbMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
                 successMessage = string.Format(
                     CultureInfo.CurrentCulture,
                     localizationService.GetString("StartMedia.Operation.UsbUpdateSuccessMessage"),
@@ -551,7 +555,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             }
             else
             {
-                WinPeUsbProvisionResult usbResult = await CreateUsbMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, CancellationToken.None);
+                WinPeUsbProvisionResult usbResult = await CreateUsbMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
                 successMessage = string.Format(
                     CultureInfo.CurrentCulture,
                     localizationService.GetString("StartMedia.Operation.UsbSuccessMessage"),
@@ -559,6 +563,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     usbResult.CacheDriveLetter);
             }
 
+            cancellationToken.ThrowIfCancellationRequested();
             terminalStatus = successMessage ?? localizationService.GetString("StartMedia.Operation.Completed");
             operationProgressService.Complete(terminalStatus);
             success = true;
@@ -567,31 +572,34 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 target,
                 stopwatch.ElapsedMilliseconds);
         }
-        catch (Exception ex) when (ex is not OperationCanceledException)
+        catch (Exception ex) when (ex is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
         {
+            bool isTimeout = ex is TimeoutException or OperationCanceledException;
             failureDiagnostic = (ex as WinPeOperationException)?.Diagnostic ?? new WinPeDiagnostic(
                 WinPeErrorCodes.InternalError,
                 "Unexpected boot media creation failure.",
                 ex.ToString(),
                 telemetryProgressTracker.CurrentStepName,
-                failureKind: WinPeFailureKinds.Internal,
-                failureReason: WinPeFailureReasons.Unexpected,
+                failureKind: isTimeout ? WinPeFailureKinds.Network : WinPeFailureKinds.Internal,
+                failureReason: isTimeout ? WinPeFailureReasons.Timeout : WinPeFailureReasons.Unexpected,
                 exception: ex);
             string failedStepName = string.IsNullOrWhiteSpace(failureDiagnostic.Stage)
                 ? telemetryProgressTracker.CurrentStepName
                 : failureDiagnostic.Stage;
             telemetryProgressTracker.SetCurrentStep(failedStepName);
             string failedStatus = localizationService.GetString("StartMedia.Operation.Failed");
-            string failureMessage = failureDiagnostic.Code switch
-            {
-                WinPeErrorCodes.UsbIdentityMismatch => localizationService.GetString("StartMedia.Operation.DiskIdentityCannotBeConfirmed"),
-                WinPeErrorCodes.UsbUnsafeTarget => localizationService.GetString("StartMedia.Operation.DiskNoLongerSafe"),
-                _ => ex.Message
-            };
+            string failureMessage = failureDiagnostic.FailureReason == WinPeFailureReasons.Timeout
+                ? localizationService.GetString("StartMedia.Operation.TransferTimedOut")
+                : failureDiagnostic.Code switch
+                {
+                    WinPeErrorCodes.UsbIdentityMismatch => localizationService.GetString("StartMedia.Operation.DiskIdentityCannotBeConfirmed"),
+                    WinPeErrorCodes.UsbUnsafeTarget => localizationService.GetString("StartMedia.Operation.DiskNoLongerSafe"),
+                    _ => ex.Message
+                };
             terminalStatus = string.IsNullOrWhiteSpace(failureMessage)
                 ? failedStatus
                 : $"{failedStatus} {failureMessage}";
-            operationProgressService.Report(100, terminalStatus);
+            operationProgressService.Complete(terminalStatus);
             logger.Error(
                 ex,
                 "Final boot media operation failed. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, ToolName={ToolName}, ExitCode={ExitCode}, RetryCount={RetryCount}, FailureSummary={FailureSummary}",
@@ -605,8 +613,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 failureDiagnostic.RetryCount,
                 failureDiagnostic.Message);
         }
-        catch (OperationCanceledException ex)
+        catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested)
         {
+            terminalStatus = localizationService.GetString("StartMedia.Operation.Cancelled");
             failureDiagnostic = new WinPeDiagnostic(
                 WinPeErrorCodes.OperationCancelled,
                 "Boot media creation was cancelled.",
@@ -615,8 +624,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 failureKind: WinPeFailureKinds.Cancellation,
                 failureReason: WinPeFailureReasons.Cancelled,
                 exception: ex);
-            logger.Warning(
-                ex,
+            logger.Information(
                 "Final boot media operation cancelled. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RetryCount={RetryCount}",
                 telemetryProgressTracker.CurrentStepName,
                 stopwatch.ElapsedMilliseconds,
@@ -624,7 +632,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 failureDiagnostic.FailureReason,
                 failureDiagnostic.Code,
                 failureDiagnostic.RetryCount);
-            throw;
         }
         finally
         {
@@ -707,12 +714,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 cancellationToken);
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.CreateIsoMedia);
+            cancellationToken.ThrowIfCancellationRequested();
             logger.Debug(
                 "Creating ISO media. OutputIsoPath={OutputIsoPath}, MediaDirectoryPath={MediaDirectoryPath}, UseBootEx={UseBootEx}",
                 options.IsoOutputPath,
                 workspace.PreparedWorkspace.Artifact.MediaDirectoryPath,
                 workspace.PreparedWorkspace.UseBootEx);
 
+            // ADK scripts can still be writing after a process cancellation request.
+            // Finish the ISO stage before releasing its workspace during cleanup.
             WinPeResult result = await isoMediaService.CreateAsync(
                 new WinPeIsoMediaOptions
                 {
@@ -722,9 +732,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
                         new Progress<WinPeMediaProgress>(ReportFinalMediaProgress))
                 },
-                cancellationToken);
+                CancellationToken.None);
 
             EnsureSuccess(result);
+            cancellationToken.ThrowIfCancellationRequested();
             logger.Debug("ISO media service completed. OutputIsoPath={OutputIsoPath}", options.IsoOutputPath);
             return options.IsoOutputPath;
         }
@@ -889,6 +900,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         try
         {
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.ResolveWinPeTools);
+            cancellationToken.ThrowIfCancellationRequested();
             WinPeToolPaths tools = ResolveWinPeToolsOrThrow();
             logger.Debug(
                 "Resolved WinPE tools. KitsRootPath={KitsRootPath}, DismPath={DismPath}, MakeWinPeMediaPath={MakeWinPeMediaPath}",
@@ -925,7 +937,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             CleanupStaleWinPeWorkspaces();
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.BuildWinPeWorkspace);
+            cancellationToken.ThrowIfCancellationRequested();
             operationProgressService.Report(10, localizationService.GetString("StartMedia.Operation.BuildingWorkspace"));
+            // Capture the completed artifact before observing cancellation so cleanup owns
+            // the workspace and never races a still-running Copype process.
             WinPeResult<WinPeBuildArtifact> buildResult = await buildService.BuildAsync(
                 new WinPeBuildOptions
                 {
@@ -934,10 +949,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     Architecture = options.Architecture,
                     SignatureMode = options.SignatureMode
                 },
-                cancellationToken);
+                CancellationToken.None);
             EnsureSuccess(buildResult);
 
             artifact = buildResult.Value!;
+            cancellationToken.ThrowIfCancellationRequested();
             logger.Debug(
                 "WinPE workspace created. WorkingDirectoryPath={WorkingDirectoryPath}, MediaDirectoryPath={MediaDirectoryPath}, MountDirectoryPath={MountDirectoryPath}, BootWimPath={BootWimPath}",
                 artifact.WorkingDirectoryPath,

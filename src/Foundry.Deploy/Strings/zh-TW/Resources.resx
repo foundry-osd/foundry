@@ -587,8 +587,14 @@
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>另一個操作已經在運作。</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>已要求取消。正在等待目前的作業安全完成。</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>部署已取消。</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>部署已停止。目標磁碟上可能有未完成的安裝。</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>進行中...</value>
@@ -611,6 +617,9 @@
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>開始{0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>已取消</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>步驟已完成。</value>
   </data>
@@ -628,6 +637,9 @@
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>系統重啟</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>傳輸逾時。請檢查連線後再試一次。</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>未知步驟</value>

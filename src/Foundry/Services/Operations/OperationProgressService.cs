@@ -9,6 +9,8 @@ namespace Foundry.Services.Operations;
 /// </summary>
 internal sealed class OperationProgressService : IOperationProgressService
 {
+    private Action? cancelOperation;
+
     /// <inheritdoc />
     public event EventHandler<OperationProgressChangedEventArgs>? StateChanged;
 
@@ -16,14 +18,29 @@ internal sealed class OperationProgressService : IOperationProgressService
     public OperationProgressState State { get; private set; } = OperationProgressState.Idle;
 
     /// <inheritdoc />
-    public void Start(OperationKind kind, string status)
+    public void Start(OperationKind kind, string status, Action? cancel = null)
     {
         if (kind == OperationKind.None)
         {
             throw new ArgumentOutOfRangeException(nameof(kind), kind, "An operation kind is required.");
         }
 
-        SetState(new(kind, 0, status, null, string.Empty));
+        cancelOperation = cancel;
+        SetState(new(kind, 0, status, null, string.Empty) { CanCancel = cancel is not null });
+    }
+
+    /// <inheritdoc />
+    public void RequestCancellation()
+    {
+        if (!State.IsRunning || !State.CanCancel)
+        {
+            return;
+        }
+
+        Action? cancel = cancelOperation;
+        cancelOperation = null;
+        SetState(State with { CanCancel = false, IsCancellationRequested = true });
+        cancel?.Invoke();
     }
 
     /// <inheritdoc />
@@ -70,8 +87,10 @@ internal sealed class OperationProgressService : IOperationProgressService
             return;
         }
 
+        cancelOperation = null;
         SetState(State with
         {
+            CanCancel = false,
             Progress = 100,
             Status = status,
             SecondaryProgress = null,
@@ -82,7 +101,8 @@ internal sealed class OperationProgressService : IOperationProgressService
     /// <inheritdoc />
     public void Reset(string status = "")
     {
-        SetState(OperationProgressState.Idle with { Status = status });
+        cancelOperation = null;
+        SetState(OperationProgressState.Idle with { Progress = State.Progress, Status = status });
     }
 
     private void SetState(OperationProgressState state)

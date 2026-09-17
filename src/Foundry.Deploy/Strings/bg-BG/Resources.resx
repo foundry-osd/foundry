@@ -587,8 +587,14 @@
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Друга операция вече тече.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Заявено е отменяне. Изчаква се безопасното завършване на текущата операция.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>Внедряването е отменено.</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Внедряването е спряно. Целевият диск може да съдържа непълна инсталация.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>В ход...</value>
@@ -611,6 +617,9 @@
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Стартиране на {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Отменено</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Стъпката е завършена.</value>
   </data>
@@ -628,6 +637,9 @@
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Рестартиране на системата</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Времето за изчакване на прехвърлянето изтече. Проверете връзката си и опитайте отново.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Неизвестна стъпка</value>

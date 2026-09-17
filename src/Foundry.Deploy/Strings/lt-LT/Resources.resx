@@ -587,8 +587,14 @@ Tęsti diegimą?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Jau vykdoma kita operacija.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Pateikta atšaukimo užklausa. Laukiama, kol dabartinė operacija bus saugiai baigta.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>Diegimas atšauktas.</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Diegimas sustabdytas. Tiksliniame diske gali būti nebaigta diegti sistema.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>Vykdoma...</value>
@@ -611,6 +617,9 @@ Tęsti diegimą?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Pradedama {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Atšaukta</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Žingsnis baigtas.</value>
   </data>
@@ -628,6 +637,9 @@ Tęsti diegimą?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Sistemos paleidimas iš naujo</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Baigėsi perdavimui skirtas laikas. Patikrinkite ryšį ir bandykite dar kartą.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Nežinomas žingsnis</value>

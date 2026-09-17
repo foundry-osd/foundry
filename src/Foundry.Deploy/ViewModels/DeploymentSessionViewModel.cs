@@ -148,11 +148,18 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     [ObservableProperty]
     private string failedStepErrorMessage = string.Empty;
 
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(TerminalErrorTitle))]
+    [NotifyPropertyChangedFor(nameof(TerminalErrorInstruction))]
+    [NotifyPropertyChangedFor(nameof(HasDeploymentFailure))]
+    private bool isCancelled;
+
     public bool IsSplashPage => CurrentPage == DeploymentPage.Splash;
 
     public bool IsSuccessPage => CurrentPage == DeploymentPage.Success;
     public bool IsProgressPage => CurrentPage == DeploymentPage.Progress;
     public bool IsErrorPage => CurrentPage == DeploymentPage.Error;
+    public bool HasDeploymentFailure => IsErrorPage && !IsCancelled;
     public bool IsDeploymentStatusPage => CurrentPage is DeploymentPage.Progress or DeploymentPage.Success or DeploymentPage.Error;
 
     public bool IsStartupReady => !IsStartupInitializing;
@@ -164,6 +171,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         : GetString("Success.ManualRebootInstruction");
 
     public string FailedStepText => Format("Error.FailedStepFormat", FailedStepName);
+    public string TerminalErrorTitle => GetString(IsCancelled ? "Status.DeploymentCancelled" : "Error.Title");
+    public string TerminalErrorInstruction => IsCancelled ? GetString("Status.DeploymentCancelledInstruction") : FailedStepText;
 
     public void ConfigureRebootPolicy(DeploymentRebootPolicy rebootPolicy)
     {
@@ -243,6 +252,21 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     public void ApplyExecutionRunResult(DeploymentExecutionRunResult executionRunResult)
     {
         ArgumentNullException.ThrowIfNull(executionRunResult);
+
+        if (executionRunResult.IsCancelled)
+        {
+            _isDeploymentInProgress = false;
+            _lastLogsDirectoryPath = executionRunResult.LogsDirectoryPath;
+            ClearFailureDetails();
+            IsCancelled = true;
+            foreach (DeploymentTimelineEntryViewModel entry in TimelineEntries.Where(entry => entry.State == DeploymentStepState.Running))
+            {
+                _timelineTracker.SetState(entry.StepIndex, DeploymentStepState.Cancelled);
+            }
+
+            CurrentPage = DeploymentPage.Error;
+            return;
+        }
 
         if (executionRunResult.IsSuccess)
         {
@@ -566,6 +590,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 
     partial void OnCurrentPageChanged(DeploymentPage value)
     {
+        OnPropertyChanged(nameof(HasDeploymentFailure));
         if (value == DeploymentPage.Success)
         {
             StartConfiguredReboot();
@@ -796,14 +821,17 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 
     private void SetFailureDetails(string? stepName, string? errorMessage)
     {
+        IsCancelled = false;
         _rawFailedStepName = string.IsNullOrWhiteSpace(stepName) ? "Unknown step" : stepName;
         _rawFailedStepErrorMessage = string.IsNullOrWhiteSpace(errorMessage) ? "No error details were provided." : errorMessage;
         FailedStepName = DeploymentUiTextLocalizer.LocalizeStepName(_rawFailedStepName);
         FailedStepErrorMessage = DeploymentUiTextLocalizer.LocalizeMessage(_rawFailedStepErrorMessage);
+        OnPropertyChanged(nameof(TerminalErrorInstruction));
     }
 
     private void ClearFailureDetails()
     {
+        IsCancelled = false;
         _rawFailedStepName = string.Empty;
         _rawFailedStepErrorMessage = string.Empty;
         FailedStepName = string.Empty;
@@ -930,6 +958,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
                 : DeploymentUiTextLocalizer.LocalizeMessage(_rawFailedStepErrorMessage);
             StepCounterText = BuildStepCounterText(_activeStepIndex);
             OnPropertyChanged(nameof(CompletionInstructionText));
+            OnPropertyChanged(nameof(TerminalErrorTitle));
+            OnPropertyChanged(nameof(TerminalErrorInstruction));
             CaptureNetworkSnapshot();
             _timelineTracker.RefreshLocalization();
         });
@@ -963,6 +993,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             DeploymentStepState.Succeeded => GetString("Status.StepCompleted"),
             DeploymentStepState.Skipped => GetString("Status.StepSkipped"),
             DeploymentStepState.Failed => GetString("Status.StepFailed"),
+            DeploymentStepState.Cancelled => GetString("Status.StepCancelled"),
             _ => GetString("Status.WaitingForProgress")
         };
     }

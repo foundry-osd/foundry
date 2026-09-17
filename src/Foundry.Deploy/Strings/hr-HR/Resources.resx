@@ -587,8 +587,14 @@ Nastaviti s implementacijom?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Druga operacija je već u tijeku.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Zatraženo je otkazivanje. Čeka se siguran dovršetak trenutačne operacije.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>Implementacija je otkazana.</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Implementacija je zaustavljena. Ciljni disk može sadržavati nepotpunu instalaciju.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>U tijeku...</value>
@@ -611,6 +617,9 @@ Nastaviti s implementacijom?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Počinje {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Otkazano</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Korak dovršen.</value>
   </data>
@@ -628,6 +637,9 @@ Nastaviti s implementacijom?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Ponovno pokretanje sustava</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Isteklo je vrijeme čekanja na prijenos. Provjerite vezu i pokušajte ponovno.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Nepoznat korak</value>

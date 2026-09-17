@@ -2633,6 +2633,9 @@
   <data name="Shell.OperationRunning" xml:space="preserve">
     <value>Операция в ход</value>
   </data>
+  <data name="Shell.OperationStopping" xml:space="preserve">
+    <value>Безопасно спиране. Може да се наложи текущата операция с диска или образа да завърши, преди почистването да приключи.</value>
+  </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
     <value>Изберете архитектурата за зареждане и режима на подписване за зареждане.</value>
   </data>
@@ -2906,6 +2909,9 @@
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>Създаване на WinPE работно пространство.</value>
   </data>
+  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+    <value>Създаването на носителя е отменено.</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Проверка на безопасността на целта USB.</value>
   </data>
@@ -3082,6 +3088,9 @@
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
     <value>Подготовка на зависимостите на образа за зареждане.</value>
+  </data>
+  <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
+    <value>Времето за изчакване на прехвърлянето изтече. Проверете връзката си и опитайте отново.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Актуализиране на USB носител.</value>

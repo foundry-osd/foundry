@@ -587,8 +587,14 @@ Folytatja a telepítést?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Egy másik művelet már fut.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Megszakítás kérve. Várakozás az aktuális művelet biztonságos befejezésére.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>A telepítés megszakadt.</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>A telepítés leállt. A céllemezen hiányos telepítés maradhatott.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>Folyamatban...</value>
@@ -611,6 +617,9 @@ Folytatja a telepítést?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Kezdés: {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Megszakítva</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Lépés befejezve.</value>
   </data>
@@ -628,6 +637,9 @@ Folytatja a telepítést?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Rendszer újraindítás</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Az adatátvitel túllépte az időkorlátot. Ellenőrizze a kapcsolatot, és próbálja újra.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Ismeretlen lépés</value>

@@ -215,6 +215,8 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         }
 
         ReportProgress(options.Progress, 20, "Partitioning and formatting USB target.");
+        cancellationToken.ThrowIfCancellationRequested();
+        // A started disk mutation must finish before cancellation can stop the next stage.
         WinPeResult<WinPeUsbProvisionResult> provisioningResult = await ProvisionDiskAsync(
             expectedIdentity,
             options.PartitionStyle,
@@ -222,25 +224,28 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             tools,
             artifact.WorkingDirectoryPath,
             options.Progress,
-            cancellationToken).ConfigureAwait(false);
+            CancellationToken.None).ConfigureAwait(false);
         if (!provisioningResult.IsSuccess)
         {
             return WinPeResult<WinPeUsbProvisionResult>.Failure(provisioningResult.Error!);
         }
+        cancellationToken.ThrowIfCancellationRequested();
 
         WinPeUsbProvisionResult provisionedUsb = provisioningResult.Value!;
         string bootRootPath = $"{provisionedUsb.BootDriveLetter}\\";
         string cacheRootPath = $"{provisionedUsb.CacheDriveLetter}\\";
         ReportProgress(options.Progress, 55, "Copying WinPE media to USB.");
+        cancellationToken.ThrowIfCancellationRequested();
         WinPeResult copyResult = await CopyMediaAsync(
             artifact.MediaDirectoryPath,
             bootRootPath,
             artifact.WorkingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
+            CancellationToken.None).ConfigureAwait(false);
         if (!copyResult.IsSuccess)
         {
             return WinPeResult<WinPeUsbProvisionResult>.Failure(copyResult.Error!);
         }
+        cancellationToken.ThrowIfCancellationRequested();
 
         if (useBootEx)
         {
@@ -327,18 +332,22 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         }
 
         ReportProgress(options.Progress, 20, "Inspecting USB media layout.");
+        cancellationToken.ThrowIfCancellationRequested();
+        // Layout discovery can assign drive letters, so it must also finish safely.
         WinPeResult<WinPeUsbProvisionResult> layoutResult = await GetFoundryUsbMediaLayoutAsync(
             expectedIdentity,
             tools,
             artifact.WorkingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
+            CancellationToken.None).ConfigureAwait(false);
         if (!layoutResult.IsSuccess)
         {
             return WinPeResult<WinPeUsbProvisionResult>.Failure(layoutResult.Error!);
         }
+        cancellationToken.ThrowIfCancellationRequested();
 
         WinPeUsbProvisionResult layout = layoutResult.Value!;
         ReportProgress(options.Progress, 35, "Formatting BOOT partition.");
+        cancellationToken.ThrowIfCancellationRequested();
         WinPeResult formatResult = await FormatBootPartitionAsync(
             expectedIdentity,
             layout.BootDriveLetter,
@@ -346,23 +355,26 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             tools,
             artifact.WorkingDirectoryPath,
             options.Progress,
-            cancellationToken).ConfigureAwait(false);
+            CancellationToken.None).ConfigureAwait(false);
         if (!formatResult.IsSuccess)
         {
             return WinPeResult<WinPeUsbProvisionResult>.Failure(formatResult.Error!);
         }
+        cancellationToken.ThrowIfCancellationRequested();
 
         string bootRootPath = $"{layout.BootDriveLetter}\\";
         ReportProgress(options.Progress, 55, "Copying WinPE media to USB.");
+        cancellationToken.ThrowIfCancellationRequested();
         WinPeResult copyResult = await CopyMediaAsync(
             artifact.MediaDirectoryPath,
             bootRootPath,
             artifact.WorkingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
+            CancellationToken.None).ConfigureAwait(false);
         if (!copyResult.IsSuccess)
         {
             return WinPeResult<WinPeUsbProvisionResult>.Failure(copyResult.Error!);
         }
+        cancellationToken.ThrowIfCancellationRequested();
 
         if (useBootEx)
         {

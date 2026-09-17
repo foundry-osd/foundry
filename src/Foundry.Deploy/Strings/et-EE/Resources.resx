@@ -587,8 +587,14 @@ Kas jätkata juurutamisega?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Teine operatsioon on juba käimas.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Tühistamist on taotletud. Oodatakse praeguse toimingu ohutut lõppemist.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>Kasutuselevõtt tühistati.</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Kasutuselevõtt peatati. Sihtkettal võib olla pooleli jäänud installatsioon.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>Pooleli...</value>
@@ -611,6 +617,9 @@ Kas jätkata juurutamisega?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Algus {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Tühistatud</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Samm lõpetatud.</value>
   </data>
@@ -628,6 +637,9 @@ Kas jätkata juurutamisega?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Süsteemi taaskäivitamine</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Edastuse ajalõpp. Kontrollige ühendust ja proovige uuesti.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Tundmatu samm</value>

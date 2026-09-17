@@ -19,6 +19,230 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentOrchestratorTests
 {
     [Fact]
+    public async Task RunAsync_WhenCompletionTrackingIsPending_ClosesCancellationAndKeepsOperationBusy()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var trackingStarted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var releaseTracking = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var telemetry = new RecordingTelemetryService
+        {
+            BeforeTrack = async () =>
+            {
+                trackingStarted.SetResult();
+                await releaseTracking.Task.WaitAsync(TestContext.Current.CancellationToken);
+            }
+        };
+        var progress = new FakeOperationProgressService();
+        var orchestrator = new DeploymentOrchestrator(progress, new FakeDeploymentLogService(), new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => new SucceedingStep(name)), telemetry, NullLogger<DeploymentOrchestrator>.Instance);
+        bool cancellationClosed = false;
+        orchestrator.CompletionStarting += (_, _) => cancellationClosed = true;
+
+        Task<DeploymentResult> run = orchestrator.RunAsync(CreateCancellationContext(workspace.RootPath), TestContext.Current.CancellationToken);
+        await trackingStarted.Task.WaitAsync(TestContext.Current.CancellationToken);
+        bool wasCancellationClosed = cancellationClosed;
+        bool wasBusy = progress.IsOperationInProgress && !run.IsCompleted;
+        releaseTracking.SetResult();
+        DeploymentResult result = await run;
+
+        Assert.True(wasCancellationClosed);
+        Assert.True(wasBusy);
+        Assert.True(result.IsSuccess);
+        Assert.False(progress.IsOperationInProgress);
+    }
+
+    [Fact]
+    public async Task RunAsync_WhenCancellationWasAcceptedBeforeCompletionCloses_ReportsOnlyCancellation()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using var cancellation = new CancellationTokenSource();
+        var telemetry = new RecordingTelemetryService();
+        var logger = new RecordingLogger<DeploymentOrchestrator>();
+        var orchestrator = new DeploymentOrchestrator(new FakeOperationProgressService(), new FakeDeploymentLogService(), new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => new SucceedingStep(name)), telemetry, logger);
+        int completionNotifications = 0;
+        orchestrator.CompletionStarting += (_, _) =>
+        {
+            completionNotifications++;
+            cancellation.Cancel();
+        };
+
+        DeploymentResult result = await orchestrator.RunAsync(CreateCancellationContext(workspace.RootPath), cancellation.Token);
+
+        Assert.True(result.IsCancelled);
+        Assert.False(result.IsSuccess);
+        Assert.Equal(1, completionNotifications);
+        Assert.True((bool)Assert.Single(telemetry.Events).Properties["deploy_session_cancelled"]!);
+        Assert.Equal("cancelled", Assert.Single(logger.Entries, entry => entry.Properties.ContainsKey("Outcome")).Properties["Outcome"]);
+    }
+
+    [Fact]
+    public async Task RunAsync_WhenCancellationNeedsTerminalPersistence_KeepsOperationGateUntilCleanupFinishes()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using var cancellation = new CancellationTokenSource();
+        var cleanupStarted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var releaseCleanup = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var logService = new FakeDeploymentLogService
+        {
+            BeforeSave = async token =>
+            {
+                if (cancellation.IsCancellationRequested && !token.CanBeCanceled)
+                {
+                    cleanupStarted.TrySetResult();
+                    await releaseCleanup.Task.WaitAsync(TestContext.Current.CancellationToken);
+                }
+            }
+        };
+        var progress = new FakeOperationProgressService();
+        var orchestrator = new DeploymentOrchestrator(progress, logService, new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => name == DeploymentStepNames.DownloadOperatingSystemImage
+                ? (IDeploymentStep)new CallerCancellingStep(name, cancellation) : new SucceedingStep(name)),
+            new RecordingTelemetryService(), NullLogger<DeploymentOrchestrator>.Instance);
+
+        Task<DeploymentResult> run = orchestrator.RunAsync(CreateCancellationContext(workspace.RootPath), cancellation.Token);
+        await cleanupStarted.Task.WaitAsync(TestContext.Current.CancellationToken);
+        bool wasBusy = progress.IsOperationInProgress;
+        bool wasPending = !run.IsCompleted;
+        releaseCleanup.SetResult();
+        DeploymentResult result = await run;
+
+        Assert.True(wasBusy);
+        Assert.True(wasPending);
+        Assert.True(result.IsCancelled);
+        Assert.False(progress.IsOperationInProgress);
+    }
+
+    [Theory]
+    [InlineData(DeploymentStepNames.PrepareTargetDiskLayout)]
+    [InlineData(DeploymentStepNames.ApplyFirmwareUpdate)]
+    [InlineData(DeploymentStepNames.ApplyRecoveryDrivers)]
+    [InlineData(DeploymentStepNames.FinalizeDeploymentAndWriteLogs)]
+    public async Task RunAsync_WhenLiveMutationIsCancelled_WaitsForSafeCompletionAndStartsNoFollowingStep(string heldStepName)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using var cancellation = new CancellationTokenSource();
+        var heldStep = new HeldStep(heldStepName, Path.Combine(workspace.RootPath, "TargetWindows"));
+        var steps = DeploymentStepNames.ExecutionOrder.Select(name => name == heldStepName ? (IDeploymentStep)heldStep : new SucceedingStep(name)).ToArray();
+        var progress = new FakeOperationProgressService();
+        var logService = new FakeDeploymentLogService();
+        var telemetry = new RecordingTelemetryService();
+        var logger = new RecordingLogger<DeploymentOrchestrator>();
+        var orchestrator = new DeploymentOrchestrator(progress, logService, new FakeTargetDiskService(), steps, telemetry, logger);
+        var startedSteps = new List<string>();
+        orchestrator.StepProgressChanged += (_, update) =>
+        {
+            if (update.State == DeploymentStepState.Running)
+            {
+                startedSteps.Add(update.StepName);
+            }
+        };
+
+        Task<DeploymentResult> run = orchestrator.RunAsync(CreateCancellationContext(workspace.RootPath), cancellation.Token);
+        await heldStep.Started.Task.WaitAsync(TestContext.Current.CancellationToken);
+        cancellation.Cancel();
+
+        bool wasBusy = progress.IsOperationInProgress;
+        bool wasPending = !run.IsCompleted;
+        bool stepWasCancellable = heldStep.ReceivedToken.CanBeCanceled;
+        heldStep.Release.SetResult();
+        DeploymentResult result = await run;
+
+        Assert.True(wasBusy);
+        Assert.True(wasPending);
+        Assert.False(stepWasCancellable);
+        Assert.False(progress.IsOperationInProgress);
+        Assert.False(result.IsSuccess);
+        Assert.True(result.IsCancelled);
+        Assert.Equal(heldStepName, startedSteps.Last());
+        Assert.Contains(heldStepName, heldStep.RuntimeState!.CompletedSteps);
+        Assert.Equal(DeploymentFailureKinds.Cancelled, logService.SavedStates.Last().LastFailureKind);
+        Assert.Equal(Path.Combine(heldStep.TargetWindowsRoot, "Windows", "Temp", "Foundry", "Logs"), result.LogsDirectoryPath);
+        Assert.True((bool)Assert.Single(telemetry.Events).Properties["deploy_session_cancelled"]!);
+        Assert.Equal("cancelled", Assert.Single(logger.Entries, entry => entry.Properties.ContainsKey("Outcome")).Properties["Outcome"]);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task RunAsync_WhenMutationFailsAfterCancellation_PreservesRealFailure(bool throwFailure)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using var cancellation = new CancellationTokenSource();
+        var heldStep = new HeldStep(DeploymentStepNames.ApplyRecoveryDrivers, Path.Combine(workspace.RootPath, "TargetWindows"))
+        {
+            Fail = true,
+            ThrowFailure = throwFailure
+        };
+        var orchestrator = CreateOrchestrator(DeploymentStepNames.ExecutionOrder.Select(name =>
+            name == heldStep.Name ? (IDeploymentStep)heldStep : new SucceedingStep(name)));
+
+        Task<DeploymentResult> run = orchestrator.RunAsync(CreateCancellationContext(workspace.RootPath), cancellation.Token);
+        await heldStep.Started.Task.WaitAsync(TestContext.Current.CancellationToken);
+        cancellation.Cancel();
+        heldStep.Release.SetResult();
+        DeploymentResult result = await run;
+
+        Assert.False(result.IsSuccess);
+        Assert.False(result.IsCancelled);
+        Assert.Equal("Servicing failed.", result.Message);
+    }
+
+    [Fact]
+    public async Task RunAsync_WhenAllStepsSucceed_ReportsOneSuccessfulOutcome()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var telemetry = new RecordingTelemetryService();
+        var progress = new FakeOperationProgressService();
+        var orchestrator = new DeploymentOrchestrator(progress, new FakeDeploymentLogService(), new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => new SucceedingStep(name)), telemetry, NullLogger<DeploymentOrchestrator>.Instance);
+
+        DeploymentResult result = await orchestrator.RunAsync(CreateCancellationContext(workspace.RootPath), TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess);
+        Assert.False(result.IsCancelled);
+        Assert.False(progress.IsOperationInProgress);
+        Assert.True((bool)Assert.Single(telemetry.Events).Properties["deploy_session_success"]!);
+    }
+
+    private static DeploymentContext CreateCancellationContext(string rootPath) => new()
+    {
+        Mode = DeploymentMode.Iso,
+        CacheRootPath = rootPath,
+        TargetDiskNumber = 1,
+        TargetComputerName = "LAB01",
+        DriverPackSelectionKind = DriverPackSelectionKind.None,
+        OperatingSystem = new OperatingSystemCatalogItem()
+    };
+
+    private sealed class HeldStep(string name, string targetWindowsRoot) : IDeploymentStep
+    {
+        public string Name { get; } = name;
+        public string TargetWindowsRoot { get; } = targetWindowsRoot;
+        public TaskCompletionSource Started { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public TaskCompletionSource Release { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public CancellationToken ReceivedToken { get; private set; }
+        public DeploymentRuntimeState? RuntimeState { get; private set; }
+        public bool Fail { get; init; }
+        public bool ThrowFailure { get; init; }
+
+        public async Task<DeploymentStepResult> ExecuteAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+        {
+            ReceivedToken = cancellationToken;
+            RuntimeState = context.RuntimeState;
+            Started.SetResult();
+            await Release.Task.WaitAsync(TestContext.Current.CancellationToken);
+            context.RuntimeState.TargetWindowsPartitionRoot = TargetWindowsRoot;
+            if (ThrowFailure)
+            {
+                throw new IOException("Servicing failed.");
+            }
+
+            return Fail ? DeploymentStepResult.Failed("Servicing failed.") : DeploymentStepResult.Succeeded("Servicing complete.");
+        }
+    }
+
+    [Fact]
     public async Task RunAsync_WhenTlsFails_ReturnsActionableMessage()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
@@ -714,6 +938,7 @@ public sealed class DeploymentOrchestratorTests
         public List<DeploymentStateSnapshot> SavedStates { get; } = [];
 
         public bool ThrowOnSave { get; init; }
+        public Func<CancellationToken, Task>? BeforeSave { get; init; }
 
         public DeploymentLogSession Initialize(string rootPath)
         {
@@ -746,6 +971,11 @@ public sealed class DeploymentOrchestratorTests
             TState state,
             CancellationToken cancellationToken = default)
         {
+            if (BeforeSave is not null)
+            {
+                await BeforeSave(cancellationToken);
+            }
+
             if (ThrowOnSave)
             {
                 throw new IOException("Synthetic state persistence failure.");
@@ -883,17 +1113,30 @@ public sealed class DeploymentOrchestratorTests
 
     private sealed class FakeOperationProgressService : IOperationProgressService
     {
-        public bool IsOperationInProgress => false;
+        public bool IsOperationInProgress { get; private set; }
         public int Progress => 0;
         public string? Status => null;
         public OperationKind? CurrentOperation => null;
-        public bool CanStartOperation => true;
+        public bool CanStartOperation => !IsOperationInProgress;
         public event EventHandler? ProgressChanged;
-        public bool TryStart(OperationKind kind, string initialStatus, int initialProgress = 0) => true;
+        public bool TryStart(OperationKind kind, string initialStatus, int initialProgress = 0)
+        {
+            if (IsOperationInProgress)
+            {
+                return false;
+            }
+
+            IsOperationInProgress = true;
+            return true;
+        }
         public void Report(int progress, string? status = null) => ProgressChanged?.Invoke(this, EventArgs.Empty);
-        public void Complete(string? status = null) => ProgressChanged?.Invoke(this, EventArgs.Empty);
-        public void Fail(string status) => ProgressChanged?.Invoke(this, EventArgs.Empty);
-        public void ResetToIdle() => ProgressChanged?.Invoke(this, EventArgs.Empty);
+        public void Complete(string? status = null) => ResetToIdle();
+        public void Fail(string status) => ResetToIdle();
+        public void ResetToIdle()
+        {
+            IsOperationInProgress = false;
+            ProgressChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     private sealed class FakeTargetDiskService : ITargetDiskService
@@ -913,13 +1156,18 @@ public sealed class DeploymentOrchestratorTests
     {
         public List<TelemetryEvent> Events { get; } = [];
 
-        public Task TrackAsync(
+        public Func<Task>? BeforeTrack { get; init; }
+
+        public async Task TrackAsync(
             string eventName,
             IReadOnlyDictionary<string, object?> properties,
             CancellationToken cancellationToken = default)
         {
+            if (BeforeTrack is not null)
+            {
+                await BeforeTrack();
+            }
             Events.Add(new TelemetryEvent(eventName, new Dictionary<string, object?>(properties)));
-            return Task.CompletedTask;
         }
 
         public Task FlushAsync(CancellationToken cancellationToken = default)

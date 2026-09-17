@@ -183,9 +183,18 @@
                     IsSuccess="True"
                     Visibility="{Binding IsSuccessPage, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <controls:TerminalStatusGlyph
-                    AutomationName="{Binding Strings[Error.Title]}"
+                    AutomationName="{Binding TerminalErrorTitle}"
                     IsSuccess="False"
-                    Visibility="{Binding IsErrorPage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    Visibility="{Binding HasDeploymentFailure, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    AutomationProperties.Name="{Binding TerminalErrorTitle}"
+                    FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                    FontSize="88"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="&#xE711;"
+                    Visibility="{Binding IsCancelled, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </Grid>
 
             <Grid
@@ -217,6 +226,21 @@
                         Text="{Binding CurrentStepProgressText}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="0,12,0,0"
+                        HorizontalAlignment="Center"
+                        AutomationProperties.LiveSetting="Polite"
+                        Text="{Binding Strings[Status.CancellationPending]}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap"
+                        Visibility="{Binding DataContext.IsCancellationPending, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <Button
+                        MinWidth="140"
+                        Margin="0,12,0,0"
+                        HorizontalAlignment="Center"
+                        Command="{Binding DataContext.CancelDeploymentCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                        Content="{Binding Strings[Common.Cancel]}"
+                        Visibility="{Binding DataContext.IsDeploymentRunning, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
             </Grid>
 
@@ -276,7 +300,7 @@
                 <TextBlock
                     VerticalAlignment="Bottom"
                     Style="{StaticResource TitleTextBlockStyle}"
-                    Text="{Binding Strings[Error.Title]}"
+                    Text="{Binding TerminalErrorTitle}"
                     TextAlignment="Center"
                     TextWrapping="Wrap" />
             </Grid>
@@ -296,14 +320,15 @@
                         HorizontalAlignment="Center"
                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{Binding FailedStepText}"
+                        Text="{Binding TerminalErrorInstruction}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
                     <Button
                         MinWidth="180"
                         HorizontalAlignment="Center"
                         Click="ViewTechnicalDetails_Click"
-                        Content="{Binding Strings[Error.ViewTechnicalDetails]}" />
+                        Content="{Binding Strings[Error.ViewTechnicalDetails]}"
+                        Visibility="{Binding HasDeploymentFailure, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
             </Grid>
         </Grid>

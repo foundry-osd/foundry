@@ -587,8 +587,14 @@
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>هناك عملية أخرى قيد التشغيل بالفعل.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>تم طلب الإلغاء. جارٍ انتظار اكتمال العملية الحالية بأمان.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>تم إلغاء النشر.</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>توقف النشر. قد يحتوي القرص المستهدف على تثبيت غير مكتمل.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>قيد التقدم...</value>
@@ -611,6 +617,9 @@
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>البدء {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>تم الإلغاء</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>اكتملت الخطوة.</value>
   </data>
@@ -628,6 +637,9 @@
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>إعادة تشغيل النظام</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>انتهت مهلة النقل. تحقق من اتصالك وحاول مرة أخرى.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>خطوة غير معروفة</value>

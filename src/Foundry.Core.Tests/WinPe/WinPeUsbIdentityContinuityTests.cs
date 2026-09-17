@@ -149,7 +149,7 @@ public sealed class WinPeUsbIdentityContinuityTests
     {
         var runner = new WorkflowRunner(boundary, "failure", marker);
 
-        WinPeResult<WinPeUsbProvisionResult> result = await RunWorkflowAsync(boundary, runner);
+        WinPeResult<WinPeUsbProvisionResult> result = await RunWorkflowAsync(boundary, runner, TestContext.Current.CancellationToken);
 
         Assert.Equal(code, result.Error?.Code);
         Assert.Equal(WinPeFailureKinds.Validation, result.Error?.FailureKind);
@@ -184,15 +184,15 @@ public sealed class WinPeUsbIdentityContinuityTests
 
         if (outcome == "cancel")
         {
-            await Assert.ThrowsAsync<OperationCanceledException>(() => RunWorkflowAsync(boundary, runner));
+            await Assert.ThrowsAsync<OperationCanceledException>(() => RunWorkflowAsync(boundary, runner, TestContext.Current.CancellationToken));
         }
         else if (outcome == "throw")
         {
-            await Assert.ThrowsAsync<InvalidOperationException>(() => RunWorkflowAsync(boundary, runner));
+            await Assert.ThrowsAsync<InvalidOperationException>(() => RunWorkflowAsync(boundary, runner, TestContext.Current.CancellationToken));
         }
         else
         {
-            WinPeResult<WinPeUsbProvisionResult> result = await RunWorkflowAsync(boundary, runner);
+            WinPeResult<WinPeUsbProvisionResult> result = await RunWorkflowAsync(boundary, runner, TestContext.Current.CancellationToken);
             Assert.DoesNotContain("PowerShellProvisioningScript", result.Error?.Details ?? string.Empty, StringComparison.Ordinal);
             Assert.DoesNotContain("PowerShellBootPartitionUpdateScript", result.Error?.Details ?? string.Empty, StringComparison.Ordinal);
             Assert.DoesNotContain("UNIQUE", result.Error?.Details ?? string.Empty, StringComparison.Ordinal);
@@ -216,7 +216,7 @@ public sealed class WinPeUsbIdentityContinuityTests
                 : "[]"
         };
 
-        WinPeResult<WinPeUsbProvisionResult> result = await RunWorkflowAsync(boundary, runner);
+        WinPeResult<WinPeUsbProvisionResult> result = await RunWorkflowAsync(boundary, runner, TestContext.Current.CancellationToken);
 
         Assert.Equal(WinPeErrorCodes.UsbIdentityMismatch, result.Error?.Code);
         Assert.Single(runner.Arguments);
@@ -233,14 +233,56 @@ public sealed class WinPeUsbIdentityContinuityTests
         ExpectedDiskSizeBytes = 64000000000
     };
 
-    private static Task<WinPeResult<WinPeUsbProvisionResult>> RunWorkflowAsync(string boundary, IWinPeProcessRunner runner)
+    [Theory]
+    [InlineData("provision")]
+    [InlineData("layout")]
+    [InlineData("format")]
+    [InlineData("copy")]
+    public async Task Workflow_WhenCancelledDuringDiskMutation_FinishesCurrentStageAndStopsBeforeNext(string boundary)
+    {
+        using var cancellation = new CancellationTokenSource();
+        var runner = new WorkflowRunner(boundary, "success", string.Empty)
+        {
+            OnBoundary = token =>
+            {
+                cancellation.Cancel();
+                Assert.False(token.CanBeCanceled);
+            }
+        };
+
+        await Assert.ThrowsAsync<OperationCanceledException>(() => RunWorkflowAsync(boundary, runner, cancellation.Token));
+
+        Assert.Equal(boundary is "format" or "copy" ? 3 : 2, runner.Arguments.Count);
+        Assert.All(runner.ScriptPaths, path => Assert.False(File.Exists(path)));
+    }
+
+    [Theory]
+    [InlineData("provision")]
+    [InlineData("layout")]
+    [InlineData("format")]
+    public async Task Workflow_WhenCancellationRacesDiskFailure_PreservesFailure(string boundary)
+    {
+        using var cancellation = new CancellationTokenSource();
+        var runner = new WorkflowRunner(boundary, "failure", "Synthetic disk failure")
+        {
+            OnBoundary = _ => cancellation.Cancel()
+        };
+
+        WinPeResult<WinPeUsbProvisionResult> result = await RunWorkflowAsync(boundary, runner, cancellation.Token);
+
+        Assert.False(result.IsSuccess);
+        Assert.Contains("Synthetic disk failure", result.Error?.Details);
+        Assert.Equal(boundary == "format" ? 3 : 2, runner.Arguments.Count);
+    }
+
+    private static Task<WinPeResult<WinPeUsbProvisionResult>> RunWorkflowAsync(string boundary, IWinPeProcessRunner runner, CancellationToken cancellationToken)
     {
         var service = new WinPeUsbMediaService(runner);
         var artifact = new WinPeBuildArtifact { WorkingDirectoryPath = Path.GetTempPath() };
         var tools = new WinPeToolPaths { PowerShellPath = "shadowed" };
-        return boundary == "provision"
-            ? service.ProvisionAndPopulateAsync(ConfirmedOptions, artifact, tools, false)
-            : service.UpdateBootPartitionAsync(ConfirmedOptions, artifact, tools, false);
+        return boundary is "provision" or "copy"
+            ? service.ProvisionAndPopulateAsync(ConfirmedOptions, artifact, tools, false, cancellationToken)
+            : service.UpdateBootPartitionAsync(ConfirmedOptions, artifact, tools, false, cancellationToken);
     }
 
     private static async Task<string> GetBoundaryScriptAsync(string boundary)
@@ -355,6 +397,7 @@ public sealed class WinPeUsbIdentityContinuityTests
 
     private sealed class WorkflowRunner(string boundary, string outcome, string failure) : IWinPeProcessRunner
     {
+        public Action<CancellationToken>? OnBoundary { get; init; }
         public string Inventory { get; init; } = SafeDiskJson;
         public List<string> Arguments { get; } = [];
         public List<string> ScriptPaths { get; } = [];
@@ -363,7 +406,7 @@ public sealed class WinPeUsbIdentityContinuityTests
         {
             const string layout = """{"DiskNumber":9,"BootDriveLetter":"S:","CacheDriveLetter":"T:"}""";
             Arguments.Add(arguments);
-            int targetCall = boundary == "format" ? 3 : 2;
+            int targetCall = boundary is "format" or "copy" ? 3 : 2;
             if (arguments.Contains("-File ", StringComparison.Ordinal))
             {
                 string path = arguments[(arguments.IndexOf("-File ", StringComparison.Ordinal) + 6)..].Trim('"');
@@ -374,6 +417,7 @@ public sealed class WinPeUsbIdentityContinuityTests
 
             if (Arguments.Count == targetCall)
             {
+                OnBoundary?.Invoke(cancellationToken);
                 if (outcome == "cancel")
                 {
                     throw new OperationCanceledException();
@@ -392,7 +436,7 @@ public sealed class WinPeUsbIdentityContinuityTests
                 Arguments = arguments,
                 ExitCode = failed ? 17 : 0,
                 StandardError = failed ? failure : string.Empty,
-                StandardOutput = Arguments.Count == 1 ? Inventory : boundary != "provision" && Arguments.Count == 2 ? layout : string.Empty
+                StandardOutput = Arguments.Count == 1 ? Inventory : Arguments.Count == 2 ? layout : string.Empty
             });
         }
 

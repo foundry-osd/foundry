@@ -587,8 +587,14 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Ein anderer Vorgang läuft bereits.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Abbruch angefordert. Es wird gewartet, bis der aktuelle Vorgang sicher abgeschlossen ist.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>Bereitstellung abgebrochen.</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Bereitstellung gestoppt. Die Zielfestplatte enthält möglicherweise eine unvollständige Installation.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>In Bearbeitung...</value>
@@ -611,6 +617,9 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Beginnend mit {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Abgebrochen</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Schritt abgeschlossen.</value>
   </data>
@@ -628,6 +637,9 @@ Mit der Bereitstellung fortfahren?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Systemneustart</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Zeitüberschreitung bei der Übertragung. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Unbekannter Schritt</value>

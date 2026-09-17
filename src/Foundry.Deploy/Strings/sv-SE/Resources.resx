@@ -587,8 +587,14 @@ Fortsätt med implementeringen?</value>
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>En annan operation körs redan.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Avbrott har begärts. Väntar på att den aktuella åtgärden ska slutföras på ett säkert sätt.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>Implementeringen avbröts.</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Implementeringen stoppades. Måldisken kan innehålla en ofullständig installation.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>Pågår...</value>
@@ -611,6 +617,9 @@ Fortsätt med implementeringen?</value>
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Startar {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Avbruten</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Steg avslutat.</value>
   </data>
@@ -628,6 +637,9 @@ Fortsätt med implementeringen?</value>
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Systemstart</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Tidsgränsen för överföringen överskreds. Kontrollera anslutningen och försök igen.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Okänt steg</value>

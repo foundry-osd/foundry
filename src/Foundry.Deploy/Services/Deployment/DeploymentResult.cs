@@ -15,6 +15,11 @@ public sealed record DeploymentResult
     public required bool IsSuccess { get; init; }
 
     /// <summary>
+    /// Gets whether the caller cancelled the deployment after active work finished safely.
+    /// </summary>
+    public bool IsCancelled { get; init; }
+
+    /// <summary>
     /// Gets the final user-facing result message.
     /// </summary>
     public required string Message { get; init; }

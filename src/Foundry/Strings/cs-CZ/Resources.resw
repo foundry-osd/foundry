@@ -2633,6 +2633,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="Shell.OperationRunning" xml:space="preserve">
     <value>Probíhá operace</value>
   </data>
+  <data name="Shell.OperationStopping" xml:space="preserve">
+    <value>Probíhá bezpečné zastavování. Před dokončením úklidu může být nutné dokončit aktuální operaci s diskem nebo obrazem.</value>
+  </data>
   <data name="StartMedia.Architecture.Description" xml:space="preserve">
     <value>Vyberte architekturu spouštění a režim podpisu spouštění.</value>
   </data>
@@ -2906,6 +2909,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.BuildingWorkspace" xml:space="preserve">
     <value>Vytvoření pracovního prostoru WinPE.</value>
   </data>
+  <data name="StartMedia.Operation.Cancelled" xml:space="preserve">
+    <value>Vytváření média bylo zrušeno.</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Kontrola cílové bezpečnosti USB.</value>
   </data>
@@ -3082,6 +3088,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.Operation.StagingBootImageDependencies" xml:space="preserve">
     <value>Příprava závislostí spouštěcího obrazu.</value>
+  </data>
+  <data name="StartMedia.Operation.TransferTimedOut" xml:space="preserve">
+    <value>Vypršel časový limit přenosu. Zkontrolujte připojení a zkuste to znovu.</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Aktualizace média USB.</value>

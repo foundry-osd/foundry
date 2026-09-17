@@ -587,8 +587,14 @@
   <data name="Status.AnotherOperationRunning" xml:space="preserve">
     <value>Μια άλλη λειτουργία εκτελείται ήδη.</value>
   </data>
+  <data name="Status.CancellationPending" xml:space="preserve">
+    <value>Ζητήθηκε ακύρωση. Αναμονή για την ασφαλή ολοκλήρωση της τρέχουσας λειτουργίας.</value>
+  </data>
   <data name="Status.DeploymentCancelled" xml:space="preserve">
     <value>Η ανάπτυξη ακυρώθηκε.</value>
+  </data>
+  <data name="Status.DeploymentCancelledInstruction" xml:space="preserve">
+    <value>Η ανάπτυξη διακόπηκε. Ο δίσκος προορισμού ενδέχεται να περιέχει μια ημιτελή εγκατάσταση.</value>
   </data>
   <data name="Status.InProgress" xml:space="preserve">
     <value>Σε εξέλιξη...</value>
@@ -611,6 +617,9 @@
   <data name="Status.StartingStepSubProgressFormat" xml:space="preserve">
     <value>Έναρξη {0}...</value>
   </data>
+  <data name="Status.StepCancelled" xml:space="preserve">
+    <value>Ακυρώθηκε</value>
+  </data>
   <data name="Status.StepCompleted" xml:space="preserve">
     <value>Το βήμα ολοκληρώθηκε.</value>
   </data>
@@ -628,6 +637,9 @@
   </data>
   <data name="Status.SystemReboot" xml:space="preserve">
     <value>Επανεκκίνηση συστήματος</value>
+  </data>
+  <data name="Status.TransferTimedOut" xml:space="preserve">
+    <value>Έληξε το χρονικό όριο της μεταφοράς. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά.</value>
   </data>
   <data name="Status.UnknownStep" xml:space="preserve">
     <value>Άγνωστο βήμα</value>
