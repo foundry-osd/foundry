@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Įdiegiamas Windows PE priedas</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Diegimas baigtas. Peržiūrėkite likusius ADK reikalavimus.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Pašalinamas esamas Windows ADK</value>
   </data>
@@ -148,7 +151,7 @@
     <value>ADK sąranka</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Įdiekite palaikomą Windows ADK 24H2 (10.1.26100) leidimą.</value>
+    <value>Įdiekite palaikomą Windows ADK 24H2 (10.1.26100.2454) leidimą.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK versija nepalaikoma</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK paruošta</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Pataisykite atitinkantį Windows PE priedą naudodami jo diegimo programą. Jei jo versija skiriasi nuo ADK versijos, pirmiausia pašalinkite priedą, tada įdiekite atitinkančią versiją. Pataisę arba pakeitę priedą, iš naujo paleiskite Foundry.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Windows PE priedą reikia pataisyti</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Įdiekite Windows PE priedą, skirtą įdiegtam Windows ADK.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>Versija neaptikta</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Reikia Windows ADK 24H2 (10.1.26100).</value>
+    <value>Reikia Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Būtina versijos politika</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE failai pasiekiami</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Trūksta WinPE failų</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Įdiegtas priedas</value>

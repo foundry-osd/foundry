@@ -419,6 +419,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
             return localizationService.GetString("Adk.Status.IncompatibleTitle");
         }
 
-        return localizationService.GetString("Adk.Status.WinPeMissingTitle");
+        if (!status.IsWinPeAddonInstalled && !status.IsWinPeAddonRegistered) return localizationService.GetString("Adk.Status.WinPeMissingTitle");
+        return localizationService.GetString("Adk.Status.WinPeInvalidTitle");
     }
 }

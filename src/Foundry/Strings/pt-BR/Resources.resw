@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Instalando o complemento Windows PE</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>A instalação foi concluída. Revise os requisitos restantes do ADK.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Removendo Windows ADK existente</value>
   </data>
@@ -148,7 +151,7 @@
     <value>Configuração ADK</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Instale a versão compatível do Windows ADK 24H2 (10.1.26100).</value>
+    <value>Instale a versão compatível do Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>A versão ADK não é suportada</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK está pronto</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Repare o complemento Windows PE correspondente usando o instalador dele. Se a versão for diferente da versão do ADK, desinstale primeiro o complemento e instale a versão correspondente. Reinicie o Foundry após reparar ou substituir o complemento.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>O complemento Windows PE precisa de reparo</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Instale o complemento Windows PE para o Windows ADK instalado.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>Versão não detectada</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Requer Windows ADK 24H2 (10.1.26100).</value>
+    <value>Requer Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Política de versão obrigatória</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Arquivos do WinPE disponíveis</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Arquivos do WinPE ausentes</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Complemento instalado</value>

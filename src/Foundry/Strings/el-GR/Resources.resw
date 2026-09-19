@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Εγκατάσταση του πρόσθετου Windows PE</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Η εγκατάσταση ολοκληρώθηκε. Ελέγξτε τις υπόλοιπες απαιτήσεις του ADK.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Αφαίρεση υπάρχοντος Windows ADK</value>
   </data>
@@ -148,7 +151,7 @@
     <value>Ρύθμιση ADK</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Εγκαταστήστε την υποστηριζόμενη έκδοση Windows ADK 24H2 (10.1.26100).</value>
+    <value>Εγκαταστήστε την υποστηριζόμενη έκδοση Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Η έκδοση ADK δεν υποστηρίζεται</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>Το ADK είναι έτοιμο</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Επιδιορθώστε το αντίστοιχο πρόσθετο Windows PE με το πρόγραμμα εγκατάστασής του. Αν η έκδοσή του διαφέρει από την έκδοση του ADK, καταργήστε πρώτα την εγκατάσταση του πρόσθετου και έπειτα εγκαταστήστε την αντίστοιχη έκδοση. Επανεκκινήστε το Foundry μετά την επιδιόρθωση ή την αντικατάσταση του πρόσθετου.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Το πρόσθετο Windows PE χρειάζεται επιδιόρθωση</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Εγκαταστήστε το πρόσθετο Windows PE για το εγκατεστημένο Windows ADK.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>Η έκδοση δεν εντοπίστηκε</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Απαιτείται Windows ADK 24H2 (10.1.26100).</value>
+    <value>Απαιτείται Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Πολιτική απαιτούμενης έκδοσης</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Τα αρχεία WinPE είναι διαθέσιμα</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Λείπουν αρχεία WinPE</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Το πρόσθετο Windows PE εγκαταστάθηκε</value>

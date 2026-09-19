@@ -160,7 +160,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     private async Task RunBlockingAdkOperationAsync(Func<CancellationToken, Task<AdkInstallationStatus>> operation)
     {
         if (shellNavigationGuardService.State is ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending) return;
-        // ADK setup can display UAC and modifies machine-level components, so the shell blocks navigation while it runs.
+        // Keep navigation blocked until setup establishes the new readiness state.
         shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
 
         try
@@ -236,15 +236,23 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         WinPeAddonStatus = status.IsWinPeAddonInstalled
             ? localizationService.GetString("Adk.WinPeAddon.Installed")
             : localizationService.GetString("Adk.WinPeAddon.Missing");
+        if (status.IsWinPeAddonCompatible)
+        {
+            WinPeAddonStatus += $" (x64: {FormatAvailability(status.IsX64Available)}, ARM64: {FormatAvailability(status.IsArm64Available)})";
+        }
         MediaCapabilityTitle = localizationService.GetString("Adk.MediaCapability.Title");
         MediaCapabilityStatus = status.CanCreateMedia
             ? localizationService.GetString("Adk.MediaCapability.Ready")
             : localizationService.GetString("Adk.MediaCapability.Blocked");
         IsUpgradeButtonVisible = status.IsInstalled && !status.IsCompatible;
-        IsInstallButtonVisible = !IsUpgradeButtonVisible && (!status.IsInstalled || !status.IsWinPeAddonInstalled);
+        IsInstallButtonVisible = !IsUpgradeButtonVisible && (!status.IsInstalled
+            || (!status.IsWinPeAddonInstalled && !status.IsWinPeAddonRegistered));
         IsSetupActionVisible = IsInstallButtonVisible || IsUpgradeButtonVisible;
         IsActionEnabled = !IsBusy;
     }
+
+    private string FormatAvailability(bool available) => localizationService.GetString(
+        available ? "Adk.WinPeAddon.FilesAvailable" : "Adk.WinPeAddon.FilesMissing");
 
     private void ApplyOperationState(OperationProgressState state)
     {
@@ -269,14 +277,16 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
             return localizationService.GetString("Adk.Status.IncompatibleTitle");
         }
 
-        return localizationService.GetString("Adk.Status.WinPeMissingTitle");
+        if (!status.IsWinPeAddonInstalled && !status.IsWinPeAddonRegistered) return localizationService.GetString("Adk.Status.WinPeMissingTitle");
+        return localizationService.GetString("Adk.Status.WinPeInvalidTitle");
     }
 
     private static InfoBarSeverity GetStatusSeverity(AdkInstallationStatus status)
     {
         if (status.CanCreateMedia)
         {
-            return InfoBarSeverity.Success;
+            return status.IsX64Available && status.IsArm64Available
+                ? InfoBarSeverity.Success : InfoBarSeverity.Warning;
         }
 
         return status.IsInstalled && status.IsCompatible
@@ -288,7 +298,8 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     {
         if (status.CanCreateMedia)
         {
-            return localizationService.GetString("Adk.Status.ReadyDescription");
+            return localizationService.GetString(status.IsX64Available && status.IsArm64Available
+                ? "Adk.Status.ReadyDescription" : "Adk.Status.WinPeInvalidDescription");
         }
 
         if (!status.IsInstalled)
@@ -301,7 +312,8 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
             return localizationService.GetString("Adk.Status.IncompatibleDescription");
         }
 
-        return localizationService.GetString("Adk.Status.WinPeMissingDescription");
+        if (!status.IsWinPeAddonInstalled && !status.IsWinPeAddonRegistered) return localizationService.GetString("Adk.Status.WinPeMissingDescription");
+        return localizationService.GetString("Adk.Status.WinPeInvalidDescription");
     }
 
     private string GetUpgradeButtonText(AdkInstallationStatus status)

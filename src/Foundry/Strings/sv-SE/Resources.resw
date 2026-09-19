@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Installerar Windows PE tillägg</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Installationen är klar. Granska de återstående ADK-kraven.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Ta bort befintlig Windows ADK</value>
   </data>
@@ -148,7 +151,7 @@
     <value>ADK inställning</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installera den stödda Windows ADK 24H2-versionen (10.1.26100).</value>
+    <value>Installera den stödda Windows ADK 24H2-versionen (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK-versionen stöds inte</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK är redo</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Reparera det matchande Windows PE-tillägget med dess installationsprogram. Om versionen skiljer sig från ADK-versionen ska du först avinstallera tillägget och sedan installera den matchande versionen. Starta om Foundry när du har reparerat eller ersatt tillägget.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Windows PE-tillägget behöver repareras</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Installera Windows PE-tillägget för den installerade Windows ADK.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>Version hittades inte</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Kräver Windows ADK 24H2 (10.1.26100).</value>
+    <value>Kräver Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Obligatorisk versionspolicy</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE-filer är tillgängliga</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE-filer saknas</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Tillägget installerat</value>

@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Windows PE Add-on installieren</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Installation abgeschlossen. Überprüfen Sie die verbleibenden ADK-Anforderungen.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Vorhandenes Windows ADK entfernen</value>
   </data>
@@ -148,7 +151,7 @@
     <value>ADK Einrichtung</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installieren Sie die unterstützte Windows ADK 24H2-Version (10.1.26100).</value>
+    <value>Installieren Sie die unterstützte Windows ADK 24H2-Version (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Die ADK-Version wird nicht unterstützt</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK ist fertig</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Reparieren Sie das passende Windows PE-Add-on mit dessen Installationsprogramm. Falls seine Version von der ADK-Version abweicht, deinstallieren Sie zuerst das Add-on und installieren Sie dann die passende Version. Starten Sie Foundry neu, nachdem Sie das Add-on repariert oder ersetzt haben.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Windows PE-Add-on muss repariert werden</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Installieren Sie das Add-on Windows PE für das installierte Windows ADK.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>Version nicht erkannt</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Erfordert Windows ADK 24H2 (10.1.26100).</value>
+    <value>Erfordert Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Erforderliche Versionsrichtlinie</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE-Dateien verfügbar</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE-Dateien fehlen</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Add-on installiert</value>

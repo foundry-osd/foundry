@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>تثبيت الوظيفة الإضافية Windows PE</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>اكتمل التثبيت. راجع متطلبات ADK المتبقية.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>إزالة Windows ADK الموجودة</value>
   </data>
@@ -148,7 +151,7 @@
     <value>ADK الإعداد</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>ثبّت إصدار Windows ADK 24H2 (10.1.26100) المدعوم.</value>
+    <value>ثبّت إصدار Windows ADK 24H2 (10.1.26100.2454) المدعوم.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>الإصدار ADK غير مدعوم</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK جاهز</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>أصلح الوظيفة الإضافية Windows PE المطابقة باستخدام برنامج التثبيت الخاص بها. إذا كان إصدارها مختلفًا عن إصدار ADK، فأزل الوظيفة الإضافية أولًا، ثم ثبّت الإصدار المطابق. أعد تشغيل Foundry بعد إصلاح الوظيفة الإضافية أو استبدالها.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>تحتاج الوظيفة الإضافية Windows PE إلى إصلاح</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>قم بتثبيت الوظيفة الإضافية Windows PE للوظيفة المثبتة Windows ADK.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>لم يتم الكشف عن الإصدار</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>يتطلب Windows ADK 24H2 (10.1.26100).</value>
+    <value>يتطلب Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>سياسة الإصدار المطلوبة</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>ملفات WinPE متاحة</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>ملفات WinPE مفقودة</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE تم تثبيت الوظيفة الإضافية</value>

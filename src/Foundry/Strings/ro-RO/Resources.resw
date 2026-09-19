@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Instalarea suplimentului Windows PE</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Instalarea s-a încheiat. Verificați cerințele ADK rămase.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Eliminarea Windows ADK existente</value>
   </data>
@@ -148,7 +151,7 @@
     <value>ADK configurare</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Instalați versiunea acceptată Windows ADK 24H2 (10.1.26100).</value>
+    <value>Instalați versiunea acceptată Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Versiunea ADK nu este acceptată</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK este gata</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Reparați suplimentul Windows PE corespunzător folosind programul său de instalare. Dacă versiunea sa diferă de cea a ADK, dezinstalați mai întâi suplimentul, apoi instalați versiunea corespunzătoare. Reporniți Foundry după repararea sau înlocuirea suplimentului.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Suplimentul Windows PE necesită reparare</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Instalați suplimentul Windows PE pentru Windows ADK instalat.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>Versiunea nu a fost detectată</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Necesită Windows ADK 24H2 (10.1.26100).</value>
+    <value>Necesită Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Politica de versiune necesară</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Fișierele WinPE sunt disponibile</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Lipsesc fișiere WinPE</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Supliment instalat</value>

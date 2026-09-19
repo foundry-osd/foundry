@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Inštalácia doplnku Windows PE</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Inštalácia sa dokončila. Skontrolujte zostávajúce požiadavky ADK.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Odstránenie existujúceho Windows ADK</value>
   </data>
@@ -148,7 +151,7 @@
     <value>Nastavenie ADK</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Nainštalujte podporované vydanie Windows ADK 24H2 (10.1.26100).</value>
+    <value>Nainštalujte podporované vydanie Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Verzia ADK nie je podporovaná</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK je pripravený</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Opravte zodpovedajúci doplnok Windows PE pomocou jeho inštalačného programu. Ak sa jeho verzia líši od verzie ADK, najprv doplnok odinštalujte a potom nainštalujte zodpovedajúcu verziu. Po oprave alebo výmene doplnku reštartujte Foundry.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Doplnok Windows PE vyžaduje opravu</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Nainštalujte doplnok Windows PE pre nainštalovaný Windows ADK.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>Verzia nebola zistená</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Vyžaduje Windows ADK 24H2 (10.1.26100).</value>
+    <value>Vyžaduje Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Politika požadovanej verzie</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Súbory WinPE sú k dispozícii</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Súbory WinPE chýbajú</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Doplnok nainštalovaný</value>
