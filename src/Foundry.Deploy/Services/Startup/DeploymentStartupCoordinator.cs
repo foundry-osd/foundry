@@ -21,6 +21,7 @@ namespace Foundry.Deploy.Services.Startup;
 public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
 {
     private const string WinPeTransientRuntimeRoot = @"X:\Foundry\Runtime";
+    private static readonly TimeSpan GroupTagDiscoveryTimeout = TimeSpan.FromSeconds(30);
 
     private readonly IDeployConfigurationService _deployConfigurationService;
     private readonly IAutopilotProfileCatalogService _autopilotProfileCatalogService;
@@ -30,6 +31,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
     private readonly IDeploymentCatalogLoadService _deploymentCatalogLoadService;
     private readonly IAutopilotGroupTagDiscoveryService _autopilotGroupTagDiscoveryService;
     private readonly ILogger<DeploymentStartupCoordinator> _logger;
+    private readonly TimeProvider _timeProvider;
 
     public DeploymentStartupCoordinator(
         IDeployConfigurationService deployConfigurationService,
@@ -39,7 +41,8 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         ITargetDiskService targetDiskService,
         IDeploymentCatalogLoadService deploymentCatalogLoadService,
         IAutopilotGroupTagDiscoveryService autopilotGroupTagDiscoveryService,
-        ILogger<DeploymentStartupCoordinator> logger)
+        ILogger<DeploymentStartupCoordinator> logger,
+        TimeProvider? timeProvider = null)
     {
         _deployConfigurationService = deployConfigurationService;
         _autopilotProfileCatalogService = autopilotProfileCatalogService;
@@ -49,18 +52,23 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         _deploymentCatalogLoadService = deploymentCatalogLoadService;
         _autopilotGroupTagDiscoveryService = autopilotGroupTagDiscoveryService;
         _logger = logger;
+        _timeProvider = timeProvider ?? TimeProvider.System;
     }
 
-    public async Task<DeploymentStartupSnapshot> InitializeAsync(DeploymentStartupRequest request)
+    /// <inheritdoc />
+    public async Task<DeploymentStartupSnapshot> InitializeAsync(DeploymentStartupRequest request, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
+        cancellationToken.ThrowIfCancellationRequested();
 
         DeployConfigurationLoadResult deployConfigLoadResult = _deployConfigurationService.LoadOptional();
         IReadOnlyList<AutopilotProfileCatalogItem> autopilotProfiles = _autopilotProfileCatalogService.LoadAvailableProfiles();
         string cacheRootPath = ResolveCacheRootPath(request.RuntimeContext, request.IsDebugSafeMode);
         FoundryDeployConfigurationDocument? deployConfigurationDocument = deployConfigLoadResult.Document is null
             ? null
-            : await RefreshAutopilotGroupTagsAsync(deployConfigLoadResult.Document, cacheRootPath).ConfigureAwait(false);
+            : await RefreshAutopilotGroupTagsAsync(deployConfigLoadResult.Document, cacheRootPath, cancellationToken).ConfigureAwait(false);
+
+        cancellationToken.ThrowIfCancellationRequested();
 
         Task<string> computerNameTask = ResolveComputerNameAsync(request.FallbackComputerName);
         Task<HardwareLoadResult> hardwareTask = LoadHardwareAsync();
@@ -68,6 +76,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         Task<DeploymentCatalogSnapshot> catalogTask = _deploymentCatalogLoadService.LoadAsync();
 
         await Task.WhenAll(computerNameTask, hardwareTask, targetDisksTask, catalogTask).ConfigureAwait(false);
+        cancellationToken.ThrowIfCancellationRequested();
 
         DeployMachineNamingSettings machineNaming = deployConfigurationDocument?.Customization.MachineNaming
             ?? new DeployMachineNamingSettings();
@@ -164,27 +173,38 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
 
     private async Task<FoundryDeployConfigurationDocument> RefreshAutopilotGroupTagsAsync(
         FoundryDeployConfigurationDocument document,
-        string cacheRootPath)
+        string cacheRootPath,
+        CancellationToken cancellationToken)
     {
         DeployAutopilotHardwareHashUploadSettings hardwareHashUpload = document.Autopilot.HardwareHashUpload;
         if (!CanDiscoverHardwareHashGroupTags(document.Autopilot, hardwareHashUpload))
         {
-            return WithRuntimeGroupTags(document, []);
+            return document;
         }
 
+        // One budget covers authentication, Graph pagination and retry delays; await cleanup before continuing.
+        using var timeout = new CancellationTokenSource(GroupTagDiscoveryTimeout, _timeProvider);
+        using var discoveryCancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeout.Token);
         try
         {
             string workspaceRootPath = ResolveWorkspaceRootPath(cacheRootPath);
             IReadOnlyList<string> groupTags = await _autopilotGroupTagDiscoveryService
-                .DiscoverAsync(hardwareHashUpload, workspaceRootPath)
+                .DiscoverAsync(hardwareHashUpload, workspaceRootPath, discoveryCancellation.Token)
                 .ConfigureAwait(false);
+            cancellationToken.ThrowIfCancellationRequested();
             _logger.LogInformation("Discovered {GroupTagCount} Autopilot group tag(s) at Deploy startup.", groupTags.Count);
             return WithRuntimeGroupTags(document, groupTags);
         }
+        catch (OperationCanceledException ex) when (!cancellationToken.IsCancellationRequested)
+        {
+            _logger.LogWarning(ex, "Optional Autopilot group tag discovery timed out. Deploy will keep the configured group tags and default.");
+            return document;
+        }
         catch (Exception ex) when (ex is InvalidOperationException or ArgumentException or FileNotFoundException or CryptographicException or HttpRequestException or JsonException)
         {
-            _logger.LogWarning(ex, "Autopilot group tag discovery failed. Deploy will default to no group tag.");
-            return WithRuntimeGroupTags(document, []);
+            cancellationToken.ThrowIfCancellationRequested();
+            _logger.LogWarning(ex, "Optional Autopilot group tag discovery failed. Deploy will keep the configured group tags and default.");
+            return document;
         }
     }
 

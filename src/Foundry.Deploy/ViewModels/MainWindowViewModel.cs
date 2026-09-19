@@ -50,6 +50,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private bool _isInitialized;
     private bool _isDisposed;
     private Task? _initializationTask;
+    private readonly CancellationTokenSource _startupCancellation = new();
     private CancellationTokenSource? _deploymentCancellation;
 
     [ObservableProperty]
@@ -183,6 +184,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     private async Task InitializeCoreAsync()
     {
+        CancellationToken cancellationToken = _startupCancellation.Token;
+        cancellationToken.ThrowIfCancellationRequested();
         if (_isInitialized)
         {
             return;
@@ -194,18 +197,23 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return;
         }
 
+        cancellationToken.ThrowIfCancellationRequested();
+
         DeploymentStartupSnapshot startupSnapshot = await _deploymentStartupCoordinator.InitializeAsync(
                 new DeploymentStartupRequest
                 {
                     RuntimeContext = _deploymentRuntimeContext,
                     IsDebugSafeMode = IsDebugSafeMode,
                     FallbackComputerName = ResolveInitialComputerName()
-                })
+                }, cancellationToken)
             .ConfigureAwait(false);
 
-        RunOnUi(() => ApplyStartupSnapshot(startupSnapshot));
-
-        _isInitialized = true;
+        RunOnUi(() =>
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            ApplyStartupSnapshot(startupSnapshot);
+            _isInitialized = true;
+        });
     }
 
     [RelayCommand]
@@ -873,6 +881,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return;
         }
 
+        _startupCancellation.Cancel();
+        _startupCancellation.Dispose();
         _wizardContext.StateChanged -= OnWizardContextStateChanged;
         Session.PropertyChanged -= OnSessionPropertyChanged;
         _deploymentOrchestrator.CompletionStarting -= OnDeploymentCompletionStarting;
