@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK er klar</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>Den nødvendige ADK-oppdateringen ({0}) er ikke bekreftet. Følg oppdateringsinstruksjonene fra Microsoft, og velg deretter Oppdater.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>ADK-oppdateringen ({0}) kunne ikke bekreftes. Medier kan fortsatt opprettes. Følg oppdateringsinstruksjonene fra Microsoft, og velg deretter Oppdater.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>Vedlikehold av ADK krever handling</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Informasjon om vedlikehold av ADK kunne ikke leses. Kontroller tillatelsene og installasjonen, og velg deretter Oppdater.</value>
+    <value>Informasjon om vedlikehold av ADK kunne ikke leses. Medier kan fortsatt opprettes. Kontroller tillatelsene og installasjonen, og velg deretter Oppdater.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Reparer det samsvarende Windows PE-tillegget med installasjonsprogrammet. Hvis versjonen avviker fra ADK-versjonen, avinstallerer du først tillegget og installerer deretter den samsvarende versjonen. Se ADK-dokumentasjonen, og velg deretter Oppdater for å kontrollere på nytt om alt er klart.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Nødvendig versjonspolicy</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE-filer er tilgjengelige</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE-filer mangler</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Add-on installert</value>

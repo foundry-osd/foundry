@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK jest gotowy</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>Wymagana aktualizacja ADK ({0}) nie została zweryfikowana. Postępuj zgodnie z instrukcjami aktualizacji firmy Microsoft, a następnie wybierz Odśwież.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Nie można zweryfikować aktualizacji ADK ({0}). Tworzenie nośników pozostaje dostępne. Postępuj zgodnie z instrukcjami aktualizacji firmy Microsoft, a następnie wybierz Odśwież.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>Konserwacja ADK wymaga uwagi</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Nie można odczytać informacji o konserwacji ADK. Sprawdź uprawnienia i instalację, a następnie wybierz Odśwież.</value>
+    <value>Nie można odczytać informacji o konserwacji ADK. Tworzenie nośników pozostaje dostępne. Sprawdź uprawnienia i instalację, a następnie wybierz Odśwież.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Napraw zgodny dodatek Windows PE za pomocą jego instalatora. Jeśli jego wersja różni się od wersji ADK, najpierw odinstaluj dodatek, a następnie zainstaluj zgodną wersję. Zapoznaj się z dokumentacją ADK, a następnie wybierz Odśwież, aby ponownie sprawdzić gotowość.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Wymagane zasady dotyczące wersji</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Pliki WinPE są dostępne</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Brak plików WinPE</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Zainstalowano dodatek</value>

@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK ir gatavs</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>Nepieciešamais ADK atjauninājums ({0}) nav pārbaudīts. Izpildiet Microsoft atjaunināšanas norādījumus un pēc tam atlasiet “Atsvaidzināt”.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Neizdevās pārbaudīt ADK atjauninājumu ({0}). Datu nesēju izveide joprojām ir pieejama. Izpildiet Microsoft atjaunināšanas norādījumus un pēc tam atlasiet “Atsvaidzināt”.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>ADK apkopei jāpievērš uzmanība</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Neizdevās nolasīt ADK apkopes informāciju. Pārbaudiet atļaujas un instalāciju un pēc tam atlasiet “Atsvaidzināt”.</value>
+    <value>Neizdevās nolasīt ADK apkopes informāciju. Datu nesēju izveide joprojām ir pieejama. Pārbaudiet atļaujas un instalāciju un pēc tam atlasiet “Atsvaidzināt”.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Labojiet atbilstošo Windows PE papildinājumu, izmantojot tā instalēšanas programmu. Ja tā versija atšķiras no ADK versijas, vispirms atinstalējiet papildinājumu un pēc tam instalējiet atbilstošo versiju. Skatiet ADK dokumentāciju un pēc tam atlasiet “Atsvaidzināt”, lai vēlreiz pārbaudītu gatavību.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Nepieciešamā versijas politika</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE faili ir pieejami</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Trūkst WinPE failu</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Instalēts papildinājums</value>

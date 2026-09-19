@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK er klar</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>Den påkrævede ADK-opdatering ({0}) er ikke bekræftet. Følg opdateringsvejledningen fra Microsoft, og vælg derefter Opdater.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>ADK-opdateringen ({0}) kunne ikke bekræftes. Det er stadig muligt at oprette medier. Følg opdateringsvejledningen fra Microsoft, og vælg derefter Opdater.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>Vedligeholdelse af ADK kræver handling</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Oplysninger om vedligeholdelse af ADK kunne ikke læses. Kontrollér tilladelserne og installationen, og vælg derefter Opdater.</value>
+    <value>Oplysninger om vedligeholdelse af ADK kunne ikke læses. Det er stadig muligt at oprette medier. Kontrollér tilladelserne og installationen, og vælg derefter Opdater.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Reparer det matchende Windows PE-tilføjelsesprogram med dets installationsprogram. Hvis versionen er forskellig fra ADK-versionen, skal du først afinstallere tilføjelsesprogrammet og derefter installere den matchende version. Se ADK-dokumentationen, og vælg derefter Opdater for at kontrollere igen, om alt er klar.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Påkrævet versionspolitik</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE-filer er tilgængelige</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE-filer mangler</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Tilføjelse installeret</value>

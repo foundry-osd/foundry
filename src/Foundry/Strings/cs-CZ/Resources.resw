@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK je připraven</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>Požadovaná aktualizace ADK ({0}) není ověřena. Postupujte podle pokynů společnosti Microsoft k aktualizaci a pak vyberte „Obnovit“.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Aktualizaci ADK ({0}) se nepodařilo ověřit. Vytváření médií zůstává dostupné. Postupujte podle pokynů společnosti Microsoft k aktualizaci a pak vyberte „Obnovit“.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>Údržba ADK vyžaduje pozornost</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Informace o údržbě ADK se nepodařilo přečíst. Zkontrolujte oprávnění a instalaci a pak vyberte „Obnovit“.</value>
+    <value>Informace o údržbě ADK se nepodařilo přečíst. Vytváření médií zůstává dostupné. Zkontrolujte oprávnění a instalaci a pak vyberte „Obnovit“.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Opravte odpovídající doplněk Windows PE pomocí jeho instalačního programu. Pokud se jeho verze liší od verze ADK, nejprve doplněk odinstalujte a pak nainstalujte odpovídající verzi. Podívejte se do dokumentace ADK a pak vyberte „Obnovit“, abyste znovu zkontrolovali připravenost.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Zásady požadované verze</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Soubory WinPE jsou k dispozici</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Soubory WinPE chybí</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Doplněk nainstalován</value>

@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK מוכן</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>עדכון ADK הנדרש ({0}) לא אומת. יש לפעול לפי הוראות העדכון של Microsoft ולאחר מכן לבחור באפשרות „רענן”.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>לא ניתן לאמת את עדכון ADK ({0}). יצירת מדיה עדיין זמינה. יש לפעול לפי הוראות העדכון של Microsoft ולאחר מכן לבחור באפשרות „רענן”.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>התחזוקה של ADK דורשת תשומת לב</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>לא ניתן לקרוא את פרטי התחזוקה של ADK. יש לבדוק את ההרשאות ואת ההתקנה ולאחר מכן לבחור באפשרות „רענן”.</value>
+    <value>לא ניתן לקרוא את פרטי התחזוקה של ADK. יצירת מדיה עדיין זמינה. יש לבדוק את ההרשאות ואת ההתקנה ולאחר מכן לבחור באפשרות „רענן”.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>יש לתקן את התוסף Windows PE התואם באמצעות תוכנית ההתקנה שלו. אם הגרסה שלו שונה מגרסת ADK, יש להסיר תחילה את התוסף ולאחר מכן להתקין את הגרסה התואמת. יש לעיין בתיעוד ADK ולאחר מכן לבחור באפשרות „רענן” כדי לבדוק שוב את המוכנות.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>מדיניות גרסה נדרשת</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>קובצי WinPE זמינים</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>חסרים קובצי WinPE</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE הותקן תוסף</value>

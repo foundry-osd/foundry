@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK is gereed</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>De vereiste ADK-update ({0}) is niet geverifieerd. Volg de update-instructies van Microsoft en selecteer vervolgens Vernieuwen.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>De ADK-update ({0}) kon niet worden geverifieerd. Het maken van media blijft beschikbaar. Volg de update-instructies van Microsoft en selecteer vervolgens Vernieuwen.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>ADK-onderhoud vereist aandacht</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>De ADK-onderhoudsinformatie kon niet worden gelezen. Controleer de machtigingen en de installatie en selecteer vervolgens Vernieuwen.</value>
+    <value>De ADK-onderhoudsinformatie kon niet worden gelezen. Het maken van media blijft beschikbaar. Controleer de machtigingen en de installatie en selecteer vervolgens Vernieuwen.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Herstel de bijbehorende Windows PE Add-on met het installatieprogramma ervan. Als de versie afwijkt van de ADK-versie, verwijdert u eerst de add-on en installeert u vervolgens de bijbehorende versie. Raadpleeg de ADK-documentatie en selecteer vervolgens Vernieuwen om opnieuw te controleren of alles gereed is.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Vereist versiebeleid</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE-bestanden beschikbaar</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE-bestanden ontbreken</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Add-on geïnstalleerd</value>

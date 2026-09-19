@@ -9,8 +9,9 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
     public const string DeploymentToolsRelativePath = @"Assessment and Deployment Kit\Deployment Tools";
     public const string WinPeRelativePath = @"Assessment and Deployment Kit\Windows Preinstallation Environment";
 
-    public const string RequiredServicingUpdate = "KB5101684";
-    private const string RequiredVersionPolicyText = "Windows ADK 24H2 / 10.1.26100.2454 + KB5101684";
+    /// <summary>The known update used for advisory servicing verification, independent of base-version compatibility.</summary>
+    public const string RecommendedServicingUpdate = "KB5101684";
+    private const string RequiredVersionPolicyText = "Windows ADK 24H2 / 10.1.26100.2454";
     private static readonly Version SupportedWindows11AdkBuild = new(10, 1, 26100, 2454);
     private static readonly string[] WinPeComponents =
     [

@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK este gata</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>Actualizarea ADK necesară ({0}) nu este verificată. Urmați instrucțiunile de actualizare de la Microsoft, apoi selectați „Reîmprospătați”.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Actualizarea ADK ({0}) nu a putut fi verificată. Crearea de suporturi media rămâne disponibilă. Urmați instrucțiunile de actualizare de la Microsoft, apoi selectați „Reîmprospătați”.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>Întreținerea ADK necesită atenție</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Informațiile de întreținere ADK nu au putut fi citite. Verificați permisiunile și instalarea, apoi selectați „Reîmprospătați”.</value>
+    <value>Informațiile de întreținere ADK nu au putut fi citite. Crearea de suporturi media rămâne disponibilă. Verificați permisiunile și instalarea, apoi selectați „Reîmprospătați”.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Reparați suplimentul Windows PE corespunzător folosind programul său de instalare. Dacă versiunea sa diferă de cea a ADK, dezinstalați mai întâi suplimentul, apoi instalați versiunea corespunzătoare. Consultați documentația ADK, apoi selectați „Reîmprospătați” pentru a verifica din nou dacă totul este pregătit.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Politica de versiune necesară</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Fișierele WinPE sunt disponibile</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Lipsesc fișiere WinPE</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Supliment instalat</value>

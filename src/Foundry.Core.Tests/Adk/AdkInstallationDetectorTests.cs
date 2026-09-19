@@ -137,7 +137,7 @@ public sealed class AdkInstallationDetectorTests
     [Theory]
     [InlineData(AdkServicingState.NotVerified)]
     [InlineData(AdkServicingState.Unknown)]
-    public void Detect_WhenServicingIsNotVerified_BlocksOtherwiseCompatibleInstallation(AdkServicingState state)
+    public void Detect_WhenServicingIsNotVerified_PreservesEvidenceWithoutBlockingCompatibleMedia(AdkServicingState state)
     {
         var probe = CreateInstalledProbe("10.1.26100.2454");
         probe.ServicingState = state;
@@ -146,7 +146,8 @@ public sealed class AdkInstallationDetectorTests
 
         Assert.True(status.IsCompatible);
         Assert.Equal(state, status.ServicingState);
-        Assert.False(status.CanCreateMedia);
+        Assert.True(status.CanCreateMediaFor(WinPeArchitecture.X64));
+        Assert.True(status.CanCreateMediaFor(WinPeArchitecture.Arm64));
     }
 
     [Fact]
@@ -203,6 +204,7 @@ public sealed class AdkInstallationDetectorTests
     public void Detect_WhenRequiredAssetIsMissing_OnlyBlocksAffectedArchitecture(string architecture, bool winPeAsset, string relativePath)
     {
         var probe = CreateInstalledProbe("10.1.26100.2454");
+        probe.ServicingState = AdkServicingState.Unknown;
         string missing = Path.Combine(probe.KitsRootPath!, winPeAsset
             ? AdkInstallationDetector.WinPeRelativePath : AdkInstallationDetector.DeploymentToolsRelativePath, architecture, relativePath);
         Assert.Contains(missing, probe.ExistingFiles);

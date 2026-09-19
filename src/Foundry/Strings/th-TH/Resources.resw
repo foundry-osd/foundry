@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK พร้อมแล้ว</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>ยังไม่ได้ยืนยันการอัปเดต ADK ที่จำเป็น ({0}) ให้ทำตามคำแนะนำการอัปเดตของ Microsoft แล้วเลือก รีเฟรช</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>ไม่สามารถยืนยันการอัปเดต ADK ({0}) ได้ ยังคงสร้างสื่อได้ ให้ทำตามคำแนะนำการอัปเดตของ Microsoft แล้วเลือก รีเฟรช</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>การบำรุงรักษา ADK ต้องได้รับการตรวจสอบ</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>ไม่สามารถอ่านข้อมูลการบำรุงรักษา ADK ได้ ให้ตรวจสอบสิทธิ์และการติดตั้ง แล้วเลือก รีเฟรช</value>
+    <value>ไม่สามารถอ่านข้อมูลการบำรุงรักษา ADK ได้ ยังคงสร้างสื่อได้ ให้ตรวจสอบสิทธิ์และการติดตั้ง แล้วเลือก รีเฟรช</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>ซ่อมแซมส่วนเสริม Windows PE ที่ตรงกันโดยใช้โปรแกรมติดตั้งของส่วนเสริม หากเวอร์ชันต่างจาก ADK ให้ถอนการติดตั้งส่วนเสริมก่อน แล้วติดตั้งเวอร์ชันที่ตรงกัน ดูเอกสาร ADK แล้วเลือก รีเฟรช เพื่อตรวจสอบความพร้อมอีกครั้ง</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>นโยบายเวอร์ชันที่ต้องการ</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>มีไฟล์ WinPE พร้อมใช้งาน</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>ไฟล์ WinPE ขาดหายไป</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE ติดตั้งส่วนเสริมแล้ว</value>

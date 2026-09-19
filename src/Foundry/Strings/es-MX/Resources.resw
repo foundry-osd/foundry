@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK está listo</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>No se ha verificado la actualización necesaria de ADK ({0}). Siga las instrucciones de actualización de Microsoft y seleccione Refrescar.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>No se pudo verificar la actualización de ADK ({0}). La creación de medios sigue disponible. Siga las instrucciones de actualización de Microsoft y seleccione Refrescar.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>El mantenimiento de ADK requiere atención</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>No se pudo leer la información de mantenimiento de ADK. Revise los permisos y la instalación y seleccione Refrescar.</value>
+    <value>No se pudo leer la información de mantenimiento de ADK. La creación de medios sigue disponible. Revise los permisos y la instalación y seleccione Refrescar.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Repare el complemento Windows PE correspondiente con su instalador. Si su versión difiere de la de ADK, desinstale primero el complemento y luego instale la versión correspondiente. Consulte la documentación de ADK y seleccione Refrescar para comprobar de nuevo si todo está listo.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Política de versión requerida</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Archivos de WinPE disponibles</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Faltan archivos de WinPE</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Complemento instalado</value>

@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK е готов</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>Необходимата актуализация на ADK ({0}) не е проверена. Следвайте инструкциите за актуализиране на Microsoft, след което изберете „Опресняване“.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Актуализацията на ADK ({0}) не може да бъде проверена. Създаването на носители остава достъпно. Следвайте инструкциите за актуализиране на Microsoft, след което изберете „Опресняване“.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>Обслужването на ADK изисква внимание</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Информацията за обслужването на ADK не може да бъде прочетена. Проверете разрешенията и инсталацията, след което изберете „Опресняване“.</value>
+    <value>Информацията за обслужването на ADK не може да бъде прочетена. Създаването на носители остава достъпно. Проверете разрешенията и инсталацията, след което изберете „Опресняване“.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Поправете съответстващата добавка Windows PE чрез нейния инсталатор. Ако версията ѝ се различава от тази на ADK, първо деинсталирайте добавката, след което инсталирайте съответстващата версия. Вижте документацията на ADK, след което изберете „Опресняване“, за да проверите отново готовността.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Правила за задължителна версия</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Файловете на WinPE са налични</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Липсват файлове на WinPE</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Добавката е инсталирана</value>

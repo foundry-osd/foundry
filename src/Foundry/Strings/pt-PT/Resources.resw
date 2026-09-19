@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK está pronto</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>A atualização necessária do ADK ({0}) não foi verificada. Siga as instruções de atualização da Microsoft e selecione Atualizar.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Não foi possível verificar a atualização do ADK ({0}). A criação de suportes de dados continua disponível. Siga as instruções de atualização da Microsoft e selecione Atualizar.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>A manutenção do ADK requer atenção</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Não foi possível ler as informações de manutenção do ADK. Verifique as permissões e a instalação e selecione Atualizar.</value>
+    <value>Não foi possível ler as informações de manutenção do ADK. A criação de suportes de dados continua disponível. Verifique as permissões e a instalação e selecione Atualizar.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Repare o complemento Windows PE correspondente através do respetivo instalador. Se a versão for diferente da versão do ADK, desinstale primeiro o complemento e instale a versão correspondente. Consulte a documentação do ADK e selecione Atualizar para verificar novamente se tudo está pronto.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Política de versão obrigatória</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Ficheiros do WinPE disponíveis</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Ficheiros do WinPE em falta</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Complemento instalado</value>

@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK paruošta</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>Būtinas ADK naujinimas ({0}) nepatvirtintas. Vadovaukitės Microsoft naujinimo instrukcijomis, tada pasirinkite „Atnaujinti“.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Nepavyko patvirtinti ADK naujinimo ({0}). Medijos kūrimas tebėra pasiekiamas. Vadovaukitės Microsoft naujinimo instrukcijomis, tada pasirinkite „Atnaujinti“.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>ADK priežiūrai reikia dėmesio</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Nepavyko nuskaityti ADK priežiūros informacijos. Patikrinkite teises ir diegimą, tada pasirinkite „Atnaujinti“.</value>
+    <value>Nepavyko nuskaityti ADK priežiūros informacijos. Medijos kūrimas tebėra pasiekiamas. Patikrinkite teises ir diegimą, tada pasirinkite „Atnaujinti“.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Pataisykite atitinkantį Windows PE priedą naudodami jo diegimo programą. Jei jo versija skiriasi nuo ADK versijos, pirmiausia pašalinkite priedą, tada įdiekite atitinkančią versiją. Žr. ADK dokumentaciją, tada pasirinkite „Atnaujinti“, kad dar kartą patikrintumėte parengtį.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Būtina versijos politika</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE failai pasiekiami</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Trūksta WinPE failų</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Įdiegtas priedas</value>

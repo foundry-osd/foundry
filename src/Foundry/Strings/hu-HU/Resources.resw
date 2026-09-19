@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK készen áll</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>A szükséges ADK-frissítés ({0}) nincs ellenőrizve. Kövesse a Microsoft frissítési utasításait, majd válassza a Frissítés lehetőséget.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Az ADK-frissítés ({0}) nem ellenőrizhető. Az adathordozó-készítés továbbra is elérhető. Kövesse a Microsoft frissítési utasításait, majd válassza a Frissítés lehetőséget.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>Az ADK karbantartása beavatkozást igényel</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Az ADK karbantartási adatai nem olvashatók. Ellenőrizze az engedélyeket és a telepítést, majd válassza a Frissítés lehetőséget.</value>
+    <value>Az ADK karbantartási adatai nem olvashatók. Az adathordozó-készítés továbbra is elérhető. Ellenőrizze az engedélyeket és a telepítést, majd válassza a Frissítés lehetőséget.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Javítsa ki a megfelelő Windows PE bővítményt a telepítőjével. Ha a verziója eltér az ADK verziójától, először távolítsa el a bővítményt, majd telepítse a megfelelő verziót. Tekintse meg az ADK dokumentációját, majd válassza a Frissítés lehetőséget a készenlét újbóli ellenőrzéséhez.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Kötelező verzió házirend</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>A WinPE-fájlok elérhetők</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Hiányzó WinPE-fájlok</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Kiegészítő telepítve</value>

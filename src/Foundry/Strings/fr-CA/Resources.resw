@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK est prêt</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>La mise à jour requise d’ADK ({0}) n’est pas vérifiée. Suivez les instructions de mise à jour de Microsoft, puis sélectionnez Actualiser.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>La mise à jour d’ADK ({0}) n’a pas pu être vérifiée. La création de médias reste disponible. Suivez les instructions de mise à jour de Microsoft, puis sélectionnez Actualiser.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>La maintenance d’ADK nécessite une intervention</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Impossible de lire les informations de maintenance d’ADK. Vérifiez les autorisations et l’installation, puis sélectionnez Actualiser.</value>
+    <value>Impossible de lire les informations de maintenance d’ADK. La création de médias reste disponible. Vérifiez les autorisations et l’installation, puis sélectionnez Actualiser.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Réparez le module complémentaire Windows PE correspondant avec son programme d’installation. Si sa version diffère de celle d’ADK, désinstallez d’abord le module, puis installez la version correspondante. Consultez la documentation d’ADK, puis sélectionnez Actualiser pour vérifier de nouveau si tout est prêt.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Politique de version requise</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Fichiers WinPE disponibles</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Fichiers WinPE manquants</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Module complémentaire installé</value>

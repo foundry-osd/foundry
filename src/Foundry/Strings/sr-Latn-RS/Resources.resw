@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK je spreman</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>Potrebno ažuriranje ADK-a ({0}) nije potvrđeno. Pratite uputstva kompanije Microsoft za ažuriranje, a zatim izaberite Osveži.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Nije moguće potvrditi ažuriranje ADK-a ({0}). Kreiranje medija je i dalje dostupno. Pratite uputstva kompanije Microsoft za ažuriranje, a zatim izaberite Osveži.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>Održavanje ADK-a zahteva pažnju</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Nije moguće pročitati informacije o održavanju ADK-a. Proverite dozvole i instalaciju, a zatim izaberite Osveži.</value>
+    <value>Nije moguće pročitati informacije o održavanju ADK-a. Kreiranje medija je i dalje dostupno. Proverite dozvole i instalaciju, a zatim izaberite Osveži.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Popravite odgovarajući dodatak Windows PE pomoću njegovog instalacionog programa. Ako se njegova verzija razlikuje od verzije ADK-a, prvo deinstalirajte dodatak, a zatim instalirajte odgovarajuću verziju. Pogledajte dokumentaciju za ADK, a zatim izaberite Osveži da biste ponovo proverili spremnost.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Obavezna politika verzije</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE datoteke su dostupne</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Nedostaju WinPE datoteke</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Dodatak je instaliran</value>

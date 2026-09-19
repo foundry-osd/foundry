@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK on valmis</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>Vaadittua ADK-päivitystä ({0}) ei ole vahvistettu. Noudata Microsoftin päivitysohjeita ja valitse sitten Päivitä.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>ADK-päivitystä ({0}) ei voitu vahvistaa. Median luominen on edelleen käytettävissä. Noudata Microsoftin päivitysohjeita ja valitse sitten Päivitä.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>ADK:n ylläpito vaatii huomiota</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>ADK:n ylläpitotietoja ei voitu lukea. Tarkista käyttöoikeudet ja asennus ja valitse sitten Päivitä.</value>
+    <value>ADK:n ylläpitotietoja ei voitu lukea. Median luominen on edelleen käytettävissä. Tarkista käyttöoikeudet ja asennus ja valitse sitten Päivitä.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Korjaa vastaava Windows PE -lisäosa sen asennusohjelmalla. Jos sen versio poikkeaa ADK:n versiosta, poista ensin lisäosa ja asenna sitten vastaava versio. Katso ADK:n ohjeet ja valitse sitten Päivitä tarkistaaksesi käyttövalmiuden uudelleen.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Vaadittu versiokäytäntö</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE-tiedostot ovat käytettävissä</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE-tiedostoja puuttuu</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Lisäosa asennettu</value>

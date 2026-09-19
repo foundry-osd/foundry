@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK ist fertig</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>Das erforderliche ADK-Update ({0}) ist nicht verifiziert. Befolgen Sie die Update-Anweisungen von Microsoft und wählen Sie anschließend „Aktualisieren“.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Das ADK-Update ({0}) konnte nicht verifiziert werden. Die Medienerstellung bleibt verfügbar. Befolgen Sie die Update-Anweisungen von Microsoft und wählen Sie anschließend „Aktualisieren“.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>ADK-Wartung erfordert Aufmerksamkeit</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Die ADK-Wartungsinformationen konnten nicht gelesen werden. Überprüfen Sie die Berechtigungen und die Installation und wählen Sie anschließend „Aktualisieren“.</value>
+    <value>Die ADK-Wartungsinformationen konnten nicht gelesen werden. Die Medienerstellung bleibt verfügbar. Überprüfen Sie die Berechtigungen und die Installation und wählen Sie anschließend „Aktualisieren“.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Reparieren Sie das passende Windows PE-Add-on mit dessen Installationsprogramm. Falls seine Version von der ADK-Version abweicht, deinstallieren Sie zuerst das Add-on und installieren Sie dann die passende Version. Lesen Sie die ADK-Dokumentation und wählen Sie anschließend „Aktualisieren“, um die Einsatzbereitschaft erneut zu prüfen.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Erforderliche Versionsrichtlinie</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE-Dateien verfügbar</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE-Dateien fehlen</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Add-on installiert</value>

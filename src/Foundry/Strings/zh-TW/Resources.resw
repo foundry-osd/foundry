@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK 已準備就緒</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>尚未驗證必要的 ADK 更新 ({0})。請依照 Microsoft 的更新指示操作，然後選取「重新整理」。</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>無法驗證 ADK 更新 ({0})。仍可建立媒體。請依照 Microsoft 的更新指示操作，然後選取「重新整理」。</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>ADK 維護需要處理</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>無法讀取 ADK 維護資訊。請檢查權限和安裝狀態，然後選取「重新整理」。</value>
+    <value>無法讀取 ADK 維護資訊。仍可建立媒體。請檢查權限和安裝狀態，然後選取「重新整理」。</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>請使用安裝程式修復相符的 Windows PE 附加元件。如果其版本與 ADK 不同，請先解除安裝附加元件，再安裝相符的版本。請參閱 ADK 文件，然後選取「重新整理」以再次檢查就緒狀態。</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>所需版本政策</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE 檔案可用</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE 檔案遺失</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE 已安裝附加元件</value>

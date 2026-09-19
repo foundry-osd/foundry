@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK готовий</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>Необхідне оновлення ADK ({0}) не підтверджено. Дотримуйтеся вказівок Microsoft щодо оновлення, а потім виберіть «Оновити».</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Не вдалося підтвердити оновлення ADK ({0}). Створення носіїв залишається доступним. Дотримуйтеся вказівок Microsoft щодо оновлення, а потім виберіть «Оновити».</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>Обслуговування ADK потребує уваги</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Не вдалося прочитати відомості про обслуговування ADK. Перевірте дозволи та інсталяцію, а потім виберіть «Оновити».</value>
+    <value>Не вдалося прочитати відомості про обслуговування ADK. Створення носіїв залишається доступним. Перевірте дозволи та інсталяцію, а потім виберіть «Оновити».</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Відновіть відповідний додаток Windows PE за допомогою його інсталятора. Якщо його версія відрізняється від версії ADK, спочатку видаліть додаток, а потім інсталюйте відповідну версію. Перегляньте документацію ADK, а потім виберіть «Оновити», щоб знову перевірити готовність.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Необхідна політика версії</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Файли WinPE доступні</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Файли WinPE відсутні</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Надбудову встановлено</value>

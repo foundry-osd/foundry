@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK 準備完了</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>必要な ADK 更新プログラム ({0}) が確認されていません。Microsoft の更新手順に従ってから、[リフレッシュ] を選択してください。</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>ADK 更新プログラム ({0}) を確認できませんでした。メディアの作成は引き続き利用できます。Microsoft の更新手順に従ってから、[リフレッシュ] を選択してください。</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>ADK のメンテナンスに対応が必要です</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>ADK のメンテナンス情報を読み取れませんでした。アクセス許可とインストール状態を確認してから、[リフレッシュ] を選択してください。</value>
+    <value>ADK のメンテナンス情報を読み取れませんでした。メディアの作成は引き続き利用できます。アクセス許可とインストール状態を確認してから、[リフレッシュ] を選択してください。</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>対応する Windows PE アドオンを、そのインストーラーで修復してください。バージョンが ADK と異なる場合は、まずアドオンをアンインストールしてから、対応するバージョンをインストールしてください。ADK のドキュメントを参照し、[リフレッシュ] を選択して準備状況を再確認してください。</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>必要なバージョンポリシー</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE ファイルが利用可能です</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE ファイルが不足しています</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE アドオンがインストールされました</value>

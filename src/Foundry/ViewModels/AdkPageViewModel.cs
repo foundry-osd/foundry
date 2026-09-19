@@ -266,7 +266,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     }
 
     private string FormatAvailability(bool available) => localizationService.GetString(
-        available ? "Adk.MediaCapability.Ready" : "Adk.MediaCapability.Blocked");
+        available ? "Adk.WinPeAddon.FilesAvailable" : "Adk.WinPeAddon.FilesMissing");
 
     private void ApplyOperationState(OperationProgressState state)
     {
@@ -278,7 +278,8 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     {
         if (status.CanCreateMedia)
         {
-            return localizationService.GetString("Adk.Status.ReadyTitle");
+            return localizationService.GetString(status.ServicingState == AdkServicingState.Verified
+                ? "Adk.Status.ReadyTitle" : "Adk.Status.ServicingTitle");
         }
 
         if (!status.IsInstalled)
@@ -292,16 +293,15 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         }
 
         if (!status.IsWinPeAddonInstalled && !status.IsWinPeAddonRegistered) return localizationService.GetString("Adk.Status.WinPeMissingTitle");
-        if (!status.IsWinPeAddonCompatible || (!status.IsX64Available && !status.IsArm64Available))
-            return localizationService.GetString("Adk.Status.WinPeInvalidTitle");
-        return localizationService.GetString("Adk.Status.ServicingTitle");
+        return localizationService.GetString("Adk.Status.WinPeInvalidTitle");
     }
 
     private static InfoBarSeverity GetStatusSeverity(AdkInstallationStatus status)
     {
         if (status.CanCreateMedia)
         {
-            return InfoBarSeverity.Success;
+            return status.ServicingState == AdkServicingState.Verified && status.IsX64Available && status.IsArm64Available
+                ? InfoBarSeverity.Success : InfoBarSeverity.Warning;
         }
 
         return status.IsInstalled && status.IsCompatible
@@ -313,8 +313,15 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     {
         if (status.CanCreateMedia)
         {
-            return localizationService.GetString(status.IsX64Available && status.IsArm64Available
+            string description = localizationService.GetString(status.IsX64Available && status.IsArm64Available
                 ? "Adk.Status.ReadyDescription" : "Adk.Status.WinPeInvalidDescription");
+            if (status.ServicingState == AdkServicingState.Verified) return description;
+
+            string servicingDescription = status.ServicingState == AdkServicingState.Unknown
+                ? localizationService.GetString("Adk.Status.ServicingUnknownDescription")
+                : string.Format(System.Globalization.CultureInfo.CurrentCulture,
+                    localizationService.GetString("Adk.Status.ServicingRecommendedDescription"), AdkInstallationDetector.RecommendedServicingUpdate);
+            return $"{description}{Environment.NewLine}{servicingDescription}";
         }
 
         if (!status.IsInstalled)
@@ -328,12 +335,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         }
 
         if (!status.IsWinPeAddonInstalled && !status.IsWinPeAddonRegistered) return localizationService.GetString("Adk.Status.WinPeMissingDescription");
-        if (!status.IsWinPeAddonCompatible || (!status.IsX64Available && !status.IsArm64Available))
-            return localizationService.GetString("Adk.Status.WinPeInvalidDescription");
-        return status.ServicingState == AdkServicingState.Unknown
-            ? localizationService.GetString("Adk.Status.ServicingUnknownDescription")
-            : string.Format(System.Globalization.CultureInfo.CurrentCulture,
-                localizationService.GetString("Adk.Status.ServicingRequiredDescription"), AdkInstallationDetector.RequiredServicingUpdate);
+        return localizationService.GetString("Adk.Status.WinPeInvalidDescription");
     }
 
     private string GetUpgradeButtonText(AdkInstallationStatus status)

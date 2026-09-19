@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK is ready</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>The required ADK update ({0}) is not verified. Follow Microsoft's update instructions, then select Refresh.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>ADK update ({0}) could not be verified. Media creation remains available. Follow Microsoft’s update instructions, then select Refresh.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>ADK servicing needs attention</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>ADK servicing information could not be read. Check permissions and the installation, then select Refresh.</value>
+    <value>ADK servicing information could not be read. Media creation remains available. Check permissions and the installation, then select Refresh.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Repair the matching Windows PE Add-on with its installer. If its version differs from the ADK, uninstall the add-on first, then install the matching version. See the ADK documentation, then select Refresh to check readiness again.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Required version policy</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE files available</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE files missing</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Add-on installed</value>

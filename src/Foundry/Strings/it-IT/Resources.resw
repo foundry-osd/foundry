@@ -171,14 +171,14 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK è pronto</value>
   </data>
-  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
-    <value>L’aggiornamento ADK richiesto ({0}) non è verificato. Seguire le istruzioni di aggiornamento di Microsoft, quindi selezionare Aggiorna.</value>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Non è stato possibile verificare l’aggiornamento ADK ({0}). La creazione dei supporti rimane disponibile. Seguire le istruzioni di aggiornamento di Microsoft, quindi selezionare Aggiorna.</value>
   </data>
   <data name="Adk.Status.ServicingTitle" xml:space="preserve">
     <value>La manutenzione di ADK richiede attenzione</value>
   </data>
   <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Impossibile leggere le informazioni di manutenzione di ADK. Controllare le autorizzazioni e l’installazione, quindi selezionare Aggiorna.</value>
+    <value>Impossibile leggere le informazioni di manutenzione di ADK. La creazione dei supporti rimane disponibile. Controllare le autorizzazioni e l’installazione, quindi selezionare Aggiorna.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
     <value>Riparare il componente aggiuntivo Windows PE corrispondente con il relativo programma di installazione. Se la sua versione è diversa da quella di ADK, disinstallare prima il componente aggiuntivo, quindi installare la versione corrispondente. Consultare la documentazione di ADK, quindi selezionare Aggiorna per verificare nuovamente che tutto sia pronto.</value>
@@ -203,6 +203,12 @@
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Criteri di versione obbligatori</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>File WinPE disponibili</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>File WinPE mancanti</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Componente aggiuntivo installato</value>
