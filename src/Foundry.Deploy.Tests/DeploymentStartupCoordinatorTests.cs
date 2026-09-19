@@ -139,6 +139,7 @@ public sealed class DeploymentStartupCoordinatorTests
         var discovery = new StubDiscovery(token =>
         {
             caller.Cancel();
+            Assert.True(token.IsCancellationRequested);
             token.ThrowIfCancellationRequested();
             return Task.FromResult<IReadOnlyList<string>>([]);
         });
@@ -175,7 +176,7 @@ public sealed class DeploymentStartupCoordinatorTests
     {
         using var caller = new CancellationTokenSource();
         caller.Cancel();
-        var discovery = new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start."));
+        var discovery = new StubDiscovery(_ => throw new NotSupportedException("Discovery must not start."));
         var logger = new RecordingLogger();
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
