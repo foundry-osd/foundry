@@ -12,12 +12,12 @@ public interface IMicrosoftUpdateCatalogDriverService
         HardwareProfile hardwareProfile,
         OperatingSystemCatalogItem operatingSystem,
         string destinationDirectory,
-        string cacheDirectory,
+        Func<long, string> resolveCacheDirectory,
         CancellationToken cancellationToken = default,
         IProgress<double>? progress = null);
 
     Task<MicrosoftUpdateCatalogDriverResult> ExpandAsync(
-        string sourceDirectory,
+        IReadOnlyList<string> sourcePaths,
         string destinationDirectory,
         CancellationToken cancellationToken = default,
         IProgress<double>? progress = null);

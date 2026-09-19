@@ -11,4 +11,5 @@ public sealed record MicrosoftUpdateCatalogDownloadedDriver
     public string Version { get; init; } = string.Empty;
     public string Size { get; init; } = string.Empty;
     public required string DownloadUrl { get; init; }
+    public required string FilePath { get; init; }
 }

@@ -96,7 +96,7 @@ public sealed class DriverPackExtractionService : IDriverPackExtractionService
             case DriverPackExtractionMethod.MicrosoftUpdateCatalogExpand:
             {
                 MicrosoftUpdateCatalogDriverResult microsoftResult = await _microsoftUpdateCatalogDriverService
-                    .ExpandAsync(executionPlan.DownloadedPath, extractedPath, cancellationToken, progress)
+                    .ExpandAsync(executionPlan.MicrosoftUpdateCatalogDriverPaths, extractedPath, cancellationToken, progress)
                     .ConfigureAwait(false);
 
                 progress?.Report(100d);
