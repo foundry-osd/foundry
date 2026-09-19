@@ -14,6 +14,194 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class ArtifactDownloadServiceTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task DownloadAsync_PublishesOnlyAfterTheTransferCompletes(bool replacing)
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destination = Path.Combine(temp.Path, "image.esd");
+        byte[] previous = [1, 2];
+        byte[] payload = [3, 4, 5];
+        if (replacing) await File.WriteAllBytesAsync(destination, previous, TestContext.Current.CancellationToken);
+        using var client = new HttpClient(new StaticHttpMessageHandler(payload));
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+        int observations = 0;
+        var progress = new InlineProgress<DownloadProgress>(value =>
+        {
+            if (value.Phase != DownloadPhase.Downloading) return;
+            observations++;
+            if (replacing) Assert.Equal(previous, File.ReadAllBytes(destination));
+            else Assert.False(File.Exists(destination));
+            Assert.Single(Directory.GetFiles(temp.Path, "*.partial"));
+        });
+
+        ArtifactDownloadResult result = await service.DownloadAsync("https://example.test/image.esd", destination,
+            ComputeSha256(payload), payload.Length, cancellationToken: TestContext.Current.CancellationToken, progress: progress);
+
+        Assert.True(observations > 0);
+        Assert.True(result.Downloaded);
+        Assert.Equal(payload.Length, result.SizeBytes);
+        Assert.Equal(payload, await File.ReadAllBytesAsync(destination, TestContext.Current.CancellationToken));
+        Assert.Empty(Directory.GetFiles(temp.Path, "*.partial"));
+    }
+
+    [Theory]
+    [InlineData("catalog")]
+    [InlineData("http-short")]
+    [InlineData("http-long")]
+    [InlineData("http-zero")]
+    [InlineData("hash")]
+    public async Task DownloadAsync_WhenValidationFails_PreservesPreviousFile(string failure)
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destination = Path.Combine(temp.Path, "image.esd");
+        byte[] previous = [1, 2];
+        byte[] payload = [3, 4, 5];
+        await File.WriteAllBytesAsync(destination, previous, TestContext.Current.CancellationToken);
+        long? contentLength = failure switch { "http-short" => 4, "http-long" => 2, "http-zero" => 0, _ => null };
+        using var client = new HttpClient(new StaticHttpMessageHandler(payload, contentLength));
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() => service.DownloadAsync(
+            "https://example.test/image.esd", destination,
+            failure.StartsWith("http", StringComparison.Ordinal) ? null : failure == "hash" ? new string('B', 64) : ComputeSha256(payload),
+            failure == "catalog" ? 4 : payload.Length, cancellationToken: TestContext.Current.CancellationToken));
+
+        Assert.Equal(previous, await File.ReadAllBytesAsync(destination, TestContext.Current.CancellationToken));
+        Assert.Empty(Directory.GetFiles(temp.Path, "*.partial"));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task DownloadAsync_WhenReplacementIsInterrupted_PreservesPreviousFile(bool timeout)
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destination = Path.Combine(temp.Path, "image.esd");
+        byte[] previous = [1, 2];
+        await File.WriteAllBytesAsync(destination, previous, TestContext.Current.CancellationToken);
+        var clock = new DeadlineTimeProvider();
+        using var caller = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        using var stream = new StallingStream(true, timeout ? clock.Fire : caller.Cancel);
+        using var client = new HttpClient(new StreamHttpMessageHandler(stream));
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client, clock);
+        Task<ArtifactDownloadResult> transfer = service.DownloadAsync("https://example.test/image.esd", destination,
+            expectedSizeBytes: 3, cancellationToken: caller.Token);
+
+        if (timeout) await Assert.ThrowsAsync<TimeoutException>(() => transfer);
+        else await Assert.ThrowsAnyAsync<OperationCanceledException>(() => transfer);
+
+        Assert.Equal(previous, await File.ReadAllBytesAsync(destination, TestContext.Current.CancellationToken));
+        Assert.Empty(Directory.GetFiles(temp.Path, "*.partial"));
+    }
+
+    [Fact]
+    public async Task DownloadAsync_WhenDestinationIsInUse_CleansStageWithoutRetrying()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destination = Path.Combine(temp.Path, "image.esd");
+        byte[] previous = [1, 2];
+        await File.WriteAllBytesAsync(destination, previous, TestContext.Current.CancellationToken);
+        using var lease = new FileStream(destination, FileMode.Open, FileAccess.Read, FileShare.Read);
+        var handler = new StaticHttpMessageHandler([3, 4, 5]);
+        using var client = new HttpClient(handler);
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+
+        Exception? failure = await Record.ExceptionAsync(() => service.DownloadAsync("https://example.test/image.esd", destination,
+            expectedSizeBytes: 3, cancellationToken: TestContext.Current.CancellationToken));
+
+        Assert.True(failure is IOException or UnauthorizedAccessException);
+        Assert.Equal(1, handler.RequestCount);
+        Assert.Equal(previous, await File.ReadAllBytesAsync(destination, TestContext.Current.CancellationToken));
+        Assert.Empty(Directory.GetFiles(temp.Path, "*.partial"));
+    }
+
+    [Fact]
+    public async Task DownloadAsync_WhenCancelledAtEndOfTransfer_DoesNotPublish()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destination = Path.Combine(temp.Path, "image.esd");
+        using var caller = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        using var client = new HttpClient(new StaticHttpMessageHandler([1, 2, 3]));
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+        int completedReports = 0;
+        var progress = new InlineProgress<DownloadProgress>(value =>
+        {
+            if (value.BytesProcessed == 3 && ++completedReports == 2) caller.Cancel();
+        });
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.DownloadAsync(
+            "https://example.test/image.esd", destination, cancellationToken: caller.Token, progress: progress));
+
+        Assert.Empty(Directory.GetFiles(temp.Path));
+    }
+
+    [Fact]
+    public async Task DownloadAsync_WhenHashlessTransferFails_RetryDoesNotReusePartialBytes()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destination = Path.Combine(temp.Path, "driver.cab");
+        string abandoned = destination + ".another-download.partial";
+        await File.WriteAllTextAsync(abandoned, "unrelated", TestContext.Current.CancellationToken);
+        using var stream = new StallingStream(true, () => throw new InvalidOperationException("Read failed."));
+        using var failedClient = new HttpClient(new StreamHttpMessageHandler(stream));
+        var failedService = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, failedClient);
+        await Assert.ThrowsAsync<InvalidOperationException>(() => failedService.DownloadAsync(
+            "https://example.test/driver.cab", destination, cancellationToken: TestContext.Current.CancellationToken));
+        Assert.False(File.Exists(destination));
+        Assert.Equal([abandoned], Directory.GetFiles(temp.Path));
+
+        var handler = new StaticHttpMessageHandler([4, 5, 6]);
+        using var client = new HttpClient(handler);
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+        ArtifactDownloadResult result = await service.DownloadAsync("https://example.test/driver.cab", destination,
+            cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.True(result.Downloaded);
+        Assert.Equal(1, handler.RequestCount);
+        Assert.Equal(new byte[] { 4, 5, 6 }, await File.ReadAllBytesAsync(destination, TestContext.Current.CancellationToken));
+        Assert.Equal("unrelated", await File.ReadAllTextAsync(abandoned, TestContext.Current.CancellationToken));
+        Assert.Equal([abandoned], Directory.GetFiles(temp.Path, "*.partial"));
+    }
+
+    [Fact]
+    public async Task DownloadAsync_WhenBodyReadIsRetried_ReplacesOnlyWithTheCompleteAttempt()
+    {
+        using TempDirectory temp = TempDirectory.Create();
+        string destination = Path.Combine(temp.Path, "driver.cab");
+        byte[] previous = [1, 2];
+        byte[] payload = [3, 4, 5];
+        await File.WriteAllBytesAsync(destination, previous, TestContext.Current.CancellationToken);
+        using var interrupted = new StallingStream(true, () => throw new IOException("Connection interrupted."));
+        using var handler = new RetryHttpMessageHandler(interrupted, payload, () => Assert.Equal(previous, File.ReadAllBytes(destination)));
+        using var client = new HttpClient(handler);
+        var service = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+
+        ArtifactDownloadResult result = await service.DownloadAsync("https://example.test/driver.cab", destination,
+            ComputeSha256(payload), payload.Length, cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.Equal(2, handler.RequestCount);
+        Assert.True(interrupted.Disposed);
+        Assert.True(result.Downloaded);
+        Assert.Equal(payload, await File.ReadAllBytesAsync(destination, TestContext.Current.CancellationToken));
+        Assert.Empty(Directory.GetFiles(temp.Path, "*.partial"));
+    }
+
+    private sealed class RetryHttpMessageHandler(Stream interrupted, byte[] payload, Action beforeAttempt) : HttpMessageHandler
+    {
+        public int RequestCount { get; private set; }
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            beforeAttempt();
+            RequestCount++;
+            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = RequestCount == 1 ? new StreamContent(interrupted) : new ByteArrayContent(payload)
+            });
+        }
+    }
+
     [Fact]
     public async Task DownloadAsync_WhenHeadersStall_TimesOutWithoutStartingBodyOrRetrying()
     {
@@ -323,6 +511,7 @@ public sealed class ArtifactDownloadServiceTests
                 cancellationToken: TestContext.Current.CancellationToken));
 
         Assert.Contains("Hash verification failed", exception.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Empty(Directory.GetFiles(temp.Path));
     }
 
     [Theory]
@@ -523,17 +712,16 @@ public sealed class ArtifactDownloadServiceTests
         public void Report(T value) => report(value);
     }
 
-    private sealed class StaticHttpMessageHandler(byte[] content) : HttpMessageHandler
+    private sealed class StaticHttpMessageHandler(byte[] content, long? contentLength = null) : HttpMessageHandler
     {
         public int RequestCount { get; private set; }
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             RequestCount++;
-            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new ByteArrayContent(content)
-            });
+            var body = new ByteArrayContent(content);
+            if (contentLength.HasValue) body.Headers.ContentLength = contentLength;
+            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = body });
         }
     }
 

@@ -40,7 +40,8 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         long? expectedSizeBytes = null,
         string? artifactKind = null,
         CancellationToken cancellationToken = default,
-        IProgress<DownloadProgress>? progress = null)
+        IProgress<DownloadProgress>? progress = null,
+        bool allowDownload = true)
     {
         cancellationToken.ThrowIfCancellationRequested();
         string effectiveSourceUrl = WindowsUpdateContentUrl.Normalize(sourceUrl);
@@ -72,7 +73,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 effectiveSourceUrl);
         }
 
-        bool transferStarted = false;
+        string? stagingPath = null;
         try
         {
             string? normalizedExpectedHash = null;
@@ -103,12 +104,17 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 };
             }
 
-            transferStarted = true;
+            if (!allowDownload)
+            {
+                throw new IOException("The cached artifact cannot be reused and there is insufficient space for a replacement.");
+            }
+
+            stagingPath = $"{destinationPath}.{Guid.NewGuid():N}.partial";
             DownloadedArtifact downloadedArtifact = await HttpTransfer.RunAsync(
                 (transferToken, reportProgress) => HttpRetryPolicy.ExecuteAsync(
                     ct => DownloadWithHttpClientAsync(
                                 effectiveSourceUrl,
-                                destinationPath,
+                                stagingPath,
                                 hashAlgorithm,
                                 progress,
                                 reportProgress,
@@ -119,7 +125,10 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 cancellationToken,
                 _timeProvider)
                 .ConfigureAwait(false);
+            EnsureDownloadedSize(destinationPath, expectedSizeBytes, downloadedArtifact);
             EnsureDownloadedHash(destinationPath, normalizedExpectedHash, hashAlgorithm, downloadedArtifact);
+            cancellationToken.ThrowIfCancellationRequested();
+            File.Move(stagingPath, destinationPath, overwrite: true);
 
             _logger.LogInformation("Artifact downloaded via HttpClient. DestinationPath={DestinationPath}", destinationPath);
             return new ArtifactDownloadResult
@@ -127,24 +136,16 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 DestinationPath = destinationPath,
                 Downloaded = true,
                 Method = "httpclient",
-                SizeBytes = new FileInfo(destinationPath).Length
+                SizeBytes = downloadedArtifact.SizeBytes
             };
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
-            if (transferStarted)
-            {
-                DeleteInterruptedDownload(destinationPath);
-            }
             _logger.LogInformation("Artifact download cancelled. DestinationPath={DestinationPath}", destinationPath);
             throw;
         }
         catch (Exception ex)
         {
-            if (ex is TimeoutException && transferStarted)
-            {
-                DeleteInterruptedDownload(destinationPath);
-            }
             _logger.LogError(
                 ex,
                 "Artifact download failed. SourceUrl={SourceUrl}, EffectiveSourceUrl={EffectiveSourceUrl}, SourceHost={SourceHost}, DestinationPath={DestinationPath}",
@@ -154,9 +155,13 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 destinationPath);
             throw;
         }
+        finally
+        {
+            if (stagingPath is not null) DeleteStagedDownload(stagingPath);
+        }
     }
 
-    private void DeleteInterruptedDownload(string path)
+    private void DeleteStagedDownload(string path)
     {
         try
         {
@@ -164,7 +169,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
-            _logger.LogWarning(exception, "Could not remove interrupted download. DestinationPath={DestinationPath}", path);
+            _logger.LogWarning(exception, "Could not remove staged download. StagingPath={StagingPath}", path);
         }
     }
 
@@ -265,7 +270,22 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         string? actualHash = incrementalHash is null
             ? null
             : Convert.ToHexString(incrementalHash.GetHashAndReset());
-        return new DownloadedArtifact(actualHash);
+        return new DownloadedArtifact(actualHash, bytesDownloaded, totalBytes);
+    }
+
+    private static void EnsureDownloadedSize(string filePath, long? expectedSizeBytes, DownloadedArtifact artifact)
+    {
+        if (expectedSizeBytes is > 0 && artifact.SizeBytes != expectedSizeBytes.Value)
+        {
+            throw new InvalidOperationException(
+                $"Size verification failed for '{filePath}'. Expected {expectedSizeBytes.Value} bytes, actual {artifact.SizeBytes} bytes.");
+        }
+
+        if (artifact.ContentLength.HasValue && artifact.SizeBytes != artifact.ContentLength.Value)
+        {
+            throw new InvalidOperationException(
+                $"HTTP content length verification failed for '{filePath}'. Expected {artifact.ContentLength.Value} bytes, actual {artifact.SizeBytes} bytes.");
+        }
     }
 
     private static void EnsureDownloadedHash(
@@ -359,5 +379,5 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
             : "invalid-url";
     }
 
-    private sealed record DownloadedArtifact(string? Hash);
+    private sealed record DownloadedArtifact(string? Hash, long SizeBytes, long? ContentLength);
 }

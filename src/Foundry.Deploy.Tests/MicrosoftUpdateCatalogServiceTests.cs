@@ -204,7 +204,8 @@ public sealed class MicrosoftUpdateCatalogServiceTests
             long? expectedSizeBytes = null,
             string? artifactKind = null,
             CancellationToken cancellationToken = default,
-            IProgress<DownloadProgress>? progress = null)
+            IProgress<DownloadProgress>? progress = null,
+            bool allowDownload = true)
         {
             DestinationPath = destinationPath;
             ExpectedHash = expectedHash;

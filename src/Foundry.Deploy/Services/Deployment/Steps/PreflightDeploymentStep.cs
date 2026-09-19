@@ -46,12 +46,13 @@ public sealed class PreflightDeploymentStep(
             bool external = await context.IsExternalStorageAsync(imageDirectory, cancellationToken).ConfigureAwait(false) &&
                 context.Request.Mode == DeploymentMode.Usb;
             long? available = external ? storageService.GetAvailableBytes(imageDirectory) : null;
-            long existingBytes = external && File.Exists(imagePath) ? new FileInfo(imagePath).Length : 0;
-            // A replacement uses FileMode.Create, so the current archive's occupied bytes are reusable headroom.
+            bool canDownload = available >= sourceSize;
+            // Reuse can succeed on a full cache; replacement needs room for a separate staged archive.
             external = external && available is >= 0 && sourceSize > 0 &&
-                sourceSize <= checked(available.Value + existingBytes) && storageService.CanWriteDirectory(imageDirectory);
+                (canDownload || File.Exists(imagePath)) && storageService.CanWriteDirectory(imageDirectory);
 
-            long targetDriverBytes = ResolveTargetDriverBytes(context, external ? checked(available!.Value + existingBytes - sourceSize) : null);
+            // External cache reuse may leave all current space available; budget drivers after resolving the image.
+            long targetDriverBytes = external ? 0 : ResolveTargetDriverBytes(context, null);
             DeploymentCapacityPolicy.EnsureTargetCapacity(context, null, external ? 0 : sourceSize, targetDriverBytes);
             WindowsImageMetadata? image = null;
             if (external)
@@ -60,7 +61,8 @@ public sealed class PreflightDeploymentStep(
                     context.Request.OperatingSystem.Url, imagePath,
                     DeploymentStepExecutionContext.ResolvePreferredHash(context.Request.OperatingSystem.Sha256, context.Request.OperatingSystem.Sha1),
                     sourceSize, "OperatingSystemImage", cancellationToken,
-                    context.CreateDownloadProgressReporter("OS image", DeploymentOperationNames.DownloadOperatingSystemImage)).ConfigureAwait(false);
+                    context.CreateDownloadProgressReporter("OS image", DeploymentOperationNames.DownloadOperatingSystemImage),
+                    allowDownload: canDownload).ConfigureAwait(false);
                 imagePath = downloaded.DestinationPath;
                 sourceLease = new FileStream(imagePath, FileMode.Open, FileAccess.Read, FileShare.Read);
                 sourceSize = sourceLease.Length;

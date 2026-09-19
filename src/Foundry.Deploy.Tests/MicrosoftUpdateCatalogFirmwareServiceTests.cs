@@ -90,7 +90,8 @@ public sealed class MicrosoftUpdateCatalogFirmwareServiceTests
     {
         public async Task<ArtifactDownloadResult> DownloadAsync(string sourceUrl, string destinationPath, string? expectedHash = null,
             long? expectedSizeBytes = null, string? artifactKind = null, CancellationToken cancellationToken = default,
-            IProgress<DownloadProgress>? progress = null)
+            IProgress<DownloadProgress>? progress = null,
+            bool allowDownload = true)
         {
             await File.WriteAllTextAsync(destinationPath, "firmware", cancellationToken);
             return new ArtifactDownloadResult { DestinationPath = destinationPath, Downloaded = true, Method = "fake" };

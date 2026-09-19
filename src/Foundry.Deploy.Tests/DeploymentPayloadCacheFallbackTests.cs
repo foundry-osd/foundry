@@ -240,7 +240,8 @@ public sealed class DeploymentPayloadCacheFallbackTests
             long? expectedSizeBytes = null,
             string? artifactKind = null,
             CancellationToken cancellationToken = default,
-            IProgress<DownloadProgress>? progress = null)
+            IProgress<DownloadProgress>? progress = null,
+            bool allowDownload = true)
         {
             DestinationPath = destinationPath;
             return Task.FromResult(new ArtifactDownloadResult

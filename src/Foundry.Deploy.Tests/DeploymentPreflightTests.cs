@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Net;
+using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using Foundry.Deploy.Models;
@@ -185,14 +186,51 @@ public sealed class DeploymentPreflightTests
     }
 
     [Fact]
-    public async Task CorruptCache_RedownloadsAndVerifiesBeforePartition()
+    public async Task CachedImage_PreservesAvailableDriverSpace_BeforeCheckingTargetCapacity()
+    {
+        using var fixture = new PipelineFixture { Failure = "dead_url", DeferredDriver = true, TargetBytes = 6736052334UL };
+        fixture.CreateCache(fixture.Payload);
+        fixture.Storage.AvailableBytes = 100;
+
+        DeploymentStepResult result = await fixture.RunAsync();
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.Equal(["inspect", "partition", "apply:1"], fixture.Events);
+        Assert.Equal(100, fixture.Context!.Preflight!.TargetDriverBytes);
+    }
+
+    [Theory]
+    [InlineData(0, 0)]
+    [InlineData(0, 3)]
+    [InlineData(0, 4)]
+    [InlineData(3, 4)]
+    public async Task CorruptCache_WithoutReplacementHeadroom_FailsBeforeNetworkOrPartition(long availableBytes, int cachedBytes)
     {
         using var fixture = new PipelineFixture();
-        fixture.CreateCache(new byte[fixture.Payload.Length]);
-        fixture.Storage.AvailableBytes = 0;
+        byte[] original = new byte[cachedBytes];
+        string cachePath = fixture.CreateCache(original);
+        fixture.Storage.AvailableBytes = availableBytes;
+
+        DeploymentStepResult result = await fixture.RunAsync();
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("preflight_cache_unavailable", result.Failure?.Code);
+        Assert.Empty(fixture.Events);
+        Assert.Equal(original, await File.ReadAllBytesAsync(cachePath, TestContext.Current.CancellationToken));
+        Assert.Single(Directory.GetFiles(Path.GetDirectoryName(cachePath)!));
+    }
+
+    [Fact]
+    public async Task CorruptCache_WithReplacementHeadroom_RedownloadsAndVerifiesBeforePartition()
+    {
+        using var fixture = new PipelineFixture();
+        string cachePath = fixture.CreateCache(new byte[fixture.Payload.Length]);
+        fixture.Storage.AvailableBytes = fixture.Payload.Length;
         Assert.Equal(DeploymentStepState.Succeeded, (await fixture.RunAsync()).State);
         Assert.Equal("download", fixture.Events[0]);
         Assert.True(fixture.Events.IndexOf("download") < fixture.Events.IndexOf("partition"));
+        Assert.Equal(fixture.Payload, await File.ReadAllBytesAsync(cachePath, TestContext.Current.CancellationToken));
+        Assert.Single(Directory.GetFiles(Path.GetDirectoryName(cachePath)!));
     }
 
     [Fact]
@@ -204,12 +242,15 @@ public sealed class DeploymentPreflightTests
     }
 
     [Fact]
-    public async Task TargetBackedActualBytes_AreIncludedBeforeApply()
+    public async Task TargetBackedUnknownSourceSize_UsesDownloadedBytesBeforeApply()
     {
-        using var fixture = new PipelineFixture { Mode = DeploymentMode.Iso, Failure = "actual_size" };
-        Assert.Equal(DeploymentStepState.Failed, (await fixture.RunAsync()).State);
-        Assert.Contains("partition", fixture.Events);
-        Assert.DoesNotContain("apply:1", fixture.Events);
+        using var fixture = new PipelineFixture { Mode = DeploymentMode.Iso, Failure = "unknown_source_size" };
+
+        DeploymentStepResult result = await fixture.RunAsync();
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("insufficient_target_capacity", result.Failure?.Code);
+        Assert.Equal(["probe", "probe", "partition", "download", "inspect"], fixture.Events);
     }
 
     [Theory]
@@ -314,11 +355,12 @@ public sealed class DeploymentPreflightTests
             _apply = new ApplyOperatingSystemImageStep(windows, Storage);
         }
 
-        public void CreateCache(byte[] bytes)
+        public string CreateCache(byte[] bytes)
         {
             string path = Path.Combine(CacheRoot, "Cache", "OperatingSystems", "install.esd");
             Directory.CreateDirectory(Path.GetDirectoryName(path)!);
             File.WriteAllBytes(path, bytes);
+            return path;
         }
 
         public DeploymentStepExecutionContext CreateContext()
@@ -345,7 +387,7 @@ public sealed class DeploymentPreflightTests
                     Edition = Failure == "unsupported_edition" ? "Unknown" : "Pro",
                     FileName = "install.esd",
                     Url = Failure == "invalid_url" ? "file:///image" : "https://example.test/image",
-                    SizeBytes = Failure == "negative_size" ? -1 : Failure == "actual_size" ? 1 : Payload.Length,
+                    SizeBytes = Failure == "negative_size" ? -1 : Failure == "unknown_source_size" ? 0 : Payload.Length,
                     Sha256 = Failure switch
                     {
                         "invalid_hash" => new string('G', 64),
@@ -367,7 +409,7 @@ public sealed class DeploymentPreflightTests
         }
 
         public DiskIdentity Identity => new(1, "", "SERIAL-1", "Disk", "SATA", TargetBytes ?? (Failure == "small_target" ? 1024UL :
-            Failure == "actual_size" ? 6736052237UL : 64UL * 1024 * 1024 * 1024));
+            Failure == "unknown_source_size" ? 6736052237UL : 64UL * 1024 * 1024 * 1024));
 
         public async Task<DeploymentStepResult> RunAsync()
         {
@@ -400,6 +442,15 @@ public sealed class DeploymentPreflightTests
                 {
                     fixture._cancellation.Cancel();
                     cancellationToken.ThrowIfCancellationRequested();
+                }
+                if (fixture.Failure == "unknown_source_size" && request.Headers.Range is not null)
+                {
+                    var response = new HttpResponseMessage(HttpStatusCode.PartialContent)
+                    {
+                        Content = new ByteArrayContent([fixture.Payload[0]])
+                    };
+                    response.Content.Headers.ContentRange = new ContentRangeHeaderValue(0, 0);
+                    return Task.FromResult(response);
                 }
                 return Task.FromResult(new HttpResponseMessage(fixture.Failure == "dead_url" ? HttpStatusCode.NotFound : HttpStatusCode.OK)
                 { Content = new ByteArrayContent(fixture.Failure == "hash_mismatch" ? [5, 6, 7, 8] : fixture.Payload) });
