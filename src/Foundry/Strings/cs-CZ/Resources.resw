@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Podrobnosti o připravenosti</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>Pokyny k aktualizaci ADK</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Nainstalujte nebo upgradujte Windows ADK Deployment Tools a doplněk Windows PE vyžadovaný pro vytváření médií.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK je připraven</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>Aktualizaci ADK ({0}) se nepodařilo ověřit. Vytváření médií zůstává dostupné. Postupujte podle pokynů společnosti Microsoft k aktualizaci a pak vyberte „Obnovit“.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>Údržba ADK vyžaduje pozornost</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Informace o údržbě ADK se nepodařilo přečíst. Vytváření médií zůstává dostupné. Zkontrolujte oprávnění a instalaci a pak vyberte „Obnovit“.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Opravte odpovídající doplněk Windows PE pomocí jeho instalačního programu. Pokud se jeho verze liší od verze ADK, nejprve doplněk odinstalujte a pak nainstalujte odpovídající verzi. Podívejte se do dokumentace ADK a pak vyberte „Obnovit“, abyste znovu zkontrolovali připravenost.</value>
+    <value>Opravte odpovídající doplněk Windows PE pomocí jeho instalačního programu. Pokud se jeho verze liší od verze ADK, nejprve doplněk odinstalujte a pak nainstalujte odpovídající verzi. Po opravě nebo výměně doplňku restartujte Foundry.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Doplněk Windows PE vyžaduje opravu</value>

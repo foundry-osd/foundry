@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Szczegóły gotowości</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>Instrukcje aktualizacji ADK</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Zainstaluj lub zaktualizuj Windows ADK narzędzia wdrażania i dodatek Windows PE wymagane do tworzenia multimediów.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK jest gotowy</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>Nie można zweryfikować aktualizacji ADK ({0}). Tworzenie nośników pozostaje dostępne. Postępuj zgodnie z instrukcjami aktualizacji firmy Microsoft, a następnie wybierz Odśwież.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>Konserwacja ADK wymaga uwagi</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Nie można odczytać informacji o konserwacji ADK. Tworzenie nośników pozostaje dostępne. Sprawdź uprawnienia i instalację, a następnie wybierz Odśwież.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Napraw zgodny dodatek Windows PE za pomocą jego instalatora. Jeśli jego wersja różni się od wersji ADK, najpierw odinstaluj dodatek, a następnie zainstaluj zgodną wersję. Zapoznaj się z dokumentacją ADK, a następnie wybierz Odśwież, aby ponownie sprawdzić gotowość.</value>
+    <value>Napraw zgodny dodatek Windows PE za pomocą jego instalatora. Jeśli jego wersja różni się od wersji ADK, najpierw odinstaluj dodatek, a następnie zainstaluj zgodną wersję. Po naprawieniu lub zastąpieniu dodatku uruchom ponownie Foundry.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Dodatek Windows PE wymaga naprawy</value>

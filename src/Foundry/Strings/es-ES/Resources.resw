@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Detalles de preparación</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>Instrucciones de actualización de ADK</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Instale o actualice las herramientas de implementación Windows ADK y el complemento Windows PE necesarios para la creación de medios.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK está listo</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>No se ha podido verificar la actualización de ADK ({0}). La creación de medios sigue disponible. Siga las instrucciones de actualización de Microsoft y seleccione Refrescar.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>El mantenimiento de ADK requiere atención</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>No se ha podido leer la información de mantenimiento de ADK. La creación de medios sigue disponible. Compruebe los permisos y la instalación y seleccione Refrescar.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Repare el complemento Windows PE correspondiente con su instalador. Si su versión difiere de la de ADK, desinstale primero el complemento y luego instale la versión correspondiente. Consulte la documentación de ADK y seleccione Refrescar para comprobar de nuevo si todo está listo.</value>
+    <value>Repare el complemento Windows PE correspondiente con su instalador. Si su versión difiere de la de ADK, desinstale primero el complemento y luego instale la versión correspondiente. Reinicie Foundry después de reparar o reemplazar el complemento.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>El complemento Windows PE necesita reparación</value>

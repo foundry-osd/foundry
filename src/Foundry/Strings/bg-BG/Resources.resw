@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Подробности за готовността</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>Инструкции за актуализиране на ADK</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Инсталирайте или надстройте Windows ADK инструментите за разполагане и Windows PE добавката, необходими за създаване на медия.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK е готов</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>Актуализацията на ADK ({0}) не може да бъде проверена. Създаването на носители остава достъпно. Следвайте инструкциите за актуализиране на Microsoft, след което изберете „Опресняване“.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>Обслужването на ADK изисква внимание</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Информацията за обслужването на ADK не може да бъде прочетена. Създаването на носители остава достъпно. Проверете разрешенията и инсталацията, след което изберете „Опресняване“.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Поправете съответстващата добавка Windows PE чрез нейния инсталатор. Ако версията ѝ се различава от тази на ADK, първо деинсталирайте добавката, след което инсталирайте съответстващата версия. Вижте документацията на ADK, след което изберете „Опресняване“, за да проверите отново готовността.</value>
+    <value>Поправете съответстващата добавка Windows PE чрез нейния инсталатор. Ако версията ѝ се различава от тази на ADK, първо деинсталирайте добавката, след което инсталирайте съответстващата версия. Рестартирайте Foundry след поправката или замяната на добавката.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Добавката Windows PE се нуждае от поправка</value>

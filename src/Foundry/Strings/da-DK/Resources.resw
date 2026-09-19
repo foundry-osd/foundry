@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Beredskab detaljer</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>Vejledning til opdatering af ADK</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Installer eller opgrader Windows ADK Deployment Tools og Windows PE Add-on, der kræves til medieoprettelse.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK er klar</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>ADK-opdateringen ({0}) kunne ikke bekræftes. Det er stadig muligt at oprette medier. Følg opdateringsvejledningen fra Microsoft, og vælg derefter Opdater.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>Vedligeholdelse af ADK kræver handling</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Oplysninger om vedligeholdelse af ADK kunne ikke læses. Det er stadig muligt at oprette medier. Kontrollér tilladelserne og installationen, og vælg derefter Opdater.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Reparer det matchende Windows PE-tilføjelsesprogram med dets installationsprogram. Hvis versionen er forskellig fra ADK-versionen, skal du først afinstallere tilføjelsesprogrammet og derefter installere den matchende version. Se ADK-dokumentationen, og vælg derefter Opdater for at kontrollere igen, om alt er klar.</value>
+    <value>Reparer det matchende Windows PE-tilføjelsesprogram med dets installationsprogram. Hvis versionen er forskellig fra ADK-versionen, skal du først afinstallere tilføjelsesprogrammet og derefter installere den matchende version. Genstart Foundry, når du har repareret eller udskiftet tilføjelsesprogrammet.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Windows PE-tilføjelsesprogrammet skal repareres</value>

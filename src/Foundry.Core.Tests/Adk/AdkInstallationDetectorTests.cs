@@ -134,22 +134,6 @@ public sealed class AdkInstallationDetectorTests
         Assert.True(status.IsCompatible);
     }
 
-    [Theory]
-    [InlineData(AdkServicingState.NotVerified)]
-    [InlineData(AdkServicingState.Unknown)]
-    public void Detect_WhenServicingIsNotVerified_PreservesEvidenceWithoutBlockingCompatibleMedia(AdkServicingState state)
-    {
-        var probe = CreateInstalledProbe("10.1.26100.2454");
-        probe.ServicingState = state;
-
-        AdkInstallationStatus status = new AdkInstallationDetector(probe).Detect();
-
-        Assert.True(status.IsCompatible);
-        Assert.Equal(state, status.ServicingState);
-        Assert.True(status.CanCreateMediaFor(WinPeArchitecture.X64));
-        Assert.True(status.CanCreateMediaFor(WinPeArchitecture.Arm64));
-    }
-
     [Fact]
     public void Detect_WhenOnlyWinPeVersionIsKnown_DoesNotInferAdkCompatibility()
     {
@@ -204,7 +188,6 @@ public sealed class AdkInstallationDetectorTests
     public void Detect_WhenRequiredAssetIsMissing_OnlyBlocksAffectedArchitecture(string architecture, bool winPeAsset, string relativePath)
     {
         var probe = CreateInstalledProbe("10.1.26100.2454");
-        probe.ServicingState = AdkServicingState.Unknown;
         string missing = Path.Combine(probe.KitsRootPath!, winPeAsset
             ? AdkInstallationDetector.WinPeRelativePath : AdkInstallationDetector.DeploymentToolsRelativePath, architecture, relativePath);
         Assert.Contains(missing, probe.ExistingFiles);
@@ -272,8 +255,6 @@ public sealed class AdkInstallationDetectorTests
         public IReadOnlyCollection<string> ExistingDirectories { get; init; } = [];
         public IReadOnlyCollection<string> ExistingFiles { get; set; } = [];
         public IReadOnlyList<AdkInstalledProduct> Products { get; set; } = [];
-        public AdkServicingState ServicingState { get; set; } = AdkServicingState.Verified;
-        public AdkServicingState GetServicingState() => ServicingState;
 
         public string? GetKitsRootPath() => KitsRootPath;
 

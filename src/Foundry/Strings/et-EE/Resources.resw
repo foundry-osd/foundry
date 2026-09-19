@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Valmisoleku üksikasjad</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>ADK värskendusjuhised</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Installige või uuendage meediumi loomiseks vajalikud Windows ADK juurutustööriistad ja Windows PE lisandmoodul.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK on valmis</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>ADK värskendust ({0}) ei saanud kontrollida. Meediumi loomine on endiselt saadaval. Järgige Microsofti värskendusjuhiseid ja seejärel valige Värskenda.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>ADK hooldus vajab tähelepanu</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>ADK hooldusteavet ei saanud lugeda. Meediumi loomine on endiselt saadaval. Kontrollige õigusi ja installi ning seejärel valige Värskenda.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Parandage vastav Windows PE lisandmoodul selle installiprogrammiga. Kui selle versioon erineb ADK versioonist, desinstallige esmalt lisandmoodul ja seejärel installige vastav versioon. Vaadake ADK dokumentatsiooni ja valige seejärel Värskenda, et valmisolekut uuesti kontrollida.</value>
+    <value>Parandage vastav Windows PE lisandmoodul selle installiprogrammiga. Kui selle versioon erineb ADK versioonist, desinstallige esmalt lisandmoodul ja seejärel installige vastav versioon. Pärast lisandmooduli parandamist või asendamist taaskäivitage Foundry.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Windows PE lisandmoodul vajab parandamist</value>

@@ -9,9 +9,6 @@ namespace Foundry.Core.Services.Adk;
 
 public sealed class WindowsAdkInstallationProbe : IAdkInstallationProbe
 {
-    /// <inheritdoc />
-    public AdkServicingState GetServicingState() => NativeAdkServicingProbe.Detect();
-
     private const string InstalledRootsKeyPath = @"SOFTWARE\WOW6432Node\Microsoft\Windows Kits\Installed Roots";
     private const string KitsRootValueName = "KitsRoot10";
     private static readonly string[] UninstallKeyPaths =

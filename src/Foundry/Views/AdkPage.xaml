@@ -23,19 +23,6 @@
                 Message="{x:Bind ViewModel.StatusDescription, Mode=OneWay}"
                 Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}" />
 
-            <StackPanel
-                Orientation="Horizontal"
-                Spacing="{ThemeResource FoundryInlineControlSpacing}">
-                <Button
-                    Command="{x:Bind ViewModel.RefreshStatusCommand}"
-                    Content="{x:Bind ViewModel.RefreshButtonText, Mode=OneWay}"
-                    IsEnabled="{x:Bind ViewModel.IsActionEnabled, Mode=OneWay}" />
-                <HyperlinkButton
-                    Content="{x:Bind ViewModel.ServicingInstructionsText, Mode=OneWay}"
-                    IsEnabled="{x:Bind ViewModel.IsActionEnabled, Mode=OneWay}"
-                    NavigateUri="{x:Bind ViewModel.ServicingInstructionsUri}" />
-            </StackPanel>
-
             <wct:SettingsCard
                 Description="{x:Bind ViewModel.SetupActionDescription, Mode=OneWay}"
                 Header="{x:Bind ViewModel.SetupActionTitle, Mode=OneWay}"

@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Readiness details</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>ADK update instructions</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Install or upgrade the Windows ADK Deployment Tools and Windows PE Add-on required for media creation.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK is ready</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>ADK update ({0}) could not be verified. Media creation remains available. Follow Microsoft’s update instructions, then select Refresh.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>ADK servicing needs attention</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>ADK servicing information could not be read. Media creation remains available. Check permissions and the installation, then select Refresh.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Repair the matching Windows PE Add-on with its installer. If its version differs from the ADK, uninstall the add-on first, then install the matching version. See the ADK documentation, then select Refresh to check readiness again.</value>
+    <value>Repair the matching Windows PE Add-on with its installer. If its version differs from the ADK, uninstall the add-on first, then install the matching version. Restart Foundry after repairing or replacing the add-on.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Windows PE Add-on needs repair</value>

@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Деталі готовності</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>Вказівки щодо оновлення ADK</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Установіть або оновіть Windows ADK Deployment Tools і Windows PE Add-on, необхідні для створення медіа.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK готовий</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>Не вдалося підтвердити оновлення ADK ({0}). Створення носіїв залишається доступним. Дотримуйтеся вказівок Microsoft щодо оновлення, а потім виберіть «Оновити».</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>Обслуговування ADK потребує уваги</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Не вдалося прочитати відомості про обслуговування ADK. Створення носіїв залишається доступним. Перевірте дозволи та інсталяцію, а потім виберіть «Оновити».</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Відновіть відповідний додаток Windows PE за допомогою його інсталятора. Якщо його версія відрізняється від версії ADK, спочатку видаліть додаток, а потім інсталюйте відповідну версію. Перегляньте документацію ADK, а потім виберіть «Оновити», щоб знову перевірити готовність.</value>
+    <value>Відновіть відповідний додаток Windows PE за допомогою його інсталятора. Якщо його версія відрізняється від версії ADK, спочатку видаліть додаток, а потім інсталюйте відповідну версію. Перезапустіть Foundry після відновлення або заміни додатка.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Додаток Windows PE потребує відновлення</value>

@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>פרטי מוכנות</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>הוראות לעדכון ADK</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>התקן או שדרג את Windows ADK כלי הפריסה והתוסף Windows PE הנדרשים ליצירת מדיה.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK מוכן</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>לא ניתן לאמת את עדכון ADK ({0}). יצירת מדיה עדיין זמינה. יש לפעול לפי הוראות העדכון של Microsoft ולאחר מכן לבחור באפשרות „רענן”.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>התחזוקה של ADK דורשת תשומת לב</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>לא ניתן לקרוא את פרטי התחזוקה של ADK. יצירת מדיה עדיין זמינה. יש לבדוק את ההרשאות ואת ההתקנה ולאחר מכן לבחור באפשרות „רענן”.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>יש לתקן את התוסף Windows PE התואם באמצעות תוכנית ההתקנה שלו. אם הגרסה שלו שונה מגרסת ADK, יש להסיר תחילה את התוסף ולאחר מכן להתקין את הגרסה התואמת. יש לעיין בתיעוד ADK ולאחר מכן לבחור באפשרות „רענן” כדי לבדוק שוב את המוכנות.</value>
+    <value>יש לתקן את התוסף Windows PE התואם באמצעות תוכנית ההתקנה שלו. אם הגרסה שלו שונה מגרסת ADK, יש להסיר תחילה את התוסף ולאחר מכן להתקין את הגרסה התואמת. לאחר תיקון התוסף או החלפתו, יש להפעיל מחדש את Foundry.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>יש לתקן את התוסף Windows PE</value>

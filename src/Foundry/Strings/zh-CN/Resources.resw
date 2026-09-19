@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>准备情况详情</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>ADK 更新说明</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>安装或升级媒体创建所需的Windows ADK 部署工具和Windows PE 附加组件。</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK 已准备就绪</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>无法验证 ADK 更新 ({0})。仍可创建媒体。请按照 Microsoft 的更新说明操作，然后选择“刷新”。</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>ADK 维护需要处理</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>无法读取 ADK 维护信息。仍可创建媒体。请检查权限和安装情况，然后选择“刷新”。</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>请使用安装程序修复匹配的 Windows PE 附加组件。如果其版本与 ADK 不同，请先卸载附加组件，再安装匹配的版本。请参阅 ADK 文档，然后选择“刷新”以重新检查就绪状态。</value>
+    <value>请使用安装程序修复匹配的 Windows PE 附加组件。如果其版本与 ADK 不同，请先卸载附加组件，再安装匹配的版本。修复或替换附加组件后，请重启 Foundry。</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Windows PE 附加组件需要修复</value>

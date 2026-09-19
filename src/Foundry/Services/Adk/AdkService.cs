@@ -52,12 +52,11 @@ internal sealed class AdkService(
         ApplyStatus(status);
 
         logger.Information(
-            "ADK status refreshed. IsInstalled={IsInstalled}, IsCompatible={IsCompatible}, IsWinPeAddonInstalled={IsWinPeAddonInstalled}, InstalledVersion={InstalledVersion}, ServicingState={ServicingState}, IsWinPeAddonCompatible={IsWinPeAddonCompatible}, IsX64Available={IsX64Available}, IsArm64Available={IsArm64Available}",
+            "ADK status refreshed. IsInstalled={IsInstalled}, IsCompatible={IsCompatible}, IsWinPeAddonInstalled={IsWinPeAddonInstalled}, InstalledVersion={InstalledVersion}, IsWinPeAddonCompatible={IsWinPeAddonCompatible}, IsX64Available={IsX64Available}, IsArm64Available={IsArm64Available}",
             status.IsInstalled,
             status.IsCompatible,
             status.IsWinPeAddonInstalled,
             status.InstalledVersion,
-            status.ServicingState,
             status.IsWinPeAddonCompatible,
             status.IsX64Available,
             status.IsArm64Available);

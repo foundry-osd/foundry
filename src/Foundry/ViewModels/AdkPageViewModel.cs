@@ -90,14 +90,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     public partial bool IsActionEnabled { get; set; }
 
-    [ObservableProperty]
-    public partial string ServicingInstructionsText { get; set; }
-
-    [ObservableProperty]
-    public partial string RefreshButtonText { get; set; }
-
     public string DocumentationUrl => FoundryApplicationInfo.AdkDocumentationUrl;
-    public Uri ServicingInstructionsUri => new("https://learn.microsoft.com/windows-hardware/get-started/adk-servicing");
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AdkPageViewModel"/> class.
@@ -135,8 +128,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         MediaCapabilityTitle = string.Empty;
         MediaCapabilityStatus = string.Empty;
         IsActionEnabled = true;
-        ServicingInstructionsText = string.Empty;
-        RefreshButtonText = string.Empty;
 
         adkService.StatusChanged += OnAdkStatusChanged;
         operationProgressService.StateChanged += OnOperationProgressChanged;
@@ -166,13 +157,10 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         return RunBlockingAdkOperationAsync(adkService.UpgradeAsync);
     }
 
-    [RelayCommand]
-    private Task RefreshStatusAsync() => RunBlockingAdkOperationAsync(adkService.RefreshStatusAsync);
-
     private async Task RunBlockingAdkOperationAsync(Func<CancellationToken, Task<AdkInstallationStatus>> operation)
     {
         if (shellNavigationGuardService.State is ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending) return;
-        // Keep navigation blocked until setup or a status refresh establishes the new readiness state.
+        // Keep navigation blocked until setup establishes the new readiness state.
         shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
 
         try
@@ -261,8 +249,6 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
             || (!status.IsWinPeAddonInstalled && !status.IsWinPeAddonRegistered));
         IsSetupActionVisible = IsInstallButtonVisible || IsUpgradeButtonVisible;
         IsActionEnabled = !IsBusy;
-        ServicingInstructionsText = localizationService.GetString("Adk.Servicing.Instructions");
-        RefreshButtonText = localizationService.GetString("Common.Refresh");
     }
 
     private string FormatAvailability(bool available) => localizationService.GetString(
@@ -278,8 +264,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     {
         if (status.CanCreateMedia)
         {
-            return localizationService.GetString(status.ServicingState == AdkServicingState.Verified
-                ? "Adk.Status.ReadyTitle" : "Adk.Status.ServicingTitle");
+            return localizationService.GetString("Adk.Status.ReadyTitle");
         }
 
         if (!status.IsInstalled)
@@ -300,7 +285,7 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     {
         if (status.CanCreateMedia)
         {
-            return status.ServicingState == AdkServicingState.Verified && status.IsX64Available && status.IsArm64Available
+            return status.IsX64Available && status.IsArm64Available
                 ? InfoBarSeverity.Success : InfoBarSeverity.Warning;
         }
 
@@ -313,15 +298,8 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     {
         if (status.CanCreateMedia)
         {
-            string description = localizationService.GetString(status.IsX64Available && status.IsArm64Available
+            return localizationService.GetString(status.IsX64Available && status.IsArm64Available
                 ? "Adk.Status.ReadyDescription" : "Adk.Status.WinPeInvalidDescription");
-            if (status.ServicingState == AdkServicingState.Verified) return description;
-
-            string servicingDescription = status.ServicingState == AdkServicingState.Unknown
-                ? localizationService.GetString("Adk.Status.ServicingUnknownDescription")
-                : string.Format(System.Globalization.CultureInfo.CurrentCulture,
-                    localizationService.GetString("Adk.Status.ServicingRecommendedDescription"), AdkInstallationDetector.RecommendedServicingUpdate);
-            return $"{description}{Environment.NewLine}{servicingDescription}";
         }
 
         if (!status.IsInstalled)

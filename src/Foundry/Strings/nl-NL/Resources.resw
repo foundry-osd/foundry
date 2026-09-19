@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Gereedheidsgegevens</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>Instructies voor de ADK-update</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Installeer of upgrade de Windows ADK Deployment Tools en Windows PE Add-on die vereist zijn voor het maken van media.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK is gereed</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>De ADK-update ({0}) kon niet worden geverifieerd. Het maken van media blijft beschikbaar. Volg de update-instructies van Microsoft en selecteer vervolgens Vernieuwen.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>ADK-onderhoud vereist aandacht</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>De ADK-onderhoudsinformatie kon niet worden gelezen. Het maken van media blijft beschikbaar. Controleer de machtigingen en de installatie en selecteer vervolgens Vernieuwen.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Herstel de bijbehorende Windows PE Add-on met het installatieprogramma ervan. Als de versie afwijkt van de ADK-versie, verwijdert u eerst de add-on en installeert u vervolgens de bijbehorende versie. Raadpleeg de ADK-documentatie en selecteer vervolgens Vernieuwen om opnieuw te controleren of alles gereed is.</value>
+    <value>Herstel de bijbehorende Windows PE Add-on met het installatieprogramma ervan. Als de versie afwijkt van de ADK-versie, verwijdert u eerst de add-on en installeert u vervolgens de bijbehorende versie. Start Foundry opnieuw nadat u de add-on hebt hersteld of vervangen.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>De Windows PE Add-on moet worden hersteld</value>

@@ -9,8 +9,6 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
     public const string DeploymentToolsRelativePath = @"Assessment and Deployment Kit\Deployment Tools";
     public const string WinPeRelativePath = @"Assessment and Deployment Kit\Windows Preinstallation Environment";
 
-    /// <summary>The known update used for advisory servicing verification, independent of base-version compatibility.</summary>
-    public const string RecommendedServicingUpdate = "KB5101684";
     private const string RequiredVersionPolicyText = "Windows ADK 24H2 / 10.1.26100.2454";
     private static readonly Version SupportedWindows11AdkBuild = new(10, 1, 26100, 2454);
     private static readonly string[] WinPeComponents =
@@ -33,7 +31,6 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
         bool isCompatible = isInstalled && versionRelation == AdkVersionRelation.Supported;
         bool winPeCompatible = hasWinPeAddon && Version.TryParse(installedVersion, out Version? adkVersion)
             && WinPeComponents.All(name => HasMatchingComponent(products, name, adkVersion));
-        AdkServicingState servicing = isCompatible ? probe.GetServicingState() : AdkServicingState.Unknown;
 
         return new(
             isInstalled,
@@ -43,7 +40,6 @@ public sealed class AdkInstallationDetector(IAdkInstallationProbe probe)
             versionRelation,
             kitsRootPath,
             RequiredVersionPolicyText,
-            servicing,
             winPeCompatible,
             winPeCompatible && HasArchitectureAssets(kitsRootPath!, "amd64"),
             winPeCompatible && HasArchitectureAssets(kitsRootPath!, "arm64"),

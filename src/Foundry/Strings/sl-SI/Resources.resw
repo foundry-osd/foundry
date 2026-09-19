@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Podrobnosti o pripravljenosti</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>Navodila za posodobitev ADK</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Namestite ali nadgradite Windows ADK orodja za uvajanje in Windows PE dodatek, potreben za ustvarjanje medijev.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK je pripravljen</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>Posodobitve ADK ({0}) ni bilo mogoče preveriti. Ustvarjanje medijev ostaja na voljo. Upoštevajte navodila družbe Microsoft za posodobitev in nato izberite Osveži.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>Vzdrževanje ADK zahteva pozornost</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Podatkov o vzdrževanju ADK ni bilo mogoče prebrati. Ustvarjanje medijev ostaja na voljo. Preverite dovoljenja in namestitev ter nato izberite Osveži.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Popravite ustrezni dodatek Windows PE z njegovim namestitvenim programom. Če se njegova različica razlikuje od različice ADK, najprej odstranite dodatek in nato namestite ustrezno različico. Glejte dokumentacijo ADK in nato izberite Osveži, da znova preverite pripravljenost.</value>
+    <value>Popravite ustrezni dodatek Windows PE z njegovim namestitvenim programom. Če se njegova različica razlikuje od različice ADK, najprej odstranite dodatek in nato namestite ustrezno različico. Po popravilu ali zamenjavi dodatka znova zaženite Foundry.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Dodatek Windows PE je treba popraviti</value>

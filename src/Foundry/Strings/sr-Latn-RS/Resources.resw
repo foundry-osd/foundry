@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Detalji o spremnosti</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>Uputstva za ažuriranje ADK-a</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Instalirajte ili nadogradite Windows ADK alate za primenu i Windows PE dodatak potrebni za kreiranje medija.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK je spreman</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>Nije moguće potvrditi ažuriranje ADK-a ({0}). Kreiranje medija je i dalje dostupno. Pratite uputstva kompanije Microsoft za ažuriranje, a zatim izaberite Osveži.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>Održavanje ADK-a zahteva pažnju</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Nije moguće pročitati informacije o održavanju ADK-a. Kreiranje medija je i dalje dostupno. Proverite dozvole i instalaciju, a zatim izaberite Osveži.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Popravite odgovarajući dodatak Windows PE pomoću njegovog instalacionog programa. Ako se njegova verzija razlikuje od verzije ADK-a, prvo deinstalirajte dodatak, a zatim instalirajte odgovarajuću verziju. Pogledajte dokumentaciju za ADK, a zatim izaberite Osveži da biste ponovo proverili spremnost.</value>
+    <value>Popravite odgovarajući dodatak Windows PE pomoću njegovog instalacionog programa. Ako se njegova verzija razlikuje od verzije ADK-a, prvo deinstalirajte dodatak, a zatim instalirajte odgovarajuću verziju. Nakon popravke ili zamene dodatka ponovo pokrenite Foundry.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Dodatak Windows PE zahteva popravku</value>

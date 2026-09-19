@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Hazırlık ayrıntıları</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>ADK güncelleme yönergeleri</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Medya oluşturmak için gereken Windows ADK Dağıtım Araçlarını ve Windows PE Eklentisini yükleyin veya yükseltin.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK hazır</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>ADK güncellemesi ({0}) doğrulanamadı. Medya oluşturma kullanılabilir durumda kalır. Microsoft güncelleme yönergelerini izleyin ve ardından Yenile’yi seçin.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>ADK bakımı ilgilenmenizi gerektiriyor</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>ADK bakım bilgileri okunamadı. Medya oluşturma kullanılabilir durumda kalır. İzinleri ve kurulumu kontrol edin ve ardından Yenile’yi seçin.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Eşleşen Windows PE Eklentisini kendi yükleyicisiyle onarın. Sürümü ADK sürümünden farklıysa önce eklentiyi kaldırın, ardından eşleşen sürümü yükleyin. ADK belgelerine bakın, ardından hazır olma durumunu tekrar kontrol etmek için Yenile’yi seçin.</value>
+    <value>Eşleşen Windows PE Eklentisini kendi yükleyicisiyle onarın. Sürümü ADK sürümünden farklıysa önce eklentiyi kaldırın, ardından eşleşen sürümü yükleyin. Eklentiyi onardıktan veya değiştirdikten sonra Foundry uygulamasını yeniden başlatın.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Windows PE Eklentisinin onarılması gerekiyor</value>

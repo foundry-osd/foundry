@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Pasirengimo detalės</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>ADK naujinimo instrukcijos</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Įdiekite arba atnaujinkite Windows ADK diegimo įrankius ir Windows PE priedą, reikalingą medijos kūrimui.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK paruošta</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>Nepavyko patvirtinti ADK naujinimo ({0}). Medijos kūrimas tebėra pasiekiamas. Vadovaukitės Microsoft naujinimo instrukcijomis, tada pasirinkite „Atnaujinti“.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>ADK priežiūrai reikia dėmesio</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Nepavyko nuskaityti ADK priežiūros informacijos. Medijos kūrimas tebėra pasiekiamas. Patikrinkite teises ir diegimą, tada pasirinkite „Atnaujinti“.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Pataisykite atitinkantį Windows PE priedą naudodami jo diegimo programą. Jei jo versija skiriasi nuo ADK versijos, pirmiausia pašalinkite priedą, tada įdiekite atitinkančią versiją. Žr. ADK dokumentaciją, tada pasirinkite „Atnaujinti“, kad dar kartą patikrintumėte parengtį.</value>
+    <value>Pataisykite atitinkantį Windows PE priedą naudodami jo diegimo programą. Jei jo versija skiriasi nuo ADK versijos, pirmiausia pašalinkite priedą, tada įdiekite atitinkančią versiją. Pataisę arba pakeitę priedą, iš naujo paleiskite Foundry.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Windows PE priedą reikia pataisyti</value>

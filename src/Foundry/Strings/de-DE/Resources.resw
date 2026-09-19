@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Details zur Bereitschaft</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>Anweisungen zum ADK-Update</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Installieren oder aktualisieren Sie die Windows ADK Bereitstellungstools und das Windows PE Add-on, die für die Medienerstellung erforderlich sind.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK ist fertig</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>Das ADK-Update ({0}) konnte nicht verifiziert werden. Die Medienerstellung bleibt verfügbar. Befolgen Sie die Update-Anweisungen von Microsoft und wählen Sie anschließend „Aktualisieren“.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>ADK-Wartung erfordert Aufmerksamkeit</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Die ADK-Wartungsinformationen konnten nicht gelesen werden. Die Medienerstellung bleibt verfügbar. Überprüfen Sie die Berechtigungen und die Installation und wählen Sie anschließend „Aktualisieren“.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Reparieren Sie das passende Windows PE-Add-on mit dessen Installationsprogramm. Falls seine Version von der ADK-Version abweicht, deinstallieren Sie zuerst das Add-on und installieren Sie dann die passende Version. Lesen Sie die ADK-Dokumentation und wählen Sie anschließend „Aktualisieren“, um die Einsatzbereitschaft erneut zu prüfen.</value>
+    <value>Reparieren Sie das passende Windows PE-Add-on mit dessen Installationsprogramm. Falls seine Version von der ADK-Version abweicht, deinstallieren Sie zuerst das Add-on und installieren Sie dann die passende Version. Starten Sie Foundry neu, nachdem Sie das Add-on repariert oder ersetzt haben.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Windows PE-Add-on muss repariert werden</value>

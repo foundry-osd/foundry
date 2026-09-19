@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Λεπτομέρειες ετοιμότητας</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>Οδηγίες ενημέρωσης του ADK</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Εγκαταστήστε ή αναβαθμίστε τα Windows ADK Εργαλεία ανάπτυξης και το πρόσθετο Windows PE που απαιτούνται για τη δημιουργία πολυμέσων.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>Το ADK είναι έτοιμο</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>Δεν ήταν δυνατή η επαλήθευση της ενημέρωσης του ADK ({0}). Η δημιουργία μέσων παραμένει διαθέσιμη. Ακολουθήστε τις οδηγίες ενημέρωσης της Microsoft και, στη συνέχεια, επιλέξτε «Ανανέωση».</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>Η συντήρηση του ADK απαιτεί προσοχή</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Δεν ήταν δυνατή η ανάγνωση των πληροφοριών συντήρησης του ADK. Η δημιουργία μέσων παραμένει διαθέσιμη. Ελέγξτε τα δικαιώματα και την εγκατάσταση και, στη συνέχεια, επιλέξτε «Ανανέωση».</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Επιδιορθώστε το αντίστοιχο πρόσθετο Windows PE με το πρόγραμμα εγκατάστασής του. Αν η έκδοσή του διαφέρει από την έκδοση του ADK, καταργήστε πρώτα την εγκατάσταση του πρόσθετου και έπειτα εγκαταστήστε την αντίστοιχη έκδοση. Ανατρέξτε στην τεκμηρίωση του ADK και, στη συνέχεια, επιλέξτε «Ανανέωση» για να ελέγξετε ξανά την ετοιμότητα.</value>
+    <value>Επιδιορθώστε το αντίστοιχο πρόσθετο Windows PE με το πρόγραμμα εγκατάστασής του. Αν η έκδοσή του διαφέρει από την έκδοση του ADK, καταργήστε πρώτα την εγκατάσταση του πρόσθετου και έπειτα εγκαταστήστε την αντίστοιχη έκδοση. Επανεκκινήστε το Foundry μετά την επιδιόρθωση ή την αντικατάσταση του πρόσθετου.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Το πρόσθετο Windows PE χρειάζεται επιδιόρθωση</value>

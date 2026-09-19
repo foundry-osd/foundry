@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Dettagli sulla preparazione</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>Istruzioni per l’aggiornamento di ADK</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Installa o aggiorna gli strumenti di distribuzione Windows ADK e il componente aggiuntivo Windows PE richiesti per la creazione dei supporti.</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK è pronto</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>Non è stato possibile verificare l’aggiornamento ADK ({0}). La creazione dei supporti rimane disponibile. Seguire le istruzioni di aggiornamento di Microsoft, quindi selezionare Aggiorna.</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>La manutenzione di ADK richiede attenzione</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>Impossibile leggere le informazioni di manutenzione di ADK. La creazione dei supporti rimane disponibile. Controllare le autorizzazioni e l’installazione, quindi selezionare Aggiorna.</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>Riparare il componente aggiuntivo Windows PE corrispondente con il relativo programma di installazione. Se la sua versione è diversa da quella di ADK, disinstallare prima il componente aggiuntivo, quindi installare la versione corrispondente. Consultare la documentazione di ADK, quindi selezionare Aggiorna per verificare nuovamente che tutto sia pronto.</value>
+    <value>Riparare il componente aggiuntivo Windows PE corrispondente con il relativo programma di installazione. Se la sua versione è diversa da quella di ADK, disinstallare prima il componente aggiuntivo, quindi installare la versione corrispondente. Riavviare Foundry dopo aver riparato o sostituito il componente aggiuntivo.</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Il componente aggiuntivo Windows PE richiede una riparazione</value>

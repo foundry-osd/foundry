@@ -144,9 +144,6 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>準備状況の詳細</value>
   </data>
-  <data name="Adk.Servicing.Instructions" xml:space="preserve">
-    <value>ADK の更新手順</value>
-  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>メディアの作成に必要な Windows ADK 導入ツールと Windows PE アドオンをインストールまたはアップグレードします。</value>
   </data>
@@ -171,17 +168,8 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK 準備完了</value>
   </data>
-  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
-    <value>ADK 更新プログラム ({0}) を確認できませんでした。メディアの作成は引き続き利用できます。Microsoft の更新手順に従ってから、[リフレッシュ] を選択してください。</value>
-  </data>
-  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
-    <value>ADK のメンテナンスに対応が必要です</value>
-  </data>
-  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
-    <value>ADK のメンテナンス情報を読み取れませんでした。メディアの作成は引き続き利用できます。アクセス許可とインストール状態を確認してから、[リフレッシュ] を選択してください。</value>
-  </data>
   <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
-    <value>対応する Windows PE アドオンを、そのインストーラーで修復してください。バージョンが ADK と異なる場合は、まずアドオンをアンインストールしてから、対応するバージョンをインストールしてください。ADK のドキュメントを参照し、[リフレッシュ] を選択して準備状況を再確認してください。</value>
+    <value>対応する Windows PE アドオンを、そのインストーラーで修復してください。バージョンが ADK と異なる場合は、まずアドオンをアンインストールしてから、対応するバージョンをインストールしてください。アドオンの修復または入れ替え後に Foundry を再起動してください。</value>
   </data>
   <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
     <value>Windows PE アドオンの修復が必要です</value>
