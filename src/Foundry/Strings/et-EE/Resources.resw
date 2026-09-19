@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Windows PE lisandmooduli installimine</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Installimine on lõppenud. Vaadake üle ülejäänud ADK nõuded.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Olemasoleva Windows ADK eemaldamine</value>
   </data>
@@ -148,7 +151,7 @@
     <value>ADK seadistamine</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installige toetatud Windows ADK 24H2 (10.1.26100) väljalase.</value>
+    <value>Installige toetatud Windows ADK 24H2 (10.1.26100.2454) väljalase.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK versiooni ei toetata</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK on valmis</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Parandage vastav Windows PE lisandmoodul selle installiprogrammiga. Kui selle versioon erineb ADK versioonist, desinstallige esmalt lisandmoodul ja seejärel installige vastav versioon. Pärast lisandmooduli parandamist või asendamist taaskäivitage Foundry.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Windows PE lisandmoodul vajab parandamist</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Installige installitud Windows ADK lisandmoodul Windows PE.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>Versiooni ei tuvastatud</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Nõutav on Windows ADK 24H2 (10.1.26100).</value>
+    <value>Nõutav on Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Nõutav versioonipoliitika</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE failid on saadaval</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE failid puuduvad</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Lisandmoodul on installitud</value>

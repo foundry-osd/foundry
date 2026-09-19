@@ -294,7 +294,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     {
         RefreshEvaluation();
 
-        if (adkService.CurrentStatus.CanCreateMedia)
+        if (adkService.CurrentStatus.CanCreateMediaFor(SelectedArchitecture?.Value ?? WinPeArchitecture.X64))
         {
             await RefreshUsbCandidatesAsync();
         }
@@ -334,7 +334,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return;
         }
 
-        if (!adkService.CurrentStatus.CanCreateMedia)
+        if (!adkService.CurrentStatus.CanCreateMediaFor(SelectedArchitecture?.Value ?? WinPeArchitecture.X64))
         {
             usbCandidateDiscoveryState = UsbCandidateDiscoveryState.Blocked;
             UsbCandidateStatus = localizationService.GetString("StartMedia.Usb.AdkBlocked");
@@ -507,6 +507,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         try
         {
+            var currentAdkStatus = await adkService.RefreshStatusAsync(cancellationToken);
+            if (!currentAdkStatus.CanCreateMediaFor(options.Architecture))
+            {
+                shouldTrackMedia = false;
+                await ShowBlockedDialogAsync(target == FinalMediaTarget.Iso ? "StartMedia.CreateIso.BlockedTitle" : "StartMedia.CreateUsb.BlockedTitle",
+                    new[] { MediaPreflightBlockingReason.AdkNotReady });
+                return;
+            }
             options = options with
             {
                 DriverVendors = options.DriverVendors.ToArray(),
@@ -1620,7 +1628,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         return new MediaPreflightOptions
         {
-            IsAdkReady = adkService.CurrentStatus.CanCreateMedia,
+            IsAdkReady = adkService.CurrentStatus.CanCreateMediaFor(SelectedArchitecture?.Value ?? WinPeArchitecture.X64),
             IsNetworkConfigurationReady = networkReadiness.IsNetworkConfigurationReady,
             NetworkConfigurationValidationCode = networkReadiness.NetworkConfigurationValidationCode,
             IsDeployConfigurationReady = foundryConfigurationStateService.IsDeployConfigurationReady,
@@ -2140,7 +2148,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     {
         IReadOnlyList<MediaPreflightBlockingReason> reasons = GetGlobalBlockingReasons(evaluation);
         var builder = new StringBuilder();
-        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Adk")}: {FormatReady(adkService.CurrentStatus.CanCreateMedia)}");
+        builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Adk")}: {FormatReady(adkService.CurrentStatus.CanCreateMediaFor(SelectedArchitecture?.Value ?? WinPeArchitecture.X64))}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.WinPeLanguage")}: {FormatValue(NormalizeCultureName(options.WinPeLanguage))}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.BootImageSource")}: {FormatBootImageSource(options.BootImageSource)}");
         builder.AppendLine($"{localizationService.GetString("StartMedia.Field.Architecture")}: {FormatArchitecture(options.Architecture)}");
@@ -2228,7 +2236,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private IReadOnlyList<string> GetAvailableWinPeLanguages()
     {
-        if (!adkService.CurrentStatus.CanCreateMedia)
+        if (!adkService.CurrentStatus.CanCreateMediaFor(SelectedArchitecture?.Value ?? WinPeArchitecture.X64))
         {
             return [];
         }

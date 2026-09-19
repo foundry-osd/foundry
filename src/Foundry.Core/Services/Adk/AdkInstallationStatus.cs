@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.WinPe;
+
 namespace Foundry.Core.Services.Adk;
 
 /// <summary>
@@ -14,6 +16,10 @@ namespace Foundry.Core.Services.Adk;
 /// <param name="VersionRelation">How the detected ADK version compares to the supported build line.</param>
 /// <param name="KitsRootPath">The detected Windows Kits root path, when available.</param>
 /// <param name="RequiredVersionPolicy">The version policy used to evaluate compatibility.</param>
+/// <param name="IsWinPeAddonCompatible">Whether the installed WinPE components match the ADK release.</param>
+/// <param name="IsX64Available">Whether required x64 image, optional component and boot files exist.</param>
+/// <param name="IsArm64Available">Whether required ARM64 image, optional component and boot files exist.</param>
+/// <param name="IsWinPeAddonRegistered">Whether Windows Installer records any WinPE component, even if its files are missing.</param>
 public sealed record AdkInstallationStatus(
     bool IsInstalled,
     bool IsCompatible,
@@ -21,10 +27,23 @@ public sealed record AdkInstallationStatus(
     string? InstalledVersion,
     AdkVersionRelation VersionRelation,
     string? KitsRootPath,
-    string RequiredVersionPolicy)
+    string RequiredVersionPolicy,
+    bool IsWinPeAddonCompatible = false,
+    bool IsX64Available = false,
+    bool IsArm64Available = false,
+    bool IsWinPeAddonRegistered = false)
 {
     /// <summary>
-    /// Gets whether Foundry can create WinPE media with the detected ADK state.
+    /// Gets whether the compatible ADK and WinPE assets permit media creation.
     /// </summary>
-    public bool CanCreateMedia => IsInstalled && IsCompatible && IsWinPeAddonInstalled;
+    public bool CanCreateMedia => IsInstalled && IsCompatible && IsWinPeAddonInstalled && IsWinPeAddonCompatible
+        && (IsX64Available || IsArm64Available);
+
+    /// <summary>Checks whether the selected target has the required WinPE and boot assets.</summary>
+    public bool CanCreateMediaFor(WinPeArchitecture architecture) => CanCreateMedia && architecture switch
+    {
+        WinPeArchitecture.X64 => IsX64Available,
+        WinPeArchitecture.Arm64 => IsArm64Available,
+        _ => false
+    };
 }

@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Windows PE-add-on installeren</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>De installatie is voltooid. Controleer de resterende ADK-vereisten.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Bestaande Windows ADK verwijderen</value>
   </data>
@@ -148,7 +151,7 @@
     <value>ADK instelling</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installeer de ondersteunde Windows ADK 24H2-release (10.1.26100).</value>
+    <value>Installeer de ondersteunde Windows ADK 24H2-release (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK-versie wordt niet ondersteund</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK is gereed</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Herstel de bijbehorende Windows PE Add-on met het installatieprogramma ervan. Als de versie afwijkt van de ADK-versie, verwijdert u eerst de add-on en installeert u vervolgens de bijbehorende versie. Start Foundry opnieuw nadat u de add-on hebt hersteld of vervangen.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>De Windows PE Add-on moet worden hersteld</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Installeer de Windows PE Add-on voor de geïnstalleerde Windows ADK.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>Versie niet gedetecteerd</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Vereist Windows ADK 24H2 (10.1.26100).</value>
+    <value>Vereist Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Vereist versiebeleid</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE-bestanden beschikbaar</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE-bestanden ontbreken</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Add-on geïnstalleerd</value>

@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>安装Windows PE 附加组件</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>安装已完成。请检查剩余的 ADK 要求。</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>删除现有的 Windows ADK</value>
   </data>
@@ -148,7 +151,7 @@
     <value>ADK设置</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>安装受支持的 Windows ADK 24H2 (10.1.26100) 版本。</value>
+    <value>安装受支持的 Windows ADK 24H2 (10.1.26100.2454) 版本。</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK版本不受支持</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK 已准备就绪</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>请使用安装程序修复匹配的 Windows PE 附加组件。如果其版本与 ADK 不同，请先卸载附加组件，再安装匹配的版本。修复或替换附加组件后，请重启 Foundry。</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Windows PE 附加组件需要修复</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>为已安装的Windows ADK 安装Windows PE 插件。</value>
   </data>
@@ -178,10 +187,16 @@
     <value>未检测到版本</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>需要 Windows ADK 24H2 (10.1.26100)。</value>
+    <value>需要 Windows ADK 24H2 (10.1.26100.2454)。</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>所需版本政策</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE 文件可用</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE 文件缺失</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE 已安装附加组件</value>

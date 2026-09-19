@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Инсталиране на Windows PE добавка</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Инсталацията приключи. Прегледайте останалите изисквания за ADK.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Премахване на съществуващ Windows ADK</value>
   </data>
@@ -148,7 +151,7 @@
     <value>ADK настройка</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Инсталирайте поддържаната версия Windows ADK 24H2 (10.1.26100).</value>
+    <value>Инсталирайте поддържаната версия Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK версията не се поддържа</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK е готов</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Поправете съответстващата добавка Windows PE чрез нейния инсталатор. Ако версията ѝ се различава от тази на ADK, първо деинсталирайте добавката, след което инсталирайте съответстващата версия. Рестартирайте Foundry след поправката или замяната на добавката.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Добавката Windows PE се нуждае от поправка</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Инсталирайте добавката Windows PE за инсталирания Windows ADK.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>Версията не е открита</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Изисква Windows ADK 24H2 (10.1.26100).</value>
+    <value>Изисква Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Правила за задължителна версия</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Файловете на WinPE са налични</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Липсват файлове на WinPE</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Добавката е инсталирана</value>

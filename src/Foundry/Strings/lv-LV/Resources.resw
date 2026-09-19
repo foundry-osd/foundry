@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Notiek Windows PE papildinājuma instalēšana</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Instalēšana ir pabeigta. Pārskatiet atlikušās ADK prasības.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Esošā Windows ADK noņemšana</value>
   </data>
@@ -148,7 +151,7 @@
     <value>ADK iestatīšana</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Instalējiet atbalstīto Windows ADK 24H2 (10.1.26100) laidienu.</value>
+    <value>Instalējiet atbalstīto Windows ADK 24H2 (10.1.26100.2454) laidienu.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK versija netiek atbalstīta</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK ir gatavs</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Labojiet atbilstošo Windows PE papildinājumu, izmantojot tā instalēšanas programmu. Ja tā versija atšķiras no ADK versijas, vispirms atinstalējiet papildinājumu un pēc tam instalējiet atbilstošo versiju. Pēc papildinājuma labošanas vai aizstāšanas restartējiet Foundry.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Windows PE papildinājums ir jālabo</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Instalējiet Windows PE papildinājumu instalētajam Windows ADK.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>Versija nav noteikta</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Nepieciešams Windows ADK 24H2 (10.1.26100).</value>
+    <value>Nepieciešams Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Nepieciešamā versijas politika</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE faili ir pieejami</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Trūkst WinPE failu</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Instalēts papildinājums</value>

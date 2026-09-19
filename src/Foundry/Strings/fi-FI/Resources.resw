@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Windows PE -lisäosan asentaminen</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Asennus on valmis. Tarkista jäljellä olevat ADK-vaatimukset.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Poistetaan olemassa oleva Windows ADK</value>
   </data>
@@ -148,7 +151,7 @@
     <value>ADK asennus</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Asenna tuettu Windows ADK 24H2 -versio (10.1.26100).</value>
+    <value>Asenna tuettu Windows ADK 24H2 -versio (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK-versiota ei tueta</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK on valmis</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Korjaa vastaava Windows PE -lisäosa sen asennusohjelmalla. Jos sen versio poikkeaa ADK:n versiosta, poista ensin lisäosa ja asenna sitten vastaava versio. Käynnistä Foundry uudelleen lisäosan korjaamisen tai vaihtamisen jälkeen.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Windows PE -lisäosa on korjattava</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Asenna Windows PE lisäosa asennetulle Windows ADK.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>Versiota ei havaittu</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Edellyttää Windows ADK 24H2 -versiota (10.1.26100).</value>
+    <value>Edellyttää Windows ADK 24H2 -versiota (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Vaadittu versiokäytäntö</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE-tiedostot ovat käytettävissä</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE-tiedostoja puuttuu</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Lisäosa asennettu</value>

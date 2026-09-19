@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Установка дополнения Windows PE</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Установка завершена. Проверьте оставшиеся требования ADK.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Удаление существующего Windows ADK</value>
   </data>
@@ -148,7 +151,7 @@
     <value>ADK настройка</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Установите поддерживаемый выпуск Windows ADK 24H2 (10.1.26100).</value>
+    <value>Установите поддерживаемый выпуск Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Версия ADK не поддерживается</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK готово</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Восстановите соответствующее дополнение Windows PE с помощью его установщика. Если его версия отличается от версии ADK, сначала удалите дополнение, затем установите соответствующую версию. Перезапустите Foundry после восстановления или замены дополнения.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Дополнение Windows PE требует восстановления</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Установите дополнение Windows PE для установленного Windows ADK.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>Версия не обнаружена</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Требуется Windows ADK 24H2 (10.1.26100).</value>
+    <value>Требуется Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Требуемая политика версий</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Файлы WinPE доступны</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Файлы WinPE отсутствуют</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Дополнение установлено</value>

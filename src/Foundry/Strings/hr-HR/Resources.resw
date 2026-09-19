@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Instaliranje Windows PE dodatka</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Instalacija je završena. Pregledajte preostale zahtjeve ADK-a.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Uklanjanje postojećeg Windows ADK</value>
   </data>
@@ -148,7 +151,7 @@
     <value>ADK postavljanje</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Instalirajte podržano izdanje Windows ADK 24H2 (10.1.26100).</value>
+    <value>Instalirajte podržano izdanje Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK verzija nije podržana</value>
@@ -165,6 +168,12 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK je spreman</value>
   </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Popravite odgovarajući dodatak Windows PE pomoću njegova instalacijskog programa. Ako se njegova verzija razlikuje od verzije ADK-a, najprije deinstalirajte dodatak, a zatim instalirajte odgovarajuću verziju. Nakon popravka ili zamjene dodatka ponovno pokrenite Foundry.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Dodatak Windows PE potrebno je popraviti</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Instalirajte Windows PE dodatak za instalirani Windows ADK.</value>
   </data>
@@ -178,10 +187,16 @@
     <value>Verzija nije otkrivena</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Zahtijeva Windows ADK 24H2 (10.1.26100).</value>
+    <value>Zahtijeva Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Pravila obavezne verzije</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Datoteke WinPE dostupne su</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Datoteke WinPE nedostaju</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Instaliran dodatak</value>
