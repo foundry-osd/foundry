@@ -42,7 +42,7 @@ internal sealed class AdkService(
         null,
         AdkVersionRelation.Unknown,
         null,
-        "Windows ADK 24H2 / 10.1.26100");
+        "Windows ADK 24H2 / 10.1.26100.2454 + KB5101684");
 
     /// <inheritdoc />
     public Task<AdkInstallationStatus> RefreshStatusAsync(CancellationToken cancellationToken = default)
@@ -52,11 +52,15 @@ internal sealed class AdkService(
         ApplyStatus(status);
 
         logger.Information(
-            "ADK status refreshed. IsInstalled={IsInstalled}, IsCompatible={IsCompatible}, IsWinPeAddonInstalled={IsWinPeAddonInstalled}, InstalledVersion={InstalledVersion}",
+            "ADK status refreshed. IsInstalled={IsInstalled}, IsCompatible={IsCompatible}, IsWinPeAddonInstalled={IsWinPeAddonInstalled}, InstalledVersion={InstalledVersion}, ServicingState={ServicingState}, IsWinPeAddonCompatible={IsWinPeAddonCompatible}, IsX64Available={IsX64Available}, IsArm64Available={IsArm64Available}",
             status.IsInstalled,
             status.IsCompatible,
             status.IsWinPeAddonInstalled,
-            status.InstalledVersion);
+            status.InstalledVersion,
+            status.ServicingState,
+            status.IsWinPeAddonCompatible,
+            status.IsX64Available,
+            status.IsArm64Available);
 
         return Task.FromResult(status);
     }
@@ -106,7 +110,7 @@ internal sealed class AdkService(
 
             operationProgressService.Report(95, localizationService.GetString("Adk.Operation.Verifying"));
             AdkInstallationStatus status = await RefreshStatusAsync(cancellationToken);
-            terminalStatus = localizationService.GetString("Adk.Operation.Completed");
+            terminalStatus = localizationService.GetString(status.CanCreateMedia ? "Adk.Operation.Completed" : "Adk.Operation.NeedsAttention");
             operationProgressService.Complete(terminalStatus);
             logger.Information(
                 "ADK operation completed. OperationKind={OperationKind}, IsCompatible={IsCompatible}, InstalledVersion={InstalledVersion}",

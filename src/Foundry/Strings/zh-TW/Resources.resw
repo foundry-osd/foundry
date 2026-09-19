@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>安裝Windows PE 附加元件</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>安裝已完成。請檢查其餘的 ADK 需求。</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>刪除現有的 Windows ADK</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>準備情況詳情</value>
   </data>
+  <data name="Adk.Servicing.Instructions" xml:space="preserve">
+    <value>ADK 更新指示</value>
+  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>安裝或升級媒體創建所需的Windows ADK 部署工具和Windows PE 附加元件。</value>
   </data>
@@ -148,7 +154,7 @@
     <value>ADK設置</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>安裝支援的 Windows ADK 24H2 (10.1.26100) 版本。</value>
+    <value>安裝支援的 Windows ADK 24H2 (10.1.26100.2454) 版本。</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK版本不受支援</value>
@@ -165,6 +171,21 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK 已準備就緒</value>
   </data>
+  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
+    <value>尚未驗證必要的 ADK 更新 ({0})。請依照 Microsoft 的更新指示操作，然後選取「重新整理」。</value>
+  </data>
+  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
+    <value>ADK 維護需要處理</value>
+  </data>
+  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
+    <value>無法讀取 ADK 維護資訊。請檢查權限和安裝狀態，然後選取「重新整理」。</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>請使用安裝程式修復相符的 Windows PE 附加元件。如果其版本與 ADK 不同，請先解除安裝附加元件，再安裝相符的版本。請參閱 ADK 文件，然後選取「重新整理」以再次檢查就緒狀態。</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Windows PE 附加元件需要修復</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>為已安裝的Windows ADK 安裝Windows PE 插件。</value>
   </data>
@@ -178,7 +199,7 @@
     <value>未偵測到版本</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>需要 Windows ADK 24H2 (10.1.26100)。</value>
+    <value>需要 Windows ADK 24H2 (10.1.26100.2454)。</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>所需版本政策</value>

@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Instalowanie dodatku Windows PE</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Instalacja zakończona. Sprawdź pozostałe wymagania ADK.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Usuwanie istniejącego Windows ADK</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Szczegóły gotowości</value>
   </data>
+  <data name="Adk.Servicing.Instructions" xml:space="preserve">
+    <value>Instrukcje aktualizacji ADK</value>
+  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Zainstaluj lub zaktualizuj Windows ADK narzędzia wdrażania i dodatek Windows PE wymagane do tworzenia multimediów.</value>
   </data>
@@ -148,7 +154,7 @@
     <value>Konfiguracja ADK</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Zainstaluj obsługiwaną wersję Windows ADK 24H2 (10.1.26100).</value>
+    <value>Zainstaluj obsługiwaną wersję Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Wersja ADK nie jest obsługiwana</value>
@@ -165,6 +171,21 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK jest gotowy</value>
   </data>
+  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
+    <value>Wymagana aktualizacja ADK ({0}) nie została zweryfikowana. Postępuj zgodnie z instrukcjami aktualizacji firmy Microsoft, a następnie wybierz Odśwież.</value>
+  </data>
+  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
+    <value>Konserwacja ADK wymaga uwagi</value>
+  </data>
+  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
+    <value>Nie można odczytać informacji o konserwacji ADK. Sprawdź uprawnienia i instalację, a następnie wybierz Odśwież.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Napraw zgodny dodatek Windows PE za pomocą jego instalatora. Jeśli jego wersja różni się od wersji ADK, najpierw odinstaluj dodatek, a następnie zainstaluj zgodną wersję. Zapoznaj się z dokumentacją ADK, a następnie wybierz Odśwież, aby ponownie sprawdzić gotowość.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Dodatek Windows PE wymaga naprawy</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Zainstaluj dodatek Windows PE dla zainstalowanego Windows ADK.</value>
   </data>
@@ -178,7 +199,7 @@
     <value>Nie wykryto wersji</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Wymaga Windows ADK 24H2 (10.1.26100).</value>
+    <value>Wymaga Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Wymagane zasady dotyczące wersji</value>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.AdkPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -22,6 +22,19 @@
                 IsOpen="True"
                 Message="{x:Bind ViewModel.StatusDescription, Mode=OneWay}"
                 Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}" />
+
+            <StackPanel
+                Orientation="Horizontal"
+                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                <Button
+                    Command="{x:Bind ViewModel.RefreshStatusCommand}"
+                    Content="{x:Bind ViewModel.RefreshButtonText, Mode=OneWay}"
+                    IsEnabled="{x:Bind ViewModel.IsActionEnabled, Mode=OneWay}" />
+                <HyperlinkButton
+                    Content="{x:Bind ViewModel.ServicingInstructionsText, Mode=OneWay}"
+                    IsEnabled="{x:Bind ViewModel.IsActionEnabled, Mode=OneWay}"
+                    NavigateUri="{x:Bind ViewModel.ServicingInstructionsUri}" />
+            </StackPanel>
 
             <wct:SettingsCard
                 Description="{x:Bind ViewModel.SetupActionDescription, Mode=OneWay}"

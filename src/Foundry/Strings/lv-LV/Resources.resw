@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Notiek Windows PE papildinājuma instalēšana</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Instalēšana ir pabeigta. Pārskatiet atlikušās ADK prasības.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Esošā Windows ADK noņemšana</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Gatavības detaļas</value>
   </data>
+  <data name="Adk.Servicing.Instructions" xml:space="preserve">
+    <value>ADK atjaunināšanas norādījumi</value>
+  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Instalējiet vai jauniniet Windows ADK izvietošanas rīkus un Windows PE papildinājumu, kas nepieciešams multivides izveidei.</value>
   </data>
@@ -148,7 +154,7 @@
     <value>ADK iestatīšana</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Instalējiet atbalstīto Windows ADK 24H2 (10.1.26100) laidienu.</value>
+    <value>Instalējiet atbalstīto Windows ADK 24H2 (10.1.26100.2454) laidienu.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK versija netiek atbalstīta</value>
@@ -165,6 +171,21 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK ir gatavs</value>
   </data>
+  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
+    <value>Nepieciešamais ADK atjauninājums ({0}) nav pārbaudīts. Izpildiet Microsoft atjaunināšanas norādījumus un pēc tam atlasiet “Atsvaidzināt”.</value>
+  </data>
+  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
+    <value>ADK apkopei jāpievērš uzmanība</value>
+  </data>
+  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
+    <value>Neizdevās nolasīt ADK apkopes informāciju. Pārbaudiet atļaujas un instalāciju un pēc tam atlasiet “Atsvaidzināt”.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Labojiet atbilstošo Windows PE papildinājumu, izmantojot tā instalēšanas programmu. Ja tā versija atšķiras no ADK versijas, vispirms atinstalējiet papildinājumu un pēc tam instalējiet atbilstošo versiju. Skatiet ADK dokumentāciju un pēc tam atlasiet “Atsvaidzināt”, lai vēlreiz pārbaudītu gatavību.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Windows PE papildinājums ir jālabo</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Instalējiet Windows PE papildinājumu instalētajam Windows ADK.</value>
   </data>
@@ -178,7 +199,7 @@
     <value>Versija nav noteikta</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Nepieciešams Windows ADK 24H2 (10.1.26100).</value>
+    <value>Nepieciešams Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Nepieciešamā versijas politika</value>

@@ -11,4 +11,6 @@ public interface IAdkInstallationProbe
     bool FileExists(string path);
     bool DirectoryContainsFile(string directoryPath, string fileName);
     IReadOnlyList<AdkInstalledProduct> GetInstalledProducts();
+    /// <summary>Reads installed servicing evidence without changing the installation.</summary>
+    AdkServicingState GetServicingState();
 }

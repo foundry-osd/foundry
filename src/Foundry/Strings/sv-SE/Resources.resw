@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Installerar Windows PE tillägg</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Installationen är klar. Granska de återstående ADK-kraven.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Ta bort befintlig Windows ADK</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Beredskapsdetaljer</value>
   </data>
+  <data name="Adk.Servicing.Instructions" xml:space="preserve">
+    <value>Anvisningar för uppdatering av ADK</value>
+  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Installera eller uppgradera Windows ADK Deployment Tools och Windows PE Add-on som krävs för att skapa media.</value>
   </data>
@@ -148,7 +154,7 @@
     <value>ADK inställning</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Installera den stödda Windows ADK 24H2-versionen (10.1.26100).</value>
+    <value>Installera den stödda Windows ADK 24H2-versionen (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK-versionen stöds inte</value>
@@ -165,6 +171,21 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK är redo</value>
   </data>
+  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
+    <value>Den obligatoriska ADK-uppdateringen ({0}) är inte verifierad. Följ uppdateringsanvisningarna från Microsoft och välj sedan Uppdatera.</value>
+  </data>
+  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
+    <value>Underhåll av ADK kräver åtgärd</value>
+  </data>
+  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
+    <value>Det gick inte att läsa underhållsinformationen för ADK. Kontrollera behörigheterna och installationen och välj sedan Uppdatera.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Reparera det matchande Windows PE-tillägget med dess installationsprogram. Om versionen skiljer sig från ADK-versionen ska du först avinstallera tillägget och sedan installera den matchande versionen. Se ADK-dokumentationen och välj sedan Uppdatera för att kontrollera igen om allt är klart.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Windows PE-tillägget behöver repareras</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Installera Windows PE-tillägget för den installerade Windows ADK.</value>
   </data>
@@ -178,7 +199,7 @@
     <value>Version hittades inte</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Kräver Windows ADK 24H2 (10.1.26100).</value>
+    <value>Kräver Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Obligatorisk versionspolicy</value>

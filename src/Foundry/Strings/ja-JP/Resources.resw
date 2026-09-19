@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Windows PE アドオンのインストール</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>インストールが完了しました。残りの ADK 要件を確認してください。</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>既存の Windows ADK を削除しています</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>準備状況の詳細</value>
   </data>
+  <data name="Adk.Servicing.Instructions" xml:space="preserve">
+    <value>ADK の更新手順</value>
+  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>メディアの作成に必要な Windows ADK 導入ツールと Windows PE アドオンをインストールまたはアップグレードします。</value>
   </data>
@@ -148,7 +154,7 @@
     <value>ADK セットアップ</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>サポートされている Windows ADK 24H2 (10.1.26100) リリースをインストールしてください。</value>
+    <value>サポートされている Windows ADK 24H2 (10.1.26100.2454) リリースをインストールしてください。</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK バージョンはサポートされていません</value>
@@ -165,6 +171,21 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK 準備完了</value>
   </data>
+  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
+    <value>必要な ADK 更新プログラム ({0}) が確認されていません。Microsoft の更新手順に従ってから、[リフレッシュ] を選択してください。</value>
+  </data>
+  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
+    <value>ADK のメンテナンスに対応が必要です</value>
+  </data>
+  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
+    <value>ADK のメンテナンス情報を読み取れませんでした。アクセス許可とインストール状態を確認してから、[リフレッシュ] を選択してください。</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>対応する Windows PE アドオンを、そのインストーラーで修復してください。バージョンが ADK と異なる場合は、まずアドオンをアンインストールしてから、対応するバージョンをインストールしてください。ADK のドキュメントを参照し、[リフレッシュ] を選択して準備状況を再確認してください。</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Windows PE アドオンの修復が必要です</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>インストールされている Windows ADK の Windows PE アドオンをインストールします。</value>
   </data>
@@ -178,7 +199,7 @@
     <value>バージョンが検出されませんでした</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Windows ADK 24H2 (10.1.26100) が必要です。</value>
+    <value>Windows ADK 24H2 (10.1.26100.2454) が必要です。</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>必要なバージョンポリシー</value>

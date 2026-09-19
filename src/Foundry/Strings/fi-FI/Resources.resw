@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Windows PE -lisäosan asentaminen</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Asennus on valmis. Tarkista jäljellä olevat ADK-vaatimukset.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Poistetaan olemassa oleva Windows ADK</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Valmiustiedot</value>
   </data>
+  <data name="Adk.Servicing.Instructions" xml:space="preserve">
+    <value>ADK:n päivitysohjeet</value>
+  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Asenna tai päivitä median luomiseen tarvittavat Windows ADK käyttöönottotyökalut ja Windows PE -laajennus.</value>
   </data>
@@ -148,7 +154,7 @@
     <value>ADK asennus</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Asenna tuettu Windows ADK 24H2 -versio (10.1.26100).</value>
+    <value>Asenna tuettu Windows ADK 24H2 -versio (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK-versiota ei tueta</value>
@@ -165,6 +171,21 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK on valmis</value>
   </data>
+  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
+    <value>Vaadittua ADK-päivitystä ({0}) ei ole vahvistettu. Noudata Microsoftin päivitysohjeita ja valitse sitten Päivitä.</value>
+  </data>
+  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
+    <value>ADK:n ylläpito vaatii huomiota</value>
+  </data>
+  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
+    <value>ADK:n ylläpitotietoja ei voitu lukea. Tarkista käyttöoikeudet ja asennus ja valitse sitten Päivitä.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Korjaa vastaava Windows PE -lisäosa sen asennusohjelmalla. Jos sen versio poikkeaa ADK:n versiosta, poista ensin lisäosa ja asenna sitten vastaava versio. Katso ADK:n ohjeet ja valitse sitten Päivitä tarkistaaksesi käyttövalmiuden uudelleen.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Windows PE -lisäosa on korjattava</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Asenna Windows PE lisäosa asennetulle Windows ADK.</value>
   </data>
@@ -178,7 +199,7 @@
     <value>Versiota ei havaittu</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Edellyttää Windows ADK 24H2 -versiota (10.1.26100).</value>
+    <value>Edellyttää Windows ADK 24H2 -versiota (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Vaadittu versiokäytäntö</value>

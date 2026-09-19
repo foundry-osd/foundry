@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>A Windows PE bővítmény telepítése</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>A telepítés befejeződött. Tekintse át az ADK fennmaradó követelményeit.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Meglévő Windows ADK eltávolítása</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Készenléti részletek</value>
   </data>
+  <data name="Adk.Servicing.Instructions" xml:space="preserve">
+    <value>Az ADK frissítési utasításai</value>
+  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Telepítse vagy frissítse az adathordozó létrehozásához szükséges Windows ADK telepítési eszközöket és Windows PE bővítményt.</value>
   </data>
@@ -148,7 +154,7 @@
     <value>ADK beállítás</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Telepítse a támogatott Windows ADK 24H2 (10.1.26100) kiadást.</value>
+    <value>Telepítse a támogatott Windows ADK 24H2 (10.1.26100.2454) kiadást.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>A ADK verzió nem támogatott</value>
@@ -165,6 +171,21 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK készen áll</value>
   </data>
+  <data name="Adk.Status.ServicingRequiredDescription" xml:space="preserve">
+    <value>A szükséges ADK-frissítés ({0}) nincs ellenőrizve. Kövesse a Microsoft frissítési utasításait, majd válassza a Frissítés lehetőséget.</value>
+  </data>
+  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
+    <value>Az ADK karbantartása beavatkozást igényel</value>
+  </data>
+  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
+    <value>Az ADK karbantartási adatai nem olvashatók. Ellenőrizze az engedélyeket és a telepítést, majd válassza a Frissítés lehetőséget.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Javítsa ki a megfelelő Windows PE bővítményt a telepítőjével. Ha a verziója eltér az ADK verziójától, először távolítsa el a bővítményt, majd telepítse a megfelelő verziót. Tekintse meg az ADK dokumentációját, majd válassza a Frissítés lehetőséget a készenlét újbóli ellenőrzéséhez.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>A Windows PE bővítmény javításra szorul</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Telepítse a Windows PE bővítményt a telepített Windows ADK-hoz.</value>
   </data>
@@ -178,7 +199,7 @@
     <value>A verzió nem észlelhető</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Windows ADK 24H2 (10.1.26100) szükséges.</value>
+    <value>Windows ADK 24H2 (10.1.26100.2454) szükséges.</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Kötelező verzió házirend</value>
