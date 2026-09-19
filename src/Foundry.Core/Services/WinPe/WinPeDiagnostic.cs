@@ -43,6 +43,12 @@ public sealed record WinPeDiagnostic
     public int RetryCount { get; init; }
     public Exception? Exception { get; init; }
 
+    /// <summary>Gets the measured or conservatively estimated bytes needed by a size validation.</summary>
+    public ulong? RequiredBytes { get; init; }
+
+    /// <summary>Gets the source limit, partition capacity, or per-file limit for a size validation.</summary>
+    public ulong? AvailableBytes { get; init; }
+
     private static (string Kind, string Reason) Classify(
         string code,
         int? exitCode,
@@ -78,7 +84,9 @@ public sealed record WinPeDiagnostic
     {
         return code switch
         {
-            WinPeErrorCodes.ValidationFailed => (WinPeFailureKinds.Validation, WinPeFailureReasons.InvalidInput),
+            WinPeErrorCodes.ValidationFailed or WinPeErrorCodes.CustomDriversTooLarge => (WinPeFailureKinds.Validation, WinPeFailureReasons.InvalidInput),
+            WinPeErrorCodes.UsbBootCapacityInsufficient or WinPeErrorCodes.UsbBootCapacityUnknown or WinPeErrorCodes.UsbBootFileTooLarge =>
+                (WinPeFailureKinds.Validation, WinPeFailureReasons.DiskValidation),
             WinPeErrorCodes.OperationCancelled => (WinPeFailureKinds.Cancellation, WinPeFailureReasons.Cancelled),
             WinPeErrorCodes.ToolNotFound => (WinPeFailureKinds.Tooling, WinPeFailureReasons.ToolNotFound),
             WinPeErrorCodes.UsbUnsafeTarget or WinPeErrorCodes.UsbIdentityMismatch or WinPeErrorCodes.UsbVerificationFailed =>

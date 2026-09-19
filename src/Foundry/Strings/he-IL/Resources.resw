@@ -2960,6 +2960,9 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>יצירת מחיצת מטמון.</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>הגודל הכולל של מנהלי ההתקנים המותאמים אישית הוא לפחות {0}; הגודל המרבי הוא {1}. יש לבחור רק את מנהלי ההתקנים של הרשת והאחסון הדרושים ל-Windows PE.</value>
+  </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>התאמה אישית של תמונת האתחול.</value>
   </data>
@@ -3109,6 +3112,15 @@
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>מעדכן מדיית USB.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>מחיצת BOOT בכונן ה-USB דורשת כ-{0}, אך הקיבולת שלה היא {1}. לא בוצעו מחיקה או אתחול. יש לצמצם את ההתאמות האישיות או את מנהלי ההתקנים, או ליצור ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>לא ניתן לאמת את הקיבולת של מחיצת BOOT בכונן ה-USB. לא בוצעו מחיקה או אתחול. יש לבדוק ולחבר מחדש את כונן ה-USB ולנסות שוב. יש לבדוק גם שקובצי המקור נגישים.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>גודל קובץ במדיית האתחול הוא {0}; FAT32 תומך לכל היותר ב-{1} לקובץ. יש להקטין את תמונת האתחול או ליצור ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>מחיצת האתחול של USB עודכנה.</value>

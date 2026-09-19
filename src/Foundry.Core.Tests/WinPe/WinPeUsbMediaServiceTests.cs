@@ -209,7 +209,7 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("$partitionStyle = 'GPT'", script, StringComparison.Ordinal);
         Assert.Contains("Initialize-Disk -InputObject $foundryConfirmedDisk -PartitionStyle $partitionStyle", script, StringComparison.Ordinal);
         Assert.Contains("if ($partitionStyle -eq 'GPT')", script, StringComparison.Ordinal);
-        Assert.Contains("Size = 2048MB", script, StringComparison.Ordinal);
+        Assert.Contains("Size = 2147483648", script, StringComparison.Ordinal);
         Assert.Contains("$bootPartitionArguments['GptType'] = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'", script, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("FileSystem = 'FAT32'", script, StringComparison.Ordinal);
         Assert.Contains("NewFileSystemLabel = 'BOOT'", script, StringComparison.Ordinal);
@@ -387,7 +387,7 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("$diskNumber = 8", script, StringComparison.Ordinal);
         Assert.Contains("$partitionStyle = 'MBR'", script, StringComparison.Ordinal);
         Assert.Contains("$fullFormat = $true", script, StringComparison.Ordinal);
-        Assert.Contains("Size = 2048MB", script, StringComparison.Ordinal);
+        Assert.Contains("Size = 2147483648", script, StringComparison.Ordinal);
         Assert.Contains("$bootPartitionArguments['MbrType'] = 'FAT32'", script, StringComparison.Ordinal);
         Assert.Contains("$bootPartitionArguments['IsActive'] = $true", script, StringComparison.Ordinal);
         Assert.Contains("$cachePartitionArguments['MbrType'] = 'IFS'", script, StringComparison.Ordinal);
@@ -401,7 +401,7 @@ public sealed class WinPeUsbMediaServiceTests
     {
         string script = WinPeUsbMediaService.BuildPowerShellBootPartitionUpdateScript(
             expectedIdentity: ConfirmedIdentity(9),
-            bootDriveLetter: "S:",
+            layout: new WinPeUsbProvisionResult { BootDriveLetter = "S:", BootPartitionSizeBytes = 2147483648, BootAllocationUnitSizeBytes = 4096 },
             formatMode: UsbFormatMode.Quick);
 
         Assert.Contains("$diskNumber = 9", script, StringComparison.Ordinal);
@@ -525,7 +525,7 @@ public sealed class WinPeUsbMediaServiceTests
                 ExpectedDiskBusType = "NVMe",
                 ExpectedDiskSizeBytes = 64000000000
             },
-            new WinPeBuildArtifact { WorkingDirectoryPath = workspace.RootPath },
+            new WinPeBuildArtifact { WorkingDirectoryPath = workspace.RootPath, MediaDirectoryPath = Path.Combine(workspace.RootPath, "media") },
             new WinPeToolPaths { PowerShellPath = "pwsh.exe" },
             useBootEx: false,
             CancellationToken.None);
@@ -543,7 +543,7 @@ public sealed class WinPeUsbMediaServiceTests
                               {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
                               """;
         string provisioningResult = """
-                                    {"DiskNumber":9,"BootDriveLetter":"Y:","CacheDriveLetter":"Z:"}
+                                    {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"Y:","CacheDriveLetter":"Z:"}
                                     """;
         var runner = new FakeSequenceRunner(diskIdentity, provisioningResult, string.Empty);
         using TempWorkspace workspace = TempWorkspace.Create();
@@ -584,7 +584,7 @@ public sealed class WinPeUsbMediaServiceTests
                               """;
         string provisioningResult = """
                                     FOUNDRY_USB_PROGRESS|55|USB partitions formatted.
-                                    {"DiskNumber":9,"BootDriveLetter":"Y:","CacheDriveLetter":"Z:"}
+                                    {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"Y:","CacheDriveLetter":"Z:"}
                                     """;
         var runner = new FakeSequenceRunner(diskIdentity, provisioningResult, string.Empty);
         using TempWorkspace workspace = TempWorkspace.Create();
@@ -626,7 +626,7 @@ public sealed class WinPeUsbMediaServiceTests
                          """;
         string provisioningResult = """
                                     FOUNDRY_USB_PROGRESS|55|USB partitions formatted.
-                                    {"DiskNumber":9,"BootDriveLetter":"S:","CacheDriveLetter":"T:"}
+                                    {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"S:","CacheDriveLetter":"T:"}
                                     """;
         var runner = new FakeOutputRunner(payload, provisioningResult);
         var progress = new RecordingProgress();
@@ -674,11 +674,11 @@ public sealed class WinPeUsbMediaServiceTests
                               {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsRemovable":true,"IsSystem":false,"IsBoot":false,"Size":64000000000}
                               """;
         string layout = """
-                        {"DiskNumber":9,"BootDriveLetter":"S:","CacheDriveLetter":"T:"}
+                        {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"S:","CacheDriveLetter":"T:"}
                         """;
         string formatResult = """
                               FOUNDRY_USB_PROGRESS|35|Formatting BOOT partition.
-                              {"DiskNumber":9,"BootDriveLetter":"S:","CacheDriveLetter":"T:"}
+                              {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"S:","CacheDriveLetter":"T:"}
                               """;
         var runner = new FakeSequenceRunner(diskIdentity, layout, formatResult, string.Empty);
         using TempWorkspace workspace = TempWorkspace.Create();
@@ -731,11 +731,11 @@ public sealed class WinPeUsbMediaServiceTests
         using TemporaryDriveMapping cacheDrive = TemporaryDriveMapping.Create(workspace.RootPath, "cache");
         CreateVerifiedBootPartition(bootDrive.RootPath, WinPeArchitecture.Arm64);
         string layout = $$"""
-                        {"DiskNumber":9,"BootDriveLetter":"{{bootDrive.DriveLetter}}","CacheDriveLetter":"{{cacheDrive.DriveLetter}}"}
+                        {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"{{bootDrive.DriveLetter}}","CacheDriveLetter":"{{cacheDrive.DriveLetter}}"}
                         """;
         string formatResult = $$"""
                               FOUNDRY_USB_PROGRESS|35|Formatting BOOT partition.
-                              {"DiskNumber":9,"BootDriveLetter":"{{bootDrive.DriveLetter}}","CacheDriveLetter":"{{cacheDrive.DriveLetter}}"}
+                              {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"{{bootDrive.DriveLetter}}","CacheDriveLetter":"{{cacheDrive.DriveLetter}}"}
                               """;
         var runner = new FakeSequenceRunner(diskIdentity, layout, formatResult, string.Empty);
         var runtimeProvisioningService = new FakeRuntimePayloadProvisioningService();
@@ -797,11 +797,11 @@ public sealed class WinPeUsbMediaServiceTests
         using TemporaryDriveMapping cacheDrive = TemporaryDriveMapping.Create(workspace.RootPath, "cache");
         CreateVerifiedBootPartition(bootDrive.RootPath, WinPeArchitecture.X64);
         string layout = $$"""
-                        {"DiskNumber":9,"BootDriveLetter":"{{bootDrive.DriveLetter}}","CacheDriveLetter":"{{cacheDrive.DriveLetter}}"}
+                        {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"{{bootDrive.DriveLetter}}","CacheDriveLetter":"{{cacheDrive.DriveLetter}}"}
                         """;
         string formatResult = $$"""
                               FOUNDRY_USB_PROGRESS|35|Formatting BOOT partition.
-                              {"DiskNumber":9,"BootDriveLetter":"{{bootDrive.DriveLetter}}","CacheDriveLetter":"{{cacheDrive.DriveLetter}}"}
+                              {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"{{bootDrive.DriveLetter}}","CacheDriveLetter":"{{cacheDrive.DriveLetter}}"}
                               """;
         var runner = new FakeSequenceRunner(diskIdentity, layout, formatResult, string.Empty);
         var runtimeProvisioningService = new FakeRuntimePayloadProvisioningService(
@@ -937,7 +937,7 @@ public sealed class WinPeUsbMediaServiceTests
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.ProvisionAndPopulateAsync(
             new UsbOutputOptions { TargetDiskNumber = 9, ExpectedDiskFriendlyName = "Safe USB", ExpectedDiskSerialNumber = "SERIAL", ExpectedDiskUniqueId = "UNIQUE", ExpectedDiskBusType = "USB", ExpectedDiskSizeBytes = 64000000000 },
-            new WinPeBuildArtifact { WorkingDirectoryPath = workspace.RootPath },
+            new WinPeBuildArtifact { WorkingDirectoryPath = workspace.RootPath, MediaDirectoryPath = Path.Combine(workspace.RootPath, "media") },
             new WinPeToolPaths { PowerShellPath = "pwsh.exe" }, false, CancellationToken.None);
 
         Assert.False(result.IsSuccess);
@@ -1014,7 +1014,7 @@ public sealed class WinPeUsbMediaServiceTests
             onOutputData?.Invoke("FOUNDRY_USB_PROGRESS|44|Formatting BOOT partition.");
             onOutputData?.Invoke("FOUNDRY_USB_VERBOSE|BOOT partition formatted. DriveLetter=S, FileSystem=FAT32, Label=BOOT.");
             onOutputData?.Invoke("FOUNDRY_USB_PROGRESS|53|Formatting cache partition.");
-            onOutputData?.Invoke("""{"DiskNumber":9,"BootDriveLetter":"S:","CacheDriveLetter":"T:"}""");
+            onOutputData?.Invoke("""{"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"S:","CacheDriveLetter":"T:"}""");
 
             var execution = new WinPeProcessExecution
             {
@@ -1104,6 +1104,7 @@ public sealed class WinPeUsbMediaServiceTests
         {
             string rootPath = Path.Combine(Path.GetTempPath(), $"foundry-usb-{Guid.NewGuid():N}");
             Directory.CreateDirectory(rootPath);
+            Directory.CreateDirectory(Path.Combine(rootPath, "media"));
             return new TempWorkspace(rootPath);
         }
 

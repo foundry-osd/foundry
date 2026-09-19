@@ -2960,6 +2960,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Stvaranje particije predmemorije.</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>Prilagođeni upravljački programi zauzimaju najmanje {0}; najveća dopuštena veličina je {1}. Odaberite samo mrežne upravljačke programe i upravljačke programe za pohranu potrebne za Windows PE.</value>
+  </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Prilagođavanje slike za pokretanje.</value>
   </data>
@@ -3109,6 +3112,15 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Ažuriranje USB medija.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>USB BOOT particija zahtijeva približno {0}, ali njezin je kapacitet {1}. Ništa nije izbrisano ni formatirano. Smanjite prilagodbe ili broj upravljačkih programa ili izradite ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>Nije moguće provjeriti kapacitet USB BOOT particije. Ništa nije izbrisano ni formatirano. Provjerite i ponovno povežite USB pogon pa pokušajte ponovno. Provjerite i jesu li izvorne datoteke dostupne.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>Datoteka na mediju za pokretanje zauzima {0}; FAT32 podržava najviše {1} po datoteci. Smanjite veličinu slike za pokretanje ili izradite ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>USB particija za pokretanje je ažurirana.</value>

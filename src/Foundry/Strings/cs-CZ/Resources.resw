@@ -2960,6 +2960,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Vytvoření oddílu mezipaměti.</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>Vlastní ovladače zabírají alespoň {0}; maximum je {1}. Vyberte pouze síťové ovladače a ovladače úložiště potřebné pro Windows PE.</value>
+  </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Přizpůsobení spouštěcího obrazu.</value>
   </data>
@@ -3109,6 +3112,15 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Aktualizace média USB.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>Oddíl BOOT na USB potřebuje přibližně {0}, ale jeho kapacita je {1}. Nic nebylo smazáno ani naformátováno. Omezte přizpůsobení nebo ovladače, případně vytvořte ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>Kapacitu oddílu BOOT na USB se nepodařilo ověřit. Nic nebylo smazáno ani naformátováno. Zkontrolujte a znovu připojte jednotku USB a zkuste to znovu. Také ověřte přístup ke zdrojovým souborům.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>Soubor na spouštěcím médiu má velikost {0}; FAT32 podporuje maximálně {1} na soubor. Zmenšete spouštěcí bitovou kopii nebo vytvořte ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>Spouštěcí oddíl USB byl aktualizován.</value>

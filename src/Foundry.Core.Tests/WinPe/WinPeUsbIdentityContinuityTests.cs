@@ -145,6 +145,8 @@ public sealed class WinPeUsbIdentityContinuityTests
     [InlineData("provision", "FOUNDRY_USB_UNSAFE_TARGET", WinPeErrorCodes.UsbUnsafeTarget)]
     [InlineData("layout", "FOUNDRY_USB_UNSAFE_TARGET", WinPeErrorCodes.UsbUnsafeTarget)]
     [InlineData("format", "FOUNDRY_USB_UNSAFE_TARGET", WinPeErrorCodes.UsbUnsafeTarget)]
+    [InlineData("layout", WinPeErrorCodes.UsbBootCapacityUnknown, WinPeErrorCodes.UsbBootCapacityUnknown)]
+    [InlineData("format", WinPeErrorCodes.UsbBootCapacityUnknown, WinPeErrorCodes.UsbBootCapacityUnknown)]
     public async Task Workflow_WhenBoundaryRejectsDisk_ReturnsExpectedValidationWithoutIdentifiers(string boundary, string marker, string code)
     {
         var runner = new WorkflowRunner(boundary, "failure", marker);
@@ -275,14 +277,23 @@ public sealed class WinPeUsbIdentityContinuityTests
         Assert.Equal(boundary == "format" ? 3 : 2, runner.Arguments.Count);
     }
 
-    private static Task<WinPeResult<WinPeUsbProvisionResult>> RunWorkflowAsync(string boundary, IWinPeProcessRunner runner, CancellationToken cancellationToken)
+    private static async Task<WinPeResult<WinPeUsbProvisionResult>> RunWorkflowAsync(string boundary, IWinPeProcessRunner runner, CancellationToken cancellationToken)
     {
-        var service = new WinPeUsbMediaService(runner);
-        var artifact = new WinPeBuildArtifact { WorkingDirectoryPath = Path.GetTempPath() };
-        var tools = new WinPeToolPaths { PowerShellPath = "shadowed" };
-        return boundary is "provision" or "copy"
-            ? service.ProvisionAndPopulateAsync(ConfirmedOptions, artifact, tools, false, cancellationToken)
-            : service.UpdateBootPartitionAsync(ConfirmedOptions, artifact, tools, false, cancellationToken);
+        string mediaPath = Path.Combine(Path.GetTempPath(), $"foundry-identity-media-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(mediaPath);
+        try
+        {
+            var service = new WinPeUsbMediaService(runner);
+            var artifact = new WinPeBuildArtifact { WorkingDirectoryPath = mediaPath, MediaDirectoryPath = mediaPath };
+            var tools = new WinPeToolPaths { PowerShellPath = "shadowed" };
+            return boundary is "provision" or "copy"
+                ? await service.ProvisionAndPopulateAsync(ConfirmedOptions, artifact, tools, false, cancellationToken)
+                : await service.UpdateBootPartitionAsync(ConfirmedOptions, artifact, tools, false, cancellationToken);
+        }
+        finally
+        {
+            Directory.Delete(mediaPath, true);
+        }
     }
 
     private static async Task<string> GetBoundaryScriptAsync(string boundary)
@@ -294,7 +305,7 @@ public sealed class WinPeUsbIdentityContinuityTests
 
         if (boundary == "format")
         {
-            return WinPeUsbMediaService.BuildPowerShellBootPartitionUpdateScript(ConfirmedIdentity, "S:", UsbFormatMode.Quick);
+            return WinPeUsbMediaService.BuildPowerShellBootPartitionUpdateScript(ConfirmedIdentity, new WinPeUsbProvisionResult { BootDriveLetter = "S:", BootPartitionSizeBytes = 2147483648, BootAllocationUnitSizeBytes = 4096 }, UsbFormatMode.Quick);
         }
 
         var runner = new BoundaryRunner();
@@ -306,7 +317,31 @@ public sealed class WinPeUsbIdentityContinuityTests
         return runner.Scripts[1];
     }
 
-    private static async Task<HarnessResult> ExecuteSafelyAsync(string script, string inventoryJson, string boundary, bool replaceAfterInspection = false)
+    [Theory]
+    [InlineData(1073741824L, 4096U)]
+    [InlineData(2147483648L, 8192U)]
+    public async Task UpdateScript_WhenBootGeometryChanged_RejectsBeforeFormatting(long partitionSize, uint allocationUnitSize)
+    {
+        string script = await GetBoundaryScriptAsync("format");
+        HarnessResult result = await ExecuteSafelyAsync(script, SafeDiskJson, "format",
+            bootPartitionSize: partitionSize, allocationUnitSize: allocationUnitSize);
+        Assert.Equal(0, result.Mutations);
+        Assert.Contains(WinPeErrorCodes.UsbBootCapacityUnknown, result.Error, StringComparison.Ordinal);
+    }
+
+    [Theory]
+    [InlineData("layout")]
+    [InlineData("format")]
+    public async Task GeometryReadFailure_UsesCapacityValidationBeforeMutation(string boundary)
+    {
+        string script = await GetBoundaryScriptAsync(boundary);
+        HarnessResult result = await ExecuteSafelyAsync(script, SafeDiskJson, boundary, failCapacityRead: true);
+        Assert.Equal(0, result.Mutations);
+        Assert.Contains(WinPeErrorCodes.UsbBootCapacityUnknown, result.Error, StringComparison.Ordinal);
+    }
+
+    private static async Task<HarnessResult> ExecuteSafelyAsync(string script, string inventoryJson, string boundary, bool replaceAfterInspection = false,
+        long bootPartitionSize = 2147483648, uint allocationUnitSize = 4096, bool failCapacityRead = false)
     {
         string fixture = Convert.ToBase64String(Encoding.UTF8.GetBytes(inventoryJson));
         string harness = $$"""
@@ -328,15 +363,16 @@ public sealed class WinPeUsbIdentityContinuityTests
                 }
             }
             function Get-Partition {
-                [pscustomobject]@{ PartitionNumber = 1; DriveLetter = '{{(boundary == "layout" ? "" : "S")}}'; GptType = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'; AccessPaths = @('S:\'); IsActive = $true; MbrType = 'FAT32' }
+                [pscustomobject]@{ PartitionNumber = 1; Size = {{bootPartitionSize}}; DriveLetter = '{{(boundary == "layout" && !failCapacityRead ? "" : "S")}}'; GptType = '{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}'; AccessPaths = @('S:\'); IsActive = $true; MbrType = 'FAT32' }
                 [pscustomobject]@{ PartitionNumber = 2; DriveLetter = 'T'; GptType = ''; AccessPaths = @('T:\'); IsActive = $false; MbrType = 'IFS' }
             }
             function Get-Volume {
                 param($DriveLetter, $Partition)
+                if ({{(failCapacityRead ? "$true" : "$false")}} -and $Partition.PartitionNumber -eq 1) { throw 'Synthetic geometry read failure' }
                 if ($DriveLetter -eq 'T' -or $Partition.PartitionNumber -eq 2) {
                     [pscustomobject]@{ FileSystemLabel = 'Foundry Cache'; FileSystem = 'NTFS' }
                 } else {
-                    [pscustomobject]@{ FileSystemLabel = 'BOOT'; FileSystem = 'FAT32' }
+                    [pscustomobject]@{ FileSystemLabel = 'BOOT'; FileSystem = 'FAT32'; AllocationUnitSize = {{allocationUnitSize}} }
                 }
             }
             function Stop-Mutation { $global:mutations++; throw 'SAFE_TEST_MUTATION_SENTINEL' }
@@ -404,7 +440,7 @@ public sealed class WinPeUsbIdentityContinuityTests
 
         public Task<WinPeProcessExecution> RunAsync(string fileName, string arguments, string workingDirectory, CancellationToken cancellationToken, IReadOnlyDictionary<string, string>? environmentOverrides = null)
         {
-            const string layout = """{"DiskNumber":9,"BootDriveLetter":"S:","CacheDriveLetter":"T:"}""";
+            const string layout = """{"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"S:","CacheDriveLetter":"T:"}""";
             Arguments.Add(arguments);
             int targetCall = boundary is "format" or "copy" ? 3 : 2;
             if (arguments.Contains("-File ", StringComparison.Ordinal))

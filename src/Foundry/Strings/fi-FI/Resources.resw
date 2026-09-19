@@ -2960,6 +2960,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Luodaan välimuistiosio.</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>Mukautetut ohjaimet vievät vähintään {0}; enimmäismäärä on {1}. Valitse vain Windows PE:n tarvitsemat verkko- ja tallennusohjaimet.</value>
+  </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Käynnistyskuvan mukauttaminen.</value>
   </data>
@@ -3109,6 +3112,15 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Päivitetään USB-mediaa.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>USB-aseman BOOT-osio tarvitsee noin {0}, mutta sen kapasiteetti on {1}. Mitään ei ole poistettu tai alustettu. Vähennä mukautuksia tai ohjaimia tai luo ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>USB-aseman BOOT-osion kapasiteettia ei voitu varmistaa. Mitään ei ole poistettu tai alustettu. Tarkista USB-asema, liitä se uudelleen ja yritä uudelleen. Tarkista myös lähdetiedostojen käyttöoikeudet.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>Käynnistysmedian tiedoston koko on {0}; FAT32 tukee enintään {1} tiedostoa kohden. Pienennä käynnistysnäköistiedostoa tai luo ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>USB-käynnistysosio päivitettiin.</value>

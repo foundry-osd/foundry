@@ -2960,6 +2960,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Oppretter cache-partisjon.</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>De egendefinerte driverne bruker minst {0}; maksimum er {1}. Velg bare nettverks- og lagringsdriverne som Windows PE trenger.</value>
+  </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Tilpasse oppstartsbildet.</value>
   </data>
@@ -3109,6 +3112,15 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Oppdaterer USB-medie.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>USB-BOOT-partisjonen trenger omtrent {0}, men kapasiteten er {1}. Ingenting er slettet eller formatert. Reduser tilpasninger eller drivere, eller opprett en ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>Kapasiteten til USB-BOOT-partisjonen kunne ikke bekreftes. Ingenting er slettet eller formatert. Kontroller USB-stasjonen, koble den til på nytt og prøv igjen. Kontroller også at kildefilene er tilgjengelige.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>En fil på oppstartsmediet er {0}; FAT32 støtter maksimalt {1} per fil. Reduser størrelsen på oppstartsavbildningen eller opprett en ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>USB-oppstartspartisjonen ble oppdatert.</value>

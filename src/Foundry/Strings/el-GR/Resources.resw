@@ -2960,6 +2960,9 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Δημιουργία διαμερίσματος προσωρινής μνήμης.</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>Τα προσαρμοσμένα προγράμματα οδήγησης καταλαμβάνουν τουλάχιστον {0}· το μέγιστο είναι {1}. Επιλέξτε μόνο τα προγράμματα οδήγησης δικτύου και αποθήκευσης που χρειάζεται το Windows PE.</value>
+  </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Προσαρμογή της εικόνας εκκίνησης.</value>
   </data>
@@ -3109,6 +3112,15 @@
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Ενημέρωση μέσου USB.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>Το διαμέρισμα BOOT του USB χρειάζεται περίπου {0}, αλλά η χωρητικότητά του είναι {1}. Δεν έχει γίνει διαγραφή ή διαμόρφωση. Μειώστε τις προσαρμογές ή τα προγράμματα οδήγησης ή δημιουργήστε ένα ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η επαλήθευση της χωρητικότητας του διαμερίσματος BOOT του USB. Δεν έχει γίνει διαγραφή ή διαμόρφωση. Ελέγξτε και επανασυνδέστε τη μονάδα USB και δοκιμάστε ξανά. Ελέγξτε επίσης την πρόσβαση στα αρχεία προέλευσης.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>Ένα αρχείο του μέσου εκκίνησης έχει μέγεθος {0}· το FAT32 υποστηρίζει έως {1} ανά αρχείο. Μειώστε το μέγεθος του ειδώλου εκκίνησης ή δημιουργήστε ένα ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>Το διαμέρισμα εκκίνησης USB ενημερώθηκε.</value>

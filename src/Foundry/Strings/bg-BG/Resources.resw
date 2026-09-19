@@ -2960,6 +2960,9 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Създаване на кеш дял.</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>Персонализираните драйвери заемат поне {0}; максимумът е {1}. Изберете само мрежовите драйвери и драйверите за съхранение, необходими за Windows PE.</value>
+  </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Персонализиране на изображението за зареждане.</value>
   </data>
@@ -3109,6 +3112,15 @@
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Актуализиране на USB носител.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>Дялът BOOT на USB изисква приблизително {0}, но капацитетът му е {1}. Нищо не е изтрито или форматирано. Намалете персонализациите или драйверите или създайте ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>Капацитетът на дяла BOOT на USB не може да бъде проверен. Нищо не е изтрито или форматирано. Проверете и свържете отново USB устройството, след което опитайте пак. Проверете също дали изходните файлове са достъпни.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>Файл на носителя за стартиране е с размер {0}; FAT32 поддържа най-много {1} на файл. Намалете размера на образа за стартиране или създайте ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>Дялът за зареждане на USB е актуализиран.</value>

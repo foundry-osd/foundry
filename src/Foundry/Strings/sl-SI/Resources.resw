@@ -2960,6 +2960,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Ustvarjanje particije predpomnilnika.</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>Gonilniki po meri zasedajo vsaj {0}; največja dovoljena velikost je {1}. Izberite samo omrežne gonilnike in gonilnike za shranjevanje, ki jih potrebuje Windows PE.</value>
+  </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Prilagajanje zagonske slike.</value>
   </data>
@@ -3109,6 +3112,15 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Posodabljanje medija USB.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>Particija BOOT na USB potrebuje približno {0}, vendar je njena zmogljivost {1}. Nič ni bilo izbrisano ali formatirano. Zmanjšajte prilagoditve ali število gonilnikov oziroma ustvarite ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>Zmogljivosti particije BOOT na USB ni bilo mogoče preveriti. Nič ni bilo izbrisano ali formatirano. Preverite in znova priključite pogon USB ter poskusite znova. Preverite tudi, ali so izvorne datoteke dostopne.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>Datoteka na zagonskem mediju je velika {0}; FAT32 podpira največ {1} na datoteko. Zmanjšajte velikost zagonske slike ali ustvarite ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>Zagonska particija USB je bila posodobljena.</value>

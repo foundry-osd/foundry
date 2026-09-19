@@ -2960,6 +2960,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Gyorsítótár-partíció létrehozása.</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>Az egyéni illesztőprogramok mérete legalább {0}; a felső határ {1}. Csak a Windows PE számára szükséges hálózati és tárolóillesztőket válassza ki.</value>
+  </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>A rendszerindító kép testreszabása.</value>
   </data>
@@ -3109,6 +3112,15 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>USB adathordozó frissítése.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>Az USB BOOT partícióhoz körülbelül {0} szükséges, de a kapacitása {1}. Sem törlés, sem formázás nem történt. Csökkentse a testreszabásokat vagy az illesztőprogramok számát, vagy hozzon létre ISO-t.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>Az USB BOOT partíció kapacitása nem ellenőrizhető. Sem törlés, sem formázás nem történt. Ellenőrizze és csatlakoztassa újra az USB-meghajtót, majd próbálja újra. Ellenőrizze azt is, hogy a forrásfájlok elérhetők-e.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>Az indító adathordozó egyik fájlja {0} méretű; a FAT32 fájlonként legfeljebb {1} méretet támogat. Csökkentse az indító lemezkép méretét, vagy hozzon létre ISO-t.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>Az USB rendszerindító partíció frissült.</value>

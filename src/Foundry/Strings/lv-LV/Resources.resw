@@ -2960,6 +2960,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Kešatmiņas nodalījuma izveide.</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>Pielāgotie draiveri aizņem vismaz {0}; maksimālais apjoms ir {1}. Atlasiet tikai Windows PE nepieciešamos tīkla un krātuves draiverus.</value>
+  </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Sāknēšanas attēla pielāgošana.</value>
   </data>
@@ -3109,6 +3112,15 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Atjaunina USB datu nesēju.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>USB BOOT nodalījumam nepieciešami aptuveni {0}, bet tā ietilpība ir {1}. Nekas nav izdzēsts vai formatēts. Samaziniet pielāgojumus vai draiveru skaitu, vai izveidojiet ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>Neizdevās pārbaudīt USB BOOT nodalījuma ietilpību. Nekas nav izdzēsts vai formatēts. Pārbaudiet un atkārtoti pievienojiet USB disku, pēc tam mēģiniet vēlreiz. Pārbaudiet arī, vai avota faili ir pieejami.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>Sāknēšanas datu nesēja faila lielums ir {0}; FAT32 atbalsta ne vairāk kā {1} vienam failam. Samaziniet sāknēšanas attēla lielumu vai izveidojiet ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>USB sāknēšanas nodalījums ir atjaunināts.</value>

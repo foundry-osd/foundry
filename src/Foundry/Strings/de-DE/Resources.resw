@@ -2960,6 +2960,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Cache-Partition erstellen.</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>Die benutzerdefinierten Treiber belegen mindestens {0}; maximal zulässig sind {1}. Wählen Sie nur die von Windows PE benötigten Netzwerk- und Speichertreiber aus.</value>
+  </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Anpassen des Boot-Images.</value>
   </data>
@@ -3109,6 +3112,15 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>USB-Medium wird aktualisiert.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>Die USB-BOOT-Partition benötigt etwa {0}, ihre Kapazität beträgt jedoch {1}. Es wurde nichts gelöscht oder formatiert. Reduzieren Sie Anpassungen oder Treiber, oder erstellen Sie ein ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>Die Kapazität der USB-BOOT-Partition konnte nicht überprüft werden. Es wurde nichts gelöscht oder formatiert. Prüfen Sie das USB-Laufwerk, schließen Sie es erneut an und versuchen Sie es noch einmal. Prüfen Sie auch den Zugriff auf die Quelldateien.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>Eine Datei des Startmediums ist {0} groß; FAT32 unterstützt höchstens {1} pro Datei. Verkleinern Sie das Startabbild oder erstellen Sie ein ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>USB-Startpartition wurde aktualisiert.</value>

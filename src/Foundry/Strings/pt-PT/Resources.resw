@@ -2960,6 +2960,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Criando partição de cache.</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>Os controladores personalizados ocupam pelo menos {0}; o máximo é {1}. Selecione apenas os controladores de rede e armazenamento necessários para o Windows PE.</value>
+  </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Personalizando a imagem de inicialização.</value>
   </data>
@@ -3109,6 +3112,15 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>A atualizar o suporte USB.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>A partição BOOT USB necessita de aproximadamente {0}, mas a sua capacidade é {1}. Nada foi apagado ou formatado. Reduza as personalizações ou os controladores, ou crie uma ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>Não foi possível verificar a capacidade da partição BOOT USB. Nada foi apagado ou formatado. Verifique e volte a ligar a unidade USB e tente novamente. Verifique também se os ficheiros de origem estão acessíveis.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>Um ficheiro do suporte de arranque ocupa {0}; o FAT32 suporta no máximo {1} por ficheiro. Reduza o tamanho da imagem de arranque ou crie uma ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>A partição de arranque USB foi atualizada.</value>

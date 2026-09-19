@@ -7,6 +7,10 @@ namespace Foundry.Core.Services.WinPe;
 public static class WinPeErrorCodes
 {
     public const string ValidationFailed = "WINPE_VALIDATION_FAILED";
+    public const string CustomDriversTooLarge = "WINPE_CUSTOM_DRIVERS_TOO_LARGE";
+    public const string UsbBootCapacityInsufficient = "WINPE_USB_BOOT_CAPACITY_INSUFFICIENT";
+    public const string UsbBootCapacityUnknown = "WINPE_USB_BOOT_CAPACITY_UNKNOWN";
+    public const string UsbBootFileTooLarge = "WINPE_USB_BOOT_FILE_TOO_LARGE";
     public const string OperationBusy = "WINPE_OPERATION_BUSY";
     public const string OperationCancelled = "WINPE_OPERATION_CANCELLED";
     public const string ToolNotFound = "WINPE_TOOL_NOT_FOUND";

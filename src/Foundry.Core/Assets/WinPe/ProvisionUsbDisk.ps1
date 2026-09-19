@@ -99,7 +99,7 @@ Write-FoundryUsbVerbose "USB partition table initialized. CurrentPartitionStyle=
 Write-FoundryUsbProgress 38 'Creating BOOT partition.'
 $bootPartitionArguments = @{
     DiskNumber = $diskNumber
-    Size = 2048MB
+    Size = {{BOOT_SIZE_BYTES}}
     AssignDriveLetter = $true
     ErrorAction = 'Stop'
 }
@@ -120,6 +120,7 @@ Write-FoundryUsbProgress 44 'Formatting BOOT partition.'
 $bootFormatArguments = @{
     DriveLetter = $bootDriveLetter
     FileSystem = 'FAT32'
+    AllocationUnitSize = {{BOOT_ALLOCATION_BYTES}}
     NewFileSystemLabel = 'BOOT'
     Confirm = $false
     Force = $true

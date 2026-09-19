@@ -2960,6 +2960,9 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>建立快取分區。</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>自訂驅動程式的總大小至少為 {0}，上限為 {1}。請僅選取 Windows PE 所需的網路和儲存驅動程式。</value>
+  </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>自訂啟動映像。</value>
   </data>
@@ -3109,6 +3112,15 @@
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>正在更新 USB 媒體。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>USB BOOT 磁碟分割大約需要 {0}，但其容量為 {1}。尚未執行任何清除或格式化作業。請減少自訂內容或驅動程式，或建立 ISO。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>無法驗證 USB BOOT 磁碟分割的容量。尚未執行任何清除或格式化作業。請檢查並重新連接 USB 磁碟機，然後再試一次。 另請檢查來源檔案是否可存取。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>開機媒體中的某個檔案大小為 {0}，而 FAT32 支援的單一檔案大小上限為 {1}。請縮小開機映像的大小或建立 ISO。</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>USB 開機分割區已更新。</value>
