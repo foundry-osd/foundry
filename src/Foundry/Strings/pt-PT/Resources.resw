@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Instalando o complemento Windows PE</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>A instalação foi concluída. Reveja os requisitos restantes do ADK.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Removendo Windows ADK existente</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Detalhes de preparação</value>
   </data>
+  <data name="Adk.Servicing.Instructions" xml:space="preserve">
+    <value>Instruções de atualização do ADK</value>
+  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Instale ou atualize as ferramentas de implantação Windows ADK e o complemento Windows PE necessários para a criação de mídia.</value>
   </data>
@@ -148,7 +154,7 @@
     <value>Configuração ADK</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Instale a versão suportada do Windows ADK 24H2 (10.1.26100).</value>
+    <value>Instale a versão suportada do Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>A versão ADK não é suportada</value>
@@ -165,6 +171,21 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK está pronto</value>
   </data>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Não foi possível verificar a atualização do ADK ({0}). A criação de suportes de dados continua disponível. Siga as instruções de atualização da Microsoft e selecione Atualizar.</value>
+  </data>
+  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
+    <value>A manutenção do ADK requer atenção</value>
+  </data>
+  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
+    <value>Não foi possível ler as informações de manutenção do ADK. A criação de suportes de dados continua disponível. Verifique as permissões e a instalação e selecione Atualizar.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Repare o complemento Windows PE correspondente através do respetivo instalador. Se a versão for diferente da versão do ADK, desinstale primeiro o complemento e instale a versão correspondente. Consulte a documentação do ADK e selecione Atualizar para verificar novamente se tudo está pronto.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>O complemento Windows PE precisa de reparação</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Instale o complemento Windows PE para o Windows ADK instalado.</value>
   </data>
@@ -178,10 +199,16 @@
     <value>Versão não detectada</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Requer Windows ADK 24H2 (10.1.26100).</value>
+    <value>Requer Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Política de versão obrigatória</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Ficheiros do WinPE disponíveis</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Ficheiros do WinPE em falta</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Complemento instalado</value>

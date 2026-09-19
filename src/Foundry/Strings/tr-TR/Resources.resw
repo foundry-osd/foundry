@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Windows PE Eklentisinin Yüklenmesi</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Yükleme tamamlandı. Kalan ADK gereksinimlerini gözden geçirin.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Mevcut Windows ADK kaldırılıyor</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Hazırlık ayrıntıları</value>
   </data>
+  <data name="Adk.Servicing.Instructions" xml:space="preserve">
+    <value>ADK güncelleme yönergeleri</value>
+  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Medya oluşturmak için gereken Windows ADK Dağıtım Araçlarını ve Windows PE Eklentisini yükleyin veya yükseltin.</value>
   </data>
@@ -148,7 +154,7 @@
     <value>ADK kurulum</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Desteklenen Windows ADK 24H2 (10.1.26100) sürümünü yükleyin.</value>
+    <value>Desteklenen Windows ADK 24H2 (10.1.26100.2454) sürümünü yükleyin.</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ADK sürümü desteklenmiyor</value>
@@ -165,6 +171,21 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK hazır</value>
   </data>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>ADK güncellemesi ({0}) doğrulanamadı. Medya oluşturma kullanılabilir durumda kalır. Microsoft güncelleme yönergelerini izleyin ve ardından Yenile’yi seçin.</value>
+  </data>
+  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
+    <value>ADK bakımı ilgilenmenizi gerektiriyor</value>
+  </data>
+  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
+    <value>ADK bakım bilgileri okunamadı. Medya oluşturma kullanılabilir durumda kalır. İzinleri ve kurulumu kontrol edin ve ardından Yenile’yi seçin.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Eşleşen Windows PE Eklentisini kendi yükleyicisiyle onarın. Sürümü ADK sürümünden farklıysa önce eklentiyi kaldırın, ardından eşleşen sürümü yükleyin. ADK belgelerine bakın, ardından hazır olma durumunu tekrar kontrol etmek için Yenile’yi seçin.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Windows PE Eklentisinin onarılması gerekiyor</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Kurulu Windows ADK için Windows PE Eklentisini yükleyin.</value>
   </data>
@@ -178,10 +199,16 @@
     <value>Sürüm algılanmadı</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Windows ADK 24H2 (10.1.26100) gerektirir.</value>
+    <value>Windows ADK 24H2 (10.1.26100.2454) gerektirir.</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Gerekli sürüm politikası</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>WinPE dosyaları kullanılabilir</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>WinPE dosyaları eksik</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Eklenti yüklü</value>

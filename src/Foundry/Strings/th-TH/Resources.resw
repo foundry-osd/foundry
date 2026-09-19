@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>กำลังติดตั้งส่วนเสริม Windows PE</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>การติดตั้งเสร็จสิ้นแล้ว ตรวจสอบข้อกำหนด ADK ที่เหลือ</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>การลบ Windows ADK ที่มีอยู่ออก</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>รายละเอียดความพร้อม</value>
   </data>
+  <data name="Adk.Servicing.Instructions" xml:space="preserve">
+    <value>คำแนะนำการอัปเดต ADK</value>
+  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>ติดตั้งหรืออัปเกรด Windows ADK Deployment Tools และ Windows PE Add-on ที่จำเป็นสำหรับการสร้างสื่อ</value>
   </data>
@@ -148,7 +154,7 @@
     <value>ADK ตั้งค่า</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>ติดตั้งรุ่น Windows ADK 24H2 (10.1.26100) ที่รองรับ</value>
+    <value>ติดตั้งรุ่น Windows ADK 24H2 (10.1.26100.2454) ที่รองรับ</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>ไม่รองรับเวอร์ชัน ADK</value>
@@ -165,6 +171,21 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK พร้อมแล้ว</value>
   </data>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>ไม่สามารถยืนยันการอัปเดต ADK ({0}) ได้ ยังคงสร้างสื่อได้ ให้ทำตามคำแนะนำการอัปเดตของ Microsoft แล้วเลือก รีเฟรช</value>
+  </data>
+  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
+    <value>การบำรุงรักษา ADK ต้องได้รับการตรวจสอบ</value>
+  </data>
+  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
+    <value>ไม่สามารถอ่านข้อมูลการบำรุงรักษา ADK ได้ ยังคงสร้างสื่อได้ ให้ตรวจสอบสิทธิ์และการติดตั้ง แล้วเลือก รีเฟรช</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>ซ่อมแซมส่วนเสริม Windows PE ที่ตรงกันโดยใช้โปรแกรมติดตั้งของส่วนเสริม หากเวอร์ชันต่างจาก ADK ให้ถอนการติดตั้งส่วนเสริมก่อน แล้วติดตั้งเวอร์ชันที่ตรงกัน ดูเอกสาร ADK แล้วเลือก รีเฟรช เพื่อตรวจสอบความพร้อมอีกครั้ง</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>ส่วนเสริม Windows PE จำเป็นต้องได้รับการซ่อมแซม</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>ติดตั้ง Windows PE Add-on สำหรับ Windows ADK ที่ติดตั้ง</value>
   </data>
@@ -178,10 +199,16 @@
     <value>ตรวจไม่พบเวอร์ชัน</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>ต้องใช้ Windows ADK 24H2 (10.1.26100)</value>
+    <value>ต้องใช้ Windows ADK 24H2 (10.1.26100.2454)</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>นโยบายเวอร์ชันที่ต้องการ</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>มีไฟล์ WinPE พร้อมใช้งาน</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>ไฟล์ WinPE ขาดหายไป</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE ติดตั้งส่วนเสริมแล้ว</value>

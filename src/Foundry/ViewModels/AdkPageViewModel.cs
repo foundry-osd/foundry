@@ -90,7 +90,14 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     public partial bool IsActionEnabled { get; set; }
 
+    [ObservableProperty]
+    public partial string ServicingInstructionsText { get; set; }
+
+    [ObservableProperty]
+    public partial string RefreshButtonText { get; set; }
+
     public string DocumentationUrl => FoundryApplicationInfo.AdkDocumentationUrl;
+    public Uri ServicingInstructionsUri => new("https://learn.microsoft.com/windows-hardware/get-started/adk-servicing");
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AdkPageViewModel"/> class.
@@ -128,6 +135,8 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         MediaCapabilityTitle = string.Empty;
         MediaCapabilityStatus = string.Empty;
         IsActionEnabled = true;
+        ServicingInstructionsText = string.Empty;
+        RefreshButtonText = string.Empty;
 
         adkService.StatusChanged += OnAdkStatusChanged;
         operationProgressService.StateChanged += OnOperationProgressChanged;
@@ -157,10 +166,13 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         return RunBlockingAdkOperationAsync(adkService.UpgradeAsync);
     }
 
+    [RelayCommand]
+    private Task RefreshStatusAsync() => RunBlockingAdkOperationAsync(adkService.RefreshStatusAsync);
+
     private async Task RunBlockingAdkOperationAsync(Func<CancellationToken, Task<AdkInstallationStatus>> operation)
     {
         if (shellNavigationGuardService.State is ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending) return;
-        // ADK setup can display UAC and modifies machine-level components, so the shell blocks navigation while it runs.
+        // Keep navigation blocked until setup or a status refresh establishes the new readiness state.
         shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
 
         try
@@ -236,15 +248,25 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
         WinPeAddonStatus = status.IsWinPeAddonInstalled
             ? localizationService.GetString("Adk.WinPeAddon.Installed")
             : localizationService.GetString("Adk.WinPeAddon.Missing");
+        if (status.IsWinPeAddonCompatible)
+        {
+            WinPeAddonStatus += $" (x64: {FormatAvailability(status.IsX64Available)}, ARM64: {FormatAvailability(status.IsArm64Available)})";
+        }
         MediaCapabilityTitle = localizationService.GetString("Adk.MediaCapability.Title");
         MediaCapabilityStatus = status.CanCreateMedia
             ? localizationService.GetString("Adk.MediaCapability.Ready")
             : localizationService.GetString("Adk.MediaCapability.Blocked");
         IsUpgradeButtonVisible = status.IsInstalled && !status.IsCompatible;
-        IsInstallButtonVisible = !IsUpgradeButtonVisible && (!status.IsInstalled || !status.IsWinPeAddonInstalled);
+        IsInstallButtonVisible = !IsUpgradeButtonVisible && (!status.IsInstalled
+            || (!status.IsWinPeAddonInstalled && !status.IsWinPeAddonRegistered));
         IsSetupActionVisible = IsInstallButtonVisible || IsUpgradeButtonVisible;
         IsActionEnabled = !IsBusy;
+        ServicingInstructionsText = localizationService.GetString("Adk.Servicing.Instructions");
+        RefreshButtonText = localizationService.GetString("Common.Refresh");
     }
+
+    private string FormatAvailability(bool available) => localizationService.GetString(
+        available ? "Adk.WinPeAddon.FilesAvailable" : "Adk.WinPeAddon.FilesMissing");
 
     private void ApplyOperationState(OperationProgressState state)
     {
@@ -256,7 +278,8 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     {
         if (status.CanCreateMedia)
         {
-            return localizationService.GetString("Adk.Status.ReadyTitle");
+            return localizationService.GetString(status.ServicingState == AdkServicingState.Verified
+                ? "Adk.Status.ReadyTitle" : "Adk.Status.ServicingTitle");
         }
 
         if (!status.IsInstalled)
@@ -269,14 +292,16 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
             return localizationService.GetString("Adk.Status.IncompatibleTitle");
         }
 
-        return localizationService.GetString("Adk.Status.WinPeMissingTitle");
+        if (!status.IsWinPeAddonInstalled && !status.IsWinPeAddonRegistered) return localizationService.GetString("Adk.Status.WinPeMissingTitle");
+        return localizationService.GetString("Adk.Status.WinPeInvalidTitle");
     }
 
     private static InfoBarSeverity GetStatusSeverity(AdkInstallationStatus status)
     {
         if (status.CanCreateMedia)
         {
-            return InfoBarSeverity.Success;
+            return status.ServicingState == AdkServicingState.Verified && status.IsX64Available && status.IsArm64Available
+                ? InfoBarSeverity.Success : InfoBarSeverity.Warning;
         }
 
         return status.IsInstalled && status.IsCompatible
@@ -288,7 +313,15 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
     {
         if (status.CanCreateMedia)
         {
-            return localizationService.GetString("Adk.Status.ReadyDescription");
+            string description = localizationService.GetString(status.IsX64Available && status.IsArm64Available
+                ? "Adk.Status.ReadyDescription" : "Adk.Status.WinPeInvalidDescription");
+            if (status.ServicingState == AdkServicingState.Verified) return description;
+
+            string servicingDescription = status.ServicingState == AdkServicingState.Unknown
+                ? localizationService.GetString("Adk.Status.ServicingUnknownDescription")
+                : string.Format(System.Globalization.CultureInfo.CurrentCulture,
+                    localizationService.GetString("Adk.Status.ServicingRecommendedDescription"), AdkInstallationDetector.RecommendedServicingUpdate);
+            return $"{description}{Environment.NewLine}{servicingDescription}";
         }
 
         if (!status.IsInstalled)
@@ -301,7 +334,8 @@ public sealed partial class AdkPageViewModel : ObservableObject, IDisposable
             return localizationService.GetString("Adk.Status.IncompatibleDescription");
         }
 
-        return localizationService.GetString("Adk.Status.WinPeMissingDescription");
+        if (!status.IsWinPeAddonInstalled && !status.IsWinPeAddonRegistered) return localizationService.GetString("Adk.Status.WinPeMissingDescription");
+        return localizationService.GetString("Adk.Status.WinPeInvalidDescription");
     }
 
     private string GetUpgradeButtonText(AdkInstallationStatus status)

@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Встановлення додатка Windows PE</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Інсталяцію завершено. Перегляньте решту вимог ADK.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Видалення існуючого Windows ADK</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Деталі готовності</value>
   </data>
+  <data name="Adk.Servicing.Instructions" xml:space="preserve">
+    <value>Вказівки щодо оновлення ADK</value>
+  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Установіть або оновіть Windows ADK Deployment Tools і Windows PE Add-on, необхідні для створення медіа.</value>
   </data>
@@ -148,7 +154,7 @@
     <value>ADK налаштування</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Інсталюйте підтримуваний випуск Windows ADK 24H2 (10.1.26100).</value>
+    <value>Інсталюйте підтримуваний випуск Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Версія ADK не підтримується</value>
@@ -165,6 +171,21 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK готовий</value>
   </data>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Не вдалося підтвердити оновлення ADK ({0}). Створення носіїв залишається доступним. Дотримуйтеся вказівок Microsoft щодо оновлення, а потім виберіть «Оновити».</value>
+  </data>
+  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
+    <value>Обслуговування ADK потребує уваги</value>
+  </data>
+  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
+    <value>Не вдалося прочитати відомості про обслуговування ADK. Створення носіїв залишається доступним. Перевірте дозволи та інсталяцію, а потім виберіть «Оновити».</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Відновіть відповідний додаток Windows PE за допомогою його інсталятора. Якщо його версія відрізняється від версії ADK, спочатку видаліть додаток, а потім інсталюйте відповідну версію. Перегляньте документацію ADK, а потім виберіть «Оновити», щоб знову перевірити готовність.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Додаток Windows PE потребує відновлення</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Установіть додаток Windows PE для встановленого Windows ADK.</value>
   </data>
@@ -178,10 +199,16 @@
     <value>Версія не виявлена</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Потрібен Windows ADK 24H2 (10.1.26100).</value>
+    <value>Потрібен Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Необхідна політика версії</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Файли WinPE доступні</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Файли WinPE відсутні</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Надбудову встановлено</value>

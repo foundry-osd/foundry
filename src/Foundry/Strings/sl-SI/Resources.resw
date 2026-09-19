@@ -120,6 +120,9 @@
   <data name="Adk.Operation.InstallingWinPe" xml:space="preserve">
     <value>Namestitev dodatka Windows PE</value>
   </data>
+  <data name="Adk.Operation.NeedsAttention" xml:space="preserve">
+    <value>Namestitev je končana. Preglejte preostale zahteve za ADK.</value>
+  </data>
   <data name="Adk.Operation.UninstallingAdk" xml:space="preserve">
     <value>Odstranjevanje obstoječega Windows ADK</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Adk.ReadinessDetails.Title" xml:space="preserve">
     <value>Podrobnosti o pripravljenosti</value>
   </data>
+  <data name="Adk.Servicing.Instructions" xml:space="preserve">
+    <value>Navodila za posodobitev ADK</value>
+  </data>
   <data name="Adk.SetupAction.Description" xml:space="preserve">
     <value>Namestite ali nadgradite Windows ADK orodja za uvajanje in Windows PE dodatek, potreben za ustvarjanje medijev.</value>
   </data>
@@ -148,7 +154,7 @@
     <value>ADK nastavitev</value>
   </data>
   <data name="Adk.Status.IncompatibleDescription" xml:space="preserve">
-    <value>Namestite podprto izdajo Windows ADK 24H2 (10.1.26100).</value>
+    <value>Namestite podprto izdajo Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Status.IncompatibleTitle" xml:space="preserve">
     <value>Različica ADK ni podprta</value>
@@ -165,6 +171,21 @@
   <data name="Adk.Status.ReadyTitle" xml:space="preserve">
     <value>ADK je pripravljen</value>
   </data>
+  <data name="Adk.Status.ServicingRecommendedDescription" xml:space="preserve">
+    <value>Posodobitve ADK ({0}) ni bilo mogoče preveriti. Ustvarjanje medijev ostaja na voljo. Upoštevajte navodila družbe Microsoft za posodobitev in nato izberite Osveži.</value>
+  </data>
+  <data name="Adk.Status.ServicingTitle" xml:space="preserve">
+    <value>Vzdrževanje ADK zahteva pozornost</value>
+  </data>
+  <data name="Adk.Status.ServicingUnknownDescription" xml:space="preserve">
+    <value>Podatkov o vzdrževanju ADK ni bilo mogoče prebrati. Ustvarjanje medijev ostaja na voljo. Preverite dovoljenja in namestitev ter nato izberite Osveži.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidDescription" xml:space="preserve">
+    <value>Popravite ustrezni dodatek Windows PE z njegovim namestitvenim programom. Če se njegova različica razlikuje od različice ADK, najprej odstranite dodatek in nato namestite ustrezno različico. Glejte dokumentacijo ADK in nato izberite Osveži, da znova preverite pripravljenost.</value>
+  </data>
+  <data name="Adk.Status.WinPeInvalidTitle" xml:space="preserve">
+    <value>Dodatek Windows PE je treba popraviti</value>
+  </data>
   <data name="Adk.Status.WinPeMissingDescription" xml:space="preserve">
     <value>Namestite dodatek Windows PE za nameščen Windows ADK.</value>
   </data>
@@ -178,10 +199,16 @@
     <value>Različica ni zaznana</value>
   </data>
   <data name="Adk.Version.RequiredPolicy" xml:space="preserve">
-    <value>Zahteva Windows ADK 24H2 (10.1.26100).</value>
+    <value>Zahteva Windows ADK 24H2 (10.1.26100.2454).</value>
   </data>
   <data name="Adk.Version.RequiredPolicyTitle" xml:space="preserve">
     <value>Politika zahtevane različice</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesAvailable" xml:space="preserve">
+    <value>Datoteke WinPE so na voljo</value>
+  </data>
+  <data name="Adk.WinPeAddon.FilesMissing" xml:space="preserve">
+    <value>Datoteke WinPE manjkajo</value>
   </data>
   <data name="Adk.WinPeAddon.Installed" xml:space="preserve">
     <value>Windows PE Nameščen dodatek</value>
