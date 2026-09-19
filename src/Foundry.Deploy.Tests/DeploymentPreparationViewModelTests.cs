@@ -410,15 +410,17 @@ public sealed class DeploymentPreparationViewModelTests
         Assert.Null(viewModel.SelectedHardwareHashGroupTag?.GroupTag);
     }
 
-    [Fact]
-    public void CreateAutopilotHardwareHashUploadForLaunch_WhenDefaultGroupTagIsMissingFromKnownTags_ReturnsNullGroupTag()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void CreateAutopilotHardwareHashUploadForLaunch_WhenDefaultGroupTagIsMissingFromKnownTags_PreservesDefault(bool hasKnownTags)
     {
         using DeploymentPreparationViewModel viewModel = CreateViewModel();
         DeployAutopilotSettings settings = CreateHardwareHashSettings(defaultGroupTag: "Sales") with
         {
             HardwareHashUpload = CreateHardwareHashSettings(defaultGroupTag: "Sales").HardwareHashUpload! with
             {
-                KnownGroupTags = ["Kiosk"]
+                KnownGroupTags = hasKnownTags ? ["Kiosk"] : []
             }
         };
 
@@ -426,8 +428,8 @@ public sealed class DeploymentPreparationViewModelTests
 
         DeployAutopilotHardwareHashUploadSettings result = viewModel.CreateAutopilotHardwareHashUploadForLaunch();
 
-        Assert.Null(result.DefaultGroupTag);
-        Assert.Null(viewModel.SelectedHardwareHashGroupTag?.GroupTag);
+        Assert.Equal("Sales", result.DefaultGroupTag);
+        Assert.Equal("Sales", viewModel.SelectedHardwareHashGroupTag?.GroupTag);
     }
 
     [Theory]

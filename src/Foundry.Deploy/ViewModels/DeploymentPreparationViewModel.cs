@@ -655,6 +655,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         HardwareHashGroupTagOptions.Add(new HardwareHashGroupTagOption(GetString("Common.None"), null));
 
         foreach (string groupTag in AutopilotHardwareHashUpload.KnownGroupTags
+                     .Append(AutopilotHardwareHashUpload.DefaultGroupTag ?? string.Empty)
                      .Select(static value => value.Trim())
                      .Where(static value => !string.IsNullOrWhiteSpace(value))
                      .Distinct(StringComparer.OrdinalIgnoreCase)
