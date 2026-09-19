@@ -39,16 +39,19 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
 
     private readonly IWinPeProcessRunner _processRunner;
     private readonly HttpClient _httpClient;
+    private readonly WinPeWorkspaceCleanupService _workspaceCleanup;
 
     public WinPeBootImagePreparationService()
         : this(new WinPeProcessRunner(), new HttpClient())
     {
     }
 
-    internal WinPeBootImagePreparationService(IWinPeProcessRunner processRunner, HttpClient httpClient)
+    internal WinPeBootImagePreparationService(IWinPeProcessRunner processRunner, HttpClient httpClient,
+        WinPeWorkspaceCleanupService? workspaceCleanup = null)
     {
         _processRunner = processRunner;
         _httpClient = httpClient;
+        _workspaceCleanup = workspaceCleanup ?? new WinPeWorkspaceCleanupService();
     }
 
     /// <inheritdoc />
@@ -362,7 +365,9 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
         WinPeMountSession? session = null;
         try
         {
-            DirectoryOperations.Recreate(sourceDirectory);
+            WinPeResult cleanup = _workspaceCleanup.Delete(sourceDirectory);
+            if (!cleanup.IsSuccess) return WinPeResult<WinPeBootImagePreparationResult>.Failure(cleanup.Error!);
+            Directory.CreateDirectory(sourceDirectory);
             Directory.CreateDirectory(exportDirectory);
             ReportProgress(options.Progress, 5, "Preparing Windows source package.");
 
@@ -473,8 +478,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 File.Copy(winRePath, options.Artifact.BootWimPath, overwrite: true);
             }
 
-            WinPeResult discardResult = await session.DiscardAsync(CancellationToken.None).ConfigureAwait(false);
-            session = null;
+            WinPeResult discardResult = await session.DiscardAsync().ConfigureAwait(false);
             if (!discardResult.IsSuccess)
             {
                 return WinPeResult<WinPeBootImagePreparationResult>.Failure(discardResult.Error!);
@@ -742,7 +746,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
         WinPeDiagnostic primaryDiagnostic,
         WinPeMountSession session)
     {
-        WinPeResult discardResult = await session.DiscardAsync(CancellationToken.None).ConfigureAwait(false);
+        WinPeResult discardResult = await session.DiscardAsync().ConfigureAwait(false);
         if (discardResult.IsSuccess)
         {
             return WinPeResult<WinPeBootImagePreparationResult>.Failure(primaryDiagnostic);

@@ -9,6 +9,32 @@ namespace Foundry.Core.Tests.WinPe;
 public sealed class WinPeBuildServiceTests
 {
     [Fact]
+    public async Task BuildAsync_WhenExistingWorkspaceIsMounted_DoesNotRecreateIt()
+    {
+        using TempWinPeBuildWorkspace workspace = TempWinPeBuildWorkspace.Create();
+        string working = Path.Combine(workspace.OutputDirectoryPath, "existing");
+        Directory.CreateDirectory(working);
+        string keep = Path.Combine(working, "keep.txt");
+        File.WriteAllText(keep, "keep");
+        var cleanup = new WinPeWorkspaceCleanupService(() =>
+            [new WinPeMountedImage(Path.Combine(working, "mount"), Path.Combine(working, "boot.wim"))]);
+        var service = new WinPeBuildService(new WinPeToolResolver(() => workspace.KitsRootPath), new FakeBuildRunner(), cleanup);
+
+        WinPeResult<WinPeBuildArtifact> result = await service.BuildAsync(new WinPeBuildOptions
+        {
+            OutputDirectoryPath = workspace.OutputDirectoryPath,
+            WorkingDirectoryPath = working,
+            CleanExistingWorkingDirectory = true,
+            Architecture = WinPeArchitecture.X64
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.WimUnmountFailed, result.Error?.Code);
+        Assert.Equal("keep", File.ReadAllText(keep));
+        Assert.False(File.Exists(Path.Combine(working, "media", "sources", "boot.wim")));
+    }
+
+    [Fact]
     public async Task BuildAsync_WhenOptionsAreNull_ReturnsValidationFailure()
     {
         var service = new WinPeBuildService();
