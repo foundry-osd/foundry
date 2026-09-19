@@ -42,7 +42,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         HardwareProfile hardwareProfile,
         OperatingSystemCatalogItem operatingSystem,
         string destinationDirectory,
-        string cacheDirectory,
+        Func<long, string> resolveCacheDirectory,
         CancellationToken cancellationToken = default,
         IProgress<double>? progress = null)
     {
@@ -54,10 +54,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
             throw new ArgumentException("Destination directory is required.", nameof(destinationDirectory));
         }
 
-        if (string.IsNullOrWhiteSpace(cacheDirectory))
-        {
-            throw new ArgumentException("Cache directory is required.", nameof(cacheDirectory));
-        }
+        ArgumentNullException.ThrowIfNull(resolveCacheDirectory);
 
         DirectoryOperations.Recreate(destinationDirectory);
         progress?.Report(5d);
@@ -132,16 +129,10 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            string updateDirectory = Path.Combine(destinationDirectory, MicrosoftUpdateCatalogSupport.SanitizePathSegment(candidate.Update.UpdateId));
-            Directory.CreateDirectory(updateDirectory);
-
-            string fileName = ResolveFileName(candidate.Download);
-            string destinationPath = Path.Combine(updateDirectory, fileName);
-
-            await DownloadToStagingAsync(
+            string payloadPath = await DownloadPayloadAsync(
                     candidate,
-                    destinationPath,
-                    cacheDirectory,
+                    destinationDirectory,
+                    resolveCacheDirectory,
                     cancellationToken)
                 .ConfigureAwait(false);
 
@@ -151,82 +142,54 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
                 Title = candidate.Update.Title,
                 Version = candidate.Update.Version,
                 Size = candidate.Update.Size,
-                DownloadUrl = candidate.Download.DownloadUrl
+                DownloadUrl = candidate.Download.DownloadUrl,
+                FilePath = payloadPath
             });
 
             downloadIndex++;
             progress?.Report(60d + (double)downloadIndex / matchedUpdates.Count * 40d);
         }
 
-        int cabCount = Directory.EnumerateFiles(destinationDirectory, "*.cab", SearchOption.AllDirectories).Count();
-        int infCount = Directory.EnumerateFiles(destinationDirectory, "*.inf", SearchOption.AllDirectories).Count();
+        int cabCount = downloadedDrivers.Count;
         progress?.Report(100d);
 
         return new MicrosoftUpdateCatalogDriverResult
         {
             DestinationDirectory = destinationDirectory,
-            IsPayloadAvailable = cabCount > 0 || infCount > 0,
-            InfCount = infCount,
+            IsPayloadAvailable = cabCount > 0,
             DownloadedDrivers = downloadedDrivers,
-            Message = cabCount > 0
-                ? $"Microsoft Update Catalog payload downloaded: {cabCount} CAB files across {matchedUpdates.Count} updates."
-                : infCount > 0
-                    ? $"Microsoft Update Catalog payload resolved directly as INF content: {infCount} INF files across {matchedUpdates.Count} updates."
-                    : "Microsoft Update Catalog returned updates, but no CAB or INF files were downloaded."
+            Message = $"Microsoft Update Catalog payload resolved: {cabCount} CAB files across {matchedUpdates.Count} updates."
         };
     }
 
     public async Task<MicrosoftUpdateCatalogDriverResult> ExpandAsync(
-        string sourceDirectory,
+        IReadOnlyList<string> sourcePaths,
         string destinationDirectory,
         CancellationToken cancellationToken = default,
         IProgress<double>? progress = null)
     {
-        if (string.IsNullOrWhiteSpace(sourceDirectory))
-        {
-            throw new ArgumentException("Source directory is required.", nameof(sourceDirectory));
-        }
+        ArgumentNullException.ThrowIfNull(sourcePaths);
 
         if (string.IsNullOrWhiteSpace(destinationDirectory))
         {
             throw new ArgumentException("Destination directory is required.", nameof(destinationDirectory));
         }
 
-        if (!Directory.Exists(sourceDirectory))
-        {
-            throw new DirectoryNotFoundException($"Microsoft Update Catalog source directory '{sourceDirectory}' was not found.");
-        }
-
         progress?.Report(5d);
         Directory.CreateDirectory(destinationDirectory);
 
-        string[] cabFiles = Directory
-            .EnumerateFiles(sourceDirectory, "*.cab", SearchOption.AllDirectories)
-            .ToArray();
-
-        if (cabFiles.Length == 0)
-        {
-            int existingInfCount = Directory
-                .EnumerateFiles(sourceDirectory, "*.inf", SearchOption.AllDirectories)
-                .Count();
-            progress?.Report(100d);
-
-            return new MicrosoftUpdateCatalogDriverResult
-            {
-                DestinationDirectory = existingInfCount > 0 ? sourceDirectory : destinationDirectory,
-                IsPayloadAvailable = existingInfCount > 0,
-                InfCount = existingInfCount,
-                DownloadedDrivers = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>(),
-                Message = existingInfCount > 0
-                    ? $"Microsoft Update Catalog payload is already expanded: {existingInfCount} INF files."
-                    : "Microsoft Update Catalog expand completed, but no CAB or INF files were found."
-            };
-        }
+        string[] cabFiles = sourcePaths.Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
 
         for (int index = 0; index < cabFiles.Length; index++)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             string cabPath = cabFiles[index];
-            string folderName = ResolveExpandedFolderName(cabPath, sourceDirectory);
+            if (!File.Exists(cabPath))
+            {
+                throw new FileNotFoundException("Selected Microsoft Update Catalog driver payload was not found.", cabPath);
+            }
+
+            string folderName = $"{index}-{Path.GetFileNameWithoutExtension(cabPath)}";
             string cabDestination = Path.Combine(destinationDirectory, MicrosoftUpdateCatalogSupport.SanitizePathSegment(folderName));
             Directory.CreateDirectory(cabDestination);
 
@@ -304,36 +267,35 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         };
     }
 
-    private async Task DownloadToStagingAsync(
+    private async Task<string> DownloadPayloadAsync(
         CatalogDownloadCandidate candidate,
-        string destinationPath,
-        string cacheDirectory,
+        string temporaryDirectory,
+        Func<long, string> resolveCacheDirectory,
         CancellationToken cancellationToken)
     {
         string expectedHash = MicrosoftUpdateCatalogSupport.ResolvePreferredHash(candidate.Download);
-        if (string.IsNullOrWhiteSpace(expectedHash))
-        {
-            await _artifactDownloadService
-                .DownloadAsync(candidate.Download.DownloadUrl, destinationPath, artifactKind: "MicrosoftUpdateCatalogDriver", cancellationToken: cancellationToken)
-                .ConfigureAwait(false);
-            return;
-        }
-
-        string cachePath = Path.Combine(
-            cacheDirectory,
+        string downloadDirectory = string.IsNullOrWhiteSpace(expectedHash)
+            ? temporaryDirectory
+            : resolveCacheDirectory(candidate.Update.SizeInBytes);
+        string destinationPath = Path.Combine(
+            downloadDirectory,
             MicrosoftUpdateCatalogSupport.SanitizePathSegment(candidate.Update.UpdateId),
             ResolveFileName(candidate.Download));
 
-        await _artifactDownloadService
+        ArtifactDownloadResult result = await _artifactDownloadService
             .DownloadAsync(
                 candidate.Download.DownloadUrl,
-                cachePath,
+                destinationPath,
                 expectedHash: expectedHash,
                 artifactKind: "MicrosoftUpdateCatalogDriver",
                 cancellationToken: cancellationToken)
             .ConfigureAwait(false);
 
-        CopyFile(cachePath, destinationPath);
+        _logger.LogInformation(
+            "Microsoft Update Catalog driver payload {Disposition}: {PayloadPath}",
+            result.Downloaded ? "downloaded" : "reused",
+            result.DestinationPath);
+        return result.DestinationPath;
     }
 
     private async Task<MicrosoftUpdateCatalogUpdate?> SearchByReleaseAsync(
@@ -449,17 +411,6 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         return CriticalPnpClasses.Contains(normalizedPnpClass, StringComparer.OrdinalIgnoreCase);
     }
 
-    private static string ResolveExpandedFolderName(string cabPath, string sourceDirectory)
-    {
-        string parentFolder = Path.GetFileName(Path.GetDirectoryName(cabPath) ?? string.Empty);
-        string sourceFolder = Path.GetFileName(sourceDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
-
-        return !string.IsNullOrWhiteSpace(parentFolder) &&
-               !parentFolder.Equals(sourceFolder, StringComparison.OrdinalIgnoreCase)
-            ? parentFolder
-            : Path.GetFileNameWithoutExtension(cabPath);
-    }
-
     private static string ResolveDeviceName(PnpDeviceInfo device)
     {
         if (!string.IsNullOrWhiteSpace(device.Name))
@@ -477,17 +428,6 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         return string.IsNullOrWhiteSpace(download.FileName)
             ? MicrosoftUpdateCatalogSupport.ResolveFileNameFromUrl(download.DownloadUrl)
             : MicrosoftUpdateCatalogSupport.SanitizePathSegment(download.FileName);
-    }
-
-    private static void CopyFile(string sourcePath, string destinationPath)
-    {
-        string? destinationDirectory = Path.GetDirectoryName(destinationPath);
-        if (!string.IsNullOrWhiteSpace(destinationDirectory))
-        {
-            Directory.CreateDirectory(destinationDirectory);
-        }
-
-        File.Copy(sourcePath, destinationPath, overwrite: true);
     }
 
     private sealed record DriverSearchTarget

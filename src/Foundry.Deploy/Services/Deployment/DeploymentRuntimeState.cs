@@ -160,6 +160,8 @@ public sealed record DeploymentRuntimeState
     /// </summary>
     public string? DownloadedDriverPackPath { get; set; }
 
+    public IReadOnlyList<string> MicrosoftUpdateCatalogDriverPaths { get; set; } = [];
+
     /// <summary>
     /// Gets or sets the resolved driver pack install mode.
     /// </summary>
