@@ -138,9 +138,13 @@ public sealed class AdkInstallationDetectorTests
     public void Detect_WhenOnlyWinPeVersionIsKnown_DoesNotInferAdkCompatibility()
     {
         var probe = CreateInstalledProbe(null);
-        probe.Products = [new("Windows PE wims (DesktopEditions)", "10.1.26100.2454")];
+        probe.Products = [new("Windows PE Deployment Add-ons", "10.1.26100.2454")];
 
-        Assert.False(new AdkInstallationDetector(probe).Detect().CanCreateMedia);
+        AdkInstallationStatus status = new AdkInstallationDetector(probe).Detect();
+
+        Assert.Null(status.InstalledVersion);
+        Assert.False(status.IsCompatible);
+        Assert.False(status.CanCreateMedia);
     }
 
     [Theory]
@@ -148,10 +152,10 @@ public sealed class AdkInstallationDetectorTests
     [InlineData("10.1.26100.1")]
     [InlineData("10.1.28000.1")]
     [InlineData(null)]
-    public void Detect_WhenWinPeVersionDoesNotMatch_BlocksMedia(string? version)
+    public void Detect_WhenOneWinPeComponentVersionDoesNotMatch_BlocksMedia(string? version)
     {
         var probe = CreateInstalledProbe("10.1.26100.2454");
-        probe.Products = probe.Products.Select(p => p.DisplayName.StartsWith("Windows PE", StringComparison.Ordinal)
+        probe.Products = probe.Products.Select(p => p.DisplayName == "Windows PE Scripts"
             ? p with { DisplayVersion = version } : p).ToArray();
 
         AdkInstallationStatus status = new AdkInstallationDetector(probe).Detect();
