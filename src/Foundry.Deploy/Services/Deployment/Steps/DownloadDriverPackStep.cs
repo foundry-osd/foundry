@@ -7,7 +7,6 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Logging;
-using Foundry.Utilities.IO;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
@@ -40,14 +39,12 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
             {
                 HardwareProfile hardwareProfile = context.RuntimeState.HardwareProfile
                     ?? throw new InvalidOperationException("Hardware profile is unavailable for Microsoft Update Catalog lookup.");
-                string rawDirectory = context.ResolveWorkspaceTempPath("DriverPack", "MicrosoftUpdateCatalog", "Raw");
-                string cacheDirectory = context.ResolveMicrosoftUpdateCatalogDriverCacheRoot();
-                DirectoryOperations.Recreate(rawDirectory);
+                string rawDirectory = Path.Combine(context.EnsureTargetFoundryRoot(), "Temp", "DriverPack", "MicrosoftUpdateCatalog");
                 context.EmitCurrentStepIndeterminate("Downloading driver pack...", "Preparing download...", DeploymentOperationNames.ResolveDriverPack);
                 IProgress<double> progress = context.CreateStepPercentProgressReporter("Downloading driver pack...", "Downloading");
 
                 MicrosoftUpdateCatalogDriverResult result = await _microsoftUpdateCatalogDriverService
-                    .DownloadAsync(hardwareProfile, context.Request.OperatingSystem, rawDirectory, cacheDirectory, cancellationToken, progress)
+                    .DownloadAsync(hardwareProfile, context.Request.OperatingSystem, rawDirectory, context.ResolveMicrosoftUpdateCatalogDriverCacheRoot, cancellationToken, progress)
                     .ConfigureAwait(false);
 
                 context.RuntimeState.DriverPackName = "Microsoft Update Catalog";
@@ -67,7 +64,8 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
                     return DeploymentStepResult.Skipped(result.Message);
                 }
 
-                context.RuntimeState.DownloadedDriverPackPath = result.DestinationDirectory;
+                context.RuntimeState.MicrosoftUpdateCatalogDriverPaths = result.DownloadedDrivers.Select(static driver => driver.FilePath).ToArray();
+                context.RuntimeState.DownloadedDriverPackPath = context.RuntimeState.MicrosoftUpdateCatalogDriverPaths.FirstOrDefault();
                 return DeploymentStepResult.Succeeded("Driver pack downloaded.");
             }
 
@@ -143,6 +141,7 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
             await File.WriteAllTextAsync(cabPath, "dry-run", cancellationToken).ConfigureAwait(false);
             context.RuntimeState.DriverPackName = "Microsoft Update Catalog";
             context.RuntimeState.DownloadedDriverPackPath = rawDirectory;
+            context.RuntimeState.MicrosoftUpdateCatalogDriverPaths = [cabPath];
             await context.AppendLogAsync(
                 DeploymentLogLevel.Info,
                 $"[DRY-RUN] Simulated Microsoft Update Catalog payload download: {rawDirectory}",
@@ -178,6 +177,7 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
     private static void ResetDriverPackRuntimeState(DeploymentRuntimeState runtimeState)
     {
         runtimeState.DownloadedDriverPackPath = null;
+        runtimeState.MicrosoftUpdateCatalogDriverPaths = [];
         runtimeState.DriverPackName = null;
         runtimeState.DriverPackUrl = null;
         runtimeState.DriverPackInstallMode = DriverPackInstallMode.None;

@@ -504,9 +504,12 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         return ResolvePayloadCacheRoot(DriverPacksFolderName, requiredBytes);
     }
 
-    public string ResolveMicrosoftUpdateCatalogDriverCacheRoot()
+    public string ResolveMicrosoftUpdateCatalogDriverCacheRoot(long requiredBytes)
     {
-        return Path.Combine(ResolvePayloadCacheRoot(MicrosoftUpdateCatalogFolderName, requiredBytes: 0), DriversFolderName);
+        string cacheRoot = requiredBytes > 0
+            ? ResolvePayloadCacheRoot(MicrosoftUpdateCatalogFolderName, requiredBytes)
+            : Path.Combine(EnsureTargetFoundryRoot(), CacheFolderName, MicrosoftUpdateCatalogFolderName);
+        return Path.Combine(cacheRoot, DriversFolderName);
     }
 
     public string ResolveMicrosoftUpdateCatalogFirmwareCacheRoot()

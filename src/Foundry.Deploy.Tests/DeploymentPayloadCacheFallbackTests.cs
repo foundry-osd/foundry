@@ -13,12 +13,74 @@ using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
+using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentPayloadCacheFallbackTests
 {
+    [Theory]
+    [InlineData(DeploymentMode.Usb, 1, false)]
+    [InlineData(DeploymentMode.Usb, long.MaxValue, true)]
+    [InlineData(DeploymentMode.Usb, 0, true)]
+    [InlineData(DeploymentMode.Iso, 1, true)]
+    public async Task CatalogDriverSteps_SelectCacheByCapacityAndExtractOnTarget(
+        DeploymentMode mode, long sizeInBytes, bool targetCache)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var downloadService = new CapturingArtifactDownloadService();
+        var extractor = new MicrosoftUpdateCatalogServiceTests.FakeArchiveExtractionService();
+        var catalogService = new MicrosoftUpdateCatalogDriverService(
+            extractor, new MicrosoftUpdateCatalogServiceTests.FakeMicrosoftUpdateCatalogClient { SizeInBytes = sizeInBytes },
+            downloadService, NullLogger<MicrosoftUpdateCatalogDriverService>.Instance);
+        DeploymentStepExecutionContext context = CreateExecutionContext(workspace, mode: mode, catalogDrivers: true);
+        var downloadStep = new DownloadDriverPackStep(catalogService, downloadService);
+
+        DeploymentStepResult downloadResult = await downloadStep.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, downloadResult.State);
+        string expectedPath = Path.Combine(targetCache ? workspace.TargetFoundryRoot : workspace.UsbCacheRoot,
+            "Cache", "MicrosoftUpdateCatalog", "Drivers", "update-1", "driver-amd64.cab");
+        string secondPath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(expectedPath))!, "update-2", "driver-amd64.cab");
+        Assert.Equal(secondPath, downloadService.DestinationPath);
+        Assert.Equal([expectedPath, secondPath], context.RuntimeState.MicrosoftUpdateCatalogDriverPaths);
+        Assert.Empty(Directory.EnumerateFiles(workspace.WorkspaceRoot, "*.cab", SearchOption.AllDirectories));
+
+        var processRunner = new Foundry.Deploy.Services.System.ProcessRunner(new ProcessRunner(),
+            NullLogger<Foundry.Deploy.Services.System.ProcessRunner>.Instance);
+        var extractionService = new DriverPackExtractionService(extractor, catalogService, processRunner,
+            NullLogger<DriverPackExtractionService>.Instance);
+        var extractStep = new ExtractDriverPackStep(new DriverPackStrategyResolver(), extractionService);
+        DeploymentStepResult extractResult = await extractStep.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, extractResult.State);
+        Assert.Equal([expectedPath, secondPath], extractor.SourcePaths);
+        Assert.StartsWith(Path.Combine(workspace.TargetFoundryRoot, "Extracted", "Drivers"), context.RuntimeState.ExtractedDriverPackPath);
+        Assert.Equal(2, Directory.EnumerateFiles(context.RuntimeState.ExtractedDriverPackPath!, "*.inf", SearchOption.AllDirectories).Count());
+    }
+
+    [Fact]
+    public async Task ExtractCatalogDrivers_WhenFirstSelectedCabDisappears_DoesNotSilentlySkipDrivers()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        DeploymentStepExecutionContext context = CreateExecutionContext(workspace, catalogDrivers: true);
+        string missingPath = Path.Combine(workspace.UsbCacheRoot, "missing.cab");
+        context.RuntimeState.DownloadedDriverPackPath = missingPath;
+        context.RuntimeState.MicrosoftUpdateCatalogDriverPaths = [missingPath];
+        var extractor = new MicrosoftUpdateCatalogServiceTests.FakeArchiveExtractionService();
+        var catalogService = new MicrosoftUpdateCatalogDriverService(extractor,
+            new MicrosoftUpdateCatalogServiceTests.FakeMicrosoftUpdateCatalogClient(), new CapturingArtifactDownloadService(),
+            NullLogger<MicrosoftUpdateCatalogDriverService>.Instance);
+        var processRunner = new Foundry.Deploy.Services.System.ProcessRunner(new ProcessRunner(),
+            NullLogger<Foundry.Deploy.Services.System.ProcessRunner>.Instance);
+        var step = new ExtractDriverPackStep(new DriverPackStrategyResolver(),
+            new DriverPackExtractionService(extractor, catalogService, processRunner, NullLogger<DriverPackExtractionService>.Instance));
+
+        await Assert.ThrowsAsync<FileNotFoundException>(() => step.ExecuteAsync(context, TestContext.Current.CancellationToken));
+        Assert.Empty(extractor.SourcePaths);
+    }
+
     [Fact]
     public async Task DownloadOperatingSystemImageStep_WhenUsbCacheHasInsufficientSpace_UsesTargetCache()
     {
@@ -179,7 +241,8 @@ public sealed class DeploymentPayloadCacheFallbackTests
         long driverPackSizeBytes = 1,
         string expectedHash = "",
         DeploymentMode mode = DeploymentMode.Usb,
-        Action<DeploymentStepProgress>? emitStepProgress = null)
+        Action<DeploymentStepProgress>? emitStepProgress = null,
+        bool catalogDrivers = false)
     {
         var request = new DeploymentContext
         {
@@ -194,7 +257,7 @@ public sealed class DeploymentPayloadCacheFallbackTests
                 SizeBytes = operatingSystemSizeBytes,
                 Sha256 = expectedHash
             },
-            DriverPackSelectionKind = DriverPackSelectionKind.OemCatalog,
+            DriverPackSelectionKind = catalogDrivers ? DriverPackSelectionKind.MicrosoftUpdateCatalog : DriverPackSelectionKind.OemCatalog,
             DriverPack = new DriverPackCatalogItem
             {
                 Manufacturer = "Contoso",
@@ -212,6 +275,7 @@ public sealed class DeploymentPayloadCacheFallbackTests
             WorkspaceRoot = workspace.WorkspaceRoot,
             Mode = mode,
             TargetFoundryRoot = workspace.TargetFoundryRoot,
+            HardwareProfile = MicrosoftUpdateCatalogServiceTests.CreateHardwareProfile(multipleDevices: catalogDrivers),
             ResolvedCache = new CacheResolution
             {
                 RootPath = workspace.UsbRuntimeRoot,
@@ -243,6 +307,8 @@ public sealed class DeploymentPayloadCacheFallbackTests
             IProgress<DownloadProgress>? progress = null)
         {
             DestinationPath = destinationPath;
+            Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
+            File.WriteAllText(destinationPath, "cab");
             return Task.FromResult(new ArtifactDownloadResult
             {
                 DestinationPath = destinationPath,
@@ -259,7 +325,7 @@ public sealed class DeploymentPayloadCacheFallbackTests
             HardwareProfile hardwareProfile,
             OperatingSystemCatalogItem operatingSystem,
             string destinationDirectory,
-            string cacheDirectory,
+            Func<long, string> resolveCacheDirectory,
             CancellationToken cancellationToken = default,
             IProgress<double>? progress = null)
         {
@@ -272,7 +338,7 @@ public sealed class DeploymentPayloadCacheFallbackTests
         }
 
         public Task<MicrosoftUpdateCatalogDriverResult> ExpandAsync(
-            string sourceDirectory,
+            IReadOnlyList<string> sourcePaths,
             string destinationDirectory,
             CancellationToken cancellationToken = default,
             IProgress<double>? progress = null)

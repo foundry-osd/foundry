@@ -32,13 +32,15 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
         }
 
         string downloadedPath = context.RuntimeState.DownloadedDriverPackPath ?? string.Empty;
-        if (!PathExists(downloadedPath))
+        if (context.Request.DriverPackSelectionKind == DriverPackSelectionKind.MicrosoftUpdateCatalog)
         {
-            if (context.Request.DriverPackSelectionKind == DriverPackSelectionKind.MicrosoftUpdateCatalog)
+            if (context.RuntimeState.MicrosoftUpdateCatalogDriverPaths.Count == 0)
             {
                 return DeploymentStepResult.Skipped("Microsoft Update Catalog did not produce a driver payload.");
             }
-
+        }
+        else if (!PathExists(downloadedPath))
+        {
             return CreateMissingDriverPackFailure();
         }
 
@@ -49,7 +51,10 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
         DriverPackExecutionPlan executionPlan = _driverPackStrategyResolver.Resolve(
             context.Request.DriverPackSelectionKind,
             context.Request.DriverPack,
-            downloadedPath);
+            downloadedPath) with
+        {
+            MicrosoftUpdateCatalogDriverPaths = context.RuntimeState.MicrosoftUpdateCatalogDriverPaths
+        };
 
         DriverPackExtractionResult result = await _driverPackExtractionService
             .ExtractAsync(executionPlan, extractionRoot, cancellationToken, progress)

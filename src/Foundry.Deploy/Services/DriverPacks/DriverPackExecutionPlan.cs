@@ -29,6 +29,8 @@ public sealed record DriverPackExecutionPlan
     /// </summary>
     public required string DownloadedPath { get; init; }
 
+    public IReadOnlyList<string> MicrosoftUpdateCatalogDriverPaths { get; init; } = [];
+
     /// <summary>
     /// Gets the effective file extension used to choose extraction and installation behavior.
     /// </summary>
