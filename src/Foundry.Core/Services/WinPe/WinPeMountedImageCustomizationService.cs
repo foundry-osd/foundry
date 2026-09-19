@@ -323,7 +323,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         WinPeDiagnostic primaryDiagnostic,
         WinPeMountSession session)
     {
-        WinPeResult discardResult = await session.DiscardAsync(CancellationToken.None).ConfigureAwait(false);
+        WinPeResult discardResult = await session.DiscardAsync().ConfigureAwait(false);
         if (discardResult.IsSuccess)
         {
             return WinPeResult.Failure(primaryDiagnostic);

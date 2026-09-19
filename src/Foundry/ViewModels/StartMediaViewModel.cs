@@ -38,6 +38,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeEmbeddedAssetService embeddedAssetService;
     private readonly IWinPeBuildService buildService;
     private readonly IWinPeWorkspacePreparationService workspacePreparationService;
+    private readonly WinPeWorkspaceCleanupService workspaceCleanupService;
     private readonly IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService;
     private readonly IWinPeIsoMediaService isoMediaService;
     private readonly IWinPeUsbMediaService usbMediaService;
@@ -74,6 +75,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeEmbeddedAssetService embeddedAssetService,
         IWinPeBuildService buildService,
         IWinPeWorkspacePreparationService workspacePreparationService,
+        WinPeWorkspaceCleanupService workspaceCleanupService,
         IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService,
         IWinPeIsoMediaService isoMediaService,
         IWinPeUsbMediaService usbMediaService,
@@ -95,6 +97,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.embeddedAssetService = embeddedAssetService;
         this.buildService = buildService;
         this.workspacePreparationService = workspacePreparationService;
+        this.workspaceCleanupService = workspaceCleanupService;
         this.runtimePayloadProvisioningService = runtimePayloadProvisioningService;
         this.isoMediaService = isoMediaService;
         this.usbMediaService = usbMediaService;
@@ -1407,15 +1410,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         foreach (string filePath in Directory.EnumerateFiles(workspaceRoot))
         {
-            try
-            {
-                logger.Debug("Cleaning stale WinPE workspace file. FilePath={FilePath}", filePath);
-                File.Delete(filePath);
-            }
-            catch (Exception ex)
-            {
-                logger.Warning(ex, "Failed to clean stale WinPE workspace file. FilePath={FilePath}", filePath);
-            }
+            DeleteWorkspaceDirectory(filePath, reportProgress: false);
         }
     }
 
@@ -1429,31 +1424,19 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             }
 
             logger.Debug("Cleaning WinPE workspace. WorkspacePath={WorkspacePath}", workspacePath);
-            NormalizeWorkspaceAttributes(workspacePath);
-            Directory.Delete(workspacePath, recursive: true);
+            WinPeResult cleanup = workspaceCleanupService.Delete(workspacePath);
+            if (!cleanup.IsSuccess)
+            {
+                logger.Warning("WinPE workspace cleanup was not completed. WorkspacePath={WorkspacePath}, Details={Details}",
+                    workspacePath, cleanup.Error?.Details);
+                return;
+            }
             logger.Debug("WinPE workspace cleaned. WorkspacePath={WorkspacePath}", workspacePath);
         }
         catch (Exception ex)
         {
             logger.Warning(ex, "Failed to clean WinPE workspace. WorkspacePath={WorkspacePath}", workspacePath);
         }
-    }
-
-    private static void NormalizeWorkspaceAttributes(string workspacePath)
-    {
-        foreach (string filePath in Directory.EnumerateFiles(workspacePath, "*", SearchOption.AllDirectories))
-        {
-            File.SetAttributes(filePath, FileAttributes.Normal);
-        }
-
-        foreach (string directoryPath in Directory
-            .EnumerateDirectories(workspacePath, "*", SearchOption.AllDirectories)
-            .OrderByDescending(path => path.Length))
-        {
-            File.SetAttributes(directoryPath, FileAttributes.Directory);
-        }
-
-        File.SetAttributes(workspacePath, FileAttributes.Directory);
     }
 
     private async Task ShowBlockedDialogAsync(

@@ -34,7 +34,7 @@ public sealed class WinPeBootImagePreparationServiceTests
             OnRun = (arguments, _) => { if (arguments.Contains(stage, StringComparison.Ordinal)) caller.Cancel(); }
         };
         using var client = new HttpClient(new StaticCatalogHandler(catalog));
-        var service = new WinPeBootImagePreparationService(runner, client);
+        var service = new WinPeBootImagePreparationService(runner, client, new WinPeWorkspaceCleanupService(() => []));
         try
         {
             WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
@@ -61,7 +61,7 @@ public sealed class WinPeBootImagePreparationServiceTests
     {
         using var cancellation = new CancellationTokenSource();
         using var client = new HttpClient(new CancelledCatalogHandler(cancellation));
-        var service = new WinPeBootImagePreparationService(new FakeWinPeProcessRunner(), client);
+        var service = new WinPeBootImagePreparationService(new FakeWinPeProcessRunner(), client, new WinPeWorkspaceCleanupService(() => []));
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.PrepareAsync(new WinPeBootImagePreparationOptions
         {
@@ -94,12 +94,13 @@ public sealed class WinPeBootImagePreparationServiceTests
                 }
                 if (arguments.Contains("/Discard", StringComparison.Ordinal))
                 {
-                    Assert.False(token.CanBeCanceled);
+                    Assert.True(token.CanBeCanceled);
+                    Assert.False(token.IsCancellationRequested);
                 }
             }
         };
         using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(string.Empty)));
-        var service = new WinPeBootImagePreparationService(runner, client);
+        var service = new WinPeBootImagePreparationService(runner, client, new WinPeWorkspaceCleanupService(() => []));
         try
         {
             await Assert.ThrowsAsync<OperationCanceledException>(() => service.PrepareAsync(new WinPeBootImagePreparationOptions
@@ -156,7 +157,7 @@ public sealed class WinPeBootImagePreparationServiceTests
             WrongGraphicsArchitecture = wrongArchitecture,
             IncludeWirelessSupport = bootImageSource == WinPeBootImageSource.WinReWifi
         };
-        var service = new WinPeBootImagePreparationService(runner, new HttpClient(new StaticCatalogHandler(catalog)));
+        var service = new WinPeBootImagePreparationService(runner, new HttpClient(new StaticCatalogHandler(catalog)), new WinPeWorkspaceCleanupService(() => []));
 
         try
         {
@@ -361,7 +362,7 @@ public sealed class WinPeBootImagePreparationServiceTests
         var runner = new FakeWinPeProcessRunner { FailingOperation = failingOperation, ExitCode = exitCode, CreateExport = createExport };
         var service = new WinPeBootImagePreparationService(
             runner,
-            new HttpClient(new StaticCatalogHandler(catalogXml)));
+            new HttpClient(new StaticCatalogHandler(catalogXml)), new WinPeWorkspaceCleanupService(() => []));
 
         try
         {
@@ -405,6 +406,32 @@ public sealed class WinPeBootImagePreparationServiceTests
         }
     }
 
+    [Fact]
+    public async Task PrepareAsync_WhenSourceDiscardFails_RetainsSessionForDisposalRetry()
+    {
+        using var directory = new Foundry.Core.Tests.TestUtilities.TemporaryDirectory();
+        string cache = Path.Combine(directory.Path, "cache");
+        Directory.CreateDirectory(cache);
+        await File.WriteAllTextAsync(Path.Combine(cache, "source.esd"), "cached source", TestContext.Current.CancellationToken);
+        var runner = new FakeWinPeProcessRunner { FailingOperation = "/Discard", ExitCode = 9 };
+        using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(string.Empty)));
+        var service = new WinPeBootImagePreparationService(runner, client, new WinPeWorkspaceCleanupService(() => []));
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
+        {
+            Artifact = new WinPeBuildArtifact { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(directory.Path, "boot.wim"), WorkingDirectoryPath = directory.Path },
+            Tools = new WinPeToolPaths { DismPath = "dism.exe" },
+            WinPeLanguage = "en-US",
+            CacheDirectoryPath = cache,
+            BootImageSource = WinPeBootImageSource.WinPe
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(9, result.Error?.ExitCode);
+        Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
+        Assert.Equal(2, runner.Executions.Count(execution => execution.Arguments.Contains("/Discard", StringComparison.Ordinal)));
+    }
+
     private static string CreateCatalogXml(string hash)
     {
         return $$"""
@@ -425,6 +452,34 @@ public sealed class WinPeBootImagePreparationServiceTests
                    </Item>
                  </Catalog>
                  """;
+    }
+
+    [Fact]
+    public async Task PrepareAsync_WhenPreviousSourceIsMounted_DoesNotRecreateItsDirectory()
+    {
+        using var directory = new Foundry.Core.Tests.TestUtilities.TemporaryDirectory();
+        string sourceDirectory = Path.Combine(directory.Path, "windows-source-Pro");
+        Directory.CreateDirectory(sourceDirectory);
+        string keep = Path.Combine(sourceDirectory, "keep.txt");
+        File.WriteAllText(keep, "keep");
+        var runner = new FakeWinPeProcessRunner();
+        using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(string.Empty)));
+        var cleanup = new WinPeWorkspaceCleanupService(() =>
+            [new WinPeMountedImage(Path.Combine(sourceDirectory, "install-mount"), Path.Combine(sourceDirectory, "export", "install.wim"))]);
+        var service = new WinPeBootImagePreparationService(runner, client, cleanup);
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
+        {
+            Artifact = new WinPeBuildArtifact { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(directory.Path, "boot.wim"), WorkingDirectoryPath = directory.Path },
+            Tools = new WinPeToolPaths { DismPath = "dism.exe" },
+            WinPeLanguage = "en-US",
+            CacheDirectoryPath = Path.Combine(directory.Path, "cache"),
+            BootImageSource = WinPeBootImageSource.WinPe
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Empty(runner.Executions);
+        Assert.Equal("keep", File.ReadAllText(keep));
     }
 
     private sealed class StaticCatalogHandler(string content) : HttpMessageHandler

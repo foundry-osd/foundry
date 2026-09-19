@@ -23,7 +23,8 @@ public sealed class WinPeMountedImageCustomizationServiceTests
                 {
                     cancellation.Cancel();
                 }
-                Assert.False(token.CanBeCanceled);
+                Assert.Equal(arguments.Contains("/Discard", StringComparison.Ordinal), token.CanBeCanceled);
+                Assert.False(token.IsCancellationRequested);
             }
         };
         var internationalization = new FakeInternationalizationService();
