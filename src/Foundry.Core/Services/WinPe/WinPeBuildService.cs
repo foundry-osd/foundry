@@ -11,6 +11,7 @@ public sealed class WinPeBuildService : IWinPeBuildService
 {
     private readonly WinPeToolResolver _toolResolver;
     private readonly IWinPeProcessRunner _processRunner;
+    private readonly WinPeWorkspaceCleanupService _workspaceCleanup;
 
     /// <summary>
     /// Initializes a WinPE build service using the default ADK tool resolver and process runner.
@@ -20,10 +21,12 @@ public sealed class WinPeBuildService : IWinPeBuildService
     {
     }
 
-    internal WinPeBuildService(WinPeToolResolver toolResolver, IWinPeProcessRunner processRunner)
+    internal WinPeBuildService(WinPeToolResolver toolResolver, IWinPeProcessRunner processRunner,
+        WinPeWorkspaceCleanupService? workspaceCleanup = null)
     {
         _toolResolver = toolResolver;
         _processRunner = processRunner;
+        _workspaceCleanup = workspaceCleanup ?? new WinPeWorkspaceCleanupService();
     }
 
     /// <inheritdoc />
@@ -52,8 +55,8 @@ public sealed class WinPeBuildService : IWinPeBuildService
         {
             if (Directory.Exists(workingDirectory) && options.CleanExistingWorkingDirectory)
             {
-                // The workspace is owned by this build stage, so stale ADK output is removed before Copype runs.
-                Directory.Delete(workingDirectory, recursive: true);
+                WinPeResult cleanup = _workspaceCleanup.Delete(workingDirectory);
+                if (!cleanup.IsSuccess) return WinPeResult<WinPeBuildArtifact>.Failure(cleanup.Error!);
             }
 
             Directory.CreateDirectory(options.OutputDirectoryPath);
