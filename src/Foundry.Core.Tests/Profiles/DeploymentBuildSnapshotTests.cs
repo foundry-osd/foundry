@@ -131,6 +131,46 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
     }
 
     [Fact]
+    public async Task CaptureAsync_RejectsAggregateDriverSizeBeforeOpeningAnySource()
+    {
+        string drivers = Path.Combine(root, "drivers");
+        string snapshots = Path.Combine(root, "snapshots");
+        Directory.CreateDirectory(drivers);
+        using FileStream first = new(Path.Combine(drivers, "first.sys"), FileMode.CreateNew, FileAccess.Write, FileShare.None);
+        using FileStream second = new(Path.Combine(drivers, "second.sys"), FileMode.CreateNew, FileAccess.Write, FileShare.None);
+        first.SetLength(1_073_741_824);
+        second.SetLength(1_073_741_825);
+        using var secrets = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument { General = new() { CustomDriverDirectoryPath = drivers } };
+
+        CustomDriverSizeLimitException exception = await Assert.ThrowsAsync<CustomDriverSizeLimitException>(() => DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], snapshots, TestContext.Current.CancellationToken));
+
+        Assert.Equal(2_147_483_649L, exception.ActualBytes);
+        Assert.Equal(2_147_483_648L, exception.LimitBytes);
+        Assert.DoesNotContain(drivers, exception.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.False(Directory.Exists(snapshots) && Directory.EnumerateDirectories(snapshots).Any());
+        Assert.Equal(1_073_741_824L, first.Length);
+        Assert.Equal(1_073_741_825L, second.Length);
+    }
+
+    [Fact]
+    public async Task CaptureAsync_DriverSizeAtLimitReachesSourceRead()
+    {
+        string drivers = Path.Combine(root, "drivers");
+        string snapshots = Path.Combine(root, "snapshots");
+        Directory.CreateDirectory(drivers);
+        using FileStream source = new(Path.Combine(drivers, "locked.sys"), FileMode.CreateNew, FileAccess.Write, FileShare.None);
+        source.SetLength(2_147_483_648);
+        using var secrets = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument { General = new() { CustomDriverDirectoryPath = drivers } };
+
+        IOException exception = await Assert.ThrowsAsync<IOException>(() => DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], snapshots, TestContext.Current.CancellationToken));
+
+        Assert.Equal(32, exception.HResult & 0xffff);
+        Assert.Empty(Directory.EnumerateDirectories(snapshots));
+    }
+
+    [Fact]
     public async Task Dispose_WhenSourceIsLocked_ClearsSecretsAndRetriesFileCleanup()
     {
         using var secrets = new OobeAccountSecretState();

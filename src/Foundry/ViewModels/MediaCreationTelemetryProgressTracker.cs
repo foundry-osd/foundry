@@ -55,7 +55,6 @@ internal sealed class MediaCreationTelemetryProgressTracker : ILogEventEnricher
         new("Checking USB target safety", MediaCreationStepNames.CheckUsbTargetSafety),
         new("Partitioning and formatting USB target", MediaCreationStepNames.PartitionAndFormatUsbTarget),
         new("Copying WinPE media to USB", MediaCreationStepNames.CopyWinPeMediaToUsb),
-        new("Configuring USB boot files", MediaCreationStepNames.ConfigureUsbBootFiles),
         new("Verifying USB boot media", MediaCreationStepNames.VerifyUsbBootMedia),
         new("Preparing USB cache partition", MediaCreationStepNames.PrepareUsbCachePartition),
         new("Provisioning USB runtime payloads", MediaCreationStepNames.ProvisionUsbRuntimePayloads)
@@ -224,7 +223,6 @@ internal static class MediaCreationStepNames
     public const string CheckUsbTargetSafety = "Check USB target safety";
     public const string PartitionAndFormatUsbTarget = "Partition and format USB target";
     public const string CopyWinPeMediaToUsb = "Copy WinPE media to USB";
-    public const string ConfigureUsbBootFiles = "Configure USB boot files";
     public const string VerifyUsbBootMedia = "Verify USB boot media";
     public const string PrepareUsbCachePartition = "Prepare USB cache partition";
     public const string ProvisionUsbRuntimePayloads = "Provision USB runtime payloads";

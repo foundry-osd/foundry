@@ -2942,9 +2942,6 @@ Passwords and access keys included: {2}</value>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Final media creation completed.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>Configuring USB boot files.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Copying WinPE media to USB.</value>
   </data>
@@ -2959,6 +2956,9 @@ Passwords and access keys included: {2}</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Creating cache partition.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>Custom drivers total at least {0}; the maximum is {1}. Select only the network and storage drivers needed by Windows PE.</value>
   </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Customizing the boot image.</value>
@@ -3109,6 +3109,15 @@ Passwords and access keys included: {2}</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Updating USB media.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>The USB BOOT partition needs approximately {0}, but its capacity is {1}. Nothing has been erased or formatted. Reduce customizations or drivers, or create an ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>The USB BOOT partition capacity could not be verified. Nothing has been erased or formatted. Check and reconnect the USB drive, then retry. Also check that the source files are accessible.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>A boot media file is {0}; FAT32 supports at most {1} per file. Reduce the boot image size or create an ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>USB boot partition updated.</value>

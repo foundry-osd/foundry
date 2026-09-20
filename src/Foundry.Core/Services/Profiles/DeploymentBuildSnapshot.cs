@@ -181,6 +181,10 @@ public sealed class DeploymentBuildSnapshot : IDisposable
         {
             if (exception is OperationCanceledException && cancellationToken.IsCancellationRequested)
                 Log.ForContext<DeploymentBuildSnapshot>().Information("Media snapshot preparation canceled.");
+            else if (exception is CustomDriverSizeLimitException sizeException)
+                Log.ForContext<DeploymentBuildSnapshot>().Warning(
+                    "Media snapshot preparation rejected custom driver sources. ActualBytes={ActualBytes}, LimitBytes={LimitBytes}",
+                    sizeException.ActualBytes, sizeException.LimitBytes);
             else
                 Log.ForContext<DeploymentBuildSnapshot>().Error(exception, "Media snapshot preparation failed.");
             try
@@ -198,8 +202,10 @@ public sealed class DeploymentBuildSnapshot : IDisposable
     private void PrepareFiles(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        CreatePrivateDirectory();
         FoundryConfigurationDocument sources = SelectActiveSources(configuration);
+        if (!string.IsNullOrWhiteSpace(sources.General.CustomDriverDirectoryPath))
+            ValidateDriverSources(sources.General.CustomDriverDirectoryPath, cancellationToken);
+        CreatePrivateDirectory();
         IReadOnlyList<DeploymentProfileAsset> assets = DeploymentProfileAssetService.Capture(sources, includeContent: true, requireContent: true);
         try
         {
@@ -322,6 +328,34 @@ public sealed class DeploymentBuildSnapshot : IDisposable
         }
     }
 
+    private static void ValidateDriverSources(string source, CancellationToken cancellationToken)
+    {
+        var pending = new Stack<DirectoryInfo>();
+        pending.Push(new DirectoryInfo(source));
+        long totalBytes = 0;
+        int entries = 0;
+        while (pending.TryPop(out DirectoryInfo? current))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if ((current.Attributes & FileAttributes.ReparsePoint) != 0)
+                throw new InvalidDataException("Custom driver snapshots do not follow reparse points.");
+            foreach (FileSystemInfo entry in current.EnumerateFileSystemInfos())
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                if (++entries > MaximumDriverEntries || (entry.Attributes & FileAttributes.ReparsePoint) != 0)
+                    throw new InvalidDataException("Custom driver snapshots exceed the entry limit or contain a reparse point.");
+                if (entry is DirectoryInfo directory)
+                {
+                    pending.Push(directory);
+                    continue;
+                }
+                totalBytes += ((FileInfo)entry).Length;
+                if (totalBytes > MaximumDriverBytes)
+                    throw new CustomDriverSizeLimitException(totalBytes, MaximumDriverBytes);
+            }
+        }
+    }
+
     private static void CopyDrivers(string source, string destination, CancellationToken cancellationToken)
     {
         var pending = new Stack<(DirectoryInfo Source, string Destination)>();
@@ -353,16 +387,19 @@ public sealed class DeploymentBuildSnapshot : IDisposable
                         continue;
                     }
                     using FileStream input = new(entry.FullName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                    totalBytes += input.Length;
-                    if (totalBytes > MaximumDriverBytes)
+                    // Source contents can change after metadata validation; enforce the bound again while copying.
+                    if (totalBytes + input.Length > MaximumDriverBytes)
                     {
-                        throw new InvalidDataException("Custom driver snapshots exceed the supported size.");
+                        throw new CustomDriverSizeLimitException(totalBytes + input.Length, MaximumDriverBytes);
                     }
                     using FileStream output = new(target, FileMode.CreateNew, FileAccess.Write, FileShare.None);
                     int count;
                     while ((count = input.Read(buffer)) != 0)
                     {
                         cancellationToken.ThrowIfCancellationRequested();
+                        totalBytes += count;
+                        if (totalBytes > MaximumDriverBytes)
+                            throw new CustomDriverSizeLimitException(totalBytes, MaximumDriverBytes);
                         output.Write(buffer, 0, count);
                     }
                 }

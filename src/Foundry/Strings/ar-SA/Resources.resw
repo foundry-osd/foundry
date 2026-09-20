@@ -2942,9 +2942,6 @@
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>تم الانتهاء من إنشاء الوسائط النهائية.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>تكوين ملفات التمهيد USB.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>نسخ الوسائط WinPE إلى USB.</value>
   </data>
@@ -2959,6 +2956,9 @@
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>إنشاء قسم ذاكرة التخزين المؤقت.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>يبلغ الحجم الإجمالي لبرامج التشغيل المخصصة {0} على الأقل؛ والحد الأقصى هو {1}. حدد فقط برامج تشغيل الشبكة والتخزين التي يحتاجها Windows PE.</value>
   </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>تخصيص صورة التمهيد.</value>
@@ -3109,6 +3109,15 @@
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>تحديث وسيط USB.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>يحتاج قسم BOOT على USB إلى نحو {0}، لكن سعته هي {1}. لم يتم مسح أي شيء أو تهيئته. قلل التخصيصات أو برامج التشغيل، أو أنشئ ملف ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>تعذر التحقق من سعة قسم BOOT على USB. لم يتم مسح أي شيء أو تهيئته. تحقق من محرك أقراص USB وأعد توصيله، ثم حاول مرة أخرى. تحقق أيضًا من إمكانية الوصول إلى الملفات المصدر.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>حجم أحد ملفات وسائط التمهيد هو {0}؛ ويدعم FAT32 حدًا أقصى قدره {1} لكل ملف. قلل حجم صورة التمهيد أو أنشئ ملف ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>تم تحديث قسم تمهيد USB.</value>

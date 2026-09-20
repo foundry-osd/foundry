@@ -2942,9 +2942,6 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Definitieve mediacreatie voltooid.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>USB opstartbestanden configureren.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>WinPE-media kopiëren naar USB.</value>
   </data>
@@ -2959,6 +2956,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Cachepartitie maken.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>De aangepaste stuurprogramma’s nemen minstens {0} in beslag; het maximum is {1}. Selecteer alleen de netwerk- en opslagstuurprogramma’s die Windows PE nodig heeft.</value>
   </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Het opstartimage aanpassen.</value>
@@ -3109,6 +3109,15 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>USB-media bijwerken.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>De USB-BOOT-partitie heeft ongeveer {0} nodig, maar de capaciteit is {1}. Er is niets gewist of geformatteerd. Verminder de aanpassingen of stuurprogramma’s, of maak een ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>De capaciteit van de USB-BOOT-partitie kon niet worden gecontroleerd. Er is niets gewist of geformatteerd. Controleer het USB-station, sluit het opnieuw aan en probeer het opnieuw. Controleer ook of de bronbestanden toegankelijk zijn.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>Een bestand op het opstartmedium is {0} groot; FAT32 ondersteunt maximaal {1} per bestand. Verklein de opstartkopie of maak een ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>USB-opstartpartitie is bijgewerkt.</value>

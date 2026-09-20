@@ -2942,9 +2942,6 @@
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Окончательное создание носителя завершено.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>Настройка загрузочных файлов USB.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Копирование носителя WinPE в USB.</value>
   </data>
@@ -2959,6 +2956,9 @@
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Создание раздела кэша.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>Пользовательские драйверы занимают не менее {0}; допустимый максимум — {1}. Выберите только сетевые драйверы и драйверы хранилища, необходимые для Windows PE.</value>
   </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Настройка загрузочного образа.</value>
@@ -3109,6 +3109,15 @@
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Обновление USB-носителя.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>Для раздела BOOT на USB требуется примерно {0}, но его ёмкость составляет {1}. Удаление и форматирование не выполнялись. Уменьшите объём настроек или драйверов либо создайте ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>Не удалось проверить ёмкость раздела BOOT на USB. Удаление и форматирование не выполнялись. Проверьте и повторно подключите USB-накопитель, затем повторите попытку. Также проверьте доступность исходных файлов.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>Размер файла на загрузочном носителе составляет {0}; FAT32 поддерживает не более {1} на файл. Уменьшите размер загрузочного образа или создайте ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>Загрузочный раздел USB обновлен.</value>
