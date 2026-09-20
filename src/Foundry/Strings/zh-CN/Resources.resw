@@ -2942,9 +2942,6 @@
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>最终媒体创建完成。</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>配置USB启动文件。</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>正在将WinPE 媒体复制到USB。</value>
   </data>

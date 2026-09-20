@@ -1390,7 +1390,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             "Formatting cache partition." => "StartMedia.Operation.FormattingUsbCachePartition",
             "USB partitions formatted." => "StartMedia.Operation.UsbPartitionsFormatted",
             "Copying WinPE media to USB." => "StartMedia.Operation.CopyingUsbMedia",
-            "Configuring USB boot files." => "StartMedia.Operation.ConfiguringUsbBootFiles",
             "Verifying USB boot media." => "StartMedia.Operation.VerifyingUsbMedia",
             "Preparing USB cache partition." => "StartMedia.Operation.PreparingUsbCache",
             "Provisioning USB runtime payloads." => "StartMedia.Operation.ProvisioningUsbRuntimePayloads",

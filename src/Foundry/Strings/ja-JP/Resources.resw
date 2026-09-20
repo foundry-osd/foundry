@@ -2942,9 +2942,6 @@
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>最終的なメディアの作成が完了しました。</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>USB ブート ファイルを構成しています。</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>WinPE メディアを USB にコピーしています。</value>
   </data>

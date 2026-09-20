@@ -2942,9 +2942,6 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Nihai medya oluşturma işlemi tamamlandı.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>USB önyükleme dosyalarını yapılandırma.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>WinPE medyası USB öğesine kopyalanıyor.</value>
   </data>

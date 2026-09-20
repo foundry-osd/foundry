@@ -2942,9 +2942,6 @@
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>יצירת המדיה הסופית הושלמה.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>הגדרת קובצי אתחול USB.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>העתקת מדיה WinPE אל USB.</value>
   </data>

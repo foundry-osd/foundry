@@ -2942,9 +2942,6 @@
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>การสร้างสื่อขั้นสุดท้ายเสร็จสมบูรณ์</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>การกำหนดค่าไฟล์บูต USB</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>กำลังคัดลอกสื่อ WinPE ไปยัง USB</value>
   </data>

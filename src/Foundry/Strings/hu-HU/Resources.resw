@@ -2942,9 +2942,6 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>A média végleges létrehozása befejeződött.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>USB rendszerindító fájlok beállítása.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>WinPE adathordozó másolása USB mappába.</value>
   </data>

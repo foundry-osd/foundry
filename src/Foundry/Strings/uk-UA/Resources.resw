@@ -2942,9 +2942,6 @@
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Остаточне створення медіафайлів завершено.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>Налаштування файлів завантаження USB.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Копіювання медіа WinPE на USB.</value>
   </data>

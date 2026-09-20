@@ -2942,9 +2942,6 @@ Dołączone hasła i klucze dostępu: {2}</value>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Zakończono końcowe tworzenie multimediów.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>Konfigurowanie plików startowych USB.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Kopiowanie nośnika WinPE do USB.</value>
   </data>

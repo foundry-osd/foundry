@@ -2942,9 +2942,6 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Završeno kreiranje medija.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>Konfigurisanje datoteka za pokretanje USB.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Kopiranje medija WinPE u USB.</value>
   </data>

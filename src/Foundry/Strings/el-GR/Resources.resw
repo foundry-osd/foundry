@@ -2942,9 +2942,6 @@
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Η τελική δημιουργία μέσων ολοκληρώθηκε.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>Διαμόρφωση αρχείων εκκίνησης USB.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Αντιγραφή πολυμέσων WinPE στο USB.</value>
   </data>

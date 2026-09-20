@@ -2942,9 +2942,6 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Finální vytvoření média dokončeno.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>Konfigurace spouštěcích souborů USB.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Kopírování média WinPE do USB.</value>
   </data>

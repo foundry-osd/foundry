@@ -2942,9 +2942,6 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Det sista medieskapandet avslutat.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>Konfigurerar USB startfiler.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Kopiera WinPE media till USB.</value>
   </data>

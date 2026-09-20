@@ -2942,9 +2942,6 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Creación final de medios completada.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>Configurando archivos de arranque USB.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Copiando medios WinPE a USB.</value>
   </data>
