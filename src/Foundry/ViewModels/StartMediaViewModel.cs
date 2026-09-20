@@ -586,14 +586,23 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         catch (Exception ex) when (ex is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
         {
             bool isTimeout = ex is TimeoutException or OperationCanceledException;
-            failureDiagnostic = (ex as WinPeOperationException)?.Diagnostic ?? new WinPeDiagnostic(
-                WinPeErrorCodes.InternalError,
-                "Unexpected boot media creation failure.",
-                ex.ToString(),
-                telemetryProgressTracker.CurrentStepName,
-                failureKind: isTimeout ? WinPeFailureKinds.Network : WinPeFailureKinds.Internal,
-                failureReason: isTimeout ? WinPeFailureReasons.Timeout : WinPeFailureReasons.Unexpected,
-                exception: ex);
+            failureDiagnostic = ex is CustomDriverSizeLimitException driverSizeLimit
+                ? new WinPeDiagnostic(
+                    WinPeErrorCodes.CustomDriversTooLarge,
+                    "The custom driver directory exceeds the supported size limit.",
+                    stage: telemetryProgressTracker.CurrentStepName)
+                {
+                    RequiredBytes = (ulong)driverSizeLimit.ActualBytes,
+                    AvailableBytes = (ulong)driverSizeLimit.LimitBytes
+                }
+                : (ex as WinPeOperationException)?.Diagnostic ?? new WinPeDiagnostic(
+                    WinPeErrorCodes.InternalError,
+                    "Unexpected boot media creation failure.",
+                    ex.ToString(),
+                    telemetryProgressTracker.CurrentStepName,
+                    failureKind: isTimeout ? WinPeFailureKinds.Network : WinPeFailureKinds.Internal,
+                    failureReason: isTimeout ? WinPeFailureReasons.Timeout : WinPeFailureReasons.Unexpected,
+                    exception: ex);
             string failedStepName = string.IsNullOrWhiteSpace(failureDiagnostic.Stage)
                 ? telemetryProgressTracker.CurrentStepName
                 : failureDiagnostic.Stage;
@@ -605,24 +614,46 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 {
                     WinPeErrorCodes.UsbIdentityMismatch => localizationService.GetString("StartMedia.Operation.DiskIdentityCannotBeConfirmed"),
                     WinPeErrorCodes.UsbUnsafeTarget => localizationService.GetString("StartMedia.Operation.DiskNoLongerSafe"),
+                    WinPeErrorCodes.CustomDriversTooLarge => FormatMediaCapacityFailure("StartMedia.Operation.CustomDriversTooLarge", failureDiagnostic),
+                    WinPeErrorCodes.UsbBootCapacityInsufficient => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootCapacityInsufficient", failureDiagnostic),
+                    WinPeErrorCodes.UsbBootCapacityUnknown => localizationService.GetString("StartMedia.Operation.UsbBootCapacityUnknown"),
+                    WinPeErrorCodes.UsbBootFileTooLarge => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootFileTooLarge", failureDiagnostic),
                     _ => ex.Message
                 };
             terminalStatus = string.IsNullOrWhiteSpace(failureMessage)
                 ? failedStatus
                 : $"{failedStatus} {failureMessage}";
             operationProgressService.Complete(terminalStatus);
-            logger.Error(
-                ex,
-                "Final boot media operation failed. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, ToolName={ToolName}, ExitCode={ExitCode}, RetryCount={RetryCount}, FailureSummary={FailureSummary}",
-                failedStepName,
-                stopwatch.ElapsedMilliseconds,
-                failureDiagnostic.FailureKind,
-                failureDiagnostic.FailureReason,
-                failureDiagnostic.Code,
-                failureDiagnostic.ToolName,
-                failureDiagnostic.ExitCode,
-                failureDiagnostic.RetryCount,
-                failureDiagnostic.Message);
+            if (failureDiagnostic.Code is WinPeErrorCodes.CustomDriversTooLarge
+                or WinPeErrorCodes.UsbBootCapacityInsufficient
+                or WinPeErrorCodes.UsbBootCapacityUnknown
+                or WinPeErrorCodes.UsbBootFileTooLarge)
+            {
+                logger.Warning(
+                    "Final boot media operation failed validation. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RequiredBytes={RequiredBytes}, AvailableBytes={AvailableBytes}",
+                    failedStepName,
+                    stopwatch.ElapsedMilliseconds,
+                    failureDiagnostic.FailureKind,
+                    failureDiagnostic.FailureReason,
+                    failureDiagnostic.Code,
+                    failureDiagnostic.RequiredBytes,
+                    failureDiagnostic.AvailableBytes);
+            }
+            else
+            {
+                logger.Error(
+                    ex,
+                    "Final boot media operation failed. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, ToolName={ToolName}, ExitCode={ExitCode}, RetryCount={RetryCount}, FailureSummary={FailureSummary}",
+                    failedStepName,
+                    stopwatch.ElapsedMilliseconds,
+                    failureDiagnostic.FailureKind,
+                    failureDiagnostic.FailureReason,
+                    failureDiagnostic.Code,
+                    failureDiagnostic.ToolName,
+                    failureDiagnostic.ExitCode,
+                    failureDiagnostic.RetryCount,
+                    failureDiagnostic.Message);
+            }
         }
         catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested)
         {
@@ -1359,7 +1390,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             "Formatting cache partition." => "StartMedia.Operation.FormattingUsbCachePartition",
             "USB partitions formatted." => "StartMedia.Operation.UsbPartitionsFormatted",
             "Copying WinPE media to USB." => "StartMedia.Operation.CopyingUsbMedia",
-            "Configuring USB boot files." => "StartMedia.Operation.ConfiguringUsbBootFiles",
             "Verifying USB boot media." => "StartMedia.Operation.VerifyingUsbMedia",
             "Preparing USB cache partition." => "StartMedia.Operation.PreparingUsbCache",
             "Provisioning USB runtime payloads." => "StartMedia.Operation.ProvisioningUsbRuntimePayloads",
@@ -2435,6 +2465,24 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private string FormatDriverVendor(WinPeVendorSelection vendor)
     {
         return localizationService.GetString($"StartMedia.DriverVendor.{vendor}");
+    }
+
+    private string FormatMediaCapacityFailure(string resourceKey, WinPeDiagnostic diagnostic)
+    {
+        string required = diagnostic.RequiredBytes is ulong requiredBytes ? FormatByteSize(requiredBytes) : "—";
+        string available = diagnostic.AvailableBytes is ulong availableBytes ? FormatByteSize(availableBytes) : "—";
+        // Near a limit, rounded sizes can look identical even though validation correctly rejects the payload.
+        if (required == available && diagnostic.RequiredBytes > diagnostic.AvailableBytes)
+        {
+            string unit = localizationService.GetString("StartMedia.ByteUnit.B");
+            required = $"{diagnostic.RequiredBytes:N0} {unit}";
+            available = $"{diagnostic.AvailableBytes:N0} {unit}";
+        }
+        return string.Format(
+            CultureInfo.CurrentCulture,
+            localizationService.GetString(resourceKey),
+            required,
+            available);
     }
 
     private string FormatByteSize(ulong bytes)

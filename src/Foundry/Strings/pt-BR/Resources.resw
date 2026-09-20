@@ -2942,9 +2942,6 @@ Senhas e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.Completed" xml:space="preserve">
     <value>Criação final da mídia concluída.</value>
   </data>
-  <data name="StartMedia.Operation.ConfiguringUsbBootFiles" xml:space="preserve">
-    <value>Configurando arquivos de inicialização USB.</value>
-  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Copiando mídia WinPE para USB.</value>
   </data>
@@ -2959,6 +2956,9 @@ Senhas e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Criando partição de cache.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
+    <value>Os drivers personalizados ocupam pelo menos {0}; o máximo é {1}. Selecione apenas os drivers de rede e armazenamento necessários para o Windows PE.</value>
   </data>
   <data name="StartMedia.Operation.CustomizingImage" xml:space="preserve">
     <value>Personalizando a imagem de inicialização.</value>
@@ -3109,6 +3109,15 @@ Senhas e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.UpdatingUsb" xml:space="preserve">
     <value>Atualizando mídia USB.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityInsufficient" xml:space="preserve">
+    <value>A partição BOOT USB precisa de aproximadamente {0}, mas sua capacidade é {1}. Nada foi apagado ou formatado. Reduza as personalizações ou os drivers, ou crie uma ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootCapacityUnknown" xml:space="preserve">
+    <value>Não foi possível verificar a capacidade da partição BOOT USB. Nada foi apagado ou formatado. Verifique e reconecte a unidade USB e tente novamente. Verifique também se os arquivos de origem estão acessíveis.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
+    <value>Um arquivo da mídia de inicialização ocupa {0}; o FAT32 aceita no máximo {1} por arquivo. Reduza o tamanho da imagem de inicialização ou crie uma ISO.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootPartitionUpdated" xml:space="preserve">
     <value>A partição de inicialização USB foi atualizada.</value>
