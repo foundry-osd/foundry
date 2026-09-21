@@ -21,6 +21,39 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class StagePreOobeCustomizationStepTests
 {
+    [Theory]
+    [InlineData("RET", false, false, true)]
+    [InlineData("ret", false, true, true)]
+    [InlineData("VOL", false, false, false)]
+    [InlineData("RET", true, false, false)]
+    [InlineData("RET", true, true, false)]
+    [InlineData("", false, false, false)]
+    [InlineData("OEM", false, false, false)]
+    public async Task StagePreOobeCustomizationStep_OnlyStandardRetailDeploymentsStageOemActivation(
+        string licenseChannel,
+        bool usesCustomUnattend,
+        bool isDryRun,
+        bool expectsActivation)
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentStepExecutionContext context = CreateContext(tempDirectory, licenseChannel, usesCustomUnattend, isDryRun);
+        var step = new StagePreOobeCustomizationStep(
+            new PreOobeScriptProvisioningService(new SetupCompleteScriptService()),
+            new PreOobeScriptDefinitionBuilder(),
+            new FakeDriverPackStrategyResolver());
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(expectsActivation ? DeploymentStepState.Succeeded : DeploymentStepState.Skipped, result.State);
+        Assert.Equal(expectsActivation, context.RuntimeState.PreOobeScriptPaths.Any(
+            path => path.EndsWith("Activate-WindowsOem.ps1", StringComparison.OrdinalIgnoreCase)));
+        if (expectsActivation && !isDryRun)
+        {
+            Assert.True(File.Exists(context.RuntimeState.PreOobeSetupCompletePath));
+            Assert.True(File.Exists(Assert.Single(context.RuntimeState.PreOobeScriptPaths)));
+        }
+    }
+
     [Fact]
     public async Task StagePreOobeCustomizationStep_WhenRoamingPayloadExists_StagesImporterAndCleanup()
     {
@@ -43,12 +76,12 @@ public sealed class StagePreOobeCustomizationStepTests
     }
 
     [Fact]
-    public async Task StagePreOobeCustomizationStep_WhenDeferredDriverAndRoamingPayloadExist_StagesDriverPackageAndScripts()
+    public async Task StagePreOobeCustomizationStep_WhenRetailWithDriversAndRoaming_StagesActivationBeforeCleanup()
     {
         using var tempDirectory = new TemporaryDirectory();
         string driverPackagePath = Path.Combine(tempDirectory.RootPath, "driver.exe");
         File.WriteAllBytes(driverPackagePath, [1, 2, 3]);
-        DeploymentStepExecutionContext context = CreateContext(tempDirectory);
+        DeploymentStepExecutionContext context = CreateContext(tempDirectory, licenseChannel: "RET");
         context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
         context.RuntimeState.DownloadedDriverPackPath = driverPackagePath;
         var step = new StagePreOobeCustomizationStep(
@@ -65,12 +98,16 @@ public sealed class StagePreOobeCustomizationStepTests
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Install-DriverPack.ps1", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Import-NetworkProfiles.ps1", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Cleanup-PreOobe.ps1", StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Activate-WindowsOem.ps1", StringComparison.OrdinalIgnoreCase));
         string runner = File.ReadAllText(context.RuntimeState.PreOobeRunnerPath!);
         Assert.True(
             runner.IndexOf("Install-DriverPack.ps1", StringComparison.Ordinal) <
             runner.IndexOf("Import-NetworkProfiles.ps1", StringComparison.Ordinal));
         Assert.True(
             runner.IndexOf("Import-NetworkProfiles.ps1", StringComparison.Ordinal) <
+            runner.IndexOf("Activate-WindowsOem.ps1", StringComparison.Ordinal));
+        Assert.True(
+            runner.IndexOf("Activate-WindowsOem.ps1", StringComparison.Ordinal) <
             runner.IndexOf("Cleanup-PreOobe.ps1", StringComparison.Ordinal));
     }
 
@@ -135,16 +172,23 @@ public sealed class StagePreOobeCustomizationStepTests
         };
     }
 
-    private static DeploymentStepExecutionContext CreateContext(TemporaryDirectory tempDirectory)
+    private static DeploymentStepExecutionContext CreateContext(
+        TemporaryDirectory tempDirectory,
+        string licenseChannel = "",
+        bool usesCustomUnattend = false,
+        bool isDryRun = false)
     {
         var request = new DeploymentContext
         {
             Mode = DeploymentMode.Iso,
-            IsDryRun = false,
+            IsDryRun = isDryRun,
+            Unattend = usesCustomUnattend
+                ? new UnattendSelection(new Foundry.Core.Models.Configuration.Deploy.DeployUnattendFile(), "custom.xml")
+                : null,
             CacheRootPath = tempDirectory.WorkspaceRoot,
             TargetDiskNumber = 1,
             TargetComputerName = "LAB01",
-            OperatingSystem = new OperatingSystemCatalogItem(),
+            OperatingSystem = new OperatingSystemCatalogItem { LicenseChannel = licenseChannel },
             DriverPackSelectionKind = DriverPackSelectionKind.OemCatalog,
             DriverPack = new DriverPackCatalogItem()
         };

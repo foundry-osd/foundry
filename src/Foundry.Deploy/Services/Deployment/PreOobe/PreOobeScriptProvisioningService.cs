@@ -128,6 +128,11 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
             throw new ArgumentException("Pre-OOBE script resource name is required.", nameof(script));
         }
 
+        if (script.TimeoutSeconds is <= 0 or > int.MaxValue / 1000)
+        {
+            throw new ArgumentOutOfRangeException(nameof(script), "Pre-OOBE script timeout must be a positive number of seconds that fits in milliseconds.");
+        }
+
         return script with
         {
             Id = script.Id.Trim(),
@@ -216,16 +221,23 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
         builder.AppendLine("$preOobeRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\PreOobe'");
         builder.AppendLine("$scriptsRoot = Join-Path $preOobeRoot 'Scripts'");
         builder.AppendLine();
+        AppendSupervisedScriptFunction(builder);
         builder.AppendLine("function Invoke-FoundryScript {");
         builder.AppendLine("    param(");
         builder.AppendLine("        [Parameter(Mandatory = $true)]");
         builder.AppendLine("        [string]$ScriptPath,");
-        builder.AppendLine("        [string[]]$Arguments = @()");
+        builder.AppendLine("        [string[]]$Arguments = @(),");
+        builder.AppendLine("        [int]$TimeoutSeconds = 0,");
+        builder.AppendLine("        [switch]$ContinueOnError");
         builder.AppendLine("    )");
         builder.AppendLine();
         builder.AppendLine("    $name = [System.IO.Path]::GetFileNameWithoutExtension($ScriptPath)");
         builder.AppendLine("    $logRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\Logs\\PreOobe'");
         builder.AppendLine("    $transcriptPath = Join-Path $logRoot \"$name.transcript.log\"");
+        builder.AppendLine("    if ($TimeoutSeconds -gt 0 -or $ContinueOnError) {");
+        builder.AppendLine("        Invoke-FoundrySupervisedScript -ScriptPath $ScriptPath -Arguments $Arguments -TimeoutSeconds $TimeoutSeconds -ContinueOnError:$ContinueOnError");
+        builder.AppendLine("        return");
+        builder.AppendLine("    }");
         builder.AppendLine("    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $ScriptPath @Arguments");
         builder.AppendLine("    if ($LASTEXITCODE -ne 0) {");
         builder.AppendLine("        throw \"Pre-OOBE script '$ScriptPath' failed with exit code $LASTEXITCODE. See '$transcriptPath'.\"");
@@ -271,13 +283,81 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
         return builder.ToString();
     }
 
+    private static void AppendSupervisedScriptFunction(StringBuilder builder)
+    {
+        builder.AppendLine("""
+            function Invoke-FoundrySupervisedScript {
+                param([string]$ScriptPath, [string[]]$Arguments, [int]$TimeoutSeconds, [switch]$ContinueOnError)
+
+                $name = [System.IO.Path]::GetFileNameWithoutExtension($ScriptPath)
+                $process = New-Object System.Diagnostics.Process
+                $started = $false
+                $failure = "Pre-OOBE script '$name' could not complete."
+                try {
+                    $process.StartInfo.FileName = Join-Path $PSHOME 'powershell.exe'
+                    $tokens = @('-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', $ScriptPath) + $Arguments
+                    $quotedTokens = foreach ($token in $tokens) {
+                        $escaped = [regex]::Replace([string]$token, '(\\*)"', '$1$1\"')
+                        '"' + [regex]::Replace($escaped, '(\\+)$', '$1$1') + '"'
+                    }
+                    $process.StartInfo.Arguments = $quotedTokens -join ' '
+                    $process.StartInfo.UseShellExecute = $false
+                    $process.StartInfo.CreateNoWindow = $true
+                    $process.StartInfo.RedirectStandardOutput = $true
+                    $process.StartInfo.RedirectStandardError = $true
+                    $started = $process.Start()
+                    $output = $process.StandardOutput.ReadToEndAsync()
+                    $errorOutput = $process.StandardError.ReadToEndAsync()
+                    $waitMilliseconds = -1
+                    if ($TimeoutSeconds -gt 0) { $waitMilliseconds = $TimeoutSeconds * 1000 }
+                    if (-not $process.WaitForExit($waitMilliseconds)) {
+                        $failure = "Pre-OOBE script '$name' timed out after $TimeoutSeconds seconds."
+                        throw $failure
+                    }
+
+                    # Descendants can retain inherited pipes after the script exits; never drain them indefinitely.
+                    if ($output.Wait(1000)) { Write-Output $output.Result }
+                    if ($process.ExitCode -ne 0) {
+                        $failure = "Pre-OOBE script '$name' failed with exit code $($process.ExitCode)."
+                        throw $failure
+                    }
+                }
+                catch {
+                    if ($ContinueOnError) { Write-Warning $failure }
+                    else { throw $failure }
+                }
+                finally {
+                    try {
+                        if ($started -and -not $process.HasExited) {
+                            $process.Kill()
+                            [void]$process.WaitForExit(5000)
+                        }
+                    }
+                    catch { Write-Warning "Pre-OOBE script '$name' could not be stopped." }
+                    $process.Dispose()
+                }
+            }
+
+            """);
+    }
+
     private static void AppendInvokeFoundryScript(StringBuilder builder, PreOobeScriptDefinition script, string indent = "")
     {
         builder.Append(indent);
         builder.Append("Invoke-FoundryScript -ScriptPath (Join-Path $scriptsRoot ");
         builder.Append(ToPowerShellString(script.FileName));
         builder.Append(") -Arguments ");
-        builder.AppendLine(ToPowerShellArray(script.Arguments));
+        builder.Append(ToPowerShellArray(script.Arguments));
+        if (script.TimeoutSeconds is int timeoutSeconds)
+        {
+            builder.Append(" -TimeoutSeconds ");
+            builder.Append(timeoutSeconds);
+        }
+        if (script.ContinueOnError)
+        {
+            builder.Append(" -ContinueOnError");
+        }
+        builder.AppendLine();
     }
 
     private static string BuildSetupCompleteLauncher()
@@ -305,6 +385,8 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
                 fileName = script.FileName,
                 priority = (int)script.Priority,
                 arguments = script.Arguments,
+                timeoutSeconds = script.TimeoutSeconds,
+                continueOnError = script.ContinueOnError,
                 dataFiles = script.DataFiles.Select(dataFile => dataFile.FileName)
             })
         }, new JsonSerializerOptions

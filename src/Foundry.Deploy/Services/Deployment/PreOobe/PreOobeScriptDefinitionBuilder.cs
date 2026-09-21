@@ -27,13 +27,14 @@ public sealed class PreOobeScriptDefinitionBuilder
     }
 
     /// <summary>
-    /// Builds script definitions for selected customizations and optional deferred driver provisioning.
+    /// Builds scripts for selected customizations, deferred drivers, and eligible OEM activation.
     /// </summary>
     public IReadOnlyList<PreOobeScriptDefinition> Build(
         DeployAppxRemovalSettings appxRemoval,
         DeployAiComponentRemovalSettings aiComponentRemoval,
         PreOobeDriverPackScriptSettings? driverPack = null,
-        PreOobeNetworkProfileRoamingPayload? networkProfileRoaming = null)
+        PreOobeNetworkProfileRoamingPayload? networkProfileRoaming = null,
+        bool activateWindowsOem = false)
     {
         ArgumentNullException.ThrowIfNull(appxRemoval);
         ArgumentNullException.ThrowIfNull(aiComponentRemoval);
@@ -114,6 +115,19 @@ public sealed class PreOobeScriptDefinitionBuilder
                         Content = BuildRemoveAiComponentsSettings(aiComponentRemoval)
                     }
                 ]
+            });
+        }
+
+        if (activateWindowsOem)
+        {
+            scripts.Add(new PreOobeScriptDefinition
+            {
+                Id = "windows-oem-activation",
+                FileName = "Activate-WindowsOem.ps1",
+                ResourceName = PreOobeScriptResources.ActivateWindowsOem,
+                Priority = PreOobeScriptPriority.Activation,
+                TimeoutSeconds = 60,
+                ContinueOnError = true
             });
         }
 

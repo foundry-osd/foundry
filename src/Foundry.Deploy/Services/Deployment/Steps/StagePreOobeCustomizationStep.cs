@@ -68,7 +68,8 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             context.RuntimeState.AppxRemoval,
             context.RuntimeState.AiComponentRemoval,
             driverPackSettings,
-            networkProfileRoaming);
+            networkProfileRoaming,
+            activateWindowsOem: ShouldActivateWindowsOem(context.Request));
         if (scripts.Count == 0)
         {
             return DeploymentStepResult.Skipped("No pre-OOBE customization scripts are required.");
@@ -116,7 +117,8 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             context.RuntimeState.AppxRemoval,
             context.RuntimeState.AiComponentRemoval,
             driverPackSettings,
-            networkProfileRoaming);
+            networkProfileRoaming,
+            activateWindowsOem: ShouldActivateWindowsOem(context.Request));
         if (scripts.Count == 0)
         {
             await Task.Delay(80, cancellationToken).ConfigureAwait(false);
@@ -325,6 +327,10 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
                 context.RuntimeState.WorkspaceRoot,
                 cancellationToken);
     }
+
+    private static bool ShouldActivateWindowsOem(DeploymentContext request) =>
+        !request.UsesCustomUnattend &&
+        string.Equals(request.OperatingSystem.LicenseChannel, "RET", StringComparison.OrdinalIgnoreCase);
 
     private static DeploymentStepResult CreateMissingTargetPartitionFailure() =>
         DeploymentStepResult.Failed(
