@@ -24,7 +24,7 @@ Foundry is an open-source Windows deployment toolkit that helps IT administrator
 
 <sub>Install x64 on most administrator workstations or ARM64 on Windows on Arm.</sub>
 
-[Quick start](https://docs.foundryosd.com/start-here/quick-start) · [Documentation](https://docs.foundryosd.com) · [Release notes and asset digests](https://github.com/foundry-osd/foundry/releases/latest)
+[Quick start](https://docs.foundryosd.com/start-here/quick-start) · [Documentation](https://docs.foundryosd.com) · [Release notes and asset digests](https://github.com/foundry-osd/foundry/releases/latest) · [Usage dashboard](https://eu.posthog.com/embedded/g_cVY9GEAqJEUIu-KgiXReDV-iixCQ)
 
 </div>
 
