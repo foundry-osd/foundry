@@ -30,6 +30,11 @@ public sealed record OperationProgressState(
     public bool IsRunning => Kind != OperationKind.None;
 
     /// <summary>
+    /// Gets the terminal result retained after the operation returns to idle.
+    /// </summary>
+    public OperationOutcome Outcome { get; init; }
+
+    /// <summary>
     /// Gets whether the operation currently accepts a user cancellation request.
     /// </summary>
     public bool CanCancel { get; init; }
