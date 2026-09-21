@@ -40,6 +40,13 @@ public sealed class WindowsOemActivationScriptTests
     [InlineData("install-rejected", "stage=install; HRESULT=0xC004F050", "InstallProductKey")]
     [InlineData("missing-installed-product", "installed firmware key could not be verified", "InstallProductKey,RefreshLicenseStatus")]
     [InlineData("activated-after-install", "Windows OEM activation succeeded.", "InstallProductKey,RefreshLicenseStatus")]
+    [InlineData("generic-active-after-install", "Windows OEM activation succeeded.", "InstallProductKey,RefreshLicenseStatus")]
+    [InlineData("generic-active-after-activate", "Windows OEM activation succeeded.", "InstallProductKey,RefreshLicenseStatus,Activate,RefreshLicenseStatus")]
+    [InlineData("generic-inactive-after-install", "installed firmware key could not be verified", "InstallProductKey,RefreshLicenseStatus")]
+    [InlineData("ambiguous-after-install", "installed firmware key could not be verified", "InstallProductKey,RefreshLicenseStatus")]
+    [InlineData("missing-after-activate", "Windows activation status could not be verified", "InstallProductKey,RefreshLicenseStatus,Activate,RefreshLicenseStatus")]
+    [InlineData("ambiguous-after-activate", "Windows activation status could not be verified", "InstallProductKey,RefreshLicenseStatus,Activate,RefreshLicenseStatus")]
+    [InlineData("missing-status-after-activate", "Windows activation status could not be verified", "InstallProductKey,RefreshLicenseStatus,Activate,RefreshLicenseStatus")]
     [InlineData("activation-error", "stage=activate", "InstallProductKey,RefreshLicenseStatus,Activate")]
     [InlineData("offline", "stage=activate; HRESULT=0xC004F074", "InstallProductKey,RefreshLicenseStatus,Activate")]
     [InlineData("pending", "Windows remains unactivated", "InstallProductKey,RefreshLicenseStatus,Activate,RefreshLicenseStatus")]
@@ -67,6 +74,10 @@ public sealed class WindowsOemActivationScriptTests
         Assert.DoesNotContain("BBBBB-CCCCC-DDDDD-FFFFF-GGGGG", result.StandardOutput);
         Assert.DoesNotContain("PRIVATE ERROR", result.StandardOutput);
         Assert.DoesNotContain("INVALID MOCK CALL", result.StandardOutput);
+        if (outcome.Contains("could not be verified", StringComparison.Ordinal))
+        {
+            Assert.DoesNotContain("Windows remains unactivated", result.StandardOutput);
+        }
     }
 
     private sealed class TemporaryDirectory : IDisposable
@@ -125,6 +136,7 @@ public sealed class WindowsOemActivationScriptTests
                     if ($Filter -notlike '*55c92734-d682-4d71-983e-d6ec3f16059f*') { $global:Violations.Add('Windows filter') }
                     if ($Scenario -eq 'discovery-error') { throw "PRIVATE ERROR $global:FirmwareKey" }
                     if ($Scenario -eq 'missing-installed-product' -and $global:Installed) { return }
+                    if ($Scenario -eq 'missing-after-activate' -and $global:Activated) { return }
                     $product = [pscustomobject]@{
                         ID = $(if ($global:Installed -or $Scenario -eq 'already-oem') { 'firmware-product' } else { 'default-product' })
                         ApplicationID = '55c92734-d682-4d71-983e-d6ec3f16059f'
@@ -139,8 +151,18 @@ public sealed class WindowsOemActivationScriptTests
                     if ($Scenario -eq 'missing-addon-flag') { $product.LicenseIsAddon = $null }
                     if ($Scenario -eq 'missing-status') { $product.LicenseStatus = $null }
                     if ($Scenario -eq 'missing-id') { $product.ID = '' }
+                    if (($global:Installed -and $Scenario -in @('generic-active-after-install', 'generic-inactive-after-install')) -or
+                        ($global:Activated -and $Scenario -eq 'generic-active-after-activate')) {
+                        $product.ID = 'default-product'
+                        $product.ProductKeyChannel = 'Retail'
+                        $product.PartialProductKey = $global:DefaultSuffix
+                        $product.LicenseStatus = $(if ($Scenario -eq 'generic-inactive-after-install') { 0 } else { 1 })
+                    }
+                    if ($global:Activated -and $Scenario -eq 'missing-status-after-activate') { $product.LicenseStatus = $null }
                     $product
                     if ($Scenario -eq 'ambiguous') { $product.PSObject.Copy() }
+                    if (($global:Installed -and $Scenario -eq 'ambiguous-after-install') -or
+                        ($global:Activated -and $Scenario -eq 'ambiguous-after-activate')) { $product.PSObject.Copy() }
                     if ($Scenario -eq 'addon') { $addon = $product.PSObject.Copy(); $addon.ID = 'addon'; $addon.LicenseIsAddon = $true; $addon.LicenseStatus = 1; $addon }
                     return
                 }

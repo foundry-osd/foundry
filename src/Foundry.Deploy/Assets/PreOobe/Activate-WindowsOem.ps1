@@ -102,12 +102,20 @@ try {
         Write-ActivationLog 'Firmware product key installed.'
         $Stage = 'refresh'
         Invoke-LicensingMethod -InputObject $service -MethodName RefreshLicenseStatus
-        $products = @(Get-WindowsLicense | Where-Object { $_.ProductKeyChannel -eq 'OEM:DM' -and $_.PartialProductKey -eq $firmwareKeySuffix })
-        if ($products.Count -ne 1) {
+        $products = @(Get-WindowsLicense)
+        if ($products.Count -ne 1 -or [string]::IsNullOrWhiteSpace($products[0].ID) -or
+            $null -eq $products[0].LicenseStatus -or $products[0].LicenseStatus -notin 0..6) {
             Write-ActivationLog 'Stopped: installed firmware key could not be verified.'
             return
         }
         $product = $products[0]
+        # Licensed Windows can report its generic setup key instead of the firmware key.
+        # Unlicensed products still require an exact OEM key match before activation.
+        if ($product.LicenseStatus -ne 1 -and
+            ($product.ProductKeyChannel -ne 'OEM:DM' -or $product.PartialProductKey -ne $firmwareKeySuffix)) {
+            Write-ActivationLog 'Stopped: installed firmware key could not be verified.'
+            return
+        }
     }
 
     if ($product.LicenseStatus -ne 1) {
@@ -115,9 +123,14 @@ try {
         Invoke-LicensingMethod -InputObject $product -MethodName Activate
         $Stage = 'refresh'
         Invoke-LicensingMethod -InputObject $service -MethodName RefreshLicenseStatus
-        $products = @(Get-WindowsLicense | Where-Object { $_.ID -eq $product.ID -and $_.ProductKeyChannel -eq 'OEM:DM' -and $_.PartialProductKey -eq $firmwareKeySuffix })
-        if ($products.Count -ne 1 -or $products[0].LicenseStatus -ne 1) {
-            Write-ActivationLog 'Firmware key is installed, but Windows remains unactivated. Check activation after connecting to the Internet.'
+        $products = @(Get-WindowsLicense)
+        if ($products.Count -ne 1 -or [string]::IsNullOrWhiteSpace($products[0].ID) -or
+            $null -eq $products[0].LicenseStatus -or $products[0].LicenseStatus -notin 0..6) {
+            Write-ActivationLog 'Windows activation status could not be verified. Check activation in Windows Settings.'
+            return
+        }
+        if ($products[0].LicenseStatus -ne 1) {
+            Write-ActivationLog 'Windows remains unactivated. Check activation after connecting to the Internet.'
             return
         }
     }
