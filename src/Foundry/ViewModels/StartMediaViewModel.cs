@@ -479,6 +479,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         // Final media operations can format disks or overwrite ISO output, so the shell remains locked until completion.
         shellNavigationGuardService.SetState(ShellNavigationState.InteractionPending);
         string terminalStatus = string.Empty;
+        OperationOutcome outcome = OperationOutcome.None;
         string? successMessage = null;
         Stopwatch stopwatch = Stopwatch.StartNew();
         bool success = false;
@@ -578,6 +579,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             terminalStatus = successMessage ?? localizationService.GetString("StartMedia.Operation.Completed");
             operationProgressService.Complete(terminalStatus);
             success = true;
+            outcome = OperationOutcome.Success;
             logger.Information(
                 "Final media creation completed. Target={Target}, DurationMs={DurationMs}",
                 target,
@@ -585,6 +587,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex) when (ex is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
         {
+            outcome = OperationOutcome.Error;
             bool isTimeout = ex is TimeoutException or OperationCanceledException;
             failureDiagnostic = ex is CustomDriverSizeLimitException driverSizeLimit
                 ? new WinPeDiagnostic(
@@ -708,7 +711,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 shellNavigationGuardService.SetState(adkService.CurrentStatus.CanCreateMedia
                     ? ShellNavigationState.Ready
                     : ShellNavigationState.AdkBlocked);
-                operationProgressService.Reset(terminalStatus);
+                operationProgressService.Reset(terminalStatus, outcome);
                 IsMediaOperationRunning = false;
                 RefreshEvaluation();
             }

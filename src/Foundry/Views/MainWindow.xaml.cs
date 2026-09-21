@@ -35,6 +35,8 @@ namespace Foundry.Views
         private ProgressBar? operationProgressBar;
         private TextBlock? operationProgressPercentText;
         private Microsoft.UI.Xaml.Controls.ProgressRing? operationProgressRing;
+        private FontIcon? operationSuccessIcon;
+        private FontIcon? operationErrorIcon;
         private StackPanel? operationSecondaryProgressPanel;
         private TextBlock? operationSecondaryStatusText;
         private ProgressBar? operationSecondaryProgressBar;
@@ -349,13 +351,10 @@ namespace Foundry.Views
                 }
             };
 
-            operationProgressRing = new Microsoft.UI.Xaml.Controls.ProgressRing
-            {
-                Width = 56,
-                Height = 56,
-                IsActive = true,
-                HorizontalAlignment = HorizontalAlignment.Center
-            };
+            var indicator = (Grid)((DataTemplate)RootGrid.Resources["OperationIndicatorTemplate"]).LoadContent();
+            operationProgressRing = (Microsoft.UI.Xaml.Controls.ProgressRing)indicator.FindName("OperationProgressRing");
+            operationSuccessIcon = (FontIcon)indicator.FindName("OperationSuccessIcon");
+            operationErrorIcon = (FontIcon)indicator.FindName("OperationErrorIcon");
 
             return new StackPanel
             {
@@ -365,7 +364,7 @@ namespace Foundry.Views
                 Spacing = 16,
                 Children =
                 {
-                    operationProgressRing,
+                    indicator,
                     operationStatusText,
                     CreateProgressRow(operationProgressBar, operationProgressPercentText),
                     operationSecondaryProgressPanel
@@ -421,6 +420,8 @@ namespace Foundry.Views
             operationProgressBar = null;
             operationProgressPercentText = null;
             operationProgressRing = null;
+            operationSuccessIcon = null;
+            operationErrorIcon = null;
             operationSecondaryProgressPanel = null;
             operationSecondaryStatusText = null;
             operationSecondaryProgressBar = null;
@@ -696,6 +697,21 @@ namespace Foundry.Views
             if (operationProgressRing is not null)
             {
                 operationProgressRing.IsActive = !operationDialogCanClose;
+                operationProgressRing.Visibility = operationDialogCanClose ? Visibility.Collapsed : Visibility.Visible;
+            }
+
+            if (operationSuccessIcon is not null)
+            {
+                operationSuccessIcon.Visibility = operationDialogCanClose && state.Outcome == OperationOutcome.Success
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
+            }
+
+            if (operationErrorIcon is not null)
+            {
+                operationErrorIcon.Visibility = operationDialogCanClose && state.Outcome == OperationOutcome.Error
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
             }
 
             if (operationSecondaryProgressPanel is not null)

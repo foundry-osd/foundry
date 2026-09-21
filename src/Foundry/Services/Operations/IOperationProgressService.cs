@@ -68,5 +68,6 @@ public interface IOperationProgressService
     /// Returns the service to the idle operation state.
     /// </summary>
     /// <param name="status">Optional idle status text retained by subscribers.</param>
-    void Reset(string status = "");
+    /// <param name="outcome">Terminal result to display while the completed dialog remains open.</param>
+    void Reset(string status = "", OperationOutcome outcome = OperationOutcome.None);
 }

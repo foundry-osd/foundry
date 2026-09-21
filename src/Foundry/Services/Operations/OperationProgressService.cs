@@ -99,10 +99,10 @@ internal sealed class OperationProgressService : IOperationProgressService
     }
 
     /// <inheritdoc />
-    public void Reset(string status = "")
+    public void Reset(string status = "", OperationOutcome outcome = OperationOutcome.None)
     {
         cancelOperation = null;
-        SetState(OperationProgressState.Idle with { Progress = State.Progress, Status = status });
+        SetState(OperationProgressState.Idle with { Progress = State.Progress, Status = status, Outcome = outcome });
     }
 
     private void SetState(OperationProgressState state)
