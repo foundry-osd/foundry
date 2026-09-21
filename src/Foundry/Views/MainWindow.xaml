@@ -7,6 +7,29 @@
     xmlns:shell="using:Foundry.Services.Shell"
     mc:Ignorable="d">
     <Grid x:Name="RootGrid">
+        <Grid.Resources>
+            <DataTemplate x:Key="OperationIndicatorTemplate">
+                <Grid
+                    Width="56"
+                    Height="56"
+                    HorizontalAlignment="Center">
+                    <ProgressRing x:Name="OperationProgressRing"
+                        IsActive="True" />
+                    <FontIcon x:Name="OperationSuccessIcon"
+                        AutomationProperties.AccessibilityView="Raw"
+                        FontSize="48"
+                        Foreground="{ThemeResource SystemFillColorSuccessBrush}"
+                        Glyph="&#xE73E;"
+                        Visibility="Collapsed" />
+                    <FontIcon x:Name="OperationErrorIcon"
+                        AutomationProperties.AccessibilityView="Raw"
+                        FontSize="48"
+                        Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                        Glyph="&#xEA39;"
+                        Visibility="Collapsed" />
+                </Grid>
+            </DataTemplate>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
