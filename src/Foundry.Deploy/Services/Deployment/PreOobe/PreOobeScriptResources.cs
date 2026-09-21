@@ -10,6 +10,11 @@ namespace Foundry.Deploy.Services.Deployment.PreOobe;
 public static class PreOobeScriptResources
 {
     /// <summary>
+    /// Attempts activation with a compatible firmware key without overriding explicit licensing.
+    /// </summary>
+    public const string ActivateWindowsOem = "Foundry.Deploy.PreOobe.Activate-WindowsOem.ps1";
+
+    /// <summary>
     /// Installs a deferred driver package during the first full Windows boot.
     /// </summary>
     public const string InstallDriverPack = "Foundry.Deploy.PreOobe.Install-DriverPack.ps1";

@@ -39,6 +39,16 @@ public sealed record PreOobeScriptDefinition
     public IReadOnlyList<string> Arguments { get; init; } = [];
 
     /// <summary>
+    /// Gets the optional maximum execution time before the child PowerShell process is stopped.
+    /// </summary>
+    public int? TimeoutSeconds { get; init; }
+
+    /// <summary>
+    /// Gets whether failures are reported as warnings so remaining provisioning scripts can run.
+    /// </summary>
+    public bool ContinueOnError { get; init; }
+
+    /// <summary>
     /// Gets generated data files staged under the pre-OOBE data folder.
     /// </summary>
     public IReadOnlyList<PreOobeScriptDataFile> DataFiles { get; init; } = [];
