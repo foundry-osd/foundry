@@ -93,3 +93,5 @@ Code contributions are welcome. Read the [contributing guide](CONTRIBUTING.md) b
 ---
 
 Foundry is available under the [MIT License](LICENSE). Anonymous usage telemetry and remote error diagnostics are enabled by default and can be disabled independently in Settings. See [Telemetry and privacy](https://docs.foundryosd.com/reference/telemetry-and-privacy), [Third-Party Notices](THIRD_PARTY_NOTICES.md), and the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+<iframe width="100%" height="400" frameborder="0" allowfullscreen src="https://eu.posthog.com/embedded/g_cVY9GEAqJEUIu-KgiXReDV-iixCQ" key="0" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
