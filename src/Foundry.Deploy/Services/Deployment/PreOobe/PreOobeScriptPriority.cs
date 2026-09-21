@@ -30,6 +30,11 @@ public enum PreOobeScriptPriority
     Validation = 800,
 
     /// <summary>
+    /// Attempts OEM activation after customizations and validation, before cleanup.
+    /// </summary>
+    Activation = 850,
+
+    /// <summary>
     /// Runs cleanup scripts at the end of the pre-OOBE sequence.
     /// </summary>
     Cleanup = 900
