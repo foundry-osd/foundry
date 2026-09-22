@@ -49,14 +49,13 @@ public sealed class DownloadFirmwareUpdateStep : DeploymentStepBase
 
         string targetFoundryRoot = context.EnsureTargetFoundryRoot();
         string rawDirectory = Path.Combine(targetFoundryRoot, "Temp", "FirmwareUpdate", "Raw");
-        string extractedDirectory = Path.Combine(targetFoundryRoot, "Extracted", "Firmware");
         string cacheDirectory = context.ResolveMicrosoftUpdateCatalogFirmwareCacheRoot();
 
         context.EmitCurrentStepIndeterminate("Downloading firmware update...", "Preparing Microsoft Update Catalog lookup...", DeploymentOperationNames.ResolveFirmware);
         IProgress<double> progress = context.CreateStepPercentProgressReporter("Downloading firmware update...", "Downloading");
 
         MicrosoftUpdateCatalogFirmwareResult result = await _firmwareService
-            .DownloadAsync(hardwareProfile, context.Request.OperatingSystem.Architecture, rawDirectory, extractedDirectory, cacheDirectory, cancellationToken, progress)
+            .DownloadAsync(hardwareProfile, context.Request.OperatingSystem.Architecture, rawDirectory, cacheDirectory, cancellationToken, progress)
             .ConfigureAwait(false);
 
         await context.AppendLogAsync(DeploymentLogLevel.Info, result.Message, cancellationToken).ConfigureAwait(false);
@@ -66,12 +65,20 @@ public sealed class DownloadFirmwareUpdateStep : DeploymentStepBase
             return DeploymentStepResult.Skipped(result.Message);
         }
 
+        if (string.IsNullOrWhiteSpace(result.DownloadedDirectory) || !Directory.Exists(result.DownloadedDirectory) ||
+            !Directory.EnumerateFiles(result.DownloadedDirectory, "*.cab", SearchOption.AllDirectories).Any())
+        {
+            return DeploymentStepResult.Failed("The selected firmware payload is unavailable.",
+                DeploymentFailure.Guard(DeploymentOperationNames.DownloadFirmware, DeploymentFailureReasons.MissingResource, "missing_firmware_payload"));
+        }
+
         context.RuntimeState.DownloadedFirmwarePath = result.DownloadedDirectory;
-        context.RuntimeState.ExtractedFirmwarePath = result.ExtractedDirectory;
         context.RuntimeState.FirmwareUpdateId = result.UpdateId;
         context.RuntimeState.FirmwareUpdateTitle = result.Title;
 
-        return DeploymentStepResult.Succeeded("Firmware update downloaded.");
+        return result.DownloadedCount == 0 && result.ReusedCount > 0
+            ? DeploymentStepResult.Skipped("Firmware update resolved from cache.")
+            : DeploymentStepResult.Succeeded("Firmware update downloaded.");
     }
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
@@ -105,17 +112,12 @@ public sealed class DownloadFirmwareUpdateStep : DeploymentStepBase
 
         string targetFoundryRoot = context.EnsureTargetFoundryRoot();
         string rawDirectory = Path.Combine(targetFoundryRoot, "Temp", "FirmwareUpdate", "Raw");
-        string extractedDirectory = Path.Combine(targetFoundryRoot, "Extracted", "Firmware");
         Directory.CreateDirectory(rawDirectory);
-        Directory.CreateDirectory(extractedDirectory);
 
         string cabPath = Path.Combine(rawDirectory, "firmware.cab");
-        string infPath = Path.Combine(extractedDirectory, "firmware.inf");
         await File.WriteAllTextAsync(cabPath, "dry-run", cancellationToken).ConfigureAwait(false);
-        await File.WriteAllTextAsync(infPath, "; dry-run only", cancellationToken).ConfigureAwait(false);
 
         context.RuntimeState.DownloadedFirmwarePath = rawDirectory;
-        context.RuntimeState.ExtractedFirmwarePath = extractedDirectory;
         context.RuntimeState.FirmwareUpdateId = "dry-run-firmware";
         context.RuntimeState.FirmwareUpdateTitle = "Dry-run firmware update";
 

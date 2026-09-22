@@ -15,7 +15,7 @@ public sealed class MicrosoftUpdateCatalogFirmwareServiceTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public async Task DownloadAsync_WhenCancelledDuringExtraction_WaitsForExitAndPreservesFailure(bool extractionFails)
+    public async Task ExtractAsync_WhenCancelledDuringExtraction_WaitsForExitAndPreservesFailure(bool extractionFails)
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-firmware-cancel-{Guid.NewGuid():N}");
         Directory.CreateDirectory(root);
@@ -26,9 +26,10 @@ public sealed class MicrosoftUpdateCatalogFirmwareServiceTests
             var service = new MicrosoftUpdateCatalogFirmwareService(extractor, new FirmwareCatalog(), new FirmwareDownloader(),
                 NullLogger<MicrosoftUpdateCatalogFirmwareService>.Instance);
 
-            Task<MicrosoftUpdateCatalogFirmwareResult> run = service.DownloadAsync(
-                new HardwareProfile { SystemFirmwareHardwareId = "test-firmware" }, "x64", Path.Combine(root, "Raw"),
-                Path.Combine(root, "Extracted"), Path.Combine(root, "Cache"), cancellation.Token);
+            string rawDirectory = Path.Combine(root, "Raw");
+            Directory.CreateDirectory(rawDirectory);
+            await File.WriteAllTextAsync(Path.Combine(rawDirectory, "firmware.cab"), "cab", TestContext.Current.CancellationToken);
+            Task<int> run = service.ExtractAsync(rawDirectory, Path.Combine(root, "Extracted"), cancellation.Token);
             await extractor.Started.Task.WaitAsync(TestContext.Current.CancellationToken);
             cancellation.Cancel();
             bool wasPending = !run.IsCompleted;

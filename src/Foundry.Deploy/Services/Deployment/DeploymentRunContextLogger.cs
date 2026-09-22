@@ -5,28 +5,13 @@
 using System.Text.Json;
 using Foundry.Deploy.Services.Logging;
 
-namespace Foundry.Deploy.Services.Deployment.Steps;
+namespace Foundry.Deploy.Services.Deployment;
 
-public sealed class GatherDeploymentVariablesStep : DeploymentStepBase
+/// <summary>Captures the selected inputs before validation so early failures retain diagnostic context.</summary>
+internal static class DeploymentRunContextLogger
 {
-    public override string Name => DeploymentStepNames.GatherDeploymentVariables;
-
-    protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
-    {
-        context.EmitCurrentStepIndeterminate("Gathering deployment variables...", "Collecting deployment context...", DeploymentOperationNames.GatherVariables);
-        await AppendRunContextAsync(context, cancellationToken).ConfigureAwait(false);
-        return DeploymentStepResult.Succeeded("Deployment variables gathered.");
-    }
-
-    protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
-    {
-        context.EmitCurrentStepIndeterminate("Gathering deployment variables...", "Collecting deployment context...", DeploymentOperationNames.GatherVariables);
-        await AppendRunContextAsync(context, cancellationToken).ConfigureAwait(false);
-        await Task.Delay(120, cancellationToken).ConfigureAwait(false);
-        return DeploymentStepResult.Succeeded("Deployment variables gathered (simulation).");
-    }
-
-    private static Task AppendRunContextAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+    /// <summary>Appends the request snapshot to the current log session without adding a timeline step.</summary>
+    internal static Task AppendRunContextAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
         string json = JsonSerializer.Serialize(new
         {

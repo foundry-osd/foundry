@@ -657,19 +657,25 @@
     <value>فشل wpeutil.exe مع رمز الخروج {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>تطبيق برامج التشغيل</value>
+    <value>تثبيت برامج تشغيل Windows</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>تطبيق البرنامج الثابت</value>
+    <value>تجهيز تحديث البرنامج الثابت</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>تطبيق نظام التشغيل</value>
+    <value>تطبيق صورة Windows</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>تطبيق برامج تشغيل الاسترداد</value>
+    <value>تثبيت برامج تشغيل الاسترداد</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>التحقق من صورة Windows</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>تهيئة سياسات الذكاء الاصطناعي</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>تهيئة OOBE</value>
+    <value>تهيئة إعداد Windows</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>تهيئة استرداد Windows</value>
@@ -677,62 +683,71 @@
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>تعيين اسم الكمبيوتر</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>تهيئة إقلاع Windows</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>تهيئة الميزات الاختيارية</value>
+    <value>تهيئة ميزات Windows</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>نسخ ملف تعريف Autopilot</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>تنزيل برامج التشغيل</value>
+    <value>تنزيل حزمة برامج التشغيل</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>تنزيل البرنامج الثابت</value>
+    <value>تنزيل تحديث البرنامج الثابت</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>تنزيل نظام التشغيل</value>
+    <value>تنزيل صورة Windows</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>استخراج برامج التشغيل</value>
+    <value>استخراج حزمة برامج التشغيل</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>استخراج تحديث البرنامج الثابت</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>إنهاء النشر</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>جمع المتغيرات</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>تهيئة النشر</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>التحقق من الجاهزية للنشر</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>تحضير مساعد Autopilot</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>إعداد القرص</value>
+    <value>تحضير القرص الهدف</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>تجهيز Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>تسجيل جهاز Autopilot</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>فحص ذاكرة التخزين المؤقت</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>ختم قسم الاسترداد</value>
+    <value>إخفاء قسم الاسترداد</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>تجهيز ملف الإجابات المخصص</value>
+    <value>نسخ ملف الإجابات</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>تجهيز مثبّت برامج التشغيل</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>تجهيز التخصيصات</value>
+    <value>تحضير مهام الإعداد</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>التحقق من ملف الإجابات المخصص</value>
+    <value>التحقق من ملف الإجابات</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>التحقق من التكوين</value>
+    <value>التحقق من إعداد النشر</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>جارٍ تطبيق حزمة برامج التشغيل...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>جارٍ تطبيق تحديث البرنامج الثابت...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>جارٍ تطبيق الصورة...</value>
@@ -755,6 +770,9 @@
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>يتم الآن التقاط تجزئة الأجهزة Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>التحقق من المساحة المتاحة...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>جارٍ التحقق من ذاكرة التخزين المؤقت...</value>
   </data>
@@ -775,9 +793,6 @@
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>تنظيف مساحة العمل المؤقتة...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>جارٍ جمع سياق النشر...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>جارٍ تكوين إزالة مكونات الذكاء الاصطناعي...</value>
@@ -803,14 +818,14 @@
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>جارٍ نسخ AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>جارٍ نسخ حزمة برامج التشغيل...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>جارٍ نسخ ملفات التسجيل التفاعلي...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>جارٍ إنشاء أقسام محاكاة...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>جارٍ إنشاء مجلدات مساحة العمل...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>جارٍ فك تشفير شهادة الوسائط...</value>
@@ -830,17 +845,14 @@
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>جارٍ استخراج حزمة برامج التشغيل...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>جارٍ استخراج تحديث البرنامج الثابت...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>الانتهاء من النشر...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>جارٍ جمع متغيرات النشر...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>جارٍ استيراد تجزئة الأجهزة إلى Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>جارٍ تهيئة مساحة عمل النشر...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>إدخال محتوى البرنامج الثابت في وضع عدم الاتصال Windows...</value>
@@ -910,6 +922,9 @@
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>جارٍ تجهيز مساعد تسجيل Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>جارٍ تجهيز تحديث البرنامج الثابت...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>حزمة التدريج...</value>
@@ -1046,14 +1061,14 @@
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>تم حل استراتيجية ذاكرة التخزين المؤقت (المحاكاة).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>لا يحتوي ملف برنامج التشغيل المحدد من Microsoft Update Catalog ‏'{0}' على أي ملفات INF.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>تم طلب التدريج المرحلي لحزمة برنامج التشغيل للتمهيد الأول بدون أمر مدعوم.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>تم جمع متغيرات النشر.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>تم جمع متغيرات النشر (المحاكاة).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>تم تجهيز مثبّت برامج التشغيل.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>تم تطبيق حزمة برامج التشغيل.</value>
@@ -1079,26 +1094,29 @@
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>لم يتم تنزيل حزمة برنامج التشغيل.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>حزمة برامج التشغيل مُجهزة لتثبيت التمهيد الأول.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>تم حل حزمة برنامج التشغيل من ذاكرة التخزين المؤقت.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>محتوى مصدر حزمة برنامج التشغيل غير متوفر للتشغيل المرحلي الأول.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>تم تطبيق تحديث البرامج الثابتة.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>تم تطبيق تحديث البرنامج الثابت (المحاكاة).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>تم التحقق من التخزين الخارجي للصورة والسعة المعروفة.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>تم تنزيل تحديث البرنامج الثابت.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>تم تنزيل تحديث البرنامج الثابت (المحاكاة).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>تم استخراج تحديث البرنامج الثابت.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>تم استرداد تحديث البرنامج الثابت من ذاكرة التخزين المؤقت.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>تم تجهيز تحديث البرنامج الثابت للتثبيت في Windows.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>تم تعطيل تحديثات البرامج الثابتة.</value>
@@ -1118,6 +1136,9 @@
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog لم ينتج محتوى برنامج التشغيل.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>لا يلزم مثبّت برامج تشغيل للتنفيذ لاحقًا.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>لا يلزم تنزيل حزمة برامج التشغيل.</value>
   </data>
@@ -1130,8 +1151,14 @@
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>لا يتوفر أي محتوى لبرنامج تشغيل INF المستخرج.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>لا يحتوي محتوى البرنامج الثابت المستخرج على أي ملفات CAB.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>لا يحتوي محتوى البرنامج الثابت المستخرج على أي ملفات INF.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>لا يتوفر محتوى لتحديث البرنامج الثابت.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>ليست هناك حاجة إلى برامج نصية لتخصيص ما قبل OOBE.</value>
@@ -1175,9 +1202,6 @@
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>تم تنظيم تخصيصات ما قبل OOBE (المحاكاة).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>تم التحقق من الصورة ومتطلبات السعة المعروفة قبل تجهيز القرص.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>تم التحقق من الجاهزية للنشر (محاكاة).</value>
   </data>
@@ -1201,6 +1225,15 @@
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>لم يتم العثور على ملف التعريف Autopilot المحدد: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>محتوى حزمة برامج التشغيل المحددة غير متاح.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>محتوى البرنامج الثابت المحدد غير متاح.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (محاكاة).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>معرف جهاز البرنامج الثابت للنظام غير متوفر.</value>
@@ -1247,6 +1280,15 @@
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>وضع تثبيت حزمة برنامج التشغيل غير مدعوم.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>تمت تهيئة إقلاع Windows.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>تم التحقق من صورة Windows والسعة المعروفة.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>لم يتم تطبيق صورة Windows.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>تم تعطيل تكوين الميزات الاختيارية لنظام التشغيل Windows.</value>
   </data>
@@ -1267,12 +1309,6 @@
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>تمت محاكاة تكوين ميزات Windows الاختيارية ({0} إجراءً).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>تمت تهيئة مساحة العمل.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>تمت تهيئة مساحة العمل (المحاكاة).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>اكتمل النشر</value>

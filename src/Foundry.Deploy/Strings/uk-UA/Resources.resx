@@ -657,19 +657,25 @@ ErrorCode=0x80070005
     <value>Помилка wpeutil.exe із кодом виходу {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Застосування драйверів</value>
+    <value>Інсталювати драйвери Windows</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Застосування прошивки</value>
+    <value>Підготувати оновлення мікропрограми</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Застосування операційної системи</value>
+    <value>Застосувати образ Windows</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Застосування драйверів відновлення</value>
+    <value>Інсталювати драйвери відновлення</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Перевірити образ Windows</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>Налаштувати політики ШІ</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>Налаштування OOBE</value>
+    <value>Налаштувати інсталяцію Windows</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Налаштування відновлення Windows</value>
@@ -677,62 +683,71 @@ ErrorCode=0x80070005
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Налаштування імені комп’ютера</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Налаштувати завантаження Windows</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Налаштування додаткових компонентів</value>
+    <value>Налаштувати компоненти Windows</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Скопіювати профіль Autopilot</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Завантаження драйверів</value>
+    <value>Завантажити пакет драйверів</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Завантаження прошивки</value>
+    <value>Завантажити оновлення мікропрограми</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Завантаження операційної системи</value>
+    <value>Завантажити образ Windows</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Розпакування драйверів</value>
+    <value>Розпакувати пакет драйверів</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Розпакувати оновлення мікропрограми</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Завершення розгортання</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Збір змінних</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Ініціалізація розгортання</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Перевірити готовність до розгортання</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Підготувати помічник Autopilot</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Підготовка диска</value>
+    <value>Підготувати цільовий диск</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Підготовка Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Зареєструвати пристрій Autopilot</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Перевірка кешу</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Запечатування розділу відновлення</value>
+    <value>Приховати розділ відновлення</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Підготувати власний файл відповідей</value>
+    <value>Скопіювати файл відповідей</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Підготувати інсталятор драйверів</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Підготовка налаштувань</value>
+    <value>Підготувати завдання інсталяції</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Перевірити власний файл відповідей</value>
+    <value>Перевірити файл відповідей</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Перевірка конфігурації</value>
+    <value>Перевірити параметри розгортання</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Застосування пакета драйверів...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Застосування оновлення мікропрограми...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Застосування зображення...</value>
@@ -755,6 +770,9 @@ ErrorCode=0x80070005
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Запис апаратного хешу Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Перевірка доступного місця...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Перевірка кешу...</value>
   </data>
@@ -775,9 +793,6 @@ ErrorCode=0x80070005
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Прибирання тимчасового робочого місця...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Збір контексту розгортання...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>Налаштування видалення компонента AI...</value>
@@ -803,14 +818,14 @@ ErrorCode=0x80070005
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Копіювання AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Копіювання пакета драйверів...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Копіюються файли інтерактивної реєстрації...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Створення імітованих розділів...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Створення папок робочої області...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Розшифровка медіасертифіката...</value>
@@ -830,17 +845,14 @@ ErrorCode=0x80070005
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Витяг пакета драйверів...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Розпакування оновлення мікропрограми...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Завершення розгортання...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Збір змінних розгортання...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Імпорт хешу обладнання в Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Ініціалізація робочої області розгортання...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Введення вмісту прошивки в офлайн Windows...</value>
@@ -910,6 +922,9 @@ ErrorCode=0x80070005
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Готується помічник реєстрації Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Підготовка оновлення мікропрограми...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Пакет постановок...</value>
@@ -1046,14 +1061,14 @@ ErrorCode=0x80070005
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Вирішено стратегію кешу (симуляція).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>Вибраний файл драйвера «{0}» із Microsoft Update Catalog не містить файлів INF.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Надійшов запит на проміжне встановлення пакета драйверів першого завантаження без підтримуваної команди.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Змінні розгортання зібрано.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Зібрані змінні розгортання (симуляція).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Інсталятор драйверів підготовлено.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Застосовано пакет драйверів.</value>
@@ -1079,26 +1094,29 @@ ErrorCode=0x80070005
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Пакет драйверів не завантажено.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Пакет драйверів підготовлений для першого завантаження.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Пакет драйверів вилучено з кешу.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>Вихідний вміст пакета драйверів недоступний для етапу першого завантаження.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Застосовано оновлення мікропрограми.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Застосовано оновлення мікропрограми (симуляція).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Зовнішнє сховище образу та відому місткість перевірено.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Оновлення мікропрограми завантажено.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Оновлення мікропрограми завантажено (симуляція).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Оновлення мікропрограми розпаковано.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Оновлення мікропрограми отримано з кешу.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Оновлення мікропрограми підготовлено до інсталяції у Windows.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Оновлення мікропрограми вимкнено.</value>
@@ -1118,6 +1136,9 @@ ErrorCode=0x80070005
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog не створив вміст драйвера.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Інсталятор для відкладеної інсталяції драйверів не потрібен.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Завантажувати пакет драйверів не потрібно.</value>
   </data>
@@ -1130,8 +1151,14 @@ ErrorCode=0x80070005
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Немає вилученого вмісту драйвера INF.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>Розпакований вміст мікропрограми не містить файлів CAB.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>Розпакований вміст мікропрограми не містить файлів INF.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Вміст оновлення мікропрограми недоступний.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>Сценарії налаштування до OOBE не потрібні.</value>
@@ -1175,9 +1202,6 @@ ErrorCode=0x80070005
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Поетапні налаштування до OOBE (симуляція).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>Образ і відомі вимоги до місткості перевірено до підготовки диска.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Готовність до розгортання перевірено (симуляція).</value>
   </data>
@@ -1201,6 +1225,15 @@ ErrorCode=0x80070005
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>Вибраний файл профілю Autopilot не знайдено: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>Вміст вибраного пакета драйверів недоступний.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>Вміст вибраної мікропрограми недоступний.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (моделювання).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>Ідентифікатор апаратного забезпечення мікропрограми системи недоступний.</value>
@@ -1247,6 +1280,15 @@ ErrorCode=0x80070005
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Непідтримуваний режим встановлення пакета драйверів.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Завантаження Windows налаштовано.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Образ Windows і відому місткість перевірено.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>Образ Windows не було застосовано.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Конфігурацію додаткових функцій Windows вимкнено.</value>
   </data>
@@ -1267,12 +1309,6 @@ ErrorCode=0x80070005
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Змодельовано конфігурацію додаткових функцій Windows ({0} дій).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Робоча область ініціалізована.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Робоча область ініціалізована (симуляція).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Розгортання завершено</value>

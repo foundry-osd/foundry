@@ -5,6 +5,7 @@
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
@@ -20,6 +21,66 @@ namespace Foundry.Deploy.Tests;
 [Collection(nameof(SerilogCollection))]
 public sealed class DeploymentStepExecutionContextTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task FinalizeDeployment_PreservesSkippedSummaryAndRetainsLogsWhenRebindingFails(bool rebindFails)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        string stagingRoot = Path.Combine(workspace.RootPath, "Staging");
+        using DeploymentStepExecutionContext context = CreateExecutionContext(
+            stagingRoot, workspace.CacheRootPath, targetFoundryRoot: stagingRoot,
+            logService: rebindFails ? new ThrowingRebindLogService(stagingRoot) : new FakeDeploymentLogService());
+        context.RuntimeState.TargetWindowsPartitionRoot = Path.Combine(workspace.RootPath, "WindowsVolume");
+        context.RuntimeState.StepOutcomes.Add(new(DeploymentStepNames.DownloadOperatingSystemImage,
+            DeploymentStepState.Skipped, "Cached image reused."));
+        string retainedLog = Path.Combine(context.LogSession.LogsDirectoryPath, "source.log");
+        Directory.CreateDirectory(context.LogSession.LogsDirectoryPath);
+        await File.WriteAllTextAsync(retainedLog, "diagnostics", TestContext.Current.CancellationToken);
+        Directory.CreateDirectory(context.LogSession.StateDirectoryPath);
+        await File.WriteAllTextAsync(Path.Combine(context.LogSession.StateDirectoryPath, "prior-state.json"), "{}", TestContext.Current.CancellationToken);
+        var step = new FinalizeDeploymentAndWriteLogsStep();
+        context.SetCurrentStep(step, 2);
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        using var summary = System.Text.Json.JsonDocument.Parse(await File.ReadAllTextAsync(
+            context.RuntimeState.DeploymentSummaryPath!, TestContext.Current.CancellationToken));
+        var outcomes = summary.RootElement.GetProperty("stepOutcomes");
+        Assert.Equal(2, outcomes.GetArrayLength());
+        Assert.Equal((int)DeploymentStepState.Skipped, outcomes[0].GetProperty("State").GetInt32());
+        Assert.Equal("Cached image reused.", outcomes[0].GetProperty("Message").GetString());
+        Assert.DoesNotContain(summary.RootElement.GetProperty("completedSteps").EnumerateArray(),
+            value => value.GetString() == DeploymentStepNames.DownloadOperatingSystemImage);
+        Assert.Equal(rebindFails, File.Exists(retainedLog));
+        if (!rebindFails)
+            Assert.True(File.Exists(Path.Combine(context.LogSession.StateDirectoryPath, "prior-state.json")));
+    }
+
+    [Fact]
+    public void ProgressReporters_AfterCompletionOrAdvancement_DoNotRewriteObservedOutcomes()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var reports = new List<DeploymentStepProgress>();
+        using DeploymentStepExecutionContext context = CreateExecutionContext(
+            workspace.RootPath, workspace.CacheRootPath, emitStepProgress: reports.Add);
+        context.SetCurrentStep(new SucceedingDeploymentStep("download_image"), 1);
+        IProgress<DownloadProgress> download = context.CreateDownloadProgressReporter("OS image", "os_image.download");
+        IProgress<double> percent = context.CreateStepPercentProgressReporter("Extracting", "Extraction");
+
+        context.EmitCurrentStep(DeploymentStepState.Skipped, "Cached image reused.");
+        download.Report(new DownloadProgress(100, 100));
+        percent.Report(50);
+        context.SetCurrentStep(new SucceedingDeploymentStep("apply_image"), 2);
+        download.Report(new DownloadProgress(100, 100));
+        percent.Report(100);
+
+        DeploymentStepProgress observed = Assert.Single(reports);
+        Assert.Equal(DeploymentStepState.Skipped, observed.State);
+        Assert.Equal("download_image", observed.StepName);
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
@@ -107,7 +168,7 @@ public sealed class DeploymentStepExecutionContextTests
 
         string root = isOperatingSystemPayload
             ? context.ResolveOperatingSystemCacheRoot()
-            : context.ResolveDriverPackCacheRoot();
+            : context.ResolveDriverPackCacheRoot(0);
         string expectedCacheRoot = mode == DeploymentMode.Usb
             ? workspace.CacheRootPath
             : targetFoundryRoot;

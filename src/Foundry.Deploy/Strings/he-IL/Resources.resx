@@ -657,19 +657,25 @@ ErrorCode=0x80070005
     <value>wpeutil.exe נכשל עם קוד יציאה {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>החלת מנהלי התקנים</value>
+    <value>התקנת מנהלי התקנים של Windows</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>החלת קושחה</value>
+    <value>הכנת עדכון קושחה</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>החלת מערכת הפעלה</value>
+    <value>החלת תמונת Windows</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>החלת מנהלי התקני שחזור</value>
+    <value>התקנת מנהלי התקנים לשחזור</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>בדיקת תמונת Windows</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>קביעת מדיניות AI</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>הגדרת OOBE</value>
+    <value>קביעת הגדרות התקנת Windows</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>הגדרת שחזור Windows</value>
@@ -677,62 +683,71 @@ ErrorCode=0x80070005
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>הגדרת שם מחשב</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>קביעת אתחול Windows</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>הגדרת תכונות אופציונליות</value>
+    <value>קביעת תכונות Windows</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>העתקת פרופיל Autopilot</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>הורדת מנהלי התקנים</value>
+    <value>הורדת חבילת מנהלי התקנים</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>הורדת קושחה</value>
+    <value>הורדת עדכון קושחה</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>הורדת מערכת הפעלה</value>
+    <value>הורדת תמונת Windows</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>חילוץ מנהלי התקנים</value>
+    <value>חילוץ חבילת מנהלי התקנים</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>חילוץ עדכון קושחה</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>סיום פריסה</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>איסוף משתנים</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>אתחול פריסה</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>בדיקת מוכנות לפריסה</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>הכנת מסייע Autopilot</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>הכנת דיסק</value>
+    <value>הכנת דיסק היעד</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>הכנת Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>רישום מכשיר Autopilot</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>בדיקת מטמון</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>איטום מחיצת שחזור</value>
+    <value>הסתרת מחיצת השחזור</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>הכנת קובץ תשובות מותאם אישית</value>
+    <value>העתקת קובץ תשובות</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>הכנת מתקין מנהלי התקנים</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>הכנת התאמות</value>
+    <value>הכנת משימות התקנה</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>אימות קובץ תשובות מותאם אישית</value>
+    <value>אימות קובץ תשובות</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>אימות תצורה</value>
+    <value>בדיקת הגדרות הפריסה</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>מחיל חבילת מנהלי התקנים...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>מחיל עדכון קושחה...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>מחיל תמונה...</value>
@@ -755,6 +770,9 @@ ErrorCode=0x80070005
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>לוכד Autopilot hash חומרה...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>בדיקת השטח הזמין...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>בודק מטמון...</value>
   </data>
@@ -775,9 +793,6 @@ ErrorCode=0x80070005
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>ניקוי חלל עבודה זמני...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>אוסף את הקשר הפריסה...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>מגדיר הסרת רכיבי AI...</value>
@@ -803,14 +818,14 @@ ErrorCode=0x80070005
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>מעתיק AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>מעתיק חבילת מנהלי התקנים...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>מעתיק קובצי רישום אינטראקטיבי...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>יצירת מחיצות מדומות...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>יוצר תיקיות סביבת עבודה...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>מפענח אישור מדיה...</value>
@@ -830,17 +845,14 @@ ErrorCode=0x80070005
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>מחלץ חבילת דרייברים...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>מחלץ עדכון קושחה...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>מסיים את הפריסה...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>אוסף משתני פריסה...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>מייבא hash חומרה אל Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>מאתחל את סביבת העבודה של הפריסה...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>הזרקת תוכן קושחה לא מקוון Windows...</value>
@@ -910,6 +922,9 @@ ErrorCode=0x80070005
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>מכין את מסייע הרישום של Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>מכין עדכון קושחה...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>חבילת בימוי...</value>
@@ -1046,14 +1061,14 @@ ErrorCode=0x80070005
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>אסטרטגיית המטמון נפתרה (סימולציה).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>קובץ מנהל ההתקן '{0}' שנבחר מ-Microsoft Update Catalog אינו מכיל קובצי INF.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>התבקשה שלב חבילת מנהל התקן אתחול ראשון ללא פקודה נתמכת.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>משתני פריסה נאספו.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>משתני פריסה נאספו (סימולציה).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>מתקין מנהלי ההתקנים הוכן.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>חבילת מנהלי התקנים הוחלה.</value>
@@ -1079,26 +1094,29 @@ ErrorCode=0x80070005
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>לא הורדה חבילת מנהלי התקנים.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>חבילת מנהלי התקנים מוכנה להתקנת אתחול ראשון.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>חבילת מנהלי התקנים נפתרה מהמטמון.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>תוכן מקור חבילת מנהלי התקנים אינו זמין עבור שלב אתחול ראשון.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>הוחל עדכון קושחה.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>הוחל עדכון קושחה (סימולציה).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>אחסון התמונה החיצוני והקיבולת הידועה נבדקו.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>הורד עדכון קושחה.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>הורד עדכון קושחה (סימולציה).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>עדכון הקושחה חולץ.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>עדכון הקושחה אוחזר מהמטמון.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>עדכון הקושחה הוכן להתקנה ב-Windows.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>עדכוני קושחה מושבתים.</value>
@@ -1118,6 +1136,9 @@ ErrorCode=0x80070005
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog לא ייצר תוכן מנהל התקן.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>אין צורך במתקין מנהלי התקנים להפעלה מאוחרת.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>אין צורך בהורדת חבילת דרייברים.</value>
   </data>
@@ -1130,8 +1151,14 @@ ErrorCode=0x80070005
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>אין תוכן מנהלי INF שחולץ זמין.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>תוכן הקושחה שחולץ אינו מכיל קבצי CAB.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>תוכן הקושחה שחולץ אינו מכיל קבצי INF.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>אין תוכן זמין לעדכון קושחה.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>אין צורך בתסריטים להתאמה אישית של OOBE.</value>
@@ -1175,9 +1202,6 @@ ErrorCode=0x80070005
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>התאמות אישיות לפני OOBE בשלבים (סימולציה).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>קובץ התמונה ודרישות הקיבולת הידועות נבדקו לפני הכנת הדיסק.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>המוכנות לפריסה נבדקה (הדמיה).</value>
   </data>
@@ -1201,6 +1225,15 @@ ErrorCode=0x80070005
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>קובץ הפרופיל Autopilot שנבחר לא נמצא: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>תוכן חבילת מנהלי ההתקנים שנבחרה אינו זמין.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>תוכן הקושחה שנבחר אינו זמין.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (הדמיה).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>מזהה חומרת קושחת המערכת אינו זמין.</value>
@@ -1247,6 +1280,15 @@ ErrorCode=0x80070005
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>מצב התקנת חבילת מנהלי התקנים לא נתמך.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>אתחול Windows הוגדר.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>תמונת Windows והקיבולת הידועה נבדקו.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>תמונת Windows לא הוחלה.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>תצורת התכונה האופציונלית של Windows מושבתת.</value>
   </data>
@@ -1267,12 +1309,6 @@ ErrorCode=0x80070005
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>סימולציה של תצורת תכונה אופציונלית של Windows ({0} פעולות).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>סביבת העבודה אותחלה.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>סביבת עבודה אותחל (סימולציה).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>הפריסה הושלמה</value>

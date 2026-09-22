@@ -657,19 +657,25 @@
     <value>wpeutil.exe се провали с изходен код {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Приложи драйвери</value>
+    <value>Инсталиране на Windows драйвери</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Приложи фърмуер</value>
+    <value>Подготовка на фърмуерна актуализация</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Приложи операционната система</value>
+    <value>Прилагане на Windows образ</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Приложи драйвери за възстановяване</value>
+    <value>Инсталиране на възстановителни драйвери</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Проверка на Windows образ</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>Конфигуриране на AI политики</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>Конфигурирай OOBE</value>
+    <value>Конфигуриране на Windows настройката</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Конфигурирай възстановяването на Windows</value>
@@ -677,62 +683,71 @@
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Задай името на компютъра</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Конфигуриране на Windows зареждане</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Конфигурирай допълнителни функции</value>
+    <value>Конфигуриране на Windows функции</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Копиране на Autopilot профил</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Изтегли драйвери</value>
+    <value>Изтегляне на пакет драйвери</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Изтегли фърмуер</value>
+    <value>Изтегляне на фърмуерна актуализация</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Изтегли операционната система</value>
+    <value>Изтегляне на Windows образ</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Извлечи драйвери</value>
+    <value>Разархивиране на пакет драйвери</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Разархивиране на фърмуерна актуализация</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Завърши внедряването</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Събери променливи</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Инициализирай внедряването</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Проверка на готовността за разполагане</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Подготовка на Autopilot помощник</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Подготви диска</value>
+    <value>Подготовка на целевия диск</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Подготви Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Регистриране на Autopilot устройство</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Провери кеша</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Запечатай дяла за възстановяване</value>
+    <value>Скриване на възстановителния дял</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Подготовка на потребителския файл с отговори</value>
+    <value>Копиране на файл с отговори</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Подготовка на инсталатор за драйвери</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Подготви персонализациите</value>
+    <value>Подготовка на инсталационни задачи</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Проверка на потребителския файл с отговори</value>
+    <value>Проверка на файл с отговори</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Потвърди конфигурацията</value>
+    <value>Проверка на настройките за разполагане</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Прилага се пакет драйвери...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Прилага се актуализация на фърмуера...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Изображението се прилага...</value>
@@ -755,6 +770,9 @@
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Прихващане на Autopilot хардуерен хеш...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Проверка на свободното място...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Проверка на кеша...</value>
   </data>
@@ -775,9 +793,6 @@
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Почистване на временно работно пространство...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Събира се контекст на внедряване...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>Конфигуриране на премахването на AI компонент...</value>
@@ -803,14 +818,14 @@
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Копиране на AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Копиране на пакета драйвери...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Копират се файловете за интерактивна регистрация...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Създаване на симулирани дялове...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Създават се папки на работното пространство...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Медийният сертификат се дешифрира...</value>
@@ -830,17 +845,14 @@
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Пакет драйвери се извлича...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Разархивиране на фърмуерната актуализация...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Финализиране на внедряването...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Събират се променливи за внедряване...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Импортиране на хардуерен хеш в Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Работното пространство за внедряване се инициализира...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Инжектиране на съдържание на фърмуера в офлайн Windows...</value>
@@ -910,6 +922,9 @@
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Подготвя се помощникът за регистрация на Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Подготовка на фърмуерната актуализация...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Сценичен пакет...</value>
@@ -1046,14 +1061,14 @@
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Кеш стратегията е разрешена (симулация).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>Избраният файл с драйвери „{0}“ от Microsoft Update Catalog не съдържа INF файлове.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Беше поискано поставяне на пакет драйвери за първо зареждане без поддържана команда.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Събрани променливи за внедряване.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Събрани променливи за внедряване (симулация).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Инсталаторът за драйвери е подготвен.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Приложен е пакет драйвери.</value>
@@ -1079,26 +1094,29 @@
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Пакетът драйвери не е изтеглен.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Пакетът драйвери е подготвен за инсталация при първо зареждане.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Пакетът драйвери е разрешен от кеша.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>Изходното съдържание на пакета драйвери не е налично за етап на първо зареждане.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Приложена е актуализация на фърмуера.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Приложена е актуализация на фърмуера (симулация).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Външното хранилище за образа и известният капацитет са проверени.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Актуализацията на фърмуера е изтеглена.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Актуализацията на фърмуера е изтеглена (симулация).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Фърмуерната актуализация е разархивирана.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Фърмуерната актуализация е извлечена от кеша.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Фърмуерната актуализация е подготвена за инсталиране в Windows.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Актуализациите на фърмуера са деактивирани.</value>
@@ -1118,6 +1136,9 @@
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog не създаде съдържание на драйвера.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Не е необходим инсталатор за отложена инсталация на драйвери.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Не се изисква изтегляне на пакет драйвери.</value>
   </data>
@@ -1130,8 +1151,14 @@
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Няма налично извлечено съдържание на INF драйвер.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>Извлеченото съдържание на фърмуера не съдържа CAB файлове.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>Извлеченото съдържание на фърмуера не съдържа INF файлове.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Няма налично съдържание за фърмуерна актуализация.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>Не са необходими скриптове за персонализиране преди OOBE.</value>
@@ -1175,9 +1202,6 @@
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Поетапни персонализации преди OOBE (симулация).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>Образът и известните изисквания за капацитет са проверени преди подготовката на диска.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Готовността за разполагане е проверена (симулация).</value>
   </data>
@@ -1201,6 +1225,15 @@
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>Избраният Autopilot профилен файл не беше намерен: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>Съдържанието на избрания пакет драйвери не е налично.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>Избраното фърмуерно съдържание не е налично.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (симулация).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>Хардуерният идентификатор на системния фърмуер не е наличен.</value>
@@ -1247,6 +1280,15 @@
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Неподдържан режим на инсталиране на драйверен пакет.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Windows зареждането е конфигурирано.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Windows образът и известният капацитет са проверени.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>Windows образът не е приложен.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Конфигурирането на допълнителни функции на Windows е деактивирано.</value>
   </data>
@@ -1267,12 +1309,6 @@
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Симулирана конфигурация на допълнителни функции на Windows ({0} действия).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Работното пространство е инициализирано.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Инициализирано работно пространство (симулация).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Внедряването завърши</value>

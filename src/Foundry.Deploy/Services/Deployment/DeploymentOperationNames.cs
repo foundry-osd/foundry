@@ -12,8 +12,6 @@ public static class DeploymentOperationNames
     public const string ValidateCustomUnattend = "unattend.validate";
     public const string StageCustomUnattend = "unattend.stage";
     public const string AcquireGate = "deployment.acquire_gate";
-    public const string GatherVariables = "deployment.gather_variables";
-    public const string InitializeWorkspace = "deployment.initialize_workspace";
     public const string WriteLogs = "deployment.write_logs";
     public const string WriteSummary = "deployment.write_summary";
     public const string CleanupWorkspace = "deployment.cleanup_workspace";
@@ -54,6 +52,7 @@ public static class DeploymentOperationNames
     public const string DownloadFirmware = "firmware.download";
     public const string ResolveFirmware = "firmware.resolve";
     public const string ApplyFirmware = "firmware.apply";
+    public const string ExtractFirmware = "firmware.extract";
     public const string SealRecovery = "recovery.seal";
     public const string ProvisionAutopilot = "autopilot.provision";
     public const string StageAutopilotProfile = "autopilot.stage_profile";
@@ -74,8 +73,6 @@ public static class DeploymentOperationNames
         {
             DeploymentStepNames.ValidateCustomUnattend => ValidateCustomUnattend,
             DeploymentStepNames.StageCustomUnattend => StageCustomUnattend,
-            DeploymentStepNames.GatherDeploymentVariables => GatherVariables,
-            DeploymentStepNames.InitializeDeploymentWorkspace => InitializeWorkspace,
             DeploymentStepNames.ValidateTargetConfiguration => ValidateTarget,
             DeploymentStepNames.ResolveCacheStrategy => ResolveCache,
             DeploymentStepNames.PreflightDeployment => PreflightDeployment,
@@ -84,6 +81,11 @@ public static class DeploymentOperationNames
             DeploymentStepNames.DownloadDriverPack => DownloadDriverPack,
             DeploymentStepNames.ExtractDriverPack => ExtractDriverPack,
             DeploymentStepNames.ApplyOperatingSystemImage => ApplyOperatingSystemImage,
+            DeploymentStepNames.CheckWindowsImage => InspectOperatingSystemImage,
+            DeploymentStepNames.ConfigureWindowsBoot => ConfigureBoot,
+            DeploymentStepNames.ConfigureAiPolicies => WriteAiPolicyRegistry,
+            DeploymentStepNames.StageDriverInstaller => StageDeferredDriverPack,
+            DeploymentStepNames.ExtractFirmwareUpdate => ExtractFirmware,
             DeploymentStepNames.ConfigureTargetComputerName => ConfigureComputerName,
             DeploymentStepNames.ConfigureOobeSettings => ConfigureOobe,
             DeploymentStepNames.ConfigureWindowsOptionalFeatures => ConfigureWindowsOptionalFeatures,

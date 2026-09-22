@@ -6,6 +6,7 @@ namespace Foundry.Deploy.Services.DriverPacks;
 
 public interface IDriverPackExtractionService
 {
+    /// <summary>Extracts an offline-INF plan and rejects empty packages; deferred installers must be staged separately.</summary>
     Task<DriverPackExtractionResult> ExtractAsync(
         DriverPackExecutionPlan executionPlan,
         string extractionRootPath,

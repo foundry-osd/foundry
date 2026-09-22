@@ -657,19 +657,25 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>wpeutil.exe ni uspelo z izhodno kodo {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Uporabi gonilnike</value>
+    <value>Namesti gonilnike Windows</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Uporabi vdelano programsko opremo</value>
+    <value>Pripravi posodobitev vdelane programske opreme</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Uporabi operacijski sistem</value>
+    <value>Uporabi sliko Windows</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Uporabi gonilnike za obnovitev</value>
+    <value>Namesti gonilnike za obnovitev</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Preveri sliko Windows</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>Konfiguriraj pravilnike UI</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>Konfiguriraj OOBE</value>
+    <value>Konfiguriraj namestitev Windows</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Konfiguriraj obnovitev sistema Windows</value>
@@ -677,62 +683,71 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Nastavi ime računalnika</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Konfiguriraj zagon Windows</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Konfiguriraj izbirne funkcije</value>
+    <value>Konfiguriraj funkcije Windows</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Kopiraj profil Autopilot</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Prenesi gonilnike</value>
+    <value>Prenesi paket gonilnikov</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Prenesi vdelano programsko opremo</value>
+    <value>Prenesi posodobitev vdelane programske opreme</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Prenesi operacijski sistem</value>
+    <value>Prenesi sliko Windows</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Razpakiraj gonilnike</value>
+    <value>Razširi paket gonilnikov</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Razširi posodobitev vdelane programske opreme</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Zaključi namestitev</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Zberi spremenljivke</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Inicializiraj namestitev</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Preveri pripravljenost na uvajanje</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Pripravi pomočnika Autopilot</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Pripravi disk</value>
+    <value>Pripravi ciljni disk</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Pripravi Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Registriraj napravo Autopilot</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Preveri predpomnilnik</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Zapečati obnovitveno particijo</value>
+    <value>Skrij obnovitveno particijo</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Pripravi datoteko odgovorov po meri</value>
+    <value>Kopiraj datoteko odgovorov</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Pripravi namestitveni program gonilnikov</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Pripravi prilagoditve</value>
+    <value>Pripravi namestitvena opravila</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Preveri datoteko odgovorov po meri</value>
+    <value>Preveri datoteko odgovorov</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Preveri konfiguracijo</value>
+    <value>Preveri nastavitve uvajanja</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Uporaba paketa gonilnikov...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Uveljavljanje posodobitve vdelane programske opreme...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Uporaba slike...</value>
@@ -755,6 +770,9 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Zajem Autopilot hash strojne opreme...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Preverjanje razpoložljivega prostora...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Preverjanje predpomnilnika...</value>
   </data>
@@ -775,9 +793,6 @@ Ali želite nadaljevati z uvajanjem?</value>
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Čiščenje začasnega delovnega prostora...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Zbiranje konteksta uvajanja...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>Konfiguriranje odstranitve komponente AI...</value>
@@ -803,14 +818,14 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopiranje AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Kopiranje paketa gonilnikov...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopirajo se datoteke interaktivne registracije...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Ustvarjanje simuliranih particij...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Ustvarjanje map delovnega prostora...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Dešifriranje medijskega potrdila...</value>
@@ -830,17 +845,14 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Ekstrahiranje paketa gonilnikov...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Razširjanje posodobitve vdelane programske opreme...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Zaključevanje uvajanja...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Zbiranje spremenljivk uvajanja...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Uvažanje razpršitve strojne opreme v Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Inicializacija delovnega prostora za uvajanje...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Vstavljanje vsebine vdelane programske opreme v način brez povezave Windows...</value>
@@ -910,6 +922,9 @@ Ali želite nadaljevati z uvajanjem?</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Pripravlja se pomočnik za registracijo Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Priprava posodobitve vdelane programske opreme...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Uprizoritveni paket...</value>
@@ -1046,14 +1061,14 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Strategija predpomnilnika razrešena (simulacija).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>Izbrana datoteka gonilnika »{0}« iz Microsoft Update Catalog ne vsebuje datotek INF.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Zahtevana je bila uprizoritev paketa gonilnikov pri prvem zagonu brez podprtega ukaza.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Zbrane spremenljivke uvajanja.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Zbrane spremenljivke uvajanja (simulacija).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Namestitveni program gonilnikov je pripravljen.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Uporabljen je paket gonilnikov.</value>
@@ -1079,26 +1094,29 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Paket gonilnikov ni bil prenesen.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Paket gonilnikov, pripravljen za namestitev ob prvem zagonu.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Paket gonilnikov razrešen iz predpomnilnika.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>Izvorna vsebina paketa gonilnikov ni na voljo za uprizoritev prvega zagona.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Uporabljena je posodobitev vdelane programske opreme.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Uporabljena je posodobitev vdelane programske opreme (simulacija).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Zunanja shramba slike in znana zmogljivost sta preverjeni.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Posodobitev vdelane programske opreme je prenesena.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Prenesena posodobitev vdelane programske opreme (simulacija).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Posodobitev vdelane programske opreme je razširjena.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Posodobitev vdelane programske opreme je pridobljena iz predpomnilnika.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Posodobitev vdelane programske opreme je pripravljena za namestitev v Windows.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Posodobitve vdelane programske opreme so onemogočene.</value>
@@ -1118,6 +1136,9 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog ni ustvaril vsebine gonilnika.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Namestitveni program za poznejšo namestitev gonilnikov ni potreben.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Prenos paketa gonilnikov ni potreben.</value>
   </data>
@@ -1130,8 +1151,14 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Izvlečena vsebina gonilnika INF ni na voljo.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>Ekstrahirana vsebina vdelane programske opreme ne vsebuje datotek CAB.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>Ekstrahirana vsebina vdelane programske opreme ne vsebuje datotek INF.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Vsebina posodobitve vdelane programske opreme ni na voljo.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>Skripti za prilagajanje pred OOBE niso potrebni.</value>
@@ -1175,9 +1202,6 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Izvedene prilagoditve pred OOBE (simulacija).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>Slika in znane zahteve glede zmogljivosti so bile preverjene pred pripravo diska.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Pripravljenost na uvajanje je bila preverjena (simulacija).</value>
   </data>
@@ -1201,6 +1225,15 @@ Ali želite nadaljevati z uvajanjem?</value>
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>Izbrane datoteke profila Autopilot ni bilo mogoče najti: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>Vsebina izbranega paketa gonilnikov ni na voljo.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>Izbrana vsebina vdelane programske opreme ni na voljo.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (simulacija).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>Identifikator strojne opreme vdelane programske opreme sistema ni na voljo.</value>
@@ -1247,6 +1280,15 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Nepodprt način namestitve paketa gonilnikov.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Zagon Windows je konfiguriran.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Slika Windows in znana zmogljivost sta preverjeni.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>Slika Windows ni bila uporabljena.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Konfiguracija izbirne funkcije sistema Windows je onemogočena.</value>
   </data>
@@ -1267,12 +1309,6 @@ Ali želite nadaljevati z uvajanjem?</value>
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Simulirana konfiguracija izbirne funkcije sistema Windows ({0} dejanj).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Delovni prostor je inicializiran.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Delovni prostor je inicializiran (simulacija).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Namestitev zaključena</value>

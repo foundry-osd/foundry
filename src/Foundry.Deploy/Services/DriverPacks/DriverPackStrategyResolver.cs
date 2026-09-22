@@ -27,8 +27,7 @@ public sealed class DriverPackStrategyResolver : IDriverPackStrategyResolver
                 DeferredCommandKind = DeferredDriverPackageCommandKind.None,
                 DownloadedPath = downloadedPath,
                 EffectiveFileExtension = string.Empty,
-                Manufacturer = string.Empty,
-                RequiresInfPayload = false
+                Manufacturer = string.Empty
             };
         }
 
@@ -41,8 +40,7 @@ public sealed class DriverPackStrategyResolver : IDriverPackStrategyResolver
                 DeferredCommandKind = DeferredDriverPackageCommandKind.None,
                 DownloadedPath = downloadedPath,
                 EffectiveFileExtension = ".cab",
-                Manufacturer = "Microsoft Update Catalog",
-                RequiresInfPayload = true
+                Manufacturer = "Microsoft Update Catalog"
             };
         }
 
@@ -63,8 +61,7 @@ public sealed class DriverPackStrategyResolver : IDriverPackStrategyResolver
                 DeferredDriverPackageCommandKind.LenovoExecutable,
                 downloadedPath,
                 extension,
-                normalizedManufacturer,
-                requiresInfPayload: false);
+                normalizedManufacturer);
         }
 
         if (manufacturerLower.Contains("microsoft", StringComparison.Ordinal) && extension == ".msi")
@@ -75,8 +72,7 @@ public sealed class DriverPackStrategyResolver : IDriverPackStrategyResolver
                 DeferredDriverPackageCommandKind.SurfaceMsi,
                 downloadedPath,
                 extension,
-                normalizedManufacturer,
-                requiresInfPayload: false);
+                normalizedManufacturer);
         }
 
         if (extension is ".cab" or ".zip")
@@ -87,8 +83,7 @@ public sealed class DriverPackStrategyResolver : IDriverPackStrategyResolver
                 DeferredDriverPackageCommandKind.None,
                 downloadedPath,
                 extension,
-                normalizedManufacturer,
-                requiresInfPayload: true);
+                normalizedManufacturer);
         }
 
         if (manufacturerLower.Contains("dell", StringComparison.Ordinal) && extension == ".exe")
@@ -99,8 +94,7 @@ public sealed class DriverPackStrategyResolver : IDriverPackStrategyResolver
                 DeferredDriverPackageCommandKind.None,
                 downloadedPath,
                 extension,
-                normalizedManufacturer,
-                requiresInfPayload: true);
+                normalizedManufacturer);
         }
 
         if (manufacturerLower.Contains("hp", StringComparison.Ordinal) && extension == ".exe")
@@ -111,8 +105,7 @@ public sealed class DriverPackStrategyResolver : IDriverPackStrategyResolver
                 DeferredDriverPackageCommandKind.None,
                 downloadedPath,
                 extension,
-                normalizedManufacturer,
-                requiresInfPayload: true);
+                normalizedManufacturer);
         }
 
         throw new InvalidOperationException(
@@ -125,8 +118,7 @@ public sealed class DriverPackStrategyResolver : IDriverPackStrategyResolver
         DeferredDriverPackageCommandKind deferredCommandKind,
         string downloadedPath,
         string effectiveFileExtension,
-        string manufacturer,
-        bool requiresInfPayload)
+        string manufacturer)
     {
         return new DriverPackExecutionPlan
         {
@@ -135,8 +127,7 @@ public sealed class DriverPackStrategyResolver : IDriverPackStrategyResolver
             DeferredCommandKind = deferredCommandKind,
             DownloadedPath = downloadedPath,
             EffectiveFileExtension = effectiveFileExtension,
-            Manufacturer = manufacturer,
-            RequiresInfPayload = requiresInfPayload
+            Manufacturer = manufacturer
         };
     }
 

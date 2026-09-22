@@ -657,19 +657,25 @@
     <value>wpeutil.exe 失敗，退出程式碼{0}。 {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>套用驅動程式</value>
+    <value>安裝 Windows 驅動程式</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>套用韌體</value>
+    <value>暫存韌體更新</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>套用作業系統</value>
+    <value>套用 Windows 映像</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>套用復原驅動程式</value>
+    <value>安裝復原驅動程式</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>檢查 Windows 映像</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>設定 AI 原則</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>設定 OOBE</value>
+    <value>設定 Windows 安裝</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>設定 Windows 復原</value>
@@ -677,62 +683,71 @@
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>設定電腦名稱</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>設定 Windows 開機</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>設定選用功能</value>
+    <value>設定 Windows 功能</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>複製 Autopilot 設定檔</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>下載驅動程式</value>
+    <value>下載驅動程式套件</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>下載韌體</value>
+    <value>下載韌體更新</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>下載作業系統</value>
+    <value>下載 Windows 映像</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>解壓縮驅動程式</value>
+    <value>解壓縮驅動程式套件</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>解壓縮韌體更新</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>完成部署</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>收集變數</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>初始化部署</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>檢查部署準備狀態</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>準備 Autopilot 助手</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>準備磁碟</value>
+    <value>準備目標磁碟</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>預配 Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>註冊 Autopilot 裝置</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>檢查快取</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>封存復原分割區</value>
+    <value>隱藏復原分割區</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>準備自訂回應檔案</value>
+    <value>複製回應檔案</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>暫存驅動程式安裝程式</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>準備自訂項目</value>
+    <value>準備安裝工作</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>驗證自訂回應檔案</value>
+    <value>驗證回應檔案</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>驗證設定</value>
+    <value>檢查部署設定</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>正在應用驅動程式包...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>正在套用韌體更新...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>正在套用圖像...</value>
@@ -755,6 +770,9 @@
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>正在捕獲Autopilot硬體哈希...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>正在檢查可用空間...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>正在檢查快取...</value>
   </data>
@@ -775,9 +793,6 @@
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>清理臨時工作空間...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>正在收集部署上下文...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>配置 AI 組件刪除...</value>
@@ -803,14 +818,14 @@
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>正在複製 AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>正在複製驅動程式套件...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>正在複製互動式註冊檔案...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>建立模擬分割區...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>建立工作區資料夾...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>正在解密媒體憑證...</value>
@@ -830,17 +845,14 @@
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>正在解壓縮驅動包...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>正在解壓縮韌體更新...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>正在完成部署...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>正在收集部署變數...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>正在將硬體哈希導入Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>正在初始化部署工作區...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>正在將韌體內容注入離線Windows...</value>
@@ -910,6 +922,9 @@
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>正在暫存 Autopilot 註冊助理...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>正在暫存韌體更新...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>暫存包...</value>
@@ -1046,14 +1061,14 @@
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>快取策略已解決（模擬）。</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>選取的 Microsoft Update Catalog 驅動程式檔案「{0}」未包含 INF 檔案。</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>在沒有支援的命令的情況下請求了首次啟動驅動程式包暫存。</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>收集部署變數。</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>收集部署變數（模擬）。</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>已暫存驅動程式安裝程式。</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>應用驅動程式包。</value>
@@ -1079,26 +1094,29 @@
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>驅動包沒有下載。</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>為首次啟動安裝所準備的驅動程式套件。</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>從快取中解析驅動程式包。</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>驅動程式套件來源內容無法用於首次啟動暫存。</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>已套用韌體更新。</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>應用韌體更新（模擬）。</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>已檢查映像的外部儲存空間和已知容量。</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>韌體更新已下載。</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>下載韌體更新（模擬）。</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>已解壓縮韌體更新。</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>已從快取取得韌體更新。</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>已暫存韌體更新，供 Windows 安裝。</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>韌體更新被禁用。</value>
@@ -1118,6 +1136,9 @@
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog 沒有產生驅動程式內容。</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>不需要稍後執行的驅動程式安裝程式。</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>無需下載驅動程式包。</value>
   </data>
@@ -1130,8 +1151,14 @@
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>沒有提取的 INF 驅動程式內容可用。</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>提取的韌體內容不包含任何 CAB 檔案。</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>提取的韌體內容不包含任何 INF 檔案。</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>沒有可用的韌體更新內容。</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>不需要 OOBE 前的自訂腳本。</value>
@@ -1175,9 +1202,6 @@
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>預 OOBE 定制已上演（模擬）。</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>已在準備磁碟之前檢查映像與已知容量需求。</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>已檢查部署準備狀態（模擬）。</value>
   </data>
@@ -1201,6 +1225,15 @@
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>未找到所選Autopilot 設定檔：{0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>選取的驅動程式套件內容無法使用。</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>選取的韌體內容無法使用。</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0}（模擬）。</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>系統韌體硬體標識符不可用。</value>
@@ -1247,6 +1280,15 @@
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>不支援的驅動程式包安裝模式。</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>已設定 Windows 開機。</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>已檢查 Windows 映像和已知容量。</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>尚未套用 Windows 映像。</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Windows 選用功能配置已停用。</value>
   </data>
@@ -1267,12 +1309,6 @@
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>模擬 Windows 選用功能配置（{0} 操作）。</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>工作區已初始化。</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>工作區已初始化（模擬）。</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>部署已完成</value>

@@ -21,8 +21,6 @@ public static partial class DeploymentUiTextLocalizer
     {
         return value switch
         {
-            "Gather deployment variables" => LocalizationText.GetString("Step.GatherDeploymentVariables"),
-            "Initialize deployment workspace" => LocalizationText.GetString("Step.InitializeDeploymentWorkspace"),
             "Validate target configuration" => LocalizationText.GetString("Step.ValidateTargetConfiguration"),
             "Resolve cache strategy" => LocalizationText.GetString("Step.ResolveCacheStrategy"),
             "Check deployment readiness" => LocalizationText.GetString("Step.PreflightDeployment"),
@@ -31,6 +29,11 @@ public static partial class DeploymentUiTextLocalizer
             "Validate custom answer file" => LocalizationText.GetString("Step.ValidateCustomUnattend"),
             "Stage custom answer file" => LocalizationText.GetString("Step.StageCustomUnattend"),
             "Apply operating system image" => LocalizationText.GetString("Step.ApplyOperatingSystemImage"),
+            "Check Windows image" => LocalizationText.GetString("Step.CheckWindowsImage"),
+            "Configure Windows boot" => LocalizationText.GetString("Step.ConfigureWindowsBoot"),
+            "Configure AI policies" => LocalizationText.GetString("Step.ConfigureAiPolicies"),
+            "Stage driver installer" => LocalizationText.GetString("Step.StageDriverInstaller"),
+            "Extract firmware update" => LocalizationText.GetString("Step.ExtractFirmwareUpdate"),
             "Configure target computer name" => LocalizationText.GetString("Step.ConfigureTargetComputerName"),
             "Configure OOBE settings" => LocalizationText.GetString("Step.ConfigureOobeSettings"),
             "Configure Windows optional features" => LocalizationText.GetString("Step.ConfigureWindowsOptionalFeatures"),
@@ -44,6 +47,9 @@ public static partial class DeploymentUiTextLocalizer
             "Apply firmware update" => LocalizationText.GetString("Step.ApplyFirmwareUpdate"),
             "Seal recovery partition" => LocalizationText.GetString("Step.SealRecoveryPartition"),
             "Provision Autopilot" => LocalizationText.GetString("Step.ProvisionAutopilot"),
+            "Register Autopilot device" => LocalizationText.GetString("Step.RegisterAutopilotDevice"),
+            "Prepare Autopilot assistant" => LocalizationText.GetString("Step.PrepareAutopilotAssistant"),
+            "Copy Autopilot profile" => LocalizationText.GetString("Step.CopyAutopilotProfile"),
             "Finalize deployment and write logs" => LocalizationText.GetString("Step.FinalizeDeploymentAndWriteLogs"),
             _ => LocalizeMessage(value)
         };
@@ -66,9 +72,17 @@ public static partial class DeploymentUiTextLocalizer
             "Waiting for deployment..." => LocalizationText.GetString("Status.WaitingForDeployment"),
             "Checking deployment readiness..." => LocalizationText.GetString("StepMessage.CheckingDeploymentReadiness"),
             "Checking source access..." => LocalizationText.GetString("StepMessage.CheckingSourceAccess"),
-            "Image and known capacity checked before disk preparation." => LocalizationText.GetString("StepResult.PreflightExternalReady"),
             "Source access and known capacity checked. Full image validation finishes after disk preparation." => LocalizationText.GetString("StepResult.PreflightTargetReady"),
             "Deployment readiness checked (simulation)." => LocalizationText.GetString("StepResult.PreflightSimulation"),
+            "External image storage and known capacity checked." => LocalizationText.GetString("StepResult.ExternalStorageReady"),
+            "Checking Windows image..." => LocalizationText.GetString("StepMessage.InspectingImage"),
+            "Checking available space..." => LocalizationText.GetString("StepMessage.CheckingAvailableSpace"),
+            "Windows image and known capacity checked." => LocalizationText.GetString("StepResult.WindowsImageChecked"),
+            "Windows image checked (simulation)." => LocalizeSimulation("StepResult.WindowsImageChecked"),
+            "Configuring Windows boot..." => LocalizationText.GetString("StepMessage.ConfiguringBoot"),
+            "Windows boot configured." => LocalizationText.GetString("StepResult.WindowsBootConfigured"),
+            "Windows boot configured (simulation)." => LocalizeSimulation("StepResult.WindowsBootConfigured"),
+            "Windows image was not applied." => LocalizationText.GetString("StepResult.WindowsImageNotApplied"),
             HttpConnectionFailure.SecureConnectionMessage => LocalizationText.GetString("Error.SecureConnectionFailed"),
             "Waiting for progress..." => LocalizationText.GetString("Status.WaitingForProgress"),
             "Preparing deployment..." => LocalizationText.GetString("Status.PreparingDeployment"),
@@ -82,18 +96,10 @@ public static partial class DeploymentUiTextLocalizer
             "Detecting hardware..." => LocalizationText.GetString("Preparation.DetectingHardware"),
             "Hardware detection failed." => LocalizationText.GetString("Preparation.HardwareDetectionFailed"),
             "Another operation is already running." => LocalizationText.GetString("Status.AnotherOperationRunning"),
-            "Gathering deployment variables..." => LocalizationText.GetString("StepMessage.GatheringDeploymentVariables"),
-            "Collecting deployment context..." => LocalizationText.GetString("StepMessage.CollectingDeploymentContext"),
-            "Deployment variables gathered." => LocalizationText.GetString("StepResult.DeploymentVariablesGathered"),
-            "Deployment variables gathered (simulation)." => LocalizationText.GetString("StepResult.DeploymentVariablesGatheredSimulation"),
-            "Initializing deployment workspace..." => LocalizationText.GetString("StepMessage.InitializingDeploymentWorkspace"),
-            "Creating workspace folders..." => LocalizationText.GetString("StepMessage.CreatingWorkspaceFolders"),
             "Finalizing deployment..." => LocalizationText.GetString("StepMessage.FinalizingDeployment"),
             "Cleaning temporary workspace..." => LocalizationText.GetString("StepMessage.CleaningTemporaryWorkspace"),
             "Writing deployment summary..." => LocalizationText.GetString("StepMessage.WritingDeploymentSummary"),
             "Writing completion logs..." => LocalizationText.GetString("StepMessage.WritingCompletionLogs"),
-            "Workspace initialized." => LocalizationText.GetString("StepResult.WorkspaceInitialized"),
-            "Workspace initialized (simulation)." => LocalizationText.GetString("StepResult.WorkspaceInitializedSimulation"),
             "Validating target configuration..." => LocalizationText.GetString("StepMessage.ValidatingTargetConfiguration"),
             "Revalidating target disk..." => LocalizationText.GetString("StepMessage.RevalidatingTargetDisk"),
             "Detecting hardware profile..." => LocalizationText.GetString("StepMessage.DetectingHardwareProfile"),
@@ -170,7 +176,6 @@ public static partial class DeploymentUiTextLocalizer
             "Driver pack was not downloaded." => LocalizationText.GetString("StepResult.DriverPackNotDownloaded"),
             "Driver pack extracted." => LocalizationText.GetString("StepResult.DriverPackExtracted"),
             "Driver pack extracted (simulation)." => LocalizationText.GetString("StepResult.DriverPackExtractedSimulation"),
-            "Driver pack prepared for deferred installation." => LocalizationText.GetString("StepResult.DriverPackPreparedForDeferredInstallation"),
             "No driver pack operation is required." => LocalizationText.GetString("StepResult.NoDriverPackOperationRequired"),
             "Unsupported driver pack install mode." => LocalizationText.GetString("StepResult.UnsupportedDriverPackInstallMode"),
             "No extracted INF driver payload is available." => LocalizationText.GetString("StepResult.NoExtractedInfDriverPayload"),
@@ -183,6 +188,15 @@ public static partial class DeploymentUiTextLocalizer
             "Applying WinRE drivers..." => LocalizationText.GetString("StepMessage.ApplyingWinReDrivers"),
             "Unmounting WinRE..." => LocalizationText.GetString("StepMessage.UnmountingWinRe"),
             "Staging package..." => LocalizationText.GetString("StepMessage.StagingPackage"),
+            "Staging driver installer..." => LocalizationText.GetString("StepMessage.StagingPackage"),
+            "Copying driver package..." => LocalizationText.GetString("StepMessage.CopyingDriverPackage"),
+            "Copying package" => TrimTrailingEllipsis(LocalizationText.GetString("StepMessage.CopyingDriverPackage")),
+            "No deferred driver installer is required." => LocalizationText.GetString("StepResult.NoDeferredDriverInstallerRequired"),
+            "Driver installer staged." => LocalizationText.GetString("StepResult.DriverInstallerStaged"),
+            "Driver installer staged (simulation)." => LocalizeSimulation("StepResult.DriverInstallerStaged"),
+            "The selected driver pack payload is unavailable." => LocalizationText.GetString("StepResult.SelectedDriverPayloadUnavailable"),
+            "No selected Microsoft Update Catalog driver payload is available for extraction." => LocalizationText.GetString("StepResult.MicrosoftUpdateCatalogDriverPayloadMissing"),
+            "The selected firmware payload does not contain any CAB files." => LocalizationText.GetString("StepResult.NoFirmwareCabFiles"),
             "Updating SetupComplete hook..." => LocalizationText.GetString("StepMessage.UpdatingSetupCompleteHook"),
             "Driver pack applied." => LocalizationText.GetString("StepResult.DriverPackApplied"),
             "Driver pack applied (simulation)." => LocalizationText.GetString("StepResult.DriverPackAppliedSimulation"),
@@ -193,13 +207,19 @@ public static partial class DeploymentUiTextLocalizer
             "Firmware updates are skipped while the device is running on battery power." => LocalizationText.GetString("StepResult.FirmwareUpdatesSkippedOnBattery"),
             "System firmware hardware identifier is unavailable." => LocalizationText.GetString("StepResult.SystemFirmwareHardwareIdentifierUnavailable"),
             "Firmware update downloaded." => LocalizationText.GetString("StepResult.FirmwareUpdateDownloaded"),
+            "Firmware update resolved from cache." => LocalizationText.GetString("StepResult.FirmwareUpdateResolvedFromCache"),
+            "Extracting firmware update..." or "Extracting firmware payload..." => LocalizationText.GetString("StepMessage.ExtractingFirmwareUpdate"),
+            "Firmware update extracted." => LocalizationText.GetString("StepResult.FirmwareUpdateExtracted"),
+            "Firmware update extracted (simulation)." => LocalizeSimulation("StepResult.FirmwareUpdateExtracted"),
+            "Staging firmware update..." => LocalizationText.GetString("StepMessage.StagingFirmwareUpdate"),
+            "Firmware update staged for Windows installation." => LocalizationText.GetString("StepResult.FirmwareUpdateStaged"),
+            "Firmware update staged for Windows installation (simulation)." => LocalizeSimulation("StepResult.FirmwareUpdateStaged"),
+            "No firmware update payload is available." => LocalizationText.GetString("StepResult.NoFirmwareUpdatePayload"),
+            "The selected firmware payload is unavailable." => LocalizationText.GetString("StepResult.SelectedFirmwarePayloadUnavailable"),
             "Firmware update downloaded (simulation)." => LocalizationText.GetString("StepResult.FirmwareUpdateDownloadedSimulation"),
             "No extracted firmware payload is available." => LocalizationText.GetString("StepResult.NoExtractedFirmwarePayload"),
             "The extracted firmware payload does not contain any INF files." => LocalizationText.GetString("StepResult.NoFirmwareInfFiles"),
-            "Applying firmware update..." => LocalizationText.GetString("StepMessage.ApplyingFirmwareUpdate"),
             "Injecting firmware payload into offline Windows..." => LocalizationText.GetString("StepMessage.InjectingFirmwarePayload"),
-            "Firmware update applied." => LocalizationText.GetString("StepResult.FirmwareUpdateApplied"),
-            "Firmware update applied (simulation)." => LocalizationText.GetString("StepResult.FirmwareUpdateAppliedSimulation"),
             "Sealing recovery partition..." => LocalizationText.GetString("StepMessage.SealingRecoveryPartition"),
             "Removing recovery drive letter..." => LocalizationText.GetString("StepMessage.RemovingRecoveryDriveLetter"),
             "Recovery partition sealed." => LocalizationText.GetString("StepResult.RecoveryPartitionSealed"),
@@ -264,6 +284,12 @@ public static partial class DeploymentUiTextLocalizer
 
     private static string LocalizeDynamicMessage(string value)
     {
+        Match missingInf = CatalogDriverInfMissingRegex().Match(value);
+        if (missingInf.Success)
+        {
+            return LocalizationText.Format("StepResult.CatalogDriverInfMissingFormat", missingInf.Groups["file"].Value);
+        }
+
         Match match = CatalogLoadedRegex().Match(value);
         if (match.Success)
         {
@@ -435,6 +461,10 @@ public static partial class DeploymentUiTextLocalizer
         return value;
     }
 
+    /// <summary>Marks a translated result as simulated without duplicating the result text in every resource set.</summary>
+    private static string LocalizeSimulation(string resultKey) =>
+        LocalizationText.Format("StepResult.SimulationFormat", LocalizationText.GetString(resultKey).TrimEnd('.', '。'));
+
     /// <summary>
     /// Localizes the invariant prefix used by generated percentage labels such as driver or image progress.
     /// </summary>
@@ -483,6 +513,9 @@ public static partial class DeploymentUiTextLocalizer
 
     [GeneratedRegex(@"^Catalogs loaded: (?<os>\d+) OS entries, (?<drivers>\d+) driver packs\.$")]
     private static partial Regex CatalogLoadedRegex();
+
+    [GeneratedRegex(@"^The selected Microsoft Update Catalog driver payload '(?<file>.+)' does not contain any INF files\.$")]
+    private static partial Regex CatalogDriverInfMissingRegex();
 
     [GeneratedRegex(@"^Windows optional features configured \((?<changed>\d+) changed, (?<satisfied>\d+) already satisfied, (?<unavailable>\d+) unavailable\)\.$")]
     private static partial Regex WindowsOptionalFeatureConfiguredRegex();

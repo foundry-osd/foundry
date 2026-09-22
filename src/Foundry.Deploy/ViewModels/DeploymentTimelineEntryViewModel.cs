@@ -13,15 +13,20 @@ public sealed partial class DeploymentTimelineEntryViewModel : ObservableObject
     {
         StepIndex = stepIndex;
         RawName = rawName;
+        RawLabel = rawName;
         this.displayName = displayName;
         this.stateAutomationText = stateAutomationText;
     }
 
-    public int StepIndex { get; }
+    public int StepIndex { get; internal set; }
     public string RawName { get; private set; }
+    public string RawLabel { get; internal set; }
+    public string? RawMessage { get; internal set; }
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsCompleted))]
+    private string detailText = string.Empty;
+
+    [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsActive))]
     [NotifyPropertyChangedFor(nameof(Glyph))]
     private DeploymentStepState state = DeploymentStepState.Pending;
@@ -32,12 +37,12 @@ public sealed partial class DeploymentTimelineEntryViewModel : ObservableObject
     [ObservableProperty]
     private string stateAutomationText;
 
-    public bool IsCompleted => State is DeploymentStepState.Succeeded or DeploymentStepState.Skipped;
     public bool IsActive => State is DeploymentStepState.Running or DeploymentStepState.Failed or DeploymentStepState.Cancelled;
 
     public string Glyph => State switch
     {
-        DeploymentStepState.Succeeded or DeploymentStepState.Skipped => "\uE930",
+        DeploymentStepState.Succeeded => "\uE930",
+        DeploymentStepState.Skipped => "\uE946",
         DeploymentStepState.Running => "\uE915",
         DeploymentStepState.Failed => "\uEA39",
         DeploymentStepState.Cancelled => "\uE711",

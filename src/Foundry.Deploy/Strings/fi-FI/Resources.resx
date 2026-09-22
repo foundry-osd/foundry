@@ -657,19 +657,25 @@ Jatketaanko käyttöönottoa?</value>
     <value>wpeutil.exe epäonnistui poistumiskoodilla {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Käytä ohjaimia</value>
+    <value>Asenna Windows-ohjaimet</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Käytä laiteohjelmistoa</value>
+    <value>Valmistele laiteohjelmistopäivitys</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Käytä käyttöjärjestelmää</value>
+    <value>Ota Windows-näköistiedosto käyttöön</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Käytä palautusohjaimia</value>
+    <value>Asenna palautusohjaimet</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Tarkista Windows-näköistiedosto</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>Määritä tekoälykäytännöt</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>Määritä OOBE</value>
+    <value>Määritä Windowsin asennus</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Määritä Windowsin palautus</value>
@@ -677,62 +683,71 @@ Jatketaanko käyttöönottoa?</value>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Määritä tietokoneen nimi</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Määritä Windowsin käynnistys</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Määritä valinnaiset ominaisuudet</value>
+    <value>Määritä Windowsin ominaisuudet</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Kopioi Autopilot-profiili</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Lataa ohjaimet</value>
+    <value>Lataa ohjainpaketti</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Lataa laiteohjelmisto</value>
+    <value>Lataa laiteohjelmistopäivitys</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Lataa käyttöjärjestelmä</value>
+    <value>Lataa Windows-näköistiedosto</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Pura ohjaimet</value>
+    <value>Pura ohjainpaketti</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Pura laiteohjelmistopäivitys</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Viimeistele käyttöönotto</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Kerää muuttujat</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Alusta käyttöönotto</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Tarkista käyttöönottovalmius</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Valmistele Autopilot-avustaja</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Valmistele levy</value>
+    <value>Valmistele kohdelevy</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Valmistele Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Rekisteröi Autopilot-laite</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Tarkista välimuisti</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Sinetöi palautusosio</value>
+    <value>Piilota palautusosio</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Valmistele mukautettu vastaustiedosto</value>
+    <value>Kopioi vastaustiedosto</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Valmistele ohjainten asennusohjelma</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Valmistele mukautukset</value>
+    <value>Valmistele asennustehtävät</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Vahvista mukautettu vastaustiedosto</value>
+    <value>Vahvista vastaustiedosto</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Vahvista määritys</value>
+    <value>Tarkista käyttöönottoasetukset</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Otetaan ohjainpakettia...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Otetaan laiteohjelmistopäivitystä...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Otetaan kuvaa...</value>
@@ -755,6 +770,9 @@ Jatketaanko käyttöönottoa?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Kaapataan Autopilot laitteistotiivistettä...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Tarkistetaan käytettävissä olevaa tilaa...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Tarkistetaan välimuistia...</value>
   </data>
@@ -775,9 +793,6 @@ Jatketaanko käyttöönottoa?</value>
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Siivotaan väliaikaista työtilaa...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Keräätään käyttöönottokontekstia...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>Määritetään tekoälykomponenttien poistoa...</value>
@@ -803,14 +818,14 @@ Jatketaanko käyttöönottoa?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopioidaan AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Kopioidaan ohjainpakettia...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopioidaan vuorovaikutteisen rekisteröinnin tiedostoja...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Luodaan simuloituja osioita...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Luodaan työtilakansioita...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Puretaan mediavarmenteen salausta...</value>
@@ -830,17 +845,14 @@ Jatketaanko käyttöönottoa?</value>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Puretaan ohjainpakettia...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Puretaan laiteohjelmistopäivitystä...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Käyttöönottoa viimeistellään...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Keräätään käyttöönottomuuttujia...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Tuodaan laitteiston tiivistettä Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Alustetaan käyttöönottotyötilaa...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Laiteohjelmiston sisällön lisääminen offline-tilaan Windows...</value>
@@ -910,6 +922,9 @@ Jatketaanko käyttöönottoa?</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Valmistellaan Autopilot-rekisteröintiavustajaa...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Valmistellaan laiteohjelmistopäivitystä...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Lavastuspaketti...</value>
@@ -1046,14 +1061,14 @@ Jatketaanko käyttöönottoa?</value>
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Välimuististrategia ratkaistu (simulointi).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>Valittu Microsoft Update Catalogin ohjaintiedosto '{0}' ei sisällä INF-tiedostoja.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Ensimmäisen käynnistyksen ohjainpaketin vaiheistusta pyydettiin ilman tuettua komentoa.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Käyttöönottomuuttujat kerätty.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Käyttöönottomuuttujat kerätty (simulointi).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Ohjainten asennusohjelma valmisteltu.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Ohjainpaketti käytössä.</value>
@@ -1079,26 +1094,29 @@ Jatketaanko käyttöönottoa?</value>
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Ohjainpakettia ei ladattu.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Ohjainpaketti valmis ensimmäisen käynnistyksen asennusta varten.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Ohjainpaketti ratkaistu välimuistista.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>Ohjainpaketin lähdesisältö ei ole saatavilla ensimmäisen käynnistyksen vaiheittamiseen.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Laiteohjelmistopäivitys otettu käyttöön.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Laiteohjelmistopäivitys käytössä (simulaatio).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Näköistiedoston ulkoinen tallennustila ja tunnettu kapasiteetti tarkistettu.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Laiteohjelmistopäivitys ladattu.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Laiteohjelmistopäivitys ladattu (simulaatio).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Laiteohjelmistopäivitys purettu.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Laiteohjelmistopäivitys haettu välimuistista.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Laiteohjelmistopäivitys valmisteltu asennettavaksi Windowsissa.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Laiteohjelmistopäivitykset on poistettu käytöstä.</value>
@@ -1118,6 +1136,9 @@ Jatketaanko käyttöönottoa?</value>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog ei tuottanut ohjainsisältöä.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Myöhemmin suoritettavaa ohjainten asennusohjelmaa ei tarvita.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Ei vaadi ohjainpaketin lataamista.</value>
   </data>
@@ -1130,8 +1151,14 @@ Jatketaanko käyttöönottoa?</value>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Purettua INF-ohjainsisältöä ei ole saatavilla.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>Purettu laiteohjelmiston sisältö ei sisällä CAB-tiedostoja.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>Purettu laiteohjelmiston sisältö ei sisällä INF-tiedostoja.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Laiteohjelmistopäivityksen sisältöä ei ole saatavilla.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>OOBE:tä edeltäviä mukautuskomentosarjoja ei tarvita.</value>
@@ -1175,9 +1202,6 @@ Jatketaanko käyttöönottoa?</value>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Pre-OOBE-räätälöinnit lavastettu (simulaatio).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>Näköistiedosto ja tiedossa olevat kapasiteettivaatimukset on tarkistettu ennen levyn valmistelua.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Käyttöönottovalmius on tarkistettu (simulointi).</value>
   </data>
@@ -1201,6 +1225,15 @@ Jatketaanko käyttöönottoa?</value>
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>Valittua Autopilot profiilitiedostoa ei löytynyt: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>Valitun ohjainpaketin sisältö ei ole saatavilla.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>Valittu laiteohjelmistosisältö ei ole saatavilla.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (simulaatio).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>Järjestelmän laiteohjelmiston laitteistotunniste ei ole saatavilla.</value>
@@ -1247,6 +1280,15 @@ Jatketaanko käyttöönottoa?</value>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Ohjainpaketin asennustilaa ei tueta.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Windowsin käynnistys määritetty.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Windows-näköistiedosto ja tunnettu kapasiteetti tarkistettu.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>Windows-näköistiedostoa ei ole otettu käyttöön.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Windowsin valinnaisten ominaisuuksien määritys on poistettu käytöstä.</value>
   </data>
@@ -1267,12 +1309,6 @@ Jatketaanko käyttöönottoa?</value>
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Windowsin valinnaisten ominaisuuksien määritys simuloitu ({0} toimintoa).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Työtila alustettu.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Työtila alustettu (simulaatio).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Käyttöönotto valmis</value>

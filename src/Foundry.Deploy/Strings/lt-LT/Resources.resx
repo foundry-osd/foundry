@@ -657,19 +657,25 @@ Tęsti diegimą?</value>
     <value>wpeutil.exe nepavyko su išėjimo kodu {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Pritaikyk tvarkykles</value>
+    <value>Diegti „Windows“ tvarkykles</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Pritaikyk programinę-aparatinę įrangą</value>
+    <value>Paruošti programinės aparatinės įrangos naujinimą</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Pritaikyk operacinę sistemą</value>
+    <value>Taikyti „Windows“ atvaizdą</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Pritaikyk atkūrimo tvarkykles</value>
+    <value>Diegti atkūrimo tvarkykles</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Patikrinti „Windows“ atvaizdą</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>Konfigūruoti DI strategijas</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>Konfigūruok OOBE</value>
+    <value>Konfigūruoti „Windows“ sąranką</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Konfigūruok Windows atkūrimą</value>
@@ -677,62 +683,71 @@ Tęsti diegimą?</value>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Nustatyk kompiuterio pavadinimą</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Konfigūruoti „Windows“ paleidimą</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Konfigūruok pasirinktines funkcijas</value>
+    <value>Konfigūruoti „Windows“ funkcijas</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Kopijuoti „Autopilot“ profilį</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Atsisiųsk tvarkykles</value>
+    <value>Atsisiųsti tvarkyklių paketą</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Atsisiųsk programinę-aparatinę įrangą</value>
+    <value>Atsisiųsti programinės aparatinės įrangos naujinimą</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Atsisiųsk operacinę sistemą</value>
+    <value>Atsisiųsti „Windows“ atvaizdą</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Išskleisk tvarkykles</value>
+    <value>Išskleisti tvarkyklių paketą</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Išskleisti programinės aparatinės įrangos naujinimą</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Baik diegimą</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Surink kintamuosius</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Inicializuok diegimą</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Tikrinti pasirengimą diegti</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Paruošti „Autopilot“ pagalbininką</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Paruošk diską</value>
+    <value>Paruošti tikslinį diską</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Paruošk Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Registruoti „Autopilot“ įrenginį</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Patikrink talpyklą</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Užfiksuok atkūrimo skaidinį</value>
+    <value>Slėpti atkūrimo skaidinį</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Parengti pasirinktinį atsakymų failą</value>
+    <value>Kopijuoti atsakymų failą</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Paruošti tvarkyklių diegimo programą</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Paruošk tinkinimus</value>
+    <value>Paruošti sąrankos užduotis</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Patikrinti pasirinktinį atsakymų failą</value>
+    <value>Patikrinti atsakymų failą</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Patikrink konfigūraciją</value>
+    <value>Patikrinti diegimo nuostatas</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Taikomas tvarkyklės paketas...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Taikomas programinės aparatinės įrangos naujinimas...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Taikomas vaizdas...</value>
@@ -755,6 +770,9 @@ Tęsti diegimą?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Fiksuojama Autopilot aparatinės įrangos maiša...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Tikrinama laisva vieta...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Tikrinama talpykla...</value>
   </data>
@@ -775,9 +793,6 @@ Tęsti diegimą?</value>
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Valoma laikinoji darbo vieta...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Renkamas diegimo kontekstas...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>Konfigūruojamas AI komponento pašalinimas...</value>
@@ -803,14 +818,14 @@ Tęsti diegimą?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopijuojamas AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Kopijuojamas tvarkyklių paketas...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopijuojami interaktyvios registracijos failai...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Kuriami modeliuojami skaidiniai...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Kuriami darbo srities aplankai...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Iššifruojamas medijos sertifikatas...</value>
@@ -830,17 +845,14 @@ Tęsti diegimą?</value>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Išskleidžiamas tvarkyklių paketas...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Išskleidžiamas programinės aparatinės įrangos naujinimas...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Baigiamas diegimas...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Renkami diegimo kintamieji...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Aparatinės įrangos maišos importavimas į Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Inicijuojama diegimo darbo sritis...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Programinės aparatinės įrangos turinys įterpiamas į neprisijungus Windows...</value>
@@ -910,6 +922,9 @@ Tęsti diegimą?</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Ruošiamas Autopilot registracijos pagalbininkas...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Ruošiamas programinės aparatinės įrangos naujinimas...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Inscenizacijos paketas...</value>
@@ -1046,14 +1061,14 @@ Tęsti diegimą?</value>
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Talpyklos strategija išspręsta (modeliavimas).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>Pasirinktame „Microsoft Update Catalog“ tvarkyklės faile „{0}“ nėra INF failų.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Pirmojo įkrovos tvarkyklės paketo sustojimo užklausa buvo pateikta be palaikomos komandos.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Surinkti diegimo kintamieji.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Surinkti diegimo kintamieji (modeliavimas).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Tvarkyklių diegimo programa paruošta.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Taikomas tvarkyklės paketas.</value>
@@ -1079,26 +1094,29 @@ Tęsti diegimą?</value>
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Tvarkyklės paketas neatsisiųstas.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Tvarkyklės paketas, paruoštas diegti pirmą kartą.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Tvarkyklės paketas išspręstas iš talpyklos.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>Tvarkyklės paketo šaltinio turinys nepasiekiamas pirmą kartą paleidžiant.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Pritaikytas programinės įrangos naujinimas.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Pritaikytas programinės įrangos atnaujinimas (modeliavimas).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Išorinė atvaizdo saugykla ir žinoma talpa patikrintos.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Atsisiųstas programinės aparatinės įrangos naujinimas.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Atsisiųstas programinės aparatinės įrangos naujinimas (modeliavimas).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Programinės aparatinės įrangos naujinimas išskleistas.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Programinės aparatinės įrangos naujinimas gautas iš podėlio.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Programinės aparatinės įrangos naujinimas paruoštas diegti sistemoje „Windows“.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Firmware atnaujinimai išjungti.</value>
@@ -1118,6 +1136,9 @@ Tęsti diegimą?</value>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog nesukūrė tvarkyklės turinio.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Vėlesniam vykdymui skirtos tvarkyklių diegimo programos nereikia.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Nereikia atsisiųsti tvarkyklės paketo.</value>
   </data>
@@ -1130,8 +1151,14 @@ Tęsti diegimą?</value>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Nėra išskirto INF tvarkyklės turinio.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>Išskleistame programinės aparatinės įrangos turinyje nėra CAB failų.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>Išskleistame programinės aparatinės įrangos turinyje nėra INF failų.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Programinės aparatinės įrangos naujinimo turinys nepasiekiamas.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>Nereikia jokių išankstinių OOBE tinkinimo scenarijų.</value>
@@ -1175,9 +1202,6 @@ Tęsti diegimą?</value>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Parengti pritaikymai prieš OOBE (modeliavimas).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>Atvaizdas ir žinomi talpos reikalavimai patikrinti prieš ruošiant diską.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Pasirengimas diegti patikrintas (modeliavimas).</value>
   </data>
@@ -1201,6 +1225,15 @@ Tęsti diegimą?</value>
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>Pasirinktas Autopilot profilio failas nerastas: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>Pasirinkto tvarkyklių paketo turinys nepasiekiamas.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>Pasirinktas programinės aparatinės įrangos turinys nepasiekiamas.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (modeliavimas).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>Sistemos programinės įrangos aparatinės įrangos identifikatorius nepasiekiamas.</value>
@@ -1247,6 +1280,15 @@ Tęsti diegimą?</value>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Nepalaikomas tvarkyklių paketo diegimo režimas.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>„Windows“ paleidimas sukonfigūruotas.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>„Windows“ atvaizdas ir žinoma talpa patikrinti.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>„Windows“ atvaizdas nebuvo pritaikytas.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>„Windows“ pasirenkamos funkcijos konfigūracija išjungta.</value>
   </data>
@@ -1267,12 +1309,6 @@ Tęsti diegimą?</value>
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Sumodeliuota Windows pasirenkamos funkcijos konfigūracija ({0} veiksmai).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Inicijuota darbo sritis.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Inicijuota darbo sritis (modeliavimas).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Diegimas baigtas</value>

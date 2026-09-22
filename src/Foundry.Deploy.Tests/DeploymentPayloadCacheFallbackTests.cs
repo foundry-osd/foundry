@@ -21,6 +21,51 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentPayloadCacheFallbackTests
 {
     [Theory]
+    [InlineData(false, 1024, true)]
+    [InlineData(false, 1024, false)]
+    [InlineData(false, 512, false)]
+    [InlineData(true, 1024, true)]
+    [InlineData(true, 1024, false)]
+    [InlineData(true, 512, false)]
+    public async Task DriverDownload_OnFullUsb_AccountsOnlySelectedExistingBytesAndStillValidates(
+        bool catalogDrivers, int existingBytes, bool validCache)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        byte[] content = new byte[1024];
+        new Random(71).NextBytes(content);
+        string expectedHash = Convert.ToHexString(SHA256.HashData(content));
+        DeploymentStepExecutionContext context = CreateExecutionContext(workspace, driverPackSizeBytes: content.Length,
+            expectedHash: expectedHash, catalogDrivers: catalogDrivers, storageService: new FixedStorageService(0));
+        context.RuntimeState.HardwareProfile = MicrosoftUpdateCatalogServiceTests.CreateHardwareProfile();
+        string relativePath = catalogDrivers
+            ? Path.Combine("MicrosoftUpdateCatalog", "Drivers", "update-1", "driver-amd64.cab")
+            : Path.Combine("DriverPacks", "Contoso", "drivers.cab");
+        string usbPath = Path.Combine(workspace.UsbCacheRoot, "Cache", relativePath);
+        Directory.CreateDirectory(Path.GetDirectoryName(usbPath)!);
+        byte[] cached = content[..existingBytes];
+        if (!validCache) cached[0] ^= 0xff;
+        await File.WriteAllBytesAsync(usbPath, cached, TestContext.Current.CancellationToken);
+        await File.WriteAllBytesAsync(Path.Combine(Path.GetDirectoryName(usbPath)!, "unrelated.cab"), content, TestContext.Current.CancellationToken);
+        var handler = new PayloadHttpMessageHandler(content);
+        using var client = new HttpClient(handler);
+        var downloader = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+        var catalog = new MicrosoftUpdateCatalogDriverService(
+            new MicrosoftUpdateCatalogServiceTests.FakeArchiveExtractionService(),
+            new MicrosoftUpdateCatalogServiceTests.FakeMicrosoftUpdateCatalogClient { Sha256 = expectedHash, SizeInBytes = content.Length },
+            downloader, NullLogger<MicrosoftUpdateCatalogDriverService>.Instance);
+
+        DeploymentStepResult result = await new DownloadDriverPackStep(catalog, downloader)
+            .ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        bool canReuseAllocation = existingBytes == content.Length;
+        string expectedPath = canReuseAllocation ? usbPath : Path.Combine(workspace.TargetFoundryRoot, "Cache", relativePath);
+        Assert.Equal(expectedPath, context.RuntimeState.DownloadedDriverPackPath);
+        Assert.Equal(validCache ? DeploymentStepState.Skipped : DeploymentStepState.Succeeded, result.State);
+        Assert.Equal(validCache ? 0 : 1, handler.RequestCount);
+        Assert.Equal(content, await File.ReadAllBytesAsync(expectedPath, TestContext.Current.CancellationToken));
+    }
+
+    [Theory]
     [InlineData(DeploymentMode.Usb, 1, false)]
     [InlineData(DeploymentMode.Usb, long.MaxValue, true)]
     [InlineData(DeploymentMode.Usb, 0, true)]
@@ -81,26 +126,29 @@ public sealed class DeploymentPayloadCacheFallbackTests
         Assert.Empty(extractor.SourcePaths);
     }
 
-    [Fact]
-    public async Task DownloadOperatingSystemImageStep_WhenUsbCacheHasInsufficientSpace_UsesTargetCache()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task DownloadOperatingSystemImageStep_UsesResolvedStorageRoute(bool usesTargetStorage)
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         var downloadService = new CapturingArtifactDownloadService();
-        DeploymentStepExecutionContext context = CreateExecutionContext(
+        using DeploymentStepExecutionContext context = CreateExecutionContext(
             workspace,
             operatingSystemSizeBytes: long.MaxValue);
+        SetOperatingSystemPreflight(context, workspace, usesTargetStorage);
         var step = new DownloadOperatingSystemImageStep(downloadService);
 
         DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
 
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
         Assert.Equal(
-            Path.Combine(workspace.TargetFoundryRoot, "Cache", "OperatingSystems", "install.wim"),
+            Path.Combine(usesTargetStorage ? workspace.TargetFoundryRoot : workspace.UsbCacheRoot, "Cache", "OperatingSystems", "install.wim"),
             downloadService.DestinationPath);
     }
 
     [Fact]
-    public async Task DownloadOperatingSystemImageStep_WhenUsbCacheHasEnoughSpace_UsesUsbCache()
+    public async Task DownloadOperatingSystemImageStep_WithoutPreflight_DoesNotDownload()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         var downloadService = new CapturingArtifactDownloadService();
@@ -111,10 +159,9 @@ public sealed class DeploymentPayloadCacheFallbackTests
 
         DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
 
-        Assert.Equal(DeploymentStepState.Succeeded, result.State);
-        Assert.Equal(
-            Path.Combine(workspace.UsbCacheRoot, "Cache", "OperatingSystems", "install.wim"),
-            downloadService.DestinationPath);
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("preflight_not_ready", result.Failure?.Code);
+        Assert.Null(downloadService.DestinationPath);
     }
 
     [Fact]
@@ -170,8 +217,9 @@ public sealed class DeploymentPayloadCacheFallbackTests
         new Random(53).NextBytes(content);
         string expectedHash = Convert.ToHexString(SHA256.HashData(content));
         var reports = new List<DeploymentStepProgress>();
-        DeploymentStepExecutionContext context = CreateExecutionContext(
+        using DeploymentStepExecutionContext context = CreateExecutionContext(
             workspace, content.Length, content.Length, expectedHash, mode, reports.Add);
+        if (!driverPack) SetOperatingSystemPreflight(context, workspace, mode == DeploymentMode.Iso);
         string cacheRoot = mode == DeploymentMode.Iso ? workspace.TargetFoundryRoot : workspace.UsbCacheRoot;
         string destinationPath = driverPack
             ? Path.Combine(cacheRoot, "Cache", "DriverPacks", "Contoso", "drivers.cab")
@@ -195,7 +243,7 @@ public sealed class DeploymentPayloadCacheFallbackTests
 
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
 
-        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.Equal(validCache ? DeploymentStepState.Skipped : DeploymentStepState.Succeeded, result.State);
         string? returnedPath = driverPack
             ? context.RuntimeState.DownloadedDriverPackPath
             : context.RuntimeState.DownloadedOperatingSystemPath;
@@ -224,6 +272,17 @@ public sealed class DeploymentPayloadCacheFallbackTests
         }
     }
 
+    private static void SetOperatingSystemPreflight(
+        DeploymentStepExecutionContext context, TempDeploymentWorkspace workspace, bool usesTargetStorage)
+    {
+        context.Preflight = new DeploymentPreflightState
+        {
+            CacheRoot = context.RuntimeState.ResolvedCache!.RootPath,
+            UsesTargetStorage = usesTargetStorage,
+            ExternalImageDirectory = usesTargetStorage ? null : Path.Combine(workspace.UsbCacheRoot, "Cache", "OperatingSystems")
+        };
+    }
+
     private sealed class PayloadHttpMessageHandler(byte[] content) : HttpMessageHandler
     {
         public int RequestCount { get; private set; }
@@ -242,7 +301,8 @@ public sealed class DeploymentPayloadCacheFallbackTests
         string expectedHash = "",
         DeploymentMode mode = DeploymentMode.Usb,
         Action<DeploymentStepProgress>? emitStepProgress = null,
-        bool catalogDrivers = false)
+        bool catalogDrivers = false,
+        IDeploymentStorageService? storageService = null)
     {
         var request = new DeploymentContext
         {
@@ -290,7 +350,13 @@ public sealed class DeploymentPayloadCacheFallbackTests
             new FakeOperationProgressService(),
             new FakeDeploymentLogService(),
             new FakeTargetDiskService(),
-            emitStepProgress ?? (_ => { }));
+            emitStepProgress ?? (_ => { }), storageService);
+    }
+
+    private sealed class FixedStorageService(long availableBytes) : IDeploymentStorageService
+    {
+        public long? GetAvailableBytes(string path) => availableBytes;
+        public bool CanWriteDirectory(string path) => true;
     }
 
     private sealed class CapturingArtifactDownloadService : IArtifactDownloadService
@@ -325,7 +391,7 @@ public sealed class DeploymentPayloadCacheFallbackTests
             HardwareProfile hardwareProfile,
             OperatingSystemCatalogItem operatingSystem,
             string destinationDirectory,
-            Func<long, string> resolveCacheDirectory,
+            Func<long, string, string> resolveCacheDirectory,
             CancellationToken cancellationToken = default,
             IProgress<double>? progress = null)
         {
@@ -443,7 +509,7 @@ public sealed class DeploymentPayloadCacheFallbackTests
 
         public Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default)
         {
-            return Task.FromResult<int?>(null);
+            return Task.FromResult<int?>(2);
         }
     }
 }

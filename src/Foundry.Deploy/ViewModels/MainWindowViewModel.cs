@@ -366,7 +366,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             IsCancellationPending = false;
             IsCompletionStarting = false;
             IsDeploymentRunning = true;
-            Session.BeginDeployment(Preparation.EffectiveComputerName, _deploymentOrchestrator.PlannedSteps.Count);
+            Session.BeginDeployment(Preparation.EffectiveComputerName, DeploymentPlan.Build(launchPreparation.Context));
         });
 
         try

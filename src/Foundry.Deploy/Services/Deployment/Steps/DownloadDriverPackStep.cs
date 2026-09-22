@@ -54,7 +54,7 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
                 {
                     await context.AppendLogAsync(
                         DeploymentLogLevel.Info,
-                        $"Microsoft Update Catalog driver downloaded | UpdateId={downloadedDriver.UpdateId} | Title={downloadedDriver.Title} | Version={downloadedDriver.Version} | Size={downloadedDriver.Size} | Url={downloadedDriver.DownloadUrl}",
+                        $"Microsoft Update Catalog driver resolved | UpdateId={downloadedDriver.UpdateId} | Title={downloadedDriver.Title} | Version={downloadedDriver.Version} | Size={downloadedDriver.Size} | Url={downloadedDriver.DownloadUrl}",
                         cancellationToken).ConfigureAwait(false);
                 }
 
@@ -66,7 +66,15 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
 
                 context.RuntimeState.MicrosoftUpdateCatalogDriverPaths = result.DownloadedDrivers.Select(static driver => driver.FilePath).ToArray();
                 context.RuntimeState.DownloadedDriverPackPath = context.RuntimeState.MicrosoftUpdateCatalogDriverPaths.FirstOrDefault();
-                return DeploymentStepResult.Succeeded("Driver pack downloaded.");
+                if (context.RuntimeState.MicrosoftUpdateCatalogDriverPaths.Count == 0 ||
+                    context.RuntimeState.MicrosoftUpdateCatalogDriverPaths.Any(path => !File.Exists(path)))
+                {
+                    return CreateMissingPayloadFailure();
+                }
+
+                return result.DownloadedCount == 0 && result.ReusedCount > 0
+                    ? DeploymentStepResult.Skipped("Driver pack resolved from cache.")
+                    : DeploymentStepResult.Succeeded("Driver pack downloaded.");
             }
 
             case DriverPackSelectionKind.OemCatalog:
@@ -74,18 +82,19 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
                 DriverPackCatalogItem? driverPack = context.Request.DriverPack;
                 if (driverPack is null)
                 {
-                    return DeploymentStepResult.Skipped("OEM driver pack mode selected but no driver pack was provided.");
+                    return CreateMissingSelectionFailure();
                 }
 
                 context.RuntimeState.DriverPackName = driverPack.Name;
                 context.RuntimeState.DriverPackUrl = driverPack.DownloadUrl;
 
+                string manufacturerDirectory = DeploymentStepExecutionContext.SanitizePathSegment(driverPack.Manufacturer);
+                string archiveName = DeploymentStepExecutionContext.ResolveFileName(driverPack.FileName, driverPack.DownloadUrl);
                 string driverPackDirectory = Path.Combine(
-                    context.ResolveDriverPackCacheRoot(driverPack.SizeBytes),
-                    DeploymentStepExecutionContext.SanitizePathSegment(driverPack.Manufacturer));
+                    context.ResolveDriverPackCacheRoot(driverPack.SizeBytes, Path.Combine(manufacturerDirectory, archiveName)),
+                    manufacturerDirectory);
                 Directory.CreateDirectory(driverPackDirectory);
 
-                string archiveName = DeploymentStepExecutionContext.ResolveFileName(driverPack.FileName, driverPack.DownloadUrl);
                 string archivePath = Path.Combine(driverPackDirectory, archiveName);
                 context.EmitCurrentStepIndeterminate("Downloading driver pack...", "Checking cache...", DeploymentOperationNames.DownloadDriverPack);
                 IProgress<DownloadProgress> driverPackDownloadProgress = context.CreateDownloadProgressReporter(
@@ -104,15 +113,18 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
                     .ConfigureAwait(false);
 
                 context.RuntimeState.DownloadedDriverPackPath = download.DestinationPath;
+                if (!File.Exists(download.DestinationPath))
+                {
+                    return CreateMissingPayloadFailure();
+                }
                 await context.AppendLogAsync(
                     DeploymentLogLevel.Info,
                     $"Driver pack {(download.Downloaded ? "downloaded" : "reused")} via {download.Method}: {download.DestinationPath}",
                     cancellationToken).ConfigureAwait(false);
 
-                return DeploymentStepResult.Succeeded(
-                    download.Downloaded
-                        ? "Driver pack downloaded."
-                        : "Driver pack resolved from cache.");
+                return download.Downloaded
+                    ? DeploymentStepResult.Succeeded("Driver pack downloaded.")
+                    : DeploymentStepResult.Skipped("Driver pack resolved from cache.");
             }
         }
 
@@ -154,7 +166,7 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
         if (driverPack is null)
         {
             await Task.Delay(120, cancellationToken).ConfigureAwait(false);
-            return DeploymentStepResult.Skipped("OEM driver pack mode selected but no driver pack was provided.");
+            return CreateMissingSelectionFailure();
         }
 
         string fileName = DeploymentStepExecutionContext.ResolveFileName(driverPack.FileName, driverPack.DownloadUrl);
@@ -180,10 +192,17 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
         runtimeState.MicrosoftUpdateCatalogDriverPaths = [];
         runtimeState.DriverPackName = null;
         runtimeState.DriverPackUrl = null;
-        runtimeState.DriverPackInstallMode = DriverPackInstallMode.None;
         runtimeState.DriverPackExtractionMethod = null;
         runtimeState.ExtractedDriverPackPath = null;
         runtimeState.DeferredDriverPackagePath = null;
     }
+
+    private static DeploymentStepResult CreateMissingSelectionFailure() =>
+        DeploymentStepResult.Failed("OEM driver pack mode selected but no driver pack was provided.",
+            DeploymentFailure.Guard(DeploymentOperationNames.ResolveDriverPack, DeploymentFailureReasons.InvalidInput, "missing_driver_selection"));
+
+    private static DeploymentStepResult CreateMissingPayloadFailure() =>
+        DeploymentStepResult.Failed("The selected driver pack payload is unavailable.",
+            DeploymentFailure.Guard(DeploymentOperationNames.DownloadDriverPack, DeploymentFailureReasons.MissingResource, "missing_driver_payload"));
 
 }

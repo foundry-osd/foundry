@@ -657,19 +657,25 @@ Sistema operativo: {4}
     <value>wpeutil.exe falló con el código de salida {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Aplicar controladores</value>
+    <value>Instalar controladores de Windows</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Aplicar firmware</value>
+    <value>Preparar actualización de firmware</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Aplicar sistema operativo</value>
+    <value>Aplicar imagen de Windows</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Aplicar controladores de recuperación</value>
+    <value>Instalar controladores de recuperación</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Revisar imagen de Windows</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>Configurar directivas de IA</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>Configurar OOBE</value>
+    <value>Configurar instalación de Windows</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Configurar recuperación de Windows</value>
@@ -677,62 +683,71 @@ Sistema operativo: {4}
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Asignar nombre del equipo</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Configurar arranque de Windows</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Configurar características opcionales</value>
+    <value>Configurar características de Windows</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Copiar perfil de Autopilot</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Descargar controladores</value>
+    <value>Descargar paquete de controladores</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Descargar firmware</value>
+    <value>Descargar actualización de firmware</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Descargar sistema operativo</value>
+    <value>Descargar imagen de Windows</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Extraer controladores</value>
+    <value>Extraer paquete de controladores</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Extraer actualización de firmware</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Finalizar implementación</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Recopilar variables</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Inicializar implementación</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Comprobar si la implementación está lista</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Preparar asistente de Autopilot</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Preparar disco</value>
+    <value>Preparar disco de destino</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Provisionar Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Registrar dispositivo Autopilot</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Revisar caché</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Sellar partición de recuperación</value>
+    <value>Ocultar partición de recuperación</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Preparar archivo de respuesta personalizado</value>
+    <value>Copiar archivo de respuestas</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Preparar instalador de controladores</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Preparar personalizaciones</value>
+    <value>Preparar tareas de instalación</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validar archivo de respuesta personalizado</value>
+    <value>Validar archivo de respuestas</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Validar configuración</value>
+    <value>Revisar configuración de implementación</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Aplicando paquete de controladores...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Aplicando actualización de firmware...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Aplicando imagen...</value>
@@ -755,6 +770,9 @@ Sistema operativo: {4}
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Capturando hash de hardware Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Comprobando el espacio disponible...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Comprobando caché...</value>
   </data>
@@ -775,9 +793,6 @@ Sistema operativo: {4}
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Limpieza del espacio de trabajo temporal...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Recopilando contexto de implementación...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>Configurando la eliminación de componentes de IA...</value>
@@ -803,14 +818,14 @@ Sistema operativo: {4}
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Copiando AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Copiando paquete de controladores...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Copiando archivos de registro interactivo...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Creando particiones simuladas...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Creando carpetas del espacio de trabajo...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Descifrando certificado de medios...</value>
@@ -830,17 +845,14 @@ Sistema operativo: {4}
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Extrayendo paquete de controladores...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Extrayendo actualización de firmware...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Finalizando el despliegue...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Recopilando variables de implementación...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Importando hash de hardware a Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Inicializando el espacio de trabajo de implementación...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Inyectando contenido de firmware en Windows sin conexión...</value>
@@ -910,6 +922,9 @@ Sistema operativo: {4}
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Preparando el asistente de registro de Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Preparando actualización de firmware...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Paquete de puesta en escena...</value>
@@ -1046,14 +1061,14 @@ Sistema operativo: {4}
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Estrategia de caché resuelta (simulación).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>El archivo de controladores seleccionado '{0}' de Microsoft Update Catalog no contiene archivos INF.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Se solicitó la preparación del paquete de controladores del primer arranque sin un comando compatible.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Variables de implementación recopiladas.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Variables de implementación recopiladas (simulación).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Instalador de controladores preparado.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Paquete de controladores aplicado.</value>
@@ -1079,26 +1094,29 @@ Sistema operativo: {4}
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>El paquete de controladores no se descargó.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Paquete de controladores preparado para la instalación del primer arranque.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Paquete de controladores resuelto desde la memoria caché.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>El contenido fuente del paquete de controladores no está disponible para la preparación provisional del primer arranque.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Actualización de firmware aplicada.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Actualización de firmware aplicada (simulación).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Almacenamiento externo de la imagen y capacidad conocida comprobados.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Actualización de firmware descargada.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Actualización de firmware descargada (simulación).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Actualización de firmware extraída.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Actualización de firmware recuperada de la caché.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Actualización de firmware preparada para instalarse en Windows.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Las actualizaciones de firmware están deshabilitadas.</value>
@@ -1118,6 +1136,9 @@ Sistema operativo: {4}
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog no produjo contenido del controlador.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>No se necesita un instalador diferido de controladores.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>No es necesario descargar el paquete de controladores.</value>
   </data>
@@ -1130,8 +1151,14 @@ Sistema operativo: {4}
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>No hay contenido del controlador INF extraído disponible.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>El contenido del firmware extraído no contiene ningún archivo CAB.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>El contenido del firmware extraído no contiene ningún archivo INF.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>No hay contenido de actualización de firmware disponible.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>No se requieren scripts de personalización previos a OOBE.</value>
@@ -1175,9 +1202,6 @@ Sistema operativo: {4}
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Personalizaciones pre-OOBE por etapas (simulación).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>Se comprobaron la imagen y los requisitos de capacidad conocidos antes de preparar el disco.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Se comprobó si la implementación está lista (simulación).</value>
   </data>
@@ -1201,6 +1225,15 @@ Sistema operativo: {4}
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>No se encontró el archivo de perfil Autopilot seleccionado: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>El contenido del paquete de controladores seleccionado no está disponible.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>El contenido de firmware seleccionado no está disponible.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (simulación).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>El identificador de hardware del firmware del sistema no está disponible.</value>
@@ -1247,6 +1280,15 @@ Sistema operativo: {4}
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Modo de instalación de paquete de controladores no compatible.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Arranque de Windows configurado.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Imagen de Windows y capacidad conocida comprobadas.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>No se ha aplicado la imagen de Windows.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Configuración de funciones opcionales de Windows deshabilitada.</value>
   </data>
@@ -1267,12 +1309,6 @@ Sistema operativo: {4}
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Configuración de funciones opcionales de Windows simulada ({0} acciones).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Espacio de trabajo inicializado.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Espacio de trabajo inicializado (simulación).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Implementación completada</value>

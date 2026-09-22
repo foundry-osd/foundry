@@ -121,7 +121,8 @@ public sealed class ApplyRecoveryDriversStep(IWindowsDeploymentService windowsDe
         }
 
         if (string.IsNullOrWhiteSpace(context.RuntimeState.ExtractedDriverPackPath) ||
-            !Directory.Exists(context.RuntimeState.ExtractedDriverPackPath))
+            !Directory.Exists(context.RuntimeState.ExtractedDriverPackPath) ||
+            !Directory.EnumerateFiles(context.RuntimeState.ExtractedDriverPackPath, "*.inf", SearchOption.AllDirectories).Any())
         {
             return DeploymentStepResult.Failed(
                 "No extracted INF driver payload is available.",

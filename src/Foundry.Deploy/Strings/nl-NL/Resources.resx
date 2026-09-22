@@ -657,19 +657,25 @@ Doorgaan met de implementatie?</value>
     <value>wpeutil.exe mislukt met afsluitcode {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Drivers toepassen</value>
+    <value>Windows-stuurprogramma’s installeren</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Firmware toepassen</value>
+    <value>Firmware-update klaarzetten</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Besturingssysteem toepassen</value>
+    <value>Windows-installatiekopie toepassen</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Hersteldrivers toepassen</value>
+    <value>Herstelstuurprogramma’s installeren</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Windows-installatiekopie controleren</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>AI-beleid configureren</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>OOBE configureren</value>
+    <value>Windows-installatie configureren</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Windows-herstel configureren</value>
@@ -677,62 +683,71 @@ Doorgaan met de implementatie?</value>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Computernaam instellen</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Windows-opstart configureren</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Optionele functies configureren</value>
+    <value>Windows-onderdelen configureren</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Autopilot-profiel kopiëren</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Drivers downloaden</value>
+    <value>Stuurprogrammapakket downloaden</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Firmware downloaden</value>
+    <value>Firmware-update downloaden</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Besturingssysteem downloaden</value>
+    <value>Windows-installatiekopie downloaden</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Drivers uitpakken</value>
+    <value>Stuurprogrammapakket uitpakken</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Firmware-update uitpakken</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Implementatie voltooien</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Variabelen verzamelen</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Implementatie initialiseren</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Controleren of de implementatie gereed is</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Autopilot-assistent voorbereiden</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Schijf voorbereiden</value>
+    <value>Doelschijf voorbereiden</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Autopilot inrichten</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Autopilot-apparaat registreren</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Cache controleren</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Recovery-partitie verzegelen</value>
+    <value>Herstelpartitie verbergen</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Aangepast antwoordbestand klaarzetten</value>
+    <value>Antwoordbestand kopiëren</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Stuurprogramma-installatie klaarzetten</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Aanpassingen voorbereiden</value>
+    <value>Installatietaken voorbereiden</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Aangepast antwoordbestand valideren</value>
+    <value>Antwoordbestand valideren</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Configuratie valideren</value>
+    <value>Implementatie-instellingen controleren</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Driverpakket toepassen...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Firmware-update toepassen...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Afbeelding toepassen...</value>
@@ -755,6 +770,9 @@ Doorgaan met de implementatie?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Autopilot hardware-hash vastleggen...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Beschikbare ruimte controleren...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Cache controleren...</value>
   </data>
@@ -775,9 +793,6 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Tijdelijke werkruimte schoonmaken...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Implementatiecontext verzamelen...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>Verwijdering van AI-componenten configureren...</value>
@@ -803,14 +818,14 @@ Doorgaan met de implementatie?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>AutopilotConfigurationFile.json kopiëren...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Stuurprogrammapakket kopiëren...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Interactieve registratiebestanden worden gekopieerd...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Gesimuleerde partities maken...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Werkruimtemappen maken...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Mediacertificaat ontsleutelen...</value>
@@ -830,17 +845,14 @@ Doorgaan met de implementatie?</value>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Driverpakket uitpakken...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Firmware-update uitpakken...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Implementatie voltooien...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Implementatievariabelen verzamelen...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Hardware-hash importeren in Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Implementatiewerkruimte initialiseren...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Firmware-inhoud injecteren in offline Windows...</value>
@@ -910,6 +922,9 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Autopilot-registratieassistent wordt voorbereid...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Firmware-update klaarzetten...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Staging pakket...</value>
@@ -1046,14 +1061,14 @@ Doorgaan met de implementatie?</value>
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Cachestrategie opgelost (simulatie).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>Het geselecteerde Microsoft Update Catalog-stuurprogrammabestand '{0}' bevat geen INF-bestanden.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Er is een fasering van het driverpakket voor het eerst opstarten aangevraagd zonder een ondersteunde opdracht.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Implementatievariabelen verzameld.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Verzamelde implementatievariabelen (simulatie).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Installatieprogramma voor stuurprogramma’s klaargezet.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Driverpakket toegepast.</value>
@@ -1079,26 +1094,29 @@ Doorgaan met de implementatie?</value>
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Driverpakket is niet gedownload.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Driverpakket voorbereid voor installatie bij eerste opstart.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Driverpakket opgelost vanuit cache.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>De broninhoud van het stuurprogrammapakket is niet beschikbaar voor fasering bij de eerste keer opstarten.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Firmware-update toegepast.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Firmware-update toegepast (simulatie).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Externe opslag voor de installatiekopie en bekende capaciteit gecontroleerd.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Firmware-update gedownload.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Firmware-update gedownload (simulatie).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Firmware-update uitgepakt.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Firmware-update uit de cache opgehaald.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Firmware-update klaargezet voor installatie in Windows.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Firmware-updates zijn uitgeschakeld.</value>
@@ -1118,6 +1136,9 @@ Doorgaan met de implementatie?</value>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog heeft geen driverinhoud geproduceerd.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Er is geen installatieprogramma voor uitgestelde stuurprogramma-installatie nodig.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Geen driverpakketdownload vereist.</value>
   </data>
@@ -1130,8 +1151,14 @@ Doorgaan met de implementatie?</value>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Er is geen geëxtraheerde INF-stuurprogramma-inhoud beschikbaar.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>De uitgepakte firmware-inhoud bevat geen CAB-bestanden.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>De uitgepakte firmware-inhoud bevat geen INF-bestanden.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Er is geen inhoud voor de firmware-update beschikbaar.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>Er zijn geen pre-OOBE-aanpassingsscripts vereist.</value>
@@ -1175,9 +1202,6 @@ Doorgaan met de implementatie?</value>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Pre-OOBE-aanpassingen geënsceneerd (simulatie).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>De installatiekopie en bekende capaciteitsvereisten zijn gecontroleerd voordat de schijf wordt voorbereid.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Er is gecontroleerd of de implementatie gereed is (simulatie).</value>
   </data>
@@ -1201,6 +1225,15 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>Het geselecteerde Autopilot profielbestand is niet gevonden: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>De inhoud van het geselecteerde stuurprogrammapakket is niet beschikbaar.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>De geselecteerde firmware-inhoud is niet beschikbaar.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (simulatie).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>Hardware-ID van systeemfirmware is niet beschikbaar.</value>
@@ -1247,6 +1280,15 @@ Doorgaan met de implementatie?</value>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Niet-ondersteunde installatiemodus voor driverpakketten.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Windows-opstart geconfigureerd.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Windows-installatiekopie en bekende capaciteit gecontroleerd.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>De Windows-installatiekopie is niet toegepast.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Configuratie van optionele Windows-functies uitgeschakeld.</value>
   </data>
@@ -1267,12 +1309,6 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Configuratie van optionele Windows-functies gesimuleerd ({0} acties).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Werkruimte geïnitialiseerd.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Werkruimte geïnitialiseerd (simulatie).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Implementatie voltooid</value>

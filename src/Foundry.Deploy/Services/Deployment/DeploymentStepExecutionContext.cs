@@ -21,6 +21,11 @@ namespace Foundry.Deploy.Services.Deployment;
 /// </summary>
 public sealed class DeploymentStepExecutionContext : IDisposable
 {
+    /// <summary>Holds captured network data only for the active deployment, outside persisted diagnostics.</summary>
+    internal PreOobe.PreOobeNetworkProfileRoamingPayload? NetworkProfileRoamingPayload { get; set; }
+
+    /// <summary>Distinguishes a resolved empty network payload from an unresolved preparation.</summary>
+    internal bool NetworkProfileRoamingResolved { get; set; }
     /// <summary>Holds credential-bearing bytes only in memory between validation and staging.</summary>
     internal Unattend.UnattendSnapshot? UnattendSnapshot { get; set; }
 
@@ -51,6 +56,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         UnattendSnapshot = null;
         Preflight?.Dispose();
         Preflight = null;
+        NetworkProfileRoamingPayload = null;
     }
 
     private const string WinPeRoot = @"X:\Foundry";
@@ -72,6 +78,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     private readonly IOperationProgressService _operationProgressService;
     private readonly IDeploymentLogService _deploymentLogService;
     private readonly ITargetDiskService _targetDiskService;
+    private readonly IDeploymentStorageService _storageService;
     private readonly Action<DeploymentStepProgress> _emitStepProgress;
     private readonly object _runtimeStatePersistenceLock = new();
     private Task _pendingRuntimeStatePersistence = Task.CompletedTask;
@@ -86,7 +93,8 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         IOperationProgressService operationProgressService,
         IDeploymentLogService deploymentLogService,
         ITargetDiskService targetDiskService,
-        Action<DeploymentStepProgress> emitStepProgress)
+        Action<DeploymentStepProgress> emitStepProgress,
+        IDeploymentStorageService? storageService = null)
     {
         Request = request ?? throw new ArgumentNullException(nameof(request));
         RuntimeState = runtimeState ?? throw new ArgumentNullException(nameof(runtimeState));
@@ -94,6 +102,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         _operationProgressService = operationProgressService ?? throw new ArgumentNullException(nameof(operationProgressService));
         _deploymentLogService = deploymentLogService ?? throw new ArgumentNullException(nameof(deploymentLogService));
         _targetDiskService = targetDiskService ?? throw new ArgumentNullException(nameof(targetDiskService));
+        _storageService = storageService ?? new DeploymentStorageService();
         _emitStepProgress = emitStepProgress ?? throw new ArgumentNullException(nameof(emitStepProgress));
 
         EnsureWorkspaceFolders();
@@ -113,7 +122,21 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     /// <summary>
     /// Gets the planned step names in execution order.
     /// </summary>
-    public IReadOnlyList<string> PlannedSteps { get; }
+    public IReadOnlyList<string> PlannedSteps { get; private set; }
+
+    private IReadOnlyList<DeploymentPlanEntry>? _plan;
+    private int _reportedProgress;
+    private readonly object _stepProgressSync = new();
+    private int _stepGeneration;
+    private bool _stepIsTerminal;
+
+    /// <summary>Updates future work while retaining an immutable snapshot for queued UI progress events.</summary>
+    internal void UpdatePlan(IReadOnlyList<DeploymentPlanEntry> plan)
+    {
+        _plan = plan;
+        PlannedSteps = plan.Select(entry => entry.Name).ToArray();
+        StepCount = plan.Count;
+    }
 
     /// <summary>
     /// Gets the active deployment log session.
@@ -162,11 +185,16 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     {
         ArgumentNullException.ThrowIfNull(step);
 
-        StepName = step.Name;
-        StepIndex = stepIndex;
-        StepCount = PlannedSteps.Count;
-        RuntimeState.CurrentStep = step.Name;
-        RuntimeState.CurrentOperation = DeploymentOperationNames.ForStep(step.Name);
+        lock (_stepProgressSync)
+        {
+            _stepGeneration++;
+            _stepIsTerminal = false;
+            StepName = step.Name;
+            StepIndex = stepIndex;
+            StepCount = PlannedSteps.Count;
+            RuntimeState.CurrentStep = step.Name;
+            RuntimeState.CurrentOperation = DeploymentOperationNames.ForStep(step.Name);
+        }
     }
 
     /// <summary>
@@ -195,19 +223,28 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         bool stepSubProgressIndeterminate = true,
         string? stepSubProgressLabel = null)
     {
-        int progressPercent = CalculateStepProgressPercent(StepIndex, StepCount);
-        _emitStepProgress(new DeploymentStepProgress
+        lock (_stepProgressSync)
         {
-            StepName = StepName,
-            State = state,
-            StepIndex = StepIndex,
-            StepCount = StepCount,
-            ProgressPercent = progressPercent,
-            Message = message,
-            StepSubProgressPercent = stepSubProgressPercent,
-            StepSubProgressIndeterminate = stepSubProgressIndeterminate,
-            StepSubProgressLabel = stepSubProgressLabel
-        });
+            if (_stepIsTerminal && state == DeploymentStepState.Running) return;
+            _stepIsTerminal = state is DeploymentStepState.Succeeded or DeploymentStepState.Skipped or DeploymentStepState.Failed or DeploymentStepState.Cancelled;
+            int finishedCount = Math.Max(0, StepIndex - (state is DeploymentStepState.Succeeded or DeploymentStepState.Skipped ? 0 : 1));
+            int progressPercent = CalculateStepProgressPercent(finishedCount, StepCount);
+            _reportedProgress = Math.Max(_reportedProgress, Math.Min(progressPercent, 99));
+            _emitStepProgress(new DeploymentStepProgress
+            {
+                StepName = StepName,
+                StepLabel = _plan?.FirstOrDefault(entry => entry.Name == StepName)?.Label,
+                Plan = _plan,
+                State = state,
+                StepIndex = StepIndex,
+                StepCount = StepCount,
+                ProgressPercent = _reportedProgress,
+                Message = message,
+                StepSubProgressPercent = stepSubProgressPercent,
+                StepSubProgressIndeterminate = stepSubProgressIndeterminate,
+                StepSubProgressLabel = stepSubProgressLabel
+            });
+        }
     }
 
     /// <summary>
@@ -236,7 +273,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     /// <param name="message">Progress message shown by the shell.</param>
     public void ReportCurrentStepProgress(string message)
     {
-        _operationProgressService.Report(CalculateStepProgressPercent(StepIndex, StepCount), message);
+        _operationProgressService.Report(_reportedProgress, message);
     }
 
     /// <summary>
@@ -476,38 +513,21 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     }
 
     /// <summary>
-    /// Resolves the operating system cache root and falls back to the target workspace when the USB cache is too small.
-    /// </summary>
-    /// <param name="requiredBytes">Expected payload size in bytes.</param>
-    /// <returns>The operating system cache root.</returns>
-    public string ResolveOperatingSystemCacheRoot(long requiredBytes)
-    {
-        return ResolvePayloadCacheRoot(OperatingSystemsFolderName, requiredBytes);
-    }
-
-    /// <summary>
-    /// Resolves the driver pack cache root for the current deployment mode.
-    /// </summary>
-    /// <returns>The driver pack cache root.</returns>
-    public string ResolveDriverPackCacheRoot()
-    {
-        return ResolvePayloadCacheRoot(DriverPacksFolderName, requiredBytes: 0);
-    }
-
-    /// <summary>
     /// Resolves the driver pack cache root and falls back to the target workspace when the USB cache is too small.
     /// </summary>
     /// <param name="requiredBytes">Expected payload size in bytes.</param>
+    /// <param name="relativePath">Selected package path below the driver cache, used only to account for its existing allocation.</param>
     /// <returns>The driver pack cache root.</returns>
-    public string ResolveDriverPackCacheRoot(long requiredBytes)
+    public string ResolveDriverPackCacheRoot(long requiredBytes, string? relativePath = null)
     {
-        return ResolvePayloadCacheRoot(DriverPacksFolderName, requiredBytes);
+        return ResolvePayloadCacheRoot(DriverPacksFolderName, requiredBytes, relativePath);
     }
 
-    public string ResolveMicrosoftUpdateCatalogDriverCacheRoot(long requiredBytes)
+    /// <summary>Chooses storage for a selected catalog CAB while retaining its existing allocation for subsequent content validation.</summary>
+    public string ResolveMicrosoftUpdateCatalogDriverCacheRoot(long requiredBytes, string relativePath)
     {
         string cacheRoot = requiredBytes > 0
-            ? ResolvePayloadCacheRoot(MicrosoftUpdateCatalogFolderName, requiredBytes)
+            ? ResolvePayloadCacheRoot(MicrosoftUpdateCatalogFolderName, requiredBytes, Path.Combine(DriversFolderName, relativePath))
             : Path.Combine(EnsureTargetFoundryRoot(), CacheFolderName, MicrosoftUpdateCatalogFolderName);
         return Path.Combine(cacheRoot, DriversFolderName);
     }
@@ -542,63 +562,68 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         DownloadPhase? lastPhase = null;
         double? lastReportedPercent = null;
         long nextUnknownTotalReportThreshold = 0;
+        int generation = _stepGeneration;
 
         return new DelegateProgress<DownloadProgress>(progress =>
         {
-            if (progress.Phase != lastPhase)
+            lock (_stepProgressSync)
             {
-                lastPhase = progress.Phase;
-                lastReportedPercent = null;
-                nextUnknownTotalReportThreshold = 0;
-            }
-
-            bool isVerifyingCache = progress.Phase == DownloadPhase.VerifyingCache;
-            string details;
-            double? stepSubProgressPercent = null;
-            bool stepSubProgressIndeterminate = true;
-
-            if (progress.TotalBytes is long totalBytes && totalBytes > 0)
-            {
-                double percent = TransferProgress.CalculatePercentage(progress.BytesProcessed, totalBytes) ?? 0d;
-                bool isFinal = progress.BytesProcessed >= totalBytes;
-                if (!isFinal &&
-                    lastReportedPercent.HasValue &&
-                    percent <= lastReportedPercent.Value)
+                if (generation != _stepGeneration || _stepIsTerminal) return;
+                if (progress.Phase != lastPhase)
                 {
-                    return;
+                    lastPhase = progress.Phase;
+                    lastReportedPercent = null;
+                    nextUnknownTotalReportThreshold = 0;
                 }
 
-                lastReportedPercent = percent;
-                details = $"{percent:0.#}% ({FormatByteSize(progress.BytesProcessed)} / {FormatByteSize(totalBytes)})";
-                if (isVerifyingCache)
+                bool isVerifyingCache = progress.Phase == DownloadPhase.VerifyingCache;
+                string details;
+                double? stepSubProgressPercent = null;
+                bool stepSubProgressIndeterminate = true;
+
+                if (progress.TotalBytes is long totalBytes && totalBytes > 0)
                 {
-                    details = $"Checking cache: {details}";
+                    double percent = TransferProgress.CalculatePercentage(progress.BytesProcessed, totalBytes) ?? 0d;
+                    bool isFinal = progress.BytesProcessed >= totalBytes;
+                    if (!isFinal &&
+                        lastReportedPercent.HasValue &&
+                        percent <= lastReportedPercent.Value)
+                    {
+                        return;
+                    }
+
+                    lastReportedPercent = percent;
+                    details = $"{percent:0.#}% ({FormatByteSize(progress.BytesProcessed)} / {FormatByteSize(totalBytes)})";
+                    if (isVerifyingCache)
+                    {
+                        details = $"Checking cache: {details}";
+                    }
+
+                    stepSubProgressPercent = percent;
+                    stepSubProgressIndeterminate = false;
+                }
+                else
+                {
+                    bool shouldReport = progress.BytesProcessed == 0 ||
+                                        progress.BytesProcessed >= nextUnknownTotalReportThreshold;
+                    if (!shouldReport)
+                    {
+                        return;
+                    }
+
+                    nextUnknownTotalReportThreshold = progress.BytesProcessed + UnknownTotalDownloadProgressIncrementBytes;
+                    details = isVerifyingCache ? "Checking cache..." : $"{FormatByteSize(progress.BytesProcessed)} downloaded";
                 }
 
-                stepSubProgressPercent = percent;
-                stepSubProgressIndeterminate = false;
+                string stepMessage = isVerifyingCache ? "Checking cache..." : $"Downloading {artifactLabel}...";
+                ReportCurrentStepProgress(stepMessage);
+                EmitCurrentStep(
+                    DeploymentStepState.Running,
+                    stepMessage,
+                    stepSubProgressPercent,
+                    stepSubProgressIndeterminate,
+                    details);
             }
-            else
-            {
-                bool shouldReport = progress.BytesProcessed == 0 ||
-                                    progress.BytesProcessed >= nextUnknownTotalReportThreshold;
-                if (!shouldReport)
-                {
-                    return;
-                }
-
-                nextUnknownTotalReportThreshold = progress.BytesProcessed + UnknownTotalDownloadProgressIncrementBytes;
-                details = isVerifyingCache ? "Checking cache..." : $"{FormatByteSize(progress.BytesProcessed)} downloaded";
-            }
-
-            string stepMessage = isVerifyingCache ? "Checking cache..." : $"Downloading {artifactLabel}...";
-            ReportCurrentStepProgress(stepMessage);
-            EmitCurrentStep(
-                DeploymentStepState.Running,
-                stepMessage,
-                stepSubProgressPercent,
-                stepSubProgressIndeterminate,
-                details);
         });
     }
 
@@ -610,28 +635,28 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     /// <returns>A percentage progress reporter.</returns>
     public IProgress<double> CreateStepPercentProgressReporter(string stepMessage, string stepLabelPrefix)
     {
-        object progressSync = new();
+        int generation = _stepGeneration;
         double lastReportedPercent = double.NaN;
 
         return new DelegateProgress<double>(percent =>
         {
             double normalized = Math.Clamp(percent, 0d, 100d);
-            lock (progressSync)
+            lock (_stepProgressSync)
             {
+                if (generation != _stepGeneration || _stepIsTerminal) return;
                 if (!double.IsNaN(lastReportedPercent) && normalized <= lastReportedPercent)
                 {
                     return;
                 }
 
                 lastReportedPercent = normalized;
+                EmitCurrentStep(
+                    DeploymentStepState.Running,
+                    stepMessage,
+                    stepSubProgressPercent: normalized,
+                    stepSubProgressIndeterminate: false,
+                    stepSubProgressLabel: $"{stepLabelPrefix}: {normalized:0.#}%");
             }
-
-            EmitCurrentStep(
-                DeploymentStepState.Running,
-                stepMessage,
-                stepSubProgressPercent: normalized,
-                stepSubProgressIndeterminate: false,
-                stepSubProgressLabel: $"{stepLabelPrefix}: {normalized:0.#}%");
         });
     }
 
@@ -704,7 +729,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         return ResolveCacheBaseRoot(EnsureResolvedCache());
     }
 
-    private string ResolvePayloadCacheRoot(string payloadFolderName, long requiredBytes)
+    private string ResolvePayloadCacheRoot(string payloadFolderName, long requiredBytes, string? relativePath = null)
     {
         if (RuntimeState.Mode == DeploymentMode.Iso &&
             !string.IsNullOrWhiteSpace(RuntimeState.TargetFoundryRoot))
@@ -716,7 +741,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         if (RuntimeState.Mode == DeploymentMode.Usb &&
             requiredBytes > 0 &&
             !string.IsNullOrWhiteSpace(RuntimeState.TargetFoundryRoot) &&
-            !HasAvailableSpace(cacheRoot, requiredBytes))
+            !HasAvailableSpace(cacheRoot, requiredBytes, relativePath))
         {
             return Path.Combine(RuntimeState.TargetFoundryRoot, CacheFolderName, payloadFolderName);
         }
@@ -724,7 +749,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         return cacheRoot;
     }
 
-    private static bool HasAvailableSpace(string path, long requiredBytes)
+    private bool HasAvailableSpace(string path, long requiredBytes, string? relativePath)
     {
         try
         {
@@ -734,8 +759,18 @@ public sealed class DeploymentStepExecutionContext : IDisposable
                 return true;
             }
 
-            var drive = new DriveInfo(rootPath);
-            return drive.IsReady && drive.AvailableFreeSpace >= requiredBytes;
+            long existingBytes = 0;
+            if (!string.IsNullOrWhiteSpace(relativePath))
+            {
+                string candidatePath = Path.Combine(path, relativePath);
+                if (File.Exists(candidatePath)) existingBytes = new FileInfo(candidatePath).Length;
+            }
+
+            // Replacement truncates this same file. Its allocation is reusable, but the downloader still validates all bytes.
+            long allocationBytes = Math.Max(0, requiredBytes - existingBytes);
+            long? availableBytes = _storageService.GetAvailableBytes(path);
+            // Preserve best-effort routing when capacity cannot be queried; payload validation remains mandatory.
+            return !availableBytes.HasValue || availableBytes.Value >= allocationBytes;
         }
         catch
         {

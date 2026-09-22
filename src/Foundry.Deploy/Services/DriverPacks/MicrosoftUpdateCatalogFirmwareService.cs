@@ -30,18 +30,17 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
         _logger = logger;
     }
 
+    /// <inheritdoc />
     public async Task<MicrosoftUpdateCatalogFirmwareResult> DownloadAsync(
         HardwareProfile hardwareProfile,
         string targetArchitecture,
         string rawDirectory,
-        string extractedDirectory,
         string cacheDirectory,
         CancellationToken cancellationToken = default,
         IProgress<double>? progress = null)
     {
         ArgumentNullException.ThrowIfNull(hardwareProfile);
         ArgumentException.ThrowIfNullOrWhiteSpace(rawDirectory);
-        ArgumentException.ThrowIfNullOrWhiteSpace(extractedDirectory);
         ArgumentException.ThrowIfNullOrWhiteSpace(cacheDirectory);
 
         string firmwareHardwareId = hardwareProfile.SystemFirmwareHardwareId.Trim();
@@ -54,7 +53,6 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
         }
 
         DirectoryOperations.Recreate(rawDirectory);
-        DirectoryOperations.Recreate(extractedDirectory);
         progress?.Report(5d);
 
         if (!await _catalogClient.IsAvailableAsync(cancellationToken).ConfigureAwait(false))
@@ -62,7 +60,6 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
             return new MicrosoftUpdateCatalogFirmwareResult
             {
                 DownloadedDirectory = rawDirectory,
-                ExtractedDirectory = extractedDirectory,
                 Message = "Microsoft Update Catalog is not reachable; skipping firmware update."
             };
         }
@@ -78,7 +75,6 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
             return new MicrosoftUpdateCatalogFirmwareResult
             {
                 DownloadedDirectory = rawDirectory,
-                ExtractedDirectory = extractedDirectory,
                 Message = $"No firmware update was found in Microsoft Update Catalog for firmware id '{firmwareHardwareId}'."
             };
         }
@@ -94,7 +90,6 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
             return new MicrosoftUpdateCatalogFirmwareResult
             {
                 DownloadedDirectory = rawDirectory,
-                ExtractedDirectory = extractedDirectory,
                 UpdateId = update.UpdateId,
                 Title = update.Title,
                 Message = $"Firmware update '{update.Title}' was found, but no CAB payload was available for download."
@@ -108,48 +103,52 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
         string destinationPath = Path.Combine(updateDirectory, fileName);
 
         progress?.Report(50d);
-        await DownloadToStagingAsync(update, selectedDownload, destinationPath, cacheDirectory, cancellationToken)
+        ArtifactDownloadResult download = await DownloadToStagingAsync(update, selectedDownload, destinationPath, cacheDirectory, cancellationToken)
             .ConfigureAwait(false);
-
-        progress?.Report(75d);
-        int infCount = await ExpandAsync(rawDirectory, extractedDirectory, cancellationToken, progress).ConfigureAwait(false);
-        if (infCount == 0)
+        if (!File.Exists(destinationPath))
         {
-            throw new InvalidOperationException(
-                $"Firmware update '{update.Title}' was downloaded but no INF files were found after expansion.");
+            throw new FileNotFoundException("The selected firmware payload is unavailable.", destinationPath);
         }
+        progress?.Report(100d);
 
         _logger.LogInformation(
-            "Firmware update downloaded and expanded. UpdateId={UpdateId}, Title={Title}, InfCount={InfCount}",
+            "Firmware update acquired. UpdateId={UpdateId}, Title={Title}, Downloaded={Downloaded}",
             update.UpdateId,
             update.Title,
-            infCount);
+            download.Downloaded);
 
         return new MicrosoftUpdateCatalogFirmwareResult
         {
             IsUpdateAvailable = true,
             DownloadedDirectory = rawDirectory,
-            ExtractedDirectory = extractedDirectory,
+            DownloadedCount = download.Downloaded ? 1 : 0,
+            ReusedCount = download.Downloaded ? 0 : 1,
             UpdateId = update.UpdateId,
             Title = update.Title,
-            Message = $"Firmware update prepared: {update.Title} ({infCount} INF files)."
+            Message = $"Firmware update {(download.Downloaded ? "downloaded" : "resolved from cache")}: {update.Title}."
         };
     }
 
-    private async Task<int> ExpandAsync(
+    /// <inheritdoc />
+    public async Task<int> ExtractAsync(
         string sourceDirectory,
         string destinationDirectory,
-        CancellationToken cancellationToken,
-        IProgress<double>? progress)
+        CancellationToken cancellationToken = default,
+        IProgress<double>? progress = null)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(sourceDirectory);
+        ArgumentException.ThrowIfNullOrWhiteSpace(destinationDirectory);
+        cancellationToken.ThrowIfCancellationRequested();
         string[] cabFiles = Directory
             .EnumerateFiles(sourceDirectory, "*.cab", SearchOption.AllDirectories)
             .ToArray();
 
         if (cabFiles.Length == 0)
         {
-            return 0;
+            throw new InvalidOperationException("The selected firmware payload does not contain any CAB files.");
         }
+
+        DirectoryOperations.Recreate(destinationDirectory);
 
         for (int index = 0; index < cabFiles.Length; index++)
         {
@@ -159,8 +158,8 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
             string cabDestination = Path.Combine(destinationDirectory, MicrosoftUpdateCatalogSupport.SanitizePathSegment(folderName));
             Directory.CreateDirectory(cabDestination);
 
-            double rangeStart = 75d + (double)index / cabFiles.Length * 25d;
-            double rangeEnd = 75d + (double)(index + 1) / cabFiles.Length * 25d;
+            double rangeStart = (double)index / cabFiles.Length * 100d;
+            double rangeEnd = (double)(index + 1) / cabFiles.Length * 100d;
             await _archiveExtractionService
                 .ExtractWithSevenZipAsync(
                     cabPath,
@@ -173,10 +172,16 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
             cancellationToken.ThrowIfCancellationRequested();
         }
 
-        return Directory.EnumerateFiles(destinationDirectory, "*.inf", SearchOption.AllDirectories).Count();
+        int infCount = Directory.EnumerateFiles(destinationDirectory, "*.inf", SearchOption.AllDirectories).Count();
+        if (infCount == 0)
+        {
+            throw new InvalidOperationException("The extracted firmware payload does not contain any INF files.");
+        }
+
+        return infCount;
     }
 
-    private async Task DownloadToStagingAsync(
+    private async Task<ArtifactDownloadResult> DownloadToStagingAsync(
         MicrosoftUpdateCatalogUpdate update,
         MicrosoftUpdateCatalogDownload download,
         string destinationPath,
@@ -186,10 +191,9 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
         string expectedHash = MicrosoftUpdateCatalogSupport.ResolvePreferredHash(download);
         if (string.IsNullOrWhiteSpace(expectedHash))
         {
-            await _artifactDownloadService
+            return await _artifactDownloadService
                 .DownloadAsync(download.DownloadUrl, destinationPath, artifactKind: "MicrosoftUpdateCatalogFirmware", cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
-            return;
         }
 
         string cachePath = Path.Combine(
@@ -197,7 +201,7 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
             MicrosoftUpdateCatalogSupport.SanitizePathSegment(update.UpdateId),
             ResolveFileName(download));
 
-        await _artifactDownloadService
+        ArtifactDownloadResult result = await _artifactDownloadService
             .DownloadAsync(
                 download.DownloadUrl,
                 cachePath,
@@ -207,6 +211,7 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
             .ConfigureAwait(false);
 
         CopyFile(cachePath, destinationPath);
+        return result;
     }
 
     private static string ResolveFileName(MicrosoftUpdateCatalogDownload download)
@@ -245,10 +250,6 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
             return null;
         }
 
-        return new Progress<double>(percent =>
-        {
-            double normalized = Math.Clamp(percent, 0d, 100d);
-            progress.Report(start + (normalized / 100d * (end - start)));
-        });
+        return new CatalogExtractionProgress(progress, start, end);
     }
 }

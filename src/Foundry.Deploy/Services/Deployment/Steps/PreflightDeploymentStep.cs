@@ -4,10 +4,8 @@
 
 using System.IO;
 using System.Net.Http;
-using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration;
 using Foundry.Deploy.Models;
-using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Http;
 using Foundry.Deploy.Services.Localization;
@@ -15,10 +13,8 @@ using Foundry.Deploy.Services.Logging;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
-/// <summary>Establishes the source and known-space prerequisites before any target partition mutation.</summary>
+/// <summary>Chooses safe image staging and checks source access and known capacity before image transfer or target mutation.</summary>
 public sealed class PreflightDeploymentStep(
-    IArtifactDownloadService artifactDownloadService,
-    IWindowsDeploymentService windowsDeploymentService,
     IDeploymentStorageService storageService,
     IImageSourceProbe sourceProbe) : DeploymentStepBase
 {
@@ -28,7 +24,6 @@ public sealed class PreflightDeploymentStep(
     {
         context.Preflight?.Dispose();
         context.Preflight = null;
-        FileStream? sourceLease = null;
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -53,26 +48,7 @@ public sealed class PreflightDeploymentStep(
 
             long targetDriverBytes = ResolveTargetDriverBytes(context, external ? checked(available!.Value + existingBytes - sourceSize) : null);
             DeploymentCapacityPolicy.EnsureTargetCapacity(context, null, external ? 0 : sourceSize, targetDriverBytes);
-            WindowsImageMetadata? image = null;
-            if (external)
-            {
-                ArtifactDownloadResult downloaded = await artifactDownloadService.DownloadAsync(
-                    context.Request.OperatingSystem.Url, imagePath,
-                    DeploymentStepExecutionContext.ResolvePreferredHash(context.Request.OperatingSystem.Sha256, context.Request.OperatingSystem.Sha1),
-                    sourceSize, "OperatingSystemImage", cancellationToken,
-                    context.CreateDownloadProgressReporter("OS image", DeploymentOperationNames.DownloadOperatingSystemImage)).ConfigureAwait(false);
-                imagePath = downloaded.DestinationPath;
-                sourceLease = new FileStream(imagePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                sourceSize = sourceLease.Length;
-                if (sourceSize <= 0) throw Guard("Preflight.InvalidImageMetadata", "invalid_image_metadata");
-                context.EmitCurrentStepIndeterminate("Checking deployment readiness...", "Inspecting image...", DeploymentOperationNames.InspectOperatingSystemImage);
-                image = await windowsDeploymentService.InspectImageAsync(imagePath, context.Request.OperatingSystem.Edition, cancellationToken).ConfigureAwait(false);
-                // Use current headroom after the actual transfer, rather than trusting catalog archive sizes.
-                targetDriverBytes = ResolveTargetDriverBytes(context, storageService.GetAvailableBytes(imageDirectory));
-                DeploymentCapacityPolicy.EnsureTargetCapacity(context, image, 0, targetDriverBytes);
-                context.RuntimeState.DownloadedOperatingSystemPath = imagePath;
-            }
-            else
+            if (!external)
             {
                 context.EmitCurrentStepIndeterminate("Checking deployment readiness...", "Checking source access...", DeploymentOperationNames.ProbeOperatingSystemSource);
                 long? advertisedSize = await sourceProbe.ProbeAsync(context.Request.OperatingSystem.Url, cancellationToken).ConfigureAwait(false);
@@ -81,11 +57,10 @@ public sealed class PreflightDeploymentStep(
             }
 
             await context.AppendLogAsync(DeploymentLogLevel.Info,
-                $"Preflight completed. ExternalImage={external}; ImageExpandedBytes={image?.SizeBytes.ToString() ?? "unknown"}; SourceBytes={sourceSize}; TargetDriverArchiveBytes={targetDriverBytes}; " +
+                $"Storage preparation completed. ExternalImage={external}; SourceBytes={sourceSize}; TargetDriverArchiveBytes={targetDriverBytes}; " +
                 $"LayoutReserveBytes={DeploymentCapacityPolicy.LayoutReserveBytes}; ScratchAndHeadroomBytes={DeploymentCapacityPolicy.ScratchAndHeadroomBytes}; " +
-                $"OptionalSetupMediaBytes={image?.SetupMediaSizeBytes?.ToString() ?? "unknown"}. " +
                 "Capacity covers known residents and allowances only; driver expansion, later Microsoft Update/firmware payloads, and servicing growth remain unknown. " +
-                (external ? "Available hash metadata was verified; a missing hash cannot authenticate the source." : "Source access is current only; full download, hash, edition and expanded-size checks finish after target preparation."), cancellationToken).ConfigureAwait(false);
+                (external ? "Image download and validation must complete before target preparation." : "Source access is current only; full download, hash, edition and expanded-size checks finish after target preparation."), cancellationToken).ConfigureAwait(false);
             cancellationToken.ThrowIfCancellationRequested();
             context.Preflight = new DeploymentPreflightState
             {
@@ -93,13 +68,10 @@ public sealed class PreflightDeploymentStep(
                 UsesTargetStorage = !external,
                 SourceSizeBytes = sourceSize,
                 TargetDriverBytes = targetDriverBytes,
-                Image = image,
-                ImagePath = external ? imagePath : null,
-                SourceLease = sourceLease
+                ExternalImageDirectory = external ? imageDirectory : null
             };
-            sourceLease = null;
             return DeploymentStepResult.Succeeded(external
-                ? "Image and known capacity checked before disk preparation."
+                ? "External image storage and known capacity checked."
                 : "Source access and known capacity checked. Full image validation finishes after disk preparation.");
         }
         catch (DeploymentOperationException exception)
@@ -116,11 +88,6 @@ public sealed class PreflightDeploymentStep(
                 ? HttpConnectionFailure.SecureConnectionMessage : LocalizationText.GetString("Preflight.SourceUnavailable"),
                 DeploymentFailureClassifier.Classify(exception, DeploymentOperationNames.DownloadOperatingSystemImage));
         }
-        catch (CryptographicException exception)
-        {
-            return DeploymentStepResult.Failed(LocalizationText.GetString("Preflight.InvalidMetadata"),
-                DeploymentFailureClassifier.Classify(exception, DeploymentOperationNames.DownloadOperatingSystemImage));
-        }
         catch (InvalidOperationException)
         {
             return Failed("Preflight.InvalidMetadata", "invalid_source_metadata");
@@ -131,15 +98,17 @@ public sealed class PreflightDeploymentStep(
                 new DeploymentFailure(DeploymentOperationNames.PreflightDeployment, DeploymentFailureKinds.Io,
                     DeploymentFailureReasons.AccessDenied, "preflight_cache_unavailable"));
         }
-        finally
-        {
-            sourceLease?.Dispose();
-        }
     }
 
     protected override Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
+        context.Preflight?.Dispose();
+        context.Preflight = new DeploymentPreflightState
+        {
+            CacheRoot = context.RuntimeState.ResolvedCache?.RootPath ?? context.Request.CacheRootPath,
+            UsesTargetStorage = true
+        };
         return Task.FromResult(DeploymentStepResult.Succeeded("Deployment readiness checked (simulation)."));
     }
 
@@ -164,7 +133,8 @@ public sealed class PreflightDeploymentStep(
         }
     }
 
-    private static long ResolveTargetDriverBytes(DeploymentStepExecutionContext context, long? externalHeadroom)
+    /// <summary>Budgets archives and deferred installer copies using current external cache headroom.</summary>
+    internal static long ResolveTargetDriverBytes(DeploymentStepExecutionContext context, long? externalHeadroom)
     {
         DriverPackCatalogItem? driver = context.Request.DriverPack;
         if (driver is null || context.Request.DriverPackSelectionKind is DriverPackSelectionKind.None or DriverPackSelectionKind.MicrosoftUpdateCatalog)

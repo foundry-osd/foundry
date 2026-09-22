@@ -657,19 +657,25 @@
     <value>wpeutil.exe は終了コード {0} で失敗しました。 {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>ドライバーを適用</value>
+    <value>Windows ドライバーをインストール</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>ファームウェアを適用</value>
+    <value>ファームウェア更新を準備</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>オペレーティング システムを適用</value>
+    <value>Windows イメージを適用</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>回復ドライバーを適用</value>
+    <value>回復用ドライバーをインストール</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Windows イメージを確認</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>AI ポリシーを構成</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>OOBE を構成</value>
+    <value>Windows セットアップを構成</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Windows 回復を構成</value>
@@ -677,62 +683,71 @@
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>コンピューター名を設定</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Windows の起動を構成</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>オプション機能を構成</value>
+    <value>Windows 機能を構成</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Autopilot プロファイルをコピー</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>ドライバーをダウンロード</value>
+    <value>ドライバーパックをダウンロード</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>ファームウェアをダウンロード</value>
+    <value>ファームウェア更新をダウンロード</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>オペレーティング システムをダウンロード</value>
+    <value>Windows イメージをダウンロード</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>ドライバーを展開</value>
+    <value>ドライバーパックを展開</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>ファームウェア更新を展開</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>展開を完了</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>変数を収集</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>展開を初期化</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>展開の準備状況を確認</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Autopilot アシスタントを準備</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>ディスクを準備</value>
+    <value>対象ディスクを準備</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Autopilot をプロビジョニング</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Autopilot デバイスを登録</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>キャッシュを確認</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>回復パーティションを封印</value>
+    <value>回復パーティションを非表示</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>カスタム応答ファイルの配置</value>
+    <value>応答ファイルをコピー</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>ドライバーインストーラーを準備</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>カスタマイズを準備</value>
+    <value>セットアップタスクを準備</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>カスタム応答ファイルの検証</value>
+    <value>応答ファイルを検証</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>構成を検証</value>
+    <value>展開設定を確認</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>ドライバーパックを適用しています...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>ファームウェアアップデートを適用しています...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>画像を適用中...</value>
@@ -755,6 +770,9 @@
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Autopilot ハードウェア ハッシュをキャプチャしています...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>空き容量を確認しています...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>キャッシュを確認しています...</value>
   </data>
@@ -775,9 +793,6 @@
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>一時的な作業スペースを掃除中...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>デプロイメントコンテキストを収集しています...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>AI コンポーネントの削除を構成しています...</value>
@@ -803,14 +818,14 @@
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>AutopilotConfigurationFile.json をコピーしています...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>ドライバーパッケージをコピーしています...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>対話型登録ファイルをコピーしています...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>シミュレートされたパーティションを作成しています...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>ワークスペースフォルダーを作成しています...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>メディア証明書を復号化しています...</value>
@@ -830,17 +845,14 @@
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>ドライバー パックを抽出しています...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>ファームウェア更新を展開しています...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>導入を完了しています...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>デプロイメント変数を収集しています...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>ハードウェア ハッシュを Microsoft Graph にインポートしています...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>デプロイメントワークスペースを初期化しています...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>ファームウェア コンテンツをオフライン Windows に挿入しています...</value>
@@ -910,6 +922,9 @@
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Autopilot 登録アシスタントをステージングしています...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>ファームウェア更新を準備しています...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>ステージングパッケージ...</value>
@@ -1046,14 +1061,14 @@
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>キャッシュ戦略が解決されました (シミュレーション)。</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>選択した Microsoft Update Catalog ドライバーファイル「{0}」には INF ファイルが含まれていません。</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>サポートされているコマンドなしで、初回起動ドライバー パックのステージングが要求されました。</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>デプロイ変数が収集されました。</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>展開変数が収集されました (シミュレーション)。</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>ドライバーインストーラーを準備しました。</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>ドライバーパックが適用されました。</value>
@@ -1079,26 +1094,29 @@
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>ドライバーパックがダウンロードされていませんでした。</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>初回起動インストール用に準備されたドライバー パック。</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>ドライバー パックがキャッシュから解決されました。</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>ドライバー パックのソース コンテンツは、初回起動ステージングでは使用できません。</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>ファームウェアアップデートが適用されました。</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>ファームウェアアップデートが適用されました（シミュレーション）。</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>イメージの外部ストレージと既知の容量を確認しました。</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>ファームウェアアップデートがダウンロードされました。</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>ファームウェアアップデートがダウンロードされました（シミュレーション）。</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>ファームウェア更新を展開しました。</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>ファームウェア更新をキャッシュから取得しました。</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Windows でインストールするファームウェア更新を準備しました。</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>ファームウェアのアップデートが無効になっています。</value>
@@ -1118,6 +1136,9 @@
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog はドライバー コンテンツを生成しませんでした。</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>後で実行するドライバーインストーラーは不要です。</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>ドライバーパックのダウンロードは必要ありません。</value>
   </data>
@@ -1130,8 +1151,14 @@
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>抽出された INF ドライバー コンテンツは利用できません。</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>抽出されたファームウェア コンテンツには CAB ファイルは含まれません。</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>抽出されたファームウェア コンテンツには INF ファイルは含まれません。</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>利用可能なファームウェア更新コンテンツがありません。</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>OOBE 前のカスタマイズ スクリプトは必要ありません。</value>
@@ -1175,9 +1202,6 @@
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>OOBE 前のカスタマイズが段階的に行われました (シミュレーション)。</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>ディスクの準備前に、イメージと既知の容量要件を確認しました。</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>展開の準備状況を確認しました（シミュレーション）。</value>
   </data>
@@ -1201,6 +1225,15 @@
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>選択された Autopilot プロファイル ファイルが見つかりませんでした: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>選択したドライバーパックのコンテンツを利用できません。</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>選択したファームウェアのコンテンツを利用できません。</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0}（シミュレーション）。</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>システム ファームウェアのハードウェア識別子が利用できません。</value>
@@ -1247,6 +1280,15 @@
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>サポートされていないドライバー パックのインストール モードです。</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Windows の起動を構成しました。</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Windows イメージと既知の容量を確認しました。</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>Windows イメージは適用されていません。</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Windows のオプション機能の構成が無効になっています。</value>
   </data>
@@ -1267,12 +1309,6 @@
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Windows のオプション機能の構成がシミュレートされました ({0} アクション)。</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>ワークスペースが初期化されました。</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>ワークスペースが初期化されました (シミュレーション)。</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>デプロイが完了しました</value>

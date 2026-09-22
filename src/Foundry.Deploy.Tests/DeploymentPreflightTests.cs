@@ -21,6 +21,69 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentPreflightTests
 {
+    [Fact]
+    public async Task ExternalPreflight_OnlyPlansStorage_WithoutDownloadingOrInspectingImage()
+    {
+        using var fixture = new PipelineFixture();
+        DeploymentStepExecutionContext context = fixture.CreateContext();
+
+        DeploymentStepResult result = await fixture.Preflight.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.False(context.Preflight!.UsesTargetStorage);
+        Assert.Null(context.RuntimeState.DownloadedOperatingSystemPath);
+        Assert.Empty(fixture.Events);
+        Assert.Equal(DeploymentStepState.Failed,
+            (await fixture.Prepare.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+    }
+
+    [Theory]
+    [InlineData(false, DeploymentStepState.Succeeded)]
+    [InlineData(true, DeploymentStepState.Skipped)]
+    public async Task ExternalDownload_PreservesAcquiredImage_AndRequiresImageCheckBeforeErasure(bool cached, DeploymentStepState expected)
+    {
+        using var fixture = new PipelineFixture();
+        if (cached) fixture.CreateCache(fixture.Payload);
+        DeploymentStepExecutionContext context = fixture.CreateContext();
+        await fixture.Preflight.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        DeploymentStepResult download = await fixture.Download.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(expected, download.State);
+        Assert.NotNull(context.RuntimeState.DownloadedOperatingSystemPath);
+        Assert.Equal(fixture.Payload, await File.ReadAllBytesAsync(context.RuntimeState.DownloadedOperatingSystemPath!, TestContext.Current.CancellationToken));
+        Assert.DoesNotContain("inspect", fixture.Events);
+        Assert.Equal(DeploymentStepState.Failed, (await fixture.Prepare.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.Throws<IOException>(() => File.WriteAllBytes(context.RuntimeState.DownloadedOperatingSystemPath!, [0]));
+        Assert.Equal(DeploymentStepState.Succeeded, (await fixture.CheckImage.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.Equal(DeploymentStepState.Succeeded, (await fixture.Prepare.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+    }
+
+    [Fact]
+    public async Task ApplyImage_DoesNotConfigureBoot_UntilDedicatedBootStepRuns()
+    {
+        using var fixture = new PipelineFixture();
+
+        Assert.Equal(DeploymentStepState.Succeeded, (await fixture.RunAsync()).State);
+
+        Assert.Contains("apply:1", fixture.Events);
+        Assert.DoesNotContain("boot", fixture.Events);
+        Assert.Equal(DeploymentStepState.Succeeded, (await fixture.Boot.ExecuteAsync(fixture.Context!, TestContext.Current.CancellationToken)).State);
+        Assert.Equal("boot", fixture.Events[^1]);
+    }
+
+    [Fact]
+    public async Task ConfigureBoot_WithoutAppliedImage_DoesNotCreateBootFiles()
+    {
+        using var fixture = new PipelineFixture();
+
+        DeploymentStepResult result = await fixture.Boot.ExecuteAsync(fixture.CreateContext(), TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("missing_applied_image", result.Failure?.Code);
+        Assert.DoesNotContain("boot", fixture.Events);
+    }
+
     [Theory]
     [InlineData("wf:telnetclient", true, 6736052234UL, DeploymentStepState.Succeeded)]
     [InlineData("wf:microsoft-windows-subsystem-linux", true, 6736052234UL, DeploymentStepState.Succeeded)]
@@ -251,6 +314,8 @@ public sealed class DeploymentPreflightTests
         using var fixture = new PipelineFixture();
         DeploymentStepExecutionContext context = fixture.CreateContext();
         Assert.Equal(DeploymentStepState.Succeeded, (await fixture.Preflight.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.Equal(DeploymentStepState.Succeeded, (await fixture.Download.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.Equal(DeploymentStepState.Succeeded, (await fixture.CheckImage.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
         fixture.Failure = "target_mapping";
         Assert.Equal(DeploymentStepState.Failed, (await fixture.Prepare.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
         Assert.DoesNotContain("partition", fixture.Events);
@@ -270,6 +335,8 @@ public sealed class DeploymentPreflightTests
         using var fixture = new PipelineFixture();
         DeploymentStepExecutionContext context = fixture.CreateContext();
         Assert.Equal(DeploymentStepState.Succeeded, (await fixture.Preflight.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.Equal(DeploymentStepState.Succeeded, (await fixture.Download.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.Equal(DeploymentStepState.Succeeded, (await fixture.CheckImage.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
         context.RuntimeState.DownloadedOperatingSystemPath = Path.Combine(fixture.Root, "unprepared.esd");
         DeploymentStepResult result = await fixture.Prepare.ExecuteAsync(context, TestContext.Current.CancellationToken);
         Assert.Equal(DeploymentStepState.Failed, result.State);
@@ -298,7 +365,9 @@ public sealed class DeploymentPreflightTests
         private readonly CancellationTokenSource _cancellation = new();
         public PreflightDeploymentStep Preflight { get; }
         public PrepareTargetDiskLayoutStep Prepare { get; }
-        private readonly DownloadOperatingSystemImageStep _download;
+        public DownloadOperatingSystemImageStep Download { get; }
+        public CheckWindowsImageStep CheckImage { get; }
+        public ConfigureWindowsBootStep Boot { get; }
         private readonly ApplyOperatingSystemImageStep _apply;
 
         public PipelineFixture()
@@ -308,9 +377,11 @@ public sealed class DeploymentPreflightTests
             var artifact = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, _client);
             var windows = new PipelineWindows(this);
             var probe = new ImageSourceProbe(_client);
-            Preflight = new PreflightDeploymentStep(artifact, windows, Storage, probe);
+            Preflight = new PreflightDeploymentStep(Storage, probe);
             Prepare = new PrepareTargetDiskLayoutStep(windows, probe);
-            _download = new DownloadOperatingSystemImageStep(artifact);
+            Download = new DownloadOperatingSystemImageStep(artifact);
+            CheckImage = new CheckWindowsImageStep(windows, Storage);
+            Boot = new ConfigureWindowsBootStep(windows);
             _apply = new ApplyOperatingSystemImageStep(windows, Storage);
         }
 
@@ -372,8 +443,11 @@ public sealed class DeploymentPreflightTests
         public async Task<DeploymentStepResult> RunAsync()
         {
             DeploymentStepExecutionContext context = CreateContext();
-            IDeploymentStep[] steps = [Preflight, Prepare, _download, _apply];
-            DeploymentStepResult result = DeploymentStepResult.Succeeded("start");
+            DeploymentStepResult result = await Preflight.ExecuteAsync(context, _cancellation.Token);
+            if (result.State == DeploymentStepState.Failed) return result;
+            IDeploymentStep[] steps = context.Preflight!.UsesTargetStorage
+                ? [Prepare, Download, CheckImage, _apply]
+                : [Download, CheckImage, Prepare, _apply];
             foreach (IDeploymentStep step in steps)
             {
                 context.SetCurrentStep(step, 1);
@@ -432,7 +506,13 @@ public sealed class DeploymentPreflightTests
             }
             public override Task ApplyImageAsync(string imagePath, int imageIndex, string windowsPartitionRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default, IProgress<double>? progress = null)
             { _fixture.Events.Add($"apply:{imageIndex}"); return Task.CompletedTask; }
-            public override Task ConfigureBootAsync(string windowsPartitionRoot, string systemPartitionRoot, int operatingSystemBuildMajor, string workingDirectory, CancellationToken cancellationToken = default) => Task.CompletedTask;
+            public override Task ConfigureBootAsync(string windowsPartitionRoot, string systemPartitionRoot, int operatingSystemBuildMajor, string workingDirectory, CancellationToken cancellationToken = default)
+            {
+                Assert.Equal(_fixture.WindowsRoot, windowsPartitionRoot);
+                Assert.Equal(Path.Combine(_fixture.Root, "System"), systemPartitionRoot);
+                _fixture.Events.Add("boot");
+                return Task.CompletedTask;
+            }
             public override Task<string?> GetAppliedWindowsEditionAsync(string windowsPartitionRoot, string workingDirectory, CancellationToken cancellationToken = default) => Task.FromResult<string?>("Professional");
         }
 

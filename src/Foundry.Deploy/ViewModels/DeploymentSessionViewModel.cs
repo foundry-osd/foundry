@@ -75,7 +75,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         _isDebugSafeMode = isDebugSafeMode;
         _timelineTracker = new DeploymentTimelineTracker(
             DeploymentUiTextLocalizer.LocalizeStepName,
-            LocalizeTimelineState);
+            LocalizeTimelineState,
+            DeploymentUiTextLocalizer.LocalizeMessage);
 
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
@@ -165,7 +166,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     public bool IsStartupReady => !IsStartupInitializing;
     public ObservableCollection<DeploymentTimelineEntryViewModel> TimelineEntries => _timelineTracker.Entries;
 
-    public int PlannedStepCount => _deploymentOrchestrator.PlannedSteps.Count;
     public string CompletionInstructionText => _rebootPolicy.AutomaticRebootEnabled && !_isDebugSafeMode
         ? Format("Success.RebootCountdownFormat", RebootCountdownSeconds)
         : GetString("Success.ManualRebootInstruction");
@@ -203,14 +203,15 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         CurrentPage = DeploymentPage.Wizard;
     }
 
-    public void BeginDeployment(string computerName, int plannedStepCount)
+    public void BeginDeployment(string computerName, IReadOnlyList<DeploymentPlanEntry> plan)
     {
         _isDeploymentInProgress = true;
         _lastLogsDirectoryPath = string.Empty;
         ClearFailureDetails();
-        _plannedStepCount = plannedStepCount;
+        _plannedStepCount = plan.Count;
         _activeStepIndex = 0;
-        _timelineTracker.Reset(_deploymentOrchestrator.PlannedSteps);
+        _timelineTracker.Reset([]);
+        _timelineTracker.Reconcile(plan);
 
         DeploymentProgress = 0;
         UpdateGlobalProgressVisuals(0);
@@ -234,7 +235,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     {
         _isDeploymentInProgress = false;
         _lastLogsDirectoryPath = logsDirectoryPath ?? string.Empty;
-        _timelineTracker.CompleteAll();
         _activeStepIndex = _plannedStepCount;
         StepCounterText = BuildStepCounterText(_activeStepIndex);
         CurrentPage = DeploymentPage.Success;
@@ -315,7 +315,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         _plannedStepCount = plannedStepCount;
         _activeStepIndex = plannedStepCount;
         SeedDebugTimeline(plannedStepCount, DeploymentStepState.Succeeded);
-        _timelineTracker.CompleteAll();
         DeploymentProgress = 100;
         UpdateGlobalProgressVisuals(100);
         ComputerNameText = computerName;
@@ -578,7 +577,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
                 SetCurrentStepProgressText("Starting step...");
             }
 
-            SetCurrentStepName(stepProgress.StepName);
+            SetCurrentStepName(stepProgress.StepLabel ?? stepProgress.StepName);
+            _plannedStepCount = stepProgress.StepCount;
             StepCounterText = BuildStepCounterText(stepProgress.StepIndex);
             _timelineTracker.Apply(stepProgress);
 
