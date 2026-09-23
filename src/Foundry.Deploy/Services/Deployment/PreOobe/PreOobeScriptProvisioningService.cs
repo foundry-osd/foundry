@@ -4,6 +4,8 @@
 
 using System.IO;
 using System.Reflection;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Text;
 using System.Text.Json;
 
@@ -17,7 +19,7 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
     private const string SetupCompleteMarkerKey = "FOUNDRY PRE-OOBE";
     private const string RunnerFileName = "Invoke-FoundryPreOobe.ps1";
     private const string ManifestFileName = "pre-oobe-manifest.json";
-    private const string RuntimePreOobeRoot = "%SystemRoot%\\Temp\\Foundry\\PreOobe";
+    private static readonly string RuntimePreOobeRoot = DeploymentStorageLayout.RuntimePath(@"Runtime\PreOobe");
     private const string RuntimePreOobeLogRoot = "%SystemRoot%\\Temp\\Foundry\\Logs\\PreOobe";
     private static readonly UTF8Encoding Utf8NoBom = new(false);
 
@@ -35,7 +37,8 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
     /// <inheritdoc />
     public PreOobeScriptProvisioningResult Provision(
         string targetWindowsPartitionRoot,
-        IEnumerable<PreOobeScriptDefinition> scripts)
+        IEnumerable<PreOobeScriptDefinition> scripts,
+        string? operationId = null)
     {
         if (string.IsNullOrWhiteSpace(targetWindowsPartitionRoot))
         {
@@ -58,21 +61,24 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
             throw new InvalidOperationException("At least one pre-OOBE script is required.");
         }
 
-        string preOobeRoot = GetPreOobeRoot(targetWindowsPartitionRoot);
+        operationId = string.IsNullOrWhiteSpace(operationId) ? Guid.NewGuid().ToString("N") : operationId;
+        var layout = DeploymentStorageLayout.FromPartitionRoot(targetWindowsPartitionRoot);
+        string preOobeRoot = layout.RuntimePreOobe;
         string scriptsRoot = GetScriptsRoot(targetWindowsPartitionRoot);
         string dataRoot = GetDataRoot(targetWindowsPartitionRoot);
         string runnerPath = Path.Combine(preOobeRoot, RunnerFileName);
-        string manifestPath = Path.Combine(preOobeRoot, ManifestFileName);
+        string manifestPath = Path.Combine(layout.StatePreOobe, ManifestFileName);
         string setupCompletePath = GetSetupCompletePath(targetWindowsPartitionRoot);
 
         Directory.CreateDirectory(preOobeRoot);
         Directory.CreateDirectory(scriptsRoot);
-        Directory.CreateDirectory(dataRoot);
+        Directory.CreateDirectory(layout.StatePreOobe);
 
+        string manifest = BuildManifest(orderedScripts, operationId);
         string[] stagedScriptPaths = StageScripts(scriptsRoot, orderedScripts);
         StageDataFiles(dataRoot, orderedScripts);
-        File.WriteAllText(runnerPath, BuildRunner(orderedScripts), Utf8NoBom);
-        File.WriteAllText(manifestPath, BuildManifest(orderedScripts), Utf8NoBom);
+        DeploymentFilePublication.WriteAllText(runnerPath, BuildRunner(orderedScripts), Utf8NoBom);
+        DeploymentFilePublication.WriteAllText(manifestPath, manifest, Utf8NoBom);
 
         _setupCompleteScriptService.RemoveBlock(setupCompletePath, "FOUNDRY DRIVERPACK");
         _setupCompleteScriptService.EnsureBlock(
@@ -91,7 +97,7 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
 
     private static string GetPreOobeRoot(string targetWindowsPartitionRoot)
     {
-        return Path.Combine(targetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "PreOobe");
+        return DeploymentStorageLayout.FromPartitionRoot(targetWindowsPartitionRoot).RuntimePreOobe;
     }
 
     private static string GetScriptsRoot(string targetWindowsPartitionRoot)
@@ -101,7 +107,7 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
 
     private static string GetDataRoot(string targetWindowsPartitionRoot)
     {
-        return Path.Combine(GetPreOobeRoot(targetWindowsPartitionRoot), "Data");
+        return Path.Combine(DeploymentStorageLayout.FromPartitionRoot(targetWindowsPartitionRoot).Root, "Payloads");
     }
 
     private static string GetSetupCompletePath(string targetWindowsPartitionRoot)
@@ -191,11 +197,15 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
     {
         foreach (PreOobeScriptDataFile dataFile in orderedScripts.SelectMany(script => script.DataFiles))
         {
-            string destinationPath = Path.Combine(dataRoot, dataFile.FileName);
+            string destinationPath = Path.Combine(dataRoot, GetPayloadRelativePath(dataFile.FileName));
             string? destinationDirectory = Path.GetDirectoryName(destinationPath);
             if (!string.IsNullOrWhiteSpace(destinationDirectory))
             {
-                Directory.CreateDirectory(destinationDirectory);
+                CreateRestrictedDirectory(destinationDirectory);
+                if (File.Exists(destinationPath))
+                {
+                    File.Delete(destinationPath);
+                }
             }
 
             if (dataFile.Bytes is not null)
@@ -218,11 +228,11 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
     {
         var builder = new StringBuilder();
         builder.AppendLine("$ErrorActionPreference = 'Stop'");
-        builder.AppendLine("$preOobeRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\PreOobe'");
+        builder.AppendLine("$preOobeRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\Runtime\\PreOobe'");
         builder.AppendLine("$scriptsRoot = Join-Path $preOobeRoot 'Scripts'");
         builder.AppendLine();
         AppendSupervisedScriptFunction(builder);
-        builder.AppendLine("function Invoke-FoundryScript {");
+        builder.AppendLine("function Invoke-FoundryProcess {");
         builder.AppendLine("    param(");
         builder.AppendLine("        [Parameter(Mandatory = $true)]");
         builder.AppendLine("        [string]$ScriptPath,");
@@ -235,7 +245,7 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
         builder.AppendLine("    $logRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\Logs\\PreOobe'");
         builder.AppendLine("    $transcriptPath = Join-Path $logRoot \"$name.transcript.log\"");
         builder.AppendLine("    if ($TimeoutSeconds -gt 0 -or $ContinueOnError) {");
-        builder.AppendLine("        Invoke-FoundrySupervisedScript -ScriptPath $ScriptPath -Arguments $Arguments -TimeoutSeconds $TimeoutSeconds -ContinueOnError:$ContinueOnError");
+        builder.AppendLine("        Invoke-FoundrySupervisedScript -ScriptPath $ScriptPath -Arguments $Arguments -TimeoutSeconds $TimeoutSeconds");
         builder.AppendLine("        return");
         builder.AppendLine("    }");
         builder.AppendLine("    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $ScriptPath @Arguments");
@@ -245,22 +255,20 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
         builder.AppendLine("}");
         builder.AppendLine();
 
+        using (Stream lifecycle = typeof(PreOobeScriptProvisioningService).Assembly.GetManifestResourceStream("Foundry.Deploy.PreOobe.Runner-Lifecycle.ps1")!)
+        using (var reader = new StreamReader(lifecycle))
+        {
+            builder.AppendLine(reader.ReadToEnd());
+        }
+        builder.AppendLine("try {");
+        builder.AppendLine("    if (Initialize-FoundryAttempt) {");
+
         PreOobeScriptDefinition[] cleanupScripts = orderedScripts
             .Where(static script => script.Priority == PreOobeScriptPriority.Cleanup)
             .ToArray();
         PreOobeScriptDefinition[] mainScripts = orderedScripts
             .Where(static script => script.Priority != PreOobeScriptPriority.Cleanup)
             .ToArray();
-
-        if (cleanupScripts.Length == 0)
-        {
-            foreach (PreOobeScriptDefinition script in mainScripts)
-            {
-                AppendInvokeFoundryScript(builder, script);
-            }
-
-            return builder.ToString();
-        }
 
         builder.AppendLine("try {");
         foreach (PreOobeScriptDefinition script in mainScripts)
@@ -280,6 +288,12 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
         }
         builder.AppendLine("}");
 
+        builder.AppendLine("    }");
+        builder.AppendLine("}");
+        builder.AppendLine("catch { $script:attemptFailed = $true; throw }");
+        builder.AppendLine("finally {");
+        builder.AppendLine("    try { Complete-FoundryAttempt } finally { $runnerLease.Dispose() }");
+        builder.AppendLine("}");
         return builder.ToString();
     }
 
@@ -344,7 +358,9 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
     private static void AppendInvokeFoundryScript(StringBuilder builder, PreOobeScriptDefinition script, string indent = "")
     {
         builder.Append(indent);
-        builder.Append("Invoke-FoundryScript -ScriptPath (Join-Path $scriptsRoot ");
+        builder.Append("Invoke-FoundryScript -ScriptId ");
+        builder.Append(ToPowerShellString(script.Id));
+        builder.Append(" -ScriptPath (Join-Path $scriptsRoot ");
         builder.Append(ToPowerShellString(script.FileName));
         builder.Append(") -Arguments ");
         builder.Append(ToPowerShellArray(script.Arguments));
@@ -374,10 +390,11 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
             ]);
     }
 
-    private static string BuildManifest(IReadOnlyList<PreOobeScriptDefinition> orderedScripts)
+    private static string BuildManifest(IReadOnlyList<PreOobeScriptDefinition> orderedScripts, string operationId)
     {
         string json = JsonSerializer.Serialize(new
         {
+            operationId,
             generatedAtUtc = DateTimeOffset.UtcNow,
             scripts = orderedScripts.Select(script => new
             {
@@ -387,7 +404,8 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
                 arguments = script.Arguments,
                 timeoutSeconds = script.TimeoutSeconds,
                 continueOnError = script.ContinueOnError,
-                dataFiles = script.DataFiles.Select(dataFile => dataFile.FileName)
+                dataFiles = script.DataFiles.Select(dataFile => dataFile.FileName),
+                inputs = GetOwnedInputs(script)
             })
         }, new JsonSerializerOptions
         {
@@ -395,6 +413,46 @@ public sealed class PreOobeScriptProvisioningService : IPreOobeScriptProvisionin
         });
 
         return json + Environment.NewLine;
+    }
+
+    private static string GetPayloadRelativePath(string fileName) =>
+        fileName.StartsWith("NetworkProfiles" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)
+            ? fileName
+            : Path.Combine("Customization", fileName);
+
+    private static object[] GetOwnedInputs(PreOobeScriptDefinition script)
+    {
+        var inputs = script.DataFiles.Select(file => new { relativePath = GetPayloadRelativePath(file.FileName), sensitive = file.IsSensitive }).ToList();
+        int packageIndex = script.Arguments.ToList().IndexOf("-PackagePath");
+        if (packageIndex >= 0 && packageIndex + 1 < script.Arguments.Count)
+        {
+            inputs.Add(new { relativePath = Path.Combine("Drivers", Path.GetFileName(script.Arguments[packageIndex + 1])), sensitive = false });
+        }
+        if (inputs.Count > 256)
+        {
+            throw new InvalidOperationException("A pre-OOBE script cannot own more than 256 inputs.");
+        }
+        return inputs.Cast<object>().ToArray();
+    }
+
+    // Fail closed before decrypted bytes reach disk. All payload directories use the same restricted policy.
+    private static void CreateRestrictedDirectory(string path)
+    {
+        Directory.CreateDirectory(path);
+        var security = new DirectorySecurity();
+        security.SetAccessRuleProtection(isProtected: true, preserveInheritance: false);
+        var identities = new[]
+        {
+            new SecurityIdentifier(WellKnownSidType.LocalSystemSid, null),
+            new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null),
+            WindowsIdentity.GetCurrent().User!
+        };
+        foreach (SecurityIdentifier identity in identities.Distinct())
+        {
+            security.AddAccessRule(new FileSystemAccessRule(identity, FileSystemRights.FullControl,
+                InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
+        }
+        new DirectoryInfo(path).SetAccessControl(security);
     }
 
     private static string ToPowerShellArray(IReadOnlyList<string> values)

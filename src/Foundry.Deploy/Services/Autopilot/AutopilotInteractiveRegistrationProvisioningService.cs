@@ -26,9 +26,9 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
     private const string SetupCompleteMarkerKey = "FOUNDRY AUTOPILOT REGISTRATION";
     private const string ScriptResourceName = "Foundry.Deploy.AutopilotRegistration.Start-FoundryAutopilotRegistration.ps1";
     private const string ServiceUiResourceName = "Foundry.Deploy.AutopilotRegistration.ServiceUI.exe";
-    private const string RuntimeRegistrationRoot = "%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration";
+    private static readonly string RuntimeRegistrationRoot = DeploymentStorageLayout.RuntimePath(@"Runtime\AutopilotRegistration");
     private const string RuntimeLogRoot = "%SystemRoot%\\Temp\\Foundry\\Logs\\AutopilotRegistration";
-    private const string RuntimeStateRoot = "%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration\\State";
+    private static readonly string RuntimeStateRoot = DeploymentStorageLayout.RuntimePath(@"State\AutopilotRegistration");
     private const string FoundryBootstrapClientId = "83eb3a92-030d-49b7-881b-32a1eb3e110a";
     private static readonly UTF8Encoding Utf8NoBom = new(false);
     private readonly ISetupCompleteScriptService _setupCompleteScriptService;
@@ -47,7 +47,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
         }
 
         string registrationRoot = GetRegistrationRoot(targetWindowsPartitionRoot);
-        string stateRoot = Path.Combine(registrationRoot, "State");
+        string stateRoot = DeploymentStorageLayout.FromPartitionRoot(targetWindowsPartitionRoot).StateAutopilotRegistration;
         string logRoot = GetLogRoot(targetWindowsPartitionRoot);
         string scriptPath = Path.Combine(registrationRoot, ScriptFileName);
         string launcherPath = Path.Combine(registrationRoot, LauncherFileName);
@@ -65,18 +65,23 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
 
         StageEmbeddedResource(ScriptResourceName, scriptPath);
         StageEmbeddedResource(ServiceUiResourceName, serviceUiPath);
-        File.WriteAllText(launcherPath, BuildLauncher(), Encoding.ASCII);
-        File.WriteAllText(oobeLauncherPath, BuildOobeLauncher(), Encoding.ASCII);
-        File.WriteAllText(oobeWaiterPath, BuildOobeWaiter(), Encoding.ASCII);
-        File.WriteAllText(foregroundWrapperPath, BuildForegroundWrapper(), Encoding.ASCII);
-        File.WriteAllText(configPath, BuildConfig(), Utf8NoBom);
+        DeploymentFilePublication.WriteAllText(launcherPath, BuildLauncher(), Encoding.ASCII);
+        DeploymentFilePublication.WriteAllText(oobeLauncherPath, BuildOobeLauncher(), Encoding.ASCII);
+        DeploymentFilePublication.WriteAllText(oobeWaiterPath, BuildOobeWaiter(), Encoding.ASCII);
+        DeploymentFilePublication.WriteAllText(foregroundWrapperPath, BuildForegroundWrapper(), Encoding.ASCII);
+        DeploymentFilePublication.WriteAllText(configPath, BuildConfig(), Utf8NoBom);
 
-        _setupCompleteScriptService.RemoveBlock(setupCompletePath, SetupCompleteMarkerKey);
-        _setupCompleteScriptService.RemoveBlock(oobeCommandPath, SetupCompleteMarkerKey);
+        MigrateCompletionGuard(targetWindowsPartitionRoot, stateRoot);
+        RedirectLegacyLaunchers(targetWindowsPartitionRoot);
+
+        // Replace OOBE's owned block atomically before retiring the previous entry point.
+        // An interrupted publication must leave a working launch hook in place.
         _setupCompleteScriptService.EnsureBlock(
             oobeCommandPath,
             SetupCompleteMarkerKey,
             BuildOobeCommandLauncher());
+        _setupCompleteScriptService.RemoveBlock(setupCompletePath, SetupCompleteMarkerKey);
+        RetireCompletedLegacyRuntime(targetWindowsPartitionRoot, stateRoot, setupCompletePath, oobeCommandPath);
 
         return new AutopilotInteractiveRegistrationProvisioningResult
         {
@@ -94,9 +99,56 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
         };
     }
 
+    private static void RedirectLegacyLaunchers(string partitionRoot)
+    {
+        string legacyRoot = Path.Combine(DeploymentStorageLayout.FromPartitionRoot(partitionRoot).Root, "AutopilotRegistration");
+        // Both supported old hook entry points now enter the same lease-protected runtime.
+        // If hook migration stops between files, they cannot run old and new registration concurrently.
+        foreach (string name in new[] { LauncherFileName, OobeLauncherFileName })
+        {
+            string path = Path.Combine(legacyRoot, name);
+            if (!File.Exists(path)) continue;
+            DeploymentFilePublication.WriteAllText(path,
+                $"@echo off{Environment.NewLine}call \"{RuntimeRegistrationRoot}\\{name}\"{Environment.NewLine}exit /b %ERRORLEVEL%{Environment.NewLine}",
+                Encoding.ASCII);
+        }
+    }
+
+    private static void RetireCompletedLegacyRuntime(string partitionRoot, string stateRoot, params string[] hooks)
+    {
+        string guard = Path.Combine(stateRoot, "registration-result.json");
+        if (!File.Exists(guard)) { return; }
+        using JsonDocument result = JsonDocument.Parse(File.ReadAllText(guard));
+        if (!result.RootElement.TryGetProperty("status", out JsonElement status) || status.GetString() != "completed") { return; }
+        if (hooks.Any(path => File.Exists(path) && File.ReadAllText(path).Contains(
+            @"\Temp\Foundry\AutopilotRegistration", StringComparison.OrdinalIgnoreCase))) { return; }
+        string legacyRoot = Path.Combine(DeploymentStorageLayout.FromPartitionRoot(partitionRoot).Root, "AutopilotRegistration");
+        foreach (string name in new[] { ScriptFileName, LauncherFileName, OobeLauncherFileName, OobeWaiterFileName,
+            ForegroundWrapperFileName, ServiceUiFileName, ConfigFileName })
+        {
+            string path = Path.Combine(legacyRoot, name);
+            if (File.Exists(path)) { File.Delete(path); }
+        }
+        // Keep the legacy completion guard: independently retained hooks must still suppress re-registration.
+    }
+
+    private static void MigrateCompletionGuard(string partitionRoot, string stateRoot)
+    {
+        string legacy = Path.Combine(DeploymentStorageLayout.FromPartitionRoot(partitionRoot).Root,
+            "AutopilotRegistration", "State", "registration-result.json");
+        if (!File.Exists(legacy)) { return; }
+        using JsonDocument result = JsonDocument.Parse(File.ReadAllText(legacy));
+        if (result.RootElement.TryGetProperty("status", out JsonElement status) && status.GetString() == "completed")
+        {
+            DeploymentFilePublication.WriteAllText(Path.Combine(stateRoot, "registration-result.json"),
+                result.RootElement.GetRawText(), Utf8NoBom);
+        }
+        // The old guard remains until every possible legacy hook has been retired.
+    }
+
     private static string GetRegistrationRoot(string targetWindowsPartitionRoot)
     {
-        return Path.Combine(targetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "AutopilotRegistration");
+        return DeploymentStorageLayout.FromPartitionRoot(targetWindowsPartitionRoot).RuntimeAutopilotRegistration;
     }
 
     private static string GetLogRoot(string targetWindowsPartitionRoot)
@@ -191,9 +243,9 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
             Environment.NewLine,
             [
                 "$ErrorActionPreference = 'Stop'",
-                "$registrationRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\AutopilotRegistration'",
+                "$registrationRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\Runtime\\AutopilotRegistration'",
                 "$logRoot = Join-Path $env:SystemRoot 'Temp\\Foundry\\Logs\\AutopilotRegistration'",
-                "$statePath = Join-Path $registrationRoot 'State\\registration-result.json'",
+                "$statePath = Join-Path $env:SystemRoot 'Temp\\Foundry\\State\\AutopilotRegistration\\registration-result.json'",
                 "$registrationScriptPath = Join-Path $registrationRoot 'Start-FoundryAutopilotRegistration.ps1'",
                 "$foregroundWrapperPath = Join-Path $registrationRoot 'Start-FoundryAutopilotRegistrationForeground.ps1'",
                 "$configPath = Join-Path $registrationRoot 'config.json'",
@@ -264,17 +316,14 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
                 "}",
                 "try {",
                 "function Test-FoundryRegistrationCompleted {",
-                "    if (-not (Test-Path -LiteralPath $statePath)) {",
-                "        return $false",
+                "    $legacyStatePath = Join-Path $env:SystemRoot 'Temp\\Foundry\\AutopilotRegistration\\State\\registration-result.json'",
+                "    foreach ($guard in @($statePath, $legacyStatePath)) {",
+                "        if (Test-Path -LiteralPath $guard) {",
+                "            $result = Get-Content -LiteralPath $guard -Raw | ConvertFrom-Json",
+                "            if ($result.status -eq 'completed') { return $true }",
+                "        }",
                 "    }",
-                "    try {",
-                "        $result = Get-Content -LiteralPath $statePath -Raw | ConvertFrom-Json",
-                "        return $result.status -eq 'completed'",
-                "    }",
-                "    catch {",
-                "        Write-FoundryOobeWaiterLog -Message \"Failed to read existing registration result. $($_.Exception.Message)\"",
-                "        return $false",
-                "    }",
+                "    return $false",
                 "}",
                 "Write-FoundryOobeWaiterLog -Message 'Waiting for active OOBE console session.'",
                 "$activeSessionId = $null",

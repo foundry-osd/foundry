@@ -70,7 +70,7 @@ public sealed class StagePreOobeCustomizationStepTests
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Import-NetworkProfiles.ps1", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Cleanup-PreOobe.ps1", StringComparison.OrdinalIgnoreCase));
-        Assert.True(File.Exists(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Temp", "Foundry", "PreOobe", "Data", "NetworkProfiles", "wifi-profile.xml")));
+        Assert.True(File.Exists(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "NetworkProfiles", "wifi-profile.xml")));
         Assert.Contains("network-profile-roaming", File.ReadAllText(context.RuntimeState.PreOobeManifestPath!));
         Assert.Contains("FOUNDRY PRE-OOBE BEGIN", File.ReadAllText(context.RuntimeState.PreOobeSetupCompletePath!));
     }

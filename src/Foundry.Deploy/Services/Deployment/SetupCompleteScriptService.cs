@@ -42,7 +42,7 @@ public sealed class SetupCompleteScriptService : ISetupCompleteScriptService
 
         if (!File.Exists(setupCompletePath))
         {
-            File.WriteAllText(setupCompletePath, "@echo off" + Environment.NewLine + snippet, Encoding.ASCII);
+            DeploymentFilePublication.WriteAllText(setupCompletePath, "@echo off" + Environment.NewLine + snippet, Encoding.ASCII);
             return setupCompletePath;
         }
 
@@ -56,7 +56,7 @@ public sealed class SetupCompleteScriptService : ISetupCompleteScriptService
             string updated = Regex.Replace(existing, pattern, snippet);
             if (!string.Equals(existing, updated, StringComparison.Ordinal))
             {
-                File.WriteAllText(setupCompletePath, updated, Encoding.ASCII);
+                DeploymentFilePublication.WriteAllText(setupCompletePath, updated, Encoding.ASCII);
             }
 
             return setupCompletePath;
@@ -65,7 +65,7 @@ public sealed class SetupCompleteScriptService : ISetupCompleteScriptService
         string separator = existing.EndsWith(Environment.NewLine, StringComparison.Ordinal)
             ? string.Empty
             : Environment.NewLine;
-        File.WriteAllText(setupCompletePath, existing + separator + snippet, Encoding.ASCII);
+        DeploymentFilePublication.WriteAllText(setupCompletePath, existing + separator + snippet, Encoding.ASCII);
         return setupCompletePath;
     }
 
@@ -99,7 +99,7 @@ public sealed class SetupCompleteScriptService : ISetupCompleteScriptService
 
         if (!string.Equals(existing, updated, StringComparison.Ordinal))
         {
-            File.WriteAllText(setupCompletePath, updated, Encoding.ASCII);
+            DeploymentFilePublication.WriteAllText(setupCompletePath, updated, Encoding.ASCII);
         }
 
         return setupCompletePath;

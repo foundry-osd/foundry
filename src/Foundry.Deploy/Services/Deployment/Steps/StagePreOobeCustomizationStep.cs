@@ -78,7 +78,8 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         context.EmitCurrentStepIndeterminate("Staging pre-OOBE customizations...", "Updating SetupComplete hook...", DeploymentOperationNames.StagePreOobe);
         PreOobeScriptProvisioningResult result = _preOobeScriptProvisioningService.Provision(
             context.RuntimeState.TargetWindowsPartitionRoot,
-            scripts);
+            scripts,
+            context.RuntimeState.OperationId);
 
         ApplyPreOobeResult(context.RuntimeState, result);
 
@@ -219,8 +220,8 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             "Windows",
             "Temp",
             "Foundry",
-            "DriverPack",
-            "Packages",
+            "Payloads",
+            "Drivers",
             packageFileName);
     }
 
@@ -230,8 +231,8 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             "%SystemRoot%",
             "Temp",
             "Foundry",
-            "DriverPack",
-            "Packages",
+            "Payloads",
+            "Drivers",
             packageFileName);
     }
 
@@ -254,6 +255,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             "Windows",
             "Temp",
             "Foundry",
+            "Runtime",
             "PreOobe");
 
         runtimeState.PreOobeSetupCompletePath = Path.Combine(
@@ -263,7 +265,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             "Scripts",
             "SetupComplete.cmd");
         runtimeState.PreOobeRunnerPath = Path.Combine(preOobeRoot, "Invoke-FoundryPreOobe.ps1");
-        runtimeState.PreOobeManifestPath = Path.Combine(preOobeRoot, "pre-oobe-manifest.json");
+        runtimeState.PreOobeManifestPath = Path.Combine(DeploymentStorageLayout.FromPartitionRoot(runtimeState.TargetWindowsPartitionRoot!).StatePreOobe, "pre-oobe-manifest.json");
         runtimeState.PreOobeScriptPaths = scripts
             .Select(script => Path.Combine(preOobeRoot, "Scripts", script.FileName))
             .ToArray();

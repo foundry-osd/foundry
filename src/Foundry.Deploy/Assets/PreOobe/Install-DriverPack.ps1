@@ -104,7 +104,7 @@ try {
                 -OperationName 'pnpunattend.exe'
         }
         'SurfaceMsi' {
-            $logDirectory = Join-Path $env:SystemRoot 'Temp\Foundry\DriverPack'
+            $logDirectory = Join-Path $env:SystemRoot 'Temp\Foundry\Logs\PreOobe'
             New-Item -Path $logDirectory -ItemType Directory -Force | Out-Null
 
             $logPath = Join-Path $logDirectory 'surface-driverpack.log'
