@@ -49,13 +49,12 @@ public sealed class DownloadFirmwareUpdateStep : DeploymentStepBase
 
         string targetFoundryRoot = context.EnsureTargetFoundryRoot();
         string rawDirectory = Path.Combine(targetFoundryRoot, "Temp", "FirmwareUpdate", "Raw");
-        string cacheDirectory = context.ResolveMicrosoftUpdateCatalogFirmwareCacheRoot();
 
         context.EmitCurrentStepIndeterminate("Downloading firmware update...", "Preparing Microsoft Update Catalog lookup...", DeploymentOperationNames.ResolveFirmware);
         IProgress<double> progress = context.CreateStepPercentProgressReporter("Downloading firmware update...", "Downloading");
 
         MicrosoftUpdateCatalogFirmwareResult result = await _firmwareService
-            .DownloadAsync(hardwareProfile, context.Request.OperatingSystem.Architecture, rawDirectory, cacheDirectory, cancellationToken, progress)
+            .DownloadAsync(hardwareProfile, context.Request.OperatingSystem.Architecture, rawDirectory, context.ResolveMicrosoftUpdateCatalogFirmwareCacheRoot, cancellationToken, progress)
             .ConfigureAwait(false);
 
         await context.AppendLogAsync(DeploymentLogLevel.Info, result.Message, cancellationToken).ConfigureAwait(false);

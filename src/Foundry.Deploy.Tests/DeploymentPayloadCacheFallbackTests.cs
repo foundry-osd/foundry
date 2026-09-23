@@ -20,6 +20,122 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentPayloadCacheFallbackTests
 {
+    [Fact]
+    public async Task StorageWriteProbe_PreservesExistingPayloadAndRejectsReadOnlyFiles()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        string path = Path.Combine(workspace.UsbCacheRoot, "driver.cab");
+        byte[] content = [1, 2, 3, 4];
+        await File.WriteAllBytesAsync(path, content, TestContext.Current.CancellationToken);
+        var storage = new DeploymentStorageService();
+
+        Assert.True(storage.CanWriteDirectory(workspace.UsbCacheRoot, path));
+        Assert.Equal(content, await File.ReadAllBytesAsync(path, TestContext.Current.CancellationToken));
+        File.SetAttributes(path, FileAttributes.ReadOnly);
+        try
+        {
+            Assert.False(storage.CanWriteDirectory(workspace.UsbCacheRoot, path));
+            Assert.Equal(content, await File.ReadAllBytesAsync(path, TestContext.Current.CancellationToken));
+        }
+        finally
+        {
+            File.SetAttributes(path, FileAttributes.Normal);
+        }
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task DriverDownload_WhenUsbIsReadOnly_UsesTargetPayload(bool catalogDrivers)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using DeploymentStepExecutionContext context = CreateExecutionContext(workspace, catalogDrivers: catalogDrivers,
+            storageService: new FixedStorageService(long.MaxValue, writable: false));
+        var downloader = new CapturingArtifactDownloadService();
+        var catalog = new MicrosoftUpdateCatalogDriverService(new MicrosoftUpdateCatalogServiceTests.FakeArchiveExtractionService(),
+            new MicrosoftUpdateCatalogServiceTests.FakeMicrosoftUpdateCatalogClient(), downloader,
+            NullLogger<MicrosoftUpdateCatalogDriverService>.Instance);
+
+        DeploymentStepResult result = await new DownloadDriverPackStep(catalog, downloader)
+            .ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.StartsWith(workspace.TargetFoundryRoot, context.RuntimeState.DownloadedDriverPackPath);
+        Assert.Empty(Directory.EnumerateFiles(workspace.UsbCacheRoot, "*.cab", SearchOption.AllDirectories));
+    }
+
+    [Theory]
+    [InlineData(0, true, 0, false, true)]
+    [InlineData(long.MaxValue, false, 0, false, true)]
+    [InlineData(long.MaxValue, false, 1024, false, true)]
+    [InlineData(0, true, 1024, true, false)]
+    [InlineData(0, true, 1024, false, false)]
+    [InlineData(0, true, 512, false, true)]
+    public async Task FirmwareDownload_UsesWritableCapacityAndValidatesSelectedCache(
+        long availableBytes, bool writable, int existingBytes, bool validCache, bool targetCache)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        byte[] content = new byte[1024];
+        new Random(91).NextBytes(content);
+        string hash = Convert.ToHexString(SHA256.HashData(content));
+        using DeploymentStepExecutionContext context = CreateExecutionContext(workspace,
+            storageService: new FixedStorageService(availableBytes, writable));
+        context.RuntimeState.HardwareProfile = new HardwareProfile { SystemFirmwareHardwareId = "firmware" };
+        string relativePath = Path.Combine("Cache", "MicrosoftUpdateCatalog", "Firmware", "update-1", "driver-amd64.cab");
+        string usbPath = Path.Combine(workspace.UsbCacheRoot, relativePath);
+        if (existingBytes > 0)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(usbPath)!);
+            byte[] cached = content[..existingBytes];
+            if (!validCache) cached[0] ^= 0xff;
+            await File.WriteAllBytesAsync(usbPath, cached, TestContext.Current.CancellationToken);
+        }
+        var handler = new PayloadHttpMessageHandler(content);
+        using var client = new HttpClient(handler);
+        var downloader = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client);
+        var firmware = new MicrosoftUpdateCatalogFirmwareService(new MicrosoftUpdateCatalogServiceTests.FakeArchiveExtractionService(),
+            new MicrosoftUpdateCatalogServiceTests.FakeMicrosoftUpdateCatalogClient { Sha256 = hash, SizeInBytes = content.Length },
+            downloader, NullLogger<MicrosoftUpdateCatalogFirmwareService>.Instance);
+
+        DeploymentStepResult result = await new DownloadFirmwareUpdateStep(firmware)
+            .ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        string expectedCache = Path.Combine(targetCache ? workspace.TargetFoundryRoot : workspace.UsbCacheRoot, relativePath);
+        Assert.True(File.Exists(expectedCache));
+        Assert.Equal(content, await File.ReadAllBytesAsync(expectedCache, TestContext.Current.CancellationToken));
+        Assert.Equal(validCache ? DeploymentStepState.Skipped : DeploymentStepState.Succeeded, result.State);
+        Assert.Equal(validCache ? 0 : 1, handler.RequestCount);
+        string stagedCab = Assert.Single(Directory.EnumerateFiles(context.RuntimeState.DownloadedFirmwarePath!, "*.cab", SearchOption.AllDirectories));
+        Assert.Equal(content, await File.ReadAllBytesAsync(stagedCab, TestContext.Current.CancellationToken));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task FirmwareDownload_WithoutKnownSizeOrHash_UsesTargetStorage(bool missingHash)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using DeploymentStepExecutionContext context = CreateExecutionContext(workspace,
+            storageService: new FixedStorageService(long.MaxValue));
+        context.RuntimeState.HardwareProfile = new HardwareProfile { SystemFirmwareHardwareId = "firmware" };
+        var downloader = new CapturingArtifactDownloadService();
+        var firmware = new MicrosoftUpdateCatalogFirmwareService(new MicrosoftUpdateCatalogServiceTests.FakeArchiveExtractionService(),
+            new MicrosoftUpdateCatalogServiceTests.FakeMicrosoftUpdateCatalogClient
+            {
+                SizeInBytes = missingHash ? 1024 : 0,
+                Sha256 = missingHash ? string.Empty : new string('B', 64),
+                Sha1 = string.Empty
+            }, downloader, NullLogger<MicrosoftUpdateCatalogFirmwareService>.Instance);
+
+        DeploymentStepResult result = await new DownloadFirmwareUpdateStep(firmware)
+            .ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.StartsWith(workspace.TargetFoundryRoot, downloader.DestinationPath);
+        Assert.Empty(Directory.EnumerateFiles(workspace.UsbCacheRoot, "*.cab", SearchOption.AllDirectories));
+        Assert.Single(Directory.EnumerateFiles(context.RuntimeState.DownloadedFirmwarePath!, "*.cab", SearchOption.AllDirectories));
+    }
+
     [Theory]
     [InlineData(false, 1024, true)]
     [InlineData(false, 1024, false)]
@@ -353,10 +469,10 @@ public sealed class DeploymentPayloadCacheFallbackTests
             emitStepProgress ?? (_ => { }), storageService);
     }
 
-    private sealed class FixedStorageService(long availableBytes) : IDeploymentStorageService
+    private sealed class FixedStorageService(long availableBytes, bool writable = true) : IDeploymentStorageService
     {
         public long? GetAvailableBytes(string path) => availableBytes;
-        public bool CanWriteDirectory(string path) => true;
+        public bool CanWriteDirectory(string path, string? existingFilePath = null) => writable;
     }
 
     private sealed class CapturingArtifactDownloadService : IArtifactDownloadService

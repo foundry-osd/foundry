@@ -35,13 +35,13 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
         HardwareProfile hardwareProfile,
         string targetArchitecture,
         string rawDirectory,
-        string cacheDirectory,
+        Func<long, string, string> resolveCacheDirectory,
         CancellationToken cancellationToken = default,
         IProgress<double>? progress = null)
     {
         ArgumentNullException.ThrowIfNull(hardwareProfile);
         ArgumentException.ThrowIfNullOrWhiteSpace(rawDirectory);
-        ArgumentException.ThrowIfNullOrWhiteSpace(cacheDirectory);
+        ArgumentNullException.ThrowIfNull(resolveCacheDirectory);
 
         string firmwareHardwareId = hardwareProfile.SystemFirmwareHardwareId.Trim();
         if (string.IsNullOrWhiteSpace(firmwareHardwareId))
@@ -103,7 +103,7 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
         string destinationPath = Path.Combine(updateDirectory, fileName);
 
         progress?.Report(50d);
-        ArtifactDownloadResult download = await DownloadToStagingAsync(update, selectedDownload, destinationPath, cacheDirectory, cancellationToken)
+        ArtifactDownloadResult download = await DownloadToStagingAsync(update, selectedDownload, destinationPath, resolveCacheDirectory, cancellationToken)
             .ConfigureAwait(false);
         if (!File.Exists(destinationPath))
         {
@@ -185,7 +185,7 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
         MicrosoftUpdateCatalogUpdate update,
         MicrosoftUpdateCatalogDownload download,
         string destinationPath,
-        string cacheDirectory,
+        Func<long, string, string> resolveCacheDirectory,
         CancellationToken cancellationToken)
     {
         string expectedHash = MicrosoftUpdateCatalogSupport.ResolvePreferredHash(download);
@@ -196,10 +196,10 @@ public sealed class MicrosoftUpdateCatalogFirmwareService : IMicrosoftUpdateCata
                 .ConfigureAwait(false);
         }
 
-        string cachePath = Path.Combine(
-            cacheDirectory,
+        string relativePath = Path.Combine(
             MicrosoftUpdateCatalogSupport.SanitizePathSegment(update.UpdateId),
             ResolveFileName(download));
+        string cachePath = Path.Combine(resolveCacheDirectory(update.SizeInBytes, relativePath), relativePath);
 
         ArtifactDownloadResult result = await _artifactDownloadService
             .DownloadAsync(

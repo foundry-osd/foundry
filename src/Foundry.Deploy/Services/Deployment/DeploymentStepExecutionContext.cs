@@ -532,9 +532,13 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         return Path.Combine(cacheRoot, DriversFolderName);
     }
 
-    public string ResolveMicrosoftUpdateCatalogFirmwareCacheRoot()
+    /// <summary>Chooses storage for the selected firmware CAB using its expected size and reusable cache allocation.</summary>
+    public string ResolveMicrosoftUpdateCatalogFirmwareCacheRoot(long requiredBytes, string relativePath)
     {
-        return Path.Combine(ResolvePayloadCacheRoot(MicrosoftUpdateCatalogFolderName, requiredBytes: 0), FirmwareFolderName);
+        string cacheRoot = requiredBytes > 0
+            ? ResolvePayloadCacheRoot(MicrosoftUpdateCatalogFolderName, requiredBytes, Path.Combine(FirmwareFolderName, relativePath))
+            : Path.Combine(EnsureTargetFoundryRoot(), CacheFolderName, MicrosoftUpdateCatalogFolderName);
+        return Path.Combine(cacheRoot, FirmwareFolderName);
     }
 
     /// <summary>
@@ -739,9 +743,9 @@ public sealed class DeploymentStepExecutionContext : IDisposable
 
         string cacheRoot = Path.Combine(EnsureCacheBaseRoot(), CacheFolderName, payloadFolderName);
         if (RuntimeState.Mode == DeploymentMode.Usb &&
-            requiredBytes > 0 &&
             !string.IsNullOrWhiteSpace(RuntimeState.TargetFoundryRoot) &&
-            !HasAvailableSpace(cacheRoot, requiredBytes, relativePath))
+            (!HasAvailableSpace(cacheRoot, requiredBytes, relativePath) ||
+             !_storageService.CanWriteDirectory(cacheRoot, relativePath is null ? null : Path.Combine(cacheRoot, relativePath))))
         {
             return Path.Combine(RuntimeState.TargetFoundryRoot, CacheFolderName, payloadFolderName);
         }

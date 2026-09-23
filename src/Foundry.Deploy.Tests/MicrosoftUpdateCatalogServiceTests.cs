@@ -69,7 +69,7 @@ public sealed class MicrosoftUpdateCatalogServiceTests
 
         MicrosoftUpdateCatalogFirmwareResult result = await service.DownloadAsync(
             new HardwareProfile { SystemFirmwareHardwareId = "test-firmware" }, "x64", Path.Combine(temp.Path, "raw"),
-            Path.Combine(temp.Path, "cache"), TestContext.Current.CancellationToken);
+            (_, _) => Path.Combine(temp.Path, "cache"), TestContext.Current.CancellationToken);
 
         Assert.True(result.IsUpdateAvailable);
         Assert.Empty(extractor.SourcePaths);
@@ -138,7 +138,7 @@ public sealed class MicrosoftUpdateCatalogServiceTests
             new HardwareProfile { SystemFirmwareHardwareId = "UEFI\\RES_{FIRMWARE}" },
             "x64",
             rawDirectory,
-            cacheDirectory,
+            (_, _) => cacheDirectory,
             TestContext.Current.CancellationToken);
 
         string expectedCachePath = Path.Combine(cacheDirectory, "update-1", "driver-amd64.cab");
@@ -179,7 +179,7 @@ public sealed class MicrosoftUpdateCatalogServiceTests
                 NullLogger<MicrosoftUpdateCatalogFirmwareService>.Instance);
             MicrosoftUpdateCatalogFirmwareResult result = await service.DownloadAsync(
                 new HardwareProfile { SystemFirmwareHardwareId = "UEFI\\RES_{FIRMWARE}" }, "x64",
-                rawDirectory, cacheDirectory, TestContext.Current.CancellationToken);
+                rawDirectory, (_, _) => cacheDirectory, TestContext.Current.CancellationToken);
             Assert.True(result.IsUpdateAvailable);
             Assert.Equal(validCache ? 0 : 1, result.DownloadedCount);
             Assert.Equal(validCache ? 1 : 0, result.ReusedCount);

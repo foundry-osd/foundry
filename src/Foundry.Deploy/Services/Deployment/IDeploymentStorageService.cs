@@ -10,6 +10,6 @@ public interface IDeploymentStorageService
     /// <summary>Returns available volume bytes, or null when the volume cannot be queried.</summary>
     long? GetAvailableBytes(string path);
 
-    /// <summary>Creates the cache directory and checks write access using a disposable temporary file.</summary>
-    bool CanWriteDirectory(string path);
+    /// <summary>Checks cache write access without changing an existing payload or requiring extra allocation when one is supplied.</summary>
+    bool CanWriteDirectory(string path, string? existingFilePath = null);
 }

@@ -13,7 +13,7 @@ public interface IMicrosoftUpdateCatalogFirmwareService
         HardwareProfile hardwareProfile,
         string targetArchitecture,
         string rawDirectory,
-        string cacheDirectory,
+        Func<long, string, string> resolveCacheDirectory,
         CancellationToken cancellationToken = default,
         IProgress<double>? progress = null);
 
