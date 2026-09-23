@@ -10,11 +10,6 @@ namespace Foundry.Deploy.Services.Deployment;
 public interface IDeploymentOrchestrator
 {
     /// <summary>
-    /// Gets deployment step names in execution order.
-    /// </summary>
-    IReadOnlyList<string> PlannedSteps { get; }
-
-    /// <summary>
     /// Occurs when the active deployment step reports progress.
     /// </summary>
     event EventHandler<DeploymentStepProgress>? StepProgressChanged;

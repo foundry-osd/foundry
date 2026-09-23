@@ -74,11 +74,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         }
 
         _steps = stepsByName;
-        PlannedSteps = DeploymentStepNames.ExecutionOrder.ToArray();
     }
-
-    /// <inheritdoc />
-    public IReadOnlyList<string> PlannedSteps { get; private set; }
 
     /// <inheritdoc />
     public event EventHandler<DeploymentStepProgress>? StepProgressChanged;
@@ -201,13 +197,12 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         {
             cancellationToken.ThrowIfCancellationRequested();
             IReadOnlyList<DeploymentPlanEntry> plan = DeploymentPlan.Build(context, runtimeState);
-            PlannedSteps = plan.Select(entry => entry.Name).ToArray();
             runtimeState.DriverPackInstallMode = DeploymentPlan.ResolveDriverMode(context);
             _logger.LogInformation("Deployment workspace root resolved to '{WorkspaceRoot}'.", runtimeState.WorkspaceRoot);
             executionContext = new DeploymentStepExecutionContext(
                 context,
                 runtimeState,
-                PlannedSteps,
+                plan.Select(entry => entry.Name).ToArray(),
                 _operationProgressService,
                 _deploymentLogService,
                 _targetDiskService,
@@ -282,7 +277,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 cancellationToken.ThrowIfCancellationRequested();
                 plan = DeploymentPlan.Build(context, runtimeState, executionContext.Preflight?.UsesTargetStorage,
                     executionContext.NetworkProfileRoamingResolved, executionContext.NetworkProfileRoamingPayload?.DataFiles.Count > 0);
-                PlannedSteps = plan.Select(entry => entry.Name).ToArray();
             }
 
             // Close the UI acceptance window before committing one terminal outcome. A request

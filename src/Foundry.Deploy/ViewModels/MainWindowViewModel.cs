@@ -413,30 +413,20 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [RelayCommand(CanExecute = nameof(CanShowDebugPages))]
     private void ShowDebugProgressPage()
     {
-        Session.ShowDebugProgress(
-            Preparation.EffectiveComputerName,
-            currentStepIndex: 7,
-            plannedStepCount: _deploymentOrchestrator.PlannedSteps.Count,
-            currentStepName: DeploymentStepNames.ApplyOperatingSystemImage,
-            progressPercent: 42);
+        Session.ShowDebugProgress(CreateDebugPreviewContext());
     }
 
     [RelayCommand(CanExecute = nameof(CanShowDebugPages))]
     private void ShowDebugSuccessPage()
     {
-        Session.ShowDebugSuccess(
-            Preparation.EffectiveComputerName,
-            _deploymentOrchestrator.PlannedSteps.Count,
-            DeploymentStepNames.FinalizeDeploymentAndWriteLogs);
+        Session.ShowDebugSuccess(CreateDebugPreviewContext());
     }
 
     [RelayCommand(CanExecute = nameof(CanShowDebugPages))]
     private void ShowDebugErrorPage()
     {
         Session.ShowDebugError(
-            Preparation.EffectiveComputerName,
-            currentStepIndex: 7,
-            failedStepName: DeploymentStepNames.ApplyOperatingSystemImage,
+            CreateDebugPreviewContext(),
             failedStepErrorMessage:
             "Debug preview: DISM apply failed because the target partition is read-only.\n\n" +
             "ErrorCode=0x80070005\n" +
@@ -447,8 +437,30 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [RelayCommand(CanExecute = nameof(CanShowDebugPages))]
     private void ShowDebugCancelledPage()
     {
-        Session.ShowDebugCancelled(Preparation.EffectiveComputerName);
+        Session.ShowDebugCancelled(CreateDebugPreviewContext());
     }
+
+    // Preview requests reflect wizard choices without requiring complete inputs or performing launch validation.
+    private DeploymentContext CreateDebugPreviewContext() => new()
+    {
+        Mode = _deploymentRuntimeContext.Mode,
+        CacheRootPath = Preparation.CacheRootPath,
+        TargetDiskNumber = Preparation.SelectedTargetDisk?.DiskNumber ?? 0,
+        TargetComputerName = Preparation.EffectiveComputerName,
+        OperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem ?? new OperatingSystemCatalogItem(),
+        Unattend = Preparation.SelectedUnattend,
+        DriverPackSelectionKind = DriverPackSelection.EffectiveSelectionKind,
+        DriverPack = DriverPackSelection.ResolveEffectiveSelection(),
+        ApplyFirmwareUpdates = Preparation.ApplyFirmwareUpdates,
+        IsAutopilotEnabled = Preparation.IsAutopilotEnabled,
+        AutopilotProvisioningMode = Preparation.AutopilotProvisioningMode,
+        Network = _wizardContext.Network,
+        Oobe = _wizardContext.Oobe,
+        AppxRemoval = _wizardContext.AppxRemoval,
+        AiComponentRemoval = _wizardContext.AiComponentRemoval,
+        WindowsOptionalFeatures = _wizardContext.WindowsOptionalFeatures,
+        IsDryRun = true
+    };
 
     private void OnWizardContextStateChanged(object? sender, EventArgs e)
     {
