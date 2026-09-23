@@ -291,6 +291,20 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         _plannedStepCount = plannedStepCount;
         _activeStepIndex = currentStepIndex;
         SeedDebugTimeline(currentStepIndex, DeploymentStepState.Running);
+        DeploymentTimelineEntryViewModel? imageDownload = TimelineEntries.FirstOrDefault(entry =>
+            entry.RawName == DeploymentStepNames.DownloadOperatingSystemImage && entry.State == DeploymentStepState.Succeeded);
+        if (imageDownload is not null)
+        {
+            _timelineTracker.Apply(new DeploymentStepProgress
+            {
+                StepName = imageDownload.RawName,
+                State = DeploymentStepState.Skipped,
+                StepIndex = imageDownload.StepIndex,
+                StepCount = plannedStepCount,
+                ProgressPercent = progressPercent,
+                Message = "Operating system image resolved from cache."
+            });
+        }
         DeploymentProgress = progressPercent;
         UpdateGlobalProgressVisuals(progressPercent);
         ComputerNameText = computerName;
