@@ -37,27 +37,40 @@ internal static class FoundryDeployLogging
     public static ILogger CreateLogger(string logFilePath)
     {
         string normalizedLogFilePath = Path.GetFullPath(logFilePath);
-        RemoteDiagnosticsSink.SetLogDirectory(Path.Combine(Path.GetDirectoryName(normalizedLogFilePath)!, "PendingLogs"));
-        ILogger logger = FoundryLogConfiguration.CreateFileLogger(
-            logFilePath,
-            "Foundry.Deploy",
-            DiagnosticSessionContext.CurrentSessionId,
-            LogEventLevel.Verbose,
-            RetainedLogFileCount,
-            additionalSink: RemoteDiagnosticsSink.Instance);
-
-        CurrentLogFilePath = normalizedLogFilePath;
-        _startupLogDirectoryPath = Path.GetDirectoryName(normalizedLogFilePath);
-        return logger;
+        lock (PersistenceSync)
+        {
+            RemoteDiagnosticsSink.SetLogDirectory(Path.Combine(Path.GetDirectoryName(normalizedLogFilePath)!, "PendingLogs"));
+            ILogger logger = FoundryLogConfiguration.CreateFileLogger(
+                logFilePath,
+                "Foundry.Deploy",
+                DiagnosticSessionContext.CurrentSessionId,
+                LogEventLevel.Verbose,
+                RetainedLogFileCount,
+                additionalSink: RemoteDiagnosticsSink.Instance);
+            CurrentLogFilePath = normalizedLogFilePath;
+            _startupLogDirectoryPath = Path.GetDirectoryName(normalizedLogFilePath);
+            return logger;
+        }
     }
 
     public static void RegisterPersistenceDirectory(string logsDirectoryPath)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(logsDirectoryPath);
-        _persistenceDirectoryPath = Path.GetFullPath(logsDirectoryPath);
+        lock (PersistenceSync)
+        {
+            _persistenceDirectoryPath = Path.GetFullPath(logsDirectoryPath);
+        }
     }
 
     public static LogPersistenceResult PersistCurrentLogs()
+    {
+        lock (PersistenceSync)
+        {
+            return PersistCurrentLogsCore();
+        }
+    }
+
+    private static LogPersistenceResult PersistCurrentLogsCore()
     {
         string? sourceDirectoryPath = _startupLogDirectoryPath;
         if (string.IsNullOrWhiteSpace(sourceDirectoryPath))
@@ -106,83 +119,57 @@ internal static class FoundryDeployLogging
 
         lock (PersistenceSync)
         {
-            int copiedFileCount = 0;
-            int failedFileCount = 0;
             try
             {
-                Directory.CreateDirectory(normalizedTarget);
+                int copied = DiagnosticLogSnapshot.CopyAsync(normalizedSource, normalizedTarget, "*.log")
+                    .GetAwaiter().GetResult();
+                return new LogPersistenceResult(copied, 0);
             }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or NotSupportedException)
             {
                 global::System.Diagnostics.Debug.WriteLine(
-                    $"Foundry.Deploy log persistence directory is unavailable: {ex.GetType().Name}");
+                    $"Foundry.Deploy log snapshot failed: {ex.GetType().Name}");
                 return new LogPersistenceResult(0, 1);
             }
-
-            string[] sourceFilePaths;
-            try
-            {
-                sourceFilePaths = Directory.GetFiles(
-                    normalizedSource,
-                    "*.log",
-                    SearchOption.TopDirectoryOnly);
-            }
-            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or NotSupportedException)
-            {
-                global::System.Diagnostics.Debug.WriteLine(
-                    $"Foundry.Deploy log source enumeration failed: {ex.GetType().Name}");
-                return new LogPersistenceResult(0, 1);
-            }
-
-            foreach (string sourceFilePath in sourceFilePaths)
-            {
-                string destinationPath = Path.Combine(normalizedTarget, Path.GetFileName(sourceFilePath));
-                string temporaryPath = destinationPath + $".{Guid.NewGuid():N}.tmp";
-                try
-                {
-                    using (FileStream source = new(
-                        sourceFilePath,
-                        FileMode.Open,
-                        FileAccess.Read,
-                        FileShare.ReadWrite | FileShare.Delete))
-                    using (FileStream destination = new(
-                        temporaryPath,
-                        FileMode.CreateNew,
-                        FileAccess.Write,
-                        FileShare.None))
-                    {
-                        source.CopyTo(destination);
-                    }
-
-                    File.Move(temporaryPath, destinationPath, overwrite: true);
-                    copiedFileCount++;
-                }
-                catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or NotSupportedException)
-                {
-                    failedFileCount++;
-                    global::System.Diagnostics.Debug.WriteLine(
-                        $"Foundry.Deploy log file persistence failed: {ex.GetType().Name}");
-                }
-                finally
-                {
-                    if (File.Exists(temporaryPath))
-                    {
-                        try
-                        {
-                            File.Delete(temporaryPath);
-                        }
-                        catch (IOException)
-                        {
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                        }
-                    }
-                }
-            }
-
-            return new LogPersistenceResult(copiedFileCount, failedFileCount);
         }
     }
-}
 
+    internal static void SwitchPersistenceDirectory(string sourceRoot, string destinationDirectory)
+    {
+        lock (PersistenceSync)
+        {
+            string? inherited = Environment.GetEnvironmentVariable(DiagnosticSessionContext.PersistenceDirectoryEnvironmentVariableName);
+            if (!string.IsNullOrWhiteSpace(inherited) && IsWithinRoot(inherited, sourceRoot))
+                Environment.SetEnvironmentVariable(DiagnosticSessionContext.PersistenceDirectoryEnvironmentVariableName, destinationDirectory);
+            _persistenceDirectoryPath = Path.GetFullPath(destinationDirectory);
+        }
+    }
+
+    internal static bool CanRetireRoot(string root)
+    {
+        lock (PersistenceSync)
+        {
+            return (string.IsNullOrWhiteSpace(_startupLogDirectoryPath) || !IsWithinRoot(_startupLogDirectoryPath, root)) &&
+                (!Directory.Exists(root) || !Directory.EnumerateDirectories(root, "PendingLogs", SearchOption.AllDirectories).Any());
+        }
+    }
+
+    internal static bool TryRetireRoot(string root, string destinationDirectory)
+    {
+        lock (PersistenceSync)
+        {
+            if (!CanRetireRoot(root)) return false;
+            SwitchPersistenceDirectory(root, destinationDirectory);
+            if (Directory.Exists(root)) Directory.Delete(root, recursive: true);
+            return true;
+        }
+    }
+
+    private static bool IsWithinRoot(string path, string root)
+    {
+        string normalizedRoot = Path.TrimEndingDirectorySeparator(Path.GetFullPath(root));
+        string normalizedPath = Path.TrimEndingDirectorySeparator(Path.GetFullPath(path));
+        return normalizedPath.Equals(normalizedRoot, StringComparison.OrdinalIgnoreCase) ||
+            normalizedPath.StartsWith(normalizedRoot + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase);
+    }
+}

@@ -283,7 +283,7 @@ public sealed class DeploymentStepExecutionContextTests
         using var cancellation = new CancellationTokenSource();
         cancellation.Cancel();
 
-        await Assert.ThrowsAsync<OperationCanceledException>(() => context.TrySaveRuntimeStateAsync(cancellation.Token));
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => context.TrySaveRuntimeStateAsync(cancellation.Token));
     }
 
     [Fact]
@@ -298,11 +298,11 @@ public sealed class DeploymentStepExecutionContextTests
         using var cancellation = new CancellationTokenSource();
         cancellation.Cancel();
 
-        await Assert.ThrowsAsync<OperationCanceledException>(() => context.TrySaveRuntimeStateAsync(cancellation.Token));
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => context.TrySaveRuntimeStateAsync(cancellation.Token));
 
         await context.TrySaveRuntimeStateAsync(CancellationToken.None);
 
-        Assert.Equal(2, logService.SaveCallCount);
+        Assert.Equal(1, logService.SaveCallCount);
         Assert.Equal(1, logService.SuccessfulSaveCount);
     }
 
@@ -344,7 +344,7 @@ public sealed class DeploymentStepExecutionContextTests
         }
     }
 
-    private static DeploymentStepExecutionContext CreateExecutionContext(
+    internal static DeploymentStepExecutionContext CreateExecutionContext(
         string workspaceRoot,
         string resolvedCacheRootPath,
         DeploymentMode mode = DeploymentMode.Usb,

@@ -22,8 +22,8 @@ public sealed class DeploymentLogService : IDeploymentLogService
         }
 
         string normalizedRoot = rootPath.Trim();
-        string logsDirectory = Path.Combine(normalizedRoot, "Logs");
-        string stateDirectory = Path.Combine(normalizedRoot, "State");
+        string logsDirectory = Path.Combine(normalizedRoot, "Logs", "Deployment");
+        string stateDirectory = Path.Combine(normalizedRoot, "State", "Deployment");
         Directory.CreateDirectory(logsDirectory);
         Directory.CreateDirectory(stateDirectory);
 
@@ -78,7 +78,7 @@ public sealed class DeploymentLogService : IDeploymentLogService
             WriteIndented = true
         });
 
-        string temporaryStateFilePath = session.StateFilePath + ".tmp";
+        string temporaryStateFilePath = session.StateFilePath + $".{Guid.NewGuid():N}.tmp";
         try
         {
             await File.WriteAllTextAsync(temporaryStateFilePath, json, cancellationToken).ConfigureAwait(false);
@@ -95,6 +95,46 @@ public sealed class DeploymentLogService : IDeploymentLogService
                 global::System.Diagnostics.Debug.WriteLine(
                     $"Foundry.Deploy temporary state cleanup failed: {ex.GetType().Name}");
             }
+        }
+    }
+
+    internal static string[] EnumerateSupportFiles(IEnumerable<string?> directories, string? bootstrapSessionDirectory = null)
+    {
+        HashSet<string> files = new(StringComparer.OrdinalIgnoreCase);
+        foreach (string? directory in directories)
+        {
+            if (string.IsNullOrWhiteSpace(directory)) continue;
+            string root = Path.GetFullPath(directory);
+            if (Path.GetFileName(root).Equals("Deployment", StringComparison.OrdinalIgnoreCase) &&
+                (Path.GetFileName(Path.GetDirectoryName(root)) ?? string.Empty).Equals("Logs", StringComparison.OrdinalIgnoreCase))
+                root = Path.GetDirectoryName(root)!;
+            Collect(root, recursive: Path.GetFileName(root).Equals("Logs", StringComparison.OrdinalIgnoreCase));
+        }
+        if (!string.IsNullOrWhiteSpace(bootstrapSessionDirectory) && Directory.Exists(bootstrapSessionDirectory) &&
+            (File.GetAttributes(bootstrapSessionDirectory) & FileAttributes.ReparsePoint) == 0)
+        {
+            Collect(bootstrapSessionDirectory, recursive: false);
+            Collect(Path.Combine(bootstrapSessionDirectory, "Startup"), recursive: true);
+        }
+        return files.Order(StringComparer.OrdinalIgnoreCase).ToArray();
+
+        void Collect(string directory, bool recursive)
+        {
+            if (!Directory.Exists(directory) || Path.GetFileName(directory).Equals("PendingLogs", StringComparison.OrdinalIgnoreCase) ||
+                (File.GetAttributes(directory) & FileAttributes.ReparsePoint) != 0) return;
+            foreach (string path in Directory.EnumerateFiles(directory))
+            {
+                string name = Path.GetFileName(path);
+                string extension = Path.GetExtension(path);
+                if (!name.StartsWith(".snapshot", StringComparison.OrdinalIgnoreCase) &&
+                    (extension.Equals(".log", StringComparison.OrdinalIgnoreCase) ||
+                     (recursive && (extension.Equals(".json", StringComparison.OrdinalIgnoreCase) ||
+                                    extension.Equals(".txt", StringComparison.OrdinalIgnoreCase)))) &&
+                    (File.GetAttributes(path) & FileAttributes.ReparsePoint) == 0)
+                    files.Add(path);
+            }
+            if (recursive)
+                foreach (string child in Directory.EnumerateDirectories(directory)) Collect(child, recursive: true);
         }
     }
 

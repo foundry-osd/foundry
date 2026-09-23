@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Utilities.Diagnostics;
 using Serilog;
 
 namespace Foundry.Bootstrap.Diagnostics;
@@ -15,27 +16,8 @@ internal sealed class BootstrapLogPersistence(string sourceLogDirectory, string?
         if (persistenceDirectory is null || !Directory.Exists(sourceLogDirectory)) { return; }
         try
         {
-            Directory.CreateDirectory(persistenceDirectory);
-            foreach (string source in Directory.EnumerateFiles(sourceLogDirectory, "Foundry*.log"))
-            {
-                string destination = Path.Combine(persistenceDirectory, Path.GetFileName(source));
-                string temporary = destination + "." + Guid.NewGuid().ToString("N") + ".tmp";
-                try
-                {
-                    await using (var input = new FileStream(source, FileMode.Open, FileAccess.Read,
-                        FileShare.ReadWrite | FileShare.Delete, 81920, FileOptions.Asynchronous))
-                    await using (var output = new FileStream(temporary, FileMode.CreateNew, FileAccess.Write,
-                        FileShare.None, 81920, FileOptions.Asynchronous))
-                    {
-                        await input.CopyToAsync(output, cancellationToken).ConfigureAwait(false);
-                    }
-                    File.Move(temporary, destination, overwrite: true);
-                }
-                finally
-                {
-                    if (File.Exists(temporary)) { File.Delete(temporary); }
-                }
-            }
+            await DiagnosticLogSnapshot.CopyAsync(sourceLogDirectory, persistenceDirectory, "Foundry*.log", cancellationToken)
+                .ConfigureAwait(false);
         }
         catch (Exception exception)
         {
