@@ -63,6 +63,7 @@ public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparatio
                 BootImageSource = options.BootImageSource,
                 DriverVendors = options.DriverVendors,
                 CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
+                DriverArchiveCacheDirectoryPath = options.DriverArchiveCacheDirectoryPath,
                 Artifact = artifact,
                 DownloadProgress = options.DownloadProgress
             },
@@ -85,6 +86,7 @@ public sealed class WinPeWorkspacePreparationService : IWinPeWorkspacePreparatio
                 AssetProvisioning = options.AssetProvisioning,
                 RuntimePayloadProvisioning = options.RuntimePayloadProvisioning,
                 WinReCacheDirectoryPath = options.WinReCacheDirectoryPath,
+                LegacyWinReCacheDirectoryPath = options.LegacyWinReCacheDirectoryPath,
                 WinReCatalogUri = options.WinReCatalogUri,
                 DownloadProgress = options.DownloadProgress,
                 Progress = options.CustomizationProgress

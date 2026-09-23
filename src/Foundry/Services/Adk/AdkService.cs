@@ -4,6 +4,7 @@
 
 using System.Diagnostics;
 using Foundry.Core.Services.Adk;
+using Foundry.Core.Services.Storage;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Serilog;
@@ -90,22 +91,18 @@ internal sealed class AdkService(
             operationProgressService.Start(operationKind, GetOperationStartText(operationKind));
             Directory.CreateDirectory(Constants.InstallerCacheDirectoryPath);
 
-            string adkSetupPath = Path.Combine(Constants.InstallerCacheDirectoryPath, AdkSetupFileName);
-            string winPeSetupPath = Path.Combine(Constants.InstallerCacheDirectoryPath, WinPeSetupFileName);
-
-            await DownloadInstallerAsync(AdkSetupUrl, adkSetupPath, uninstallFirst ? 35 : 20, cancellationToken);
-            await DownloadInstallerAsync(WinPeSetupUrl, winPeSetupPath, uninstallFirst ? 45 : 40, cancellationToken);
-
+            await using CachedArtifactLease adkSetup = await DownloadInstallerAsync(AdkSetupUrl, AdkSetupFileName, uninstallFirst ? 35 : 20, cancellationToken);
+            await using CachedArtifactLease winPeSetup = await DownloadInstallerAsync(WinPeSetupUrl, WinPeSetupFileName, uninstallFirst ? 45 : 40, cancellationToken);
             if (uninstallFirst)
             {
                 await UninstallExistingBundlesAsync(cancellationToken);
             }
 
             operationProgressService.Report(uninstallFirst ? 70 : 55, localizationService.GetString("Adk.Operation.InstallingAdk"));
-            await RunElevatedProcessAsync(adkSetupPath, AdkInstallArguments, cancellationToken);
+            await RunElevatedProcessAsync(adkSetup.Path, AdkInstallArguments, cancellationToken);
 
             operationProgressService.Report(uninstallFirst ? 88 : 80, localizationService.GetString("Adk.Operation.InstallingWinPe"));
-            await RunElevatedProcessAsync(winPeSetupPath, WinPeInstallArguments, cancellationToken);
+            await RunElevatedProcessAsync(winPeSetup.Path, WinPeInstallArguments, cancellationToken);
 
             operationProgressService.Report(95, localizationService.GetString("Adk.Operation.Verifying"));
             AdkInstallationStatus status = await RefreshStatusAsync(cancellationToken);
@@ -133,50 +130,35 @@ internal sealed class AdkService(
         }
     }
 
-    private async Task DownloadInstallerAsync(
+    private async Task<CachedArtifactLease> DownloadInstallerAsync(
         string url,
-        string outputPath,
+        string fileName,
         int completedProgress,
         CancellationToken cancellationToken)
     {
-        if (File.Exists(outputPath))
+        // These source links are selected together with TargetAdkVersion. Without a publisher
+        // digest, receipts prove completed-transfer consistency only, not publisher authenticity.
+        // Legacy flat EXEs have no such receipt and are retained rather than silently adopted.
+        var request = new CachedArtifactRequest(AuthoringArtifactKind.Installer,
+            $"ADK/{TargetAdkVersion}/{fileName}/{url}", fileName, null, null, AllowCompletedTransferReuse: true);
+        CachedArtifactLease lease = await new AuthoringArtifactCache(Constants.InstallerCacheDirectoryPath).AcquireAsync(request, async (path, token) =>
         {
-            FileInfo cachedInstaller = new(outputPath);
-            if (cachedInstaller.Length == 0)
-            {
-                File.Delete(outputPath);
-            }
-            else
-            {
-                operationProgressService.Report(completedProgress, localizationService.GetString("Adk.Operation.DownloadCached"));
-                logger.Debug("ADK installer cache hit. Url={Url}, OutputPath={OutputPath}", url, outputPath);
-                return;
-            }
-        }
-
-        operationProgressService.Report(Math.Max(0, completedProgress - 10), localizationService.GetString("Adk.Operation.Downloading"));
-        logger.Information("Downloading ADK installer. Url={Url}, OutputPath={OutputPath}", url, outputPath);
-        string temporaryOutputPath = $"{outputPath}.download";
-        if (File.Exists(temporaryOutputPath))
-        {
-            File.Delete(temporaryOutputPath);
-        }
-
-        using HttpResponseMessage response = await HttpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-        response.EnsureSuccessStatusCode();
-
-        await using Stream input = await response.Content.ReadAsStreamAsync(cancellationToken);
-        await using (FileStream output = File.Create(temporaryOutputPath))
-        {
-            await input.CopyToAsync(output, cancellationToken);
-            await output.FlushAsync(cancellationToken);
-        }
-
-        File.Move(temporaryOutputPath, outputPath, overwrite: true);
-
-        operationProgressService.Report(completedProgress, localizationService.GetString("Adk.Operation.Downloaded"));
+            operationProgressService.Report(Math.Max(0, completedProgress - 10), localizationService.GetString("Adk.Operation.Downloading"));
+            logger.Information("Downloading versioned ADK installer. Version={Version}, FileName={FileName}", TargetAdkVersion, fileName);
+            using HttpResponseMessage response = await HttpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, token);
+            response.EnsureSuccessStatusCode();
+            await using Stream input = await response.Content.ReadAsStreamAsync(token);
+            await using var output = new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.None);
+            await input.CopyToAsync(output, token);
+            await output.FlushAsync(token);
+            if (response.Content.Headers.ContentLength is long length && output.Length != length)
+                throw new InvalidDataException("ADK installer transfer is incomplete.");
+        }, cancellationToken);
+        operationProgressService.Report(completedProgress, localizationService.GetString(lease.CacheHit ? "Adk.Operation.DownloadCached" : "Adk.Operation.Downloaded"));
+        logger.Information("ADK installer acquired. Version={Version}, CacheHit={CacheHit}, IntegrityPolicy={IntegrityPolicy}",
+            TargetAdkVersion, lease.CacheHit, "CompletedVersionedTransfer");
+        return lease;
     }
-
     private async Task UninstallExistingBundlesAsync(CancellationToken cancellationToken)
     {
         // Upgrade uses the registered uninstall commands instead of assuming a fixed ADK install location.

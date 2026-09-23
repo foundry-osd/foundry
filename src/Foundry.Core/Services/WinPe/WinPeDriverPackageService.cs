@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Runtime.InteropServices;
+using System.Text.Json;
+using Foundry.Core.Services.Storage;
 using Foundry.Utilities.IO;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Progress;
@@ -51,31 +53,37 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
 
             WinPeDriverCatalogEntry package = packages[index];
             string fileName = ResolvePackageFileName(package);
-            string downloadPath = Path.Combine(downloadRootPath, fileName);
-
-            WinPeResult downloadResult = await DownloadPackageAsync(
-                package.DownloadUri,
-                downloadPath,
-                index + 1,
-                packages.Count,
-                downloadProgress,
-                cancellationToken).ConfigureAwait(false);
-
-            if (!downloadResult.IsSuccess)
+            WinPeDiagnostic? downloadError = null;
+            CachedArtifactLease lease;
+            try
             {
-                return WinPeResult<WinPePreparedDriverSet>.Failure(downloadResult.Error!);
+                var request = new CachedArtifactRequest(AuthoringArtifactKind.WinPeDriver,
+                    JsonSerializer.Serialize(new { package.Vendor, package.Id, package.Version, package.Architecture, package.DownloadUri }),
+                    fileName, package.Sha256, null, AllowCompletedTransferReuse: !string.IsNullOrWhiteSpace(package.Version));
+                lease = await new AuthoringArtifactCache(downloadRootPath).AcquireAsync(request, async (path, token) =>
+                {
+                    WinPeResult result = await DownloadPackageAsync(package.DownloadUri, path, index + 1, packages.Count,
+                        downloadProgress, token).ConfigureAwait(false);
+                    if (!result.IsSuccess)
+                    {
+                        downloadError = result.Error;
+                        throw new IOException("Driver package transfer failed.");
+                    }
+                }, cancellationToken, new CacheVerificationProgress(downloadProgress, fileName)).ConfigureAwait(false);
             }
-
-            WinPeResult hashValidationResult = await ValidateSha256Async(
-                package,
-                downloadPath,
-                cancellationToken).ConfigureAwait(false);
-
-            if (!hashValidationResult.IsSuccess)
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException)
             {
-                return WinPeResult<WinPePreparedDriverSet>.Failure(hashValidationResult.Error!);
+                return WinPeResult<WinPePreparedDriverSet>.Failure(downloadError ?? new WinPeDiagnostic(
+                    exception is InvalidDataException or ArgumentException ? WinPeErrorCodes.HashMismatch : WinPeErrorCodes.DownloadFailed,
+                    "Driver package cache acquisition failed.", exception.Message, exception: exception));
             }
-
+            await using var heldLease = lease;
+            string downloadPath = lease.Path;
+            downloadProgress?.Report(new WinPeDownloadProgress
+            {
+                Percent = 100,
+                Status = lease.CacheHit ? $"Reusing cached driver package '{fileName}'." : $"Driver package '{fileName}' downloaded and verified."
+            });
             downloadedFiles.Add(downloadPath);
 
             string normalizedFolderName = $"{index + 1:D2}_{PathSegment.Sanitize(package.Vendor.ToString())}_{PathSegment.Sanitize(package.Id)}";
@@ -199,6 +207,8 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
                     progress,
                     reportProgress,
                     transferToken).ConfigureAwait(false);
+                if (totalBytes.HasValue && destinationStream.Length != totalBytes.Value)
+                    throw new InvalidDataException("Driver package transfer is incomplete.");
                 return WinPeResult.Success();
             }, cancellationToken).ConfigureAwait(false);
         }
@@ -301,29 +311,6 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
         return unitIndex == 0
             ? $"{bytes} {units[unitIndex]}"
             : $"{value:F1} {units[unitIndex]}";
-    }
-
-    private static async Task<WinPeResult> ValidateSha256Async(
-        WinPeDriverCatalogEntry package,
-        string filePath,
-        CancellationToken cancellationToken)
-    {
-        if (string.IsNullOrWhiteSpace(package.Sha256))
-        {
-            return WinPeResult.Success();
-        }
-
-        string expected = package.Sha256.Trim().Replace("-", string.Empty, StringComparison.OrdinalIgnoreCase).ToUpperInvariant();
-        string actual = await FileHash.ComputeSha256Async(filePath, cancellationToken).ConfigureAwait(false);
-        if (actual.Equals(expected, StringComparison.OrdinalIgnoreCase))
-        {
-            return WinPeResult.Success();
-        }
-
-        return WinPeResult.Failure(
-            WinPeErrorCodes.HashMismatch,
-            "Driver package hash verification failed.",
-            $"File: '{filePath}', Expected SHA256: '{expected}', Actual SHA256: '{actual}'.");
     }
 
     private async Task<WinPeResult> ExtractPackageAsync(

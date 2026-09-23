@@ -12,6 +12,89 @@ namespace Foundry.Core.Tests.WinPe;
 public sealed class WinPeBootImagePreparationServiceTests
 {
     [Theory]
+    [InlineData("empty")]
+    [InlineData("hashless")]
+    [InlineData("publication-failure")]
+    public async Task PrepareAsync_LegacySourceRequiresEvidenceAndSurvivesFailedPublication(string scenario)
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        byte[] source = Encoding.UTF8.GetBytes("windows-source-original");
+        byte[] legacyBytes = scenario == "empty" ? [] : source;
+        string legacyRoot = Path.Combine(temp.Path, "legacy");
+        Directory.CreateDirectory(legacyRoot);
+        string legacyPath = Path.Combine(legacyRoot, "source.esd");
+        await File.WriteAllBytesAsync(legacyPath, legacyBytes, TestContext.Current.CancellationToken);
+        string digest = scenario == "hashless" ? string.Empty : Convert.ToHexString(SHA256.HashData(source));
+        var handler = new StaticCatalogHandler(CreateCatalogXml(digest), source);
+        using var client = new HttpClient(handler);
+        string work = Path.Combine(temp.Path, "work");
+        Directory.CreateDirectory(work);
+        string bootWim = Path.Combine(work, "boot.wim");
+        await File.WriteAllTextAsync(bootWim, "original", TestContext.Current.CancellationToken);
+        var service = new WinPeBootImagePreparationService(new FakeWinPeProcessRunner(), client, new WinPeWorkspaceCleanupService(() => []));
+
+        var result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
+        {
+            Artifact = new() { Architecture = WinPeArchitecture.X64, WorkingDirectoryPath = work, BootWimPath = bootWim },
+            Tools = new() { DismPath = "dism.exe" },
+            WinPeLanguage = "en-US",
+            CacheDirectoryPath = Path.Combine(temp.Path, "cache"),
+            LegacyCacheDirectoryPath = legacyRoot,
+            DownloadProgress = scenario == "publication-failure" ? new RejectVerificationProgress() : null
+        }, TestContext.Current.CancellationToken);
+
+        Assert.Equal(scenario != "publication-failure", result.IsSuccess);
+        Assert.Equal(scenario == "publication-failure" ? 0 : 1, handler.PayloadRequests);
+        Assert.Equal(legacyBytes, await File.ReadAllBytesAsync(legacyPath, TestContext.Current.CancellationToken));
+        Assert.Empty(Directory.GetDirectories(Path.Combine(temp.Path, "cache"), ".pending-*", SearchOption.AllDirectories));
+    }
+
+    private sealed class RejectVerificationProgress : IProgress<WinPeDownloadProgress>
+    {
+        public void Report(WinPeDownloadProgress value)
+        {
+            if (value.Status.StartsWith("Verifying cached source", StringComparison.Ordinal))
+                throw new IOException("Simulated failure before cache publication.");
+        }
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task PrepareAsync_AcrossWorkspaces_ReusesSourceAndAdoptsValidLegacyWithoutDownload(bool legacy)
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        byte[] source = Encoding.UTF8.GetBytes("windows-source-original");
+        string legacyRoot = Path.Combine(temp.Path, "legacy");
+        if (legacy)
+        {
+            Directory.CreateDirectory(legacyRoot);
+            await File.WriteAllBytesAsync(Path.Combine(legacyRoot, "source.esd"), source, TestContext.Current.CancellationToken);
+        }
+        var handler = new StaticCatalogHandler(CreateCatalogXml(Convert.ToHexString(SHA256.HashData(source))), source);
+        using var client = new HttpClient(handler);
+        for (int attempt = 0; attempt < 2; attempt++)
+        {
+            string work = Path.Combine(temp.Path, "work-" + attempt);
+            Directory.CreateDirectory(work);
+            string bootWim = Path.Combine(work, "boot.wim");
+            await File.WriteAllTextAsync(bootWim, "original", TestContext.Current.CancellationToken);
+            var service = new WinPeBootImagePreparationService(new FakeWinPeProcessRunner(), client, new WinPeWorkspaceCleanupService(() => []));
+            var result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
+            {
+                Artifact = new() { Architecture = WinPeArchitecture.X64, WorkingDirectoryPath = work, BootWimPath = bootWim },
+                Tools = new() { DismPath = "dism.exe" },
+                WinPeLanguage = "en-US",
+                CacheDirectoryPath = Path.Combine(temp.Path, "cache"),
+                LegacyCacheDirectoryPath = legacyRoot
+            }, TestContext.Current.CancellationToken);
+            Assert.True(result.IsSuccess, result.Error?.Details);
+            Directory.Delete(work, recursive: true);
+        }
+        Assert.Equal(legacy ? 0 : 1, handler.PayloadRequests);
+    }
+
+    [Theory]
     [InlineData("/Export-Image")]
     [InlineData("/Mount-Image")]
     public async Task PrepareAsync_WhenServicingFailsDuringCancellation_PreservesFailureWithoutTryingFallback(string stage)
@@ -482,13 +565,16 @@ public sealed class WinPeBootImagePreparationServiceTests
         Assert.Equal("keep", File.ReadAllText(keep));
     }
 
-    private sealed class StaticCatalogHandler(string content) : HttpMessageHandler
+    private sealed class StaticCatalogHandler(string content, byte[]? payload = null) : HttpMessageHandler
     {
+        public int PayloadRequests { get; private set; }
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            bool source = request.RequestUri!.AbsolutePath.EndsWith(".esd", StringComparison.OrdinalIgnoreCase);
+            if (source) PayloadRequests++;
             return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent(content, Encoding.UTF8, "application/xml")
+                Content = source && payload is not null ? new ByteArrayContent(payload) : new StringContent(content, Encoding.UTF8, "application/xml")
             });
         }
     }

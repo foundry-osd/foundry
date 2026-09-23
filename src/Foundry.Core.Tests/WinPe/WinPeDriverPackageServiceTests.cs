@@ -12,6 +12,35 @@ namespace Foundry.Core.Tests.WinPe;
 public sealed class WinPeDriverPackageServiceTests
 {
     [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task PrepareAsync_AcrossOperations_ReusesOriginalAndRecreatesExtraction(bool withHash)
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        byte[] bytes = Encoding.UTF8.GetBytes("cached-driver");
+        var handler = new StaticPackageHandler(bytes);
+        using var client = new HttpClient(handler);
+        var package = CreatePackage() with { Version = "1.0", Sha256 = withHash ? Convert.ToHexString(SHA256.HashData(bytes)) : "" };
+        string cache = Path.Combine(temp.Path, "cache");
+        for (int attempt = 0; attempt < 2; attempt++)
+        {
+            string work = Path.Combine(temp.Path, "operation-" + attempt);
+            var service = new WinPeDriverPackageService(new FakeExtractionRunner(), client, "7za.exe");
+            var result = await service.PrepareAsync([package], cache, work, null, TestContext.Current.CancellationToken);
+            Assert.True(result.IsSuccess, result.Error?.Details);
+            Assert.True(File.Exists(Path.Combine(Assert.Single(result.Value!.ExtractionDirectories), "driver.inf")));
+            Directory.Delete(work, recursive: true);
+            Assert.True(File.Exists(Assert.Single(result.Value.DownloadedPackagePaths)));
+        }
+        Assert.Equal(1, handler.RequestCount);
+
+        var changed = await new WinPeDriverPackageService(new FakeExtractionRunner(), client, "7za.exe")
+            .PrepareAsync([package with { Version = "2.0" }], cache, Path.Combine(temp.Path, "changed"), null, TestContext.Current.CancellationToken);
+        Assert.True(changed.IsSuccess, changed.Error?.Details);
+        Assert.Equal(2, handler.RequestCount);
+    }
+
+    [Theory]
     [InlineData(false)]
     [InlineData(true)]
     public async Task PrepareAsync_WhenCancelledDuringExtraction_WaitsForStageAndPreservesFailures(bool fails)
@@ -80,7 +109,7 @@ public sealed class WinPeDriverPackageServiceTests
                 CancellationToken.None);
 
             Assert.True(result.IsSuccess, result.Error?.Details);
-            Assert.True(File.Exists(Path.Combine(downloadRoot, "dell.cab")));
+            Assert.True(File.Exists(Assert.Single(result.Value!.DownloadedPackagePaths)));
             string extractionDirectory = Assert.Single(result.Value!.ExtractionDirectories);
             Assert.True(File.Exists(Path.Combine(extractionDirectory, "driver.inf")));
             Assert.Contains(runner.Executions, execution => execution.FileName == "7za.exe");
@@ -204,8 +233,11 @@ public sealed class WinPeDriverPackageServiceTests
         HttpStatusCode statusCode = HttpStatusCode.OK,
         Exception? exception = null) : HttpMessageHandler
     {
+        public int RequestCount { get; private set; }
+
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            RequestCount++;
             if (exception is not null)
             {
                 return Task.FromException<HttpResponseMessage>(exception);

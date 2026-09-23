@@ -17,6 +17,23 @@ public sealed class AuthoringArtifactCacheTests : IDisposable
     private CachedArtifactRequest Request => new(AuthoringArtifactKind.WinPeDriver, "vendor/package/1.0/x64", "drivers.cab", Convert.ToHexString(SHA256.HashData(payload)), payload.Length, false);
 
     [Fact]
+    public async Task AcquireAsync_VersionedInstallerPreservesLegacyAndReusesOnlyCompletedTransfer()
+    {
+        Directory.CreateDirectory(root);
+        string legacy = Path.Combine(root, "adksetup.exe");
+        await File.WriteAllTextAsync(legacy, "unproven legacy executable", TestContext.Current.CancellationToken);
+        var request = new CachedArtifactRequest(AuthoringArtifactKind.Installer,
+            "ADK/10.1.26100.2454/adksetup.exe/version-specific-url", "adksetup.exe", null, null, true);
+
+        await using (var first = await Acquire(request)) Assert.False(first.CacheHit);
+        await using (var reused = await Acquire(request)) Assert.True(reused.CacheHit);
+        Assert.Equal(1, downloads);
+        await using (var changed = await Acquire(request with { SourceIdentity = "ADK/new-version/new-url" })) Assert.False(changed.CacheHit);
+        Assert.Equal(2, downloads);
+        Assert.Equal("unproven legacy executable", await File.ReadAllTextAsync(legacy, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
     public async Task AcquireAsync_AcrossServiceInstances_DownloadsValidPayloadOnce()
     {
         await using (var first = await Acquire())
