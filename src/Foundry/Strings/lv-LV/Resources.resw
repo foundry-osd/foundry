@@ -34,7 +34,7 @@
     <value>Foundry OSD ir mūsdienīga lietotne Windows izvietošanas datu nesēja autorēšanai, ko nodrošina WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+    <value>Autortiesības (c) 2026 Mickaël CHAVE un Foundry Project līdzautori.
 Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">

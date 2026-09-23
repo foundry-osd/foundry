@@ -34,7 +34,7 @@
     <value>Foundry OSD je moderná aplikácia na vytváranie nasadzovacích médií Windows poháňaná WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+    <value>Autorské práva (c) 2026 Mickaël CHAVE a prispievatelia do Foundry Project.
 Licencované podľa licencie MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">

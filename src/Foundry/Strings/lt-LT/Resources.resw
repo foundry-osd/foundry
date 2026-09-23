@@ -34,7 +34,7 @@
     <value>Foundry OSD yra moderni programa, skirta kurti Windows diegimo laikmeną, kurią palaiko WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+    <value>Autorių teisės (c) 2026 Mickaël CHAVE ir Foundry Project bendraautoriai.
 Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
