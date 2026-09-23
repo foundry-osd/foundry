@@ -19,7 +19,7 @@ public sealed partial class DeploymentTimelineEntryViewModel : ObservableObject
     }
 
     public int StepIndex { get; internal set; }
-    public string RawName { get; private set; }
+    public string RawName { get; }
     public string RawLabel { get; internal set; }
     public string? RawMessage { get; internal set; }
 
@@ -49,9 +49,8 @@ public sealed partial class DeploymentTimelineEntryViewModel : ObservableObject
         _ => "\uECCA"
     };
 
-    public void Update(string rawName, string displayName, DeploymentStepState newState, string newStateAutomationText)
+    public void Update(string displayName, DeploymentStepState newState, string newStateAutomationText)
     {
-        RawName = rawName;
         DisplayName = displayName;
         State = newState;
         StateAutomationText = newStateAutomationText;

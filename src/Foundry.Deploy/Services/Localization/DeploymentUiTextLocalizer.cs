@@ -187,7 +187,6 @@ public static partial class DeploymentUiTextLocalizer
             "Mounting WinRE..." => LocalizationText.GetString("StepMessage.MountingWinRe"),
             "Applying WinRE drivers..." => LocalizationText.GetString("StepMessage.ApplyingWinReDrivers"),
             "Unmounting WinRE..." => LocalizationText.GetString("StepMessage.UnmountingWinRe"),
-            "Staging package..." => LocalizationText.GetString("StepMessage.StagingPackage"),
             "Staging driver installer..." => LocalizationText.GetString("StepMessage.StagingPackage"),
             "Copying driver package..." => LocalizationText.GetString("StepMessage.CopyingDriverPackage"),
             "Copying package" => TrimTrailingEllipsis(LocalizationText.GetString("StepMessage.CopyingDriverPackage")),

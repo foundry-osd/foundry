@@ -64,8 +64,8 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
                 throw PreflightDeploymentStep.Guard("Preflight.NotReady", "preflight_not_ready");
             }
             metadata = preflight.Image;
-            long actualArchiveBytes = preflight?.UsesTargetStorage == false ? 0 : new FileInfo(imagePath).Length;
-            long targetDriverBytes = preflight?.TargetDriverBytes ?? 0;
+            long actualArchiveBytes = preflight.UsesTargetStorage ? new FileInfo(imagePath).Length : 0;
+            long targetDriverBytes = preflight.TargetDriverBytes;
             DeploymentCapacityPolicy.EnsureTargetCapacity(context, metadata, actualArchiveBytes, targetDriverBytes);
             long remainingBytes = DeploymentCapacityPolicy.RequiredWindowsBytes(metadata, 0, targetDriverBytes,
                 DeploymentCapacityPolicy.NeedsOptionalFeatureSource(context));

@@ -25,19 +25,11 @@ public sealed class DeploymentTimelineTracker
 
     public ObservableCollection<DeploymentTimelineEntryViewModel> Entries { get; } = [];
 
-    public void Reset(IReadOnlyList<string> plannedSteps)
+    public void Reset(IReadOnlyList<DeploymentPlanEntry> plan)
     {
-        ArgumentNullException.ThrowIfNull(plannedSteps);
+        ArgumentNullException.ThrowIfNull(plan);
         Entries.Clear();
-        for (int index = 0; index < plannedSteps.Count; index++)
-        {
-            string name = plannedSteps[index];
-            Entries.Add(new DeploymentTimelineEntryViewModel(
-                index + 1,
-                name,
-                _localizeStepName(name),
-                _localizeState(DeploymentStepState.Pending)));
-        }
+        Reconcile(plan);
     }
 
     public void Apply(DeploymentStepProgress progress)
@@ -54,7 +46,6 @@ public sealed class DeploymentTimelineTracker
         entry.RawMessage = progress.Message;
         entry.DetailText = _localizeMessage(progress.Message ?? string.Empty);
         entry.Update(
-            progress.StepName,
             _localizeStepName(entry.RawLabel),
             progress.State,
             _localizeState(progress.State));
@@ -103,7 +94,6 @@ public sealed class DeploymentTimelineTracker
         if (index >= 0 && index < Entries.Count)
         {
             Entries[index].Update(
-                Entries[index].RawName,
                 Entries[index].DisplayName,
                 state,
                 _localizeState(state));

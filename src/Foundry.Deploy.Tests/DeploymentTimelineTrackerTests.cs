@@ -10,21 +10,26 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentTimelineTrackerTests
 {
     [Fact]
-    public void Reset_CreatesOnePendingEntryPerPlannedOperation()
+    public void Reset_StartsFreshOutcomesAndUsesSelectedPlanLabels()
     {
         var tracker = CreateTracker();
 
-        tracker.Reset(["Prepare", "Apply", "Finalize"]);
+        tracker.Reset([new("Prepare", "Old label")]);
+        tracker.Apply(CreateProgress(1, DeploymentStepState.Succeeded));
+
+        tracker.Reset([new("Prepare", "Check setup"), new("Apply", "Apply image"), new("Finalize", "Finish deployment")]);
 
         Assert.Equal(3, tracker.Entries.Count);
+        Assert.Equal("Check setup", tracker.Entries[0].DisplayName);
+        Assert.All(tracker.Entries, entry => Assert.Empty(entry.DetailText));
         Assert.All(tracker.Entries, entry => Assert.Equal(DeploymentStepState.Pending, entry.State));
     }
 
     [Fact]
-    public void Apply_UpdatesOnlyTheReportedOneBasedStep()
+    public void Apply_UpdatesOnlyTheReportedStepIdentity()
     {
         var tracker = CreateTracker();
-        tracker.Reset(["Prepare", "Apply"]);
+        tracker.Reset([new("Prepare", "Prepare"), new("Apply", "Apply")]);
 
         tracker.Apply(CreateProgress(stepIndex: 2, state: DeploymentStepState.Running));
 
@@ -36,7 +41,7 @@ public sealed class DeploymentTimelineTrackerTests
     public void FailAt_PreservesCompletedEntriesAndMarksReportedOperationFailed()
     {
         var tracker = CreateTracker();
-        tracker.Reset(["Prepare", "Apply", "Finalize"]);
+        tracker.Reset([new("Prepare", "Prepare"), new("Apply", "Apply"), new("Finalize", "Finalize")]);
         tracker.Apply(CreateProgress(1, DeploymentStepState.Succeeded));
 
         tracker.FailAt(2);
@@ -50,7 +55,7 @@ public sealed class DeploymentTimelineTrackerTests
     public void FailAt_AfterOperationCompleted_PreservesItsRecordedOutcome()
     {
         var tracker = CreateTracker();
-        tracker.Reset(["Prepare"]);
+        tracker.Reset([new("Prepare", "Prepare")]);
         tracker.Apply(CreateProgress(1, DeploymentStepState.Succeeded));
 
         tracker.FailAt(1);
@@ -62,7 +67,7 @@ public sealed class DeploymentTimelineTrackerTests
     public void Reconcile_DoesNotFabricateResultsForUnreportedOperations()
     {
         var tracker = CreateTracker();
-        tracker.Reset(["Prepare", "Apply"]);
+        tracker.Reset([new("Prepare", "Prepare")]);
 
         tracker.Reconcile([new("Prepare", "Prepare"), new("Apply", "Apply")]);
 
@@ -73,7 +78,7 @@ public sealed class DeploymentTimelineTrackerTests
     public void Reconcile_PreservesSkippedResultsWhenFutureWorkIsRemoved()
     {
         var tracker = CreateTracker();
-        tracker.Reset(["Prepare", "Apply"]);
+        tracker.Reset([new("Prepare", "Prepare"), new("Apply", "Apply")]);
         tracker.Apply(CreateProgress(1, DeploymentStepState.Skipped));
 
         tracker.Reconcile([new("Prepare", "Prepare")]);
@@ -87,7 +92,7 @@ public sealed class DeploymentTimelineTrackerTests
     public void Apply_AfterPlanReordering_UsesStableIdentityAndRetainsReason()
     {
         var tracker = CreateTracker();
-        tracker.Reset(["Prepare", "Download", "Apply"]);
+        tracker.Reset([new("Prepare", "Prepare"), new("Download", "Download"), new("Apply", "Apply")]);
         tracker.Apply(new DeploymentStepProgress
         {
             StepName = "Download",
@@ -109,7 +114,7 @@ public sealed class DeploymentTimelineTrackerTests
     public void Apply_ExposesLocalizedStateTextForAutomation()
     {
         var tracker = CreateTracker();
-        tracker.Reset(["Prepare"]);
+        tracker.Reset([new("Prepare", "Prepare")]);
 
         tracker.Apply(CreateProgress(1, DeploymentStepState.Running));
 

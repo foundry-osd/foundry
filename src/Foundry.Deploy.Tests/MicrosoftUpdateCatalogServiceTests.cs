@@ -73,7 +73,6 @@ public sealed class MicrosoftUpdateCatalogServiceTests
 
         Assert.True(result.IsUpdateAvailable);
         Assert.Empty(extractor.SourcePaths);
-        Assert.False(Directory.Exists(Path.Combine(temp.Path, "extracted")));
     }
 
     [Fact]

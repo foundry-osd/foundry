@@ -211,8 +211,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         ClearFailureDetails();
         _plannedStepCount = plan.Count;
         _activeStepIndex = 0;
-        _timelineTracker.Reset([]);
-        _timelineTracker.Reconcile(plan);
+        _timelineTracker.Reset(plan);
 
         DeploymentProgress = 0;
         UpdateGlobalProgressVisuals(0);
@@ -970,8 +969,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     {
         // Assume usable USB cache for this display-only scenario; real deployment resolves storage during preflight.
         IReadOnlyList<DeploymentPlanEntry> plan = DeploymentPlan.Build(request, usesTargetStorage: request.Mode != DeploymentMode.Usb);
-        _timelineTracker.Reset([]);
-        _timelineTracker.Reconcile(plan);
+        _timelineTracker.Reset(plan);
         _plannedStepCount = plan.Count;
         _activeStepIndex = TimelineEntries.Single(entry => entry.RawName == currentStepName).StepIndex;
         SetCurrentStepName(plan[_activeStepIndex - 1].Label);
