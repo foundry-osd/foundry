@@ -12,7 +12,7 @@
   <PropertyGroup>
     <Authors>Mickaël CHAVE; Foundry Contributors</Authors>
     <Company>Foundry Project</Company>
-    <Copyright>Copyright (c) 2026 Foundry Project. Licensed under the MIT License.</Copyright>
+    <Copyright>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/foundry-osd/foundry</PackageProjectUrl>
     <RepositoryUrl>https://github.com/foundry-osd/foundry.git</RepositoryUrl>
