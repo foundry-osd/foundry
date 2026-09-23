@@ -34,7 +34,8 @@
     <value>Foundry OSD 是用於創建 Windows 部署媒體的現代應用程序，由 WinPE 提供支援。</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>版權所有 (c) 2026 Foundry Project。</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+根據 MIT 許可證獲得許可。</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Foundry 原始碼根據 MIT 許可證分發。</value>

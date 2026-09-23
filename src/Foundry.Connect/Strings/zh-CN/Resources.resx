@@ -19,7 +19,8 @@
     <value>该软件按原样提供。在继续部署之前确认网络访问。</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>版权所有 (c) 2026 Foundry Project。根据 MIT 许可证获得许可。</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+根据 MIT 许可证获得许可。</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>关于Foundry Connect</value>

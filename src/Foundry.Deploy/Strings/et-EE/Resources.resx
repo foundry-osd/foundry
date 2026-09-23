@@ -19,7 +19,8 @@
     <value>See tarkvara tarnitakse sellisena, nagu see on. Enne kasutamist vaadake üle juurutamise seaded.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autoriõigus (c) 2026 Foundry Project. Litsentsitud MIT-i litsentsi alusel.</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>Teave Foundry Deploy kohta</value>

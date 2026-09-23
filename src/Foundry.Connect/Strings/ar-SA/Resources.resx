@@ -19,7 +19,8 @@
     <value>يتم توفير هذا البرنامج كما هو. قم بتأكيد الوصول إلى الشبكة قبل متابعة النشر.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>حقوق الطبع والنشر (ج) 2026 Foundry Project. مرخص بموجب ترخيص MIT.</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+مرخص بموجب ترخيص MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>حول Foundry Connect</value>

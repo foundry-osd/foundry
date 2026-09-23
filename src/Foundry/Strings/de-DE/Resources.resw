@@ -34,7 +34,8 @@
     <value>Foundry OSD ist eine moderne App zum Erstellen von Windows Bereitstellungsmedien, unterstützt von WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Foundry Project.</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Foundry Quellcode wird unter der MIT-Lizenz vertrieben.</value>

@@ -19,7 +19,8 @@
     <value>Tento softvér sa poskytuje tak, ako je. Pred pokračovaním v nasadení potvrďte prístup k sieti.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Foundry Project. Licencované podľa licencie MIT.</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+Licencované podľa licencie MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>O Foundry Connect</value>

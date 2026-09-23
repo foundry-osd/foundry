@@ -34,7 +34,8 @@
     <value>Foundry OSD è un'app moderna per la creazione di supporti di distribuzione Windows basati su WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Diritto d'autore (c) 2026 Foundry Project.</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Il codice sorgente Foundry è distribuito sotto la licenza MIT.</value>

@@ -19,7 +19,8 @@
     <value>Acest software este furnizat ca atare. Confirmați accesul la rețea înainte de a continua implementarea.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Drepturi de autor (c) 2026 Foundry Project. Licențiat sub licența MIT.</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+Licențiat sub licența MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>Despre Foundry Connect</value>

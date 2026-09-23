@@ -34,7 +34,8 @@
     <value>Foundry OSD on nykyaikainen sovellus Windows -käyttöönottomedian luomiseen, jota käyttää WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Tekijänoikeus (c) 2026 Foundry Project.</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Foundry lähdekoodia jaetaan MIT-lisenssillä.</value>

@@ -19,7 +19,8 @@
     <value>Tento software je poskytován tak, jak je. Před použitím zkontrolujte nastavení nasazení.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Foundry Project. Licencováno pod licencí MIT.</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+Licencováno pod licencí MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>O Foundry Deploy</value>

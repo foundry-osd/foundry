@@ -34,7 +34,8 @@
     <value>Foundry OSD은 WinPE에서 제공하는 Windows 배포 미디어를 작성하기 위한 최신 앱입니다.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>저작권 (c) 2026 Foundry Project.</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Foundry 소스 코드는 MIT 라이선스에 따라 배포됩니다.</value>

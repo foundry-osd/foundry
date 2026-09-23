@@ -34,7 +34,8 @@
     <value>Foundry OSD هو تطبيق حديث لتأليف وسائط النشر Windows المدعومة بواسطة WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>حقوق الطبع والنشر (ج) 2026 Foundry Project.</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+مرخص بموجب ترخيص MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>يتم توزيع كود المصدر Foundry بموجب ترخيص MIT.</value>

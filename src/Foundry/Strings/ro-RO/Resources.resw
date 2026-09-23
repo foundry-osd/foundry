@@ -34,7 +34,8 @@
     <value>Foundry OSD este o aplicație modernă pentru crearea media de implementare Windows, alimentată de WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Drepturi de autor (c) 2026 Foundry Project.</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+Licențiat sub licența MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Codul sursă Foundry este distribuit sub Licența MIT.</value>

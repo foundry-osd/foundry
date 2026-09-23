@@ -34,7 +34,8 @@
     <value>Το Foundry OSD είναι μια σύγχρονη εφαρμογή για τη δημιουργία μέσων ανάπτυξης Windows που υποστηρίζεται από το WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Πνευματικά δικαιώματα (γ) 2026 Foundry Project.</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+Άδεια χρήσης βάσει της άδειας MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Ο πηγαίος κώδικας Foundry διανέμεται υπό την άδεια MIT.</value>

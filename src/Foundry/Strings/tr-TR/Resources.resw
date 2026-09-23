@@ -34,7 +34,8 @@
     <value>Foundry OSD, WinPE tarafından desteklenen Windows dağıtım ortamının yazılmasına yönelik modern bir uygulamadır.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Telif Hakkı (c) 2026 Foundry Project.</value>
+    <value>Copyright (c) 2026 Mickaël CHAVE and Foundry Project contributors.
+MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Foundry kaynak kodu MIT Lisansı altında dağıtılmaktadır.</value>
