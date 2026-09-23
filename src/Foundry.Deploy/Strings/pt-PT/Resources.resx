@@ -19,7 +19,8 @@
     <value>Este software é fornecido como está. Revise suas configurações de implantação antes de usar.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Direitos autorais (c) 2026 Foundry Project. Licenciado sob a licença MIT.</value>
+    <value>Direitos de autor (c) 2026 Mickaël CHAVE e os colaboradores do Foundry Project.
+Licenciado sob a licença MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>Sobre Foundry Deploy</value>

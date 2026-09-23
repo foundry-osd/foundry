@@ -34,7 +34,8 @@
     <value>Foundry OSD היא אפליקציה מודרנית ליצירת מדיה לפריסה Windows המופעלת על ידי WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>זכויות יוצרים (ג) 2026 Foundry Project.</value>
+    <value>זכויות יוצרים (c) 2026 Mickaël CHAVE והתורמים ל־Foundry Project.
+מורשה תחת רישיון MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>קוד המקור Foundry מופץ תחת רישיון MIT.</value>

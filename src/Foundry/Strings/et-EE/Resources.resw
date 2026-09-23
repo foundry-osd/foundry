@@ -34,7 +34,8 @@
     <value>Foundry OSD on kaasaegne rakendus Windows juurutusmeediumi loomiseks, mida toetab WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Autoriõigus (c) 2026 Foundry Project.</value>
+    <value>Autoriõigus (c) 2026 Mickaël CHAVE ja Foundry Projecti kaasautorid.
+Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Foundry lähtekoodi levitatakse MIT-i litsentsi alusel.</value>

@@ -19,7 +19,8 @@
     <value>Αυτό το λογισμικό παρέχεται ως έχει. Ελέγξτε τις ρυθμίσεις ανάπτυξης πριν από τη χρήση.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Πνευματικά δικαιώματα (γ) 2026 Foundry Project. Άδεια χρήσης βάσει της άδειας MIT.</value>
+    <value>Πνευματικά δικαιώματα (c) 2026 Mickaël CHAVE και οι συνεισφέροντες στο Foundry Project.
+Άδεια χρήσης βάσει της άδειας MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>Σχετικά με Foundry Deploy</value>

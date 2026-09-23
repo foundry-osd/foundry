@@ -19,7 +19,8 @@
     <value>Это программное обеспечение предоставляется как есть. Перед использованием просмотрите настройки развертывания.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Авторские права (c) 2026 Foundry Project. Лицензировано по лицензии MIT.</value>
+    <value>Авторские права (c) 2026 Mickaël CHAVE и участники Foundry Project.
+Лицензировано по лицензии MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>О Foundry Deploy</value>

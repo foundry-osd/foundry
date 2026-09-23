@@ -19,7 +19,8 @@
     <value>このソフトウェアは現状のまま提供されます。導入を続行する前に、ネットワーク アクセスを確認してください。</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>著作権 (c) 2026 Foundry Project。 MITライセンスに基づいてライセンスされています。</value>
+    <value>著作権 (c) 2026 Mickaël CHAVE および Foundry Project の貢献者。
+MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>Foundry Connectについて</value>

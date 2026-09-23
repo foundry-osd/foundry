@@ -34,7 +34,8 @@
     <value>A Foundry OSD egy modern alkalmazás az Windows telepítési adathordozók készítésére, amelyet WinPE üzemeltet.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Foundry Project.</value>
+    <value>Szerzői jog (c) 2026 Mickaël CHAVE és a Foundry Project közreműködői.
+Licenc az MIT licenc alatt.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Az Foundry forráskód az MIT Licenc alatt kerül terjesztésre.</value>

@@ -19,7 +19,8 @@
     <value>Tämä ohjelmisto toimitetaan sellaisenaan. Vahvista verkkoon pääsy ennen kuin jatkat käyttöönottoa.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Tekijänoikeus (c) 2026 Foundry Project. Lisensoitu MIT-lisenssillä.</value>
+    <value>Tekijänoikeus (c) 2026 Mickaël CHAVE ja Foundry Project -projektin avustajat.
+Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>Tietoja Foundry Connect</value>

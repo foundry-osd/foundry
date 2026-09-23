@@ -72,6 +72,7 @@
             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
             Style="{StaticResource CaptionTextBlockStyle}"
             Text="{Binding Footer}"
+            TextAlignment="Center"
             TextWrapping="Wrap" />
     </Grid>
 </Window>

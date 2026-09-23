@@ -34,7 +34,8 @@
     <value>Foundry OSD je moderní aplikace pro vytváření médií pro nasazení Windows poháněná WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Foundry Project.</value>
+    <value>Autorská práva (c) 2026 Mickaël CHAVE a přispěvatelé do Foundry Project.
+Licencováno pod licencí MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Zdrojový kód Foundry je distribuován pod licencí MIT.</value>

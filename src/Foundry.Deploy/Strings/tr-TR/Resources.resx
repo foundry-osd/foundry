@@ -19,7 +19,8 @@
     <value>Bu yazılım olduğu gibi sağlanmaktadır. Kullanmadan önce dağıtım ayarlarınızı gözden geçirin.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Telif Hakkı (c) 2026 Foundry Project. MIT Lisansı kapsamında lisanslanmıştır.</value>
+    <value>Telif hakkı (c) 2026 Mickaël CHAVE ve Foundry Project’e katkıda bulunanlar.
+MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>Foundry Deploy Hakkında</value>

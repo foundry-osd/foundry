@@ -19,7 +19,8 @@
     <value>Ovaj softver je obezbeđen takav kakav jeste. Pregledajte podešavanja primene pre upotrebe.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autorsko pravo (c) 2026 Foundry Project. Licencirano pod MIT licencom.</value>
+    <value>Autorska prava (c) 2026 Mickaël CHAVE i saradnici na projektu Foundry Project.
+Licencirano pod MIT licencom.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>O Foundry Deploy</value>

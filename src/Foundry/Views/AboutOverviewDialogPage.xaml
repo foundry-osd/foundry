@@ -98,6 +98,7 @@
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                     Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                     Text="{Binding FooterText}"
+                    TextAlignment="Center"
                     TextWrapping="WrapWholeWords" />
             </StackPanel>
         </Grid>
