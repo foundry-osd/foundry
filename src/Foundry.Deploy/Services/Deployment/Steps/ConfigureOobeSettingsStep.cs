@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
-using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Logging;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
@@ -29,11 +28,9 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
     /// <inheritdoc />
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        bool shouldConfigureOobe = !context.Request.UsesCustomUnattend && context.RuntimeState.Oobe.IsEnabled;
-        bool shouldConfigureAiPolicies = HasAnyAiPolicyOptionEnabled(context.RuntimeState.AiComponentRemoval);
-        if (!shouldConfigureOobe && !shouldConfigureAiPolicies)
+        if (context.Request.UsesCustomUnattend || !context.RuntimeState.Oobe.IsEnabled)
         {
-            return DeploymentStepResult.Succeeded("Offline customization disabled.");
+            return DeploymentStepResult.Skipped("Offline customization disabled.");
         }
 
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
@@ -45,31 +42,16 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
         string workingDirectory = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
         Directory.CreateDirectory(workingDirectory);
 
-        if (shouldConfigureOobe)
-        {
-            context.EmitCurrentStepIndeterminate("Configuring OOBE settings...", "Writing first-run privacy defaults...", DeploymentOperationNames.WriteOobeRegistry);
-            await _windowsDeploymentService
-                .ConfigureOfflineOobeAsync(
-                    context.RuntimeState.TargetWindowsPartitionRoot,
-                    context.RuntimeState.Oobe,
-                    context.Request.OperatingSystem.Architecture,
-                    workingDirectory,
-                    context.RuntimeState.WorkspaceRoot,
-                    cancellationToken)
-                .ConfigureAwait(false);
-        }
-
-        if (shouldConfigureAiPolicies)
-        {
-            context.EmitCurrentStepIndeterminate("Configuring AI component removal...", "Writing offline AI policies...", DeploymentOperationNames.WriteAiPolicyRegistry);
-            await _windowsDeploymentService
-                .ConfigureOfflineAiComponentRemovalAsync(
-                    context.RuntimeState.TargetWindowsPartitionRoot,
-                    context.RuntimeState.AiComponentRemoval,
-                    workingDirectory,
-                    cancellationToken)
-                .ConfigureAwait(false);
-        }
+        context.EmitCurrentStepIndeterminate("Configuring OOBE settings...", "Writing first-run privacy defaults...", DeploymentOperationNames.WriteOobeRegistry);
+        await _windowsDeploymentService
+            .ConfigureOfflineOobeAsync(
+                context.RuntimeState.TargetWindowsPartitionRoot,
+                context.RuntimeState.Oobe,
+                context.Request.OperatingSystem.Architecture,
+                workingDirectory,
+                context.RuntimeState.WorkspaceRoot,
+                cancellationToken)
+            .ConfigureAwait(false);
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
@@ -82,11 +64,9 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
     /// <inheritdoc />
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        bool shouldConfigureOobe = !context.Request.UsesCustomUnattend && context.RuntimeState.Oobe.IsEnabled;
-        bool shouldConfigureAiPolicies = HasAnyAiPolicyOptionEnabled(context.RuntimeState.AiComponentRemoval);
-        if (!shouldConfigureOobe && !shouldConfigureAiPolicies)
+        if (context.Request.UsesCustomUnattend || !context.RuntimeState.Oobe.IsEnabled)
         {
-            return DeploymentStepResult.Succeeded("Offline customization disabled.");
+            return DeploymentStepResult.Skipped("Offline customization disabled.");
         }
 
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
@@ -102,18 +82,6 @@ public sealed class ConfigureOobeSettingsStep : DeploymentStepBase
         await Task.Delay(120, cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Offline customization configured (simulation).");
-    }
-
-    private static bool HasAnyAiPolicyOptionEnabled(DeployAiComponentRemovalSettings settings)
-    {
-        return settings.IsEnabled &&
-            (settings.RemoveCopilot ||
-                settings.DisableRecall ||
-                settings.DisableClickToDo ||
-                settings.DisableAiServiceAutoStart ||
-                settings.DisableEdgeAi ||
-                settings.DisablePaintAi ||
-                settings.DisableNotepadAi);
     }
 
     private static DeploymentStepResult CreateMissingTargetPartitionFailure() =>

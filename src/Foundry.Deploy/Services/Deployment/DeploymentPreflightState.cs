@@ -11,19 +11,24 @@ internal sealed class DeploymentPreflightState : IDisposable
 {
     public required string CacheRoot { get; init; }
     public bool UsesTargetStorage { get; init; }
-    public long SourceSizeBytes { get; init; }
-    public long TargetDriverBytes { get; init; }
-    public WindowsImageMetadata? Image { get; init; }
-    public string? ImagePath { get; init; }
-    public FileStream? SourceLease { get; init; }
+    public string? ExternalImageDirectory { get; init; }
+    public long SourceSizeBytes { get; set; }
+    public long TargetDriverBytes { get; set; }
+    public WindowsImageMetadata? Image { get; set; }
+    public string? ImagePath { get; set; }
+    public FileStream? SourceLease { get; set; }
     public bool ErasureStarted { get; set; }
+
+    /// <summary>Rejects storage decisions when the execution's resolved cache changes.</summary>
+    public bool MatchesStoragePlan(DeploymentStepExecutionContext context) =>
+        string.Equals(CacheRoot, context.RuntimeState.ResolvedCache?.RootPath, StringComparison.OrdinalIgnoreCase);
 
     /// <summary>Rejects stale readiness after cache or prepared-image paths are changed.</summary>
     public bool Matches(DeploymentStepExecutionContext context)
     {
         try
         {
-            return string.Equals(CacheRoot, context.RuntimeState.ResolvedCache?.RootPath, StringComparison.OrdinalIgnoreCase) &&
+            return MatchesStoragePlan(context) &&
                 (UsesTargetStorage || (Image is not null && SourceLease?.CanRead == true && SourceLease.Length == SourceSizeBytes &&
                     string.Equals(ImagePath, context.RuntimeState.DownloadedOperatingSystemPath, StringComparison.OrdinalIgnoreCase) && File.Exists(ImagePath)));
         }

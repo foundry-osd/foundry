@@ -658,19 +658,25 @@ Kas jätkata juurutamisega?</value>
     <value>wpeutil.exe ebaõnnestus väljumiskoodiga {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Paigalda draiverid</value>
+    <value>Installi Windowsi draiverid</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Paigalda püsivara</value>
+    <value>Valmista püsivarauuendus ette</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Paigalda operatsioonisüsteem</value>
+    <value>Rakenda Windowsi tõmmis</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Paigalda taastedraiverid</value>
+    <value>Installi taastedraiverid</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Kontrolli Windowsi tõmmist</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>Seadista AI-poliitikad</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>Konfigureeri OOBE</value>
+    <value>Seadista Windowsi häälestus</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Konfigureeri Windowsi taastamine</value>
@@ -678,62 +684,71 @@ Kas jätkata juurutamisega?</value>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Määra arvuti nimi</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Seadista Windowsi käivitus</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Konfigureeri valikulised funktsioonid</value>
+    <value>Seadista Windowsi funktsioonid</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Kopeeri Autopiloti profiil</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Laadi draiverid alla</value>
+    <value>Laadi draiveripakett alla</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Laadi püsivara alla</value>
+    <value>Laadi püsivarauuendus alla</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Laadi operatsioonisüsteem alla</value>
+    <value>Laadi Windowsi tõmmis alla</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Paki draiverid lahti</value>
+    <value>Paki draiveripakett lahti</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Paki püsivarauuendus lahti</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Lõpeta juurutamine</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Kogu muutujad</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Initsialiseeri juurutamine</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Kontrolli juurutusvalmidust</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Valmista Autopiloti abiline ette</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Valmista ketas</value>
+    <value>Valmista sihtketas ette</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Valmista Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Registreeri Autopiloti seade</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Kontrolli vahemälu</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Sulge taastepartitsioon</value>
+    <value>Peida taastesektsioon</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Valmista kohandatud vastusefail ette</value>
+    <value>Kopeeri vastusefail</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Valmista draiveripaigaldaja ette</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Valmista kohandused</value>
+    <value>Valmista häälestusülesanded ette</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Valideeri kohandatud vastusefail</value>
+    <value>Valideeri vastusefail</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Kinnita konfiguratsioon</value>
+    <value>Kontrolli juurutuse seadistust</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Draiveripaketi rakendamine...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Püsivara värskenduse rakendamine...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Pildi rakendamine...</value>
@@ -756,6 +771,9 @@ Kas jätkata juurutamisega?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Autopilot riistvararäsi jäädvustamine...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Vaba ruumi kontrollimine...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Vahemälu kontrollimine...</value>
   </data>
@@ -776,9 +794,6 @@ Kas jätkata juurutamisega?</value>
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Ajutise tööruumi puhastamine...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Juurutamise konteksti kogumine...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>AI-komponentide eemaldamise konfigureerimine...</value>
@@ -804,14 +819,14 @@ Kas jätkata juurutamisega?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>AutopilotConfigurationFile.json kopeerimine...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Draiveripaketi kopeerimine...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Interaktiivse registreerimise failide kopeerimine...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Simuleeritud partitsioonide loomine...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Tööruumi kaustade loomine...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Meediumisertifikaadi dekrüptimine...</value>
@@ -831,17 +846,14 @@ Kas jätkata juurutamisega?</value>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Draiveripaketi ekstraktimine...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Püsivarauuenduse lahtipakkimine...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Juurutamise lõpetamine...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Juurutusmuutujate kogumine...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Riistvararäsi importimine asukohta Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Juurutamise tööruumi lähtestamine...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Püsivara sisu sisestamine võrguühenduseta Windows...</value>
@@ -911,6 +923,9 @@ Kas jätkata juurutamisega?</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Autopiloti registreerimisabilise ettevalmistamine...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Püsivarauuenduse ettevalmistamine...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Lavastuspakett...</value>
@@ -1047,14 +1062,14 @@ Kas jätkata juurutamisega?</value>
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Vahemälustrateegia lahendatud (simulatsioon).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>Valitud Microsoft Update Catalogi draiverifail „{0}“ ei sisalda INF-faile.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Esmakäivituse draiveripaketi etapistamist taotleti ilma toetatud käsuta.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Juurutamise muutujad on kogutud.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Kasutuselevõtu muutujad kogutud (simulatsioon).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Draiveripaigaldaja on ette valmistatud.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Draiveripakett on rakendatud.</value>
@@ -1080,26 +1095,29 @@ Kas jätkata juurutamisega?</value>
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Draiveripaketti ei laaditud alla.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Draiveripakett on ette valmistatud esmakäivituse installimiseks.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Draiveri pakett lahendati vahemälust.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>Draiveri paketi lähtesisu pole esmakäivituse etapistamiseks saadaval.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Rakendatud on püsivara värskendus.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Rakendatud püsivara värskendus (simulatsioon).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Tõmmise väline salvestuskoht ja teadaolev maht on kontrollitud.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Püsivara värskendus on alla laaditud.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Püsivara värskendus on alla laaditud (simulatsioon).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Püsivarauuendus on lahti pakitud.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Püsivarauuendus on vahemälust laaditud.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Püsivarauuendus on Windowsis installimiseks ette valmistatud.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Püsivara värskendused on keelatud.</value>
@@ -1119,6 +1137,9 @@ Kas jätkata juurutamisega?</value>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog ei tootnud draiveri sisu.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Hilisemaks käivitamiseks mõeldud draiveripaigaldajat pole vaja.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Draiveripaketti pole vaja alla laadida.</value>
   </data>
@@ -1131,8 +1152,14 @@ Kas jätkata juurutamisega?</value>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Ekstraheeritud INF-draiveri sisu pole saadaval.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>Ekstraheeritud püsivara sisu ei sisalda CAB-faile.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>Ekstraheeritud püsivara sisu ei sisalda INF-faile.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Püsivarauuenduse sisu pole saadaval.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>OOBE-eelseid kohandamisskripte pole vaja.</value>
@@ -1176,9 +1203,6 @@ Kas jätkata juurutamisega?</value>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>OOBE-eelsed kohandused on lavastatud (simulatsioon).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>Tõmmis ja teadaolevad mahunõuded on enne ketta ettevalmistamist kontrollitud.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Juurutusvalmidus on kontrollitud (simulatsioon).</value>
   </data>
@@ -1202,6 +1226,15 @@ Kas jätkata juurutamisega?</value>
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>Valitud Autopilot profiilifaili ei leitud: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>Valitud draiveripaketi sisu pole saadaval.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>Valitud püsivara sisu pole saadaval.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (simulatsioon).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>Süsteemi püsivara riistvara identifikaator pole saadaval.</value>
@@ -1248,6 +1281,15 @@ Kas jätkata juurutamisega?</value>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Toetamata draiveripaketi installirežiim.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Windowsi käivitus on seadistatud.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Windowsi tõmmis ja teadaolev maht on kontrollitud.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>Windowsi tõmmist ei rakendatud.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Windowsi valikuliste funktsioonide konfigureerimine on keelatud.</value>
   </data>
@@ -1268,12 +1310,6 @@ Kas jätkata juurutamisega?</value>
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Simuleeritud Windowsi valikuliste funktsioonide konfiguratsioon ({0} toimingut).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Tööruum on lähtestatud.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Tööruum on lähtestatud (simulatsioon).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Juurutamine lõpetatud</value>

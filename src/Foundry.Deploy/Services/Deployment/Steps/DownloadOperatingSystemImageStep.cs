@@ -3,7 +3,11 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using System.Net.Http;
+using System.Security.Cryptography;
 using Foundry.Deploy.Services.Download;
+using Foundry.Deploy.Services.Http;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Logging;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
@@ -21,19 +25,55 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        if (context.Preflight is { UsesTargetStorage: false } prepared)
+        try
         {
-            if (!prepared.Matches(context))
-            {
-                DeploymentOperationException failure = PreflightDeploymentStep.Guard("Preflight.NotReady", "preflight_not_ready");
-                return DeploymentStepResult.Failed(failure.Message, failure.Failure);
-            }
-            return DeploymentStepResult.Succeeded("Operating system image resolved from cache.");
+            return await DownloadImageAsync(context, cancellationToken).ConfigureAwait(false);
+        }
+        catch (DeploymentOperationException exception)
+        {
+            return DeploymentStepResult.Failed(exception.Message, exception.Failure);
+        }
+        catch (HttpRequestException exception)
+        {
+            return DeploymentStepResult.Failed(HttpConnectionFailure.IsSecureConnectionFailure(exception)
+                ? HttpConnectionFailure.SecureConnectionMessage : LocalizationText.GetString("Preflight.SourceUnavailable"),
+                DeploymentFailureClassifier.Classify(exception, DeploymentOperationNames.DownloadOperatingSystemImage));
+        }
+        catch (CryptographicException exception)
+        {
+            return DeploymentStepResult.Failed(LocalizationText.GetString("Preflight.InvalidMetadata"),
+                DeploymentFailureClassifier.Classify(exception, DeploymentOperationNames.DownloadOperatingSystemImage));
+        }
+        catch (InvalidOperationException exception)
+        {
+            return DeploymentStepResult.Failed(LocalizationText.GetString("Preflight.InvalidMetadata"),
+                DeploymentFailureClassifier.Classify(exception, DeploymentOperationNames.DownloadOperatingSystemImage));
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            return DeploymentStepResult.Failed(LocalizationText.GetString("Preflight.CacheUnavailable"),
+                DeploymentFailureClassifier.Classify(exception, DeploymentOperationNames.DownloadOperatingSystemImage));
+        }
+    }
+
+    private async Task<DeploymentStepResult> DownloadImageAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+    {
+        DeploymentPreflightState? prepared = context.Preflight;
+        if (prepared is null || !prepared.MatchesStoragePlan(context))
+        {
+            throw PreflightDeploymentStep.Guard("Preflight.NotReady", "preflight_not_ready");
         }
 
-        string osDirectory = context.Preflight?.UsesTargetStorage == true
+        if (prepared is { UsesTargetStorage: false } &&
+            (string.IsNullOrWhiteSpace(prepared.ExternalImageDirectory) ||
+             !await context.IsExternalStorageAsync(prepared.ExternalImageDirectory, cancellationToken).ConfigureAwait(false)))
+        {
+            throw PreflightDeploymentStep.Guard("Preflight.NotReady", "preflight_not_ready");
+        }
+
+        string osDirectory = prepared.UsesTargetStorage
             ? Path.Combine(context.EnsureTargetFoundryRoot(), "Cache", "OperatingSystems")
-            : context.ResolveOperatingSystemCacheRoot(context.Request.OperatingSystem.SizeBytes);
+            : prepared.ExternalImageDirectory!;
         Directory.CreateDirectory(osDirectory);
         const string stepMessage = "Downloading OS image...";
 
@@ -64,15 +104,21 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
             .ConfigureAwait(false);
 
         context.RuntimeState.DownloadedOperatingSystemPath = result.DestinationPath;
+        prepared.Image = null;
+        prepared.ImagePath = result.DestinationPath;
+        prepared.SourceLease?.Dispose();
+        prepared.SourceLease = prepared.UsesTargetStorage
+            ? null
+            : new FileStream(result.DestinationPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        prepared.SourceSizeBytes = prepared.SourceLease?.Length ?? new FileInfo(result.DestinationPath).Length;
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
             $"OS image {(result.Downloaded ? "downloaded" : "reused")} via {result.Method}: {result.DestinationPath}",
             cancellationToken).ConfigureAwait(false);
 
-        return DeploymentStepResult.Succeeded(
-            result.Downloaded
-                ? "Operating system image downloaded."
-                : "Operating system image resolved from cache.");
+        return result.Downloaded
+            ? DeploymentStepResult.Succeeded("Operating system image downloaded.")
+            : DeploymentStepResult.Skipped("Operating system image resolved from cache.");
     }
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

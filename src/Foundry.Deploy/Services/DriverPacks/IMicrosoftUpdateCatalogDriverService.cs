@@ -12,7 +12,7 @@ public interface IMicrosoftUpdateCatalogDriverService
         HardwareProfile hardwareProfile,
         OperatingSystemCatalogItem operatingSystem,
         string destinationDirectory,
-        Func<long, string> resolveCacheDirectory,
+        Func<long, string, string> resolveCacheDirectory,
         CancellationToken cancellationToken = default,
         IProgress<double>? progress = null);
 

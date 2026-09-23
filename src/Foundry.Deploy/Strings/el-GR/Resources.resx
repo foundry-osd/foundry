@@ -658,19 +658,25 @@
     <value>Το wpeutil.exe απέτυχε με τον κωδικό εξόδου {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Εφαρμογή προγραμμάτων οδήγησης</value>
+    <value>Εγκατάσταση προγραμμάτων οδήγησης Windows</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Εφαρμογή υλικολογισμικού</value>
+    <value>Προετοιμασία ενημέρωσης υλικολογισμικού</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Εφαρμογή λειτουργικού συστήματος</value>
+    <value>Εφαρμογή εικόνας Windows</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Εφαρμογή προγραμμάτων οδήγησης ανάκτησης</value>
+    <value>Εγκατάσταση οδηγών αποκατάστασης</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Έλεγχος εικόνας Windows</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>Ρύθμιση πολιτικών AI</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>Διαμόρφωση OOBE</value>
+    <value>Ρύθμιση εγκατάστασης Windows</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Διαμόρφωση ανάκτησης Windows</value>
@@ -678,62 +684,71 @@
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Ορισμός ονόματος υπολογιστή</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Ρύθμιση εκκίνησης Windows</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Διαμόρφωση προαιρετικών λειτουργιών</value>
+    <value>Ρύθμιση δυνατοτήτων Windows</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Αντιγραφή προφίλ Autopilot</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Λήψη προγραμμάτων οδήγησης</value>
+    <value>Λήψη πακέτου οδηγών</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Λήψη υλικολογισμικού</value>
+    <value>Λήψη ενημέρωσης υλικολογισμικού</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Λήψη λειτουργικού συστήματος</value>
+    <value>Λήψη εικόνας Windows</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Εξαγωγή προγραμμάτων οδήγησης</value>
+    <value>Εξαγωγή πακέτου οδηγών</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Εξαγωγή ενημέρωσης υλικολογισμικού</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Ολοκλήρωση ανάπτυξης</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Συλλογή μεταβλητών</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Αρχικοποίηση ανάπτυξης</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Έλεγχος ετοιμότητας ανάπτυξης</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Προετοιμασία βοηθού Autopilot</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Προετοιμασία δίσκου</value>
+    <value>Προετοιμασία δίσκου προορισμού</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Προετοιμασία Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Εγγραφή συσκευής Autopilot</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Έλεγχος κρυφής μνήμης</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Σφράγιση διαμερίσματος ανάκτησης</value>
+    <value>Απόκρυψη διαμερίσματος αποκατάστασης</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Τοποθέτηση προσαρμοσμένου αρχείου απαντήσεων</value>
+    <value>Αντιγραφή αρχείου απαντήσεων</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Προετοιμασία εγκαταστάτη οδηγών</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Προετοιμασία προσαρμογών</value>
+    <value>Προετοιμασία εργασιών εγκατάστασης</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Επικύρωση προσαρμοσμένου αρχείου απαντήσεων</value>
+    <value>Επικύρωση αρχείου απαντήσεων</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Επαλήθευση διαμόρφωσης</value>
+    <value>Έλεγχος ρυθμίσεων ανάπτυξης</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Εφαρμογή πακέτου προγραμμάτων οδήγησης...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Εφαρμογή ενημέρωσης υλικολογισμικού...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Εφαρμογή εικόνας...</value>
@@ -756,6 +771,9 @@
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Λήψη κατακερματισμού υλικού Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Έλεγχος διαθέσιμου χώρου...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Έλεγχος κρυφής μνήμης...</value>
   </data>
@@ -776,9 +794,6 @@
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Καθαρισμός προσωρινού χώρου εργασίας...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Συλλογή πλαισίου ανάπτυξης...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>Διαμόρφωση αφαίρεσης στοιχείων AI...</value>
@@ -804,14 +819,14 @@
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Αντιγραφή AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Αντιγραφή πακέτου οδηγών...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Αντιγραφή αρχείων διαδραστικής εγγραφής...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Δημιουργία προσομοιωμένων κατατμήσεων...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Δημιουργία φακέλων χώρου εργασίας...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Αποκρυπτογράφηση πιστοποιητικού πολυμέσων...</value>
@@ -831,17 +846,14 @@
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Εξαγωγή πακέτου προγραμμάτων οδήγησης...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Εξαγωγή ενημέρωσης υλικολογισμικού...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Ολοκληρώνεται η ανάπτυξη...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Συλλογή μεταβλητών ανάπτυξης...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Εισαγωγή κατακερματισμού υλικού στο Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Εκκίνηση του χώρου εργασίας ανάπτυξης...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Έγχυση περιεχομένου υλικολογισμικού σε offline Windows...</value>
@@ -911,6 +923,9 @@
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Προετοιμασία του βοηθού εγγραφής Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Προετοιμασία ενημέρωσης υλικολογισμικού...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Πακέτο σκηνοθεσίας...</value>
@@ -1047,14 +1062,14 @@
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Επιλύθηκε η στρατηγική cache (προσομοίωση).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>Το επιλεγμένο αρχείο οδηγού «{0}» από το Microsoft Update Catalog δεν περιέχει αρχεία INF.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Ζητήθηκε η εγκατάσταση του πακέτου προγράμματος οδήγησης πρώτης εκκίνησης χωρίς υποστηριζόμενη εντολή.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Συγκεντρώθηκαν μεταβλητές ανάπτυξης.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Συγκεντρώθηκαν μεταβλητές ανάπτυξης (προσομοίωση).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Το πρόγραμμα εγκατάστασης οδηγών προετοιμάστηκε.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Εφαρμόστηκε το πακέτο προγράμματος οδήγησης.</value>
@@ -1080,26 +1095,29 @@
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Δεν έγινε λήψη του πακέτου προγράμματος οδήγησης.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Το πακέτο προγράμματος οδήγησης προετοιμάστηκε για εγκατάσταση πρώτης εκκίνησης.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Το πακέτο προγραμμάτων οδήγησης επιλύθηκε από την προσωρινή μνήμη.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>Το περιεχόμενο της πηγής του πακέτου προγραμμάτων οδήγησης δεν είναι διαθέσιμο για την πρώτη εκκίνηση.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Εφαρμόστηκε ενημέρωση υλικολογισμικού.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Εφαρμόστηκε ενημέρωση υλικολογισμικού (προσομοίωση).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Ο εξωτερικός χώρος αποθήκευσης εικόνας και η γνωστή χωρητικότητα ελέγχθηκαν.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Έγινε λήψη της ενημέρωσης υλικολογισμικού.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Λήψη ενημέρωσης υλικολογισμικού (προσομοίωση).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Η ενημέρωση υλικολογισμικού εξήχθη.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Η ενημέρωση υλικολογισμικού ανακτήθηκε από την προσωρινή μνήμη.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Η ενημέρωση υλικολογισμικού προετοιμάστηκε για εγκατάσταση στα Windows.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Οι ενημερώσεις υλικολογισμικού είναι απενεργοποιημένες.</value>
@@ -1119,6 +1137,9 @@
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Το Microsoft Update Catalog δεν παρήγαγε περιεχόμενο προγράμματος οδήγησης.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Δεν απαιτείται πρόγραμμα εγκατάστασης οδηγών για μεταγενέστερη εκτέλεση.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Δεν απαιτείται λήψη πακέτου προγραμμάτων οδήγησης.</value>
   </data>
@@ -1131,8 +1152,14 @@
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Δεν υπάρχει διαθέσιμο περιεχόμενο προγράμματος οδήγησης INF που έχει εξαχθεί.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>Το εξαγόμενο περιεχόμενο υλικολογισμικού δεν περιέχει αρχεία CAB.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>Το εξαγόμενο περιεχόμενο υλικολογισμικού δεν περιέχει αρχεία INF.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Δεν υπάρχει διαθέσιμο περιεχόμενο ενημέρωσης υλικολογισμικού.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>Δεν απαιτούνται σενάρια προσαρμογής πριν από το OOBE.</value>
@@ -1176,9 +1203,6 @@
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Σταδιακές προσαρμογές πριν από το OOBE (προσομοίωση).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>Το είδωλο και οι γνωστές απαιτήσεις χωρητικότητας ελέγχθηκαν πριν από την προετοιμασία του δίσκου.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Η ετοιμότητα ανάπτυξης ελέγχθηκε (προσομοίωση).</value>
   </data>
@@ -1202,6 +1226,15 @@
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>Το επιλεγμένο αρχείο προφίλ Autopilot δεν βρέθηκε: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>Το περιεχόμενο του επιλεγμένου πακέτου οδηγών δεν είναι διαθέσιμο.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>Το επιλεγμένο περιεχόμενο υλικολογισμικού δεν είναι διαθέσιμο.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (προσομοίωση).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>Το αναγνωριστικό υλικού υλικολογισμικού συστήματος δεν είναι διαθέσιμο.</value>
@@ -1248,6 +1281,15 @@
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Μη υποστηριζόμενη λειτουργία εγκατάστασης πακέτου προγραμμάτων οδήγησης.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Η εκκίνηση Windows ρυθμίστηκε.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Η εικόνα Windows και η γνωστή χωρητικότητα ελέγχθηκαν.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>Η εικόνα Windows δεν εφαρμόστηκε.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Η ρύθμιση παραμέτρων των προαιρετικών δυνατοτήτων των Windows είναι απενεργοποιημένη.</value>
   </data>
@@ -1268,12 +1310,6 @@
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Προσομοιώθηκε η διαμόρφωση των προαιρετικών δυνατοτήτων των Windows ({0} ενέργειες).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Αρχικοποιήθηκε ο χώρος εργασίας.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Αρχικοποιήθηκε ο χώρος εργασίας (προσομοίωση).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Η ανάπτυξη ολοκληρώθηκε</value>

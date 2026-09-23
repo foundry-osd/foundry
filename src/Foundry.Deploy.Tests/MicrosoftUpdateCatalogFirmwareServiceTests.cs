@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.System;
@@ -15,7 +14,7 @@ public sealed class MicrosoftUpdateCatalogFirmwareServiceTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public async Task DownloadAsync_WhenCancelledDuringExtraction_WaitsForExitAndPreservesFailure(bool extractionFails)
+    public async Task ExtractAsync_WhenCancelledDuringExtraction_WaitsForExitAndPreservesFailure(bool extractionFails)
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-firmware-cancel-{Guid.NewGuid():N}");
         Directory.CreateDirectory(root);
@@ -26,9 +25,10 @@ public sealed class MicrosoftUpdateCatalogFirmwareServiceTests
             var service = new MicrosoftUpdateCatalogFirmwareService(extractor, new FirmwareCatalog(), new FirmwareDownloader(),
                 NullLogger<MicrosoftUpdateCatalogFirmwareService>.Instance);
 
-            Task<MicrosoftUpdateCatalogFirmwareResult> run = service.DownloadAsync(
-                new HardwareProfile { SystemFirmwareHardwareId = "test-firmware" }, "x64", Path.Combine(root, "Raw"),
-                Path.Combine(root, "Extracted"), Path.Combine(root, "Cache"), cancellation.Token);
+            string rawDirectory = Path.Combine(root, "Raw");
+            Directory.CreateDirectory(rawDirectory);
+            await File.WriteAllTextAsync(Path.Combine(rawDirectory, "firmware.cab"), "cab", TestContext.Current.CancellationToken);
+            Task<int> run = service.ExtractAsync(rawDirectory, Path.Combine(root, "Extracted"), cancellation.Token);
             await extractor.Started.Task.WaitAsync(TestContext.Current.CancellationToken);
             cancellation.Cancel();
             bool wasPending = !run.IsCompleted;
@@ -77,23 +77,21 @@ public sealed class MicrosoftUpdateCatalogFirmwareServiceTests
 
     private sealed class FirmwareCatalog : IMicrosoftUpdateCatalogClient
     {
-        public Task<bool> IsAvailableAsync(CancellationToken cancellationToken = default) => Task.FromResult(true);
+        public Task<bool> IsAvailableAsync(CancellationToken cancellationToken = default) =>
+            throw new InvalidOperationException("Extraction must not query the catalog.");
         public Task<IReadOnlyList<MicrosoftUpdateCatalogUpdate>> SearchAsync(string searchQuery, bool descending = true,
-            CancellationToken cancellationToken = default) => Task.FromResult<IReadOnlyList<MicrosoftUpdateCatalogUpdate>>(
-                [new() { UpdateId = "firmware", Title = "Firmware" }]);
+            CancellationToken cancellationToken = default) =>
+            throw new InvalidOperationException("Extraction must not query the catalog.");
         public Task<IReadOnlyList<MicrosoftUpdateCatalogDownload>> GetDownloadsAsync(string updateId,
-            CancellationToken cancellationToken = default) => Task.FromResult<IReadOnlyList<MicrosoftUpdateCatalogDownload>>(
-                [new() { DownloadUrl = "https://example.test/firmware.cab", FileName = "firmware.cab", Architectures = "AMD64" }]);
+            CancellationToken cancellationToken = default) =>
+            throw new InvalidOperationException("Extraction must not query the catalog.");
     }
 
     private sealed class FirmwareDownloader : IArtifactDownloadService
     {
-        public async Task<ArtifactDownloadResult> DownloadAsync(string sourceUrl, string destinationPath, string? expectedHash = null,
+        public Task<ArtifactDownloadResult> DownloadAsync(string sourceUrl, string destinationPath, string? expectedHash = null,
             long? expectedSizeBytes = null, string? artifactKind = null, CancellationToken cancellationToken = default,
-            IProgress<DownloadProgress>? progress = null)
-        {
-            await File.WriteAllTextAsync(destinationPath, "firmware", cancellationToken);
-            return new ArtifactDownloadResult { DestinationPath = destinationPath, Downloaded = true, Method = "fake" };
-        }
+            IProgress<DownloadProgress>? progress = null) =>
+            throw new InvalidOperationException("Extraction must not download a payload.");
     }
 }

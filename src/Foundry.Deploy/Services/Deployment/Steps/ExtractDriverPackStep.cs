@@ -44,10 +44,6 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
             return CreateMissingDriverPackFailure();
         }
 
-        string extractionRoot = Path.Combine(context.EnsureTargetFoundryRoot(), "Extracted", "Drivers");
-        IProgress<double> progress = context.CreateStepPercentProgressReporter("Extracting driver pack...", "Extracting");
-        progress.Report(0d);
-
         DriverPackExecutionPlan executionPlan = _driverPackStrategyResolver.Resolve(
             context.Request.DriverPackSelectionKind,
             context.Request.DriverPack,
@@ -55,6 +51,14 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
         {
             MicrosoftUpdateCatalogDriverPaths = context.RuntimeState.MicrosoftUpdateCatalogDriverPaths
         };
+        if (executionPlan.InstallMode != DriverPackInstallMode.OfflineInf)
+        {
+            return DeploymentStepResult.Skipped("No driver pack operation is required.");
+        }
+
+        string extractionRoot = Path.Combine(context.EnsureTargetFoundryRoot(), "Extracted", "Drivers");
+        IProgress<double> progress = context.CreateStepPercentProgressReporter("Extracting driver pack...", "Extracting");
+        progress.Report(0d);
 
         DriverPackExtractionResult result = await _driverPackExtractionService
             .ExtractAsync(executionPlan, extractionRoot, cancellationToken, progress)
@@ -70,10 +74,7 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
             cancellationToken).ConfigureAwait(false);
         await context.AppendLogAsync(DeploymentLogLevel.Info, result.Message, cancellationToken).ConfigureAwait(false);
 
-        return DeploymentStepResult.Succeeded(
-            result.ExecutionPlan.InstallMode == DriverPackInstallMode.DeferredSetupComplete
-                ? "Driver pack prepared for deferred installation."
-                : "Driver pack extracted.");
+        return DeploymentStepResult.Succeeded("Driver pack extracted.");
     }
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
@@ -87,7 +88,8 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
         string downloadedPath = context.RuntimeState.DownloadedDriverPackPath ?? string.Empty;
         if (!PathExists(downloadedPath))
         {
-            if (context.Request.DriverPackSelectionKind == DriverPackSelectionKind.MicrosoftUpdateCatalog)
+            if (context.Request.DriverPackSelectionKind == DriverPackSelectionKind.MicrosoftUpdateCatalog &&
+                context.RuntimeState.MicrosoftUpdateCatalogDriverPaths.Count == 0)
             {
                 await Task.Delay(120, cancellationToken).ConfigureAwait(false);
                 return DeploymentStepResult.Skipped("Microsoft Update Catalog did not produce a driver payload.");
@@ -100,36 +102,29 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
             context.Request.DriverPackSelectionKind,
             context.Request.DriverPack,
             downloadedPath);
+        if (executionPlan.InstallMode != DriverPackInstallMode.OfflineInf)
+        {
+            return DeploymentStepResult.Skipped("No driver pack operation is required.");
+        }
 
         context.RuntimeState.DriverPackInstallMode = executionPlan.InstallMode;
         context.RuntimeState.DriverPackExtractionMethod = executionPlan.ExtractionMethod.ToString();
 
-        if (executionPlan.InstallMode == DriverPackInstallMode.OfflineInf)
-        {
-            string extractionPath = Path.Combine(
-                context.EnsureTargetFoundryRoot(),
-                "Extracted",
-                "Drivers",
-                "dry-run",
-                DeploymentStepExecutionContext.SanitizePathSegment(Path.GetFileNameWithoutExtension(downloadedPath)));
-            Directory.CreateDirectory(extractionPath);
-            string infPath = Path.Combine(extractionPath, "dryrun.inf");
-            await File.WriteAllTextAsync(infPath, "; dry-run only", cancellationToken).ConfigureAwait(false);
-            context.RuntimeState.ExtractedDriverPackPath = extractionPath;
+        string extractionPath = Path.Combine(
+            context.EnsureTargetFoundryRoot(),
+            "Extracted",
+            "Drivers",
+            "dry-run",
+            DeploymentStepExecutionContext.SanitizePathSegment(Path.GetFileNameWithoutExtension(downloadedPath)));
+        Directory.CreateDirectory(extractionPath);
+        string infPath = Path.Combine(extractionPath, "dryrun.inf");
+        await File.WriteAllTextAsync(infPath, "; dry-run only", cancellationToken).ConfigureAwait(false);
+        context.RuntimeState.ExtractedDriverPackPath = extractionPath;
 
-            await context.AppendLogAsync(
-                DeploymentLogLevel.Info,
-                $"[DRY-RUN] Simulated driver pack extraction: {extractionPath}",
-                cancellationToken).ConfigureAwait(false);
-        }
-        else
-        {
-            context.RuntimeState.ExtractedDriverPackPath = null;
-            await context.AppendLogAsync(
-                DeploymentLogLevel.Info,
-                "[DRY-RUN] Simulated deferred driver pack preparation.",
-                cancellationToken).ConfigureAwait(false);
-        }
+        await context.AppendLogAsync(
+            DeploymentLogLevel.Info,
+            $"[DRY-RUN] Simulated driver pack extraction: {extractionPath}",
+            cancellationToken).ConfigureAwait(false);
 
         await Task.Delay(150, cancellationToken).ConfigureAwait(false);
         return DeploymentStepResult.Succeeded("Driver pack extracted (simulation).");

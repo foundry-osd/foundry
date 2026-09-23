@@ -658,19 +658,25 @@
     <value>wpeutil.exe ล้มเหลวด้วยรหัสออก {0} {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>ใช้ไดรเวอร์</value>
+    <value>ติดตั้งไดรเวอร์ Windows</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>ใช้เฟิร์มแวร์</value>
+    <value>จัดเตรียมการอัปเดตเฟิร์มแวร์</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>ติดตั้งระบบปฏิบัติการ</value>
+    <value>ใช้อิมเมจ Windows</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>ใช้ไดรเวอร์การกู้คืน</value>
+    <value>ติดตั้งไดรเวอร์การกู้คืน</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>ตรวจสอบอิมเมจ Windows</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>กำหนดค่านโยบาย AI</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>ตั้งค่า OOBE</value>
+    <value>กำหนดค่าการตั้งค่า Windows</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>ตั้งค่าการกู้คืน Windows</value>
@@ -678,62 +684,71 @@
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>ตั้งชื่อคอมพิวเตอร์</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>กำหนดค่าการบูต Windows</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>ตั้งค่าฟีเจอร์เสริม</value>
+    <value>กำหนดค่าฟีเจอร์ Windows</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>คัดลอกโปรไฟล์ Autopilot</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>ดาวน์โหลดไดรเวอร์</value>
+    <value>ดาวน์โหลดชุดไดรเวอร์</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>ดาวน์โหลดเฟิร์มแวร์</value>
+    <value>ดาวน์โหลดการอัปเดตเฟิร์มแวร์</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>ดาวน์โหลดระบบปฏิบัติการ</value>
+    <value>ดาวน์โหลดอิมเมจ Windows</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>แยกไฟล์ไดรเวอร์</value>
+    <value>แตกชุดไดรเวอร์</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>แตกการอัปเดตเฟิร์มแวร์</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>เสร็จสิ้นการปรับใช้</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>รวบรวมตัวแปร</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>เริ่มต้นการปรับใช้</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>ตรวจสอบความพร้อมในการปรับใช้</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>เตรียมผู้ช่วย Autopilot</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>เตรียมดิสก์</value>
+    <value>เตรียมดิสก์ปลายทาง</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>เตรียม Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>ลงทะเบียนอุปกรณ์ Autopilot</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>ตรวจสอบแคช</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>ซีลพาร์ติชันการกู้คืน</value>
+    <value>ซ่อนพาร์ติชันการกู้คืน</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>เตรียมไฟล์คำตอบที่กำหนดเอง</value>
+    <value>คัดลอกไฟล์คำตอบ</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>จัดเตรียมตัวติดตั้งไดรเวอร์</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>เตรียมการปรับแต่ง</value>
+    <value>เตรียมงานการตั้งค่า</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>ตรวจสอบไฟล์คำตอบที่กำหนดเอง</value>
+    <value>ตรวจสอบไฟล์คำตอบ</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>ตรวจสอบการกำหนดค่า</value>
+    <value>ตรวจสอบการตั้งค่าการปรับใช้</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>กำลังใช้แพ็กไดรเวอร์...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>กำลังใช้การอัปเดตเฟิร์มแวร์...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>กำลังใช้รูปภาพ...</value>
@@ -756,6 +771,9 @@
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>กำลังจับภาพ Autopilot ฮาร์ดแวร์แฮช...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>กำลังตรวจสอบพื้นที่ว่าง...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>กำลังตรวจสอบแคช...</value>
   </data>
@@ -776,9 +794,6 @@
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>ทำความสะอาดพื้นที่ทำงานชั่วคราว...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>กำลังรวบรวมบริบทการปรับใช้...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>กำลังกำหนดค่าการลบส่วนประกอบ AI...</value>
@@ -804,14 +819,14 @@
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>กำลังคัดลอก AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>กำลังคัดลอกแพ็กเกจไดรเวอร์...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>กำลังคัดลอกไฟล์การลงทะเบียนแบบโต้ตอบ...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>กำลังสร้างพาร์ติชันจำลอง...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>กำลังสร้างโฟลเดอร์พื้นที่ทำงาน...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>กำลังถอดรหัสใบรับรองสื่อ...</value>
@@ -831,17 +846,14 @@
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>กำลังแตกข้อมูลแพ็กไดรเวอร์...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>กำลังแตกการอัปเดตเฟิร์มแวร์...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>กำลังสิ้นสุดการทำให้ใช้งานได้...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>กำลังรวบรวมตัวแปรการปรับใช้...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>กำลังนำเข้าแฮชฮาร์ดแวร์ไปที่ Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>กำลังเริ่มต้นพื้นที่ทำงานการทำให้ใช้งานได้...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>กำลังแทรกเนื้อหาเฟิร์มแวร์ลงในออฟไลน์ Windows...</value>
@@ -911,6 +923,9 @@
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>กำลังจัดเตรียมผู้ช่วยลงทะเบียน Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>กำลังจัดเตรียมการอัปเดตเฟิร์มแวร์...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>แพ็คเกจการแสดงละคร...</value>
@@ -1047,14 +1062,14 @@
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>กลยุทธ์แคชได้รับการแก้ไขแล้ว (การจำลอง)</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>ไฟล์ไดรเวอร์ '{0}' ที่เลือกจาก Microsoft Update Catalog ไม่มีไฟล์ INF</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>มีการร้องขอการจัดเตรียมชุดไดรเวอร์สำหรับบูตครั้งแรกโดยไม่มีคำสั่งที่รองรับ</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>รวบรวมตัวแปรการปรับใช้แล้ว</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>รวบรวมตัวแปรการปรับใช้ (การจำลอง)</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>จัดเตรียมตัวติดตั้งไดรเวอร์แล้ว</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>ใช้ชุดไดรเวอร์แล้ว</value>
@@ -1080,26 +1095,29 @@
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>ไม่ได้ดาวน์โหลดชุดไดรเวอร์</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>ชุดไดรเวอร์ที่เตรียมไว้สำหรับการติดตั้งการบูตครั้งแรก</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>ชุดไดรเวอร์ได้รับการแก้ไขจากแคช</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>เนื้อหาต้นฉบับของชุดโปรแกรมควบคุมไม่พร้อมใช้งานสำหรับการเริ่มระบบครั้งแรก</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>ใช้การอัปเดตเฟิร์มแวร์แล้ว</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>ใช้การอัปเดตเฟิร์มแวร์ (การจำลอง)</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>ตรวจสอบที่เก็บอิมเมจภายนอกและความจุที่ทราบแล้ว</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>ดาวน์โหลดอัพเดตเฟิร์มแวร์แล้ว</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>ดาวน์โหลดอัพเดตเฟิร์มแวร์ (การจำลอง)</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>แตกการอัปเดตเฟิร์มแวร์แล้ว</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>ดึงการอัปเดตเฟิร์มแวร์จากแคชแล้ว</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>จัดเตรียมการอัปเดตเฟิร์มแวร์เพื่อติดตั้งใน Windows แล้ว</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>การอัปเดตเฟิร์มแวร์ถูกปิดใช้งาน</value>
@@ -1119,6 +1137,9 @@
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog ไม่ได้สร้างเนื้อหาไดรเวอร์</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>ไม่จำเป็นต้องมีตัวติดตั้งไดรเวอร์สำหรับเรียกใช้ภายหลัง</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>ไม่จำเป็นต้องดาวน์โหลดชุดไดรเวอร์</value>
   </data>
@@ -1131,8 +1152,14 @@
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>ไม่มีเนื้อหาไดรเวอร์ INF ที่แยกออกมาพร้อมใช้งาน</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>เนื้อหาเฟิร์มแวร์ที่แยกออกมาไม่มีไฟล์ CAB ใดๆ</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>เนื้อหาเฟิร์มแวร์ที่แยกออกมาไม่มีไฟล์ INF ใดๆ</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>ไม่มีเนื้อหาการอัปเดตเฟิร์มแวร์ที่พร้อมใช้งาน</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>ไม่จำเป็นต้องมีสคริปต์การปรับแต่งล่วงหน้า OOBE</value>
@@ -1176,9 +1203,6 @@
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>การปรับแต่ง Pre-OOBE เป็นฉาก (การจำลอง)</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>ตรวจสอบอิมเมจและข้อกำหนดด้านความจุที่ทราบแล้วก่อนเตรียมดิสก์</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>ตรวจสอบความพร้อมในการปรับใช้แล้ว (การจำลอง)</value>
   </data>
@@ -1202,6 +1226,15 @@
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>ไม่พบไฟล์โปรไฟล์ Autopilot ที่เลือก: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>เนื้อหาชุดไดรเวอร์ที่เลือกไม่พร้อมใช้งาน</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>เนื้อหาเฟิร์มแวร์ที่เลือกไม่พร้อมใช้งาน</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (การจำลอง)</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>ตัวระบุฮาร์ดแวร์เฟิร์มแวร์ระบบไม่พร้อมใช้งาน</value>
@@ -1248,6 +1281,15 @@
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>โหมดการติดตั้งชุดไดรเวอร์ที่ไม่รองรับ</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>กำหนดค่าการบูต Windows แล้ว</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>ตรวจสอบอิมเมจ Windows และความจุที่ทราบแล้ว</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>ยังไม่ได้ใช้อิมเมจ Windows</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>ปิดใช้งานการกำหนดค่าคุณลักษณะเสริมของ Windows แล้ว</value>
   </data>
@@ -1268,12 +1310,6 @@
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>จำลองการกำหนดค่าคุณลักษณะเสริมของ Windows ({0} การดำเนินการ)</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>เริ่มต้นพื้นที่ทำงานแล้ว</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>เริ่มต้นพื้นที่ทำงานแล้ว (การจำลอง)</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>การปรับใช้เสร็จสมบูรณ์</value>

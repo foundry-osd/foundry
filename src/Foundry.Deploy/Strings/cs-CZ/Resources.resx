@@ -658,19 +658,25 @@ Pokračovat v nasazování?</value>
     <value>wpeutil.exe se nezdařil s kódem ukončení {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Aplikuj ovladače</value>
+    <value>Instalovat ovladače Windows</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Aplikuj firmware</value>
+    <value>Připravit aktualizaci firmwaru</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Aplikuj operační systém</value>
+    <value>Použít bitovou kopii Windows</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Aplikuj ovladače pro obnovení</value>
+    <value>Instalovat ovladače obnovení</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Zkontrolovat bitovou kopii Windows</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>Nakonfigurovat zásady AI</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>Nakonfiguruj OOBE</value>
+    <value>Nakonfigurovat instalaci Windows</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Nakonfiguruj obnovení Windows</value>
@@ -678,62 +684,71 @@ Pokračovat v nasazování?</value>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Nastav název počítače</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Nakonfigurovat spouštění Windows</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Nakonfiguruj volitelné funkce</value>
+    <value>Nakonfigurovat funkce Windows</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Zkopírovat profil Autopilot</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Stáhni ovladače</value>
+    <value>Stáhnout balíček ovladačů</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Stáhni firmware</value>
+    <value>Stáhnout aktualizaci firmwaru</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Stáhni operační systém</value>
+    <value>Stáhnout bitovou kopii Windows</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Rozbal ovladače</value>
+    <value>Rozbalit balíček ovladačů</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Rozbalit aktualizaci firmwaru</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Dokonči nasazení</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Shromáždi proměnné</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Inicializuj nasazení</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Ověřit připravenost k nasazení</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Připravit asistenta Autopilot</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Připrav disk</value>
+    <value>Připravit cílový disk</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Zprovozni Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Zaregistrovat zařízení Autopilot</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Zkontroluj mezipaměť</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Zapečeť oddíl pro obnovení</value>
+    <value>Skrýt oddíl obnovení</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Připravit vlastní soubor odpovědí</value>
+    <value>Zkopírovat soubor odpovědí</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Připravit instalátor ovladačů</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Připrav přizpůsobení</value>
+    <value>Připravit instalační úlohy</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Ověřit vlastní soubor odpovědí</value>
+    <value>Ověřit soubor odpovědí</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Ověř konfiguraci</value>
+    <value>Zkontrolovat nastavení nasazení</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Probíhá aplikace balíčku ovladačů...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Probíhá aplikace aktualizace firmwaru...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Aplikování obrázku...</value>
@@ -756,6 +771,9 @@ Pokračovat v nasazování?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Zachycuje se hardwarový hash Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Kontrola volného místa...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Kontrola mezipaměti...</value>
   </data>
@@ -776,9 +794,6 @@ Pokračovat v nasazování?</value>
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Úklid dočasného pracovního prostoru...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Shromažďování kontextu nasazení...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>Konfigurace odebrání komponent AI...</value>
@@ -804,14 +819,14 @@ Pokračovat v nasazování?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopírování souboru AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Kopírování balíčku ovladačů...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopírují se soubory interaktivní registrace...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Vytváření simulovaných oddílů...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Vytváření složek pracovního prostoru...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Dešifrování certifikátu média...</value>
@@ -831,17 +846,14 @@ Pokračovat v nasazování?</value>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Rozbalování balíčku ovladačů...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Rozbalování aktualizace firmwaru...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Dokončování nasazení...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Shromažďování proměnných nasazení...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Import hardwarového hash do Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Inicializace pracovního prostoru nasazení...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Vkládání obsahu firmwaru do offline Windows...</value>
@@ -911,6 +923,9 @@ Pokračovat v nasazování?</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Připravuje se asistent registrace Autopilotu...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Příprava aktualizace firmwaru...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Inscenační balíček...</value>
@@ -1047,14 +1062,14 @@ Pokračovat v nasazování?</value>
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Strategie mezipaměti vyřešena (simulace).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>Vybraný soubor ovladače „{0}“ z Microsoft Update Catalog neobsahuje žádné soubory INF.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>První spuštění balíčku ovladače bylo požadováno bez podporovaného příkazu.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Proměnné nasazení byly shromážděny.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Shromážděné proměnné nasazení (simulace).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Instalátor ovladačů byl připraven.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Použita sada ovladačů.</value>
@@ -1080,26 +1095,29 @@ Pokračovat v nasazování?</value>
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Balíček ovladačů nebyl stažen.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Balíček ovladačů připravený pro instalaci při prvním spuštění.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Balíček ovladačů vyřešen z mezipaměti.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>Zdrojový obsah balíčku ovladačů není k dispozici pro fázi prvního spuštění.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Byla provedena aktualizace firmwaru.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Byla použita aktualizace firmwaru (simulace).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Externí úložiště bitové kopie a známá kapacita byly zkontrolovány.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Aktualizace firmwaru stažena.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Aktualizace firmwaru stažena (simulace).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Aktualizace firmwaru byla rozbalena.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Aktualizace firmwaru byla načtena z mezipaměti.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Aktualizace firmwaru byla připravena k instalaci ve Windows.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Aktualizace firmwaru jsou zakázány.</value>
@@ -1119,6 +1137,9 @@ Pokračovat v nasazování?</value>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog nevytvořil obsah ovladače.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Instalátor pro pozdější instalaci ovladačů není potřeba.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Není třeba stahovat balíček ovladačů.</value>
   </data>
@@ -1131,8 +1152,14 @@ Pokračovat v nasazování?</value>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Není k dispozici žádný extrahovaný obsah ovladače INF.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>Extrahovaný obsah firmwaru neobsahuje žádné soubory CAB.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>Extrahovaný obsah firmwaru neobsahuje žádné soubory INF.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Obsah aktualizace firmwaru není k dispozici.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>Nejsou vyžadovány žádné skripty pro přizpůsobení před OOBE.</value>
@@ -1176,9 +1203,6 @@ Pokračovat v nasazování?</value>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Připravené úpravy před OOBE (simulace).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>Bitová kopie a známé požadavky na kapacitu byly ověřeny před přípravou disku.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Připravenost k nasazení byla ověřena (simulace).</value>
   </data>
@@ -1202,6 +1226,15 @@ Pokračovat v nasazování?</value>
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>Vybraný soubor profilu Autopilot nebyl nalezen: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>Obsah vybraného balíčku ovladačů není k dispozici.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>Vybraný obsah firmwaru není k dispozici.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (simulace).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>Hardwarový identifikátor firmwaru systému není k dispozici.</value>
@@ -1248,6 +1281,15 @@ Pokračovat v nasazování?</value>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Nepodporovaný režim instalace balíčku ovladačů.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Spouštění Windows bylo nakonfigurováno.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Bitová kopie Windows a známá kapacita byly zkontrolovány.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>Bitová kopie Windows nebyla použita.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Konfigurace volitelných funkcí systému Windows je zakázána.</value>
   </data>
@@ -1268,12 +1310,6 @@ Pokračovat v nasazování?</value>
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Simulovaná konfigurace volitelných funkcí systému Windows (počet akcí: {0}).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Pracovní prostor inicializován.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Pracovní plocha inicializována (simulace).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Nasazení dokončeno</value>

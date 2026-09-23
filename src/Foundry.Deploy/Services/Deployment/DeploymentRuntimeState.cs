@@ -312,4 +312,7 @@ public sealed record DeploymentRuntimeState
     /// Gets completed deployment step names in execution order.
     /// </summary>
     public List<string> CompletedSteps { get; init; } = [];
+
+    /// <summary>Gets actual step outcomes, including informational skips, in execution order.</summary>
+    public List<DeploymentStepOutcome> StepOutcomes { get; init; } = [];
 }

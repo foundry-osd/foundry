@@ -658,19 +658,25 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>종료 코드 {0}으로 인해 wpeutil.exe가 실패했습니다. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>드라이버 적용</value>
+    <value>Windows 드라이버 설치</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>펌웨어 적용</value>
+    <value>펌웨어 업데이트 준비</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>운영 체제 적용</value>
+    <value>Windows 이미지 적용</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>복구 드라이버 적용</value>
+    <value>복구 드라이버 설치</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Windows 이미지 확인</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>AI 정책 구성</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>OOBE 설정</value>
+    <value>Windows 설치 구성</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Windows 복구 설정</value>
@@ -678,62 +684,71 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>컴퓨터 이름 설정</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Windows 부팅 구성</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>선택적 기능 설정</value>
+    <value>Windows 기능 구성</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Autopilot 프로필 복사</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>드라이버 다운로드</value>
+    <value>드라이버 팩 다운로드</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>펌웨어 다운로드</value>
+    <value>펌웨어 업데이트 다운로드</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>운영 체제 다운로드</value>
+    <value>Windows 이미지 다운로드</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>드라이버 추출</value>
+    <value>드라이버 팩 추출</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>펌웨어 업데이트 추출</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>배포 완료</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>변수 수집</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>배포 초기화</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>배포 준비 상태 확인</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Autopilot 도우미 준비</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>디스크 준비</value>
+    <value>대상 디스크 준비</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Autopilot 프로비저닝</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Autopilot 디바이스 등록</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>캐시 확인</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>복구 파티션 봉인</value>
+    <value>복구 파티션 숨기기</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>사용자 지정 응답 파일 배치</value>
+    <value>응답 파일 복사</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>드라이버 설치 프로그램 준비</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>사용자 지정 준비</value>
+    <value>설치 작업 준비</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>사용자 지정 응답 파일 유효성 검사</value>
+    <value>응답 파일 검증</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>구성 검증</value>
+    <value>배포 설정 확인</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>드라이버 팩을 적용하는 중...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>펌웨어 업데이트를 적용하는 중...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>이미지 적용 중...</value>
@@ -756,6 +771,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Autopilot 하드웨어 해시를 캡처하는 중...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>사용 가능한 공간 확인 중...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>캐시 확인 중...</value>
   </data>
@@ -776,9 +794,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>임시 작업 공간 청소 중...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>배포 컨텍스트를 수집하는 중...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>AI 구성요소 제거 구성 중...</value>
@@ -804,14 +819,14 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>AutopilotConfigurationFile.json 복사 중...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>드라이버 패키지 복사 중...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>대화형 등록 파일을 복사하는 중...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>시뮬레이션된 파티션을 만드는 중...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>작업공간 폴더 생성 중...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>미디어 인증서를 해독하는 중...</value>
@@ -831,17 +846,14 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>드라이버 팩 추출 중...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>펌웨어 업데이트 추출 중...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>배포 마무리 중...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>배포 변수를 수집하는 중...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>하드웨어 해시를 Microsoft Graph으로 가져오는 중...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>배포 작업공간 초기화 중...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>오프라인 Windows에 펌웨어 콘텐츠를 삽입하는 중...</value>
@@ -911,6 +923,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Autopilot 등록 도우미를 준비하는 중...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>펌웨어 업데이트 준비 중...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>스테이징 패키지...</value>
@@ -1047,14 +1062,14 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>캐시 전략이 해결되었습니다(시뮬레이션).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>선택한 Microsoft Update Catalog 드라이버 파일 '{0}'에 INF 파일이 없습니다.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>지원되는 명령 없이 처음 부팅 드라이버 팩 준비가 요청되었습니다.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>배포 변수가 수집되었습니다.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>배포 변수가 수집되었습니다(시뮬레이션).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>드라이버 설치 프로그램을 준비했습니다.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>드라이버 팩이 적용되었습니다.</value>
@@ -1080,26 +1095,29 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>드라이버 팩이 다운로드되지 않았습니다.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>최초 부팅 설치를 위해 준비된 드라이버 팩.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>드라이버 팩이 캐시에서 확인되었습니다.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>첫 번째 부팅 준비에는 드라이버 팩 소스 콘텐츠를 사용할 수 없습니다.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>펌웨어 업데이트가 적용되었습니다.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>펌웨어 업데이트가 적용되었습니다(시뮬레이션).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>이미지 외부 저장소와 알려진 용량을 확인했습니다.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>펌웨어 업데이트가 다운로드되었습니다.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>펌웨어 업데이트가 다운로드되었습니다(시뮬레이션).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>펌웨어 업데이트를 추출했습니다.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>캐시에서 펌웨어 업데이트를 가져왔습니다.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Windows에서 설치할 펌웨어 업데이트를 준비했습니다.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>펌웨어 업데이트가 비활성화되었습니다.</value>
@@ -1119,6 +1137,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog이 드라이버 콘텐츠를 생성하지 않았습니다.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>나중에 실행할 드라이버 설치 프로그램이 필요하지 않습니다.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>드라이버 팩 다운로드가 필요하지 않습니다.</value>
   </data>
@@ -1131,8 +1152,14 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>추출된 INF 드라이버 콘텐츠가 없습니다.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>추출된 펌웨어 콘텐츠에는 CAB 파일이 포함되어 있지 않습니다.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>추출된 펌웨어 콘텐츠에는 INF 파일이 포함되어 있지 않습니다.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>사용 가능한 펌웨어 업데이트 콘텐츠가 없습니다.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>OOBE 이전 사용자 지정 스크립트는 필요하지 않습니다.</value>
@@ -1176,9 +1203,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>OOBE 이전 사용자 지정이 준비되었습니다(시뮬레이션).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>디스크 준비 전에 이미지와 알려진 용량 요구 사항을 확인했습니다.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>배포 준비 상태를 확인했습니다(시뮬레이션).</value>
   </data>
@@ -1202,6 +1226,15 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>선택한 Autopilot 프로필 파일을 찾을 수 없습니다: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>선택한 드라이버 팩 콘텐츠를 사용할 수 없습니다.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>선택한 펌웨어 콘텐츠를 사용할 수 없습니다.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (시뮬레이션).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>시스템 펌웨어 하드웨어 식별자를 사용할 수 없습니다.</value>
@@ -1248,6 +1281,15 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>지원되지 않는 드라이버 팩 설치 모드입니다.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Windows 부팅을 구성했습니다.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Windows 이미지와 알려진 용량을 확인했습니다.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>Windows 이미지가 적용되지 않았습니다.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Windows 선택적 기능 구성이 비활성화되었습니다.</value>
   </data>
@@ -1268,12 +1310,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Windows 선택적 기능 구성이 시뮬레이션되었습니다({0} 작업).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>작업공간이 초기화되었습니다.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>작업공간이 초기화되었습니다(시뮬레이션).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>배포 완료</value>

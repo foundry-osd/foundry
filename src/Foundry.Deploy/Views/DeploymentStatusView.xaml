@@ -101,6 +101,10 @@
                                         FontFamily="{DynamicResource SymbolThemeFontFamily}"
                                         FontSize="15"
                                         Text="{Binding Glyph}">
+                                        <!--  Align the symbol's visible shape with the label, compensating for symbol-font line metrics.  -->
+                                        <TextBlock.RenderTransform>
+                                            <TranslateTransform Y="2" />
+                                        </TextBlock.RenderTransform>
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
                                                 <Setter
@@ -119,7 +123,7 @@
                                                         Value="{x:Static deployment:DeploymentStepState.Skipped}">
                                                         <Setter
                                                             Property="Foreground"
-                                                            Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                            Value="{DynamicResource AccentTextFillColorPrimaryBrush}" />
                                                     </DataTrigger>
                                                     <DataTrigger
                                                         Binding="{Binding State}"
@@ -142,9 +146,11 @@
                                     <TextBlock
                                         Grid.Column="1"
                                         VerticalAlignment="Center"
+                                        AutomationProperties.HelpText="{Binding DetailText}"
                                         AutomationProperties.ItemStatus="{Binding StateAutomationText}"
                                         Text="{Binding DisplayName}"
-                                        TextWrapping="Wrap" />
+                                        TextWrapping="Wrap"
+                                        ToolTip="{Binding DetailText}" />
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
