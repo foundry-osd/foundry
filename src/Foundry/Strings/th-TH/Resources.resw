@@ -34,7 +34,8 @@
     <value>Foundry OSD เป็นแอปที่ทันสมัยสำหรับการเขียน Windows สื่อการปรับใช้ที่ขับเคลื่อนโดย WinPE</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>ลิขสิทธิ์ (c) 2026 Foundry Project</value>
+    <value>ลิขสิทธิ์ (c) 2026 Mickaël CHAVE และผู้ร่วมพัฒนา Foundry Project
+ได้รับอนุญาตภายใต้ใบอนุญาต MIT</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>ซอร์สโค้ด Foundry ได้รับการเผยแพร่ภายใต้ใบอนุญาต MIT</value>

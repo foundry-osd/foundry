@@ -19,7 +19,8 @@
     <value>To oprogramowanie jest dostarczane w stanie takim, w jakim jest. Przed kontynuowaniem wdrażania potwierdź dostęp do sieci.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Prawa autorskie (c) 2026 Foundry Project. Licencjonowany na licencji MIT.</value>
+    <value>Prawa autorskie (c) 2026 Mickaël CHAVE i współtwórcy Foundry Project.
+Licencjonowany na licencji MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>O Foundry Connect</value>

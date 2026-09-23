@@ -34,7 +34,8 @@
     <value>Foundry OSD е модерно приложение за създаване на носители за внедряване на Windows, захранвани от WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Авторско право (c) 2026 Foundry Project.</value>
+    <value>Авторско право (c) 2026 Mickaël CHAVE и сътрудниците на Foundry Project.
+Лицензирано съгласно лиценза на MIT.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Изходният код на Foundry се разпространява под лиценза на MIT.</value>

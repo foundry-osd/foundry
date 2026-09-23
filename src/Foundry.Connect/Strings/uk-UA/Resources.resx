@@ -19,7 +19,8 @@
     <value>Це програмне забезпечення надається як є. Перед продовженням розгортання підтвердьте доступ до мережі.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Авторське право (c) 2026 Foundry Project. Ліцензовано згідно з ліцензією MIT.</value>
+    <value>Авторські права (c) 2026 Mickaël CHAVE та учасники Foundry Project.
+Ліцензовано згідно з ліцензією MIT.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>Про Foundry Connect</value>

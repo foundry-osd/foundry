@@ -19,7 +19,8 @@
     <value>Ovaj softver je dostupan takav kakav jest. Prije nastavka implementacije potvrdite pristup mreži.</value>
   </data>
   <data name="About.Footer" xml:space="preserve">
-    <value>Autorska prava (c) 2026 Foundry Project. Licenciran prema MIT licenci.</value>
+    <value>Autorska prava (c) 2026 Mickaël CHAVE i suradnici na projektu Foundry Project.
+Licenciran prema MIT licenci.</value>
   </data>
   <data name="About.Title" xml:space="preserve">
     <value>O Foundry Connect</value>

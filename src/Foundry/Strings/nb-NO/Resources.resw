@@ -34,7 +34,8 @@
     <value>Foundry OSD er en moderne app for å skrive Windows distribusjonsmedier drevet av WinPE.</value>
   </data>
   <data name="AboutDialog.Footer" xml:space="preserve">
-    <value>Copyright (c) 2026 Foundry Project.</value>
+    <value>Opphavsrett (c) 2026 Mickaël CHAVE og bidragsyterne til Foundry Project.
+Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="AboutDialog.FoundryLicenseDescription" xml:space="preserve">
     <value>Foundry kildekoden distribueres under MIT-lisensen.</value>
