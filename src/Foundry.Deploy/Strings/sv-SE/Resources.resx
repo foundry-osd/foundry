@@ -658,19 +658,25 @@ Fortsätt med implementeringen?</value>
     <value>wpeutil.exe misslyckades med utgångskoden {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Tillämpa drivrutiner</value>
+    <value>Installera Windows-drivrutiner</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Tillämpa firmware</value>
+    <value>Förbered uppdatering av inbyggd programvara</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Tillämpa operativsystem</value>
+    <value>Tillämpa Windows-avbildning</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Tillämpa återställningsdrivrutiner</value>
+    <value>Installera återställningsdrivrutiner</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Kontrollera Windows-avbildning</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>Konfigurera AI-principer</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>Konfigurera OOBE</value>
+    <value>Konfigurera Windows-installation</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Konfigurera Windows-återställning</value>
@@ -678,62 +684,71 @@ Fortsätt med implementeringen?</value>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Ange datornamn</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Konfigurera Windows-start</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Konfigurera valfria funktioner</value>
+    <value>Konfigurera Windows-funktioner</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Kopiera Autopilot-profil</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Ladda ner drivrutiner</value>
+    <value>Hämta drivrutinspaket</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Ladda ner firmware</value>
+    <value>Hämta uppdatering av inbyggd programvara</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Ladda ner operativsystem</value>
+    <value>Hämta Windows-avbildning</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Extrahera drivrutiner</value>
+    <value>Packa upp drivrutinspaket</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Packa upp uppdatering av inbyggd programvara</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Slutför distribution</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Samla variabler</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Initiera distribution</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Kontrollera om distributionen är redo</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Förbered Autopilot-assistent</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Förbered disk</value>
+    <value>Förbered måldisk</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Provisionera Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Registrera Autopilot-enhet</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Kontrollera cache</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Försegla återställningspartitionen</value>
+    <value>Dölj återställningspartition</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Förbered egen svarsfil</value>
+    <value>Kopiera svarsfil</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Förbered drivrutinsinstallation</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Förbered anpassningar</value>
+    <value>Förbered installationsuppgifter</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validera egen svarsfil</value>
+    <value>Validera svarsfil</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Validera konfiguration</value>
+    <value>Kontrollera distributionsinställningar</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Använder drivrutinspaket...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Applicerar firmwareuppdatering...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Använder bild...</value>
@@ -756,6 +771,9 @@ Fortsätt med implementeringen?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Fångar Autopilot hårdvaruhash...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Kontrollerar ledigt utrymme...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Kontrollerar cache...</value>
   </data>
@@ -776,9 +794,6 @@ Fortsätt med implementeringen?</value>
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Rengör tillfällig arbetsyta...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Samlar in implementeringskontext...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>Konfigurerar borttagning av AI-komponent...</value>
@@ -804,14 +819,14 @@ Fortsätt med implementeringen?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopierar AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Kopierar drivrutinspaket...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopierar interaktiva registreringsfiler...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Skapar simulerade partitioner...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Skapar arbetsytemappar...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Dekrypterar mediecertifikat...</value>
@@ -831,17 +846,14 @@ Fortsätt med implementeringen?</value>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Extraherar drivrutinspaket...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Packar upp uppdatering av inbyggd programvara...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Slutför implementering...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Samlar in implementeringsvariabler...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Importerar hårdvaruhash till Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Initierar implementeringsarbetsytan...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Injicera firmwareinnehåll i offline Windows...</value>
@@ -911,6 +923,9 @@ Fortsätt med implementeringen?</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Förbereder Autopilot-registreringsassistent...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Förbereder uppdatering av inbyggd programvara...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Staging paket...</value>
@@ -1047,14 +1062,14 @@ Fortsätt med implementeringen?</value>
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Cachestrategi löst (simulering).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>Den valda drivrutinsfilen '{0}' från Microsoft Update Catalog innehåller inga INF-filer.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Första start av drivrutinspaketet begärdes utan ett kommando som stöds.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Driftsättningsvariabler samlade in.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Driftsättningsvariabler insamlade (simulering).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Installationsprogram för drivrutiner förberett.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Drivrutinspaket tillämpat.</value>
@@ -1080,26 +1095,29 @@ Fortsätt med implementeringen?</value>
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Drivrutinspaketet laddades inte ned.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Drivrutinspaket förberett för första uppstartsinstallation.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Drivrutinspaketet löst från cachen.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>Källinnehållet för drivrutinspaketet är inte tillgängligt för första start.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Firmware-uppdatering tillämpad.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Firmware-uppdatering tillämpad (simulering).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Extern avbildningslagring och känd kapacitet kontrollerade.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Firmware-uppdatering har laddats ner.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Firmware-uppdatering laddad ned (simulering).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Uppdatering av inbyggd programvara uppackad.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Uppdatering av inbyggd programvara hämtad från cache.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Uppdatering av inbyggd programvara förberedd för installation i Windows.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Firmware-uppdateringar är inaktiverade.</value>
@@ -1119,6 +1137,9 @@ Fortsätt med implementeringen?</value>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog producerade inte drivrutinsinnehåll.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Inget installationsprogram för senare drivrutinsinstallation behövs.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Ingen nedladdning av drivrutinspaket krävs.</value>
   </data>
@@ -1131,8 +1152,14 @@ Fortsätt med implementeringen?</value>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Inget extraherat INF-drivrutininnehåll är tillgängligt.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>Det extraherade firmwareinnehållet innehåller inga CAB-filer.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>Det extraherade firmwareinnehållet innehåller inga INF-filer.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Inget innehåll för uppdatering av inbyggd programvara är tillgängligt.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>Inga pre-OOBE-anpassningsskript krävs.</value>
@@ -1176,9 +1203,6 @@ Fortsätt med implementeringen?</value>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Pre-OOBE-anpassningar stegvis (simulering).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>Avbildningen och kända kapacitetskrav har kontrollerats före diskförberedelsen.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Det har kontrollerats om distributionen är redo (simulering).</value>
   </data>
@@ -1202,6 +1226,15 @@ Fortsätt med implementeringen?</value>
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>Den valda Autopilot profilfilen hittades inte: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>Innehållet i det valda drivrutinspaketet är inte tillgängligt.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>Det valda innehållet för inbyggd programvara är inte tillgängligt.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (simulering).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>Maskinvaruidentifierare för systemets fasta programvara är inte tillgänglig.</value>
@@ -1248,6 +1281,15 @@ Fortsätt med implementeringen?</value>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Installationsläge för drivrutinspaket stöds inte.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Windows-start konfigurerad.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Windows-avbildning och känd kapacitet kontrollerade.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>Windows-avbildningen har inte tillämpats.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Windows valfria funktionskonfiguration inaktiverad.</value>
   </data>
@@ -1268,12 +1310,6 @@ Fortsätt med implementeringen?</value>
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Simulerad Windows valfri funktionskonfiguration ({0} åtgärder).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Arbetsytan initierad.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Arbetsytan initierad (simulering).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Implementeringen är slutförd</value>

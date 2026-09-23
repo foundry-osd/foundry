@@ -21,9 +21,8 @@ public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploym
     {
         return context.RuntimeState.DriverPackInstallMode switch
         {
-            DriverPackInstallMode.None => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
+            DriverPackInstallMode.None or DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
             DriverPackInstallMode.OfflineInf => ApplyLiveAsync(context, cancellationToken),
-            DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("Driver pack prepared for deferred installation.")),
             _ => Task.FromResult(CreateUnsupportedModeFailure())
         };
     }
@@ -34,9 +33,8 @@ public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploym
     {
         return context.RuntimeState.DriverPackInstallMode switch
         {
-            DriverPackInstallMode.None => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
+            DriverPackInstallMode.None or DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("No driver pack operation is required.")),
             DriverPackInstallMode.OfflineInf => SimulateAsync(context, cancellationToken),
-            DriverPackInstallMode.DeferredSetupComplete => Task.FromResult(DeploymentStepResult.Skipped("Driver pack prepared for deferred installation.")),
             _ => Task.FromResult(CreateUnsupportedModeFailure())
         };
     }
@@ -104,7 +102,8 @@ public sealed class ApplyDriverPackStep(IWindowsDeploymentService windowsDeploym
     private static DeploymentStepResult? Validate(DeploymentStepExecutionContext context)
     {
         if (string.IsNullOrWhiteSpace(context.RuntimeState.ExtractedDriverPackPath) ||
-            !Directory.Exists(context.RuntimeState.ExtractedDriverPackPath))
+            !Directory.Exists(context.RuntimeState.ExtractedDriverPackPath) ||
+            !Directory.EnumerateFiles(context.RuntimeState.ExtractedDriverPackPath, "*.inf", SearchOption.AllDirectories).Any())
         {
             return DeploymentStepResult.Failed(
                 "No extracted INF driver payload is available.",

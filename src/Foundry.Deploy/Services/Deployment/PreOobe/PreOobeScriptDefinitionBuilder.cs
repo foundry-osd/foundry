@@ -16,6 +16,17 @@ public sealed class PreOobeScriptDefinitionBuilder
     private const string RemoveAppxPackageCatalogFileName = "Remove-AppX.packages.json";
     private const string RemoveAiComponentsSettingsFileName = "Remove-AiComponents.settings.json";
 
+    /// <summary>Identifies effective post-reboot work without creating scripts or reading deployment secrets.</summary>
+    public static bool HasScripts(
+        DeployAppxRemovalSettings appxRemoval,
+        DeployAiComponentRemovalSettings aiComponentRemoval,
+        bool hasDeferredDriver,
+        bool hasNetworkPayload,
+        bool activateWindowsOem) =>
+        hasDeferredDriver || hasNetworkPayload || activateWindowsOem ||
+        appxRemoval.IsEnabled && appxRemoval.PackageNames.Any(name => !string.IsNullOrWhiteSpace(name)) ||
+        aiComponentRemoval.IsEnabled && HasAnyAiComponentRemovalAppxOptionEnabled(aiComponentRemoval);
+
     /// <summary>
     /// Builds script definitions for selected AppX removal and optional deferred driver provisioning.
     /// </summary>

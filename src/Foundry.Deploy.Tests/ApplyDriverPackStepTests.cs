@@ -11,6 +11,20 @@ namespace Foundry.Deploy.Tests;
 public sealed class ApplyDriverPackStepTests
 {
     [Fact]
+    public async Task ExecuteAsync_WhenExtractedPayloadIsEmpty_FailsWithoutServicing()
+    {
+        using var fixture = new DriverApplicationStepTestFixture();
+        using DeploymentStepExecutionContext context = fixture.CreateContext();
+        File.Delete(Path.Combine(fixture.DriverRoot, "driver.inf"));
+
+        DeploymentStepResult result = await new ApplyDriverPackStep(fixture.DeploymentService)
+            .ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal(0, fixture.DeploymentService.WindowsApplyCount);
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WhenOfflineInfAndRecoveryConfigured_AppliesDriversOnlyToWindows()
     {
         using var fixture = new DriverApplicationStepTestFixture();
@@ -37,7 +51,6 @@ public sealed class ApplyDriverPackStepTests
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
 
         Assert.Equal(DeploymentStepState.Skipped, result.State);
-        Assert.Equal("Driver pack prepared for deferred installation.", result.Message);
         Assert.Null(context.RuntimeState.DeferredDriverPackagePath);
         Assert.Equal(0, fixture.DeploymentService.WindowsApplyCount);
         Assert.Equal(0, fixture.DeploymentService.RecoveryApplyCount);

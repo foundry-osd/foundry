@@ -143,6 +143,11 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStep, ApplyDriverPackStep>();
         services.AddSingleton<IDeploymentStep, ApplyFirmwareUpdateStep>();
         services.AddSingleton<IDeploymentStep, ApplyOperatingSystemImageStep>();
+        services.AddSingleton<IDeploymentStep, CheckWindowsImageStep>();
+        services.AddSingleton<IDeploymentStep, ConfigureWindowsBootStep>();
+        services.AddSingleton<IDeploymentStep, ConfigureAiPoliciesStep>();
+        services.AddSingleton<IDeploymentStep, StageDriverInstallerStep>();
+        services.AddSingleton<IDeploymentStep, ExtractFirmwareUpdateStep>();
         services.AddSingleton<IDeploymentStep, ApplyRecoveryDriversStep>();
         services.AddSingleton<IDeploymentStep, ConfigureOobeSettingsStep>();
         services.AddSingleton<IDeploymentStep, ConfigureRecoveryEnvironmentStep>();
@@ -156,8 +161,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStep, DownloadOperatingSystemImageStep>();
         services.AddSingleton<IDeploymentStep, ExtractDriverPackStep>();
         services.AddSingleton<IDeploymentStep, FinalizeDeploymentAndWriteLogsStep>();
-        services.AddSingleton<IDeploymentStep, GatherDeploymentVariablesStep>();
-        services.AddSingleton<IDeploymentStep, InitializeDeploymentWorkspaceStep>();
         services.AddSingleton<IDeploymentStep, PrepareTargetDiskLayoutStep>();
         services.AddSingleton<IDeploymentStorageService, DeploymentStorageService>();
         services.AddSingleton<IImageSourceProbe, ImageSourceProbe>();

@@ -5,14 +5,12 @@
 namespace Foundry.Deploy.Services.Deployment;
 
 /// <summary>
-/// Defines the canonical deployment step names and their expected workflow order.
+/// Defines stable step identities and the registration template. DeploymentPlan selects the actual execution order.
 /// </summary>
 public static class DeploymentStepNames
 {
     public const string ValidateCustomUnattend = "Validate custom answer file";
     public const string StageCustomUnattend = "Stage custom answer file";
-    public const string GatherDeploymentVariables = "Gather deployment variables";
-    public const string InitializeDeploymentWorkspace = "Initialize deployment workspace";
     public const string ValidateTargetConfiguration = "Validate target configuration";
     public const string ResolveCacheStrategy = "Resolve cache strategy";
     public const string PreflightDeployment = "Check deployment readiness";
@@ -21,6 +19,11 @@ public static class DeploymentStepNames
     public const string DownloadDriverPack = "Download driver pack";
     public const string ExtractDriverPack = "Extract driver pack";
     public const string ApplyOperatingSystemImage = "Apply operating system image";
+    public const string CheckWindowsImage = "Check Windows image";
+    public const string ConfigureWindowsBoot = "Configure Windows boot";
+    public const string ConfigureAiPolicies = "Configure AI policies";
+    public const string StageDriverInstaller = "Stage driver installer";
+    public const string ExtractFirmwareUpdate = "Extract firmware update";
     public const string ConfigureTargetComputerName = "Configure target computer name";
     public const string ConfigureOobeSettings = "Configure OOBE settings";
     public const string ConfigureWindowsOptionalFeatures = "Configure Windows optional features";
@@ -35,27 +38,30 @@ public static class DeploymentStepNames
     public const string FinalizeDeploymentAndWriteLogs = "Finalize deployment and write logs";
 
     /// <summary>
-    /// Gets the canonical deployment workflow order validated by <see cref="DeploymentOrchestrator"/>.
+    /// Gets the registration template validated by <see cref="DeploymentOrchestrator"/>.
     /// </summary>
     public static readonly IReadOnlyList<string> ExecutionOrder =
     [
-        GatherDeploymentVariables,
-        InitializeDeploymentWorkspace,
         ValidateCustomUnattend,
         ValidateTargetConfiguration,
         ResolveCacheStrategy,
         PreflightDeployment,
         PrepareTargetDiskLayout,
         DownloadOperatingSystemImage,
+        CheckWindowsImage,
         ApplyOperatingSystemImage,
+        ConfigureWindowsBoot,
         StageCustomUnattend,
         DownloadDriverPack,
         ExtractDriverPack,
         ApplyDriverPack,
+        StageDriverInstaller,
         DownloadFirmwareUpdate,
+        ExtractFirmwareUpdate,
         ApplyFirmwareUpdate,
         ConfigureTargetComputerName,
         ConfigureOobeSettings,
+        ConfigureAiPolicies,
         ConfigureWindowsOptionalFeatures,
         StagePreOobeCustomization,
         ConfigureRecoveryEnvironment,

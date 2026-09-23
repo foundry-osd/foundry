@@ -658,19 +658,25 @@ Folytatja a telepítést?</value>
     <value>wpeutil.exe nem sikerült a {0} kilépési kóddal. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Illesztőprogramok alkalmazása</value>
+    <value>Windows-illesztőprogramok telepítése</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Firmware alkalmazása</value>
+    <value>Firmware-frissítés előkészítése</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Operációs rendszer alkalmazása</value>
+    <value>Windows-lemezkép alkalmazása</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Helyreállítási illesztőprogramok alkalmazása</value>
+    <value>Helyreállítási illesztőprogramok telepítése</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Windows-lemezkép ellenőrzése</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>AI-házirendek konfigurálása</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>OOBE konfigurálása</value>
+    <value>Windows-telepítés konfigurálása</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Windows-helyreállítás konfigurálása</value>
@@ -678,62 +684,71 @@ Folytatja a telepítést?</value>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Számítógépnév beállítása</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Windows-rendszerindítás konfigurálása</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Opcionális funkciók konfigurálása</value>
+    <value>Windows-szolgáltatások konfigurálása</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Autopilot-profil másolása</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Illesztőprogramok letöltése</value>
+    <value>Illesztőprogram-csomag letöltése</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Firmware letöltése</value>
+    <value>Firmware-frissítés letöltése</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Operációs rendszer letöltése</value>
+    <value>Windows-lemezkép letöltése</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Illesztőprogramok kibontása</value>
+    <value>Illesztőprogram-csomag kibontása</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Firmware-frissítés kibontása</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Telepítés befejezése</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Változók összegyűjtése</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Telepítés inicializálása</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Telepítési készenlét ellenőrzése</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Autopilot-segéd előkészítése</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Lemez előkészítése</value>
+    <value>Céllemez előkészítése</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Autopilot előkészítése</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Autopilot-eszköz regisztrálása</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Gyorsítótár ellenőrzése</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Helyreállítási partíció lezárása</value>
+    <value>Helyreállítási partíció elrejtése</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Egyéni válaszfájl előkészítése</value>
+    <value>Válaszfájl másolása</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Illesztőprogram-telepítő előkészítése</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Testreszabások előkészítése</value>
+    <value>Telepítési feladatok előkészítése</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Egyéni válaszfájl ellenőrzése</value>
+    <value>Válaszfájl ellenőrzése</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Konfiguráció ellenőrzése</value>
+    <value>Üzembehelyezési beállítások ellenőrzése</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Illesztőprogram-csomag alkalmazása...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Firmware frissítés alkalmazása...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Kép alkalmazása...</value>
@@ -756,6 +771,9 @@ Folytatja a telepítést?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Autopilot hardveres hash rögzítése...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>A rendelkezésre álló hely ellenőrzése...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Gyorsítótár ellenőrzése...</value>
   </data>
@@ -776,9 +794,6 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Ideiglenes munkaterület takarítása...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Telepítési kontextus gyűjtése...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>AI-komponens eltávolításának konfigurálása...</value>
@@ -804,14 +819,14 @@ Folytatja a telepítést?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>AutopilotConfigurationFile.json másolása...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Illesztőprogram-csomag másolása...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Interaktív regisztrációs fájlok másolása...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Szimulált partíciók létrehozása...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Munkaterületi mappák létrehozása...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Médiatanúsítvány visszafejtése...</value>
@@ -831,17 +846,14 @@ Folytatja a telepítést?</value>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Illesztőprogram-csomag kibontása...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Firmware-frissítés kibontása...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>A telepítés befejezése...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Telepítési változók gyűjtése...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Hardveres hash importálása a Microsoft Graph mappába...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Telepítési munkaterület inicializálása...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Firmware-tartalom beszúrása az offline Windows-ba...</value>
@@ -911,6 +923,9 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Az Autopilot regisztrációs segéd előkészítése...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Firmware-frissítés előkészítése...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Üzembe helyezési csomag...</value>
@@ -1047,14 +1062,14 @@ Folytatja a telepítést?</value>
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>A gyorsítótár-stratégia megoldva (szimuláció).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>A kiválasztott „{0}” Microsoft Update Catalog-illesztőprogramfájl nem tartalmaz INF-fájlokat.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Az első rendszerindítási illesztőprogram-csomag szakaszolását támogatott parancs nélkül kérték.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>A telepítési változók összegyűjtve.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>A telepítési változók összegyűjtése (szimuláció).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Az illesztőprogram-telepítő előkészítve.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Illesztőprogram-csomag alkalmazva.</value>
@@ -1080,26 +1095,29 @@ Folytatja a telepítést?</value>
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Az illesztőprogram-csomag nem lett letöltve.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Az illesztőprogram-csomag az első rendszerindítási telepítéshez előkészítve.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Az illesztőprogram-csomag gyorsítótárból megoldva.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>Az illesztőprogram-csomag forrástartalma nem érhető el az első rendszerindításkor.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Firmware frissítés alkalmazva.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Firmware frissítés alkalmazva (szimuláció).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>A lemezkép külső tárhelye és az ismert kapacitás ellenőrizve.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Firmware frissítés letöltve.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Firmware frissítés letöltve (szimuláció).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>A firmware-frissítés kibontva.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>A firmware-frissítés betöltve a gyorsítótárból.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>A firmware-frissítés előkészítve a Windows alatti telepítésre.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>A firmware frissítések le vannak tiltva.</value>
@@ -1119,6 +1137,9 @@ Folytatja a telepítést?</value>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog nem hozott létre illesztőprogram-tartalmat.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Nincs szükség később futtatandó illesztőprogram-telepítőre.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Nincs szükség illesztőprogram-csomag letöltésére.</value>
   </data>
@@ -1131,8 +1152,14 @@ Folytatja a telepítést?</value>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Nem érhető el kivont INF illesztőprogram-tartalom.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>A kicsomagolt firmware-tartalom nem tartalmaz CAB fájlokat.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>A kicsomagolt firmware-tartalom nem tartalmaz INF fájlokat.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Nem érhető el firmware-frissítési tartalom.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>Nincs szükség előzetes OOBE testreszabási szkriptekre.</value>
@@ -1176,9 +1203,6 @@ Folytatja a telepítést?</value>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Az OOBE előtti testreszabások szakaszban (szimuláció).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>A lemezkép és az ismert kapacitáskövetelmények ellenőrzése a lemez előkészítése előtt megtörtént.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>A telepítési készenlét ellenőrzése megtörtént (szimuláció).</value>
   </data>
@@ -1202,6 +1226,15 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>A kiválasztott Autopilot profilfájl nem található: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>A kiválasztott illesztőprogram-csomag tartalma nem érhető el.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>A kiválasztott firmware-tartalom nem érhető el.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (szimuláció).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>A rendszer firmware hardver azonosítója nem érhető el.</value>
@@ -1248,6 +1281,15 @@ Folytatja a telepítést?</value>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Nem támogatott illesztőprogram-csomag telepítési mód.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>A Windows-rendszerindítás konfigurálva.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>A Windows-lemezkép és az ismert kapacitás ellenőrizve.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>A Windows-lemezkép nem lett alkalmazva.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>A Windows opcionális szolgáltatásainak konfigurációja le van tiltva.</value>
   </data>
@@ -1268,12 +1310,6 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>A Windows opcionális funkciójának konfigurációja szimulált ({0} művelet).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Munkaterület inicializálva.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Munkaterület inicializálva (szimuláció).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>A telepítés befejeződött</value>

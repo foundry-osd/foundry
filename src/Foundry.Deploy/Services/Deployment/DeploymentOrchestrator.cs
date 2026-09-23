@@ -9,6 +9,7 @@ using Foundry.Core.Services.Telemetry;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Hardware;
+using Foundry.Deploy.Services.Network;
 using Foundry.Deploy.Services.Http;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
@@ -18,16 +19,17 @@ using Microsoft.Extensions.Logging;
 namespace Foundry.Deploy.Services.Deployment;
 
 /// <summary>
-/// Runs the deployment workflow in its canonical order and persists progress/log state.
+/// Runs the applicable deployment plan and persists observed outcomes and diagnostic state.
 /// </summary>
 public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 {
     private readonly IOperationProgressService _operationProgressService;
     private readonly IDeploymentLogService _deploymentLogService;
     private readonly ITargetDiskService _targetDiskService;
-    private readonly IReadOnlyList<IDeploymentStep> _steps;
+    private readonly IReadOnlyDictionary<string, IDeploymentStep> _steps;
     private readonly ITelemetryService _telemetryService;
     private readonly ILogger<DeploymentOrchestrator> _logger;
+    private readonly INetworkProfileRoamingArtifactService? _networkProfileRoamingArtifactService;
 
     /// <summary>
     /// Initializes the deployment orchestrator and validates the registered step sequence.
@@ -38,13 +40,15 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         ITargetDiskService targetDiskService,
         IEnumerable<IDeploymentStep> steps,
         ITelemetryService telemetryService,
-        ILogger<DeploymentOrchestrator> logger)
+        ILogger<DeploymentOrchestrator> logger,
+        INetworkProfileRoamingArtifactService? networkProfileRoamingArtifactService = null)
     {
         _operationProgressService = operationProgressService;
         _deploymentLogService = deploymentLogService;
         _targetDiskService = targetDiskService;
         _telemetryService = telemetryService;
         _logger = logger;
+        _networkProfileRoamingArtifactService = networkProfileRoamingArtifactService;
 
         var stepsByName = new Dictionary<string, IDeploymentStep>(StringComparer.Ordinal);
         foreach (IDeploymentStep step in steps)
@@ -69,14 +73,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 $"The registered deployment steps do not match the expected workflow. Missing: {FormatStepNames(missingSteps)}. Unexpected: {FormatStepNames(unexpectedSteps)}.");
         }
 
-        _steps = DeploymentStepNames.ExecutionOrder
-            .Select(stepName => stepsByName[stepName])
-            .ToArray();
-        PlannedSteps = DeploymentStepNames.ExecutionOrder.ToArray();
+        _steps = stepsByName;
     }
-
-    /// <inheritdoc />
-    public IReadOnlyList<string> PlannedSteps { get; }
 
     /// <inheritdoc />
     public event EventHandler<DeploymentStepProgress>? StepProgressChanged;
@@ -198,34 +196,38 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
+            IReadOnlyList<DeploymentPlanEntry> plan = DeploymentPlan.Build(context, runtimeState);
+            runtimeState.DriverPackInstallMode = DeploymentPlan.ResolveDriverMode(context);
             _logger.LogInformation("Deployment workspace root resolved to '{WorkspaceRoot}'.", runtimeState.WorkspaceRoot);
             executionContext = new DeploymentStepExecutionContext(
                 context,
                 runtimeState,
-                PlannedSteps,
+                plan.Select(entry => entry.Name).ToArray(),
                 _operationProgressService,
                 _deploymentLogService,
                 _targetDiskService,
                 progress => StepProgressChanged?.Invoke(this, progress));
+            await DeploymentRunContextLogger.AppendRunContextAsync(executionContext, cancellationToken).ConfigureAwait(false);
 
-            for (int i = 0; i < _steps.Count; i++)
+            for (int i = 0; i < plan.Count; i++)
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                IDeploymentStep step = _steps[i];
+                executionContext.UpdatePlan(plan);
+                IDeploymentStep step = _steps[plan[i].Name];
                 executionContext.SetCurrentStep(step, i + 1);
                 using IDisposable? stepScope = _logger.BeginScope(new Dictionary<string, object?>
                 {
                     ["StepName"] = step.Name,
                     ["StepIndex"] = i + 1,
-                    ["StepCount"] = _steps.Count
+                    ["StepCount"] = plan.Count
                 });
                 await executionContext.TrySaveRuntimeStateAsync(cancellationToken).ConfigureAwait(false);
 
                 _logger.LogInformation(
                     "Executing deployment step {StepIndex}/{StepCount}: {StepName}.",
                     i + 1,
-                    _steps.Count,
+                    plan.Count,
                     step.Name);
 
                 executionContext.EmitCurrentStep(
@@ -236,7 +238,9 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 cancellationToken.ThrowIfCancellationRequested();
                 isCancellationDeferred = !context.IsDryRun && !CanCancelActiveStep(step.Name);
                 CancellationToken stepToken = isCancellationDeferred ? CancellationToken.None : cancellationToken;
-                DeploymentStepResult result = await step.ExecuteAsync(executionContext, stepToken).ConfigureAwait(false);
+                DeploymentStepResult result = step.Name == DeploymentStepNames.ValidateTargetConfiguration
+                    ? await ExecuteSetupAsync(executionContext, stepToken).ConfigureAwait(false)
+                    : await step.ExecuteAsync(executionContext, stepToken).ConfigureAwait(false);
                 isCancellationDeferred = false;
                 _logger.LogInformation(
                     "Deployment step finished. StepName={StepName}, StepState={StepState}, CurrentOperation={CurrentOperation}",
@@ -244,13 +248,14 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                     result.State,
                     runtimeState.CurrentOperation);
 
-                _operationProgressService.Report(CalculateOverallProgressPercent(i + 1), result.Message);
                 executionContext.EmitCurrentStep(
                     result.State,
                     result.Message,
                     stepSubProgressPercent: result.State == DeploymentStepState.Succeeded ? 100 : null,
-                    stepSubProgressIndeterminate: result.State != DeploymentStepState.Succeeded,
+                    stepSubProgressIndeterminate: false,
                     stepSubProgressLabel: result.Message);
+                executionContext.ReportCurrentStepProgress(result.Message);
+                runtimeState.StepOutcomes.Add(new DeploymentStepOutcome(step.Name, result.State, result.Message));
 
                 if (result.State == DeploymentStepState.Failed)
                 {
@@ -270,6 +275,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 // Record completed mutation before honoring a pending request; this state is needed for diagnostics.
                 await executionContext.TrySaveRuntimeStateAsync(CancellationToken.None).ConfigureAwait(false);
                 cancellationToken.ThrowIfCancellationRequested();
+                plan = DeploymentPlan.Build(context, runtimeState, executionContext.Preflight?.UsesTargetStorage,
+                    executionContext.NetworkProfileRoamingResolved, executionContext.NetworkProfileRoamingPayload?.DataFiles.Count > 0);
             }
 
             // Close the UI acceptance window before committing one terminal outcome. A request
@@ -319,6 +326,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ApplyTerminalFailure(runtimeState, failedStepName, cancellationFailure);
             if (executionContext is not null)
             {
+                RecordInterruptedStep(runtimeState, executionContext, DeploymentStepState.Cancelled, terminalStatus);
                 await executionContext.TrySaveRuntimeStateAsync(CancellationToken.None).ConfigureAwait(false);
                 await TryRebindLogsToFinalTargetAsync(executionContext, CancellationToken.None).ConfigureAwait(false);
                 await executionContext.TrySaveRuntimeStateAsync(CancellationToken.None).ConfigureAwait(false);
@@ -363,6 +371,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ApplyTerminalFailure(runtimeState, failedStepName, failure);
             if (executionContext is not null)
             {
+                RecordInterruptedStep(runtimeState, executionContext, DeploymentStepState.Failed,
+                    failure.Kind == DeploymentFailureKinds.Timeout ? "Transfer timed out." : HttpConnectionFailure.GetMessage(ex));
                 await executionContext.TrySaveRuntimeStateAsync(CancellationToken.None).ConfigureAwait(false);
                 await TryRebindLogsToFinalTargetAsync(executionContext, CancellationToken.None).ConfigureAwait(false);
                 await executionContext.TrySaveRuntimeStateAsync(CancellationToken.None).ConfigureAwait(false);
@@ -410,13 +420,38 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         }
     }
 
+    private async Task<DeploymentStepResult> ExecuteSetupAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+    {
+        // These operations share one user-facing setup responsibility; retain their operation IDs for diagnostics.
+        foreach (string name in new[] { DeploymentStepNames.ValidateTargetConfiguration, DeploymentStepNames.ResolveCacheStrategy, DeploymentStepNames.PreflightDeployment })
+        {
+            context.SetCurrentOperation(DeploymentOperationNames.ForStep(name));
+            DeploymentStepResult result = await _steps[name].ExecuteAsync(context, cancellationToken).ConfigureAwait(false);
+            if (result.State == DeploymentStepState.Failed) return result;
+        }
+        if (_networkProfileRoamingArtifactService is not null)
+        {
+            context.NetworkProfileRoamingPayload = await _networkProfileRoamingArtifactService.LoadAsync(
+                context.Request.Network.ProfileRoaming, context.RuntimeState.WorkspaceRoot, cancellationToken).ConfigureAwait(false);
+        }
+        context.NetworkProfileRoamingResolved = true;
+        return DeploymentStepResult.Succeeded("Target configuration validated.");
+    }
+
+    private static void RecordInterruptedStep(DeploymentRuntimeState state, DeploymentStepExecutionContext context,
+        DeploymentStepState outcome, string message)
+    {
+        // A cancellation accepted after a completed mutation must not rewrite that mutation's successful result.
+        if (string.IsNullOrWhiteSpace(state.CurrentStep) || state.StepOutcomes.Any(item => item.Name == state.CurrentStep)) return;
+        state.StepOutcomes.Add(new DeploymentStepOutcome(state.CurrentStep, outcome, message));
+        context.EmitCurrentStep(outcome, message, stepSubProgressIndeterminate: false, stepSubProgressLabel: message);
+    }
+
     // New live stages defer cancellation by default so a process kill cannot interrupt target mutation or servicing cleanup.
     private static bool CanCancelActiveStep(string stepName) => stepName is
-        DeploymentStepNames.GatherDeploymentVariables or
         DeploymentStepNames.ValidateCustomUnattend or
         DeploymentStepNames.ValidateTargetConfiguration or
-        DeploymentStepNames.ResolveCacheStrategy or
-        DeploymentStepNames.PreflightDeployment or
+        DeploymentStepNames.CheckWindowsImage or
         DeploymentStepNames.DownloadOperatingSystemImage or
         DeploymentStepNames.DownloadDriverPack or
         DeploymentStepNames.DownloadFirmwareUpdate;
@@ -592,11 +627,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
 
         string? model = driverPack.ModelNames.FirstOrDefault(modelName => !string.IsNullOrWhiteSpace(modelName));
         return NormalizeTelemetryString(model);
-    }
-
-    private int CalculateOverallProgressPercent(int stepIndex)
-    {
-        return (int)Math.Round((double)stepIndex / _steps.Count * 100d);
     }
 
     private static async Task TryRebindLogsToFinalTargetAsync(

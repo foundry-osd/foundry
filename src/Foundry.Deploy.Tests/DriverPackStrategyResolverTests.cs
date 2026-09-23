@@ -23,7 +23,6 @@ public sealed class DriverPackStrategyResolverTests
         Assert.Equal(DriverPackExtractionMethod.MicrosoftUpdateCatalogExpand, plan.ExtractionMethod);
         Assert.Equal(DeferredDriverPackageCommandKind.None, plan.DeferredCommandKind);
         Assert.Equal(".cab", plan.EffectiveFileExtension);
-        Assert.True(plan.RequiresInfPayload);
     }
 
     [Fact]
@@ -44,6 +43,5 @@ public sealed class DriverPackStrategyResolverTests
         Assert.Equal(DriverPackInstallMode.DeferredSetupComplete, plan.InstallMode);
         Assert.Equal(DriverPackExtractionMethod.None, plan.ExtractionMethod);
         Assert.Equal(DeferredDriverPackageCommandKind.LenovoExecutable, plan.DeferredCommandKind);
-        Assert.False(plan.RequiresInfPayload);
     }
 }

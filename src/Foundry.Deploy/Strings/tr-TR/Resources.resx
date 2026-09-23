@@ -658,19 +658,25 @@ Dağıtıma devam edilsin mi?</value>
     <value>wpeutil.exe {0} çıkış koduyla başarısız oldu. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Sürücüleri uygula</value>
+    <value>Windows sürücülerini yükle</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Ürün yazılımını uygula</value>
+    <value>Ürün yazılımı güncellemesini hazırla</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>İşletim sistemini uygula</value>
+    <value>Windows görüntüsünü uygula</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Kurtarma sürücülerini uygula</value>
+    <value>Kurtarma sürücülerini yükle</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Windows görüntüsünü denetle</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>Yapay zekâ ilkelerini yapılandır</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>OOBE’yi yapılandır</value>
+    <value>Windows kurulumunu yapılandır</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Windows kurtarmayı yapılandır</value>
@@ -678,62 +684,71 @@ Dağıtıma devam edilsin mi?</value>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Bilgisayar adını ayarla</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Windows önyüklemesini yapılandır</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>İsteğe bağlı özellikleri yapılandır</value>
+    <value>Windows özelliklerini yapılandır</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Autopilot profilini kopyala</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Sürücüleri indir</value>
+    <value>Sürücü paketini indir</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Ürün yazılımını indir</value>
+    <value>Ürün yazılımı güncellemesini indir</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>İşletim sistemini indir</value>
+    <value>Windows görüntüsünü indir</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Sürücüleri çıkar</value>
+    <value>Sürücü paketini çıkar</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Ürün yazılımı güncellemesini çıkar</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Dağıtımı tamamla</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Değişkenleri topla</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Dağıtımı başlat</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Dağıtım hazırlığını denetle</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Autopilot yardımcısını hazırla</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Diski hazırla</value>
+    <value>Hedef diski hazırla</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Autopilot’u hazırla</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Autopilot cihazını kaydet</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Önbelleği kontrol et</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Kurtarma bölümünü mühürle</value>
+    <value>Kurtarma bölümünü gizle</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Özel yanıt dosyasını hazırla</value>
+    <value>Yanıt dosyasını kopyala</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Sürücü yükleyicisini hazırla</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Özelleştirmeleri hazırla</value>
+    <value>Kurulum görevlerini hazırla</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Özel yanıt dosyasını doğrula</value>
+    <value>Yanıt dosyasını doğrula</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Yapılandırmayı doğrula</value>
+    <value>Dağıtım ayarlarını denetle</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Sürücü paketi uygulanıyor...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Ürün yazılımı güncellemesi uygulanıyor...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Resim uygulanıyor...</value>
@@ -756,6 +771,9 @@ Dağıtıma devam edilsin mi?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Autopilot donanım karma değeri yakalanıyor...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Kullanılabilir alan denetleniyor...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Önbellek kontrol ediliyor...</value>
   </data>
@@ -776,9 +794,6 @@ Dağıtıma devam edilsin mi?</value>
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Geçici çalışma alanı temizleniyor...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Dağıtım bağlamı toplanıyor...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>AI bileşeninin kaldırılması yapılandırılıyor...</value>
@@ -804,14 +819,14 @@ Dağıtıma devam edilsin mi?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>AutopilotConfigurationFile.json kopyalanıyor...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Sürücü paketi kopyalanıyor...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Etkileşimli kayıt dosyaları kopyalanıyor...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Simüle edilmiş bölümler oluşturuluyor...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Çalışma alanı klasörleri oluşturuluyor...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Medya sertifikasının şifresi çözülüyor...</value>
@@ -831,17 +846,14 @@ Dağıtıma devam edilsin mi?</value>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Sürücü paketi çıkarılıyor...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Ürün yazılımı güncellemesi çıkarılıyor...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Dağıtım sonlandırılıyor...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Dağıtım değişkenleri toplanıyor...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Donanım karması Microsoft Graph içine aktarılıyor...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Dağıtım çalışma alanı başlatılıyor...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Donanım yazılımı içeriği çevrimdışı Windows'ye enjekte ediliyor...</value>
@@ -911,6 +923,9 @@ Dağıtıma devam edilsin mi?</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Autopilot kayıt yardımcısı hazırlanıyor...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Ürün yazılımı güncellemesi hazırlanıyor...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Aşama paketi...</value>
@@ -1047,14 +1062,14 @@ Dağıtıma devam edilsin mi?</value>
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Önbellek stratejisi çözüldü (simülasyon).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>Seçilen Microsoft Update Catalog sürücü dosyası '{0}' INF dosyası içermiyor.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Desteklenen bir komut olmadan ilk önyükleme sürücü paketi hazırlama işlemi istendi.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Dağıtım değişkenleri toplandı.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Dağıtım değişkenleri toplandı (simülasyon).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Sürücü yükleyicisi hazırlandı.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Sürücü paketi uygulandı.</value>
@@ -1080,26 +1095,29 @@ Dağıtıma devam edilsin mi?</value>
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Sürücü paketi indirilmedi.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>İlk önyükleme kurulumu için hazırlanan sürücü paketi.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Sürücü paketi önbellekten çözüldü.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>Sürücü paketi kaynak içeriği, ilk önyükleme aşaması için kullanılamaz.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Firmware güncellemesi uygulandı.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Firmware güncellemesi uygulandı (simülasyon).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Harici görüntü depolaması ve bilinen kapasite denetlendi.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Firmware güncellemesi indirildi.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Firmware güncellemesi indirildi (simülasyon).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Ürün yazılımı güncellemesi çıkarıldı.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Ürün yazılımı güncellemesi önbellekten alındı.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Ürün yazılımı güncellemesi Windows içinde yüklenmek üzere hazırlandı.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Firmware güncellemeleri devre dışı.</value>
@@ -1119,6 +1137,9 @@ Dağıtıma devam edilsin mi?</value>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog sürücü içeriği üretmedi.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Daha sonra çalıştırılacak bir sürücü yükleyicisi gerekmiyor.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Sürücü paketinin indirilmesine gerek yoktur.</value>
   </data>
@@ -1131,8 +1152,14 @@ Dağıtıma devam edilsin mi?</value>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Çıkarılan INF sürücüsü içeriği mevcut değil.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>Çıkarılan ürün yazılımı içeriği herhangi bir CAB dosyası içermiyor.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>Çıkarılan ürün yazılımı içeriği herhangi bir INF dosyası içermiyor.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Ürün yazılımı güncelleme içeriği mevcut değil.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>OOBE öncesi özelleştirme komut dosyalarına gerek yoktur.</value>
@@ -1176,9 +1203,6 @@ Dağıtıma devam edilsin mi?</value>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>OOBE öncesi özelleştirmeler aşamalı (simülasyon).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>Disk hazırlanmadan önce görüntü ve bilinen kapasite gereksinimleri denetlendi.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Dağıtım hazırlığı denetlendi (simülasyon).</value>
   </data>
@@ -1202,6 +1226,15 @@ Dağıtıma devam edilsin mi?</value>
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>Seçilen Autopilot profil dosyası bulunamadı: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>Seçilen sürücü paketinin içeriği kullanılamıyor.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>Seçilen ürün yazılımı içeriği kullanılamıyor.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (simülasyon).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>Sistem ürün yazılımı donanım tanımlayıcısı kullanılamıyor.</value>
@@ -1248,6 +1281,15 @@ Dağıtıma devam edilsin mi?</value>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Desteklenmeyen sürücü paketi yükleme modu.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Windows önyüklemesi yapılandırıldı.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Windows görüntüsü ve bilinen kapasite denetlendi.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>Windows görüntüsü uygulanmadı.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Windows isteğe bağlı özellik yapılandırması devre dışı bırakıldı.</value>
   </data>
@@ -1268,12 +1310,6 @@ Dağıtıma devam edilsin mi?</value>
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Windows isteğe bağlı özellik yapılandırması simüle edildi ({0} eylem).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Çalışma alanı başlatıldı.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Çalışma alanı başlatıldı (simülasyon).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Dağıtım tamamlandı</value>

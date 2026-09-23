@@ -115,7 +115,10 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
             targetRecoveryPartitionRoot = runtimeState.TargetRecoveryPartitionRoot,
             winReConfigured = runtimeState.WinReConfigured,
             stagedAutopilotConfigurationPath = runtimeState.StagedAutopilotConfigurationPath,
-            completedSteps = runtimeState.CompletedSteps
+            completedSteps = runtimeState.CompletedSteps.Append(DeploymentStepNames.FinalizeDeploymentAndWriteLogs),
+            stepOutcomes = runtimeState.StepOutcomes.Append(new DeploymentStepOutcome(
+                DeploymentStepNames.FinalizeDeploymentAndWriteLogs, DeploymentStepState.Succeeded,
+                runtimeState.IsDryRun ? "Deployment finalized (simulation)." : "Deployment finalized."))
         }, new JsonSerializerOptions
         {
             WriteIndented = true
@@ -141,7 +144,7 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
         if (logSession is not null &&
             logSession.RootPath.Equals(runtimeState.TargetFoundryRoot, StringComparison.OrdinalIgnoreCase))
         {
-            TryDeleteDirectory(runtimeState.TargetFoundryRoot);
+            // Retain diagnostic source files if rebinding the retained log session failed.
             return;
         }
 

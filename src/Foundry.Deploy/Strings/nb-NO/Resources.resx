@@ -658,19 +658,25 @@ Vil du fortsette med distribusjonen?</value>
     <value>wpeutil.exe mislyktes med utgangskode {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Installer drivere</value>
+    <value>Installer Windows-drivere</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Installer firmware</value>
+    <value>Klargjør fastvareoppdatering</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Installer operativsystem</value>
+    <value>Bruk Windows-avbildning</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
     <value>Installer gjenopprettingsdrivere</value>
   </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Kontroller Windows-avbildning</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>Konfigurer KI-policyer</value>
+  </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>Konfigurer OOBE</value>
+    <value>Konfigurer Windows-oppsett</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Konfigurer Windows-gjenoppretting</value>
@@ -678,62 +684,71 @@ Vil du fortsette med distribusjonen?</value>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Angi datamaskinnavn</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Konfigurer Windows-oppstart</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Konfigurer valgfrie funksjoner</value>
+    <value>Konfigurer Windows-funksjoner</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Kopier Autopilot-profil</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Last ned drivere</value>
+    <value>Last ned driverpakke</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Last ned firmware</value>
+    <value>Last ned fastvareoppdatering</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Last ned operativsystem</value>
+    <value>Last ned Windows-avbildning</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Pakk ut drivere</value>
+    <value>Pakk ut driverpakke</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Pakk ut fastvareoppdatering</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Fullfør utrulling</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Samle variabler</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Initialiser utrulling</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Kontroller om distribusjonen er klar</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Klargjør Autopilot-assistent</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Forbered disk</value>
+    <value>Klargjør måldisk</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Provisioner Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Registrer Autopilot-enhet</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Kontroller cache</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Forsegl gjenopprettingspartisjon</value>
+    <value>Skjul gjenopprettingspartisjon</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Klargjør egendefinert svarfil</value>
+    <value>Kopier svarfil</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Klargjør driverinstallasjonsprogram</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Forbered tilpasninger</value>
+    <value>Klargjør oppsettsoppgaver</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Valider egendefinert svarfil</value>
+    <value>Valider svarfil</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Valider konfigurasjon</value>
+    <value>Kontroller utrullingsoppsett</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Bruker driverpakke...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Bruker fastvareoppdatering...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Bruker bildet...</value>
@@ -756,6 +771,9 @@ Vil du fortsette med distribusjonen?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Registrerer Autopilot maskinvarehash...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Kontrollerer ledig plass...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Sjekker cache...</value>
   </data>
@@ -776,9 +794,6 @@ Vil du fortsette med distribusjonen?</value>
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Rengjøring av midlertidig arbeidsplass...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Samler inn implementeringskontekst …</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>Konfigurerer fjerning av AI-komponent...</value>
@@ -804,14 +819,14 @@ Vil du fortsette med distribusjonen?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopierer AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Kopierer driverpakke...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopierer interaktive registreringsfiler...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Oppretter simulerte partisjoner...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Oppretter arbeidsområdemapper...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Dekrypterer mediesertifikat...</value>
@@ -831,17 +846,14 @@ Vil du fortsette med distribusjonen?</value>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Pakker ut driverpakke...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Pakker ut fastvareoppdatering...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Fullfører distribusjonen...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Samler inn distribusjonsvariabler...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Importerer maskinvarehash til Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Initialiserer arbeidsområdet for distribusjon...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Injiserer fastvareinnhold i offline Windows...</value>
@@ -911,6 +923,9 @@ Vil du fortsette med distribusjonen?</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Klargjør Autopilot-registreringsassistent...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Klargjør fastvareoppdatering...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Iscenesettelsespakke...</value>
@@ -1047,14 +1062,14 @@ Vil du fortsette med distribusjonen?</value>
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Cache-strategi løst (simulering).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>Den valgte driverfilen '{0}' fra Microsoft Update Catalog inneholder ingen INF-filer.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Første oppstart av driverpakken ble forespurt uten en støttet kommando.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Implementeringsvariabler samlet.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Implementeringsvariabler samlet (simulering).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Driverinstallasjonsprogram klargjort.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Driverpakke brukt.</value>
@@ -1080,26 +1095,29 @@ Vil du fortsette med distribusjonen?</value>
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Driverpakken ble ikke lastet ned.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Driverpakke forberedt for installasjon ved første oppstart.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Driverpakke løst fra cache.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>Kildeinnhold for driverpakken er utilgjengelig for førstegangsoppstart.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Fastvareoppdatering er tatt i bruk.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Fastvareoppdatering brukt (simulering).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Ekstern lagring for avbildningen og kjent kapasitet kontrollert.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Fastvareoppdatering lastet ned.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Fastvareoppdatering lastet ned (simulering).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Fastvareoppdatering pakket ut.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Fastvareoppdatering hentet fra hurtigbufferen.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Fastvareoppdatering klargjort for installasjon i Windows.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Fastvareoppdateringer er deaktivert.</value>
@@ -1119,6 +1137,9 @@ Vil du fortsette med distribusjonen?</value>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog produserte ikke driverinnhold.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Intet installasjonsprogram for utsatt driverinstallasjon er nødvendig.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Ingen driverpakke nedlasting nødvendig.</value>
   </data>
@@ -1131,8 +1152,14 @@ Vil du fortsette med distribusjonen?</value>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Ingen uttrukket INF-driverinnhold er tilgjengelig.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>Det utpakkede fastvareinnholdet inneholder ingen CAB-filer.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>Det utpakkede fastvareinnholdet inneholder ingen INF-filer.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Innhold for fastvareoppdatering er ikke tilgjengelig.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>Ingen pre-OOBE-tilpasningsskript er nødvendig.</value>
@@ -1176,9 +1203,6 @@ Vil du fortsette med distribusjonen?</value>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Pre-OOBE-tilpasninger iscenesatt (simulering).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>Avbildningen og kjente kapasitetskrav er kontrollert før klargjøring av disken.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Det er kontrollert om distribusjonen er klar (simulering).</value>
   </data>
@@ -1202,6 +1226,15 @@ Vil du fortsette med distribusjonen?</value>
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>Den valgte Autopilot profilfilen ble ikke funnet: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>Innholdet i den valgte driverpakken er ikke tilgjengelig.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>Det valgte fastvareinnholdet er ikke tilgjengelig.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (simulering).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>Maskinvareidentifikator for systemfastvare er utilgjengelig.</value>
@@ -1248,6 +1281,15 @@ Vil du fortsette med distribusjonen?</value>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Installasjonsmodus for driverpakke som ikke støttes.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Windows-oppstart konfigurert.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Windows-avbildning og kjent kapasitet kontrollert.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>Windows-avbildningen ble ikke brukt.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Windows valgfri funksjonskonfigurasjon deaktivert.</value>
   </data>
@@ -1268,12 +1310,6 @@ Vil du fortsette med distribusjonen?</value>
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Simulert Windows valgfri funksjonskonfigurasjon ({0} handlinger).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Arbeidsområde initialisert.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Arbeidsområde initialisert (simulering).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Implementeringen er fullført</value>

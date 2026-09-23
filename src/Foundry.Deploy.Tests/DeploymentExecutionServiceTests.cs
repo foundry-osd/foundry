@@ -159,8 +159,6 @@ public sealed class DeploymentExecutionServiceTests
 
     private sealed class RecordingOrchestrator : IDeploymentOrchestrator
     {
-        public IReadOnlyList<string> PlannedSteps => [];
-
         public event EventHandler<DeploymentStepProgress>? StepProgressChanged
         {
             add { }

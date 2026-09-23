@@ -658,19 +658,25 @@ Vai turpināt izvietošanu?</value>
     <value>wpeutil.exe neizdevās ar izejas kodu {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Lieto draiverus</value>
+    <value>Instalēt Windows draiverus</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Lieto aparātprogrammatūru</value>
+    <value>Sagatavot aparātprogrammatūras atjauninājumu</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Lieto operētājsistēmu</value>
+    <value>Lietot Windows attēlu</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Lieto atkopšanas draiverus</value>
+    <value>Instalēt atkopšanas draiverus</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Pārbaudīt Windows attēlu</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>Konfigurēt MI politikas</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>Konfigurē OOBE</value>
+    <value>Konfigurēt Windows iestatīšanu</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Konfigurē Windows atkopšanu</value>
@@ -678,62 +684,71 @@ Vai turpināt izvietošanu?</value>
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Iestati datora nosaukumu</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Konfigurēt Windows sāknēšanu</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Konfigurē izvēles līdzekļus</value>
+    <value>Konfigurēt Windows līdzekļus</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Kopēt Autopilot profilu</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Lejupielādē draiverus</value>
+    <value>Lejupielādēt draiveru pakotni</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Lejupielādē aparātprogrammatūru</value>
+    <value>Lejupielādēt aparātprogrammatūras atjauninājumu</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Lejupielādē operētājsistēmu</value>
+    <value>Lejupielādēt Windows attēlu</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Izvelc draiverus</value>
+    <value>Izvilkt draiveru pakotni</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Izvilkt aparātprogrammatūras atjauninājumu</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Pabeidz izvēršanu</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Ievāc mainīgos</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Inicializē izvēršanu</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Pārbaudīt gatavību izvietošanai</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Sagatavot Autopilot palīgu</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Sagatavo disku</value>
+    <value>Sagatavot mērķa disku</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Sagatavo Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Reģistrēt Autopilot ierīci</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Pārbaudi kešatmiņu</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Noslēdz atkopšanas nodalījumu</value>
+    <value>Paslēpt atkopšanas nodalījumu</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Sagatavot pielāgotu atbilžu failu</value>
+    <value>Kopēt atbilžu failu</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Sagatavot draiveru instalētāju</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Sagatavo pielāgojumus</value>
+    <value>Sagatavot iestatīšanas uzdevumus</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Validēt pielāgotu atbilžu failu</value>
+    <value>Pārbaudīt atbilžu failu</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Pārbaudi konfigurāciju</value>
+    <value>Pārbaudīt izvietošanas iestatījumus</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Notiek draivera pakotnes lietošana...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Notiek programmaparatūras atjauninājuma lietošana...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Notiek attēla lietošana...</value>
@@ -756,6 +771,9 @@ Vai turpināt izvietošanu?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Notiek Autopilot aparatūras hash tveršana...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Pārbauda pieejamo vietu...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Notiek kešatmiņas pārbaude...</value>
   </data>
@@ -776,9 +794,6 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Notiek pagaidu darba vietas tīrīšana...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Notiek izvietošanas konteksta apkopošana...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>Notiek AI komponentu noņemšanas konfigurēšana...</value>
@@ -804,14 +819,14 @@ Vai turpināt izvietošanu?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Notiek AutopilotConfigurationFile.json kopēšana...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Kopē draiveru pakotni...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Tiek kopēti interaktīvās reģistrācijas faili...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Notiek simulētu nodalījumu izveide...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Notiek darbvietas mapju izveide...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Notiek multivides sertifikāta atšifrēšana...</value>
@@ -831,17 +846,14 @@ Vai turpināt izvietošanu?</value>
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Notiek draiveru pakotnes izvilkšana...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Izvelk aparātprogrammatūras atjauninājumu...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Notiek izvietošanas pabeigšana...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Notiek izvietošanas mainīgo apkopošana...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Notiek aparatūras hash importēšana uz Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Notiek izvietošanas darbvietas inicializācija...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Programmaparatūras satura ievadīšana bezsaistē Windows...</value>
@@ -911,6 +923,9 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Tiek sagatavots Autopilot reģistrācijas palīgs...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Sagatavo aparātprogrammatūras atjauninājumu...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Iestudējuma pakete...</value>
@@ -1047,14 +1062,14 @@ Vai turpināt izvietošanu?</value>
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Kešatmiņas stratēģija atrisināta (simulācija).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>Atlasītajā Microsoft Update Catalog draivera failā “{0}” nav INF failu.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Pirmās sāknēšanas draivera pakotnes inscenēšana tika pieprasīta bez atbalstītas komandas.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Izvietošanas mainīgie ir apkopoti.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Apkopoti izvietošanas mainīgie (simulācija).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Draiveru instalētājs ir sagatavots.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Draivera pakotne ir lietota.</value>
@@ -1080,26 +1095,29 @@ Vai turpināt izvietošanu?</value>
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Draivera pakotne netika lejupielādēta.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Draivera pakotne, kas sagatavota pirmās sāknēšanas instalēšanai.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Draivera pakotne atrisināta no kešatmiņas.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>Draivera pakotnes avota saturs nav pieejams pirmās sāknēšanas inscenēšanai.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Lietots programmaparatūras atjauninājums.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Lietots programmaparatūras atjauninājums (simulācija).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Attēla ārējā krātuve un zināmā ietilpība ir pārbaudītas.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Programmaparatūras atjauninājums ir lejupielādēts.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Programmaparatūras atjauninājums ir lejupielādēts (simulācija).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Aparātprogrammatūras atjauninājums ir izvilkts.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Aparātprogrammatūras atjauninājums ir iegūts no kešatmiņas.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Aparātprogrammatūras atjauninājums ir sagatavots instalēšanai sistēmā Windows.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Programmaparatūras atjauninājumi ir atspējoti.</value>
@@ -1119,6 +1137,9 @@ Vai turpināt izvietošanu?</value>
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog neradīja draivera saturu.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Draiveru instalētājs vēlākai palaišanai nav nepieciešams.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Nav nepieciešama draivera pakotnes lejupielāde.</value>
   </data>
@@ -1131,8 +1152,14 @@ Vai turpināt izvietošanu?</value>
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Nav pieejams izvilkts INF draivera saturs.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>Izvilktajā programmaparatūras saturā nav CAB failu.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>Izvilktajā programmaparatūras saturā nav INF failu.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Aparātprogrammatūras atjauninājuma saturs nav pieejams.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>Nav nepieciešami pielāgošanas skripti pirms OOBE.</value>
@@ -1176,9 +1203,6 @@ Vai turpināt izvietošanu?</value>
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Pirms OOBE inscenēti pielāgojumi (simulācija).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>Attēls un zināmās ietilpības prasības ir pārbaudītas pirms diska sagatavošanas.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Gatavība izvietošanai ir pārbaudīta (simulācija).</value>
   </data>
@@ -1202,6 +1226,15 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>Atlasītais Autopilot profila fails netika atrasts: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>Atlasītās draiveru pakotnes saturs nav pieejams.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>Atlasītais aparātprogrammatūras saturs nav pieejams.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (simulācija).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>Sistēmas programmaparatūras aparatūras identifikators nav pieejams.</value>
@@ -1248,6 +1281,15 @@ Vai turpināt izvietošanu?</value>
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Neatbalstīts draivera pakotnes instalēšanas režīms.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Windows sāknēšana ir konfigurēta.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Windows attēls un zināmā ietilpība ir pārbaudīti.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>Windows attēls netika lietots.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Windows papildu līdzekļu konfigurācija ir atspējota.</value>
   </data>
@@ -1268,12 +1310,6 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Simulēta Windows izvēles līdzekļa konfigurācija ({0} darbības).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Darbvieta ir inicializēta.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Darbvieta inicializēta (simulācija).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Izvietošana pabeigta</value>
