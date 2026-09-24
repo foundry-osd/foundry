@@ -41,8 +41,4 @@ public sealed record DriverPackExecutionPlan
     /// </summary>
     public required string Manufacturer { get; init; }
 
-    /// <summary>
-    /// Gets a value indicating whether the strategy expects extracted INF payloads.
-    /// </summary>
-    public required bool RequiresInfPayload { get; init; }
 }

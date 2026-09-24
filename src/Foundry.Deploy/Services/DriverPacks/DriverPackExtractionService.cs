@@ -39,40 +39,18 @@ public sealed class DriverPackExtractionService : IDriverPackExtractionService
     {
         ArgumentNullException.ThrowIfNull(executionPlan);
 
+        if (executionPlan.InstallMode != DriverPackInstallMode.OfflineInf)
+        {
+            throw new InvalidOperationException("Unsupported driver pack install mode.");
+        }
+
         Directory.CreateDirectory(extractionRootPath);
         progress?.Report(0d);
-
-        if (executionPlan.InstallMode == DriverPackInstallMode.None)
-        {
-            progress?.Report(100d);
-            return new DriverPackExtractionResult
-            {
-                ExecutionPlan = executionPlan,
-                ExtractedDirectoryPath = null,
-                InfCount = 0,
-                Message = "Driver pack extraction skipped."
-            };
-        }
-
-        if (executionPlan.InstallMode == DriverPackInstallMode.DeferredSetupComplete)
-        {
-            progress?.Report(25d);
-            progress?.Report(75d);
-            progress?.Report(100d);
-            return new DriverPackExtractionResult
-            {
-                ExecutionPlan = executionPlan,
-                ExtractedDirectoryPath = null,
-                InfCount = 0,
-                Message = "Driver pack does not require WinPE extraction; deferred installation will be staged."
-            };
-        }
 
         string packageFolderName = executionPlan.ExtractionMethod == DriverPackExtractionMethod.MicrosoftUpdateCatalogExpand
             ? "MicrosoftUpdateCatalog"
             : SanitizePathSegment(Path.GetFileNameWithoutExtension(executionPlan.DownloadedPath));
         string extractedPath = Path.Combine(extractionRootPath, packageFolderName);
-        DirectoryOperations.Recreate(extractedPath);
 
         _logger.LogInformation(
             "Extracting driver pack. InstallMode={InstallMode}, ExtractionMethod={ExtractionMethod}, DownloadedPath={DownloadedPath}, ExtractedPath={ExtractedPath}",
@@ -84,11 +62,13 @@ public sealed class DriverPackExtractionService : IDriverPackExtractionService
         switch (executionPlan.ExtractionMethod)
         {
             case DriverPackExtractionMethod.SevenZip:
-                await ExtractWithSevenZipAsync(executionPlan.DownloadedPath, extractedPath, extractionRootPath, cancellationToken, progress)
+                DirectoryOperations.Recreate(extractedPath);
+                await _archiveExtractionService.ExtractWithSevenZipAsync(executionPlan.DownloadedPath, extractedPath, extractionRootPath, cancellationToken, progress)
                     .ConfigureAwait(false);
                 break;
 
             case DriverPackExtractionMethod.DellSelfExtractor:
+                DirectoryOperations.Recreate(extractedPath);
                 await ExtractDellSelfExtractorAsync(executionPlan.DownloadedPath, extractedPath, extractionRootPath, cancellationToken, progress)
                     .ConfigureAwait(false);
                 break;
@@ -118,7 +98,7 @@ public sealed class DriverPackExtractionService : IDriverPackExtractionService
             .EnumerateFiles(extractedPath, "*.inf", SearchOption.AllDirectories)
             .Count();
 
-        if (executionPlan.RequiresInfPayload && infCount == 0)
+        if (infCount == 0)
         {
             throw new InvalidOperationException(
                 $"Driver pack extraction completed but no INF files were found in '{extractedPath}'.");
@@ -131,22 +111,8 @@ public sealed class DriverPackExtractionService : IDriverPackExtractionService
             ExecutionPlan = executionPlan,
             ExtractedDirectoryPath = extractedPath,
             InfCount = infCount,
-            Message = infCount > 0
-                ? $"Driver pack extracted successfully: {infCount} INF files."
-                : "Driver pack extracted successfully."
+            Message = $"Driver pack extracted successfully: {infCount} INF files."
         };
-    }
-
-    private async Task ExtractWithSevenZipAsync(
-        string archivePath,
-        string extractedPath,
-        string workingDirectory,
-        CancellationToken cancellationToken,
-        IProgress<double>? progress)
-    {
-        await _archiveExtractionService
-            .ExtractWithSevenZipAsync(archivePath, extractedPath, workingDirectory, cancellationToken, progress)
-            .ConfigureAwait(false);
     }
 
     private async Task ExtractDellSelfExtractorAsync(

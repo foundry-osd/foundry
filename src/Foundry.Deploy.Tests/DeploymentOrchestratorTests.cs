@@ -9,6 +9,7 @@ using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Http;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
+using Foundry.Deploy.ViewModels;
 using Foundry.Telemetry;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -18,6 +19,80 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentOrchestratorTests
 {
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    public async Task RunAsync_WhenPayloadDiscoveryRefinesPlan_PreservesExecutionAndTimeline(bool hasDrivers, bool hasFirmware)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var request = CreateCancellationContext(workspace.RootPath) with
+        {
+            DriverPackSelectionKind = DriverPackSelectionKind.MicrosoftUpdateCatalog,
+            ApplyFirmwareUpdates = true
+        };
+        var driverStep = new PayloadDiscoveryStep(DeploymentStepNames.DownloadDriverPack, hasDrivers);
+        var firmwareStep = new PayloadDiscoveryStep(DeploymentStepNames.DownloadFirmwareUpdate, hasFirmware);
+        var orchestrator = CreateOrchestrator(DeploymentStepNames.ExecutionOrder.Select(name =>
+            name == driverStep.Name ? (IDeploymentStep)driverStep :
+            name == firmwareStep.Name ? firmwareStep : new SucceedingStep(name)));
+        var tracker = new DeploymentTimelineTracker(name => name, state => state.ToString());
+        tracker.Reconcile(DeploymentPlan.Build(request));
+        var updates = new List<DeploymentStepProgress>();
+        orchestrator.StepProgressChanged += (_, update) =>
+        {
+            updates.Add(update);
+            tracker.Apply(update);
+        };
+
+        DeploymentResult result = await orchestrator.RunAsync(request, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess);
+        DeploymentRuntimeState state = Assert.IsType<DeploymentRuntimeState>(driverStep.RuntimeState);
+        string[] executed = state.StepOutcomes.Select(outcome => outcome.Name).ToArray();
+        Assert.Equal(executed.Length, executed.Distinct(StringComparer.Ordinal).Count());
+        Assert.Equal(executed, tracker.Entries.Select(entry => entry.RawName));
+        Assert.Equal(DeploymentStepNames.FinalizeDeploymentAndWriteLogs, executed[^1]);
+        Assert.Equal(hasDrivers, executed.Contains(DeploymentStepNames.ExtractDriverPack));
+        Assert.Equal(hasDrivers, executed.Contains(DeploymentStepNames.ApplyDriverPack));
+        Assert.Equal(hasDrivers, executed.Contains(DeploymentStepNames.ApplyRecoveryDrivers));
+        Assert.Equal(hasFirmware, executed.Contains(DeploymentStepNames.ExtractFirmwareUpdate));
+        Assert.Equal(hasFirmware, executed.Contains(DeploymentStepNames.ApplyFirmwareUpdate));
+        Assert.All(tracker.Entries, entry => Assert.Equal(
+            entry.RawName == driverStep.Name || entry.RawName == firmwareStep.Name
+                ? DeploymentStepState.Skipped : DeploymentStepState.Succeeded, entry.State));
+        Assert.DoesNotContain(driverStep.Name, state.CompletedSteps);
+        Assert.DoesNotContain(firmwareStep.Name, state.CompletedSteps);
+        Assert.Equal(hasDrivers ? "Reused verified payload." : "No matching payload.",
+            tracker.Entries.Single(entry => entry.RawName == driverStep.Name).DetailText);
+        Assert.Equal(hasFirmware ? "Reused verified payload." : "No matching payload.",
+            tracker.Entries.Single(entry => entry.RawName == firmwareStep.Name).DetailText);
+        Assert.All(updates, update =>
+        {
+            Assert.NotNull(update.Plan);
+            Assert.Equal(update.Plan.Count, update.StepCount);
+            Assert.Equal(update.StepName, update.Plan[update.StepIndex - 1].Name);
+        });
+        Assert.True(updates.Zip(updates.Skip(1)).All(pair => pair.First.ProgressPercent <= pair.Second.ProgressPercent));
+    }
+
+    private sealed class PayloadDiscoveryStep(string name, bool hasPayload) : IDeploymentStep
+    {
+        public string Name { get; } = name;
+        public DeploymentRuntimeState? RuntimeState { get; private set; }
+
+        public Task<DeploymentStepResult> ExecuteAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+        {
+            RuntimeState = context.RuntimeState;
+            if (Name == DeploymentStepNames.DownloadDriverPack)
+                RuntimeState.MicrosoftUpdateCatalogDriverPaths = hasPayload ? ["cached-driver.cab"] : [];
+            else
+                RuntimeState.DownloadedFirmwarePath = hasPayload ? "cached-firmware.cab" : null;
+            return Task.FromResult(DeploymentStepResult.Skipped(hasPayload ? "Reused verified payload." : "No matching payload."));
+        }
+    }
+
     [Fact]
     public async Task RunAsync_WhenCompletionTrackingIsPending_ClosesCancellationAndKeepsOperationBusy()
     {
@@ -138,7 +213,7 @@ public sealed class DeploymentOrchestratorTests
             }
         };
 
-        Task<DeploymentResult> run = orchestrator.RunAsync(CreateCancellationContext(workspace.RootPath), cancellation.Token);
+        Task<DeploymentResult> run = orchestrator.RunAsync(CreateMutationContext(workspace.RootPath), cancellation.Token);
         await heldStep.Started.Task.WaitAsync(TestContext.Current.CancellationToken);
         cancellation.Cancel();
 
@@ -157,7 +232,7 @@ public sealed class DeploymentOrchestratorTests
         Assert.Equal(heldStepName, startedSteps.Last());
         Assert.Contains(heldStepName, heldStep.RuntimeState!.CompletedSteps);
         Assert.Equal(DeploymentFailureKinds.Cancelled, logService.SavedStates.Last().LastFailureKind);
-        Assert.Equal(Path.Combine(heldStep.TargetWindowsRoot, "Windows", "Temp", "Foundry", "Logs"), result.LogsDirectoryPath);
+        Assert.Equal(DeploymentStorageLayout.FromPartitionRoot(heldStep.TargetWindowsRoot).LogsDeployment, result.LogsDirectoryPath);
         Assert.True((bool)Assert.Single(telemetry.Events).Properties["deploy_session_cancelled"]!);
         Assert.Equal("cancelled", Assert.Single(logger.Entries, entry => entry.Properties.ContainsKey("Outcome")).Properties["Outcome"]);
     }
@@ -177,7 +252,7 @@ public sealed class DeploymentOrchestratorTests
         var orchestrator = CreateOrchestrator(DeploymentStepNames.ExecutionOrder.Select(name =>
             name == heldStep.Name ? (IDeploymentStep)heldStep : new SucceedingStep(name)));
 
-        Task<DeploymentResult> run = orchestrator.RunAsync(CreateCancellationContext(workspace.RootPath), cancellation.Token);
+        Task<DeploymentResult> run = orchestrator.RunAsync(CreateMutationContext(workspace.RootPath), cancellation.Token);
         await heldStep.Started.Task.WaitAsync(TestContext.Current.CancellationToken);
         cancellation.Cancel();
         heldStep.Release.SetResult();
@@ -213,6 +288,12 @@ public sealed class DeploymentOrchestratorTests
         TargetComputerName = "LAB01",
         DriverPackSelectionKind = DriverPackSelectionKind.None,
         OperatingSystem = new OperatingSystemCatalogItem()
+    };
+
+    private static DeploymentContext CreateMutationContext(string rootPath) => CreateCancellationContext(rootPath) with
+    {
+        DriverPackSelectionKind = DriverPackSelectionKind.OemCatalog,
+        DriverPack = new DriverPackCatalogItem { Manufacturer = "Dell", FileName = "drivers.cab" }
     };
 
     private sealed class HeldStep(string name, string targetWindowsRoot) : IDeploymentStep
@@ -325,51 +406,33 @@ public sealed class DeploymentOrchestratorTests
     }
 
     [Fact]
-    public void Constructor_WhenStepsAreRegisteredOutOfOrder_UsesCanonicalExecutionOrder()
+    public async Task RunAsync_WhenStepsAreRegisteredOutOfOrder_ExecutesApplicablePlanOrder()
     {
-        string[] expectedOrder =
-        [
-            DeploymentStepNames.GatherDeploymentVariables,
-            DeploymentStepNames.InitializeDeploymentWorkspace,
-            DeploymentStepNames.ValidateCustomUnattend,
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var orchestrator = CreateOrchestrator(DeploymentStepNames.ExecutionOrder.Reverse().Select(name => new SucceedingStep(name)));
+        var started = new List<string>();
+        orchestrator.StepProgressChanged += (_, update) =>
+        {
+            if (update.State == DeploymentStepState.Running) started.Add(update.StepName);
+        };
+
+        DeploymentResult result = await orchestrator.RunAsync(
+            CreateCancellationContext(workspace.RootPath) with { ApplyFirmwareUpdates = false }, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess);
+        Assert.Equal([
             DeploymentStepNames.ValidateTargetConfiguration,
-            DeploymentStepNames.ResolveCacheStrategy,
-            DeploymentStepNames.PreflightDeployment,
             DeploymentStepNames.PrepareTargetDiskLayout,
             DeploymentStepNames.DownloadOperatingSystemImage,
+            DeploymentStepNames.CheckWindowsImage,
             DeploymentStepNames.ApplyOperatingSystemImage,
-            DeploymentStepNames.StageCustomUnattend,
-            DeploymentStepNames.DownloadDriverPack,
-            DeploymentStepNames.ExtractDriverPack,
-            DeploymentStepNames.ApplyDriverPack,
-            DeploymentStepNames.DownloadFirmwareUpdate,
-            DeploymentStepNames.ApplyFirmwareUpdate,
+            DeploymentStepNames.ConfigureWindowsBoot,
             DeploymentStepNames.ConfigureTargetComputerName,
-            DeploymentStepNames.ConfigureOobeSettings,
-            DeploymentStepNames.ConfigureWindowsOptionalFeatures,
-            DeploymentStepNames.StagePreOobeCustomization,
             DeploymentStepNames.ConfigureRecoveryEnvironment,
-            DeploymentStepNames.ApplyRecoveryDrivers,
             DeploymentStepNames.SealRecoveryPartition,
-            DeploymentStepNames.ProvisionAutopilot,
             DeploymentStepNames.FinalizeDeploymentAndWriteLogs
-        ];
-        IDeploymentStep[] registeredSteps = expectedOrder
-            .Reverse()
-            .Select(name => (IDeploymentStep)new SucceedingStep(name))
-            .ToArray();
-
-        var orchestrator = new DeploymentOrchestrator(
-            new FakeOperationProgressService(),
-            new FakeDeploymentLogService(),
-            new FakeTargetDiskService(),
-            registeredSteps,
-            new RecordingTelemetryService(),
-            NullLogger<DeploymentOrchestrator>.Instance);
-
-        Assert.Equal(expectedOrder, orchestrator.PlannedSteps);
+        ], started);
     }
-
     [Fact]
     public void Constructor_WhenStepRegistrationIsDuplicated_Throws()
     {
@@ -435,7 +498,7 @@ public sealed class DeploymentOrchestratorTests
             DriverPackSelectionKind = DriverPackSelectionKind.None
         }, TestContext.Current.CancellationToken);
 
-        string expectedFinalLogsPath = Path.Combine(targetWindowsRoot, "Windows", "Temp", "Foundry", "Logs");
+        string expectedFinalLogsPath = DeploymentStorageLayout.FromPartitionRoot(targetWindowsRoot).LogsDeployment;
         Assert.False(result.IsSuccess);
         Assert.Equal(expectedFinalLogsPath, result.LogsDirectoryPath);
         Assert.True(Directory.Exists(expectedFinalLogsPath));
@@ -564,12 +627,13 @@ public sealed class DeploymentOrchestratorTests
         Assert.False(result.IsSuccess);
         Assert.Contains(
             logService.SavedStates,
-            state => state.CurrentOperation == DeploymentOperationNames.ValidateTargetDisk && state.LastFailureCode is null);
+            state => state.CurrentOperation == DeploymentOperationNames.ValidateTarget && state.LastFailureCode is null);
         DeploymentStateSnapshot terminal = logService.SavedStates.Last(state => state.LastFailureCode == "missing_target_partition");
         Assert.Equal(DeploymentOperationNames.ValidateTargetDisk, terminal.CurrentOperation);
         Assert.Equal(DeploymentStepNames.ValidateTargetConfiguration, terminal.LastFailureStep);
         Assert.Equal(DeploymentFailureKinds.Validation, terminal.LastFailureKind);
         Assert.Equal(DeploymentFailureReasons.MissingResource, terminal.LastFailureReason);
+        Assert.Contains(logService.Messages, message => message.Contains("[GATHER] Deployment variables snapshot:", StringComparison.Ordinal));
 
         TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
         string operationId = Assert.IsType<string>(telemetryEvent.Properties["operation_id"]);
@@ -706,8 +770,8 @@ public sealed class DeploymentOrchestratorTests
     }
 
     [Theory]
-    [InlineData(1, DeploymentStepNames.GatherDeploymentVariables, DeploymentOperationNames.GatherVariables)]
-    [InlineData(3, DeploymentStepNames.GatherDeploymentVariables, DeploymentOperationNames.DownloadOperatingSystemImage)]
+    [InlineData(1, DeploymentStepNames.ValidateTargetConfiguration, DeploymentOperationNames.ValidateTarget)]
+    [InlineData(3, DeploymentStepNames.ValidateTargetConfiguration, DeploymentOperationNames.DownloadOperatingSystemImage)]
     public async Task RunAsync_WhenCancellationOccursDuringRuntimeStatePersistence_RecoversFinalPersistence(
         int cancelledSaveCallNumber,
         string expectedFailureStep,
@@ -916,6 +980,8 @@ public sealed class DeploymentOrchestratorTests
             DeploymentStepExecutionContext context,
             CancellationToken cancellationToken)
         {
+            if (Name == DeploymentStepNames.DownloadFirmwareUpdate)
+                context.RuntimeState.DownloadedFirmwarePath = "simulated-firmware";
             return Task.FromResult(DeploymentStepResult.Succeeded($"Completed {Name}."));
         }
     }
@@ -936,24 +1002,12 @@ public sealed class DeploymentOrchestratorTests
     private sealed class FakeDeploymentLogService : IDeploymentLogService
     {
         public List<DeploymentStateSnapshot> SavedStates { get; } = [];
+        public List<string> Messages { get; } = [];
 
         public bool ThrowOnSave { get; init; }
         public Func<CancellationToken, Task>? BeforeSave { get; init; }
 
-        public DeploymentLogSession Initialize(string rootPath)
-        {
-            string logsDirectory = Path.Combine(rootPath, "Logs");
-            string stateDirectory = Path.Combine(rootPath, "State");
-            Directory.CreateDirectory(logsDirectory);
-            Directory.CreateDirectory(stateDirectory);
-            return new DeploymentLogSession
-            {
-                RootPath = rootPath,
-                LogsDirectoryPath = logsDirectory,
-                StateDirectoryPath = stateDirectory,
-                StateFilePath = Path.Combine(stateDirectory, "deployment-state.json")
-            };
-        }
+        public DeploymentLogSession Initialize(string rootPath) => new DeploymentLogService().Initialize(rootPath);
 
         public async Task AppendAsync(
             DeploymentLogSession session,
@@ -961,6 +1015,7 @@ public sealed class DeploymentOrchestratorTests
             string message,
             CancellationToken cancellationToken = default)
         {
+            Messages.Add(message);
             Directory.CreateDirectory(session.LogsDirectoryPath);
             string logFilePath = Path.Combine(session.LogsDirectoryPath, FoundryDeployLogging.LogFileName);
             await File.AppendAllTextAsync(logFilePath, $"{level}: {message}{Environment.NewLine}", cancellationToken);
@@ -1009,20 +1064,7 @@ public sealed class DeploymentOrchestratorTests
 
         public List<DeploymentStateSnapshot> SavedStates { get; } = [];
 
-        public DeploymentLogSession Initialize(string rootPath)
-        {
-            string logsDirectory = Path.Combine(rootPath, "Logs");
-            string stateDirectory = Path.Combine(rootPath, "State");
-            Directory.CreateDirectory(logsDirectory);
-            Directory.CreateDirectory(stateDirectory);
-            return new DeploymentLogSession
-            {
-                RootPath = rootPath,
-                LogsDirectoryPath = logsDirectory,
-                StateDirectoryPath = stateDirectory,
-                StateFilePath = Path.Combine(stateDirectory, "deployment-state.json")
-            };
-        }
+        public DeploymentLogSession Initialize(string rootPath) => new DeploymentLogService().Initialize(rootPath);
 
         public Task AppendAsync(
             DeploymentLogSession session,

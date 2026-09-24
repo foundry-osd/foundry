@@ -658,19 +658,25 @@
     <value>wpeutil.exe завершился с ошибкой с кодом завершения {0}. {1}</value>
   </data>
   <data name="Step.ApplyDriverPack" xml:space="preserve">
-    <value>Применение драйверов</value>
+    <value>Установить драйверы Windows</value>
   </data>
   <data name="Step.ApplyFirmwareUpdate" xml:space="preserve">
-    <value>Применение прошивки</value>
+    <value>Подготовить обновление прошивки</value>
   </data>
   <data name="Step.ApplyOperatingSystemImage" xml:space="preserve">
-    <value>Применение операционной системы</value>
+    <value>Применить образ Windows</value>
   </data>
   <data name="Step.ApplyRecoveryDrivers" xml:space="preserve">
-    <value>Применение драйверов восстановления</value>
+    <value>Установить драйверы восстановления</value>
+  </data>
+  <data name="Step.CheckWindowsImage" xml:space="preserve">
+    <value>Проверить образ Windows</value>
+  </data>
+  <data name="Step.ConfigureAiPolicies" xml:space="preserve">
+    <value>Настроить политики ИИ</value>
   </data>
   <data name="Step.ConfigureOobeSettings" xml:space="preserve">
-    <value>Настройка OOBE</value>
+    <value>Настроить установку Windows</value>
   </data>
   <data name="Step.ConfigureRecoveryEnvironment" xml:space="preserve">
     <value>Настройка восстановления Windows</value>
@@ -678,62 +684,71 @@
   <data name="Step.ConfigureTargetComputerName" xml:space="preserve">
     <value>Настройка имени компьютера</value>
   </data>
+  <data name="Step.ConfigureWindowsBoot" xml:space="preserve">
+    <value>Настроить загрузку Windows</value>
+  </data>
   <data name="Step.ConfigureWindowsOptionalFeatures" xml:space="preserve">
-    <value>Настройка дополнительных компонентов</value>
+    <value>Настроить компоненты Windows</value>
+  </data>
+  <data name="Step.CopyAutopilotProfile" xml:space="preserve">
+    <value>Скопировать профиль Autopilot</value>
   </data>
   <data name="Step.DownloadDriverPack" xml:space="preserve">
-    <value>Загрузка драйверов</value>
+    <value>Скачать пакет драйверов</value>
   </data>
   <data name="Step.DownloadFirmwareUpdate" xml:space="preserve">
-    <value>Загрузка прошивки</value>
+    <value>Скачать обновление прошивки</value>
   </data>
   <data name="Step.DownloadOperatingSystemImage" xml:space="preserve">
-    <value>Загрузка операционной системы</value>
+    <value>Скачать образ Windows</value>
   </data>
   <data name="Step.ExtractDriverPack" xml:space="preserve">
-    <value>Распаковка драйверов</value>
+    <value>Распаковать пакет драйверов</value>
+  </data>
+  <data name="Step.ExtractFirmwareUpdate" xml:space="preserve">
+    <value>Распаковать обновление прошивки</value>
   </data>
   <data name="Step.FinalizeDeploymentAndWriteLogs" xml:space="preserve">
     <value>Завершение развертывания</value>
   </data>
-  <data name="Step.GatherDeploymentVariables" xml:space="preserve">
-    <value>Сбор переменных</value>
-  </data>
-  <data name="Step.InitializeDeploymentWorkspace" xml:space="preserve">
-    <value>Инициализация развертывания</value>
-  </data>
   <data name="Step.PreflightDeployment" xml:space="preserve">
     <value>Проверить готовность к развертыванию</value>
   </data>
+  <data name="Step.PrepareAutopilotAssistant" xml:space="preserve">
+    <value>Подготовить помощник Autopilot</value>
+  </data>
   <data name="Step.PrepareTargetDiskLayout" xml:space="preserve">
-    <value>Подготовка диска</value>
+    <value>Подготовить целевой диск</value>
   </data>
   <data name="Step.ProvisionAutopilot" xml:space="preserve">
     <value>Подготовка Autopilot</value>
+  </data>
+  <data name="Step.RegisterAutopilotDevice" xml:space="preserve">
+    <value>Зарегистрировать устройство Autopilot</value>
   </data>
   <data name="Step.ResolveCacheStrategy" xml:space="preserve">
     <value>Проверка кэша</value>
   </data>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
-    <value>Запечатывание раздела восстановления</value>
+    <value>Скрыть раздел восстановления</value>
   </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
-    <value>Подготовка пользовательского файла ответов</value>
+    <value>Скопировать файл ответов</value>
+  </data>
+  <data name="Step.StageDriverInstaller" xml:space="preserve">
+    <value>Подготовить установщик драйверов</value>
   </data>
   <data name="Step.StagePreOobeCustomization" xml:space="preserve">
-    <value>Подготовка настроек</value>
+    <value>Подготовить задачи установки</value>
   </data>
   <data name="Step.ValidateCustomUnattend" xml:space="preserve">
-    <value>Проверка пользовательского файла ответов</value>
+    <value>Проверить файл ответов</value>
   </data>
   <data name="Step.ValidateTargetConfiguration" xml:space="preserve">
-    <value>Проверка конфигурации</value>
+    <value>Проверить параметры развёртывания</value>
   </data>
   <data name="StepMessage.ApplyingDriverPack" xml:space="preserve">
     <value>Применение пакета драйверов...</value>
-  </data>
-  <data name="StepMessage.ApplyingFirmwareUpdate" xml:space="preserve">
-    <value>Применение обновления прошивки...</value>
   </data>
   <data name="StepMessage.ApplyingImage" xml:space="preserve">
     <value>Применение изображения...</value>
@@ -756,6 +771,9 @@
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Захват аппаратного хеша Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
+    <value>Проверка доступного места...</value>
+  </data>
   <data name="StepMessage.CheckingCache" xml:space="preserve">
     <value>Проверка кэша...</value>
   </data>
@@ -776,9 +794,6 @@
   </data>
   <data name="StepMessage.CleaningTemporaryWorkspace" xml:space="preserve">
     <value>Уборка временного рабочего места...</value>
-  </data>
-  <data name="StepMessage.CollectingDeploymentContext" xml:space="preserve">
-    <value>Сбор контекста развертывания...</value>
   </data>
   <data name="StepMessage.ConfiguringAiComponentRemoval" xml:space="preserve">
     <value>Настройка удаления компонентов AI...</value>
@@ -804,14 +819,14 @@
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Копирование AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
+    <value>Копирование пакета драйверов...</value>
+  </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Копирование файлов интерактивной регистрации...</value>
   </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Создание имитации разделов...</value>
-  </data>
-  <data name="StepMessage.CreatingWorkspaceFolders" xml:space="preserve">
-    <value>Создание папок рабочей области...</value>
   </data>
   <data name="StepMessage.DecryptingMediaCertificate" xml:space="preserve">
     <value>Расшифровка медиа-сертификата...</value>
@@ -831,17 +846,14 @@
   <data name="StepMessage.ExtractingDriverPack" xml:space="preserve">
     <value>Извлечение пакета драйверов...</value>
   </data>
+  <data name="StepMessage.ExtractingFirmwareUpdate" xml:space="preserve">
+    <value>Распаковка обновления прошивки...</value>
+  </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Завершение развертывания...</value>
   </data>
-  <data name="StepMessage.GatheringDeploymentVariables" xml:space="preserve">
-    <value>Сбор переменных развертывания...</value>
-  </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Импорт аппаратного хеша в Microsoft Graph...</value>
-  </data>
-  <data name="StepMessage.InitializingDeploymentWorkspace" xml:space="preserve">
-    <value>Инициализация рабочей области развертывания...</value>
   </data>
   <data name="StepMessage.InjectingFirmwarePayload" xml:space="preserve">
     <value>Внедрение содержимого прошивки в оффлайн Windows...</value>
@@ -911,6 +923,9 @@
   </data>
   <data name="StepMessage.StagingAutopilotRegistrationAssistant" xml:space="preserve">
     <value>Подготовка помощника регистрации Autopilot...</value>
+  </data>
+  <data name="StepMessage.StagingFirmwareUpdate" xml:space="preserve">
+    <value>Подготовка обновления прошивки...</value>
   </data>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Промежуточный пакет...</value>
@@ -1047,14 +1062,14 @@
   <data name="StepResult.CacheStrategyResolvedSimulation" xml:space="preserve">
     <value>Стратегия кэширования решена (симуляция).</value>
   </data>
+  <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
+    <value>Выбранный файл драйвера «{0}» из Microsoft Update Catalog не содержит INF-файлов.</value>
+  </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Запрошена установка пакета драйверов при первой загрузке без поддерживаемой команды.</value>
   </data>
-  <data name="StepResult.DeploymentVariablesGathered" xml:space="preserve">
-    <value>Переменные развертывания собраны.</value>
-  </data>
-  <data name="StepResult.DeploymentVariablesGatheredSimulation" xml:space="preserve">
-    <value>Собраны переменные развертывания (моделирование).</value>
+  <data name="StepResult.DriverInstallerStaged" xml:space="preserve">
+    <value>Установщик драйверов подготовлен.</value>
   </data>
   <data name="StepResult.DriverPackApplied" xml:space="preserve">
     <value>Пакет драйверов установлен.</value>
@@ -1080,26 +1095,29 @@
   <data name="StepResult.DriverPackNotDownloaded" xml:space="preserve">
     <value>Пакет драйверов не был загружен.</value>
   </data>
-  <data name="StepResult.DriverPackPreparedForDeferredInstallation" xml:space="preserve">
-    <value>Пакет драйверов, подготовленный для установки при первой загрузке.</value>
-  </data>
   <data name="StepResult.DriverPackResolvedFromCache" xml:space="preserve">
     <value>Пакет драйверов решен из кеша.</value>
   </data>
   <data name="StepResult.DriverPackSourcePayloadUnavailableForDeferredStaging" xml:space="preserve">
     <value>Исходное содержимое пакета драйверов недоступно для промежуточной загрузки при первой загрузке.</value>
   </data>
-  <data name="StepResult.FirmwareUpdateApplied" xml:space="preserve">
-    <value>Обновление прошивки применено.</value>
-  </data>
-  <data name="StepResult.FirmwareUpdateAppliedSimulation" xml:space="preserve">
-    <value>Применено обновление прошивки (симуляция).</value>
+  <data name="StepResult.ExternalStorageReady" xml:space="preserve">
+    <value>Внешнее хранилище образа и известная ёмкость проверены.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloaded" xml:space="preserve">
     <value>Обновление прошивки скачано.</value>
   </data>
   <data name="StepResult.FirmwareUpdateDownloadedSimulation" xml:space="preserve">
     <value>Обновление прошивки загружено (симуляция).</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateExtracted" xml:space="preserve">
+    <value>Обновление прошивки распаковано.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateResolvedFromCache" xml:space="preserve">
+    <value>Обновление прошивки получено из кэша.</value>
+  </data>
+  <data name="StepResult.FirmwareUpdateStaged" xml:space="preserve">
+    <value>Обновление прошивки подготовлено для установки в Windows.</value>
   </data>
   <data name="StepResult.FirmwareUpdatesDisabled" xml:space="preserve">
     <value>Обновления прошивки отключены.</value>
@@ -1119,6 +1137,9 @@
   <data name="StepResult.MicrosoftUpdateCatalogDriverPayloadMissing" xml:space="preserve">
     <value>Microsoft Update Catalog не создал содержимое драйвера.</value>
   </data>
+  <data name="StepResult.NoDeferredDriverInstallerRequired" xml:space="preserve">
+    <value>Установщик для отложенной установки драйверов не требуется.</value>
+  </data>
   <data name="StepResult.NoDriverPackDownloadRequired" xml:space="preserve">
     <value>Загрузка пакета драйверов не требуется.</value>
   </data>
@@ -1131,8 +1152,14 @@
   <data name="StepResult.NoExtractedInfDriverPayload" xml:space="preserve">
     <value>Извлеченное содержимое драйвера INF недоступно.</value>
   </data>
+  <data name="StepResult.NoFirmwareCabFiles" xml:space="preserve">
+    <value>Извлеченное содержимое прошивки не содержит CAB-файлов.</value>
+  </data>
   <data name="StepResult.NoFirmwareInfFiles" xml:space="preserve">
     <value>Извлеченное содержимое прошивки не содержит INF-файлов.</value>
+  </data>
+  <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
+    <value>Содержимое обновления прошивки недоступно.</value>
   </data>
   <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
     <value>Никакие сценарии настройки перед запуском OOBE не требуются.</value>
@@ -1176,9 +1203,6 @@
   <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
     <value>Предварительные настройки перед OOBE (моделирование).</value>
   </data>
-  <data name="StepResult.PreflightExternalReady" xml:space="preserve">
-    <value>Образ и известные требования к емкости проверены до подготовки диска.</value>
-  </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Готовность к развертыванию проверена (симуляция).</value>
   </data>
@@ -1202,6 +1226,15 @@
   </data>
   <data name="StepResult.SelectedAutopilotProfileFileMissingFormat" xml:space="preserve">
     <value>Выбранный файл профиля Autopilot не найден: {0}</value>
+  </data>
+  <data name="StepResult.SelectedDriverPayloadUnavailable" xml:space="preserve">
+    <value>Содержимое выбранного пакета драйверов недоступно.</value>
+  </data>
+  <data name="StepResult.SelectedFirmwarePayloadUnavailable" xml:space="preserve">
+    <value>Содержимое выбранной прошивки недоступно.</value>
+  </data>
+  <data name="StepResult.SimulationFormat" xml:space="preserve">
+    <value>{0} (симуляция).</value>
   </data>
   <data name="StepResult.SystemFirmwareHardwareIdentifierUnavailable" xml:space="preserve">
     <value>Идентификатор оборудования встроенного ПО системы недоступен.</value>
@@ -1248,6 +1281,15 @@
   <data name="StepResult.UnsupportedDriverPackInstallMode" xml:space="preserve">
     <value>Неподдерживаемый режим установки пакета драйверов.</value>
   </data>
+  <data name="StepResult.WindowsBootConfigured" xml:space="preserve">
+    <value>Загрузка Windows настроена.</value>
+  </data>
+  <data name="StepResult.WindowsImageChecked" xml:space="preserve">
+    <value>Образ Windows и известная ёмкость проверены.</value>
+  </data>
+  <data name="StepResult.WindowsImageNotApplied" xml:space="preserve">
+    <value>Образ Windows не был применён.</value>
+  </data>
   <data name="StepResult.WindowsOptionalFeatureConfigurationDisabled" xml:space="preserve">
     <value>Конфигурация дополнительных функций Windows отключена.</value>
   </data>
@@ -1268,12 +1310,6 @@
   </data>
   <data name="StepResult.WindowsOptionalFeaturesSimulationFormat" xml:space="preserve">
     <value>Имитируется конфигурация дополнительных функций Windows (действия {0}).</value>
-  </data>
-  <data name="StepResult.WorkspaceInitialized" xml:space="preserve">
-    <value>Рабочая область инициализирована.</value>
-  </data>
-  <data name="StepResult.WorkspaceInitializedSimulation" xml:space="preserve">
-    <value>Рабочая область инициализирована (симуляция).</value>
   </data>
   <data name="Success.Completed" xml:space="preserve">
     <value>Развертывание завершено</value>

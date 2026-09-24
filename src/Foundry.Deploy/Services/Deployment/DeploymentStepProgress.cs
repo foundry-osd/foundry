@@ -14,6 +14,12 @@ public sealed record DeploymentStepProgress
     /// </summary>
     public required string StepName { get; init; }
 
+    /// <summary>Gets the immutable plan snapshot associated with this update, including conditional display labels.</summary>
+    public IReadOnlyList<DeploymentPlanEntry>? Plan { get; init; }
+
+    /// <summary>Gets the invariant display label when it differs from the stable execution identity.</summary>
+    public string? StepLabel { get; init; }
+
     /// <summary>
     /// Gets the current step state.
     /// </summary>

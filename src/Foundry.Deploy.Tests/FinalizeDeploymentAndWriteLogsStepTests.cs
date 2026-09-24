@@ -106,7 +106,7 @@ public sealed class FinalizeDeploymentAndWriteLogsStepTests
         try
         {
             using var logger = (IDisposable)FoundryDeployLogging.CreateLogger(startup);
-            FoundryDeployLogging.RegisterPersistenceDirectory(fixture.Context.LogSession.LogsDirectoryPath);
+            FoundryDeployLogging.SwitchPersistenceDirectory(fixture.Source, fixture.Context.LogSession.LogsDirectoryPath);
             Environment.SetEnvironmentVariable(DiagnosticSessionContext.PersistenceDirectoryEnvironmentVariableName, fixture.Context.LogSession.LogsDirectoryPath);
             string autopilot = Path.Combine(fixture.Source, "Logs", "AutopilotHash", "status.json");
             string tool = Path.Combine(fixture.Source, "Logs", "Tools", "DISM", "diagnostic.txt");

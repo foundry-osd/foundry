@@ -58,9 +58,6 @@ public sealed class DeploymentStorageLayout
     /// <summary>Gets the AutopilotHash logs directory.</summary>
     public string LogsAutopilotHash => Path.Combine(Root, "Logs", "AutopilotHash");
 
-    /// <summary>Gets operation-local mutable work without eagerly creating it.</summary>
-    public string Work(Guid operationId) => Path.Combine(Root, "Work", operationId.ToString("N"));
-
     /// <summary>Builds a CMD environment-variable path resolved only in the installed OS.</summary>
     public static string RuntimePath(string relativePath) => @"%SystemRoot%\Temp\Foundry\" + relativePath;
 }

@@ -33,7 +33,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStep : DeploymentStepBase
 
         if (!settings.IsEnabled || settings.Actions.Count == 0)
         {
-            return DeploymentStepResult.Succeeded("Windows optional feature configuration disabled.");
+            return DeploymentStepResult.Skipped("Windows optional feature configuration disabled.");
         }
 
         if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
@@ -113,8 +113,10 @@ public sealed class ConfigureWindowsOptionalFeaturesStep : DeploymentStepBase
             $"Windows optional features serviced: requested={result.RequestedActionCount}, changed={result.ChangedActionCount}, alreadySatisfied={result.AlreadySatisfiedActionCount}, unavailable={result.UnavailableEnableActionIds.Count}, matchingSourceUsed={result.MatchingSourceUsed}.",
             cancellationToken).ConfigureAwait(false);
 
-        return DeploymentStepResult.Succeeded(
-            $"Windows optional features configured ({result.ChangedActionCount} changed, {result.AlreadySatisfiedActionCount} already satisfied, {result.UnavailableEnableActionIds.Count} unavailable).");
+        string message = $"Windows optional features configured ({result.ChangedActionCount} changed, {result.AlreadySatisfiedActionCount} already satisfied, {result.UnavailableEnableActionIds.Count} unavailable).";
+        return result.ChangedActionCount == 0
+            ? DeploymentStepResult.Skipped(message)
+            : DeploymentStepResult.Succeeded(message);
     }
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(
@@ -128,7 +130,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStep : DeploymentStepBase
 
         if (!settings.IsEnabled || settings.Actions.Count == 0)
         {
-            return DeploymentStepResult.Succeeded("Windows optional feature configuration disabled.");
+            return DeploymentStepResult.Skipped("Windows optional feature configuration disabled.");
         }
 
         int enableCount = settings.Actions.Count(action => action.Enable);

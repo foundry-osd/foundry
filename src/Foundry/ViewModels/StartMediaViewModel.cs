@@ -940,7 +940,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         MediaCreationTelemetryProgressTracker telemetryProgressTracker,
         CancellationToken cancellationToken)
     {
-        WinPeBuildArtifact? artifact = null;
         WinPeWorkspaceLease? operationLease = null;
 
         try
@@ -986,8 +985,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.BuildWinPeWorkspace);
             cancellationToken.ThrowIfCancellationRequested();
             operationProgressService.Report(10, localizationService.GetString("StartMedia.Operation.BuildingWorkspace"));
-            // Capture the completed artifact before observing cancellation so cleanup owns
-            // the workspace and never races a still-running Copype process.
+            // Await Copype completion before observing cancellation so cleanup cannot race the process.
             WinPeResult<WinPeBuildArtifact> buildResult = await buildService.BuildAsync(
                 new WinPeBuildOptions
                 {
@@ -1001,7 +999,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 CancellationToken.None);
             EnsureSuccess(buildResult);
 
-            artifact = buildResult.Value!;
+            WinPeBuildArtifact artifact = buildResult.Value!;
             cancellationToken.ThrowIfCancellationRequested();
             logger.Debug(
                 "WinPE workspace created. WorkingDirectoryPath={WorkingDirectoryPath}, MediaDirectoryPath={MediaDirectoryPath}, MountDirectoryPath={MountDirectoryPath}, BootWimPath={BootWimPath}",

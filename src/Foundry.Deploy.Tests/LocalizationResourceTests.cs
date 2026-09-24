@@ -5,12 +5,47 @@
 using System.Globalization;
 using System.Resources;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
 using Foundry.Deploy.Services.Localization;
 
 namespace Foundry.Deploy.Tests;
 
 public sealed class LocalizationResourceTests
 {
+    [Theory]
+    [InlineData("en-US")]
+    [MemberData(nameof(SatelliteCultures))]
+    public void ConditionalWorkflowResources_ExistInEachCulture_WithMatchingPlaceholders(string cultureName)
+    {
+        string stringsRoot = Path.Combine(FindRepositoryRoot(), "src", "Foundry.Deploy", "Strings");
+        XDocument reference = XDocument.Load(Path.Combine(stringsRoot, "en-US", "Resources.resx"));
+        XDocument localized = XDocument.Load(Path.Combine(stringsRoot, cultureName, "Resources.resx"));
+        string[] requiredKeys =
+        [
+            "Step.CheckWindowsImage", "Step.ConfigureWindowsBoot", "Step.ConfigureAiPolicies",
+            "Step.StageDriverInstaller", "Step.ExtractFirmwareUpdate", "Step.RegisterAutopilotDevice",
+            "Step.PrepareAutopilotAssistant", "Step.CopyAutopilotProfile",
+            "StepMessage.CheckingAvailableSpace", "StepResult.WindowsImageChecked",
+            "StepResult.WindowsBootConfigured", "StepResult.ExternalStorageReady",
+            "StepResult.DriverInstallerStaged", "StepResult.FirmwareUpdateExtracted",
+            "StepResult.FirmwareUpdateStaged", "StepResult.FirmwareUpdateResolvedFromCache",
+            "StepResult.WindowsImageNotApplied", "StepResult.NoDeferredDriverInstallerRequired",
+            "StepMessage.CopyingDriverPackage", "StepMessage.ExtractingFirmwareUpdate",
+            "StepMessage.StagingFirmwareUpdate", "StepResult.NoFirmwareUpdatePayload",
+            "StepResult.SelectedFirmwarePayloadUnavailable", "StepResult.SelectedDriverPayloadUnavailable",
+            "StepResult.SimulationFormat", "StepResult.CatalogDriverInfMissingFormat", "StepResult.NoFirmwareCabFiles"
+        ];
+        foreach (string key in requiredKeys)
+        {
+            string translated = GetResourceValue(localized, key);
+            Assert.False(string.IsNullOrWhiteSpace(translated));
+            string[] expected = Regex.Matches(GetResourceValue(reference, key), @"\{\d+(?:[^}]*)\}").Select(match => match.Value).Order().ToArray();
+            string[] actual = Regex.Matches(translated, @"\{\d+(?:[^}]*)\}").Select(match => match.Value).Order().ToArray();
+            Assert.Equal(expected, actual);
+        }
+        Assert.Equal(localized.Root!.Elements("data").Count(), localized.Root.Elements("data").Select(element => (string?)element.Attribute("name")).Distinct().Count());
+    }
+
     private static readonly string[] DeploymentAccessResourceKeys =
     [
         "Common.Cancel",

@@ -224,7 +224,7 @@ public sealed class UnattendRuntimeTests
     }
 
     [Fact]
-    public async Task CustomSteps_SkipNativeXmlAndAccountSecrets_ButRetainAiPolicies()
+    public async Task CustomSteps_SkipNativeXmlAndAccountSecrets_WithoutApplyingAiPolicies()
     {
         using var fixture = new Fixture();
         var runner = new RecordingProcessRunner();
@@ -233,11 +233,45 @@ public sealed class UnattendRuntimeTests
         context.RuntimeState.Oobe = new DeployOobeSettings { IsEnabled = true, EnableAdministratorAccount = true, AdministratorPasswordSecret = new() };
         context.RuntimeState.AiComponentRemoval = new DeployAiComponentRemovalSettings { IsEnabled = true, DisableRecall = true };
         Assert.Equal(DeploymentStepState.Skipped, (await new ConfigureTargetComputerNameStep(service).ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
-        await new ConfigureOobeSettingsStep(service).ExecuteAsync(context, TestContext.Current.CancellationToken);
-        Assert.NotEmpty(runner.Arguments);
-        Assert.Contains(runner.Arguments, args => args.Contains("DisableAIDataAnalysis", StringComparison.Ordinal));
+        Assert.Equal(DeploymentStepState.Skipped, (await new ConfigureOobeSettingsStep(service).ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.Empty(runner.Arguments);
+        Assert.False(File.Exists(Path.Combine(fixture.Target, "Windows", "Panther", "unattend.xml")));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task AiPolicies_WithCustomAnswerFile_OnlyWritesPoliciesInLiveRun(bool dryRun)
+    {
+        using var fixture = new Fixture();
+        var runner = new RecordingProcessRunner();
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
+        using DeploymentStepExecutionContext context = fixture.CreateContext(dryRun: dryRun);
+        context.RuntimeState.AiComponentRemoval = new DeployAiComponentRemovalSettings { IsEnabled = true, DisableRecall = true };
+
+        DeploymentStepResult result = await new ConfigureAiPoliciesStep(service).ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.Equal(!dryRun, runner.Arguments.Any(args => args.Contains("DisableAIDataAnalysis", StringComparison.Ordinal)));
         Assert.DoesNotContain(runner.Arguments, args => args.Contains("AllowTelemetry", StringComparison.Ordinal));
         Assert.False(File.Exists(Path.Combine(fixture.Target, "Windows", "Panther", "unattend.xml")));
+    }
+
+    [Theory]
+    [InlineData(false, true, false)]
+    [InlineData(true, false, true)]
+    public async Task AiPolicies_WithoutEffectivePolicies_SkipsWithoutRegistryWrites(bool enabled, bool recall, bool aiHub)
+    {
+        using var fixture = new Fixture();
+        var runner = new RecordingProcessRunner();
+        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
+        using DeploymentStepExecutionContext context = fixture.CreateContext();
+        context.RuntimeState.AiComponentRemoval = new DeployAiComponentRemovalSettings { IsEnabled = enabled, DisableRecall = recall, RemoveAiHub = aiHub };
+
+        DeploymentStepResult result = await new ConfigureAiPoliciesStep(service).ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Skipped, result.State);
+        Assert.Empty(runner.Arguments);
     }
 
     [Fact]

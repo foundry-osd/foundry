@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Globalization;
+using System.Resources;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Http;
 using Foundry.Deploy.Services.Localization;
@@ -51,25 +52,31 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
 
     public static TheoryData<string, string> ConciseDeploymentStepLabels => new()
     {
-        { DeploymentStepNames.GatherDeploymentVariables, "Gather variables" },
-        { DeploymentStepNames.InitializeDeploymentWorkspace, "Initialize deployment" },
-        { DeploymentStepNames.ValidateTargetConfiguration, "Validate configuration" },
+        { DeploymentStepNames.ValidateTargetConfiguration, "Check deployment setup" },
         { DeploymentStepNames.ResolveCacheStrategy, "Check cache" },
-        { DeploymentStepNames.PrepareTargetDiskLayout, "Prepare disk" },
-        { DeploymentStepNames.DownloadOperatingSystemImage, "Download operating system" },
-        { DeploymentStepNames.ApplyOperatingSystemImage, "Apply operating system" },
+        { DeploymentStepNames.PrepareTargetDiskLayout, "Prepare target disk" },
+        { DeploymentStepNames.DownloadOperatingSystemImage, "Download Windows image" },
+        { DeploymentStepNames.ApplyOperatingSystemImage, "Apply Windows image" },
+        { DeploymentStepNames.CheckWindowsImage, "Check Windows image" },
+        { DeploymentStepNames.ConfigureWindowsBoot, "Configure Windows boot" },
+        { DeploymentStepNames.ConfigureAiPolicies, "Configure AI policies" },
+        { DeploymentStepNames.StageDriverInstaller, "Stage driver installer" },
+        { DeploymentStepNames.ExtractFirmwareUpdate, "Extract firmware update" },
+        { "Register Autopilot device", "Register Autopilot device" },
+        { "Prepare Autopilot assistant", "Prepare Autopilot assistant" },
+        { "Copy Autopilot profile", "Copy Autopilot profile" },
         { DeploymentStepNames.ConfigureTargetComputerName, "Set computer name" },
-        { DeploymentStepNames.ConfigureOobeSettings, "Configure OOBE" },
-        { DeploymentStepNames.ConfigureWindowsOptionalFeatures, "Configure optional features" },
+        { DeploymentStepNames.ConfigureOobeSettings, "Configure Windows setup" },
+        { DeploymentStepNames.ConfigureWindowsOptionalFeatures, "Configure Windows features" },
         { DeploymentStepNames.ConfigureRecoveryEnvironment, "Configure Windows recovery" },
-        { DeploymentStepNames.DownloadDriverPack, "Download drivers" },
-        { DeploymentStepNames.ExtractDriverPack, "Extract drivers" },
-        { DeploymentStepNames.StagePreOobeCustomization, "Stage customizations" },
-        { DeploymentStepNames.ApplyDriverPack, "Apply drivers" },
-        { DeploymentStepNames.ApplyRecoveryDrivers, "Apply recovery drivers" },
-        { DeploymentStepNames.DownloadFirmwareUpdate, "Download firmware" },
-        { DeploymentStepNames.ApplyFirmwareUpdate, "Apply firmware" },
-        { DeploymentStepNames.SealRecoveryPartition, "Seal recovery partition" },
+        { DeploymentStepNames.DownloadDriverPack, "Download driver pack" },
+        { DeploymentStepNames.ExtractDriverPack, "Extract driver pack" },
+        { DeploymentStepNames.StagePreOobeCustomization, "Prepare setup tasks" },
+        { DeploymentStepNames.ApplyDriverPack, "Install Windows drivers" },
+        { DeploymentStepNames.ApplyRecoveryDrivers, "Install recovery drivers" },
+        { DeploymentStepNames.DownloadFirmwareUpdate, "Download firmware update" },
+        { DeploymentStepNames.ApplyFirmwareUpdate, "Stage firmware update" },
+        { DeploymentStepNames.SealRecoveryPartition, "Hide recovery partition" },
         { DeploymentStepNames.ProvisionAutopilot, "Provision Autopilot" },
         { DeploymentStepNames.FinalizeDeploymentAndWriteLogs, "Finalize deployment" }
     };
@@ -82,6 +89,61 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
         CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
 
         Assert.Equal(expected, DeploymentUiTextLocalizer.LocalizeStepName(stepName));
+    }
+
+    [Theory]
+    [InlineData("en-US")]
+    [MemberData(nameof(LocalizationResourceTests.SatelliteCultures), MemberType = typeof(LocalizationResourceTests))]
+    public void ConditionalWorkflow_LocalizesNewStepsAndResultsWithoutLosingFileNames(string cultureName)
+    {
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(cultureName);
+        ResourceSet resources = LocalizationText.ResourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, false)!;
+        (string Invariant, string Key)[] labels =
+        [
+            ("Check Windows image", "Step.CheckWindowsImage"),
+            ("Configure Windows boot", "Step.ConfigureWindowsBoot"),
+            ("Configure AI policies", "Step.ConfigureAiPolicies"),
+            ("Stage driver installer", "Step.StageDriverInstaller"),
+            ("Extract firmware update", "Step.ExtractFirmwareUpdate"),
+            ("Register Autopilot device", "Step.RegisterAutopilotDevice"),
+            ("Prepare Autopilot assistant", "Step.PrepareAutopilotAssistant"),
+            ("Copy Autopilot profile", "Step.CopyAutopilotProfile")
+        ];
+        foreach ((string invariant, string key) in labels)
+        {
+            Assert.Equal(resources.GetString(key), DeploymentUiTextLocalizer.LocalizeStepName(invariant));
+        }
+
+        (string Invariant, string Key)[] results =
+        [
+            ("Checking available space...", "StepMessage.CheckingAvailableSpace"),
+            ("Windows image and known capacity checked.", "StepResult.WindowsImageChecked"),
+            ("Windows boot configured.", "StepResult.WindowsBootConfigured"),
+            ("Windows image was not applied.", "StepResult.WindowsImageNotApplied"),
+            ("External image storage and known capacity checked.", "StepResult.ExternalStorageReady"),
+            ("No deferred driver installer is required.", "StepResult.NoDeferredDriverInstallerRequired"),
+            ("Copying driver package...", "StepMessage.CopyingDriverPackage"),
+            ("Driver installer staged.", "StepResult.DriverInstallerStaged"),
+            ("Firmware update resolved from cache.", "StepResult.FirmwareUpdateResolvedFromCache"),
+            ("Extracting firmware payload...", "StepMessage.ExtractingFirmwareUpdate"),
+            ("Firmware update extracted.", "StepResult.FirmwareUpdateExtracted"),
+            ("Staging firmware update...", "StepMessage.StagingFirmwareUpdate"),
+            ("Firmware update staged for Windows installation.", "StepResult.FirmwareUpdateStaged"),
+            ("No firmware update payload is available.", "StepResult.NoFirmwareUpdatePayload"),
+            ("The selected firmware payload is unavailable.", "StepResult.SelectedFirmwarePayloadUnavailable"),
+            ("The selected driver pack payload is unavailable.", "StepResult.SelectedDriverPayloadUnavailable"),
+            ("The selected firmware payload does not contain any CAB files.", "StepResult.NoFirmwareCabFiles")
+        ];
+        foreach ((string invariant, string key) in results)
+        {
+            Assert.Equal(resources.GetString(key), DeploymentUiTextLocalizer.LocalizeMessage(invariant));
+        }
+
+        string expected = string.Format(CultureInfo.CurrentUICulture, resources.GetString("StepResult.CatalogDriverInfMissingFormat")!, "network.cab");
+        Assert.Equal(expected, DeploymentUiTextLocalizer.LocalizeMessage("The selected Microsoft Update Catalog driver payload 'network.cab' does not contain any INF files."));
+        string simulation = string.Format(CultureInfo.CurrentUICulture, resources.GetString("StepResult.SimulationFormat")!,
+            resources.GetString("StepResult.WindowsBootConfigured")!.TrimEnd('.', '。'));
+        Assert.Equal(simulation, DeploymentUiTextLocalizer.LocalizeMessage("Windows boot configured (simulation)."));
     }
 
     [Theory]
@@ -109,7 +171,6 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("Operating system image downloaded.", "Image du système d’exploitation téléchargée.")]
     [InlineData("Operating system image resolved from cache.", "Image du système d’exploitation réutilisée depuis le cache.")]
     [InlineData("Driver pack resolved from cache.", "Pack de pilotes réutilisé depuis le cache.")]
-    [InlineData("Driver pack prepared for deferred installation.", "Pack de pilotes préparé pour l’installation au premier démarrage.")]
     [InlineData("Driver pack source payload is unavailable for deferred staging.", "Le contenu source du pack de pilotes est indisponible pour la préparation au premier démarrage.")]
     [InlineData("Microsoft Update Catalog did not produce a driver payload.", "Microsoft Update Catalog n’a produit aucun contenu de pilote.")]
     [InlineData("Deferred driver pack staging was requested without a supported deferred command.", "La préparation du pack de pilotes au premier démarrage a été demandée sans commande prise en charge.")]
@@ -176,7 +237,7 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
         CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
 
         Assert.Equal(
-            "Configurer les fonctionnalités facultatives",
+            "Configurer les fonctionnalités Windows",
             DeploymentUiTextLocalizer.LocalizeStepName("Configure Windows optional features"));
     }
 

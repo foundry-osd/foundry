@@ -10,21 +10,26 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentTimelineTrackerTests
 {
     [Fact]
-    public void Reset_CreatesOnePendingEntryPerPlannedOperation()
+    public void Reset_StartsFreshOutcomesAndUsesSelectedPlanLabels()
     {
         var tracker = CreateTracker();
 
-        tracker.Reset(["Prepare", "Apply", "Finalize"]);
+        tracker.Reset([new("Prepare", "Old label")]);
+        tracker.Apply(CreateProgress(1, DeploymentStepState.Succeeded));
+
+        tracker.Reset([new("Prepare", "Check setup"), new("Apply", "Apply image"), new("Finalize", "Finish deployment")]);
 
         Assert.Equal(3, tracker.Entries.Count);
+        Assert.Equal("Check setup", tracker.Entries[0].DisplayName);
+        Assert.All(tracker.Entries, entry => Assert.Empty(entry.DetailText));
         Assert.All(tracker.Entries, entry => Assert.Equal(DeploymentStepState.Pending, entry.State));
     }
 
     [Fact]
-    public void Apply_UpdatesOnlyTheReportedOneBasedStep()
+    public void Apply_UpdatesOnlyTheReportedStepIdentity()
     {
         var tracker = CreateTracker();
-        tracker.Reset(["Prepare", "Apply"]);
+        tracker.Reset([new("Prepare", "Prepare"), new("Apply", "Apply")]);
 
         tracker.Apply(CreateProgress(stepIndex: 2, state: DeploymentStepState.Running));
 
@@ -36,7 +41,7 @@ public sealed class DeploymentTimelineTrackerTests
     public void FailAt_PreservesCompletedEntriesAndMarksReportedOperationFailed()
     {
         var tracker = CreateTracker();
-        tracker.Reset(["Prepare", "Apply", "Finalize"]);
+        tracker.Reset([new("Prepare", "Prepare"), new("Apply", "Apply"), new("Finalize", "Finalize")]);
         tracker.Apply(CreateProgress(1, DeploymentStepState.Succeeded));
 
         tracker.FailAt(2);
@@ -47,34 +52,69 @@ public sealed class DeploymentTimelineTrackerTests
     }
 
     [Fact]
-    public void CompleteAll_UsesCompletedSemanticsForEveryOperation()
+    public void FailAt_AfterOperationCompleted_PreservesItsRecordedOutcome()
     {
         var tracker = CreateTracker();
-        tracker.Reset(["Prepare", "Apply"]);
+        tracker.Reset([new("Prepare", "Prepare")]);
+        tracker.Apply(CreateProgress(1, DeploymentStepState.Succeeded));
 
-        tracker.CompleteAll();
+        tracker.FailAt(1);
 
-        Assert.All(tracker.Entries, entry => Assert.True(entry.IsCompleted));
+        Assert.Equal(DeploymentStepState.Succeeded, tracker.Entries[0].State);
     }
 
     [Fact]
-    public void CompleteAll_PreservesStepsReportedAsSkipped()
+    public void Reconcile_DoesNotFabricateResultsForUnreportedOperations()
     {
         var tracker = CreateTracker();
-        tracker.Reset(["Prepare", "Apply"]);
+        tracker.Reset([new("Prepare", "Prepare")]);
+
+        tracker.Reconcile([new("Prepare", "Prepare"), new("Apply", "Apply")]);
+
+        Assert.All(tracker.Entries, entry => Assert.Equal(DeploymentStepState.Pending, entry.State));
+    }
+
+    [Fact]
+    public void Reconcile_PreservesSkippedResultsWhenFutureWorkIsRemoved()
+    {
+        var tracker = CreateTracker();
+        tracker.Reset([new("Prepare", "Prepare"), new("Apply", "Apply")]);
         tracker.Apply(CreateProgress(1, DeploymentStepState.Skipped));
 
-        tracker.CompleteAll();
+        tracker.Reconcile([new("Prepare", "Prepare")]);
 
         Assert.Equal(DeploymentStepState.Skipped, tracker.Entries[0].State);
-        Assert.Equal(DeploymentStepState.Succeeded, tracker.Entries[1].State);
+        Assert.Single(tracker.Entries);
+
+    }
+
+    [Fact]
+    public void Apply_AfterPlanReordering_UsesStableIdentityAndRetainsReason()
+    {
+        var tracker = CreateTracker();
+        tracker.Reset([new("Prepare", "Prepare"), new("Download", "Download"), new("Apply", "Apply")]);
+        tracker.Apply(new DeploymentStepProgress
+        {
+            StepName = "Download",
+            State = DeploymentStepState.Skipped,
+            StepIndex = 1,
+            StepCount = 2,
+            ProgressPercent = 50,
+            Message = "Cached image reused.",
+            Plan = [new("Download", "Download Image"), new("Apply", "Apply Image")]
+        });
+
+        Assert.Equal("Download", tracker.Entries[0].RawName);
+        Assert.Equal(DeploymentStepState.Skipped, tracker.Entries[0].State);
+        Assert.Equal("Cached image reused.", tracker.Entries[0].DetailText);
+        Assert.Equal(DeploymentStepState.Pending, tracker.Entries[1].State);
     }
 
     [Fact]
     public void Apply_ExposesLocalizedStateTextForAutomation()
     {
         var tracker = CreateTracker();
-        tracker.Reset(["Prepare"]);
+        tracker.Reset([new("Prepare", "Prepare")]);
 
         tracker.Apply(CreateProgress(1, DeploymentStepState.Running));
 

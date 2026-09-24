@@ -18,6 +18,7 @@ using Foundry.Utilities.Diagnostics;
 using Foundry.Utilities.Runtime;
 using Foundry.Utilities.Storage;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Utilities.Processes;
 using Foundry.Deploy.Services.Logging;
@@ -75,7 +76,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         _isDebugSafeMode = isDebugSafeMode;
         _timelineTracker = new DeploymentTimelineTracker(
             DeploymentUiTextLocalizer.LocalizeStepName,
-            LocalizeTimelineState);
+            LocalizeTimelineState,
+            DeploymentUiTextLocalizer.LocalizeMessage);
 
         _operationProgressService.ProgressChanged += OnOperationProgressChanged;
         _deploymentOrchestrator.StepProgressChanged += OnStepProgressChanged;
@@ -165,7 +167,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     public bool IsStartupReady => !IsStartupInitializing;
     public ObservableCollection<DeploymentTimelineEntryViewModel> TimelineEntries => _timelineTracker.Entries;
 
-    public int PlannedStepCount => _deploymentOrchestrator.PlannedSteps.Count;
     public string CompletionInstructionText => _rebootPolicy.AutomaticRebootEnabled && !_isDebugSafeMode
         ? Format("Success.RebootCountdownFormat", RebootCountdownSeconds)
         : GetString("Success.ManualRebootInstruction");
@@ -203,14 +204,14 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         CurrentPage = DeploymentPage.Wizard;
     }
 
-    public void BeginDeployment(string computerName, int plannedStepCount)
+    public void BeginDeployment(string computerName, IReadOnlyList<DeploymentPlanEntry> plan)
     {
         _isDeploymentInProgress = true;
         _lastLogsDirectoryPath = string.Empty;
         ClearFailureDetails();
-        _plannedStepCount = plannedStepCount;
+        _plannedStepCount = plan.Count;
         _activeStepIndex = 0;
-        _timelineTracker.Reset(_deploymentOrchestrator.PlannedSteps);
+        _timelineTracker.Reset(plan);
 
         DeploymentProgress = 0;
         UpdateGlobalProgressVisuals(0);
@@ -234,7 +235,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     {
         _isDeploymentInProgress = false;
         _lastLogsDirectoryPath = logsDirectoryPath ?? string.Empty;
-        _timelineTracker.CompleteAll();
         _activeStepIndex = _plannedStepCount;
         StepCounterText = BuildStepCounterText(_activeStepIndex);
         CurrentPage = DeploymentPage.Success;
@@ -284,18 +284,15 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         FailDeployment(fallbackStep, fallbackMessage, executionRunResult.LogsDirectoryPath);
     }
 
-    public void ShowDebugProgress(string computerName, int currentStepIndex, int plannedStepCount, string currentStepName, int progressPercent)
+    public void ShowDebugProgress(DeploymentContext request)
     {
         _isDeploymentInProgress = false;
+        _lastLogsDirectoryPath = string.Empty;
         ClearFailureDetails();
-        _plannedStepCount = plannedStepCount;
-        _activeStepIndex = currentStepIndex;
-        SeedDebugTimeline(currentStepIndex, DeploymentStepState.Running);
-        DeploymentProgress = progressPercent;
-        UpdateGlobalProgressVisuals(progressPercent);
-        ComputerNameText = computerName;
-        SetCurrentStepName(currentStepName);
-        StepCounterText = BuildStepCounterText(currentStepIndex);
+        SeedDebugTimeline(request, DeploymentStepNames.ApplyOperatingSystemImage, DeploymentStepState.Running);
+        DeploymentProgress = (int)Math.Round((_activeStepIndex - 1 + 0.65) / _plannedStepCount * 100);
+        UpdateGlobalProgressVisuals(DeploymentProgress);
+        ComputerNameText = request.TargetComputerName;
         CurrentStepProgress = 65;
         IsCurrentStepProgressIndeterminate = false;
         SetCurrentStepProgressText("Applying image: 65%");
@@ -307,52 +304,33 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         CurrentPage = DeploymentPage.Progress;
     }
 
-    public void ShowDebugSuccess(string computerName, int plannedStepCount, string finalStepName)
+    public void ShowDebugSuccess(DeploymentContext request)
     {
-        _isDeploymentInProgress = false;
+        ShowDebugProgress(request);
         StopElapsedTimeTracking();
-        ClearFailureDetails();
-        _plannedStepCount = plannedStepCount;
-        _activeStepIndex = plannedStepCount;
-        SeedDebugTimeline(plannedStepCount, DeploymentStepState.Succeeded);
-        _timelineTracker.CompleteAll();
+        SeedDebugTimeline(request, DeploymentStepNames.FinalizeDeploymentAndWriteLogs, DeploymentStepState.Succeeded);
         DeploymentProgress = 100;
         UpdateGlobalProgressVisuals(100);
-        ComputerNameText = computerName;
-        SetCurrentStepName(finalStepName);
-        StepCounterText = BuildStepCounterText(plannedStepCount);
         CurrentStepProgress = 100;
         IsCurrentStepProgressIndeterminate = false;
         SetCurrentStepProgressText("Step completed.");
         CurrentPage = DeploymentPage.Success;
     }
 
-    public void ShowDebugError(string computerName, int currentStepIndex, string failedStepName, string failedStepErrorMessage)
+    public void ShowDebugError(DeploymentContext request, string failedStepErrorMessage)
     {
-        _isDeploymentInProgress = false;
+        ShowDebugProgress(request);
         StopElapsedTimeTracking();
-        ComputerNameText = computerName;
-        _plannedStepCount = _deploymentOrchestrator.PlannedSteps.Count;
-        _activeStepIndex = currentStepIndex;
-        SeedDebugTimeline(currentStepIndex, DeploymentStepState.Failed);
-        StepCounterText = BuildStepCounterText(currentStepIndex);
-        SetFailureDetails(failedStepName, failedStepErrorMessage);
-        CurrentPage = DeploymentPage.Error;
+        FailDeployment(DeploymentStepNames.ApplyOperatingSystemImage, failedStepErrorMessage);
     }
 
     /// <summary>
     /// Previews cancellation using the same terminal transition as a cancelled deployment.
     /// </summary>
-    public void ShowDebugCancelled(string computerName)
+    public void ShowDebugCancelled(DeploymentContext request)
     {
-        int currentStepIndex = _deploymentOrchestrator.PlannedSteps
-            .ToList().IndexOf(DeploymentStepNames.ApplyOperatingSystemImage) + 1;
-        ShowDebugProgress(
-            computerName,
-            currentStepIndex,
-            _deploymentOrchestrator.PlannedSteps.Count,
-            DeploymentStepNames.ApplyOperatingSystemImage,
-            progressPercent: 42);
+        ShowDebugProgress(request);
+        StopElapsedTimeTracking();
         ApplyExecutionRunResult(new DeploymentExecutionRunResult
         {
             IsSuccess = false,
@@ -576,7 +554,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
                 SetCurrentStepProgressText("Starting step...");
             }
 
-            SetCurrentStepName(stepProgress.StepName);
+            SetCurrentStepName(stepProgress.StepLabel ?? stepProgress.StepName);
+            _plannedStepCount = stepProgress.StepCount;
             StepCounterText = BuildStepCounterText(stepProgress.StepIndex);
             _timelineTracker.Apply(stepProgress);
 
@@ -984,18 +963,29 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         });
     }
 
-    private void SeedDebugTimeline(int currentStepIndex, DeploymentStepState currentState)
+    private void SeedDebugTimeline(DeploymentContext request, string currentStepName, DeploymentStepState currentState)
     {
-        _timelineTracker.Reset(_deploymentOrchestrator.PlannedSteps);
-        int normalizedIndex = Math.Clamp(currentStepIndex, 0, _timelineTracker.Entries.Count);
-        for (int index = 0; index < normalizedIndex - 1; index++)
+        // Assume usable USB cache for this display-only scenario; real deployment resolves storage during preflight.
+        IReadOnlyList<DeploymentPlanEntry> plan = DeploymentPlan.Build(request, usesTargetStorage: request.Mode != DeploymentMode.Usb);
+        _timelineTracker.Reset(plan);
+        _plannedStepCount = plan.Count;
+        _activeStepIndex = TimelineEntries.Single(entry => entry.RawName == currentStepName).StepIndex;
+        SetCurrentStepName(plan[_activeStepIndex - 1].Label);
+        StepCounterText = BuildStepCounterText(_activeStepIndex);
+        for (int index = 0; index < _activeStepIndex; index++)
         {
-            _timelineTracker.SetState(index + 1, DeploymentStepState.Succeeded);
-        }
-
-        if (normalizedIndex > 0)
-        {
-            _timelineTracker.SetState(normalizedIndex, currentState);
+            bool cachedImage = plan[index].Name == DeploymentStepNames.DownloadOperatingSystemImage;
+            _timelineTracker.Apply(new DeploymentStepProgress
+            {
+                StepName = plan[index].Name,
+                StepLabel = plan[index].Label,
+                State = index == _activeStepIndex - 1 ? currentState :
+                    cachedImage ? DeploymentStepState.Skipped : DeploymentStepState.Succeeded,
+                StepIndex = index + 1,
+                StepCount = _plannedStepCount,
+                ProgressPercent = 0,
+                Message = cachedImage ? "Operating system image resolved from cache." : null
+            });
         }
     }
 

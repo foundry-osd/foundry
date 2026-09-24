@@ -52,21 +52,20 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
 
         context.EmitCurrentStepIndeterminate(
             applyStepMessage,
-            "Inspecting image...",
-            DeploymentOperationNames.InspectOperatingSystemImage);
+            "Checking available space...",
+            DeploymentOperationNames.ApplyOperatingSystemImage);
         WindowsImageMetadata metadata;
         try
         {
             DeploymentPreflightState? preflight = context.Preflight;
-            if (preflight is { UsesTargetStorage: false } && !preflight.Matches(context))
+            if (preflight?.Image is null || !preflight.Matches(context) ||
+                !string.Equals(preflight.ImagePath, imagePath, StringComparison.OrdinalIgnoreCase))
             {
                 throw PreflightDeploymentStep.Guard("Preflight.NotReady", "preflight_not_ready");
             }
-            metadata = preflight?.Image ?? await _windowsDeploymentService
-                .InspectImageAsync(imagePath, context.Request.OperatingSystem.Edition, cancellationToken)
-                .ConfigureAwait(false);
-            long actualArchiveBytes = preflight?.UsesTargetStorage == false ? 0 : new FileInfo(imagePath).Length;
-            long targetDriverBytes = preflight?.TargetDriverBytes ?? 0;
+            metadata = preflight.Image;
+            long actualArchiveBytes = preflight.UsesTargetStorage ? new FileInfo(imagePath).Length : 0;
+            long targetDriverBytes = preflight.TargetDriverBytes;
             DeploymentCapacityPolicy.EnsureTargetCapacity(context, metadata, actualArchiveBytes, targetDriverBytes);
             long remainingBytes = DeploymentCapacityPolicy.RequiredWindowsBytes(metadata, 0, targetDriverBytes,
                 DeploymentCapacityPolicy.NeedsOptionalFeatureSource(context));
@@ -91,7 +90,6 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
         }
 
         int imageIndex = metadata.Index;
-        context.RuntimeState.AppliedImageIndex = imageIndex;
 
         string scratchDirectory = Path.Combine(targetFoundryRoot, "Temp", "Dism");
         context.EmitCurrentStepIndeterminate(
@@ -111,19 +109,7 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
                 applyImageProgress)
             .ConfigureAwait(false);
 
-        context.EmitCurrentStepIndeterminate(
-            applyStepMessage,
-            "Configuring boot...",
-            DeploymentOperationNames.ConfigureBoot);
-        await _windowsDeploymentService
-            .ConfigureBootAsync(
-                context.RuntimeState.TargetWindowsPartitionRoot,
-                context.RuntimeState.TargetSystemPartitionRoot,
-                context.Request.OperatingSystem.BuildMajor,
-                workingDirectory,
-                cancellationToken)
-            .ConfigureAwait(false);
-
+        context.RuntimeState.AppliedImageIndex = imageIndex;
         context.EmitCurrentStepIndeterminate(
             applyStepMessage,
             "Verifying image...",
@@ -159,7 +145,7 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
 
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
-            $"OS image applied to {context.RuntimeState.TargetWindowsPartitionRoot} (index {imageIndex}); boot configured on {context.RuntimeState.TargetSystemPartitionRoot}.",
+            $"OS image applied to {context.RuntimeState.TargetWindowsPartitionRoot} (index {imageIndex}).",
             cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Operating system image applied.");

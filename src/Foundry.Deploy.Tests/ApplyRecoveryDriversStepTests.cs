@@ -11,6 +11,20 @@ namespace Foundry.Deploy.Tests;
 public sealed class ApplyRecoveryDriversStepTests
 {
     [Fact]
+    public async Task ExecuteAsync_WhenExtractedPayloadIsEmpty_FailsWithoutServicing()
+    {
+        using var fixture = new DriverApplicationStepTestFixture();
+        using DeploymentStepExecutionContext context = fixture.CreateContext();
+        File.Delete(Path.Combine(fixture.DriverRoot, "driver.inf"));
+
+        DeploymentStepResult result = await new ApplyRecoveryDriversStep(fixture.DeploymentService)
+            .ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal(0, fixture.DeploymentService.RecoveryApplyCount);
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WhenOfflineInfAndRecoveryConfigured_AppliesDriversOnlyToRecovery()
     {
         using var fixture = new DriverApplicationStepTestFixture();

@@ -28,8 +28,31 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
 
         DeploymentStepResult result = await ExecuteAsync(service, context);
 
-        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.Equal(DeploymentStepState.Skipped, result.State);
         Assert.Equal(0, service.ConfigureOptionalFeaturesCallCount);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    public async Task ExecuteAsync_WhenNoFeaturesChange_ReturnsSkippedWithUnavailableCount(int unavailableCount)
+    {
+        using var workspace = new TestWorkspace();
+        var service = new RecordingWindowsDeploymentService
+        {
+            Result = new WindowsOptionalFeatureServicingResult
+            {
+                RequestedActionCount = 1,
+                AlreadySatisfiedActionCount = unavailableCount == 0 ? 1 : 0,
+                UnavailableEnableActionIds = unavailableCount == 0 ? [] : ["NetFx3"]
+            }
+        };
+        DeploymentStepExecutionContext context = CreateContext(workspace, service, Settings(Action("NetFx3", true)));
+
+        DeploymentStepResult result = await ExecuteAsync(service, context);
+
+        Assert.Equal(DeploymentStepState.Skipped, result.State);
+        Assert.Contains($"{unavailableCount} unavailable", result.Message, StringComparison.Ordinal);
     }
 
     [Fact]

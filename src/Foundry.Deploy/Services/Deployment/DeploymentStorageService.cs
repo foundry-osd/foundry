@@ -24,10 +24,16 @@ public sealed class DeploymentStorageService : IDeploymentStorageService
     }
 
     /// <inheritdoc />
-    public bool CanWriteDirectory(string path)
+    public bool CanWriteDirectory(string path, string? existingFilePath = null)
     {
         try
         {
+            if (!string.IsNullOrWhiteSpace(existingFilePath) && File.Exists(existingFilePath))
+            {
+                using var existing = new FileStream(existingFilePath, FileMode.Open, FileAccess.Write, FileShare.Read);
+                return true;
+            }
+
             Directory.CreateDirectory(path);
             using var probe = new FileStream(Path.Combine(path, $".foundry-probe-{Guid.NewGuid():N}"),
                 FileMode.CreateNew, FileAccess.Write, FileShare.None, 1, FileOptions.DeleteOnClose);

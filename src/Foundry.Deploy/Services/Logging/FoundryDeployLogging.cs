@@ -53,15 +53,6 @@ internal static class FoundryDeployLogging
         }
     }
 
-    public static void RegisterPersistenceDirectory(string logsDirectoryPath)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(logsDirectoryPath);
-        lock (PersistenceSync)
-        {
-            _persistenceDirectoryPath = Path.GetFullPath(logsDirectoryPath);
-        }
-    }
-
     public static LogPersistenceResult PersistCurrentLogs()
     {
         lock (PersistenceSync)

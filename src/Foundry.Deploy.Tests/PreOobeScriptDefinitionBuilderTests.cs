@@ -9,6 +9,41 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class PreOobeScriptDefinitionBuilderTests
 {
+    [Theory]
+    [InlineData("none", false)]
+    [InlineData("blank-appx", false)]
+    [InlineData("disabled-appx", false)]
+    [InlineData("appx", true)]
+    [InlineData("ai-policy", false)]
+    [InlineData("ai-hub", true)]
+    [InlineData("driver", true)]
+    [InlineData("network", true)]
+    [InlineData("activation", true)]
+    public void HasScripts_OnlyIncludesEffectiveSetupTasks(string selection, bool expected)
+    {
+        var appx = new DeployAppxRemovalSettings
+        {
+            IsEnabled = selection is "blank-appx" or "appx",
+            PackageNames = selection switch
+            {
+                "blank-appx" => [" "],
+                "appx" or "disabled-appx" => ["Microsoft.BingNews"],
+                _ => []
+            }
+        };
+        var ai = new DeployAiComponentRemovalSettings
+        {
+            IsEnabled = true,
+            DisableRecall = selection == "ai-policy",
+            RemoveAiHub = selection == "ai-hub"
+        };
+
+        bool result = PreOobeScriptDefinitionBuilder.HasScripts(appx, ai,
+            selection == "driver", selection == "network", selection == "activation");
+
+        Assert.Equal(expected, result);
+    }
+
     [Fact]
     public void Build_WhenAppxRemovalIsEnabled_StagesPackageCatalogDataFile()
     {

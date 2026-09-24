@@ -16,8 +16,7 @@ public sealed class DeploymentStorageLayoutTests
         string[] paths = [layout.RuntimePreOobe, layout.RuntimeAutopilotRegistration,
             layout.PayloadsDrivers, layout.PayloadsNetworkProfiles, layout.PayloadsCustomization,
             layout.StateDeployment, layout.StatePreOobe, layout.StateAutopilotRegistration,
-            layout.LogsDeployment, layout.LogsPreOobe, layout.LogsAutopilotRegistration, layout.LogsAutopilotHash,
-            layout.Work(Guid.NewGuid())];
+            layout.LogsDeployment, layout.LogsPreOobe, layout.LogsAutopilotRegistration, layout.LogsAutopilotHash];
         Assert.All(paths, path => Assert.StartsWith(@"R:\Windows\Temp\Foundry\", path));
         Assert.All(paths, path => Assert.DoesNotContain("ProgramData", path));
         string temporary = Path.Combine(Path.GetTempPath(), "FoundryDeployTests", Guid.NewGuid().ToString("N"));

@@ -42,7 +42,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         HardwareProfile hardwareProfile,
         OperatingSystemCatalogItem operatingSystem,
         string destinationDirectory,
-        Func<long, string> resolveCacheDirectory,
+        Func<long, string, string> resolveCacheDirectory,
         CancellationToken cancellationToken = default,
         IProgress<double>? progress = null)
     {
@@ -124,17 +124,23 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         }
 
         int downloadIndex = 0;
+        int downloadedCount = 0;
         List<MicrosoftUpdateCatalogDownloadedDriver> downloadedDrivers = [];
         foreach (CatalogDownloadCandidate candidate in matchedUpdates.Values.OrderBy(static item => item.Update.Title, StringComparer.OrdinalIgnoreCase))
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            string payloadPath = await DownloadPayloadAsync(
+            ArtifactDownloadResult payload = await DownloadPayloadAsync(
                     candidate,
                     destinationDirectory,
                     resolveCacheDirectory,
                     cancellationToken)
                 .ConfigureAwait(false);
+
+            if (payload.Downloaded)
+            {
+                downloadedCount++;
+            }
 
             downloadedDrivers.Add(new MicrosoftUpdateCatalogDownloadedDriver
             {
@@ -143,7 +149,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
                 Version = candidate.Update.Version,
                 Size = candidate.Update.Size,
                 DownloadUrl = candidate.Download.DownloadUrl,
-                FilePath = payloadPath
+                FilePath = payload.DestinationPath
             });
 
             downloadIndex++;
@@ -157,6 +163,8 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         {
             DestinationDirectory = destinationDirectory,
             IsPayloadAvailable = cabCount > 0,
+            DownloadedCount = downloadedCount,
+            ReusedCount = cabCount - downloadedCount,
             DownloadedDrivers = downloadedDrivers,
             Message = $"Microsoft Update Catalog payload resolved: {cabCount} CAB files across {matchedUpdates.Count} updates."
         };
@@ -176,9 +184,14 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         }
 
         progress?.Report(5d);
-        Directory.CreateDirectory(destinationDirectory);
 
         string[] cabFiles = sourcePaths.Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
+        if (cabFiles.Length == 0)
+        {
+            throw new InvalidOperationException("No selected Microsoft Update Catalog driver payload is available for extraction.");
+        }
+
+        DirectoryOperations.Recreate(destinationDirectory);
 
         for (int index = 0; index < cabFiles.Length; index++)
         {
@@ -203,6 +216,10 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
                     cancellationToken,
                     CreateMappedProgress(progress, rangeStart, rangeEnd))
                 .ConfigureAwait(false);
+            if (!Directory.EnumerateFiles(cabDestination, "*.inf", SearchOption.AllDirectories).Any())
+            {
+                throw new InvalidOperationException($"The selected Microsoft Update Catalog driver payload '{Path.GetFileName(cabPath)}' does not contain any INF files.");
+            }
         }
 
         int infCount = Directory
@@ -213,12 +230,10 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         return new MicrosoftUpdateCatalogDriverResult
         {
             DestinationDirectory = destinationDirectory,
-            IsPayloadAvailable = infCount > 0,
+            IsPayloadAvailable = true,
             InfCount = infCount,
             DownloadedDrivers = Array.Empty<MicrosoftUpdateCatalogDownloadedDriver>(),
-            Message = infCount > 0
-                ? $"Microsoft Update Catalog payload expanded: {infCount} INF files from {cabFiles.Length} CAB files."
-                : $"Microsoft Update Catalog payload expanded from {cabFiles.Length} CAB files, but no INF files were found."
+            Message = $"Microsoft Update Catalog payload expanded: {infCount} INF files from {cabFiles.Length} CAB files."
         };
     }
 
@@ -267,20 +282,20 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
         };
     }
 
-    private async Task<string> DownloadPayloadAsync(
+    private async Task<ArtifactDownloadResult> DownloadPayloadAsync(
         CatalogDownloadCandidate candidate,
         string temporaryDirectory,
-        Func<long, string> resolveCacheDirectory,
+        Func<long, string, string> resolveCacheDirectory,
         CancellationToken cancellationToken)
     {
         string expectedHash = MicrosoftUpdateCatalogSupport.ResolvePreferredHash(candidate.Download);
-        string downloadDirectory = string.IsNullOrWhiteSpace(expectedHash)
-            ? temporaryDirectory
-            : resolveCacheDirectory(candidate.Update.SizeInBytes);
-        string destinationPath = Path.Combine(
-            downloadDirectory,
+        string relativePath = Path.Combine(
             MicrosoftUpdateCatalogSupport.SanitizePathSegment(candidate.Update.UpdateId),
             ResolveFileName(candidate.Download));
+        string downloadDirectory = string.IsNullOrWhiteSpace(expectedHash)
+            ? temporaryDirectory
+            : resolveCacheDirectory(candidate.Update.SizeInBytes, relativePath);
+        string destinationPath = Path.Combine(downloadDirectory, relativePath);
 
         ArtifactDownloadResult result = await _artifactDownloadService
             .DownloadAsync(
@@ -295,7 +310,7 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
             "Microsoft Update Catalog driver payload {Disposition}: {PayloadPath}",
             result.Downloaded ? "downloaded" : "reused",
             result.DestinationPath);
-        return result.DestinationPath;
+        return result;
     }
 
     private async Task<MicrosoftUpdateCatalogUpdate?> SearchByReleaseAsync(
@@ -450,10 +465,6 @@ public sealed class MicrosoftUpdateCatalogDriverService : IMicrosoftUpdateCatalo
             return null;
         }
 
-        return new Progress<double>(percent =>
-        {
-            double normalized = Math.Clamp(percent, 0d, 100d);
-            progress.Report(start + (normalized / 100d * (end - start)));
-        });
+        return new CatalogExtractionProgress(progress, start, end);
     }
 }
