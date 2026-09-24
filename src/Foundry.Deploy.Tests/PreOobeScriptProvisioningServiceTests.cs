@@ -4,6 +4,8 @@
 
 using System.IO;
 using System.Text.Json;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 
@@ -271,7 +273,7 @@ public sealed class PreOobeScriptProvisioningServiceTests
         string stagedScriptPath = Assert.Single(result.StagedScriptPaths);
         string stagedScript = File.ReadAllText(stagedScriptPath);
         string runner = File.ReadAllText(result.RunnerPath);
-        string stagedCatalog = File.ReadAllText(Path.Combine(Path.GetDirectoryName(result.RunnerPath)!, "Data", "Remove-AppX.packages.json"));
+        string stagedCatalog = File.ReadAllText(Path.Combine(DeploymentStorageLayout.FromPartitionRoot(windowsRoot).PayloadsCustomization, "Remove-AppX.packages.json"));
 
         Assert.EndsWith(Path.Combine("Scripts", "Remove-AppX.ps1"), stagedScriptPath);
         Assert.Contains("Remove-AppX.transcript.log", stagedScript);
@@ -330,7 +332,7 @@ public sealed class PreOobeScriptProvisioningServiceTests
         string stagedScriptPath = Assert.Single(result.StagedScriptPaths);
         string stagedScript = File.ReadAllText(stagedScriptPath);
         string runner = File.ReadAllText(result.RunnerPath);
-        string stagedSettings = File.ReadAllText(Path.Combine(Path.GetDirectoryName(result.RunnerPath)!, "Data", "Remove-AiComponents.settings.json"));
+        string stagedSettings = File.ReadAllText(Path.Combine(DeploymentStorageLayout.FromPartitionRoot(windowsRoot).PayloadsCustomization, "Remove-AiComponents.settings.json"));
 
         Assert.EndsWith(Path.Combine("Scripts", "Remove-AiComponents.ps1"), stagedScriptPath);
         Assert.Contains("Remove-AiComponents.transcript.log", stagedScript);
@@ -386,8 +388,8 @@ public sealed class PreOobeScriptProvisioningServiceTests
             ]);
 
         string dataPath = Path.Combine(
-            Path.GetDirectoryName(result.RunnerPath)!,
-            "Data",
+            DeploymentStorageLayout.FromPartitionRoot(windowsRoot).Root,
+            "Payloads",
             "NetworkProfiles",
             "certificates",
             "My",
@@ -395,6 +397,12 @@ public sealed class PreOobeScriptProvisioningServiceTests
 
         Assert.True(File.Exists(dataPath));
         Assert.Equal([4, 5, 6], File.ReadAllBytes(dataPath));
+        DirectorySecurity security = new DirectoryInfo(Path.GetDirectoryName(dataPath)!).GetAccessControl();
+        Assert.True(security.AreAccessRulesProtected);
+        AuthorizationRuleCollection rules = security.GetAccessRules(true, true, typeof(SecurityIdentifier));
+        Assert.DoesNotContain(rules.Cast<FileSystemAccessRule>(), rule =>
+            rule.IdentityReference.Value == new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null).Value ||
+            rule.IdentityReference.Value == new SecurityIdentifier(WellKnownSidType.WorldSid, null).Value);
         using JsonDocument manifest = JsonDocument.Parse(File.ReadAllText(result.ManifestPath));
         Assert.Contains(
             @"NetworkProfiles\certificates\My\client.pfx",
@@ -432,7 +440,7 @@ public sealed class PreOobeScriptProvisioningServiceTests
 
         Assert.Contains("REM >>> FOUNDRY PRE-OOBE BEGIN", setupComplete);
         Assert.Contains(
-            "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"%SystemRoot%\\Temp\\Foundry\\PreOobe\\Invoke-FoundryPreOobe.ps1\" >>\"%SystemRoot%\\Temp\\Foundry\\Logs\\PreOobe\\SetupComplete.log\" 2>&1",
+            "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"%SystemRoot%\\Temp\\Foundry\\Runtime\\PreOobe\\Invoke-FoundryPreOobe.ps1\" >>\"%SystemRoot%\\Temp\\Foundry\\Logs\\PreOobe\\SetupComplete.log\" 2>&1",
             setupComplete);
         Assert.Contains("mkdir \"%SystemRoot%\\Temp\\Foundry\\Logs\\PreOobe\" >nul 2>&1", setupComplete);
         Assert.Contains("Foundry pre-OOBE runner exited with %FOUNDRY_PREOOBE_EXIT%", setupComplete);

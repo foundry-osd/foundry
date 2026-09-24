@@ -14,6 +14,7 @@ using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.Deployment.Unattend;
 using Foundry.Deploy.Services.DriverPacks;
+using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Network;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -95,7 +96,7 @@ public sealed class DeploymentCustomizationScenarioTests
             WindowsOptionalFeatures = request.WindowsOptionalFeatures
         };
         using var context = new DeploymentStepExecutionContext(request, state, [],
-            new DriverApplicationOperationProgressService(), new DriverApplicationLogService(),
+            new DriverApplicationOperationProgressService(), new DeploymentLogService(),
             new DriverApplicationTargetDiskService(), _ => { });
         // Start at the validated snapshot boundary; encryption validation has its own adversarial tests.
         context.UnattendSnapshot = new UnattendSnapshot(answer.ToArray(), UnattendFileService.Inspect(answer, "amd64"));
@@ -148,11 +149,11 @@ public sealed class DeploymentCustomizationScenarioTests
         Assert.All(state.PreOobeScriptPaths, path => Assert.True(File.Exists(path), path));
 
         string retainedRoot = Path.Combine(fixture.WindowsRoot, "Windows", "Temp", "Foundry");
-        string dataRoot = Path.Combine(retainedRoot, "PreOobe", "Data");
+        string dataRoot = Path.Combine(retainedRoot, "Payloads");
         Assert.Equal(wifiXml, await File.ReadAllTextAsync(Path.Combine(dataRoot, "NetworkProfiles", "wifi-profile.xml"), cancellationToken));
         Assert.True(File.Exists(Path.Combine(dataRoot, "NetworkProfiles", "import-settings.json")));
-        Assert.Contains("Microsoft.Copilot", await File.ReadAllTextAsync(Path.Combine(dataRoot, "Remove-AiComponents.settings.json"), cancellationToken));
-        Assert.Contains("Microsoft.BingNews", await File.ReadAllTextAsync(Path.Combine(dataRoot, "Remove-AppX.packages.json"), cancellationToken));
+        Assert.Contains("Microsoft.Copilot", await File.ReadAllTextAsync(Path.Combine(dataRoot, "Customization", "Remove-AiComponents.settings.json"), cancellationToken));
+        Assert.Contains("Microsoft.BingNews", await File.ReadAllTextAsync(Path.Combine(dataRoot, "Customization", "Remove-AppX.packages.json"), cancellationToken));
         string runner = await File.ReadAllTextAsync(state.PreOobeRunnerPath!, cancellationToken);
         foreach (string script in new[] { "Install-DriverPack.ps1", "Import-NetworkProfiles.ps1", "Remove-AiComponents.ps1", "Remove-AppX.ps1", "Cleanup-PreOobe.ps1" })
             Assert.Contains(script, runner, StringComparison.Ordinal);
@@ -168,7 +169,7 @@ public sealed class DeploymentCustomizationScenarioTests
         Assert.DoesNotContain("FOUNDRY AUTOPILOT REGISTRATION", setup, StringComparison.Ordinal);
         Assert.True(File.Exists(state.StagedAutopilotConfigurationPath));
         foreach (string file in new[] { "Start-FoundryAutopilotRegistration.ps1", "Start-FoundryAutopilotRegistrationOobe.cmd", "Wait-FoundryAutopilotRegistrationOobe.ps1", "Start-FoundryAutopilotRegistrationForeground.ps1", "ServiceUI.exe" })
-            Assert.True(File.Exists(Path.Combine(retainedRoot, "AutopilotRegistration", file)), file);
+            Assert.True(File.Exists(Path.Combine(retainedRoot, "Runtime", "AutopilotRegistration", file)), file);
     }
 
     private sealed class RecordingCustomizationService : RecordingDriverApplicationService, IWindowsDeploymentService

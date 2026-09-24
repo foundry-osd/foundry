@@ -773,7 +773,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 {
                     PreparedWorkspace = workspace.PreparedWorkspace,
                     OutputIsoPath = options.IsoOutputPath,
-                    IsoTempDirectoryPath = Path.Combine(Constants.TempDirectoryPath, "Iso"),
+                    IsoTempDirectoryPath = Path.Combine(workspace.Lease.OperationDirectoryPath, "Scratch", "Iso"),
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
                         new Progress<WinPeMediaProgress>(ReportFinalMediaProgress))
                 },
@@ -786,7 +786,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
-            CleanupPreparedWorkspace(workspace?.PreparedWorkspace.Artifact.WorkingDirectoryPath);
+            CleanupPreparedWorkspace(workspace?.Lease);
         }
     }
 
@@ -858,7 +858,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
-            CleanupPreparedWorkspace(workspace?.PreparedWorkspace.Artifact.WorkingDirectoryPath);
+            CleanupPreparedWorkspace(workspace?.Lease);
         }
     }
 
@@ -928,7 +928,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
-            CleanupPreparedWorkspace(workspace?.PreparedWorkspace.Artifact.WorkingDirectoryPath);
+            CleanupPreparedWorkspace(workspace?.Lease);
         }
     }
 
@@ -940,7 +940,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         MediaCreationTelemetryProgressTracker telemetryProgressTracker,
         CancellationToken cancellationToken)
     {
-        WinPeBuildArtifact? artifact = null;
+        WinPeWorkspaceLease? operationLease = null;
 
         try
         {
@@ -956,9 +956,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.PrepareRuntimePayloads);
             WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning = CreateRuntimePayloadProvisioningOptions(
                 options.Architecture,
-                Constants.WinPeWorkspaceDirectoryPath,
-                Constants.WinPeWorkspaceDirectoryPath,
-                Constants.WinPeWorkspaceDirectoryPath);
+                Constants.WorkspacesDirectoryPath,
+                Constants.WorkspacesDirectoryPath,
+                Constants.WorkspacesDirectoryPath);
             runtimePayloadProvisioning = AddReleaseRuntimeProvisioning(runtimePayloadProvisioning);
             TelemetrySettings connectTelemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect) };
             TelemetrySettings deployTelemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy) };
@@ -980,16 +980,18 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.CleanStaleWorkspaces);
             CleanupStaleWinPeWorkspaces();
+            operationLease = WinPeWorkspaceLease.Create(Constants.WorkspacesDirectoryPath);
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.BuildWinPeWorkspace);
             cancellationToken.ThrowIfCancellationRequested();
             operationProgressService.Report(10, localizationService.GetString("StartMedia.Operation.BuildingWorkspace"));
-            // Capture the completed artifact before observing cancellation so cleanup owns
-            // the workspace and never races a still-running Copype process.
+            // Await Copype completion before observing cancellation so cleanup cannot race the process.
             WinPeResult<WinPeBuildArtifact> buildResult = await buildService.BuildAsync(
                 new WinPeBuildOptions
                 {
-                    OutputDirectoryPath = Constants.WinPeWorkspaceDirectoryPath,
+                    OutputDirectoryPath = operationLease.OperationDirectoryPath,
+                    WorkingDirectoryPath = operationLease.WinPeDirectoryPath,
+                    CleanExistingWorkingDirectory = false,
                     AdkRootPath = tools.KitsRootPath,
                     Architecture = options.Architecture,
                     SignatureMode = options.SignatureMode
@@ -997,7 +999,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 CancellationToken.None);
             EnsureSuccess(buildResult);
 
-            artifact = buildResult.Value!;
+            WinPeBuildArtifact artifact = buildResult.Value!;
             cancellationToken.ThrowIfCancellationRequested();
             logger.Debug(
                 "WinPE workspace created. WorkingDirectoryPath={WorkingDirectoryPath}, MediaDirectoryPath={MediaDirectoryPath}, MountDirectoryPath={MountDirectoryPath}, BootWimPath={BootWimPath}",
@@ -1008,7 +1010,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
             WinPeRuntimePayloadProvisioningOptions artifactRuntimePayloadProvisioning = runtimePayloadProvisioning with
             {
-                WorkingDirectoryPath = artifact.WorkingDirectoryPath,
+                WorkingDirectoryPath = Path.Combine(operationLease.OperationDirectoryPath, "Runtime"),
                 MountedImagePath = artifact.MountDirectoryPath,
                 UsbCacheRootPath = string.Empty
             };
@@ -1020,7 +1022,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.GenerateProvisioningPayloads);
             FoundryConnectProvisioningBundle connectBundle = snapshot.CreateConnectProvisioningBundle(
-                Path.Combine(artifact.WorkingDirectoryPath, "Provisioning"),
+                Path.Combine(operationLease.OperationDirectoryPath, "Provisioning"),
                 connectTelemetrySettings);
             logger.Debug(
                 "Generated local provisioning payloads. ConnectAssetFileCount={ConnectAssetFileCount}, HasMediaSecretsKey={HasMediaSecretsKey}, AutopilotProfileCount={AutopilotProfileCount}",
@@ -1040,6 +1042,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 preparationResult = await workspacePreparationService.PrepareAsync(
                     new WinPeWorkspacePreparationOptions
                     {
+                        DriverArchiveCacheDirectoryPath = Constants.WinPeDriverCacheDirectoryPath,
                         Artifact = artifact,
                         Tools = tools,
                         SignatureMode = options.SignatureMode,
@@ -1060,7 +1063,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                         {
                             IncludePayloadsInImage = includeRuntimePayloadInImage
                         },
-                        WinReCacheDirectoryPath = Constants.WinReTempDirectoryPath,
+                        WinReCacheDirectoryPath = Constants.WindowsSourceCacheDirectoryPath,
+                        LegacyWinReCacheDirectoryPath = Constants.WinReTempDirectoryPath,
                         Progress = workspacePreparationProgress,
                         DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
                             new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
@@ -1084,6 +1088,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 includeRuntimePayloadInImage);
 
             return new PreparedMediaWorkspace(
+                operationLease,
                 preparationResult.Value!,
                 tools,
                 artifactRuntimePayloadProvisioning with
@@ -1094,7 +1099,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         catch
         {
-            CleanupPreparedWorkspace(artifact?.WorkingDirectoryPath);
+            CleanupPreparedWorkspace(operationLease);
             throw;
         }
     }
@@ -1406,39 +1411,16 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             : localizationService.GetString(resourceKey);
     }
 
-    private void CleanupPreparedWorkspace(string? workingDirectoryPath)
+    private void CleanupPreparedWorkspace(WinPeWorkspaceLease? operationLease)
     {
-        if (string.IsNullOrWhiteSpace(workingDirectoryPath))
-        {
-            return;
-        }
-
-        string workspaceRoot = Path.GetFullPath(Constants.WinPeWorkspaceDirectoryPath);
-        string workspacePath = Path.GetFullPath(workingDirectoryPath);
-        string normalizedRoot = workspaceRoot.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
-            + Path.DirectorySeparatorChar;
-
-        if (!workspacePath.StartsWith(normalizedRoot, StringComparison.OrdinalIgnoreCase))
-        {
-            logger.Warning(
-                "Skipped WinPE workspace cleanup because the target is outside the workspace root. WorkspacePath={WorkspacePath}, WorkspaceRoot={WorkspaceRoot}",
-                workspacePath,
-                workspaceRoot);
-            return;
-        }
-
-        if (!Directory.Exists(workspacePath))
-        {
-            logger.Debug("Skipped WinPE workspace cleanup because the directory no longer exists. WorkspacePath={WorkspacePath}", workspacePath);
-            return;
-        }
-
-        DeleteWorkspaceDirectory(workspacePath, reportProgress: true);
+        if (operationLease is null) return;
+        string path = operationLease.OperationDirectoryPath;
+        operationLease.Dispose();
+        DeleteWorkspaceDirectory(path, reportProgress: true);
     }
-
     private void CleanupStaleWinPeWorkspaces()
     {
-        string workspaceRoot = Path.GetFullPath(Constants.WinPeWorkspaceDirectoryPath);
+        string workspaceRoot = Path.GetFullPath(Constants.WorkspacesDirectoryPath);
         if (!Directory.Exists(workspaceRoot))
         {
             return;
@@ -1449,10 +1431,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             DeleteWorkspaceDirectory(workspacePath, reportProgress: false);
         }
 
-        foreach (string filePath in Directory.EnumerateFiles(workspaceRoot))
-        {
-            DeleteWorkspaceDirectory(filePath, reportProgress: false);
-        }
     }
 
     private void DeleteWorkspaceDirectory(string workspacePath, bool reportProgress)
@@ -1465,7 +1443,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             }
 
             logger.Debug("Cleaning WinPE workspace. WorkspacePath={WorkspacePath}", workspacePath);
-            WinPeResult cleanup = workspaceCleanupService.Delete(workspacePath);
+            WinPeResult cleanup = workspaceCleanupService.DeleteOwnedOperation(Constants.WorkspacesDirectoryPath, workspacePath);
             if (!cleanup.IsSuccess)
             {
                 logger.Warning("WinPE workspace cleanup was not completed. WorkspacePath={WorkspacePath}, Details={Details}",
@@ -1724,9 +1702,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     {
         WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning = AddReleaseRuntimeProvisioning(CreateRuntimePayloadProvisioningOptions(
             options.Architecture,
-            Constants.WinPeWorkspaceDirectoryPath,
-            Constants.WinPeWorkspaceDirectoryPath,
-            Constants.WinPeWorkspaceDirectoryPath));
+            Constants.WorkspacesDirectoryPath,
+            Constants.WorkspacesDirectoryPath,
+            Constants.WorkspacesDirectoryPath));
 
         string bootMediaTarget = target == FinalMediaTarget.Iso
             ? TelemetryBootMediaTargets.Iso
@@ -2640,6 +2618,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     }
 
     private sealed record PreparedMediaWorkspace(
+        WinPeWorkspaceLease Lease,
         WinPeWorkspacePreparationResult PreparedWorkspace,
         WinPeToolPaths Tools,
         WinPeRuntimePayloadProvisioningOptions RuntimePayloadProvisioning);

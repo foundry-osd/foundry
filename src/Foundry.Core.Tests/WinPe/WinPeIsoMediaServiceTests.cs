@@ -8,6 +8,53 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeIsoMediaServiceTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task CreateAsync_WhenGenerationFailsOrCancels_PreservesPriorIso(bool cancel)
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        string output = Path.Combine(temp.RootPath, "previous.iso");
+        await File.WriteAllTextAsync(output, "previous-valid-iso", TestContext.Current.CancellationToken);
+        var runner = cancel
+            ? new FakeIsoRunner(new OperationCanceledException())
+            : new FakeIsoRunner(new WinPeProcessExecution { ExitCode = 5 });
+        var options = new WinPeIsoMediaOptions
+        {
+            PreparedWorkspace = temp.PreparedWorkspace,
+            OutputIsoPath = output,
+            IsoTempDirectoryPath = Path.Combine(temp.RootPath, "iso-temp"),
+            ForceOverwriteOutput = true
+        };
+
+        if (cancel)
+            await Assert.ThrowsAsync<OperationCanceledException>(() => new WinPeIsoMediaService(runner).CreateAsync(options, TestContext.Current.CancellationToken));
+        else
+            Assert.False((await new WinPeIsoMediaService(runner).CreateAsync(options, TestContext.Current.CancellationToken)).IsSuccess);
+
+        Assert.Equal("previous-valid-iso", await File.ReadAllTextAsync(output, TestContext.Current.CancellationToken));
+        Assert.Empty(Directory.GetFiles(temp.RootPath, "*.pending.iso", SearchOption.AllDirectories));
+    }
+
+    [Fact]
+    public async Task CreateAsync_WhenOverwriteDisabled_PreservesExistingIso()
+    {
+        using TempPreparedWorkspace temp = TempPreparedWorkspace.Create(useBootEx: false);
+        string output = Path.Combine(temp.RootPath, "previous.iso");
+        await File.WriteAllTextAsync(output, "previous-valid-iso", TestContext.Current.CancellationToken);
+        var runner = new FakeIsoRunner();
+        WinPeResult result = await new WinPeIsoMediaService(runner).CreateAsync(new WinPeIsoMediaOptions
+        {
+            PreparedWorkspace = temp.PreparedWorkspace,
+            OutputIsoPath = output,
+            ForceOverwriteOutput = false
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal("previous-valid-iso", await File.ReadAllTextAsync(output, TestContext.Current.CancellationToken));
+        Assert.Empty(runner.Executions);
+    }
+
     [Fact]
     public async Task CreateAsync_WhenBootExIsEnabled_PassesBootExToMakeWinPeMedia()
     {

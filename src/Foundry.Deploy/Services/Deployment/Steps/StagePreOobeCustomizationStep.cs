@@ -63,7 +63,8 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         context.EmitCurrentStepIndeterminate("Staging pre-OOBE customizations...", "Updating SetupComplete hook...", DeploymentOperationNames.StagePreOobe);
         PreOobeScriptProvisioningResult result = _preOobeScriptProvisioningService.Provision(
             context.RuntimeState.TargetWindowsPartitionRoot,
-            scripts);
+            scripts,
+            context.RuntimeState.OperationId);
 
         ApplyPreOobeResult(context.RuntimeState, result);
 
@@ -142,9 +143,10 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         return (new PreOobeDriverPackScriptSettings
         {
             CommandKind = plan.DeferredCommandKind,
-            RuntimePackagePath = Path.Combine("%SystemRoot%", "Temp", "Foundry", "DriverPack", "Packages", Path.GetFileName(stagedPath))
+            RuntimePackagePath = DeploymentStorageLayout.RuntimePath(Path.Combine("Payloads", "Drivers", Path.GetFileName(stagedPath)))
         }, null);
     }
+
     private static void ApplyPreOobeResult(
         DeploymentRuntimeState runtimeState,
         PreOobeScriptProvisioningResult result)
@@ -159,12 +161,8 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         DeploymentRuntimeState runtimeState,
         IReadOnlyList<PreOobeScriptDefinition> scripts)
     {
-        string preOobeRoot = Path.Combine(
-            runtimeState.TargetWindowsPartitionRoot!,
-            "Windows",
-            "Temp",
-            "Foundry",
-            "PreOobe");
+        DeploymentStorageLayout layout = DeploymentStorageLayout.FromPartitionRoot(runtimeState.TargetWindowsPartitionRoot!);
+        string preOobeRoot = layout.RuntimePreOobe;
 
         runtimeState.PreOobeSetupCompletePath = Path.Combine(
             runtimeState.TargetWindowsPartitionRoot!,
@@ -173,7 +171,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             "Scripts",
             "SetupComplete.cmd");
         runtimeState.PreOobeRunnerPath = Path.Combine(preOobeRoot, "Invoke-FoundryPreOobe.ps1");
-        runtimeState.PreOobeManifestPath = Path.Combine(preOobeRoot, "pre-oobe-manifest.json");
+        runtimeState.PreOobeManifestPath = Path.Combine(layout.StatePreOobe, "pre-oobe-manifest.json");
         runtimeState.PreOobeScriptPaths = scripts
             .Select(script => Path.Combine(preOobeRoot, "Scripts", script.FileName))
             .ToArray();

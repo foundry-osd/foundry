@@ -58,8 +58,9 @@ public sealed class StageDriverInstallerStep(IDriverPackStrategyResolver driverP
                     DeploymentFailureReasons.InvalidInput, "unsupported_deferred_driver_command"));
         }
 
-        string targetPath = Path.Combine(context.RuntimeState.TargetWindowsPartitionRoot,
-            "Windows", "Temp", "Foundry", "DriverPack", "Packages", Path.GetFileName(sourcePath));
+        string targetPath = Path.Combine(
+            DeploymentStorageLayout.FromPartitionRoot(context.RuntimeState.TargetWindowsPartitionRoot).PayloadsDrivers,
+            Path.GetFileName(sourcePath));
         context.EmitCurrentStepIndeterminate("Staging driver installer...", "Copying driver package...", DeploymentOperationNames.StageDeferredDriverPack);
         if (!dryRun)
         {

@@ -380,7 +380,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             createdAtUtc = DateTimeOffset.UtcNow,
             mode = "dry-run",
             provisioningMode = "interactiveHardwareHashUpload",
-            registrationRootPath = @"Windows\Temp\Foundry\AutopilotRegistration",
+            registrationRootPath = @"Windows\Temp\Foundry\Runtime\AutopilotRegistration",
             logRootPath = @"Windows\Temp\Foundry\Logs\AutopilotRegistration",
             scriptName = "Start-FoundryAutopilotRegistration.ps1",
             launcherName = "Start-FoundryAutopilotRegistration.cmd"

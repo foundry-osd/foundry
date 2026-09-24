@@ -494,11 +494,9 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     private string[] EnumerateSupportLogFiles()
     {
         string? activeDirectoryPath = Path.GetDirectoryName(FoundryDeployLogging.CurrentLogFilePath);
-        return new[] { activeDirectoryPath, _lastLogsDirectoryPath }
-            .Where(static path => !string.IsNullOrWhiteSpace(path) && Directory.Exists(path))
-            .SelectMany(static path => Directory.GetFiles(path!, "Foundry*.log", SearchOption.TopDirectoryOnly))
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .ToArray();
+        return DeploymentLogService.EnumerateSupportFiles(
+            [activeDirectoryPath, _lastLogsDirectoryPath],
+            Environment.GetEnvironmentVariable(DiagnosticSessionContext.PersistenceDirectoryEnvironmentVariableName));
     }
 
     private static string ResolveSuggestedExportDirectory(string? externalExportDirectory)

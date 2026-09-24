@@ -7,6 +7,37 @@ namespace Foundry.Core.Services.WinPe;
 /// <summary>Preserves workspaces until mounted-image state permits safe deletion.</summary>
 public sealed class WinPeWorkspaceCleanupService
 {
+    /// <summary>Recovers only an identified inactive operation directly under the designated root.</summary>
+    public WinPeResult DeleteOwnedOperation(string workspaceRoot, string operationPath)
+    {
+        try
+        {
+            string root = NormalizePath(workspaceRoot);
+            string path = NormalizePath(operationPath);
+            if (!string.Equals(Path.GetDirectoryName(path), root, StringComparison.OrdinalIgnoreCase))
+                throw new IOException("The operation is not an immediate child of the workspace root.");
+            if (!Directory.Exists(path)) return WinPeResult.Success();
+            string leasePath = Path.Combine(path, WinPeWorkspaceLease.LeaseFileName);
+            string ownershipPath = Path.Combine(path, WinPeWorkspaceLease.OwnershipFileName);
+            foreach (string candidate in new[] { root, path, leasePath, ownershipPath })
+                if (File.GetAttributes(candidate).HasFlag(FileAttributes.ReparsePoint))
+                    throw new IOException("Operation recovery cannot follow reparse points.");
+
+            // Keep exclusive read/write ownership during deletion. Delete sharing allows our
+            // own recursive cleanup while a concurrent recovery attempt cannot acquire the lease.
+            using var recoveryLease = new FileStream(leasePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Delete);
+            if (!WinPeWorkspaceLease.IsOwned(path))
+                throw new IOException("The directory has no recognized Foundry operation ownership.");
+            return Delete(path);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or System.Text.Json.JsonException)
+        {
+            return WinPeResult.Failure(WinPeErrorCodes.WimUnmountFailed,
+                "Workspace retained because ownership or inactivity could not be established.",
+                $"Workspace: '{operationPath}'. {exception.Message}");
+        }
+    }
+
     private readonly Func<IReadOnlyList<WinPeMountedImage>> _getMountedImages;
 
     public WinPeWorkspaceCleanupService() : this(NativeWinPeMountedImageInventory.GetMountedImages)

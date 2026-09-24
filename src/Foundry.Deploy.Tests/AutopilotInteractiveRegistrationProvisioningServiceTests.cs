@@ -11,6 +11,90 @@ namespace Foundry.Deploy.Tests;
 public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
 {
     [Fact]
+    public void Provision_WhenHookPublicationFails_PreservesPreviousLaunchHooks()
+    {
+        string root = CreateWindowsRoot();
+        string scripts = Path.Combine(root, "Windows", "Setup", "Scripts");
+        string setup = Path.Combine(scripts, "SetupComplete.cmd");
+        string oobe = Path.Combine(scripts, "OOBE.cmd");
+        var hooks = new SetupCompleteScriptService();
+        hooks.EnsureBlock(setup, "FOUNDRY AUTOPILOT REGISTRATION", "call previous-setup.cmd");
+        hooks.EnsureBlock(oobe, "FOUNDRY AUTOPILOT REGISTRATION", "call previous-oobe.cmd");
+        string beforeSetup = File.ReadAllText(setup);
+        string beforeOobe = File.ReadAllText(oobe);
+        var service = new AutopilotInteractiveRegistrationProvisioningService(new FailingHookPublicationService());
+
+        Assert.Throws<IOException>(() => service.Provision(root));
+
+        Assert.Equal(beforeSetup, File.ReadAllText(setup));
+        Assert.Equal(beforeOobe, File.ReadAllText(oobe));
+    }
+
+    private sealed class FailingHookPublicationService : ISetupCompleteScriptService
+    {
+        public string EnsureBlock(string path, string marker, string body) => throw new IOException("Simulated publication failure.");
+        public string RemoveBlock(string path, string marker) => new SetupCompleteScriptService().RemoveBlock(path, marker);
+    }
+
+    [Fact]
+    public void Provision_WhenInterruptedBetweenHookUpdates_RoutesLegacyLauncherToSharedRuntime()
+    {
+        string root = CreateWindowsRoot();
+        string legacyRoot = Path.Combine(DeploymentStorageLayout.FromPartitionRoot(root).Root, "AutopilotRegistration");
+        Directory.CreateDirectory(legacyRoot);
+        string[] names = ["Start-FoundryAutopilotRegistration.cmd", "Start-FoundryAutopilotRegistrationOobe.cmd"];
+        foreach (string name in names) File.WriteAllText(Path.Combine(legacyRoot, name), "call old-helper.ps1");
+        string setup = Path.Combine(root, "Windows", "Setup", "Scripts", "SetupComplete.cmd");
+        new SetupCompleteScriptService().EnsureBlock(setup, "FOUNDRY AUTOPILOT REGISTRATION",
+            @"call %SystemRoot%\Temp\Foundry\AutopilotRegistration\Start-FoundryAutopilotRegistration.cmd");
+
+        Assert.Throws<IOException>(() => new AutopilotInteractiveRegistrationProvisioningService(new InterruptedHookRetirementService()).Provision(root));
+
+        Assert.Contains(@"\Temp\Foundry\AutopilotRegistration", File.ReadAllText(setup));
+        Assert.Contains(@"\Runtime\AutopilotRegistration", File.ReadAllText(Path.Combine(Path.GetDirectoryName(setup)!, "OOBE.cmd")));
+        foreach (string name in names)
+            Assert.Contains(@"%SystemRoot%\Temp\Foundry\Runtime\AutopilotRegistration\" + name, File.ReadAllText(Path.Combine(legacyRoot, name)));
+    }
+
+    private sealed class InterruptedHookRetirementService : ISetupCompleteScriptService
+    {
+        public string EnsureBlock(string path, string marker, string body) => new SetupCompleteScriptService().EnsureBlock(path, marker, body);
+        public string RemoveBlock(string path, string marker) => throw new IOException("Simulated interruption after publishing the new hook.");
+    }
+
+    [Theory]
+    [InlineData("completed", true)]
+    [InlineData("failed", false)]
+    public void Provision_MigratesCompletedLegacyGuardBeforeReplacingHooks(string status, bool expectedGuard)
+    {
+        string windowsRoot = CreateWindowsRoot();
+        var layout = DeploymentStorageLayout.FromPartitionRoot(windowsRoot);
+        string legacyDirectory = Path.Combine(layout.Root, "AutopilotRegistration", "State");
+        Directory.CreateDirectory(legacyDirectory);
+        string legacyRoot = Path.GetDirectoryName(legacyDirectory)!;
+        string legacyScript = Path.Combine(legacyRoot, "Start-FoundryAutopilotRegistration.ps1");
+        File.WriteAllText(legacyScript, "old helper");
+        string unrelated = Path.Combine(legacyRoot, "vendor.txt");
+        File.WriteAllText(unrelated, "preserve");
+        string legacyGuard = Path.Combine(legacyDirectory, "registration-result.json");
+        File.WriteAllText(legacyGuard, JsonSerializer.Serialize(new { status }));
+        AutopilotInteractiveRegistrationProvisioningResult result = CreateService().Provision(windowsRoot);
+        string guard = Path.Combine(result.StateRootPath, "registration-result.json");
+        Assert.Equal(expectedGuard, File.Exists(guard));
+        Assert.True(File.Exists(legacyGuard));
+        Assert.Equal(!expectedGuard, File.Exists(legacyScript));
+        Assert.True(File.Exists(unrelated));
+        if (expectedGuard)
+        {
+            using JsonDocument state = JsonDocument.Parse(File.ReadAllText(guard));
+            Assert.Equal("completed", state.RootElement.GetProperty("status").GetString());
+            CreateService().Provision(windowsRoot);
+            Assert.Equal("completed", JsonDocument.Parse(File.ReadAllText(guard)).RootElement.GetProperty("status").GetString());
+        }
+        Assert.Empty(Directory.GetFiles(result.StateRootPath, "*.tmp"));
+    }
+
+    [Fact]
     public void Provision_StagesAssistantLauncherConfigAndOobeHook()
     {
         string windowsRoot = CreateWindowsRoot();
@@ -18,7 +102,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
 
         AutopilotInteractiveRegistrationProvisioningResult result = service.Provision(windowsRoot);
 
-        string registrationRoot = Path.Combine(windowsRoot, "Windows", "Temp", "Foundry", "AutopilotRegistration");
+        string registrationRoot = Path.Combine(windowsRoot, "Windows", "Temp", "Foundry", "Runtime", "AutopilotRegistration");
         string logRoot = Path.Combine(windowsRoot, "Windows", "Temp", "Foundry", "Logs", "AutopilotRegistration");
         Assert.Equal(registrationRoot, result.RegistrationRootPath);
         Assert.Equal(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.ps1"), result.ScriptPath);
@@ -38,7 +122,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.True(File.Exists(result.ServiceUiPath));
         Assert.True(File.Exists(result.OobeCommandPath));
         Assert.True(File.Exists(result.ConfigPath));
-        Assert.True(Directory.Exists(Path.Combine(registrationRoot, "State")));
+        Assert.True(Directory.Exists(DeploymentStorageLayout.FromPartitionRoot(windowsRoot).StateAutopilotRegistration));
         Assert.True(Directory.Exists(logRoot));
     }
 
@@ -76,8 +160,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("%SystemRoot%\\Temp\\Foundry\\Logs\\AutopilotRegistration", launcher);
         Assert.Contains("launcher.log", launcher);
         Assert.Contains("-STA", launcher);
-        Assert.Contains("%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration\\Start-FoundryAutopilotRegistration.ps1", launcher);
-        Assert.Contains("-ConfigPath \"%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration\\config.json\"", launcher);
+        Assert.Contains("%SystemRoot%\\Temp\\Foundry\\Runtime\\AutopilotRegistration\\Start-FoundryAutopilotRegistration.ps1", launcher);
+        Assert.Contains("-ConfigPath \"%SystemRoot%\\Temp\\Foundry\\Runtime\\AutopilotRegistration\\config.json\"", launcher);
     }
 
     [Fact]
@@ -141,7 +225,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         string oobeCommand = File.ReadAllText(result.OobeCommandPath);
         Assert.Contains("REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN", oobeCommand);
         Assert.Contains(
-            "call \"%SystemRoot%\\Temp\\Foundry\\AutopilotRegistration\\Start-FoundryAutopilotRegistrationOobe.cmd\"",
+            "call \"%SystemRoot%\\Temp\\Foundry\\Runtime\\AutopilotRegistration\\Start-FoundryAutopilotRegistrationOobe.cmd\"",
             oobeCommand);
         Assert.Contains("REM <<< FOUNDRY AUTOPILOT REGISTRATION END", oobeCommand);
     }

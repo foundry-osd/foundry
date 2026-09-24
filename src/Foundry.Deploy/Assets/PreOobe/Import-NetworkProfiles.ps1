@@ -1,5 +1,5 @@
 $ErrorActionPreference = 'Stop'
-$DataDirectory = Join-Path $env:SystemRoot 'Temp\Foundry\PreOobe\Data'
+$DataDirectory = Join-Path $env:SystemRoot 'Temp\Foundry\Payloads'
 $NetworkDataDirectory = Join-Path $DataDirectory 'NetworkProfiles'
 $SettingsPath = Join-Path $NetworkDataDirectory 'import-settings.json'
 $LogDirectory = Join-Path $env:SystemRoot 'Temp\Foundry\Logs\PreOobe'

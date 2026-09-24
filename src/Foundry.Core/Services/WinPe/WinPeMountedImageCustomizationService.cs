@@ -68,6 +68,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                         BootImageSource = options.BootImageSource,
                         WinPeLanguage = options.WinPeLanguage,
                         CacheDirectoryPath = options.WinReCacheDirectoryPath,
+                        LegacyCacheDirectoryPath = options.LegacyWinReCacheDirectoryPath,
                         CatalogUri = options.WinReCatalogUri ?? WinPeBootImagePreparationService.DefaultOperatingSystemCatalogUri,
                         DownloadProgress = options.DownloadProgress,
                         Progress = options.Progress

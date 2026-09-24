@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory = $false)]
-    [string]$ConfigPath = "$env:SystemRoot\Temp\Foundry\AutopilotRegistration\config.json"
+    [string]$ConfigPath = "$env:SystemRoot\Temp\Foundry\Runtime\AutopilotRegistration\config.json"
 )
 
 $ErrorActionPreference = 'Stop'
@@ -43,6 +43,21 @@ function Write-FoundryLog {
     Add-Content -LiteralPath $Path -Value "[$timestamp] $Message"
 }
 
+function Write-AtomicJson {
+    param([string]$Path, [Parameter(ValueFromPipeline = $true)][string]$Json)
+    process {
+        $candidate = $Path + '.' + [Guid]::NewGuid().ToString('N') + '.tmp'
+        try {
+            $bytes = [Text.Encoding]::UTF8.GetBytes($Json)
+            $stream = [IO.File]::Open($candidate, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+            try { $stream.Write($bytes, 0, $bytes.Length); $stream.Flush($true) } finally { $stream.Dispose() }
+            if ([IO.File]::Exists($Path)) { [IO.File]::Replace($candidate, $Path, [NullString]::Value) }
+            else { [IO.File]::Move($candidate, $Path) }
+        }
+        finally { if ([IO.File]::Exists($candidate)) { [IO.File]::Delete($candidate) } }
+    }
+}
+
 function Write-State {
     param(
         [Parameter(Mandatory = $true)][string]$Stage,
@@ -53,7 +68,7 @@ function Write-State {
         updatedAtUtc = [DateTimeOffset]::UtcNow.ToString('o')
         stage = $Stage
         message = $Message
-    } | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $StatePath -Encoding UTF8
+    } | ConvertTo-Json -Depth 5 | Write-AtomicJson -Path $StatePath
 }
 
 function Write-Result {
@@ -68,23 +83,22 @@ function Write-Result {
         status = $Status
         message = $Message
         details = $Details
-    } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $ResultPath -Encoding UTF8
+    } | ConvertTo-Json -Depth 8 | Write-AtomicJson -Path $ResultPath
 }
 
 function Test-RegistrationAlreadyCompleted {
-    if (-not (Test-Path -LiteralPath $ResultPath)) {
-        return $false
+    $legacyResultPath = Join-Path $env:SystemRoot 'Temp\Foundry\AutopilotRegistration\State\registration-result.json'
+    foreach ($guard in @($ResultPath, $legacyResultPath)) {
+        if (Test-Path -LiteralPath $guard) {
+            $result = Get-Content -LiteralPath $guard -Raw | ConvertFrom-Json
+            if ($result.status -eq 'completed') { return $true }
+        }
     }
-
-    try {
-        $result = Get-Content -LiteralPath $ResultPath -Raw | ConvertFrom-Json
-        return $result.status -eq 'completed'
-    }
-    catch {
-        Write-FoundryLog -Message "Failed to read existing registration result. $($_.Exception.Message)"
-        return $false
-    }
+    return $false
 }
+
+# Keep the lease for the assistant process lifetime, including completion publication.
+$RegistrationLease = [IO.File]::Open((Join-Path $StateRoot 'registration.lease'), [IO.FileMode]::OpenOrCreate, [IO.FileAccess]::ReadWrite, [IO.FileShare]::None)
 
 if (Test-RegistrationAlreadyCompleted) {
     Write-FoundryLog -Message 'Autopilot registration is already completed.'

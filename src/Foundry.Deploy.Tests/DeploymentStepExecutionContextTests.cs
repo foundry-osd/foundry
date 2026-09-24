@@ -27,11 +27,12 @@ public sealed class DeploymentStepExecutionContextTests
     public async Task FinalizeDeployment_PreservesSkippedSummaryAndRetainsLogsWhenRebindingFails(bool rebindFails)
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
-        string stagingRoot = Path.Combine(workspace.RootPath, "Staging");
+        string targetWindowsRoot = Path.Combine(workspace.RootPath, "WindowsVolume");
+        string stagingRoot = Path.Combine(targetWindowsRoot, "Foundry");
         using DeploymentStepExecutionContext context = CreateExecutionContext(
             stagingRoot, workspace.CacheRootPath, targetFoundryRoot: stagingRoot,
-            logService: rebindFails ? new ThrowingRebindLogService(stagingRoot) : new FakeDeploymentLogService());
-        context.RuntimeState.TargetWindowsPartitionRoot = Path.Combine(workspace.RootPath, "WindowsVolume");
+            logService: rebindFails ? new ThrowingRebindLogService(stagingRoot) : new DeploymentLogService());
+        context.RuntimeState.TargetWindowsPartitionRoot = targetWindowsRoot;
         context.RuntimeState.StepOutcomes.Add(new(DeploymentStepNames.DownloadOperatingSystemImage,
             DeploymentStepState.Skipped, "Cached image reused."));
         string retainedLog = Path.Combine(context.LogSession.LogsDirectoryPath, "source.log");
@@ -344,7 +345,7 @@ public sealed class DeploymentStepExecutionContextTests
         using var cancellation = new CancellationTokenSource();
         cancellation.Cancel();
 
-        await Assert.ThrowsAsync<OperationCanceledException>(() => context.TrySaveRuntimeStateAsync(cancellation.Token));
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => context.TrySaveRuntimeStateAsync(cancellation.Token));
     }
 
     [Fact]
@@ -359,11 +360,11 @@ public sealed class DeploymentStepExecutionContextTests
         using var cancellation = new CancellationTokenSource();
         cancellation.Cancel();
 
-        await Assert.ThrowsAsync<OperationCanceledException>(() => context.TrySaveRuntimeStateAsync(cancellation.Token));
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => context.TrySaveRuntimeStateAsync(cancellation.Token));
 
         await context.TrySaveRuntimeStateAsync(CancellationToken.None);
 
-        Assert.Equal(2, logService.SaveCallCount);
+        Assert.Equal(1, logService.SaveCallCount);
         Assert.Equal(1, logService.SuccessfulSaveCount);
     }
 
@@ -405,7 +406,7 @@ public sealed class DeploymentStepExecutionContextTests
         }
     }
 
-    private static DeploymentStepExecutionContext CreateExecutionContext(
+    internal static DeploymentStepExecutionContext CreateExecutionContext(
         string workspaceRoot,
         string resolvedCacheRootPath,
         DeploymentMode mode = DeploymentMode.Usb,
@@ -516,13 +517,7 @@ public sealed class DeploymentStepExecutionContextTests
                 throw new IOException("Simulated log destination failure.");
             }
 
-            return new DeploymentLogSession
-            {
-                RootPath = rootPath,
-                LogsDirectoryPath = Path.Combine(rootPath, "Logs"),
-                StateDirectoryPath = Path.Combine(rootPath, "State"),
-                StateFilePath = Path.Combine(rootPath, "State", "deployment-state.json")
-            };
+            return new DeploymentLogService().Initialize(rootPath);
         }
 
         public Task AppendAsync(
@@ -534,7 +529,8 @@ public sealed class DeploymentStepExecutionContextTests
         public Task SaveStateAsync<TState>(
             DeploymentLogSession session,
             TState state,
-            CancellationToken cancellationToken = default) => Task.CompletedTask;
+            CancellationToken cancellationToken = default) =>
+            new DeploymentLogService().SaveStateAsync(session, state, cancellationToken);
 
     }
 

@@ -4,8 +4,10 @@
 
 using System.Globalization;
 using System.Reflection.PortableExecutable;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Foundry.Core.Services.Storage;
 using Foundry.Utilities.IO;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Progress;
@@ -198,9 +200,9 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
         }
 
         string normalizedExpectedHash = expectedHash.Trim().Replace("-", string.Empty, StringComparison.OrdinalIgnoreCase);
-        if (normalizedExpectedHash.Length != 64)
+        if (normalizedExpectedHash.Length != 64 || !normalizedExpectedHash.All(Uri.IsHexDigit))
         {
-            return WinPeResult.Success();
+            return WinPeResult.Failure(WinPeErrorCodes.HashMismatch, "The source SHA-256 is malformed.");
         }
 
         string actualHash = await FileHash.ComputeSha256Async(filePath, cancellationToken).ConfigureAwait(false);
@@ -371,21 +373,22 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             Directory.CreateDirectory(exportDirectory);
             ReportProgress(options.Progress, 5, "Preparing Windows source package.");
 
-            WinPeResult<string> sourcePathResult = await EnsureDownloadedAsync(
+            WinPeResult<CachedArtifactLease> sourcePathResult = await EnsureDownloadedAsync(
                 options.CacheDirectoryPath,
                 candidate.Source,
                 options.DownloadProgress,
-                cancellationToken).ConfigureAwait(false);
+                cancellationToken, options.LegacyCacheDirectoryPath).ConfigureAwait(false);
 
             if (!sourcePathResult.IsSuccess)
             {
                 return WinPeResult<WinPeBootImagePreparationResult>.Failure(sourcePathResult.Error!);
             }
 
+            await using CachedArtifactLease sourceLease = sourcePathResult.Value!;
             ReportProgress(options.Progress, 16, "Resolving Windows image index.");
             WinPeResult<int> indexResult = await ResolveImageIndexAsync(
                 options.Tools.DismPath,
-                sourcePathResult.Value!,
+                sourceLease.Path,
                 candidate.RequestedEdition,
                 options.Artifact.WorkingDirectoryPath,
                 CreateDismProgress(options.Progress, 16, "Resolving Windows image index."),
@@ -401,7 +404,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             WinPeProcessExecution exportResult = await WinPeDismProcessRunner.RunAsync(
                 _processRunner,
                 options.Tools.DismPath,
-                $"/Export-Image /SourceImageFile:{WinPeProcessRunner.Quote(sourcePathResult.Value!)} /SourceIndex:{indexResult.Value} /DestinationImageFile:{WinPeProcessRunner.Quote(installWimPath)} /Compress:max /CheckIntegrity",
+                $"/Export-Image /SourceImageFile:{WinPeProcessRunner.Quote(sourceLease.Path)} /SourceIndex:{indexResult.Value} /DestinationImageFile:{WinPeProcessRunner.Quote(installWimPath)} /Compress:max /CheckIntegrity",
                 options.Artifact.WorkingDirectoryPath,
                 "Exporting Windows image with DISM.",
                 CreateDismProgress(options.Progress, 19, "Exporting Windows image for boot image preparation."),
@@ -518,102 +521,66 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
         }
     }
 
-    private async Task<WinPeResult<string>> EnsureDownloadedAsync(
+    private async Task<WinPeResult<CachedArtifactLease>> EnsureDownloadedAsync(
         string cacheDirectoryPath,
         WindowsSourceCatalogItem source,
         IProgress<WinPeDownloadProgress>? progress,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        string? legacyCacheDirectoryPath)
     {
-        string sourceCachePath = BuildCachedSourcePath(cacheDirectoryPath, source);
-        Directory.CreateDirectory(Path.GetDirectoryName(sourceCachePath)!);
-        string temporaryDownloadPath = $"{sourceCachePath}.{Guid.NewGuid():N}.download";
-
-        if (File.Exists(sourceCachePath))
-        {
-            WinPeResult cachedHashResult = await ValidateHashIfRequestedAsync(
-                sourceCachePath,
-                source.Sha256,
-                cancellationToken).ConfigureAwait(false);
-
-            if (cachedHashResult.IsSuccess)
-            {
-                return WinPeResult<string>.Success(sourceCachePath);
-            }
-
-            TryDeleteFile(sourceCachePath);
-        }
-
+        string fileName = Path.GetFileName(BuildCachedSourcePath(cacheDirectoryPath, source));
+        string? adoptedPath = null;
         if (!Uri.TryCreate(WindowsUpdateContentUrl.Normalize(source.Url), UriKind.Absolute, out Uri? sourceUri))
-        {
-            return WinPeResult<string>.Failure(
-                WinPeErrorCodes.DownloadFailed,
-                "The Windows source package URL is invalid.",
-                source.Url);
-        }
-
+            return WinPeResult<CachedArtifactLease>.Failure(WinPeErrorCodes.DownloadFailed,
+                "The Windows source package URL is invalid.", source.Url);
         try
         {
-            ReportDownloadProgress(progress, 0, "Downloading Windows source package.");
-            await HttpTransfer.RunAsync(async (transferToken, reportProgress) =>
+            var request = new CachedArtifactRequest(AuthoringArtifactKind.WindowsSource, JsonSerializer.Serialize(source),
+                fileName, source.Sha256, null, AllowCompletedTransferReuse: source.BuildMajor > 0 && !string.IsNullOrWhiteSpace(source.ReleaseId));
+            CachedArtifactLease lease = await new AuthoringArtifactCache(cacheDirectoryPath).AcquireAsync(request, async (path, token) =>
             {
-                using HttpResponseMessage response = await _httpClient.GetAsync(
-                    sourceUri,
-                    HttpCompletionOption.ResponseHeadersRead,
-                    transferToken).ConfigureAwait(false);
-
-                response.EnsureSuccessStatusCode();
-                long? totalBytes = response.Content.Headers.ContentLength;
-                await using Stream sourceStream = await response.Content.ReadAsStreamAsync(transferToken).ConfigureAwait(false);
-                await using (FileStream destinationStream = new(
-                                 temporaryDownloadPath,
-                                 FileMode.Create,
-                                 FileAccess.Write,
-                                 FileShare.None,
-                                 81920,
-                                 useAsync: true))
+                // Legacy bytes are adopted only against the selected catalog digest. Never bless
+                // an old hashless file merely because it is present or has a plausible size.
+                if (!string.IsNullOrWhiteSpace(source.Sha256))
                 {
-                    await CopyDownloadToFileAsync(
-                        sourceStream,
-                        destinationStream,
-                        totalBytes,
-                        progress,
-                        reportProgress,
-                        transferToken).ConfigureAwait(false);
+                    foreach (string legacyRoot in new[] { legacyCacheDirectoryPath, cacheDirectoryPath }.OfType<string>().Distinct(StringComparer.OrdinalIgnoreCase))
+                    {
+                        string candidate = BuildCachedSourcePath(legacyRoot, source);
+                        if (File.Exists(candidate) && (await ValidateHashIfRequestedAsync(candidate, source.Sha256, token).ConfigureAwait(false)).IsSuccess)
+                        {
+                            File.Copy(candidate, path, overwrite: false);
+                            adoptedPath = candidate;
+                            return;
+                        }
+                    }
                 }
-                return true;
-            }, cancellationToken).ConfigureAwait(false);
-
-            File.Move(temporaryDownloadPath, sourceCachePath, overwrite: true);
+                ReportDownloadProgress(progress, 0, "Downloading Windows source package.");
+                await HttpTransfer.RunAsync(async (transferToken, reportProgress) =>
+                {
+                    using HttpResponseMessage response = await _httpClient.GetAsync(sourceUri, HttpCompletionOption.ResponseHeadersRead, transferToken).ConfigureAwait(false);
+                    response.EnsureSuccessStatusCode();
+                    long? length = response.Content.Headers.ContentLength;
+                    await using Stream input = await response.Content.ReadAsStreamAsync(transferToken).ConfigureAwait(false);
+                    await using var output = new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.None, 81920, useAsync: true);
+                    await CopyDownloadToFileAsync(input, output, length, progress, reportProgress, transferToken).ConfigureAwait(false);
+                    if (length.HasValue && output.Length != length.Value) throw new InvalidDataException("Windows source transfer is incomplete.");
+                    return true;
+                }, token).ConfigureAwait(false);
+            }, cancellationToken, new CacheVerificationProgress(progress, fileName)).ConfigureAwait(false);
+            // Publication has succeeded and the lease protects the new original. A legacy file
+            // still held by an older process is left in place by best-effort deletion.
+            if (adoptedPath is not null) TryDeleteFile(adoptedPath);
+            ReportDownloadProgress(progress, 100, lease.CacheHit || adoptedPath is not null
+                ? "Reusing verified Windows source package." : "Windows source package downloaded and verified.");
+            return WinPeResult<CachedArtifactLease>.Success(lease);
         }
-        catch (Exception ex) when (ex is HttpRequestException or IOException or UnauthorizedAccessException or TimeoutException)
+        catch (Exception exception) when (exception is HttpRequestException or IOException or UnauthorizedAccessException or TimeoutException or ArgumentException)
         {
-            TryDeleteFile(sourceCachePath);
-            TryDeleteFile(temporaryDownloadPath);
-            return WinPeResult<string>.Failure(new WinPeDiagnostic(
-                WinPeErrorCodes.DownloadFailed,
-                "Failed to download the Windows source package.",
-                ex.Message,
-                exception: ex));
+            return WinPeResult<CachedArtifactLease>.Failure(new WinPeDiagnostic(
+                exception is InvalidDataException or ArgumentException ? WinPeErrorCodes.HashMismatch : WinPeErrorCodes.DownloadFailed,
+                "Failed to acquire a verified Windows source package.", exception.Message, exception: exception));
         }
-        finally
-        {
-            TryDeleteFile(temporaryDownloadPath);
-        }
-
-        WinPeResult hashResult = await ValidateHashIfRequestedAsync(
-            sourceCachePath,
-            source.Sha256,
-            cancellationToken).ConfigureAwait(false);
-
-        if (!hashResult.IsSuccess)
-        {
-            TryDeleteFile(sourceCachePath);
-            return WinPeResult<string>.Failure(hashResult.Error!);
-        }
-
-        return WinPeResult<string>.Success(sourceCachePath);
     }
-
     private static async Task CopyDownloadToFileAsync(
         Stream sourceStream,
         FileStream destinationStream,
