@@ -638,7 +638,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             return;
         }
 
-        string finalRoot = Path.Combine(executionContext.RuntimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry");
+        string finalRoot = DeploymentStorageLayout.FromPartitionRoot(executionContext.RuntimeState.TargetWindowsPartitionRoot).Root;
         if (executionContext.LogSession.RootPath.Equals(finalRoot, StringComparison.OrdinalIgnoreCase))
         {
             return;
@@ -667,7 +667,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         DeploymentRuntimeState? effectiveRuntimeState = executionContext?.RuntimeState ?? runtimeState;
         if (!string.IsNullOrWhiteSpace(effectiveRuntimeState?.TargetWindowsPartitionRoot))
         {
-            return Path.Combine(effectiveRuntimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry", "Logs");
+            string logs = DeploymentStorageLayout.FromPartitionRoot(effectiveRuntimeState.TargetWindowsPartitionRoot).LogsDeployment;
+            if (Directory.Exists(logs)) return logs;
         }
 
         return executionContext?.ResolveWorkspaceLogsPath() ?? string.Empty;

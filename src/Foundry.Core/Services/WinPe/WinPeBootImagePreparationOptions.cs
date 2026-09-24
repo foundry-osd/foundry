@@ -25,6 +25,8 @@ public sealed record WinPeBootImagePreparationOptions
     /// Gets the reusable Windows source package cache directory.
     /// </summary>
     public required string CacheDirectoryPath { get; init; }
+    /// <summary>Gets an optional legacy cache root whose trusted-hash originals can be adopted on demand.</summary>
+    public string? LegacyCacheDirectoryPath { get; init; }
     /// <summary>
     /// Gets whether source preparation also replaces the boot image with WinRE for Wi-Fi support.
     /// </summary>

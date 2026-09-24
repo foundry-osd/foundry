@@ -111,7 +111,7 @@ public sealed class LegacyMediaSettings
     /// <summary>
     /// Gets or sets the default ISO output path.
     /// </summary>
-    public string IsoOutputPath { get; set; } = Path.Combine(Constants.IsoWorkspaceDirectoryPath, "Foundry.iso");
+    public string IsoOutputPath { get; set; } = Constants.DefaultIsoPath;
 
     /// <summary>
     /// Gets or sets the selected WinPE architecture name.

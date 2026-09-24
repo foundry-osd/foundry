@@ -2,8 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Utilities.IO;
-
 namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
@@ -42,6 +40,8 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
         {
             ReportProgress(options.Progress, 0, "Preparing ISO output path.");
             EnsureOutputDirectoryExists(requestedOutputPath);
+            if (!options.ForceOverwriteOutput && File.Exists(requestedOutputPath))
+                throw new IOException("The ISO output already exists and overwrite is disabled.");
             preparedOutputPath = PrepareOutputPath(requestedOutputPath, options.IsoTempDirectoryPath);
             currentStage = "Prepare ISO workspace";
             ReportProgress(options.Progress, 20, "Preparing ISO workspace.");
@@ -49,11 +49,6 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                 preparedWorkspace.Artifact.WorkingDirectoryPath,
                 options.IsoTempDirectoryPath,
                 out safeWorkspacePath);
-
-            if (options.ForceOverwriteOutput && File.Exists(preparedOutputPath))
-            {
-                File.Delete(preparedOutputPath);
-            }
 
             string arguments =
                 $"/ISO /F {WinPeProcessRunner.Quote(makeWinPeMediaWorkspacePath)} {WinPeProcessRunner.Quote(preparedOutputPath)}" +
@@ -76,7 +71,7 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                     "MakeWinPEMedia"));
             }
 
-            if (!File.Exists(preparedOutputPath))
+            if (!File.Exists(preparedOutputPath) || new FileInfo(preparedOutputPath).Length == 0)
             {
                 return WinPeResult.Failure(
                     WinPeErrorCodes.IsoCreateFailed,
@@ -91,7 +86,8 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
 
             currentStage = "Finalize ISO output";
             ReportProgress(options.Progress, 90, "Finalizing ISO output.");
-            FinalizeOutput(preparedOutputPath, requestedOutputPath);
+            cancellationToken.ThrowIfCancellationRequested();
+            await FinalizeOutputAsync(preparedOutputPath, requestedOutputPath, options.ForceOverwriteOutput, cancellationToken).ConfigureAwait(false);
             ReportProgress(options.Progress, 100, "ISO media completed.");
             return WinPeResult.Success();
         }
@@ -198,34 +194,41 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
 
     private static string PrepareOutputPath(string requestedOutputPath, string isoTempDirectoryPath)
     {
-        if (!ContainsNonAscii(requestedOutputPath))
-        {
-            return requestedOutputPath;
-        }
-
-        Directory.CreateDirectory(isoTempDirectoryPath);
-        string fileName = Path.GetFileName(requestedOutputPath);
-        string safeFileName = string.IsNullOrWhiteSpace(fileName)
-            ? $"foundry-winpe-{DateTime.UtcNow:yyyyMMddHHmmssfff}.iso"
-            : ToAsciiSafeFileName(fileName);
-
-        if (!safeFileName.EndsWith(".iso", StringComparison.OrdinalIgnoreCase))
-        {
-            safeFileName += ".iso";
-        }
-
-        return Path.Combine(isoTempDirectoryPath, safeFileName);
+        string directory = ContainsNonAscii(requestedOutputPath)
+            ? isoTempDirectoryPath
+            : Path.GetDirectoryName(Path.GetFullPath(requestedOutputPath))!;
+        Directory.CreateDirectory(directory);
+        return Path.Combine(directory, $"foundry-{Guid.NewGuid():N}.pending.iso");
     }
 
-    private static void FinalizeOutput(string preparedOutputPath, string requestedOutputPath)
+    private static async Task FinalizeOutputAsync(string preparedOutputPath, string requestedOutputPath, bool overwrite, CancellationToken cancellationToken)
     {
-        if (string.Equals(preparedOutputPath, requestedOutputPath, StringComparison.OrdinalIgnoreCase))
+        // Always replace from the destination directory: File.Move across volumes is a copy
+        // and must never expose a partially copied final ISO or destroy the prior deliverable.
+        string destinationDirectory = Path.GetDirectoryName(Path.GetFullPath(requestedOutputPath))!;
+        string candidate = preparedOutputPath;
+        bool copyRequired = !string.Equals(Path.GetDirectoryName(Path.GetFullPath(preparedOutputPath)),
+            destinationDirectory, StringComparison.OrdinalIgnoreCase);
+        if (copyRequired)
+            candidate = Path.Combine(destinationDirectory, $"foundry-{Guid.NewGuid():N}.pending.iso");
+        try
         {
-            return;
+            if (copyRequired)
+            {
+                await using FileStream source = new(preparedOutputPath, FileMode.Open, FileAccess.Read, FileShare.Read,
+                    81920, FileOptions.Asynchronous | FileOptions.SequentialScan);
+                await using FileStream destination = new(candidate, FileMode.CreateNew, FileAccess.Write, FileShare.None,
+                    81920, FileOptions.Asynchronous);
+                await source.CopyToAsync(destination, cancellationToken).ConfigureAwait(false);
+                await destination.FlushAsync(cancellationToken).ConfigureAwait(false);
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+            File.Move(candidate, requestedOutputPath, overwrite);
         }
-
-        EnsureOutputDirectoryExists(requestedOutputPath);
-        File.Copy(preparedOutputPath, requestedOutputPath, overwrite: true);
+        finally
+        {
+            if (copyRequired) CleanupPreparedOutput(requestedOutputPath, candidate);
+        }
     }
 
     private static void CleanupPreparedOutput(string requestedOutputPath, string? preparedOutputPath)
@@ -306,13 +309,4 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
         });
     }
 
-    private static string ToAsciiSafeFileName(string fileName)
-    {
-        string sanitized = PathSegment.Sanitize(fileName);
-        char[] chars = sanitized
-            .Select(character => character > 127 ? '_' : character)
-            .ToArray();
-
-        return new string(chars);
-    }
 }

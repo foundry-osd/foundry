@@ -8,7 +8,7 @@ $RootFolders = @(
     'C:\DRIVERS',
     'C:\Drivers'
 )
-$PreOobeNetworkProfileDataDirectory = Join-Path $env:SystemRoot 'Temp\Foundry\PreOobe\Data\NetworkProfiles'
+$PreOobeNetworkProfileDataDirectory = Join-Path $env:SystemRoot 'Temp\Foundry\Payloads\NetworkProfiles'
 
 function Start-FoundryTranscript {
     New-Item -Path $LogDirectory -ItemType Directory -Force | Out-Null

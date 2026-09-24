@@ -40,33 +40,34 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
         await context.AppendLogAsync(DeploymentLogLevel.Info, stepLogMessage, cancellationToken).ConfigureAwait(false);
 
         context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing deployment summary...", DeploymentOperationNames.WriteSummary);
-        string summaryPath = await PersistFinalArtifactsAsync(context, cancellationToken).ConfigureAwait(false);
-        context.RuntimeState.DeploymentSummaryPath = summaryPath;
-
-        context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Cleaning temporary workspace...", DeploymentOperationNames.CleanupWorkspace);
-        CleanupTargetFoundryRoot(context.RuntimeState, context.LogSession);
-        return DeploymentStepResult.Succeeded(resultMessage);
-    }
-
-    private static async Task<string> PersistFinalArtifactsAsync(
-        DeploymentStepExecutionContext context,
-        CancellationToken cancellationToken)
-    {
-        if (string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
+        DeploymentArtifactHandoffResult? handoff = null;
+        try
         {
-            string transientRoot = context.RuntimeState.ResolvedCache?.RootPath
-                ?? throw new InvalidOperationException("Cache strategy has not been resolved.");
-            string summaryPath = Path.Combine(transientRoot, "State", "deployment-summary.json");
+            if (!string.IsNullOrWhiteSpace(context.RuntimeState.TargetWindowsPartitionRoot))
+            {
+                string finalRoot = DeploymentStorageLayout.FromPartitionRoot(context.RuntimeState.TargetWindowsPartitionRoot).Root;
+                handoff = await context.RebindLogSessionToTargetAsync(finalRoot, cancellationToken).ConfigureAwait(false);
+            }
+            string summaryPath = Path.Combine(context.LogSession.StateDirectoryPath, "deployment-summary.json");
             await WriteDeploymentSummaryAsync(summaryPath, context.RuntimeState, cancellationToken).ConfigureAwait(false);
-            return summaryPath;
+            context.RuntimeState.DeploymentSummaryPath = summaryPath;
+            await context.SaveRuntimeStateAsync(cancellationToken).ConfigureAwait(false);
+            if (handoff is { CanRetireSource: true, Failures.Count: 0 })
+            {
+                context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Cleaning temporary workspace...", DeploymentOperationNames.CleanupWorkspace);
+                CleanupTargetFoundryRoot(context.RuntimeState, context.LogSession);
+            }
+            if (handoff is { Failures.Count: > 0 })
+                return DeploymentStepResult.Succeeded($"{resultMessage} Diagnostic handoff incomplete; evidence retained at '{handoff.EffectiveRootPath}'.");
         }
-
-        string targetWindowsTempRoot = Path.Combine(context.RuntimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry");
-        await context.RebindLogSessionToTargetAsync(targetWindowsTempRoot, cancellationToken).ConfigureAwait(false);
-
-        string finalSummaryPath = Path.Combine(targetWindowsTempRoot, "deployment-summary.json");
-        await WriteDeploymentSummaryAsync(finalSummaryPath, context.RuntimeState, cancellationToken).ConfigureAwait(false);
-        return finalSummaryPath;
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }
+        catch (Exception ex)
+        {
+            await context.AppendLogAsync(DeploymentLogLevel.Warning,
+                $"Final diagnostics could not be completed. Evidence retained at '{context.LogSession.RootPath}': {ex.Message}", CancellationToken.None).ConfigureAwait(false);
+            return DeploymentStepResult.Succeeded($"{resultMessage} Diagnostic persistence incomplete; evidence retained at '{context.LogSession.RootPath}'.");
+        }
+        return DeploymentStepResult.Succeeded(resultMessage);
     }
 
     private static async Task WriteDeploymentSummaryAsync(
@@ -124,45 +125,35 @@ public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
             WriteIndented = true
         });
 
-        await File.WriteAllTextAsync(path, json, cancellationToken).ConfigureAwait(false);
-    }
-
-    private static void CleanupTargetFoundryRoot(DeploymentRuntimeState runtimeState, DeploymentLogSession? logSession)
-    {
-        if (string.IsNullOrWhiteSpace(runtimeState.TargetFoundryRoot) ||
-            string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot))
-        {
-            return;
-        }
-
-        string finalRoot = Path.Combine(runtimeState.TargetWindowsPartitionRoot, "Windows", "Temp", "Foundry");
-        if (runtimeState.TargetFoundryRoot.Equals(finalRoot, StringComparison.OrdinalIgnoreCase))
-        {
-            return;
-        }
-
-        if (logSession is not null &&
-            logSession.RootPath.Equals(runtimeState.TargetFoundryRoot, StringComparison.OrdinalIgnoreCase))
-        {
-            // Retain diagnostic source files if rebinding the retained log session failed.
-            return;
-        }
-
-        TryDeleteDirectory(runtimeState.TargetFoundryRoot);
-    }
-
-    private static void TryDeleteDirectory(string path)
-    {
+        string temporary = path + $".{Guid.NewGuid():N}.tmp";
         try
         {
-            if (Directory.Exists(path))
-            {
-                Directory.Delete(path, recursive: true);
-            }
+            await File.WriteAllTextAsync(temporary, json, cancellationToken).ConfigureAwait(false);
+            File.Move(temporary, path, overwrite: true);
         }
-        catch
+        finally
         {
-            // Best-effort cleanup only.
+            try { File.Delete(temporary); }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
+        }
+    }
+
+    private static void CleanupTargetFoundryRoot(DeploymentRuntimeState runtimeState, DeploymentLogSession logSession)
+    {
+        if (string.IsNullOrWhiteSpace(runtimeState.TargetFoundryRoot) ||
+            string.IsNullOrWhiteSpace(runtimeState.TargetWindowsPartitionRoot)) return;
+        string legacyRoot = Path.GetFullPath(Path.Combine(runtimeState.TargetWindowsPartitionRoot, "Foundry"));
+        string finalRoot = Path.GetFullPath(DeploymentStorageLayout.FromPartitionRoot(runtimeState.TargetWindowsPartitionRoot).Root);
+        // Only the staging root owned by this deployment is eligible; first-boot state and payloads remain in the final root.
+        if (!Path.GetFullPath(runtimeState.TargetFoundryRoot).Equals(legacyRoot, StringComparison.OrdinalIgnoreCase) ||
+            !Path.GetFullPath(logSession.RootPath).Equals(finalRoot, StringComparison.OrdinalIgnoreCase)) return;
+        try
+        {
+            FoundryDeployLogging.TryRetireRoot(legacyRoot, logSession.LogsDirectoryPath);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            // Evidence retention is safe when retirement cannot complete.
         }
     }
 }

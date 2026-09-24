@@ -1,5 +1,5 @@
 param(
-    [string]$PackageCatalogPath = (Join-Path $env:SystemRoot 'Temp\Foundry\PreOobe\Data\Remove-AppX.packages.json')
+    [string]$PackageCatalogPath = (Join-Path $env:SystemRoot 'Temp\Foundry\Payloads\Customization\Remove-AppX.packages.json')
 )
 
 $ErrorActionPreference = 'Stop'

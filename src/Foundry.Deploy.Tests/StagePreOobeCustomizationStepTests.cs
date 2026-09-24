@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text.Json;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Cache;
@@ -36,10 +37,10 @@ public sealed class StagePreOobeCustomizationStepTests
             .ExecuteAsync(context, TestContext.Current.CancellationToken);
 
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
-        Assert.NotNull(context.RuntimeState.DeferredDriverPackagePath);
+        Assert.Equal(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "Drivers", "driver.exe"), context.RuntimeState.DeferredDriverPackagePath);
         Assert.Equal(!dryRun, File.Exists(context.RuntimeState.DeferredDriverPackagePath));
         if (!dryRun)
-            Assert.Equal(new byte[] { 1, 2, 3 }, await File.ReadAllBytesAsync(context.RuntimeState.DeferredDriverPackagePath, TestContext.Current.CancellationToken));
+            Assert.Equal(new byte[] { 1, 2, 3 }, await File.ReadAllBytesAsync(context.RuntimeState.DeferredDriverPackagePath!, TestContext.Current.CancellationToken));
         Assert.Null(context.RuntimeState.PreOobeSetupCompletePath);
         Assert.False(File.Exists(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Setup", "Scripts", "SetupComplete.cmd")));
     }
@@ -49,7 +50,7 @@ public sealed class StagePreOobeCustomizationStepTests
     {
         using var tempDirectory = new TemporaryDirectory();
         DeploymentStepExecutionContext context = CreateContext(tempDirectory);
-        string stagedPath = Path.Combine(tempDirectory.WindowsRoot, "Windows", "Temp", "Foundry", "DriverPack", "Packages", "driver.exe");
+        string stagedPath = Path.Combine(tempDirectory.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "Drivers", "driver.exe");
         Directory.CreateDirectory(Path.GetDirectoryName(stagedPath)!);
         await File.WriteAllBytesAsync(stagedPath, [1, 2, 3], TestContext.Current.CancellationToken);
         context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
@@ -65,6 +66,11 @@ public sealed class StagePreOobeCustomizationStepTests
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
         Assert.Equal(new byte[] { 1, 2, 3 }, await File.ReadAllBytesAsync(stagedPath, TestContext.Current.CancellationToken));
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Install-DriverPack.ps1", StringComparison.Ordinal));
+        using JsonDocument manifest = JsonDocument.Parse(await File.ReadAllTextAsync(context.RuntimeState.PreOobeManifestPath!, TestContext.Current.CancellationToken));
+        Assert.Equal(context.RuntimeState.OperationId, manifest.RootElement.GetProperty("operationId").GetString());
+        JsonElement driver = manifest.RootElement.GetProperty("scripts").EnumerateArray().Single(script => script.GetProperty("id").GetString() == "driver-pack");
+        Assert.Contains(@"%SystemRoot%\Temp\Foundry\Payloads\Drivers\driver.exe", driver.GetProperty("arguments").EnumerateArray().Select(argument => argument.GetString()));
+        Assert.Equal(@"Drivers\driver.exe", Assert.Single(driver.GetProperty("inputs").EnumerateArray()).GetProperty("relativePath").GetString());
     }
 
     [Theory]
@@ -116,7 +122,7 @@ public sealed class StagePreOobeCustomizationStepTests
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Import-NetworkProfiles.ps1", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Cleanup-PreOobe.ps1", StringComparison.OrdinalIgnoreCase));
-        Assert.True(File.Exists(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Temp", "Foundry", "PreOobe", "Data", "NetworkProfiles", "wifi-profile.xml")));
+        Assert.True(File.Exists(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "NetworkProfiles", "wifi-profile.xml")));
         Assert.Contains("network-profile-roaming", File.ReadAllText(context.RuntimeState.PreOobeManifestPath!));
         Assert.Contains("FOUNDRY PRE-OOBE BEGIN", File.ReadAllText(context.RuntimeState.PreOobeSetupCompletePath!));
     }
@@ -141,7 +147,7 @@ public sealed class StagePreOobeCustomizationStepTests
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
 
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
-        Assert.NotNull(context.RuntimeState.DeferredDriverPackagePath);
+        Assert.Equal(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "Drivers", "driver.exe"), context.RuntimeState.DeferredDriverPackagePath);
         Assert.True(File.Exists(context.RuntimeState.DeferredDriverPackagePath));
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Install-DriverPack.ps1", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Import-NetworkProfiles.ps1", StringComparison.OrdinalIgnoreCase));
@@ -239,6 +245,7 @@ public sealed class StagePreOobeCustomizationStepTests
         };
         var runtimeState = new DeploymentRuntimeState
         {
+            OperationId = "staging-operation",
             WorkspaceRoot = tempDirectory.WorkspaceRoot,
             Mode = DeploymentMode.Iso,
             TargetWindowsPartitionRoot = tempDirectory.WindowsRoot,

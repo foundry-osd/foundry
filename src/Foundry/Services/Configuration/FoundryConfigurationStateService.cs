@@ -58,6 +58,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         this.appSettingsService = appSettingsService;
         this.logger = logger.ForContext<FoundryConfigurationStateService>();
         FoundryConfigurationDocument loaded = Load(out bool isLegacyMigration);
+        loaded = FoundryConfigurationMigration.MigrateDefaultIsoOutput(loaded, Constants.LegacyDefaultIsoPath, Constants.DefaultIsoPath);
         if (isLegacyMigration)
         {
             networkSecretStateService.Update(loaded.Network);
@@ -553,7 +554,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         {
             General = new GeneralSettings
             {
-                IsoOutputPath = Path.Combine(Constants.IsoWorkspaceDirectoryPath, "Foundry.iso")
+                IsoOutputPath = Constants.DefaultIsoPath
             }
         };
     }

@@ -11,6 +11,8 @@ using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Utilities.Progress;
+using Foundry.Utilities.Diagnostics;
+using Foundry.Deploy.Services.Autopilot;
 using Foundry.Utilities.Storage;
 using Serilog;
 
@@ -81,6 +83,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     private readonly IDeploymentStorageService _storageService;
     private readonly Action<DeploymentStepProgress> _emitStepProgress;
     private readonly object _runtimeStatePersistenceLock = new();
+    private readonly SemaphoreSlim _sessionPersistenceGate = new(1, 1);
     private Task _pendingRuntimeStatePersistence = Task.CompletedTask;
 
     /// <summary>
@@ -296,9 +299,14 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     /// </summary>
     /// <param name="cancellationToken">Token that cancels the write.</param>
     /// <returns>A task that completes after state is persisted.</returns>
-    public Task SaveRuntimeStateAsync(CancellationToken cancellationToken = default)
+    public async Task SaveRuntimeStateAsync(CancellationToken cancellationToken = default)
     {
-        return _deploymentLogService.SaveStateAsync(LogSession, RuntimeState, cancellationToken);
+        await _sessionPersistenceGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            await _deploymentLogService.SaveStateAsync(LogSession, RuntimeState, cancellationToken).ConfigureAwait(false);
+        }
+        finally { _sessionPersistenceGate.Release(); }
     }
 
     /// <summary>
@@ -378,57 +386,44 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     /// <param name="targetFoundryRoot">Foundry root on the applied Windows partition.</param>
     /// <param name="cancellationToken">Token that cancels the transfer log write.</param>
     /// <returns>A task that completes after the log session is rebound.</returns>
-    public Task RebindLogSessionToTargetAsync(
+    public async Task<DeploymentArtifactHandoffResult> RebindLogSessionToTargetAsync(
         string targetFoundryRoot,
         CancellationToken cancellationToken = default)
     {
+        Task pending;
+        lock (_runtimeStatePersistenceLock) pending = _pendingRuntimeStatePersistence;
+        await pending.ConfigureAwait(false);
+        await _sessionPersistenceGate.WaitAsync(cancellationToken).ConfigureAwait(false);
         DeploymentLogSession previousSession = LogSession;
-        DeploymentLogSession rebound;
+        List<string> persisted = [];
         try
         {
-            rebound = _deploymentLogService.Initialize(targetFoundryRoot);
+            DeploymentLogSession rebound = _deploymentLogService.Initialize(targetFoundryRoot);
+            string? startupDirectory = Path.GetDirectoryName(FoundryDeployLogging.CurrentLogFilePath);
+            await CopyDiagnosticTreeAsync(Path.Combine(previousSession.RootPath, "State"), Path.Combine(rebound.RootPath, "State"), persisted, cancellationToken).ConfigureAwait(false);
+            await CopyLogTreeAsync(Path.Combine(previousSession.RootPath, "Logs"), rebound, persisted, cancellationToken).ConfigureAwait(false);
+            await CopyBootstrapDiagnosticsAsync(previousSession, rebound, startupDirectory, persisted, cancellationToken).ConfigureAwait(false);
+            if (!string.IsNullOrWhiteSpace(startupDirectory) && Directory.Exists(startupDirectory) &&
+                !Path.GetFullPath(startupDirectory).Equals(Path.GetFullPath(previousSession.LogsDirectoryPath), StringComparison.OrdinalIgnoreCase))
+            {
+                await CopyLogTreeAsync(startupDirectory, rebound, persisted, cancellationToken, startup: true).ConfigureAwait(false);
+            }
+            await _deploymentLogService.SaveStateAsync(rebound, RuntimeState, cancellationToken).ConfigureAwait(false);
+            persisted.Add(rebound.StateFilePath);
+            bool canRetire = FoundryDeployLogging.CanRetireRoot(previousSession.RootPath);
+            FoundryDeployLogging.SwitchPersistenceDirectory(previousSession.RootPath, rebound.LogsDirectoryPath);
+            LogSession = rebound;
+            return new(rebound.RootPath, persisted, [], canRetire);
         }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }
         catch (Exception ex)
         {
-            Log.ForContext<DeploymentStepExecutionContext>().Warning(
-                ex,
-                "Deployment log persistence destination is unavailable. SourceRootPath={SourceRootPath}, TargetRootPath={TargetRootPath}",
-                previousSession.RootPath,
-                targetFoundryRoot);
-            return Task.CompletedTask;
+            Log.ForContext<DeploymentStepExecutionContext>().Warning(ex,
+                "Required diagnostic handoff failed; source evidence retained. SourceRootPath={SourceRootPath}, TargetRootPath={TargetRootPath}",
+                previousSession.RootPath, targetFoundryRoot);
+            return new(previousSession.RootPath, persisted, [ex.Message], false);
         }
-
-        LogSession = rebound;
-        FoundryDeployLogging.RegisterPersistenceDirectory(rebound.LogsDirectoryPath);
-        Log.ForContext<DeploymentStepExecutionContext>().Information(
-            "Deployment log persistence destination changed. SourceRootPath={SourceRootPath}, TargetRootPath={TargetRootPath}",
-            previousSession.RootPath,
-            targetFoundryRoot);
-
-        LogPersistenceResult persistenceResult = FoundryDeployLogging.PersistCurrentLogs();
-        if (persistenceResult.FailedFileCount > 0)
-        {
-            Log.ForContext<DeploymentStepExecutionContext>().Warning(
-                "One or more deployment log files could not be persisted. CopiedFileCount={CopiedFileCount}, FailedFileCount={FailedFileCount}, TargetLogsDirectoryPath={TargetLogsDirectoryPath}",
-                persistenceResult.CopiedFileCount,
-                persistenceResult.FailedFileCount,
-                rebound.LogsDirectoryPath);
-        }
-
-        try
-        {
-            CopyDirectoryContents(previousSession.StateDirectoryPath, rebound.StateDirectoryPath);
-        }
-        catch (Exception ex)
-        {
-            Log.ForContext<DeploymentStepExecutionContext>().Warning(
-                ex,
-                "Deployment state could not be copied to the new diagnostic destination. SourceStateDirectoryPath={SourceStateDirectoryPath}, TargetStateDirectoryPath={TargetStateDirectoryPath}",
-                previousSession.StateDirectoryPath,
-                rebound.StateDirectoryPath);
-        }
-
-        return Task.CompletedTask;
+        finally { _sessionPersistenceGate.Release(); }
     }
 
     /// <summary>
@@ -844,27 +839,59 @@ public sealed class DeploymentStepExecutionContext : IDisposable
             : $"{size:F1} {units[unit]}";
     }
 
-    private static void CopyDirectoryContents(string sourceDirectory, string destinationDirectory)
+    private static async Task CopyBootstrapDiagnosticsAsync(
+        DeploymentLogSession previousSession,
+        DeploymentLogSession destination,
+        string? startupDirectory,
+        List<string> persisted,
+        CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(sourceDirectory) ||
-            !Directory.Exists(sourceDirectory) ||
-            sourceDirectory.Equals(destinationDirectory, StringComparison.OrdinalIgnoreCase))
+        string? inherited = Environment.GetEnvironmentVariable(DiagnosticSessionContext.PersistenceDirectoryEnvironmentVariableName);
+        if (string.IsNullOrWhiteSpace(inherited) || !Directory.Exists(inherited)) return;
+        string source = Path.GetFullPath(inherited);
+        string?[] coveredDirectories = [previousSession.LogsDirectoryPath, Path.Combine(previousSession.RootPath, "Logs"),
+            destination.LogsDirectoryPath, Path.Combine(destination.RootPath, "Logs"), startupDirectory];
+        if (coveredDirectories.Any(path => !string.IsNullOrWhiteSpace(path) &&
+            Path.TrimEndingDirectorySeparator(Path.GetFullPath(path)).Equals(Path.TrimEndingDirectorySeparator(source), StringComparison.OrdinalIgnoreCase))) return;
+
+        // Bootstrap's USB session owns top-level application snapshots and Startup records, not arbitrary adjacent payloads.
+        await DiagnosticLogSnapshot.CopyAsync(source, destination.LogsDirectoryPath, "*.log", cancellationToken).ConfigureAwait(false);
+        persisted.AddRange(Directory.EnumerateFiles(source, "*.log").Select(path => Path.Combine(destination.LogsDirectoryPath, Path.GetFileName(path))));
+        await CopyDiagnosticTreeAsync(Path.Combine(source, "Startup"),
+            Path.Combine(destination.RootPath, "Logs", "Bootstrap", "Startup"), persisted, cancellationToken).ConfigureAwait(false);
+    }
+
+    private static async Task CopyLogTreeAsync(string source, DeploymentLogSession destination, List<string> persisted, CancellationToken cancellationToken, bool startup = false)
+    {
+        if (!Directory.Exists(source)) return;
+        await DiagnosticLogSnapshot.CopyAsync(source, destination.LogsDirectoryPath, startup ? "*.log" : "*", cancellationToken).ConfigureAwait(false);
+        persisted.AddRange(Directory.EnumerateFiles(destination.LogsDirectoryPath).Where(static file =>
+            !Path.GetFileName(file).StartsWith(".snapshot", StringComparison.OrdinalIgnoreCase)));
+        if (startup && !Path.GetFileName(source).Equals("Logs", StringComparison.OrdinalIgnoreCase)) return;
+        foreach (string child in Directory.EnumerateDirectories(source))
         {
-            return;
+            string name = Path.GetFileName(child);
+            if (name.Equals("PendingLogs", StringComparison.OrdinalIgnoreCase)) continue;
+            await CopyDiagnosticTreeAsync(child, Path.Combine(destination.RootPath, "Logs", name), persisted, cancellationToken).ConfigureAwait(false);
         }
+    }
 
-        Directory.CreateDirectory(destinationDirectory);
-        foreach (string sourceFilePath in Directory.EnumerateFiles(sourceDirectory, "*", SearchOption.AllDirectories))
+    private static async Task CopyDiagnosticTreeAsync(string source, string destination, List<string> persisted, CancellationToken cancellationToken)
+    {
+        if (!Directory.Exists(source) || Path.GetFullPath(source).Equals(Path.GetFullPath(destination), StringComparison.OrdinalIgnoreCase)) return;
+        if ((File.GetAttributes(source) & FileAttributes.ReparsePoint) != 0)
+            throw new IOException("Diagnostic handoff cannot follow a directory link.");
+        // Autopilot diagnostics can contain hardware identifiers; keep their restricted ACL after publication.
+        if (Path.GetFileName(source).Equals("AutopilotHash", StringComparison.OrdinalIgnoreCase))
+            AutopilotDiagnosticsDirectory.CreateRestricted(destination);
+        await DiagnosticLogSnapshot.CopyAsync(source, destination, "*", cancellationToken).ConfigureAwait(false);
+        persisted.AddRange(Directory.EnumerateFiles(destination).Where(static file =>
+            !Path.GetFileName(file).StartsWith(".snapshot", StringComparison.OrdinalIgnoreCase)));
+        foreach (string child in Directory.EnumerateDirectories(source))
         {
-            string relativePath = Path.GetRelativePath(sourceDirectory, sourceFilePath);
-            string destinationPath = Path.Combine(destinationDirectory, relativePath);
-            string? destinationFolder = Path.GetDirectoryName(destinationPath);
-            if (!string.IsNullOrWhiteSpace(destinationFolder))
-            {
-                Directory.CreateDirectory(destinationFolder);
-            }
-
-            File.Copy(sourceFilePath, destinationPath, overwrite: true);
+            string name = Path.GetFileName(child);
+            if (name.Equals("PendingLogs", StringComparison.OrdinalIgnoreCase)) continue;
+            await CopyDiagnosticTreeAsync(child, Path.Combine(destination, name), persisted, cancellationToken).ConfigureAwait(false);
         }
     }
 

@@ -71,7 +71,7 @@ public sealed class WinPeDriverResolutionService : IWinPeDriverResolutionService
             {
                 WinPeResult<WinPePreparedDriverSet> prepared = await _driverPackageService.PrepareAsync(
                     selectedPackages,
-                    Path.Combine(request.Artifact.DriverWorkspacePath, "downloads"),
+                    request.DriverArchiveCacheDirectoryPath ?? Path.Combine(request.Artifact.DriverWorkspacePath, "downloads"),
                     Path.Combine(request.Artifact.DriverWorkspacePath, "extracted"),
                     request.DownloadProgress,
                     cancellationToken).ConfigureAwait(false);

@@ -48,6 +48,8 @@ public sealed record WinPeMountedImageCustomizationOptions
     /// Gets the Windows source cache shared by Wi-Fi and ARM64 boot image preparation.
     /// </summary>
     public string WinReCacheDirectoryPath { get; init; } = string.Empty;
+    /// <summary>Gets the legacy Windows source cache used for verified on-demand migration.</summary>
+    public string? LegacyWinReCacheDirectoryPath { get; init; }
 
     /// <summary>
     /// Gets the optional Windows source catalog URI for Wi-Fi and ARM64 dependencies.

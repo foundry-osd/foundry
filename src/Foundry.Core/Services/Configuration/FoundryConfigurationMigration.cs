@@ -8,6 +8,24 @@ namespace Foundry.Core.Services.Configuration;
 
 public static class FoundryConfigurationMigration
 {
+    /// <summary>Migrates only the known machine-local ISO default, preserving custom and portable-profile paths.</summary>
+    public static FoundryConfigurationDocument MigrateDefaultIsoOutput(FoundryConfigurationDocument document, string oldDefaultPath, string newDefaultPath)
+    {
+        ArgumentNullException.ThrowIfNull(document);
+        string? output = document.General.IsoOutputPath;
+        if (string.IsNullOrWhiteSpace(output)) return document;
+        try
+        {
+            return string.Equals(Path.GetFullPath(output), Path.GetFullPath(oldDefaultPath), StringComparison.OrdinalIgnoreCase)
+                ? document with { General = document.General with { IsoOutputPath = newDefaultPath } }
+                : document;
+        }
+        catch (Exception exception) when (exception is ArgumentException or NotSupportedException or PathTooLongException)
+        {
+            return document; // Leave invalid custom values to normal configuration validation.
+        }
+    }
+
     private const int StructuredMachineNamingSchemaVersion = 14;
     private const int LegacyRandomLength = 6;
 

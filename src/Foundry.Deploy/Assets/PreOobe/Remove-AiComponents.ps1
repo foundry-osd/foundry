@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string]$SettingsPath = "$env:SystemRoot\Temp\Foundry\PreOobe\Data\Remove-AiComponents.settings.json"
+    [string]$SettingsPath = "$env:SystemRoot\Temp\Foundry\Payloads\Customization\Remove-AiComponents.settings.json"
 )
 
 $ErrorActionPreference = 'Stop'

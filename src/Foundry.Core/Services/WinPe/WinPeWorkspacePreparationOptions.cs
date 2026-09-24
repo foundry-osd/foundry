@@ -9,6 +9,9 @@ namespace Foundry.Core.Services.WinPe;
 /// </summary>
 public sealed record WinPeWorkspacePreparationOptions
 {
+    /// <summary>Gets the persistent original driver archive cache supplied by the authoring host.</summary>
+    public string? DriverArchiveCacheDirectoryPath { get; init; }
+
     /// <summary>
     /// Gets the build artifact created by <see cref="IWinPeBuildService"/>.
     /// </summary>
@@ -63,6 +66,8 @@ public sealed record WinPeWorkspacePreparationOptions
     /// Gets the Windows source cache shared by Wi-Fi and ARM64 boot image preparation.
     /// </summary>
     public string WinReCacheDirectoryPath { get; init; } = string.Empty;
+    /// <summary>Gets the legacy Windows source cache used for verified on-demand migration.</summary>
+    public string? LegacyWinReCacheDirectoryPath { get; init; }
 
     /// <summary>
     /// Gets the optional catalog URI used to resolve Windows sources for Wi-Fi and ARM64 dependencies.

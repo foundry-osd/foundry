@@ -232,7 +232,7 @@ public sealed class DeploymentOrchestratorTests
         Assert.Equal(heldStepName, startedSteps.Last());
         Assert.Contains(heldStepName, heldStep.RuntimeState!.CompletedSteps);
         Assert.Equal(DeploymentFailureKinds.Cancelled, logService.SavedStates.Last().LastFailureKind);
-        Assert.Equal(Path.Combine(heldStep.TargetWindowsRoot, "Windows", "Temp", "Foundry", "Logs"), result.LogsDirectoryPath);
+        Assert.Equal(DeploymentStorageLayout.FromPartitionRoot(heldStep.TargetWindowsRoot).LogsDeployment, result.LogsDirectoryPath);
         Assert.True((bool)Assert.Single(telemetry.Events).Properties["deploy_session_cancelled"]!);
         Assert.Equal("cancelled", Assert.Single(logger.Entries, entry => entry.Properties.ContainsKey("Outcome")).Properties["Outcome"]);
     }
@@ -498,7 +498,7 @@ public sealed class DeploymentOrchestratorTests
             DriverPackSelectionKind = DriverPackSelectionKind.None
         }, TestContext.Current.CancellationToken);
 
-        string expectedFinalLogsPath = Path.Combine(targetWindowsRoot, "Windows", "Temp", "Foundry", "Logs");
+        string expectedFinalLogsPath = DeploymentStorageLayout.FromPartitionRoot(targetWindowsRoot).LogsDeployment;
         Assert.False(result.IsSuccess);
         Assert.Equal(expectedFinalLogsPath, result.LogsDirectoryPath);
         Assert.True(Directory.Exists(expectedFinalLogsPath));
@@ -1007,20 +1007,7 @@ public sealed class DeploymentOrchestratorTests
         public bool ThrowOnSave { get; init; }
         public Func<CancellationToken, Task>? BeforeSave { get; init; }
 
-        public DeploymentLogSession Initialize(string rootPath)
-        {
-            string logsDirectory = Path.Combine(rootPath, "Logs");
-            string stateDirectory = Path.Combine(rootPath, "State");
-            Directory.CreateDirectory(logsDirectory);
-            Directory.CreateDirectory(stateDirectory);
-            return new DeploymentLogSession
-            {
-                RootPath = rootPath,
-                LogsDirectoryPath = logsDirectory,
-                StateDirectoryPath = stateDirectory,
-                StateFilePath = Path.Combine(stateDirectory, "deployment-state.json")
-            };
-        }
+        public DeploymentLogSession Initialize(string rootPath) => new DeploymentLogService().Initialize(rootPath);
 
         public async Task AppendAsync(
             DeploymentLogSession session,
@@ -1077,20 +1064,7 @@ public sealed class DeploymentOrchestratorTests
 
         public List<DeploymentStateSnapshot> SavedStates { get; } = [];
 
-        public DeploymentLogSession Initialize(string rootPath)
-        {
-            string logsDirectory = Path.Combine(rootPath, "Logs");
-            string stateDirectory = Path.Combine(rootPath, "State");
-            Directory.CreateDirectory(logsDirectory);
-            Directory.CreateDirectory(stateDirectory);
-            return new DeploymentLogSession
-            {
-                RootPath = rootPath,
-                LogsDirectoryPath = logsDirectory,
-                StateDirectoryPath = stateDirectory,
-                StateFilePath = Path.Combine(stateDirectory, "deployment-state.json")
-            };
-        }
+        public DeploymentLogSession Initialize(string rootPath) => new DeploymentLogService().Initialize(rootPath);
 
         public Task AppendAsync(
             DeploymentLogSession session,

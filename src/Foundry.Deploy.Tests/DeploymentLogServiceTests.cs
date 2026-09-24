@@ -13,6 +13,45 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentLogServiceTests
 {
     [Fact]
+    public void EnumerateSupportFiles_WhenLoggerUsesExecutableDirectory_CollectsOnlyTopLevelLogs()
+    {
+        string root = Path.Combine(Path.GetTempPath(), "foundry-fallback-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            Directory.CreateDirectory(Path.Combine(root, "Payloads"));
+            File.WriteAllText(Path.Combine(root, "FoundryDeploy.log"), "diagnostic");
+            File.WriteAllText(Path.Combine(root, "foundry.deploy.config.json"), "configuration");
+            File.WriteAllText(Path.Combine(root, "readme.txt"), "runtime payload");
+            File.WriteAllText(Path.Combine(root, "Payloads", "installer.log"), "payload");
+            string[] files = DeploymentLogService.EnumerateSupportFiles([root]);
+            Assert.Equal([Path.Combine(root, "FoundryDeploy.log")], files);
+        }
+        finally { if (Directory.Exists(root)) Directory.Delete(root, true); }
+    }
+
+    [Fact]
+    public void EnumerateSupportFiles_IncludesNestedCategoriesAndDuplicateContentButExcludesDeliveryQueues()
+    {
+        string root = Path.Combine(Path.GetTempPath(), "foundry-support-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            string logs = Path.Combine(root, "Logs");
+            string[] relative = ["Deployment/startup/evidence.json", "AutopilotHash/status.json", "PreOobe/surface-driverpack.log", "Deployment/FoundryDeploy.log", "Deployment/PendingLogs/pending.json"];
+            foreach (string item in relative)
+            {
+                string path = Path.Combine(logs, item);
+                Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+                File.WriteAllText(path, "same content");
+            }
+            string[] files = DeploymentLogService.EnumerateSupportFiles([Path.Combine(logs, "Deployment"), logs]);
+            Assert.Equal(4, files.Length);
+            Assert.DoesNotContain(files, static file => file.Contains("PendingLogs", StringComparison.OrdinalIgnoreCase));
+            Assert.Contains(files, static file => file.EndsWith("surface-driverpack.log", StringComparison.Ordinal));
+        }
+        finally { if (Directory.Exists(root)) Directory.Delete(root, true); }
+    }
+
+    [Fact]
     public async Task AppendAsync_WritesThroughGlobalStructuredLogger()
     {
         string rootPath = Path.Combine(Path.GetTempPath(), $"foundry-deploy-log-{Guid.NewGuid():N}");

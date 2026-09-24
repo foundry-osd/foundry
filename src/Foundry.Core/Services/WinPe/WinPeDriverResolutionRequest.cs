@@ -6,6 +6,9 @@ namespace Foundry.Core.Services.WinPe;
 
 public sealed record WinPeDriverResolutionRequest
 {
+    /// <summary>Gets the persistent original archive cache, separate from disposable extraction.</summary>
+    public string? DriverArchiveCacheDirectoryPath { get; init; }
+
     public required string CatalogUri { get; init; }
     public required WinPeArchitecture Architecture { get; init; }
     public required WinPeBootImageSource BootImageSource { get; init; }
