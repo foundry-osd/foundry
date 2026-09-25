@@ -40,6 +40,12 @@ public sealed record CustomImageSelection : OperatingSystemMetadata
         LanguageCode = index.DefaultLanguage ?? string.Empty;
         Language = string.Join(", ", index.Languages);
         ClientType = index.ProductType;
+        if (index.ProductType.Equals("WinNT", StringComparison.OrdinalIgnoreCase) &&
+            OperatingSystemSelectionCatalog.SupportedReleases.FirstOrDefault(release => release.Build == index.Build) is { } knownRelease)
+        {
+            WindowsRelease = OperatingSystemSupportMatrix.SupportedWindowsRelease;
+            ReleaseId = knownRelease.Id;
+        }
     }
 
     public CustomImageAsset Asset { get; }
