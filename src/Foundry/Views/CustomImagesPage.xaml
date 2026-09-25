@@ -81,14 +81,9 @@
                                     </AppBarButton>
                                     <AppBarButton
                                         Command="{x:Bind ViewModel.RemoveCommand}"
-                                        Icon="Remove"
+                                        Icon="Delete"
                                         IsEnabled="{x:Bind ViewModel.CanRemove, Mode=OneWay}"
                                         Label="{x:Bind ViewModel.RemoveLabel, Mode=OneWay}" />
-                                    <AppBarButton
-                                        Command="{x:Bind ViewModel.DeleteCommand}"
-                                        Icon="Delete"
-                                        IsEnabled="{x:Bind ViewModel.CanDelete, Mode=OneWay}"
-                                        Label="{x:Bind ViewModel.DeleteLabel, Mode=OneWay}" />
                                     <AppBarSeparator />
                                     <AppBarButton
                                         Command="{x:Bind ViewModel.SetDefaultCommand}"
@@ -180,14 +175,6 @@
                             </tv:TableView.Columns>
                         </tv:TableView>
                     </StackPanel>
-                    <wct:SettingsCard Header="{x:Bind ViewModel.DefaultSourceLabel, Mode=OneWay}">
-                        <ComboBox
-                            MinWidth="{ThemeResource FoundryCompactInputMinWidth}"
-                            AutomationProperties.Name="{x:Bind ViewModel.DefaultSourceLabel, Mode=OneWay}"
-                            IsEnabled="{x:Bind ViewModel.CanAct, Mode=OneWay}"
-                            ItemsSource="{x:Bind ViewModel.SourceOptions, Mode=OneWay}"
-                            SelectedIndex="{x:Bind ViewModel.DefaultSourceIndex, Mode=TwoWay}" />
-                    </wct:SettingsCard>
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
                         ContentAlignment="Vertical"
@@ -250,6 +237,16 @@
                                 Text="{x:Bind ViewModel.ContentHash, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords" />
                         </StackPanel>
+                    </wct:SettingsCard>
+                    <wct:SettingsCard
+                        Description="{x:Bind ViewModel.DefaultSourceDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.DefaultSourceLabel, Mode=OneWay}">
+                        <ComboBox
+                            Width="{ThemeResource FoundryWideInputMinWidth}"
+                            AutomationProperties.Name="{x:Bind ViewModel.DefaultSourceLabel, Mode=OneWay}"
+                            IsEnabled="{x:Bind ViewModel.CanAct, Mode=OneWay}"
+                            ItemsSource="{x:Bind ViewModel.SourceOptions, Mode=OneWay}"
+                            SelectedIndex="{x:Bind ViewModel.DefaultSourceIndex, Mode=TwoWay}" />
                     </wct:SettingsCard>
                 </StackPanel>
             </ContentControl>

@@ -712,14 +712,11 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Eelistatud tõmmis</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Valige, kas Foundry Deploy kuvab alguses Foundry kataloogi või kohandatud Windowsi tõmmiseid.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Tõmmise vaikeallikas Deploys</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Kas kustutada see tõmmis kohalikust teegist? Sellele viitavad profiilid kuvavad selle puuduvana. Algfailid ja olemasolevad meediumid jäävad muutmata.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Kustuta</value>
+    <value>Vaikimisi tõmmiseallikas Foundry Deploys</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Valitud tõmmis</value>
@@ -784,8 +781,11 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Värskenda</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Kas eemaldada see tõmmis praegusest profiilist ja kustutada selle kohalik koopia? Teistes sellele viitavates profiilides kuvatakse see puuduvana. Algfailid ja olemasolevad andmekandjad jäävad muutmata.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Eemalda profiilist</value>
+    <value>Eemalda</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Muuda</value>

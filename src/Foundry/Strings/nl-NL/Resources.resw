@@ -712,14 +712,11 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Voorkeursinstallatiekopie</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Kies of Foundry Deploy aanvankelijk de Foundry-catalogus of aangepaste Windows-images toont.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Standaardbron voor installatiekopieën in Deploy</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Deze installatiekopie uit de lokale bibliotheek verwijderen? Profielen die ernaar verwijzen, tonen deze als ontbrekend. Oorspronkelijke bestanden en bestaande media blijven ongewijzigd.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Verwijderen</value>
+    <value>Standaardbron voor images in Foundry Deploy</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Geselecteerde installatiekopie</value>
@@ -784,8 +781,11 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Vernieuwen</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Deze image uit het huidige profiel verwijderen en de lokale kopie verwijderen? Andere profielen die ernaar verwijzen, geven de image als ontbrekend weer. De oorspronkelijke bestanden en bestaande media blijven ongewijzigd.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Uit profiel verwijderen</value>
+    <value>Verwijderen</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Bewerken</value>

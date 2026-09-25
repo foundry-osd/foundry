@@ -712,14 +712,11 @@
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Предпочтительный образ</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Выберите, что Foundry Deploy показывает при открытии: каталог Foundry или пользовательские образы Windows.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Источник образа по умолчанию в Deploy</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Удалить этот образ из локальной библиотеки? В профилях, ссылающихся на него, он будет отмечен как отсутствующий. Исходные файлы и существующие носители не изменятся.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Источник образов по умолчанию в Foundry Deploy</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Выбранный образ</value>
@@ -784,8 +781,11 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Обновить</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Удалить этот образ из текущего профиля и удалить его локальную копию? В других профилях, ссылающихся на него, образ будет отображаться как отсутствующий. Исходные файлы и существующие носители останутся без изменений.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Удалить из профиля</value>
+    <value>Удалить</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Изменить</value>

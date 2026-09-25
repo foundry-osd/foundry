@@ -712,14 +712,11 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Előnyben részesített lemezkép</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Válassza ki, hogy a Foundry Deploy kezdetben a Foundry-katalógust vagy az egyéni Windows-lemezképeket jelenítse meg.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Alapértelmezett lemezképforrás a Deployban</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Törli ezt a lemezképet a helyi könyvtárból? A rá hivatkozó profilok hiányzóként jelenítik meg. Az eredeti fájlok és a meglévő adathordozók változatlanok maradnak.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Törlés</value>
+    <value>Alapértelmezett lemezképforrás a Foundry Deployban</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Kijelölt lemezkép</value>
@@ -784,8 +781,11 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Frissítés</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Eltávolítja ezt a lemezképet az aktuális profilból, és törli a helyi másolatát? A rá hivatkozó többi profilban hiányzóként jelenik meg. Az eredeti fájlok és a meglévő adathordozók változatlanok maradnak.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Eltávolítás a profilból</value>
+    <value>Eltávolítás</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Szerkesztés</value>

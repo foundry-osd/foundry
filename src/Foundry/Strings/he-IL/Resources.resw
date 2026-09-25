@@ -712,14 +712,11 @@
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>תמונה מועדפת</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>בחר אם Foundry Deploy יציג בתחילה את קטלוג Foundry או תמונות Windows מותאמות אישית.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>מקור התמונה המוגדר כברירת מחדל ב-Deploy</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>למחוק תמונה זו מהספרייה המקומית? בפרופילים שמפנים אליה היא תוצג כחסרה. הקבצים המקוריים והמדיה הקיימת לא ישתנו.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>מחיקה</value>
+    <value>מקור תמונה המוגדר כברירת מחדל ב-Foundry Deploy</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>התמונה שנבחרה</value>
@@ -784,8 +781,11 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>רענון</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>להסיר תמונה זו מהפרופיל הנוכחי ולמחוק את העותק המקומי שלה? בפרופילים אחרים המפנים אליה היא תוצג כחסרה. קובצי המקור ואמצעי המדיה הקיימים לא ישתנו.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>הסרה מהפרופיל</value>
+    <value>הסרה</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>עריכה</value>

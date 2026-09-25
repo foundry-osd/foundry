@@ -712,14 +712,11 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>선호 이미지</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Foundry Deploy에서 처음에 Foundry 카탈로그를 표시할지, 사용자 지정 Windows 이미지를 표시할지 선택합니다.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Deploy의 기본 이미지 원본</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>로컬 라이브러리에서 이 이미지를 삭제하시겠습니까? 이 이미지를 참조하는 프로필에는 이미지가 누락된 것으로 표시됩니다. 원본 파일과 기존 미디어는 변경되지 않습니다.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>삭제</value>
+    <value>Foundry Deploy의 기본 이미지 소스</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>선택한 이미지</value>
@@ -784,8 +781,11 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>새로 고침</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>현재 프로필에서 이 이미지를 제거하고 로컬 복사본을 삭제하시겠습니까? 이 이미지를 참조하는 다른 프로필에서는 누락된 것으로 표시됩니다. 원본 파일과 기존 미디어는 변경되지 않습니다.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>프로필에서 제거</value>
+    <value>제거</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>편집</value>

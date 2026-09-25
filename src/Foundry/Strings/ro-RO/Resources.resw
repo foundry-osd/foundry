@@ -712,14 +712,11 @@ Licențiat sub licența MIT.</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Imagine preferată</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Alegeți dacă Foundry Deploy afișează inițial catalogul Foundry sau imaginile Windows personalizate.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Sursa implicită a imaginii în Deploy</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Ștergeți această imagine din biblioteca locală? Profilurile care o referențiază o vor afișa ca lipsă. Fișierele originale și mediile existente rămân neschimbate.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Șterge</value>
+    <value>Sursa implicită a imaginilor în Foundry Deploy</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Imagine selectată</value>
@@ -784,8 +781,11 @@ Licențiat sub licența MIT.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Reîmprospătați</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Eliminați această imagine din profilul curent și ștergeți copia sa locală? În celelalte profiluri care fac referire la ea, imaginea va apărea ca lipsă. Fișierele originale și suporturile existente rămân neschimbate.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Eliminați din profil</value>
+    <value>Elimină</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Editează</value>

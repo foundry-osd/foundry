@@ -712,14 +712,11 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Ensisijainen näköistiedosto</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Valitse, näyttääkö Foundry Deploy aluksi Foundry-luettelon vai mukautetut Windows-näköistiedostot.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Näköistiedoston oletuslähde Deployssa</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Poistetaanko tämä näköistiedosto paikallisesta kirjastosta? Siihen viittaavat profiilit näyttävät sen puuttuvana. Alkuperäiset tiedostot ja nykyiset tietovälineet säilyvät ennallaan.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Poista</value>
+    <value>Oletusarvoinen näköistiedostolähde Foundry Deployssa</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Valittu näköistiedosto</value>
@@ -784,8 +781,11 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Päivitä</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Poistetaanko tämä näköistiedosto nykyisestä profiilista ja sen paikallinen kopio levyltä? Muissa siihen viittaavissa profiileissa se näkyy puuttuvana. Alkuperäiset tiedostot ja olemassa olevat tallennusvälineet säilyvät ennallaan.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Poista profiilista</value>
+    <value>Poista</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Muokkaa</value>

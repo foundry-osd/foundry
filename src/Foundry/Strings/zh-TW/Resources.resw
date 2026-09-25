@@ -712,14 +712,11 @@
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>慣用映像</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>選擇 Foundry Deploy 最初顯示 Foundry 目錄或自訂 Windows 映像。</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Deploy 中的預設映像來源</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>要從本機程式庫刪除此映像嗎？參照此映像的設定檔將顯示映像遺失。原始檔案與現有媒體不會變更。</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>刪除</value>
+    <value>Foundry Deploy 中的預設映像來源</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>選取的映像</value>
@@ -784,8 +781,11 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>重新整理</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>要從目前的設定檔中移除此映像並刪除其本機複本嗎？參照此映像的其他設定檔會將其顯示為遺失。原始檔案及現有媒體維持不變。</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>從設定檔中移除</value>
+    <value>移除</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>編輯</value>

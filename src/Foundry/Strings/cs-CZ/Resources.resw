@@ -712,14 +712,11 @@ Licencováno pod licencí MIT.</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Preferovaná bitová kopie</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Zvolte, zda má Foundry Deploy nejprve zobrazit katalog Foundry, nebo vlastní bitové kopie Windows.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Výchozí zdroj bitové kopie v Deploy</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Smazat tuto bitovou kopii z místní knihovny? Profily, které na ni odkazují, ji zobrazí jako chybějící. Původní soubory a existující média zůstanou beze změny.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Odstranit</value>
+    <value>Výchozí zdroj bitových kopií ve Foundry Deploy</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Vybraná bitová kopie</value>
@@ -784,8 +781,11 @@ Licencováno pod licencí MIT.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Obnovit</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Odebrat tuto bitovou kopii z aktuálního profilu a odstranit její místní kopii? V ostatních profilech, které na ni odkazují, se zobrazí jako chybějící. Původní soubory a existující média zůstanou beze změny.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Odebrat z profilu</value>
+    <value>Odebrat</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Upravit</value>

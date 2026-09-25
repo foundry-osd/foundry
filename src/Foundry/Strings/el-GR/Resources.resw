@@ -712,14 +712,11 @@
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Προτιμώμενη εικόνα</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Επιλέξτε αν το Foundry Deploy θα εμφανίζει αρχικά τον κατάλογο Foundry ή προσαρμοσμένα είδωλα Windows.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Προεπιλεγμένη πηγή εικόνας στο Deploy</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Να διαγραφεί αυτή η εικόνα από την τοπική βιβλιοθήκη; Τα προφίλ που αναφέρονται σε αυτήν θα την εμφανίζουν ως απούσα. Τα αρχικά αρχεία και τα υπάρχοντα μέσα παραμένουν αμετάβλητα.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Διαγραφή</value>
+    <value>Προεπιλεγμένη προέλευση ειδώλων στο Foundry Deploy</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Επιλεγμένη εικόνα</value>
@@ -784,8 +781,11 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Ανανέωση</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Να καταργηθεί αυτό το είδωλο από το τρέχον προφίλ και να διαγραφεί το τοπικό του αντίγραφο; Στα άλλα προφίλ που αναφέρονται σε αυτό θα εμφανίζεται ως απόν. Τα αρχικά αρχεία και τα υπάρχοντα μέσα παραμένουν αμετάβλητα.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Αφαίρεση από το προφίλ</value>
+    <value>Κατάργηση</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Επεξεργασία</value>

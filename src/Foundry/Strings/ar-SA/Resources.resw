@@ -712,14 +712,11 @@
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>الصورة المفضلة</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>اختر ما إذا كان Foundry Deploy يعرض كتالوج Foundry أو صور Windows المخصصة عند البدء.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>مصدر الصورة الافتراضي في Deploy</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>هل تريد حذف هذه الصورة من المكتبة المحلية؟ ستظهر الصورة على أنها مفقودة في ملفات التعريف التي تشير إليها. لن تتغير الملفات الأصلية والوسائط الموجودة.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>حذف</value>
+    <value>مصدر الصورة الافتراضي في Foundry Deploy</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>الصورة المحددة</value>
@@ -784,8 +781,11 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>تحديث</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>هل تريد إزالة هذه الصورة من ملف التعريف الحالي وحذف نسختها المحلية؟ ستظهر كمفقودة في ملفات التعريف الأخرى التي تشير إليها. لن تتغير الملفات الأصلية والوسائط الموجودة.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>إزالة من ملف التعريف</value>
+    <value>إزالة</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>تحرير</value>

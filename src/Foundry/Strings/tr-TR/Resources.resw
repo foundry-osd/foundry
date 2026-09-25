@@ -712,14 +712,11 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Tercih edilen görüntü</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Foundry Deploy uygulamasının başlangıçta Foundry kataloğunu mu yoksa özel Windows imajlarını mı göstereceğini seçin.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Deploy'daki varsayılan görüntü kaynağı</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Bu görüntü yerel kitaplıktan silinsin mi? Bu görüntüye başvuran profiller onu eksik olarak gösterecektir. Özgün dosyalar ve mevcut medya değişmez.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Sil</value>
+    <value>Foundry Deploy varsayılan imaj kaynağı</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Seçili görüntü</value>
@@ -784,8 +781,11 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Yenile</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Bu imaj geçerli profilden kaldırılsın ve yerel kopyası silinsin mi? İmaja başvuran diğer profillerde imaj eksik olarak gösterilir. Özgün dosyalar ve mevcut medya değişmeden kalır.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Profilden kaldır</value>
+    <value>Kaldır</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Düzenle</value>

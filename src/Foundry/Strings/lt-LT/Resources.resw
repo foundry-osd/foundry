@@ -712,14 +712,11 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Pageidaujamas atvaizdas</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Pasirinkite, ar „Foundry Deploy“ iš pradžių rodys „Foundry“ katalogą, ar pasirinktinius „Windows“ atvaizdus.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Numatytasis atvaizdo šaltinis Deploy</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Panaikinti šį atvaizdą iš vietinės bibliotekos? Profiliai, kurie į jį nurodo, rodys jį kaip trūkstamą. Pradiniai failai ir esamos laikmenos liks nepakeisti.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Naikinti</value>
+    <value>Numatytasis atvaizdų šaltinis „Foundry Deploy“</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Pasirinktas atvaizdas</value>
@@ -784,8 +781,11 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Atnaujinti</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Pašalinti šį atvaizdą iš dabartinio profilio ir ištrinti jo vietinę kopiją? Kituose profiliuose, kuriuose jis nurodytas, atvaizdas bus rodomas kaip trūkstamas. Pradiniai failai ir esamos laikmenos liks nepakeisti.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Pašalinti iš profilio</value>
+    <value>Pašalinti</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Redaguoti</value>

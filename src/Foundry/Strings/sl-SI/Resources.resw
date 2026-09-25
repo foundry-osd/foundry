@@ -712,14 +712,11 @@ Licencirano pod licenco MIT.</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Prednostna slika</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Izberite, ali Foundry Deploy najprej prikaže katalog Foundry ali prilagojene slike sistema Windows.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Privzeti vir slike v Deploy</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Želite izbrisati to sliko iz lokalne knjižnice? Profili, ki se sklicujejo nanjo, jo bodo prikazali kot manjkajočo. Izvirne datoteke in obstoječi mediji ostanejo nespremenjeni.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Izbriši</value>
+    <value>Privzeti vir slik v Foundry Deploy</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Izbrana slika</value>
@@ -784,8 +781,11 @@ Licencirano pod licenco MIT.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Osveži</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Želite odstraniti to sliko iz trenutnega profila in izbrisati njeno lokalno kopijo? V drugih profilih, ki se sklicujejo nanjo, bo prikazana kot manjkajoča. Izvirne datoteke in obstoječi nosilci ostanejo nespremenjeni.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Odstrani iz profila</value>
+    <value>Odstrani</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Uredi</value>

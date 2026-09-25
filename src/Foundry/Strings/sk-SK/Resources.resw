@@ -712,14 +712,11 @@ Licencované podľa licencie MIT.</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Preferovaný obraz</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Vyberte, či má Foundry Deploy najprv zobraziť katalóg Foundry alebo vlastné obrazy systému Windows.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Predvolený zdroj obrazu v Deploy</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Odstrániť tento obraz z lokálnej knižnice? Profily, ktoré naň odkazujú, ho zobrazia ako chýbajúci. Pôvodné súbory a existujúce médiá zostanú nezmenené.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Odstrániť</value>
+    <value>Predvolený zdroj obrazov vo Foundry Deploy</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Vybraný obraz</value>
@@ -784,8 +781,11 @@ Licencované podľa licencie MIT.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Obnoviť</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Odstrániť tento obraz z aktuálneho profilu a vymazať jeho lokálnu kópiu? V ostatných profiloch, ktoré naň odkazujú, sa zobrazí ako chýbajúci. Pôvodné súbory a existujúce médiá zostanú nezmenené.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Odstrániť z profilu</value>
+    <value>Odstrániť</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Upraviť</value>

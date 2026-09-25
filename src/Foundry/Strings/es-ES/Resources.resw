@@ -712,14 +712,11 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Imagen preferida</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Elige si Foundry Deploy muestra inicialmente el catálogo de Foundry o las imágenes de Windows personalizadas.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Origen de imagen predeterminado en Deploy</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>¿Eliminar esta imagen de la biblioteca local? Los perfiles que hagan referencia a ella la mostrarán como ausente. Los archivos originales y los medios existentes no se modifican.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Eliminar</value>
+    <value>Origen de imágenes predeterminado en Foundry Deploy</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Imagen seleccionada</value>
@@ -784,8 +781,11 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Actualizar</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>¿Quieres quitar esta imagen del perfil actual y eliminar su copia local? En los otros perfiles que hagan referencia a ella aparecerá como no disponible. Los archivos originales y los medios existentes no se modificarán.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Quitar del perfil</value>
+    <value>Quitar</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Editar</value>

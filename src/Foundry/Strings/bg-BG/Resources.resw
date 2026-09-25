@@ -712,14 +712,11 @@
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Предпочитан образ</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Изберете дали Foundry Deploy първоначално да показва каталога на Foundry или персонализираните образи на Windows.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Източник на образ по подразбиране в Deploy</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Да се изтрие ли този образ от локалната библиотека? Профилите, които го използват, ще го показват като липсващ. Оригиналните файлове и съществуващите носители няма да бъдат променени.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Изтриване</value>
+    <value>Източник на образи по подразбиране във Foundry Deploy</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Избран образ</value>
@@ -784,8 +781,11 @@
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Обновяване</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Да се премахне ли този образ от текущия профил и да се изтрие ли локалното му копие? В другите профили, които го използват, той ще се показва като липсващ. Оригиналните файлове и съществуващите носители остават непроменени.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Премахване от профила</value>
+    <value>Премахване</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Редактиране</value>

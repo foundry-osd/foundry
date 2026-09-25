@@ -712,14 +712,11 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Vēlamais attēls</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Izvēlieties, vai Foundry Deploy sākotnēji rāda Foundry katalogu vai pielāgotus Windows attēlus.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Noklusējuma attēla avots programmā Deploy</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Vai dzēst šo attēlu no lokālās bibliotēkas? Profili, kas uz to atsaucas, rādīs to kā trūkstošu. Sākotnējie faili un esošie datu nesēji paliek nemainīti.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Dzēst</value>
+    <value>Noklusējuma attēlu avots programmā Foundry Deploy</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Atlasītais attēls</value>
@@ -784,8 +781,11 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Atsvaidzināt</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Vai noņemt šo attēlu no pašreizējā profila un dzēst tā lokālo kopiju? Citos profilos, kuros ir atsauce uz to, tas tiks rādīts kā trūkstošs. Sākotnējie faili un esošie datu nesēji netiks mainīti.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Noņemt no profila</value>
+    <value>Noņemt</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Rediģēt</value>

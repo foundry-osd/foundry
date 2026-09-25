@@ -712,14 +712,11 @@ Lisensiert under MIT-lisensen.</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>Foretrukket avbildning</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Velg om Foundry Deploy først viser Foundry-katalogen eller egendefinerte Windows-bilder.</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Standard avbildningskilde i Deploy</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>Slette denne avbildningen fra det lokale biblioteket? Profiler som refererer til den, vil vise den som manglende. Originalfiler og eksisterende medier forblir uendret.</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Slett</value>
+    <value>Standard bildekilde i Foundry Deploy</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Valgt avbildning</value>
@@ -784,8 +781,11 @@ Lisensiert under MIT-lisensen.</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Oppdater</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Vil du fjerne dette bildet fra den gjeldende profilen og slette den lokale kopien? Andre profiler som refererer til det, vil vise det som manglende. Originalfiler og eksisterende medier endres ikke.</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>Fjern fra profil</value>
+    <value>Fjern</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Rediger</value>

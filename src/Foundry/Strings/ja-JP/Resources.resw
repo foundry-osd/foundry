@@ -712,14 +712,11 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomImages.DefaultLabel" xml:space="preserve">
     <value>優先イメージ</value>
   </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Foundry Deploy で最初に表示するソースを、Foundry カタログまたはカスタム Windows イメージから選択します。</value>
+  </data>
   <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
-    <value>Deploy の既定のイメージソース</value>
-  </data>
-  <data name="CustomImages.DeleteDescription" xml:space="preserve">
-    <value>このイメージをローカルライブラリから削除しますか？このイメージを参照するプロファイルでは、イメージが見つからないと表示されます。元のファイルと既存のメディアは変更されません。</value>
-  </data>
-  <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>削除</value>
+    <value>Foundry Deploy の既定のイメージソース</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>選択したイメージ</value>
@@ -784,8 +781,11 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>更新</value>
   </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>このイメージを現在のプロファイルから削除し、ローカルコピーも削除しますか？このイメージを参照する他のプロファイルでは、イメージが見つからない状態になります。元のファイルと既存のメディアは変更されません。</value>
+  </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
-    <value>プロファイルから削除</value>
+    <value>削除</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>編集</value>
