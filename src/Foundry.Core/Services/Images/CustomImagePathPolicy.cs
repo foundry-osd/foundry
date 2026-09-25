@@ -9,9 +9,7 @@ public static class CustomImagePathPolicy
 {
     public static string ResolveRelativePath(string root, string relativePath)
     {
-        if (string.IsNullOrWhiteSpace(relativePath) || Path.IsPathRooted(relativePath) || relativePath.Contains(':') ||
-            relativePath.Split(['/', '\\']).Any(part => part is "" or "." or ".."))
-            throw new InvalidDataException("The custom image path must be a contained relative path.");
+        ValidateRelativePath(relativePath);
         string fullRoot = Path.TrimEndingDirectorySeparator(Path.GetFullPath(root));
         string fullPath = Path.GetFullPath(Path.Combine(fullRoot, relativePath.Replace('/', Path.DirectorySeparatorChar)));
         string prefix = Path.EndsInDirectorySeparator(fullRoot) ? fullRoot : fullRoot + Path.DirectorySeparatorChar;
@@ -19,6 +17,13 @@ public static class CustomImagePathPolicy
             throw new InvalidDataException("The custom image path escapes its content root.");
         ValidateNoReparsePoints(fullPath);
         return fullPath;
+    }
+
+    internal static void ValidateRelativePath(string relativePath)
+    {
+        if (string.IsNullOrWhiteSpace(relativePath) || Path.IsPathRooted(relativePath) || relativePath.Contains(':') ||
+            relativePath.Split(['/', '\\']).Any(part => part is "" or "." or ".."))
+            throw new InvalidDataException("The custom image path must be a contained relative path.");
     }
 
     public static void ValidateNoReparsePoints(string path)

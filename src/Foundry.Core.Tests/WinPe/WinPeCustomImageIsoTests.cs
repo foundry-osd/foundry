@@ -5,6 +5,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using Foundry.Core.Models.Images;
 using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Tests.WinPe;
@@ -23,19 +24,31 @@ public sealed class WinPeCustomImageIsoTests : IDisposable
     }
 
     [Theory]
-    [InlineData(false, true)]
-    [InlineData(true, false)]
-    public void Mastering_OrdersBootFilesAndRetainsFirmwareSignatureChoice(bool bootEx, bool bios)
+    [InlineData(false, true, "bootx64.efi")]
+    [InlineData(false, false, "bootaa64.efi")]
+    [InlineData(true, true, "bootx64.efi")]
+    [InlineData(true, false, "bootaa64.efi")]
+    public void Mastering_OrdersBootFilesAndRetainsFirmwareSignatureChoice(bool bootEx, bool bios, string bootFileName)
     {
         string bins = Path.Combine(root, "bootbins");
         Directory.CreateDirectory(bins);
         File.WriteAllText(Path.Combine(bins, bootEx ? "efisys_EX.bin" : "efisys.bin"), "efi");
+        File.WriteAllText(Path.Combine(bins, "bootmgfw.efi"), "legacy manager");
+        File.WriteAllText(Path.Combine(bins, "bootmgfw_EX.efi"), "PCA2023 manager");
         if (bios) File.WriteAllText(Path.Combine(bins, "etfsboot.com"), "bios");
         string media = Path.Combine(root, "media");
         Directory.CreateDirectory(Path.Combine(media, "sources"));
         Directory.CreateDirectory(Path.Combine(media, "boot"));
+        Directory.CreateDirectory(Path.Combine(media, "EFI", "Boot"));
+        Directory.CreateDirectory(Path.Combine(media, "EFI", "Microsoft", "Boot"));
+        Directory.CreateDirectory(Path.Combine(media, CustomImageMediaPaths.RelativeRoot));
         File.WriteAllText(Path.Combine(media, "sources", "boot.wim"), "boot");
         File.WriteAllText(Path.Combine(media, "boot", "BCD"), "bcd");
+        string bootFile = Path.Combine(media, "EFI", "Boot", bootFileName);
+        string microsoftBootFile = Path.Combine(media, "EFI", "Microsoft", "Boot", "bootmgfw.efi");
+        File.WriteAllText(bootFile, "prior manager");
+        File.WriteAllText(microsoftBootFile, "prior manager");
+        File.WriteAllText(Path.Combine(media, CustomImageMediaPaths.RelativeRoot, "image.wim"), "custom image");
 
         string arguments = WinPeCustomImageIsoMastering.CreateArguments(root, Path.Combine(root, "output.iso"), bootEx);
 
@@ -44,10 +57,13 @@ public sealed class WinPeCustomImageIsoTests : IDisposable
         Assert.Contains("-yo", arguments);
         Assert.Contains(bootEx ? "efisys_EX.bin" : "efisys.bin", arguments);
         Assert.Contains(bios ? "-bootdata:2#p0,e,b" : "-bootdata:1#pEF,e,b", arguments);
+        string expectedManager = bootEx ? "PCA2023 manager" : "legacy manager";
+        Assert.Equal(expectedManager, File.ReadAllText(bootFile));
+        Assert.Equal(expectedManager, File.ReadAllText(microsoftBootFile));
         string order = File.ReadAllText(Path.Combine(root, "boot-order.txt"));
         Assert.Contains("boot\\BCD", order);
         Assert.EndsWith("sources\\boot.wim\r\n", order);
-        Assert.DoesNotContain("Foundry", order);
+        Assert.DoesNotContain(CustomImageMediaPaths.RelativeRoot, order);
     }
 
     [Theory]
@@ -61,6 +77,7 @@ public sealed class WinPeCustomImageIsoTests : IDisposable
         Directory.CreateDirectory(Path.Combine(work, "bootbins"));
         File.WriteAllText(Path.Combine(media, "sources", "boot.wim"), "boot");
         File.WriteAllText(Path.Combine(work, "bootbins", "efisys.bin"), "efi");
+        File.WriteAllText(Path.Combine(work, "bootbins", "bootmgfw.efi"), "legacy manager");
         string source = Path.Combine(root, "source.wim");
         File.WriteAllText(source, "custom image");
         string hash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes("custom image")));
@@ -73,7 +90,7 @@ public sealed class WinPeCustomImageIsoTests : IDisposable
         {
             Assert.Equal("custom image", File.ReadAllText(Path.Combine(staging, "media", relative)));
             Assert.True(File.Exists(Path.Combine(staging, "media", package.ManifestRelativePath)));
-            Assert.False(Directory.Exists(Path.Combine(media, "Foundry")));
+            Assert.False(Directory.Exists(Path.Combine(media, CustomImageMediaPaths.RelativeRoot)));
             File.WriteAllText(output, "new ISO");
             if (cancel) cancellation.Cancel();
         });

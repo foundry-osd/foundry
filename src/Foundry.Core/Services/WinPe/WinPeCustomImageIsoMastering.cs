@@ -4,6 +4,7 @@
 
 using System.Runtime.InteropServices;
 using System.Text;
+using Foundry.Core.Services.Images;
 
 namespace Foundry.Core.Services.WinPe;
 
@@ -70,6 +71,7 @@ internal static class WinPeCustomImageIsoMastering
             ? $"2#p0,e,b{WinPeProcessRunner.Quote(bios)}#pEF,e,b{WinPeProcessRunner.Quote(efi)}"
             : $"1#pEF,e,b{WinPeProcessRunner.Quote(efi)}";
         string media = Path.Combine(workspace, "media");
+        ConfigureBootManagers(media, bins, useBootEx);
         var ordered = new List<string>();
         foreach (string directory in new[] { "boot", "EFI" })
         {
@@ -94,9 +96,24 @@ internal static class WinPeCustomImageIsoMastering
             throw new IOException("Insufficient free space for custom-image ISO staging and atomic output publication.");
     }
 
+    private static void ConfigureBootManagers(string media, string bins, bool useBootEx)
+    {
+        string source = Path.Combine(bins, useBootEx ? "bootmgfw_EX.efi" : "bootmgfw.efi");
+        if (!File.Exists(source)) throw new FileNotFoundException("The requested EFI boot manager is unavailable.", source);
+        // Match MakeWinPEMedia's signature selection in both the optical boot image and the exposed EFI tree.
+        foreach (string name in new[] { "bootx64.efi", "bootaa64.efi" })
+        {
+            string destination = Path.Combine(media, "EFI", "Boot", name);
+            if (File.Exists(destination)) File.Copy(source, destination, overwrite: true);
+        }
+        string microsoftBoot = Path.Combine(media, "EFI", "Microsoft", "Boot");
+        Directory.CreateDirectory(microsoftBoot);
+        File.Copy(source, Path.Combine(microsoftBoot, "bootmgfw.efi"), overwrite: true);
+    }
+
     private static long CountBytes(string root)
     {
-        WinPeCustomImageMediaService.EnsureNoReparsePoints(root);
+        CustomImagePathPolicy.ValidateNoReparsePoints(root);
         long bytes = 0;
         foreach (FileSystemInfo entry in new DirectoryInfo(root).EnumerateFileSystemInfos())
         {
@@ -109,7 +126,7 @@ internal static class WinPeCustomImageIsoMastering
     private static async Task CopyTreeAsync(string sourceRoot, string destinationRoot, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        WinPeCustomImageMediaService.EnsureNoReparsePoints(sourceRoot);
+        CustomImagePathPolicy.ValidateNoReparsePoints(sourceRoot);
         Directory.CreateDirectory(destinationRoot);
         foreach (FileSystemInfo entry in new DirectoryInfo(sourceRoot).EnumerateFileSystemInfos())
         {

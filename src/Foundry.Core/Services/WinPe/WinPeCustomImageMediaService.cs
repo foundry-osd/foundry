@@ -4,6 +4,7 @@
 
 using System.Security.Cryptography;
 using Foundry.Core.Models.Images;
+using Foundry.Core.Services.Images;
 using Foundry.Utilities.Processes;
 using Foundry.Utilities.Storage;
 
@@ -35,7 +36,7 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
         foreach (string path in paths.Distinct(StringComparer.OrdinalIgnoreCase))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            EnsureNoReparsePoints(path);
+            CustomImagePathPolicy.ValidateNoReparsePoints(path);
             int? sourceDisk = await resolveDisk(path, cancellationToken).ConfigureAwait(false);
             if (!sourceDisk.HasValue || sourceDisk.Value == targetDisk)
                 throw new InvalidDataException("A media input is on the target disk or its physical disk could not be verified.");
@@ -45,7 +46,7 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
     /// <summary>Rejects drive-letter reuse or an unresolved data volume before writing external image content.</summary>
     public async Task ValidateDestinationDiskAsync(string root, int targetDisk, CancellationToken cancellationToken)
     {
-        EnsureNoReparsePoints(root);
+        CustomImagePathPolicy.ValidateNoReparsePoints(root);
         if (await resolveDisk(root, cancellationToken).ConfigureAwait(false) != targetDisk)
             throw new InvalidDataException("The custom-image destination no longer belongs to the selected USB disk.");
     }
@@ -56,8 +57,8 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
         package.ThrowIfDisposed();
         foreach (WinPeCustomImageMediaFile file in package.Files)
         {
-            ValidateRelativePath(file.RelativePath);
-            EnsureNoReparsePoints(file.SourcePath);
+            CustomImagePathPolicy.ValidateRelativePath(file.RelativePath);
+            CustomImagePathPolicy.ValidateNoReparsePoints(file.SourcePath);
             if (!await MatchesAsync(file.SourcePath, file.Length, file.ContentHash, cancellationToken).ConfigureAwait(false))
                 throw new InvalidDataException("A custom image input no longer matches its verified length and SHA256.");
         }
@@ -71,7 +72,7 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
         long required = checked(DataReserveBytes + package.ManifestBytes.LongLength);
         foreach (WinPeCustomImageMediaFile file in package.Files)
         {
-            string destination = ResolveDestination(destinationRoot, file.RelativePath);
+            string destination = CustomImagePathPolicy.ResolveRelativePath(destinationRoot, file.RelativePath);
             if (!await MatchesAsync(destination, file.Length, file.ContentHash, cancellationToken).ConfigureAwait(false))
                 required = checked(required + file.Length);
         }
@@ -91,9 +92,9 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
     {
         package.ThrowIfDisposed();
         await ValidateSourcesAsync(package, cancellationToken).ConfigureAwait(false);
-        string customRoot = ResolveDestination(destinationRoot, CustomImageMediaPaths.RelativeRoot);
+        string customRoot = CustomImagePathPolicy.ResolveRelativePath(destinationRoot, CustomImageMediaPaths.RelativeRoot);
         Directory.CreateDirectory(customRoot);
-        string lockPath = ResolveDestination(customRoot, ".publish.lock");
+        string lockPath = CustomImagePathPolicy.ResolveRelativePath(customRoot, ".publish.lock");
         using var publicationLease = new FileStream(lockPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
         long required = await GetRequiredBytesAsync(package, destinationRoot, cancellationToken).ConfigureAwait(false);
         if (availableBytes(destinationRoot) < required) throw new IOException("The data volume has insufficient free space for the custom images and staging reserve.");
@@ -106,7 +107,7 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
             foreach (WinPeCustomImageMediaFile file in package.Files)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                string destination = ResolveDestination(destinationRoot, file.RelativePath);
+                string destination = CustomImagePathPolicy.ResolveRelativePath(destinationRoot, file.RelativePath);
                 if (!await MatchesAsync(destination, file.Length, file.ContentHash, cancellationToken).ConfigureAwait(false))
                 {
                     string temporary = Path.Combine(pending, Guid.NewGuid().ToString("N"));
@@ -119,11 +120,11 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
             foreach ((string temporary, string destination) in staged)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                EnsureNoReparsePoints(destination);
+                CustomImagePathPolicy.ValidateNoReparsePoints(destination);
                 Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
                 File.Move(temporary, destination, overwrite: true);
             }
-            string manifest = ResolveDestination(destinationRoot, package.ManifestRelativePath);
+            string manifest = CustomImagePathPolicy.ResolveRelativePath(destinationRoot, package.ManifestRelativePath);
             if (File.Exists(manifest))
             {
                 if (!await MatchesAsync(manifest, package.ManifestBytes.LongLength, package.ManifestHash, cancellationToken).ConfigureAwait(false))
@@ -166,7 +167,7 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
     private static async Task<bool> MatchesAsync(string path, long length, string hash, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        EnsureNoReparsePoints(path);
+        CustomImagePathPolicy.ValidateNoReparsePoints(path);
         FileStream stream;
         try { stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 128 * 1024, useAsync: true); }
         catch (FileNotFoundException) { return false; }
@@ -176,37 +177,6 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
             if (stream.Length != length) return false;
             string actual = Convert.ToHexString(await SHA256.HashDataAsync(stream, cancellationToken).ConfigureAwait(false));
             return string.Equals(actual, hash, StringComparison.OrdinalIgnoreCase);
-        }
-    }
-
-    internal static string ResolveDestination(string root, string relativePath)
-    {
-        ValidateRelativePath(relativePath);
-        string fullRoot = Path.GetFullPath(root).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
-        string path = Path.GetFullPath(Path.Combine(fullRoot, relativePath));
-        if (!path.StartsWith(fullRoot, StringComparison.OrdinalIgnoreCase)) throw new InvalidDataException("Custom image media path escapes the destination root.");
-        EnsureNoReparsePoints(path);
-        return path;
-    }
-
-    private static void ValidateRelativePath(string path)
-    {
-        if (string.IsNullOrWhiteSpace(path) || Path.IsPathRooted(path) || path.Contains(':') ||
-            path.Split(['/', '\\']).Any(segment => segment is "" or "." or ".."))
-            throw new InvalidDataException("Custom image media paths must be canonical relative paths.");
-    }
-
-    internal static void EnsureNoReparsePoints(string path)
-    {
-        for (string? current = Path.GetFullPath(path); current is not null; current = Path.GetDirectoryName(current))
-        {
-            try
-            {
-                if ((File.GetAttributes(current) & FileAttributes.ReparsePoint) != 0)
-                    throw new InvalidDataException("Custom image media paths must not traverse reparse points.");
-            }
-            catch (FileNotFoundException) { }
-            catch (DirectoryNotFoundException) { }
         }
     }
 
