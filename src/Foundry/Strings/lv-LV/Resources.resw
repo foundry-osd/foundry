@@ -778,9 +778,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Attēla darbība neizdevās. Pārbaudiet avotu, brīvo vietu un Foundry žurnālus.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Izvēlas operators</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Trūkst iekļauta attēla, vai vēlamais attēls vai indekss vairs nav iekļauts. Pirms datu nesēja izveides atjaunojiet avotu, mainiet atlasi vai notīriet vēlamo iestatījumu.</value>
   </data>

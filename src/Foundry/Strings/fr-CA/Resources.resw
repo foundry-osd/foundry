@@ -778,9 +778,6 @@ Sous licence MIT.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>L’opération sur l’image a échoué. Vérifiez la source, l’espace disponible et les journaux Foundry.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Choix de l’opérateur</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Une image incluse manque, ou une image/un index préféré n’est plus inclus. Restaurez la source, modifiez la sélection ou effacez la préférence avant de créer le support.</value>
   </data>
@@ -797,10 +794,10 @@ Sous licence MIT.</value>
     <value>Enregistrer</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Image par défaut</value>
+    <value>Définir l'image par défaut</value>
   </data>
   <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
-    <value>Index par défaut</value>
+    <value>Définir l'index par défaut</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Taille</value>

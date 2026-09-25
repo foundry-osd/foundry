@@ -778,9 +778,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Tõmmisetoiming nurjus. Kontrollige allikat, vaba ruumi ja Foundry logisid.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Operaator valib</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Kaasatud tõmmis puudub või eelistatud tõmmis või indeks pole enam kaasatud. Enne meediumi loomist taastage allikas, muutke valikut või tühjendage eelistus.</value>
   </data>

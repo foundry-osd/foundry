@@ -778,9 +778,6 @@
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Не вдалося виконати операцію з образом. Перевірте джерело, вільне місце та журнали Foundry.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Вибирає оператор</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Включений образ відсутній, або бажаний образ чи індекс більше не включено. Відновіть джерело, змініть вибір або скиньте бажаний варіант перед створенням носія.</value>
   </data>

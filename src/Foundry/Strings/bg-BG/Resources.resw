@@ -778,9 +778,6 @@
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Операцията с образа е неуспешна. Проверете източника, свободното място и регистрационните файлове на Foundry.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Операторът избира</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Включен образ липсва или предпочитаният образ или индекс вече не е включен. Възстановете източника, променете избора или изчистете предпочитанието, преди да създадете носител.</value>
   </data>
@@ -797,10 +794,10 @@
     <value>Запазване</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Образ по подразбиране</value>
+    <value>Задаване на образ по подразбиране</value>
   </data>
   <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
-    <value>Индекс по подразбиране</value>
+    <value>Задаване на индекс по подразбиране</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Размер</value>

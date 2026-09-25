@@ -778,9 +778,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>A lemezképművelet sikertelen. Ellenőrizze a forrást, a szabad helyet és a Foundry naplóit.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>A kezelő választ</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Hiányzik egy hozzáadott lemezkép, vagy egy előnyben részesített lemezkép/index már nincs hozzáadva. Az adathordozó létrehozása előtt állítsa helyre a forrást, módosítsa a kijelölést vagy törölje a beállítást.</value>
   </data>
@@ -797,10 +794,10 @@ Licenc az MIT licenc alatt.</value>
     <value>Mentés</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Alapértelmezett lemezkép</value>
+    <value>Alapértelmezett lemezkép beállítása</value>
   </data>
   <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
-    <value>Alapértelmezett index</value>
+    <value>Alapértelmezett index beállítása</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Méret</value>

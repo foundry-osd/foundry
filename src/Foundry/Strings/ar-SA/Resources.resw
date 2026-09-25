@@ -778,9 +778,6 @@
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>فشلت عملية الصورة. تحقّق من المصدر والمساحة المتاحة وسجلات Foundry.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>يختار المشغّل</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>إحدى الصور المضمّنة مفقودة، أو لم تعد الصورة أو الفهرس المفضل مضمّنًا. استعد المصدر أو غيّر التحديد أو ألغِ التفضيل قبل إنشاء الوسائط.</value>
   </data>

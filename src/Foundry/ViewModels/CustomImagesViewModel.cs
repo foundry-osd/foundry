@@ -86,12 +86,6 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     public string ReadinessMessage => Text("ReadinessMessage");
     public bool IsEmpty => Images.Count == 0;
     public string EmptyMessage => Text("EmptyMessage");
-    public string DefaultDescription => state.Current.CustomImages.DefaultImageId is null
-        ? Text("OperatorChoice")
-        : state.Current.CustomImages.Images.FirstOrDefault(image => image.Id == state.Current.CustomImages.DefaultImageId)?.DisplayName ?? Text("Missing");
-    public string DefaultIndexDescription => state.Current.CustomImages.DefaultImageIndex is not { } index ? Text("OperatorChoice") :
-        state.Current.CustomImages.Images.FirstOrDefault(image => image.Id == state.Current.CustomImages.DefaultImageId)?.Indexes
-            .FirstOrDefault(item => item.Index == index) is { } preferred ? $"{preferred.Index}: {preferred.Name}" : Text("Missing");
     public string SelectedImageName => SelectedImage?.Name ?? string.Empty;
     public string ContentHash => SelectedImage is null ? string.Empty : "SHA256: " + SelectedImage.Reference.ContentHash;
     public string DocumentationUrl => FoundryApplicationInfo.DocumentationUrl + "/foundry-osd/customization/custom-windows-images";
@@ -107,8 +101,9 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     public string IncludedLabel => Text("IncludedLabel");
     public string DefaultLabel => Text("DefaultLabel");
     public string StatusLabel => Text("StatusLabel");
-    public string IncludeLabel => Text(SelectedImage is { } row && state.Current.CustomImages.Images.Any(image => image.Id == row.Reference.Id && image.IsIncluded)
-        ? "ExcludeActionLabel" : "IncludeActionLabel");
+    private bool IsSelectedImageIncluded => SelectedImage is { } row && state.Current.CustomImages.Images.Any(image => image.Id == row.Reference.Id && image.IsIncluded);
+    public string IncludeLabel => Text(IsSelectedImageIncluded ? "ExcludeActionLabel" : "IncludeActionLabel");
+    public Symbol IncludeSymbol => IsSelectedImageIncluded ? Symbol.Cancel : Symbol.Accept;
     public string RenameLabel => Text("RenameLabel");
     public string SetDefaultLabel => Text("SetDefaultLabel");
     public string ClearDefaultLabel => Text("ClearDefaultActionLabel");
@@ -145,8 +140,10 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
         SelectedIndex = null;
         Indexes.Clear();
         foreach (CustomImageIndex index in value?.Reference.Indexes ?? [])
-            Indexes.Add(new(index, value?.Reference.Id == state.Current.CustomImages.DefaultImageId &&
-                index.Index == state.Current.CustomImages.DefaultImageIndex ? Text("Yes") : Text("No")));
+        {
+            bool preferred = value?.Reference.Id == state.Current.CustomImages.DefaultImageId && index.Index == state.Current.CustomImages.DefaultImageIndex;
+            Indexes.Add(new(index, preferred ? Text("Yes") : Text("No"), preferred));
+        }
         OnPropertyChanged(nameof(CanEdit));
         OnPropertyChanged(nameof(CanRemove));
         OnPropertyChanged(nameof(CanDelete));
@@ -156,6 +153,7 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
         OnPropertyChanged(nameof(SelectedImageName));
         OnPropertyChanged(nameof(ContentHash));
         OnPropertyChanged(nameof(IncludeLabel));
+        OnPropertyChanged(nameof(IncludeSymbol));
     }
 
     [RelayCommand]
@@ -172,11 +170,49 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
         IsBusy = true;
         try
         {
-            localImages = await library.ListAsync();
-            if (!disposed) state.RefreshCustomImageReadiness();
+            var refreshed = (await library.ListAsync()).ToArray();
+            for (int i = 0; i < refreshed.Length && !disposed; i++)
+            {
+                if (!refreshed[i].Indexes.Any(NeedsRevision) || !library.IsAvailable(refreshed[i])) continue;
+                try { refreshed[i] = await library.RefreshMetadataAsync(refreshed[i]); }
+                catch (Exception ex) { if (!disposed) ReportFailure(ex); }
+            }
+            if (disposed) return;
+            localImages = refreshed;
+            RefreshProfileMetadata();
         }
         catch (Exception ex) { ReportFailure(ex); }
         finally { IsBusy = false; }
+    }
+
+    private static bool NeedsRevision(CustomImageIndex index) =>
+        Version.TryParse(index.Version, out Version? version) && version.Build >= 0 && version.Revision < 0;
+
+    private void RefreshProfileMetadata()
+    {
+        CustomImagesSettings settings = state.Current.CustomImages;
+        bool changed = false;
+        CustomImageReference[] images = settings.Images.Select(image =>
+        {
+            CustomImageReference? local = localImages.FirstOrDefault(item => item.Length == image.Length &&
+                item.ContentHash.Equals(image.ContentHash, StringComparison.OrdinalIgnoreCase));
+            if (local is null || !image.Indexes.Any(NeedsRevision)) return image;
+            bool imageChanged = false;
+            CustomImageIndex[] indexes = image.Indexes.Select(index =>
+            {
+                if (!NeedsRevision(index)) return index;
+                CustomImageIndex? refreshed = local.Indexes.FirstOrDefault(item => item.Index == index.Index);
+                if (!Version.TryParse(refreshed?.Version, out Version? fullVersion) || fullVersion.Revision < 0 ||
+                    !Version.TryParse(index.Version, out Version? version) || version.Major != fullVersion.Major ||
+                    version.Minor != fullVersion.Minor || version.Build != fullVersion.Build) return index;
+                imageChanged = true;
+                return index with { Version = refreshed!.Version };
+            }).ToArray();
+            changed |= imageChanged;
+            return imageChanged ? image with { Indexes = indexes } : image;
+        }).ToArray();
+        if (changed) state.UpdateCustomImages(settings with { Images = images });
+        else state.RefreshCustomImageReadiness();
     }
 
     [RelayCommand]
@@ -320,12 +356,11 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
                 string[] architectures = image.Indexes.Select(index => index.Architecture).Distinct().ToArray();
                 Images.Add(new(image, architectures.Length == 1 ? architectures[0] : Text("Multiple"),
                     image.Indexes.Count, $"{image.Length / 1073741824d:F2} GB", inProfile && image.IsIncluded ? Text("Yes") : Text("No"),
-                    settings.DefaultImageId == image.Id ? Text("Yes") : Text("No"), available ? Text("Available") : Text("Missing")));
+                    settings.DefaultImageId == image.Id ? Text("Yes") : Text("No"), available ? Text("Available") : Text("Missing"),
+                    inProfile && image.IsIncluded, settings.DefaultImageId == image.Id, available));
             }
             SelectedImage = Images.FirstOrDefault(image => image.Reference.Id == selectedId);
             SelectedIndex = Indexes.FirstOrDefault(index => index.Index.Index == selectedIndex);
-            OnPropertyChanged(nameof(DefaultDescription));
-            OnPropertyChanged(nameof(DefaultIndexDescription));
             OnPropertyChanged(nameof(HasReadinessIssue));
             OnPropertyChanged(nameof(IsEmpty));
             OnPropertyChanged(nameof(HasImages));
@@ -358,13 +393,17 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
 }
 
 public sealed record CustomImageRow(CustomImageReference Reference, string Architecture, int Indexes, string Size,
-    string Included, string Default, string Status)
+    string Included, string Default, string Status, bool IsIncluded, bool IsDefault, bool IsAvailable)
 {
     public string Name => Reference.DisplayName;
+    public Style IncludedStyle => (Style)Application.Current.Resources[IsIncluded ? "FoundrySuccessTextBlockStyle" : "FoundrySecondaryTextBlockStyle"];
+    public Style DefaultStyle => (Style)Application.Current.Resources[IsDefault ? "FoundrySuccessTextBlockStyle" : "FoundrySecondaryTextBlockStyle"];
+    public Style StatusStyle => (Style)Application.Current.Resources[IsAvailable ? "FoundrySuccessTextBlockStyle" : "FoundryCriticalTextBlockStyle"];
 }
 
 /// <summary>Displays index metadata and the profile preference without changing the WIM.</summary>
-public sealed record CustomImageIndexRow(CustomImageIndex Index, string Preferred)
+public sealed record CustomImageIndexRow(CustomImageIndex Index, string Preferred, bool IsPreferred)
 {
     public string Languages => string.Join(", ", Index.Languages);
+    public Style PreferredStyle => (Style)Application.Current.Resources[IsPreferred ? "FoundrySuccessTextBlockStyle" : "FoundrySecondaryTextBlockStyle"];
 }

@@ -778,9 +778,6 @@ Licencirano pod licenco MIT.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Opravilo s sliko ni uspelo. Preverite vir, prosti prostor in dnevnike Foundry.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Izbere operater</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Vključena slika manjka oziroma prednostna slika ali indeks ni več vključen. Pred ustvarjanjem medija obnovite vir, spremenite izbiro ali počistite prednostno nastavitev.</value>
   </data>

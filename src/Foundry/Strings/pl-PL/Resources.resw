@@ -778,9 +778,6 @@ Licencjonowany na licencji MIT.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Operacja obrazu nie powiodła się. Sprawdź źródło, dostępne miejsce i dzienniki Foundry.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Wybiera operator</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Brakuje dołączonego obrazu albo preferowany obraz lub indeks nie jest już dołączony. Przywróć źródło, zmień wybór lub usuń preferencję przed utworzeniem nośnika.</value>
   </data>

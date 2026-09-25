@@ -778,9 +778,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>イメージの操作に失敗しました。ソース、空き容量、Foundry のログを確認してください。</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>オペレーターが選択</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>含まれるイメージが見つからないか、優先イメージまたはインデックスが含まれなくなっています。メディアを作成する前に、ソースを復元するか、選択を変更するか、優先設定を解除してください。</value>
   </data>

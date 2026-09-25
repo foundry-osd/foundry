@@ -778,9 +778,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Operazione sull’immagine non riuscita. Controlla l’origine, lo spazio disponibile e i registri di Foundry.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Scelta dell’operatore</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Manca un’immagine inclusa, oppure un’immagine o un indice preferiti non sono più inclusi. Ripristina l’origine, modifica la selezione o cancella la preferenza prima di creare i supporti.</value>
   </data>

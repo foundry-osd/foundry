@@ -778,9 +778,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Näköistiedostotoiminto epäonnistui. Tarkista lähde, vapaa tila ja Foundry-lokit.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Käyttäjä valitsee</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Sisällytetty näköistiedosto puuttuu, tai ensisijainen näköistiedosto tai indeksi ei enää sisälly valintaan. Palauta lähde, muuta valintaa tai poista ensisijainen valinta ennen tietovälineen luomista.</value>
   </data>

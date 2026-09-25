@@ -778,9 +778,6 @@
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>הפעולה על התמונה נכשלה. יש לבדוק את המקור, את השטח הפנוי ואת יומני Foundry.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>המפעיל בוחר</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>תמונה כלולה חסרה, או שהתמונה או האינדקס המועדפים אינם כלולים עוד. יש לשחזר את המקור, לשנות את הבחירה או לנקות את ההעדפה לפני יצירת המדיה.</value>
   </data>

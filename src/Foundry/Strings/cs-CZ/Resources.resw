@@ -778,9 +778,6 @@ Licencováno pod licencí MIT.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Operace s bitovou kopií selhala. Zkontrolujte zdroj, volné místo a protokoly Foundry.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Vybírá operátor</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Chybí zahrnutá bitová kopie, případně již není zahrnuta preferovaná bitová kopie nebo index. Před vytvořením média obnovte zdroj, změňte výběr nebo zrušte předvolbu.</value>
   </data>

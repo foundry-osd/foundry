@@ -778,9 +778,6 @@
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Не удалось выполнить операцию с образом. Проверьте источник, свободное место и журналы Foundry.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Выбирает оператор</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Включённый образ отсутствует либо предпочтительный образ или индекс больше не включён. Восстановите источник, измените выбор или сбросьте предпочтение перед созданием носителя.</value>
   </data>
@@ -797,10 +794,10 @@
     <value>Сохранить</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Образ по умолчанию</value>
+    <value>Задать образ по умолчанию</value>
   </data>
   <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
-    <value>Индекс по умолчанию</value>
+    <value>Задать индекс по умолчанию</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Размер</value>

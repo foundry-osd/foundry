@@ -778,9 +778,6 @@
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>映像作業失敗。請檢查來源、可用空間與 Foundry 記錄。</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>由操作員選擇</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>某個已包含的映像遺失，或慣用映像或索引已不再包含。請在建立媒體之前還原來源、變更選取項目或清除偏好設定。</value>
   </data>

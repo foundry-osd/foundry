@@ -778,9 +778,6 @@
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>映像操作失败。请检查来源、可用空间和 Foundry 日志。</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>由操作员选择</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>某个已包含的映像缺失，或者首选映像或索引已不再包含。请在创建介质之前恢复源文件、更改选择或清除首选设置。</value>
   </data>

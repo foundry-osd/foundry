@@ -778,9 +778,6 @@
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Η λειτουργία εικόνας απέτυχε. Ελέγξτε την πηγή, τον διαθέσιμο χώρο και τα αρχεία καταγραφής του Foundry.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Επιλέγει ο χειριστής</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Λείπει μια συμπεριλαμβανόμενη εικόνα, ή μια προτιμώμενη εικόνα ή δείκτης δεν περιλαμβάνεται πλέον. Επαναφέρετε την πηγή, αλλάξτε την επιλογή ή καταργήστε την προτίμηση πριν δημιουργήσετε το μέσο.</value>
   </data>

@@ -778,9 +778,6 @@ Licențiat sub licența MIT.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Operația asupra imaginii a eșuat. Verificați sursa, spațiul disponibil și jurnalele Foundry.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Alege operatorul</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Lipsește o imagine inclusă, ori o imagine sau un index preferat nu mai este inclus. Restabiliți sursa, modificați selecția sau ștergeți preferința înainte de a crea mediul.</value>
   </data>

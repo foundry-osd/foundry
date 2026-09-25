@@ -778,9 +778,6 @@ Licensierad under MIT-licensen.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Avbildningsåtgärden misslyckades. Kontrollera källan, det lediga utrymmet och Foundry-loggarna.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Operatören väljer</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>En inkluderad avbildning saknas, eller en föredragen avbildning eller ett index ingår inte längre. Återställ källan, ändra valet eller rensa inställningen innan du skapar medier.</value>
   </data>

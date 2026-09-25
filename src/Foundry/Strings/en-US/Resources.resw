@@ -778,9 +778,6 @@ Licensed under the MIT License.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>The image operation failed. Check the source, available space, and Foundry logs.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Operator chooses</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>An included image is missing, or a preferred image/index is no longer included. Restore the source, change the selection, or clear the preference before creating media.</value>
   </data>
@@ -797,10 +794,10 @@ Licensed under the MIT License.</value>
     <value>Save</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Set image default</value>
+    <value>Set default image</value>
   </data>
   <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
-    <value>Set index default</value>
+    <value>Set default index</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Size</value>

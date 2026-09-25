@@ -778,9 +778,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>De bewerking is mislukt. Controleer de bron, de beschikbare ruimte en de Foundry-logboeken.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Operator kiest</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Een opgenomen installatiekopie ontbreekt, of een voorkeursinstallatiekopie/index is niet meer opgenomen. Herstel de bron, wijzig de selectie of wis de voorkeur voordat u media maakt.</value>
   </data>

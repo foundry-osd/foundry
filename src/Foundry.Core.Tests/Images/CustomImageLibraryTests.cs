@@ -91,6 +91,48 @@ public sealed class CustomImageLibraryTests : IDisposable
     }
 
     [Fact]
+    public async Task RefreshMetadataPersistsFullRevisionAndPreservesProfileAndLibraryIdentity()
+    {
+        Directory.CreateDirectory(root);
+        string source = Path.Combine(root, "source.wim");
+        await File.WriteAllTextAsync(source, "image", TestContext.Current.CancellationToken);
+        var reader = new MetadataReader { Version = "10.0.26100" };
+        var library = new CustomImageLibraryService(Path.Combine(root, "library"), reader);
+        CustomImageReference imported = await library.ImportAsync(new(source, "Library image"), cancellationToken: TestContext.Current.CancellationToken);
+        File.Delete(source);
+        CustomImageReference profile = imported with { Id = "profile-image", DisplayName = "Profile image", IsIncluded = false };
+        reader.Version = "10.0.26100.4652";
+
+        CustomImageReference refreshed = await library.RefreshMetadataAsync(profile, TestContext.Current.CancellationToken);
+
+        Assert.Equal(profile with { Indexes = refreshed.Indexes }, refreshed);
+        Assert.All(refreshed.Indexes, index => Assert.Equal("10.0.26100.4652", index.Version));
+        CustomImageReference persisted = Assert.Single(await library.ListAsync(TestContext.Current.CancellationToken));
+        Assert.Equal(imported with { Indexes = persisted.Indexes }, persisted);
+        Assert.All(persisted.Indexes, index => Assert.Equal("10.0.26100.4652", index.Version));
+    }
+
+    [Fact]
+    public async Task RefreshMetadataRejectsChangedContentLengthWithoutUpdatingLibrary()
+    {
+        Directory.CreateDirectory(root);
+        string source = Path.Combine(root, "source.wim");
+        await File.WriteAllTextAsync(source, "image", TestContext.Current.CancellationToken);
+        var reader = new MetadataReader { Version = "10.0.26100" };
+        var library = new CustomImageLibraryService(Path.Combine(root, "library"), reader);
+        CustomImageReference imported = await library.ImportAsync(new(source, "Image"), cancellationToken: TestContext.Current.CancellationToken);
+        string path;
+        await using (CustomImageSourceLease lease = await library.AcquireAsync(imported, TestContext.Current.CancellationToken)) path = lease.ImagePath;
+        await File.AppendAllTextAsync(path, "changed", TestContext.Current.CancellationToken);
+        reader.Version = "10.0.26100.4652";
+
+        await Assert.ThrowsAsync<InvalidDataException>(() => library.RefreshMetadataAsync(imported, TestContext.Current.CancellationToken));
+
+        CustomImageReference persisted = Assert.Single(await library.ListAsync(TestContext.Current.CancellationToken));
+        Assert.All(persisted.Indexes, index => Assert.Equal("10.0.26100", index.Version));
+    }
+
+    [Fact]
     public void SettingsKeepPreferredCustomImageIndependentFromDefaultSource()
     {
         var settings = new CustomImagesSettings { IsEnabled = true, DefaultSource = CustomImageSource.Catalog, DefaultImageId = "missing" };
@@ -105,10 +147,12 @@ public sealed class CustomImageLibraryTests : IDisposable
 
     private sealed class MetadataReader : ICustomImageMetadataReader
     {
+        public string? Version { get; set; }
+
         public Task<IReadOnlyList<CustomImageIndex>> ReadAsync(string imagePath, CancellationToken cancellationToken = default)
             => Task.FromResult<IReadOnlyList<CustomImageIndex>>([
-                new() { Index = 1, Name = "First", EditionId = "UnknownEdition", Architecture = "x86" },
-                new() { Index = 4, Name = "Second", EditionId = "UnknownEdition", Architecture = "unknown" }
+                new() { Index = 1, Name = "First", EditionId = "UnknownEdition", Architecture = "x86", Version = Version },
+                new() { Index = 4, Name = "Second", EditionId = "UnknownEdition", Architecture = "unknown", Version = Version }
             ]);
     }
 }

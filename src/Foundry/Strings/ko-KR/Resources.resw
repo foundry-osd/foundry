@@ -778,9 +778,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>이미지 작업에 실패했습니다. 원본, 사용 가능한 공간 및 Foundry 로그를 확인하세요.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>운영자가 선택</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>포함된 이미지이 누락되었거나 선호 이미지 또는 인덱스가 더 이상 포함되지 않습니다. 미디어를 만들기 전에 원본을 복원하거나 선택을 변경하거나 선호 설정을 지우세요.</value>
   </data>

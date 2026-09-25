@@ -778,9 +778,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Der Abbildvorgang ist fehlgeschlagen. Prüfen Sie die Quelle, den verfügbaren Speicherplatz und die Foundry-Protokolle.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Bediener wählt aus</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Ein enthaltenes Abbild fehlt, oder ein bevorzugtes Abbild bzw. ein Index ist nicht mehr enthalten. Stellen Sie die Quelle wieder her, ändern Sie die Auswahl oder entfernen Sie die Präferenz, bevor Sie Medien erstellen.</value>
   </data>

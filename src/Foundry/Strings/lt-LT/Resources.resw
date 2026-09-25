@@ -778,9 +778,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="CustomImages.OperationFailed" xml:space="preserve">
     <value>Atvaizdo operacija nepavyko. Patikrinkite šaltinį, laisvą vietą ir Foundry žurnalus.</value>
   </data>
-  <data name="CustomImages.OperatorChoice" xml:space="preserve">
-    <value>Pasirenka operatorius</value>
-  </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Trūksta įtraukto atvaizdo, arba pageidaujamas atvaizdas ar indeksas nebeįtrauktas. Prieš kurdami laikmeną atkurkite šaltinį, pakeiskite pasirinkimą arba išvalykite nuostatą.</value>
   </data>
