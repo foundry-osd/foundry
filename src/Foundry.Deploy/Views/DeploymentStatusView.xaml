@@ -103,7 +103,7 @@
                                         Text="{Binding Glyph}">
                                         <!--  Align the symbol's visible shape with the label, compensating for symbol-font line metrics.  -->
                                         <TextBlock.RenderTransform>
-                                            <TranslateTransform Y="2" />
+                                            <TranslateTransform Y="1" />
                                         </TextBlock.RenderTransform>
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
