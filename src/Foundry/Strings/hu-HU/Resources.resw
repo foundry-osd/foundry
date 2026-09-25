@@ -685,6 +685,138 @@ Licenc az MIT licenc alatt.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Frissítés</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Architektúra</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Elérhető</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Tallózás</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Mégse</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Importálás megszakítva</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Foundry-katalógus</value>
+  </data>
+  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
+    <value>Válasszon a kezelő</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Egyéni Windows-lemezképek</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Előnyben részesített lemezkép</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Alapértelmezett lemezképforrás a Deployban</value>
+  </data>
+  <data name="CustomImages.DeleteDescription" xml:space="preserve">
+    <value>Törli ezt a lemezképet a helyi könyvtárból? A rá hivatkozó profilok hiányzóként jelenítik meg. Az eredeti fájlok és a meglévő adathordozók változatlanok maradnak.</value>
+  </data>
+  <data name="CustomImages.DeleteLabel" xml:space="preserve">
+    <value>Helyi másolat törlése</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Kijelölt lemezkép</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>Ebben a profilban már létezik ilyen nevű lemezkép.</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Nincsenek egyéni Windows-lemezképek. A kezdéshez importáljon egy ISO- vagy WIM-fájlt.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Egyéni Windows-lemezképek engedélyezése</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Lemezkép importálása</value>
+  </data>
+  <data name="CustomImages.IncludeLabel" xml:space="preserve">
+    <value>Profilba foglalás módosítása</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Hozzáadva</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Előnyben részesített index</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Indexek</value>
+  </data>
+  <data name="CustomImages.LibraryDescription" xml:space="preserve">
+    <value>Ha engedélyezve van, a hozzáadott lemezképek az új adathordozókra másolódnak. Továbbra is szükséges internetkapcsolat. Az engedélyezett testreszabások érvényesülnek a kijelölt lemezképen; ellenőrizze, hogy megfelelnek-e az adott lemezképnek.</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Hiányzik</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Több</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Név</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Nem</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>A lemezképművelet sikertelen. Ellenőrizze a forrást, a szabad helyet és a Foundry naplóit.</value>
+  </data>
+  <data name="CustomImages.OperatorChoice" xml:space="preserve">
+    <value>A kezelő választ</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Hiányzik egy hozzáadott lemezkép vagy opcionális forrás, vagy egy előnyben részesített lemezkép/index már nincs hozzáadva. Az adathordozó létrehozása előtt állítsa helyre a forrást, módosítsa a kijelölést vagy törölje a beállítást.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Frissítés</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Eltávolítás a profilból</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Átnevezés a profilban</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Előnyben részesített lemezkép és index beállítása</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Méret</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Válassza ki a telepítési lemezképet ebben az ISO-fájlban.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>ISO- vagy WIM-forrás</value>
+  </data>
+  <data name="CustomImages.SourcesLabel" xml:space="preserve">
+    <value>Opcionális szolgáltatásforrások importálása az ISO-ból, ha elérhetők</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Importálás kész</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Lemezkép másolása…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Lemezképindexek exportálása…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Lemezképindexek olvasása…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Egyéni lemezképforrások ellenőrzése…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Állapot</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Igen</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Állítsa a WSAIFabricSvc-t kézi indításra az automatikus indítás helyett.</value>
   </data>
@@ -2028,6 +2160,12 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Importáljon Windows-lemezképeket ISO- vagy WIM-fájlokból, és adja hozzá őket a telepítési adathordozókhoz.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Egyéni Windows-lemezképek</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Testreszabás</value>

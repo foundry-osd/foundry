@@ -685,6 +685,138 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Atnaujinti</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Architektūra</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Pasiekiamas</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Naršyti</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Atšaukti</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Importavimas atšauktas</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Foundry katalogas</value>
+  </data>
+  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
+    <value>Leisti pasirinkti operatoriui</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Pasirinktiniai Windows atvaizdai</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Pageidaujamas atvaizdas</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Numatytasis atvaizdo šaltinis Deploy</value>
+  </data>
+  <data name="CustomImages.DeleteDescription" xml:space="preserve">
+    <value>Panaikinti šį atvaizdą iš vietinės bibliotekos? Profiliai, kurie į jį nurodo, rodys jį kaip trūkstamą. Pradiniai failai ir esamos laikmenos liks nepakeisti.</value>
+  </data>
+  <data name="CustomImages.DeleteLabel" xml:space="preserve">
+    <value>Panaikinti vietinę kopiją</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Pasirinktas atvaizdas</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>Šiame profilyje jau yra atvaizdas tokiu pavadinimu.</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Pasirinktinių Windows atvaizdų nėra. Norėdami pradėti, importuokite ISO arba WIM.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Įjungti pasirinktinius Windows atvaizdus</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importuoti atvaizdą</value>
+  </data>
+  <data name="CustomImages.IncludeLabel" xml:space="preserve">
+    <value>Keisti įtraukimą į profilį</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Įtrauktas</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Pageidaujamas indeksas</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Indeksai</value>
+  </data>
+  <data name="CustomImages.LibraryDescription" xml:space="preserve">
+    <value>Kai parinktis įjungta, įtraukti atvaizdai kopijuojami į naujai sukurtas laikmenas. Internetas vis dar būtinas. Įjungti tinkinimai taikomi pasirinktam atvaizdui; patikrinkite jų tinkamumą savo atvaizdui.</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Trūksta</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Keli</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Pavadinimas</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Ne</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>Atvaizdo operacija nepavyko. Patikrinkite šaltinį, laisvą vietą ir Foundry žurnalus.</value>
+  </data>
+  <data name="CustomImages.OperatorChoice" xml:space="preserve">
+    <value>Pasirenka operatorius</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Trūksta įtraukto atvaizdo arba pasirenkamo šaltinio, arba pageidaujamas atvaizdas ar indeksas nebeįtrauktas. Prieš kurdami laikmeną atkurkite šaltinį, pakeiskite pasirinkimą arba išvalykite nuostatą.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Atnaujinti</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Pašalinti iš profilio</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Pervadinti profilyje</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Nustatyti pageidaujamą atvaizdą ir indeksą</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Dydis</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Pasirinkite diegimo atvaizdą šiame ISO faile.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>ISO arba WIM šaltinis</value>
+  </data>
+  <data name="CustomImages.SourcesLabel" xml:space="preserve">
+    <value>Importuoti pasirenkamųjų funkcijų šaltinius iš ISO, jei jie pasiekiami</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Importavimas baigtas</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Kopijuojamas atvaizdas…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Eksportuojami atvaizdo indeksai…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Skaitomi atvaizdo indeksai…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Tikrinami pasirinktinio atvaizdo šaltiniai…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Būsena</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Taip</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Nustatykite WSAIFabricSvc rankinį paleidimą, o ne automatinį paleidimą.</value>
   </data>
@@ -2028,6 +2160,12 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Importuokite Windows atvaizdus iš ISO arba WIM failų ir įtraukite juos į diegimo laikmenas.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Pasirinktiniai Windows atvaizdai</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Tinkinimas</value>

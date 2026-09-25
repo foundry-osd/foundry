@@ -685,6 +685,138 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Värskenda</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Arhitektuur</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Saadaval</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Sirvi</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Loobu</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Importimine tühistatud</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Foundry kataloog</value>
+  </data>
+  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
+    <value>Lase operaatoril valida</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Kohandatud Windowsi tõmmised</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Eelistatud tõmmis</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Tõmmise vaikeallikas Deploys</value>
+  </data>
+  <data name="CustomImages.DeleteDescription" xml:space="preserve">
+    <value>Kas kustutada see tõmmis kohalikust teegist? Sellele viitavad profiilid kuvavad selle puuduvana. Algfailid ja olemasolevad meediumid jäävad muutmata.</value>
+  </data>
+  <data name="CustomImages.DeleteLabel" xml:space="preserve">
+    <value>Kustuta kohalik koopia</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Valitud tõmmis</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>Selles profiilis on selle nimega tõmmis juba olemas.</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Kohandatud Windowsi tõmmised puuduvad. Alustamiseks importige ISO või WIM.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Luba kohandatud Windowsi tõmmised</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Impordi tõmmis</value>
+  </data>
+  <data name="CustomImages.IncludeLabel" xml:space="preserve">
+    <value>Muuda profiili kaasamist</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Kaasatud</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Eelistatud indeks</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Indeksid</value>
+  </data>
+  <data name="CustomImages.LibraryDescription" xml:space="preserve">
+    <value>Kui valik on lubatud, kopeeritakse kaasatud tõmmised uutele meediumidele. Internetiühendus on endiselt vajalik. Lubatud kohandused rakendatakse valitud tõmmisele; kontrollige nende sobivust oma tõmmisele.</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Puudub</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Mitu</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Ei</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>Tõmmisetoiming nurjus. Kontrollige allikat, vaba ruumi ja Foundry logisid.</value>
+  </data>
+  <data name="CustomImages.OperatorChoice" xml:space="preserve">
+    <value>Operaator valib</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Kaasatud tõmmis või valikuline allikas puudub või eelistatud tõmmis või indeks pole enam kaasatud. Enne meediumi loomist taastage allikas, muutke valikut või tühjendage eelistus.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Värskenda</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Eemalda profiilist</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Nimeta profiilis ümber</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Määra eelistatud tõmmis ja indeks</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Suurus</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Valige selles ISO-failis olev installitõmmis.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>ISO- või WIM-allikas</value>
+  </data>
+  <data name="CustomImages.SourcesLabel" xml:space="preserve">
+    <value>Impordi valikuliste funktsioonide allikad ISO-st, kui need on saadaval</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Importimine lõpetatud</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Tõmmise kopeerimine…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Tõmmise indeksite eksportimine…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Tõmmise indeksite lugemine…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Kohandatud tõmmise allikate kontrollimine…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Olek</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Jah</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Määrake WSAIFabricSvc automaatse käivitamise asemel käsitsi käivitamiseks.</value>
   </data>
@@ -2028,6 +2160,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Importige Windowsi tõmmiseid ISO- või WIM-failidest ja lisage need juurutusmeediumidele.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Kohandatud Windowsi tõmmised</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Kohandamine</value>

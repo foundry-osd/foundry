@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="Foundry.Views.CustomImageImportDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="{x:Bind ViewModel.Title, Mode=OneWay}"
+    CloseButtonText="{x:Bind ViewModel.CancelLabel, Mode=OneWay}"
+    Closing="OnClosing"
+    DefaultButton="Primary"
+    IsPrimaryButtonEnabled="{x:Bind ViewModel.CanImport, Mode=OneWay}"
+    PrimaryButtonClick="OnPrimaryButtonClick"
+    PrimaryButtonText="{x:Bind ViewModel.Title, Mode=OneWay}">
+    <ScrollViewer
+        MaxHeight="600"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel
+            MinWidth="360"
+            Spacing="12">
+            <TextBox
+                Header="{x:Bind ViewModel.SourceLabel, Mode=OneWay}"
+                IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
+                IsReadOnly="True"
+                Text="{x:Bind ViewModel.SourcePath, Mode=OneWay}" />
+            <Button
+                Command="{x:Bind ViewModel.BrowseCommand}"
+                Content="{x:Bind ViewModel.BrowseLabel, Mode=OneWay}"
+                IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}" />
+            <ComboBox
+                HorizontalAlignment="Stretch"
+                Header="{x:Bind ViewModel.SourceChoiceMessage, Mode=OneWay}"
+                IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
+                ItemsSource="{x:Bind ViewModel.SourceChoices, Mode=OneWay}"
+                SelectedItem="{x:Bind ViewModel.SelectedIsoImagePath, Mode=TwoWay}"
+                Visibility="{x:Bind ViewModel.HasSourceChoices, Mode=OneWay}" />
+            <TextBlock
+                IsTextSelectionEnabled="True"
+                Text="{x:Bind ViewModel.PreviewSummary, Mode=OneWay}"
+                TextWrapping="Wrap" />
+            <TextBox
+                Header="{x:Bind ViewModel.NameLabel, Mode=OneWay}"
+                IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
+                MaxLength="200"
+                Text="{x:Bind ViewModel.DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock
+                Text="{x:Bind ViewModel.NameValidationMessage, Mode=OneWay}"
+                TextWrapping="Wrap" />
+            <CheckBox
+                Content="{x:Bind ViewModel.SourcesLabel, Mode=OneWay}"
+                IsChecked="{x:Bind ViewModel.IncludeSources, Mode=TwoWay}"
+                IsEnabled="{x:Bind ViewModel.CanIncludeSources, Mode=OneWay}" />
+            <ProgressBar
+                IsIndeterminate="{x:Bind ViewModel.IsIndeterminate, Mode=OneWay}"
+                Maximum="100"
+                Value="{x:Bind ViewModel.Progress, Mode=OneWay}" />
+            <TextBlock
+                Text="{x:Bind ViewModel.Status, Mode=OneWay}"
+                TextWrapping="Wrap" />
+            <Button
+                Command="{x:Bind ViewModel.CancelCommand}"
+                Content="{x:Bind ViewModel.CancelLabel, Mode=OneWay}"
+                IsEnabled="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+        </StackPanel>
+    </ScrollViewer>
+</ContentDialog>

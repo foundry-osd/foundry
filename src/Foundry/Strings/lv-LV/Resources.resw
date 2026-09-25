@@ -685,6 +685,138 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Atsvaidzināt</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Arhitektūra</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Pieejams</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Pārlūkot</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Importēšana atcelta</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Foundry katalogs</value>
+  </data>
+  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
+    <value>Ļaut izvēlēties operatoram</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Pielāgoti Windows attēli</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Vēlamais attēls</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Noklusējuma attēla avots programmā Deploy</value>
+  </data>
+  <data name="CustomImages.DeleteDescription" xml:space="preserve">
+    <value>Vai dzēst šo attēlu no lokālās bibliotēkas? Profili, kas uz to atsaucas, rādīs to kā trūkstošu. Sākotnējie faili un esošie datu nesēji paliek nemainīti.</value>
+  </data>
+  <data name="CustomImages.DeleteLabel" xml:space="preserve">
+    <value>Dzēst lokālo kopiju</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Atlasītais attēls</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>Šajā profilā jau ir attēls ar šādu nosaukumu.</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Nav pielāgotu Windows attēlu. Lai sāktu, importējiet ISO vai WIM.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Iespējot pielāgotus Windows attēlus</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importēt attēlu</value>
+  </data>
+  <data name="CustomImages.IncludeLabel" xml:space="preserve">
+    <value>Mainīt iekļaušanu profilā</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Iekļauts</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Vēlamais indekss</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Indeksi</value>
+  </data>
+  <data name="CustomImages.LibraryDescription" xml:space="preserve">
+    <value>Ja opcija ir iespējota, iekļautie attēli tiek kopēti uz jaunizveidotiem datu nesējiem. Internets joprojām ir nepieciešams. Iespējotie pielāgojumi tiek piemēroti atlasītajam attēlam; pārbaudiet to piemērotību savam attēlam.</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Trūkst</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Vairāki</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Nē</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>Attēla darbība neizdevās. Pārbaudiet avotu, brīvo vietu un Foundry žurnālus.</value>
+  </data>
+  <data name="CustomImages.OperatorChoice" xml:space="preserve">
+    <value>Izvēlas operators</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Trūkst iekļauta attēla vai neobligāta avota, vai vēlamais attēls vai indekss vairs nav iekļauts. Pirms datu nesēja izveides atjaunojiet avotu, mainiet atlasi vai notīriet vēlamo iestatījumu.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Atsvaidzināt</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Noņemt no profila</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Pārdēvēt profilā</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Iestatīt vēlamo attēlu un indeksu</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Lielums</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Izvēlieties instalācijas attēlu šajā ISO failā.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>ISO vai WIM avots</value>
+  </data>
+  <data name="CustomImages.SourcesLabel" xml:space="preserve">
+    <value>Importēt neobligāto līdzekļu avotus no ISO, ja tie ir pieejami</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Importēšana pabeigta</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Attēla kopēšana…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Attēla indeksu eksportēšana…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Attēla indeksu lasīšana…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Pielāgotā attēla avotu pārbaude…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Statuss</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Jā</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Iestatiet WSAIFabricSvc manuālu startēšanu, nevis automātisku startēšanu.</value>
   </data>
@@ -2028,6 +2160,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Importējiet Windows attēlus no ISO vai WIM failiem un iekļaujiet tos izvietošanas datu nesējos.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Pielāgoti Windows attēli</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Pielāgošana</value>

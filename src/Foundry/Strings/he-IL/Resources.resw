@@ -685,6 +685,138 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>רענן</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>ארכיטקטורה</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>זמינה</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>עיון</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>הייבוא בוטל</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>קטלוג Foundry</value>
+  </data>
+  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
+    <value>מתן אפשרות למפעיל לבחור</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>תמונות Windows מותאמות אישית</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>תמונה מועדפת</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>מקור התמונה המוגדר כברירת מחדל ב-Deploy</value>
+  </data>
+  <data name="CustomImages.DeleteDescription" xml:space="preserve">
+    <value>למחוק תמונה זו מהספרייה המקומית? בפרופילים שמפנים אליה היא תוצג כחסרה. הקבצים המקוריים והמדיה הקיימת לא ישתנו.</value>
+  </data>
+  <data name="CustomImages.DeleteLabel" xml:space="preserve">
+    <value>מחיקת העותק המקומי</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>התמונה שנבחרה</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>כבר קיימת תמונה בשם זה בפרופיל זה.</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>אין תמונות Windows מותאמות אישית. יש לייבא קובץ ISO או WIM כדי להתחיל.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>הפעלת תמונות Windows מותאמות אישית</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>ייבוא תמונה</value>
+  </data>
+  <data name="CustomImages.IncludeLabel" xml:space="preserve">
+    <value>שינוי הכללת התמונה בפרופיל</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>כלולה</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>אינדקס מועדף</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>אינדקסים</value>
+  </data>
+  <data name="CustomImages.LibraryDescription" xml:space="preserve">
+    <value>כאשר האפשרות מופעלת, התמונות הכלולות מועתקות למדיה חדשה שנוצרת. עדיין נדרש חיבור לאינטרנט. ההתאמות האישיות שהופעלו חלות על התמונה שנבחרה; יש לוודא שהן מתאימות לתמונה שלך.</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>חסרה</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>מרובים</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>שם</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>לא</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>הפעולה על התמונה נכשלה. יש לבדוק את המקור, את השטח הפנוי ואת יומני Foundry.</value>
+  </data>
+  <data name="CustomImages.OperatorChoice" xml:space="preserve">
+    <value>המפעיל בוחר</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>תמונה כלולה או מקור אופציונלי חסרים, או שהתמונה או האינדקס המועדפים אינם כלולים עוד. יש לשחזר את המקור, לשנות את הבחירה או לנקות את ההעדפה לפני יצירת המדיה.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>רענון</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>הסרה מהפרופיל</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>שינוי שם בפרופיל</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>הגדרת תמונה ואינדקס מועדפים</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>גודל</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>בחר את תמונת ההתקנה בקובץ ISO זה.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>קובץ ISO או WIM מקור</value>
+  </data>
+  <data name="CustomImages.SourcesLabel" xml:space="preserve">
+    <value>ייבוא מקורות של תכונות אופציונליות מקובץ ה-ISO, כאשר הם זמינים</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>הייבוא הושלם</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>התמונה מועתקת…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>אינדקסי התמונה מיוצאים…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>אינדקסי התמונה נקראים…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>מקורות התמונות המותאמות אישית נבדקים…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>מצב</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>כן</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>הגדר את WSAIFabricSvc לאתחול ידני במקום לאתחול אוטומטי.</value>
   </data>
@@ -2028,6 +2160,12 @@
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>ייבוא תמונות Windows מקובצי ISO או WIM והכללתן במדיית הפריסה.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>תמונות Windows מותאמות אישית</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>התאמה אישית</value>

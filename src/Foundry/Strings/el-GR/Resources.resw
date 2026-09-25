@@ -685,6 +685,138 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Ανανέωση</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Αρχιτεκτονική</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Διαθέσιμη</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Αναζήτηση</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Η εισαγωγή ακυρώθηκε</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Κατάλογος Foundry</value>
+  </data>
+  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
+    <value>Επιλογή από τον χειριστή</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Προσαρμοσμένες εικόνες Windows</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Προτιμώμενη εικόνα</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Προεπιλεγμένη πηγή εικόνας στο Deploy</value>
+  </data>
+  <data name="CustomImages.DeleteDescription" xml:space="preserve">
+    <value>Να διαγραφεί αυτή η εικόνα από την τοπική βιβλιοθήκη; Τα προφίλ που αναφέρονται σε αυτήν θα την εμφανίζουν ως απούσα. Τα αρχικά αρχεία και τα υπάρχοντα μέσα παραμένουν αμετάβλητα.</value>
+  </data>
+  <data name="CustomImages.DeleteLabel" xml:space="preserve">
+    <value>Διαγραφή τοπικού αντιγράφου</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Επιλεγμένη εικόνα</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>Υπάρχει ήδη εικόνα με αυτό το όνομα σε αυτό το προφίλ.</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Δεν υπάρχουν προσαρμοσμένες εικόνες Windows. Εισαγάγετε ένα ISO ή WIM για να ξεκινήσετε.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Ενεργοποίηση προσαρμοσμένων εικόνων Windows</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Εισαγωγή εικόνας</value>
+  </data>
+  <data name="CustomImages.IncludeLabel" xml:space="preserve">
+    <value>Αλλαγή συμπερίληψης στο προφίλ</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Περιλαμβάνεται</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Προτιμώμενος δείκτης</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Δείκτες</value>
+  </data>
+  <data name="CustomImages.LibraryDescription" xml:space="preserve">
+    <value>Όταν η επιλογή είναι ενεργοποιημένη, οι εικόνες που περιλαμβάνονται αντιγράφονται στα νέα μέσα. Απαιτείται ακόμη σύνδεση στο Internet. Οι ενεργοποιημένες προσαρμογές εφαρμόζονται στην επιλεγμένη εικόνα· ελέγξτε την καταλληλότητά τους για την εικόνα σας.</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Λείπει</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Πολλαπλά</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Όνομα</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Όχι</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>Η λειτουργία εικόνας απέτυχε. Ελέγξτε την πηγή, τον διαθέσιμο χώρο και τα αρχεία καταγραφής του Foundry.</value>
+  </data>
+  <data name="CustomImages.OperatorChoice" xml:space="preserve">
+    <value>Επιλέγει ο χειριστής</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Λείπει μια συμπεριλαμβανόμενη εικόνα ή προαιρετική πηγή, ή μια προτιμώμενη εικόνα ή δείκτης δεν περιλαμβάνεται πλέον. Επαναφέρετε την πηγή, αλλάξτε την επιλογή ή καταργήστε την προτίμηση πριν δημιουργήσετε το μέσο.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Ανανέωση</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Αφαίρεση από το προφίλ</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Μετονομασία στο προφίλ</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Ορισμός προτιμώμενης εικόνας και δείκτη</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Μέγεθος</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Επιλέξτε την εικόνα εγκατάστασης σε αυτό το ISO.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>Πηγή ISO ή WIM</value>
+  </data>
+  <data name="CustomImages.SourcesLabel" xml:space="preserve">
+    <value>Εισαγωγή πηγών προαιρετικών δυνατοτήτων από το ISO, όταν είναι διαθέσιμες</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Η εισαγωγή ολοκληρώθηκε</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Αντιγραφή εικόνας…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Εξαγωγή δεικτών εικόνας…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Ανάγνωση δεικτών εικόνας…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Επαλήθευση πηγών προσαρμοσμένων εικόνων…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Κατάσταση</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Ναι</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Ρυθμίστε το WSAIFabricSvc σε μη αυτόματη εκκίνηση αντί για αυτόματη εκκίνηση.</value>
   </data>
@@ -2028,6 +2160,12 @@
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Εισαγάγετε εικόνες Windows από αρχεία ISO ή WIM και συμπεριλάβετέ τις σε μέσα ανάπτυξης.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Προσαρμοσμένες εικόνες Windows</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Προσαρμογή</value>

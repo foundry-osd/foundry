@@ -685,6 +685,138 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Oppdater</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Arkitektur</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Tilgjengelig</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Bla gjennom</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Import avbrutt</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Foundry-katalog</value>
+  </data>
+  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
+    <value>La operatøren velge</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Tilpassede Windows-avbildninger</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Foretrukket avbildning</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Standard avbildningskilde i Deploy</value>
+  </data>
+  <data name="CustomImages.DeleteDescription" xml:space="preserve">
+    <value>Slette denne avbildningen fra det lokale biblioteket? Profiler som refererer til den, vil vise den som manglende. Originalfiler og eksisterende medier forblir uendret.</value>
+  </data>
+  <data name="CustomImages.DeleteLabel" xml:space="preserve">
+    <value>Slett lokal kopi</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Valgt avbildning</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>Det finnes allerede en avbildning med dette navnet i denne profilen.</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Ingen tilpassede Windows-avbildninger. Importer en ISO- eller WIM-fil for å begynne.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Aktiver tilpassede Windows-avbildninger</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importer avbildning</value>
+  </data>
+  <data name="CustomImages.IncludeLabel" xml:space="preserve">
+    <value>Endre inkludering i profil</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Inkludert</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Foretrukket indeks</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Indekser</value>
+  </data>
+  <data name="CustomImages.LibraryDescription" xml:space="preserve">
+    <value>Når alternativet er aktivert, kopieres inkluderte avbildninger til nye medier. Internett kreves fortsatt. Aktiverte tilpasninger brukes på den valgte avbildningen; kontroller at de passer for avbildningen din.</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Mangler</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Flere</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Nei</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>Avbildningsoperasjonen mislyktes. Kontroller kilden, ledig plass og Foundry-loggene.</value>
+  </data>
+  <data name="CustomImages.OperatorChoice" xml:space="preserve">
+    <value>Operatøren velger</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>En inkludert avbildning eller valgfri kilde mangler, eller en foretrukket avbildning eller indeks er ikke lenger inkludert. Gjenopprett kilden, endre valget eller fjern preferansen før du oppretter medier.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Oppdater</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Fjern fra profil</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Gi nytt navn i profil</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Angi foretrukket avbildning og indeks</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Størrelse</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Velg installasjonsavbildningen i denne ISO-filen.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>ISO- eller WIM-kilde</value>
+  </data>
+  <data name="CustomImages.SourcesLabel" xml:space="preserve">
+    <value>Importer kilder for valgfrie funksjoner fra ISO-filen når de er tilgjengelige</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Import fullført</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Kopierer avbildning…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Eksporterer avbildningsindekser…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Leser avbildningsindekser…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Kontrollerer kilder for tilpassede avbildninger…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Sett WSAIFabricSvc til manuell oppstart i stedet for automatisk oppstart.</value>
   </data>
@@ -2028,6 +2160,12 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Importer Windows-avbildninger fra ISO- eller WIM-filer og inkluder dem på distribusjonsmedier.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Tilpassede Windows-avbildninger</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Tilpasning</value>

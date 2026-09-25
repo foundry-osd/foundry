@@ -102,6 +102,9 @@ public sealed partial class StartPage : Page
             case ConfigurationNavigationTarget.MachineNaming:
                 App.Current.NavigationService.NavigateTo(typeof(MachineNamingPage));
                 break;
+            case ConfigurationNavigationTarget.CustomImages:
+                App.Current.NavigationService.NavigateTo(typeof(CustomImagesPage));
+                break;
             case ConfigurationNavigationTarget.Unattend:
                 App.Current.NavigationService.NavigateTo(typeof(UnattendPage));
                 break;

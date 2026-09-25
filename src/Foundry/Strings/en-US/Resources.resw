@@ -685,6 +685,138 @@ Licensed under the MIT License.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Architecture</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Import canceled</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Foundry catalog</value>
+  </data>
+  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
+    <value>Let the operator choose</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Custom Windows images</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Preferred image</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Default image source in Deploy</value>
+  </data>
+  <data name="CustomImages.DeleteDescription" xml:space="preserve">
+    <value>Delete this image from the local library? Profiles referencing it will show it as missing. Original files and existing media are unchanged.</value>
+  </data>
+  <data name="CustomImages.DeleteLabel" xml:space="preserve">
+    <value>Delete local copy</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Selected image</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>An image with this name already exists in this profile.</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>No custom Windows images. Import an ISO or WIM to begin.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Enable custom Windows images</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Import image</value>
+  </data>
+  <data name="CustomImages.IncludeLabel" xml:space="preserve">
+    <value>Toggle inclusion in profile</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Included</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Preferred index</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Indexes</value>
+  </data>
+  <data name="CustomImages.LibraryDescription" xml:space="preserve">
+    <value>Included images are copied to newly created media when enabled. Internet is still required. Enabled customizations apply to the selected image; verify their suitability for your image.</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Missing</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Multiple</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>The image operation failed. Check the source, available space, and Foundry logs.</value>
+  </data>
+  <data name="CustomImages.OperatorChoice" xml:space="preserve">
+    <value>Operator chooses</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>An included image or optional source is missing, or a preferred image/index is no longer included. Restore the source, change the selection, or clear the preference before creating media.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Remove from profile</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Rename in profile</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Set preferred image and index</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Choose the installation image in this ISO.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>Source ISO or WIM</value>
+  </data>
+  <data name="CustomImages.SourcesLabel" xml:space="preserve">
+    <value>Import optional feature sources from the ISO when available</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Import complete</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Copying image…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Exporting image indexes…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Reading image indexes…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Verifying custom image sources…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Set WSAIFabricSvc to manual startup instead of automatic startup.</value>
   </data>
@@ -2028,6 +2160,12 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Import Windows images from ISO or WIM files and include them in deployment media.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Custom Windows images</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Customization</value>

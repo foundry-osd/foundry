@@ -685,6 +685,138 @@ Licencirano pod MIT licencom.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Osveži</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Arhitektura</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Dostupna</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Pregledaj</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Uvoz je otkazan</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Foundry katalog</value>
+  </data>
+  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
+    <value>Prepusti izbor operateru</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Prilagođene Windows slike</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Željena slika</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Podrazumevani izvor slike u aplikaciji Deploy</value>
+  </data>
+  <data name="CustomImages.DeleteDescription" xml:space="preserve">
+    <value>Želite li da izbrišete ovu sliku iz lokalne biblioteke? Profili koji se pozivaju na nju prikazivaće je kao nedostajuću. Originalne datoteke i postojeći mediji ostaju nepromenjeni.</value>
+  </data>
+  <data name="CustomImages.DeleteLabel" xml:space="preserve">
+    <value>Izbriši lokalnu kopiju</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Izabrana slika</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>U ovom profilu već postoji slika sa ovim nazivom.</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Nema prilagođenih Windows slika. Uvezite ISO ili WIM da biste počeli.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Omogući prilagođene Windows slike</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Uvezi sliku</value>
+  </data>
+  <data name="CustomImages.IncludeLabel" xml:space="preserve">
+    <value>Promeni uključivanje u profil</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Uključena</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Željeni indeks</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Indeksi</value>
+  </data>
+  <data name="CustomImages.LibraryDescription" xml:space="preserve">
+    <value>Kada je opcija omogućena, uključene slike se kopiraju na nove medije. Internet je i dalje obavezan. Omogućena prilagođavanja primenjuju se na izabranu sliku; proverite da li odgovaraju vašoj slici.</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Nedostaje</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Više</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Naziv</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Ne</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>Operacija sa slikom nije uspela. Proverite izvor, slobodan prostor i Foundry evidencije.</value>
+  </data>
+  <data name="CustomImages.OperatorChoice" xml:space="preserve">
+    <value>Bira operater</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Nedostaje uključena slika ili opcionalni izvor ili željena slika ili indeks više nisu uključeni. Vratite izvor, promenite izbor ili obrišite željenu postavku pre kreiranja medija.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Osveži</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Ukloni iz profila</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Preimenuj u profilu</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Postavi željenu sliku i indeks</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Veličina</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Izaberite instalacionu sliku u ovoj ISO datoteci.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>Izvor ISO ili WIM</value>
+  </data>
+  <data name="CustomImages.SourcesLabel" xml:space="preserve">
+    <value>Uvezi izvore opcionalnih funkcija iz ISO datoteke kada su dostupni</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Uvoz je završen</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Kopiranje slike…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Izvoz indeksa slike…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Čitanje indeksa slike…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Provera izvora prilagođene slike…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Da</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Podesite VSAIFacSvc na ručno pokretanje umesto automatskog pokretanja.</value>
   </data>
@@ -2028,6 +2160,12 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Uvezite Windows slike iz ISO ili WIM datoteka i uključite ih u medije za implementaciju.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Prilagođene Windows slike</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Prilagođavanje</value>
