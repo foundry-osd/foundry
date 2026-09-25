@@ -129,14 +129,21 @@ public sealed class DeploymentCustomizationScenarioTests
             .Select(entry => entry.Name).ToArray();
         Assert.Equal(customizationSteps.Select(step => step.Name), actualOrder);
         context.UpdatePlan(plan);
-        foreach (string name in actualOrder)
+        try
         {
-            IDeploymentStep step = customizationSteps.Single(item => item.Name == name);
-            context.SetCurrentStep(step, plan.ToList().FindIndex(entry => entry.Name == name) + 1);
-            DeploymentStepResult result = await step.ExecuteAsync(context, cancellationToken);
-            Assert.Equal(DeploymentStepState.Succeeded, result.State);
-            state.CompletedSteps.Add(name);
-            state.StepOutcomes.Add(new DeploymentStepOutcome(name, result.State, result.Message));
+            foreach (string name in actualOrder)
+            {
+                IDeploymentStep step = customizationSteps.Single(item => item.Name == name);
+                context.SetCurrentStep(step, plan.ToList().FindIndex(entry => entry.Name == name) + 1);
+                DeploymentStepResult result = await step.ExecuteAsync(context, cancellationToken);
+                Assert.Equal(DeploymentStepState.Succeeded, result.State);
+                state.CompletedSteps.Add(name);
+                state.StepOutcomes.Add(new DeploymentStepOutcome(name, result.State, result.Message));
+            }
+        }
+        finally
+        {
+            await context.TrySaveRuntimeStateAsync(CancellationToken.None);
         }
 
         Assert.Equal(1, windows.AiCalls);
