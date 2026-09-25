@@ -242,6 +242,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
     private void RefreshDriverPackModelAndVersionOptions()
     {
         string previousModel = SelectedDriverPackModel;
+        string previousVersion = SelectedDriverPackVersion;
 
         DriverPackModelOptions.Clear();
         DriverPackVersionOptions.Clear();
@@ -273,6 +274,11 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
                 ?? ResolvePreferredModelFromHardware(sourceCandidates, models);
 
             SelectedDriverPackModel = preferredModel;
+            if (preferredModel.Equals(previousModel, StringComparison.OrdinalIgnoreCase) &&
+                DriverPackVersionOptions.FirstOrDefault(version => version.Equals(previousVersion, StringComparison.OrdinalIgnoreCase)) is string retainedVersion)
+            {
+                SelectedDriverPackVersion = retainedVersion;
+            }
         }
 
         NotifyDriverPackSelectionStateChanged();

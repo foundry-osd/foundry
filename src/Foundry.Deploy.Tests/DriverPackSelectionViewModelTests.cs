@@ -119,6 +119,32 @@ public sealed class DriverPackSelectionViewModelTests
         Assert.Equal("21y6-21y7", selected?.Id);
     }
 
+    [Fact]
+    public void UpdateSelectionContext_CustomImageInspectionAndIndexChangePreserveChosenDriverVersion()
+    {
+        using var model = new DriverPackSelectionViewModel(
+            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new LocalizationService(), "x64");
+        var asset = new CustomImageAsset { Id = "image", DisplayName = "Image", ImagePath = @"D:\image.wim", VolumeRoot = @"D:\" };
+        var index = new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 1, Architecture = "x64" };
+        model.UpdateSelectionContext(null, new CustomImageSelection(asset, index), "x64");
+        model.ReplaceCatalog([
+            CreateCatalogItem("older", "23H2", new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero)),
+            CreateCatalogItem("newer", "25H2", new DateTimeOffset(2026, 1, 1, 0, 0, 0, TimeSpan.Zero))
+        ]);
+        model.SelectedDriverPackOption = model.DriverPackOptions.Single(option => option.DisplayName == "Lenovo");
+        model.SelectedDriverPackVersion = model.DriverPackVersionOptions.Single(version => version.Contains("23H2", StringComparison.Ordinal));
+        string selectedModel = model.SelectedDriverPackModel;
+        string selectedVersion = model.SelectedDriverPackVersion;
+
+        model.UpdateSelectionContext(null, null, "x64");
+        Assert.Equal(selectedVersion, model.SelectedDriverPackVersion);
+        model.UpdateSelectionContext(null, new CustomImageSelection(asset, index with { Index = 7 }), "x64");
+
+        Assert.Equal(selectedModel, model.SelectedDriverPackModel);
+        Assert.Equal(selectedVersion, model.SelectedDriverPackVersion);
+        Assert.Equal("older", model.ResolveEffectiveSelection()?.Id);
+    }
+
     private static DriverPackCatalogItem CreateCatalogItem(
         string id,
         string releaseId,
