@@ -46,11 +46,14 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
         using WinPeCustomImageMediaLease package = CreatePackage();
         await File.WriteAllTextAsync(package.Files[0].SourcePath, "wrong", TestContext.Current.CancellationToken);
         string destination = Path.Combine(root, "usb");
+        IReadOnlyDictionary<string, string> existingFiles = await SeedDestinationAsync(package, destination);
         var service = new WinPeCustomImageMediaService(_ => long.MaxValue, (_, _) => Task.FromResult<int?>(1));
 
         await Assert.ThrowsAsync<InvalidDataException>(() => service.PublishAsync(package, destination, TestContext.Current.CancellationToken));
 
         Assert.False(File.Exists(Path.Combine(destination, package.ManifestRelativePath)));
+        foreach ((string path, string content) in existingFiles)
+            Assert.Equal(content, await File.ReadAllTextAsync(path, TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -59,11 +62,14 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
         Directory.CreateDirectory(root);
         using WinPeCustomImageMediaLease package = CreatePackage();
         string destination = Path.Combine(root, "usb");
+        IReadOnlyDictionary<string, string> existingFiles = await SeedDestinationAsync(package, destination);
         var service = new WinPeCustomImageMediaService(_ => 0, (_, _) => Task.FromResult<int?>(1));
 
         await Assert.ThrowsAsync<IOException>(() => service.PublishAsync(package, destination, TestContext.Current.CancellationToken));
 
         Assert.False(File.Exists(Path.Combine(destination, package.ManifestRelativePath)));
+        foreach ((string path, string content) in existingFiles)
+            Assert.Equal(content, await File.ReadAllTextAsync(path, TestContext.Current.CancellationToken));
     }
 
     [Theory]
@@ -75,7 +81,8 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
         using WinPeCustomImageMediaLease package = CreatePackage();
         var service = new WinPeCustomImageMediaService(_ => long.MaxValue, (_, _) => Task.FromResult(sourceDisk));
 
-        await Assert.ThrowsAsync<InvalidDataException>(() => service.ValidateSourceDiskAsync(package, 3, TestContext.Current.CancellationToken));
+        await Assert.ThrowsAsync<InvalidDataException>(() => service.ValidateInputDisksAsync(
+            package.Files.Select(file => file.SourcePath), 3, TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -110,6 +117,23 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
         WinPeCustomImageMediaService.ValidateConfigurationBinding(package, bound);
         Assert.Throws<InvalidDataException>(() => WinPeCustomImageMediaService.ValidateConfigurationBinding(package,
             bound.Replace(package.ManifestHash, new string('0', 64), StringComparison.Ordinal)));
+    }
+
+    private static async Task<IReadOnlyDictionary<string, string>> SeedDestinationAsync(WinPeCustomImageMediaLease package, string destination)
+    {
+        string customRoot = Path.Combine(destination, "Foundry", "Images", "Custom");
+        var files = new Dictionary<string, string>
+        {
+            [Path.Combine(destination, package.Files[0].RelativePath)] = "previous image",
+            [Path.Combine(customRoot, "manual.wim")] = "operator image",
+            [Path.Combine(customRoot, "manifests", "previous-build.json")] = "{\"manifestId\":\"previous-build\"}"
+        };
+        foreach ((string path, string content) in files)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            await File.WriteAllTextAsync(path, content, TestContext.Current.CancellationToken);
+        }
+        return files;
     }
 
     private sealed class MetadataReader : ICustomImageMetadataReader

@@ -25,8 +25,11 @@ public sealed partial class WinPeUsbMediaService
                     if (string.IsNullOrWhiteSpace(application.ArchivePath))
                         throw new InvalidDataException("Runtime payloads must be prepared before custom-image USB creation.");
                     sourcePaths.Add(application.ArchivePath);
-                    runtimeBytes = checked(runtimeBytes + new FileInfo(application.ArchivePath).Length);
                 }
+                // Bootstrap is already embedded in boot.wim; only Connect and Deploy use data-volume space.
+                runtimeBytes = new[] { runtime.Connect, runtime.Deploy }
+                    .Where(application => application.IsEnabled)
+                    .Sum(application => new FileInfo(application.ArchivePath).Length);
             }
             await _customImagePublisher.ValidateInputDisksAsync(sourcePaths, options.TargetDiskNumber!.Value, cancellationToken).ConfigureAwait(false);
             await _customImagePublisher.ValidateSourcesAsync(options.CustomImages, cancellationToken).ConfigureAwait(false);

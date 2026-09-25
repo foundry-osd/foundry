@@ -15,11 +15,19 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
     private readonly string root = Path.Combine(Path.GetTempPath(), "foundry-custom-usb-" + Guid.NewGuid().ToString("N"));
 
     [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task Update_PublishesDataBeforeFormattingAndStopsOnDataFailure(bool failPublication)
+    [InlineData(false, false)]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    public async Task Update_PublishesDataBeforeFormattingAndStopsOnDataFailure(bool failPublication, bool deployEnabled)
     {
         Directory.CreateDirectory(root);
+        string bootstrapArchive = Path.Combine(root, "bootstrap.zip");
+        string connectArchive = Path.Combine(root, "connect.zip");
+        string deployArchive = Path.Combine(root, "deploy.zip");
+        await File.WriteAllBytesAsync(bootstrapArchive, new byte[11], TestContext.Current.CancellationToken);
+        await File.WriteAllBytesAsync(connectArchive, new byte[17], TestContext.Current.CancellationToken);
+        await File.WriteAllBytesAsync(deployArchive, new byte[23], TestContext.Current.CancellationToken);
         var publisher = new Publisher(failPublication);
         var runner = new Runner(publisher);
         var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher);
@@ -37,7 +45,13 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             ExpectedDiskBusType = "USB",
             ExpectedDiskSizeBytes = 64000000000,
             CustomImages = package,
-            DeployConfigurationJson = config
+            DeployConfigurationJson = config,
+            RuntimePayloadProvisioning = new()
+            {
+                Bootstrap = new() { IsEnabled = true, ArchivePath = bootstrapArchive },
+                Connect = new() { IsEnabled = true, ArchivePath = connectArchive },
+                Deploy = new() { IsEnabled = deployEnabled, ArchivePath = deployArchive }
+            }
         };
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(options,
@@ -47,7 +61,12 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         Assert.False(result.IsSuccess);
         Assert.True(publisher.PublishAttempted);
         Assert.Equal(!failPublication, runner.FormattingAttempted);
-        Assert.True(publisher.InputsValidated);
+        Assert.Equal(deployEnabled ? 40L : 17L, publisher.AdditionalCapacityBytes);
+        Assert.Contains(root, publisher.ValidatedInputs);
+        Assert.Contains(bootstrapArchive, publisher.ValidatedInputs);
+        Assert.Contains(connectArchive, publisher.ValidatedInputs);
+        if (deployEnabled) Assert.Contains(deployArchive, publisher.ValidatedInputs);
+        else Assert.DoesNotContain(deployArchive, publisher.ValidatedInputs);
     }
 
     public void Dispose() { if (Directory.Exists(root)) Directory.Delete(root, true); }
@@ -55,14 +74,19 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
     private sealed class Publisher(bool fail) : IWinPeCustomImageMediaPublisher
     {
         internal bool PublishAttempted { get; private set; }
-        internal bool InputsValidated { get; private set; }
+        internal IReadOnlyList<string> ValidatedInputs { get; private set; } = [];
+        internal long? AdditionalCapacityBytes { get; private set; }
         public Task ValidateSourcesAsync(WinPeCustomImageMediaLease package, CancellationToken cancellationToken = default) => Task.CompletedTask;
         public Task ValidateInputDisksAsync(IEnumerable<string> paths, int disk, CancellationToken token)
         {
-            InputsValidated = true;
+            ValidatedInputs = paths.ToArray();
             return Task.CompletedTask;
         }
-        public Task ValidateCapacityAsync(WinPeCustomImageMediaLease package, string root, long extra, CancellationToken token) => Task.CompletedTask;
+        public Task ValidateCapacityAsync(WinPeCustomImageMediaLease package, string root, long extra, CancellationToken token)
+        {
+            AdditionalCapacityBytes = extra;
+            return Task.CompletedTask;
+        }
         public Task ValidateDestinationDiskAsync(string root, int disk, CancellationToken token) => Task.CompletedTask;
         public Task PublishAsync(WinPeCustomImageMediaLease package, string root, CancellationToken token = default, IProgress<WinPeMediaProgress>? progress = null)
         {

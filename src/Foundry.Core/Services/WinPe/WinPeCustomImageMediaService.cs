@@ -28,14 +28,6 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
         this.resolveDisk = resolveDisk;
     }
 
-    /// <summary>Rejects image inputs on the disk about to be changed, including unresolved provenance.</summary>
-    public Task ValidateSourceDiskAsync(WinPeCustomImageMediaLease package, int targetDisk,
-        CancellationToken cancellationToken = default)
-    {
-        package.ThrowIfDisposed();
-        return ValidateInputDisksAsync(package.Files.Select(file => file.SourcePath), targetDisk, cancellationToken);
-    }
-
     /// <summary>Protects all prepared build inputs when their storage has been redirected onto removable media.</summary>
     public async Task ValidateInputDisksAsync(IEnumerable<string> paths, int targetDisk, CancellationToken cancellationToken)
     {
