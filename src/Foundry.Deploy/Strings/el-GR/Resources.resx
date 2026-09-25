@@ -214,6 +214,45 @@
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Σελίδα ακυρωμένης ανάπτυξης</value>
   </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Προσαρμοσμένα είδωλα Windows</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Σενάριο εντοπισμού σφαλμάτων: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Ασαφές προτιμώμενο είδωλο</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Ο κατάλογος είναι επιλεγμένος από προεπιλογή</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Χρήση ρυθμίσεων μέσου</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Τα προσαρμοσμένα είδωλα είναι απενεργοποιημένα</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>Δεν υπάρχουν διαθέσιμα είδωλα</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Μη έγκυρο είδωλο</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Λείπει το προτιμώμενο είδωλο</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Λείπει ο προτιμώμενος δείκτης</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Είδωλα με πολλούς δείκτες</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Προτιμώμενο είδωλο και δείκτης</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Είδωλο με έναν δείκτη</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Σελίδες ανάπτυξης</value>
   </data>

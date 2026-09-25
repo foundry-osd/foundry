@@ -83,6 +83,14 @@ Foundry OSD publishes without trimming or Native AOT, matching its Velopack pack
 
 Use disposable virtual machines, test disks, non-production tenants, and non-production credentials for manual media and deployment testing. Foundry workflows can erase disks and exercise privileged network or cloud operations.
 
+## Preview custom image selection in Visual Studio
+
+Set `Foundry.Deploy` as the startup project, choose the `Debug` configuration, and start with the debugger attached (F5). After startup completes, open **Debug > Custom Windows images** and inspect the wizard's Operating System page.
+
+The menu provides disabled and catalog-default states, single- and multiple-index images, a preferred image/index, missing or ambiguous defaults, an empty library, and an invalid image. The page identifies the active scenario. Select an image or index to exercise the usual selection and navigation rules; **Refresh** reloads that scenario. **Use media configuration** restores normal media discovery.
+
+These previews use synthetic metadata without accessing WIM files or DISM. They change only in-memory state, are unavailable in Release builds, and retain the existing debug dry-run deployment behavior. Use real deployment media separately to validate image integrity, copying, and deployment.
+
 ## Open a pull request
 
 - Use an English Conventional Commit title.

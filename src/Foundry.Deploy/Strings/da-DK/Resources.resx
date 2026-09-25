@@ -214,6 +214,45 @@ Licenseret under MIT-licensen.</value>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Side for annulleret implementering</value>
   </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Brugerdefinerede Windows-afbildninger</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Fejlfindingsscenarie: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Tvetydig foretrukken afbildning</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Katalog valgt som standard</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Brug mediekonfiguration</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Brugerdefinerede afbildninger deaktiveret</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>Ingen tilgængelige afbildninger</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Ugyldig afbildning</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Foretrukken afbildning mangler</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Foretrukket indeks mangler</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Afbildninger med flere indekser</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Foretrukken afbildning og indeks</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Afbildning med ét indeks</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Implementeringssider</value>
   </data>

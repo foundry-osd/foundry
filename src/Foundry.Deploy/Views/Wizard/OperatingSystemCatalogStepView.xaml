@@ -23,6 +23,12 @@
                     Margin="0,0,0,32"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="0,0,0,20"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding CustomImages.DebugScenarioText}"
+                        TextWrapping="Wrap"
+                        Visibility="{Binding CustomImages.IsDebugScenarioActive, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <StackPanel
                         Margin="0,0,0,20"
                         Visibility="{Binding CustomImages.IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">

@@ -214,6 +214,45 @@
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Страница отменённого развертывания</value>
   </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Пользовательские образы Windows</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Сценарий отладки: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Неоднозначный предпочтительный образ</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Каталог выбран по умолчанию</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Использовать конфигурацию носителя</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Пользовательские образы отключены</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>Нет доступных образов</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Недопустимый образ</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Предпочтительный образ отсутствует</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Предпочтительный индекс отсутствует</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Образы с несколькими индексами</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Предпочтительный образ и индекс</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Образ с одним индексом</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Страницы развертывания</value>
   </data>

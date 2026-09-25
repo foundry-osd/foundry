@@ -72,6 +72,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [NotifyCanExecuteChangedFor(nameof(ShowDebugErrorPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(ShowDebugCancelledPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(SetDebugAutopilotModeCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SetDebugCustomImageScenarioCommand))]
     [NotifyCanExecuteChangedFor(nameof(CancelDeploymentCommand))]
     private bool isDeploymentRunning;
 
@@ -258,6 +259,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         _applicationShellService.ShowAbout();
     }
+
+    [RelayCommand(CanExecute = nameof(CanUseCustomImageDebugTools))]
+    private async Task SetDebugCustomImageScenarioAsync(DebugCustomImageScenario scenario)
+    {
+        if (!CanUseCustomImageDebugTools()) return;
+        await CustomImages.SetDebugScenarioAsync(scenario);
+    }
+
+    private bool CanUseCustomImageDebugTools() => CanUseDebugTools() && Session.IsStartupReady;
 
     [RelayCommand(CanExecute = nameof(CanUseDebugTools))]
     private void SetDebugAutopilotMode(DebugAutopilotMode mode)
@@ -490,6 +500,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         BeginWizardCommand.NotifyCanExecuteChanged();
+        SetDebugCustomImageScenarioCommand.NotifyCanExecuteChanged();
     }
 
     private bool CanShowDebugPages()

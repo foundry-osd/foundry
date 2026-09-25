@@ -214,6 +214,45 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>취소된 배포 페이지</value>
   </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>사용자 지정 Windows 이미지</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>디버그 시나리오: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>기본 설정 이미지가 모호함</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>기본적으로 카탈로그 선택됨</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>미디어 구성 사용</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>사용자 지정 이미지 비활성화됨</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>사용 가능한 이미지 없음</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>잘못된 이미지</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>기본 설정 이미지 누락</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>기본 설정 인덱스 누락</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>인덱스가 여러 개인 이미지</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>기본 설정 이미지 및 인덱스</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>인덱스가 하나인 이미지</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>배포 페이지</value>
   </data>

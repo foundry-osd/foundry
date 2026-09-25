@@ -12,6 +12,7 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Images;
 using CustomImageSourceLease = Foundry.Deploy.Services.Images.CustomImageSourceLease;
 using Foundry.Deploy.Services.Localization;
+using Foundry.Deploy.Services.Runtime;
 
 namespace Foundry.Deploy.ViewModels;
 
@@ -47,13 +48,22 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
     public ObservableCollection<CustomImageIndex> Indexes { get; } = [];
     public bool IsCatalog { get => !IsCustom; set => IsCustom = !value; }
     public string ErrorMessage => string.IsNullOrWhiteSpace(ErrorKey) ? string.Empty : LocalizationText.GetString(ErrorKey);
-    public CustomImageSelection? Selection => SelectedAsset is not null && SelectedIndex is not null && !IsBusy
+    public CustomImageSelection? Selection => SelectedAsset is not null && SelectedIndex is not null && !IsBusy &&
+        (_debugSnapshot is null || DebugSafetyMode.IsEnabled)
         ? new(_inspectedAsset ?? SelectedAsset, SelectedIndex) : null;
     public string MetadataText => SelectedIndex is null ? string.Empty :
         $"{SelectedIndex.EditionId} | {SelectedIndex.Architecture} | {SelectedIndex.Version ?? LocalizationText.GetString("Common.Unknown")} | {string.Join(", ", SelectedIndex.Languages)}";
     public event EventHandler? StateChanged;
 
     public void Configure(DeployCustomImagesSettings settings)
+    {
+        _configuredSettings = settings;
+        _debugSnapshot = null;
+        ConfigureSelection(settings);
+        NotifyDebugScenario();
+    }
+
+    private void ConfigureSelection(DeployCustomImagesSettings settings)
     {
         _configurationVersion++;
         _inspection?.Cancel();
@@ -83,7 +93,9 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
         IsBusy = true;
         try
         {
-            CustomImageCatalogResult result = await _catalog.DiscoverAsync(_settings, _lifetime.Token);
+            CustomImageCatalogResult result = _debugSnapshot is { } debug
+                ? GetDebugCatalog(debug)
+                : await _catalog.DiscoverAsync(_settings, _lifetime.Token);
             if (version != _configurationVersion) return;
             ApplyCatalog(result.Images);
             if (ErrorKey.Length == 0) ErrorKey = result.ErrorKey;
@@ -159,6 +171,19 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
         Indexes.Clear();
         try
         {
+            if (_debugSnapshot is { } debug)
+            {
+                if (!DebugSafetyMode.IsEnabled) throw new InvalidOperationException("Debug image scenarios require an attached debugger in a Debug build.");
+                await Task.Delay(350, pending.Token);
+                if (pending.IsCancellationRequested || !ReferenceEquals(_inspection, pending)) return;
+                if (debug.InspectionErrorKey.Length > 0) ErrorKey = debug.InspectionErrorKey;
+                else
+                {
+                    _inspectedAsset = asset;
+                    ApplyIndexes(debug.Indexes);
+                }
+                return;
+            }
             using CustomImageSourceLease lease = await CustomImageSourceLease.AcquireAsync(asset.ImagePath, asset.ExpectedLength, asset.ExpectedHash, pending.Token);
             IReadOnlyList<CustomImageIndex> indexes = await _reader.ReadAsync(asset.ImagePath, pending.Token);
             if (!pending.IsCancellationRequested && ReferenceEquals(_inspection, pending))
@@ -202,7 +227,12 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
         NotifySelection();
     }
     partial void OnErrorKeyChanged(string value) => OnPropertyChanged(nameof(ErrorMessage));
-    public void RefreshLocalization() { OnPropertyChanged(nameof(ErrorMessage)); OnPropertyChanged(nameof(MetadataText)); }
+    public void RefreshLocalization()
+    {
+        OnPropertyChanged(nameof(ErrorMessage));
+        OnPropertyChanged(nameof(MetadataText));
+        OnPropertyChanged(nameof(DebugScenarioText));
+    }
     private void NotifySelection()
     {
         OnPropertyChanged(nameof(Selection));

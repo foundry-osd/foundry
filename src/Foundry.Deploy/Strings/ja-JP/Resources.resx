@@ -214,6 +214,45 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>キャンセルページ</value>
   </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>カスタム Windows イメージ</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>デバッグ シナリオ: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>優先するイメージを特定できません</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>既定でカタログを選択</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>メディアの構成を使用</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>カスタム イメージは無効</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>利用可能なイメージがありません</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>無効なイメージ</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>優先するイメージが見つかりません</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>優先するインデックスが見つかりません</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>複数のインデックスを持つイメージ</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>優先するイメージとインデックス</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>インデックスが 1 つのイメージ</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>導入ページ</value>
   </data>

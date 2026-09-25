@@ -214,6 +214,45 @@ Licencované podľa licencie MIT.</value>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Stránka zrušeného nasadenia</value>
   </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Vlastné obrazy systému Windows</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Scenár ladenia: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Nejednoznačný preferovaný obraz</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Katalóg vybratý predvolene</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Použiť konfiguráciu média</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Vlastné obrazy vypnuté</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>Nie sú dostupné žiadne obrazy</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Neplatný obraz</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Preferovaný obraz chýba</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Preferovaný index chýba</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Obrazy s viacerými indexmi</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Preferovaný obraz a index</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Obraz s jedným indexom</value>
+  </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Stránky nasadenia</value>
   </data>
