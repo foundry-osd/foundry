@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Profiles;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Images;
 using Foundry.Telemetry;
 
 namespace Foundry.Core.Services.Profiles;
@@ -43,6 +44,8 @@ public static class DeploymentProfileProjection
     public static FoundryConfigurationDocument CreatePortable(FoundryConfigurationDocument configuration)
     {
         ArgumentNullException.ThrowIfNull(configuration);
+        if (configuration.CustomImages is null) throw new InvalidDataException("The profile custom image settings are missing.");
+        CustomImageSettingsValidator.ThrowIfInvalid(configuration.CustomImages);
         if (configuration.SchemaVersion < 1 || configuration.SchemaVersion > FoundryConfigurationDocument.CurrentSchemaVersion)
         {
             throw new InvalidDataException("The profile authoring schema is unsupported.");

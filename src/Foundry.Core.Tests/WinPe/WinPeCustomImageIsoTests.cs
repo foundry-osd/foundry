@@ -1,0 +1,126 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
+using Foundry.Core.Services.WinPe;
+
+namespace Foundry.Core.Tests.WinPe;
+
+public sealed class WinPeCustomImageIsoTests : IDisposable
+{
+    private readonly string root = Path.Combine(Path.GetTempPath(), "foundry-ordered-iso-" + Guid.NewGuid().ToString("N"));
+
+    [Fact]
+    public void Capacity_IncludesFinalAtomicCopyEvenWhenItSharesTheStagingVolume()
+    {
+        IReadOnlyDictionary<string, long> budgets = WinPeCustomImageIsoMastering.GetSpaceRequirements(
+            @"C:\staging", @"C:\scratch\temporary.iso", @"C:\outputs\foundry.iso", 100);
+
+        Assert.Equal(300, budgets[@"C:\"]);
+    }
+
+    [Theory]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    public void Mastering_OrdersBootFilesAndRetainsFirmwareSignatureChoice(bool bootEx, bool bios)
+    {
+        string bins = Path.Combine(root, "bootbins");
+        Directory.CreateDirectory(bins);
+        File.WriteAllText(Path.Combine(bins, bootEx ? "efisys_EX.bin" : "efisys.bin"), "efi");
+        if (bios) File.WriteAllText(Path.Combine(bins, "etfsboot.com"), "bios");
+        string media = Path.Combine(root, "media");
+        Directory.CreateDirectory(Path.Combine(media, "sources"));
+        Directory.CreateDirectory(Path.Combine(media, "boot"));
+        File.WriteAllText(Path.Combine(media, "sources", "boot.wim"), "boot");
+        File.WriteAllText(Path.Combine(media, "boot", "BCD"), "bcd");
+
+        string arguments = WinPeCustomImageIsoMastering.CreateArguments(root, Path.Combine(root, "output.iso"), bootEx);
+
+        Assert.Contains("-u2 -udfver102", arguments);
+        Assert.Contains(" -m ", arguments);
+        Assert.Contains("-yo", arguments);
+        Assert.Contains(bootEx ? "efisys_EX.bin" : "efisys.bin", arguments);
+        Assert.Contains(bios ? "-bootdata:2#p0,e,b" : "-bootdata:1#pEF,e,b", arguments);
+        string order = File.ReadAllText(Path.Combine(root, "boot-order.txt"));
+        Assert.Contains("boot\\BCD", order);
+        Assert.EndsWith("sources\\boot.wim\r\n", order);
+        Assert.DoesNotContain("Foundry", order);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Create_StagesExternalImagesSeparatelyAndPreservesPriorIsoOnCancellation(bool cancel)
+    {
+        string work = Path.Combine(root, "work");
+        string media = Path.Combine(work, "media");
+        Directory.CreateDirectory(Path.Combine(media, "sources"));
+        Directory.CreateDirectory(Path.Combine(work, "bootbins"));
+        File.WriteAllText(Path.Combine(media, "sources", "boot.wim"), "boot");
+        File.WriteAllText(Path.Combine(work, "bootbins", "efisys.bin"), "efi");
+        string source = Path.Combine(root, "source.wim");
+        File.WriteAllText(source, "custom image");
+        string hash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes("custom image")));
+        string relative = Path.Combine("Foundry", "Images", "Custom", "managed", hash.ToLowerInvariant(), "image.wim");
+        using var package = new WinPeCustomImageMediaLease("build", Encoding.UTF8.GetBytes("{}"),
+            [new(source, relative, 12, hash)], []);
+        string configuration = WinPeCustomImageMediaService.BindConfiguration(package, """{"customImages":{"isEnabled":true}}""");
+        using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        var runner = new IsoRunner((staging, output) =>
+        {
+            Assert.Equal("custom image", File.ReadAllText(Path.Combine(staging, "media", relative)));
+            Assert.True(File.Exists(Path.Combine(staging, "media", package.ManifestRelativePath)));
+            Assert.False(Directory.Exists(Path.Combine(media, "Foundry")));
+            File.WriteAllText(output, "new ISO");
+            if (cancel) cancellation.Cancel();
+        });
+        string output = Path.Combine(root, "output.iso");
+        File.WriteAllText(output, "prior ISO");
+        var service = new WinPeIsoMediaService(runner);
+        var options = new WinPeIsoMediaOptions
+        {
+            CustomImages = package,
+            DeployConfigurationJson = configuration,
+            OutputIsoPath = output,
+            IsoTempDirectoryPath = Path.Combine(root, "scratch"),
+            PreparedWorkspace = new()
+            {
+                Artifact = new() { WorkingDirectoryPath = work, MediaDirectoryPath = media },
+                Tools = new() { MakeWinPeMediaPath = "MakeWinPEMedia.cmd", OscdimgPath = "oscdimg.exe" }
+            }
+        };
+
+        if (cancel) await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.CreateAsync(options, cancellation.Token));
+        else
+        {
+            WinPeResult result = await service.CreateAsync(options, cancellation.Token);
+            Assert.True(result.IsSuccess, result.Error?.Details);
+        }
+
+        Assert.Equal(cancel ? "prior ISO" : "new ISO", File.ReadAllText(output));
+        Assert.Empty(Directory.EnumerateFiles(root, "*.pending.iso"));
+        Assert.Empty(Directory.EnumerateDirectories(Path.Combine(root, "scratch"), "custom-iso-*"));
+    }
+
+    private sealed class IsoRunner(Action<string, string> run) : IWinPeProcessRunner
+    {
+        public Task<WinPeProcessExecution> RunAsync(string file, string arguments, string working, CancellationToken token, IReadOnlyDictionary<string, string>? environmentOverrides = null)
+        {
+            Assert.Contains("-u2 -udfver102", arguments);
+            Match last = Regex.Match(arguments, "(?:\"([^\"]+)\"|(\\S+))$");
+            string output = last.Groups[1].Success ? last.Groups[1].Value : last.Groups[2].Value;
+            run(working, output);
+            return Task.FromResult(new WinPeProcessExecution { ExitCode = 0 });
+        }
+        public Task<WinPeProcessExecution> RunCmdScriptAsync(string script, string arguments, string working, CancellationToken token) => throw new NotSupportedException();
+        public Task<WinPeProcessExecution> RunCmdScriptDirectAsync(string script, string arguments, string working, CancellationToken token) => throw new NotSupportedException();
+    }
+
+    public void Dispose()
+    {
+        if (Directory.Exists(root)) Directory.Delete(root, true);
+    }
+}
