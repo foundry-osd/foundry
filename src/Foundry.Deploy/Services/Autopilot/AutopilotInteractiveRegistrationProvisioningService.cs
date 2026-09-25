@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Foundry.Deploy.Services.Deployment;
 
 namespace Foundry.Deploy.Services.Autopilot;
@@ -39,7 +40,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
     }
 
     /// <inheritdoc />
-    public AutopilotInteractiveRegistrationProvisioningResult Provision(string targetWindowsPartitionRoot)
+    public AutopilotInteractiveRegistrationProvisioningResult Provision(string targetWindowsPartitionRoot, string? assignedComputerName = null)
     {
         if (string.IsNullOrWhiteSpace(targetWindowsPartitionRoot))
         {
@@ -69,7 +70,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
         DeploymentFilePublication.WriteAllText(oobeLauncherPath, BuildOobeLauncher(), Encoding.ASCII);
         DeploymentFilePublication.WriteAllText(oobeWaiterPath, BuildOobeWaiter(), Encoding.ASCII);
         DeploymentFilePublication.WriteAllText(foregroundWrapperPath, BuildForegroundWrapper(), Encoding.ASCII);
-        DeploymentFilePublication.WriteAllText(configPath, BuildConfig(), Utf8NoBom);
+        DeploymentFilePublication.WriteAllText(configPath, BuildConfig(assignedComputerName), Utf8NoBom);
 
         MigrateCompletionGuard(targetWindowsPartitionRoot, stateRoot);
         RedirectLegacyLaunchers(targetWindowsPartitionRoot);
@@ -669,12 +670,13 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
             ]);
     }
 
-    private static string BuildConfig()
+    private static string BuildConfig(string? assignedComputerName)
     {
         string json = JsonSerializer.Serialize(new
         {
             schemaVersion = 1,
             provisioningMode = "interactiveHardwareHashUpload",
+            assignedComputerName = string.IsNullOrWhiteSpace(assignedComputerName) ? null : assignedComputerName,
             tenant = "common",
             clientId = FoundryBootstrapClientId,
             graphBaseUri = "https://graph.microsoft.com/v1.0",
@@ -689,7 +691,8 @@ public sealed class AutopilotInteractiveRegistrationProvisioningService : IAutop
             importPollingIntervalSeconds = 15
         }, new JsonSerializerOptions
         {
-            WriteIndented = true
+            WriteIndented = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         });
 
         return json + Environment.NewLine;

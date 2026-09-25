@@ -11,6 +11,22 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeployConfigurationServiceTests
 {
+    [Theory]
+    [InlineData("", false)]
+    [InlineData(", \"uploadComputerNameToAutopilot\": true", true)]
+    public void LoadOptional_ReadsComputerNameUploadPreferenceWithoutEnablingOldMedia(string property, bool expected)
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json",
+            "{\"schemaVersion\":13,\"customization\":{\"machineNaming\":{\"isEnabled\":true" + property + "}}}");
+        var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.NotNull(result.Document);
+        Assert.Equal(expected, result.Document.Customization.MachineNaming.UploadComputerNameToAutopilot);
+    }
+
     [Fact]
     public void LoadOptional_PreservesParseExceptionForStartupDiagnostics()
     {

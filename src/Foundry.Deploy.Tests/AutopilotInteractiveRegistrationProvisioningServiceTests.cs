@@ -10,6 +10,23 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
 {
+    [Theory]
+    [InlineData(null)]
+    [InlineData("FINAL-PC")]
+    public void Provision_StagesOnlyTheSuppliedFinalComputerName(string? assignedComputerName)
+    {
+        AutopilotInteractiveRegistrationProvisioningResult result = CreateService().Provision(CreateWindowsRoot(), assignedComputerName);
+        using JsonDocument config = JsonDocument.Parse(File.ReadAllText(result.ConfigPath));
+        if (assignedComputerName is null)
+        {
+            Assert.False(config.RootElement.TryGetProperty("assignedComputerName", out _));
+        }
+        else
+        {
+            Assert.Equal(assignedComputerName, config.RootElement.GetProperty("assignedComputerName").GetString());
+        }
+    }
+
     [Fact]
     public void Provision_WhenHookPublicationFails_PreservesPreviousLaunchHooks()
     {
@@ -318,9 +335,7 @@ public sealed class AutopilotInteractiveRegistrationProvisioningServiceTests
         Assert.Contains("Import-AutopilotDeviceIdentity", script);
         Assert.Contains("Test-AutopilotDeviceReadiness", script);
         Assert.Contains("Find-AutopilotDeviceBySerialNumber", script);
-        Assert.Contains("Update-AutopilotDeviceGroupTag", script);
         Assert.Contains("Should-ContinueVisibilityWaitAfterImportError", script);
-        Assert.Contains("UploadGroupTagUpdateRequested", script);
         Assert.Contains("Invoke-GraphRequest", script);
         Assert.Contains("Test-RegistrationAlreadyCompleted", script);
         Assert.Contains("deviceManagement/importedWindowsAutopilotDeviceIdentities/import", script);

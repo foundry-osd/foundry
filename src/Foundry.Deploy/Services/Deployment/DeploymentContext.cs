@@ -45,6 +45,9 @@ public sealed record DeploymentContext
     /// </summary>
     public required string TargetComputerName { get; init; }
 
+    /// <summary>Gets the authoring preference to assign the confirmed deployment name during Autopilot upload.</summary>
+    public bool UploadComputerNameToAutopilot { get; init; }
+
     /// <summary>
     /// Gets the operating system catalog item to download and apply.
     /// </summary>

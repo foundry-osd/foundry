@@ -114,7 +114,9 @@ public sealed class AutopilotGraphImportClient(
         if (waitResult.AutopilotDevice is not null)
         {
             return AutopilotHardwareHashUploadResult.Completed(
-                "Autopilot hardware hash imported and visible in Windows Autopilot devices.",
+                string.IsNullOrWhiteSpace(request.AssignedComputerName)
+                    ? "Autopilot hardware hash imported and visible in Windows Autopilot devices."
+                    : "Autopilot hardware hash is visible in Windows Autopilot devices and the final computer name is assigned.",
                 request.ImportId,
                 importedIdentity.Id,
                 waitResult.AutopilotDevice.Id);
@@ -168,13 +170,14 @@ public sealed class AutopilotGraphImportClient(
             ?? throw new InvalidOperationException("Microsoft Graph did not return an imported Autopilot device identity.");
     }
 
-    private async Task<WindowsAutopilotDeviceIdentity?> ReconcileAutopilotDeviceGroupTagAsync(
+    private async Task<WindowsAutopilotDeviceIdentity?> ReconcileAutopilotDevicePropertiesAsync(
         AutopilotGraphImportRequest request,
         WindowsAutopilotDeviceIdentity existingDevice,
         IProgress<AutopilotHardwareHashUploadProgress>? progress,
         CancellationToken cancellationToken)
     {
-        if (!ShouldUpdateGroupTag(existingDevice.GroupTag, request.GroupTag))
+        if (!ShouldUpdateGroupTag(existingDevice.GroupTag, request.GroupTag) &&
+            !ShouldUpdateComputerName(existingDevice.DisplayName, request.AssignedComputerName))
         {
             return existingDevice;
         }
@@ -185,20 +188,22 @@ public sealed class AutopilotGraphImportClient(
         }
 
         progress?.Report(new AutopilotHardwareHashUploadProgress(
-            "Updating existing Autopilot device...",
-            "Updating Windows Autopilot group tag in Microsoft Graph..."));
+            "Updating Autopilot device...",
+            "Updating Windows Autopilot device properties in Microsoft Graph..."));
         await UpdateAutopilotDevicePropertiesAsync(
             request.AccessToken,
             existingDevice.Id,
             request.GroupTag,
+            request.AssignedComputerName,
             cancellationToken).ConfigureAwait(false);
-        return await WaitForAutopilotDeviceGroupTagAsync(request, progress, cancellationToken).ConfigureAwait(false);
+        return await WaitForAutopilotDevicePropertiesAsync(request, progress, cancellationToken).ConfigureAwait(false);
     }
 
     private async Task UpdateAutopilotDevicePropertiesAsync(
         string accessToken,
         string autopilotDeviceId,
         string? groupTag,
+        string? assignedComputerName,
         CancellationToken cancellationToken)
     {
         string path = $"{WindowsAutopilotDevicesPath}/{Uri.EscapeDataString(autopilotDeviceId)}/updateDeviceProperties";
@@ -206,7 +211,8 @@ public sealed class AutopilotGraphImportClient(
             HttpMethod.Post,
             path,
             accessToken,
-            new UpdateDevicePropertiesRequest(NormalizeGroupTagForGraph(groupTag)),
+            new UpdateDevicePropertiesRequest(NormalizeGroupTagForGraph(groupTag),
+                string.IsNullOrWhiteSpace(assignedComputerName) ? null : assignedComputerName),
             "Windows Autopilot device property update",
             cancellationToken).ConfigureAwait(false);
     }
@@ -253,20 +259,37 @@ public sealed class AutopilotGraphImportClient(
                     request.SerialNumber,
                     request.ImportId,
                     visibleDeviceLookup.Device.Id);
-                WindowsAutopilotDeviceIdentity? reconciledDevice = await ReconcileAutopilotDeviceGroupTagAsync(
-                    request,
-                    visibleDeviceLookup.Device,
-                    progress,
-                    cancellationToken)
-                    .ConfigureAwait(false);
+                WindowsAutopilotDeviceIdentity? reconciledDevice;
+                bool assignComputerName = !string.IsNullOrWhiteSpace(request.AssignedComputerName);
+                try
+                {
+                    reconciledDevice = await ReconcileAutopilotDevicePropertiesAsync(
+                        request,
+                        visibleDeviceLookup.Device,
+                        progress,
+                        cancellationToken).ConfigureAwait(false);
+                }
+                catch (Exception exception) when (exception is HttpRequestException or InvalidOperationException or JsonException)
+                {
+                    return new AutopilotImportWaitResult(
+                        importedIdentity,
+                        visibleDeviceLookup.Device,
+                        AutopilotHardwareHashUploadState.UploadFailed,
+                        assignComputerName
+                            ? $"The hardware hash is visible in Windows Autopilot, but computer name and device property assignment failed: {exception.Message}"
+                            : $"The hardware hash is visible in Windows Autopilot, but group tag assignment failed: {exception.Message}",
+                        assignComputerName ? "AutopilotComputerNameUpdateFailed" : "AutopilotGroupTagUpdateFailed");
+                }
                 if (reconciledDevice is null)
                 {
                     return new AutopilotImportWaitResult(
                         importedIdentity,
                         visibleDeviceLookup.Device,
                         AutopilotHardwareHashUploadState.UploadTimedOut,
-                        "Windows Autopilot device group tag update was not confirmed before the timeout.",
-                        "AutopilotGroupTagUpdateTimedOut");
+                        assignComputerName
+                            ? "The hardware hash is visible in Windows Autopilot, but computer name and device property assignment was not confirmed before the timeout."
+                            : "The hardware hash is visible in Windows Autopilot, but group tag assignment was not confirmed before the timeout.",
+                        assignComputerName ? "AutopilotComputerNameUpdateTimedOut" : "AutopilotGroupTagUpdateTimedOut");
                 }
 
                 return new AutopilotImportWaitResult(importedIdentity, reconciledDevice);
@@ -328,14 +351,14 @@ public sealed class AutopilotGraphImportClient(
         }
     }
 
-    private async Task<WindowsAutopilotDeviceIdentity?> WaitForAutopilotDeviceGroupTagAsync(
+    private async Task<WindowsAutopilotDeviceIdentity?> WaitForAutopilotDevicePropertiesAsync(
         AutopilotGraphImportRequest request,
         IProgress<AutopilotHardwareHashUploadProgress>? progress,
         CancellationToken cancellationToken)
     {
         DateTimeOffset deadline = DateTimeOffset.UtcNow.Add(options.VisibilityTimeout);
         logger.LogInformation(
-            "Waiting up to {Timeout} for Windows Autopilot group tag update. SerialNumber={SerialNumber}, ImportId={ImportId}, GroupTag={GroupTag}.",
+            "Waiting up to {Timeout} for Windows Autopilot device property update. SerialNumber={SerialNumber}, ImportId={ImportId}, GroupTag={GroupTag}.",
             options.VisibilityTimeout,
             request.SerialNumber,
             request.ImportId,
@@ -349,24 +372,25 @@ public sealed class AutopilotGraphImportClient(
             }
 
             progress?.Report(new AutopilotHardwareHashUploadProgress(
-                "Waiting for Autopilot group tag update...",
-                $"Checking Windows Autopilot group tag ({FormatRemaining(remaining)} remaining)..."));
+                "Waiting for Autopilot device property update...",
+                $"Checking Windows Autopilot device properties ({FormatRemaining(remaining)} remaining)..."));
             AutopilotDeviceLookupResult deviceLookup = await FindAutopilotDeviceAsync(request, cancellationToken)
                 .ConfigureAwait(false);
             if (deviceLookup.FailureState is not null)
             {
                 logger.LogWarning(
-                    "Windows Autopilot group tag update could not be verified because device lookup failed. SerialNumber={SerialNumber}, ImportId={ImportId}, FailureCode={FailureCode}.",
+                    "Windows Autopilot device property update could not be verified because device lookup failed. SerialNumber={SerialNumber}, ImportId={ImportId}, FailureCode={FailureCode}.",
                     request.SerialNumber,
                     request.ImportId,
                     deviceLookup.FailureCode);
                 return null;
             }
 
-            if (deviceLookup.Device is not null && !ShouldUpdateGroupTag(deviceLookup.Device.GroupTag, request.GroupTag))
+            if (deviceLookup.Device is not null && !ShouldUpdateGroupTag(deviceLookup.Device.GroupTag, request.GroupTag) &&
+                !ShouldUpdateComputerName(deviceLookup.Device.DisplayName, request.AssignedComputerName))
             {
                 logger.LogInformation(
-                    "Windows Autopilot group tag update confirmed. SerialNumber={SerialNumber}, ImportId={ImportId}, AutopilotDeviceId={AutopilotDeviceId}.",
+                    "Windows Autopilot device property update confirmed. SerialNumber={SerialNumber}, ImportId={ImportId}, AutopilotDeviceId={AutopilotDeviceId}.",
                     request.SerialNumber,
                     request.ImportId,
                     deviceLookup.Device.Id);
@@ -376,7 +400,7 @@ public sealed class AutopilotGraphImportClient(
             if (DateTimeOffset.UtcNow >= deadline)
             {
                 logger.LogWarning(
-                    "Windows Autopilot group tag update timed out. SerialNumber={SerialNumber}, ImportId={ImportId}, ExpectedGroupTag={ExpectedGroupTag}.",
+                    "Windows Autopilot device property update timed out. SerialNumber={SerialNumber}, ImportId={ImportId}, ExpectedGroupTag={ExpectedGroupTag}.",
                     request.SerialNumber,
                     request.ImportId,
                     NormalizeGroupTagForGraph(request.GroupTag));
@@ -393,8 +417,8 @@ public sealed class AutopilotGraphImportClient(
                 deadline,
                 delay,
                 progress,
-                "Waiting for Autopilot group tag update...",
-                remainingTime => $"Checking Windows Autopilot group tag ({FormatRemaining(remainingTime)} remaining)...",
+                "Waiting for Autopilot device property update...",
+                remainingTime => $"Checking Windows Autopilot device properties ({FormatRemaining(remainingTime)} remaining)...",
                 cancellationToken).ConfigureAwait(false);
         }
     }
@@ -468,7 +492,7 @@ public sealed class AutopilotGraphImportClient(
             matches.Count);
         return AutopilotDeviceLookupResult.Failed(
             AutopilotHardwareHashUploadState.UploadFailed,
-            "Multiple Windows Autopilot devices matched the captured serial number; group tag reconciliation was skipped to avoid updating the wrong device.",
+            "Multiple Windows Autopilot devices matched the captured serial number; device property reconciliation was skipped to avoid updating the wrong device.",
             "AutopilotDeviceAmbiguous");
     }
 
@@ -626,6 +650,12 @@ public sealed class AutopilotGraphImportClient(
             StringComparison.OrdinalIgnoreCase);
     }
 
+    private static bool ShouldUpdateComputerName(string? currentName, string? requestedName)
+    {
+        return !string.IsNullOrWhiteSpace(requestedName) &&
+            !string.Equals(currentName, requestedName, StringComparison.Ordinal);
+    }
+
     private static string NormalizeGroupTagForComparison(string? groupTag)
     {
         return string.IsNullOrWhiteSpace(groupTag)
@@ -700,7 +730,7 @@ public sealed class AutopilotGraphImportClient(
         string? AssignedUserPrincipalName,
         string ImportId);
 
-    private sealed record UpdateDevicePropertiesRequest(string GroupTag);
+    private sealed record UpdateDevicePropertiesRequest(string GroupTag, string? DisplayName);
 }
 
 /// <summary>
@@ -715,13 +745,18 @@ public sealed record AutopilotGraphImportClientOptions
     public TimeSpan VisibilityTimeout { get; init; } = TimeSpan.FromMinutes(10);
 }
 
+/// <summary>
+/// Imports a device and optionally assigns the final deployment computer name after Autopilot visibility.
+/// A missing computer name preserves any existing assigned name.
+/// </summary>
 public sealed record AutopilotGraphImportRequest(
     string AccessToken,
     string SerialNumber,
     string HardwareIdentifier,
     string? GroupTag,
     string? AssignedUserPrincipalName,
-    string ImportId);
+    string ImportId,
+    string? AssignedComputerName = null);
 
 internal sealed record GraphCollectionResponse<TItem>
 {
@@ -751,6 +786,7 @@ internal sealed record WindowsAutopilotDeviceIdentity
     public string? Id { get; init; }
     public string? SerialNumber { get; init; }
     public string? GroupTag { get; init; }
+    public string? DisplayName { get; init; }
 }
 
 internal sealed record AutopilotImportWaitResult(

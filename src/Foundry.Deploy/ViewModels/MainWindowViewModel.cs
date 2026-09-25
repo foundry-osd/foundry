@@ -330,6 +330,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 CacheRootPath = Preparation.CacheRootPath,
                 Unattend = Preparation.SelectedUnattend,
                 TargetComputerName = Preparation.TargetComputerName,
+                UploadComputerNameToAutopilot = Preparation.UploadComputerNameToAutopilot,
                 SelectedTargetDisk = Preparation.SelectedTargetDisk,
                 SelectedOperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem,
                 DriverPackSelectionKind = effectiveDriverPackKind,

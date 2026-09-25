@@ -30,6 +30,16 @@
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
 
+            <wct:SettingsCard
+                x:Uid="MachineNamingAutopilotCard"
+                Description="{x:Bind ViewModel.AutopilotComputerNameDescription, Mode=OneWay}">
+                <ToggleSwitch
+                    x:Uid="MachineNamingAutopilotToggle"
+                    behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                    IsEnabled="{x:Bind ViewModel.CanUploadComputerNameToAutopilot, Mode=OneWay}"
+                    IsOn="{x:Bind ViewModel.UploadComputerNameToAutopilot, Mode=TwoWay}" />
+            </wct:SettingsCard>
+
             <ContentControl
                 HorizontalContentAlignment="Stretch"
                 IsEnabled="{x:Bind ViewModel.IsMachineNamingEnabled, Mode=OneWay}">

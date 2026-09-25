@@ -66,6 +66,7 @@ public sealed class FoundryConfigurationServiceTests
                 {
                     IsEnabled = true,
                     Mode = MachineNamingMode.Composed,
+                    UploadComputerNameToAutopilot = true,
                     Components =
                     [
                         new MachineNameComponentSettings
@@ -159,6 +160,7 @@ public sealed class FoundryConfigurationServiceTests
         Assert.Equal(["Pro"], loaded.OperatingSystemSelection.AllowedEditions);
         Assert.Equal("Pro", loaded.OperatingSystemSelection.DefaultEdition);
         Assert.Equal(MachineNamingMode.Composed, loaded.Customization.MachineNaming.Mode);
+        Assert.True(loaded.Customization.MachineNaming.UploadComputerNameToAutopilot);
         Assert.Collection(
             loaded.Customization.MachineNaming.Components,
             component =>
@@ -255,6 +257,7 @@ public sealed class FoundryConfigurationServiceTests
 
         MachineNamingSettings naming = loaded.Customization.MachineNaming;
         Assert.Equal(MachineNamingMode.Composed, naming.Mode);
+        Assert.False(naming.UploadComputerNameToAutopilot);
         Assert.Collection(
             naming.Components,
             component =>

@@ -8,6 +8,9 @@ public sealed record DeployMachineNamingSettings
 {
     public bool IsEnabled { get; init; }
 
+    /// <summary>Gets whether the final deployment name is assigned to the Autopilot device during hardware hash upload.</summary>
+    public bool UploadComputerNameToAutopilot { get; init; }
+
     public MachineNamingMode Mode { get; init; } = MachineNamingMode.Manual;
 
     public string? ManualInitialValue { get; init; }

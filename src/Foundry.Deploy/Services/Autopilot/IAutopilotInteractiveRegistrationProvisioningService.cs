@@ -13,6 +13,7 @@ public interface IAutopilotInteractiveRegistrationProvisioningService
     /// Stages the assistant files, OOBE launch hook, and returns their offline paths.
     /// </summary>
     /// <param name="targetWindowsPartitionRoot">Root of the applied Windows partition.</param>
+    /// <param name="assignedComputerName">Final deployment name to assign in Autopilot, or null to preserve its existing name.</param>
     /// <returns>Provisioned assistant paths.</returns>
-    AutopilotInteractiveRegistrationProvisioningResult Provision(string targetWindowsPartitionRoot);
+    AutopilotInteractiveRegistrationProvisioningResult Provision(string targetWindowsPartitionRoot, string? assignedComputerName = null);
 }

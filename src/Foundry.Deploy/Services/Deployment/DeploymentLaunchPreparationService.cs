@@ -112,6 +112,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             TargetDiskIdentity = confirmedIdentity,
             Unattend = request.Unattend,
             TargetComputerName = request.UsesCustomUnattend ? string.Empty : normalizedComputerName,
+            UploadComputerNameToAutopilot = request.UploadComputerNameToAutopilot,
             OperatingSystem = request.SelectedOperatingSystem,
             DriverPackSelectionKind = request.DriverPackSelectionKind,
             DriverPack = request.SelectedDriverPack,
