@@ -99,7 +99,7 @@ public static class DebugCustomImageScenarios
         EditionId = edition,
         ProductType = "WinNT",
         Build = 26100,
-        Version = "10.0.26100",
+        Version = "10.0.26100.4652",
         DefaultLanguage = "en-US",
         Languages = Array.AsReadOnly(new[] { "en-US", "fr-FR" }),
         ExpandedSizeBytes = 20L * 1024 * 1024 * 1024

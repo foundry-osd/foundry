@@ -42,7 +42,7 @@ public sealed class NativeCustomImageMetadataReader : ICustomImageMetadataReader
             EditionId = image.EditionId,
             ProductType = image.ProductType,
             Build = image.Version.Build == 0 ? null : image.Version.Build,
-            Version = image.Version == new Version(0, 0, 0) ? null : image.Version.ToString(),
+            Version = image.Version == new Version(0, 0, 0, 0) ? null : image.Version.ToString(),
             ExpandedSizeBytes = checked((long)image.ImageSize),
             Languages = image.Languages,
             DefaultLanguage = image.DefaultLanguageIndex >= 0 && image.DefaultLanguageIndex < image.Languages.Count

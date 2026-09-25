@@ -131,7 +131,7 @@ public sealed class NativeDismImageInfoReader : IDisposable
                     12 => "arm64",
                     _ => "unknown"
                 },
-                new Version(checked((int)image.MajorVersion), checked((int)image.MinorVersion), checked((int)image.Build)), Marshal.PtrToStringUni(image.ImageDescription) ?? string.Empty, Marshal.PtrToStringUni(image.ProductType) ?? string.Empty, ReadLanguages(image.Language, image.LanguageCount), checked((int)image.DefaultLanguageIndex));
+                new Version(checked((int)image.MajorVersion), checked((int)image.MinorVersion), checked((int)image.Build), checked((int)image.SpBuild)), Marshal.PtrToStringUni(image.ImageDescription) ?? string.Empty, Marshal.PtrToStringUni(image.ProductType) ?? string.Empty, ReadLanguages(image.Language, image.LanguageCount), checked((int)image.DefaultLanguageIndex));
         }
 
         return images;

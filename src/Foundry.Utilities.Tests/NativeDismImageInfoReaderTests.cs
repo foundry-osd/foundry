@@ -20,9 +20,9 @@ public sealed class NativeDismImageInfoReaderTests
         {
             Images =
             [
-                new(9, "Windows 11 Éducation 日本語", "Professional", 26_839_601_777, 9, 10, 0, 26100),
+                new(9, "Windows 11 Éducation 日本語", "Professional", 26_839_601_777, 9, 10, 0, 26100, 4652),
                 new(1, "Windows Setup Media", null, 277_641_908, 0xffff, 0, 0, 0),
-                new(4, "Windows ARM64", "Enterprise", 9_223_372_036_854_775_808, 12, 10, 1, 22631),
+                new(4, "Windows ARM64", "Enterprise", 9_223_372_036_854_775_808, 12, 10, 1, 22631, 3296),
                 new(3, "Windows x86", "Core", 4_294_967_297, 0, 6, 3, 9600)
             ]
         };
@@ -32,10 +32,10 @@ public sealed class NativeDismImageInfoReaderTests
 
         WindowsImageMetadata[] expected =
             [
-                new WindowsImageMetadata(9, "Windows 11 Éducation 日本語", "Professional", 26_839_601_777, "x64", new Version(10, 0, 26100), "Description", "WinNT", [], 0),
-                new WindowsImageMetadata(1, "Windows Setup Media", "", 277_641_908, "unknown", new Version(0, 0, 0), "Description", "WinNT", [], 0),
-                new WindowsImageMetadata(4, "Windows ARM64", "Enterprise", 9_223_372_036_854_775_808, "arm64", new Version(10, 1, 22631), "Description", "WinNT", [], 0),
-                new WindowsImageMetadata(3, "Windows x86", "Core", 4_294_967_297, "x86", new Version(6, 3, 9600), "Description", "WinNT", [], 0)
+                new WindowsImageMetadata(9, "Windows 11 Éducation 日本語", "Professional", 26_839_601_777, "x64", new Version(10, 0, 26100, 4652), "Description", "WinNT", [], 0),
+                new WindowsImageMetadata(1, "Windows Setup Media", "", 277_641_908, "unknown", new Version(0, 0, 0, 0), "Description", "WinNT", [], 0),
+                new WindowsImageMetadata(4, "Windows ARM64", "Enterprise", 9_223_372_036_854_775_808, "arm64", new Version(10, 1, 22631, 3296), "Description", "WinNT", [], 0),
+                new WindowsImageMetadata(3, "Windows x86", "Core", 4_294_967_297, "x86", new Version(6, 3, 9600, 0), "Description", "WinNT", [], 0)
             ];
         Assert.Equal(expected.Length, images.Count);
         for (int i = 0; i < expected.Length; i++)
@@ -249,7 +249,7 @@ public sealed class NativeDismImageInfoReaderTests
         Assert.Equal("shutdown", api.Calls[^1]);
     }
 
-    private sealed record NativeImage(uint Index, string? Name, string? Edition, ulong Size, uint Architecture, uint Major, uint Minor, uint Build);
+    private sealed record NativeImage(uint Index, string? Name, string? Edition, ulong Size, uint Architecture, uint Major, uint Minor, uint Build, uint SpBuild = 0);
 
     private sealed class FakeDismApi : IDismImageInfoApi, IDisposable
     {
@@ -351,7 +351,7 @@ public sealed class NativeDismImageInfoReaderTests
                 Marshal.WriteInt32(entry, versionOffset, unchecked((int)image.Major));
                 Marshal.WriteInt32(entry, versionOffset + 4, unchecked((int)image.Minor));
                 Marshal.WriteInt32(entry, versionOffset + 8, unchecked((int)image.Build));
-                Marshal.WriteInt32(entry, versionOffset + 12, 1234);
+                Marshal.WriteInt32(entry, versionOffset + 12, unchecked((int)image.SpBuild));
                 Marshal.WriteInt32(entry, versionOffset + 16, 0);
                 Marshal.WriteInt32(entry, versionOffset + 20, 1);
                 WriteString(entry, rootOffset, "WINDOWS");

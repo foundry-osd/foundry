@@ -12,7 +12,7 @@ public sealed class NativeDismImageInfoReaderTests
     [Fact]
     public async Task ReadAsync_PreservesUnsignedSizeIndexVersionAndUnknownArchitecture()
     {
-        var expected = new NativeMetadata(7, "Custom Windows", "AnyEdition", ulong.MaxValue, "unknown", new Version(10, 0, 26100), "Description", "WinNT", [], 0);
+        var expected = new NativeMetadata(7, "Custom Windows", "AnyEdition", ulong.MaxValue, "unknown", new Version(10, 0, 26100, 4652), "Description", "WinNT", [], 0);
         string? observedPath = null;
         CancellationToken observedToken = default;
         var reader = new NativeDismImageInfoReader((path, token) =>
