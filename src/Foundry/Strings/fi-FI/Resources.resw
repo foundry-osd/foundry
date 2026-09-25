@@ -703,8 +703,8 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Foundry-luettelo</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Anna käyttäjän valita</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Tyhjennä oletusvalinta</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Mukautetut Windows-näköistiedostot</value>
@@ -719,7 +719,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Poistetaanko tämä näköistiedosto paikallisesta kirjastosta? Siihen viittaavat profiilit näyttävät sen puuttuvana. Alkuperäiset tiedostot ja nykyiset tietovälineet säilyvät ennallaan.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Poista paikallinen kopio</value>
+    <value>Poista</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Valittu näköistiedosto</value>
@@ -727,17 +727,23 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>Tässä profiilissa on jo samanniminen näköistiedosto.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Tuoteversio</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Ei mukautettuja Windows-näköistiedostoja. Aloita tuomalla ISO- tai WIM-tiedosto.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Ota mukautetut Windows-näköistiedostot käyttöön</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Tuo näköistiedosto</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Jätä pois</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Muuta sisällyttämistä profiiliin</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Tuo ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Sisällytä</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Sisällytetty</value>
@@ -745,11 +751,14 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Ensisijainen indeksi</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Indeksi</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Indeksit</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Kun asetus on käytössä, sisällytetyt näköistiedostot kopioidaan uusille tietovälineille. Internet-yhteys vaaditaan edelleen. Käytössä olevat mukautukset koskevat valittua näköistiedostoa; tarkista niiden soveltuvuus näköistiedostoosi.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Kielet</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Näköistiedostokirjasto</value>
@@ -773,7 +782,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Käyttäjä valitsee</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Sisällytetty näköistiedosto tai valinnainen lähde puuttuu, tai ensisijainen näköistiedosto tai indeksi ei enää sisälly valintaan. Palauta lähde, muuta valintaa tai poista ensisijainen valinta ennen tietovälineen luomista.</value>
+    <value>Sisällytetty näköistiedosto puuttuu, tai ensisijainen näköistiedosto tai indeksi ei enää sisälly valintaan. Palauta lähde, muuta valintaa tai poista ensisijainen valinta ennen tietovälineen luomista.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Päivitä</value>
@@ -782,10 +791,16 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Poista profiilista</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Nimeä uudelleen profiilissa</value>
+    <value>Muokkaa</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Tallenna</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Määritä ensisijainen näköistiedosto ja indeksi</value>
+    <value>Aseta oletusnäköistiedosto</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Aseta oletusindeksi</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Koko</value>
@@ -813,6 +828,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Tila</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Versio</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Kyllä</value>

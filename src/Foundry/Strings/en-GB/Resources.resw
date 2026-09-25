@@ -703,8 +703,8 @@ Licensed under the MIT License.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Foundry catalogue</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Let the operator choose</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Clear default</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Custom Windows images</value>
@@ -719,7 +719,7 @@ Licensed under the MIT License.</value>
     <value>Delete this image from the local library? Profiles referencing it will show it as missing. Original files and existing media are unchanged.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Delete local copy</value>
+    <value>Delete</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Selected image</value>
@@ -727,17 +727,23 @@ Licensed under the MIT License.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>An image with this name already exists in this profile.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Edition</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>No custom Windows images. Import an ISO or WIM to begin.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Enable custom Windows images</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Import image</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Exclude</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Toggle inclusion in profile</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Import ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Include</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Included</value>
@@ -745,11 +751,14 @@ Licensed under the MIT License.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Preferred index</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Indexes</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Included images are copied to newly created media when enabled. Internet is still required. Enabled customizations apply to the selected image; verify their suitability for your image.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Languages</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Image library</value>
@@ -773,7 +782,7 @@ Licensed under the MIT License.</value>
     <value>Operator chooses</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>An included image or optional source is missing, or a preferred image/index is no longer included. Restore the source, change the selection, or clear the preference before creating media.</value>
+    <value>An included image is missing, or a preferred image/index is no longer included. Restore the source, change the selection, or clear the preference before creating media.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Refresh</value>
@@ -782,10 +791,16 @@ Licensed under the MIT License.</value>
     <value>Remove from profile</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Rename in profile</value>
+    <value>Edit</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Set preferred image and index</value>
+    <value>Set image default</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Set index default</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Size</value>
@@ -813,6 +828,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Version</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Yes</value>

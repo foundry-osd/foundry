@@ -703,8 +703,8 @@
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>קטלוג Foundry</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>מתן אפשרות למפעיל לבחור</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>ניקוי ברירת המחדל</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>תמונות Windows מותאמות אישית</value>
@@ -719,7 +719,7 @@
     <value>למחוק תמונה זו מהספרייה המקומית? בפרופילים שמפנים אליה היא תוצג כחסרה. הקבצים המקוריים והמדיה הקיימת לא ישתנו.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>מחיקת העותק המקומי</value>
+    <value>מחיקה</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>התמונה שנבחרה</value>
@@ -727,17 +727,23 @@
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>כבר קיימת תמונה בשם זה בפרופיל זה.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>מהדורה</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>אין תמונות Windows מותאמות אישית. יש לייבא קובץ ISO או WIM כדי להתחיל.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>הפעלת תמונות Windows מותאמות אישית</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>ייבוא תמונה</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>החרגה</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>שינוי הכללת התמונה בפרופיל</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>ייבוא ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>הכללה</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>כלולה</value>
@@ -745,11 +751,14 @@
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>אינדקס מועדף</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>אינדקס</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>אינדקסים</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>כאשר האפשרות מופעלת, התמונות הכלולות מועתקות למדיה חדשה שנוצרת. עדיין נדרש חיבור לאינטרנט. ההתאמות האישיות שהופעלו חלות על התמונה שנבחרה; יש לוודא שהן מתאימות לתמונה שלך.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>שפות</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>ספריית תמונות</value>
@@ -773,7 +782,7 @@
     <value>המפעיל בוחר</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>תמונה כלולה או מקור אופציונלי חסרים, או שהתמונה או האינדקס המועדפים אינם כלולים עוד. יש לשחזר את המקור, לשנות את הבחירה או לנקות את ההעדפה לפני יצירת המדיה.</value>
+    <value>תמונה כלולה חסרה, או שהתמונה או האינדקס המועדפים אינם כלולים עוד. יש לשחזר את המקור, לשנות את הבחירה או לנקות את ההעדפה לפני יצירת המדיה.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>רענון</value>
@@ -782,10 +791,16 @@
     <value>הסרה מהפרופיל</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>שינוי שם בפרופיל</value>
+    <value>עריכה</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>שמירה</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>הגדרת תמונה ואינדקס מועדפים</value>
+    <value>הגדרת תמונת ברירת מחדל</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>הגדרת אינדקס ברירת מחדל</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>גודל</value>
@@ -813,6 +828,9 @@
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>מצב</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>גרסה</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>כן</value>

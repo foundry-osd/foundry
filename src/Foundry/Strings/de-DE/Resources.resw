@@ -703,8 +703,8 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Foundry-Katalog</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Bediener auswählen lassen</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Standardauswahl löschen</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Benutzerdefinierte Windows-Abbilder</value>
@@ -719,7 +719,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Dieses Abbild aus der lokalen Bibliothek löschen? Profile, die darauf verweisen, zeigen es als fehlend an. Originaldateien und vorhandene Medien bleiben unverändert.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Lokale Kopie löschen</value>
+    <value>Löschen</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Ausgewähltes Abbild</value>
@@ -727,17 +727,23 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>In diesem Profil ist bereits ein Abbild mit diesem Namen vorhanden.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Edition</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Keine benutzerdefinierten Windows-Abbilder. Importieren Sie zunächst eine ISO- oder WIM-Datei.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Benutzerdefinierte Windows-Abbilder aktivieren</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Abbild importieren</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Ausschließen</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Aufnahme in Profil umschalten</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>ISO/WIM importieren</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Einbeziehen</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Enthalten</value>
@@ -745,11 +751,14 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Bevorzugter Index</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Indizes</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Enthaltene Abbilder werden bei aktivierter Option auf neu erstellte Medien kopiert. Eine Internetverbindung ist weiterhin erforderlich. Aktivierte Anpassungen werden auf das ausgewählte Abbild angewendet. Prüfen Sie deren Eignung für Ihr Abbild.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Sprachen</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Abbildbibliothek</value>
@@ -773,7 +782,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Bediener wählt aus</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Ein enthaltenes Abbild oder eine optionale Quelle fehlt, oder ein bevorzugtes Abbild bzw. ein Index ist nicht mehr enthalten. Stellen Sie die Quelle wieder her, ändern Sie die Auswahl oder entfernen Sie die Präferenz, bevor Sie Medien erstellen.</value>
+    <value>Ein enthaltenes Abbild fehlt, oder ein bevorzugtes Abbild bzw. ein Index ist nicht mehr enthalten. Stellen Sie die Quelle wieder her, ändern Sie die Auswahl oder entfernen Sie die Präferenz, bevor Sie Medien erstellen.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Aktualisieren</value>
@@ -782,10 +791,16 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Aus Profil entfernen</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Im Profil umbenennen</value>
+    <value>Bearbeiten</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Speichern</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Bevorzugtes Abbild und Index festlegen</value>
+    <value>Standardabbild festlegen</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Standardindex festlegen</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Größe</value>
@@ -813,6 +828,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Version</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Ja</value>

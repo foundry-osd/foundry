@@ -703,8 +703,8 @@ Sous licence MIT.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Catalogue Foundry</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Laisser l’opérateur choisir</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Effacer le choix par défaut</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Images Windows personnalisées</value>
@@ -719,7 +719,7 @@ Sous licence MIT.</value>
     <value>Supprimer cette image de la bibliothèque locale ? Les profils qui la référencent la signaleront comme manquante. Les fichiers d’origine et les supports existants restent inchangés.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Supprimer la copie locale</value>
+    <value>Supprimer</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Image sélectionnée</value>
@@ -727,17 +727,23 @@ Sous licence MIT.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>Une image portant ce nom existe déjà dans ce profil.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Édition</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Aucune image Windows personnalisée. Importez un fichier ISO ou WIM pour commencer.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Activer les images Windows personnalisées</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Importer une image</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Exclure</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Modifier l’inclusion dans le profil</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importer ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Inclure</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Incluse</value>
@@ -745,11 +751,14 @@ Sous licence MIT.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Index préféré</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Index</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Les images incluses sont copiées sur les nouveaux supports lorsque cette option est activée. Une connexion Internet reste nécessaire. Les personnalisations activées s’appliquent à l’image sélectionnée ; vérifiez qu’elles conviennent à votre image.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Langues</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Bibliothèque d’images</value>
@@ -773,7 +782,7 @@ Sous licence MIT.</value>
     <value>Choix de l’opérateur</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Une image incluse ou une source facultative manque, ou une image/un index préféré n’est plus inclus. Restaurez la source, modifiez la sélection ou effacez la préférence avant de créer le support.</value>
+    <value>Une image incluse manque, ou une image/un index préféré n’est plus inclus. Restaurez la source, modifiez la sélection ou effacez la préférence avant de créer le support.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Actualiser</value>
@@ -782,10 +791,16 @@ Sous licence MIT.</value>
     <value>Retirer du profil</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Renommer dans le profil</value>
+    <value>Modifier</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Enregistrer</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Définir l’image et l’index préférés</value>
+    <value>Image par défaut</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Index par défaut</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Taille</value>
@@ -813,6 +828,9 @@ Sous licence MIT.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>État</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Version</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Oui</value>

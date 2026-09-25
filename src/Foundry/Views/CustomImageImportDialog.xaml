@@ -77,7 +77,7 @@
             <ProgressBar
                 IsIndeterminate="{x:Bind ViewModel.IsIndeterminate, Mode=OneWay}"
                 Maximum="100"
-                Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.IsProcessing, Mode=OneWay}"
                 Value="{x:Bind ViewModel.Progress, Mode=OneWay}" />
             <TextBlock
                 Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"

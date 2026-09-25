@@ -703,8 +703,8 @@ Licencirano pod MIT licencom.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Foundry katalog</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Prepusti izbor operateru</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Obriši podrazumevani izbor</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Prilagođene Windows slike</value>
@@ -719,7 +719,7 @@ Licencirano pod MIT licencom.</value>
     <value>Želite li da izbrišete ovu sliku iz lokalne biblioteke? Profili koji se pozivaju na nju prikazivaće je kao nedostajuću. Originalne datoteke i postojeći mediji ostaju nepromenjeni.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Izbriši lokalnu kopiju</value>
+    <value>Izbriši</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Izabrana slika</value>
@@ -727,17 +727,23 @@ Licencirano pod MIT licencom.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>U ovom profilu već postoji slika sa ovim nazivom.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Izdanje</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Nema prilagođenih Windows slika. Uvezite ISO ili WIM da biste počeli.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Omogući prilagođene Windows slike</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Uvezi sliku</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Isključi</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Promeni uključivanje u profil</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Uvezi ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Uključi</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Uključena</value>
@@ -745,11 +751,14 @@ Licencirano pod MIT licencom.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Željeni indeks</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Indeks</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Indeksi</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Kada je opcija omogućena, uključene slike se kopiraju na nove medije. Internet je i dalje obavezan. Omogućena prilagođavanja primenjuju se na izabranu sliku; proverite da li odgovaraju vašoj slici.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Jezici</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Biblioteka slika</value>
@@ -773,7 +782,7 @@ Licencirano pod MIT licencom.</value>
     <value>Bira operater</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Nedostaje uključena slika ili opcionalni izvor ili željena slika ili indeks više nisu uključeni. Vratite izvor, promenite izbor ili obrišite željenu postavku pre kreiranja medija.</value>
+    <value>Nedostaje uključena slika ili željena slika ili indeks više nisu uključeni. Vratite izvor, promenite izbor ili obrišite željenu postavku pre kreiranja medija.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Osveži</value>
@@ -782,10 +791,16 @@ Licencirano pod MIT licencom.</value>
     <value>Ukloni iz profila</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Preimenuj u profilu</value>
+    <value>Uredi</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Sačuvaj</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Postavi željenu sliku i indeks</value>
+    <value>Postavi podrazumevanu sliku</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Postavi podrazumevani indeks</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Veličina</value>
@@ -813,6 +828,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Verzija</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Da</value>

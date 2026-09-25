@@ -703,8 +703,8 @@ Licenseret under MIT-licensen.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Foundry-katalog</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Lad operatøren vælge</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Ryd standardvalg</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Brugerdefinerede Windows-afbildninger</value>
@@ -719,7 +719,7 @@ Licenseret under MIT-licensen.</value>
     <value>Vil du slette denne afbildning fra det lokale bibliotek? Profiler, der henviser til den, vil vise den som manglende. Originalfiler og eksisterende medier forbliver uændrede.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Slet lokal kopi</value>
+    <value>Slet</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Valgt afbildning</value>
@@ -727,17 +727,23 @@ Licenseret under MIT-licensen.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>Der findes allerede en afbildning med dette navn i denne profil.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Udgave</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Ingen brugerdefinerede Windows-afbildninger. Importér en ISO- eller WIM-fil for at begynde.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Aktivér brugerdefinerede Windows-afbildninger</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Importér afbildning</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Udelad</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Skift medtagelse i profil</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importér ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Medtag</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Medtaget</value>
@@ -745,11 +751,14 @@ Licenseret under MIT-licensen.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Foretrukket indeks</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Indeks</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Indekser</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Når indstillingen er aktiveret, kopieres medtagne afbildninger til nye medier. Internet er stadig påkrævet. Aktiverede tilpasninger anvendes på den valgte afbildning; kontrollér, at de er egnede til din afbildning.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Sprog</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Afbildningsbibliotek</value>
@@ -773,7 +782,7 @@ Licenseret under MIT-licensen.</value>
     <value>Operatøren vælger</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>En medtaget afbildning eller valgfri kilde mangler, eller en foretrukken afbildning eller et indeks er ikke længere medtaget. Gendan kilden, ændr valget, eller ryd præferencen, før du opretter medier.</value>
+    <value>En medtaget afbildning mangler, eller en foretrukken afbildning eller et indeks er ikke længere medtaget. Gendan kilden, ændr valget, eller ryd præferencen, før du opretter medier.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Opdater</value>
@@ -782,10 +791,16 @@ Licenseret under MIT-licensen.</value>
     <value>Fjern fra profil</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Omdøb i profil</value>
+    <value>Rediger</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Gem</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Angiv foretrukken afbildning og indeks</value>
+    <value>Angiv standardafbildning</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Angiv standardindeks</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Størrelse</value>
@@ -813,6 +828,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Version</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Ja</value>

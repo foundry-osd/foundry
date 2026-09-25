@@ -703,8 +703,8 @@ Licențiat sub licența MIT.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Catalog Foundry</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Lăsați operatorul să aleagă</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Șterge selecția implicită</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Imagini Windows personalizate</value>
@@ -719,7 +719,7 @@ Licențiat sub licența MIT.</value>
     <value>Ștergeți această imagine din biblioteca locală? Profilurile care o referențiază o vor afișa ca lipsă. Fișierele originale și mediile existente rămân neschimbate.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Ștergeți copia locală</value>
+    <value>Șterge</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Imagine selectată</value>
@@ -727,17 +727,23 @@ Licențiat sub licența MIT.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>În acest profil există deja o imagine cu acest nume.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Ediție</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Nu există imagini Windows personalizate. Importați un ISO sau WIM pentru a începe.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Activați imaginile Windows personalizate</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Importați imaginea</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Exclude</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Modificați includerea în profil</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importă ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Include</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Inclusă</value>
@@ -745,11 +751,14 @@ Licențiat sub licența MIT.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Index preferat</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Indexuri</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Când opțiunea este activată, imaginile incluse sunt copiate pe mediile nou create. Internetul este în continuare necesar. Personalizările activate se aplică imaginii selectate; verificați dacă sunt potrivite pentru imaginea dvs.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Limbi</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Bibliotecă de imagini</value>
@@ -773,7 +782,7 @@ Licențiat sub licența MIT.</value>
     <value>Alege operatorul</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Lipsește o imagine inclusă sau o sursă opțională, ori o imagine sau un index preferat nu mai este inclus. Restabiliți sursa, modificați selecția sau ștergeți preferința înainte de a crea mediul.</value>
+    <value>Lipsește o imagine inclusă, ori o imagine sau un index preferat nu mai este inclus. Restabiliți sursa, modificați selecția sau ștergeți preferința înainte de a crea mediul.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Reîmprospătați</value>
@@ -782,10 +791,16 @@ Licențiat sub licența MIT.</value>
     <value>Eliminați din profil</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Redenumiți în profil</value>
+    <value>Editează</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Salvează</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Setați imaginea și indexul preferate</value>
+    <value>Setează imaginea implicită</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Setează indexul implicit</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Dimensiune</value>
@@ -813,6 +828,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Stare</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Versiune</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Da</value>

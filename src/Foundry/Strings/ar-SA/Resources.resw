@@ -703,8 +703,8 @@
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>كتالوج Foundry</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>السماح للمشغّل بالاختيار</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>مسح الافتراضي</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>صور Windows المخصصة</value>
@@ -719,7 +719,7 @@
     <value>هل تريد حذف هذه الصورة من المكتبة المحلية؟ ستظهر الصورة على أنها مفقودة في ملفات التعريف التي تشير إليها. لن تتغير الملفات الأصلية والوسائط الموجودة.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>حذف النسخة المحلية</value>
+    <value>حذف</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>الصورة المحددة</value>
@@ -727,17 +727,23 @@
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>توجد بالفعل صورة بهذا الاسم في ملف التعريف هذا.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>الإصدار</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>لا توجد صور Windows مخصصة. استورد ملف ISO أو WIM للبدء.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>تمكين صور Windows المخصصة</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>استيراد صورة</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>استبعاد</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>تبديل تضمين الصورة في ملف التعريف</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>استيراد ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>تضمين</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>مضمّنة</value>
@@ -745,11 +751,14 @@
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>الفهرس المفضل</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>الفهرس</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>الفهارس</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>عند التمكين، تُنسخ الصور المضمّنة إلى الوسائط التي يتم إنشاؤها حديثًا. لا يزال الاتصال بالإنترنت مطلوبًا. تُطبّق التخصيصات المُمكّنة على الصورة المحددة؛ تحقّق من ملاءمتها لصورتك.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>اللغات</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>مكتبة الصور</value>
@@ -773,7 +782,7 @@
     <value>يختار المشغّل</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>إحدى الصور المضمّنة أو أحد المصادر الاختيارية مفقود، أو لم تعد الصورة أو الفهرس المفضل مضمّنًا. استعد المصدر أو غيّر التحديد أو ألغِ التفضيل قبل إنشاء الوسائط.</value>
+    <value>إحدى الصور المضمّنة مفقودة، أو لم تعد الصورة أو الفهرس المفضل مضمّنًا. استعد المصدر أو غيّر التحديد أو ألغِ التفضيل قبل إنشاء الوسائط.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>تحديث</value>
@@ -782,10 +791,16 @@
     <value>إزالة من ملف التعريف</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>إعادة التسمية في ملف التعريف</value>
+    <value>تحرير</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>حفظ</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>تعيين الصورة والفهرس المفضلين</value>
+    <value>تعيين الصورة الافتراضية</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>تعيين الفهرس الافتراضي</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>الحجم</value>
@@ -813,6 +828,9 @@
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>الحالة</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>النسخة</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>نعم</value>

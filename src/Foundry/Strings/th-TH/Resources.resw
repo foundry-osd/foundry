@@ -703,8 +703,8 @@
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>แค็ตตาล็อก Foundry</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>ให้ผู้ปฏิบัติงานเลือก</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>ล้างค่าเริ่มต้น</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>อิมเมจ Windows แบบกำหนดเอง</value>
@@ -719,7 +719,7 @@
     <value>ลบอิมเมจนี้ออกจากคลังในเครื่องหรือไม่? โปรไฟล์ที่อ้างอิงอิมเมจนี้จะแสดงว่าอิมเมจหายไป ไฟล์ต้นฉบับและสื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>ลบสำเนาในเครื่อง</value>
+    <value>ลบ</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>อิมเมจที่เลือก</value>
@@ -727,17 +727,23 @@
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>มีอิมเมจชื่อนี้อยู่ในโปรไฟล์นี้แล้ว</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>รุ่น</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>ยังไม่มีอิมเมจ Windows แบบกำหนดเอง นำเข้า ISO หรือ WIM เพื่อเริ่มต้น</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>เปิดใช้อิมเมจ Windows แบบกำหนดเอง</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>นำเข้าอิมเมจ</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>ไม่รวม</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>สลับการรวมไว้ในโปรไฟล์</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>นำเข้า ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>รวม</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>รวมไว้แล้ว</value>
@@ -745,11 +751,14 @@
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>ดัชนีที่ต้องการ</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>ดัชนี</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>ดัชนี</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>เมื่อเปิดใช้งาน อิมเมจที่รวมไว้จะถูกคัดลอกไปยังสื่อที่สร้างใหม่ ยังคงต้องใช้อินเทอร์เน็ต การปรับแต่งที่เปิดใช้งานจะมีผลกับอิมเมจที่เลือก โปรดตรวจสอบว่าเหมาะสมกับอิมเมจของคุณ</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>ภาษา</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>ไลบรารีอิมเมจ</value>
@@ -773,7 +782,7 @@
     <value>ผู้ปฏิบัติงานเลือก</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>อิมเมจหรือแหล่งที่มาเสริมที่รวมไว้หายไป หรืออิมเมจหรือดัชนีที่ต้องการไม่ได้รวมไว้อีกต่อไป โปรดคืนค่าแหล่งที่มา เปลี่ยนการเลือก หรือล้างค่าที่ต้องการก่อนสร้างสื่อ</value>
+    <value>อิมเมจที่รวมไว้หายไป หรืออิมเมจหรือดัชนีที่ต้องการไม่ได้รวมไว้อีกต่อไป โปรดคืนค่าแหล่งที่มา เปลี่ยนการเลือก หรือล้างค่าที่ต้องการก่อนสร้างสื่อ</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>รีเฟรช</value>
@@ -782,10 +791,16 @@
     <value>นำออกจากโปรไฟล์</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>เปลี่ยนชื่อในโปรไฟล์</value>
+    <value>แก้ไข</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>บันทึก</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>ตั้งค่าอิมเมจและดัชนีที่ต้องการ</value>
+    <value>ตั้งค่าอิมเมจเริ่มต้น</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>ตั้งค่าดัชนีเริ่มต้น</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>ขนาด</value>
@@ -813,6 +828,9 @@
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>สถานะ</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>เวอร์ชัน</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>ใช่</value>

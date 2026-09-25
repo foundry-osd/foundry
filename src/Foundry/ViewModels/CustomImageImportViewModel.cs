@@ -48,6 +48,7 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
     public partial string Status { get; set; } = string.Empty;
     [ObservableProperty] public partial double Progress { get; set; }
     [ObservableProperty] public partial bool IsIndeterminate { get; set; }
+    [ObservableProperty] public partial bool IsProcessing { get; set; }
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasSourceChoices))]
     public partial IReadOnlyList<string> SourceChoices { get; set; } = [];
@@ -139,6 +140,7 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
         IsIndeterminate = true;
         Progress = 0;
         Status = Text("StageInspecting");
+        IsProcessing = true;
         try
         {
             CustomImageImportPreview result = await library.PreviewAsync(sourcePath, isoImagePath, operation.Token);
@@ -162,6 +164,7 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
         }
         finally
         {
+            IsProcessing = false;
             IsIndeterminate = false;
             cancellation = null;
             IsBusy = false;
@@ -174,6 +177,9 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
         IsBusy = true;
         cancellation = new CancellationTokenSource();
         Status = string.Empty;
+        IsIndeterminate = true;
+        Progress = 0;
+        IsProcessing = true;
         try
         {
             var progress = new Progress<CustomImageImportProgress>(value =>
@@ -200,6 +206,7 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
         }
         finally
         {
+            IsProcessing = false;
             IsIndeterminate = false;
             IsBusy = false;
             cancellation.Dispose();

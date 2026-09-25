@@ -703,8 +703,8 @@
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Κατάλογος Foundry</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Επιλογή από τον χειριστή</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Εκκαθάριση προεπιλογής</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Προσαρμοσμένες εικόνες Windows</value>
@@ -719,7 +719,7 @@
     <value>Να διαγραφεί αυτή η εικόνα από την τοπική βιβλιοθήκη; Τα προφίλ που αναφέρονται σε αυτήν θα την εμφανίζουν ως απούσα. Τα αρχικά αρχεία και τα υπάρχοντα μέσα παραμένουν αμετάβλητα.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Διαγραφή τοπικού αντιγράφου</value>
+    <value>Διαγραφή</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Επιλεγμένη εικόνα</value>
@@ -727,17 +727,23 @@
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>Υπάρχει ήδη εικόνα με αυτό το όνομα σε αυτό το προφίλ.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Έκδοση</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Δεν υπάρχουν προσαρμοσμένες εικόνες Windows. Εισαγάγετε ένα ISO ή WIM για να ξεκινήσετε.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Ενεργοποίηση προσαρμοσμένων εικόνων Windows</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Εισαγωγή εικόνας</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Εξαίρεση</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Αλλαγή συμπερίληψης στο προφίλ</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Εισαγωγή ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Συμπερίληψη</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Περιλαμβάνεται</value>
@@ -745,11 +751,14 @@
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Προτιμώμενος δείκτης</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Δείκτης</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Δείκτες</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Όταν η επιλογή είναι ενεργοποιημένη, οι εικόνες που περιλαμβάνονται αντιγράφονται στα νέα μέσα. Απαιτείται ακόμη σύνδεση στο Internet. Οι ενεργοποιημένες προσαρμογές εφαρμόζονται στην επιλεγμένη εικόνα· ελέγξτε την καταλληλότητά τους για την εικόνα σας.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Γλώσσες</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Βιβλιοθήκη εικόνων</value>
@@ -773,7 +782,7 @@
     <value>Επιλέγει ο χειριστής</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Λείπει μια συμπεριλαμβανόμενη εικόνα ή προαιρετική πηγή, ή μια προτιμώμενη εικόνα ή δείκτης δεν περιλαμβάνεται πλέον. Επαναφέρετε την πηγή, αλλάξτε την επιλογή ή καταργήστε την προτίμηση πριν δημιουργήσετε το μέσο.</value>
+    <value>Λείπει μια συμπεριλαμβανόμενη εικόνα, ή μια προτιμώμενη εικόνα ή δείκτης δεν περιλαμβάνεται πλέον. Επαναφέρετε την πηγή, αλλάξτε την επιλογή ή καταργήστε την προτίμηση πριν δημιουργήσετε το μέσο.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Ανανέωση</value>
@@ -782,10 +791,16 @@
     <value>Αφαίρεση από το προφίλ</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Μετονομασία στο προφίλ</value>
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Αποθήκευση</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Ορισμός προτιμώμενης εικόνας και δείκτη</value>
+    <value>Ορισμός προεπιλεγμένης εικόνας</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Ορισμός προεπιλεγμένου δείκτη</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Μέγεθος</value>
@@ -813,6 +828,9 @@
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Κατάσταση</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Έκδοση λογισμικού</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Ναι</value>

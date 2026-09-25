@@ -703,8 +703,8 @@ Licensierad under MIT-licensen.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Foundry-katalog</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Låt operatören välja</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Rensa standardval</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Anpassade Windows-avbildningar</value>
@@ -719,7 +719,7 @@ Licensierad under MIT-licensen.</value>
     <value>Radera denna avbildning från det lokala biblioteket? Profiler som refererar till den visar den som saknad. Originalfiler och befintliga medier förblir oförändrade.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Radera lokal kopia</value>
+    <value>Ta bort</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Vald avbildning</value>
@@ -727,17 +727,23 @@ Licensierad under MIT-licensen.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>Det finns redan en avbildning med detta namn i profilen.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Utgåva</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Inga anpassade Windows-avbildningar. Importera en ISO- eller WIM-fil för att börja.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Aktivera anpassade Windows-avbildningar</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Importera avbildning</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Exkludera</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Ändra inkludering i profil</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importera ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Inkludera</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Inkluderad</value>
@@ -745,11 +751,14 @@ Licensierad under MIT-licensen.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Föredraget index</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Index</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>När alternativet är aktiverat kopieras inkluderade avbildningar till nya medier. Internet krävs fortfarande. Aktiverade anpassningar tillämpas på den valda avbildningen; kontrollera att de är lämpliga för din avbildning.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Språk</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Avbildningsbibliotek</value>
@@ -773,7 +782,7 @@ Licensierad under MIT-licensen.</value>
     <value>Operatören väljer</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>En inkluderad avbildning eller valfri källa saknas, eller en föredragen avbildning eller ett index ingår inte längre. Återställ källan, ändra valet eller rensa inställningen innan du skapar medier.</value>
+    <value>En inkluderad avbildning saknas, eller en föredragen avbildning eller ett index ingår inte längre. Återställ källan, ändra valet eller rensa inställningen innan du skapar medier.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Uppdatera</value>
@@ -782,10 +791,16 @@ Licensierad under MIT-licensen.</value>
     <value>Ta bort från profil</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Byt namn i profil</value>
+    <value>Redigera</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Spara</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Ange föredragen avbildning och index</value>
+    <value>Ange standardavbildning</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Ange standardindex</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Storlek</value>
@@ -813,6 +828,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Version</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Ja</value>

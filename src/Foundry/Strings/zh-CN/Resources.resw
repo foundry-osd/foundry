@@ -703,8 +703,8 @@
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Foundry 目录</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>让操作员选择</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>清除默认选择</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>自定义 Windows 映像</value>
@@ -719,7 +719,7 @@
     <value>从本地库中删除此映像？引用它的配置文件将显示映像缺失。原始文件和现有介质不会改变。</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>删除本地副本</value>
+    <value>删除</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>所选映像</value>
@@ -727,17 +727,23 @@
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>此配置文件中已存在同名映像。</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>版本类型</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>没有自定义 Windows 映像。请导入 ISO 或 WIM 以开始。</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>启用自定义 Windows 映像</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>导入映像</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>排除</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>切换是否包含在配置文件中</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>导入 ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>包含</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>已包含</value>
@@ -745,11 +751,14 @@
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>首选索引</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>索引</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>索引</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>启用后，已包含的映像将复制到新创建的介质中。仍然需要 Internet 连接。已启用的自定义设置会应用于所选映像；请确认它们适用于您的映像。</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>语言</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>映像库</value>
@@ -773,7 +782,7 @@
     <value>由操作员选择</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>某个已包含的映像或可选源文件缺失，或者首选映像或索引已不再包含。请在创建介质之前恢复源文件、更改选择或清除首选设置。</value>
+    <value>某个已包含的映像缺失，或者首选映像或索引已不再包含。请在创建介质之前恢复源文件、更改选择或清除首选设置。</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>刷新</value>
@@ -782,10 +791,16 @@
     <value>从配置文件中移除</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>在配置文件中重命名</value>
+    <value>编辑</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>保存</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>设置首选映像和索引</value>
+    <value>设为默认映像</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>设为默认索引</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>大小</value>
@@ -813,6 +828,9 @@
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>状态</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>版本</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>是</value>

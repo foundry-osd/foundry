@@ -37,7 +37,7 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     }
 
     public ObservableCollection<CustomImageRow> Images { get; } = [];
-    public ObservableCollection<CustomImageIndexOption> IndexOptions { get; } = [];
+    public ObservableCollection<CustomImageIndexRow> Indexes { get; } = [];
     public ObservableCollection<string> SourceOptions { get; } = [];
 
     [ObservableProperty]
@@ -46,11 +46,17 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     [NotifyPropertyChangedFor(nameof(CanRemove))]
     [NotifyPropertyChangedFor(nameof(CanDelete))]
     [NotifyPropertyChangedFor(nameof(CanClearDefault))]
+    [NotifyPropertyChangedFor(nameof(CanSetIndexDefault))]
+    [NotifyPropertyChangedFor(nameof(CanRename))]
     public partial bool IsEnabled { get; set; }
     [ObservableProperty] public partial int DefaultSourceIndex { get; set; }
     [ObservableProperty] public partial CustomImageRow? SelectedImage { get; set; }
-    [ObservableProperty] public partial CustomImageIndexOption? SelectedIndex { get; set; }
-    [ObservableProperty] public partial string RenameText { get; set; } = string.Empty;
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanSetIndexDefault))]
+    public partial CustomImageIndexRow? SelectedIndex { get; set; }
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanRename))]
+    public partial string RenameText { get; set; } = string.Empty;
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasStatus))]
     public partial string StatusMessage { get; set; } = string.Empty;
@@ -61,6 +67,8 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     [NotifyPropertyChangedFor(nameof(CanRemove))]
     [NotifyPropertyChangedFor(nameof(CanDelete))]
     [NotifyPropertyChangedFor(nameof(CanClearDefault))]
+    [NotifyPropertyChangedFor(nameof(CanSetIndexDefault))]
+    [NotifyPropertyChangedFor(nameof(CanRename))]
     public partial bool IsBusy { get; set; }
 
     public bool CanToggle => !IsBusy && !disposed;
@@ -69,6 +77,8 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     public bool HasImages => Images.Count > 0;
     public bool HasStatus => !string.IsNullOrWhiteSpace(StatusMessage);
     public bool CanEdit => CanAct && HasSelection;
+    public bool CanSetIndexDefault => CanEdit && SelectedIndex is not null && Indexes.Contains(SelectedIndex);
+    public bool CanRename => CanEdit && RenameText.Trim().Length is > 0 and <= CustomImageSettingsValidator.MaximumDisplayNameLength && !RenameText.Any(char.IsControl);
     public bool CanRemove => CanEdit && state.Current.CustomImages.Images.Any(image => image.Id == SelectedImage!.Reference.Id);
     public bool CanDelete => CanEdit && localImages.Any(image => image.ContentHash.Equals(SelectedImage!.Reference.ContentHash, StringComparison.OrdinalIgnoreCase));
     public bool CanClearDefault => CanAct && state.Current.CustomImages.DefaultImageId is not null;
@@ -79,6 +89,11 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     public string DefaultDescription => state.Current.CustomImages.DefaultImageId is null
         ? Text("OperatorChoice")
         : state.Current.CustomImages.Images.FirstOrDefault(image => image.Id == state.Current.CustomImages.DefaultImageId)?.DisplayName ?? Text("Missing");
+    public string DefaultIndexDescription => state.Current.CustomImages.DefaultImageIndex is not { } index ? Text("OperatorChoice") :
+        state.Current.CustomImages.Images.FirstOrDefault(image => image.Id == state.Current.CustomImages.DefaultImageId)?.Indexes
+            .FirstOrDefault(item => item.Index == index) is { } preferred ? $"{preferred.Index}: {preferred.Name}" : Text("Missing");
+    public string SelectedImageName => SelectedImage?.Name ?? string.Empty;
+    public string ContentHash => SelectedImage is null ? string.Empty : "SHA256: " + SelectedImage.Reference.ContentHash;
     public string DocumentationUrl => FoundryApplicationInfo.DocumentationUrl + "/foundry-osd/customization/custom-windows-images";
     public string PageTitle => localization.GetString("Nav_CustomImagesKey.Title");
     public string PageDescription => localization.GetString("Nav_CustomImagesKey.Description");
@@ -92,10 +107,17 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     public string IncludedLabel => Text("IncludedLabel");
     public string DefaultLabel => Text("DefaultLabel");
     public string StatusLabel => Text("StatusLabel");
-    public string IncludeLabel => Text("IncludeLabel");
+    public string IncludeLabel => Text(SelectedImage is { } row && state.Current.CustomImages.Images.Any(image => image.Id == row.Reference.Id && image.IsIncluded)
+        ? "ExcludeActionLabel" : "IncludeActionLabel");
     public string RenameLabel => Text("RenameLabel");
     public string SetDefaultLabel => Text("SetDefaultLabel");
-    public string ClearDefaultLabel => Text("ClearDefaultLabel");
+    public string ClearDefaultLabel => Text("ClearDefaultActionLabel");
+    public string SetIndexDefaultLabel => Text("SetIndexDefaultLabel");
+    public string IndexNumberLabel => Text("IndexNumberLabel");
+    public string EditionLabel => Text("EditionLabel");
+    public string VersionLabel => Text("VersionLabel");
+    public string LanguagesLabel => Text("LanguagesLabel");
+    public string SaveLabel => Text("SaveLabel");
     public string RemoveLabel => Text("RemoveLabel");
     public string DeleteLabel => Text("DeleteLabel");
     public string CancelLabel => Text("CancelLabel");
@@ -104,7 +126,6 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     public string IndexLabel => Text("IndexLabel");
     public string DetailsLabel => Text("DetailsLabel");
     public string LibraryLabel => Text("LibraryLabel");
-    public string LibraryDescription => Text("LibraryDescription");
     public string Text(string key) => localization.GetString("CustomImages." + key);
 
     partial void OnIsEnabledChanged(bool value)
@@ -121,21 +142,21 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     partial void OnSelectedImageChanged(CustomImageRow? value)
     {
         RenameText = value?.Reference.DisplayName ?? string.Empty;
-        IndexOptions.Clear();
-        IndexOptions.Add(new(null, Text("OperatorChoice")));
+        SelectedIndex = null;
+        Indexes.Clear();
         foreach (CustomImageIndex index in value?.Reference.Indexes ?? [])
-            IndexOptions.Add(new(index.Index, $"{index.Index}: {index.Name} ({index.Architecture})"));
-        SelectedIndex = IndexOptions.FirstOrDefault(option => value?.Reference.Id == state.Current.CustomImages.DefaultImageId &&
-            option.Index == state.Current.CustomImages.DefaultImageIndex) ?? IndexOptions[0];
+            Indexes.Add(new(index, value?.Reference.Id == state.Current.CustomImages.DefaultImageId &&
+                index.Index == state.Current.CustomImages.DefaultImageIndex ? Text("Yes") : Text("No")));
         OnPropertyChanged(nameof(CanEdit));
         OnPropertyChanged(nameof(CanRemove));
         OnPropertyChanged(nameof(CanDelete));
         OnPropertyChanged(nameof(HasSelection));
-        OnPropertyChanged(nameof(IndexDetails));
+        OnPropertyChanged(nameof(CanSetIndexDefault));
+        OnPropertyChanged(nameof(CanRename));
+        OnPropertyChanged(nameof(SelectedImageName));
+        OnPropertyChanged(nameof(ContentHash));
+        OnPropertyChanged(nameof(IncludeLabel));
     }
-
-    public string IndexDetails => (SelectedImage is null ? string.Empty : "SHA256: " + SelectedImage.Reference.ContentHash + Environment.NewLine) + string.Join(Environment.NewLine, (SelectedImage?.Reference.Indexes ?? []).Select(index =>
-        $"{index.Index}: {index.Name} | {index.Architecture} | {index.EditionId} | {index.ProductType} | {index.Version} | {string.Join(", ", index.Languages)}"));
 
     [RelayCommand]
     public async Task RefreshAsync()
@@ -200,7 +221,7 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     [RelayCommand]
     private void Rename()
     {
-        if (!CanEdit || SelectedImage is not { } row) return;
+        if (!CanRename || SelectedImage is not { } row) return;
         try
         {
             string name = CustomImageSettingsValidator.NormalizeDisplayName(RenameText);
@@ -222,7 +243,15 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     }
 
     [RelayCommand]
-    private void SetDefault()
+    private void SetDefault() => SetPreferredImage(null);
+
+    [RelayCommand]
+    private void SetIndexDefault()
+    {
+        if (CanSetIndexDefault) SetPreferredImage(SelectedIndex!.Index.Index);
+    }
+
+    private void SetPreferredImage(int? index)
     {
         if (!CanEdit || SelectedImage is not { } row) return;
         StatusMessage = string.Empty;
@@ -231,7 +260,7 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
         var images = settings.Images.Any(image => image.Id == reference.Id)
             ? settings.Images.Select(image => image.Id == reference.Id ? reference : image).ToArray()
             : [.. settings.Images, reference];
-        state.UpdateCustomImages(settings with { Images = images, DefaultImageId = reference.Id, DefaultImageIndex = SelectedIndex?.Index });
+        state.UpdateCustomImages(settings with { Images = images, DefaultImageId = reference.Id, DefaultImageIndex = index });
     }
 
     [RelayCommand]
@@ -274,12 +303,14 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
         try
         {
             string? selectedId = SelectedImage?.Reference.Id;
+            int? selectedIndex = SelectedIndex?.Index.Index;
             CustomImagesSettings settings = state.Current.CustomImages;
             IsEnabled = settings.IsEnabled;
             SourceOptions.Clear();
             SourceOptions.Add(Text("Catalog"));
             SourceOptions.Add(Text("Custom"));
             DefaultSourceIndex = (int)settings.DefaultSource;
+            SelectedImage = null;
             Images.Clear();
             foreach (CustomImageReference image in settings.Images.Concat(localImages.Where(local =>
                 !settings.Images.Any(profile => profile.ContentHash.Equals(local.ContentHash, StringComparison.OrdinalIgnoreCase)))))
@@ -292,7 +323,9 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
                     settings.DefaultImageId == image.Id ? Text("Yes") : Text("No"), available ? Text("Available") : Text("Missing")));
             }
             SelectedImage = Images.FirstOrDefault(image => image.Reference.Id == selectedId);
+            SelectedIndex = Indexes.FirstOrDefault(index => index.Index.Index == selectedIndex);
             OnPropertyChanged(nameof(DefaultDescription));
+            OnPropertyChanged(nameof(DefaultIndexDescription));
             OnPropertyChanged(nameof(HasReadinessIssue));
             OnPropertyChanged(nameof(IsEmpty));
             OnPropertyChanged(nameof(HasImages));
@@ -330,4 +363,8 @@ public sealed record CustomImageRow(CustomImageReference Reference, string Archi
     public string Name => Reference.DisplayName;
 }
 
-public sealed record CustomImageIndexOption(int? Index, string DisplayName);
+/// <summary>Displays index metadata and the profile preference without changing the WIM.</summary>
+public sealed record CustomImageIndexRow(CustomImageIndex Index, string Preferred)
+{
+    public string Languages => string.Join(", ", Index.Languages);
+}

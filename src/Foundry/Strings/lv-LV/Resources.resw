@@ -703,8 +703,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Foundry katalogs</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Ļaut izvēlēties operatoram</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Notīrīt noklusējuma izvēli</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Pielāgoti Windows attēli</value>
@@ -719,7 +719,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Vai dzēst šo attēlu no lokālās bibliotēkas? Profili, kas uz to atsaucas, rādīs to kā trūkstošu. Sākotnējie faili un esošie datu nesēji paliek nemainīti.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Dzēst lokālo kopiju</value>
+    <value>Dzēst</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Atlasītais attēls</value>
@@ -727,17 +727,23 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>Šajā profilā jau ir attēls ar šādu nosaukumu.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Izdevums</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Nav pielāgotu Windows attēlu. Lai sāktu, importējiet ISO vai WIM.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Iespējot pielāgotus Windows attēlus</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Importēt attēlu</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Izslēgt</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Mainīt iekļaušanu profilā</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importēt ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Iekļaut</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Iekļauts</value>
@@ -745,11 +751,14 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Vēlamais indekss</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Indekss</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Indeksi</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Ja opcija ir iespējota, iekļautie attēli tiek kopēti uz jaunizveidotiem datu nesējiem. Internets joprojām ir nepieciešams. Iespējotie pielāgojumi tiek piemēroti atlasītajam attēlam; pārbaudiet to piemērotību savam attēlam.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Valodas</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Attēlu bibliotēka</value>
@@ -773,7 +782,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Izvēlas operators</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Trūkst iekļauta attēla vai neobligāta avota, vai vēlamais attēls vai indekss vairs nav iekļauts. Pirms datu nesēja izveides atjaunojiet avotu, mainiet atlasi vai notīriet vēlamo iestatījumu.</value>
+    <value>Trūkst iekļauta attēla, vai vēlamais attēls vai indekss vairs nav iekļauts. Pirms datu nesēja izveides atjaunojiet avotu, mainiet atlasi vai notīriet vēlamo iestatījumu.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Atsvaidzināt</value>
@@ -782,10 +791,16 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Noņemt no profila</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Pārdēvēt profilā</value>
+    <value>Rediģēt</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Saglabāt</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Iestatīt vēlamo attēlu un indeksu</value>
+    <value>Iestatīt noklusējuma attēlu</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Iestatīt noklusējuma indeksu</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Lielums</value>
@@ -813,6 +828,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Statuss</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Versija</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Jā</value>

@@ -703,8 +703,8 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Foundry-catalogus</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>De operator laten kiezen</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Standaardselectie wissen</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Aangepaste Windows-installatiekopieën</value>
@@ -719,7 +719,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Deze installatiekopie uit de lokale bibliotheek verwijderen? Profielen die ernaar verwijzen, tonen deze als ontbrekend. Oorspronkelijke bestanden en bestaande media blijven ongewijzigd.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Lokale kopie verwijderen</value>
+    <value>Verwijderen</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Geselecteerde installatiekopie</value>
@@ -727,17 +727,23 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>Er bestaat al een kopie met deze naam in dit profiel.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Editie</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Geen aangepaste Windows-installatiekopieën. Importeer een ISO of WIM om te beginnen.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Aangepaste Windows-installatiekopieën inschakelen</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Installatiekopie importeren</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Uitsluiten</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Opname in profiel wijzigen</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>ISO/WIM importeren</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Opnemen</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Opgenomen</value>
@@ -745,11 +751,14 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Voorkeursindex</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Indexen</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Wanneer ingeschakeld worden opgenomen installatiekopieën naar nieuwe media gekopieerd. Internet blijft vereist. Ingeschakelde aanpassingen worden toegepast op de geselecteerde installatiekopie; controleer of deze geschikt zijn voor uw installatiekopie.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Talen</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Bibliotheek met installatiekopieën</value>
@@ -773,7 +782,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Operator kiest</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Een opgenomen installatiekopie of optionele bron ontbreekt, of een voorkeursinstallatiekopie/index is niet meer opgenomen. Herstel de bron, wijzig de selectie of wis de voorkeur voordat u media maakt.</value>
+    <value>Een opgenomen installatiekopie ontbreekt, of een voorkeursinstallatiekopie/index is niet meer opgenomen. Herstel de bron, wijzig de selectie of wis de voorkeur voordat u media maakt.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Vernieuwen</value>
@@ -782,10 +791,16 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Uit profiel verwijderen</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Hernoemen in profiel</value>
+    <value>Bewerken</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Opslaan</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Voorkeursinstallatiekopie en index instellen</value>
+    <value>Standaardinstallatiekopie instellen</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Standaardindex instellen</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Grootte</value>
@@ -813,6 +828,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Versie</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Ja</value>

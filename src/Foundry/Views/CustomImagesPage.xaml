@@ -40,92 +40,236 @@
                         IsOpen="{x:Bind ViewModel.HasStatus, Mode=OneWay}"
                         Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
                         Severity="Error" />
-                    <wct:SettingsCard
-                        HorizontalContentAlignment="Stretch"
-                        ContentAlignment="Vertical"
-                        Description="{x:Bind ViewModel.LibraryDescription, Mode=OneWay}"
-                        Header="{x:Bind ViewModel.LibraryLabel, Mode=OneWay}">
-                        <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
-                            <CommandBar
-                                HorizontalContentAlignment="Left"
-                                DefaultLabelPosition="Right"
-                                IsEnabled="{x:Bind ViewModel.CanAct, Mode=OneWay}">
-                                <AppBarButton
-                                    Command="{x:Bind ViewModel.ImportCommand}"
-                                    Icon="OpenFile"
-                                    Label="{x:Bind ViewModel.ImportLabel, Mode=OneWay}" />
-                                <AppBarButton
-                                    Command="{x:Bind ViewModel.RefreshCommand}"
-                                    Icon="Refresh"
-                                    Label="{x:Bind ViewModel.RefreshLabel, Mode=OneWay}" />
-                                <AppBarSeparator />
-                                <AppBarButton
-                                    Command="{x:Bind ViewModel.ToggleIncludedCommand}"
-                                    Icon="Accept"
-                                    IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
-                                    Label="{x:Bind ViewModel.IncludeLabel, Mode=OneWay}" />
-                                <CommandBar.SecondaryCommands>
-                                    <AppBarButton
-                                        Command="{x:Bind ViewModel.RemoveCommand}"
-                                        Icon="Remove"
-                                        IsEnabled="{x:Bind ViewModel.CanRemove, Mode=OneWay}"
-                                        Label="{x:Bind ViewModel.RemoveLabel, Mode=OneWay}" />
-                                    <AppBarButton
-                                        Command="{x:Bind ViewModel.DeleteCommand}"
-                                        Icon="Delete"
-                                        IsEnabled="{x:Bind ViewModel.CanDelete, Mode=OneWay}"
-                                        Label="{x:Bind ViewModel.DeleteLabel, Mode=OneWay}" />
-                                </CommandBar.SecondaryCommands>
-                            </CommandBar>
-                            <TextBlock
-                                Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
-                                Text="{x:Bind ViewModel.EmptyMessage, Mode=OneWay}"
-                                TextWrapping="WrapWholeWords"
-                                Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
-                            <tv:TableView x:Name="ImagesTable"
-                                MaxHeight="{ThemeResource FoundryTableMaxHeight}"
-                                AutoGenerateColumns="False"
-                                AutomationProperties.Name="{x:Bind ViewModel.LibraryLabel, Mode=OneWay}"
-                                CanFilterColumns="False"
-                                CanReorderColumns="False"
-                                CanResizeColumns="False"
-                                CanSortColumns="False"
-                                CornerButtonMode="None"
-                                HeadersVisibility="Columns"
-                                IsEnabled="{x:Bind ViewModel.CanAct, Mode=OneWay}"
-                                IsReadOnly="True"
-                                ItemsSource="{x:Bind ViewModel.Images, Mode=OneWay}"
-                                SelectedItem="{x:Bind ViewModel.SelectedImage, Mode=TwoWay}"
-                                SelectionMode="Single"
-                                SelectionUnit="Row"
-                                ShowExportOptions="False"
-                                Visibility="{x:Bind ViewModel.HasImages, Mode=OneWay}">
-                                <tv:TableView.Columns>
-                                    <tv:TableViewTextColumn
-                                        Binding="{Binding Name}"
-                                        Header="{x:Bind ViewModel.NameLabel, Mode=OneWay}" />
-                                    <tv:TableViewTextColumn
-                                        Binding="{Binding Architecture}"
-                                        Header="{x:Bind ViewModel.ArchitectureLabel, Mode=OneWay}" />
-                                    <tv:TableViewTextColumn
-                                        Binding="{Binding Indexes}"
-                                        Header="{x:Bind ViewModel.IndexesLabel, Mode=OneWay}" />
-                                    <tv:TableViewTextColumn
-                                        Binding="{Binding Size}"
-                                        Header="{x:Bind ViewModel.SizeLabel, Mode=OneWay}" />
-                                    <tv:TableViewTextColumn
-                                        Binding="{Binding Included}"
-                                        Header="{x:Bind ViewModel.IncludedLabel, Mode=OneWay}" />
-                                    <tv:TableViewTextColumn
-                                        Binding="{Binding Default}"
-                                        Header="{x:Bind ViewModel.DefaultLabel, Mode=OneWay}" />
-                                    <tv:TableViewTextColumn
-                                        Binding="{Binding Status}"
-                                        Header="{x:Bind ViewModel.StatusLabel, Mode=OneWay}" />
-                                </tv:TableView.Columns>
-                            </tv:TableView>
-                        </StackPanel>
-                    </wct:SettingsCard>
+                    <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
+                        <CommandBar
+                            HorizontalContentAlignment="Stretch"
+                            IsDynamicOverflowEnabled="False"
+                            IsEnabled="{x:Bind ViewModel.CanAct, Mode=OneWay}"
+                            OverflowButtonVisibility="Collapsed">
+                            <CommandBar.Content>
+                                <Grid
+                                    HorizontalAlignment="Left"
+                                    ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}"
+                                    RowSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup>
+                                            <VisualState x:Name="CompactToolbar">
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="0" />
+                                                </VisualState.StateTriggers>
+                                            </VisualState>
+                                            <VisualState x:Name="MediumToolbar">
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="1200" />
+                                                </VisualState.StateTriggers>
+                                                <VisualState.Setters>
+                                                    <Setter
+                                                        Target="ImageActions.(Grid.Row)"
+                                                        Value="0" />
+                                                    <Setter
+                                                        Target="ImageActions.(Grid.Column)"
+                                                        Value="1" />
+                                                    <Setter
+                                                        Target="DefaultActions.(Grid.Row)"
+                                                        Value="1" />
+                                                    <Setter
+                                                        Target="DefaultActions.(Grid.ColumnSpan)"
+                                                        Value="2" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState x:Name="WideToolbar">
+                                                <VisualState.StateTriggers>
+                                                    <AdaptiveTrigger MinWindowWidth="1800" />
+                                                </VisualState.StateTriggers>
+                                                <VisualState.Setters>
+                                                    <Setter
+                                                        Target="ImageActions.(Grid.Row)"
+                                                        Value="0" />
+                                                    <Setter
+                                                        Target="ImageActions.(Grid.Column)"
+                                                        Value="1" />
+                                                    <Setter
+                                                        Target="DefaultActions.(Grid.Row)"
+                                                        Value="0" />
+                                                    <Setter
+                                                        Target="DefaultActions.(Grid.Column)"
+                                                        Value="2" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <StackPanel
+                                        Orientation="Horizontal"
+                                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                        <Button
+                                            Command="{x:Bind ViewModel.ImportCommand}"
+                                            Style="{ThemeResource DefaultButtonStyle}">
+                                            <StackPanel
+                                                Orientation="Horizontal"
+                                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                <SymbolIcon Symbol="OpenFile" />
+                                                <TextBlock Text="{x:Bind ViewModel.ImportLabel, Mode=OneWay}" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button
+                                            Command="{x:Bind ViewModel.RefreshCommand}"
+                                            Style="{ThemeResource DefaultButtonStyle}">
+                                            <StackPanel
+                                                Orientation="Horizontal"
+                                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                <SymbolIcon Symbol="Refresh" />
+                                                <TextBlock Text="{x:Bind ViewModel.RefreshLabel, Mode=OneWay}" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                    <StackPanel x:Name="ImageActions"
+                                        Grid.Row="1"
+                                        Orientation="Horizontal"
+                                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                        <Button
+                                            Click="OnEditClick"
+                                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
+                                            Style="{ThemeResource DefaultButtonStyle}">
+                                            <StackPanel
+                                                Orientation="Horizontal"
+                                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                <SymbolIcon Symbol="Edit" />
+                                                <TextBlock Text="{x:Bind ViewModel.RenameLabel, Mode=OneWay}" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button
+                                            Command="{x:Bind ViewModel.ToggleIncludedCommand}"
+                                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
+                                            Style="{ThemeResource DefaultButtonStyle}">
+                                            <StackPanel
+                                                Orientation="Horizontal"
+                                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                <SymbolIcon Symbol="Accept" />
+                                                <TextBlock Text="{x:Bind ViewModel.IncludeLabel, Mode=OneWay}" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button
+                                            Command="{x:Bind ViewModel.RemoveCommand}"
+                                            IsEnabled="{x:Bind ViewModel.CanRemove, Mode=OneWay}"
+                                            Style="{ThemeResource DefaultButtonStyle}">
+                                            <StackPanel
+                                                Orientation="Horizontal"
+                                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                <SymbolIcon Symbol="Remove" />
+                                                <TextBlock Text="{x:Bind ViewModel.RemoveLabel, Mode=OneWay}" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button
+                                            Command="{x:Bind ViewModel.DeleteCommand}"
+                                            IsEnabled="{x:Bind ViewModel.CanDelete, Mode=OneWay}"
+                                            Style="{ThemeResource DefaultButtonStyle}">
+                                            <StackPanel
+                                                Orientation="Horizontal"
+                                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                <SymbolIcon Symbol="Delete" />
+                                                <TextBlock Text="{x:Bind ViewModel.DeleteLabel, Mode=OneWay}" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                    <StackPanel x:Name="DefaultActions"
+                                        Grid.Row="2"
+                                        Orientation="Horizontal"
+                                        Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                        <Button
+                                            Command="{x:Bind ViewModel.SetDefaultCommand}"
+                                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
+                                            Style="{ThemeResource DefaultButtonStyle}">
+                                            <StackPanel
+                                                Orientation="Horizontal"
+                                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                <SymbolIcon Symbol="Favorite" />
+                                                <TextBlock Text="{x:Bind ViewModel.SetDefaultLabel, Mode=OneWay}" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button
+                                            Command="{x:Bind ViewModel.SetIndexDefaultCommand}"
+                                            IsEnabled="{x:Bind ViewModel.CanSetIndexDefault, Mode=OneWay}"
+                                            Style="{ThemeResource DefaultButtonStyle}">
+                                            <StackPanel
+                                                Orientation="Horizontal"
+                                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                <SymbolIcon Symbol="Accept" />
+                                                <TextBlock Text="{x:Bind ViewModel.SetIndexDefaultLabel, Mode=OneWay}" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button
+                                            Command="{x:Bind ViewModel.ClearDefaultCommand}"
+                                            IsEnabled="{x:Bind ViewModel.CanClearDefault, Mode=OneWay}"
+                                            Style="{ThemeResource DefaultButtonStyle}">
+                                            <StackPanel
+                                                Orientation="Horizontal"
+                                                Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                                <SymbolIcon Symbol="Clear" />
+                                                <TextBlock Text="{x:Bind ViewModel.ClearDefaultLabel, Mode=OneWay}" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </CommandBar.Content>
+                        </CommandBar>
+                        <TextBlock
+                            Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+                            Text="{x:Bind ViewModel.EmptyMessage, Mode=OneWay}"
+                            TextWrapping="WrapWholeWords"
+                            Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
+                        <tv:TableView x:Name="ImagesTable"
+                            MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                            AutoGenerateColumns="False"
+                            AutomationProperties.Name="{x:Bind ViewModel.LibraryLabel, Mode=OneWay}"
+                            CanFilterColumns="False"
+                            CanReorderColumns="False"
+                            CanResizeColumns="False"
+                            CanSortColumns="False"
+                            CornerButtonMode="None"
+                            HeadersVisibility="Columns"
+                            IsEnabled="{x:Bind ViewModel.CanAct, Mode=OneWay}"
+                            IsReadOnly="True"
+                            ItemsSource="{x:Bind ViewModel.Images, Mode=OneWay}"
+                            SelectedItem="{x:Bind ViewModel.SelectedImage, Mode=TwoWay}"
+                            SelectionMode="Single"
+                            SelectionUnit="Row"
+                            ShowExportOptions="False"
+                            Visibility="{x:Bind ViewModel.HasImages, Mode=OneWay}">
+                            <tv:TableView.Columns>
+                                <tv:TableViewTextColumn
+                                    Binding="{Binding Name}"
+                                    Header="{x:Bind ViewModel.NameLabel, Mode=OneWay}" />
+                                <tv:TableViewTextColumn
+                                    Binding="{Binding Architecture}"
+                                    Header="{x:Bind ViewModel.ArchitectureLabel, Mode=OneWay}" />
+                                <tv:TableViewTextColumn
+                                    Binding="{Binding Indexes}"
+                                    Header="{x:Bind ViewModel.IndexesLabel, Mode=OneWay}" />
+                                <tv:TableViewTextColumn
+                                    Binding="{Binding Size}"
+                                    Header="{x:Bind ViewModel.SizeLabel, Mode=OneWay}" />
+                                <tv:TableViewTextColumn
+                                    Binding="{Binding Included}"
+                                    Header="{x:Bind ViewModel.IncludedLabel, Mode=OneWay}" />
+                                <tv:TableViewTextColumn
+                                    Binding="{Binding Default}"
+                                    Header="{x:Bind ViewModel.DefaultLabel, Mode=OneWay}" />
+                                <tv:TableViewTextColumn
+                                    Binding="{Binding Status}"
+                                    Header="{x:Bind ViewModel.StatusLabel, Mode=OneWay}" />
+                            </tv:TableView.Columns>
+                        </tv:TableView>
+                    </StackPanel>
                     <wct:SettingsCard Header="{x:Bind ViewModel.DefaultSourceLabel, Mode=OneWay}">
                         <ComboBox
                             MinWidth="{ThemeResource FoundryCompactInputMinWidth}"
@@ -136,61 +280,63 @@
                     </wct:SettingsCard>
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.DefaultDescription, Mode=OneWay}"
-                        Header="{x:Bind ViewModel.DefaultLabel, Mode=OneWay}">
-                        <Button
-                            Command="{x:Bind ViewModel.ClearDefaultCommand}"
-                            Content="{x:Bind ViewModel.ClearDefaultLabel, Mode=OneWay}"
-                            IsEnabled="{x:Bind ViewModel.CanClearDefault, Mode=OneWay}" />
-                    </wct:SettingsCard>
+                        Header="{x:Bind ViewModel.DefaultLabel, Mode=OneWay}" />
+                    <wct:SettingsCard
+                        Description="{x:Bind ViewModel.DefaultIndexDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.IndexLabel, Mode=OneWay}" />
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
                         ContentAlignment="Vertical"
+                        Description="{x:Bind ViewModel.SelectedImageName, Mode=OneWay}"
                         Header="{x:Bind ViewModel.DetailsLabel, Mode=OneWay}"
                         IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.HasSelection, Mode=OneWay}">
                         <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
-                            <TextBox
-                                MinWidth="{ThemeResource FoundryWideInputMinWidth}"
-                                MaxWidth="{ThemeResource FoundrySettingsControlMaxWidth}"
-                                HorizontalAlignment="Left"
-                                HorizontalContentAlignment="Stretch"
-                                Header="{x:Bind ViewModel.NameLabel, Mode=OneWay}"
-                                MaxLength="200"
-                                Text="{x:Bind ViewModel.RenameText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <ComboBox
-                                MinWidth="{ThemeResource FoundryWideInputMinWidth}"
-                                MaxWidth="{ThemeResource FoundrySettingsControlMaxWidth}"
-                                HorizontalAlignment="Left"
-                                DisplayMemberPath="DisplayName"
-                                Header="{x:Bind ViewModel.IndexLabel, Mode=OneWay}"
-                                ItemsSource="{x:Bind ViewModel.IndexOptions, Mode=OneWay}"
-                                SelectedItem="{x:Bind ViewModel.SelectedIndex, Mode=TwoWay}" />
-                            <CommandBar
-                                HorizontalContentAlignment="Left"
-                                DefaultLabelPosition="Right">
-                                <AppBarButton
-                                    Command="{x:Bind ViewModel.RenameCommand}"
-                                    Icon="Rename"
-                                    Label="{x:Bind ViewModel.RenameLabel, Mode=OneWay}" />
-                                <AppBarButton
-                                    Command="{x:Bind ViewModel.SetDefaultCommand}"
-                                    Icon="Favorite"
-                                    Label="{x:Bind ViewModel.SetDefaultLabel, Mode=OneWay}" />
-                            </CommandBar>
-                            <Expander
-                                HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="Stretch"
-                                Header="{x:Bind ViewModel.IndexesLabel, Mode=OneWay}">
-                                <ScrollViewer
-                                    MaxHeight="{ThemeResource FoundryTableMaxHeight}"
-                                    VerticalScrollBarVisibility="Auto">
-                                    <TextBlock
-                                        IsTextSelectionEnabled="True"
-                                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                                        Text="{x:Bind ViewModel.IndexDetails, Mode=OneWay}"
-                                        TextWrapping="WrapWholeWords" />
-                                </ScrollViewer>
-                            </Expander>
+                            <tv:TableView
+                                MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                                AutoGenerateColumns="False"
+                                AutomationProperties.Name="{x:Bind ViewModel.IndexesLabel, Mode=OneWay}"
+                                CanFilterColumns="False"
+                                CanReorderColumns="False"
+                                CanResizeColumns="False"
+                                CanSortColumns="False"
+                                CornerButtonMode="None"
+                                HeadersVisibility="Columns"
+                                IsReadOnly="True"
+                                ItemsSource="{x:Bind ViewModel.Indexes, Mode=OneWay}"
+                                SelectedItem="{x:Bind ViewModel.SelectedIndex, Mode=TwoWay}"
+                                SelectionMode="Single"
+                                SelectionUnit="Row"
+                                ShowExportOptions="False">
+                                <tv:TableView.Columns>
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding Index.Index}"
+                                        Header="{x:Bind ViewModel.IndexNumberLabel, Mode=OneWay}" />
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding Index.Name}"
+                                        Header="{x:Bind ViewModel.NameLabel, Mode=OneWay}" />
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding Index.Architecture}"
+                                        Header="{x:Bind ViewModel.ArchitectureLabel, Mode=OneWay}" />
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding Index.EditionId}"
+                                        Header="{x:Bind ViewModel.EditionLabel, Mode=OneWay}" />
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding Index.Version}"
+                                        Header="{x:Bind ViewModel.VersionLabel, Mode=OneWay}" />
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding Languages}"
+                                        Header="{x:Bind ViewModel.LanguagesLabel, Mode=OneWay}" />
+                                    <tv:TableViewTextColumn
+                                        Binding="{Binding Preferred}"
+                                        Header="{x:Bind ViewModel.IndexLabel, Mode=OneWay}" />
+                                </tv:TableView.Columns>
+                            </tv:TableView>
+                            <TextBlock
+                                IsTextSelectionEnabled="True"
+                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ContentHash, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords" />
                         </StackPanel>
                     </wct:SettingsCard>
                 </StackPanel>

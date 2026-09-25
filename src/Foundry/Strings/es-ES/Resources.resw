@@ -703,8 +703,8 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Catálogo de Foundry</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Dejar que el operador elija</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Borrar valor predeterminado</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Imágenes de Windows personalizadas</value>
@@ -719,7 +719,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>¿Eliminar esta imagen de la biblioteca local? Los perfiles que hagan referencia a ella la mostrarán como ausente. Los archivos originales y los medios existentes no se modifican.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Eliminar copia local</value>
+    <value>Eliminar</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Imagen seleccionada</value>
@@ -727,17 +727,23 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>Ya existe una imagen con este nombre en este perfil.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Edición</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>No hay imágenes de Windows personalizadas. Importe un ISO o WIM para comenzar.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Habilitar imágenes de Windows personalizadas</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Importar imagen</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Excluir</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Cambiar inclusión en el perfil</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importar ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Incluir</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Incluida</value>
@@ -745,11 +751,14 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Índice preferido</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Índice</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Índices</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Si se habilita esta opción, las imágenes incluidas se copian a los nuevos medios. Sigue siendo necesaria una conexión a Internet. Las personalizaciones habilitadas se aplican a la imagen seleccionada; compruebe que sean adecuadas para su imagen.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Idiomas</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Biblioteca de imágenes</value>
@@ -773,7 +782,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Elige el operador</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Falta una imagen incluida o un origen opcional, o una imagen o índice preferidos ya no están incluidos. Restaure el origen, cambie la selección o borre la preferencia antes de crear los medios.</value>
+    <value>Falta una imagen incluida, o una imagen o índice preferidos ya no están incluidos. Restaure el origen, cambie la selección o borre la preferencia antes de crear los medios.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Actualizar</value>
@@ -782,10 +791,16 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Quitar del perfil</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Cambiar nombre en el perfil</value>
+    <value>Editar</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Guardar</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Establecer imagen e índice preferidos</value>
+    <value>Fijar imagen predeterminada</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Fijar índice predeterminado</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Tamaño</value>
@@ -813,6 +828,9 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Estado</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Versión</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Sí</value>

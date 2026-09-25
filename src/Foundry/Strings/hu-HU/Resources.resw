@@ -703,8 +703,8 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Foundry-katalógus</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Válasszon a kezelő</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Alapértelmezés törlése</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Egyéni Windows-lemezképek</value>
@@ -719,7 +719,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Törli ezt a lemezképet a helyi könyvtárból? A rá hivatkozó profilok hiányzóként jelenítik meg. Az eredeti fájlok és a meglévő adathordozók változatlanok maradnak.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Helyi másolat törlése</value>
+    <value>Törlés</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Kijelölt lemezkép</value>
@@ -727,17 +727,23 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>Ebben a profilban már létezik ilyen nevű lemezkép.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Kiadás</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Nincsenek egyéni Windows-lemezképek. A kezdéshez importáljon egy ISO- vagy WIM-fájlt.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Egyéni Windows-lemezképek engedélyezése</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Lemezkép importálása</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Kizárás</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Profilba foglalás módosítása</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>ISO/WIM importálása</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Belefoglalás</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Hozzáadva</value>
@@ -745,11 +751,14 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Előnyben részesített index</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Indexek</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Ha engedélyezve van, a hozzáadott lemezképek az új adathordozókra másolódnak. Továbbra is szükséges internetkapcsolat. Az engedélyezett testreszabások érvényesülnek a kijelölt lemezképen; ellenőrizze, hogy megfelelnek-e az adott lemezképnek.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Nyelvek</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Lemezképtár</value>
@@ -773,7 +782,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A kezelő választ</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Hiányzik egy hozzáadott lemezkép vagy opcionális forrás, vagy egy előnyben részesített lemezkép/index már nincs hozzáadva. Az adathordozó létrehozása előtt állítsa helyre a forrást, módosítsa a kijelölést vagy törölje a beállítást.</value>
+    <value>Hiányzik egy hozzáadott lemezkép, vagy egy előnyben részesített lemezkép/index már nincs hozzáadva. Az adathordozó létrehozása előtt állítsa helyre a forrást, módosítsa a kijelölést vagy törölje a beállítást.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Frissítés</value>
@@ -782,10 +791,16 @@ Licenc az MIT licenc alatt.</value>
     <value>Eltávolítás a profilból</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Átnevezés a profilban</value>
+    <value>Szerkesztés</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Mentés</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Előnyben részesített lemezkép és index beállítása</value>
+    <value>Alapértelmezett lemezkép</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Alapértelmezett index</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Méret</value>
@@ -813,6 +828,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Állapot</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Verzió</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Igen</value>

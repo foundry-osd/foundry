@@ -703,8 +703,8 @@ Licencováno pod licencí MIT.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Katalog Foundry</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Nechat vybrat operátora</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Zrušit výchozí výběr</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Vlastní bitové kopie Windows</value>
@@ -719,7 +719,7 @@ Licencováno pod licencí MIT.</value>
     <value>Smazat tuto bitovou kopii z místní knihovny? Profily, které na ni odkazují, ji zobrazí jako chybějící. Původní soubory a existující média zůstanou beze změny.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Smazat místní kopii</value>
+    <value>Odstranit</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Vybraná bitová kopie</value>
@@ -727,17 +727,23 @@ Licencováno pod licencí MIT.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>V tomto profilu již existuje obraz s tímto názvem.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Edice</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Žádné vlastní bitové kopie Windows. Začněte importem ISO nebo WIM.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Povolit vlastní bitové kopie Windows</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Importovat bitovou kopii</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Vyloučit</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Změnit zahrnutí do profilu</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importovat ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Zahrnout</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Zahrnuto</value>
@@ -745,11 +751,14 @@ Licencováno pod licencí MIT.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Preferovaný index</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Indexy</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Je-li volba povolena, zahrnuté bitové kopie se kopírují na nově vytvořená média. Internet je stále vyžadován. Povolená přizpůsobení se použijí na vybranou bitovou kopii; ověřte jejich vhodnost pro svou bitovou kopii.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Jazyky</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Knihovna bitových kopií</value>
@@ -773,7 +782,7 @@ Licencováno pod licencí MIT.</value>
     <value>Vybírá operátor</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Chybí zahrnutá bitová kopie nebo volitelný zdroj, případně již není zahrnuta preferovaná bitová kopie nebo index. Před vytvořením média obnovte zdroj, změňte výběr nebo zrušte předvolbu.</value>
+    <value>Chybí zahrnutá bitová kopie, případně již není zahrnuta preferovaná bitová kopie nebo index. Před vytvořením média obnovte zdroj, změňte výběr nebo zrušte předvolbu.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Obnovit</value>
@@ -782,10 +791,16 @@ Licencováno pod licencí MIT.</value>
     <value>Odebrat z profilu</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Přejmenovat v profilu</value>
+    <value>Upravit</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Uložit</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Nastavit preferovanou bitovou kopii a index</value>
+    <value>Nastavit výchozí obraz</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Nastavit výchozí index</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Velikost</value>
@@ -813,6 +828,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Stav</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Verze</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Ano</value>

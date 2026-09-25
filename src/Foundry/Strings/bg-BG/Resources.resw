@@ -703,8 +703,8 @@
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Каталог на Foundry</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Избор от оператора</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Изчистване на избора</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Персонализирани образи на Windows</value>
@@ -719,7 +719,7 @@
     <value>Да се изтрие ли този образ от локалната библиотека? Профилите, които го използват, ще го показват като липсващ. Оригиналните файлове и съществуващите носители няма да бъдат променени.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Изтриване на локалното копие</value>
+    <value>Изтриване</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Избран образ</value>
@@ -727,17 +727,23 @@
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>В този профил вече съществува образ с това име.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Издание</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Няма персонализирани образи на Windows. Импортирайте ISO или WIM, за да започнете.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Разрешаване на персонализирани образи на Windows</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Импортиране на образ</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Изключване</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Промяна на включването в профила</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Импортиране на ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Включване</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Включен</value>
@@ -745,11 +751,14 @@
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Предпочитан индекс</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Индекс</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Индекси</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Когато функцията е разрешена, включените образи се копират на новосъздадените носители. Все още е необходим интернет. Разрешените персонализации се прилагат към избрания образ; проверете дали са подходящи за вашия образ.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Езици</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Библиотека с образи</value>
@@ -773,7 +782,7 @@
     <value>Операторът избира</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Включен образ или допълнителен източник липсва или предпочитаният образ или индекс вече не е включен. Възстановете източника, променете избора или изчистете предпочитанието, преди да създадете носител.</value>
+    <value>Включен образ липсва или предпочитаният образ или индекс вече не е включен. Възстановете източника, променете избора или изчистете предпочитанието, преди да създадете носител.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Обновяване</value>
@@ -782,10 +791,16 @@
     <value>Премахване от профила</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Преименуване в профила</value>
+    <value>Редактиране</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Запазване</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Задаване на предпочитан образ и индекс</value>
+    <value>Образ по подразбиране</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Индекс по подразбиране</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Размер</value>
@@ -813,6 +828,9 @@
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Състояние</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Версия</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Да</value>

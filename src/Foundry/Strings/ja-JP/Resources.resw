@@ -703,8 +703,8 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Foundry カタログ</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>オペレーターに選択を任せる</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>既定の選択を解除</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>カスタム Windows イメージ</value>
@@ -719,7 +719,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>このイメージをローカルライブラリから削除しますか？このイメージを参照するプロファイルでは、イメージが見つからないと表示されます。元のファイルと既存のメディアは変更されません。</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>ローカルコピーを削除</value>
+    <value>削除</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>選択したイメージ</value>
@@ -727,17 +727,23 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>このプロファイルには同じ名前のイメージが既に存在します。</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>エディション</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>カスタム Windows イメージがありません。ISO または WIM をインポートして開始してください。</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>カスタム Windows イメージを有効にする</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>イメージをインポート</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>除外</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>プロファイルに含めるかどうかを切り替え</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>ISO/WIM のインポート</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>含める</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>含まれる</value>
@@ -745,11 +751,14 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>優先インデックス</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>インデックス</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>インデックス</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>有効にすると、含まれるイメージが新しく作成するメディアにコピーされます。インターネット接続は引き続き必要です。有効なカスタマイズが選択したイメージに適用されます。お使いのイメージに適していることを確認してください。</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>言語</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>イメージ ライブラリ</value>
@@ -773,7 +782,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>オペレーターが選択</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>含まれるイメージまたはオプションのソースが見つからないか、優先イメージまたはインデックスが含まれなくなっています。メディアを作成する前に、ソースを復元するか、選択を変更するか、優先設定を解除してください。</value>
+    <value>含まれるイメージが見つからないか、優先イメージまたはインデックスが含まれなくなっています。メディアを作成する前に、ソースを復元するか、選択を変更するか、優先設定を解除してください。</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>更新</value>
@@ -782,10 +791,16 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>プロファイルから削除</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>プロファイル内の名前を変更</value>
+    <value>編集</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>保存</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>優先イメージとインデックスを設定</value>
+    <value>既定のイメージに設定</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>既定のインデックスに設定</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>サイズ</value>
@@ -813,6 +828,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>状態</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>バージョン</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>はい</value>

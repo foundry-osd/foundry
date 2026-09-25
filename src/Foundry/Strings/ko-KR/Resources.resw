@@ -703,8 +703,8 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Foundry 카탈로그</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>운영자가 선택하도록 허용</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>기본 선택 지우기</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>사용자 지정 Windows 이미지</value>
@@ -719,7 +719,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>로컬 라이브러리에서 이 이미지를 삭제하시겠습니까? 이 이미지를 참조하는 프로필에는 이미지가 누락된 것으로 표시됩니다. 원본 파일과 기존 미디어는 변경되지 않습니다.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>로컬 복사본 삭제</value>
+    <value>삭제</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>선택한 이미지</value>
@@ -727,17 +727,23 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>이 프로필에 같은 이름의 이미지가 이미 있습니다.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>에디션</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>사용자 지정 Windows 이미지가 없습니다. ISO 또는 WIM을 가져와 시작하세요.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>사용자 지정 Windows 이미지 사용</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>이미지 가져오기</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>제외</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>프로필 포함 여부 전환</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>ISO/WIM 가져오기</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>포함</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>포함됨</value>
@@ -745,11 +751,14 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>선호 인덱스</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>인덱스</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>인덱스</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>사용하도록 설정하면 포함된 이미지가 새로 만드는 미디어에 복사됩니다. 인터넷 연결은 여전히 필요합니다. 활성화된 사용자 지정 설정이 선택한 이미지에 적용됩니다. 해당 설정이 이미지에 적합한지 확인하세요.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>언어</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>이미지 라이브러리</value>
@@ -773,7 +782,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>운영자가 선택</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>포함된 이미지 또는 선택적 원본이 누락되었거나 선호 이미지 또는 인덱스가 더 이상 포함되지 않습니다. 미디어를 만들기 전에 원본을 복원하거나 선택을 변경하거나 선호 설정을 지우세요.</value>
+    <value>포함된 이미지이 누락되었거나 선호 이미지 또는 인덱스가 더 이상 포함되지 않습니다. 미디어를 만들기 전에 원본을 복원하거나 선택을 변경하거나 선호 설정을 지우세요.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>새로 고침</value>
@@ -782,10 +791,16 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>프로필에서 제거</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>프로필에서 이름 바꾸기</value>
+    <value>편집</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>저장</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>선호 이미지 및 인덱스 설정</value>
+    <value>기본 이미지로 설정</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>기본 인덱스로 설정</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>크기</value>
@@ -813,6 +828,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>상태</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>버전</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>예</value>

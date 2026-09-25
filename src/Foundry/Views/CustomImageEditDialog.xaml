@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="Foundry.Views.CustomImageEditDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="{x:Bind ViewModel.RenameLabel, Mode=OneWay}"
+    CloseButtonStyle="{ThemeResource DefaultButtonStyle}"
+    CloseButtonText="{x:Bind ViewModel.CancelLabel, Mode=OneWay}"
+    CornerRadius="{ThemeResource OverlayCornerRadius}"
+    DefaultButton="Primary"
+    IsPrimaryButtonEnabled="{x:Bind ViewModel.CanRename, Mode=OneWay}"
+    PrimaryButtonClick="OnPrimaryButtonClick"
+    PrimaryButtonStyle="{ThemeResource AccentButtonStyle}"
+    PrimaryButtonText="{x:Bind ViewModel.SaveLabel, Mode=OneWay}"
+    Style="{ThemeResource DefaultContentDialogStyle}">
+    <StackPanel
+        Width="{ThemeResource FoundryWideInputMinWidth}"
+        Spacing="{ThemeResource FoundryContentGroupSpacing}">
+        <TextBox
+            Header="{x:Bind ViewModel.NameLabel, Mode=OneWay}"
+            MaxLength="200"
+            Text="{x:Bind ViewModel.RenameText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock
+            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+            Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+            Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
+            TextWrapping="WrapWholeWords"
+            Visibility="{x:Bind ViewModel.HasStatus, Mode=OneWay}" />
+    </StackPanel>
+</ContentDialog>

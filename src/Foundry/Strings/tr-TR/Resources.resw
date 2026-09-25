@@ -703,8 +703,8 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Foundry kataloğu</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Operatörün seçmesine izin ver</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Varsayılan seçimi temizle</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Özel Windows görüntüleri</value>
@@ -719,7 +719,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Bu görüntü yerel kitaplıktan silinsin mi? Bu görüntüye başvuran profiller onu eksik olarak gösterecektir. Özgün dosyalar ve mevcut medya değişmez.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Yerel kopyayı sil</value>
+    <value>Sil</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Seçili görüntü</value>
@@ -727,17 +727,23 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>Bu profilde bu ada sahip bir görüntü zaten var.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Sürüm</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Özel Windows görüntüsü yok. Başlamak için bir ISO veya WIM içeri aktarın.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Özel Windows görüntülerini etkinleştir</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Görüntü içeri aktar</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Hariç tut</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Profile dahil edilmesini değiştir</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>ISO/WIM içe aktar</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Dahil et</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Dahil</value>
@@ -745,11 +751,14 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Tercih edilen dizin</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Dizin</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Dizinler</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Etkinleştirildiğinde, dahil edilen görüntüler yeni oluşturulan medyaya kopyalanır. İnternet bağlantısı hâlâ gereklidir. Etkin özelleştirmeler seçili görüntüye uygulanır; görüntünüz için uygunluklarını doğrulayın.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Diller</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Görüntü kitaplığı</value>
@@ -773,7 +782,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Operatör seçer</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Dahil edilen bir görüntü veya isteğe bağlı kaynak eksik ya da tercih edilen görüntü veya dizin artık dahil değil. Medya oluşturmadan önce kaynağı geri yükleyin, seçimi değiştirin veya tercihi temizleyin.</value>
+    <value>Dahil edilen bir görüntü eksik ya da tercih edilen görüntü veya dizin artık dahil değil. Medya oluşturmadan önce kaynağı geri yükleyin, seçimi değiştirin veya tercihi temizleyin.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Yenile</value>
@@ -782,10 +791,16 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Profilden kaldır</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Profilde yeniden adlandır</value>
+    <value>Düzenle</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Kaydet</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Tercih edilen görüntüyü ve dizini ayarla</value>
+    <value>Varsayılan görüntüyü ayarla</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Varsayılan dizini ayarla</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Boyut</value>
@@ -813,6 +828,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Durum</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Versiyon</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Evet</value>

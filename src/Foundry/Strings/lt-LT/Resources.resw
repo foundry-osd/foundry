@@ -703,8 +703,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Foundry katalogas</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Leisti pasirinkti operatoriui</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Išvalyti numatytąjį pasirinkimą</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Pasirinktiniai Windows atvaizdai</value>
@@ -719,7 +719,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Panaikinti šį atvaizdą iš vietinės bibliotekos? Profiliai, kurie į jį nurodo, rodys jį kaip trūkstamą. Pradiniai failai ir esamos laikmenos liks nepakeisti.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Panaikinti vietinę kopiją</value>
+    <value>Naikinti</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Pasirinktas atvaizdas</value>
@@ -727,17 +727,23 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>Šiame profilyje jau yra atvaizdas tokiu pavadinimu.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Leidimas</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Pasirinktinių Windows atvaizdų nėra. Norėdami pradėti, importuokite ISO arba WIM.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Įjungti pasirinktinius Windows atvaizdus</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Importuoti atvaizdą</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Neįtraukti</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Keisti įtraukimą į profilį</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importuoti ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Įtraukti</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Įtrauktas</value>
@@ -745,11 +751,14 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Pageidaujamas indeksas</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Indeksas</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Indeksai</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Kai parinktis įjungta, įtraukti atvaizdai kopijuojami į naujai sukurtas laikmenas. Internetas vis dar būtinas. Įjungti tinkinimai taikomi pasirinktam atvaizdui; patikrinkite jų tinkamumą savo atvaizdui.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Kalbos</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Atvaizdų biblioteka</value>
@@ -773,7 +782,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pasirenka operatorius</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Trūksta įtraukto atvaizdo arba pasirenkamo šaltinio, arba pageidaujamas atvaizdas ar indeksas nebeįtrauktas. Prieš kurdami laikmeną atkurkite šaltinį, pakeiskite pasirinkimą arba išvalykite nuostatą.</value>
+    <value>Trūksta įtraukto atvaizdo, arba pageidaujamas atvaizdas ar indeksas nebeįtrauktas. Prieš kurdami laikmeną atkurkite šaltinį, pakeiskite pasirinkimą arba išvalykite nuostatą.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Atnaujinti</value>
@@ -782,10 +791,16 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pašalinti iš profilio</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Pervadinti profilyje</value>
+    <value>Redaguoti</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Įrašyti</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Nustatyti pageidaujamą atvaizdą ir indeksą</value>
+    <value>Nustatyti numatytąjį atvaizdą</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Nustatyti numatytąjį indeksą</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Dydis</value>
@@ -813,6 +828,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Būsena</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Versija</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Taip</value>

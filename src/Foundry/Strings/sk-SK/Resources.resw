@@ -703,8 +703,8 @@ Licencované podľa licencie MIT.</value>
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Katalóg Foundry</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Nechať vybrať operátora</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Zrušiť predvolený výber</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Vlastné obrazy systému Windows</value>
@@ -719,7 +719,7 @@ Licencované podľa licencie MIT.</value>
     <value>Odstrániť tento obraz z lokálnej knižnice? Profily, ktoré naň odkazujú, ho zobrazia ako chýbajúci. Pôvodné súbory a existujúce médiá zostanú nezmenené.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Odstrániť lokálnu kópiu</value>
+    <value>Odstrániť</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Vybraný obraz</value>
@@ -727,17 +727,23 @@ Licencované podľa licencie MIT.</value>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>V tomto profile už existuje obraz s týmto názvom.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Vydanie</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Žiadne vlastné obrazy systému Windows. Začnite importom ISO alebo WIM.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Povoliť vlastné obrazy systému Windows</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Importovať obraz</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Vylúčiť</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Zmeniť zahrnutie do profilu</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importovať ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Zahrnúť</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Zahrnutý</value>
@@ -745,11 +751,14 @@ Licencované podľa licencie MIT.</value>
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Preferovaný index</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Indexy</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Keď je voľba povolená, zahrnuté obrazy sa kopírujú na novovytvorené médiá. Internet je stále potrebný. Povolené prispôsobenia sa použijú na vybraný obraz; overte ich vhodnosť pre svoj obraz.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Jazyky</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Knižnica obrazov</value>
@@ -773,7 +782,7 @@ Licencované podľa licencie MIT.</value>
     <value>Vyberá operátor</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Chýba zahrnutý obraz alebo voliteľný zdroj, prípadne už nie je zahrnutý preferovaný obraz alebo index. Pred vytvorením média obnovte zdroj, zmeňte výber alebo zrušte preferenciu.</value>
+    <value>Chýba zahrnutý obraz, prípadne už nie je zahrnutý preferovaný obraz alebo index. Pred vytvorením média obnovte zdroj, zmeňte výber alebo zrušte preferenciu.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Obnoviť</value>
@@ -782,10 +791,16 @@ Licencované podľa licencie MIT.</value>
     <value>Odstrániť z profilu</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Premenovať v profile</value>
+    <value>Upraviť</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Uložiť</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Nastaviť preferovaný obraz a index</value>
+    <value>Nastaviť predvolený obraz</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Nastaviť predvolený index</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Veľkosť</value>
@@ -813,6 +828,9 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Stav</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Verzia</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Áno</value>

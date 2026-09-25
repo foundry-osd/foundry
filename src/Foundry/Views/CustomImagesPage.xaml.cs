@@ -17,6 +17,15 @@ public sealed partial class CustomImagesPage : Page
     }
 
     private async void OnLoaded(object sender, RoutedEventArgs e) => await ViewModel.RefreshAsync();
+    private async void OnEditClick(object sender, RoutedEventArgs e)
+    {
+        if (!ViewModel.CanEdit || ViewModel.SelectedImage is not { } image) return;
+        ViewModel.RenameText = image.Name;
+        ViewModel.StatusMessage = string.Empty;
+        var dialog = new CustomImageEditDialog(ViewModel) { XamlRoot = XamlRoot };
+        await dialog.ShowAsync();
+    }
+
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         Loaded -= OnLoaded;

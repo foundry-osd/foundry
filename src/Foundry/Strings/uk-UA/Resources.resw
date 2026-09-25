@@ -703,8 +703,8 @@
   <data name="CustomImages.Catalog" xml:space="preserve">
     <value>Каталог Foundry</value>
   </data>
-  <data name="CustomImages.ClearDefaultLabel" xml:space="preserve">
-    <value>Надати вибір оператору</value>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Скинути типовий вибір</value>
   </data>
   <data name="CustomImages.Custom" xml:space="preserve">
     <value>Користувацькі образи Windows</value>
@@ -719,7 +719,7 @@
     <value>Видалити цей образ із локальної бібліотеки? У профілях, які посилаються на нього, він відображатиметься як відсутній. Вихідні файли та наявні носії не зміняться.</value>
   </data>
   <data name="CustomImages.DeleteLabel" xml:space="preserve">
-    <value>Видалити локальну копію</value>
+    <value>Видалити</value>
   </data>
   <data name="CustomImages.DetailsLabel" xml:space="preserve">
     <value>Вибраний образ</value>
@@ -727,17 +727,23 @@
   <data name="CustomImages.DuplicateName" xml:space="preserve">
     <value>У цьому профілі вже є образ із таким іменем.</value>
   </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Редакція</value>
+  </data>
   <data name="CustomImages.EmptyMessage" xml:space="preserve">
     <value>Немає користувацьких образів Windows. Імпортуйте ISO або WIM, щоб почати.</value>
   </data>
   <data name="CustomImages.EnableLabel" xml:space="preserve">
     <value>Увімкнути користувацькі образи Windows</value>
   </data>
-  <data name="CustomImages.ImportLabel" xml:space="preserve">
-    <value>Імпортувати образ</value>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Виключити</value>
   </data>
-  <data name="CustomImages.IncludeLabel" xml:space="preserve">
-    <value>Змінити включення до профілю</value>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Імпортувати ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Включити</value>
   </data>
   <data name="CustomImages.IncludedLabel" xml:space="preserve">
     <value>Включено</value>
@@ -745,11 +751,14 @@
   <data name="CustomImages.IndexLabel" xml:space="preserve">
     <value>Бажаний індекс</value>
   </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Індекс</value>
+  </data>
   <data name="CustomImages.IndexesLabel" xml:space="preserve">
     <value>Індекси</value>
   </data>
-  <data name="CustomImages.LibraryDescription" xml:space="preserve">
-    <value>Коли цю функцію ввімкнено, включені образи копіюються на новостворені носії. Підключення до Інтернету все одно потрібне. Увімкнені налаштування застосовуються до вибраного образу; перевірте, чи підходять вони для вашого образу.</value>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Мови</value>
   </data>
   <data name="CustomImages.LibraryLabel" xml:space="preserve">
     <value>Бібліотека образів</value>
@@ -773,7 +782,7 @@
     <value>Вибирає оператор</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Включений образ або додаткове джерело відсутні, або бажаний образ чи індекс більше не включено. Відновіть джерело, змініть вибір або скиньте бажаний варіант перед створенням носія.</value>
+    <value>Включений образ відсутній, або бажаний образ чи індекс більше не включено. Відновіть джерело, змініть вибір або скиньте бажаний варіант перед створенням носія.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Оновити</value>
@@ -782,10 +791,16 @@
     <value>Вилучити з профілю</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
-    <value>Перейменувати в профілі</value>
+    <value>Редагувати</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Зберегти</value>
   </data>
   <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
-    <value>Установити бажаний образ та індекс</value>
+    <value>Установити типовий образ</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Установити типовий індекс</value>
   </data>
   <data name="CustomImages.SizeLabel" xml:space="preserve">
     <value>Розмір</value>
@@ -813,6 +828,9 @@
   </data>
   <data name="CustomImages.StatusLabel" xml:space="preserve">
     <value>Стан</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Версія</value>
   </data>
   <data name="CustomImages.Yes" xml:space="preserve">
     <value>Так</value>
