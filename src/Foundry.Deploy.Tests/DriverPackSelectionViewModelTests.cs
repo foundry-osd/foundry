@@ -119,30 +119,81 @@ public sealed class DriverPackSelectionViewModelTests
         Assert.Equal("21y6-21y7", selected?.Id);
     }
 
-    [Fact]
-    public void UpdateSelectionContext_CustomImageInspectionAndIndexChangePreserveChosenDriverVersion()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void UpdateSelectionContext_CustomImageInspectionAndIndexChangePreserveChosenDriverVersion(bool automaticOemSource)
     {
         using var model = new DriverPackSelectionViewModel(
             new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new LocalizationService(), "x64");
         var asset = new CustomImageAsset { Id = "image", DisplayName = "Image", ImagePath = @"D:\image.wim", VolumeRoot = @"D:\" };
-        var index = new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 1, Architecture = "x64" };
-        model.UpdateSelectionContext(null, new CustomImageSelection(asset, index), "x64");
+        var index = new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 1, Architecture = "x64", ProductType = "WinNT", Build = 26200 };
+        HardwareProfile? hardware = automaticOemSource
+            ? new HardwareProfile { Manufacturer = "Lenovo", Model = "ThinkPad X13 Yoga Gen 3 Type 21AW 21AX" }
+            : null;
+        model.UpdateSelectionContext(hardware, new CustomImageSelection(asset, index), "x64");
+        model.ReplaceCatalog([
+            CreateCatalogItem("older", "23H2", new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero)),
+            CreateCatalogItem("newer", "25H2", new DateTimeOffset(2026, 1, 1, 0, 0, 0, TimeSpan.Zero))
+        ]);
+        if (!automaticOemSource) model.SelectedDriverPackOption = model.DriverPackOptions.Single(option => option.DisplayName == "Lenovo");
+        model.SelectedDriverPackVersion = model.DriverPackVersionOptions.Single(version => version.Contains("23H2", StringComparison.Ordinal));
+        string selectedModel = model.SelectedDriverPackModel;
+        string selectedVersion = model.SelectedDriverPackVersion;
+
+        model.UpdateSelectionContext(hardware, null, "x64");
+        Assert.Equal(selectedVersion, model.SelectedDriverPackVersion);
+        model.UpdateSelectionContext(hardware, new CustomImageSelection(asset, index with { Index = 7 }), "x64");
+
+        Assert.Equal(selectedModel, model.SelectedDriverPackModel);
+        Assert.Equal(selectedVersion, model.SelectedDriverPackVersion);
+        Assert.Equal("older", model.ResolveEffectiveSelection()?.Id);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void UpdateSelectionContext_TargetReleaseChanges_SelectsPreferredDriverVersion(bool customImage)
+    {
+        using var model = new DriverPackSelectionViewModel(
+            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new LocalizationService(), "x64");
+        var asset = new CustomImageAsset { Id = "image", DisplayName = "Image", ImagePath = @"D:\image.wim", VolumeRoot = @"D:\" };
+        OperatingSystemMetadata initial = customImage
+            ? new CustomImageSelection(asset, new() { Index = 1, Architecture = "x64", ProductType = "WinNT", Build = 26200 })
+            : new OperatingSystemCatalogItem { WindowsRelease = "11", ReleaseId = "25H2", Architecture = "x64" };
+        OperatingSystemMetadata changed = customImage
+            ? new CustomImageSelection(asset, new() { Index = 2, Architecture = "x64", ProductType = "WinNT", Build = 22631 })
+            : new OperatingSystemCatalogItem { WindowsRelease = "11", ReleaseId = "23H2", Architecture = "x64" };
+        model.UpdateSelectionContext(null, initial, "x64");
         model.ReplaceCatalog([
             CreateCatalogItem("older", "23H2", new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero)),
             CreateCatalogItem("newer", "25H2", new DateTimeOffset(2026, 1, 1, 0, 0, 0, TimeSpan.Zero))
         ]);
         model.SelectedDriverPackOption = model.DriverPackOptions.Single(option => option.DisplayName == "Lenovo");
-        model.SelectedDriverPackVersion = model.DriverPackVersionOptions.Single(version => version.Contains("23H2", StringComparison.Ordinal));
-        string selectedModel = model.SelectedDriverPackModel;
-        string selectedVersion = model.SelectedDriverPackVersion;
+        Assert.Equal("newer", model.ResolveEffectiveSelection()?.Id);
 
-        model.UpdateSelectionContext(null, null, "x64");
-        Assert.Equal(selectedVersion, model.SelectedDriverPackVersion);
-        model.UpdateSelectionContext(null, new CustomImageSelection(asset, index with { Index = 7 }), "x64");
+        if (customImage) model.UpdateSelectionContext(null, null, "x64");
+        model.UpdateSelectionContext(null, changed, "x64");
 
-        Assert.Equal(selectedModel, model.SelectedDriverPackModel);
-        Assert.Equal(selectedVersion, model.SelectedDriverPackVersion);
         Assert.Equal("older", model.ResolveEffectiveSelection()?.Id);
+    }
+
+    [Fact]
+    public void UpdateSelectionContext_TargetArchitectureChanges_ReevaluatesChosenDriverVersion()
+    {
+        using var model = new DriverPackSelectionViewModel(
+            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new LocalizationService(), "x64");
+        var operatingSystem = new OperatingSystemCatalogItem { WindowsRelease = "11", ReleaseId = "25H2", Architecture = "x64" };
+        var older = CreateCatalogItem("older", "23H2", new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero));
+        var newer = CreateCatalogItem("newer", "25H2", new DateTimeOffset(2026, 1, 1, 0, 0, 0, TimeSpan.Zero));
+        model.UpdateSelectionContext(null, operatingSystem, "x64");
+        model.ReplaceCatalog([older, newer, older with { Id = "older-arm64", OsArchitecture = "arm64" }, newer with { Id = "newer-arm64", OsArchitecture = "arm64" }]);
+        model.SelectedDriverPackOption = model.DriverPackOptions.Single(option => option.DisplayName == "Lenovo");
+        model.SelectedDriverPackVersion = model.DriverPackVersionOptions.Single(version => version.Contains("23H2", StringComparison.Ordinal));
+
+        model.UpdateSelectionContext(null, operatingSystem with { Architecture = "arm64" }, "x64");
+
+        Assert.Equal("newer-arm64", model.ResolveEffectiveSelection()?.Id);
     }
 
     private static DriverPackCatalogItem CreateCatalogItem(
