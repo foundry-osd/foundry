@@ -155,7 +155,7 @@ Sous licence MIT.</value>
     <value>L’image ne peut pas être lue, ou son index sélectionné ou ses métadonnées ont changé. Actualisez la sélection de l’image et réessayez.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Pour les images USB ajoutées manuellement, copiez un fichier WIM dans Foundry\Images\Custom sur la partition Foundry Cache, puis actualisez. Gardez le support source connecté pendant le déploiement.</value>
+    <value>Pour les images USB ajoutées manuellement, copiez un fichier WIM dans Cache\OperatingSystems\Custom sur la partition Foundry Cache, puis actualisez. Gardez le support source connecté pendant le déploiement.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>L’image ou l’index par défaut configuré n’est pas disponible. Choisissez explicitement une image et un index.</value>

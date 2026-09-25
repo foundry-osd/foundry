@@ -155,7 +155,7 @@
     <value>Не вдається прочитати образ, або вибраний індекс чи метадані змінилися. Оновіть вибір образу та повторіть спробу.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Щоб вручну додати образи на USB, скопіюйте WIM до Foundry\Images\Custom на розділі Foundry Cache, а потім оновіть список. Не від’єднуйте вихідний носій під час розгортання.</value>
+    <value>Щоб вручну додати образи на USB, скопіюйте WIM до Cache\OperatingSystems\Custom на розділі Foundry Cache, а потім оновіть список. Не від’єднуйте вихідний носій під час розгортання.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Налаштований образ або індекс за замовчуванням недоступний. Явно виберіть образ та індекс.</value>

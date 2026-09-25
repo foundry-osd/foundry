@@ -155,7 +155,7 @@
     <value>לא ניתן לקרוא את התמונה, או שהאינדקס שנבחר או המטא-נתונים שלה השתנו. יש לרענן את בחירת התמונה ולנסות שוב.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>להוספת תמונות ידנית ל-USB, יש להעתיק קובץ WIM אל Foundry\Images\Custom במחיצת Foundry Cache, ואז לרענן. יש להשאיר את מדיית המקור מחוברת במהלך הפריסה.</value>
+    <value>להוספת תמונות ידנית ל-USB, יש להעתיק קובץ WIM אל Cache\OperatingSystems\Custom במחיצת Foundry Cache, ואז לרענן. יש להשאיר את מדיית המקור מחוברת במהלך הפריסה.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>התמונה או האינדקס שהוגדרו כברירת מחדל אינם זמינים. יש לבחור תמונה ואינדקס במפורש.</value>

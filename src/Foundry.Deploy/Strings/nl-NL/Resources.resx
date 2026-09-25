@@ -155,7 +155,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>De installatiekopie kan niet worden gelezen, of de geselecteerde index of metagegevens zijn gewijzigd. Vernieuw de selectie en probeer het opnieuw.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Kopieer voor handmatige USB-installatiekopieën een WIM naar Foundry\Images\Custom op de Foundry Cache-partitie en vernieuw daarna. Houd de bronmedia aangesloten tijdens de implementatie.</value>
+    <value>Kopieer voor handmatige USB-installatiekopieën een WIM naar Cache\OperatingSystems\Custom op de Foundry Cache-partitie en vernieuw daarna. Houd de bronmedia aangesloten tijdens de implementatie.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>De ingestelde standaardinstallatiekopie of index is niet beschikbaar. Kies expliciet een installatiekopie en index.</value>

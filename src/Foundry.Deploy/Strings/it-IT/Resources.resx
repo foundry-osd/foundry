@@ -155,7 +155,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>L’immagine non è leggibile oppure l’indice selezionato o i metadati sono cambiati. Aggiorna la selezione dell’immagine e riprova.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Per le immagini USB aggiunte manualmente, copia un WIM in Foundry\Images\Custom sulla partizione Foundry Cache, quindi aggiorna. Mantieni collegato il supporto di origine durante la distribuzione.</value>
+    <value>Per le immagini USB aggiunte manualmente, copia un WIM in Cache\OperatingSystems\Custom sulla partizione Foundry Cache, quindi aggiorna. Mantieni collegato il supporto di origine durante la distribuzione.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>L’immagine o l’indice predefiniti configurati non sono disponibili. Scegli esplicitamente un’immagine e un indice.</value>

@@ -21,7 +21,6 @@ public sealed record CustomImageCatalogResult(IReadOnlyList<CustomImageAsset> Im
 /// <summary>Discovers configured manifests and top-level manual WIMs only on matching Foundry media.</summary>
 public sealed class CustomImageCatalogService(IVolumeDiscovery? volumes = null)
 {
-    public const string RelativeRoot = "Foundry/Images/Custom";
     private readonly IVolumeDiscovery _volumes = volumes ?? new WindowsVolumeDiscovery();
 
     public async Task<CustomImageCatalogResult> DiscoverAsync(DeployCustomImagesSettings settings, CancellationToken cancellationToken)
@@ -36,7 +35,7 @@ public sealed class CustomImageCatalogService(IVolumeDiscovery? volumes = null)
             (volume.DriveType == DriveType.CDRom || volume.VolumeLabel == "Foundry Cache")))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            string manifestPath = Path.Combine(volume.RootPath, RelativeRoot, "manifests", settings.ManifestId + ".json");
+            string manifestPath = Path.Combine(volume.RootPath, CustomImageMediaPaths.RelativeRoot, "manifests", settings.ManifestId + ".json");
             if (!File.Exists(manifestPath)) continue;
             try
             {
@@ -58,7 +57,7 @@ public sealed class CustomImageCatalogService(IVolumeDiscovery? volumes = null)
                 {
                     if (!CustomImageSettingsValidator.IsValidReference(entry.Reference) || !entry.Reference.IsIncluded)
                         throw new InvalidDataException();
-                    string expectedPath = $"{RelativeRoot}/managed/{entry.Reference.ContentHash.ToLowerInvariant()}/image.wim";
+                    string expectedPath = $"{CustomImageMediaPaths.RelativeRoot}/{entry.Reference.ContentHash.ToLowerInvariant()}/image.wim";
                     if (!Normalize(entry.RelativePath).Equals(expectedPath, StringComparison.OrdinalIgnoreCase)) throw new InvalidDataException();
                     volumeImages.Add(new CustomImageAsset
                     {
@@ -74,7 +73,7 @@ public sealed class CustomImageCatalogService(IVolumeDiscovery? volumes = null)
                 if (volume.DriveType != DriveType.CDRom)
                 {
                     int manualCount = 0;
-                    foreach (string path in Directory.EnumerateFiles(Path.Combine(volume.RootPath, RelativeRoot), "*.wim", SearchOption.TopDirectoryOnly).Take(257))
+                    foreach (string path in Directory.EnumerateFiles(Path.Combine(volume.RootPath, CustomImageMediaPaths.RelativeRoot), "*.wim", SearchOption.TopDirectoryOnly).Take(257))
                     {
                         if (++manualCount > 256) throw new InvalidDataException();
                         try { CustomImageSourceLease.EnsureRegularPath(path); }

@@ -155,7 +155,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Görüntü okunamıyor ya da seçili dizini veya meta verileri değişmiş. Görüntü seçimini yenileyip tekrar deneyin.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Elle eklenen USB görüntüleri için bir WIM dosyasını Foundry Cache bölümündeki Foundry\Images\Custom klasörüne kopyalayın ve yenileyin. Dağıtım sırasında kaynak medyayı bağlı tutun.</value>
+    <value>Elle eklenen USB görüntüleri için bir WIM dosyasını Foundry Cache bölümündeki Cache\OperatingSystems\Custom klasörüne kopyalayın ve yenileyin. Dağıtım sırasında kaynak medyayı bağlı tutun.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Yapılandırılan varsayılan görüntü veya dizin kullanılamıyor. Bir görüntü ve dizini açıkça seçin.</value>

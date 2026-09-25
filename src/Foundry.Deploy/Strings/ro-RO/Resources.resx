@@ -155,7 +155,7 @@ Licențiat sub licența MIT.</value>
     <value>Imaginea nu poate fi citită sau indexul selectat ori metadatele s-au schimbat. Reîmprospătați selecția imaginii și încercați din nou.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Pentru imagini USB adăugate manual, copiați un WIM în Foundry\Images\Custom pe partiția Foundry Cache, apoi reîmprospătați. Mențineți mediul sursă conectat în timpul implementării.</value>
+    <value>Pentru imagini USB adăugate manual, copiați un WIM în Cache\OperatingSystems\Custom pe partiția Foundry Cache, apoi reîmprospătați. Mențineți mediul sursă conectat în timpul implementării.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Imaginea sau indexul implicit configurat nu este disponibil. Alegeți explicit o imagine și un index.</value>

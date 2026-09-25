@@ -155,7 +155,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Tõmmist ei saa lugeda või selle valitud indeks või metaandmed on muutunud. Värskendage tõmmise valikut ja proovige uuesti.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>USB-tõmmise käsitsi lisamiseks kopeerige WIM-fail Foundry Cache partitsiooni kausta Foundry\Images\Custom ja värskendage loendit. Hoidke lähtemeedium juurutamise ajal ühendatuna.</value>
+    <value>USB-tõmmise käsitsi lisamiseks kopeerige WIM-fail Foundry Cache partitsiooni kausta Cache\OperatingSystems\Custom ja värskendage loendit. Hoidke lähtemeedium juurutamise ajal ühendatuna.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Seadistatud vaiketõmmis või indeks pole saadaval. Valige tõmmis ja indeks selgesõnaliselt.</value>

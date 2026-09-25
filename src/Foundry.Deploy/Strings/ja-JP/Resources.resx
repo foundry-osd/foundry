@@ -155,7 +155,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>イメージを読み取れないか、選択したインデックスまたはメタデータが変更されています。イメージの選択を更新してから、もう一度お試しください。</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>USB に手動でイメージを追加するには、Foundry Cache パーティションの Foundry\Images\Custom に WIM をコピーしてから更新してください。展開中はソースメディアを接続したままにしてください。</value>
+    <value>USB に手動でイメージを追加するには、Foundry Cache パーティションの Cache\OperatingSystems\Custom に WIM をコピーしてから更新してください。展開中はソースメディアを接続したままにしてください。</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>設定された既定のイメージまたはインデックスを使用できません。イメージとインデックスを明示的に選択してください。</value>

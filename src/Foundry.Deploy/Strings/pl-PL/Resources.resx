@@ -155,7 +155,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Nie można odczytać obrazu albo zmienił się wybrany indeks lub metadane. Odśwież wybór obrazu i spróbuj ponownie.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Aby ręcznie dodać obraz USB, skopiuj WIM do Foundry\Images\Custom na partycji Foundry Cache, a następnie odśwież. Nośnik źródłowy musi pozostać podłączony podczas wdrażania.</value>
+    <value>Aby ręcznie dodać obraz USB, skopiuj WIM do Cache\OperatingSystems\Custom na partycji Foundry Cache, a następnie odśwież. Nośnik źródłowy musi pozostać podłączony podczas wdrażania.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Skonfigurowany domyślny obraz lub indeks jest niedostępny. Wybierz jawnie obraz i indeks.</value>

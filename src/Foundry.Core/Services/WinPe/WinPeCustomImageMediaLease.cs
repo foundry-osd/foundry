@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Security.Cryptography;
+using Foundry.Core.Models.Images;
 
 namespace Foundry.Core.Services.WinPe;
 
@@ -27,7 +28,7 @@ public sealed class WinPeCustomImageMediaLease : IDisposable
     /// <summary>Authenticates the exact serialized manifest referenced by the boot configuration.</summary>
     public string ManifestHash { get; }
     /// <summary>Locates the manifest relative to the ISO or USB data-volume root.</summary>
-    public string ManifestRelativePath => Path.Combine("Foundry", "Images", "Custom", "manifests", ManifestId + ".json");
+    public string ManifestRelativePath => Path.Combine(CustomImageMediaPaths.RelativeRoot, "manifests", ManifestId + ".json");
     /// <summary>Gets all retained image inputs, with content-addressed destination paths.</summary>
     public IReadOnlyList<WinPeCustomImageMediaFile> Files { get; }
     /// <summary>Gets the source bytes required on a new data volume, excluding filesystem reserves.</summary>

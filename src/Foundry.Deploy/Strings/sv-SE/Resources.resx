@@ -155,7 +155,7 @@ Licensierad under MIT-licensen.</value>
     <value>Avbildningen kan inte läsas, eller dess valda index eller metadata har ändrats. Uppdatera avbildningsvalet och försök igen.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>För manuellt tillagda USB-avbildningar kopierar du en WIM-fil till Foundry\Images\Custom på partitionen Foundry Cache och uppdaterar sedan. Låt källmediet vara anslutet under distributionen.</value>
+    <value>För manuellt tillagda USB-avbildningar kopierar du en WIM-fil till Cache\OperatingSystems\Custom på partitionen Foundry Cache och uppdaterar sedan. Låt källmediet vara anslutet under distributionen.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Den konfigurerade standardavbildningen eller dess index är inte tillgängligt. Välj uttryckligen en avbildning och ett index.</value>

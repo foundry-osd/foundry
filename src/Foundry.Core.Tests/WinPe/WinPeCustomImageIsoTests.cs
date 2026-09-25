@@ -64,7 +64,7 @@ public sealed class WinPeCustomImageIsoTests : IDisposable
         string source = Path.Combine(root, "source.wim");
         File.WriteAllText(source, "custom image");
         string hash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes("custom image")));
-        string relative = Path.Combine("Foundry", "Images", "Custom", "managed", hash.ToLowerInvariant(), "image.wim");
+        string relative = Path.Combine("Cache", "OperatingSystems", "Custom", hash.ToLowerInvariant(), "image.wim");
         using var package = new WinPeCustomImageMediaLease("build", Encoding.UTF8.GetBytes("{}"),
             [new(source, relative, 12, hash)], []);
         string configuration = WinPeCustomImageMediaService.BindConfiguration(package, """{"customImages":{"isEnabled":true}}""");

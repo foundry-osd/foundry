@@ -155,7 +155,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Attēlu nevar nolasīt, vai tā atlasītais indekss vai metadati ir mainīti. Atsvaidziniet attēla atlasi un mēģiniet vēlreiz.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Lai manuāli pievienotu USB attēlu, kopējiet WIM uz Foundry\Images\Custom mapi Foundry Cache nodalījumā un atsvaidziniet sarakstu. Izvietošanas laikā atstājiet avota datu nesēju pievienotu.</value>
+    <value>Lai manuāli pievienotu USB attēlu, kopējiet WIM uz Cache\OperatingSystems\Custom mapi Foundry Cache nodalījumā un atsvaidziniet sarakstu. Izvietošanas laikā atstājiet avota datu nesēju pievienotu.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Konfigurētais noklusējuma attēls vai indekss nav pieejams. Skaidri izvēlieties attēlu un indeksu.</value>

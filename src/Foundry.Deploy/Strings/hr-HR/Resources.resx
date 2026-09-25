@@ -155,7 +155,7 @@ Licenciran prema MIT licenci.</value>
     <value>Slika se ne može pročitati ili su se njezin odabrani indeks ili metapodaci promijenili. Osvježite odabir slike i pokušajte ponovno.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Za ručno dodane USB slike kopirajte WIM u Foundry\Images\Custom na particiji Foundry Cache, a zatim osvježite. Izvorni medij mora ostati povezan tijekom implementacije.</value>
+    <value>Za ručno dodane USB slike kopirajte WIM u Cache\OperatingSystems\Custom na particiji Foundry Cache, a zatim osvježite. Izvorni medij mora ostati povezan tijekom implementacije.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Konfigurirana zadana slika ili indeks nisu dostupni. Izričito odaberite sliku i indeks.</value>

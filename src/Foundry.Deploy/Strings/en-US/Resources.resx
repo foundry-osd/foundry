@@ -155,7 +155,7 @@ Licensed under the MIT License.</value>
     <value>The image cannot be read or its selected index or metadata has changed. Refresh the image selection and try again.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>For manual USB images, copy a WIM into Foundry\Images\Custom on the Foundry Cache partition, then refresh. Keep the source media attached during deployment.</value>
+    <value>For manual USB images, copy a WIM into Cache\OperatingSystems\Custom on the Foundry Cache partition, then refresh. Keep the source media attached during deployment.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>The configured default image or index is unavailable. Choose an image and index explicitly.</value>

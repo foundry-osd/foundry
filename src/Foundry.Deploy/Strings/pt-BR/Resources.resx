@@ -155,7 +155,7 @@ Licenciado sob a licença MIT.</value>
     <value>Não é possível ler a imagem, ou seu índice selecionado ou metadados foram alterados. Atualize a seleção da imagem e tente novamente.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Para imagens USB adicionadas manualmente, copie um WIM para Foundry\Images\Custom na partição Foundry Cache e atualize. Mantenha a mídia de origem conectada durante a implantação.</value>
+    <value>Para imagens USB adicionadas manualmente, copie um WIM para Cache\OperatingSystems\Custom na partição Foundry Cache e atualize. Mantenha a mídia de origem conectada durante a implantação.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>A imagem ou o índice padrão configurado não está disponível. Escolha explicitamente uma imagem e um índice.</value>

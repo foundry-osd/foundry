@@ -155,7 +155,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Näköistiedostoa ei voi lukea, tai sen valittu indeksi tai metatiedot ovat muuttuneet. Päivitä näköistiedoston valinta ja yritä uudelleen.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Lisää USB-näköistiedosto käsin kopioimalla WIM-tiedosto Foundry Cache -osion kansioon Foundry\Images\Custom ja päivittämällä luettelo. Pidä lähdetietoväline liitettynä käyttöönoton ajan.</value>
+    <value>Lisää USB-näköistiedosto käsin kopioimalla WIM-tiedosto Foundry Cache -osion kansioon Cache\OperatingSystems\Custom ja päivittämällä luettelo. Pidä lähdetietoväline liitettynä käyttöönoton ajan.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Määritetty oletusnäköistiedosto tai indeksi ei ole saatavilla. Valitse näköistiedosto ja indeksi erikseen.</value>

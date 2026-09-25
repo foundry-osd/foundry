@@ -155,7 +155,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Atvaizdo nepavyksta perskaityti arba pasirinktas indeksas ar metaduomenys pasikeitė. Atnaujinkite atvaizdo pasirinkimą ir bandykite dar kartą.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Norėdami rankiniu būdu pridėti USB atvaizdą, nukopijuokite WIM į Foundry\Images\Custom aplanką Foundry Cache skaidinyje ir atnaujinkite sąrašą. Diegimo metu laikykite šaltinio laikmeną prijungtą.</value>
+    <value>Norėdami rankiniu būdu pridėti USB atvaizdą, nukopijuokite WIM į Cache\OperatingSystems\Custom aplanką Foundry Cache skaidinyje ir atnaujinkite sąrašą. Diegimo metu laikykite šaltinio laikmeną prijungtą.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Nustatytas numatytasis atvaizdas arba indeksas nepasiekiamas. Aiškiai pasirinkite atvaizdą ir indeksą.</value>

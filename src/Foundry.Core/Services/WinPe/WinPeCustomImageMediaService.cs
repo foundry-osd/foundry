@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Security.Cryptography;
+using Foundry.Core.Models.Images;
 using Foundry.Utilities.Processes;
 using Foundry.Utilities.Storage;
 
@@ -90,7 +91,7 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
     {
         package.ThrowIfDisposed();
         await ValidateSourcesAsync(package, cancellationToken).ConfigureAwait(false);
-        string customRoot = ResolveDestination(destinationRoot, Path.Combine("Foundry", "Images", "Custom"));
+        string customRoot = ResolveDestination(destinationRoot, CustomImageMediaPaths.RelativeRoot);
         Directory.CreateDirectory(customRoot);
         string lockPath = ResolveDestination(customRoot, ".publish.lock");
         using var publicationLease = new FileStream(lockPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);

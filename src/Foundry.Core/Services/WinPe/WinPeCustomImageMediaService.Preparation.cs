@@ -28,7 +28,7 @@ public sealed partial class WinPeCustomImageMediaService
             {
                 CustomImageSourceLease lease = await library.AcquireAsync(reference, cancellationToken).ConfigureAwait(false);
                 leases.Add(lease);
-                string imageRoot = Path.Combine("Foundry", "Images", "Custom", "managed", reference.ContentHash.ToLowerInvariant());
+                string imageRoot = Path.Combine(CustomImageMediaPaths.RelativeRoot, reference.ContentHash.ToLowerInvariant());
                 string imagePath = Path.Combine(imageRoot, "image.wim");
                 files.TryAdd(imagePath, new(lease.ImagePath, imagePath, reference.Length, reference.ContentHash));
                 entries.Add(new CustomImageMediaEntry

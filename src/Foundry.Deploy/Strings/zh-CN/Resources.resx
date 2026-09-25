@@ -155,7 +155,7 @@
     <value>无法读取映像，或者所选索引或元数据已更改。请刷新映像选择后重试。</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>若要手动添加 USB 映像，请将 WIM 复制到 Foundry Cache 分区上的 Foundry\Images\Custom，然后刷新。部署期间请保持源介质连接。</value>
+    <value>若要手动添加 USB 映像，请将 WIM 复制到 Foundry Cache 分区上的 Cache\OperatingSystems\Custom，然后刷新。部署期间请保持源介质连接。</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>配置的默认映像或索引不可用。请明确选择映像和索引。</value>

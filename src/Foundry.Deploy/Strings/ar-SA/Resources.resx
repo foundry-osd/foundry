@@ -155,7 +155,7 @@
     <value>لا يمكن قراءة الصورة، أو تم تغيير الفهرس المحدد أو البيانات الوصفية. حدّث تحديد الصورة وحاول مجددًا.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>لإضافة صور يدويًا عبر USB، انسخ ملف WIM إلى Foundry\Images\Custom على قسم Foundry Cache، ثم حدّث القائمة. أبقِ وسيط المصدر متصلًا أثناء النشر.</value>
+    <value>لإضافة صور يدويًا عبر USB، انسخ ملف WIM إلى Cache\OperatingSystems\Custom على قسم Foundry Cache، ثم حدّث القائمة. أبقِ وسيط المصدر متصلًا أثناء النشر.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>الصورة أو الفهرس الافتراضي الذي تم تكوينه غير متاح. اختر صورة وفهرسًا بشكل صريح.</value>

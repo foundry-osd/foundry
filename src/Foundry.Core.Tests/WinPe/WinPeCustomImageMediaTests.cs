@@ -23,7 +23,7 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
         Directory.CreateDirectory(root);
         using WinPeCustomImageMediaLease package = CreatePackage();
         string destination = Path.Combine(root, "usb");
-        string manual = Path.Combine(destination, "Foundry", "Images", "Custom", "manual.wim");
+        string manual = Path.Combine(destination, "Cache", "OperatingSystems", "Custom", "manual.wim");
         Directory.CreateDirectory(Path.GetDirectoryName(manual)!);
         await File.WriteAllTextAsync(manual, "operator image", TestContext.Current.CancellationToken);
         var service = new WinPeCustomImageMediaService(_ => long.MaxValue, (_, _) => Task.FromResult<int?>(1));
@@ -121,7 +121,7 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
 
     private static async Task<IReadOnlyDictionary<string, string>> SeedDestinationAsync(WinPeCustomImageMediaLease package, string destination)
     {
-        string customRoot = Path.Combine(destination, "Foundry", "Images", "Custom");
+        string customRoot = Path.Combine(destination, "Cache", "OperatingSystems", "Custom");
         var files = new Dictionary<string, string>
         {
             [Path.Combine(destination, package.Files[0].RelativePath)] = "previous image",
@@ -148,7 +148,7 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
         File.WriteAllText(source, "image");
         string hash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes("image")));
         return new WinPeCustomImageMediaLease("test-build", Encoding.UTF8.GetBytes("{\"manifestId\":\"test-build\"}"),
-            [new WinPeCustomImageMediaFile(source, relativePath ?? Path.Combine("Foundry", "Images", "Custom", "managed", hash.ToLowerInvariant(), "image.wim"), 5, hash)], []);
+            [new WinPeCustomImageMediaFile(source, relativePath ?? Path.Combine("Cache", "OperatingSystems", "Custom", hash.ToLowerInvariant(), "image.wim"), 5, hash)], []);
     }
 
     public void Dispose()

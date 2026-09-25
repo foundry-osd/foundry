@@ -155,7 +155,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A lemezkép nem olvasható, vagy a kijelölt indexe vagy metaadatai megváltoztak. Frissítse a lemezkép kijelölését, és próbálja újra.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Kézzel hozzáadott USB-lemezképhez másoljon egy WIM-fájlt a Foundry Cache partíció Foundry\Images\Custom mappájába, majd frissítsen. A telepítés alatt tartsa csatlakoztatva a forrásadathordozót.</value>
+    <value>Kézzel hozzáadott USB-lemezképhez másoljon egy WIM-fájlt a Foundry Cache partíció Cache\OperatingSystems\Custom mappájába, majd frissítsen. A telepítés alatt tartsa csatlakoztatva a forrásadathordozót.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>A beállított alapértelmezett lemezkép vagy index nem érhető el. Válasszon ki kifejezetten egy lemezképet és indexet.</value>

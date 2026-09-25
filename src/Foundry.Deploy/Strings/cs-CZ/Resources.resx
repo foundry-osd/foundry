@@ -155,7 +155,7 @@ Licencováno pod licencí MIT.</value>
     <value>Bitovou kopii nelze přečíst nebo se změnil vybraný index či metadata. Obnovte výběr bitové kopie a zkuste to znovu.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Pro ručně přidané bitové kopie USB zkopírujte WIM do Foundry\Images\Custom na oddílu Foundry Cache a poté seznam obnovte. Během nasazení ponechte zdrojové médium připojené.</value>
+    <value>Pro ručně přidané bitové kopie USB zkopírujte WIM do Cache\OperatingSystems\Custom na oddílu Foundry Cache a poté seznam obnovte. Během nasazení ponechte zdrojové médium připojené.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Nastavená výchozí bitová kopie nebo index nejsou dostupné. Výslovně vyberte bitovou kopii a index.</value>

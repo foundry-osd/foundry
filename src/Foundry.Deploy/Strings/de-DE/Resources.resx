@@ -155,7 +155,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Das Abbild kann nicht gelesen werden, oder der ausgewählte Index bzw. die Metadaten haben sich geändert. Aktualisieren Sie die Abbildauswahl und versuchen Sie es erneut.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Kopieren Sie für manuell hinzugefügte USB-Abbilder eine WIM-Datei nach Foundry\Images\Custom auf der Partition Foundry Cache und aktualisieren Sie anschließend. Lassen Sie das Quellmedium während der Bereitstellung angeschlossen.</value>
+    <value>Kopieren Sie für manuell hinzugefügte USB-Abbilder eine WIM-Datei nach Cache\OperatingSystems\Custom auf der Partition Foundry Cache und aktualisieren Sie anschließend. Lassen Sie das Quellmedium während der Bereitstellung angeschlossen.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Das konfigurierte Standardabbild oder der Index ist nicht verfügbar. Wählen Sie ausdrücklich ein Abbild und einen Index aus.</value>

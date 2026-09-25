@@ -155,7 +155,7 @@ Licencované podľa licencie MIT.</value>
     <value>Obraz sa nedá prečítať alebo sa zmenil vybraný index či metadáta. Obnovte výber obrazu a skúste to znova.</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Pre ručne pridané obrazy USB skopírujte WIM do Foundry\Images\Custom na oblasti Foundry Cache a potom obnovte zoznam. Počas nasadenia nechajte zdrojové médium pripojené.</value>
+    <value>Pre ručne pridané obrazy USB skopírujte WIM do Cache\OperatingSystems\Custom na oblasti Foundry Cache a potom obnovte zoznam. Počas nasadenia nechajte zdrojové médium pripojené.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Nastavený predvolený obraz alebo index nie je dostupný. Výslovne vyberte obraz a index.</value>

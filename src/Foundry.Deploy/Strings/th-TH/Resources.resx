@@ -155,7 +155,7 @@
     <value>ไม่สามารถอ่านอิมเมจได้ หรือดัชนีที่เลือกหรือเมทาดาทามีการเปลี่ยนแปลง รีเฟรชการเลือกอิมเมจแล้วลองอีกครั้ง</value>
   </data>
   <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>หากต้องการเพิ่มอิมเมจลงใน USB ด้วยตนเอง ให้คัดลอก WIM ไปยัง Foundry\Images\Custom บนพาร์ทิชัน Foundry Cache แล้วรีเฟรช โปรดเชื่อมต่อสื่อต้นทางไว้ตลอดการปรับใช้</value>
+    <value>หากต้องการเพิ่มอิมเมจลงใน USB ด้วยตนเอง ให้คัดลอก WIM ไปยัง Cache\OperatingSystems\Custom บนพาร์ทิชัน Foundry Cache แล้วรีเฟรช โปรดเชื่อมต่อสื่อต้นทางไว้ตลอดการปรับใช้</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>อิมเมจหรือดัชนีเริ่มต้นที่กำหนดไว้ไม่พร้อมใช้งาน โปรดเลือกอิมเมจและดัชนีอย่างชัดเจน</value>
