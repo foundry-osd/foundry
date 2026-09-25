@@ -761,10 +761,10 @@ Licenseret under MIT-licensen.</value>
     <value>Valgte pakker: {0} af {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assign the final computer name confirmed in Foundry Deploy to the Windows Autopilot device during hardware hash upload.</value>
+    <value>Tildel Windows Autopilot-enheden det endelige computernavn, der er bekræftet i Foundry Deploy, under upload af hardwarehash.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Enable machine naming and zero-touch or interactive hardware hash upload to assign the final deployment name to Autopilot.</value>
+    <value>Aktivér navngivning af enheder og zero-touch eller interaktiv upload af hardwarehash for at tildele det endelige udrulningsnavn i Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Tilføj komponent</value>
@@ -1955,10 +1955,10 @@ Licenseret under MIT-licensen.</value>
     <value>ukrainsk (ukrainsk)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Upload computernavn til Autopilot</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Upload computernavn til Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Bevar tegn fra venstre</value>

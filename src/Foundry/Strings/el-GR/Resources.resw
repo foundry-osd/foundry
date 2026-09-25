@@ -761,10 +761,10 @@
     <value>Επιλεγμένα πακέτα: {0} του {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assign the final computer name confirmed in Foundry Deploy to the Windows Autopilot device during hardware hash upload.</value>
+    <value>Αντιστοιχίστε το τελικό όνομα υπολογιστή που επιβεβαιώθηκε στο Foundry Deploy στη συσκευή Windows Autopilot κατά την αποστολή του κατακερματισμού υλικού.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Enable machine naming and zero-touch or interactive hardware hash upload to assign the final deployment name to Autopilot.</value>
+    <value>Ενεργοποιήστε την ονομασία συσκευών και τη zero-touch ή τη διαδραστική αποστολή κατακερματισμού υλικού για να αντιστοιχίσετε το τελικό όνομα ανάπτυξης στο Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Προσθήκη στοιχείου</value>
@@ -1955,10 +1955,10 @@
     <value>Ουκρανικά (Ουκρανία)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Αποστολή ονόματος υπολογιστή στο Autopilot</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Αποστολή ονόματος υπολογιστή στο Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Διατήρηση χαρακτήρων από τα αριστερά</value>

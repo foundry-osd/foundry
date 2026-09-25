@@ -761,10 +761,10 @@ Licencirano pod MIT licencom.</value>
     <value>Odabrani paketi: {0} od {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assign the final computer name confirmed in Foundry Deploy to the Windows Autopilot device during hardware hash upload.</value>
+    <value>Dodelite uređaju Windows Autopilot konačno ime računara potvrđeno u aplikaciji Foundry Deploy tokom otpremanja hardverskog heša.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Enable machine naming and zero-touch or interactive hardware hash upload to assign the final deployment name to Autopilot.</value>
+    <value>Omogućite imenovanje računara i zero-touch ili interaktivno otpremanje hardverskog heša da biste dodelili konačno ime primene u usluzi Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Dodaj komponentu</value>
@@ -1955,10 +1955,10 @@ Licencirano pod MIT licencom.</value>
     <value>ukrajinski (Ukrajina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Otpremi ime računara u Autopilot</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Otpremi ime računara u Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Zadrži znakove sleva</value>

@@ -761,10 +761,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Valitut paketit: {0} / {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assign the final computer name confirmed in Foundry Deploy to the Windows Autopilot device during hardware hash upload.</value>
+    <value>Määritä Foundry Deploy -sovelluksessa vahvistettu lopullinen tietokoneen nimi Windows Autopilot -laitteelle laitteiston hajautusarvon latauksen yhteydessä.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Enable machine naming and zero-touch or interactive hardware hash upload to assign the final deployment name to Autopilot.</value>
+    <value>Ota käyttöön laitteiden nimeäminen ja laitteiston hajautusarvon zero-touch-lataus tai vuorovaikutteinen lataus, jotta käyttöönotossa käytettävä lopullinen nimi voidaan määrittää Autopilot-palvelussa.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Lisää osa</value>
@@ -1955,10 +1955,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>ukraina (Ukraina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Lataa tietokoneen nimi Autopilot-palveluun</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Lataa tietokoneen nimi Autopilot-palveluun</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Säilytä merkit vasemmalta</value>

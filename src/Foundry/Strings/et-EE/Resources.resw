@@ -761,10 +761,10 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Valitud paketid: {0} {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assign the final computer name confirmed in Foundry Deploy to the Windows Autopilot device during hardware hash upload.</value>
+    <value>Määrake riistvararäsi üleslaadimisel teenuse Windows Autopilot seadmele rakenduses Foundry Deploy kinnitatud lõplik arvutinimi.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Enable machine naming and zero-touch or interactive hardware hash upload to assign the final deployment name to Autopilot.</value>
+    <value>Lubage seadmete nimetamine ja zero-touch või interaktiivne riistvararäsi üleslaadimine, et määrata lõplik juurutusnimi teenuses Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Lisa komponent</value>
@@ -1955,10 +1955,10 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>ukraina (Ukraina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Arvutinime üleslaadimine teenusesse Autopilot</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Arvutinime üleslaadimine teenusesse Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Säilita märgid vasakult</value>

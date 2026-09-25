@@ -761,10 +761,10 @@
     <value>Избрани пакети: {0} от {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assign the final computer name confirmed in Foundry Deploy to the Windows Autopilot device during hardware hash upload.</value>
+    <value>Задайте окончателното име на компютъра, потвърдено във Foundry Deploy, на устройството в Windows Autopilot при качване на хардуерния хеш.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Enable machine naming and zero-touch or interactive hardware hash upload to assign the final deployment name to Autopilot.</value>
+    <value>Активирайте именуването на устройства и zero-touch или интерактивното качване на хардуерен хеш, за да зададете окончателното име за разполагане в Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Добавяне на компонент</value>
@@ -1955,10 +1955,10 @@
     <value>украински (Украйна)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Качване на името на компютъра в Autopilot</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Качване на името на компютъра в Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Запазване на знаците отляво</value>

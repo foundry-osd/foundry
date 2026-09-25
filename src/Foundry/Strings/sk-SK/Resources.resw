@@ -761,10 +761,10 @@ Licencované podľa licencie MIT.</value>
     <value>Vybrané balíčky: {0} z {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assign the final computer name confirmed in Foundry Deploy to the Windows Autopilot device during hardware hash upload.</value>
+    <value>Priraďte zariadeniu Windows Autopilot konečný názov počítača potvrdený v aplikácii Foundry Deploy počas nahrávania hardvérového hashu.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Enable machine naming and zero-touch or interactive hardware hash upload to assign the final deployment name to Autopilot.</value>
+    <value>Povoľte pomenovanie počítačov a zero-touch alebo interaktívne nahrávanie hardvérového hashu, aby ste priradili konečný názov nasadenia v službe Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Pridať súčasť</value>
@@ -1955,10 +1955,10 @@ Licencované podľa licencie MIT.</value>
     <value>ukrajinčina (Ukrajina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Nahrať názov počítača do služby Autopilot</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Nahrať názov počítača do služby Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Ponechať znaky zľava</value>

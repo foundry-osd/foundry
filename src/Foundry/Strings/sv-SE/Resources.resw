@@ -761,10 +761,10 @@ Licensierad under MIT-licensen.</value>
     <value>Valda paket: {0} av {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assign the final computer name confirmed in Foundry Deploy to the Windows Autopilot device during hardware hash upload.</value>
+    <value>Tilldela Windows Autopilot-enheten det slutliga datornamnet som bekräftats i Foundry Deploy när maskinvaruhashen laddas upp.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Enable machine naming and zero-touch or interactive hardware hash upload to assign the final deployment name to Autopilot.</value>
+    <value>Aktivera datornamngivning och zero-touch-uppladdning eller interaktiv uppladdning av maskinvaruhash för att tilldela det slutliga distributionsnamnet i Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Lägg till komponent</value>
@@ -1955,10 +1955,10 @@ Licensierad under MIT-licensen.</value>
     <value>ukrainska (Ukraina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Ladda upp datornamn till Autopilot</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Ladda upp datornamn till Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Behåll tecken från vänster</value>

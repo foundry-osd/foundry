@@ -761,10 +761,10 @@ Licenc az MIT licenc alatt.</value>
     <value>Kiválasztott csomagok: {0}/{1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assign the final computer name confirmed in Foundry Deploy to the Windows Autopilot device during hardware hash upload.</value>
+    <value>Rendelje hozzá a Foundry Deploy alkalmazásban megerősített végleges számítógépnevet a Windows Autopilot-eszközhöz a hardverhash feltöltése során.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Enable machine naming and zero-touch or interactive hardware hash upload to assign the final deployment name to Autopilot.</value>
+    <value>Engedélyezze a gépelnevezést és a zero-touch vagy interaktív hardverhash-feltöltést, hogy a végleges telepítési nevet hozzárendelhesse az Autopilotban.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Összetevő hozzáadása</value>
@@ -1955,10 +1955,10 @@ Licenc az MIT licenc alatt.</value>
     <value>ukrán (Ukrajna)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Számítógépnév feltöltése az Autopilotba</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Számítógépnév feltöltése az Autopilotba</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Karakterek megtartása balról</value>

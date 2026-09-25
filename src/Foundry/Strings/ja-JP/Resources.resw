@@ -761,10 +761,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>選択したパッケージ: {0} または {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assign the final computer name confirmed in Foundry Deploy to the Windows Autopilot device during hardware hash upload.</value>
+    <value>ハードウェア ハッシュのアップロード時に、Foundry Deploy で確認された最終的なコンピューター名を Windows Autopilot デバイスに割り当てます。</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Enable machine naming and zero-touch or interactive hardware hash upload to assign the final deployment name to Autopilot.</value>
+    <value>最終的な展開名を Autopilot に割り当てるには、マシンの命名と、ゼロタッチまたは対話型のハードウェア ハッシュ アップロードを有効にしてください。</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>コンポーネントの追加</value>
@@ -1955,10 +1955,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ウクライナ語 (ウクライナ)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>コンピューター名を Autopilot にアップロード</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>コンピューター名を Autopilot にアップロード</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>左側の文字を保持</value>

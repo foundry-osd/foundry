@@ -761,10 +761,10 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Pacchetti selezionati: {0} di {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assign the final computer name confirmed in Foundry Deploy to the Windows Autopilot device during hardware hash upload.</value>
+    <value>Assegna il nome definitivo del computer confermato in Foundry Deploy al dispositivo Windows Autopilot durante il caricamento dell’hash hardware.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Enable machine naming and zero-touch or interactive hardware hash upload to assign the final deployment name to Autopilot.</value>
+    <value>Abilita la denominazione del computer e il caricamento zero-touch o interattivo dell’hash hardware per assegnare il nome definitivo della distribuzione in Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Aggiungi componente</value>
@@ -1955,10 +1955,10 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Ucraino (Ucraina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Carica il nome del computer in Autopilot</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Carica il nome del computer in Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Mantieni i caratteri da sinistra</value>

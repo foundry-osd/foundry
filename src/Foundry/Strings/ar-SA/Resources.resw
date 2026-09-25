@@ -761,10 +761,10 @@
     <value>الحزم المحددة: {0} of {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assign the final computer name confirmed in Foundry Deploy to the Windows Autopilot device during hardware hash upload.</value>
+    <value>عيّن اسم الكمبيوتر النهائي المؤكد في Foundry Deploy لجهاز Windows Autopilot أثناء تحميل تجزئة الأجهزة.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Enable machine naming and zero-touch or interactive hardware hash upload to assign the final deployment name to Autopilot.</value>
+    <value>فعّل تسمية الأجهزة وتحميل تجزئة الأجهزة بطريقة zero-touch أو بالطريقة التفاعلية لتعيين اسم النشر النهائي في Autopilot.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>إضافة مكون</value>
@@ -1955,10 +1955,10 @@
     <value>الأوكرانية (أوكرانيا)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>تحميل اسم الكمبيوتر إلى Autopilot</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>تحميل اسم الكمبيوتر إلى Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>الاحتفاظ بالأحرف من اليسار</value>

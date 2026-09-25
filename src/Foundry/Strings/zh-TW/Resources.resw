@@ -761,10 +761,10 @@
     <value>選購套餐：{0} 或 {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assign the final computer name confirmed in Foundry Deploy to the Windows Autopilot device during hardware hash upload.</value>
+    <value>在上傳硬體雜湊時，將 Foundry Deploy 中確認的最終電腦名稱指派給 Windows Autopilot 裝置。</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Enable machine naming and zero-touch or interactive hardware hash upload to assign the final deployment name to Autopilot.</value>
+    <value>啟用電腦命名以及 zero-touch 或互動式硬體雜湊上傳，以便將最終部署名稱指派給 Autopilot。</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>新增元件</value>
@@ -1955,10 +1955,10 @@
     <value>烏克蘭語（烏克蘭）</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>將電腦名稱上傳至 Autopilot</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>將電腦名稱上傳至 Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>保留左側字元</value>

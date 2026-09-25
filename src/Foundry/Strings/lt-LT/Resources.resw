@@ -761,10 +761,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pasirinkti paketai: {0} iš {1}</value>
   </data>
   <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
-    <value>Assign the final computer name confirmed in Foundry Deploy to the Windows Autopilot device during hardware hash upload.</value>
+    <value>Įkeldami aparatūros maišą, priskirkite „Windows Autopilot“ įrenginiui galutinį kompiuterio pavadinimą, patvirtintą „Foundry Deploy“.</value>
   </data>
   <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
-    <value>Enable machine naming and zero-touch or interactive hardware hash upload to assign the final deployment name to Autopilot.</value>
+    <value>Įgalinkite kompiuterių pavadinimų suteikimą ir zero-touch arba interaktyvų aparatūros maišos įkėlimą, kad priskirtumėte galutinį diegimo pavadinimą „Autopilot“.</value>
   </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Pridėti komponentą</value>
@@ -1955,10 +1955,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>ukrainiečių (Ukraina)</value>
   </data>
   <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Įkelti kompiuterio pavadinimą į „Autopilot“</value>
   </data>
   <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
-    <value>Upload computer name to Autopilot</value>
+    <value>Įkelti kompiuterio pavadinimą į „Autopilot“</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Palikti simbolius iš kairės</value>
