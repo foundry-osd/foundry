@@ -148,9 +148,6 @@ Licencirano pod MIT licencom.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Pregled i provera slike…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Sadržaj slike ne odgovara zabeleženom sažetku. Vratite sliku ili osvežite ručno dodatu sliku.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Manifest prilagođenih slika nedostaje, oštećen je ili ne odgovara ovom mediju za pokretanje. Ponovo kreirajte medij ili izaberite drugi izvor.</value>
   </data>

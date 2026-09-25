@@ -148,9 +148,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Analisi e verifica dell’immagine…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Il contenuto dell’immagine non corrisponde all’hash registrato. Ripristina l’immagine o aggiorna un’immagine aggiunta manualmente.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Il manifesto delle immagini personalizzate è mancante, danneggiato o non corrisponde a questo supporto di avvio. Ricrea il supporto o scegli un’altra origine.</value>
   </data>

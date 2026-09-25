@@ -148,9 +148,6 @@
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>正在檢查並驗證映像...</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>映像內容與記錄的摘要不符。請還原映像，或重新整理手動新增的映像。</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>自訂映像資訊清單遺失、損毀，或與此開機媒體不符。請重新建立媒體或選擇其他來源。</value>
   </data>

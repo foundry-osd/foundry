@@ -148,9 +148,6 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Inspeccionando y verificando la imagen…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>El contenido de la imagen no coincide con su huella registrada. Restaure la imagen o actualice una imagen añadida manualmente.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>El manifiesto de imágenes personalizadas falta, está dañado o no coincide con este medio de arranque. Vuelva a crear el medio o elija otro origen.</value>
   </data>

@@ -7,7 +7,6 @@ using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Images;
 using Foundry.Core.Services.Configuration;
-using Serilog;
 
 namespace Foundry.Core.Services.Images;
 
@@ -169,16 +168,6 @@ public sealed partial class CustomImageLibraryService
             if (Directory.Exists(path)) CollectOwnedDeletionPaths(path, files, directories);
             else files.Add(path);
         }
-    }
-
-    /// <summary>Changes the local library label without modifying immutable content or other profile references.</summary>
-    public async Task RenameAsync(string id, string displayName, CancellationToken cancellationToken = default)
-    {
-        string name = CustomImageSettingsValidator.NormalizeDisplayName(displayName);
-        using FileStream libraryLock = AcquireLibraryLock();
-        IReadOnlyList<CustomImageReference> entries = await ListAsync(cancellationToken).ConfigureAwait(false);
-        if (!entries.Any(entry => entry.Id == id)) throw new InvalidDataException("The custom image is unavailable.");
-        await WriteIndexAsync(entries.Select(entry => entry.Id == id ? entry with { DisplayName = name } : entry).ToArray(), cancellationToken).ConfigureAwait(false);
     }
 
     private string OwnedPath(string relativePath) => CustomImagePathPolicy.ResolveRelativePath(rootDirectory, relativePath);

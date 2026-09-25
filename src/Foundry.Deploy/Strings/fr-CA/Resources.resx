@@ -148,9 +148,6 @@ Sous licence MIT.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Inspection et vérification de l’image…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Le contenu de l’image ne correspond pas à son empreinte enregistrée. Restaurez l’image ou actualisez une image ajoutée manuellement.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Le manifeste des images personnalisées est manquant, endommagé ou ne correspond pas à ce support de démarrage. Recréez le support ou choisissez une autre source.</value>
   </data>

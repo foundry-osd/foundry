@@ -148,9 +148,6 @@
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>התמונה נבדקת ומאומתת...</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>תוכן התמונה אינו תואם לערך הגיבוב שנרשם עבורה. יש לשחזר את התמונה או לרענן תמונה שנוספה ידנית.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>מניפסט התמונות המותאמות אישית חסר, פגום או אינו תואם למדיית אתחול זו. יש ליצור מחדש את המדיה או לבחור מקור אחר.</value>
   </data>

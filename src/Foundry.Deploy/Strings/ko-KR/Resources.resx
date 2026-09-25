@@ -148,9 +148,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>이미지 검사 및 확인 중...</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>이미지 내용이 기록된 다이제스트와 일치하지 않습니다. 이미지를 복원하거나 수동으로 추가한 이미지를 새로 고침하세요.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>사용자 지정 이미지 매니페스트가 없거나 손상되었거나 이 부팅 미디어와 일치하지 않습니다. 미디어를 다시 만들거나 다른 원본을 선택하세요.</value>
   </data>

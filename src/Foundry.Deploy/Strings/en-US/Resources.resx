@@ -148,9 +148,6 @@ Licensed under the MIT License.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Inspecting and verifying image...</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>The image content does not match its recorded digest. Restore the image or refresh a manually added image.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>The custom image manifest is missing, damaged, or does not match this boot media. Recreate the media or choose another source.</value>
   </data>

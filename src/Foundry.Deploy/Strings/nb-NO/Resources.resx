@@ -148,9 +148,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Undersøker og kontrollerer avbildning…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Innholdet i avbildningen samsvarer ikke med den registrerte hashverdien. Gjenopprett avbildningen eller oppdater en manuelt tillagt avbildning.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Manifestet mangler, er skadet eller samsvarer ikke med dette oppstartsmediet. Opprett mediet på nytt eller velg en annen kilde.</value>
   </data>

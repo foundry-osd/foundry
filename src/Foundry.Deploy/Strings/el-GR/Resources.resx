@@ -148,9 +148,6 @@
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Επιθεώρηση και επαλήθευση εικόνας…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Το περιεχόμενο της εικόνας δεν αντιστοιχεί στο καταγεγραμμένο αποτύπωμα. Επαναφέρετε την εικόνα ή ανανεώστε μια εικόνα που προστέθηκε μη αυτόματα.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Το δηλωτικό προσαρμοσμένων εικόνων λείπει, είναι κατεστραμμένο ή δεν αντιστοιχεί σε αυτό το μέσο εκκίνησης. Δημιουργήστε ξανά το μέσο ή επιλέξτε άλλη πηγή.</value>
   </data>

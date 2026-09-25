@@ -148,9 +148,6 @@
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>جارٍ فحص الصورة والتحقّق منها...</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>لا يتطابق محتوى الصورة مع بصمة التجزئة المسجّلة لها. استعد الصورة أو حدّث الصورة المضافة يدويًا.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>بيان الصور المخصصة مفقود أو تالف أو لا يتطابق مع وسيط التمهيد هذا. أعد إنشاء الوسيط أو اختر مصدرًا آخر.</value>
   </data>

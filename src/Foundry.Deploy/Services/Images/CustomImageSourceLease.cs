@@ -36,7 +36,7 @@ public sealed class CustomImageSourceLease : IDisposable
                 throw new InvalidDataException("CustomImages.InvalidSource");
             string hash = Convert.ToHexString(await SHA256.HashDataAsync(stream, cancellationToken).ConfigureAwait(false));
             if (expectedHash is not null && !string.Equals(hash, expectedHash, StringComparison.OrdinalIgnoreCase))
-                throw new InvalidDataException("CustomImages.IntegrityFailed");
+                throw new InvalidDataException("The source file SHA-256 digest does not match the recorded digest.");
             stream.Position = 0;
             return new CustomImageSourceLease(stream, hash);
         }

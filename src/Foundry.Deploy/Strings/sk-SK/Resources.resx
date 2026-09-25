@@ -148,9 +148,6 @@ Licencované podľa licencie MIT.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Kontroluje a overuje sa obraz…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Obsah obrazu nezodpovedá zaznamenanému odtlačku. Obnovte obraz alebo aktualizujte ručne pridaný obraz.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Manifest vlastných obrazov chýba, je poškodený alebo nezodpovedá tomuto zavádzaciemu médiu. Vytvorte médium znova alebo vyberte iný zdroj.</value>
   </data>

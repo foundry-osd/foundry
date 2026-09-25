@@ -148,9 +148,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>イメージを確認して検証しています...</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>イメージの内容が記録されたダイジェストと一致しません。イメージを復元するか、手動で追加したイメージを更新してください。</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>カスタムイメージのマニフェストが見つからない、破損している、またはこの起動メディアと一致しません。メディアを再作成するか、別のソースを選択してください。</value>
   </data>

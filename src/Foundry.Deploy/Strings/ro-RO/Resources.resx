@@ -148,9 +148,6 @@ Licențiat sub licența MIT.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Se inspectează și se verifică imaginea…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Conținutul imaginii nu corespunde amprentei înregistrate. Restabiliți imaginea sau reîmprospătați o imagine adăugată manual.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Manifestul imaginilor personalizate lipsește, este deteriorat sau nu corespunde acestui mediu de pornire. Recreați mediul sau alegeți altă sursă.</value>
   </data>

@@ -148,9 +148,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Abbild wird untersucht und überprüft…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Der Inhalt des Abbilds stimmt nicht mit dem gespeicherten Hashwert überein. Stellen Sie das Abbild wieder her oder aktualisieren Sie ein manuell hinzugefügtes Abbild.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Das Manifest der benutzerdefinierten Abbilder fehlt, ist beschädigt oder passt nicht zu diesem Startmedium. Erstellen Sie das Medium neu oder wählen Sie eine andere Quelle.</value>
   </data>

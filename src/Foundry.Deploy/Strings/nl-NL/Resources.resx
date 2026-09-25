@@ -148,9 +148,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Installatiekopie inspecteren en verifiëren…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>De inhoud komt niet overeen met de vastgelegde hash. Herstel de installatiekopie of vernieuw een handmatig toegevoegde installatiekopie.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Het manifest ontbreekt, is beschadigd of past niet bij deze opstartmedia. Maak de media opnieuw of kies een andere bron.</value>
   </data>

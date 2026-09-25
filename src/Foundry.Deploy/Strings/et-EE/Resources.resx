@@ -148,9 +148,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Tõmmise uurimine ja kontrollimine…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Tõmmise sisu ei vasta salvestatud räsile. Taastage tõmmis või värskendage käsitsi lisatud tõmmist.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Kohandatud tõmmiste manifest puudub, on kahjustatud või ei vasta sellele alglaadimismeediumile. Looge meedium uuesti või valige teine allikas.</value>
   </data>

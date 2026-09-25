@@ -148,9 +148,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Attēla izpēte un pārbaude…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Attēla saturs neatbilst reģistrētajai jaucējvērtībai. Atjaunojiet attēlu vai atsvaidziniet manuāli pievienotu attēlu.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Pielāgoto attēlu manifests trūkst, ir bojāts vai neatbilst šim sāknēšanas datu nesējam. Izveidojiet datu nesēju no jauna vai izvēlieties citu avotu.</value>
   </data>

@@ -148,9 +148,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Lemezkép vizsgálata és ellenőrzése…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>A lemezkép tartalma nem egyezik a rögzített kivonattal. Állítsa helyre a lemezképet, vagy frissítsen egy kézzel hozzáadott lemezképet.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Az egyéni lemezképek jegyzékfájlja hiányzik, sérült vagy nem egyezik ezzel a rendszerindító adathordozóval. Hozza létre újra az adathordozót, vagy válasszon másik forrást.</value>
   </data>

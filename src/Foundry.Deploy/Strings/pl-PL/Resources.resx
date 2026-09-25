@@ -148,9 +148,6 @@ Licencjonowany na licencji MIT.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Sprawdzanie i weryfikowanie obrazu…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Zawartość obrazu nie zgadza się z zapisanym skrótem. Przywróć obraz lub odśwież obraz dodany ręcznie.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Manifest obrazów niestandardowych nie istnieje, jest uszkodzony lub nie pasuje do tego nośnika rozruchowego. Utwórz nośnik ponownie lub wybierz inne źródło.</value>
   </data>

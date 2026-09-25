@@ -148,9 +148,6 @@
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>กำลังตรวจสอบและยืนยันอิมเมจ...</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>เนื้อหาอิมเมจไม่ตรงกับค่าไดเจสต์ที่บันทึกไว้ โปรดคืนค่าอิมเมจ หรือรีเฟรชอิมเมจที่เพิ่มด้วยตนเอง</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>รายการกำกับอิมเมจแบบกำหนดเองหายไป เสียหาย หรือไม่ตรงกับสื่อเริ่มระบบนี้ โปรดสร้างสื่อใหม่หรือเลือกแหล่งที่มาอื่น</value>
   </data>

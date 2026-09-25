@@ -148,9 +148,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Tutkitaan ja tarkistetaan näköistiedostoa…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Näköistiedoston sisältö ei vastaa tallennettua tiivistettä. Palauta näköistiedosto tai päivitä käsin lisätty näköistiedosto.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Mukautettujen näköistiedostojen luettelotiedosto puuttuu, on vioittunut tai ei vastaa tätä käynnistystietovälinettä. Luo tietoväline uudelleen tai valitse toinen lähde.</value>
   </data>

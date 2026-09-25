@@ -148,9 +148,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Görüntü inceleniyor ve doğrulanıyor…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Görüntü içeriği kaydedilen özetle eşleşmiyor. Görüntüyü geri yükleyin veya elle eklenen bir görüntüyü yenileyin.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Özel görüntü bildirimi eksik, bozuk veya bu önyükleme medyasıyla eşleşmiyor. Medyayı yeniden oluşturun veya başka bir kaynak seçin.</value>
   </data>

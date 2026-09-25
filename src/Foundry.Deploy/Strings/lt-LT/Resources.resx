@@ -148,9 +148,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Nagrinėjamas ir tikrinamas atvaizdas…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Atvaizdo turinys neatitinka įrašytos maišos. Atkurkite atvaizdą arba atnaujinkite rankiniu būdu pridėtą atvaizdą.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Pasirinktinių atvaizdų manifestas nepasiekiamas, sugadintas arba neatitinka šios įkrovos laikmenos. Sukurkite laikmeną iš naujo arba pasirinkite kitą šaltinį.</value>
   </data>

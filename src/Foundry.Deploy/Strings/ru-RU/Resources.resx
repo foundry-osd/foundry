@@ -148,9 +148,6 @@
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Анализ и проверка образа...</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Содержимое образа не соответствует записанной контрольной сумме. Восстановите образ или обновите образ, добавленный вручную.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Манифест пользовательского образа отсутствует, повреждён или не соответствует этому загрузочному носителю. Создайте носитель заново или выберите другой источник.</value>
   </data>

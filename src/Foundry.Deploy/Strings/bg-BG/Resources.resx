@@ -148,9 +148,6 @@
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Преглед и проверка на образа...</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Съдържанието на образа не съответства на записаната контролна сума. Възстановете образа или обновете ръчно добавен образ.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Манифестът на персонализирания образ липсва, повреден е или не съответства на този стартиращ носител. Създайте носителя отново или изберете друг източник.</value>
   </data>

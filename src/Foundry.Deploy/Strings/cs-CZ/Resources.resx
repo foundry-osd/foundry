@@ -148,9 +148,6 @@ Licencováno pod licencí MIT.</value>
   <data name="CustomImages.Inspecting" xml:space="preserve">
     <value>Kontrola a ověřování bitové kopie…</value>
   </data>
-  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
-    <value>Obsah bitové kopie neodpovídá zaznamenanému otisku. Obnovte bitovou kopii nebo aktualizujte ručně přidanou bitovou kopii.</value>
-  </data>
   <data name="CustomImages.InvalidManifest" xml:space="preserve">
     <value>Manifest vlastních bitových kopií chybí, je poškozen nebo neodpovídá tomuto spouštěcímu médiu. Vytvořte médium znovu nebo vyberte jiný zdroj.</value>
   </data>
