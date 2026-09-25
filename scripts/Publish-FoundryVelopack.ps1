@@ -36,8 +36,6 @@ $installerLicenseSourcePath = Join-Path $repoRoot 'LICENSE'
 $installerLicensePath = Join-Path $artifactsRoot 'installer-license.md'
 $installerReadmePath = Join-Path $installerAssetsDir 'Readme.md'
 $installerConclusionPath = Join-Path $installerAssetsDir 'Conclusion.md'
-$msiTopBannerPath = Join-Path $installerAssetsDir 'MsiBanner.bmp'
-$msiDialogBackgroundPath = Join-Path $installerAssetsDir 'MsiLogo.bmp'
 $platform = if ($RuntimeIdentifier -eq 'win-x64') { 'x64' } else { 'ARM64' }
 $artifactArchitecture = if ($RuntimeIdentifier -eq 'win-x64') { 'x64' } else { 'arm64' }
 $velopackChannel = $RuntimeIdentifier
@@ -60,9 +58,7 @@ $installerInputPaths = @(
     $installerWelcomePath,
     $installerLicenseSourcePath,
     $installerReadmePath,
-    $installerConclusionPath,
-    $msiTopBannerPath,
-    $msiDialogBackgroundPath
+    $installerConclusionPath
 )
 foreach ($path in $installerInputPaths) {
     if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
@@ -193,8 +189,6 @@ foreach ($directory in $winUiResourceDirectories) {
     --instLicense $installerLicensePath `
     --instReadme $installerReadmePath `
     --instConclusion $installerConclusionPath `
-    --msiTopBanner $msiTopBannerPath `
-    --msiDialogBackground $msiDialogBackgroundPath `
     --packId Foundry `
     --packTitle 'Foundry OSD' `
     --packAuthors 'Foundry Project' `
