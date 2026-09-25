@@ -194,8 +194,9 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         }
 
         context.EmitCurrentStepIndeterminate("Staging Autopilot registration assistant...", "Copying interactive registration files...", DeploymentOperationNames.StageAutopilotAssistant);
+        string? assignedComputerName = await ResolveAssignedComputerNameAsync(context, cancellationToken).ConfigureAwait(false);
         AutopilotInteractiveRegistrationProvisioningResult provisioningResult =
-            _interactiveRegistrationProvisioningService.Provision(context.RuntimeState.TargetWindowsPartitionRoot);
+            _interactiveRegistrationProvisioningService.Provision(context.RuntimeState.TargetWindowsPartitionRoot, assignedComputerName);
 
         context.RuntimeState.StagedAutopilotConfigurationPath = provisioningResult.ConfigPath;
         context.RuntimeState.AutopilotHardwareHashUploadState = AutopilotHardwareHashUploadState.NotPlanned;
@@ -286,12 +287,14 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             return stepResult;
         }
 
+        string? assignedComputerName = await ResolveAssignedComputerNameAsync(context, cancellationToken).ConfigureAwait(false);
         context.EmitCurrentStepIndeterminate("Uploading Autopilot hardware hash...", "Preparing Microsoft Graph import...", DeploymentOperationNames.UploadAutopilotHash);
         AutopilotHardwareHashUploadResult uploadResult = await _hardwareHashUploadService.UploadAsync(
             new AutopilotHardwareHashUploadRequest
             {
                 Settings = settings,
                 Identity = captureResult.Identity!,
+                AssignedComputerName = assignedComputerName,
                 WorkspaceRootPath = context.RuntimeState.WorkspaceRoot,
                 DiagnosticsRootPath = diagnosticsPath
             },
@@ -322,6 +325,28 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         return uploadResult.IsCompleted
             ? DeploymentStepResult.Succeeded(uploadResult.Message)
             : DeploymentStepResult.Skipped(uploadResult.Message);
+    }
+
+    private static async Task<string?> ResolveAssignedComputerNameAsync(
+        DeploymentStepExecutionContext context,
+        CancellationToken cancellationToken)
+    {
+        if (!context.Request.UploadComputerNameToAutopilot)
+        {
+            return null;
+        }
+
+        if (context.Request.UsesCustomUnattend ||
+            !Foundry.Core.Services.Configuration.ComputerNameRules.IsValid(context.Request.TargetComputerName))
+        {
+            await context.AppendLogAsync(
+                DeploymentLogLevel.Warning,
+                "Autopilot computer name assignment skipped because no final Foundry Deploy computer name is available. Hardware hash upload continues.",
+                cancellationToken).ConfigureAwait(false);
+            return null;
+        }
+
+        return context.Request.TargetComputerName;
     }
 
     private static async Task<DeploymentStepResult> WriteDryRunHardwareHashManifestAsync(

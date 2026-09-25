@@ -14,6 +14,34 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class DeployConfigurationGeneratorTests
 {
+    [Theory]
+    [InlineData(true, true, AutopilotProvisioningMode.HardwareHashUpload, true, true)]
+    [InlineData(true, true, AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, true)]
+    [InlineData(false, true, AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, false)]
+    [InlineData(true, false, AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, false)]
+    [InlineData(true, true, AutopilotProvisioningMode.JsonProfile, true, false)]
+    [InlineData(true, true, AutopilotProvisioningMode.InteractiveHardwareHashUpload, false, false)]
+    public void Generate_OnlyEnablesComputerNameUploadWhenOptedInAndSupported(
+        bool namingEnabled, bool autopilotEnabled, AutopilotProvisioningMode mode, bool optedIn, bool expected)
+    {
+        var naming = new MachineNamingSettings { IsEnabled = namingEnabled, UploadComputerNameToAutopilot = optedIn };
+        var document = new FoundryConfigurationDocument
+        {
+            Customization = new CustomizationSettings { MachineNaming = naming },
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = autopilotEnabled,
+                ProvisioningMode = mode,
+                DefaultProfileId = "profile",
+                Profiles = [CreateProfile("profile", "profile")],
+                HardwareHashUpload = CreateCompleteHardwareHashSettings(DateTimeOffset.UtcNow.AddMonths(1))
+            }
+        };
+
+        var result = new DeployConfigurationGenerator().Generate(document);
+        Assert.Equal(expected, result.Customization.MachineNaming.UploadComputerNameToAutopilot);
+    }
+
     [Fact]
     public void Generate_MapsDeploymentCompletionSettings()
     {

@@ -760,6 +760,12 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>Valitut paketit: {0} / {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>Määritä Foundry Deploy -sovelluksessa vahvistettu lopullinen tietokoneen nimi Windows Autopilot -laitteelle laitteiston hajautusarvon latauksen yhteydessä.</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>Ota käyttöön laitteiden nimeäminen ja laitteiston hajautusarvon zero-touch-lataus tai vuorovaikutteinen lataus, jotta käyttöönotossa käytettävä lopullinen nimi voidaan määrittää Autopilot-palvelussa.</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Lisää osa</value>
   </data>
@@ -1947,6 +1953,12 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukraina (Ukraina)</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>Lataa tietokoneen nimi Autopilot-palveluun</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Lataa tietokoneen nimi Autopilot-palveluun</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Säilytä merkit vasemmalta</value>

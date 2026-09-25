@@ -19,6 +19,9 @@ public sealed record DeploymentLaunchRequest
     public required DeploymentMode Mode { get; init; }
     public required string CacheRootPath { get; init; }
     public required string TargetComputerName { get; init; }
+
+    /// <summary>Gets the authoring preference to assign the confirmed deployment name during Autopilot upload.</summary>
+    public bool UploadComputerNameToAutopilot { get; init; }
     public required TargetDiskInfo? SelectedTargetDisk { get; init; }
     public required OperatingSystemCatalogItem? SelectedOperatingSystem { get; init; }
     public required DriverPackSelectionKind DriverPackSelectionKind { get; init; }

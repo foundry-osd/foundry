@@ -836,6 +836,107 @@ public sealed class AutopilotGraphImportClientTests
             handler.Requests[1].PathAndQuery);
     }
 
+    [Theory]
+    [InlineData("complete")]
+    [InlineData("error")]
+    public async Task ImportHardwareHashAsync_WithAssignedComputerName_UpdatesVisibleDeviceAndConfirmsName(string importStatus)
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, $$"""
+            { "value": [{ "id": "imported-id", "state": { "deviceImportStatus": "{{importStatus}}", "deviceErrorName": "ZtdDeviceAlreadyAssigned" } }] }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123", "groupTag": "OLD", "displayName": "OLD-NAME" }] }""");
+        handler.EnqueueText(HttpStatusCode.NoContent, string.Empty);
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123", "groupTag": "NEW", "displayName": "FINAL-PC" }] }""");
+
+        AutopilotHardwareHashUploadResult result = await CreateClient(handler).ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest("token", "SER123", "hash", "NEW", null, "import", "FINAL-PC"), CancellationToken.None);
+
+        Assert.True(result.IsCompleted);
+        using JsonDocument body = JsonDocument.Parse(handler.Requests[2].Body!);
+        Assert.Equal("FINAL-PC", body.RootElement.GetProperty("displayName").GetString());
+        Assert.Equal("NEW", body.RootElement.GetProperty("groupTag").GetString());
+        Assert.Equal(4, handler.Requests.Count);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    public async Task ImportHardwareHashAsync_WithoutAssignedComputerName_DoesNotClearExistingName(string? name)
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "imported-id", "state": { "deviceImportStatus": "complete" } }] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123", "groupTag": "OLD", "displayName": "KEEP-ME" }] }""");
+        handler.EnqueueText(HttpStatusCode.NoContent, string.Empty);
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123", "displayName": "KEEP-ME" }] }""");
+
+        AutopilotHardwareHashUploadResult result = await CreateClient(handler).ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest("token", "SER123", "hash", null, null, "import", name), CancellationToken.None);
+
+        Assert.True(result.IsCompleted);
+        using JsonDocument body = JsonDocument.Parse(handler.Requests[2].Body!);
+        Assert.False(body.RootElement.TryGetProperty("displayName", out _));
+    }
+
+    [Fact]
+    public async Task ImportHardwareHashAsync_WhenNameDoesNotPropagate_ReportsAssignmentTimeoutAfterImport()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "imported-id", "state": { "deviceImportStatus": "complete" } }] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123" }] }""");
+        handler.EnqueueText(HttpStatusCode.NoContent, string.Empty);
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123" }] }""");
+
+        AutopilotHardwareHashUploadResult result = await CreateClient(handler, new AutopilotGraphImportClientOptions
+        {
+            VisibilityTimeout = TimeSpan.Zero
+        }).ImportHardwareHashAsync(new AutopilotGraphImportRequest("token", "SER123", "hash", null, null, "import", "FINAL-PC"), CancellationToken.None);
+
+        Assert.Equal("AutopilotComputerNameUpdateTimedOut", result.FailureCode);
+        Assert.Equal(AutopilotHardwareHashUploadState.UploadTimedOut, result.State);
+        Assert.Equal("device-id", result.AutopilotDeviceId);
+        Assert.Contains("visible", result.Message);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("final-pc")]
+    public async Task ImportHardwareHashAsync_WhenOnlyComputerNameDiffers_AssignsExactFinalName(string? currentName)
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "imported-id", "state": { "deviceImportStatus": "complete" } }] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, JsonSerializer.Serialize(new
+        {
+            value = new[] { new { id = "device-id", serialNumber = "SER123", displayName = currentName } }
+        }));
+        handler.EnqueueText(HttpStatusCode.NoContent, string.Empty);
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123", "displayName": "FINAL-PC" }] }""");
+
+        AutopilotHardwareHashUploadResult result = await CreateClient(handler).ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest("token", "SER123", "hash", null, null, "import", "FINAL-PC"), CancellationToken.None);
+
+        Assert.True(result.IsCompleted);
+        Assert.Contains("computer name is assigned", result.Message);
+        using JsonDocument body = JsonDocument.Parse(handler.Requests[2].Body!);
+        Assert.Equal("FINAL-PC", body.RootElement.GetProperty("displayName").GetString());
+    }
+
+    [Fact]
+    public async Task ImportHardwareHashAsync_WhenNameAssignmentIsRejected_ReportsAssignmentFailureAfterImport()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "imported-id", "state": { "deviceImportStatus": "complete" } }] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123" }] }""");
+        handler.EnqueueText(HttpStatusCode.BadRequest, "Invalid displayName");
+
+        AutopilotHardwareHashUploadResult result = await CreateClient(handler).ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest("token", "SER123", "hash", null, null, "import", "FINAL-PC"), CancellationToken.None);
+
+        Assert.Equal("AutopilotComputerNameUpdateFailed", result.FailureCode);
+        Assert.Equal("device-id", result.AutopilotDeviceId);
+        Assert.Contains("visible", result.Message);
+    }
+
     private static AutopilotGraphImportClient CreateClient(
         QueuedGraphHandler handler,
         AutopilotGraphImportClientOptions? options = null)

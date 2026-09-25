@@ -760,6 +760,12 @@
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>الحزم المحددة: {0} of {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>عيّن اسم الكمبيوتر النهائي المؤكد في Foundry Deploy لجهاز Windows Autopilot أثناء تحميل تجزئة الأجهزة.</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>فعّل تسمية الأجهزة وتحميل تجزئة الأجهزة بطريقة zero-touch أو بالطريقة التفاعلية لتعيين اسم النشر النهائي في Autopilot.</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>إضافة مكون</value>
   </data>
@@ -1947,6 +1953,12 @@
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>الأوكرانية (أوكرانيا)</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>تحميل اسم الكمبيوتر إلى Autopilot</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>تحميل اسم الكمبيوتر إلى Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>الاحتفاظ بالأحرف من اليسار</value>

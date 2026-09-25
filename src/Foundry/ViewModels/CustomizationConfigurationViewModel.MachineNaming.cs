@@ -12,6 +12,21 @@ namespace Foundry.ViewModels;
 
 public sealed partial class CustomizationConfigurationViewModel
 {
+    [ObservableProperty]
+    public partial bool UploadComputerNameToAutopilot { get; set; }
+
+    public bool CanUploadComputerNameToAutopilot => IsMachineNamingEnabled
+        && configurationStateService.Current.Autopilot.IsEnabled
+        && configurationStateService.Current.Autopilot.ProvisioningMode is AutopilotProvisioningMode.HardwareHashUpload
+            or AutopilotProvisioningMode.InteractiveHardwareHashUpload;
+
+    public string AutopilotComputerNameDescription => localizationService.GetString(
+        CanUploadComputerNameToAutopilot
+            ? "Customization.AutopilotComputerNameDescription"
+            : "Customization.AutopilotComputerNamePrerequisites");
+
+    partial void OnUploadComputerNameToAutopilotChanged(bool value) => SaveState();
+
     private MachineNamingMode machineNamingMode = MachineNamingMode.Manual;
 
     public ObservableCollection<MachineNameComponentRowViewModel> MachineNameComponents { get; } = [];
@@ -262,6 +277,7 @@ public sealed partial class CustomizationConfigurationViewModel
     private void ApplyMachineNamingState(MachineNamingSettings settings)
     {
         IsMachineNamingEnabled = settings.IsEnabled;
+        UploadComputerNameToAutopilot = settings.UploadComputerNameToAutopilot;
         machineNamingMode = settings.Mode;
         ManualMachineName = settings.ManualInitialValue ?? string.Empty;
         AllowMachineNameEditingDuringDeployment = settings.AllowEditingDuringDeployment;
@@ -283,6 +299,7 @@ public sealed partial class CustomizationConfigurationViewModel
     private MachineNamingSettings BuildMachineNamingSettings() => new()
     {
         IsEnabled = IsMachineNamingEnabled,
+        UploadComputerNameToAutopilot = IsMachineNamingEnabled && UploadComputerNameToAutopilot,
         Mode = machineNamingMode,
         ManualInitialValue = machineNamingMode == MachineNamingMode.Manual && !string.IsNullOrWhiteSpace(ManualMachineName)
             ? ManualMachineName
@@ -398,6 +415,8 @@ public sealed partial class CustomizationConfigurationViewModel
 
     private void RaiseMachineNamingPropertiesChanged()
     {
+        OnPropertyChanged(nameof(CanUploadComputerNameToAutopilot));
+        OnPropertyChanged(nameof(AutopilotComputerNameDescription));
         for (int index = 0; index < MachineNameComponents.Count; index++)
         {
             MachineNameComponents[index].UpdatePosition(index, MachineNameComponents.Count);

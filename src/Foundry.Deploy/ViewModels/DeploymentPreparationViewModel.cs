@@ -215,6 +215,10 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         };
     }
 
+    /// <summary>Gets the media preference without exposing another deployment-time control.</summary>
+    public bool UploadComputerNameToAutopilot => _machineNamingConfiguration.IsEnabled
+        && _machineNamingConfiguration.UploadComputerNameToAutopilot;
+
     public void ApplyMachineNamingConfiguration(DeployMachineNamingSettings settings)
     {
         _machineNamingConfiguration = settings ?? new DeployMachineNamingSettings();

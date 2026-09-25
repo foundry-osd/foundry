@@ -760,6 +760,12 @@ Licencirano pod licenco MIT.</value>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>Izbrani paketi: {0} od {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>Napravi Windows Autopilot med nalaganjem zgoščene vrednosti strojne opreme dodelite končno ime računalnika, potrjeno v aplikaciji Foundry Deploy.</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>Omogočite poimenovanje računalnikov in zero-touch ali interaktivno nalaganje zgoščene vrednosti strojne opreme, da dodelite končno ime uvajanja v storitvi Autopilot.</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Dodaj komponento</value>
   </data>
@@ -1947,6 +1953,12 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrajinščina (Ukrajina)</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>Naloži ime računalnika v Autopilot</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Naloži ime računalnika v Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Ohrani znake z leve</value>

@@ -760,6 +760,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>Seçilen paketler: {0} / {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>Donanım karması yüklenirken Foundry Deploy'da onaylanan nihai bilgisayar adını Windows Autopilot cihazına atayın.</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>Nihai dağıtım adını Autopilot'ta atamak için bilgisayar adlandırmayı ve zero-touch veya etkileşimli donanım karması yüklemeyi etkinleştirin.</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Bileşen ekle</value>
   </data>
@@ -1947,6 +1953,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ukraynaca (Ukrayna)</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>Bilgisayar adını Autopilot'a yükle</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Bilgisayar adını Autopilot'a yükle</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Soldaki karakterleri koru</value>

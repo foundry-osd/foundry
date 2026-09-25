@@ -760,6 +760,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>Geselecteerde pakketten: {0} of {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>Wijs tijdens het uploaden van de hardware-hash de definitieve computernaam die in Foundry Deploy is bevestigd toe aan het Windows Autopilot-apparaat.</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>Schakel naamgeving voor machines en zero-touch of interactieve hardware-hash-upload in om de definitieve implementatienaam in Autopilot toe te wijzen.</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Onderdeel toevoegen</value>
   </data>
@@ -1947,6 +1953,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Oekraïens (Oekraïne)</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>Computernaam uploaden naar Autopilot</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Computernaam uploaden naar Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Tekens vanaf links behouden</value>

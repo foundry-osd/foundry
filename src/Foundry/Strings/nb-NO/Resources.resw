@@ -760,6 +760,12 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>Valgte pakker: {0} av {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>Tilordne det endelige datamaskinnavnet som er bekreftet i Foundry Deploy, til Windows Autopilot-enheten under opplasting av maskinvarehash.</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>Aktiver maskinnavngivning og zero-touch eller interaktiv opplasting av maskinvarehash for å tilordne det endelige distribusjonsnavnet i Autopilot.</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Legg til komponent</value>
   </data>
@@ -1947,6 +1953,12 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrainsk (ukrainsk)</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>Last opp datamaskinnavn til Autopilot</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Last opp datamaskinnavn til Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Behold tegn fra venstre</value>

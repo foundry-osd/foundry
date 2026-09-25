@@ -17,6 +17,69 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class ProvisionAutopilotStepTests
 {
+    [Theory]
+    [InlineData(AutopilotProvisioningMode.HardwareHashUpload, true, "Edited-042")]
+    [InlineData(AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, "Edited-042")]
+    [InlineData(AutopilotProvisioningMode.HardwareHashUpload, false, "")]
+    [InlineData(AutopilotProvisioningMode.InteractiveHardwareHashUpload, false, "12345")]
+    public async Task ExecuteAsync_WhenFinalNameIsUnavailable_UploadsHashWithoutAssigningName(
+        AutopilotProvisioningMode mode, bool customUnattend, string computerName)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var uploadService = new FakeAutopilotHardwareHashUploadService(
+            AutopilotHardwareHashUploadResult.Completed("Device imported."));
+        var unattend = customUnattend
+            ? new UnattendSelection(new Foundry.Core.Models.Configuration.Deploy.DeployUnattendFile(), "custom.xml")
+            : null;
+        using DeploymentStepExecutionContext context = CreateContext(workspace, false, mode,
+            CreateCompleteHardwareHashSettings(), uploadComputerName: true, computerName: computerName, unattend: unattend);
+
+        DeploymentStepResult result = await CreateStep(uploadService: uploadService).ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        if (mode == AutopilotProvisioningMode.HardwareHashUpload)
+        {
+            Assert.Null(Assert.Single(uploadService.Requests).AssignedComputerName);
+        }
+        else
+        {
+            using JsonDocument config = JsonDocument.Parse(File.ReadAllText(context.RuntimeState.StagedAutopilotConfigurationPath!));
+            Assert.False(config.RootElement.TryGetProperty("assignedComputerName", out _));
+        }
+        string logs = string.Join("\n", Directory.EnumerateFiles(workspace.RootPath, "*.log", SearchOption.AllDirectories).Select(File.ReadAllText));
+        Assert.Contains("computer name assignment skipped", logs, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Theory]
+    [InlineData(AutopilotProvisioningMode.HardwareHashUpload, true, "Edited-042")]
+    [InlineData(AutopilotProvisioningMode.HardwareHashUpload, false, null)]
+    [InlineData(AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, "Edited-042")]
+    [InlineData(AutopilotProvisioningMode.InteractiveHardwareHashUpload, false, null)]
+    public async Task ExecuteAsync_UploadsOnlyTheFinalConfirmedNameWhenOptedIn(
+        AutopilotProvisioningMode mode, bool upload, string? expected)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var uploadService = new FakeAutopilotHardwareHashUploadService(
+            AutopilotHardwareHashUploadResult.Completed("Device imported."));
+        ProvisionAutopilotStep step = CreateStep(uploadService: uploadService);
+        using DeploymentStepExecutionContext context = CreateContext(workspace, false, mode,
+            CreateCompleteHardwareHashSettings(), uploadComputerName: upload, computerName: "Edited-042");
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        if (mode == AutopilotProvisioningMode.HardwareHashUpload)
+        {
+            Assert.Equal(expected, Assert.Single(uploadService.Requests).AssignedComputerName);
+        }
+        else
+        {
+            using JsonDocument config = JsonDocument.Parse(File.ReadAllText(context.RuntimeState.StagedAutopilotConfigurationPath!));
+            string? actual = config.RootElement.TryGetProperty("assignedComputerName", out var name) ? name.GetString() : null;
+            Assert.Equal(expected, actual);
+        }
+    }
+
     [Fact]
     public async Task ExecuteAsync_WhenLiveJsonMode_StagesAutopilotProfile()
     {
@@ -358,7 +421,10 @@ public sealed class ProvisionAutopilotStepTests
         bool isDryRun,
         AutopilotProvisioningMode provisioningMode,
         DeployAutopilotHardwareHashUploadSettings? hardwareHashUpload = null,
-        AutopilotProfileCatalogItem? selectedProfile = null)
+        AutopilotProfileCatalogItem? selectedProfile = null,
+        bool uploadComputerName = false,
+        string computerName = "LAB01",
+        UnattendSelection? unattend = null)
     {
         DeploymentContext request = new()
         {
@@ -366,7 +432,9 @@ public sealed class ProvisionAutopilotStepTests
             IsDryRun = isDryRun,
             CacheRootPath = workspace.RootPath,
             TargetDiskNumber = 1,
-            TargetComputerName = "LAB01",
+            TargetComputerName = computerName,
+            UploadComputerNameToAutopilot = uploadComputerName,
+            Unattend = unattend,
             OperatingSystem = new OperatingSystemCatalogItem(),
             DriverPackSelectionKind = DriverPackSelectionKind.None,
             IsAutopilotEnabled = true,

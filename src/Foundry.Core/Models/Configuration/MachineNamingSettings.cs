@@ -16,6 +16,9 @@ public sealed record MachineNamingSettings
     /// </summary>
     public bool IsEnabled { get; init; }
 
+    /// <summary>Gets whether the final deployment name is assigned to the Autopilot device during hardware hash upload.</summary>
+    public bool UploadComputerNameToAutopilot { get; init; }
+
     /// <summary>
     /// Gets how the computer name is supplied.
     /// </summary>

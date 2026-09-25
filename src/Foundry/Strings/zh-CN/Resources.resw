@@ -760,6 +760,12 @@
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>所选套餐：{0} 或 {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>在上传硬件哈希时，将 Foundry Deploy 中确认的最终计算机名称分配给 Windows Autopilot 设备。</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>启用计算机命名以及 zero-touch 或交互式硬件哈希上传，以便将最终部署名称分配给 Autopilot。</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>添加组件</value>
   </data>
@@ -1947,6 +1953,12 @@
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>乌克兰语（乌克兰）</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>将计算机名称上传到 Autopilot</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>将计算机名称上传到 Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>保留左侧字符</value>

@@ -760,6 +760,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>選択したパッケージ: {0} または {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>ハードウェア ハッシュのアップロード時に、Foundry Deploy で確認された最終的なコンピューター名を Windows Autopilot デバイスに割り当てます。</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>最終的な展開名を Autopilot に割り当てるには、マシンの命名と、ゼロタッチまたは対話型のハードウェア ハッシュ アップロードを有効にしてください。</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>コンポーネントの追加</value>
   </data>
@@ -1947,6 +1953,12 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ウクライナ語 (ウクライナ)</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>コンピューター名を Autopilot にアップロード</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>コンピューター名を Autopilot にアップロード</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>左側の文字を保持</value>
