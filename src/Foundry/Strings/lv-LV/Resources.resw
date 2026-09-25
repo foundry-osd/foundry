@@ -760,6 +760,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>Atlasītās pakotnes: {0} no {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>Aparatūras jaucējkoda augšupielādes laikā piešķiriet Windows Autopilot ierīcei galīgo datora nosaukumu, kas apstiprināts Foundry Deploy.</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>Iespējojiet datoru nosaukumu piešķiršanu un zero-touch vai interaktīvo aparatūras jaucējkoda augšupielādi, lai piešķirtu galīgo izvietošanas nosaukumu pakalpojumā Autopilot.</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Pievienot komponentu</value>
   </data>
@@ -1947,6 +1953,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukraiņu (Ukraina)</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>Augšupielādēt datora nosaukumu pakalpojumā Autopilot</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Augšupielādēt datora nosaukumu pakalpojumā Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Paturēt rakstzīmes no kreisās puses</value>

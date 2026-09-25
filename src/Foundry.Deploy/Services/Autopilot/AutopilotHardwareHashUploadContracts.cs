@@ -24,6 +24,10 @@ public sealed record AutopilotHardwareHashUploadRequest
     public required AutopilotHardwareHashDeviceIdentity Identity { get; init; }
     public required string WorkspaceRootPath { get; init; }
     public required string DiagnosticsRootPath { get; init; }
+    /// <summary>
+    /// Final deployment computer name to assign after import, or null to preserve the Autopilot name.
+    /// </summary>
+    public string? AssignedComputerName { get; init; }
 }
 
 public sealed record AutopilotHardwareHashUploadProgress(

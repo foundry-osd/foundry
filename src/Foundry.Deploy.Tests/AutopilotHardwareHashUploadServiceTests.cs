@@ -6,6 +6,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.Json;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Security;
@@ -123,6 +124,80 @@ public sealed class AutopilotHardwareHashUploadServiceTests
             CryptographicOperations.ZeroMemory(pfxBytes);
             CryptographicOperations.ZeroMemory(mediaKey);
             Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
+    public async Task UploadAsync_PassesFinalComputerNameThroughToGraph()
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-upload-service-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(root);
+        byte[] mediaKey = RandomNumberGenerator.GetBytes(DeployMediaSecretEnvelopeProtector.KeySizeBytes);
+        using X509Certificate2 certificate = CreateCertificate();
+        const string password = "test-password";
+        byte[] pfxBytes = certificate.Export(X509ContentType.Pfx, password);
+        try
+        {
+            var handler = new SuccessfulGraphHandler();
+            var service = new AutopilotHardwareHashUploadService(
+                new StaticMediaSecretKeyReader(mediaKey),
+                new SuccessfulTokenService(),
+                new AutopilotGraphImportClient(new HttpClient(handler)
+                {
+                    BaseAddress = new Uri("https://graph.microsoft.com/")
+                }, NullLogger<AutopilotGraphImportClient>.Instance),
+                NullLogger<AutopilotHardwareHashUploadService>.Instance);
+
+            AutopilotHardwareHashUploadResult result = await service.UploadAsync(new AutopilotHardwareHashUploadRequest
+            {
+                Settings = new DeployAutopilotHardwareHashUploadSettings
+                {
+                    TenantId = "tenant",
+                    ClientId = "client",
+                    ActiveCertificateThumbprint = certificate.Thumbprint,
+                    CertificatePfxSecret = Encrypt(pfxBytes, mediaKey),
+                    CertificatePfxPasswordSecret = Encrypt(Encoding.UTF8.GetBytes(password), mediaKey)
+                },
+                Identity = new AutopilotHardwareHashDeviceIdentity("SER123", "HASH", null),
+                WorkspaceRootPath = root,
+                DiagnosticsRootPath = Path.Combine(root, "Diagnostics"),
+                AssignedComputerName = "FINAL-PC"
+            }, cancellationToken: TestContext.Current.CancellationToken);
+
+            Assert.True(result.IsCompleted);
+            Assert.Equal("FINAL-PC", handler.AssignedName);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(pfxBytes);
+            CryptographicOperations.ZeroMemory(mediaKey);
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    private sealed class SuccessfulTokenService : IAutopilotGraphTokenService
+    {
+        public Task<string> AcquireAccessTokenAsync(string tenantId, string clientId, X509Certificate2 certificate,
+            CancellationToken cancellationToken = default) => Task.FromResult("token");
+    }
+
+    private sealed class SuccessfulGraphHandler : HttpMessageHandler
+    {
+        public string? AssignedName { get; private set; }
+
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            if (request.RequestUri!.AbsolutePath.EndsWith("updateDeviceProperties", StringComparison.Ordinal))
+            {
+                using JsonDocument body = JsonDocument.Parse(await request.Content!.ReadAsStringAsync(cancellationToken));
+                AssignedName = body.RootElement.GetProperty("displayName").GetString();
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+            }
+
+            string json = request.Method == HttpMethod.Post
+                ? """{ "value": [{ "id": "imported", "state": { "deviceImportStatus": "complete" } }] }"""
+                : JsonSerializer.Serialize(new { value = new[] { new { id = "device", serialNumber = "SER123", displayName = AssignedName } } });
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(json) };
         }
     }
 

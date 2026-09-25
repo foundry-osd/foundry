@@ -760,6 +760,12 @@
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>Выбранные пакеты: {0} из {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>Назначьте устройству Windows Autopilot итоговое имя компьютера, подтвержденное в Foundry Deploy, во время отправки аппаратного хеша.</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>Включите именование компьютеров и zero-touch или интерактивную отправку аппаратного хеша, чтобы назначить итоговое имя развертывания в Autopilot.</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Добавить компонент</value>
   </data>
@@ -1947,6 +1953,12 @@
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Украинский (Украина)</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>Отправить имя компьютера в Autopilot</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Отправить имя компьютера в Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Сохранить символы слева</value>

@@ -760,6 +760,12 @@
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>Επιλεγμένα πακέτα: {0} του {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>Αντιστοιχίστε το τελικό όνομα υπολογιστή που επιβεβαιώθηκε στο Foundry Deploy στη συσκευή Windows Autopilot κατά την αποστολή του κατακερματισμού υλικού.</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>Ενεργοποιήστε την ονομασία συσκευών και τη zero-touch ή τη διαδραστική αποστολή κατακερματισμού υλικού για να αντιστοιχίσετε το τελικό όνομα ανάπτυξης στο Autopilot.</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Προσθήκη στοιχείου</value>
   </data>
@@ -1947,6 +1953,12 @@
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ουκρανικά (Ουκρανία)</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>Αποστολή ονόματος υπολογιστή στο Autopilot</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Αποστολή ονόματος υπολογιστή στο Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Διατήρηση χαρακτήρων από τα αριστερά</value>

@@ -760,6 +760,12 @@
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>חבילות נבחרות: {0} מתוך {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>הקצה למכשיר Windows Autopilot את שם המחשב הסופי שאושר ב-Foundry Deploy במהלך העלאת hash החומרה.</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>אפשר מתן שמות למחשבים והעלאת hash חומרה במצב zero-touch או במצב אינטראקטיבי כדי להקצות את שם הפריסה הסופי ב-Autopilot.</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>הוסף רכיב</value>
   </data>
@@ -1947,6 +1953,12 @@
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>אוקראינית (אוקראינה)</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>העלה את שם המחשב ל-Autopilot</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>העלה את שם המחשב ל-Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>שמור תווים משמאל</value>

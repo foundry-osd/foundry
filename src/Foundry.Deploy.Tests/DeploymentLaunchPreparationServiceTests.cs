@@ -17,6 +17,24 @@ public sealed class DeploymentLaunchPreparationServiceTests
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
+    public void Prepare_PreservesNameUploadPreferenceWithFinalNormalizedName(bool upload)
+    {
+        var service = new DeploymentLaunchPreparationService(new FakeApplicationShellService());
+        var request = CreateRequest(CreateDisk(), targetComputerName: " Edited-042 ") with
+        {
+            UploadComputerNameToAutopilot = upload
+        };
+
+        DeploymentLaunchPreparationResult result = service.Prepare(request);
+
+        Assert.True(result.IsReadyToStart);
+        Assert.Equal("Edited-042", result.Context!.TargetComputerName);
+        Assert.Equal(upload, result.Context.UploadComputerNameToAutopilot);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
     public void Prepare_WhenIdentityIsMissingOrUnusable_FailsBeforeConfirmation(bool missing)
     {
         var shell = new FakeApplicationShellService();

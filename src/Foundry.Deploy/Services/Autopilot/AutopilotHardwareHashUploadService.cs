@@ -103,7 +103,8 @@ public sealed class AutopilotHardwareHashUploadService(
                     request.Identity.HardwareHash,
                     request.Identity.GroupTag,
                     null,
-                    Guid.NewGuid().ToString("D")),
+                    Guid.NewGuid().ToString("D"),
+                    request.AssignedComputerName),
                 progress,
                 cancellationToken).ConfigureAwait(false);
         }

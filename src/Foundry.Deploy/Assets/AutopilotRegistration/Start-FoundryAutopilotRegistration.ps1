@@ -479,11 +479,12 @@ function Should-ContinueVisibilityWaitAfterImportError {
         $errorName.IndexOf('AlreadyExists', [StringComparison]::OrdinalIgnoreCase) -ge 0
 }
 
-function Update-AutopilotDeviceGroupTag {
+function Update-AutopilotDeviceProperties {
     param(
         [Parameter(Mandatory = $true)][string]$AccessToken,
         [Parameter(Mandatory = $true)]$Device,
-        [Parameter(Mandatory = $false)][string]$GroupTag
+        [Parameter(Mandatory = $false)][string]$GroupTag,
+        [Parameter(Mandatory = $false)][string]$AssignedComputerName
     )
 
     $deviceId = [string]$Device.id
@@ -493,6 +494,9 @@ function Update-AutopilotDeviceGroupTag {
 
     $body = @{
         groupTag = Normalize-GroupTag -GroupTag $GroupTag
+    }
+    if (-not [string]::IsNullOrWhiteSpace($AssignedComputerName)) {
+        $body['displayName'] = $AssignedComputerName
     }
     Invoke-GraphRequest -Method Post -Path "deviceManagement/windowsAutopilotDeviceIdentities/$deviceId/updateDeviceProperties" -AccessToken $AccessToken -Body $body | Out-Null
 }
@@ -504,21 +508,30 @@ function Test-AutopilotDeviceReadiness {
         [Parameter(Mandatory = $true)]$Import,
         [Parameter(Mandatory = $true)][ref]$ImportedIdentity,
         [Parameter(Mandatory = $true)][DateTimeOffset]$Deadline,
-        [Parameter(Mandatory = $false)][string]$GroupTag
+        [Parameter(Mandatory = $false)][string]$GroupTag,
+        [Parameter(Mandatory = $false)][string]$AssignedComputerName
     )
 
     $visibleDevice = Find-AutopilotDeviceBySerialNumber -AccessToken $AccessToken -SerialNumber $Identity.SerialNumber
     if ($null -ne $visibleDevice) {
-        if (Should-UpdateGroupTag -CurrentGroupTag ([string]$visibleDevice.groupTag) -RequestedGroupTag $GroupTag) {
-            if (-not $script:UploadGroupTagUpdateRequested) {
-                Write-State -Stage 'groupTag' -Message 'Updating Windows Autopilot group tag.'
-                Write-FoundryLog -Path $GraphLogPath -Message 'Updating Windows Autopilot group tag.'
-                Update-AutopilotDeviceGroupTag -AccessToken $AccessToken -Device $visibleDevice -GroupTag $GroupTag
-                $script:UploadGroupTagUpdateRequested = $true
+        $nameRequested = -not [string]::IsNullOrWhiteSpace($AssignedComputerName)
+        $nameNeedsUpdate = $nameRequested -and -not [string]::Equals([string]$visibleDevice.displayName, $AssignedComputerName, [StringComparison]::Ordinal)
+        if ($nameNeedsUpdate -or (Should-UpdateGroupTag -CurrentGroupTag ([string]$visibleDevice.groupTag) -RequestedGroupTag $GroupTag)) {
+            $assignment = if ($nameRequested) { 'computer name and device property assignment' } else { 'group tag assignment' }
+            if (-not $script:UploadDevicePropertiesUpdateRequested) {
+                Write-State -Stage 'deviceProperties' -Message "Updating Windows Autopilot $assignment."
+                Write-FoundryLog -Path $GraphLogPath -Message "Updating Windows Autopilot $assignment."
+                try {
+                    Update-AutopilotDeviceProperties -AccessToken $AccessToken -Device $visibleDevice -GroupTag $GroupTag -AssignedComputerName $AssignedComputerName
+                }
+                catch {
+                    throw "The hardware hash is visible in Windows Autopilot, but $assignment failed: $($_.Exception.Message)"
+                }
+                $script:UploadDevicePropertiesUpdateRequested = $true
             }
 
             if ([DateTimeOffset]::UtcNow -ge $Deadline) {
-                throw 'Timed out while waiting for Windows Autopilot group tag update.'
+                throw "The hardware hash is visible in Windows Autopilot, but $assignment was not confirmed before the timeout."
             }
 
             return [pscustomobject]@{
@@ -1045,7 +1058,7 @@ function Start-FoundryAutopilotRegistrationUi {
 
             $script:UploadSelectedGroupTag = $selectedGroupTag
             $script:UploadIdentity = Get-AutopilotHardwareIdentity
-            $script:UploadGroupTagUpdateRequested = $false
+            $script:UploadDevicePropertiesUpdateRequested = $false
             Set-UploadProgress -Message 'Uploading hardware hash to Microsoft Intune.' -IsIndeterminate $true
             $script:UploadImport = Import-AutopilotDeviceIdentity -AccessToken $script:AccessToken -Identity $script:UploadIdentity -GroupTag $script:UploadSelectedGroupTag
             $script:UploadImportedIdentity = $script:UploadImport.ImportedIdentity
@@ -1064,7 +1077,8 @@ function Start-FoundryAutopilotRegistrationUi {
                         -Import $script:UploadImport `
                         -ImportedIdentity ([ref]$script:UploadImportedIdentity) `
                         -Deadline $script:UploadDeadline `
-                        -GroupTag $script:UploadSelectedGroupTag
+                        -GroupTag $script:UploadSelectedGroupTag `
+                        -AssignedComputerName ([string]$Config.assignedComputerName)
 
                     if ($readiness.Status -eq 'Pending') {
                         return
@@ -1079,9 +1093,15 @@ function Start-FoundryAutopilotRegistrationUi {
                         deviceImportStatus = $readiness.ImportedIdentity.state.deviceImportStatus
                         autopilotDeviceId = $readiness.AutopilotDevice.id
                     }
-                    Write-Result -Status 'completed' -Message 'Autopilot registration completed.' -Details $details
-                    Write-FoundryLog -Message 'Autopilot registration completed.'
-                    Set-UploadProgress -Message 'Registration completed.' -Value 100 -IsIndeterminate $false
+                    $completionMessage = if ([string]::IsNullOrWhiteSpace([string]$Config.assignedComputerName)) {
+                        'Autopilot registration completed.'
+                    } else {
+                        'Autopilot registration completed and the final computer name is assigned.'
+                    }
+                    Write-Result -Status 'completed' -Message $completionMessage -Details $details
+                    Write-FoundryLog -Message $completionMessage
+                    $progressMessage = if ([string]::IsNullOrWhiteSpace([string]$Config.assignedComputerName)) { 'Registration completed.' } else { $completionMessage }
+                    Set-UploadProgress -Message $progressMessage -Value 100 -IsIndeterminate $false
                     $script:ExitCode = 0
                     Start-RebootCountdown
                 }
@@ -1090,7 +1110,7 @@ function Start-FoundryAutopilotRegistrationUi {
                     Set-UploadControlsEnabled -IsEnabled $true
                     $message = $_.Exception.Message
                     Write-Result -Status 'failed' -Message $message
-                    Set-UploadProgress -Message 'Upload failed. Check logs for details.' -Value ([int]$uploadProgressBar.Value)
+                    Set-UploadProgress -Message $message -Value ([int]$uploadProgressBar.Value)
                     Write-FoundryLog -Message $message
                 }
             })

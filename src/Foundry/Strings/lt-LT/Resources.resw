@@ -760,6 +760,12 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>Pasirinkti paketai: {0} iš {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>Įkeldami aparatūros maišą, priskirkite „Windows Autopilot“ įrenginiui galutinį kompiuterio pavadinimą, patvirtintą „Foundry Deploy“.</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>Įgalinkite kompiuterių pavadinimų suteikimą ir zero-touch arba interaktyvų aparatūros maišos įkėlimą, kad priskirtumėte galutinį diegimo pavadinimą „Autopilot“.</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Pridėti komponentą</value>
   </data>
@@ -1947,6 +1953,12 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrainiečių (Ukraina)</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>Įkelti kompiuterio pavadinimą į „Autopilot“</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Įkelti kompiuterio pavadinimą į „Autopilot“</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Palikti simbolius iš kairės</value>

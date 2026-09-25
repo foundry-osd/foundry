@@ -760,6 +760,12 @@ Licenciran prema MIT licenci.</value>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>Odabrani paketi: {0} od {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>Dodijelite konačni naziv računala potvrđen u aplikaciji Foundry Deploy uređaju Windows Autopilot tijekom prijenosa hardverskog hasha.</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>Omogućite imenovanje stroja i zero-touch ili interaktivni prijenos hardverskog hasha kako biste dodijelili konačni naziv implementacije u sustavu Autopilot.</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Dodaj komponentu</value>
   </data>
@@ -1947,6 +1953,12 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>ukrajinski (Ukrajina)</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>Prenesi naziv računala u Autopilot</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Prenesi naziv računala u Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Zadrži znakove slijeva</value>

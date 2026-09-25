@@ -760,6 +760,12 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Customization.AppxRemovalSelectedCountFormat" xml:space="preserve">
     <value>Paquetes seleccionados: {0} de {1}</value>
   </data>
+  <data name="Customization.AutopilotComputerNameDescription" xml:space="preserve">
+    <value>Asigne al dispositivo de Windows Autopilot el nombre final de la computadora confirmado en Foundry Deploy durante la carga del hash de hardware.</value>
+  </data>
+  <data name="Customization.AutopilotComputerNamePrerequisites" xml:space="preserve">
+    <value>Active la asignación de nombres de dispositivos y la carga zero-touch o interactiva del hash de hardware para asignar el nombre final de implementación en Autopilot.</value>
+  </data>
   <data name="Customization.MachineNamingAddComponent" xml:space="preserve">
     <value>Agregar componente</value>
   </data>
@@ -1947,6 +1953,12 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="Language.UkrainianUkraine" xml:space="preserve">
     <value>Ucraniano (Ucrania)</value>
+  </data>
+  <data name="MachineNamingAutopilotCard.Header" xml:space="preserve">
+    <value>Cargar el nombre de la computadora en Autopilot</value>
+  </data>
+  <data name="MachineNamingAutopilotToggle.AutomationProperties.Name" xml:space="preserve">
+    <value>Cargar el nombre de la computadora en Autopilot</value>
   </data>
   <data name="MachineNamingKeepLeftOption.Content" xml:space="preserve">
     <value>Conservar caracteres de la izquierda</value>

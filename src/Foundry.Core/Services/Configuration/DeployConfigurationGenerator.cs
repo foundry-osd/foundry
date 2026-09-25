@@ -113,6 +113,11 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                 MachineNaming = new DeployMachineNamingSettings
                 {
                     IsEnabled = document.Customization.MachineNaming.IsEnabled,
+                    UploadComputerNameToAutopilot = document.Customization.MachineNaming.IsEnabled
+                        && document.Customization.MachineNaming.UploadComputerNameToAutopilot
+                        && document.Autopilot.IsEnabled
+                        && document.Autopilot.ProvisioningMode is AutopilotProvisioningMode.HardwareHashUpload
+                            or AutopilotProvisioningMode.InteractiveHardwareHashUpload,
                     Mode = document.Customization.MachineNaming.IsEnabled
                         ? document.Customization.MachineNaming.Mode
                         : MachineNamingMode.Manual,
