@@ -1,5 +1,3 @@
-# Welcome to Foundry OSD
+Foundry OSD helps you configure Windows deployments and create bootable ISO or USB media.
 
-Foundry OSD provides a clean, fully guided desktop UI for Windows imaging, provisioning, and repeatable device setup.
-
-Use Foundry OSD to validate Windows ADK readiness, configure deployment options, and generate repeatable Windows deployment media.
+This setup installs Foundry OSD on your workstation for all users.

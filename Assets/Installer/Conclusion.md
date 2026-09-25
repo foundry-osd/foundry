@@ -1,5 +1,1 @@
-# Foundry OSD is installed
-
-Foundry OSD is ready to launch.
-
-Before creating deployment media, confirm that the Windows ADK Deployment Tools and Windows PE Add-on are installed.
+Open Foundry OSD and check Windows ADK and Windows PE readiness before creating your first deployment media.
