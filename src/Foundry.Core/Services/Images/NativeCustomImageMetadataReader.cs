@@ -10,7 +10,21 @@ namespace Foundry.Core.Services.Images;
 /// <summary>Maps native technical metadata into portable custom-image references without catalog filtering.</summary>
 public sealed class NativeCustomImageMetadataReader : ICustomImageMetadataReader
 {
-    private static readonly NativeDismImageInfoReader Reader = new();
+    private static readonly NativeDismImageInfoReader Reader = CreateReader();
+
+    private static NativeDismImageInfoReader CreateReader()
+    {
+        var reader = new NativeDismImageInfoReader();
+        AppDomain.CurrentDomain.ProcessExit += (_, _) =>
+        {
+            try { reader.Dispose(); }
+            catch
+            {
+                // Process shutdown must not replace the application's original outcome.
+            }
+        };
+        return reader;
+    }
 
     /// <summary>Reads native metadata through the shared process owner without exposing its disposal lifetime.</summary>
     public static Task<IReadOnlyList<WindowsImageMetadata>> ReadNativeAsync(string imagePath, CancellationToken cancellationToken = default)

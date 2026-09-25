@@ -11,8 +11,8 @@ namespace Foundry.Utilities.Imaging;
 /// Owns native DISM image metadata reads for the application lifetime.
 /// </summary>
 /// <remarks>
-/// Register one production instance per process. DISM initialization and shutdown are process-wide;
-/// the application singleton serializes reads, buffer release, and disposal under the same lock.
+/// Production adapters share a process-wide DISM lifetime. Each reader serializes its reads,
+/// buffer release, and disposal so its lifetime lease cannot be released during a native call.
 /// </remarks>
 public sealed class NativeDismImageInfoReader : IDisposable
 {
@@ -51,7 +51,7 @@ public sealed class NativeDismImageInfoReader : IDisposable
     }
 
     /// <summary>
-    /// Waits for any active native read and buffer release, then shuts down a successfully initialized DISM API once.
+    /// Waits for any active native read and buffer release, then releases this reader's DISM lifetime lease once.
     /// </summary>
     public void Dispose()
     {
