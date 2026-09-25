@@ -82,7 +82,7 @@
                                     <AppBarButton
                                         Command="{x:Bind ViewModel.RemoveCommand}"
                                         Icon="Delete"
-                                        IsEnabled="{x:Bind ViewModel.CanRemove, Mode=OneWay}"
+                                        IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
                                         Label="{x:Bind ViewModel.RemoveLabel, Mode=OneWay}" />
                                     <AppBarSeparator />
                                     <AppBarButton
