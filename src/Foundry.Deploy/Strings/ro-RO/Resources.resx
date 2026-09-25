@@ -130,6 +130,66 @@ Licențiat sub licența MIT.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Da</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Imaginea implicită există pe mai multe volume conectate. Alegeți explicit volumul sursă.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Catalog Windows</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Imagine personalizată</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Imagine</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Indexul imaginii</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Se inspectează și se verifică imaginea…</value>
+  </data>
+  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
+    <value>Conținutul imaginii nu corespunde amprentei înregistrate. Restabiliți imaginea sau reîmprospătați o imagine adăugată manual.</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Manifestul imaginilor personalizate lipsește, este deteriorat sau nu corespunde acestui mediu de pornire. Recreați mediul sau alegeți altă sursă.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Imaginea nu poate fi citită sau indexul selectat ori metadatele s-au schimbat. Reîmprospătați selecția imaginii și încercați din nou.</value>
+  </data>
+  <data name="CustomImages.ManualHint" xml:space="preserve">
+    <value>Pentru imagini USB adăugate manual, copiați un WIM în Foundry\Images\Custom pe partiția Foundry Cache, apoi reîmprospătați. Mențineți mediul sursă conectat în timpul implementării.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>Imaginea sau indexul implicit configurat nu este disponibil. Alegeți explicit o imagine și un index.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Nu s-au găsit imagini personalizate. Conectați mediul corect sau adăugați un WIM în folderul USB indicat în documentație.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Imaginea personalizată nu este pregătită.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Imaginea personalizată și indexul exact au fost verificate.</value>
+  </data>
+  <data name="CustomImages.Refresh" xml:space="preserve">
+    <value>Reîmprospătați imaginile</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Identificați imaginea personalizată</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Imaginea personalizată a fost identificată pe mediul de implementare.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Sursa imaginii</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Nu se poate confirma că discul sursă este diferit de discul destinație. Selectați altă sursă.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Se verifică imaginea personalizată…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>

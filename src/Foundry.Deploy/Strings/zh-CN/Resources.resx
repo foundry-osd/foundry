@@ -130,6 +130,66 @@
   <data name="Common.Yes" xml:space="preserve">
     <value>是的</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>多个已连接的卷上存在默认映像。请明确选择源卷。</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Windows 目录</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>自定义映像</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>映像</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>映像索引</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>正在检查和验证映像...</value>
+  </data>
+  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
+    <value>映像内容与记录的摘要不匹配。请恢复映像，或刷新手动添加的映像。</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>自定义映像清单缺失、损坏或与此启动介质不匹配。请重新创建介质或选择其他来源。</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>无法读取映像，或者所选索引或元数据已更改。请刷新映像选择后重试。</value>
+  </data>
+  <data name="CustomImages.ManualHint" xml:space="preserve">
+    <value>若要手动添加 USB 映像，请将 WIM 复制到 Foundry Cache 分区上的 Foundry\Images\Custom，然后刷新。部署期间请保持源介质连接。</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>配置的默认映像或索引不可用。请明确选择映像和索引。</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>未找到自定义映像。请连接正确的介质，或将 WIM 添加到文档指定的 USB 文件夹。</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>自定义映像尚未就绪。</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>自定义映像和确切索引已验证。</value>
+  </data>
+  <data name="CustomImages.Refresh" xml:space="preserve">
+    <value>刷新映像</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>解析自定义映像</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>已从部署介质解析自定义映像。</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>映像来源</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>无法确认源磁盘与目标磁盘是不同的磁盘。请选择其他来源。</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>正在验证自定义映像...</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>

@@ -130,6 +130,66 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Ja</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Das Standardabbild befindet sich auf mehreren angeschlossenen Volumes. Wählen Sie das Quellvolume ausdrücklich aus.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Windows-Katalog</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Benutzerdefiniertes Abbild</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Abbild</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Abbildindex</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Abbild wird untersucht und überprüft…</value>
+  </data>
+  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
+    <value>Der Inhalt des Abbilds stimmt nicht mit dem gespeicherten Hashwert überein. Stellen Sie das Abbild wieder her oder aktualisieren Sie ein manuell hinzugefügtes Abbild.</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Das Manifest der benutzerdefinierten Abbilder fehlt, ist beschädigt oder passt nicht zu diesem Startmedium. Erstellen Sie das Medium neu oder wählen Sie eine andere Quelle.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Das Abbild kann nicht gelesen werden, oder der ausgewählte Index bzw. die Metadaten haben sich geändert. Aktualisieren Sie die Abbildauswahl und versuchen Sie es erneut.</value>
+  </data>
+  <data name="CustomImages.ManualHint" xml:space="preserve">
+    <value>Kopieren Sie für manuell hinzugefügte USB-Abbilder eine WIM-Datei nach Foundry\Images\Custom auf der Partition Foundry Cache und aktualisieren Sie anschließend. Lassen Sie das Quellmedium während der Bereitstellung angeschlossen.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>Das konfigurierte Standardabbild oder der Index ist nicht verfügbar. Wählen Sie ausdrücklich ein Abbild und einen Index aus.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Keine benutzerdefinierten Abbilder gefunden. Schließen Sie das richtige Medium an oder fügen Sie eine WIM-Datei zum dokumentierten USB-Ordner hinzu.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Das benutzerdefinierte Abbild ist nicht bereit.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Benutzerdefiniertes Abbild und genauer Index überprüft.</value>
+  </data>
+  <data name="CustomImages.Refresh" xml:space="preserve">
+    <value>Abbilder aktualisieren</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Benutzerdefiniertes Abbild ermitteln</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Benutzerdefiniertes Abbild auf dem Bereitstellungsmedium ermittelt.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Abbildquelle</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Es kann nicht bestätigt werden, dass Quell- und Zieldatenträger verschieden sind. Wählen Sie eine andere Quelle.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Benutzerdefiniertes Abbild wird überprüft…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>

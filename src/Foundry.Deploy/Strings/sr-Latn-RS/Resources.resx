@@ -130,6 +130,66 @@ Licencirano pod MIT licencom.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Da</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Podrazumevana slika postoji na više povezanih volumena. Izričito izaberite izvorni volumen.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Windows katalog</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Prilagođena slika</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Slika</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Indeks slike</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Pregled i provera slike…</value>
+  </data>
+  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
+    <value>Sadržaj slike ne odgovara zabeleženom sažetku. Vratite sliku ili osvežite ručno dodatu sliku.</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Manifest prilagođenih slika nedostaje, oštećen je ili ne odgovara ovom mediju za pokretanje. Ponovo kreirajte medij ili izaberite drugi izvor.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Slika ne može da se pročita ili su izabrani indeks ili metapodaci promenjeni. Osvežite izbor slike i pokušajte ponovo.</value>
+  </data>
+  <data name="CustomImages.ManualHint" xml:space="preserve">
+    <value>Za ručno dodate USB slike kopirajte WIM u Foundry\Images\Custom na particiji Foundry Cache, a zatim osvežite. Izvorni medij mora ostati povezan tokom implementacije.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>Podešena podrazumevana slika ili indeks nisu dostupni. Izričito izaberite sliku i indeks.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Nisu pronađene prilagođene slike. Povežite odgovarajući medij ili dodajte WIM u USB fasciklu navedenu u dokumentaciji.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Prilagođena slika nije spremna.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Prilagođena slika i tačan indeks su provereni.</value>
+  </data>
+  <data name="CustomImages.Refresh" xml:space="preserve">
+    <value>Osveži slike</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Pronađi prilagođenu sliku</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Prilagođena slika je pronađena na mediju za implementaciju.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Izvor slike</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Nije moguće potvrditi da se izvorni disk razlikuje od odredišnog diska. Izaberite drugi izvor.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Provera prilagođene slike…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>

@@ -130,6 +130,66 @@
   <data name="Common.Yes" xml:space="preserve">
     <value>ใช่</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>มีอิมเมจเริ่มต้นอยู่บนวอลุ่มที่เชื่อมต่อมากกว่าหนึ่งวอลุ่ม โปรดเลือกวอลุ่มต้นทางอย่างชัดเจน</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>แค็ตตาล็อก Windows</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>อิมเมจแบบกำหนดเอง</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>อิมเมจ</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>ดัชนีอิมเมจ</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>กำลังตรวจสอบและยืนยันอิมเมจ...</value>
+  </data>
+  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
+    <value>เนื้อหาอิมเมจไม่ตรงกับค่าไดเจสต์ที่บันทึกไว้ โปรดคืนค่าอิมเมจ หรือรีเฟรชอิมเมจที่เพิ่มด้วยตนเอง</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>รายการกำกับอิมเมจแบบกำหนดเองหายไป เสียหาย หรือไม่ตรงกับสื่อเริ่มระบบนี้ โปรดสร้างสื่อใหม่หรือเลือกแหล่งที่มาอื่น</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>ไม่สามารถอ่านอิมเมจได้ หรือดัชนีที่เลือกหรือเมทาดาทามีการเปลี่ยนแปลง รีเฟรชการเลือกอิมเมจแล้วลองอีกครั้ง</value>
+  </data>
+  <data name="CustomImages.ManualHint" xml:space="preserve">
+    <value>หากต้องการเพิ่มอิมเมจลงใน USB ด้วยตนเอง ให้คัดลอก WIM ไปยัง Foundry\Images\Custom บนพาร์ทิชัน Foundry Cache แล้วรีเฟรช โปรดเชื่อมต่อสื่อต้นทางไว้ตลอดการปรับใช้</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>อิมเมจหรือดัชนีเริ่มต้นที่กำหนดไว้ไม่พร้อมใช้งาน โปรดเลือกอิมเมจและดัชนีอย่างชัดเจน</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>ไม่พบอิมเมจแบบกำหนดเอง โปรดเชื่อมต่อสื่อที่ถูกต้อง หรือเพิ่ม WIM ลงในโฟลเดอร์ USB ที่ระบุไว้ในเอกสาร</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>อิมเมจแบบกำหนดเองยังไม่พร้อม</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>ตรวจสอบอิมเมจแบบกำหนดเองและดัชนีที่ระบุแล้ว</value>
+  </data>
+  <data name="CustomImages.Refresh" xml:space="preserve">
+    <value>รีเฟรชอิมเมจ</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>ค้นหาอิมเมจแบบกำหนดเอง</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>พบอิมเมจแบบกำหนดเองจากสื่อการปรับใช้แล้ว</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>แหล่งอิมเมจ</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>ไม่สามารถยืนยันได้ว่าดิสก์ต้นทางแยกจากดิสก์ปลายทาง โปรดเลือกแหล่งที่มาอื่น</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>กำลังตรวจสอบอิมเมจแบบกำหนดเอง...</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>

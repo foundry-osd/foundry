@@ -16,7 +16,8 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 /// <summary>Chooses safe image staging and checks source access and known capacity before image transfer or target mutation.</summary>
 public sealed class PreflightDeploymentStep(
     IDeploymentStorageService storageService,
-    IImageSourceProbe sourceProbe) : DeploymentStepBase
+    IImageSourceProbe sourceProbe,
+    Foundry.Core.Services.Images.ICustomImageMetadataReader? customMetadataReader = null) : DeploymentStepBase
 {
     public override string Name => DeploymentStepNames.PreflightDeployment;
 
@@ -27,6 +28,8 @@ public sealed class PreflightDeploymentStep(
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
+            if (context.Request.OperatingSystem is CustomImageSelection custom)
+                return await PrepareCustomImageAsync(context, custom, cancellationToken).ConfigureAwait(false);
             ValidateCatalog(context.Request);
             string cacheRoot = context.RuntimeState.ResolvedCache?.RootPath
                 ?? throw Guard("Preflight.NotReady", "preflight_not_ready");
@@ -35,7 +38,7 @@ public sealed class PreflightDeploymentStep(
 
             context.EmitCurrentStepIndeterminate("Checking deployment readiness...", "Checking cache...", DeploymentOperationNames.PreflightDeployment);
             string imageDirectory = context.ResolveOperatingSystemCacheRoot();
-            string fileName = DeploymentStepExecutionContext.ResolveFileName(context.Request.OperatingSystem.FileName, context.Request.OperatingSystem.Url);
+            string fileName = DeploymentStepExecutionContext.ResolveFileName(context.Request.OperatingSystem.FileName, (context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Url ?? string.Empty);
             string imagePath = Path.Combine(imageDirectory, fileName);
             long sourceSize = context.Request.OperatingSystem.SizeBytes;
             bool external = await context.IsExternalStorageAsync(imageDirectory, cancellationToken).ConfigureAwait(false) &&
@@ -51,7 +54,7 @@ public sealed class PreflightDeploymentStep(
             if (!external)
             {
                 context.EmitCurrentStepIndeterminate("Checking deployment readiness...", "Checking source access...", DeploymentOperationNames.ProbeOperatingSystemSource);
-                long? advertisedSize = await sourceProbe.ProbeAsync(context.Request.OperatingSystem.Url, cancellationToken).ConfigureAwait(false);
+                long? advertisedSize = await sourceProbe.ProbeAsync((context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Url ?? string.Empty, cancellationToken).ConfigureAwait(false);
                 sourceSize = Math.Max(sourceSize, advertisedSize ?? 0);
                 DeploymentCapacityPolicy.EnsureTargetCapacity(context, null, sourceSize, targetDriverBytes);
             }
@@ -92,12 +95,63 @@ public sealed class PreflightDeploymentStep(
         {
             return Failed("Preflight.InvalidMetadata", "invalid_source_metadata");
         }
+        catch (Exception exception) when (exception is InvalidDataException or global::System.Runtime.InteropServices.COMException)
+        {
+            return Failed("CustomImages.InvalidSource", "invalid_custom_image");
+        }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
-            return DeploymentStepResult.Failed(LocalizationText.GetString("Preflight.CacheUnavailable"),
+            return DeploymentStepResult.Failed(LocalizationText.GetString(context.Request.OperatingSystem is CustomImageSelection ? "CustomImages.InvalidSource" : "Preflight.CacheUnavailable"),
                 new DeploymentFailure(DeploymentOperationNames.PreflightDeployment, DeploymentFailureKinds.Io,
                     DeploymentFailureReasons.AccessDenied, "preflight_cache_unavailable"));
         }
+    }
+
+    private async Task<DeploymentStepResult> PrepareCustomImageAsync(DeploymentStepExecutionContext context, CustomImageSelection custom, CancellationToken cancellationToken)
+    {
+        (_, DeploymentStepResult? targetFailure) = await context.TryGetValidatedTargetDiskAsync(cancellationToken).ConfigureAwait(false);
+        if (targetFailure is not null) return targetFailure;
+        CustomImageAsset asset = custom.Asset;
+        if (!await context.IsCustomSourceSeparateAsync(asset, asset.ImagePath, cancellationToken).ConfigureAwait(false))
+            throw Guard("CustomImages.UnsafeSource", "custom_source_identity_unknown");
+        var prepared = new DeploymentPreflightState
+        {
+            CacheRoot = context.RuntimeState.ResolvedCache?.RootPath ?? throw Guard("Preflight.NotReady", "preflight_not_ready"),
+            UsesTargetStorage = false,
+            ImagePath = asset.ImagePath,
+            ExternalImageDirectory = Path.GetDirectoryName(asset.ImagePath)
+        };
+        try
+        {
+            context.EmitCurrentStepIndeterminate("Checking Windows image...", "Verifying custom image...", DeploymentOperationNames.InspectOperatingSystemImage);
+            prepared.CustomSourceLease = await Services.Images.CustomImageSourceLease.AcquireAsync(asset.ImagePath,
+                asset.ObservedLength ?? asset.ExpectedLength, asset.ObservedHash ?? asset.ExpectedHash, cancellationToken).ConfigureAwait(false);
+            foreach (var file in asset.SourceFiles)
+            {
+                string path = Services.Images.CustomImageCatalogService.ResolveContainedPath(asset.SourceDirectory ?? throw new InvalidDataException(), file.RelativePath);
+                if (!await context.IsCustomSourceSeparateAsync(asset, path, cancellationToken).ConfigureAwait(false))
+                    throw Guard("CustomImages.UnsafeSource", "custom_source_identity_unknown");
+                prepared.CompanionLeases.Add(await Services.Images.CustomImageSourceLease.AcquireAsync(path, file.Length, file.ContentHash, cancellationToken).ConfigureAwait(false));
+            }
+            var images = await (customMetadataReader ?? new Foundry.Core.Services.Images.NativeCustomImageMetadataReader())
+                .ReadAsync(asset.ImagePath, cancellationToken).ConfigureAwait(false);
+            var matches = images.Where(image => image.Index == custom.Index.Index).ToArray();
+            if (matches.Length != 1 || matches[0].ExpandedSizeBytes <= 0) throw new InvalidDataException();
+            var selected = matches[0];
+            if (selected.EditionId != custom.Edition || selected.Architecture != custom.Architecture || selected.ExpandedSizeBytes != custom.Index.ExpandedSizeBytes ||
+                selected.Build != custom.Index.Build || selected.Version != custom.Index.Version) throw new InvalidDataException();
+            if (context.Request.TargetDiskIdentity?.SizeBytes is null or 0) throw new InvalidDataException();
+            var setupImages = images.Where(image => image.Name.Equals("Windows Setup Media", StringComparison.OrdinalIgnoreCase)).ToArray();
+            long? setupSize = asset.SourceDirectory is null && setupImages.Length == 1 && setupImages[0].ExpandedSizeBytes > 0 ? setupImages[0].ExpandedSizeBytes : null;
+            prepared.Image = new WindowsImageMetadata(selected.Index, selected.EditionId, selected.ExpandedSizeBytes, setupSize);
+            prepared.SourceSizeBytes = prepared.CustomSourceLease.Length;
+            prepared.TargetDriverBytes = ResolveTargetDriverBytes(context, null);
+            DeploymentCapacityPolicy.EnsureTargetCapacity(context, prepared.Image, 0, prepared.TargetDriverBytes);
+            context.RuntimeState.DownloadedOperatingSystemPath = asset.ImagePath;
+            context.Preflight = prepared;
+            return DeploymentStepResult.Succeeded("Custom image verified before target preparation.");
+        }
+        catch { prepared.Dispose(); throw; }
     }
 
     protected override Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
@@ -114,7 +168,7 @@ public sealed class PreflightDeploymentStep(
 
     private static void ValidateCatalog(DeploymentContext request)
     {
-        OperatingSystemCatalogItem os = request.OperatingSystem;
+        OperatingSystemCatalogItem os = (OperatingSystemCatalogItem)request.OperatingSystem;
         if (!Uri.TryCreate(os.Url, UriKind.Absolute, out Uri? uri) ||
             (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps) || string.IsNullOrWhiteSpace(uri.Host))
         {

@@ -19,7 +19,7 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
     public DriverPackSelectionResult SelectBest(
         IReadOnlyList<DriverPackCatalogItem> catalog,
         HardwareProfile hardware,
-        OperatingSystemCatalogItem operatingSystem)
+        OperatingSystemMetadata operatingSystem)
     {
         _logger.LogInformation("Selecting best driver pack. CatalogCount={CatalogCount}, Manufacturer={Manufacturer}, Model={Model}, WindowsRelease={WindowsRelease}, ReleaseId={ReleaseId}, OsArchitecture={OsArchitecture}",
             catalog.Count,
@@ -38,7 +38,7 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
             };
         }
 
-        if (!OperatingSystemSupportMatrix.IsSupported(operatingSystem))
+        if (operatingSystem is OperatingSystemCatalogItem catalogImage && !OperatingSystemSupportMatrix.IsSupported(catalogImage))
         {
             return new DriverPackSelectionResult
             {
@@ -52,12 +52,12 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
         string manufacturer = NormalizeManufacturer(hardware.Manufacturer);
         string model = Normalize(hardware.Model);
         string product = Normalize(hardware.Product);
-        string targetOsName = "Windows 11";
+        string targetOsName = string.IsNullOrWhiteSpace(operatingSystem.WindowsRelease) ? string.Empty : "Windows " + operatingSystem.WindowsRelease;
         string targetReleaseId = Normalize(operatingSystem.ReleaseId);
 
         IEnumerable<DriverPackCatalogItem> query = catalog
             .Where(item => NormalizeArchitecture(item.OsArchitecture) == osArch)
-            .Where(item => item.OsName.Contains(targetOsName, StringComparison.OrdinalIgnoreCase));
+            .Where(item => targetOsName.Length > 0 && item.OsName.Contains(targetOsName, StringComparison.OrdinalIgnoreCase));
 
         if (!string.IsNullOrWhiteSpace(manufacturer) && !manufacturer.Equals("unknown", StringComparison.OrdinalIgnoreCase))
         {

@@ -23,7 +23,7 @@ public sealed record DeploymentLaunchRequest
     /// <summary>Gets the authoring preference to assign the confirmed deployment name during Autopilot upload.</summary>
     public bool UploadComputerNameToAutopilot { get; init; }
     public required TargetDiskInfo? SelectedTargetDisk { get; init; }
-    public required OperatingSystemCatalogItem? SelectedOperatingSystem { get; init; }
+    public required OperatingSystemMetadata? SelectedOperatingSystem { get; init; }
     public required DriverPackSelectionKind DriverPackSelectionKind { get; init; }
     public required DriverPackCatalogItem? SelectedDriverPack { get; init; }
     public required bool ApplyFirmwareUpdates { get; init; }

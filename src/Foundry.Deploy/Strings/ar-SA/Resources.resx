@@ -130,6 +130,66 @@
   <data name="Common.Yes" xml:space="preserve">
     <value>نعم</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>توجد الصورة الافتراضية على أكثر من وحدة تخزين متصلة. اختر وحدة تخزين المصدر بشكل صريح.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>كتالوج Windows</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>صورة مخصصة</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>الصورة</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>فهرس الصورة</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>جارٍ فحص الصورة والتحقّق منها...</value>
+  </data>
+  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
+    <value>لا يتطابق محتوى الصورة مع بصمة التجزئة المسجّلة لها. استعد الصورة أو حدّث الصورة المضافة يدويًا.</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>بيان الصور المخصصة مفقود أو تالف أو لا يتطابق مع وسيط التمهيد هذا. أعد إنشاء الوسيط أو اختر مصدرًا آخر.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>لا يمكن قراءة الصورة، أو تم تغيير الفهرس المحدد أو البيانات الوصفية. حدّث تحديد الصورة وحاول مجددًا.</value>
+  </data>
+  <data name="CustomImages.ManualHint" xml:space="preserve">
+    <value>لإضافة صور يدويًا عبر USB، انسخ ملف WIM إلى Foundry\Images\Custom على قسم Foundry Cache، ثم حدّث القائمة. أبقِ وسيط المصدر متصلًا أثناء النشر.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>الصورة أو الفهرس الافتراضي الذي تم تكوينه غير متاح. اختر صورة وفهرسًا بشكل صريح.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>لم يتم العثور على صور مخصصة. وصّل الوسيط الصحيح أو أضف ملف WIM إلى مجلد USB الموضّح في الوثائق.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>الصورة المخصصة غير جاهزة.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>تم التحقّق من الصورة المخصصة والفهرس المحدد بدقة.</value>
+  </data>
+  <data name="CustomImages.Refresh" xml:space="preserve">
+    <value>تحديث الصور</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>تحديد موقع الصورة المخصصة</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>تم تحديد موقع الصورة المخصصة على وسيط النشر.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>مصدر الصورة</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>لا يمكن التأكد من أن قرص المصدر منفصل عن قرص الوجهة. حدد مصدرًا آخر.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>جارٍ التحقّق من الصورة المخصصة...</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>

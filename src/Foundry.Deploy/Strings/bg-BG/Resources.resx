@@ -130,6 +130,66 @@
   <data name="Common.Yes" xml:space="preserve">
     <value>да</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Образът по подразбиране съществува на повече от един свързан том. Изберете изрично изходния том.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Каталог на Windows</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Персонализиран образ</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Образ</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Индекс на образа</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Преглед и проверка на образа...</value>
+  </data>
+  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
+    <value>Съдържанието на образа не съответства на записаната контролна сума. Възстановете образа или обновете ръчно добавен образ.</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Манифестът на персонализирания образ липсва, повреден е или не съответства на този стартиращ носител. Създайте носителя отново или изберете друг източник.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Образът не може да бъде прочетен или избраният индекс или метаданните са променени. Обновете избора на образ и опитайте отново.</value>
+  </data>
+  <data name="CustomImages.ManualHint" xml:space="preserve">
+    <value>За ръчно добавяне на образи на USB копирайте WIM в Foundry\Images\Custom на дяла Foundry Cache, след което обновете списъка. Оставете изходния носител свързан по време на разполагането.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>Конфигурираният образ или индекс по подразбиране не е наличен. Изберете изрично образ и индекс.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Не са намерени персонализирани образи. Свържете правилния носител или добавете WIM в USB папката, посочена в документацията.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Персонализираният образ не е готов.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Персонализираният образ и точният индекс са проверени.</value>
+  </data>
+  <data name="CustomImages.Refresh" xml:space="preserve">
+    <value>Обновяване на образите</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Намиране на персонализиран образ</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Персонализираният образ е намерен на носителя за разполагане.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Източник на образ</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Не може да се потвърди, че изходният диск е различен от целевия. Изберете друг източник.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Проверка на персонализирания образ...</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>

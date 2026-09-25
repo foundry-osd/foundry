@@ -98,7 +98,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public DeployThemeMode CurrentTheme => _themeService.CurrentTheme;
     public bool IsDebugSafeMode => DebugSafetyMode.IsEnabled;
     public string EffectiveOsArchitecture => OperatingSystemCatalog.EffectiveOsArchitecture;
-    public OperatingSystemCatalogItem? SelectedOperatingSystem => OperatingSystemCatalog.SelectedOperatingSystem;
+    public CustomImageSelectionViewModel CustomImages => _wizardContext.CustomImages;
+    public OperatingSystemMetadata? SelectedOperatingSystem => _wizardContext.SelectedOperatingSystem;
     public string WindowTitle => GetString("App.WindowTitle");
     public string VersionDisplay => Format("Common.VersionFormat", FoundryDeployApplicationInfo.Version);
     public string BootMediaUpdateRecommendedText => GetString("BootMedia.UpdateRecommended");
@@ -332,7 +333,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 TargetComputerName = Preparation.TargetComputerName,
                 UploadComputerNameToAutopilot = Preparation.UploadComputerNameToAutopilot,
                 SelectedTargetDisk = Preparation.SelectedTargetDisk,
-                SelectedOperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem,
+                SelectedOperatingSystem = SelectedOperatingSystem,
                 DriverPackSelectionKind = effectiveDriverPackKind,
                 SelectedDriverPack = effectiveDriverPack,
                 ApplyFirmwareUpdates = Preparation.ApplyFirmwareUpdates,
@@ -448,7 +449,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         CacheRootPath = Preparation.CacheRootPath,
         TargetDiskNumber = Preparation.SelectedTargetDisk?.DiskNumber ?? 0,
         TargetComputerName = Preparation.EffectiveComputerName,
-        OperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem ?? new OperatingSystemCatalogItem(),
+        OperatingSystem = SelectedOperatingSystem ?? new OperatingSystemCatalogItem(),
         Unattend = Preparation.SelectedUnattend,
         DriverPackSelectionKind = DriverPackSelection.EffectiveSelectionKind,
         DriverPack = DriverPackSelection.ResolveEffectiveSelection(),
@@ -557,7 +558,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             IsDebugSafeMode = IsDebugSafeMode,
             IsUnattendSelectionValid = Preparation.IsUnattendSelectionValid,
             IsTargetComputerNameValid = Preparation.IsTargetComputerNameValid,
-            HasSelectedOperatingSystem = OperatingSystemCatalog.SelectedOperatingSystem is not null,
+            HasSelectedOperatingSystem = SelectedOperatingSystem is not null,
             HasTargetDiskSelection = Preparation.SelectedTargetDisk is not null,
             IsSelectedTargetDiskSelectable = Preparation.SelectedTargetDisk?.IsSelectable ?? false,
             HasValidDriverPackSelection = HasValidDriverPackSelection(),
@@ -566,7 +567,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 Preparation.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload ||
                 Preparation.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload ||
                 Preparation.SelectedAutopilotProfile is not null,
-            IsOperatingSystemCatalogReadyForNavigation = !IsCatalogLoading && OperatingSystemCatalog.IsReadyForNavigation()
+            IsCustomImageMode = CustomImages.IsCustom,
+            IsOperatingSystemCatalogReadyForNavigation = !IsCatalogLoading && (CustomImages.IsEnabled || OperatingSystemCatalog.IsReadyForNavigation())
         };
     }
 
@@ -638,7 +640,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                                 _wizardContext.AiComponentRemoval.IsEnabled ||
                                 _wizardContext.WindowsOptionalFeatures.IsEnabled;
         bool hasNetwork = _wizardContext.Network.ProfileRoaming.IsAnyEnabled;
-        OperatingSystemCatalogItem? operatingSystem = SelectedOperatingSystem;
+        OperatingSystemMetadata? operatingSystem = SelectedOperatingSystem;
         var source = new DeploymentSummarySource
         {
             TargetSummary = Preparation.EffectiveComputerName,
@@ -650,6 +652,16 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             IsOperatingSystemConfigured = operatingSystem is not null,
             OperatingSystemRows = operatingSystem is null
                 ? [new(GetString("Summary.SelectedOperatingSystem"), GetString("Summary.NoSelection"))]
+                : operatingSystem is CustomImageSelection custom
+                ?
+                [
+                    new(GetString("CustomImages.Image"), custom.Asset.DisplayLabel),
+                    new(GetString("CustomImages.Index"), custom.Index.Index.ToString(CultureInfo.InvariantCulture)),
+                    new(GetString("Summary.Edition"), custom.Edition),
+                    new(GetString("Summary.Architecture"), custom.Architecture),
+                    new(GetString("Summary.Language"), custom.LanguageCode),
+                    new(GetString("Summary.Build"), custom.Build)
+                ]
                 :
                 [
                     new(GetString("Summary.Release"), $"Windows {operatingSystem.WindowsRelease} {operatingSystem.ReleaseId}"),
@@ -874,6 +886,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         Session.ConfigureRebootPolicy(DeploymentRebootPolicy.Create(_wizardContext.Completion));
         Session.SetComputerName(Preparation.EffectiveComputerName);
         Session.CompleteStartupInitialization();
+        if (CustomImages.IsEnabled) _ = CustomImages.RefreshCommand.ExecuteAsync(null);
     }
 
     private void RunOnUi(Action action)
@@ -917,6 +930,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedText));
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));
             OperatingSystemCatalog.RefreshLocalizedMediaOptions();
+            CustomImages.RefreshLocalization();
             OnPropertyChanged(nameof(OperatingSystemArchitectureDisplay));
             OnPropertyChanged(nameof(SummaryTargetDiskText));
             OnPropertyChanged(nameof(SummaryOperatingSystemText));

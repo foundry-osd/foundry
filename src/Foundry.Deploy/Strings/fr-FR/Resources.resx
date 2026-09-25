@@ -130,6 +130,66 @@ Sous licence MIT.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Oui</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>L’image par défaut existe sur plusieurs volumes connectés. Choisissez explicitement le volume source.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Catalogue Windows</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Image personnalisée</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Index de l’image</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Inspection et vérification de l’image…</value>
+  </data>
+  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
+    <value>Le contenu de l’image ne correspond pas à son empreinte enregistrée. Restaurez l’image ou actualisez une image ajoutée manuellement.</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Le manifeste des images personnalisées est manquant, endommagé ou ne correspond pas à ce support de démarrage. Recréez le support ou choisissez une autre source.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>L’image ne peut pas être lue, ou son index sélectionné ou ses métadonnées ont changé. Actualisez la sélection de l’image et réessayez.</value>
+  </data>
+  <data name="CustomImages.ManualHint" xml:space="preserve">
+    <value>Pour les images USB ajoutées manuellement, copiez un fichier WIM dans Foundry\Images\Custom sur la partition Foundry Cache, puis actualisez. Gardez le support source connecté pendant le déploiement.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>L’image ou l’index par défaut configuré n’est pas disponible. Choisissez explicitement une image et un index.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Aucune image personnalisée trouvée. Connectez le support approprié ou ajoutez un fichier WIM au dossier USB indiqué dans la documentation.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>L’image personnalisée n’est pas prête.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Image personnalisée et index exact vérifiés.</value>
+  </data>
+  <data name="CustomImages.Refresh" xml:space="preserve">
+    <value>Actualiser les images</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Résoudre l’image personnalisée</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Image personnalisée résolue depuis le support de déploiement.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Source de l’image</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Il est impossible de confirmer que le disque source est distinct du disque de destination. Sélectionnez une autre source.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Vérification de l’image personnalisée…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>

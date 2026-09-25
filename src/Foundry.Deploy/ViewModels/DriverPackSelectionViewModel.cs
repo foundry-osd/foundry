@@ -23,7 +23,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
 
     private readonly IDriverPackSelectionService _driverPackSelectionService;
     private HardwareProfile? _detectedHardware;
-    private OperatingSystemCatalogItem? _selectedOperatingSystem;
+    private OperatingSystemMetadata? _selectedOperatingSystem;
     private string _effectiveArchitecture;
     private bool _isUpdatingDriverPackOptionSelection;
     private bool _hasUserSelectedDriverPackOption;
@@ -96,7 +96,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
 
     public void UpdateSelectionContext(
         HardwareProfile? detectedHardware,
-        OperatingSystemCatalogItem? selectedOperatingSystem,
+        OperatingSystemMetadata? selectedOperatingSystem,
         string effectiveArchitecture)
     {
         _detectedHardware = detectedHardware;

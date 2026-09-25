@@ -23,68 +23,135 @@
                     Margin="0,0,0,32"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center">
-                    <StackPanel Margin="0,0,0,16">
+                    <StackPanel
+                        Margin="0,0,0,20"
+                        Visibility="{Binding CustomImages.IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <TextBlock
                             Margin="0,0,0,8"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="{Binding Strings[Catalog.Version]}" />
-                        <ComboBox
-                            AutomationProperties.Name="{Binding Strings[Catalog.Version]}"
-                            IsEnabled="{Binding OperatingSystemCatalog.IsReleaseIdSelectionEnabled}"
-                            ItemsSource="{Binding OperatingSystemCatalog.ReleaseIdFilters}"
-                            SelectedItem="{Binding OperatingSystemCatalog.SelectedReleaseId}" />
+                            Text="{Binding Strings[CustomImages.Source]}" />
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton
+                                Margin="0,0,24,0"
+                                Content="{Binding Strings[CustomImages.Catalog]}"
+                                GroupName="ImageSource"
+                                IsChecked="{Binding CustomImages.IsCatalog}" />
+                            <RadioButton
+                                Content="{Binding Strings[CustomImages.Custom]}"
+                                GroupName="ImageSource"
+                                IsChecked="{Binding CustomImages.IsCustom}" />
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Margin="0,0,0,16">
+                    <StackPanel Visibility="{Binding CustomImages.IsCustom, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <TextBlock
                             Margin="0,0,0,8"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="{Binding Strings[Catalog.Media]}" />
+                            Text="{Binding Strings[CustomImages.Image]}" />
                         <ComboBox
-                            AutomationProperties.Name="{Binding Strings[Catalog.Media]}"
-                            DisplayMemberPath="DisplayName"
-                            IsEnabled="{Binding OperatingSystemCatalog.IsMediaSelectionEnabled}"
-                            ItemsSource="{Binding OperatingSystemCatalog.MediaFilters}"
-                            SelectedValue="{Binding OperatingSystemCatalog.SelectedMediaSourceId}"
-                            SelectedValuePath="SourceId" />
-                    </StackPanel>
-                    <StackPanel Margin="0,0,0,16">
+                            AutomationProperties.Name="{Binding Strings[CustomImages.Image]}"
+                            DisplayMemberPath="DisplayLabel"
+                            ItemsSource="{Binding CustomImages.Images}"
+                            SelectedItem="{Binding CustomImages.SelectedAsset}" />
                         <TextBlock
-                            Margin="0,0,0,8"
+                            Margin="0,16,0,8"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="{Binding Strings[Catalog.Language]}" />
+                            Text="{Binding Strings[CustomImages.Index]}" />
                         <ComboBox
-                            AutomationProperties.Name="{Binding Strings[Catalog.Language]}"
-                            IsEnabled="{Binding OperatingSystemCatalog.IsLanguageSelectionEnabled}"
-                            ItemsSource="{Binding OperatingSystemCatalog.LanguageFilters}"
-                            SelectedItem="{Binding OperatingSystemCatalog.SelectedLanguageCode}" />
-                    </StackPanel>
-                    <StackPanel Margin="0,0,0,16">
-                        <TextBlock
-                            Margin="0,0,0,8"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="{Binding Strings[Catalog.EditionTarget]}" />
-                        <ComboBox
-                            AutomationProperties.Name="{Binding Strings[Catalog.EditionTarget]}"
-                            IsEnabled="{Binding OperatingSystemCatalog.IsEditionSelectionEnabled}"
-                            ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
-                            SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}" />
-                    </StackPanel>
-                    <StackPanel>
-                        <TextBlock
-                            Margin="0,0,0,8"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="{Binding Strings[Catalog.LicenseChannel]}" />
-                        <ComboBox
-                            AutomationProperties.Name="{Binding Strings[Catalog.LicenseChannel]}"
-                            IsEnabled="{Binding OperatingSystemCatalog.IsLicenseChannelSelectionEnabled}"
-                            ItemsSource="{Binding OperatingSystemCatalog.LicenseChannelFilters}"
-                            SelectedItem="{Binding OperatingSystemCatalog.SelectedLicenseChannel}">
+                            AutomationProperties.Name="{Binding Strings[CustomImages.Index]}"
+                            ItemsSource="{Binding CustomImages.Indexes}"
+                            SelectedItem="{Binding CustomImages.SelectedIndex}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=LicenseChannel}" />
+                                    <TextBlock><Run Text="{Binding Index}" /><Run Text=" — " /><Run Text="{Binding Name}" /></TextBlock>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
+                        <TextBlock
+                            Margin="0,12,0,0"
+                            Text="{Binding CustomImages.MetadataText}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            Margin="0,12,0,0"
+                            Text="{Binding CustomImages.ErrorMessage}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            Margin="0,12,0,0"
+                            Text="{Binding Strings[CustomImages.Inspecting]}"
+                            Visibility="{Binding CustomImages.IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Button
+                            Margin="0,12,0,0"
+                            HorizontalAlignment="Left"
+                            Command="{Binding CustomImages.RefreshCommand}"
+                            Content="{Binding Strings[CustomImages.Refresh]}" />
+                        <TextBlock
+                            Margin="0,12,0,20"
+                            Text="{Binding Strings[CustomImages.ManualHint]}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Visibility="{Binding CustomImages.IsCatalog, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Catalog.Version]}" />
+                            <ComboBox
+                                AutomationProperties.Name="{Binding Strings[Catalog.Version]}"
+                                IsEnabled="{Binding OperatingSystemCatalog.IsReleaseIdSelectionEnabled}"
+                                ItemsSource="{Binding OperatingSystemCatalog.ReleaseIdFilters}"
+                                SelectedItem="{Binding OperatingSystemCatalog.SelectedReleaseId}" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Catalog.Media]}" />
+                            <ComboBox
+                                AutomationProperties.Name="{Binding Strings[Catalog.Media]}"
+                                DisplayMemberPath="DisplayName"
+                                IsEnabled="{Binding OperatingSystemCatalog.IsMediaSelectionEnabled}"
+                                ItemsSource="{Binding OperatingSystemCatalog.MediaFilters}"
+                                SelectedValue="{Binding OperatingSystemCatalog.SelectedMediaSourceId}"
+                                SelectedValuePath="SourceId" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Catalog.Language]}" />
+                            <ComboBox
+                                AutomationProperties.Name="{Binding Strings[Catalog.Language]}"
+                                IsEnabled="{Binding OperatingSystemCatalog.IsLanguageSelectionEnabled}"
+                                ItemsSource="{Binding OperatingSystemCatalog.LanguageFilters}"
+                                SelectedItem="{Binding OperatingSystemCatalog.SelectedLanguageCode}" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Catalog.EditionTarget]}" />
+                            <ComboBox
+                                AutomationProperties.Name="{Binding Strings[Catalog.EditionTarget]}"
+                                IsEnabled="{Binding OperatingSystemCatalog.IsEditionSelectionEnabled}"
+                                ItemsSource="{Binding OperatingSystemCatalog.EditionFilters}"
+                                SelectedItem="{Binding OperatingSystemCatalog.SelectedEdition}" />
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Catalog.LicenseChannel]}" />
+                            <ComboBox
+                                AutomationProperties.Name="{Binding Strings[Catalog.LicenseChannel]}"
+                                IsEnabled="{Binding OperatingSystemCatalog.IsLicenseChannelSelectionEnabled}"
+                                ItemsSource="{Binding OperatingSystemCatalog.LicenseChannelFilters}"
+                                SelectedItem="{Binding OperatingSystemCatalog.SelectedLicenseChannel}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ., Converter={StaticResource OsCatalogFilterDisplayConverter}, ConverterParameter=LicenseChannel}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </Grid>

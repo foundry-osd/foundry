@@ -265,7 +265,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStepTests
             IProgress<double>? progress = null,
             Action? onInspectionStarted = null,
             Action? onSourcePreparationStarted = null,
-            Action? onServicingStarted = null)
+            Action? onServicingStarted = null, string? customSourceDirectory = null)
         {
             ConfigureOptionalFeaturesCallCount++;
             if (Exception is not null)

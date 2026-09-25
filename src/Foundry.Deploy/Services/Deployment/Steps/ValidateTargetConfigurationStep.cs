@@ -41,7 +41,7 @@ public sealed class ValidateTargetConfigurationStep : DeploymentStepBase
             return validationFailure;
         }
 
-        if (string.IsNullOrWhiteSpace(context.Request.OperatingSystem.Url))
+        if (context.Request.OperatingSystem is not CustomImageSelection && string.IsNullOrWhiteSpace((context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Url ?? string.Empty))
         {
             return DeploymentStepResult.Failed(
                 "Operating system URL is missing.",
@@ -112,6 +112,7 @@ public sealed class ValidateTargetConfigurationStep : DeploymentStepBase
         }
 
         context.RuntimeState.WindowsOptionalFeatures = normalized;
+        if (context.Request.OperatingSystem is CustomImageSelection) return null;
         if (!normalized.IsEnabled || normalized.Actions.Count == 0)
         {
             return null;

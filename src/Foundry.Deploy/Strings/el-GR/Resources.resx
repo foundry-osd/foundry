@@ -130,6 +130,66 @@
   <data name="Common.Yes" xml:space="preserve">
     <value>Ναι</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Η προεπιλεγμένη εικόνα υπάρχει σε περισσότερους από έναν συνδεδεμένους τόμους. Επιλέξτε ρητά τον τόμο προέλευσης.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Κατάλογος Windows</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Προσαρμοσμένη εικόνα</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Εικόνα</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Δείκτης εικόνας</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Επιθεώρηση και επαλήθευση εικόνας…</value>
+  </data>
+  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
+    <value>Το περιεχόμενο της εικόνας δεν αντιστοιχεί στο καταγεγραμμένο αποτύπωμα. Επαναφέρετε την εικόνα ή ανανεώστε μια εικόνα που προστέθηκε μη αυτόματα.</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Το δηλωτικό προσαρμοσμένων εικόνων λείπει, είναι κατεστραμμένο ή δεν αντιστοιχεί σε αυτό το μέσο εκκίνησης. Δημιουργήστε ξανά το μέσο ή επιλέξτε άλλη πηγή.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Η εικόνα δεν μπορεί να διαβαστεί ή ο επιλεγμένος δείκτης ή τα μεταδεδομένα της έχουν αλλάξει. Ανανεώστε την επιλογή εικόνας και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="CustomImages.ManualHint" xml:space="preserve">
+    <value>Για εικόνες USB που προστίθενται μη αυτόματα, αντιγράψτε ένα WIM στο Foundry\Images\Custom του διαμερίσματος Foundry Cache και ανανεώστε. Διατηρήστε το μέσο προέλευσης συνδεδεμένο κατά την ανάπτυξη.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>Η διαμορφωμένη προεπιλεγμένη εικόνα ή ο δείκτης δεν είναι διαθέσιμα. Επιλέξτε ρητά μια εικόνα και έναν δείκτη.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Δεν βρέθηκαν προσαρμοσμένες εικόνες. Συνδέστε το σωστό μέσο ή προσθέστε ένα WIM στον φάκελο USB που αναφέρεται στην τεκμηρίωση.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Η προσαρμοσμένη εικόνα δεν είναι έτοιμη.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Η προσαρμοσμένη εικόνα και ο ακριβής δείκτης επαληθεύτηκαν.</value>
+  </data>
+  <data name="CustomImages.Refresh" xml:space="preserve">
+    <value>Ανανέωση εικόνων</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Εντοπισμός προσαρμοσμένης εικόνας</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Η προσαρμοσμένη εικόνα εντοπίστηκε στο μέσο ανάπτυξης.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Πηγή εικόνας</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Δεν μπορεί να επιβεβαιωθεί ότι ο δίσκος προέλευσης διαφέρει από τον δίσκο προορισμού. Επιλέξτε άλλη πηγή.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Επαλήθευση προσαρμοσμένης εικόνας…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>

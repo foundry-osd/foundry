@@ -130,6 +130,66 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>はい</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>接続されている複数のボリュームに既定のイメージが存在します。ソースボリュームを明示的に選択してください。</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Windows カタログ</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>カスタムイメージ</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>イメージ</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>イメージのインデックス</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>イメージを確認して検証しています...</value>
+  </data>
+  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
+    <value>イメージの内容が記録されたダイジェストと一致しません。イメージを復元するか、手動で追加したイメージを更新してください。</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>カスタムイメージのマニフェストが見つからない、破損している、またはこの起動メディアと一致しません。メディアを再作成するか、別のソースを選択してください。</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>イメージを読み取れないか、選択したインデックスまたはメタデータが変更されています。イメージの選択を更新してから、もう一度お試しください。</value>
+  </data>
+  <data name="CustomImages.ManualHint" xml:space="preserve">
+    <value>USB に手動でイメージを追加するには、Foundry Cache パーティションの Foundry\Images\Custom に WIM をコピーしてから更新してください。展開中はソースメディアを接続したままにしてください。</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>設定された既定のイメージまたはインデックスを使用できません。イメージとインデックスを明示的に選択してください。</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>カスタムイメージが見つかりませんでした。正しいメディアを接続するか、ドキュメントに記載された USB フォルダーに WIM を追加してください。</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>カスタムイメージの準備ができていません。</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>カスタムイメージと正確なインデックスを検証しました。</value>
+  </data>
+  <data name="CustomImages.Refresh" xml:space="preserve">
+    <value>イメージを更新</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>カスタムイメージを特定</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>展開メディアからカスタムイメージを特定しました。</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>イメージソース</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>ソースディスクと展開先ディスクが別のディスクであることを確認できません。別のソースを選択してください。</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>カスタムイメージを検証しています...</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>

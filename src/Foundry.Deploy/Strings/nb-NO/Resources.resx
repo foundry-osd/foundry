@@ -130,6 +130,66 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Ja</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Standardavbildningen finnes på flere tilkoblede volumer. Velg kildevolumet uttrykkelig.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Windows-katalog</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Tilpasset avbildning</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Avbildning</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Avbildningsindeks</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Undersøker og kontrollerer avbildning…</value>
+  </data>
+  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
+    <value>Innholdet i avbildningen samsvarer ikke med den registrerte hashverdien. Gjenopprett avbildningen eller oppdater en manuelt tillagt avbildning.</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Manifestet mangler, er skadet eller samsvarer ikke med dette oppstartsmediet. Opprett mediet på nytt eller velg en annen kilde.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Avbildningen kan ikke leses, eller den valgte indeksen eller metadataene er endret. Oppdater avbildningsvalget og prøv igjen.</value>
+  </data>
+  <data name="CustomImages.ManualHint" xml:space="preserve">
+    <value>For manuelt tillagte USB-avbildninger kopierer du en WIM-fil til Foundry\Images\Custom på partisjonen Foundry Cache og oppdaterer. La kildemediet være tilkoblet under distribusjonen.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>Den konfigurerte standardavbildningen eller indeksen er utilgjengelig. Velg uttrykkelig en avbildning og en indeks.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Ingen tilpassede avbildninger ble funnet. Koble til riktig medium eller legg til en WIM-fil i den dokumenterte USB-mappen.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Den tilpassede avbildningen er ikke klar.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Tilpasset avbildning og nøyaktig indeks kontrollert.</value>
+  </data>
+  <data name="CustomImages.Refresh" xml:space="preserve">
+    <value>Oppdater avbildninger</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Finn tilpasset avbildning</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Tilpasset avbildning funnet på distribusjonsmediet.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Avbildningskilde</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Det kan ikke bekreftes at kildedisken er forskjellig fra måldisken. Velg en annen kilde.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Kontrollerer tilpasset avbildning…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>

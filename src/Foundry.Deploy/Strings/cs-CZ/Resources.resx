@@ -130,6 +130,66 @@ Licencováno pod licencí MIT.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Ano</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Výchozí bitová kopie je na více připojených svazcích. Výslovně vyberte zdrojový svazek.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Katalog Windows</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Vlastní bitová kopie</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Bitová kopie</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Index bitové kopie</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Kontrola a ověřování bitové kopie…</value>
+  </data>
+  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
+    <value>Obsah bitové kopie neodpovídá zaznamenanému otisku. Obnovte bitovou kopii nebo aktualizujte ručně přidanou bitovou kopii.</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Manifest vlastních bitových kopií chybí, je poškozen nebo neodpovídá tomuto spouštěcímu médiu. Vytvořte médium znovu nebo vyberte jiný zdroj.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Bitovou kopii nelze přečíst nebo se změnil vybraný index či metadata. Obnovte výběr bitové kopie a zkuste to znovu.</value>
+  </data>
+  <data name="CustomImages.ManualHint" xml:space="preserve">
+    <value>Pro ručně přidané bitové kopie USB zkopírujte WIM do Foundry\Images\Custom na oddílu Foundry Cache a poté seznam obnovte. Během nasazení ponechte zdrojové médium připojené.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>Nastavená výchozí bitová kopie nebo index nejsou dostupné. Výslovně vyberte bitovou kopii a index.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Nebyly nalezeny vlastní bitové kopie. Připojte správné médium nebo přidejte WIM do složky USB uvedené v dokumentaci.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Vlastní bitová kopie není připravena.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Vlastní bitová kopie a přesný index ověřeny.</value>
+  </data>
+  <data name="CustomImages.Refresh" xml:space="preserve">
+    <value>Obnovit bitové kopie</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Vyhledat vlastní bitovou kopii</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Vlastní bitová kopie nalezena na médiu pro nasazení.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Zdroj bitové kopie</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Nelze potvrdit, že zdrojový disk je odlišný od cílového. Vyberte jiný zdroj.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Ověřování vlastní bitové kopie…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>

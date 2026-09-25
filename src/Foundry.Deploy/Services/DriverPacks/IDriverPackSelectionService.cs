@@ -11,5 +11,5 @@ public interface IDriverPackSelectionService
     DriverPackSelectionResult SelectBest(
         IReadOnlyList<DriverPackCatalogItem> catalog,
         HardwareProfile hardware,
-        OperatingSystemCatalogItem operatingSystem);
+        OperatingSystemMetadata operatingSystem);
 }

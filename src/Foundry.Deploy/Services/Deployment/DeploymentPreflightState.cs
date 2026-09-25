@@ -17,6 +17,8 @@ internal sealed class DeploymentPreflightState : IDisposable
     public WindowsImageMetadata? Image { get; set; }
     public string? ImagePath { get; set; }
     public FileStream? SourceLease { get; set; }
+    public Services.Images.CustomImageSourceLease? CustomSourceLease { get; set; }
+    public List<Services.Images.CustomImageSourceLease> CompanionLeases { get; } = [];
     public bool ErasureStarted { get; set; }
 
     /// <summary>Rejects storage decisions when the execution's resolved cache changes.</summary>
@@ -29,7 +31,8 @@ internal sealed class DeploymentPreflightState : IDisposable
         try
         {
             return MatchesStoragePlan(context) &&
-                (UsesTargetStorage || (Image is not null && SourceLease?.CanRead == true && SourceLease.Length == SourceSizeBytes &&
+                (UsesTargetStorage || (Image is not null &&
+                    (CustomSourceLease is not null ? CustomSourceLease.IsReadable() && CustomSourceLease.Length == SourceSizeBytes && CompanionLeases.All(lease => lease.IsReadable()) : SourceLease?.CanRead == true && SourceLease.Length == SourceSizeBytes) &&
                     string.Equals(ImagePath, context.RuntimeState.DownloadedOperatingSystemPath, StringComparison.OrdinalIgnoreCase) && File.Exists(ImagePath)));
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ObjectDisposedException)
@@ -39,5 +42,10 @@ internal sealed class DeploymentPreflightState : IDisposable
     }
 
     /// <summary>Keeps a verified external file readable and prevents replacement while it is needed.</summary>
-    public void Dispose() => SourceLease?.Dispose();
+    public void Dispose()
+    {
+        SourceLease?.Dispose();
+        CustomSourceLease?.Dispose();
+        foreach (var lease in CompanionLeases) lease.Dispose();
+    }
 }

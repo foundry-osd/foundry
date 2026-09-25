@@ -129,6 +129,7 @@ public interface IWindowsDeploymentService
     /// <param name="onInspectionStarted">Optional callback invoked before feature-state inspection.</param>
     /// <param name="onSourcePreparationStarted">Optional callback invoked before setup-media extraction.</param>
     /// <param name="onServicingStarted">Optional callback invoked before feature servicing.</param>
+    /// <param name="customSourceDirectory">Verified read-only companion files; null preserves setup-media-index extraction.</param>
     /// <returns>The optional feature servicing result.</returns>
     Task<WindowsOptionalFeatureServicingResult> ConfigureOfflineWindowsOptionalFeaturesAsync(
         string setupMediaImagePath,
@@ -142,7 +143,7 @@ public interface IWindowsDeploymentService
         IProgress<double>? progress = null,
         Action? onInspectionStarted = null,
         Action? onSourcePreparationStarted = null,
-        Action? onServicingStarted = null);
+        Action? onServicingStarted = null, string? customSourceDirectory = null);
 
     /// <summary>
     /// Copies and configures Windows RE on the recovery partition.

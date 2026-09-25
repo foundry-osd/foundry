@@ -130,6 +130,66 @@
   <data name="Common.Yes" xml:space="preserve">
     <value>כן</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>תמונת ברירת המחדל נמצאת ביותר מאמצעי אחסון מחובר אחד. יש לבחור את אמצעי האחסון של המקור במפורש.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>קטלוג Windows</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>תמונה מותאמת אישית</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>תמונה</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>אינדקס התמונה</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>התמונה נבדקת ומאומתת...</value>
+  </data>
+  <data name="CustomImages.IntegrityFailed" xml:space="preserve">
+    <value>תוכן התמונה אינו תואם לערך הגיבוב שנרשם עבורה. יש לשחזר את התמונה או לרענן תמונה שנוספה ידנית.</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>מניפסט התמונות המותאמות אישית חסר, פגום או אינו תואם למדיית אתחול זו. יש ליצור מחדש את המדיה או לבחור מקור אחר.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>לא ניתן לקרוא את התמונה, או שהאינדקס שנבחר או המטא-נתונים שלה השתנו. יש לרענן את בחירת התמונה ולנסות שוב.</value>
+  </data>
+  <data name="CustomImages.ManualHint" xml:space="preserve">
+    <value>להוספת תמונות ידנית ל-USB, יש להעתיק קובץ WIM אל Foundry\Images\Custom במחיצת Foundry Cache, ואז לרענן. יש להשאיר את מדיית המקור מחוברת במהלך הפריסה.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>התמונה או האינדקס שהוגדרו כברירת מחדל אינם זמינים. יש לבחור תמונה ואינדקס במפורש.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>לא נמצאו תמונות מותאמות אישית. יש לחבר את המדיה הנכונה או להוסיף קובץ WIM לתיקיית ה-USB המצוינת בתיעוד.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>התמונה המותאמת אישית אינה מוכנה.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>התמונה המותאמת אישית והאינדקס המדויק אומתו.</value>
+  </data>
+  <data name="CustomImages.Refresh" xml:space="preserve">
+    <value>רענון תמונות</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>איתור תמונה מותאמת אישית</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>התמונה המותאמת אישית אותרה במדיית הפריסה.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>מקור התמונה</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>לא ניתן לוודא שדיסק המקור נפרד מדיסק היעד. יש לבחור מקור אחר.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>התמונה המותאמת אישית מאומתת...</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
