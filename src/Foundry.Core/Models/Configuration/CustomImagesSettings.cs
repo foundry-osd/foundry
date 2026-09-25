@@ -26,7 +26,6 @@ public sealed record CustomImageReference
     public long Length { get; init; }
     public IReadOnlyList<CustomImageIndex> Indexes { get; init; } = [];
     public bool IsIncluded { get; init; } = true;
-    public string? SourceBundleHash { get; init; }
 }
 
 /// <summary>Describes an exact image index without inferring Windows catalog compatibility.</summary>

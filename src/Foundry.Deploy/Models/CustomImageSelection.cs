@@ -4,7 +4,6 @@
 
 using System.IO;
 using Foundry.Core.Models.Configuration;
-using Foundry.Core.Models.Images;
 
 namespace Foundry.Deploy.Models;
 
@@ -20,8 +19,6 @@ public sealed record CustomImageAsset
     public string? ExpectedHash { get; init; }
     public string? ObservedHash { get; init; }
     public long? ObservedLength { get; init; }
-    public string? SourceDirectory { get; init; }
-    public IReadOnlyList<CustomImageSourceFile> SourceFiles { get; init; } = [];
     public bool IsManaged => ExpectedHash is not null;
     public string DisplayLabel => $"{DisplayName} ({VolumeRoot})";
 }

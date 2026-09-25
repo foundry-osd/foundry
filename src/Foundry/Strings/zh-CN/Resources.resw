@@ -751,6 +751,9 @@
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>启用后，已包含的映像将复制到新创建的介质中。仍然需要 Internet 连接。已启用的自定义设置会应用于所选映像；请确认它们适用于您的映像。</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>映像库</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>缺失</value>
   </data>
@@ -792,9 +795,6 @@
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>源 ISO 或 WIM</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>在可用时从 ISO 导入可选功能源文件</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>导入完成</value>

@@ -28,7 +28,7 @@ public sealed class WinPeCustomImageMediaLease : IDisposable
     public string ManifestHash { get; }
     /// <summary>Locates the manifest relative to the ISO or USB data-volume root.</summary>
     public string ManifestRelativePath => Path.Combine("Foundry", "Images", "Custom", "manifests", ManifestId + ".json");
-    /// <summary>Gets all retained image and companion inputs, with content-addressed destination paths.</summary>
+    /// <summary>Gets all retained image inputs, with content-addressed destination paths.</summary>
     public IReadOnlyList<WinPeCustomImageMediaFile> Files { get; }
     /// <summary>Gets the source bytes required on a new data volume, excluding filesystem reserves.</summary>
     public long TotalBytes => Files.Aggregate((long)ManifestBytes.Length, (total, file) => checked(total + file.Length));

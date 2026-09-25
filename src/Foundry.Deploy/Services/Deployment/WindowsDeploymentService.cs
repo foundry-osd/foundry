@@ -826,7 +826,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         IProgress<double>? progress = null,
         Action? onInspectionStarted = null,
         Action? onSourcePreparationStarted = null,
-        Action? onServicingStarted = null, string? customSourceDirectory = null)
+        Action? onServicingStarted = null)
     {
         ArgumentNullException.ThrowIfNull(settings);
         if (!settings.IsEnabled || settings.Actions is null || settings.Actions.Count == 0)
@@ -908,13 +908,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
             bool matchingSourceUsed = pendingItems.Any(item => item.Action.Enable && item.CatalogEntry.RequiresSetupMediaSxs);
             string? sourcePath = null;
-            if (matchingSourceUsed && customSourceDirectory is not null)
-            {
-                onSourcePreparationStarted?.Invoke();
-                if (!Directory.Exists(customSourceDirectory)) throw new DirectoryNotFoundException("Custom optional-feature source is unavailable.");
-                sourcePath = customSourceDirectory;
-            }
-            else if (matchingSourceUsed)
+            if (matchingSourceUsed)
             {
                 if (!File.Exists(setupMediaImagePath))
                 {

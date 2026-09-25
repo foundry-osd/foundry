@@ -751,6 +751,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Se abilitata, questa opzione copia le immagini incluse nei nuovi supporti. Internet rimane necessario. Le personalizzazioni abilitate si applicano all’immagine selezionata; verificane l’idoneità per la tua immagine.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Raccolta di immagini</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Mancante</value>
   </data>
@@ -792,9 +795,6 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>Origine ISO o WIM</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Importa le origini delle funzionalità facoltative dall’ISO, se disponibili</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Importazione completata</value>

@@ -751,6 +751,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Kui valik on lubatud, kopeeritakse kaasatud tõmmised uutele meediumidele. Internetiühendus on endiselt vajalik. Lubatud kohandused rakendatakse valitud tõmmisele; kontrollige nende sobivust oma tõmmisele.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Tõmmiste teek</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Puudub</value>
   </data>
@@ -792,9 +795,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>ISO- või WIM-allikas</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Impordi valikuliste funktsioonide allikad ISO-st, kui need on saadaval</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Importimine lõpetatud</value>

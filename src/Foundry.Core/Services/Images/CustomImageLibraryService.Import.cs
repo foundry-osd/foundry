@@ -3,10 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Security.Cryptography;
-using System.Text.Json;
 using Foundry.Core.Models.Configuration;
-using Foundry.Core.Models.Images;
-using Foundry.Core.Services.Configuration;
 using Serilog;
 
 namespace Foundry.Core.Services.Images;
@@ -59,26 +56,13 @@ public sealed partial class CustomImageLibraryService
                 length = stagedLease.Length;
                 imageHash = Convert.ToHexStringLower(await SHA256.HashDataAsync(stagedLease, cancellationToken).ConfigureAwait(false));
             }
-            IReadOnlyList<CustomImageSourceFile> sourceFiles = [];
-            string? bundleHash = null;
-            if (request.IncludeOptionalFeatureSources && source.SourceDirectoryPath is not null)
-            {
-                sourceFiles = await CopySourcesAsync(source.SourceDirectoryPath, Path.Combine(pending, "sxs"), progress, cancellationToken).ConfigureAwait(false);
-                if (sourceFiles.Count > 0)
-                {
-                    bundleHash = ComputeBundleHash(sourceFiles);
-                    await File.WriteAllBytesAsync(Path.Combine(pending, "files.json"),
-                        JsonSerializer.SerializeToUtf8Bytes(sourceFiles, ConfigurationJsonDefaults.SerializerOptions), cancellationToken).ConfigureAwait(false);
-                }
-            }
             var reference = new CustomImageReference
             {
                 Id = Guid.NewGuid().ToString("N"),
                 ContentHash = imageHash,
                 DisplayName = name,
                 Length = length,
-                Indexes = indexes,
-                SourceBundleHash = bundleHash
+                Indexes = indexes
             };
             if (!CustomImageSettingsValidator.IsValidReference(reference))
                 throw new InvalidDataException("The source does not contain valid readable image metadata.");
@@ -87,7 +71,7 @@ public sealed partial class CustomImageLibraryService
             {
                 IReadOnlyList<CustomImageReference> current = await ListAsync(cancellationToken).ConfigureAwait(false);
                 CustomImageReference? existing = current.FirstOrDefault(image =>
-                    image.ContentHash == imageHash && image.SourceBundleHash == bundleHash);
+                    image.ContentHash == imageHash);
                 if (existing is not null)
                 {
                     reference = reference with { Id = existing.Id };
@@ -111,41 +95,6 @@ public sealed partial class CustomImageLibraryService
                 }
                 else File.Move(stagedWim, destination);
 
-                if (bundleHash is not null)
-                {
-                    string bundleDirectory = OwnedPath($"sources/{bundleHash}");
-                    if (!Directory.Exists(bundleDirectory))
-                    {
-                        string stagedBundle = Path.Combine(pending, "bundle");
-                        Directory.CreateDirectory(stagedBundle);
-                        Directory.Move(Path.Combine(pending, "sxs"), Path.Combine(stagedBundle, "sxs"));
-                        File.Move(Path.Combine(pending, "files.json"), Path.Combine(stagedBundle, "files.json"));
-                        Directory.CreateDirectory(Path.GetDirectoryName(bundleDirectory)!);
-                        Directory.Move(stagedBundle, bundleDirectory);
-                    }
-                    else
-                    {
-                        foreach (CustomImageSourceFile file in sourceFiles)
-                        {
-                            string target = CustomImagePathPolicy.ResolveRelativePath(bundleDirectory, "sxs/" + file.RelativePath);
-                            bool valid = false;
-                            if (File.Exists(target))
-                            {
-                                try
-                                {
-                                    await using FileStream input = OpenRead(target);
-                                    await VerifyAsync(input, file.Length, file.ContentHash, cancellationToken).ConfigureAwait(false);
-                                    valid = true;
-                                }
-                                catch (InvalidDataException) { }
-                            }
-                            if (valid) continue;
-                            Directory.CreateDirectory(Path.GetDirectoryName(target)!);
-                            File.Move(CustomImagePathPolicy.ResolveRelativePath(pending, "sxs/" + file.RelativePath), target, overwrite: true);
-                        }
-                        File.Move(Path.Combine(pending, "files.json"), Path.Combine(bundleDirectory, "files.json"), overwrite: true);
-                    }
-                }
                 await WriteIndexAsync(current.Where(image => image.Id != reference.Id).Append(reference).ToArray(), cancellationToken).ConfigureAwait(false);
             }
             progress?.Report(new("Completed", length, length));
@@ -214,39 +163,5 @@ public sealed partial class CustomImageLibraryService
         }
         await output.FlushAsync(cancellationToken).ConfigureAwait(false);
         output.Flush(flushToDisk: true);
-    }
-
-    private static async Task<IReadOnlyList<CustomImageSourceFile>> CopySourcesAsync(string source, string destination,
-        IProgress<CustomImageImportProgress>? progress, CancellationToken cancellationToken)
-    {
-        CustomImagePathPolicy.ValidateNoReparsePoints(source);
-        var results = new List<CustomImageSourceFile>();
-        var pending = new Stack<string>();
-        pending.Push(source);
-        int entries = 0;
-        while (pending.TryPop(out string? directory))
-        {
-            CustomImagePathPolicy.ValidateNoReparsePoints(directory);
-            foreach (string path in Directory.EnumerateFileSystemEntries(directory))
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                CustomImagePathPolicy.ValidateNoReparsePoints(path);
-                if (++entries > MaximumSourceFiles) throw new InvalidDataException("The optional-feature source contains too many files.");
-                if (Directory.Exists(path)) { pending.Push(path); continue; }
-                string relative = Path.GetRelativePath(source, path).Replace('\\', '/');
-                string target = CustomImagePathPolicy.ResolveRelativePath(destination, relative);
-                Directory.CreateDirectory(Path.GetDirectoryName(target)!);
-                await using FileStream input = OpenRead(path);
-                await CopyAsync(input, target, progress, cancellationToken).ConfigureAwait(false);
-                input.Position = 0;
-                results.Add(new()
-                {
-                    RelativePath = relative,
-                    Length = input.Length,
-                    ContentHash = Convert.ToHexStringLower(await SHA256.HashDataAsync(input, cancellationToken).ConfigureAwait(false))
-                });
-            }
-        }
-        return results.OrderBy(file => file.RelativePath, StringComparer.Ordinal).ToArray();
     }
 }

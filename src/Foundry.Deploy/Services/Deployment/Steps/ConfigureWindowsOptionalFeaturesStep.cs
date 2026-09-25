@@ -97,8 +97,7 @@ public sealed class ConfigureWindowsOptionalFeaturesStep : DeploymentStepBase
                 () => context.EmitCurrentStepIndeterminate(
                     stepMessage,
                     "Applying feature changes...",
-                    DeploymentOperationNames.ConfigureWindowsOptionalFeatures),
-                (context.Request.OperatingSystem as Models.CustomImageSelection)?.Asset.SourceDirectory)
+                    DeploymentOperationNames.ConfigureWindowsOptionalFeatures))
             .ConfigureAwait(false);
 
         if (result.UnavailableEnableActionIds.Count > 0)

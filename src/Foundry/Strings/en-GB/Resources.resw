@@ -751,6 +751,9 @@ Licensed under the MIT License.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Included images are copied to newly created media when enabled. Internet is still required. Enabled customizations apply to the selected image; verify their suitability for your image.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Image library</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Missing</value>
   </data>
@@ -792,9 +795,6 @@ Licensed under the MIT License.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>Source ISO or WIM</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Import optional feature sources from the ISO when available</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Import complete</value>

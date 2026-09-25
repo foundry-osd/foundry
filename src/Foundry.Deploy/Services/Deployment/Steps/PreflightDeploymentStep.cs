@@ -126,13 +126,6 @@ public sealed class PreflightDeploymentStep(
             context.EmitCurrentStepIndeterminate("Checking Windows image...", "Verifying custom image...", DeploymentOperationNames.InspectOperatingSystemImage);
             prepared.CustomSourceLease = await Services.Images.CustomImageSourceLease.AcquireAsync(asset.ImagePath,
                 asset.ObservedLength ?? asset.ExpectedLength, asset.ObservedHash ?? asset.ExpectedHash, cancellationToken).ConfigureAwait(false);
-            foreach (var file in asset.SourceFiles)
-            {
-                string path = Services.Images.CustomImageCatalogService.ResolveContainedPath(asset.SourceDirectory ?? throw new InvalidDataException(), file.RelativePath);
-                if (!await context.IsCustomSourceSeparateAsync(asset, path, cancellationToken).ConfigureAwait(false))
-                    throw Guard("CustomImages.UnsafeSource", "custom_source_identity_unknown");
-                prepared.CompanionLeases.Add(await Services.Images.CustomImageSourceLease.AcquireAsync(path, file.Length, file.ContentHash, cancellationToken).ConfigureAwait(false));
-            }
             var images = await (customMetadataReader ?? new Foundry.Core.Services.Images.NativeCustomImageMetadataReader())
                 .ReadAsync(asset.ImagePath, cancellationToken).ConfigureAwait(false);
             var matches = images.Where(image => image.Index == custom.Index.Index).ToArray();
@@ -142,7 +135,7 @@ public sealed class PreflightDeploymentStep(
                 selected.Build != custom.Index.Build || selected.Version != custom.Index.Version) throw new InvalidDataException();
             if (context.Request.TargetDiskIdentity?.SizeBytes is null or 0) throw new InvalidDataException();
             var setupImages = images.Where(image => image.Name.Equals("Windows Setup Media", StringComparison.OrdinalIgnoreCase)).ToArray();
-            long? setupSize = asset.SourceDirectory is null && setupImages.Length == 1 && setupImages[0].ExpandedSizeBytes > 0 ? setupImages[0].ExpandedSizeBytes : null;
+            long? setupSize = setupImages.Length == 1 && setupImages[0].ExpandedSizeBytes > 0 ? setupImages[0].ExpandedSizeBytes : null;
             prepared.Image = new WindowsImageMetadata(selected.Index, selected.EditionId, selected.ExpandedSizeBytes, setupSize);
             prepared.SourceSizeBytes = prepared.CustomSourceLease.Length;
             prepared.TargetDriverBytes = ResolveTargetDriverBytes(context, null);

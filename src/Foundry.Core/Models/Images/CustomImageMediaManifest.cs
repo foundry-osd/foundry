@@ -19,14 +19,4 @@ public sealed record CustomImageMediaEntry
 {
     public CustomImageReference Reference { get; init; } = new();
     public string RelativePath { get; init; } = string.Empty;
-    public string? SourceRelativePath { get; init; }
-    public IReadOnlyList<CustomImageSourceFile> SourceFiles { get; init; } = [];
-}
-
-/// <summary>Binds one optional-feature source file to its immutable bytes.</summary>
-public sealed record CustomImageSourceFile
-{
-    public string RelativePath { get; init; } = string.Empty;
-    public long Length { get; init; }
-    public string ContentHash { get; init; } = string.Empty;
 }

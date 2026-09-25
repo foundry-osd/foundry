@@ -751,6 +751,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Ha engedélyezve van, a hozzáadott lemezképek az új adathordozókra másolódnak. Továbbra is szükséges internetkapcsolat. Az engedélyezett testreszabások érvényesülnek a kijelölt lemezképen; ellenőrizze, hogy megfelelnek-e az adott lemezképnek.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Lemezképtár</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Hiányzik</value>
   </data>
@@ -792,9 +795,6 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>ISO- vagy WIM-forrás</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Opcionális szolgáltatásforrások importálása az ISO-ból, ha elérhetők</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Importálás kész</value>

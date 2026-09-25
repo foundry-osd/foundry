@@ -751,6 +751,9 @@
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Όταν η επιλογή είναι ενεργοποιημένη, οι εικόνες που περιλαμβάνονται αντιγράφονται στα νέα μέσα. Απαιτείται ακόμη σύνδεση στο Internet. Οι ενεργοποιημένες προσαρμογές εφαρμόζονται στην επιλεγμένη εικόνα· ελέγξτε την καταλληλότητά τους για την εικόνα σας.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Βιβλιοθήκη εικόνων</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Λείπει</value>
   </data>
@@ -792,9 +795,6 @@
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>Πηγή ISO ή WIM</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Εισαγωγή πηγών προαιρετικών δυνατοτήτων από το ISO, όταν είναι διαθέσιμες</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Η εισαγωγή ολοκληρώθηκε</value>

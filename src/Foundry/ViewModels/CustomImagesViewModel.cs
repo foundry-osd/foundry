@@ -40,19 +40,38 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     public ObservableCollection<CustomImageIndexOption> IndexOptions { get; } = [];
     public ObservableCollection<string> SourceOptions { get; } = [];
 
-    [ObservableProperty] public partial bool IsEnabled { get; set; }
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanAct))]
+    [NotifyPropertyChangedFor(nameof(CanEdit))]
+    [NotifyPropertyChangedFor(nameof(CanRemove))]
+    [NotifyPropertyChangedFor(nameof(CanDelete))]
+    [NotifyPropertyChangedFor(nameof(CanClearDefault))]
+    public partial bool IsEnabled { get; set; }
     [ObservableProperty] public partial int DefaultSourceIndex { get; set; }
     [ObservableProperty] public partial CustomImageRow? SelectedImage { get; set; }
     [ObservableProperty] public partial CustomImageIndexOption? SelectedIndex { get; set; }
     [ObservableProperty] public partial string RenameText { get; set; } = string.Empty;
-    [ObservableProperty] public partial string StatusMessage { get; set; } = string.Empty;
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasStatus))]
+    public partial string StatusMessage { get; set; } = string.Empty;
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanEdit))]
     [NotifyPropertyChangedFor(nameof(CanAct))]
+    [NotifyPropertyChangedFor(nameof(CanToggle))]
+    [NotifyPropertyChangedFor(nameof(CanRemove))]
+    [NotifyPropertyChangedFor(nameof(CanDelete))]
+    [NotifyPropertyChangedFor(nameof(CanClearDefault))]
     public partial bool IsBusy { get; set; }
 
-    public bool CanAct => !IsBusy;
-    public bool CanEdit => !IsBusy && SelectedImage is not null;
+    public bool CanToggle => !IsBusy && !disposed;
+    public bool CanAct => IsEnabled && CanToggle;
+    public bool HasSelection => SelectedImage is not null;
+    public bool HasImages => Images.Count > 0;
+    public bool HasStatus => !string.IsNullOrWhiteSpace(StatusMessage);
+    public bool CanEdit => CanAct && HasSelection;
+    public bool CanRemove => CanEdit && state.Current.CustomImages.Images.Any(image => image.Id == SelectedImage!.Reference.Id);
+    public bool CanDelete => CanEdit && localImages.Any(image => image.ContentHash.Equals(SelectedImage!.Reference.ContentHash, StringComparison.OrdinalIgnoreCase));
+    public bool CanClearDefault => CanAct && state.Current.CustomImages.DefaultImageId is not null;
     public bool HasReadinessIssue => !state.IsCustomImagesReady;
     public string ReadinessMessage => Text("ReadinessMessage");
     public bool IsEmpty => Images.Count == 0;
@@ -84,6 +103,7 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     public string DefaultSourceLabel => Text("DefaultSourceLabel");
     public string IndexLabel => Text("IndexLabel");
     public string DetailsLabel => Text("DetailsLabel");
+    public string LibraryLabel => Text("LibraryLabel");
     public string LibraryDescription => Text("LibraryDescription");
     public string Text(string key) => localization.GetString("CustomImages." + key);
 
@@ -108,6 +128,9 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
         SelectedIndex = IndexOptions.FirstOrDefault(option => value?.Reference.Id == state.Current.CustomImages.DefaultImageId &&
             option.Index == state.Current.CustomImages.DefaultImageIndex) ?? IndexOptions[0];
         OnPropertyChanged(nameof(CanEdit));
+        OnPropertyChanged(nameof(CanRemove));
+        OnPropertyChanged(nameof(CanDelete));
+        OnPropertyChanged(nameof(HasSelection));
         OnPropertyChanged(nameof(IndexDetails));
     }
 
@@ -116,6 +139,13 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
 
     [RelayCommand]
     public async Task RefreshAsync()
+    {
+        if (IsBusy || disposed) return;
+        StatusMessage = string.Empty;
+        await ReloadAsync();
+    }
+
+    private async Task ReloadAsync()
     {
         if (IsBusy || disposed) return;
         IsBusy = true;
@@ -131,7 +161,8 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     [RelayCommand]
     private async Task ImportAsync()
     {
-        if (IsBusy) return;
+        if (!CanAct) return;
+        StatusMessage = string.Empty;
         IsBusy = true;
         CustomImagesSettings original = state.Current.CustomImages;
         try
@@ -142,21 +173,21 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
                 var existing = original.Images.FirstOrDefault(image => image.ContentHash.Equals(imported.ContentHash, StringComparison.OrdinalIgnoreCase));
                 state.UpdateCustomImages(original with
                 {
-                    IsEnabled = original.IsEnabled || original.Images.Count == 0,
                     Images = existing is null ? [.. original.Images, imported] : original.Images.Select(image =>
-                        image.Id == existing.Id ? image with { SourceBundleHash = imported.SourceBundleHash, Indexes = imported.Indexes } : image).ToArray()
+                        image.Id == existing.Id ? image with { Indexes = imported.Indexes } : image).ToArray()
                 });
             }
         }
         catch (Exception ex) { ReportFailure(ex); }
         finally { IsBusy = false; }
-        await RefreshAsync();
+        await ReloadAsync();
     }
 
     [RelayCommand]
     private void ToggleIncluded()
     {
         if (!CanEdit || SelectedImage is not { } row) return;
+        StatusMessage = string.Empty;
         CustomImagesSettings settings = state.Current.CustomImages;
         CustomImageReference? existing = settings.Images.FirstOrDefault(image => image.Id == row.Reference.Id);
         state.UpdateCustomImages(settings with
@@ -178,6 +209,7 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
                 StatusMessage = Text("DuplicateName");
                 return;
             }
+            StatusMessage = string.Empty;
             var settings = state.Current.CustomImages;
             state.UpdateCustomImages(settings with
             {
@@ -193,6 +225,7 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     private void SetDefault()
     {
         if (!CanEdit || SelectedImage is not { } row) return;
+        StatusMessage = string.Empty;
         var settings = state.Current.CustomImages;
         var reference = row.Reference with { IsIncluded = true };
         var images = settings.Images.Any(image => image.Id == reference.Id)
@@ -204,14 +237,16 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     [RelayCommand]
     private void ClearDefault()
     {
-        if (!CanAct) return;
+        if (!CanClearDefault) return;
+        StatusMessage = string.Empty;
         state.UpdateCustomImages(state.Current.CustomImages with { DefaultImageId = null, DefaultImageIndex = null });
     }
 
     [RelayCommand]
     private void Remove()
     {
-        if (!CanEdit || SelectedImage is not { } row) return;
+        if (!CanRemove || SelectedImage is not { } row) return;
+        StatusMessage = string.Empty;
         var settings = state.Current.CustomImages;
         state.UpdateCustomImages(settings with { Images = settings.Images.Where(image => image.Id != row.Reference.Id).ToArray() });
     }
@@ -219,7 +254,7 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     [RelayCommand]
     private async Task DeleteAsync()
     {
-        if (!CanEdit || SelectedImage is not { } row) return;
+        if (!CanDelete || SelectedImage is not { } row) return;
         IsBusy = true;
         StatusMessage = string.Empty;
         try
@@ -229,7 +264,7 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
         }
         catch (Exception ex) { ReportFailure(ex); }
         finally { IsBusy = false; }
-        await RefreshAsync();
+        await ReloadAsync();
     }
 
     private void ApplyState()
@@ -260,6 +295,10 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
             OnPropertyChanged(nameof(DefaultDescription));
             OnPropertyChanged(nameof(HasReadinessIssue));
             OnPropertyChanged(nameof(IsEmpty));
+            OnPropertyChanged(nameof(HasImages));
+            OnPropertyChanged(nameof(CanClearDefault));
+            OnPropertyChanged(nameof(CanRemove));
+            OnPropertyChanged(nameof(CanDelete));
         }
         finally { applying = false; }
     }

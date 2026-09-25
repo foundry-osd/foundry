@@ -7,4 +7,4 @@ using Foundry.Core.Models.Configuration;
 namespace Foundry.Core.Services.Images;
 
 /// <summary>Describes a source before copying; import reopens and validates the source independently.</summary>
-public sealed record CustomImageImportPreview(long Length, IReadOnlyList<CustomImageIndex> Indexes, bool HasOptionalFeatureSources);
+public sealed record CustomImageImportPreview(long Length, IReadOnlyList<CustomImageIndex> Indexes);

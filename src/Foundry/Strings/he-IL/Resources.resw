@@ -751,6 +751,9 @@
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>כאשר האפשרות מופעלת, התמונות הכלולות מועתקות למדיה חדשה שנוצרת. עדיין נדרש חיבור לאינטרנט. ההתאמות האישיות שהופעלו חלות על התמונה שנבחרה; יש לוודא שהן מתאימות לתמונה שלך.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>ספריית תמונות</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>חסרה</value>
   </data>
@@ -792,9 +795,6 @@
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>קובץ ISO או WIM מקור</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>ייבוא מקורות של תכונות אופציונליות מקובץ ה-ISO, כאשר הם זמינים</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>הייבוא הושלם</value>

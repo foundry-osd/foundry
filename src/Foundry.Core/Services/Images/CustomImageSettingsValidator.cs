@@ -48,7 +48,7 @@ public static class CustomImageSettingsValidator
         image.Id is { Length: > 0 and <= 128 } && !image.Id.Any(char.IsControl) &&
         IsValidHash(image.ContentHash) &&
         image.DisplayName is { Length: > 0 and <= MaximumDisplayNameLength } && !image.DisplayName.Any(char.IsControl) &&
-        image.Length > 0 && (image.SourceBundleHash is null || IsValidHash(image.SourceBundleHash)) &&
+        image.Length > 0 &&
         image.Indexes is { Count: > 0 and <= MaximumIndexes } &&
         image.Indexes.All(index => index is not null && index.Index > 0 && index.ExpandedSizeBytes >= 0 &&
             index.Name is { Length: <= 4096 } && index.Description is { Length: <= 16384 } && index.Architecture is { Length: <= 128 } &&

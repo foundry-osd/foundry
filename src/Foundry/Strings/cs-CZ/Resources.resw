@@ -751,6 +751,9 @@ Licencováno pod licencí MIT.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Je-li volba povolena, zahrnuté bitové kopie se kopírují na nově vytvořená média. Internet je stále vyžadován. Povolená přizpůsobení se použijí na vybranou bitovou kopii; ověřte jejich vhodnost pro svou bitovou kopii.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Knihovna bitových kopií</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Chybí</value>
   </data>
@@ -792,9 +795,6 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>Zdroj ISO nebo WIM</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Importovat zdroje volitelných funkcí ze souboru ISO, jsou-li k dispozici</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Import dokončen</value>

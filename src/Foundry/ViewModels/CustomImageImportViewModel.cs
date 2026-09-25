@@ -37,14 +37,15 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanImport))]
     [NotifyPropertyChangedFor(nameof(NameValidationMessage))]
+    [NotifyPropertyChangedFor(nameof(HasNameValidation))]
     public partial string DisplayName { get; set; } = string.Empty;
-    [ObservableProperty] public partial bool IncludeSources { get; set; } = true;
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanImport))]
     [NotifyPropertyChangedFor(nameof(CanEdit))]
-    [NotifyPropertyChangedFor(nameof(CanIncludeSources))]
     public partial bool IsBusy { get; set; }
-    [ObservableProperty] public partial string Status { get; set; } = string.Empty;
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasStatus))]
+    public partial string Status { get; set; } = string.Empty;
     [ObservableProperty] public partial double Progress { get; set; }
     [ObservableProperty] public partial bool IsIndeterminate { get; set; }
     [ObservableProperty]
@@ -52,8 +53,10 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
     public partial IReadOnlyList<string> SourceChoices { get; set; } = [];
     [ObservableProperty] public partial string? SelectedIsoImagePath { get; set; }
     public bool HasSourceChoices => SourceChoices.Count > 1;
+    public bool HasPreview => preview is not null;
+    public bool HasStatus => !string.IsNullOrWhiteSpace(Status);
+    public bool HasNameValidation => !string.IsNullOrEmpty(NameValidationMessage);
     public bool CanEdit => !IsBusy && !disposed;
-    public bool CanIncludeSources => CanEdit && preview?.HasOptionalFeatureSources == true;
     public bool CanImport => CanEdit && preview is not null && DisplayName.Trim().Length is > 0 and <= CustomImageSettingsValidator.MaximumDisplayNameLength &&
         !DisplayName.Any(char.IsControl) && !existingNames.Contains(DisplayName.Trim());
     public string NameValidationMessage => existingNames.Contains(DisplayName.Trim()) ? Text("DuplicateName") : string.Empty;
@@ -67,7 +70,6 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
     public string BrowseLabel => Text("BrowseLabel");
     public string SourceLabel => Text("SourceLabel");
     public string NameLabel => Text("NameLabel");
-    public string SourcesLabel => Text("SourcesLabel");
     public string SourceChoiceMessage => Text("SourceChoiceRequired");
     private string Text(string key) => localization.GetString("CustomImages." + key);
 
@@ -121,7 +123,7 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
         preview = null;
         OnPropertyChanged(nameof(PreviewSummary));
         OnPropertyChanged(nameof(CanImport));
-        OnPropertyChanged(nameof(CanIncludeSources));
+        OnPropertyChanged(nameof(HasPreview));
     }
 
     private async Task InspectAsync()
@@ -144,6 +146,7 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
             preview = result;
             Status = string.Empty;
             OnPropertyChanged(nameof(PreviewSummary));
+            OnPropertyChanged(nameof(HasPreview));
         }
         catch (CustomImageSourceChoiceRequiredException ex)
         {
@@ -179,7 +182,7 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
                 IsIndeterminate = value.TotalBytes <= 0;
                 Progress = value.TotalBytes > 0 ? 100d * value.CompletedBytes / value.TotalBytes : 0;
             });
-            Result = await library.ImportAsync(new(SourcePath, DisplayName.Trim(), IncludeSources, SelectedIsoImagePath), progress, cancellation.Token);
+            Result = await library.ImportAsync(new(SourcePath, DisplayName.Trim(), SelectedIsoImagePath), progress, cancellation.Token);
             return true;
         }
         catch (CustomImageSourceChoiceRequiredException ex)
@@ -205,7 +208,6 @@ public sealed partial class CustomImageImportViewModel : ObservableObject, IDisp
         return false;
     }
 
-    [RelayCommand]
     public void Cancel() => cancellation?.Cancel();
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e) => OnPropertyChanged(string.Empty);
     public void Dispose()

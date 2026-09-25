@@ -50,8 +50,6 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
                 {
                     readable = preflight.CustomSourceLease?.IsReadable() == true &&
                         await context.IsCustomSourceSeparateAsync(custom.Asset, preflight.ImagePath!, cancellationToken).ConfigureAwait(false);
-                    foreach (var lease in preflight.CompanionLeases)
-                        readable &= lease.IsReadable() && await context.IsCustomSourceSeparateAsync(custom.Asset, lease.Path, cancellationToken).ConfigureAwait(false);
                 }
                 else readable = await context.IsExternalStorageAsync(preflight.ImagePath!, cancellationToken).ConfigureAwait(false) && preflight.SourceLease!.ReadByte() >= 0;
                 if (!readable)

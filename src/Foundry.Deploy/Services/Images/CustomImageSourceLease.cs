@@ -20,7 +20,6 @@ public sealed class CustomImageSourceLease : IDisposable
 
     public string ContentHash { get; }
     public long Length => _stream.Length;
-    public string Path => _stream.Name;
 
     /// <summary>Opens with read-only sharing before checking bytes; failures release the handle.</summary>
     public static async Task<CustomImageSourceLease> AcquireAsync(string path, long? expectedLength,
@@ -32,7 +31,7 @@ public sealed class CustomImageSourceLease : IDisposable
         try
         {
             EnsureRegularPath(path);
-            if (stream.Length == 0 && expectedLength != 0 || expectedLength is not null && stream.Length != expectedLength)
+            if (stream.Length <= 0 || expectedLength is not null && stream.Length != expectedLength)
                 throw new InvalidDataException("CustomImages.InvalidSource");
             string hash = Convert.ToHexString(await SHA256.HashDataAsync(stream, cancellationToken).ConfigureAwait(false));
             if (expectedHash is not null && !string.Equals(hash, expectedHash, StringComparison.OrdinalIgnoreCase))
@@ -57,7 +56,7 @@ public sealed class CustomImageSourceLease : IDisposable
     /// <summary>Rechecks readability immediately before destructive work while preserving the protected handle.</summary>
     public bool IsReadable()
     {
-        try { _stream.Position = 0; return _stream.Length == 0 || _stream.ReadByte() >= 0; }
+        try { _stream.Position = 0; return _stream.ReadByte() >= 0; }
         catch (Exception exception) when (exception is IOException or ObjectDisposedException) { return false; }
     }
 

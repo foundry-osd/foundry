@@ -751,6 +751,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Etkinleştirildiğinde, dahil edilen görüntüler yeni oluşturulan medyaya kopyalanır. İnternet bağlantısı hâlâ gereklidir. Etkin özelleştirmeler seçili görüntüye uygulanır; görüntünüz için uygunluklarını doğrulayın.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Görüntü kitaplığı</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Eksik</value>
   </data>
@@ -792,9 +795,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>ISO veya WIM kaynağı</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Varsa isteğe bağlı özellik kaynaklarını ISO'dan içeri aktar</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>İçeri aktarma tamamlandı</value>

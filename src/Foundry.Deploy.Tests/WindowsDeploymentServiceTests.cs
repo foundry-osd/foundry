@@ -21,32 +21,6 @@ namespace Foundry.Deploy.Tests;
 public sealed class WindowsDeploymentServiceTests
 {
     [Fact]
-    public async Task ConfigureOptionalFeatures_WithCustomCompanionUsesSourceWithoutSetupIndexOrSourceMutation()
-    {
-        using var workspace = new TemporaryWorkspace();
-        string source = Path.Combine(workspace.RootPath, "media", "sxs");
-        Directory.CreateDirectory(source);
-        File.WriteAllText(Path.Combine(source, "payload.cab"), "payload");
-        int inspections = 0;
-        var runner = new RecordingProcessRunner
-        {
-            ResultFactory = arguments => new ProcessExecutionResult
-            {
-                ExitCode = 0,
-                StandardOutput = arguments.Contains("/Get-Features", StringComparison.OrdinalIgnoreCase)
-                    ? ++inspections == 1 ? "NetFx3 | Disabled with Payload Removed" : "NetFx3 | Enabled" : string.Empty
-            }
-        };
-        var service = new WindowsDeploymentService(runner, NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
-        await service.ConfigureOfflineWindowsOptionalFeaturesAsync("custom.wim", workspace.RootPath, 7,
-            new DeployWindowsOptionalFeatureSettings { IsEnabled = true, Actions = [new() { Id = "wf:netfx3", Enable = true }] },
-            Path.Combine(workspace.RootPath, "Temp", "Scratch"), Path.Combine(workspace.RootPath, "Temp", "Extraction"),
-            Path.Combine(workspace.RootPath, "Temp", "Deployment"), TestContext.Current.CancellationToken, customSourceDirectory: source);
-        Assert.DoesNotContain(runner.Calls, call => call.Contains("/Apply-Image", StringComparison.OrdinalIgnoreCase));
-        Assert.Contains(runner.Calls, call => call.Contains("/Source:" + source, StringComparison.OrdinalIgnoreCase));
-        Assert.True(File.Exists(Path.Combine(source, "payload.cab")));
-    }
-    [Fact]
     public async Task InspectImageAsync_PreservesExactOsAndSetupMediaBytesWithoutConsoleOutput()
     {
         using var workspace = new TemporaryWorkspace();

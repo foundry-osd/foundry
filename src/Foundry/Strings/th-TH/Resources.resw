@@ -751,6 +751,9 @@
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>เมื่อเปิดใช้งาน อิมเมจที่รวมไว้จะถูกคัดลอกไปยังสื่อที่สร้างใหม่ ยังคงต้องใช้อินเทอร์เน็ต การปรับแต่งที่เปิดใช้งานจะมีผลกับอิมเมจที่เลือก โปรดตรวจสอบว่าเหมาะสมกับอิมเมจของคุณ</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>ไลบรารีอิมเมจ</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>หายไป</value>
   </data>
@@ -792,9 +795,6 @@
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>ISO หรือ WIM ต้นทาง</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>นำเข้าไฟล์ต้นทางสำหรับฟีเจอร์เสริมจาก ISO เมื่อมี</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>นำเข้าเสร็จสมบูรณ์</value>

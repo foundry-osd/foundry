@@ -751,6 +751,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Po włączeniu tej opcji dołączone obrazy są kopiowane na nowo tworzone nośniki. Internet jest nadal wymagany. Włączone dostosowania są stosowane do wybranego obrazu; sprawdź ich przydatność dla swojego obrazu.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Biblioteka obrazów</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Brak</value>
   </data>
@@ -792,9 +795,6 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>Źródło ISO lub WIM</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Importuj źródła funkcji opcjonalnych z ISO, jeśli są dostępne</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Import zakończony</value>

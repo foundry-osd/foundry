@@ -751,6 +751,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>有効にすると、含まれるイメージが新しく作成するメディアにコピーされます。インターネット接続は引き続き必要です。有効なカスタマイズが選択したイメージに適用されます。お使いのイメージに適していることを確認してください。</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>イメージ ライブラリ</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>見つかりません</value>
   </data>
@@ -792,9 +795,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>ソースの ISO または WIM</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>利用可能な場合、ISO からオプション機能のソースをインポートする</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>インポートが完了しました</value>

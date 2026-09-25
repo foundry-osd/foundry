@@ -751,6 +751,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Wanneer ingeschakeld worden opgenomen installatiekopieën naar nieuwe media gekopieerd. Internet blijft vereist. Ingeschakelde aanpassingen worden toegepast op de geselecteerde installatiekopie; controleer of deze geschikt zijn voor uw installatiekopie.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Bibliotheek met installatiekopieën</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Ontbreekt</value>
   </data>
@@ -792,9 +795,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>ISO- of WIM-bron</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Bronnen voor optionele onderdelen uit de ISO importeren indien beschikbaar</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Importeren voltooid</value>

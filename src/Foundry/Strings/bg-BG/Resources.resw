@@ -751,6 +751,9 @@
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Когато функцията е разрешена, включените образи се копират на новосъздадените носители. Все още е необходим интернет. Разрешените персонализации се прилагат към избрания образ; проверете дали са подходящи за вашия образ.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Библиотека с образи</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Липсва</value>
   </data>
@@ -792,9 +795,6 @@
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>Изходен ISO или WIM</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Импортиране на изходни файлове за допълнителни функции от ISO, когато са налични</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Импортирането е завършено</value>

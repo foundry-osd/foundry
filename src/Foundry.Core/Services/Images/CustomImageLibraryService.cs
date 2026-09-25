@@ -5,7 +5,6 @@
 using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
-using Foundry.Core.Models.Images;
 using Foundry.Core.Services.Configuration;
 
 namespace Foundry.Core.Services.Images;
@@ -14,7 +13,6 @@ namespace Foundry.Core.Services.Images;
 public sealed partial class CustomImageLibraryService
 {
     private const int MaximumMetadataBytes = 8 * 1024 * 1024;
-    private const int MaximumSourceFiles = 10000;
     private readonly string rootDirectory;
     private readonly ICustomImageMetadataReader metadataReader;
 
@@ -25,30 +23,16 @@ public sealed partial class CustomImageLibraryService
         this.metadataReader = metadataReader ?? new NativeCustomImageMetadataReader();
     }
 
-    /// <summary>Checks bounded metadata and file sizes for authoring readiness; builds still require verified leases.</summary>
+    /// <summary>Checks image presence and size for authoring readiness; builds still require verified leases.</summary>
     public bool IsAvailable(CustomImageReference reference)
     {
         if (reference is null || !CustomImageSettingsValidator.IsValidReference(reference)) return false;
         try
         {
             string imagePath = OwnedPath($"content/{reference.ContentHash.ToLowerInvariant()}/image.wim");
-            if (!File.Exists(imagePath) || new FileInfo(imagePath).Length != reference.Length) return false;
-            if (reference.SourceBundleHash is null) return true;
-            string bundle = $"sources/{reference.SourceBundleHash.ToLowerInvariant()}";
-            using FileStream manifest = OpenRead(OwnedPath(bundle + "/files.json"));
-            if (manifest.Length > MaximumMetadataBytes) return false;
-            CustomImageSourceFile[]? files = JsonSerializer.Deserialize<CustomImageSourceFile[]>(manifest, ConfigurationJsonDefaults.SerializerOptions);
-            if (files is null) return false;
-            ValidateSourceFiles(files);
-            if (!string.Equals(ComputeBundleHash(files), reference.SourceBundleHash, StringComparison.OrdinalIgnoreCase)) return false;
-            string source = OwnedPath(bundle + "/sxs");
-            return files.All(file =>
-            {
-                string path = CustomImagePathPolicy.ResolveRelativePath(source, file.RelativePath);
-                return File.Exists(path) && new FileInfo(path).Length == file.Length;
-            });
+            return File.Exists(imagePath) && new FileInfo(imagePath).Length == reference.Length;
         }
-        catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException or JsonException or ArgumentException)
+        catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException)
         {
             return false;
         }
@@ -70,46 +54,24 @@ public sealed partial class CustomImageLibraryService
         return entries;
     }
 
-    /// <summary>Locks image and companion files before verifying them and retains all handles until disposal.</summary>
+    /// <summary>Locks the image before verification and retains its handle until disposal.</summary>
     public async Task<CustomImageSourceLease> AcquireAsync(CustomImageReference reference, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(reference);
         if (!CustomImageSettingsValidator.IsValidReference(reference)) throw new InvalidDataException("The custom image reference is invalid.");
-        var handles = new List<FileStream>();
+        string imagePath = OwnedPath($"content/{reference.ContentHash.ToLowerInvariant()}/image.wim");
+        FileStream image = OpenRead(imagePath);
         try
         {
-            string imagePath = OwnedPath($"content/{reference.ContentHash.ToLowerInvariant()}/image.wim");
-            FileStream image = OpenRead(imagePath);
-            handles.Add(image);
-            string? sourceDirectory = null;
-            IReadOnlyList<CustomImageSourceFile> files = [];
-            if (reference.SourceBundleHash is not null)
-            {
-                string bundle = $"sources/{reference.SourceBundleHash.ToLowerInvariant()}";
-                FileStream manifest = OpenRead(OwnedPath(bundle + "/files.json"));
-                handles.Add(manifest);
-                if (manifest.Length > MaximumMetadataBytes) throw new InvalidDataException("The source file manifest is too large.");
-                files = await JsonSerializer.DeserializeAsync<CustomImageSourceFile[]>(manifest, ConfigurationJsonDefaults.SerializerOptions, cancellationToken).ConfigureAwait(false)
-                    ?? throw new InvalidDataException("The source file manifest is empty.");
-                ValidateSourceFiles(files);
-                if (!string.Equals(ComputeBundleHash(files), reference.SourceBundleHash, StringComparison.OrdinalIgnoreCase))
-                    throw new InvalidDataException("The custom image source manifest has changed.");
-                sourceDirectory = OwnedPath(bundle + "/sxs");
-                foreach (CustomImageSourceFile file in files)
-                    handles.Add(OpenRead(CustomImagePathPolicy.ResolveRelativePath(sourceDirectory, file.RelativePath)));
-            }
             await VerifyAsync(image, reference.Length, reference.ContentHash, cancellationToken).ConfigureAwait(false);
-            int start = reference.SourceBundleHash is null ? 1 : 2;
-            for (int i = 0; i < files.Count; i++)
-                await VerifyAsync(handles[start + i], files[i].Length, files[i].ContentHash, cancellationToken).ConfigureAwait(false);
             IReadOnlyList<CustomImageIndex> indexes = await metadataReader.ReadAsync(imagePath, cancellationToken).ConfigureAwait(false);
             if (!reference.Indexes.Select(index => index.Index).SequenceEqual(indexes.Select(index => index.Index)))
                 throw new InvalidDataException("The image indexes do not match their imported metadata.");
-            return new CustomImageSourceLease(reference with { Indexes = indexes }, imagePath, sourceDirectory, files, handles);
+            return new CustomImageSourceLease(reference with { Indexes = indexes }, imagePath, image);
         }
         catch
         {
-            foreach (FileStream handle in handles) handle.Dispose();
+            image.Dispose();
             throw;
         }
     }
@@ -122,52 +84,18 @@ public sealed partial class CustomImageLibraryService
         IReadOnlyList<CustomImageReference> entries = await ListAsync(cancellationToken).ConfigureAwait(false);
         CustomImageReference[] remaining = entries
             .Where(image => !string.Equals(image.ContentHash, contentHash, StringComparison.OrdinalIgnoreCase)).ToArray();
-        string[] unusedBundles = entries.Except(remaining)
-            .Select(image => image.SourceBundleHash).OfType<string>()
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .Where(hash => !remaining.Any(image => string.Equals(image.SourceBundleHash, hash, StringComparison.OrdinalIgnoreCase)))
-            .ToArray();
-        var files = new List<string>();
-        var directories = new List<string>();
         string imagePath = OwnedPath($"content/{contentHash.ToLowerInvariant()}/image.wim");
-        if (File.Exists(imagePath)) files.Add(imagePath);
         string imageDirectory = Path.GetDirectoryName(imagePath)!;
-        if (Directory.Exists(imageDirectory)) directories.Add(imageDirectory);
-        foreach (string hash in unusedBundles)
-            CollectOwnedDeletionPaths(OwnedPath($"sources/{hash.ToLowerInvariant()}"), files, directories);
-
-        var handles = new List<FileStream>();
-        try
+        cancellationToken.ThrowIfCancellationRequested();
+        if (File.Exists(imagePath))
         {
-            foreach (string path in files)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                CustomImagePathPolicy.ValidateNoReparsePoints(path);
-                handles.Add(new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.Delete));
-            }
+            CustomImagePathPolicy.ValidateNoReparsePoints(imagePath);
+            using var deletionLease = new FileStream(imagePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Delete);
             cancellationToken.ThrowIfCancellationRequested();
-            foreach (string path in files) File.Delete(path);
+            File.Delete(imagePath);
         }
-        finally
-        {
-            foreach (FileStream handle in handles) handle.Dispose();
-        }
-        foreach (string directory in directories.OrderByDescending(path => path.Length))
-            Directory.Delete(directory, recursive: false);
+        if (Directory.Exists(imageDirectory)) Directory.Delete(imageDirectory, recursive: false);
         await WriteIndexAsync(remaining, CancellationToken.None).ConfigureAwait(false);
-    }
-
-    private void CollectOwnedDeletionPaths(string directory, List<string> files, List<string> directories)
-    {
-        string owned = OwnedPath(Path.GetRelativePath(rootDirectory, directory));
-        if (!Directory.Exists(owned)) return;
-        directories.Add(owned);
-        foreach (string path in Directory.EnumerateFileSystemEntries(owned))
-        {
-            CustomImagePathPolicy.ValidateNoReparsePoints(path);
-            if (Directory.Exists(path)) CollectOwnedDeletionPaths(path, files, directories);
-            else files.Add(path);
-        }
     }
 
     private string OwnedPath(string relativePath) => CustomImagePathPolicy.ResolveRelativePath(rootDirectory, relativePath);
@@ -214,21 +142,6 @@ public sealed partial class CustomImageLibraryService
     private static void ValidateHash(string hash)
     {
         if (!CustomImageSettingsValidator.IsValidHash(hash)) throw new InvalidDataException("The image content hash is invalid.");
-    }
-
-    private static void ValidateSourceFiles(IReadOnlyList<CustomImageSourceFile> files)
-    {
-        if (files.Count > MaximumSourceFiles || files.Any(file => file is null || file.Length < 0 ||
-            !CustomImageSettingsValidator.IsValidHash(file.ContentHash)) ||
-            files.Select(file => file.RelativePath).Distinct(StringComparer.OrdinalIgnoreCase).Count() != files.Count)
-            throw new InvalidDataException("The optional-feature source manifest is invalid.");
-    }
-
-    private static string ComputeBundleHash(IReadOnlyList<CustomImageSourceFile> files)
-    {
-        byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(files.OrderBy(file => file.RelativePath, StringComparer.Ordinal).ToArray(),
-            ConfigurationJsonDefaults.SerializerOptions);
-        return Convert.ToHexStringLower(SHA256.HashData(bytes));
     }
 
     private static void DeleteOwnedDirectory(string path, string allowedRoot)

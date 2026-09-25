@@ -751,6 +751,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Ja opcija ir iespējota, iekļautie attēli tiek kopēti uz jaunizveidotiem datu nesējiem. Internets joprojām ir nepieciešams. Iespējotie pielāgojumi tiek piemēroti atlasītajam attēlam; pārbaudiet to piemērotību savam attēlam.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Attēlu bibliotēka</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Trūkst</value>
   </data>
@@ -792,9 +795,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>ISO vai WIM avots</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Importēt neobligāto līdzekļu avotus no ISO, ja tie ir pieejami</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Importēšana pabeigta</value>

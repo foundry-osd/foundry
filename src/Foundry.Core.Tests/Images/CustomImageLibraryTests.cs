@@ -27,6 +27,8 @@ public sealed class CustomImageLibraryTests : IDisposable
         Assert.Equal("test image data", await File.ReadAllTextAsync(lease.ImagePath, TestContext.Current.CancellationToken));
         Assert.Throws<IOException>(() => File.Open(lease.ImagePath, FileMode.Open, FileAccess.Write, FileShare.ReadWrite));
         await Assert.ThrowsAsync<IOException>(() => library.DeleteAsync(imported.ContentHash, TestContext.Current.CancellationToken));
+        Assert.Equal(imported.Id, Assert.Single(await library.ListAsync(TestContext.Current.CancellationToken)).Id);
+        Assert.True(File.Exists(lease.ImagePath));
     }
 
     [Fact]
@@ -67,6 +69,8 @@ public sealed class CustomImageLibraryTests : IDisposable
         Assert.True(library.IsAvailable(reference));
         await library.DeleteAsync(reference.ContentHash, TestContext.Current.CancellationToken);
         Assert.False(library.IsAvailable(reference));
+        Assert.Empty(await library.ListAsync(TestContext.Current.CancellationToken));
+        Assert.True(File.Exists(source));
     }
 
     [Fact]

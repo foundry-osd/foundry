@@ -751,6 +751,9 @@ Licenseret under MIT-licensen.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Når indstillingen er aktiveret, kopieres medtagne afbildninger til nye medier. Internet er stadig påkrævet. Aktiverede tilpasninger anvendes på den valgte afbildning; kontrollér, at de er egnede til din afbildning.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Afbildningsbibliotek</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Mangler</value>
   </data>
@@ -792,9 +795,6 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>ISO- eller WIM-kilde</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Importér kilder til valgfrie funktioner fra ISO-filen, når de er tilgængelige</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Import fuldført</value>

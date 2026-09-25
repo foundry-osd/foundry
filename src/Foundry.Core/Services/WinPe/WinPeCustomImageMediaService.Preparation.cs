@@ -31,22 +31,10 @@ public sealed partial class WinPeCustomImageMediaService
                 string imageRoot = Path.Combine("Foundry", "Images", "Custom", "managed", reference.ContentHash.ToLowerInvariant());
                 string imagePath = Path.Combine(imageRoot, "image.wim");
                 files.TryAdd(imagePath, new(lease.ImagePath, imagePath, reference.Length, reference.ContentHash));
-                string? sourcePath = null;
-                if (lease.SourceDirectoryPath is not null)
-                {
-                    sourcePath = Path.Combine(imageRoot, "sources", reference.SourceBundleHash!.ToLowerInvariant(), "sxs");
-                    foreach (CustomImageSourceFile source in lease.SourceFiles)
-                    {
-                        string relative = Path.Combine(sourcePath, source.RelativePath);
-                        files.TryAdd(relative, new(ResolveDestination(lease.SourceDirectoryPath, source.RelativePath), relative, source.Length, source.ContentHash));
-                    }
-                }
                 entries.Add(new CustomImageMediaEntry
                 {
                     Reference = lease.Reference,
-                    RelativePath = imagePath,
-                    SourceRelativePath = sourcePath,
-                    SourceFiles = lease.SourceFiles
+                    RelativePath = imagePath
                 });
             }
             string id = Guid.NewGuid().ToString("N");

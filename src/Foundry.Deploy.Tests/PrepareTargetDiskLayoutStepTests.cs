@@ -255,7 +255,7 @@ public sealed class PrepareTargetDiskLayoutStepTests
             IProgress<double>? progress = null,
             Action? onInspectionStarted = null,
             Action? onSourcePreparationStarted = null,
-            Action? onServicingStarted = null, string? customSourceDirectory = null)
+            Action? onServicingStarted = null)
         {
             throw new NotSupportedException();
         }

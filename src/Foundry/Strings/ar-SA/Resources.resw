@@ -751,6 +751,9 @@
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>عند التمكين، تُنسخ الصور المضمّنة إلى الوسائط التي يتم إنشاؤها حديثًا. لا يزال الاتصال بالإنترنت مطلوبًا. تُطبّق التخصيصات المُمكّنة على الصورة المحددة؛ تحقّق من ملاءمتها لصورتك.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>مكتبة الصور</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>مفقودة</value>
   </data>
@@ -792,9 +795,6 @@
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>ملف ISO أو WIM المصدر</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>استيراد مصادر الميزات الاختيارية من ملف ISO عند توفرها</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>اكتمل الاستيراد</value>

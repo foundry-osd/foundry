@@ -21,6 +21,6 @@ public sealed partial class CustomImageLibraryService
             indexes.Any(index => index is null || index.Index <= 0) ||
             indexes.Select(index => index.Index).Distinct().Count() != indexes.Count)
             throw new InvalidDataException("The source image does not contain usable image indexes.");
-        return new(image.Length, indexes.ToArray(), source.SourceDirectoryPath is not null);
+        return new(image.Length, indexes.ToArray());
     }
 }

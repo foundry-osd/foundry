@@ -191,7 +191,7 @@ public sealed class DeploymentCustomizationScenarioTests
             return Task.CompletedTask;
         }
 
-        Task<WindowsOptionalFeatureServicingResult> IWindowsDeploymentService.ConfigureOfflineWindowsOptionalFeaturesAsync(string setupMediaImagePath, string windowsPartitionRoot, int appliedImageIndex, DeployWindowsOptionalFeatureSettings settings, string scratchDirectory, string sourceExtractionDirectory, string workingDirectory, CancellationToken cancellationToken, IProgress<double>? progress, Action? onInspectionStarted, Action? onSourcePreparationStarted, Action? onServicingStarted, string? customSourceDirectory)
+        Task<WindowsOptionalFeatureServicingResult> IWindowsDeploymentService.ConfigureOfflineWindowsOptionalFeaturesAsync(string setupMediaImagePath, string windowsPartitionRoot, int appliedImageIndex, DeployWindowsOptionalFeatureSettings settings, string scratchDirectory, string sourceExtractionDirectory, string workingDirectory, CancellationToken cancellationToken, IProgress<double>? progress, Action? onInspectionStarted, Action? onSourcePreparationStarted, Action? onServicingStarted)
         {
             Assert.True(File.Exists(setupMediaImagePath));
             Assert.Equal(1, appliedImageIndex);

@@ -751,6 +751,9 @@
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>При включении этой функции добавленные образы копируются на вновь создаваемые носители. Подключение к Интернету по-прежнему требуется. Включённые настройки применяются к выбранному образу; убедитесь, что они подходят для вашего образа.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Библиотека образов</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Отсутствует</value>
   </data>
@@ -792,9 +795,6 @@
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>Исходный ISO или WIM</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Импортировать исходные файлы дополнительных компонентов из ISO, если они доступны</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Импорт завершён</value>

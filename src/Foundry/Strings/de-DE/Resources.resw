@@ -751,6 +751,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Enthaltene Abbilder werden bei aktivierter Option auf neu erstellte Medien kopiert. Eine Internetverbindung ist weiterhin erforderlich. Aktivierte Anpassungen werden auf das ausgewählte Abbild angewendet. Prüfen Sie deren Eignung für Ihr Abbild.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Abbildbibliothek</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Fehlt</value>
   </data>
@@ -792,9 +795,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>ISO- oder WIM-Quelle</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Quellen für optionale Features aus der ISO importieren, sofern verfügbar</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Import abgeschlossen</value>

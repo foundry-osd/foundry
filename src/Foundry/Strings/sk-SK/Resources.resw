@@ -751,6 +751,9 @@ Licencované podľa licencie MIT.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Keď je voľba povolená, zahrnuté obrazy sa kopírujú na novovytvorené médiá. Internet je stále potrebný. Povolené prispôsobenia sa použijú na vybraný obraz; overte ich vhodnosť pre svoj obraz.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Knižnica obrazov</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Chýba</value>
   </data>
@@ -792,9 +795,6 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>Zdroj ISO alebo WIM</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Importovať zdroje voliteľných funkcií zo súboru ISO, ak sú dostupné</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Import dokončený</value>

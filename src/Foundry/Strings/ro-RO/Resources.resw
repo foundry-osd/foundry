@@ -751,6 +751,9 @@ Licențiat sub licența MIT.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Când opțiunea este activată, imaginile incluse sunt copiate pe mediile nou create. Internetul este în continuare necesar. Personalizările activate se aplică imaginii selectate; verificați dacă sunt potrivite pentru imaginea dvs.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Bibliotecă de imagini</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Lipsă</value>
   </data>
@@ -792,9 +795,6 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>Sursă ISO sau WIM</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Importați sursele caracteristicilor opționale din ISO când sunt disponibile</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Import finalizat</value>

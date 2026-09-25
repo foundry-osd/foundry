@@ -56,24 +56,10 @@ public sealed class CustomImageCatalogService(IVolumeDiscovery? volumes = null)
                 var volumeImages = new List<CustomImageAsset>();
                 foreach (CustomImageMediaEntry entry in manifest.Images)
                 {
-                    if (!CustomImageSettingsValidator.IsValidReference(entry.Reference) || !entry.Reference.IsIncluded || entry.SourceFiles is null)
+                    if (!CustomImageSettingsValidator.IsValidReference(entry.Reference) || !entry.Reference.IsIncluded)
                         throw new InvalidDataException();
                     string expectedPath = $"{RelativeRoot}/managed/{entry.Reference.ContentHash.ToLowerInvariant()}/image.wim";
                     if (!Normalize(entry.RelativePath).Equals(expectedPath, StringComparison.OrdinalIgnoreCase)) throw new InvalidDataException();
-                    string? source = null;
-                    if (entry.SourceRelativePath is not null)
-                    {
-                        string expectedSource = $"{RelativeRoot}/managed/{entry.Reference.ContentHash.ToLowerInvariant()}/sources/{entry.Reference.SourceBundleHash?.ToLowerInvariant()}/sxs";
-                        if (entry.Reference.SourceBundleHash is null || !Normalize(entry.SourceRelativePath).Equals(expectedSource, StringComparison.OrdinalIgnoreCase))
-                            throw new InvalidDataException();
-                        source = ResolveContainedPath(volume.RootPath, entry.SourceRelativePath);
-                        foreach (CustomImageSourceFile file in entry.SourceFiles)
-                        {
-                            if (file.Length < 0 || !CustomImageSettingsValidator.IsValidHash(file.ContentHash)) throw new InvalidDataException();
-                            _ = ResolveContainedPath(source, file.RelativePath);
-                        }
-                    }
-                    else if (entry.SourceFiles.Count != 0 || entry.Reference.SourceBundleHash is not null) throw new InvalidDataException();
                     volumeImages.Add(new CustomImageAsset
                     {
                         Id = entry.Reference.Id,
@@ -82,9 +68,7 @@ public sealed class CustomImageCatalogService(IVolumeDiscovery? volumes = null)
                         VolumeRoot = volume.RootPath,
                         ExpectedLength = entry.Reference.Length,
                         ExpectedHash = entry.Reference.ContentHash,
-                        IsOptical = volume.DriveType == DriveType.CDRom,
-                        SourceDirectory = source,
-                        SourceFiles = entry.SourceFiles
+                        IsOptical = volume.DriveType == DriveType.CDRom
                     });
                 }
                 if (volume.DriveType != DriveType.CDRom)

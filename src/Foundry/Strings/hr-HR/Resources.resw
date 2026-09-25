@@ -751,6 +751,9 @@ Licenciran prema MIT licenci.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Kad je opcija omogućena, uključene slike kopiraju se na novostvorene medije. Internet je i dalje obavezan. Omogućene prilagodbe primjenjuju se na odabranu sliku; provjerite odgovaraju li vašoj slici.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Biblioteka slika</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Nedostaje</value>
   </data>
@@ -792,9 +795,6 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>Izvor ISO ili WIM</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Uvezi izvore neobaveznih značajki iz ISO datoteke kada su dostupni</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Uvoz dovršen</value>

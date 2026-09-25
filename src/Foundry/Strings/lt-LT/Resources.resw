@@ -751,6 +751,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="CustomImages.LibraryDescription" xml:space="preserve">
     <value>Kai parinktis įjungta, įtraukti atvaizdai kopijuojami į naujai sukurtas laikmenas. Internetas vis dar būtinas. Įjungti tinkinimai taikomi pasirinktam atvaizdui; patikrinkite jų tinkamumą savo atvaizdui.</value>
   </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Atvaizdų biblioteka</value>
+  </data>
   <data name="CustomImages.Missing" xml:space="preserve">
     <value>Trūksta</value>
   </data>
@@ -792,9 +795,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="CustomImages.SourceLabel" xml:space="preserve">
     <value>ISO arba WIM šaltinis</value>
-  </data>
-  <data name="CustomImages.SourcesLabel" xml:space="preserve">
-    <value>Importuoti pasirenkamųjų funkcijų šaltinius iš ISO, jei jie pasiekiami</value>
   </data>
   <data name="CustomImages.StageCompleted" xml:space="preserve">
     <value>Importavimas baigtas</value>

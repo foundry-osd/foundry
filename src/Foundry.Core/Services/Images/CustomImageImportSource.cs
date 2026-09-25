@@ -15,16 +15,14 @@ internal sealed class CustomImageImportSource : IAsyncDisposable
 {
     private readonly string? isoPath;
     private readonly FileStream? isoLease;
-    private CustomImageImportSource(string imagePath, string? sourceDirectoryPath, string? isoPath, FileStream? isoLease)
+    private CustomImageImportSource(string imagePath, string? isoPath, FileStream? isoLease)
     {
         ImagePath = imagePath;
-        SourceDirectoryPath = sourceDirectoryPath;
         this.isoPath = isoPath;
         this.isoLease = isoLease;
     }
 
     public string ImagePath { get; }
-    public string? SourceDirectoryPath { get; }
 
     public static async Task<CustomImageImportSource> OpenAsync(string path, CancellationToken cancellationToken, string? isoImagePath = null)
     {
@@ -34,7 +32,7 @@ internal sealed class CustomImageImportSource : IAsyncDisposable
         if (!File.Exists(fullPath)) throw new FileNotFoundException("The import source is unavailable.", fullPath);
         string extension = Path.GetExtension(fullPath);
         if (extension.Equals(".wim", StringComparison.OrdinalIgnoreCase))
-            return new(fullPath, null, null, null);
+            return new(fullPath, null, null);
         if (!extension.Equals(".iso", StringComparison.OrdinalIgnoreCase))
             throw new InvalidDataException("Select a WIM file or an ISO containing sources/install.wim or sources/install.esd.");
 
@@ -63,8 +61,7 @@ internal sealed class CustomImageImportSource : IAsyncDisposable
             string root = result.RootElement.GetProperty("Root").GetString() ?? throw new InvalidDataException("The ISO volume is unavailable.");
             cancellationToken.ThrowIfCancellationRequested();
             string image = ResolveInstallationPath(root, isoImagePath);
-            string sxs = CustomImagePathPolicy.ResolveRelativePath(root, "sources/sxs");
-            return new(image, Directory.Exists(sxs) ? sxs : null, owned ? fullPath : null, lease);
+            return new(image, owned ? fullPath : null, lease);
         }
         catch
         {
