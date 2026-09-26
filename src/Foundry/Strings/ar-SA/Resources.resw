@@ -685,6 +685,153 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>تحديث</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>البنية</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>متاحة</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>استعراض</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>تم إلغاء الاستيراد</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>كتالوج Foundry</value>
+  </data>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>مسح الافتراضي</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>صور Windows المخصصة</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>الصورة المفضلة</value>
+  </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>اختر ما إذا كان Foundry Deploy يعرض كتالوج Foundry أو صور Windows المخصصة عند البدء.</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>مصدر الصورة الافتراضي في Foundry Deploy</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>الصورة المحددة</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>توجد بالفعل صورة بهذا الاسم في ملف التعريف هذا.</value>
+  </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>الإصدار</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>لا توجد صور Windows مخصصة. استورد ملف ISO أو WIM للبدء.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>تمكين صور Windows المخصصة</value>
+  </data>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>استبعاد</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>استيراد ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>تضمين</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>مضمّنة</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>الفهرس المفضل</value>
+  </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>الفهرس</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>الفهارس</value>
+  </data>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>اللغات</value>
+  </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>مكتبة الصور</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>مفقودة</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>متعددة</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>فشلت عملية الصورة. تحقّق من المصدر والمساحة المتاحة وسجلات Foundry.</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>ضمّن صورة Windows واحدة متاحة على الأقل في ملف التعريف هذا. استعد الصور المضمّنة المفقودة وصحّح اختيار الصورة أو الفهرس المفضل أو ألغِه قبل إنشاء الوسائط أو تحديثها.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>هل تريد إزالة هذه الصورة من ملف التعريف الحالي وحذف نسختها المحلية؟ ستظهر كمفقودة في ملفات التعريف الأخرى التي تشير إليها. لن تتغير الملفات الأصلية والوسائط الموجودة.</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>تعيين الصورة الافتراضية</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>تعيين الفهرس الافتراضي</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>الحجم</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>اختر صورة التثبيت في ملف ISO هذا.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>ملف ISO أو WIM المصدر</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>اكتمل الاستيراد</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>جارٍ نسخ الصورة…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>جارٍ تصدير فهارس الصورة…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>جارٍ قراءة فهارس الصورة…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>جارٍ التحقّق من مصادر الصور المخصصة…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>النسخة</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>نعم</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>قم بتعيين WSAIFabricSvc على بدء التشغيل اليدوي بدلاً من بدء التشغيل التلقائي.</value>
   </data>
@@ -2028,6 +2175,12 @@
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>استورد صور Windows من ملفات ISO أو WIM وأدرجها في وسائط النشر.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>صور Windows المخصصة</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>التخصيص</value>

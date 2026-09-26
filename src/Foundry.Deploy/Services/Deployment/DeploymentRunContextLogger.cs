@@ -5,6 +5,8 @@
 using System.Text.Json;
 using Foundry.Deploy.Services.Logging;
 
+using Foundry.Deploy.Models;
+
 namespace Foundry.Deploy.Services.Deployment;
 
 /// <summary>Captures the selected inputs before validation so early failures retain diagnostic context.</summary>
@@ -50,9 +52,9 @@ internal static class DeploymentRunContextLogger
                     context.Request.OperatingSystem.FileName,
                     context.Request.OperatingSystem.SizeBytes,
                     context.Request.OperatingSystem.LicenseChannel,
-                    context.Request.OperatingSystem.Url,
-                    context.Request.OperatingSystem.Sha1,
-                    context.Request.OperatingSystem.Sha256,
+                    Url = (context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Url ?? string.Empty,
+                    Sha1 = (context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Sha1 ?? string.Empty,
+                    Sha256 = (context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Sha256 ?? string.Empty,
                     displayLabel = context.Request.OperatingSystem.DisplayLabel
                 },
                 driverPack = context.Request.DriverPack is null

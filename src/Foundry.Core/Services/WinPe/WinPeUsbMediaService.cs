@@ -9,7 +9,7 @@ using Foundry.Utilities.Storage;
 
 namespace Foundry.Core.Services.WinPe;
 
-public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
+public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
 {
     internal const ulong MinimumUsbDiskSizeBytes = 16UL * 1024UL * 1024UL * 1024UL;
     private const string UsbProvisioningProgressPrefix = "FOUNDRY_USB_PROGRESS|";
@@ -18,6 +18,7 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 
     private readonly IWinPeProcessRunner _processRunner;
     private readonly IWinPeRuntimePayloadProvisioningService _runtimePayloadProvisioningService;
+    private readonly IWinPeCustomImageMediaPublisher _customImagePublisher;
 
     public WinPeUsbMediaService()
         : this(new WinPeProcessRunner(), new WinPeRuntimePayloadProvisioningService())
@@ -31,10 +32,12 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
 
     internal WinPeUsbMediaService(
         IWinPeProcessRunner processRunner,
-        IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService)
+        IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService,
+        IWinPeCustomImageMediaPublisher? customImagePublisher = null)
     {
         _processRunner = processRunner;
         _runtimePayloadProvisioningService = runtimePayloadProvisioningService;
+        _customImagePublisher = customImagePublisher ?? new WinPeCustomImageMediaService();
     }
 
     public async Task<WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>> GetUsbCandidatesAsync(
@@ -222,6 +225,9 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<WinPeUsbProvisionResult>.Failure(capacityValidation.Error!);
         }
 
+        WinPeResult customValidation = await PrepareCustomImagesAsync(options, artifact, tools, null, cancellationToken).ConfigureAwait(false);
+        if (!customValidation.IsSuccess) return WinPeResult<WinPeUsbProvisionResult>.Failure(customValidation.Error!);
+
         ReportProgress(options.Progress, 20, "Partitioning and formatting USB target.");
         cancellationToken.ThrowIfCancellationRequested();
         // A started disk mutation must finish before cancellation can stop the next stage.
@@ -242,6 +248,8 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         WinPeUsbProvisionResult provisionedUsb = provisioningResult.Value!;
         string bootRootPath = $"{provisionedUsb.BootDriveLetter}\\";
         string cacheRootPath = $"{provisionedUsb.CacheDriveLetter}\\";
+        WinPeResult customPublication = await PublishCustomImagesAsync(options, artifact, tools, cacheRootPath, cancellationToken).ConfigureAwait(false);
+        if (!customPublication.IsSuccess) return WinPeResult<WinPeUsbProvisionResult>.Failure(customPublication.Error!);
         ReportProgress(options.Progress, 55, "Copying WinPE media to USB.");
         cancellationToken.ThrowIfCancellationRequested();
         WinPeResult copyResult = await CopyMediaAsync(
@@ -350,6 +358,10 @@ public sealed class WinPeUsbMediaService : IWinPeUsbMediaService
         {
             return WinPeResult<WinPeUsbProvisionResult>.Failure(capacityValidation.Error!);
         }
+
+        WinPeResult customValidation = await PrepareCustomImagesAsync(options, artifact, tools,
+            $"{layout.CacheDriveLetter}\\", cancellationToken).ConfigureAwait(false);
+        if (!customValidation.IsSuccess) return WinPeResult<WinPeUsbProvisionResult>.Failure(customValidation.Error!);
 
         ReportProgress(options.Progress, 35, "Formatting BOOT partition.");
         cancellationToken.ThrowIfCancellationRequested();

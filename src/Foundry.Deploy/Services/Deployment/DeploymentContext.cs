@@ -51,7 +51,7 @@ public sealed record DeploymentContext
     /// <summary>
     /// Gets the operating system catalog item to download and apply.
     /// </summary>
-    public required OperatingSystemCatalogItem OperatingSystem { get; init; }
+    public required OperatingSystemMetadata OperatingSystem { get; init; }
 
     /// <summary>
     /// Gets the selected driver pack strategy.

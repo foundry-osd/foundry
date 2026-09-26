@@ -130,6 +130,57 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Kyllä</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Oletusnäköistiedosto on useammalla liitetyllä taltiolla. Valitse lähdetaltio erikseen.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Windows-luettelo</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Mukautettu näköistiedosto</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Näköistiedosto</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Näköistiedoston indeksi</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Tutkitaan ja tarkistetaan näköistiedostoa…</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Mukautettujen näköistiedostojen luettelotiedosto puuttuu, on vioittunut tai ei vastaa tätä käynnistystietovälinettä. Luo tietoväline uudelleen tai valitse toinen lähde.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Näköistiedostoa ei voi lukea, tai valittu indeksi tai metatiedot ovat muuttuneet. Valitse näköistiedosto uudelleen ja yritä uudelleen.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>Määritetty oletusnäköistiedosto tai indeksi ei ole saatavilla. Valitse näköistiedosto ja indeksi erikseen.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Mukautettuja näköistiedostoja ei löytynyt. Liitä oikea tietoväline tai lisää WIM-tiedosto ohjeissa mainittuun USB-kansioon.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Mukautettu näköistiedosto ei ole valmis.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Mukautettu näköistiedosto ja tarkka indeksi tarkistettu.</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Selvitä mukautettu näköistiedosto</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Mukautettu näköistiedosto löydetty käyttöönottotietovälineeltä.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Näköistiedoston lähde</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Lähdelevyn erillisyyttä kohdelevystä ei voida varmistaa. Valitse toinen lähde.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Tarkistetaan mukautettua näköistiedostoa…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -156,6 +207,45 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Perutun käyttöönoton sivu</value>
+  </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Mukautetut Windows-näköistiedostot</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Virheenkorjausskenaario: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Epäselvä ensisijainen näköistiedosto</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Luettelo valittu oletusarvoisesti</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Käytä tietovälineen määrityksiä</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Mukautetut näköistiedostot poistettu käytöstä</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>Näköistiedostoja ei ole saatavilla</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Virheellinen näköistiedosto</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Ensisijainen näköistiedosto puuttuu</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Ensisijainen indeksi puuttuu</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Näköistiedostot, joissa on useita indeksejä</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Ensisijainen näköistiedosto ja indeksi</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Näköistiedosto, jossa on yksi indeksi</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Käyttöönottosivut</value>

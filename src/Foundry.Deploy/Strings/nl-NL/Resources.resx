@@ -130,6 +130,57 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Ja</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>De standaardinstallatiekopie staat op meerdere aangesloten volumes. Kies expliciet het bronvolume.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Windows-catalogus</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Aangepaste installatiekopie</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Installatiekopie</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Installatiekopie-index</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Installatiekopie inspecteren en verifiëren…</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Het manifest ontbreekt, is beschadigd of past niet bij deze opstartmedia. Maak de media opnieuw of kies een andere bron.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>De image kan niet worden gelezen of de geselecteerde index of metagegevens zijn gewijzigd. Selecteer de image opnieuw en probeer het nogmaals.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>De ingestelde standaardinstallatiekopie of index is niet beschikbaar. Kies expliciet een installatiekopie en index.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Geen aangepaste installatiekopieën gevonden. Sluit de juiste media aan of voeg een WIM toe aan de gedocumenteerde USB-map.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>De aangepaste installatiekopie is niet gereed.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Aangepaste installatiekopie en exacte index geverifieerd.</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Aangepaste installatiekopie bepalen</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Aangepaste installatiekopie gevonden op de implementatiemedia.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Bron van installatiekopie</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Er kan niet worden bevestigd dat de bronschijf verschilt van de doelschijf. Selecteer een andere bron.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Aangepaste installatiekopie verifiëren…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -156,6 +207,45 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Pagina voor geannuleerde implementatie</value>
+  </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Aangepaste Windows-installatiekopieën</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Foutopsporingsscenario: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Voorkeursinstallatiekopie niet eenduidig</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Catalogus standaard geselecteerd</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Mediaconfiguratie gebruiken</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Aangepaste installatiekopieën uitgeschakeld</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>Geen installatiekopieën beschikbaar</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Ongeldige installatiekopie</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Voorkeursinstallatiekopie ontbreekt</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Voorkeursindex ontbreekt</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Installatiekopieën met meerdere indexen</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Voorkeursinstallatiekopie en -index</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Installatiekopie met één index</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Implementatiepagina's</value>

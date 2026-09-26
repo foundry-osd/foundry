@@ -12,4 +12,6 @@ public sealed record WinPeToolPaths
     public string DismPath { get; init; } = string.Empty;
     public string CmdPath { get; init; } = string.Empty;
     public string PowerShellPath { get; init; } = string.Empty;
+    /// <summary>Gets the native ADK ISO mastering tool for ordered large-image output.</summary>
+    public string OscdimgPath { get; init; } = string.Empty;
 }

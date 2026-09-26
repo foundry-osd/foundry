@@ -6,6 +6,7 @@ namespace Foundry.Deploy.Services.Wizard;
 
 public sealed record DeploymentWizardStateSnapshot
 {
+    public bool IsCustomImageMode { get; init; }
     public bool IsUnattendSelectionValid { get; init; } = true;
     public required DeploymentWizardStepId CurrentStepId { get; init; }
     public required IReadOnlyList<DeploymentWizardStepDefinition> AvailableSteps { get; init; }

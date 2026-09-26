@@ -11,6 +11,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Images;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Services.Profiles;
 using Foundry.Core.Services.Telemetry;
@@ -42,6 +43,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService;
     private readonly IWinPeIsoMediaService isoMediaService;
     private readonly IWinPeUsbMediaService usbMediaService;
+    private readonly CustomImageLibraryService customImageLibrary;
     private readonly IFilePickerService filePickerService;
     private readonly IFoundryConfigurationStateService foundryConfigurationStateService;
     private readonly IConfigurationOverviewService configurationOverviewService;
@@ -79,6 +81,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService,
         IWinPeIsoMediaService isoMediaService,
         IWinPeUsbMediaService usbMediaService,
+        CustomImageLibraryService customImageLibrary,
         IFilePickerService filePickerService,
         IFoundryConfigurationStateService foundryConfigurationStateService,
         IConfigurationOverviewService configurationOverviewService,
@@ -101,6 +104,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.runtimePayloadProvisioningService = runtimePayloadProvisioningService;
         this.isoMediaService = isoMediaService;
         this.usbMediaService = usbMediaService;
+        this.customImageLibrary = customImageLibrary;
         this.filePickerService = filePickerService;
         this.foundryConfigurationStateService = foundryConfigurationStateService;
         this.configurationOverviewService = configurationOverviewService;
@@ -772,12 +776,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 new WinPeIsoMediaOptions
                 {
                     PreparedWorkspace = workspace.PreparedWorkspace,
+                    CustomImages = workspace.CustomImages,
+                    DeployConfigurationJson = workspace.DeployConfigurationJson,
                     OutputIsoPath = options.IsoOutputPath,
                     IsoTempDirectoryPath = Path.Combine(workspace.Lease.OperationDirectoryPath, "Scratch", "Iso"),
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
                         new Progress<WinPeMediaProgress>(ReportFinalMediaProgress))
                 },
-                CancellationToken.None);
+                workspace.CustomImages is null ? CancellationToken.None : cancellationToken);
 
             EnsureSuccess(result);
             cancellationToken.ThrowIfCancellationRequested();
@@ -786,6 +792,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
+            workspace?.CustomImages?.Dispose();
             CleanupPreparedWorkspace(workspace?.Lease);
         }
     }
@@ -838,6 +845,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     PartitionStyle = options.UsbPartitionStyle,
                     FormatMode = options.UsbFormatMode,
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
+                    CustomImages = workspace.CustomImages,
+                    DeployConfigurationJson = workspace.DeployConfigurationJson,
                     DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
                         new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
@@ -858,6 +867,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
+            workspace?.CustomImages?.Dispose();
             CleanupPreparedWorkspace(workspace?.Lease);
         }
     }
@@ -908,6 +918,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     ExpectedDiskSizeBytes = selectedDisk.SizeBytes,
                     FormatMode = options.UsbFormatMode,
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
+                    CustomImages = workspace.CustomImages,
+                    DeployConfigurationJson = workspace.DeployConfigurationJson,
                     DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
                         new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
@@ -928,6 +940,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
+            workspace?.CustomImages?.Dispose();
             CleanupPreparedWorkspace(workspace?.Lease);
         }
     }
@@ -941,12 +954,19 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         CancellationToken cancellationToken)
     {
         WinPeWorkspaceLease? operationLease = null;
+        WinPeCustomImageMediaLease? customImages = null;
 
         try
         {
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.ResolveWinPeTools);
             cancellationToken.ThrowIfCancellationRequested();
             WinPeToolPaths tools = ResolveWinPeToolsOrThrow();
+            if (snapshot.Configuration.CustomImages.IsEnabled)
+            {
+                operationProgressService.Report(5, localizationService.GetString("CustomImages.StageVerifying"));
+                customImages = await new WinPeCustomImageMediaService().PrepareAsync(
+                    customImageLibrary, snapshot.Configuration.CustomImages, cancellationToken);
+            }
             logger.Debug(
                 "Resolved WinPE tools. KitsRootPath={KitsRootPath}, DismPath={DismPath}, MakeWinPeMediaPath={MakeWinPeMediaPath}",
                 tools.KitsRootPath,
@@ -1037,8 +1057,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
             operationProgressService.Report(25, localizationService.GetString("StartMedia.Operation.PreparingWorkspace"));
             WinPeResult<WinPeWorkspacePreparationResult> preparationResult;
+            WinPeMountedImageAssetProvisioningOptions assetProvisioning;
             try
             {
+                assetProvisioning = CreateAssetProvisioningOptions(options, snapshot, tools, connectBundle,
+                    deploymentProtectionMaterial, runtimePayloadProvisioning, deployTelemetrySettings, customImages);
                 preparationResult = await workspacePreparationService.PrepareAsync(
                     new WinPeWorkspacePreparationOptions
                     {
@@ -1051,14 +1074,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                         DriverVendors = options.DriverVendors,
                         CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
                         WinPeLanguage = options.WinPeLanguage,
-                        AssetProvisioning = CreateAssetProvisioningOptions(
-                            options,
-                            snapshot,
-                            tools,
-                            connectBundle,
-                            deploymentProtectionMaterial,
-                            runtimePayloadProvisioning,
-                            deployTelemetrySettings),
+                        AssetProvisioning = assetProvisioning,
                         RuntimePayloadProvisioning = artifactRuntimePayloadProvisioning with
                         {
                             IncludePayloadsInImage = includeRuntimePayloadInImage
@@ -1095,10 +1111,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 {
                     MountedImagePath = string.Empty,
                     UsbCacheRootPath = string.Empty
-                });
+                },
+                customImages,
+                assetProvisioning.DeployConfigurationJson!);
         }
         catch
         {
+            customImages?.Dispose();
             CleanupPreparedWorkspace(operationLease);
             throw;
         }
@@ -1111,7 +1130,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         FoundryConnectProvisioningBundle connectBundle,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning,
-        TelemetrySettings deployTelemetrySettings)
+        TelemetrySettings deployTelemetrySettings,
+        WinPeCustomImageMediaLease? customImages)
     {
         bool isHardwareHashMode = options.IsAutopilotEnabled &&
                                   options.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
@@ -1121,6 +1141,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             WinPeResult<string> oa3ToolResult = WinPeOa3ToolResolver.Resolve(tools.KitsRootPath, options.Architecture);
             EnsureSuccess(oa3ToolResult);
             oa3ToolSourcePath = oa3ToolResult.Value;
+        }
+
+        string deployConfigurationJson = snapshot.GenerateDeployConfigurationJson(
+            deployTelemetrySettings, deploymentProtectionMaterial.DeploymentKey, deploymentProtectionMaterial.Settings);
+        if (customImages is not null)
+        {
+            deployConfigurationJson = WinPeCustomImageMediaService.BindConfiguration(customImages, deployConfigurationJson);
         }
 
         return new WinPeMountedImageAssetProvisioningOptions
@@ -1133,10 +1160,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 Telemetry = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Bootstrap) }
             },
             FoundryConnectConfigurationJson = connectBundle.ConfigurationJson,
-            DeployConfigurationJson = snapshot.GenerateDeployConfigurationJson(
-                deployTelemetrySettings,
-                deploymentProtectionMaterial.DeploymentKey,
-                deploymentProtectionMaterial.Settings),
+            DeployConfigurationJson = deployConfigurationJson,
             NetworkSecretsKey = connectBundle.MediaSecretsKey,
             DeploymentSecretsKey = deploymentProtectionMaterial.DeploymentKey,
             IsDeploymentProtectionEnabled = deploymentProtectionMaterial.Settings.IsEnabled,
@@ -1381,6 +1405,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             "Preparing ISO output path." => "StartMedia.Operation.PreparingIsoOutput",
             "Preparing ISO workspace." => "StartMedia.Operation.PreparingIsoWorkspace",
+            "Creating ISO media." => "StartMedia.Operation.CreatingIso",
+            "Staging custom Windows images." => "CustomImages.StageCopying",
+            "Custom Windows images verified." => "CustomImages.StageVerifying",
             "Running MakeWinPEMedia for ISO." => "StartMedia.Operation.RunningMakeWinPeMediaIso",
             "Finalizing ISO output." => "StartMedia.Operation.FinalizingIsoOutput",
             "ISO media completed." => "StartMedia.Operation.IsoMediaCompleted",
@@ -1979,6 +2006,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     ? FormatOobeSummary(customization.Oobe)
                     : localizationService.GetString("Nav_OobeKey.Description"),
                 ConfigurationNavigationTarget.Oobe),
+            CreateOverviewItem(ConfigurationOverviewItem.CustomImages, overview, "Nav_CustomImagesKey.Title",
+                localizationService.GetString("Nav_CustomImagesKey.Description"),
+                ConfigurationNavigationTarget.CustomImages),
             CreateOverviewItem(ConfigurationOverviewItem.Unattend, overview, "Nav_UnattendKey.Title",
                 localizationService.GetString("Nav_UnattendKey.Description"),
                 ConfigurationNavigationTarget.Unattend),
@@ -2621,5 +2651,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeWorkspaceLease Lease,
         WinPeWorkspacePreparationResult PreparedWorkspace,
         WinPeToolPaths Tools,
-        WinPeRuntimePayloadProvisioningOptions RuntimePayloadProvisioning);
+        WinPeRuntimePayloadProvisioningOptions RuntimePayloadProvisioning,
+        WinPeCustomImageMediaLease? CustomImages,
+        string DeployConfigurationJson);
 }

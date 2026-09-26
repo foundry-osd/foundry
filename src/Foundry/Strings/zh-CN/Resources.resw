@@ -685,6 +685,153 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>体系结构</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>可用</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>导入已取消</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Foundry 目录</value>
+  </data>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>清除默认选择</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>自定义 Windows 映像</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>首选映像</value>
+  </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>选择 Foundry Deploy 最初显示 Foundry 目录还是自定义 Windows 映像。</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Foundry Deploy 中的默认映像源</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>所选映像</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>此配置文件中已存在同名映像。</value>
+  </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>版本类型</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>没有自定义 Windows 映像。请导入 ISO 或 WIM 以开始。</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>启用自定义 Windows 映像</value>
+  </data>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>排除</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>导入 ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>包含</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>已包含</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>首选索引</value>
+  </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>索引</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>索引</value>
+  </data>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>映像库</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>缺失</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>多个</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>映像操作失败。请检查来源、可用空间和 Foundry 日志。</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>请在此配置文件中包含至少一个可用的 Windows 映像。在创建或更新介质之前，请恢复已包含但缺失的映像，并修正或清除首选映像或索引的选择。</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>要从当前配置文件中移除此映像并删除其本地副本吗？引用此映像的其他配置文件会将其显示为缺失。原始文件和现有介质保持不变。</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>设为默认映像</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>设为默认索引</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>请选择此 ISO 中的安装映像。</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>源 ISO 或 WIM</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>导入完成</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>正在复制映像…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>正在导出映像索引…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>正在读取映像索引…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>正在验证自定义映像源文件…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>将 WSAIFabricSvc 设置为手动启动而不是自动启动。</value>
   </data>
@@ -2028,6 +2175,12 @@
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>从 ISO 或 WIM 文件导入 Windows 映像，并将其包含在部署介质中。</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>自定义 Windows 映像</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>定制化</value>

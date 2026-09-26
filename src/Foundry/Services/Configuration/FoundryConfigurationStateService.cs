@@ -34,6 +34,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private readonly IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState;
     private readonly AppSettingsService appSettingsService;
     private readonly ILogger logger;
+    private readonly Foundry.Core.Services.Images.CustomImageLibraryService customImageLibrary;
     private UnattendSettings? validatedUnattendSettings;
     private IReadOnlyList<UnattendSourceValidation> unattendSourceValidations = [];
     private readonly List<(UnattendSettings Settings, Task<IReadOnlyList<UnattendSourceValidation>> Read)> unattendSourceReads = [];
@@ -47,7 +48,8 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         IOobeAccountSecretStateService oobeAccountSecretStateService,
         IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState,
         AppSettingsService appSettingsService,
-        ILogger logger)
+        ILogger logger,
+        Foundry.Core.Services.Images.CustomImageLibraryService customImageLibrary)
     {
         this.foundryConfigurationService = foundryConfigurationService;
         this.deployConfigurationGenerator = deployConfigurationGenerator;
@@ -57,6 +59,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         this.autopilotHardwareHashSessionState = autopilotHardwareHashSessionState;
         this.appSettingsService = appSettingsService;
         this.logger = logger.ForContext<FoundryConfigurationStateService>();
+        this.customImageLibrary = customImageLibrary;
         FoundryConfigurationDocument loaded = Load(out bool isLegacyMigration);
         loaded = FoundryConfigurationMigration.MigrateDefaultIsoOutput(loaded, Constants.LegacyDefaultIsoPath, Constants.DefaultIsoPath);
         if (isLegacyMigration)
@@ -101,7 +104,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     {
         get
         {
-            if (!IsUnattendConfigurationReady)
+            if (!IsUnattendConfigurationReady || !IsCustomImagesReady)
             {
                 return false;
             }
@@ -372,6 +375,23 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         Save();
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
+
+    /// <inheritdoc />
+    public void UpdateCustomImages(CustomImagesSettings settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        Current = Current with { CustomImages = settings };
+        Save();
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <inheritdoc />
+    public void RefreshCustomImageReadiness() => StateChanged?.Invoke(this, EventArgs.Empty);
+
+    /// <inheritdoc />
+    public bool IsCustomImagesReady => !Current.CustomImages.IsEnabled ||
+        (Foundry.Core.Services.Images.CustomImageSettingsValidator.Validate(Current.CustomImages, requireIncludedImage: true).Count == 0 &&
+        Current.CustomImages.Images.Where(image => image.IsIncluded).All(customImageLibrary.IsAvailable));
 
     /// <inheritdoc />
     public void UpdateTelemetry(TelemetrySettings settings)

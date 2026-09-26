@@ -32,6 +32,9 @@ public sealed class DeploymentWizardStateService : IDeploymentWizardStateService
             return snapshot.HasValidAutopilotSelection;
         }
 
+        if (snapshot.CurrentStepId == DeploymentWizardStepId.OperatingSystem && snapshot.IsCustomImageMode)
+            return snapshot.HasSelectedOperatingSystem;
+
         return true;
     }
 

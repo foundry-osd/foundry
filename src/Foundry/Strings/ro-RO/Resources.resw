@@ -685,6 +685,153 @@ Licențiat sub licența MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Reîmprospătați</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Arhitectură</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Disponibilă</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Răsfoiți</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Anulați</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Import anulat</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Catalog Foundry</value>
+  </data>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Șterge selecția implicită</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Imagini Windows personalizate</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Imagine preferată</value>
+  </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Alegeți dacă Foundry Deploy afișează inițial catalogul Foundry sau imaginile Windows personalizate.</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Sursa implicită a imaginilor în Foundry Deploy</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Imagine selectată</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>În acest profil există deja o imagine cu acest nume.</value>
+  </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Ediție</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Nu există imagini Windows personalizate. Importați un ISO sau WIM pentru a începe.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Activați imaginile Windows personalizate</value>
+  </data>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Exclude</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importă ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Include</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Inclusă</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Index preferat</value>
+  </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Indexuri</value>
+  </data>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Limbi</value>
+  </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Bibliotecă de imagini</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Lipsă</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Mai multe</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Nume</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Nu</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>Operația asupra imaginii a eșuat. Verificați sursa, spațiul disponibil și jurnalele Foundry.</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Includeți cel puțin o imagine Windows disponibilă în acest profil. Restabiliți imaginile incluse care lipsesc și corectați sau ștergeți selecția imaginii sau a indexului preferat înainte de a crea sau de a actualiza mediul.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Reîmprospătați</value>
+  </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Eliminați această imagine din profilul curent și ștergeți copia sa locală? În celelalte profiluri care fac referire la ea, imaginea va apărea ca lipsă. Fișierele originale și suporturile existente rămân neschimbate.</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Elimină</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Editează</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Setează imaginea implicită</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Setează indexul implicit</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Dimensiune</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Alegeți imaginea de instalare din acest fișier ISO.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>Sursă ISO sau WIM</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Import finalizat</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Se copiază imaginea…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Se exportă indexurile imaginii…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Se citesc indexurile imaginii…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Se verifică sursele imaginii personalizate…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Stare</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Versiune</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Da</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Setați WSAIFabricSvc la pornire manuală în loc de pornire automată.</value>
   </data>
@@ -2028,6 +2175,12 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Importați imagini Windows din fișiere ISO sau WIM și includeți-le în mediile de implementare.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Imagini Windows personalizate</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Personalizare</value>

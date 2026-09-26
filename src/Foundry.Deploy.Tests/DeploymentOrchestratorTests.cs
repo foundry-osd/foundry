@@ -504,8 +504,10 @@ public sealed class DeploymentOrchestratorTests
         Assert.True(Directory.Exists(expectedFinalLogsPath));
     }
 
-    [Fact]
-    public async Task RunAsync_WhenDeploymentFails_TracksCompletionTelemetry()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task RunAsync_WhenDeploymentFails_TracksCompletionTelemetry(bool customImage)
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         var telemetryService = new RecordingTelemetryService();
@@ -524,17 +526,35 @@ public sealed class DeploymentOrchestratorTests
             CacheRootPath = workspace.RootPath,
             TargetDiskNumber = 1,
             TargetComputerName = "LAB01",
-            OperatingSystem = new OperatingSystemCatalogItem
-            {
-                WindowsRelease = "11",
-                ReleaseId = "24H2",
-                Build = "26100",
-                MediaDate = new DateOnly(2026, 7, 10),
-                Architecture = "x64",
-                LanguageCode = "en-US",
-                Edition = "Pro",
-                LicenseChannel = "RET"
-            },
+            OperatingSystem = customImage ? new CustomImageSelection(
+                new CustomImageAsset
+                {
+                    Id = "PrivateImageId",
+                    DisplayName = "PrivateImageName",
+                    ImagePath = @"D:\PrivateImagePath\image.wim",
+                    VolumeRoot = @"D:\"
+                },
+                new Foundry.Core.Models.Configuration.CustomImageIndex
+                {
+                    Index = 6,
+                    Name = "PrivateIndexName",
+                    ProductType = "WinNT",
+                    Build = 26100,
+                    Version = "10.0.26100.1742",
+                    Architecture = "x64",
+                    DefaultLanguage = "en-US",
+                    EditionId = "EnterpriseS"
+                }) : new OperatingSystemCatalogItem
+                {
+                    WindowsRelease = "11",
+                    ReleaseId = "24H2",
+                    Build = "26100",
+                    MediaDate = new DateOnly(2026, 7, 10),
+                    Architecture = "x64",
+                    LanguageCode = "en-US",
+                    Edition = "Pro",
+                    LicenseChannel = "RET"
+                },
             DriverPackSelectionKind = DriverPackSelectionKind.OemCatalog,
             DriverPack = new DriverPackCatalogItem
             {
@@ -573,11 +593,16 @@ public sealed class DeploymentOrchestratorTests
         Assert.Equal("validation", telemetryEvent.Properties["deploy_session_failure_kind"]);
         Assert.Equal("invalid_state", telemetryEvent.Properties["deploy_session_failure_reason"]);
         Assert.Equal("synthetic_failure", telemetryEvent.Properties["deploy_session_failure_code"]);
+        Assert.Equal(customImage ? "custom" : "catalog", telemetryEvent.Properties["deploy_os_source"]);
         Assert.Equal("windows_11", telemetryEvent.Properties["deploy_os_product"]);
-        Assert.Equal("2026-07", telemetryEvent.Properties["deploy_os_update_month"]);
-        Assert.Equal("pro", telemetryEvent.Properties["deploy_os_edition"]);
-        Assert.Equal("ret", telemetryEvent.Properties["deploy_os_license_channel"]);
-        Assert.Equal(6, telemetryEvent.Properties["deploy_os_image_index"]);
+        Assert.Equal("24h2", telemetryEvent.Properties["deploy_os_version"]);
+        Assert.Equal(customImage ? "10.0.26100.1742" : "26100", telemetryEvent.Properties["deploy_os_build"]);
+        Assert.Equal("x64", telemetryEvent.Properties["deploy_os_architecture"]);
+        Assert.Equal("en-us", telemetryEvent.Properties["deploy_os_language"]);
+        Assert.Equal(customImage ? "unknown" : "2026-07", telemetryEvent.Properties["deploy_os_update_month"]);
+        Assert.Equal(customImage ? "enterprises" : "pro", telemetryEvent.Properties["deploy_os_edition"]);
+        Assert.Equal(customImage ? "unknown" : "ret", telemetryEvent.Properties["deploy_os_license_channel"]);
+        Assert.Equal(customImage ? (int?)null : 6, telemetryEvent.Properties["deploy_os_image_index"]);
         Assert.Equal("dell", telemetryEvent.Properties["deploy_driver_pack_vendor"]);
         Assert.Equal("latitude 5450", telemetryEvent.Properties["deploy_driver_pack_model"]);
         Assert.True((bool)telemetryEvent.Properties["deploy_firmware_updates_enabled"]!);
@@ -591,7 +616,7 @@ public sealed class DeploymentOrchestratorTests
         Assert.True((bool)telemetryEvent.Properties["deploy_oobe_account_creation_skipped"]!);
         Assert.DoesNotContain(
             telemetryEvent.Properties.Values,
-            value => value?.ToString()?.Contains("PrivateTelemetryUser", StringComparison.Ordinal) == true);
+            value => value?.ToString()?.Contains("Private", StringComparison.Ordinal) == true);
         Assert.False(telemetryEvent.Properties.ContainsKey("success"));
         Assert.False(telemetryEvent.Properties.ContainsKey("autopilot_enabled"));
     }

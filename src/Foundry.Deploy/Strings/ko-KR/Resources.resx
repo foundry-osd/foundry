@@ -130,6 +130,57 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>예</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>연결된 여러 볼륨에 기본 이미지가 있습니다. 원본 볼륨을 명시적으로 선택하세요.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Windows 카탈로그</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>사용자 지정 이미지</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>이미지</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>이미지 인덱스</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>이미지 검사 및 확인 중...</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>사용자 지정 이미지 매니페스트가 없거나 손상되었거나 이 부팅 미디어와 일치하지 않습니다. 미디어를 다시 만들거나 다른 원본을 선택하세요.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>이미지를 읽을 수 없거나 선택한 인덱스 또는 메타데이터가 변경되었습니다. 이미지를 다시 선택한 후 다시 시도하세요.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>구성된 기본 이미지 또는 인덱스를 사용할 수 없습니다. 이미지와 인덱스를 명시적으로 선택하세요.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>사용자 지정 이미지를 찾지 못했습니다. 올바른 미디어를 연결하거나 문서에 지정된 USB 폴더에 WIM을 추가하세요.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>사용자 지정 이미지가 준비되지 않았습니다.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>사용자 지정 이미지와 정확한 인덱스를 확인했습니다.</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>사용자 지정 이미지 찾기</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>배포 미디어에서 사용자 지정 이미지를 찾았습니다.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>이미지 원본</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>원본 디스크와 대상 디스크가 서로 다른 디스크인지 확인할 수 없습니다. 다른 원본을 선택하세요.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>사용자 지정 이미지 확인 중...</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -156,6 +207,45 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>취소된 배포 페이지</value>
+  </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>사용자 지정 Windows 이미지</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>디버그 시나리오: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>기본 설정 이미지가 모호함</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>기본적으로 카탈로그 선택됨</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>미디어 구성 사용</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>사용자 지정 이미지 비활성화됨</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>사용 가능한 이미지 없음</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>잘못된 이미지</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>기본 설정 이미지 누락</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>기본 설정 인덱스 누락</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>인덱스가 여러 개인 이미지</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>기본 설정 이미지 및 인덱스</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>인덱스가 하나인 이미지</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>배포 페이지</value>

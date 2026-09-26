@@ -22,7 +22,7 @@ public static class BootMediaTelemetryPropertyBuilder
     /// <param name="bootMediaTarget">Final media target value.</param>
     /// <param name="bootMediaUsbOperation">USB operation value.</param>
     /// <param name="options">Resolved media creation options.</param>
-    /// <param name="document">Current Foundry configuration document.</param>
+    /// <param name="document">Configuration captured for the media operation. Image counts describe intended inclusion even if creation fails.</param>
     /// <param name="success">Whether media creation completed successfully.</param>
     /// <param name="failedStepName">Failed media creation step name, or <see langword="null"/> when successful.</param>
     /// <param name="duration">Total media creation duration.</param>
@@ -46,6 +46,7 @@ public static class BootMediaTelemetryPropertyBuilder
         ArgumentNullException.ThrowIfNull(document);
 
         UnattendSettings unattend = document.Unattend ?? new UnattendSettings();
+        CustomImagesSettings customImages = document.CustomImages ?? new CustomImagesSettings();
         DeploymentRebootTelemetryValue rebootPolicy = DeploymentRebootTelemetryValueResolver.Resolve(
             document.General.AutomaticRebootEnabled,
             document.General.AutomaticRebootDelaySeconds);
@@ -78,6 +79,9 @@ public static class BootMediaTelemetryPropertyBuilder
             ["boot_media_drivers_dell_enabled"] = options.DriverVendors.Contains(WinPeVendorSelection.Dell),
             ["boot_media_drivers_hp_enabled"] = options.DriverVendors.Contains(WinPeVendorSelection.Hp),
             ["boot_media_drivers_custom_enabled"] = !string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath),
+            ["boot_media_custom_images_enabled"] = customImages.IsEnabled,
+            ["boot_media_custom_images_count"] = customImages.IsEnabled ? customImages.Images.Count(image => image.IsIncluded) : 0,
+            ["boot_media_default_os_source"] = customImages.IsEnabled && customImages.DefaultSource == CustomImageSource.Custom ? "custom" : "catalog",
             ["boot_media_connect_runtime_payload_source"] = connectRuntimePayloadSource,
             ["boot_media_deploy_runtime_payload_source"] = deployRuntimePayloadSource,
             ["autopilot_enabled"] = options.IsAutopilotEnabled,
@@ -97,7 +101,7 @@ public static class BootMediaTelemetryPropertyBuilder
         AddCustomizationTelemetryProperties(properties, document.Customization);
         AddOperatingSystemSelectionTelemetryProperties(properties, document.OperatingSystemSelection);
         properties["customization_any_enabled"] =
-            (bool)properties["customization_any_enabled"]! || document.OperatingSystemSelection.IsEnabled || unattend.IsEnabled;
+            (bool)properties["customization_any_enabled"]! || document.OperatingSystemSelection.IsEnabled || unattend.IsEnabled || customImages.IsEnabled;
         AddLocalizationTelemetryProperties(properties, document.Localization);
         AddNetworkTelemetryProperties(properties, document.Network, options.AreRequiredSecretsReady);
 

@@ -25,6 +25,7 @@ public static partial class DeploymentUiTextLocalizer
             "Resolve cache strategy" => LocalizationText.GetString("Step.ResolveCacheStrategy"),
             "Check deployment readiness" => LocalizationText.GetString("Step.PreflightDeployment"),
             "Prepare target disk layout" => LocalizationText.GetString("Step.PrepareTargetDiskLayout"),
+            "Resolve custom image" => LocalizationText.GetString("CustomImages.Resolve"),
             "Download operating system image" => LocalizationText.GetString("Step.DownloadOperatingSystemImage"),
             "Validate custom answer file" => LocalizationText.GetString("Step.ValidateCustomUnattend"),
             "Stage custom answer file" => LocalizationText.GetString("Step.StageCustomUnattend"),
@@ -69,6 +70,11 @@ public static partial class DeploymentUiTextLocalizer
 
         return value switch
         {
+            "Verifying custom image..." => LocalizationText.GetString("CustomImages.Verifying"),
+            "Custom image verified before target preparation." or "Custom image and exact index verified." => LocalizationText.GetString("CustomImages.Ready"),
+            "Custom image is not ready." => LocalizationText.GetString("CustomImages.NotReady"),
+            "Custom image resolved from deployment media." => LocalizationText.GetString("CustomImages.Resolved"),
+            "Custom image resolution simulated." => LocalizeSimulation("CustomImages.Resolved"),
             "Waiting for deployment..." => LocalizationText.GetString("Status.WaitingForDeployment"),
             "Checking deployment readiness..." => LocalizationText.GetString("StepMessage.CheckingDeploymentReadiness"),
             "Checking source access..." => LocalizationText.GetString("StepMessage.CheckingSourceAccess"),

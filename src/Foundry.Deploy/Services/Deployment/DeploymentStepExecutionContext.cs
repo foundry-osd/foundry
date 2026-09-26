@@ -51,6 +51,17 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         return number is >= 0 && number.Value != Request.TargetDiskNumber;
     }
 
+    /// <summary>Proves source separation for physical media or a currently attached read-only optical volume.</summary>
+    internal async Task<bool> IsCustomSourceSeparateAsync(Models.CustomImageAsset asset, string path, CancellationToken cancellationToken)
+    {
+        Services.Images.CustomImageSourceLease.EnsureRegularPath(path);
+        if (!asset.IsOptical) return await IsExternalStorageAsync(path, cancellationToken).ConfigureAwait(false);
+        string? root = Path.GetPathRoot(Path.GetFullPath(path));
+        if (!string.Equals(root, Path.GetPathRoot(Path.GetFullPath(asset.VolumeRoot)), StringComparison.OrdinalIgnoreCase)) return false;
+        var drive = new DriveInfo(root!);
+        return drive.IsReady && drive.DriveType == DriveType.CDRom;
+    }
+
     /// <summary>Releases sensitive answer-file content on every terminal deployment outcome.</summary>
     public void Dispose()
     {

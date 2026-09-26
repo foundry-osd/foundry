@@ -130,6 +130,57 @@ Licenc az MIT licenc alatt.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Igen</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Az alapértelmezett lemezkép több csatlakoztatott köteten is megtalálható. Válassza ki kifejezetten a forráskötetet.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Windows-katalógus</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Egyéni lemezkép</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Lemezkép</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Lemezképindex</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Lemezkép vizsgálata és ellenőrzése…</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Az egyéni lemezképek jegyzékfájlja hiányzik, sérült vagy nem egyezik ezzel a rendszerindító adathordozóval. Hozza létre újra az adathordozót, vagy válasszon másik forrást.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>A lemezkép nem olvasható, vagy a kiválasztott index vagy a metaadatok megváltoztak. Válassza ki újra a lemezképet, és próbálkozzon újra.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>A beállított alapértelmezett lemezkép vagy index nem érhető el. Válasszon ki kifejezetten egy lemezképet és indexet.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Nem találhatók egyéni lemezképek. Csatlakoztassa a megfelelő adathordozót, vagy adjon egy WIM-fájlt a dokumentált USB-mappához.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Az egyéni lemezkép nem áll készen.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Az egyéni lemezkép és a pontos index ellenőrizve.</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Egyéni lemezkép feloldása</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Egyéni lemezkép feloldva a telepítési adathordozóról.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Lemezképforrás</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Nem állapítható meg biztosan, hogy a forráslemez különbözik a céllemeztől. Válasszon másik forrást.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Egyéni lemezkép ellenőrzése…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -156,6 +207,45 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Megszakított telepítés oldala</value>
+  </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Egyéni Windows-lemezképek</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Hibakeresési forgatókönyv: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Nem egyértelmű az előnyben részesített lemezkép</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Alapértelmezés szerint a katalógus van kiválasztva</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Adathordozó-konfiguráció használata</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Egyéni lemezképek letiltva</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>Nincsenek elérhető lemezképek</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Érvénytelen lemezkép</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Hiányzik az előnyben részesített lemezkép</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Hiányzik az előnyben részesített index</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Több indexet tartalmazó lemezképek</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Előnyben részesített lemezkép és index</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Egy indexet tartalmazó lemezkép</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Bevezetési oldalak</value>

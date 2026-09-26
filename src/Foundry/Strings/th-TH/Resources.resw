@@ -685,6 +685,153 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>รีเฟรช</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>สถาปัตยกรรม</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>พร้อมใช้งาน</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>เรียกดู</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>ยกเลิกการนำเข้าแล้ว</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>แค็ตตาล็อก Foundry</value>
+  </data>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>ล้างค่าเริ่มต้น</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>อิมเมจ Windows แบบกำหนดเอง</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>อิมเมจที่ต้องการ</value>
+  </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>เลือกว่าจะให้ Foundry Deploy แสดงแค็ตตาล็อก Foundry หรืออิมเมจ Windows แบบกำหนดเองเมื่อเริ่มต้น</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>แหล่งที่มาของอิมเมจเริ่มต้นใน Foundry Deploy</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>อิมเมจที่เลือก</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>มีอิมเมจชื่อนี้อยู่ในโปรไฟล์นี้แล้ว</value>
+  </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>รุ่น</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>ยังไม่มีอิมเมจ Windows แบบกำหนดเอง นำเข้า ISO หรือ WIM เพื่อเริ่มต้น</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>เปิดใช้อิมเมจ Windows แบบกำหนดเอง</value>
+  </data>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>ไม่รวม</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>นำเข้า ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>รวม</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>รวมไว้แล้ว</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>ดัชนีที่ต้องการ</value>
+  </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>ดัชนี</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>ดัชนี</value>
+  </data>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>ภาษา</value>
+  </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>ไลบรารีอิมเมจ</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>หายไป</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>หลายรายการ</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>ไม่ใช่</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>การดำเนินการกับอิมเมจล้มเหลว ตรวจสอบแหล่งที่มา พื้นที่ว่าง และบันทึกของ Foundry</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>รวมอิมเมจ Windows ที่พร้อมใช้งานอย่างน้อยหนึ่งรายการไว้ในโปรไฟล์นี้ กู้คืนอิมเมจที่รวมไว้แต่หายไป และแก้ไขหรือล้างการเลือกอิมเมจหรือดัชนีที่ต้องการก่อนสร้างหรืออัปเดตสื่อ</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>รีเฟรช</value>
+  </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>นำอิมเมจนี้ออกจากโปรไฟล์ปัจจุบันและลบสำเนาในเครื่องหรือไม่? โปรไฟล์อื่นที่อ้างอิงอิมเมจนี้จะแสดงว่าอิมเมจหายไป ไฟล์ต้นฉบับและสื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>นำออก</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>ตั้งค่าอิมเมจเริ่มต้น</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>ตั้งค่าดัชนีเริ่มต้น</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>ขนาด</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>เลือกอิมเมจการติดตั้งใน ISO นี้</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>ISO หรือ WIM ต้นทาง</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>นำเข้าเสร็จสมบูรณ์</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>กำลังคัดลอกอิมเมจ…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>กำลังส่งออกดัชนีอิมเมจ…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>กำลังอ่านดัชนีอิมเมจ…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>กำลังตรวจสอบแหล่งอิมเมจแบบกำหนดเอง…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>สถานะ</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>เวอร์ชัน</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>ใช่</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>ตั้งค่า WSAIFabricSvc เป็นการเริ่มต้นด้วยตนเองแทนการเริ่มต้นอัตโนมัติ</value>
   </data>
@@ -2028,6 +2175,12 @@
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>นำเข้าอิมเมจ Windows จากไฟล์ ISO หรือ WIM และรวมไว้ในสื่อการปรับใช้</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>อิมเมจ Windows แบบกำหนดเอง</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>การปรับแต่ง</value>

@@ -147,6 +147,15 @@ public interface IFoundryConfigurationStateService
     /// <param name="settings">New answer-file settings.</param>
     void UpdateUnattend(UnattendSettings settings);
 
+    /// <summary>Updates portable custom image references and deployment defaults.</summary>
+    void UpdateCustomImages(CustomImagesSettings settings);
+
+    /// <summary>Gets basic custom image availability; full hash verification occurs under build leases.</summary>
+    bool IsCustomImagesReady { get; }
+
+    /// <summary>Invalidates overview readiness after local image content changes without changing the profile.</summary>
+    void RefreshCustomImageReadiness();
+
     /// <summary>
     /// Replaces telemetry settings propagated into generated runtime configuration.
     /// </summary>

@@ -56,6 +56,16 @@ public sealed class DeploymentWizardStateServiceTests
         Assert.False(canStart);
     }
 
+    [Theory]
+    [InlineData(DeploymentWizardStepId.TargetDevice, false, true)]
+    [InlineData(DeploymentWizardStepId.OperatingSystem, false, false)]
+    [InlineData(DeploymentWizardStepId.OperatingSystem, true, true)]
+    public void CustomMode_AllowsReachingImagePickerButRequiresSelectionToContinue(DeploymentWizardStepId step, bool selected, bool expected)
+    {
+        var snapshot = CreateSnapshot(step, hasSelectedOperatingSystem: selected) with { IsCustomImageMode = true };
+        Assert.Equal(expected, new DeploymentWizardStateService().CanGoNext(snapshot));
+    }
+
     private static DeploymentWizardStateSnapshot CreateSnapshot(
         DeploymentWizardStepId currentStepId,
         bool includeAutopilot = false,

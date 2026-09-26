@@ -130,6 +130,57 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Sì</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>L’immagine predefinita è presente su più volumi collegati. Scegli esplicitamente il volume di origine.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Catalogo Windows</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Immagine personalizzata</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Immagine</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Indice immagine</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Analisi e verifica dell’immagine…</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Il manifesto delle immagini personalizzate è mancante, danneggiato o non corrisponde a questo supporto di avvio. Ricrea il supporto o scegli un’altra origine.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Impossibile leggere l’immagine oppure l’indice selezionato o i metadati sono cambiati. Selezionare nuovamente l’immagine e riprovare.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>L’immagine o l’indice predefiniti configurati non sono disponibili. Scegli esplicitamente un’immagine e un indice.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Nessuna immagine personalizzata trovata. Collega il supporto corretto o aggiungi un WIM alla cartella USB indicata nella documentazione.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>L’immagine personalizzata non è pronta.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Immagine personalizzata e indice esatto verificati.</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Risolvi immagine personalizzata</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Immagine personalizzata risolta dal supporto di distribuzione.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Origine immagine</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Non è possibile confermare che il disco di origine sia distinto dal disco di destinazione. Seleziona un’altra origine.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Verifica dell’immagine personalizzata…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -156,6 +207,45 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Pagina di distribuzione annullata</value>
+  </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Immagini Windows personalizzate</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Scenario di debug: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Immagine preferita ambigua</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Catalogo selezionato per impostazione predefinita</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Usa la configurazione del supporto</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Immagini personalizzate disabilitate</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>Nessuna immagine disponibile</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Immagine non valida</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Immagine preferita mancante</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Indice preferito mancante</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Immagini con più indici</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Immagine e indice preferiti</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Immagine con un indice</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Pagine di distribuzione</value>

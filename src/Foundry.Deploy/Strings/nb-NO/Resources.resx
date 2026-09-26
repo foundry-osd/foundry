@@ -130,6 +130,57 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Ja</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Standardavbildningen finnes på flere tilkoblede volumer. Velg kildevolumet uttrykkelig.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Windows-katalog</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Tilpasset avbildning</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Avbildning</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Avbildningsindeks</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Undersøker og kontrollerer avbildning…</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Manifestet mangler, er skadet eller samsvarer ikke med dette oppstartsmediet. Opprett mediet på nytt eller velg en annen kilde.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Avbildningen kan ikke leses, eller den valgte indeksen eller metadataene er endret. Velg avbildningen på nytt, og prøv igjen.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>Den konfigurerte standardavbildningen eller indeksen er utilgjengelig. Velg uttrykkelig en avbildning og en indeks.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Ingen tilpassede avbildninger ble funnet. Koble til riktig medium eller legg til en WIM-fil i den dokumenterte USB-mappen.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Den tilpassede avbildningen er ikke klar.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Tilpasset avbildning og nøyaktig indeks kontrollert.</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Finn tilpasset avbildning</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Tilpasset avbildning funnet på distribusjonsmediet.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Avbildningskilde</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Det kan ikke bekreftes at kildedisken er forskjellig fra måldisken. Velg en annen kilde.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Kontrollerer tilpasset avbildning…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -156,6 +207,45 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Side for kansellert implementering</value>
+  </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Egendefinerte Windows-avbildninger</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Feilsøkingsscenario: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Tvetydig foretrukket avbildning</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Katalog valgt som standard</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Bruk mediekonfigurasjon</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Egendefinerte avbildninger deaktivert</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>Ingen tilgjengelige avbildninger</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Ugyldig avbildning</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Foretrukket avbildning mangler</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Foretrukket indeks mangler</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Avbildninger med flere indekser</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Foretrukket avbildning og indeks</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Avbildning med én indeks</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Implementeringssider</value>
