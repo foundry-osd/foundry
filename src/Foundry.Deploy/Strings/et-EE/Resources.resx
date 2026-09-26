@@ -543,6 +543,24 @@ Kas jätkata juurutamisega?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operatsioonisüsteem</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Installimisjärgseid ülesandeid pole vaja.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Installimisjärgne valmisolekukontroll nurjus. Veenduge, et sobiv käituskeskkond ja vajalikud paketid on eraldi andmekandjal saadaval.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Installimisjärgne ettevalmistamine on lõpetatud (simulatsioon).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Installimisjärgne käituskeskkond, sisu ja taaskäivitusi toetav käivitusmehhanism on ette valmistatud.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Installimisjärgse käituskeskkonna ja sisu ettevalmistamine...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Installimisjärgne ettevalmistamine nurjus. Enne uuesti proovimist kontrollige käituskeskkonda, sisu ja Windowsi vastusefaili.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Tõmmise vahemälu ei saa ette valmistada. Kontrolli selle vaba ruumi ja kirjutusõigusi.</value>
   </data>

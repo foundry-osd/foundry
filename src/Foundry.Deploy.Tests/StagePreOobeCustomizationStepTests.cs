@@ -3,6 +3,9 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.Json;
+using System.IO.Compression;
+using System.Security.Cryptography;
+using Foundry.Core.Models.PreOobe;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Cache;
@@ -21,6 +24,89 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class StagePreOobeCustomizationStepTests
 {
+    [Fact]
+    public async Task MediaPublisher_OutputIsAcceptedByDeployWithoutNetworkOrWritableCache()
+    {
+        using var temp = new TemporaryDirectory();
+        string source = Path.Combine(temp.RootPath, "hello.ps1");
+        await File.WriteAllTextAsync(source, "Write-Output 'fixture'", TestContext.Current.CancellationToken);
+        var library = new Foundry.Core.Services.Packages.PreOobePackageLibraryService(Path.Combine(temp.RootPath, "library"));
+        var reference = await library.ImportAsync(source, TestContext.Current.CancellationToken);
+        var settings = new Foundry.Core.Models.Configuration.PreOobeSettings
+        {
+            IsEnabled = true,
+            Actions = [new() { Id = Guid.NewGuid().ToString("N"), Name = "Fixture", Kind = Foundry.Core.Models.Configuration.PreOobeActionKind.PowerShell,
+                Package = reference, EntryPoint = "hello.ps1", Process = new() }]
+        };
+        using var runtime = NativeRuntimeFixture.Create(temp.RootPath);
+        var publisher = new Foundry.Core.Services.WinPe.WinPePreOobeMediaService();
+        using var media = await publisher.PrepareAsync(library, settings, new Dictionary<string, string> { ["win-x64"] = runtime.RuntimeArchivePath }, TestContext.Current.CancellationToken);
+        string mediaRoot = Path.Combine(temp.RootPath, "media");
+        Directory.CreateDirectory(mediaRoot);
+        await publisher.PublishAsync(media, mediaRoot, TestContext.Current.CancellationToken);
+        string descriptorPath = Path.Combine(temp.RootPath, "descriptor.json");
+        await File.WriteAllTextAsync(descriptorPath, JsonSerializer.Serialize(new PreOobeRuntimeDescriptor { ReleaseTag = "local", Assets = [runtime.RuntimeAsset, runtime.RuntimeAsset with { RuntimeIdentifier = "win-arm64", AssetName = "Foundry.PostInstall-win-arm64.zip" }] },
+            Foundry.Deploy.Services.Configuration.ConfigurationJsonDefaults.SerializerOptions), TestContext.Current.CancellationToken);
+        using DeploymentStepExecutionContext context = CreateContext(temp, postInstall: new()
+        { IsEnabled = true, Actions = settings.Actions, ManifestId = media.ManifestId, ManifestHash = media.ManifestHash });
+        var resolver = new PreOobeContentResolver(new(), new ReadOnlyStorage()) { DescriptorPath = descriptorPath, MediaRoots = () => [mediaRoot] };
+        using var prepared = await resolver.PrepareAsync(context, TestContext.Current.CancellationToken);
+        Assert.NotNull(prepared);
+        Assert.Equal(reference.ContentHash, Assert.Single(prepared.Packages).ContentHash);
+        Assert.StartsWith(mediaRoot, prepared.RuntimeArchivePath, StringComparison.OrdinalIgnoreCase);
+        Assert.Throws<IOException>(() => File.Delete(Path.Combine(prepared.Packages[0].SourceRoot, "hello.ps1")));
+    }
+
+    private sealed class ReadOnlyStorage : IDeploymentStorageService
+    {
+        public long? GetAvailableBytes(string path) => throw new InvalidOperationException("An intact offline generation needs no writable runtime cache.");
+        public bool CanWriteDirectory(string path, string? existingFilePath = null) => false;
+    }
+
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    public async Task FailedHookPublication_RemovesOnlyNewInputsAndRunnableState(bool customAnswer, bool cancelled)
+    {
+        using var temp = new TemporaryDirectory();
+        using var context = CreateContext(temp, usesCustomUnattend: customAnswer);
+        context.NetworkProfileRoamingPayload = CreateRoamingPayload();
+        string answerPath = Path.Combine(temp.WindowsRoot, "Windows", "Panther", "unattend.xml");
+        byte[]? originalAnswer = null;
+        if (customAnswer)
+        {
+            originalAnswer = new Foundry.Deploy.Services.Deployment.Unattend.PreOobeUnattendHookService()
+                .Prepare(System.Text.Encoding.UTF8.GetBytes("<unattend xmlns=\"urn:schemas-microsoft-com:unattend\"/>"), "x64", integrate: true);
+            Directory.CreateDirectory(Path.GetDirectoryName(answerPath)!);
+            await File.WriteAllBytesAsync(answerPath, originalAnswer, TestContext.Current.CancellationToken);
+        }
+        string preserved = Path.Combine(temp.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "NetworkProfiles", "existing.txt");
+        Directory.CreateDirectory(Path.GetDirectoryName(preserved)!);
+        File.WriteAllText(preserved, "preserve");
+        var service = new PreOobeTargetStagingService(path => Directory.CreateDirectory(path))
+        {
+            BeforeHookPublication = () =>
+            {
+                string journalPath = Path.Combine(temp.WindowsRoot, "Windows", "Temp", "Foundry", "State", "PreOobe", "execution-result.json");
+                using var journal = JsonDocument.Parse(File.ReadAllText(journalPath));
+                Assert.Equal("Staging", journal.RootElement.GetProperty("status").GetString());
+                if (cancelled) throw new OperationCanceledException();
+                throw new IOException("injected publication failure");
+            }
+        };
+        var step = new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(), service);
+        if (cancelled) await Assert.ThrowsAsync<OperationCanceledException>(() => step.ExecuteAsync(context, TestContext.Current.CancellationToken));
+        else Assert.Equal(DeploymentStepState.Failed, (await step.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.True(File.Exists(preserved));
+        Assert.False(File.Exists(Path.Combine(Path.GetDirectoryName(preserved)!, "wifi-profile.xml")));
+        string stateRoot = Path.Combine(temp.WindowsRoot, "Windows", "Temp", "Foundry", "State", "PreOobe");
+        Assert.False(File.Exists(Path.Combine(stateRoot, "plan.json")));
+        Assert.False(File.Exists(Path.Combine(stateRoot, "execution-result.json")));
+        if (customAnswer) Assert.Equal(originalAnswer, File.ReadAllBytes(answerPath));
+        else Assert.False(File.Exists(answerPath));
+    }
+
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
@@ -56,21 +142,18 @@ public sealed class StagePreOobeCustomizationStepTests
         context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
         context.RuntimeState.DeferredDriverPackagePath = stagedPath;
         context.RuntimeState.DownloadedDriverPackPath = Path.Combine(tempDirectory.RootPath, "missing-download.exe");
-        var step = new StagePreOobeCustomizationStep(
-            new PreOobeScriptProvisioningService(new SetupCompleteScriptService()),
-            new PreOobeScriptDefinitionBuilder(),
-            new FakeDriverPackStrategyResolver());
+        var step = new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(),
+            new PreOobeTargetStagingService(path => Directory.CreateDirectory(path)));
 
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
 
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
         Assert.Equal(new byte[] { 1, 2, 3 }, await File.ReadAllBytesAsync(stagedPath, TestContext.Current.CancellationToken));
-        Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Install-DriverPack.ps1", StringComparison.Ordinal));
+        Assert.Empty(context.RuntimeState.PreOobeScriptPaths);
         using JsonDocument manifest = JsonDocument.Parse(await File.ReadAllTextAsync(context.RuntimeState.PreOobeManifestPath!, TestContext.Current.CancellationToken));
         Assert.Equal(context.RuntimeState.OperationId, manifest.RootElement.GetProperty("operationId").GetString());
-        JsonElement driver = manifest.RootElement.GetProperty("scripts").EnumerateArray().Single(script => script.GetProperty("id").GetString() == "driver-pack");
-        Assert.Contains(@"%SystemRoot%\Temp\Foundry\Payloads\Drivers\driver.exe", driver.GetProperty("arguments").EnumerateArray().Select(argument => argument.GetString()));
-        Assert.Equal(@"Drivers\driver.exe", Assert.Single(driver.GetProperty("inputs").EnumerateArray()).GetProperty("relativePath").GetString());
+        JsonElement driver = manifest.RootElement.GetProperty("actions").EnumerateArray().Single(script => script.GetProperty("id").GetString() == "driver-pack");
+        Assert.Equal("Payloads/Drivers/driver.exe", driver.GetProperty("parameters").GetProperty("packagePath").GetString());
     }
 
     [Theory]
@@ -89,20 +172,19 @@ public sealed class StagePreOobeCustomizationStepTests
     {
         using var tempDirectory = new TemporaryDirectory();
         using DeploymentStepExecutionContext context = CreateContext(tempDirectory, licenseChannel, usesCustomUnattend, isDryRun);
-        var step = new StagePreOobeCustomizationStep(
-            new PreOobeScriptProvisioningService(new SetupCompleteScriptService()),
-            new PreOobeScriptDefinitionBuilder(),
-            new FakeDriverPackStrategyResolver());
+        var step = new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(),
+            new PreOobeTargetStagingService(path => Directory.CreateDirectory(path)));
 
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
 
         Assert.Equal(expectsActivation ? DeploymentStepState.Succeeded : DeploymentStepState.Skipped, result.State);
-        Assert.Equal(expectsActivation, context.RuntimeState.PreOobeScriptPaths.Any(
-            path => path.EndsWith("Activate-WindowsOem.ps1", StringComparison.OrdinalIgnoreCase)));
+        Assert.Empty(context.RuntimeState.PreOobeScriptPaths);
+        Assert.Null(context.RuntimeState.PreOobeSetupCompletePath);
         if (expectsActivation && !isDryRun)
         {
-            Assert.True(File.Exists(context.RuntimeState.PreOobeSetupCompletePath));
-            Assert.True(File.Exists(Assert.Single(context.RuntimeState.PreOobeScriptPaths)));
+            using JsonDocument plan = JsonDocument.Parse(File.ReadAllText(context.RuntimeState.PreOobeManifestPath!));
+            Assert.Contains(plan.RootElement.GetProperty("actions").EnumerateArray(), action => action.GetProperty("id").GetString() == "windows-oem-activation");
+            Assert.True(File.Exists(context.RuntimeState.PreOobeRunnerPath));
         }
     }
 
@@ -111,20 +193,20 @@ public sealed class StagePreOobeCustomizationStepTests
     {
         using var tempDirectory = new TemporaryDirectory();
         DeploymentStepExecutionContext context = CreateContext(tempDirectory);
-        var step = new StagePreOobeCustomizationStep(
-            new PreOobeScriptProvisioningService(new SetupCompleteScriptService()),
-            new PreOobeScriptDefinitionBuilder(),
-            new FakeDriverPackStrategyResolver());
+        var step = new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(),
+            new PreOobeTargetStagingService(path => Directory.CreateDirectory(path)));
         context.NetworkProfileRoamingPayload = CreateRoamingPayload();
 
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
 
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
-        Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Import-NetworkProfiles.ps1", StringComparison.OrdinalIgnoreCase));
-        Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Cleanup-PreOobe.ps1", StringComparison.OrdinalIgnoreCase));
+        Assert.Empty(context.RuntimeState.PreOobeScriptPaths);
         Assert.True(File.Exists(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "NetworkProfiles", "wifi-profile.xml")));
         Assert.Contains("network-profile-roaming", File.ReadAllText(context.RuntimeState.PreOobeManifestPath!));
-        Assert.Contains("FOUNDRY PRE-OOBE BEGIN", File.ReadAllText(context.RuntimeState.PreOobeSetupCompletePath!));
+        Assert.Contains("OnRequest", File.ReadAllText(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Panther", "unattend.xml")));
+        using JsonDocument journal = JsonDocument.Parse(File.ReadAllText(Path.Combine(Path.GetDirectoryName(context.RuntimeState.PreOobeManifestPath!)!, "execution-result.json")));
+        Assert.Equal("Pending", journal.RootElement.GetProperty("status").GetString());
+        Assert.Equal(Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(context.RuntimeState.PreOobeManifestPath!))).ToLowerInvariant(), journal.RootElement.GetProperty("planHash").GetString());
     }
 
     [Fact]
@@ -138,10 +220,8 @@ public sealed class StagePreOobeCustomizationStepTests
         context.RuntimeState.DownloadedDriverPackPath = driverPackagePath;
         await new StageDriverInstallerStep(new FakeDriverPackStrategyResolver())
             .ExecuteAsync(context, TestContext.Current.CancellationToken);
-        var step = new StagePreOobeCustomizationStep(
-            new PreOobeScriptProvisioningService(new SetupCompleteScriptService()),
-            new PreOobeScriptDefinitionBuilder(),
-            new FakeDriverPackStrategyResolver());
+        var step = new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(),
+            new PreOobeTargetStagingService(path => Directory.CreateDirectory(path)));
         context.NetworkProfileRoamingPayload = CreateRoamingPayload();
 
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
@@ -149,20 +229,12 @@ public sealed class StagePreOobeCustomizationStepTests
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
         Assert.Equal(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "Drivers", "driver.exe"), context.RuntimeState.DeferredDriverPackagePath);
         Assert.True(File.Exists(context.RuntimeState.DeferredDriverPackagePath));
-        Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Install-DriverPack.ps1", StringComparison.OrdinalIgnoreCase));
-        Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Import-NetworkProfiles.ps1", StringComparison.OrdinalIgnoreCase));
-        Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Cleanup-PreOobe.ps1", StringComparison.OrdinalIgnoreCase));
-        Assert.Contains(context.RuntimeState.PreOobeScriptPaths, path => path.EndsWith("Activate-WindowsOem.ps1", StringComparison.OrdinalIgnoreCase));
-        string runner = File.ReadAllText(context.RuntimeState.PreOobeRunnerPath!);
-        Assert.True(
-            runner.IndexOf("Install-DriverPack.ps1", StringComparison.Ordinal) <
-            runner.IndexOf("Import-NetworkProfiles.ps1", StringComparison.Ordinal));
-        Assert.True(
-            runner.IndexOf("Import-NetworkProfiles.ps1", StringComparison.Ordinal) <
-            runner.IndexOf("Activate-WindowsOem.ps1", StringComparison.Ordinal));
-        Assert.True(
-            runner.IndexOf("Activate-WindowsOem.ps1", StringComparison.Ordinal) <
-            runner.IndexOf("Cleanup-PreOobe.ps1", StringComparison.Ordinal));
+        Assert.Empty(context.RuntimeState.PreOobeScriptPaths);
+        using JsonDocument plan = JsonDocument.Parse(File.ReadAllText(context.RuntimeState.PreOobeManifestPath!));
+        Assert.Equal(new[] { "driver-pack", "network-profile-roaming", "windows-oem-activation", "cleanup" },
+            plan.RootElement.GetProperty("actions").EnumerateArray().Select(action => action.GetProperty("id").GetString()));
+        JsonElement network = plan.RootElement.GetProperty("ownedPayloads").EnumerateArray().Single(payload => payload.GetProperty("relativePath").GetString() == "Payloads/NetworkProfiles");
+        Assert.Equal("network-profile-roaming", Assert.Single(network.GetProperty("consumerActionIds").EnumerateArray()).GetString());
     }
 
     [Fact]
@@ -171,10 +243,8 @@ public sealed class StagePreOobeCustomizationStepTests
         using var tempDirectory = new TemporaryDirectory();
         DeploymentStepExecutionContext context = CreateContext(tempDirectory);
         context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
-        var step = new StagePreOobeCustomizationStep(
-            new PreOobeScriptProvisioningService(new SetupCompleteScriptService()),
-            new PreOobeScriptDefinitionBuilder(),
-            new FakeDriverPackStrategyResolver());
+        var step = new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(),
+            new PreOobeTargetStagingService(path => Directory.CreateDirectory(path)));
 
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
 
@@ -227,10 +297,12 @@ public sealed class StagePreOobeCustomizationStepTests
         TemporaryDirectory tempDirectory,
         string licenseChannel = "",
         bool usesCustomUnattend = false,
-        bool isDryRun = false)
+        bool isDryRun = false,
+        Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings? postInstall = null)
     {
         var request = new DeploymentContext
         {
+            PreOobe = postInstall ?? new(),
             Mode = DeploymentMode.Iso,
             IsDryRun = isDryRun,
             Unattend = usesCustomUnattend
@@ -239,13 +311,13 @@ public sealed class StagePreOobeCustomizationStepTests
             CacheRootPath = tempDirectory.WorkspaceRoot,
             TargetDiskNumber = 1,
             TargetComputerName = "LAB01",
-            OperatingSystem = new OperatingSystemCatalogItem { LicenseChannel = licenseChannel },
+            OperatingSystem = new OperatingSystemCatalogItem { LicenseChannel = licenseChannel, Architecture = "x64" },
             DriverPackSelectionKind = DriverPackSelectionKind.OemCatalog,
             DriverPack = new DriverPackCatalogItem()
         };
         var runtimeState = new DeploymentRuntimeState
         {
-            OperationId = "staging-operation",
+            OperationId = Guid.NewGuid().ToString("N"),
             WorkspaceRoot = tempDirectory.WorkspaceRoot,
             Mode = DeploymentMode.Iso,
             TargetWindowsPartitionRoot = tempDirectory.WindowsRoot,
@@ -266,7 +338,7 @@ public sealed class StagePreOobeCustomizationStepTests
             }
         };
 
-        return new DeploymentStepExecutionContext(
+        var context = new DeploymentStepExecutionContext(
             request,
             runtimeState,
             [],
@@ -274,6 +346,10 @@ public sealed class StagePreOobeCustomizationStepTests
             new FakeDeploymentLogService(),
             new FakeTargetDiskService(),
             _ => { });
+        string fixtureRuntime = Path.Combine(tempDirectory.RootPath, "context-runtime");
+        Directory.CreateDirectory(fixtureRuntime);
+        context.PostInstallContent = NativeRuntimeFixture.Create(fixtureRuntime);
+        return context;
     }
 
     private sealed class FakeDriverPackStrategyResolver(
@@ -350,7 +426,7 @@ public sealed class StagePreOobeCustomizationStepTests
 
         public Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default)
         {
-            return Task.FromResult<int?>(null);
+            return Task.FromResult<int?>(0);
         }
     }
 

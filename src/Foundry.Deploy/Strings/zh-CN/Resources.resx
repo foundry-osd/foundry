@@ -543,6 +543,24 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>操作系统</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>无需执行安装后任务。</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>安装后就绪检查失败。请确认匹配的运行时和所需程序包位于独立介质上且可用。</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>安装后暂存已完成（模拟）。</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>已暂存安装后运行时、内容及支持重启的启动挂钩。</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>正在准备安装后运行时和内容...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>安装后暂存失败。重试前，请验证运行时、有效负载和 Windows 应答文件。</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>无法准备映像缓存。请检查其可用空间和写入权限。</value>
   </data>

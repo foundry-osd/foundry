@@ -543,6 +543,24 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Λειτουργικό σύστημα</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Δεν απαιτούνται εργασίες μετά την εγκατάσταση.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Ο έλεγχος ετοιμότητας για μετά την εγκατάσταση απέτυχε. Βεβαιωθείτε ότι το αντίστοιχο περιβάλλον εκτέλεσης και τα απαιτούμενα πακέτα είναι διαθέσιμα σε ξεχωριστό μέσο.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Η προετοιμασία για μετά την εγκατάσταση ολοκληρώθηκε (προσομοίωση).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Το περιβάλλον εκτέλεσης, το περιεχόμενο και ο μηχανισμός εκκίνησης με υποστήριξη επανεκκινήσεων προετοιμάστηκαν.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Προετοιμασία περιβάλλοντος εκτέλεσης και περιεχομένου για μετά την εγκατάσταση...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Η προετοιμασία για μετά την εγκατάσταση απέτυχε. Ελέγξτε το περιβάλλον εκτέλεσης, το περιεχόμενο και το αρχείο απαντήσεων των Windows πριν δοκιμάσετε ξανά.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Δεν είναι δυνατή η προετοιμασία της προσωρινής μνήμης του ειδώλου. Ελέγξτε τον ελεύθερο χώρο και την πρόσβαση εγγραφής σε αυτήν.</value>
   </data>

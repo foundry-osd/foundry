@@ -543,6 +543,24 @@ Pokračovat v nasazování?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operační systém</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Nejsou vyžadovány žádné úlohy po instalaci.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Kontrola připravenosti fáze po instalaci selhala. Ověřte, zda jsou odpovídající běhové prostředí a požadované balíčky dostupné na samostatném médiu.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Příprava fáze po instalaci byla dokončena (simulace).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Běhové prostředí, obsah a spouštěcí mechanismus s podporou restartů pro fázi po instalaci byly připraveny.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Příprava běhového prostředí a obsahu pro fázi po instalaci...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Příprava fáze po instalaci se nezdařila. Před dalším pokusem ověřte běhové prostředí, obsah a soubor odpovědí Windows.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Mezipaměť bitové kopie nelze připravit. Zkontrolujte v ní volné místo a oprávnění k zápisu.</value>
   </data>

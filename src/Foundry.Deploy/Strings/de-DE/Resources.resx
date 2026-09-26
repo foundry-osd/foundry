@@ -543,6 +543,24 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Betriebssystem</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Es sind keine Aufgaben nach der Installation erforderlich.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Die Nachinstallation ist nicht bereit. Prüfen Sie, ob die passende Laufzeit und die erforderlichen Pakete auf einem separaten Medium verfügbar sind.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Vorbereitung der Nachinstallation abgeschlossen (Simulation).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Laufzeit, Inhalte und neustartfähiger Startaufruf für die Nachinstallation wurden bereitgestellt.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Laufzeit und Inhalte für die Nachinstallation werden vorbereitet...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Vorbereitung der Nachinstallation fehlgeschlagen. Prüfen Sie Laufzeit, Nutzdaten und Windows-Antwortdatei vor einem erneuten Versuch.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Der Abbildcache kann nicht vorbereitet werden. Prüfen Sie den freien Speicherplatz und den Schreibzugriff auf den Cache.</value>
   </data>

@@ -543,6 +543,24 @@ ErrorCode=0x80070005
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Операційна система</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Завдання після інсталяції не потрібні.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Перевірку готовності етапу після інсталяції не пройдено. Переконайтеся, що відповідне середовище виконання та потрібні пакети доступні на окремому носії.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Підготовку етапу після інсталяції завершено (симуляція).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Середовище виконання, вміст і механізм запуску з підтримкою перезавантажень підготовлено.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Підготовка середовища виконання та вмісту для етапу після інсталяції...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Не вдалося підготувати етап після інсталяції. Перед повторною спробою перевірте середовище виконання, вміст і файл відповідей Windows.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Не вдається підготувати кеш образу. Перевірте вільне місце й доступ для запису до кешу.</value>
   </data>

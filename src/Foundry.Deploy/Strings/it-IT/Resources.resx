@@ -543,6 +543,24 @@ Continuare con la distribuzione?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Sistema operativo</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Non sono necessarie attività di post-installazione.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>La post-installazione non è pronta. Verifica che il runtime corrispondente e i pacchetti richiesti siano disponibili su un supporto separato.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Preparazione della post-installazione completata (simulazione).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Runtime, contenuto e comando di avvio con gestione dei riavvii preparati.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Preparazione del runtime e del contenuto di post-installazione...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Preparazione della post-installazione non riuscita. Verifica runtime, file e file di risposte di Windows prima di riprovare.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Impossibile preparare la cache dell’immagine. Controllare lo spazio libero e l’accesso in scrittura alla cache.</value>
   </data>

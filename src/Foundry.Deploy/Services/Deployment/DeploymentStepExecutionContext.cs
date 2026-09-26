@@ -34,6 +34,9 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     /// <summary>Holds readiness evidence only for this execution and protects an externally prepared image.</summary>
     internal DeploymentPreflightState? Preflight { get; set; }
 
+    /// <summary>Retains verified external post-installation content through target staging.</summary>
+    internal PreOobe.PreOobePreparedContent? PostInstallContent { get; set; }
+
     /// <summary>Proves a cache path is on a known physical disk other than the target; WinPE RAM is never external staging.</summary>
     internal async Task<bool> IsExternalStorageAsync(string path, CancellationToken cancellationToken)
     {
@@ -69,6 +72,8 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         UnattendSnapshot = null;
         Preflight?.Dispose();
         Preflight = null;
+        PostInstallContent?.Dispose();
+        PostInstallContent = null;
         NetworkProfileRoamingPayload = null;
     }
 

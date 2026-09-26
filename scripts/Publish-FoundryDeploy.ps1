@@ -27,6 +27,10 @@ if (-not (Test-Path -Path $projectPath -PathType Leaf)) {
     throw "Foundry.Deploy project not found: '$projectPath'."
 }
 
+$companionRoot = Join-Path $repoRoot 'artifacts\post-install'
+& (Join-Path $PSScriptRoot 'Publish-FoundryPostInstall.ps1') -Configuration $Configuration -AllRuntimes -OutputRoot $companionRoot
+if ($LASTEXITCODE -ne 0) { throw 'Companion runtime publication failed.' }
+
 $runtimeIdentifiers = if ($AllRuntimes) { @('win-x64', 'win-arm64') } else { @($RuntimeIdentifier) }
 
 foreach ($rid in $runtimeIdentifiers) {
@@ -58,6 +62,8 @@ foreach ($rid in $runtimeIdentifiers) {
     if ($LASTEXITCODE -ne 0) {
         throw "dotnet publish failed for Foundry.Deploy ($rid) with exit code $LASTEXITCODE."
     }
+    Copy-Item -LiteralPath (Join-Path $companionRoot 'foundry.postinstall-runtime.json') -Destination $outputPath
+    Copy-Item -Path (Join-Path $companionRoot 'Foundry.PostInstall-*.zip') -Destination $outputPath
 }
 
 Write-Host "Publish completed."

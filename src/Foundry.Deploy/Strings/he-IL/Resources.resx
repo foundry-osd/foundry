@@ -543,6 +543,24 @@ ErrorCode=0x80070005
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>מערכת הפעלה</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>אין צורך במשימות לאחר ההתקנה.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>בדיקת המוכנות לשלב שלאחר ההתקנה נכשלה. ודא שסביבת הריצה המתאימה והחבילות הנדרשות זמינות במדיה נפרדת.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>הכנת השלב שלאחר ההתקנה הושלמה (הדמיה).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>סביבת הריצה, התוכן ומנגנון ההפעלה התומך בהפעלות מחדש הוכנו.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>מכין את סביבת הריצה ואת התוכן לשלב שלאחר ההתקנה...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>הכנת השלב שלאחר ההתקנה נכשלה. בדוק את סביבת הריצה, התכנים וקובץ התשובות של Windows לפני ניסיון נוסף.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>לא ניתן להכין את המטמון של קובץ התמונה. יש לבדוק את השטח הפנוי בו ואת הרשאות הכתיבה אליו.</value>
   </data>

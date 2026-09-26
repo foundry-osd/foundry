@@ -543,6 +543,24 @@ Vil du fortsette med distribusjonen?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operativsystem</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Ingen oppgaver etter installasjonen er nødvendige.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Kontroll av beredskap for etter installasjonen mislyktes. Kontroller at riktig kjøremiljø og nødvendige pakker er tilgjengelige på separate medier.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Klargjøring til etter installasjonen er fullført (simulering).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Kjøremiljø, innhold og startmekanisme med støtte for omstart er klargjort.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Klargjør kjøremiljø og innhold til etter installasjonen...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Klargjøring til etter installasjonen mislyktes. Kontroller kjøremiljøet, innholdet og Windows-svarfilen før du prøver igjen.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Avbildningshurtigbufferen kan ikke klargjøres. Kontroller ledig plass og skrivetilgang til den.</value>
   </data>

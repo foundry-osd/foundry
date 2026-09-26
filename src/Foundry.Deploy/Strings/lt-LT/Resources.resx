@@ -543,6 +543,24 @@ Tęsti diegimą?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operacinė sistema</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Užduočių po diegimo nereikia.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Etapo po diegimo parengties patikra nepavyko. Patikrinkite, ar atitinkama vykdymo aplinka ir reikalingi paketai pasiekiami atskiroje laikmenoje.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Etapo po diegimo paruošimas baigtas (imitavimas).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Paruošta vykdymo aplinka, turinys ir paleidimo mechanizmas, palaikantis paleidimus iš naujo.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Ruošiama vykdymo aplinka ir turinys veiksmams po diegimo...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Nepavyko paruošti etapo po diegimo. Prieš bandydami dar kartą patikrinkite vykdymo aplinką, turinį ir „Windows“ atsakymų failą.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Nepavyksta paruošti atvaizdo podėlio. Patikrinkite laisvą vietą ir rašymo į podėlį teises.</value>
   </data>

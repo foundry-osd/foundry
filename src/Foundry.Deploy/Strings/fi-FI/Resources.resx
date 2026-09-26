@@ -543,6 +543,24 @@ Jatketaanko käyttöönottoa?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Käyttöjärjestelmä</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Asennuksen jälkeisiä tehtäviä ei tarvita.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Asennuksen jälkeisen vaiheen valmiustarkistus epäonnistui. Varmista, että vastaava suoritusympäristö ja tarvittavat paketit ovat saatavilla erillisellä tietovälineellä.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Asennuksen jälkeisen vaiheen valmistelu valmistui (simulaatio).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Asennuksen jälkeinen suoritusympäristö, sisältö ja uudelleenkäynnistyksiä tukeva käynnistysmekanismi on valmisteltu.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Valmistellaan asennuksen jälkeistä suoritusympäristöä ja sisältöä...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Asennuksen jälkeisen vaiheen valmistelu epäonnistui. Tarkista suoritusympäristö, sisältö ja Windowsin vastaustiedosto ennen uutta yritystä.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Näköistiedoston välimuistia ei voida valmistella. Tarkista sen vapaa tila ja kirjoitusoikeudet.</value>
   </data>

@@ -543,6 +543,24 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>نظام التشغيل</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>لا توجد مهام مطلوبة بعد التثبيت.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>فشل التحقق من جاهزية مرحلة ما بعد التثبيت. تأكد من توفر بيئة التشغيل المطابقة والحزم المطلوبة على وسائط منفصلة.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>اكتمل تجهيز مرحلة ما بعد التثبيت (محاكاة).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>تم تجهيز بيئة التشغيل والمحتوى وآلية البدء الداعمة لإعادة التشغيل لمرحلة ما بعد التثبيت.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>جارٍ إعداد بيئة التشغيل ومحتوى ما بعد التثبيت...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>فشل تجهيز مرحلة ما بعد التثبيت. تحقق من بيئة التشغيل والمحتويات وملف إجابات Windows قبل إعادة المحاولة.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>يتعذر تجهيز ذاكرة التخزين المؤقت للصورة. تحقق من المساحة الحرة فيها وإمكانية الكتابة إليها.</value>
   </data>

@@ -263,7 +263,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
         _logger.LogInformation("Resolved OS image metadata using the native DISM API. ImageIndex={ImageIndex}, EditionId={EditionId}, ExpandedSizeBytes={ExpandedSizeBytes}, ImagePath={ImagePath}",
             resolvedIndex, selected.EditionId, selected.SizeBytes, imagePath);
         return new WindowsImageMetadata(resolvedIndex, selected.EditionId, (long)selected.SizeBytes,
-            setupImages.Length == 1 && setupImages[0].SizeBytes is > 0 and <= long.MaxValue ? (long)setupImages[0].SizeBytes : null);
+            setupImages.Length == 1 && setupImages[0].SizeBytes is > 0 and <= long.MaxValue ? (long)setupImages[0].SizeBytes : null, selected.Architecture);
     }
 
     private async Task<IReadOnlyList<WindowsImageInfo>> ReadImageInfoAsync(string imagePath, CancellationToken cancellationToken)

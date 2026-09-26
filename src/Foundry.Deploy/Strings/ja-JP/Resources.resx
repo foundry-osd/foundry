@@ -543,6 +543,24 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>オペレーティングシステム</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>インストール後のタスクは必要ありません。</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>インストール後の準備状況の確認に失敗しました。対応するランタイムと必要なパッケージが別のメディアにあることを確認してください。</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>インストール後の準備が完了しました (シミュレーション)。</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>インストール後のランタイム、コンテンツ、再起動に対応した起動フックを配置しました。</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>インストール後のランタイムとコンテンツを準備しています...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>インストール後の準備に失敗しました。再試行する前に、ランタイム、ペイロード、Windows 応答ファイルを確認してください。</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>イメージキャッシュを準備できません。キャッシュの空き容量と書き込み権限を確認してください。</value>
   </data>

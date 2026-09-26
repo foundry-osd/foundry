@@ -543,6 +543,24 @@ Pokračovať v nasadzovaní?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operačný systém</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Nie sú potrebné žiadne úlohy po inštalácii.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Kontrola pripravenosti fázy po inštalácii zlyhala. Overte, či sú zodpovedajúce prostredie na spúšťanie a požadované balíky dostupné na samostatnom médiu.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Príprava fázy po inštalácii bola dokončená (simulácia).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Prostredie na spúšťanie, obsah a spúšťací mechanizmus s podporou reštartov pre fázu po inštalácii sú pripravené.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Príprava prostredia na spúšťanie a obsahu pre fázu po inštalácii...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Príprava fázy po inštalácii zlyhala. Pred ďalším pokusom overte prostredie na spúšťanie, obsah a súbor odpovedí Windows.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Vyrovnávaciu pamäť obrazu nemožno pripraviť. Skontrolujte v nej voľné miesto a prístup na zápis.</value>
   </data>

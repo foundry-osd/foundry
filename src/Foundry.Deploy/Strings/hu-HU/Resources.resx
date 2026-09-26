@@ -543,6 +543,24 @@ Folytatja a telepítést?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operációs rendszer</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Nincs szükség telepítés utáni feladatokra.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>A telepítés utáni készenlét ellenőrzése sikertelen. Ellenőrizze, hogy a megfelelő futtatókörnyezet és a szükséges csomagok külön adathordozón elérhetők-e.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>A telepítés utáni előkészítés befejeződött (szimuláció).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>A telepítés utáni futtatókörnyezet, tartalom és újraindításokat kezelő indítómechanizmus előkészítve.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Telepítés utáni futtatókörnyezet és tartalom előkészítése...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>A telepítés utáni előkészítés sikertelen. Újrapróbálkozás előtt ellenőrizze a futtatókörnyezetet, a tartalmat és a Windows válaszfájlját.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>A lemezkép gyorsítótára nem készíthető elő. Ellenőrizze a szabad helyet és az írási jogosultságokat.</value>
   </data>

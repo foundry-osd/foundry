@@ -543,6 +543,24 @@ Continuer le déploiement ?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Système d’exploitation</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Aucune tâche de post-installation n’est nécessaire.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>La post-installation n’est pas prête. Vérifiez que le programme correspondant et les packages nécessaires sont disponibles sur un support distinct.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Préparation de la post-installation terminée (simulation).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Programme de post-installation, contenu et point de lancement avec reprise après redémarrage préparés.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Préparation du programme de post-installation et de son contenu...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Échec de la préparation de la post-installation. Vérifiez le programme, les fichiers et le fichier de réponses Windows avant de réessayer.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Le cache de l’image ne peut pas être préparé. Vérifiez son espace libre et les droits d’écriture.</value>
   </data>

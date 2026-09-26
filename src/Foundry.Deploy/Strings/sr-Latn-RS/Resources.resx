@@ -543,6 +543,24 @@ Operativni sistem: {4}
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operativni sistem</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Nisu potrebni zadaci posle instalacije.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Provera spremnosti faze posle instalacije nije uspela. Proverite da li su odgovarajuće izvršno okruženje i potrebni paketi dostupni na zasebnom medijumu.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Priprema faze posle instalacije je završena (simulacija).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Pripremljeni su izvršno okruženje, sadržaj i mehanizam pokretanja sa podrškom za ponovna pokretanja.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Priprema izvršnog okruženja i sadržaja za fazu posle instalacije...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Priprema faze posle instalacije nije uspela. Pre ponovnog pokušaja proverite izvršno okruženje, sadržaj i datoteku odgovora sistema Windows.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Keš slike se ne može pripremiti. Proverite slobodan prostor i pristup za upis u njega.</value>
   </data>

@@ -13,6 +13,9 @@ namespace Foundry.Deploy.Models.Configuration;
 /// </summary>
 public sealed record FoundryDeployConfigurationDocument
 {
+    /// <summary>Gets ordered post-installation actions and their authenticated media binding.</summary>
+    public Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings PreOobe { get; init; } = new();
+
     /// <summary>
     /// Gets the current configuration schema version.
     /// </summary>

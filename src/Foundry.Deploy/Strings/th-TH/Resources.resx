@@ -543,6 +543,24 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>ระบบปฏิบัติการ</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>ไม่จำเป็นต้องมีงานหลังการติดตั้ง</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>ตรวจสอบความพร้อมหลังการติดตั้งไม่สำเร็จ ตรวจสอบว่ารันไทม์ที่ตรงกันและแพ็กเกจที่จำเป็นพร้อมใช้งานบนสื่อแยกต่างหาก</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>จัดเตรียมขั้นตอนหลังการติดตั้งเสร็จแล้ว (การจำลอง)</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>จัดเตรียมรันไทม์ เนื้อหา และกลไกเริ่มทำงานที่รองรับการเริ่มระบบใหม่สำหรับหลังการติดตั้งแล้ว</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>กำลังเตรียมรันไทม์และเนื้อหาหลังการติดตั้ง...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>จัดเตรียมขั้นตอนหลังการติดตั้งไม่สำเร็จ ตรวจสอบรันไทม์ เพย์โหลด และไฟล์คำตอบของ Windows ก่อนลองอีกครั้ง</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>ไม่สามารถเตรียมแคชของอิมเมจได้ โปรดตรวจสอบพื้นที่ว่างและสิทธิ์ในการเขียนลงแคช</value>
   </data>

@@ -543,6 +543,24 @@ Sistema operativo: {4}
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Sistema operativo</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>No se necesitan tareas de posinstalación.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>La posinstalación no está lista. Verifique que el ejecutor correspondiente y los paquetes necesarios estén disponibles en un medio separado.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Preparación de posinstalación completada (simulación).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Ejecutor, contenido y enlace de inicio con reinicios de posinstalación preparados.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Preparando el ejecutor y el contenido de posinstalación...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>No se pudo preparar la posinstalación. Verifique el ejecutor, los archivos y el archivo de respuesta de Windows antes de reintentar.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>No se puede preparar la caché de imágenes. Compruebe el espacio libre y el acceso de escritura en ella.</value>
   </data>

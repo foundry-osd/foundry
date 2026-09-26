@@ -6,6 +6,7 @@ using System.IO;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Logging;
+using Foundry.Deploy.Services.Localization;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
@@ -14,18 +15,13 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 /// </summary>
 public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
 {
-    private readonly IPreOobeScriptProvisioningService _preOobeScriptProvisioningService;
-    private readonly PreOobeScriptDefinitionBuilder _preOobeScriptDefinitionBuilder;
     private readonly IDriverPackStrategyResolver _driverPackStrategyResolver;
+    private readonly PreOobeTargetStagingService _stagingService;
 
-    public StagePreOobeCustomizationStep(
-        IPreOobeScriptProvisioningService preOobeScriptProvisioningService,
-        PreOobeScriptDefinitionBuilder preOobeScriptDefinitionBuilder,
-        IDriverPackStrategyResolver driverPackStrategyResolver)
+    public StagePreOobeCustomizationStep(IDriverPackStrategyResolver driverPackStrategyResolver, PreOobeTargetStagingService? stagingService = null)
     {
-        _preOobeScriptProvisioningService = preOobeScriptProvisioningService;
-        _preOobeScriptDefinitionBuilder = preOobeScriptDefinitionBuilder;
         _driverPackStrategyResolver = driverPackStrategyResolver;
+        _stagingService = stagingService ?? new PreOobeTargetStagingService();
     }
 
     public override string Name => DeploymentStepNames.StagePreOobeCustomization;
@@ -49,33 +45,20 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             }
         }
 
-        IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(
-            context.RuntimeState.AppxRemoval,
-            context.RuntimeState.AiComponentRemoval,
-            driverPackSettings,
-            context.NetworkProfileRoamingPayload,
-            activateWindowsOem: ShouldActivateWindowsOem(context.Request));
-        if (scripts.Count == 0)
+        if (!HasTasks(context))
+            return DeploymentStepResult.Skipped(LocalizationText.GetString("PostInstall.NoTasks"));
+        context.EmitCurrentStepIndeterminate(LocalizationText.GetString("PostInstall.Staging"), LocalizationText.GetString("PostInstall.Staging"), DeploymentOperationNames.StagePreOobe);
+        try
         {
-            return DeploymentStepResult.Skipped("No pre-OOBE customization scripts are required.");
+            await _stagingService.StageAsync(context, driverPackSettings, cancellationToken).ConfigureAwait(false);
+            return DeploymentStepResult.Succeeded(LocalizationText.GetString("PostInstall.Staged"));
         }
-
-        context.EmitCurrentStepIndeterminate("Staging pre-OOBE customizations...", "Updating SetupComplete hook...", DeploymentOperationNames.StagePreOobe);
-        PreOobeScriptProvisioningResult result = _preOobeScriptProvisioningService.Provision(
-            context.RuntimeState.TargetWindowsPartitionRoot,
-            scripts,
-            context.RuntimeState.OperationId);
-
-        ApplyPreOobeResult(context.RuntimeState, result);
-
-        await context.AppendLogAsync(
-            DeploymentLogLevel.Info,
-            $"Pre-OOBE customization staged with {scripts.Count} script(s). SetupComplete hook: '{result.SetupCompletePath}'.",
-            cancellationToken).ConfigureAwait(false);
-
-        return DeploymentStepResult.Succeeded("Pre-OOBE customizations staged.");
+        catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException or InvalidOperationException or global::System.Xml.XmlException)
+        {
+            return DeploymentStepResult.Failed(LocalizationText.GetString("PostInstall.StagingFailed"),
+                DeploymentFailure.Guard(DeploymentOperationNames.StagePreOobe, DeploymentFailureReasons.InvalidInput, "postinstall_staging_failed"));
+        }
     }
-
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(
         DeploymentStepExecutionContext context,
         CancellationToken cancellationToken)
@@ -95,28 +78,14 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
             }
         }
 
-        IReadOnlyList<PreOobeScriptDefinition> scripts = _preOobeScriptDefinitionBuilder.Build(
-            context.RuntimeState.AppxRemoval,
-            context.RuntimeState.AiComponentRemoval,
-            driverPackSettings,
-            context.NetworkProfileRoamingPayload,
-            activateWindowsOem: ShouldActivateWindowsOem(context.Request));
-        if (scripts.Count == 0)
-        {
-            await Task.Delay(80, cancellationToken).ConfigureAwait(false);
-            return DeploymentStepResult.Skipped("No pre-OOBE customization scripts are required.");
-        }
-
-        ApplyDryRunPreOobeResult(context.RuntimeState, scripts);
-
-        await context.AppendLogAsync(
-            DeploymentLogLevel.Info,
-            $"[DRY-RUN] Simulated pre-OOBE customization staging with {scripts.Count} script(s).",
-            cancellationToken).ConfigureAwait(false);
-        await Task.Delay(120, cancellationToken).ConfigureAwait(false);
-
-        return DeploymentStepResult.Succeeded("Pre-OOBE customizations staged (simulation).");
+        if (!HasTasks(context)) return DeploymentStepResult.Skipped(LocalizationText.GetString("PostInstall.NoTasks"));
+        ApplyDryRunPreOobeResult(context.RuntimeState);
+        await context.AppendLogAsync(DeploymentLogLevel.Info, "[DRY-RUN] Simulated native post-installation staging.", cancellationToken).ConfigureAwait(false);
+        return DeploymentStepResult.Succeeded(LocalizationText.GetString("PostInstall.Simulated"));
     }
+
+    private static bool HasTasks(DeploymentStepExecutionContext context) => PreOobeContentResolver.IsRequired(context.Request) ||
+        context.RuntimeState.DriverPackInstallMode == DriverPackInstallMode.DeferredSetupComplete || context.NetworkProfileRoamingPayload?.DataFiles.Count > 0;
 
     private (PreOobeDriverPackScriptSettings? Settings, DeploymentStepResult? Failure) ResolveStagedDriverPackage(
         DeploymentStepExecutionContext context)
@@ -147,34 +116,13 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
         }, null);
     }
 
-    private static void ApplyPreOobeResult(
-        DeploymentRuntimeState runtimeState,
-        PreOobeScriptProvisioningResult result)
-    {
-        runtimeState.PreOobeSetupCompletePath = result.SetupCompletePath;
-        runtimeState.PreOobeRunnerPath = result.RunnerPath;
-        runtimeState.PreOobeManifestPath = result.ManifestPath;
-        runtimeState.PreOobeScriptPaths = result.StagedScriptPaths;
-    }
-
-    private static void ApplyDryRunPreOobeResult(
-        DeploymentRuntimeState runtimeState,
-        IReadOnlyList<PreOobeScriptDefinition> scripts)
+    private static void ApplyDryRunPreOobeResult(DeploymentRuntimeState runtimeState)
     {
         DeploymentStorageLayout layout = DeploymentStorageLayout.FromPartitionRoot(runtimeState.TargetWindowsPartitionRoot!);
-        string preOobeRoot = layout.RuntimePreOobe;
-
-        runtimeState.PreOobeSetupCompletePath = Path.Combine(
-            runtimeState.TargetWindowsPartitionRoot!,
-            "Windows",
-            "Setup",
-            "Scripts",
-            "SetupComplete.cmd");
-        runtimeState.PreOobeRunnerPath = Path.Combine(preOobeRoot, "Invoke-FoundryPreOobe.ps1");
-        runtimeState.PreOobeManifestPath = Path.Combine(layout.StatePreOobe, "pre-oobe-manifest.json");
-        runtimeState.PreOobeScriptPaths = scripts
-            .Select(script => Path.Combine(preOobeRoot, "Scripts", script.FileName))
-            .ToArray();
+        runtimeState.PreOobeSetupCompletePath = null;
+        runtimeState.PreOobeRunnerPath = Path.Combine(layout.RuntimePreOobe, "Foundry.PostInstall.exe");
+        runtimeState.PreOobeManifestPath = Path.Combine(layout.StatePreOobe, "plan.json");
+        runtimeState.PreOobeScriptPaths = [];
     }
 
     /// <summary>Preserves automatic OEM activation only for native retail-image deployments.</summary>

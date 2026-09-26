@@ -294,6 +294,10 @@ jobs:
           New-Item -Path $releaseRoot -ItemType Directory -Force | Out-Null
           New-Item -Path $publishRoot -ItemType Directory -Force | Out-Null
 
+          $postInstallDescriptor = Join-Path $releaseRoot 'foundry.postinstall-runtime.json'
+          & (Join-Path $workspace 'scripts\Publish-FoundryPostInstall.ps1') -AllRuntimes -ReleaseTag '${{ needs.prepare-release.outputs.release_tag }}' -OutputRoot $releaseRoot -DescriptorPath $postInstallDescriptor
+          if ($LASTEXITCODE -ne 0) { throw 'PostInstall publication failed.' }
+
           foreach ($runtimeIdentifier in @('win-x64', 'win-arm64')) {
               $platform = if ($runtimeIdentifier -eq 'win-x64') { 'x64' } else { 'ARM64' }
 
@@ -308,6 +312,7 @@ jobs:
 
               $deployPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Deploy' $runtimeIdentifier)
               Invoke-Publish -ProjectPath $deployProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $deployPublishPath
+              Copy-Item -LiteralPath $postInstallDescriptor -Destination (Join-Path $deployPublishPath 'foundry.postinstall-runtime.json')
 
               $deployExecutable = Join-Path $deployPublishPath 'Foundry.Deploy.exe'
               if (-not (Test-Path -Path $deployExecutable -PathType Leaf)) {
@@ -394,7 +399,9 @@ jobs:
               (Join-Path $releaseRoot 'Foundry.Connect-win-x64.zip'),
               (Join-Path $releaseRoot 'Foundry.Connect-win-arm64.zip'),
               (Join-Path $releaseRoot 'Foundry.Deploy-win-x64.zip'),
-              (Join-Path $releaseRoot 'Foundry.Deploy-win-arm64.zip')
+              (Join-Path $releaseRoot 'Foundry.Deploy-win-arm64.zip'),
+              (Join-Path $releaseRoot 'Foundry.PostInstall-win-x64.zip'),
+              (Join-Path $releaseRoot 'Foundry.PostInstall-win-arm64.zip')
           )
 
           foreach ($asset in $assets) {

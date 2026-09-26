@@ -543,6 +543,24 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Операционна система</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Не са необходими задачи след инсталиране.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Проверката за готовност на етапа след инсталиране е неуспешна. Проверете дали съответната среда за изпълнение и необходимите пакети са налични на отделен носител.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Подготовката на етапа след инсталиране е завършена (симулация).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Средата за изпълнение, съдържанието и механизмът за стартиране с поддръжка на рестартирания са подготвени.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Подготвяне на средата за изпълнение и съдържанието за етапа след инсталиране...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Подготовката на етапа след инсталиране е неуспешна. Проверете средата за изпълнение, съдържанието и файла с отговори на Windows, преди да опитате отново.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Кешът за образа не може да бъде подготвен. Проверете свободното място и достъпа за запис в него.</value>
   </data>

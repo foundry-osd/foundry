@@ -17,7 +17,8 @@ namespace Foundry.Deploy.Services.Deployment.Steps;
 public sealed class PreflightDeploymentStep(
     IDeploymentStorageService storageService,
     IImageSourceProbe sourceProbe,
-    Foundry.Core.Services.Images.ICustomImageMetadataReader? customMetadataReader = null) : DeploymentStepBase
+    Foundry.Core.Services.Images.ICustomImageMetadataReader? customMetadataReader = null,
+    PreOobe.PreOobeContentResolver? postInstallResolver = null) : DeploymentStepBase
 {
     public override string Name => DeploymentStepNames.PreflightDeployment;
 
@@ -28,6 +29,16 @@ public sealed class PreflightDeploymentStep(
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
+            context.PostInstallContent?.Dispose();
+            try
+            {
+                context.PostInstallContent = await (postInstallResolver ?? new PreOobe.PreOobeContentResolver(new(), storageService))
+                    .PrepareAsync(context, cancellationToken).ConfigureAwait(false);
+            }
+            catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException or InvalidOperationException or HttpRequestException)
+            {
+                return Failed("PostInstall.PreflightFailed", "postinstall_preflight_failed");
+            }
             if (context.Request.OperatingSystem is CustomImageSelection custom)
                 return await PrepareCustomImageAsync(context, custom, cancellationToken).ConfigureAwait(false);
             ValidateCatalog(context.Request);
@@ -99,7 +110,7 @@ public sealed class PreflightDeploymentStep(
         {
             return Failed("CustomImages.InvalidSource", "invalid_custom_image");
         }
-        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException)
         {
             return DeploymentStepResult.Failed(LocalizationText.GetString(context.Request.OperatingSystem is CustomImageSelection ? "CustomImages.InvalidSource" : "Preflight.CacheUnavailable"),
                 new DeploymentFailure(DeploymentOperationNames.PreflightDeployment, DeploymentFailureKinds.Io,
@@ -136,7 +147,7 @@ public sealed class PreflightDeploymentStep(
             if (context.Request.TargetDiskIdentity?.SizeBytes is null or 0) throw new InvalidDataException();
             var setupImages = images.Where(image => image.Name.Equals("Windows Setup Media", StringComparison.OrdinalIgnoreCase)).ToArray();
             long? setupSize = setupImages.Length == 1 && setupImages[0].ExpandedSizeBytes > 0 ? setupImages[0].ExpandedSizeBytes : null;
-            prepared.Image = new WindowsImageMetadata(selected.Index, selected.EditionId, selected.ExpandedSizeBytes, setupSize);
+            prepared.Image = new WindowsImageMetadata(selected.Index, selected.EditionId, selected.ExpandedSizeBytes, setupSize, selected.Architecture);
             prepared.SourceSizeBytes = prepared.CustomSourceLease.Length;
             prepared.TargetDriverBytes = ResolveTargetDriverBytes(context, null);
             DeploymentCapacityPolicy.EnsureTargetCapacity(context, prepared.Image, 0, prepared.TargetDriverBytes);

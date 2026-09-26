@@ -12,4 +12,5 @@ namespace Foundry.Deploy.Services.Deployment;
 /// <param name="EditionId">The exact DISM edition ID.</param>
 /// <param name="SizeBytes">Positive declared expanded size of the selected image.</param>
 /// <param name="SetupMediaSizeBytes">Declared setup-media expansion, when available.</param>
-public sealed record WindowsImageMetadata(int Index, string EditionId, long SizeBytes, long? SetupMediaSizeBytes = null);
+/// <param name="Architecture">The actual DISM-reported image architecture.</param>
+public sealed record WindowsImageMetadata(int Index, string EditionId, long SizeBytes, long? SetupMediaSizeBytes = null, string? Architecture = null);

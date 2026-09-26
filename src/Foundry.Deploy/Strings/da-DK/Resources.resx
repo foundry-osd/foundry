@@ -543,6 +543,24 @@ Vil du fortsætte med implementeringen?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operativsystem</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Der kræves ingen opgaver efter installationen.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Kontrol af parathed til efter installationen mislykkedes. Kontrollér, at det tilsvarende kørselsmiljø og de nødvendige pakker er tilgængelige på separate medier.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Klargøring til efter installationen er afsluttet (simulering).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Kørselsmiljø, indhold og startmekanisme med understøttelse af genstart er klargjort.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Klargør kørselsmiljø og indhold til efter installationen...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Klargøring til efter installationen mislykkedes. Kontrollér kørselsmiljø, indhold og Windows-svarfilen, før du prøver igen.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Afbildningens cache kan ikke klargøres. Kontrollér den ledige plads og skriveadgangen til den.</value>
   </data>

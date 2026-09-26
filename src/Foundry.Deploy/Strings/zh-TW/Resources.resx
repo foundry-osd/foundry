@@ -543,6 +543,24 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>作業系統</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>不需要執行安裝後工作。</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>安裝後就緒檢查失敗。請確認相符的執行階段與所需套件可在獨立媒體上取得。</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>安裝後暫存已完成（模擬）。</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>已暫存安裝後執行階段、內容及支援重新啟動的啟動掛鉤。</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>正在準備安裝後執行階段與內容...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>安裝後暫存失敗。重試前，請驗證執行階段、承載內容與 Windows 回應檔案。</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>無法準備映像快取。請檢查其可用空間與寫入權限。</value>
   </data>

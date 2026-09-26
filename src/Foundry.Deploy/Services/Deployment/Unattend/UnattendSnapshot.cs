@@ -22,6 +22,13 @@ public sealed class UnattendSnapshot : IDisposable
     /// <summary>Gets structural compatibility information without exposing XML content.</summary>
     public UnattendInspection Inspection { get; }
 
+    /// <summary>Checks the manual restart hook without changing the retained source snapshot.</summary>
+    public void ValidatePostInstallHook(string architecture, bool integrate = false)
+    {
+        byte[] validated = new PreOobeUnattendHookService().Prepare(_content ?? throw new ObjectDisposedException(nameof(UnattendSnapshot)), architecture, integrate);
+        CryptographicOperations.ZeroMemory(validated);
+    }
+
     /// <summary>Atomically stages the validated bytes, without reading the media asset again.</summary>
     public async Task StageAsync(string windowsPartitionRoot, CancellationToken cancellationToken)
     {

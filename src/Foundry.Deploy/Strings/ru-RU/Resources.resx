@@ -543,6 +543,24 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Операционная система</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Задачи после установки не требуются.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Проверка готовности этапа после установки не пройдена. Убедитесь, что соответствующая среда выполнения и необходимые пакеты доступны на отдельном носителе.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Подготовка этапа после установки завершена (симуляция).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Среда выполнения, содержимое и механизм запуска с поддержкой перезагрузок подготовлены.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Подготовка среды выполнения и содержимого для этапа после установки...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Не удалось подготовить этап после установки. Перед повторной попыткой проверьте среду выполнения, содержимое и файл ответов Windows.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Не удается подготовить кэш образа. Проверьте свободное место и доступ на запись в кэш.</value>
   </data>

@@ -543,6 +543,24 @@ Kontynuować wdrażanie?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>System operacyjny</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Nie są wymagane zadania po instalacji.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Weryfikacja gotowości działań po instalacji nie powiodła się. Sprawdź, czy zgodne środowisko wykonawcze i wymagane pakiety są dostępne na osobnym nośniku.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Zakończono przygotowanie działań po instalacji (symulacja).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Przygotowano środowisko wykonawcze, zawartość i mechanizm uruchamiania z obsługą restartów.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Przygotowywanie środowiska wykonawczego i zawartości do działań po instalacji...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Przygotowanie działań po instalacji nie powiodło się. Przed ponowną próbą sprawdź środowisko wykonawcze, zawartość i plik odpowiedzi systemu Windows.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Nie można przygotować pamięci podręcznej obrazu. Sprawdź wolne miejsce i uprawnienia do zapisu w pamięci podręcznej.</value>
   </data>

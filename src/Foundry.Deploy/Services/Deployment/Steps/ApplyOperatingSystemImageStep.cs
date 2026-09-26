@@ -12,10 +12,12 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
 {
     private readonly IWindowsDeploymentService _windowsDeploymentService;
     private readonly IDeploymentStorageService _storageService;
+    private readonly Unattend.PreOobeUnattendPrecedenceService? _postInstallPrecedence;
 
-    public ApplyOperatingSystemImageStep(IWindowsDeploymentService windowsDeploymentService, IDeploymentStorageService? storageService = null)
+    public ApplyOperatingSystemImageStep(IWindowsDeploymentService windowsDeploymentService, IDeploymentStorageService? storageService = null, Unattend.PreOobeUnattendPrecedenceService? postInstallPrecedence = null)
     {
         _windowsDeploymentService = windowsDeploymentService;
+        _postInstallPrecedence = postInstallPrecedence;
         _storageService = storageService ?? new DeploymentStorageService();
     }
 
@@ -69,6 +71,7 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
             DeploymentCapacityPolicy.EnsureTargetCapacity(context, metadata, actualArchiveBytes, targetDriverBytes);
             long remainingBytes = DeploymentCapacityPolicy.RequiredWindowsBytes(metadata, 0, targetDriverBytes,
                 DeploymentCapacityPolicy.NeedsOptionalFeatureSource(context));
+            remainingBytes = checked(remainingBytes + (context.PostInstallContent?.TargetBytes ?? 0));
             long? availableBytes = _storageService.GetAvailableBytes(context.RuntimeState.TargetWindowsPartitionRoot);
             if (availableBytes is null)
             {
@@ -108,6 +111,21 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
                 cancellationToken,
                 applyImageProgress)
             .ConfigureAwait(false);
+
+        if (PreOobe.PreOobeContentResolver.IsRequired(context.Request))
+        {
+            try
+            {
+                if (_postInstallPrecedence is null) throw new InvalidOperationException("Post-installation answer-file inspection is unavailable.");
+                await _postInstallPrecedence.ValidateAsync(context.RuntimeState.TargetWindowsPartitionRoot,
+                    context.Request.OperatingSystem.Architecture, cancellationToken).ConfigureAwait(false);
+            }
+            catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException or InvalidOperationException or DeploymentProcessException or global::System.Xml.XmlException)
+            {
+                return DeploymentStepResult.Failed(Services.Localization.LocalizationText.GetString("PostInstall.StagingFailed"),
+                    DeploymentFailure.Guard(DeploymentOperationNames.ApplyOperatingSystemImage, DeploymentFailureReasons.InvalidInput, "postinstall_unattend_precedence"));
+            }
+        }
 
         context.RuntimeState.AppliedImageIndex = imageIndex;
         context.EmitCurrentStepIndeterminate(

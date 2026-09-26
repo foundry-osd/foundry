@@ -543,6 +543,24 @@ Fortsätt med implementeringen?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operativsystem</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Inga uppgifter efter installationen krävs.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Kontrollen av beredskap för efter installationen misslyckades. Kontrollera att motsvarande körmiljö och nödvändiga paket finns på separata media.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Förberedelserna för efter installationen har slutförts (simulering).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Körmiljö, innehåll och startmekanism med stöd för omstarter har förberetts.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Förbereder körmiljö och innehåll för efter installationen...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Förberedelserna för efter installationen misslyckades. Kontrollera körmiljön, innehållet och Windows-svarsfilen innan du försöker igen.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Avbildningscachen kan inte förberedas. Kontrollera ledigt utrymme och skrivåtkomst till cachen.</value>
   </data>

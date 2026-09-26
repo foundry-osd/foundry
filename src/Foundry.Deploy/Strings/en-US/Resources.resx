@@ -543,6 +543,24 @@ Continue with deployment?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operating system</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>No post-installation tasks are required.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Post-installation readiness failed. Verify the matching runtime and required packages are available on separate media.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Post-installation staging completed (simulation).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Post-installation runtime, content and restart-aware hook staged.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Preparing the post-installation runtime and content...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Post-installation staging failed. Verify the runtime, payloads and Windows answer file before retrying.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>The image cache cannot be prepared. Check its free space and write access.</value>
   </data>

@@ -48,6 +48,9 @@ public sealed class CheckWindowsImageStep(
             context.EmitCurrentStepIndeterminate("Checking Windows image...", "Inspecting image...", DeploymentOperationNames.InspectOperatingSystemImage);
             WindowsImageMetadata image = await windowsDeploymentService
                 .InspectImageAsync(imagePath, context.Request.OperatingSystem.Edition, cancellationToken).ConfigureAwait(false);
+            if (context.PostInstallContent is not null && (image.Architecture is null ||
+                PreOobe.PreOobeContentResolver.ResolveRid(image.Architecture) != context.PostInstallContent.RuntimeIdentifier))
+                throw new InvalidDataException("The acquired Windows image architecture differs from the verified post-installation runtime.");
             long driverBytes = PreflightDeploymentStep.ResolveTargetDriverBytes(context,
                 prepared.UsesTargetStorage ? null : storageService.GetAvailableBytes(imagePath));
             DeploymentCapacityPolicy.EnsureTargetCapacity(context, image, prepared.UsesTargetStorage ? sourceBytes : 0, driverBytes);

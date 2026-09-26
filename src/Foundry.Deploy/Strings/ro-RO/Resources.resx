@@ -543,6 +543,24 @@ Continuați cu implementarea?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Sistem de operare</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Nu sunt necesare sarcini după instalare.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Verificarea pregătirii etapei de după instalare a eșuat. Verificați dacă mediul de execuție corespunzător și pachetele necesare sunt disponibile pe un suport separat.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Pregătirea etapei de după instalare s-a încheiat (simulare).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Mediul de execuție, conținutul și mecanismul de pornire cu suport pentru reporniri au fost pregătite.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Se pregătesc mediul de execuție și conținutul pentru etapa de după instalare...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Pregătirea etapei de după instalare a eșuat. Verificați mediul de execuție, conținutul și fișierul de răspuns Windows înainte de a reîncerca.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Memoria cache a imaginii nu poate fi pregătită. Verificați spațiul liber și accesul la scriere în aceasta.</value>
   </data>

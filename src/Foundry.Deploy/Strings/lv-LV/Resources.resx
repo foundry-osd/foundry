@@ -543,6 +543,24 @@ Vai turpināt izvietošanu?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operētājsistēma</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Uzdevumi pēc instalēšanas nav nepieciešami.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Posma pēc instalēšanas gatavības pārbaude neizdevās. Pārbaudiet, vai atbilstošā izpildlaika vide un nepieciešamās pakotnes ir pieejamas atsevišķā datu nesējā.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Posma pēc instalēšanas sagatavošana ir pabeigta (simulācija).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Ir sagatavota izpildlaika vide, saturs un palaišanas mehānisms ar restartēšanas atbalstu.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Tiek sagatavota izpildlaika vide un saturs posmam pēc instalēšanas...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Neizdevās sagatavot posmu pēc instalēšanas. Pirms atkārtota mēģinājuma pārbaudiet izpildlaika vidi, saturu un Windows atbilžu failu.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Attēla kešatmiņu nevar sagatavot. Pārbaudiet tās brīvo vietu un rakstīšanas piekļuvi.</value>
   </data>
