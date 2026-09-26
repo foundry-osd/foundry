@@ -13,7 +13,10 @@ public static class CustomImageSettingsValidator
     public const int MaximumIndexes = 1024;
     public const int MaximumDisplayNameLength = 200;
 
-    public static IReadOnlyList<string> Validate(CustomImagesSettings settings)
+    /// <summary>Validates profile settings, optionally requiring included content for media creation.</summary>
+    /// <param name="settings">The custom image settings to validate.</param>
+    /// <param name="requireIncludedImage">Requires an included image when enabled; defaults to false so incomplete profiles can be saved.</param>
+    public static IReadOnlyList<string> Validate(CustomImagesSettings settings, bool requireIncludedImage = false)
     {
         ArgumentNullException.ThrowIfNull(settings);
         var errors = new List<string>();
@@ -28,6 +31,8 @@ public static class CustomImageSettingsValidator
                 errors.Add("A custom image reference is invalid or duplicated.");
         }
         if (!settings.IsEnabled || errors.Count > 0) return errors;
+        if (requireIncludedImage && !settings.Images.Any(image => image.IsIncluded))
+            errors.Add("At least one custom image must be included.");
         CustomImageReference? selected = settings.Images.FirstOrDefault(image => image?.Id == settings.DefaultImageId);
         if (settings.DefaultImageId is not null && (selected is null || !selected.IsIncluded))
             errors.Add("The default custom image must be included.");
@@ -36,9 +41,12 @@ public static class CustomImageSettingsValidator
         return errors;
     }
 
-    public static void ThrowIfInvalid(CustomImagesSettings settings)
+    /// <summary>Rejects invalid profile settings, optionally requiring included content for media creation.</summary>
+    /// <param name="settings">The custom image settings to validate.</param>
+    /// <param name="requireIncludedImage">Requires an included image when enabled; defaults to false so incomplete profiles can be saved.</param>
+    public static void ThrowIfInvalid(CustomImagesSettings settings, bool requireIncludedImage = false)
     {
-        IReadOnlyList<string> errors = Validate(settings);
+        IReadOnlyList<string> errors = Validate(settings, requireIncludedImage);
         if (errors.Count != 0) throw new InvalidDataException(string.Join(" ", errors));
     }
 

@@ -776,7 +776,7 @@ Licensed under the MIT License.</value>
     <value>The image operation failed. Check the source, available space, and Foundry logs.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>An included image is missing, or a preferred image/index is no longer included. Restore the source, change the selection, or clear the preference before creating media.</value>
+    <value>Include at least one available Windows image in this profile. Restore missing included images and fix or clear the preferred image or index before creating or updating media.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Refresh</value>

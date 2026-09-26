@@ -390,7 +390,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     /// <inheritdoc />
     public bool IsCustomImagesReady => !Current.CustomImages.IsEnabled ||
-        (Foundry.Core.Services.Images.CustomImageSettingsValidator.Validate(Current.CustomImages).Count == 0 &&
+        (Foundry.Core.Services.Images.CustomImageSettingsValidator.Validate(Current.CustomImages, requireIncludedImage: true).Count == 0 &&
         Current.CustomImages.Images.Where(image => image.IsIncluded).All(customImageLibrary.IsAvailable));
 
     /// <inheritdoc />

@@ -42,6 +42,31 @@ public sealed class CustomImageConfigurationTests
         Assert.Throws<InvalidDataException>(() => DeploymentProfileProjection.CreatePortable(new() { CustomImages = settings }));
     }
 
+    [Theory]
+    [InlineData(CustomImageSource.Catalog, false)]
+    [InlineData(CustomImageSource.Catalog, true)]
+    [InlineData(CustomImageSource.Custom, false)]
+    [InlineData(CustomImageSource.Custom, true)]
+    public void ProfilesWithoutIncludedImagesRemainEditable(CustomImageSource defaultSource, bool hasExcludedImage)
+    {
+        var settings = new CustomImagesSettings
+        {
+            IsEnabled = true,
+            DefaultSource = defaultSource,
+            Images = hasExcludedImage ? [Settings().Images[0] with { IsIncluded = false }] : []
+        };
+
+        Assert.Empty(CustomImageSettingsValidator.Validate(settings));
+        FoundryConfigurationDocument portable = DeploymentProfileProjection.CreatePortable(new() { CustomImages = settings });
+        var service = new FoundryConfigurationService();
+        FoundryConfigurationDocument restored = service.Deserialize(service.Serialize(portable));
+
+        Assert.True(restored.CustomImages.IsEnabled);
+        Assert.Equal(defaultSource, restored.CustomImages.DefaultSource);
+        Assert.Equal(settings.Images.Count, restored.CustomImages.Images.Count);
+        Assert.DoesNotContain(restored.CustomImages.Images, image => image.IsIncluded);
+    }
+
     [Fact]
     public void DuplicateContentAndNullMetadataAreRejectedWithoutThrowingNullReference()
     {

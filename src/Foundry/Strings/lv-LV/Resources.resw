@@ -776,7 +776,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Attēla darbība neizdevās. Pārbaudiet avotu, brīvo vietu un Foundry žurnālus.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Trūkst iekļauta attēla, vai vēlamais attēls vai indekss vairs nav iekļauts. Pirms datu nesēja izveides atjaunojiet avotu, mainiet atlasi vai notīriet vēlamo iestatījumu.</value>
+    <value>Iekļaujiet šajā profilā vismaz vienu pieejamu Windows attēlu. Pirms datu nesēja izveides vai atjaunināšanas atjaunojiet trūkstošos iekļautos attēlus un labojiet vai notīriet vēlamā attēla vai indeksa atlasi.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Atsvaidzināt</value>

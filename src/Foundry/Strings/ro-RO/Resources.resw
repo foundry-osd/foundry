@@ -776,7 +776,7 @@ Licențiat sub licența MIT.</value>
     <value>Operația asupra imaginii a eșuat. Verificați sursa, spațiul disponibil și jurnalele Foundry.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Lipsește o imagine inclusă, ori o imagine sau un index preferat nu mai este inclus. Restabiliți sursa, modificați selecția sau ștergeți preferința înainte de a crea mediul.</value>
+    <value>Includeți cel puțin o imagine Windows disponibilă în acest profil. Restabiliți imaginile incluse care lipsesc și corectați sau ștergeți selecția imaginii sau a indexului preferat înainte de a crea sau de a actualiza mediul.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Reîmprospătați</value>

@@ -95,8 +95,65 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
         await Assert.ThrowsAsync<InvalidDataException>(() => service.PublishAsync(package, Path.Combine(root, "usb"), TestContext.Current.CancellationToken));
     }
 
-    [Fact]
-    public async Task Prepare_RetainsIncludedInputsAndBindsExactManifestWithoutSourcePaths()
+    [Theory]
+    [InlineData(CustomImageSource.Catalog, false)]
+    [InlineData(CustomImageSource.Catalog, true)]
+    [InlineData(CustomImageSource.Custom, false)]
+    [InlineData(CustomImageSource.Custom, true)]
+    public async Task Prepare_RejectsEnabledImagesWithoutIncludedContent(CustomImageSource defaultSource, bool hasExcludedImage)
+    {
+        var library = new CustomImageLibraryService(Path.Combine(root, "library"), new MetadataReader());
+        var settings = new CustomImagesSettings
+        {
+            IsEnabled = true,
+            DefaultSource = defaultSource,
+            Images = hasExcludedImage ? [new()
+            {
+                Id = "excluded", DisplayName = "Excluded image", ContentHash = new string('a', 64), Length = 100,
+                IsIncluded = false, Indexes = [new() { Index = 1 }]
+            }] : []
+        };
+
+        await Assert.ThrowsAsync<InvalidDataException>(() => new WinPeCustomImageMediaService().PrepareAsync(
+            library, settings, TestContext.Current.CancellationToken));
+    }
+
+    [Theory]
+    [InlineData(CustomImageSource.Catalog)]
+    [InlineData(CustomImageSource.Custom)]
+    public async Task Prepare_AllowsDisabledImagesWithoutContent(CustomImageSource defaultSource)
+    {
+        var library = new CustomImageLibraryService(Path.Combine(root, "library"), new MetadataReader());
+        using WinPeCustomImageMediaLease package = await new WinPeCustomImageMediaService().PrepareAsync(library,
+            new() { DefaultSource = defaultSource }, TestContext.Current.CancellationToken);
+
+        Assert.Empty(package.Files);
+    }
+
+    [Theory]
+    [InlineData(CustomImageSource.Catalog)]
+    [InlineData(CustomImageSource.Custom)]
+    public async Task Prepare_RejectsMissingIncludedContentAndReleasesAcquiredInputs(CustomImageSource defaultSource)
+    {
+        Directory.CreateDirectory(root);
+        string source = Path.Combine(root, "input.wim");
+        await File.WriteAllTextAsync(source, "imported image", TestContext.Current.CancellationToken);
+        var library = new CustomImageLibraryService(Path.Combine(root, "library"), new MetadataReader());
+        CustomImageReference included = await library.ImportAsync(new(source, "Profile image"), cancellationToken: TestContext.Current.CancellationToken);
+        CustomImageReference missing = included with { Id = "missing", ContentHash = new string('a', 64) };
+        var settings = new CustomImagesSettings { IsEnabled = true, DefaultSource = defaultSource, Images = [included, missing] };
+
+        await Assert.ThrowsAnyAsync<IOException>(() => new WinPeCustomImageMediaService().PrepareAsync(
+            library, settings, TestContext.Current.CancellationToken));
+
+        await library.DeleteAsync(included.ContentHash, TestContext.Current.CancellationToken);
+        Assert.False(library.IsAvailable(included));
+    }
+
+    [Theory]
+    [InlineData(CustomImageSource.Catalog)]
+    [InlineData(CustomImageSource.Custom)]
+    public async Task Prepare_RetainsIncludedInputsAndBindsExactManifestWithoutSourcePaths(CustomImageSource defaultSource)
     {
         Directory.CreateDirectory(root);
         string source = Path.Combine(root, "input.wim");
@@ -106,7 +163,7 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
         CustomImageReference excluded = included with { Id = Guid.NewGuid().ToString("N"), ContentHash = new string('A', 64), IsIncluded = false };
         var service = new WinPeCustomImageMediaService();
         using WinPeCustomImageMediaLease package = await service.PrepareAsync(library,
-            new() { IsEnabled = true, Images = [included, excluded] }, TestContext.Current.CancellationToken);
+            new() { IsEnabled = true, DefaultSource = defaultSource, Images = [included, excluded] }, TestContext.Current.CancellationToken);
         CustomImageMediaManifest manifest = JsonSerializer.Deserialize<CustomImageMediaManifest>(package.ManifestBytes, ConfigurationJsonDefaults.SerializerOptions)!;
 
         Assert.Equal(included.Id, Assert.Single(manifest.Images).Reference.Id);

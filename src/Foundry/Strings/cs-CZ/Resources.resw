@@ -776,7 +776,7 @@ Licencováno pod licencí MIT.</value>
     <value>Operace s bitovou kopií selhala. Zkontrolujte zdroj, volné místo a protokoly Foundry.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Chybí zahrnutá bitová kopie, případně již není zahrnuta preferovaná bitová kopie nebo index. Před vytvořením média obnovte zdroj, změňte výběr nebo zrušte předvolbu.</value>
+    <value>Zahrňte do tohoto profilu alespoň jednu dostupnou bitovou kopii Windows. Před vytvořením nebo aktualizací média obnovte chybějící zahrnuté bitové kopie a opravte nebo zrušte výběr preferované bitové kopie nebo indexu.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Obnovit</value>

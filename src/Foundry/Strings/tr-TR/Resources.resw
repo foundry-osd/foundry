@@ -776,7 +776,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Görüntü işlemi başarısız oldu. Kaynağı, kullanılabilir alanı ve Foundry günlüklerini kontrol edin.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Dahil edilen bir görüntü eksik ya da tercih edilen görüntü veya dizin artık dahil değil. Medya oluşturmadan önce kaynağı geri yükleyin, seçimi değiştirin veya tercihi temizleyin.</value>
+    <value>Bu profile en az bir kullanılabilir Windows görüntüsü dahil edin. Medya oluşturmadan veya güncellemeden önce dahil edilen eksik görüntüleri geri yükleyin ve tercih edilen görüntü veya dizin seçimini düzeltin ya da temizleyin.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Yenile</value>

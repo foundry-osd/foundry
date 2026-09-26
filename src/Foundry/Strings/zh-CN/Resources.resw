@@ -776,7 +776,7 @@
     <value>映像操作失败。请检查来源、可用空间和 Foundry 日志。</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>某个已包含的映像缺失，或者首选映像或索引已不再包含。请在创建介质之前恢复源文件、更改选择或清除首选设置。</value>
+    <value>请在此配置文件中包含至少一个可用的 Windows 映像。在创建或更新介质之前，请恢复已包含但缺失的映像，并修正或清除首选映像或索引的选择。</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>刷新</value>

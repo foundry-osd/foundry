@@ -776,7 +776,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>De bewerking is mislukt. Controleer de bron, de beschikbare ruimte en de Foundry-logboeken.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Een opgenomen installatiekopie ontbreekt, of een voorkeursinstallatiekopie/index is niet meer opgenomen. Herstel de bron, wijzig de selectie of wis de voorkeur voordat u media maakt.</value>
+    <value>Neem ten minste één beschikbare Windows-installatiekopie op in dit profiel. Herstel ontbrekende opgenomen installatiekopieën en corrigeer of wis de selectie van de voorkeursinstallatiekopie of -index voordat u media maakt of bijwerkt.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Vernieuwen</value>

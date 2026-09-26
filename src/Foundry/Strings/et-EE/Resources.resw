@@ -776,7 +776,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Tõmmisetoiming nurjus. Kontrollige allikat, vaba ruumi ja Foundry logisid.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Kaasatud tõmmis puudub või eelistatud tõmmis või indeks pole enam kaasatud. Enne meediumi loomist taastage allikas, muutke valikut või tühjendage eelistus.</value>
+    <value>Kaasake sellesse profiili vähemalt üks saadaolev Windowsi tõmmis. Enne meediumi loomist või värskendamist taastage puuduvad kaasatud tõmmised ning parandage või tühjendage eelistatud tõmmise või indeksi valik.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Värskenda</value>

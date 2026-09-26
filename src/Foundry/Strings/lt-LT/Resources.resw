@@ -776,7 +776,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Atvaizdo operacija nepavyko. Patikrinkite šaltinį, laisvą vietą ir Foundry žurnalus.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Trūksta įtraukto atvaizdo, arba pageidaujamas atvaizdas ar indeksas nebeįtrauktas. Prieš kurdami laikmeną atkurkite šaltinį, pakeiskite pasirinkimą arba išvalykite nuostatą.</value>
+    <value>Įtraukite į šį profilį bent vieną pasiekiamą „Windows“ atvaizdą. Prieš kurdami arba atnaujindami laikmeną atkurkite trūkstamus įtrauktus atvaizdus ir pataisykite arba išvalykite pageidaujamo atvaizdo ar indekso pasirinkimą.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Atnaujinti</value>

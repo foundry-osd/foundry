@@ -776,7 +776,7 @@
     <value>映像作業失敗。請檢查來源、可用空間與 Foundry 記錄。</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>某個已包含的映像遺失，或慣用映像或索引已不再包含。請在建立媒體之前還原來源、變更選取項目或清除偏好設定。</value>
+    <value>請在此設定檔中包含至少一個可用的 Windows 映像。在建立或更新媒體之前，請還原已包含但遺失的映像，並修正或清除慣用映像或索引的選取項目。</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>重新整理</value>

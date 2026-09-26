@@ -776,7 +776,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Operacja obrazu nie powiodła się. Sprawdź źródło, dostępne miejsce i dzienniki Foundry.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Brakuje dołączonego obrazu albo preferowany obraz lub indeks nie jest już dołączony. Przywróć źródło, zmień wybór lub usuń preferencję przed utworzeniem nośnika.</value>
+    <value>Dołącz do tego profilu co najmniej jeden dostępny obraz systemu Windows. Przywróć brakujące dołączone obrazy i popraw lub usuń wybór preferowanego obrazu lub indeksu przed utworzeniem lub zaktualizowaniem nośnika.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Odśwież</value>

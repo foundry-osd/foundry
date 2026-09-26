@@ -776,7 +776,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A lemezképművelet sikertelen. Ellenőrizze a forrást, a szabad helyet és a Foundry naplóit.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Hiányzik egy hozzáadott lemezkép, vagy egy előnyben részesített lemezkép/index már nincs hozzáadva. Az adathordozó létrehozása előtt állítsa helyre a forrást, módosítsa a kijelölést vagy törölje a beállítást.</value>
+    <value>Adjon hozzá legalább egy elérhető Windows-lemezképet ehhez a profilhoz. Az adathordozó létrehozása vagy frissítése előtt állítsa helyre a hiányzó hozzáadott lemezképeket, és javítsa vagy törölje az előnyben részesített lemezkép vagy index kiválasztását.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Frissítés</value>

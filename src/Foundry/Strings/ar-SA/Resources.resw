@@ -776,7 +776,7 @@
     <value>فشلت عملية الصورة. تحقّق من المصدر والمساحة المتاحة وسجلات Foundry.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>إحدى الصور المضمّنة مفقودة، أو لم تعد الصورة أو الفهرس المفضل مضمّنًا. استعد المصدر أو غيّر التحديد أو ألغِ التفضيل قبل إنشاء الوسائط.</value>
+    <value>ضمّن صورة Windows واحدة متاحة على الأقل في ملف التعريف هذا. استعد الصور المضمّنة المفقودة وصحّح اختيار الصورة أو الفهرس المفضل أو ألغِه قبل إنشاء الوسائط أو تحديثها.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>تحديث</value>

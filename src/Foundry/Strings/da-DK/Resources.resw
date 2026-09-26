@@ -776,7 +776,7 @@ Licenseret under MIT-licensen.</value>
     <value>Afbildningshandlingen mislykkedes. Kontrollér kilden, den ledige plads og Foundry-logfilerne.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>En medtaget afbildning mangler, eller en foretrukken afbildning eller et indeks er ikke længere medtaget. Gendan kilden, ændr valget, eller ryd præferencen, før du opretter medier.</value>
+    <value>Medtag mindst én tilgængelig Windows-afbildning i denne profil. Gendan manglende medtagne afbildninger, og ret eller ryd valget af foretrukken afbildning eller indeks, før du opretter eller opdaterer medier.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Opdater</value>

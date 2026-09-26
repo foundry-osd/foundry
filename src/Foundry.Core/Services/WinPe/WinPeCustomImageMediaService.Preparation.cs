@@ -18,7 +18,7 @@ public sealed partial class WinPeCustomImageMediaService
         CustomImagesSettings settings, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(library);
-        CustomImageSettingsValidator.ThrowIfInvalid(settings);
+        CustomImageSettingsValidator.ThrowIfInvalid(settings, requireIncludedImage: true);
         var leases = new List<IDisposable>();
         try
         {

@@ -776,7 +776,7 @@ Licencované podľa licencie MIT.</value>
     <value>Operácia s obrazom zlyhala. Skontrolujte zdroj, voľné miesto a denníky Foundry.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Chýba zahrnutý obraz, prípadne už nie je zahrnutý preferovaný obraz alebo index. Pred vytvorením média obnovte zdroj, zmeňte výber alebo zrušte preferenciu.</value>
+    <value>Zahrňte do tohto profilu aspoň jeden dostupný obraz systému Windows. Pred vytvorením alebo aktualizáciou média obnovte chýbajúce zahrnuté obrazy a opravte alebo zrušte výber preferovaného obrazu alebo indexu.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Obnoviť</value>

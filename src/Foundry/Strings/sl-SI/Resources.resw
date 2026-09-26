@@ -776,7 +776,7 @@ Licencirano pod licenco MIT.</value>
     <value>Opravilo s sliko ni uspelo. Preverite vir, prosti prostor in dnevnike Foundry.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Vključena slika manjka oziroma prednostna slika ali indeks ni več vključen. Pred ustvarjanjem medija obnovite vir, spremenite izbiro ali počistite prednostno nastavitev.</value>
+    <value>V ta profil vključite vsaj eno razpoložljivo sliko sistema Windows. Pred ustvarjanjem ali posodabljanjem medija obnovite manjkajoče vključene slike in popravite ali počistite izbiro prednostne slike ali indeksa.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Osveži</value>

@@ -776,7 +776,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>이미지 작업에 실패했습니다. 원본, 사용 가능한 공간 및 Foundry 로그를 확인하세요.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>포함된 이미지이 누락되었거나 선호 이미지 또는 인덱스가 더 이상 포함되지 않습니다. 미디어를 만들기 전에 원본을 복원하거나 선택을 변경하거나 선호 설정을 지우세요.</value>
+    <value>이 프로필에 사용 가능한 Windows 이미지를 하나 이상 포함하세요. 미디어를 만들거나 업데이트하기 전에 포함된 이미지 중 누락된 이미지를 복원하고 선호 이미지 또는 인덱스 선택을 수정하거나 지우세요.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>새로 고침</value>

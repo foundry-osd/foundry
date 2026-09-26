@@ -776,7 +776,7 @@ Licenciran prema MIT licenci.</value>
     <value>Operacija sa slikom nije uspjela. Provjerite izvor, slobodan prostor i zapisnike aplikacije Foundry.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Nedostaje uključena slika ili preferirana slika ili indeks više nisu uključeni. Vratite izvor, promijenite odabir ili uklonite preferenciju prije stvaranja medija.</value>
+    <value>Uključite barem jednu dostupnu sliku sustava Windows u ovaj profil. Vratite uključene slike koje nedostaju i ispravite ili uklonite odabir preferirane slike ili indeksa prije stvaranja ili ažuriranja medija.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Osvježi</value>

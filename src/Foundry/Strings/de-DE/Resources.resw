@@ -776,7 +776,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Der Abbildvorgang ist fehlgeschlagen. Prüfen Sie die Quelle, den verfügbaren Speicherplatz und die Foundry-Protokolle.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Ein enthaltenes Abbild fehlt, oder ein bevorzugtes Abbild bzw. ein Index ist nicht mehr enthalten. Stellen Sie die Quelle wieder her, ändern Sie die Auswahl oder entfernen Sie die Präferenz, bevor Sie Medien erstellen.</value>
+    <value>Nehmen Sie mindestens ein verfügbares Windows-Abbild in dieses Profil auf. Stellen Sie fehlende enthaltene Abbilder wieder her und korrigieren oder löschen Sie die Auswahl des bevorzugten Abbilds oder Index, bevor Sie Medien erstellen oder aktualisieren.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Aktualisieren</value>

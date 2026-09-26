@@ -776,7 +776,7 @@ Licenciado sob a licença MIT.</value>
     <value>A operação de imagem falhou. Verifique a origem, o espaço disponível e os registos do Foundry.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Uma imagem incluída está em falta, ou uma imagem ou um índice preferido já não está incluído. Restaure a origem, altere a seleção ou limpe a preferência antes de criar o suporte.</value>
+    <value>Inclua pelo menos uma imagem do Windows disponível neste perfil. Restaure as imagens incluídas em falta e corrija ou limpe a seleção da imagem ou do índice preferido antes de criar ou atualizar o suporte.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Atualizar</value>

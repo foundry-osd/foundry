@@ -776,7 +776,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>イメージの操作に失敗しました。ソース、空き容量、Foundry のログを確認してください。</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>含まれるイメージが見つからないか、優先イメージまたはインデックスが含まれなくなっています。メディアを作成する前に、ソースを復元するか、選択を変更するか、優先設定を解除してください。</value>
+    <value>このプロファイルに、利用可能な Windows イメージを少なくとも 1 つ含めてください。メディアを作成または更新する前に、含まれているイメージのうち見つからないものを復元し、優先イメージまたはインデックスの選択を修正または解除してください。</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>更新</value>

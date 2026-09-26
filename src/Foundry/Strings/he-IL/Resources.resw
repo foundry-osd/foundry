@@ -776,7 +776,7 @@
     <value>הפעולה על התמונה נכשלה. יש לבדוק את המקור, את השטח הפנוי ואת יומני Foundry.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>תמונה כלולה חסרה, או שהתמונה או האינדקס המועדפים אינם כלולים עוד. יש לשחזר את המקור, לשנות את הבחירה או לנקות את ההעדפה לפני יצירת המדיה.</value>
+    <value>יש לכלול לפחות תמונת Windows זמינה אחת בפרופיל זה. יש לשחזר תמונות כלולות שחסרות ולתקן או לנקות את בחירת התמונה או האינדקס המועדפים לפני יצירה או עדכון של המדיה.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>רענון</value>
