@@ -31,6 +31,7 @@ dotnet restore .\src\Foundry.slnx --nologo
 | `Foundry.Bootstrap` | .NET console runtime for Windows PE boot orchestration, runtime payload preparation, and startup diagnostics |
 | `Foundry.Connect` | WPF network-provisioning runtime included in boot media |
 | `Foundry.Deploy` | WPF deployment runtime included in boot media |
+| `Foundry.PostInstall` | .NET console runtime for built-in and custom post-installation actions, restart/resume, and cleanup before OOBE |
 | `Foundry.Localization` | Shared cultures and resource-based localization |
 | `Foundry.Telemetry` | Shared telemetry contracts, privacy rules, and implementations |
 | `Foundry.Utilities` | Independent reusable technical mechanisms |
@@ -47,6 +48,8 @@ Keep WinUI 3 concerns in `Foundry` and WPF concerns in their owning runtime. `Fo
 - Use English Conventional Commit titles, for example `fix(deploy): handle missing driver package`.
 
 Configuration files used by Foundry OSD, Foundry Connect, and Foundry Deploy are separate compatibility contracts. Bump only a contract whose persisted or generated behavior changes. Use the latest published release as the production baseline and update the matching generator, runtime, and compatibility tests together.
+
+Foundry.PostInstall execution plans, checkpoints, and companion runtime descriptors also have versioned contracts. Keep Core, Deploy, and PostInstall compatible when changing these contracts; preserve the binding between a checkpoint and its exact execution plan.
 
 ## Validate the change
 
@@ -80,6 +83,10 @@ Validate ARM64 when the change affects runtime behavior, packaging, architecture
 CI treats build warnings as errors. Existing targeted suppressions remain in effect; fix new warnings instead of adding blanket suppressions.
 
 Foundry OSD publishes without trimming or Native AOT, matching its Velopack packaging settings, and keeps ReadyToRun enabled in Release. Foundry.Connect and Foundry.Deploy retain their self-contained WPF publication without trimming or Native AOT. Foundry.Bootstrap is published as a self-contained console application using the same single-file release settings for x64 and ARM64.
+
+Foundry.PostInstall is also published as self-contained single-file x64 and ARM64 archives through `scripts/Publish-FoundryPostInstall.ps1`. Each Deploy archive includes the companion descriptor pinning the matching PostInstall assets. Verify both architectures when changing this publication contract.
+
+`Foundry.PostInstall.Tests` covers runtime actions, process supervision, checkpoints, restart/resume, and cleanup. Real Windows Setup/OOBE, native servicing, vendor hardware, and ARM64 execution require separate acceptance checks; unit tests do not replace them.
 
 Use disposable virtual machines, test disks, non-production tenants, and non-production credentials for manual media and deployment testing. Foundry workflows can erase disks and exercise privileged network or cloud operations.
 

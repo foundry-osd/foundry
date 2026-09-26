@@ -41,6 +41,7 @@ Solution architecture and project ownership:
 - `Foundry.Bootstrap` is the .NET console runtime for WinPE boot orchestration. It owns runtime payload resolution, cache recovery, system preparation, child process supervision, console progress, and local boot diagnostics. It must not reference UI projects or replace PowerShell workflows owned by other applications.
 - `Foundry.Connect` is the WPF network provisioning runtime included in boot media. It owns runtime networking, configuration loading, application lifecycle, and the Connect-specific UI.
 - `Foundry.Deploy` is the WPF deployment runtime included in boot media. It owns deployment workflows, hardware discovery, downloads, driver packs, caching, runtime configuration, startup validation, and the Deploy-specific UI.
+- `Foundry.PostInstall` is the .NET console runtime for Windows setup before OOBE. It owns built-in and custom action execution, process supervision, durable restart/resume, and owned cleanup. Deploy owns target staging and answer-file integration; the interactive Autopilot assistant remains separate.
 - `Foundry.Localization` provides shared culture definitions and resource-based localization services used by the applications.
 - `Foundry.Telemetry` provides shared telemetry contracts, event definitions, context, privacy rules, PostHog integration, and the no-op telemetry implementation.
 - `Foundry.Utilities` contains reusable technical mechanisms that are independent of a Foundry-specific workflow, UI framework, configuration schema, or telemetry taxonomy.
@@ -49,13 +50,14 @@ Project dependency rules:
 - `Foundry.Core` must not depend on any UI project.
 - Keep WinUI 3 concerns in `Foundry`.
 - Keep WPF concerns in `Foundry.Connect` or `Foundry.Deploy`.
+- Keep `Foundry.PostInstall` independent of UI projects; shared execution contracts belong in `Foundry.Core`.
 - Put reusable business rules and configuration contracts in `Foundry.Core` when they are shared or independent from a specific UI framework.
 - Put runtime-specific behavior in the runtime project that owns it.
 - Do not move Connect- or Deploy-specific workflows into `Foundry.Core` solely for reuse convenience.
 - Use `Foundry.Localization` for shared localization behavior instead of creating application-specific replacements.
 - Use `Foundry.Telemetry` for shared telemetry behavior instead of creating application-specific telemetry implementations.
 - `Foundry.Utilities` is a leaf project and must not reference another Foundry project.
-- `Foundry.Core`, `Foundry`, `Foundry.Bootstrap`, `Foundry.Connect`, `Foundry.Deploy`, `Foundry.Localization`, and `Foundry.Telemetry` may consume `Foundry.Utilities` when a capability has a stable cross-project contract.
+- `Foundry.Core`, `Foundry`, `Foundry.Bootstrap`, `Foundry.Connect`, `Foundry.Deploy`, `Foundry.PostInstall`, `Foundry.Localization`, and `Foundry.Telemetry` may consume `Foundry.Utilities` when a capability has a stable cross-project contract.
 - A type belongs in `Foundry.Utilities` only when it is technical, independently testable, and either has multiple consumers or replaces proven duplication.
 - Destructive deployment and media operations remain in the project that owns the workflow even when they use shared utility primitives.
 
@@ -99,6 +101,7 @@ Configuration schema rules:
 - Update the affected constant in `src/Foundry.Core/Models/Configuration/ConfigurationSchemaVersions.cs`; generated and runtime configurations share these constants
 - Verify the affected authoring, generator, runtime, and compatibility behavior when changing a schema contract
 - When bumping any schema, update the smallest relevant tests and compatibility warning expectations
+- Treat PostInstall execution plans, checkpoints, and companion runtime descriptors as separately versioned contracts; keep Core/Deploy producers and PostInstall consumers compatible and preserve checkpoint-to-plan binding
 
 Unit testing rules:
 - Add unit tests only when they provide clear business value
@@ -114,6 +117,7 @@ Unit testing rules:
 - `Foundry.Bootstrap.Tests` owns tests for boot sequencing, runtime selection, cache rollback, process observation, cancellation, and best-effort system preparation and diagnostics in `Foundry.Bootstrap`.
 - `Foundry.Connect.Tests` owns tests for `Foundry.Connect` runtime behavior and its integration with shared `Foundry.Core` contracts.
 - `Foundry.Deploy.Tests` owns tests for `Foundry.Deploy` runtime behavior.
+- `Foundry.PostInstall.Tests` owns tests for action execution, process supervision, checkpoint integrity, restart/resume, and owned cleanup in `Foundry.PostInstall`; run Windows Setup and native servicing acceptance only in disposable test environments.
 - `Foundry.Localization.Tests` owns tests for shared localization behavior.
 - `Foundry.Telemetry.Tests` owns tests for shared telemetry behavior and privacy rules.
 - `Foundry.Utilities.Tests` owns direct tests for utility behavior; consuming projects retain adapter, policy, schema, and integration tests.
@@ -123,7 +127,8 @@ Unit testing rules:
 - Test logic in its owning project; move it to `Foundry.Core` only when domain ownership and reuse justify it.
 
 Logging rules:
-- Use `FoundryLogConfiguration` for application file sinks so Foundry.OSD, Foundry.Bootstrap, Foundry.Connect, and Foundry.Deploy share the same structured text contract
+- Use `FoundryLogConfiguration` for application file sinks so Foundry.OSD, Foundry.Bootstrap, Foundry.Connect, Foundry.Deploy, and Foundry.PostInstall share the same structured text contract
+- Foundry.PostInstall uses Verbose local file logging and preserves the diagnostic session ID staged by Deploy; do not assume a remote telemetry sink during Windows setup
 - Emit UTC timestamps with milliseconds and the Application, Session, and Component context on every application log event
 - Keep one stable active log filename with 10 MB size-based rolling and bounded retention
 - Use Verbose as the shared application file and PostHog Logs threshold for Foundry.OSD, Bootstrap, Connect, and Deploy

@@ -77,14 +77,6 @@ Operating system, driver pack, firmware, and WinPE metadata come from the mainta
 
 ## Contributing and support
 
-### Post-installation runtime
-
-`Foundry.PostInstall` runs during Windows `specialize`, after Deploy stages an immutable execution plan, protected state and verified payloads. Selected Foundry built-ins execute before custom actions; cleanup follows them. The separate interactive Autopilot assistant remains unchanged. The runner requires no preinstalled .NET and is published as `Foundry.PostInstall-win-x64.zip` and `Foundry.PostInstall-win-arm64.zip`. Each Deploy archive carries an authenticated companion descriptor pinning the exact runner hashes and runtime contract.
-
-The minimal `Launch.cmd` sets the protected native-extraction directory before starting the EXE and preserves its return code. All orchestration and built-in handlers are C#. A committed checkpoint permits restart/resume; interrupted non-idempotent work is never automatically replayed. Profiles reference external package content rather than embedding it. Custom unattend integration is explicit and modifies only the deployment copy.
-
-Run the executable runtime tests with `dotnet run --project src/Foundry.PostInstall.Tests/Foundry.PostInstall.Tests.csproj -c Release -p:Platform=x64`. Real Windows Setup, vendor hardware and ARM64 execution validation remain separate acceptance checks.
-
 Found a bug or have a feature request? Use the [issue chooser](https://github.com/foundry-osd/foundry/issues/new/choose). For setup questions and troubleshooting, follow the [support guide](SUPPORT.md).
 
 Code contributions are welcome. Read the [contributing guide](CONTRIBUTING.md) before starting substantial work, and report vulnerabilities privately through the [security policy](SECURITY.md).

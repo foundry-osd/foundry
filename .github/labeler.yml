@@ -46,6 +46,14 @@
           - 'src/Foundry.Bootstrap/**'
           - 'src/Foundry.Bootstrap.Tests/**'
 
+# Foundry post-installation runtime
+'project: foundry-postinstall':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/Foundry.PostInstall/**'
+          - 'src/Foundry.PostInstall.Tests/**'
+          - 'scripts/Publish-FoundryPostInstall.ps1'
+
 # UI assets and views
 ui:
   - changed-files:

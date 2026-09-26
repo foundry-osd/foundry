@@ -66,6 +66,10 @@
   color: '006b75'
   description: Changes in the Foundry.Bootstrap WinPE boot orchestration runtime
 
+- name: 'project: foundry-postinstall'
+  color: '006b75'
+  description: Changes in the Foundry.PostInstall post-installation runtime
+
 - name: ui
   color: '7057ff'
   description: User interface or XAML changes
