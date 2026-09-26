@@ -43,6 +43,73 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         return PrepareCoreAsync(options, null, cancellationToken);
     }
 
+    /// <summary>Acquires the exact PostInstall companions authenticated by the already prepared Deploy archive.</summary>
+    public async Task<IReadOnlyDictionary<string, string>> PreparePostInstallArchivesAsync(
+        WinPeRuntimePayloadProvisioningOptions options, CancellationToken cancellationToken = default)
+    {
+        using var deployStream = new FileStream(options.Deploy.ArchivePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        if (!TryReadSha256Digest("sha256:" + options.Deploy.ArchiveSha256, out string expectedDeployHash) ||
+            !Convert.ToHexStringLower(await System.Security.Cryptography.SHA256.HashDataAsync(deployStream, cancellationToken).ConfigureAwait(false))
+                .Equals(expectedDeployHash, StringComparison.OrdinalIgnoreCase))
+            throw new InvalidDataException("The prepared Deploy archive changed before companion acquisition.");
+        deployStream.Position = 0;
+        using var deployArchive = new ZipArchive(deployStream, ZipArchiveMode.Read, leaveOpen: true);
+        var descriptorEntry = deployArchive.GetEntry("foundry.postinstall-runtime.json")
+            ?? throw new InvalidDataException("Deploy does not contain an authenticated PostInstall companion descriptor.");
+        if (descriptorEntry.Length is <= 0 or > 65536) throw new InvalidDataException("PostInstall descriptor exceeds its size limit.");
+        using Stream descriptorStream = descriptorEntry.Open();
+        var descriptor = await JsonSerializer.DeserializeAsync<Models.PreOobe.PreOobeRuntimeDescriptor>(descriptorStream,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true }, cancellationToken).ConfigureAwait(false)
+            ?? throw new InvalidDataException("PostInstall descriptor is invalid.");
+        if (descriptor.SchemaVersion != 1 || descriptor.ContractVersion != 1 || descriptor.Assets.Count != 2 ||
+            descriptor.Assets.Select(asset => asset.RuntimeIdentifier).Distinct(StringComparer.Ordinal).Count() != 2)
+            throw new InvalidDataException("PostInstall descriptor must include both supported target architectures.");
+        bool releaseMode = options.Deploy.ProvisioningSource == WinPeProvisioningSource.Release;
+        if (releaseMode && (options.ReleaseSnapshot is null || options.ReleaseSnapshot.TagName != descriptor.ReleaseTag))
+            throw new InvalidDataException("PostInstall and Deploy must originate from the same release snapshot.");
+        var result = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (var asset in descriptor.Assets)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (asset.RuntimeIdentifier is not ("win-x64" or "win-arm64") || asset.AssetName != $"Foundry.PostInstall-{asset.RuntimeIdentifier}.zip" ||
+                asset.ArchiveLength is <= 0 or > 268435456 || asset.ExpandedLength is <= 0 or > 536870912 || asset.EntryCount is <= 0 or > 1024 ||
+                asset.ArchiveSha256.Length != 64 || asset.ArchiveSha256.Any(character => !Uri.IsHexDigit(character)))
+                throw new InvalidDataException("PostInstall companion metadata is invalid.");
+            string path;
+            if (releaseMode)
+            {
+                var releaseAsset = options.ReleaseSnapshot!.GetAsset(asset.AssetName);
+                if (!TryReadSha256Digest(releaseAsset.Digest, out string digest) || !digest.Equals(asset.ArchiveSha256, StringComparison.OrdinalIgnoreCase))
+                    throw new InvalidDataException("Published PostInstall asset does not match Deploy's authenticated descriptor.");
+                path = await DownloadReleaseArchiveAsync("Foundry.PostInstall", options.WorkingDirectoryPath, asset.RuntimeIdentifier,
+                    options.ReleaseSnapshot, null, cancellationToken, asset.ArchiveLength).ConfigureAwait(false);
+            }
+            else
+            {
+                var bundled = deployArchive.GetEntry(asset.AssetName) ?? throw new InvalidDataException("The local Deploy archive must include its pinned PostInstall companion archives.");
+                string directory = Path.Combine(options.WorkingDirectoryPath, "PostInstall", Guid.NewGuid().ToString("N"));
+                Directory.CreateDirectory(directory);
+                path = Path.Combine(directory, asset.AssetName);
+                if (bundled.Length != asset.ArchiveLength) throw new InvalidDataException("Local PostInstall archive has an invalid length.");
+                await using var destination = File.Create(path);
+                using var source = bundled.Open();
+                byte[] buffer = new byte[81920];
+                long copied = 0;
+                int count;
+                while ((count = await source.ReadAsync(buffer, cancellationToken).ConfigureAwait(false)) != 0)
+                {
+                    copied = checked(copied + count);
+                    if (copied > asset.ArchiveLength) throw new InvalidDataException("Local PostInstall archive exceeds its declared length.");
+                    await destination.WriteAsync(buffer.AsMemory(0, count), cancellationToken).ConfigureAwait(false);
+                }
+            }
+            if (new FileInfo(path).Length != asset.ArchiveLength) throw new InvalidDataException("PostInstall archive length differs from its descriptor.");
+            await ValidateArchiveDigestAsync(path, "sha256:" + asset.ArchiveSha256, cancellationToken).ConfigureAwait(false);
+            result.Add(asset.RuntimeIdentifier, path);
+        }
+        return result;
+    }
+
     private async Task<WinPeResult<WinPeRuntimePayloadProvisioningOptions>> PrepareCoreAsync(
         WinPeRuntimePayloadProvisioningOptions options,
         IProgress<WinPeDownloadProgress>? downloadProgress,
@@ -429,6 +496,20 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 toolName: "dotnet"));
         }
 
+        if (applicationName == "Foundry.Deploy")
+        {
+            string script = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(projectPath)!, "..", "..", "scripts", "Publish-FoundryPostInstall.ps1"));
+            string companions = Path.Combine(debugWorkspace, "companions");
+            WinPeProcessExecution companionPublish = await _processRunner.RunAsync("powershell.exe",
+                $"-NoProfile -ExecutionPolicy Bypass -File {WinPeProcessRunner.Quote(script)} -AllRuntimes -OutputRoot {WinPeProcessRunner.Quote(companions)}",
+                workingDirectoryPath, CancellationToken.None).ConfigureAwait(false);
+            if (!companionPublish.IsSuccess)
+                throw new RuntimePublishException(companionPublish.ToFailureDiagnostic(WinPeErrorCodes.BuildFailed,
+                    "Failed to publish PostInstall runtime companions.", stage: "runtime.publish", toolName: "powershell.exe"));
+            cancellationToken.ThrowIfCancellationRequested();
+            foreach (string name in new[] { "foundry.postinstall-runtime.json", "Foundry.PostInstall-win-x64.zip", "Foundry.PostInstall-win-arm64.zip" })
+                File.Copy(Path.Combine(companions, name), Path.Combine(publishDirectory, name));
+        }
         ZipFile.CreateFromDirectory(publishDirectory, archivePath, CompressionLevel.Optimal, includeBaseDirectory: false);
         return archivePath;
     }
@@ -439,7 +520,8 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         string runtimeIdentifier,
         WinPeRuntimeReleaseSnapshot releaseSnapshot,
         IProgress<WinPeDownloadProgress>? downloadProgress,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        long? expectedLength = null)
     {
         string assetName = ResolveReleaseAssetName(applicationName, runtimeIdentifier);
         string releaseWorkspace = Path.Combine(workingDirectoryPath, "ReleaseRuntime", applicationName, Guid.NewGuid().ToString("N"));
@@ -463,7 +545,23 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             await using (Stream source = await response.Content.ReadAsStreamAsync(transferToken).ConfigureAwait(false))
             await using (FileStream destination = File.Create(archivePath))
             {
-                await CopyDownloadToFileAsync(
+                if (expectedLength is long boundedLength)
+                {
+                    if (response.Content.Headers.ContentLength is long advertised && advertised != boundedLength)
+                        throw new InvalidDataException("PostInstall download length differs from its authenticated descriptor.");
+                    byte[] buffer = new byte[81920];
+                    long copied = 0;
+                    int count;
+                    while ((count = await source.ReadAsync(buffer, transferToken).ConfigureAwait(false)) != 0)
+                    {
+                        copied = checked(copied + count);
+                        if (copied > boundedLength) throw new InvalidDataException("PostInstall download exceeds its authenticated length.");
+                        await destination.WriteAsync(buffer.AsMemory(0, count), transferToken).ConfigureAwait(false);
+                        reportProgress();
+                    }
+                    if (copied != boundedLength) throw new InvalidDataException("PostInstall download is incomplete.");
+                }
+                else await CopyDownloadToFileAsync(
                     source,
                     destination,
                     response.Content.Headers.ContentLength,
@@ -506,6 +604,8 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             ("Foundry.Connect", "win-arm64") => "Foundry.Connect-win-arm64.zip",
             ("Foundry.Deploy", "win-x64") => "Foundry.Deploy-win-x64.zip",
             ("Foundry.Deploy", "win-arm64") => "Foundry.Deploy-win-arm64.zip",
+            ("Foundry.PostInstall", "win-x64") => "Foundry.PostInstall-win-x64.zip",
+            ("Foundry.PostInstall", "win-arm64") => "Foundry.PostInstall-win-arm64.zip",
             _ => throw new InvalidOperationException($"No release asset mapping exists for {applicationName} and runtime '{runtimeIdentifier}'.")
         };
     }

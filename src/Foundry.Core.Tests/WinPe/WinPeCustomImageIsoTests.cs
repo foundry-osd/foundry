@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using Foundry.Core.Models.Images;
+using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Tests.WinPe;
@@ -169,6 +170,58 @@ public sealed class WinPeCustomImageIsoTests : IDisposable
         Assert.Equal(cancel ? "prior ISO" : "new ISO", File.ReadAllText(output));
         Assert.Empty(Directory.EnumerateFiles(root, "*.pending.iso"));
         Assert.Empty(Directory.EnumerateDirectories(Path.Combine(root, "scratch"), "custom-iso-*"));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task PostInstallationOnlyIsoUsesExternalMasteringAndKeepsOldOutputOnCancellation(bool cancel)
+    {
+        string work = Path.Combine(root, "work");
+        string media = Path.Combine(work, "media");
+        Directory.CreateDirectory(Path.Combine(media, "sources"));
+        Directory.CreateDirectory(Path.Combine(work, "bootbins"));
+        File.WriteAllText(Path.Combine(media, "sources", "boot.wim"), "boot");
+        File.WriteAllText(Path.Combine(work, "bootbins", "efisys.bin"), "efi");
+        File.WriteAllText(Path.Combine(work, "bootbins", "bootmgfw.efi"), "manager");
+        string source = Path.Combine(root, "runtime.zip");
+        File.WriteAllText(source, "verified runtime");
+        string hash = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes("verified runtime")));
+        string relative = $"Cache/PreOobe/Runtimes/win-x64/{hash}/runtime.zip";
+        using var post = new WinPePreOobeMediaLease(new PreOobeMediaManifest { Id = "generation" }, Encoding.UTF8.GetBytes("{}"),
+            [new(source, relative, 16, hash)], [], []);
+        string config = WinPePreOobeMediaService.BindConfiguration(post, "{}");
+        using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        var runner = new IsoRunner((staging, output) =>
+        {
+            Assert.Equal("verified runtime", File.ReadAllText(Path.Combine(staging, "media", relative)));
+            Assert.True(File.Exists(Path.Combine(staging, "media", post.ManifestRelativePath)));
+            Assert.False(Directory.Exists(Path.Combine(media, "Cache", "PreOobe")));
+            File.WriteAllText(output, "new ISO");
+            if (cancel) cancellation.Cancel();
+        });
+        string output = Path.Combine(root, "output.iso");
+        File.WriteAllText(output, "prior ISO");
+        var options = new WinPeIsoMediaOptions
+        {
+            PostInstallation = post,
+            DeployConfigurationJson = config,
+            OutputIsoPath = output,
+            IsoTempDirectoryPath = Path.Combine(root, "scratch"),
+            PreparedWorkspace = new()
+            {
+                Artifact = new() { WorkingDirectoryPath = work, MediaDirectoryPath = media },
+                Tools = new() { MakeWinPeMediaPath = "MakeWinPEMedia.cmd", OscdimgPath = "oscdimg.exe" }
+            }
+        };
+        var service = new WinPeIsoMediaService(runner);
+        if (cancel) await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.CreateAsync(options, cancellation.Token));
+        else
+        {
+            var result = await service.CreateAsync(options, cancellation.Token);
+            Assert.True(result.IsSuccess, result.Error?.Details);
+        }
+        Assert.Equal(cancel ? "prior ISO" : "new ISO", File.ReadAllText(output));
     }
 
     private sealed class IsoRunner(Action<string, string> run) : IWinPeProcessRunner

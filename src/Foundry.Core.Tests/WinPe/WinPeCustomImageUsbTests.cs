@@ -5,6 +5,7 @@
 using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration.Deploy;
+using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 
@@ -71,11 +72,62 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
 
     public void Dispose() { if (Directory.Exists(root)) Directory.Delete(root, true); }
 
-    private sealed class Publisher(bool fail) : IWinPeCustomImageMediaPublisher
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    public async Task PostInstallationPublicationPrecedesBootMutationAndCombinesImageCapacity(bool withImages, bool fail)
+    {
+        Directory.CreateDirectory(root);
+        var publisher = new Publisher(fail);
+        var runner = new Runner(publisher);
+        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher);
+        using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
+        using var post = new WinPePreOobeMediaLease(new PreOobeMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
+        string config = JsonSerializer.Serialize(new FoundryDeployConfigurationDocument
+        {
+            PreOobe = new() { ManifestId = post.ManifestId, ManifestHash = post.ManifestHash },
+            CustomImages = new() { IsEnabled = withImages, ManifestId = images.ManifestId, ManifestHash = images.ManifestHash }
+        }, ConfigurationJsonDefaults.SerializerOptions);
+        var options = new UsbOutputOptions
+        {
+            TargetDiskNumber = 9,
+            ExpectedDiskFriendlyName = "Safe USB",
+            ExpectedDiskSerialNumber = "SERIAL",
+            ExpectedDiskUniqueId = "UNIQUE",
+            ExpectedDiskBusType = "USB",
+            ExpectedDiskSizeBytes = 64000000000,
+            CustomImages = withImages ? images : null,
+            PostInstallation = post,
+            DeployConfigurationJson = config
+        };
+        WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(options,
+            new() { WorkingDirectoryPath = root, MediaDirectoryPath = root }, new() { PowerShellPath = "shadowed" }, false,
+            TestContext.Current.CancellationToken);
+        Assert.False(result.IsSuccess);
+        Assert.True(publisher.PublishAttempted);
+        Assert.Equal(!fail, runner.FormattingAttempted);
+        Assert.Equal(withImages ? 2048L : 0L, publisher.AdditionalCapacityBytes);
+    }
+
+    private sealed class Publisher(bool fail) : IWinPeCustomImageMediaPublisher, IWinPePreOobeMediaPublisher
     {
         internal bool PublishAttempted { get; private set; }
         internal IReadOnlyList<string> ValidatedInputs { get; private set; } = [];
         internal long? AdditionalCapacityBytes { get; private set; }
+        public Task ValidateSourcesAsync(WinPePreOobeMediaLease package, CancellationToken cancellationToken) => Task.CompletedTask;
+        public Task<long> GetRequiredBytesAsync(WinPePreOobeMediaLease package, string root, CancellationToken cancellationToken) => Task.FromResult(2048L);
+        public Task ValidateCapacityAsync(WinPePreOobeMediaLease package, string root, long extra, CancellationToken cancellationToken)
+        {
+            AdditionalCapacityBytes = extra;
+            return Task.CompletedTask;
+        }
+        public Task PublishAsync(WinPePreOobeMediaLease package, string root, CancellationToken token, IProgress<WinPeMediaProgress>? progress = null)
+        {
+            PublishAttempted = true;
+            return fail ? Task.FromException(new IOException("Disk full")) : Task.CompletedTask;
+        }
         public Task ValidateSourcesAsync(WinPeCustomImageMediaLease package, CancellationToken cancellationToken = default) => Task.CompletedTask;
         public Task ValidateInputDisksAsync(IEnumerable<string> paths, int disk, CancellationToken token)
         {

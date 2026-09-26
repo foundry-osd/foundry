@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
+  </resheader>
+  <data name="PostInstall.AwaitingRestart" xml:space="preserve">
+    <value>Fáza po inštalácii čaká na reštart inštalátora Windows.</value>
+  </data>
+  <data name="PostInstall.CompletedWithErrors" xml:space="preserve">
+    <value>Fáza po inštalácii bola dokončená s upozorneniami. Skontrolujte výsledok vykonávania a protokoly.</value>
+  </data>
+  <data name="PostInstall.Failed" xml:space="preserve">
+    <value>Fáza po inštalácii bola zastavená. Pred pokračovaním inštalácie Windows skontrolujte výsledok vykonávania a protokoly.</value>
+  </data>
+  <data name="PostInstall.InitializationFailed" xml:space="preserve">
+    <value>Fázu po inštalácii sa nepodarilo inicializovať. Skontrolujte pripravený plán, stavový denník a súbory prostredia na spúšťanie.</value>
+  </data>
+  <data name="PostInstall.SetupRequired" xml:space="preserve">
+    <value>Túto aplikáciu musí spustiť inštalátor Windows pod účtom Local System.</value>
+  </data>
+  <data name="PostInstall.Started" xml:space="preserve">
+    <value>Vykonávanie akcií po inštalácii.</value>
+  </data>
+  <data name="PostInstall.Succeeded" xml:space="preserve">
+    <value>Fáza po inštalácii bola dokončená.</value>
+  </data>
+  <data name="PostInstall.Usage" xml:space="preserve">
+    <value>Foundry.PostInstall --setup | --version</value>
+  </data>
+</root>

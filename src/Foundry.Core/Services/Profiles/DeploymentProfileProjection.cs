@@ -46,6 +46,7 @@ public static class DeploymentProfileProjection
         ArgumentNullException.ThrowIfNull(configuration);
         if (configuration.CustomImages is null) throw new InvalidDataException("The profile custom image settings are missing.");
         CustomImageSettingsValidator.ThrowIfInvalid(configuration.CustomImages);
+        PreOobeConfigurationValidator.ThrowIfInvalid(configuration.PreOobe);
         if (configuration.SchemaVersion < 1 || configuration.SchemaVersion > FoundryConfigurationDocument.CurrentSchemaVersion)
         {
             throw new InvalidDataException("The profile authoring schema is unsupported.");

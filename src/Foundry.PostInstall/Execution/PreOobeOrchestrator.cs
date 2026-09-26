@@ -1,0 +1,262 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using System.Security.Cryptography;
+using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.PreOobe;
+using Foundry.Core.Services.Configuration;
+using Serilog;
+
+namespace Foundry.PostInstall.Execution;
+
+public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJournal journal,
+    IPreOobeActionExecutor executor, Func<string> bootIdentity)
+{
+    private const int MaximumRestarts = 1024;
+    public async Task<OrchestrationOutcome> RunAsync(PreOobeExecutionPlan plan, CancellationToken cancellationToken)
+    {
+        IDisposable lease;
+        try { lease = journal.AcquireLease(); }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { return new("Unavailable", 3); }
+        using (lease)
+        {
+            JournalState? state = null;
+            string boot = string.Empty;
+            bool validated = false;
+            bool actionInFlight = false;
+            var cleanup = new OwnedPayloadCleanup(root, journal);
+            try
+            {
+                ValidatePlan(plan);
+                state = journal.Read();
+                ValidateState(plan, state);
+                boot = bootIdentity();
+                if (string.IsNullOrWhiteSpace(boot)) throw new InvalidDataException("Boot identity is unavailable.");
+                validated = true;
+                if (state.Status is "Succeeded" or "CompletedWithErrors" or "Failed" or "Interrupted")
+                    return await FinishWithBuiltInCleanupAsync(plan, state, boot, cleanup).ConfigureAwait(false);
+                if (state.Status == "Completing")
+                {
+                    state.Status = state.CompletionStatus ?? throw new InvalidDataException("Completion state is missing.");
+                    return await FinishWithBuiltInCleanupAsync(plan, state, boot, cleanup).ConfigureAwait(false);
+                }
+                if (state.Status == "AwaitingRestart")
+                {
+                    if (state.BootIdentity == boot) return new("AwaitingRestart", 3);
+                }
+                else if (state.Status != "Pending")
+                {
+                    state.Status = "Interrupted";
+                    state.UnsafePayloadBootIdentity = state.BootIdentity;
+                    state.UnsafeActionId = state.Cursor < plan.Actions.Count ? plan.Actions[state.Cursor].Id : null;
+                    journal.Write(state);
+                    return await FinishWithBuiltInCleanupAsync(plan, state, boot, cleanup).ConfigureAwait(false);
+                }
+                else await VerifyPackagesAsync(plan, cancellationToken).ConfigureAwait(false);
+                state.BootIdentity = boot;
+                state.Status = "Running";
+                journal.Write(state);
+                while (state.Cursor < plan.Actions.Count)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    PreOobeExecutionAction action = plan.Actions[state.Cursor];
+                    if (action.BuiltInKind == PreOobeBuiltInKind.Cleanup) break;
+                    if (action.CustomAction?.Kind == PreOobeActionKind.Restart)
+                    {
+                        state.Actions[action.Id] = new() { Status = "Succeeded", CompletedAtUtc = DateTimeOffset.UtcNow };
+                        state.Cursor++;
+                        return Checkpoint(state, plan);
+                    }
+                    state.Actions[action.Id] = new() { Status = "Running", StartedAtUtc = DateTimeOffset.UtcNow };
+                    foreach (PreOobeOwnedPayload payload in plan.OwnedPayloads.Where(payload => payload.IsSensitive && payload.ConsumerActionIds.Contains(action.Id)))
+                        state.PayloadDispositions[payload.RelativePath] = "DisposalRequired";
+                    journal.Write(state);
+                    Log.Information("Executing post-installation action {ActionId}; substep {Substep}", action.Id, state.Substep);
+                    actionInFlight = true;
+                    ActionStepOutcome outcome = await executor.ExecuteAsync(action, state.Substep, cancellationToken).ConfigureAwait(false);
+                    actionInFlight = false;
+                    state.HasWarnings |= outcome.HasWarnings;
+                    if (outcome.TerminationUncertain || outcome.ExitCode == 1641)
+                    {
+                        state.UnsafePayloadBootIdentity = boot;
+                        state.UnsafeActionId = action.Id;
+                        outcome = outcome with { Succeeded = false, FailureCode = "execution_uncertain" };
+                    }
+                    if (outcome.Succeeded && outcome.NextSubstep is int next)
+                    {
+                        if (next <= state.Substep || next > 10000) throw new InvalidDataException("Invalid internal cursor.");
+                        state.Substep = next;
+                        if (outcome.RestartRequested) return Checkpoint(state, plan);
+                        journal.Write(state);
+                        continue;
+                    }
+                    state.Actions[action.Id] = state.Actions[action.Id] with
+                    {
+                        Status = outcome.Succeeded ? "Succeeded" : "Failed",
+                        ExitCode = outcome.ExitCode,
+                        FailureCode = outcome.FailureCode,
+                        CompletedAtUtc = DateTimeOffset.UtcNow
+                    };
+                    state.Cursor++;
+                    state.Substep = 0;
+                    journal.Write(state);
+                    if (!cleanup.Dispose(plan, state, false, boot)) throw new IOException("Sensitive input disposal failed.");
+                    bool mayContinue = action.CustomAction?.Process?.ErrorPolicy == PreOobeErrorPolicy.Continue ||
+                        action.BuiltInKind is PreOobeBuiltInKind.Activation;
+                    if (!outcome.Succeeded && (!mayContinue || state.UnsafePayloadBootIdentity == boot))
+                    {
+                        state.Status = "Failed";
+                        journal.Write(state);
+                        return await FinishWithBuiltInCleanupAsync(plan, state, boot, cleanup).ConfigureAwait(false);
+                    }
+                    if (outcome.RestartRequested)
+                    {
+                        if (action.CustomAction?.Process?.RestartTiming == PreOobeRestartTiming.Deferred)
+                        { state.DeferredRestart = true; journal.Write(state); }
+                        else return Checkpoint(state, plan);
+                    }
+                }
+                if (state.DeferredRestart) return Checkpoint(state, plan);
+                state.Status = state.HasWarnings || state.Actions.Values.Any(result => result.Status == "Failed")
+                    ? "CompletedWithErrors" : "Succeeded";
+                return await FinishWithBuiltInCleanupAsync(plan, state, boot, cleanup).ConfigureAwait(false);
+            }
+            catch (Exception ex) when (ex is not OutOfMemoryException and not StackOverflowException)
+            {
+                Log.Error("Post-installation stopped; failure type {FailureType}", ex.GetType().Name);
+                if (validated && state is not null)
+                {
+                    if (actionInFlight)
+                    {
+                        state.UnsafePayloadBootIdentity = boot;
+                        state.UnsafeActionId = state.Cursor < plan.Actions.Count ? plan.Actions[state.Cursor].Id : null;
+                    }
+                    state.Status = "Failed";
+                    try { journal.Write(state); } catch (Exception error) when (error is IOException or UnauthorizedAccessException) { }
+                    cleanup.Dispose(plan, state, true, boot);
+                }
+                return new("Failed", 3);
+            }
+        }
+    }
+
+    private OrchestrationOutcome Checkpoint(JournalState state, PreOobeExecutionPlan plan)
+    {
+        if (++state.RestartCount > MaximumRestarts) throw new InvalidDataException("Restart budget exceeded.");
+        state.DeferredRestart = false;
+        state.Status = "AwaitingRestart";
+        journal.Write(state);
+        return new("AwaitingRestart", 2);
+    }
+
+    private async Task<OrchestrationOutcome> FinishWithBuiltInCleanupAsync(PreOobeExecutionPlan plan, JournalState state,
+        string boot, OwnedPayloadCleanup cleanup)
+    {
+        state.CompletionStatus = state.Status;
+        state.Status = "Completing";
+        journal.Write(state);
+        if (state.UnsafePayloadBootIdentity != boot)
+        {
+            foreach (PreOobeExecutionAction action in plan.Actions.Where(action => action.BuiltInKind == PreOobeBuiltInKind.Cleanup))
+            {
+                if (state.Actions.GetValueOrDefault(action.Id)?.Status == "Succeeded") continue;
+                ActionStepOutcome result = await executor.ExecuteAsync(action, 0, CancellationToken.None).ConfigureAwait(false);
+                if (result.TerminationUncertain)
+                {
+                    state.UnsafePayloadBootIdentity = boot;
+                    state.UnsafeActionId = null;
+                    state.CompletionStatus = "Failed";
+                }
+                state.Actions[action.Id] = new() { Status = result.Succeeded ? "Succeeded" : "Failed", FailureCode = result.FailureCode };
+                state.HasWarnings |= !result.Succeeded || result.HasWarnings;
+                journal.Write(state);
+            }
+        }
+        state.Status = state.CompletionStatus;
+        return Finish(plan, state, boot, cleanup);
+    }
+
+    private OrchestrationOutcome Finish(PreOobeExecutionPlan plan, JournalState state, string boot, OwnedPayloadCleanup cleanup)
+    {
+        if (!cleanup.Dispose(plan, state, true, boot)) state.Status = "Failed";
+        foreach (PreOobeExecutionAction action in plan.Actions)
+            if (!state.Actions.ContainsKey(action.Id)) state.Actions[action.Id] = new() { Status = "Skipped" };
+        if (state.Status == "Succeeded" && state.HasWarnings) state.Status = "CompletedWithErrors";
+        state.CompletionStatus = null;
+        journal.Write(state);
+        return new(state.Status, state.Status is "Succeeded" or "CompletedWithErrors" ? 0 : 3);
+    }
+
+    private static void ValidatePlan(PreOobeExecutionPlan plan)
+    {
+        if (plan.SchemaVersion != 1 || plan.RuntimeContractVersion != 1 ||
+            string.IsNullOrWhiteSpace(plan.OperationId) || string.IsNullOrWhiteSpace(plan.AttemptId) ||
+            plan.Actions.Count > PreOobeConfigurationValidator.MaximumActions + Enum.GetValues<PreOobeBuiltInKind>().Length ||
+            plan.Actions.Count(action => action.CustomAction is not null) > PreOobeConfigurationValidator.MaximumActions ||
+            plan.Actions.Where(action => action.BuiltInKind.HasValue).Select(action => action.BuiltInKind).Distinct().Count() != plan.Actions.Count(action => action.BuiltInKind.HasValue) ||
+            plan.Actions.Select(action => action.Id).Distinct(StringComparer.Ordinal).Count() != plan.Actions.Count)
+            throw new InvalidDataException("The execution plan is invalid.");
+        bool sawCustom = false;
+        bool sawCleanup = false;
+        foreach (PreOobeExecutionAction action in plan.Actions)
+        {
+            if (string.IsNullOrWhiteSpace(action.Id) || action.Id.Any(character => !char.IsAsciiLetterOrDigit(character) && character is not ('-' or '_')) ||
+                (action.CustomAction is null) == (action.BuiltInKind is null) ||
+                action.BuiltInKind is { } kind && !Enum.IsDefined(kind) || sawCleanup ||
+                sawCustom && action.BuiltInKind is not (null or PreOobeBuiltInKind.Cleanup))
+                throw new InvalidDataException("The execution action is invalid.");
+            sawCustom |= action.CustomAction is not null;
+            sawCleanup |= action.BuiltInKind == PreOobeBuiltInKind.Cleanup;
+        }
+        foreach (PreOobeOwnedPayload payload in plan.OwnedPayloads)
+            if (!(payload.RelativePath.Replace('/', '\\').StartsWith("Payloads\\", StringComparison.OrdinalIgnoreCase) ||
+                  payload.RelativePath.Replace('/', '\\').Equals("Work\\PreOobe\\" + plan.OperationId, StringComparison.OrdinalIgnoreCase)) ||
+                payload.ConsumerActionIds.Any(id => !plan.Actions.Any(action => action.Id == id)))
+                throw new InvalidDataException("Payload ownership is invalid.");
+    }
+
+    private void ValidateState(PreOobeExecutionPlan plan, JournalState state)
+    {
+        if (state.SchemaVersion != 1 || state.OperationId != plan.OperationId || state.AttemptId != plan.AttemptId ||
+            !string.Equals(state.PlanHash, planHash, StringComparison.OrdinalIgnoreCase) || state.Cursor < 0 ||
+            state.Cursor > plan.Actions.Count || state.Generation < 0 || state.Substep < 0 || state.Substep > 10000 ||
+            state.RestartCount < 0 || state.RestartCount > MaximumRestarts ||
+            state.Status == "AwaitingRestart" && (state.RestartCount == 0 || string.IsNullOrWhiteSpace(state.BootIdentity)) ||
+            state.Status is not ("Pending" or "Running" or "AwaitingRestart" or "Completing" or "Succeeded" or "CompletedWithErrors" or "Failed" or "Interrupted") ||
+            state.Status == "Completing" && state.CompletionStatus is not ("Succeeded" or "CompletedWithErrors" or "Failed" or "Interrupted") ||
+            state.Status == "Pending" && (state.Cursor != 0 || state.Substep != 0 || state.Actions.Count != 0 || state.RestartCount != 0))
+            throw new InvalidDataException("The journal does not match this operation.");
+    }
+
+    private async Task VerifyPackagesAsync(PreOobeExecutionPlan plan, CancellationToken cancellationToken)
+    {
+        foreach (PreOobeStagedPackage package in plan.Packages)
+        {
+            string packageRoot = OwnedPaths.Resolve(root, package.RelativePath);
+            var actual = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var directories = new Stack<string>();
+            directories.Push(packageRoot);
+            while (directories.TryPop(out string? directory))
+            {
+                foreach (string entry in Directory.EnumerateFileSystemEntries(directory))
+                {
+                    OwnedPaths.RejectReparsePoints(packageRoot, entry);
+                    if (Directory.Exists(entry)) directories.Push(entry);
+                    else actual.Add(Path.GetRelativePath(packageRoot, entry).Replace('\\', '/'));
+                    if (actual.Count > 100000) throw new InvalidDataException("Staged content has too many files.");
+                }
+            }
+            if (!actual.SetEquals(package.Manifest.Files.Select(file => file.RelativePath.Replace('\\', '/'))))
+                throw new InvalidDataException("Staged content inventory mismatch.");
+            foreach (PreOobePackageFile file in package.Manifest.Files)
+            {
+                string path = OwnedPaths.Resolve(packageRoot, file.RelativePath);
+                if (new FileInfo(path).Length != file.Length) throw new InvalidDataException("Staged content size mismatch.");
+                await using var stream = File.OpenRead(path);
+                string hash = Convert.ToHexStringLower(await SHA256.HashDataAsync(stream, cancellationToken).ConfigureAwait(false));
+                if (!string.Equals(hash, file.Sha256, StringComparison.OrdinalIgnoreCase)) throw new InvalidDataException("Staged content hash mismatch.");
+            }
+        }
+    }
+}

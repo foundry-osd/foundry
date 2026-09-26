@@ -13,6 +13,51 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeRuntimePayloadProvisioningServiceTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task PostInstallCompanions_RequireUnchangedPreparedDeployArchive(bool changed)
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        byte[] payload = [1, 2, 3];
+        string hash = Convert.ToHexStringLower(SHA256.HashData(payload));
+        var descriptor = new Foundry.Core.Models.PreOobe.PreOobeRuntimeDescriptor
+        {
+            ReleaseTag = "local",
+            Assets = new[] { "win-x64", "win-arm64" }.Select(rid => new Foundry.Core.Models.PreOobe.PreOobeRuntimeAsset
+            { RuntimeIdentifier = rid, AssetName = $"Foundry.PostInstall-{rid}.zip", ArchiveSha256 = hash, ArchiveLength = 3, ExpandedLength = 3, EntryCount = 1 }).ToArray()
+        };
+        string deploy = Path.Combine(workspace.RootPath, "deploy-with-companions.zip");
+        using (var archive = ZipFile.Open(deploy, ZipArchiveMode.Create))
+        {
+            using (var writer = new StreamWriter(archive.CreateEntry("foundry.postinstall-runtime.json").Open()))
+                writer.Write(System.Text.Json.JsonSerializer.Serialize(descriptor));
+            foreach (var asset in descriptor.Assets)
+            {
+                using var stream = archive.CreateEntry(asset.AssetName).Open();
+                stream.Write(payload);
+            }
+        }
+        string deployHash = Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(deploy)));
+        var options = new WinPeRuntimePayloadProvisioningOptions
+        {
+            WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            Deploy = new() { IsEnabled = true, ArchivePath = deploy, ArchiveSha256 = changed ? new string('0', 64) : deployHash }
+        };
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner());
+        if (changed)
+        {
+            await Assert.ThrowsAsync<InvalidDataException>(() => service.PreparePostInstallArchivesAsync(options, TestContext.Current.CancellationToken));
+            Assert.Empty(Directory.GetFiles(workspace.WorkingDirectoryPath, "*", SearchOption.AllDirectories));
+        }
+        else
+        {
+            var companions = await service.PreparePostInstallArchivesAsync(options, TestContext.Current.CancellationToken);
+            Assert.Equal(2, companions.Count);
+            Assert.All(companions.Values, path => Assert.Equal(payload, File.ReadAllBytes(path)));
+        }
+    }
+
     [Fact]
     public async Task PrepareAsync_WhenCancelledDuringLocalPublish_WaitsForPublisherAndSkipsArchive()
     {
@@ -365,7 +410,8 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             cancellationToken: CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        WinPeProcessExecution execution = Assert.Single(runner.Executions);
+        WinPeProcessExecution execution = Assert.Single(runner.Executions, item => item.FileName == "dotnet");
+        Assert.Contains(runner.Executions, item => item.FileName == "powershell.exe" && item.Arguments.Contains("-AllRuntimes", StringComparison.Ordinal));
         Assert.Equal("dotnet", execution.FileName);
         Assert.Contains("publish", execution.Arguments);
         Assert.Contains("-r win-arm64", execution.Arguments);
@@ -735,7 +781,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             IReadOnlyDictionary<string, string>? environmentOverrides = null)
         {
             OnRun?.Invoke(cancellationToken);
-            string outputDirectory = ExtractOutputDirectory(arguments);
+            string outputDirectory = ExtractOutputDirectory(arguments.Replace("-OutputRoot ", "-o ", StringComparison.Ordinal));
             Directory.CreateDirectory(outputDirectory);
             string executableName = arguments.Contains("Foundry.Bootstrap.csproj", StringComparison.OrdinalIgnoreCase)
                 ? "Foundry.Bootstrap.exe"
@@ -745,6 +791,11 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             if (CreateOutput)
             {
                 File.WriteAllText(Path.Combine(outputDirectory, executableName), executableName);
+                if (fileName == "powershell.exe")
+                {
+                    foreach (string companion in new[] { "foundry.postinstall-runtime.json", "Foundry.PostInstall-win-x64.zip", "Foundry.PostInstall-win-arm64.zip" })
+                        File.WriteAllText(Path.Combine(outputDirectory, companion), "fixture");
+                }
                 if (executableName == "Foundry.Bootstrap.exe")
                 {
                     File.WriteAllText(Path.Combine(outputDirectory, "foundry.runtime-trust-capability.json"), "{\"runtimeTrustVersion\":1}");

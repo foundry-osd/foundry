@@ -16,6 +16,12 @@ public interface IWinPeRuntimePayloadProvisioningService
         WinPeRuntimePayloadProvisioningOptions options,
         CancellationToken cancellationToken = default);
 
+    /// <summary>Prepares the exact native post-installation companions for the authenticated Deploy archive.</summary>
+    Task<IReadOnlyDictionary<string, string>> PreparePostInstallArchivesAsync(
+        WinPeRuntimePayloadProvisioningOptions options,
+        CancellationToken cancellationToken = default) =>
+        throw new NotSupportedException("Post-installation companion preparation is not implemented by this provider.");
+
     Task<WinPeResult> ProvisionAsync(
         WinPeRuntimePayloadProvisioningOptions options,
         IProgress<WinPeDownloadProgress>? downloadProgress = null,

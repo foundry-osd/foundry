@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
+  </resheader>
+  <data name="PostInstall.AwaitingRestart" xml:space="preserve">
+    <value>安裝後作業正在等待 Windows 安裝程式重新啟動。</value>
+  </data>
+  <data name="PostInstall.CompletedWithErrors" xml:space="preserve">
+    <value>安裝後作業已完成，但有警告。請檢閱執行結果與記錄。</value>
+  </data>
+  <data name="PostInstall.Failed" xml:space="preserve">
+    <value>安裝後作業已停止。繼續 Windows 安裝前，請檢閱執行結果與記錄。</value>
+  </data>
+  <data name="PostInstall.InitializationFailed" xml:space="preserve">
+    <value>無法初始化安裝後作業。請檢查已暫存的計畫、狀態日誌與執行階段檔案。</value>
+  </data>
+  <data name="PostInstall.SetupRequired" xml:space="preserve">
+    <value>此應用程式必須由 Windows 安裝程式以本機系統身分啟動。</value>
+  </data>
+  <data name="PostInstall.Started" xml:space="preserve">
+    <value>正在執行安裝後動作。</value>
+  </data>
+  <data name="PostInstall.Succeeded" xml:space="preserve">
+    <value>安裝後作業已完成。</value>
+  </data>
+  <data name="PostInstall.Usage" xml:space="preserve">
+    <value>Foundry.PostInstall --setup | --version</value>
+  </data>
+</root>

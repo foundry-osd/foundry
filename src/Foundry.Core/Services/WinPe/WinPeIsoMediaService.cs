@@ -35,7 +35,8 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
         string? preparedOutputPath = null;
         string? safeWorkspacePath = null;
         string currentStage = "Prepare ISO output path";
-        string isoTool = options.CustomImages is null ? "MakeWinPEMedia" : "Oscdimg";
+        bool hasExternalContent = options.CustomImages is not null || options.PostInstallation is not null;
+        string isoTool = hasExternalContent ? "Oscdimg" : "MakeWinPEMedia";
 
         try
         {
@@ -47,14 +48,17 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
             currentStage = "Prepare ISO workspace";
             ReportProgress(options.Progress, 20, "Preparing ISO workspace.");
             string makeWinPeMediaWorkspacePath;
-            if (options.CustomImages is not null)
+            if (hasExternalContent)
             {
-                WinPeCustomImageMediaService.ValidateConfigurationBinding(options.CustomImages, options.DeployConfigurationJson ?? string.Empty);
+                if (options.CustomImages is not null)
+                    WinPeCustomImageMediaService.ValidateConfigurationBinding(options.CustomImages, options.DeployConfigurationJson ?? string.Empty);
+                if (options.PostInstallation is not null)
+                    WinPePreOobeMediaService.ValidateConfigurationBinding(options.PostInstallation, options.DeployConfigurationJson ?? string.Empty);
                 _ = WinPeCustomImageIsoMastering.ResolveOscdimg(preparedWorkspace.Tools);
                 string temporaryRoot = string.IsNullOrWhiteSpace(options.IsoTempDirectoryPath)
                     ? Path.GetDirectoryName(preparedOutputPath)! : options.IsoTempDirectoryPath;
                 safeWorkspacePath = Path.Combine(temporaryRoot, "custom-iso-" + Guid.NewGuid().ToString("N"));
-                await WinPeCustomImageIsoMastering.PrepareAsync(preparedWorkspace.Artifact, options.CustomImages,
+                await WinPeCustomImageIsoMastering.PrepareAsync(preparedWorkspace.Artifact, options.CustomImages, options.PostInstallation,
                     safeWorkspacePath, preparedOutputPath, requestedOutputPath, cancellationToken).ConfigureAwait(false);
                 makeWinPeMediaWorkspacePath = safeWorkspacePath;
             }
@@ -71,8 +75,8 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                 (preparedWorkspace.UseBootEx ? " /bootex" : string.Empty);
 
             currentStage = $"Run {isoTool} for ISO";
-            ReportProgress(options.Progress, 40, options.CustomImages is null ? "Running MakeWinPEMedia for ISO." : "Creating ISO media.");
-            WinPeProcessExecution execution = options.CustomImages is null
+            ReportProgress(options.Progress, 40, hasExternalContent ? "Creating ISO media." : "Running MakeWinPEMedia for ISO.");
+            WinPeProcessExecution execution = !hasExternalContent
                 ? await _processRunner.RunCmdScriptAsync(preparedWorkspace.Tools.MakeWinPeMediaPath,
                     arguments, makeWinPeMediaWorkspacePath, cancellationToken).ConfigureAwait(false)
                 : await _processRunner.RunAsync(WinPeCustomImageIsoMastering.ResolveOscdimg(preparedWorkspace.Tools),

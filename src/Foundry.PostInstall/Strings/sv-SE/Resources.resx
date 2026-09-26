@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
+  </resheader>
+  <data name="PostInstall.AwaitingRestart" xml:space="preserve">
+    <value>Bearbetningen efter installationen väntar på en omstart från Windows-installationsprogrammet.</value>
+  </data>
+  <data name="PostInstall.CompletedWithErrors" xml:space="preserve">
+    <value>Bearbetningen efter installationen har slutförts med varningar. Granska körresultatet och loggarna.</value>
+  </data>
+  <data name="PostInstall.Failed" xml:space="preserve">
+    <value>Bearbetningen efter installationen har stoppats. Granska körresultatet och loggarna innan du fortsätter Windows-installationen.</value>
+  </data>
+  <data name="PostInstall.InitializationFailed" xml:space="preserve">
+    <value>Bearbetningen efter installationen kunde inte initieras. Kontrollera den förberedda planen, tillståndsjournalen och körmiljöfilerna.</value>
+  </data>
+  <data name="PostInstall.SetupRequired" xml:space="preserve">
+    <value>Det här programmet måste startas av Windows-installationsprogrammet som Lokalt system.</value>
+  </data>
+  <data name="PostInstall.Started" xml:space="preserve">
+    <value>Kör åtgärder efter installationen.</value>
+  </data>
+  <data name="PostInstall.Succeeded" xml:space="preserve">
+    <value>Bearbetningen efter installationen har slutförts.</value>
+  </data>
+  <data name="PostInstall.Usage" xml:space="preserve">
+    <value>Foundry.PostInstall --setup | --version</value>
+  </data>
+</root>

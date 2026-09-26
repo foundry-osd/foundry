@@ -60,6 +60,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     {
         ArgumentNullException.ThrowIfNull(document);
         CustomImageSettingsValidator.ThrowIfInvalid(document.CustomImages);
+        PreOobeConfigurationValidator.ThrowIfInvalid(document.PreOobe);
         UnattendFileService.ValidateSettings(document.Unattend, protectionSettings?.IsEnabled == true);
         AutopilotConfigurationValidator.ThrowIfNotReady(document.Autopilot, DateTimeOffset.UtcNow);
         MachineNamingValidator.ThrowIfInvalid(document.Customization.MachineNaming);
@@ -70,6 +71,14 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         return new FoundryDeployConfigurationDocument
         {
             Protection = protectionSettings ?? new DeployProtectionSettings(),
+            PreOobe = new DeployPreOobeSettings
+            {
+                IsEnabled = document.PreOobe.IsEnabled,
+                IntegrateCustomUnattend = document.PreOobe.IntegrateCustomUnattend,
+                Actions = document.PreOobe.IsEnabled
+                    ? document.PreOobe.Actions.Where(action => action.IsEnabled).Select(ClonePreOobeAction).ToArray()
+                    : []
+            },
             CustomImages = document.CustomImages.IsEnabled
                 ? new DeployCustomImagesSettings
                 {
@@ -173,6 +182,16 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             Telemetry = document.Telemetry
         };
     }
+
+    private static PreOobeActionSettings ClonePreOobeAction(PreOobeActionSettings action) => action with
+    {
+        Package = action.Package is { } package ? package with { } : null,
+        Process = action.Process is { } process ? process with
+        {
+            SuccessExitCodes = process.SuccessExitCodes.ToArray(),
+            RestartExitCodes = process.RestartExitCodes.ToArray()
+        } : null
+    };
 
     /// <inheritdoc />
     public string Serialize(FoundryDeployConfigurationDocument document)

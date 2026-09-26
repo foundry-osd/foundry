@@ -21,5 +21,6 @@ public enum ConfigurationNavigationTarget
     Oobe,
     WindowsOptionalFeatures,
     AppxRemoval,
-    AiComponentRemoval
+    AiComponentRemoval,
+    PostInstallation
 }

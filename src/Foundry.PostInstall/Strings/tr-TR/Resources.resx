@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
+  </resheader>
+  <data name="PostInstall.AwaitingRestart" xml:space="preserve">
+    <value>Kurulum sonrası aşama, Windows Kurulumu'nun yeniden başlatmasını bekliyor.</value>
+  </data>
+  <data name="PostInstall.CompletedWithErrors" xml:space="preserve">
+    <value>Kurulum sonrası aşama uyarılarla tamamlandı. Yürütme sonucunu ve günlükleri inceleyin.</value>
+  </data>
+  <data name="PostInstall.Failed" xml:space="preserve">
+    <value>Kurulum sonrası aşama durduruldu. Windows Kurulumu'na devam etmeden önce yürütme sonucunu ve günlükleri inceleyin.</value>
+  </data>
+  <data name="PostInstall.InitializationFailed" xml:space="preserve">
+    <value>Kurulum sonrası aşama başlatılamadı. Hazırlanan planı, durum günlüğünü ve çalışma zamanı dosyalarını denetleyin.</value>
+  </data>
+  <data name="PostInstall.SetupRequired" xml:space="preserve">
+    <value>Bu uygulama Windows Kurulumu tarafından Yerel Sistem olarak başlatılmalıdır.</value>
+  </data>
+  <data name="PostInstall.Started" xml:space="preserve">
+    <value>Kurulum sonrası eylemler çalıştırılıyor.</value>
+  </data>
+  <data name="PostInstall.Succeeded" xml:space="preserve">
+    <value>Kurulum sonrası aşama tamamlandı.</value>
+  </data>
+  <data name="PostInstall.Usage" xml:space="preserve">
+    <value>Foundry.PostInstall --setup | --version</value>
+  </data>
+</root>

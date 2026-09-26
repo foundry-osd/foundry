@@ -42,6 +42,7 @@ public static class ConfigurationOverviewNavigationEvaluator
             ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload => evaluation[ConfigurationOverviewItem.AutopilotInteractive],
             ConfigurationNavigationTarget.OperatingSystemSelection => evaluation[ConfigurationOverviewItem.OperatingSystemSelection],
             ConfigurationNavigationTarget.CustomImages => evaluation[ConfigurationOverviewItem.CustomImages],
+            ConfigurationNavigationTarget.PostInstallation => evaluation[ConfigurationOverviewItem.PostInstallation],
             ConfigurationNavigationTarget.Unattend => evaluation[ConfigurationOverviewItem.Unattend],
             ConfigurationNavigationTarget.MachineNaming => evaluation[ConfigurationOverviewItem.MachineNaming],
             ConfigurationNavigationTarget.Oobe => evaluation[ConfigurationOverviewItem.Oobe],

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
+  </resheader>
+  <data name="PostInstall.AwaitingRestart" xml:space="preserve">
+    <value>Этап после установки ожидает перезагрузки программой установки Windows.</value>
+  </data>
+  <data name="PostInstall.CompletedWithErrors" xml:space="preserve">
+    <value>Этап после установки завершён с предупреждениями. Просмотрите результат выполнения и журналы.</value>
+  </data>
+  <data name="PostInstall.Failed" xml:space="preserve">
+    <value>Этап после установки остановлен. Перед продолжением установки Windows просмотрите результат выполнения и журналы.</value>
+  </data>
+  <data name="PostInstall.InitializationFailed" xml:space="preserve">
+    <value>Не удалось инициализировать этап после установки. Проверьте подготовленный план, журнал состояния и файлы среды выполнения.</value>
+  </data>
+  <data name="PostInstall.SetupRequired" xml:space="preserve">
+    <value>Это приложение должно запускаться программой установки Windows от имени локальной системы.</value>
+  </data>
+  <data name="PostInstall.Started" xml:space="preserve">
+    <value>Выполнение действий после установки.</value>
+  </data>
+  <data name="PostInstall.Succeeded" xml:space="preserve">
+    <value>Этап после установки завершён.</value>
+  </data>
+  <data name="PostInstall.Usage" xml:space="preserve">
+    <value>Foundry.PostInstall --setup | --version</value>
+  </data>
+</root>

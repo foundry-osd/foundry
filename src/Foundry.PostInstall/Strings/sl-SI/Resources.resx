@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
+  </resheader>
+  <data name="PostInstall.AwaitingRestart" xml:space="preserve">
+    <value>Faza po namestitvi čaka na ponovni zagon namestitvenega programa Windows.</value>
+  </data>
+  <data name="PostInstall.CompletedWithErrors" xml:space="preserve">
+    <value>Faza po namestitvi se je končala z opozorili. Preglejte rezultat izvajanja in dnevnike.</value>
+  </data>
+  <data name="PostInstall.Failed" xml:space="preserve">
+    <value>Faza po namestitvi je ustavljena. Pred nadaljevanjem namestitve sistema Windows preglejte rezultat izvajanja in dnevnike.</value>
+  </data>
+  <data name="PostInstall.InitializationFailed" xml:space="preserve">
+    <value>Faze po namestitvi ni bilo mogoče inicializirati. Preverite pripravljeni načrt, dnevnik stanja in datoteke izvajalnega okolja.</value>
+  </data>
+  <data name="PostInstall.SetupRequired" xml:space="preserve">
+    <value>To aplikacijo mora zagnati namestitveni program Windows kot lokalni sistem.</value>
+  </data>
+  <data name="PostInstall.Started" xml:space="preserve">
+    <value>Izvajanje dejanj po namestitvi.</value>
+  </data>
+  <data name="PostInstall.Succeeded" xml:space="preserve">
+    <value>Faza po namestitvi je končana.</value>
+  </data>
+  <data name="PostInstall.Usage" xml:space="preserve">
+    <value>Foundry.PostInstall --setup | --version</value>
+  </data>
+</root>

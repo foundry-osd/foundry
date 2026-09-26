@@ -38,6 +38,7 @@ public static class FoundryConfigurationMigration
             : document;
 
         migrated = migrated with { CustomImages = migrated.CustomImages ?? new CustomImagesSettings() };
+        migrated = migrated with { PreOobe = migrated.PreOobe ?? new PreOobeSettings() };
 
         return migrated.SchemaVersion < FoundryConfigurationDocument.CurrentSchemaVersion
             ? migrated with { SchemaVersion = FoundryConfigurationDocument.CurrentSchemaVersion }
