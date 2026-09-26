@@ -19,14 +19,6 @@ foreach ($rid in $(if ($AllRuntimes) { @('win-x64', 'win-arm64') } else { @($Run
     dotnet publish (Join-Path $repoRoot 'src\Foundry.PostInstall\Foundry.PostInstall.csproj') -c $Configuration -r $rid --self-contained true -o $publish --nologo "-p:Platform=$platform" -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:IncludeAllContentForSelfExtract=true -p:DebugType=None -p:GenerateDocumentationFile=false
     if ($LASTEXITCODE -ne 0) { throw "PostInstall publication failed for $rid." }
     if (-not (Test-Path -LiteralPath (Join-Path $publish 'Foundry.PostInstall.exe'))) { throw 'Published runner executable is missing.' }
-    $launcher = @'
-@echo off
-setlocal
-set "DOTNET_BUNDLE_EXTRACT_BASE_DIR=%SystemRoot%\Temp\Foundry\Runtime\PreOobe\Bundle"
-"%SystemRoot%\Temp\Foundry\Runtime\PreOobe\Foundry.PostInstall.exe" --setup
-exit /b %ERRORLEVEL%
-'@
-    [IO.File]::WriteAllText((Join-Path $publish 'Launch.cmd'), ($launcher -replace "`r?`n", "`r`n") + "`r`n", [Text.Encoding]::ASCII)
     $name = "Foundry.PostInstall-$rid.zip"
     $archive = Join-Path $OutputRoot $name
     Compress-Archive -Path (Join-Path $publish '*') -DestinationPath $archive -CompressionLevel Optimal -Force
