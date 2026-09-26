@@ -5,6 +5,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 using Foundry.Core.Services.Images;
+using Foundry.Utilities.Storage;
 
 namespace Foundry.Core.Services.WinPe;
 
@@ -29,17 +30,27 @@ internal static class WinPeCustomImageIsoMastering
     {
         long bootBytes = CountBytes(artifact.MediaDirectoryPath);
         long payloadBytes = checked(bootBytes + package.TotalBytes + WinPeCustomImageMediaService.DataReserveBytes);
-        foreach ((string volume, long required) in GetSpaceRequirements(staging, preparedOutput, requestedOutput, payloadBytes))
-            RequireSpace(volume, required);
-        foreach (string outputPath in new[] { preparedOutput, requestedOutput })
-        {
-            var volume = new DriveInfo(Path.GetPathRoot(Path.GetFullPath(outputPath))!);
-            if (volume.DriveFormat.Equals("FAT32", StringComparison.OrdinalIgnoreCase) && payloadBytes > uint.MaxValue)
-                throw new IOException("The custom-image ISO exceeds the FAT32 output file-size limit.");
-        }
+        ValidateCapacity(staging, preparedOutput, requestedOutput, payloadBytes,
+            WindowsVolumeStorage.GetAvailableBytes, WindowsVolumeStorage.GetFileSystem);
         await CopyTreeAsync(artifact.MediaDirectoryPath, Path.Combine(staging, "media"), cancellationToken).ConfigureAwait(false);
         await CopyTreeAsync(Path.Combine(artifact.WorkingDirectoryPath, "bootbins"), Path.Combine(staging, "bootbins"), cancellationToken).ConfigureAwait(false);
         await new WinPeCustomImageMediaService().PublishAsync(package, Path.Combine(staging, "media"), cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>Checks space for simultaneous ISO copies and output filesystem limits before staging begins.</summary>
+    internal static void ValidateCapacity(string staging, string preparedOutput, string requestedOutput, long payloadBytes,
+        Func<string, long> availableBytes, Func<string, string> fileSystem)
+    {
+        foreach ((string volume, long required) in GetSpaceRequirements(staging, preparedOutput, requestedOutput, payloadBytes))
+        {
+            if (availableBytes(volume) < required)
+                throw new IOException("Insufficient free space for custom-image ISO staging and atomic output publication.");
+        }
+        foreach (string outputPath in new[] { preparedOutput, requestedOutput })
+        {
+            if (fileSystem(outputPath).Equals("FAT32", StringComparison.OrdinalIgnoreCase) && payloadBytes > uint.MaxValue)
+                throw new IOException("The custom-image ISO exceeds the FAT32 output file-size limit.");
+        }
     }
 
     internal static IReadOnlyDictionary<string, long> GetSpaceRequirements(string staging, string preparedOutput,
@@ -88,12 +99,6 @@ internal static class WinPeCustomImageIsoMastering
         string orderFile = Path.Combine(workspace, "boot-order.txt");
         File.WriteAllText(orderFile, string.Join("\r\n", ordered) + "\r\n", Encoding.ASCII);
         return $"-bootdata:{bootData} -m -u2 -udfver102 -yo{WinPeProcessRunner.Quote(orderFile)} {WinPeProcessRunner.Quote(media)} {WinPeProcessRunner.Quote(output)}";
-    }
-
-    private static void RequireSpace(string path, long bytes)
-    {
-        if (WinPeCustomImageMediaService.GetAvailableBytes(path) < bytes)
-            throw new IOException("Insufficient free space for custom-image ISO staging and atomic output publication.");
     }
 
     private static void ConfigureBootManagers(string media, string bins, bool useBootEx)

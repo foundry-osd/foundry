@@ -19,7 +19,7 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
 
     /// <summary>Uses Windows volume capacity and physical-disk discovery for media safeguards.</summary>
     public WinPeCustomImageMediaService()
-        : this(GetAvailableBytes, new WindowsDiskInspector(new ProcessRunner()).ResolveDiskNumberForPathAsync)
+        : this(WindowsVolumeStorage.GetAvailableBytes, new WindowsDiskInspector(new ProcessRunner()).ResolveDiskNumberForPathAsync)
     {
     }
 
@@ -178,11 +178,5 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
             string actual = Convert.ToHexString(await SHA256.HashDataAsync(stream, cancellationToken).ConfigureAwait(false));
             return string.Equals(actual, hash, StringComparison.OrdinalIgnoreCase);
         }
-    }
-
-    internal static long GetAvailableBytes(string path)
-    {
-        string root = Path.GetPathRoot(Path.GetFullPath(path)) ?? throw new IOException("Volume capacity could not be resolved.");
-        return new DriveInfo(root).AvailableFreeSpace;
     }
 }

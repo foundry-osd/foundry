@@ -24,6 +24,55 @@ public sealed class WinPeCustomImageIsoTests : IDisposable
     }
 
     [Theory]
+    [InlineData(199, false)]
+    [InlineData(200, true)]
+    public void Capacity_UncShareReservesBothPendingCopies(long shareAvailableBytes, bool succeeds)
+    {
+        const string share = @"\\server\media";
+        var queriedRoots = new List<string>();
+        var queriedOutputs = new List<string>();
+        Action validate = () => WinPeCustomImageIsoMastering.ValidateCapacity(@"C:\staging",
+            share + @"\scratch\temporary.iso", share + @"\outputs\foundry.iso", 100,
+            volume =>
+            {
+                queriedRoots.Add(volume);
+                return volume == share ? shareAvailableBytes : 100;
+            },
+            output =>
+            {
+                queriedOutputs.Add(output);
+                return "NTFS";
+            });
+
+        if (succeeds) validate();
+        else Assert.Throws<IOException>(validate);
+
+        Assert.Equal([@"C:\", share], queriedRoots);
+        if (succeeds)
+            Assert.Equal([share + @"\scratch\temporary.iso", share + @"\outputs\foundry.iso"], queriedOutputs);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void Capacity_RejectsOversizedIsoOnEitherFat32Output(bool preparedIsFat32)
+    {
+        const string prepared = @"C:\scratch\temporary.iso";
+        const string requested = @"\\server\media\foundry.iso";
+
+        Assert.Throws<IOException>(() => WinPeCustomImageIsoMastering.ValidateCapacity(@"C:\staging",
+            prepared, requested, (long)uint.MaxValue + 1, _ => long.MaxValue,
+            output => (output == prepared) == preparedIsFat32 ? "FAT32" : "NTFS"));
+    }
+
+    [Fact]
+    public void Capacity_AcceptsLargeIsoOnNtfsShare()
+    {
+        WinPeCustomImageIsoMastering.ValidateCapacity(@"C:\staging", @"C:\scratch\temporary.iso",
+            @"\\server\media\foundry.iso", (long)uint.MaxValue + 1, _ => long.MaxValue, _ => "NTFS");
+    }
+
+    [Theory]
     [InlineData(false, true, "bootx64.efi")]
     [InlineData(false, false, "bootaa64.efi")]
     [InlineData(true, true, "bootx64.efi")]
