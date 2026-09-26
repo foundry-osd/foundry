@@ -152,10 +152,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Das Manifest der benutzerdefinierten Abbilder fehlt, ist beschädigt oder passt nicht zu diesem Startmedium. Erstellen Sie das Medium neu oder wählen Sie eine andere Quelle.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>Das Abbild kann nicht gelesen werden, oder der ausgewählte Index bzw. die Metadaten haben sich geändert. Aktualisieren Sie die Abbildauswahl und versuchen Sie es erneut.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Kopieren Sie für manuell hinzugefügte USB-Abbilder eine WIM-Datei nach Cache\OperatingSystems\Custom auf der Partition Foundry Cache und aktualisieren Sie anschließend. Lassen Sie das Quellmedium während der Bereitstellung angeschlossen.</value>
+    <value>Das Image kann nicht gelesen werden oder der ausgewählte Index bzw. die Metadaten haben sich geändert. Wählen Sie das Image erneut aus und versuchen Sie es noch einmal.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Das konfigurierte Standardabbild oder der Index ist nicht verfügbar. Wählen Sie ausdrücklich ein Abbild und einen Index aus.</value>
@@ -168,9 +165,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Benutzerdefiniertes Abbild und genauer Index überprüft.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Abbilder aktualisieren</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Benutzerdefiniertes Abbild ermitteln</value>

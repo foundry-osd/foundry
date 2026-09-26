@@ -152,10 +152,7 @@
     <value>מניפסט התמונות המותאמות אישית חסר, פגום או אינו תואם למדיית אתחול זו. יש ליצור מחדש את המדיה או לבחור מקור אחר.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>לא ניתן לקרוא את התמונה, או שהאינדקס שנבחר או המטא-נתונים שלה השתנו. יש לרענן את בחירת התמונה ולנסות שוב.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>להוספת תמונות ידנית ל-USB, יש להעתיק קובץ WIM אל Cache\OperatingSystems\Custom במחיצת Foundry Cache, ואז לרענן. יש להשאיר את מדיית המקור מחוברת במהלך הפריסה.</value>
+    <value>לא ניתן לקרוא את התמונה, או שהאינדקס שנבחר או המטא-נתונים השתנו. יש לבחור שוב את התמונה ולנסות שוב.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>התמונה או האינדקס שהוגדרו כברירת מחדל אינם זמינים. יש לבחור תמונה ואינדקס במפורש.</value>
@@ -168,9 +165,6 @@
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>התמונה המותאמת אישית והאינדקס המדויק אומתו.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>רענון תמונות</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>איתור תמונה מותאמת אישית</value>

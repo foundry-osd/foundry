@@ -152,10 +152,7 @@ Licencirano pod licenco MIT.</value>
     <value>Manifest prilagojenih slik manjka, je poškodovan ali ne ustreza temu zagonskemu mediju. Znova ustvarite medij ali izberite drug vir.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>Slike ni mogoče prebrati oziroma so se izbrani indeks ali metapodatki spremenili. Osvežite izbiro slike in poskusite znova.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Za ročno dodane slike USB kopirajte WIM v Cache\OperatingSystems\Custom na particiji Foundry Cache in nato osvežite. Izvorni medij naj med namestitvijo ostane priključen.</value>
+    <value>Slike ni mogoče prebrati ali pa so se izbrani indeks ali metapodatki spremenili. Znova izberite sliko in poskusite znova.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Nastavljena privzeta slika ali indeks ni na voljo. Izrecno izberite sliko in indeks.</value>
@@ -168,9 +165,6 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Prilagojena slika in točen indeks sta preverjena.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Osveži slike</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Poišči prilagojeno sliko</value>

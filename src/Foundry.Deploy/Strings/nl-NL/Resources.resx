@@ -152,10 +152,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Het manifest ontbreekt, is beschadigd of past niet bij deze opstartmedia. Maak de media opnieuw of kies een andere bron.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>De installatiekopie kan niet worden gelezen, of de geselecteerde index of metagegevens zijn gewijzigd. Vernieuw de selectie en probeer het opnieuw.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Kopieer voor handmatige USB-installatiekopieën een WIM naar Cache\OperatingSystems\Custom op de Foundry Cache-partitie en vernieuw daarna. Houd de bronmedia aangesloten tijdens de implementatie.</value>
+    <value>De image kan niet worden gelezen of de geselecteerde index of metagegevens zijn gewijzigd. Selecteer de image opnieuw en probeer het nogmaals.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>De ingestelde standaardinstallatiekopie of index is niet beschikbaar. Kies expliciet een installatiekopie en index.</value>
@@ -168,9 +165,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Aangepaste installatiekopie en exacte index geverifieerd.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Installatiekopieën vernieuwen</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Aangepaste installatiekopie bepalen</value>

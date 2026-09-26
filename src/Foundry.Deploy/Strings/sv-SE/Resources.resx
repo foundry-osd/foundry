@@ -152,10 +152,7 @@ Licensierad under MIT-licensen.</value>
     <value>Manifestet saknas, är skadat eller matchar inte detta startmedium. Skapa mediet på nytt eller välj en annan källa.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>Avbildningen kan inte läsas, eller dess valda index eller metadata har ändrats. Uppdatera avbildningsvalet och försök igen.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>För manuellt tillagda USB-avbildningar kopierar du en WIM-fil till Cache\OperatingSystems\Custom på partitionen Foundry Cache och uppdaterar sedan. Låt källmediet vara anslutet under distributionen.</value>
+    <value>Avbildningen kan inte läsas eller så har det valda indexet eller metadata ändrats. Välj avbildningen igen och försök på nytt.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Den konfigurerade standardavbildningen eller dess index är inte tillgängligt. Välj uttryckligen en avbildning och ett index.</value>
@@ -168,9 +165,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Anpassad avbildning och exakt index har verifierats.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Uppdatera avbildningar</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Hitta anpassad avbildning</value>

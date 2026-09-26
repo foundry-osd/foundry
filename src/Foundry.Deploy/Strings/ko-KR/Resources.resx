@@ -152,10 +152,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>사용자 지정 이미지 매니페스트가 없거나 손상되었거나 이 부팅 미디어와 일치하지 않습니다. 미디어를 다시 만들거나 다른 원본을 선택하세요.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>이미지를 읽을 수 없거나 선택한 인덱스 또는 메타데이터가 변경되었습니다. 이미지 선택을 새로 고친 후 다시 시도하세요.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>USB에 이미지를 수동으로 추가하려면 Foundry Cache 파티션의 Cache\OperatingSystems\Custom에 WIM을 복사한 다음 새로 고침하세요. 배포 중에는 원본 미디어를 연결한 상태로 유지하세요.</value>
+    <value>이미지를 읽을 수 없거나 선택한 인덱스 또는 메타데이터가 변경되었습니다. 이미지를 다시 선택한 후 다시 시도하세요.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>구성된 기본 이미지 또는 인덱스를 사용할 수 없습니다. 이미지와 인덱스를 명시적으로 선택하세요.</value>
@@ -168,9 +165,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>사용자 지정 이미지와 정확한 인덱스를 확인했습니다.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>이미지 새로 고침</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>사용자 지정 이미지 찾기</value>

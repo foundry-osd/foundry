@@ -152,10 +152,7 @@
     <value>بيان الصور المخصصة مفقود أو تالف أو لا يتطابق مع وسيط التمهيد هذا. أعد إنشاء الوسيط أو اختر مصدرًا آخر.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>لا يمكن قراءة الصورة، أو تم تغيير الفهرس المحدد أو البيانات الوصفية. حدّث تحديد الصورة وحاول مجددًا.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>لإضافة صور يدويًا عبر USB، انسخ ملف WIM إلى Cache\OperatingSystems\Custom على قسم Foundry Cache، ثم حدّث القائمة. أبقِ وسيط المصدر متصلًا أثناء النشر.</value>
+    <value>تعذرت قراءة الصورة أو تغيّر الفهرس المحدد أو البيانات الوصفية. حدد الصورة مجددًا ثم أعد المحاولة.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>الصورة أو الفهرس الافتراضي الذي تم تكوينه غير متاح. اختر صورة وفهرسًا بشكل صريح.</value>
@@ -168,9 +165,6 @@
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>تم التحقّق من الصورة المخصصة والفهرس المحدد بدقة.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>تحديث الصور</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>تحديد موقع الصورة المخصصة</value>

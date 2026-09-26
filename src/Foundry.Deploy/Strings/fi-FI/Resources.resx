@@ -152,10 +152,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Mukautettujen näköistiedostojen luettelotiedosto puuttuu, on vioittunut tai ei vastaa tätä käynnistystietovälinettä. Luo tietoväline uudelleen tai valitse toinen lähde.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>Näköistiedostoa ei voi lukea, tai sen valittu indeksi tai metatiedot ovat muuttuneet. Päivitä näköistiedoston valinta ja yritä uudelleen.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Lisää USB-näköistiedosto käsin kopioimalla WIM-tiedosto Foundry Cache -osion kansioon Cache\OperatingSystems\Custom ja päivittämällä luettelo. Pidä lähdetietoväline liitettynä käyttöönoton ajan.</value>
+    <value>Näköistiedostoa ei voi lukea, tai valittu indeksi tai metatiedot ovat muuttuneet. Valitse näköistiedosto uudelleen ja yritä uudelleen.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Määritetty oletusnäköistiedosto tai indeksi ei ole saatavilla. Valitse näköistiedosto ja indeksi erikseen.</value>
@@ -168,9 +165,6 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Mukautettu näköistiedosto ja tarkka indeksi tarkistettu.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Päivitä näköistiedostot</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Selvitä mukautettu näköistiedosto</value>

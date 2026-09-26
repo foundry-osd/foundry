@@ -152,10 +152,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>El manifiesto de imágenes personalizadas falta, está dañado o no coincide con este medio de arranque. Vuelva a crear el medio o elija otro origen.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>No se puede leer la imagen, o su índice seleccionado o sus metadatos han cambiado. Actualice la selección de imagen e inténtelo de nuevo.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Para imágenes USB añadidas manualmente, copie un WIM en Cache\OperatingSystems\Custom en la partición Foundry Cache y actualice. Mantenga conectado el medio de origen durante la implementación.</value>
+    <value>No se puede leer la imagen o han cambiado el índice seleccionado o sus metadatos. Vuelva a seleccionar la imagen e inténtelo de nuevo.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>La imagen o el índice predeterminados configurados no están disponibles. Elija explícitamente una imagen y un índice.</value>
@@ -168,9 +165,6 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Imagen personalizada e índice exacto verificados.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Actualizar imágenes</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Resolver imagen personalizada</value>

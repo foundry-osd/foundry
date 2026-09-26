@@ -5,12 +5,41 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Services.Images;
 using Foundry.Deploy.ViewModels;
+using Foundry.Utilities.Storage;
 
 namespace Foundry.Deploy.Tests;
 
 public sealed class CustomImageSelectionViewModelTests
 {
+    [Fact]
+    public async Task EnteringCustomMode_RediscoversImagesAfterReturningFromCatalog()
+    {
+        var volumes = new EmptyVolumes();
+        using var model = new CustomImageSelectionViewModel(new CustomImageCatalogService(volumes));
+        model.Configure(new DeployCustomImagesSettings
+        {
+            IsEnabled = true,
+            DefaultSource = CustomImageSource.Catalog,
+            ManifestId = "build",
+            ManifestHash = new string('a', 64)
+        });
+        Assert.Equal(0, volumes.DiscoveryCount);
+
+        model.IsCustom = true;
+        Assert.Equal(1, volumes.DiscoveryCount);
+        Assert.Equal("CustomImages.NoImages", model.ErrorKey);
+
+        model.IsCatalog = true;
+        model.IsCustom = true;
+        Assert.Equal(2, volumes.DiscoveryCount);
+
+        model.Configure(new DeployCustomImagesSettings());
+        await model.RefreshAsync();
+        Assert.Equal(2, volumes.DiscoveryCount);
+    }
+
     [Fact]
     public void MissingDefaultIndex_RemainsBlockedAfterRefreshUntilOperatorOverrides()
     {
@@ -48,5 +77,16 @@ public sealed class CustomImageSelectionViewModelTests
         Assert.Equal(2, model.Indexes.Count);
         model.SelectedIndex = model.Indexes[1];
         Assert.Equal(7, model.SelectedIndex.Index);
+    }
+
+    private sealed class EmptyVolumes : IVolumeDiscovery
+    {
+        public int DiscoveryCount { get; private set; }
+
+        public IReadOnlyList<VolumeInfo> GetVolumes()
+        {
+            DiscoveryCount++;
+            return [];
+        }
     }
 }

@@ -152,10 +152,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Kohandatud tõmmiste manifest puudub, on kahjustatud või ei vasta sellele alglaadimismeediumile. Looge meedium uuesti või valige teine allikas.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>Tõmmist ei saa lugeda või selle valitud indeks või metaandmed on muutunud. Värskendage tõmmise valikut ja proovige uuesti.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>USB-tõmmise käsitsi lisamiseks kopeerige WIM-fail Foundry Cache partitsiooni kausta Cache\OperatingSystems\Custom ja värskendage loendit. Hoidke lähtemeedium juurutamise ajal ühendatuna.</value>
+    <value>Tõmmist ei saa lugeda või valitud indeks või metaandmed on muutunud. Valige tõmmis uuesti ja proovige veel kord.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Seadistatud vaiketõmmis või indeks pole saadaval. Valige tõmmis ja indeks selgesõnaliselt.</value>
@@ -168,9 +165,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Kohandatud tõmmis ja täpne indeks on kontrollitud.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Värskenda tõmmiseid</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Leia kohandatud tõmmis</value>

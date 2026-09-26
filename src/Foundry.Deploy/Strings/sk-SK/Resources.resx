@@ -152,10 +152,7 @@ Licencované podľa licencie MIT.</value>
     <value>Manifest vlastných obrazov chýba, je poškodený alebo nezodpovedá tomuto zavádzaciemu médiu. Vytvorte médium znova alebo vyberte iný zdroj.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>Obraz sa nedá prečítať alebo sa zmenil vybraný index či metadáta. Obnovte výber obrazu a skúste to znova.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Pre ručne pridané obrazy USB skopírujte WIM do Cache\OperatingSystems\Custom na oblasti Foundry Cache a potom obnovte zoznam. Počas nasadenia nechajte zdrojové médium pripojené.</value>
+    <value>Obraz sa nedá prečítať alebo sa zmenil vybraný index či metaúdaje. Vyberte obraz znova a skúste to ešte raz.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Nastavený predvolený obraz alebo index nie je dostupný. Výslovne vyberte obraz a index.</value>
@@ -168,9 +165,6 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Vlastný obraz a presný index sú overené.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Obnoviť obrazy</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Vyhľadať vlastný obraz</value>

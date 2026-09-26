@@ -152,10 +152,7 @@
     <value>Манифестът на персонализирания образ липсва, повреден е или не съответства на този стартиращ носител. Създайте носителя отново или изберете друг източник.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>Образът не може да бъде прочетен или избраният индекс или метаданните са променени. Обновете избора на образ и опитайте отново.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>За ръчно добавяне на образи на USB копирайте WIM в Cache\OperatingSystems\Custom на дяла Foundry Cache, след което обновете списъка. Оставете изходния носител свързан по време на разполагането.</value>
+    <value>Образът не може да бъде прочетен или избраният индекс или метаданните са променени. Изберете образа отново и опитайте пак.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Конфигурираният образ или индекс по подразбиране не е наличен. Изберете изрично образ и индекс.</value>
@@ -168,9 +165,6 @@
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Персонализираният образ и точният индекс са проверени.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Обновяване на образите</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Намиране на персонализиран образ</value>

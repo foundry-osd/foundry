@@ -4,7 +4,6 @@
 
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Images;
@@ -29,6 +28,8 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
     private bool _defaultsApplied;
     private int? _rememberedIndex;
     private int _configurationVersion;
+    private Task? _refreshTask;
+    private int _refreshVersion = -1;
     private CustomImageAsset? _inspectedAsset;
 
     public CustomImageSelectionViewModel(CustomImageCatalogService? catalog = null, ICustomImageMetadataReader? reader = null)
@@ -48,11 +49,17 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
     public ObservableCollection<CustomImageIndex> Indexes { get; } = [];
     public bool IsCatalog { get => !IsCustom; set => IsCustom = !value; }
     public string ErrorMessage => string.IsNullOrWhiteSpace(ErrorKey) ? string.Empty : LocalizationText.GetString(ErrorKey);
+    public bool HasError => !string.IsNullOrWhiteSpace(ErrorKey);
     public CustomImageSelection? Selection => SelectedAsset is not null && SelectedIndex is not null && !IsBusy &&
         (_debugSnapshot is null || DebugSafetyMode.IsEnabled)
         ? new(_inspectedAsset ?? SelectedAsset, SelectedIndex) : null;
-    public string MetadataText => SelectedIndex is null ? string.Empty :
-        $"{SelectedIndex.EditionId} | {SelectedIndex.Architecture} | {SelectedIndex.Version ?? LocalizationText.GetString("Common.Unknown")} | {string.Join(", ", SelectedIndex.Languages)}";
+    public string IndexVersion => DisplayMetadata(SelectedIndex?.Version);
+    public string IndexEdition => DisplayMetadata(SelectedIndex?.EditionId);
+    public string IndexArchitecture => DisplayMetadata(SelectedIndex?.Architecture);
+    public string IndexLanguage => DisplayMetadata(SelectedIndex is null ? null : string.Join(", ", SelectedIndex.Languages));
+
+    private string DisplayMetadata(string? value) => SelectedIndex is null ? string.Empty :
+        string.IsNullOrWhiteSpace(value) ? LocalizationText.GetString("Common.Unknown") : value;
     public event EventHandler? StateChanged;
 
     public void Configure(DeployCustomImagesSettings settings)
@@ -78,17 +85,23 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
         Images.Clear();
         Indexes.Clear();
         ErrorKey = string.Empty;
-        _applyingCatalog = false;
         _settings = settings;
         _defaultsApplied = false;
         IsEnabled = settings.IsEnabled;
         IsCustom = settings.IsEnabled && settings.DefaultSource == CustomImageSource.Custom;
+        _applyingCatalog = false;
     }
 
-    [RelayCommand]
-    public async Task RefreshAsync()
+    public Task RefreshAsync()
     {
-        if (!IsEnabled) return;
+        if (!IsEnabled || _lifetime.IsCancellationRequested) return Task.CompletedTask;
+        if (_refreshTask is { IsCompleted: false } && _refreshVersion == _configurationVersion) return _refreshTask;
+        _refreshVersion = _configurationVersion;
+        return _refreshTask = DiscoverAndInspectAsync();
+    }
+
+    private async Task DiscoverAndInspectAsync()
+    {
         int version = _configurationVersion;
         IsBusy = true;
         try
@@ -224,20 +237,32 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
     partial void OnIsCustomChanged(bool value)
     {
         OnPropertyChanged(nameof(IsCatalog));
+        if (value && !_applyingCatalog) _ = RefreshAsync();
         NotifySelection();
     }
-    partial void OnErrorKeyChanged(string value) => OnPropertyChanged(nameof(ErrorMessage));
+    partial void OnErrorKeyChanged(string value)
+    {
+        OnPropertyChanged(nameof(ErrorMessage));
+        OnPropertyChanged(nameof(HasError));
+    }
     public void RefreshLocalization()
     {
         OnPropertyChanged(nameof(ErrorMessage));
-        OnPropertyChanged(nameof(MetadataText));
+        NotifyMetadata();
         OnPropertyChanged(nameof(DebugScenarioText));
     }
     private void NotifySelection()
     {
         OnPropertyChanged(nameof(Selection));
-        OnPropertyChanged(nameof(MetadataText));
+        NotifyMetadata();
         StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+    private void NotifyMetadata()
+    {
+        OnPropertyChanged(nameof(IndexVersion));
+        OnPropertyChanged(nameof(IndexEdition));
+        OnPropertyChanged(nameof(IndexArchitecture));
+        OnPropertyChanged(nameof(IndexLanguage));
     }
     public void Dispose()
     {

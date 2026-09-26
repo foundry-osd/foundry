@@ -152,10 +152,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>カスタムイメージのマニフェストが見つからない、破損している、またはこの起動メディアと一致しません。メディアを再作成するか、別のソースを選択してください。</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>イメージを読み取れないか、選択したインデックスまたはメタデータが変更されています。イメージの選択を更新してから、もう一度お試しください。</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>USB に手動でイメージを追加するには、Foundry Cache パーティションの Cache\OperatingSystems\Custom に WIM をコピーしてから更新してください。展開中はソースメディアを接続したままにしてください。</value>
+    <value>イメージを読み取れないか、選択したインデックスまたはメタデータが変更されています。イメージを選択し直して、もう一度お試しください。</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>設定された既定のイメージまたはインデックスを使用できません。イメージとインデックスを明示的に選択してください。</value>
@@ -168,9 +165,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>カスタムイメージと正確なインデックスを検証しました。</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>イメージを更新</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>カスタムイメージを特定</value>

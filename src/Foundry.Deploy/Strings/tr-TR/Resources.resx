@@ -152,10 +152,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Özel görüntü bildirimi eksik, bozuk veya bu önyükleme medyasıyla eşleşmiyor. Medyayı yeniden oluşturun veya başka bir kaynak seçin.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>Görüntü okunamıyor ya da seçili dizini veya meta verileri değişmiş. Görüntü seçimini yenileyip tekrar deneyin.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Elle eklenen USB görüntüleri için bir WIM dosyasını Foundry Cache bölümündeki Cache\OperatingSystems\Custom klasörüne kopyalayın ve yenileyin. Dağıtım sırasında kaynak medyayı bağlı tutun.</value>
+    <value>Görüntü okunamıyor veya seçili dizin ya da meta veriler değişmiş. Görüntüyü yeniden seçip tekrar deneyin.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Yapılandırılan varsayılan görüntü veya dizin kullanılamıyor. Bir görüntü ve dizini açıkça seçin.</value>
@@ -168,9 +165,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Özel görüntü ve tam dizin doğrulandı.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Görüntüleri yenile</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Özel görüntüyü çözümle</value>

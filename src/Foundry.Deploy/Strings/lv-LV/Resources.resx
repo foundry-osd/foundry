@@ -152,10 +152,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pielāgoto attēlu manifests trūkst, ir bojāts vai neatbilst šim sāknēšanas datu nesējam. Izveidojiet datu nesēju no jauna vai izvēlieties citu avotu.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>Attēlu nevar nolasīt, vai tā atlasītais indekss vai metadati ir mainīti. Atsvaidziniet attēla atlasi un mēģiniet vēlreiz.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Lai manuāli pievienotu USB attēlu, kopējiet WIM uz Cache\OperatingSystems\Custom mapi Foundry Cache nodalījumā un atsvaidziniet sarakstu. Izvietošanas laikā atstājiet avota datu nesēju pievienotu.</value>
+    <value>Attēlu nevar nolasīt, vai ir mainījies atlasītais indekss vai metadati. Atlasiet attēlu vēlreiz un mēģiniet atkārtoti.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Konfigurētais noklusējuma attēls vai indekss nav pieejams. Skaidri izvēlieties attēlu un indeksu.</value>
@@ -168,9 +165,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Pielāgotais attēls un precīzais indekss ir pārbaudīti.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Atsvaidzināt attēlus</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Atrast pielāgoto attēlu</value>

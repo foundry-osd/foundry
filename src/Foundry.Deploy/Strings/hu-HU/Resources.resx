@@ -152,10 +152,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Az egyéni lemezképek jegyzékfájlja hiányzik, sérült vagy nem egyezik ezzel a rendszerindító adathordozóval. Hozza létre újra az adathordozót, vagy válasszon másik forrást.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>A lemezkép nem olvasható, vagy a kijelölt indexe vagy metaadatai megváltoztak. Frissítse a lemezkép kijelölését, és próbálja újra.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Kézzel hozzáadott USB-lemezképhez másoljon egy WIM-fájlt a Foundry Cache partíció Cache\OperatingSystems\Custom mappájába, majd frissítsen. A telepítés alatt tartsa csatlakoztatva a forrásadathordozót.</value>
+    <value>A lemezkép nem olvasható, vagy a kiválasztott index vagy a metaadatok megváltoztak. Válassza ki újra a lemezképet, és próbálkozzon újra.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>A beállított alapértelmezett lemezkép vagy index nem érhető el. Válasszon ki kifejezetten egy lemezképet és indexet.</value>
@@ -168,9 +165,6 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Az egyéni lemezkép és a pontos index ellenőrizve.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Lemezképek frissítése</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Egyéni lemezkép feloldása</value>

@@ -152,10 +152,7 @@
     <value>Маніфест користувацького образу відсутній, пошкоджений або не відповідає цьому завантажувальному носію. Створіть носій заново або виберіть інше джерело.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>Не вдається прочитати образ, або вибраний індекс чи метадані змінилися. Оновіть вибір образу та повторіть спробу.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Щоб вручну додати образи на USB, скопіюйте WIM до Cache\OperatingSystems\Custom на розділі Foundry Cache, а потім оновіть список. Не від’єднуйте вихідний носій під час розгортання.</value>
+    <value>Не вдалося прочитати образ, або вибраний індекс чи метадані змінилися. Виберіть образ повторно та спробуйте ще раз.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Налаштований образ або індекс за замовчуванням недоступний. Явно виберіть образ та індекс.</value>
@@ -168,9 +165,6 @@
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Користувацький образ і точний індекс перевірено.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Оновити образи</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Знайти користувацький образ</value>

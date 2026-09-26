@@ -152,10 +152,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Manifest obrazów niestandardowych nie istnieje, jest uszkodzony lub nie pasuje do tego nośnika rozruchowego. Utwórz nośnik ponownie lub wybierz inne źródło.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>Nie można odczytać obrazu albo zmienił się wybrany indeks lub metadane. Odśwież wybór obrazu i spróbuj ponownie.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Aby ręcznie dodać obraz USB, skopiuj WIM do Cache\OperatingSystems\Custom na partycji Foundry Cache, a następnie odśwież. Nośnik źródłowy musi pozostać podłączony podczas wdrażania.</value>
+    <value>Nie można odczytać obrazu lub wybrany indeks albo metadane uległy zmianie. Wybierz obraz ponownie i spróbuj jeszcze raz.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Skonfigurowany domyślny obraz lub indeks jest niedostępny. Wybierz jawnie obraz i indeks.</value>
@@ -168,9 +165,6 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Obraz niestandardowy i dokładny indeks zweryfikowane.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Odśwież obrazy</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Ustal obraz niestandardowy</value>

@@ -152,10 +152,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pasirinktinių atvaizdų manifestas nepasiekiamas, sugadintas arba neatitinka šios įkrovos laikmenos. Sukurkite laikmeną iš naujo arba pasirinkite kitą šaltinį.</value>
   </data>
   <data name="CustomImages.InvalidSource" xml:space="preserve">
-    <value>Atvaizdo nepavyksta perskaityti arba pasirinktas indeksas ar metaduomenys pasikeitė. Atnaujinkite atvaizdo pasirinkimą ir bandykite dar kartą.</value>
-  </data>
-  <data name="CustomImages.ManualHint" xml:space="preserve">
-    <value>Norėdami rankiniu būdu pridėti USB atvaizdą, nukopijuokite WIM į Cache\OperatingSystems\Custom aplanką Foundry Cache skaidinyje ir atnaujinkite sąrašą. Diegimo metu laikykite šaltinio laikmeną prijungtą.</value>
+    <value>Nepavyksta nuskaityti atvaizdo arba pasikeitė pasirinktas indeksas ar metaduomenys. Pasirinkite atvaizdą iš naujo ir bandykite dar kartą.</value>
   </data>
   <data name="CustomImages.MissingDefault" xml:space="preserve">
     <value>Nustatytas numatytasis atvaizdas arba indeksas nepasiekiamas. Aiškiai pasirinkite atvaizdą ir indeksą.</value>
@@ -168,9 +165,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="CustomImages.Ready" xml:space="preserve">
     <value>Pasirinktinis atvaizdas ir tikslus indeksas patikrinti.</value>
-  </data>
-  <data name="CustomImages.Refresh" xml:space="preserve">
-    <value>Atnaujinti atvaizdus</value>
   </data>
   <data name="CustomImages.Resolve" xml:space="preserve">
     <value>Rasti pasirinktinį atvaizdą</value>

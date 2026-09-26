@@ -897,7 +897,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         Session.ConfigureRebootPolicy(DeploymentRebootPolicy.Create(_wizardContext.Completion));
         Session.SetComputerName(Preparation.EffectiveComputerName);
         Session.CompleteStartupInitialization();
-        if (CustomImages.IsEnabled) _ = CustomImages.RefreshCommand.ExecuteAsync(null);
+        if (CustomImages.IsEnabled) _ = CustomImages.RefreshAsync();
     }
 
     private void RunOnUi(Action action)
