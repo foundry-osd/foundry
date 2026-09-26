@@ -685,6 +685,153 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Yenile</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Mimari</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Kullanılabilir</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Gözat</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>İçeri aktarma iptal edildi</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Foundry kataloğu</value>
+  </data>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Varsayılan seçimi temizle</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Özel Windows görüntüleri</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Tercih edilen görüntü</value>
+  </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Foundry Deploy uygulamasının başlangıçta Foundry kataloğunu mu yoksa özel Windows imajlarını mı göstereceğini seçin.</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Foundry Deploy varsayılan imaj kaynağı</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Seçili görüntü</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>Bu profilde bu ada sahip bir görüntü zaten var.</value>
+  </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Sürüm</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Özel Windows görüntüsü yok. Başlamak için bir ISO veya WIM içeri aktarın.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Özel Windows görüntülerini etkinleştir</value>
+  </data>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Hariç tut</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>ISO/WIM içe aktar</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Dahil et</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Dahil</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Tercih edilen dizin</value>
+  </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Dizin</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Dizinler</value>
+  </data>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Diller</value>
+  </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Görüntü kitaplığı</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Eksik</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Birden fazla</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Hayır</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>Görüntü işlemi başarısız oldu. Kaynağı, kullanılabilir alanı ve Foundry günlüklerini kontrol edin.</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Bu profile en az bir kullanılabilir Windows görüntüsü dahil edin. Medya oluşturmadan veya güncellemeden önce dahil edilen eksik görüntüleri geri yükleyin ve tercih edilen görüntü veya dizin seçimini düzeltin ya da temizleyin.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Yenile</value>
+  </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Bu imaj geçerli profilden kaldırılsın ve yerel kopyası silinsin mi? İmaja başvuran diğer profillerde imaj eksik olarak gösterilir. Özgün dosyalar ve mevcut medya değişmeden kalır.</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Varsayılan görüntüyü ayarla</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Varsayılan dizini ayarla</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Boyut</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Bu ISO içindeki yükleme görüntüsünü seçin.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>ISO veya WIM kaynağı</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>İçeri aktarma tamamlandı</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Görüntü kopyalanıyor…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Görüntü dizinleri dışarı aktarılıyor…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Görüntü dizinleri okunuyor…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Özel görüntü kaynakları doğrulanıyor…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Versiyon</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Evet</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>WSAIFabricSvc'i otomatik başlatma yerine manuel başlatmaya ayarlayın.</value>
   </data>
@@ -2028,6 +2175,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Windows görüntülerini ISO veya WIM dosyalarından içeri aktarın ve dağıtım medyasına ekleyin.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Özel Windows görüntüleri</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Özelleştirme</value>

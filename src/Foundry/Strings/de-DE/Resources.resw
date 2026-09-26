@@ -685,6 +685,153 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Aktualisieren</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Architektur</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Verfügbar</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Durchsuchen</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Import abgebrochen</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Foundry-Katalog</value>
+  </data>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Standardauswahl löschen</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Benutzerdefinierte Windows-Abbilder</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Bevorzugtes Abbild</value>
+  </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Wählen Sie, ob Foundry Deploy zunächst den Foundry-Katalog oder benutzerdefinierte Windows-Images anzeigt.</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Standardquelle für Images in Foundry Deploy</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Ausgewähltes Abbild</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>In diesem Profil ist bereits ein Abbild mit diesem Namen vorhanden.</value>
+  </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Edition</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Keine benutzerdefinierten Windows-Abbilder. Importieren Sie zunächst eine ISO- oder WIM-Datei.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Benutzerdefinierte Windows-Abbilder aktivieren</value>
+  </data>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Ausschließen</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>ISO/WIM importieren</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Einbeziehen</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Enthalten</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Bevorzugter Index</value>
+  </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Indizes</value>
+  </data>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Sprachen</value>
+  </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Abbildbibliothek</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Fehlt</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Mehrere</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>Der Abbildvorgang ist fehlgeschlagen. Prüfen Sie die Quelle, den verfügbaren Speicherplatz und die Foundry-Protokolle.</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Nehmen Sie mindestens ein verfügbares Windows-Abbild in dieses Profil auf. Stellen Sie fehlende enthaltene Abbilder wieder her und korrigieren oder löschen Sie die Auswahl des bevorzugten Abbilds oder Index, bevor Sie Medien erstellen oder aktualisieren.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Aktualisieren</value>
+  </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Dieses Image aus dem aktuellen Profil entfernen und seine lokale Kopie löschen? In anderen Profilen, die darauf verweisen, wird es als fehlend angezeigt. Originaldateien und vorhandene Medien bleiben unverändert.</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Entfernen</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Standardabbild festlegen</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Standardindex festlegen</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Größe</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Wählen Sie das Installationsabbild in dieser ISO-Datei aus.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>ISO- oder WIM-Quelle</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Import abgeschlossen</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Abbild wird kopiert…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Abbildindizes werden exportiert…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Abbildindizes werden gelesen…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Benutzerdefinierte Abbildquellen werden überprüft…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Stellen Sie WSAIFabricSvc auf manuellen Start statt auf automatischen Start ein.</value>
   </data>
@@ -2028,6 +2175,12 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Importieren Sie Windows-Abbilder aus ISO- oder WIM-Dateien und nehmen Sie sie in Bereitstellungsmedien auf.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Benutzerdefinierte Windows-Abbilder</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Anpassung</value>

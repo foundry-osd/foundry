@@ -685,6 +685,153 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Оновити</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Архітектура</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Доступний</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Огляд</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Імпорт скасовано</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Каталог Foundry</value>
+  </data>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Скинути типовий вибір</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Користувацькі образи Windows</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Бажаний образ</value>
+  </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Виберіть, що Foundry Deploy показуватиме спочатку: каталог Foundry чи користувацькі образи Windows.</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Джерело образів за замовчуванням у Foundry Deploy</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Вибраний образ</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>У цьому профілі вже є образ із таким іменем.</value>
+  </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Редакція</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Немає користувацьких образів Windows. Імпортуйте ISO або WIM, щоб почати.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Увімкнути користувацькі образи Windows</value>
+  </data>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Виключити</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Імпортувати ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Включити</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Бажаний індекс</value>
+  </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Індекс</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Індекси</value>
+  </data>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Мови</value>
+  </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Бібліотека образів</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Відсутній</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Кілька</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Ні</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>Не вдалося виконати операцію з образом. Перевірте джерело, вільне місце та журнали Foundry.</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Включіть до цього профілю принаймні один доступний образ Windows. Відновіть відсутні включені образи та виправте або скиньте вибір бажаного образу чи індексу перед створенням або оновленням носія.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Оновити</value>
+  </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Видалити цей образ із поточного профілю та видалити його локальну копію? В інших профілях, які посилаються на нього, образ відображатиметься як відсутній. Вихідні файли та наявні носії залишаться без змін.</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Установити типовий образ</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Установити типовий індекс</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Розмір</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Виберіть інсталяційний образ у цьому ISO.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>Вихідний ISO або WIM</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Імпорт завершено</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Копіювання образу…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Експорт індексів образу…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Читання індексів образу…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Перевірка джерел користувацького образу…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Стан</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Версія</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Так</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Налаштуйте для WSAIFabricSvc ручний запуск замість автоматичного.</value>
   </data>
@@ -2028,6 +2175,12 @@
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Імпортуйте образи Windows із файлів ISO або WIM і включайте їх до носіїв для розгортання.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Користувацькі образи Windows</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Налаштування</value>

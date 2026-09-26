@@ -130,6 +130,57 @@
   <data name="Common.Yes" xml:space="preserve">
     <value>是的</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>多個已連接的磁碟區上存在預設映像。請明確選取來源磁碟區。</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Windows 目錄</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>自訂映像</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>映像</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>映像索引</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>正在檢查並驗證映像...</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>自訂映像資訊清單遺失、損毀，或與此開機媒體不符。請重新建立媒體或選擇其他來源。</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>無法讀取映像，或所選索引或中繼資料已變更。請重新選取映像並再試一次。</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>設定的預設映像或索引無法使用。請明確選取映像與索引。</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>找不到自訂映像。請連接正確的媒體，或將 WIM 新增至文件指定的 USB 資料夾。</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>自訂映像尚未就緒。</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>自訂映像與確切索引已驗證。</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>解析自訂映像</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>已從部署媒體解析自訂映像。</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>映像來源</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>無法確認來源磁碟與目的地磁碟是不同的磁碟。請選擇其他來源。</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>正在驗證自訂映像...</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -156,6 +207,45 @@
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>取消頁面</value>
+  </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>自訂 Windows 映像</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>偵錯案例：{0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>慣用映像不明確</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>預設選取目錄</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>使用媒體設定</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>自訂映像已停用</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>沒有可用的映像</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>無效的映像</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>缺少慣用映像</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>缺少慣用索引</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>具有多個索引的映像</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>慣用映像和索引</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>具有一個索引的映像</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>部署頁面</value>

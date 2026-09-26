@@ -685,6 +685,153 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Vernieuwen</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Architectuur</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Beschikbaar</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Bladeren</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Importeren geannuleerd</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Foundry-catalogus</value>
+  </data>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Standaardselectie wissen</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Aangepaste Windows-installatiekopieën</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Voorkeursinstallatiekopie</value>
+  </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Kies of Foundry Deploy aanvankelijk de Foundry-catalogus of aangepaste Windows-images toont.</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Standaardbron voor images in Foundry Deploy</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Geselecteerde installatiekopie</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>Er bestaat al een kopie met deze naam in dit profiel.</value>
+  </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Editie</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Geen aangepaste Windows-installatiekopieën. Importeer een ISO of WIM om te beginnen.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Aangepaste Windows-installatiekopieën inschakelen</value>
+  </data>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Uitsluiten</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>ISO/WIM importeren</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Opnemen</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Opgenomen</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Voorkeursindex</value>
+  </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Indexen</value>
+  </data>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Talen</value>
+  </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Bibliotheek met installatiekopieën</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Ontbreekt</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Meerdere</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Nee</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>De bewerking is mislukt. Controleer de bron, de beschikbare ruimte en de Foundry-logboeken.</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Neem ten minste één beschikbare Windows-installatiekopie op in dit profiel. Herstel ontbrekende opgenomen installatiekopieën en corrigeer of wis de selectie van de voorkeursinstallatiekopie of -index voordat u media maakt of bijwerkt.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Vernieuwen</value>
+  </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Deze image uit het huidige profiel verwijderen en de lokale kopie verwijderen? Andere profielen die ernaar verwijzen, geven de image als ontbrekend weer. De oorspronkelijke bestanden en bestaande media blijven ongewijzigd.</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Standaardinstallatiekopie instellen</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Standaardindex instellen</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Grootte</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Kies de installatiekopie in deze ISO.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>ISO- of WIM-bron</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Importeren voltooid</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Installatiekopie kopiëren…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Indexen exporteren…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Indexen lezen…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Bronnen van aangepaste installatiekopieën verifiëren…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Versie</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Stel WSAIFabricSvc in op handmatig opstarten in plaats van automatisch opstarten.</value>
   </data>
@@ -2028,6 +2175,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Importeer Windows-installatiekopieën uit ISO- of WIM-bestanden en neem ze op in implementatiemedia.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Aangepaste Windows-installatiekopieën</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Maatwerk</value>

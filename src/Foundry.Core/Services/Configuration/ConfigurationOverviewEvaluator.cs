@@ -25,6 +25,7 @@ public enum ConfigurationOverviewItem
     AutopilotZeroTouch,
     AutopilotInteractive,
     OperatingSystemSelection,
+    CustomImages,
     Unattend,
     MachineNaming,
     Oobe,
@@ -90,6 +91,9 @@ public sealed record ConfigurationOverviewContext
     /// Gets whether enabled answer-file sources, references, and media protection are ready.
     /// </summary>
     public bool IsUnattendConfigurationReady { get; init; } = true;
+
+    /// <summary>Gets whether included custom image sources and explicit defaults are available.</summary>
+    public bool IsCustomImagesReady { get; init; } = true;
 }
 
 /// <summary>
@@ -138,6 +142,11 @@ public static class ConfigurationOverviewEvaluator
 
         var states = new Dictionary<ConfigurationOverviewItem, ConfigurationOverviewState>
         {
+            [ConfigurationOverviewItem.CustomImages] = !configuration.CustomImages.IsEnabled
+                ? ConfigurationOverviewState.Disabled
+                : context.IsCustomImagesReady
+                    ? ConfigurationOverviewState.Configured
+                    : ConfigurationOverviewState.NeedsAttention,
             [ConfigurationOverviewItem.Unattend] = !configuration.Unattend.IsEnabled
                 ? ConfigurationOverviewState.Disabled
                 : context.IsUnattendConfigurationReady

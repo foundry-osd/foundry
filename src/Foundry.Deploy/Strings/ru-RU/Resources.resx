@@ -130,6 +130,57 @@
   <data name="Common.Yes" xml:space="preserve">
     <value>Да</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Образ по умолчанию найден на нескольких подключённых томах. Явно выберите исходный том.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Каталог Windows</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Пользовательский образ</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Образ</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Индекс образа</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Анализ и проверка образа...</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Манифест пользовательского образа отсутствует, повреждён или не соответствует этому загрузочному носителю. Создайте носитель заново или выберите другой источник.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Не удалось прочитать образ, либо выбранный индекс или метаданные изменились. Повторно выберите образ и попробуйте ещё раз.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>Настроенный образ или индекс по умолчанию недоступен. Явно выберите образ и индекс.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Пользовательские образы не найдены. Подключите нужный носитель или добавьте WIM в папку USB, указанную в документации.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Пользовательский образ не готов.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Пользовательский образ и точный индекс проверены.</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Найти пользовательский образ</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Пользовательский образ найден на носителе для развёртывания.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Источник образа</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Не удалось подтвердить, что исходный диск отличается от целевого. Выберите другой источник.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Проверка пользовательского образа...</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -156,6 +207,45 @@
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Страница отменённого развертывания</value>
+  </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Пользовательские образы Windows</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Сценарий отладки: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Неоднозначный предпочтительный образ</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Каталог выбран по умолчанию</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Использовать конфигурацию носителя</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Пользовательские образы отключены</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>Нет доступных образов</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Недопустимый образ</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Предпочтительный образ отсутствует</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Предпочтительный индекс отсутствует</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Образы с несколькими индексами</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Предпочтительный образ и индекс</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Образ с одним индексом</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Страницы развертывания</value>

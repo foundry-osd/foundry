@@ -23,7 +23,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
 
     private readonly IDriverPackSelectionService _driverPackSelectionService;
     private HardwareProfile? _detectedHardware;
-    private OperatingSystemCatalogItem? _selectedOperatingSystem;
+    private OperatingSystemMetadata? _selectedOperatingSystem;
     private string _effectiveArchitecture;
     private bool _isUpdatingDriverPackOptionSelection;
     private bool _hasUserSelectedDriverPackOption;
@@ -96,13 +96,18 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
 
     public void UpdateSelectionContext(
         HardwareProfile? detectedHardware,
-        OperatingSystemCatalogItem? selectedOperatingSystem,
+        OperatingSystemMetadata? selectedOperatingSystem,
         string effectiveArchitecture)
     {
+        bool targetChanged = selectedOperatingSystem is not null &&
+            (_selectedOperatingSystem is null ||
+             !selectedOperatingSystem.WindowsRelease.Equals(_selectedOperatingSystem.WindowsRelease, StringComparison.OrdinalIgnoreCase) ||
+             !selectedOperatingSystem.ReleaseId.Equals(_selectedOperatingSystem.ReleaseId, StringComparison.OrdinalIgnoreCase) ||
+             NormalizeArchitecture(selectedOperatingSystem.Architecture) != NormalizeArchitecture(_selectedOperatingSystem.Architecture));
         _detectedHardware = detectedHardware;
-        _selectedOperatingSystem = selectedOperatingSystem;
+        _selectedOperatingSystem = selectedOperatingSystem ?? _selectedOperatingSystem;
         _effectiveArchitecture = NormalizeArchitecture(effectiveArchitecture);
-        RefreshDriverPackOptions();
+        RefreshDriverPackOptions(preserveVersion: !targetChanged);
     }
 
     public DriverPackSelectionKind GetEffectiveSelectionKind()
@@ -176,7 +181,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
         return ResolveEffectiveDriverPackSelection();
     }
 
-    private void RefreshDriverPackOptions()
+    private void RefreshDriverPackOptions(bool preserveVersion = true)
     {
         string previousKey = _hasUserSelectedDriverPackOption
             ? SelectedDriverPackOption?.Key ?? string.Empty
@@ -207,7 +212,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
             _isUpdatingDriverPackOptionSelection = false;
         }
 
-        RefreshDriverPackModelAndVersionOptions();
+        RefreshDriverPackModelAndVersionOptions(preserveVersion);
     }
 
     private DriverPackOptionItem[] BuildDriverPackOptions()
@@ -239,9 +244,10 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
         return BuildFilteredDriverPackCandidates(forceManufacturer: sourceManufacturer);
     }
 
-    private void RefreshDriverPackModelAndVersionOptions()
+    private void RefreshDriverPackModelAndVersionOptions(bool preserveVersion = true)
     {
         string previousModel = SelectedDriverPackModel;
+        string previousVersion = preserveVersion ? SelectedDriverPackVersion : string.Empty;
 
         DriverPackModelOptions.Clear();
         DriverPackVersionOptions.Clear();
@@ -273,6 +279,11 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
                 ?? ResolvePreferredModelFromHardware(sourceCandidates, models);
 
             SelectedDriverPackModel = preferredModel;
+            if (preferredModel.Equals(previousModel, StringComparison.OrdinalIgnoreCase) &&
+                DriverPackVersionOptions.FirstOrDefault(version => version.Equals(previousVersion, StringComparison.OrdinalIgnoreCase)) is string retainedVersion)
+            {
+                SelectedDriverPackVersion = retainedVersion;
+            }
         }
 
         NotifyDriverPackSelectionStateChanged();

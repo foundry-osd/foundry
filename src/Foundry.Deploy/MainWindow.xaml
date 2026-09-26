@@ -132,6 +132,52 @@
                                 IsChecked="{Binding IsDebugAutopilotHardwareHashUploadNoDefaultGroupTagMode, Mode=OneWay}" />
                         </MenuItem>
                     </MenuItem>
+                    <MenuItem Header="{Binding Strings[Debug.CustomImages]}">
+                        <MenuItem
+                            Command="{Binding SetDebugCustomImageScenarioCommand}"
+                            CommandParameter="{x:Static runtime:DebugCustomImageScenario.Configured}"
+                            Header="{Binding Strings[Debug.CustomImages.Configured]}" />
+                        <MenuItem
+                            Command="{Binding SetDebugCustomImageScenarioCommand}"
+                            CommandParameter="{x:Static runtime:DebugCustomImageScenario.Disabled}"
+                            Header="{Binding Strings[Debug.CustomImages.Disabled]}" />
+                        <MenuItem
+                            Command="{Binding SetDebugCustomImageScenarioCommand}"
+                            CommandParameter="{x:Static runtime:DebugCustomImageScenario.CatalogDefault}"
+                            Header="{Binding Strings[Debug.CustomImages.CatalogDefault]}" />
+                        <MenuItem
+                            Command="{Binding SetDebugCustomImageScenarioCommand}"
+                            CommandParameter="{x:Static runtime:DebugCustomImageScenario.SingleIndex}"
+                            Header="{Binding Strings[Debug.CustomImages.SingleIndex]}" />
+                        <MenuItem
+                            Command="{Binding SetDebugCustomImageScenarioCommand}"
+                            CommandParameter="{x:Static runtime:DebugCustomImageScenario.MultipleIndexes}"
+                            Header="{Binding Strings[Debug.CustomImages.MultipleIndexes]}" />
+                        <MenuItem
+                            Command="{Binding SetDebugCustomImageScenarioCommand}"
+                            CommandParameter="{x:Static runtime:DebugCustomImageScenario.PreferredIndex}"
+                            Header="{Binding Strings[Debug.CustomImages.PreferredIndex]}" />
+                        <MenuItem
+                            Command="{Binding SetDebugCustomImageScenarioCommand}"
+                            CommandParameter="{x:Static runtime:DebugCustomImageScenario.MissingImage}"
+                            Header="{Binding Strings[Debug.CustomImages.MissingImage]}" />
+                        <MenuItem
+                            Command="{Binding SetDebugCustomImageScenarioCommand}"
+                            CommandParameter="{x:Static runtime:DebugCustomImageScenario.MissingIndex}"
+                            Header="{Binding Strings[Debug.CustomImages.MissingIndex]}" />
+                        <MenuItem
+                            Command="{Binding SetDebugCustomImageScenarioCommand}"
+                            CommandParameter="{x:Static runtime:DebugCustomImageScenario.Empty}"
+                            Header="{Binding Strings[Debug.CustomImages.Empty]}" />
+                        <MenuItem
+                            Command="{Binding SetDebugCustomImageScenarioCommand}"
+                            CommandParameter="{x:Static runtime:DebugCustomImageScenario.InvalidImage}"
+                            Header="{Binding Strings[Debug.CustomImages.InvalidImage]}" />
+                        <MenuItem
+                            Command="{Binding SetDebugCustomImageScenarioCommand}"
+                            CommandParameter="{x:Static runtime:DebugCustomImageScenario.AmbiguousDefault}"
+                            Header="{Binding Strings[Debug.CustomImages.AmbiguousDefault]}" />
+                    </MenuItem>
                     <MenuItem Header="{Binding Strings[Debug.DeploymentPages]}">
                         <MenuItem
                             Command="{Binding ShowDebugProgressPageCommand}"

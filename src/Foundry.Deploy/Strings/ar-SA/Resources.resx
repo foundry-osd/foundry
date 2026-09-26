@@ -130,6 +130,57 @@
   <data name="Common.Yes" xml:space="preserve">
     <value>نعم</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>توجد الصورة الافتراضية على أكثر من وحدة تخزين متصلة. اختر وحدة تخزين المصدر بشكل صريح.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>كتالوج Windows</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>صورة مخصصة</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>الصورة</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>فهرس الصورة</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>جارٍ فحص الصورة والتحقّق منها...</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>بيان الصور المخصصة مفقود أو تالف أو لا يتطابق مع وسيط التمهيد هذا. أعد إنشاء الوسيط أو اختر مصدرًا آخر.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>تعذرت قراءة الصورة أو تغيّر الفهرس المحدد أو البيانات الوصفية. حدد الصورة مجددًا ثم أعد المحاولة.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>الصورة أو الفهرس الافتراضي الذي تم تكوينه غير متاح. اختر صورة وفهرسًا بشكل صريح.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>لم يتم العثور على صور مخصصة. وصّل الوسيط الصحيح أو أضف ملف WIM إلى مجلد USB الموضّح في الوثائق.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>الصورة المخصصة غير جاهزة.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>تم التحقّق من الصورة المخصصة والفهرس المحدد بدقة.</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>تحديد موقع الصورة المخصصة</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>تم تحديد موقع الصورة المخصصة على وسيط النشر.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>مصدر الصورة</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>لا يمكن التأكد من أن قرص المصدر منفصل عن قرص الوجهة. حدد مصدرًا آخر.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>جارٍ التحقّق من الصورة المخصصة...</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -156,6 +207,45 @@
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>صفحة الإلغاء</value>
+  </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>صور Windows مخصصة</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>سيناريو تصحيح الأخطاء: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>الصورة المفضلة غير محددة بوضوح</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>الكتالوج محدد افتراضيًا</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>استخدام تكوين الوسائط</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>الصور المخصصة معطلة</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>لا توجد صور متاحة</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>صورة غير صالحة</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>الصورة المفضلة مفقودة</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>الفهرس المفضل مفقود</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>صور بفهرسات متعددة</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>الصورة والفهرس المفضلان</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>صورة بفهرس واحد</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>صفحات النشر</value>

@@ -40,17 +40,23 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
             if (preflight.UsesTargetStorage)
             {
                 context.EmitCurrentStepIndeterminate("Checking deployment readiness...", "Checking source access...", DeploymentOperationNames.ProbeOperatingSystemSource);
-                long? sourceSize = await _sourceProbe.ProbeAsync(context.Request.OperatingSystem.Url, cancellationToken).ConfigureAwait(false);
+                long? sourceSize = await _sourceProbe.ProbeAsync((context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Url ?? string.Empty, cancellationToken).ConfigureAwait(false);
                 DeploymentCapacityPolicy.EnsureTargetCapacity(context, null, Math.Max(preflight.SourceSizeBytes, sourceSize ?? 0), preflight.TargetDriverBytes);
             }
             else
             {
-                if (!await context.IsExternalStorageAsync(preflight.ImagePath!, cancellationToken).ConfigureAwait(false) ||
-                    preflight.SourceLease!.ReadByte() < 0)
+                bool readable;
+                if (context.Request.OperatingSystem is CustomImageSelection custom)
+                {
+                    readable = preflight.CustomSourceLease?.IsReadable() == true &&
+                        await context.IsCustomSourceSeparateAsync(custom.Asset, preflight.ImagePath!, cancellationToken).ConfigureAwait(false);
+                }
+                else readable = await context.IsExternalStorageAsync(preflight.ImagePath!, cancellationToken).ConfigureAwait(false) && preflight.SourceLease!.ReadByte() >= 0;
+                if (!readable)
                 {
                     throw PreflightDeploymentStep.Guard("Preflight.NotReady", "preflight_not_ready");
                 }
-                preflight.SourceLease.Position = 0;
+                if (preflight.SourceLease is not null) preflight.SourceLease.Position = 0;
                 DeploymentCapacityPolicy.EnsureTargetCapacity(context, preflight.Image, 0, preflight.TargetDriverBytes);
             }
         }

@@ -15,6 +15,7 @@ public enum ConfigurationNavigationTarget
     AutopilotHardwareHashUpload,
     AutopilotInteractiveHardwareHashUpload,
     OperatingSystemSelection,
+    CustomImages,
     Unattend,
     MachineNaming,
     Oobe,

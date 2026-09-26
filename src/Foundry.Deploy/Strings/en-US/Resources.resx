@@ -130,6 +130,57 @@ Licensed under the MIT License.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>The default image exists on more than one attached volume. Choose the source volume explicitly.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Windows catalog</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Custom image</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Image index</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Inspecting and verifying image...</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>The custom image manifest is missing, damaged, or does not match this boot media. Recreate the media or choose another source.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>The image cannot be read or its selected index or metadata has changed. Select the image again and try again.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>The configured default image or index is unavailable. Choose an image and index explicitly.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>No custom images were found. Attach the correct media or add a WIM to the documented USB folder.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Custom image is not ready.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Custom image and exact index verified.</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Resolve custom image</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Custom image resolved from deployment media.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Image source</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>The source disk cannot be confirmed as separate from the destination disk. Select another source.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Verifying custom image...</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -156,6 +207,45 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Cancelled page</value>
+  </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Custom Windows images</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Debug scenario: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Ambiguous preferred image</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Catalog selected by default</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Use media configuration</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Custom images disabled</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>No images available</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Invalid image</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Preferred image missing</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Preferred index missing</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Images with multiple indexes</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Preferred image and index</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Image with one index</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Deployment pages</value>

@@ -12,10 +12,11 @@ public sealed class OperatingSystemSummaryConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is not OperatingSystemCatalogItem item)
+        if (value is not OperatingSystemMetadata item)
         {
             return Binding.DoNothing;
         }
+        if (item is CustomImageSelection custom) return custom.DisplayLabel;
 
         string language = string.IsNullOrWhiteSpace(item.LanguageCode) ? item.Language : item.LanguageCode;
         string edition = item.Edition.Trim();

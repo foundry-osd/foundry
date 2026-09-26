@@ -41,6 +41,9 @@ public sealed record FoundryDeployConfigurationDocument
     /// </summary>
     public DeployOperatingSystemSelectionSettings OperatingSystemSelection { get; init; } = new();
 
+    /// <summary>Gets custom source defaults bound to external media content.</summary>
+    public Foundry.Core.Models.Configuration.Deploy.DeployCustomImagesSettings CustomImages { get; init; } = new();
+
     /// <summary>
     /// Gets network profile roaming settings used during deployment.
     /// </summary>

@@ -35,6 +35,7 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
         string? preparedOutputPath = null;
         string? safeWorkspacePath = null;
         string currentStage = "Prepare ISO output path";
+        string isoTool = options.CustomImages is null ? "MakeWinPEMedia" : "Oscdimg";
 
         try
         {
@@ -45,22 +46,38 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
             preparedOutputPath = PrepareOutputPath(requestedOutputPath, options.IsoTempDirectoryPath);
             currentStage = "Prepare ISO workspace";
             ReportProgress(options.Progress, 20, "Preparing ISO workspace.");
-            string makeWinPeMediaWorkspacePath = PrepareWorkspacePath(
-                preparedWorkspace.Artifact.WorkingDirectoryPath,
-                options.IsoTempDirectoryPath,
-                out safeWorkspacePath);
+            string makeWinPeMediaWorkspacePath;
+            if (options.CustomImages is not null)
+            {
+                WinPeCustomImageMediaService.ValidateConfigurationBinding(options.CustomImages, options.DeployConfigurationJson ?? string.Empty);
+                _ = WinPeCustomImageIsoMastering.ResolveOscdimg(preparedWorkspace.Tools);
+                string temporaryRoot = string.IsNullOrWhiteSpace(options.IsoTempDirectoryPath)
+                    ? Path.GetDirectoryName(preparedOutputPath)! : options.IsoTempDirectoryPath;
+                safeWorkspacePath = Path.Combine(temporaryRoot, "custom-iso-" + Guid.NewGuid().ToString("N"));
+                await WinPeCustomImageIsoMastering.PrepareAsync(preparedWorkspace.Artifact, options.CustomImages,
+                    safeWorkspacePath, preparedOutputPath, requestedOutputPath, cancellationToken).ConfigureAwait(false);
+                makeWinPeMediaWorkspacePath = safeWorkspacePath;
+            }
+            else
+            {
+                makeWinPeMediaWorkspacePath = PrepareWorkspacePath(
+                    preparedWorkspace.Artifact.WorkingDirectoryPath,
+                    options.IsoTempDirectoryPath,
+                    out safeWorkspacePath);
+            }
 
             string arguments =
                 $"/ISO /F {WinPeProcessRunner.Quote(makeWinPeMediaWorkspacePath)} {WinPeProcessRunner.Quote(preparedOutputPath)}" +
                 (preparedWorkspace.UseBootEx ? " /bootex" : string.Empty);
 
-            currentStage = "Run MakeWinPEMedia for ISO";
-            ReportProgress(options.Progress, 40, "Running MakeWinPEMedia for ISO.");
-            WinPeProcessExecution execution = await _processRunner.RunCmdScriptAsync(
-                preparedWorkspace.Tools.MakeWinPeMediaPath,
-                arguments,
-                makeWinPeMediaWorkspacePath,
-                cancellationToken).ConfigureAwait(false);
+            currentStage = $"Run {isoTool} for ISO";
+            ReportProgress(options.Progress, 40, options.CustomImages is null ? "Running MakeWinPEMedia for ISO." : "Creating ISO media.");
+            WinPeProcessExecution execution = options.CustomImages is null
+                ? await _processRunner.RunCmdScriptAsync(preparedWorkspace.Tools.MakeWinPeMediaPath,
+                    arguments, makeWinPeMediaWorkspacePath, cancellationToken).ConfigureAwait(false)
+                : await _processRunner.RunAsync(WinPeCustomImageIsoMastering.ResolveOscdimg(preparedWorkspace.Tools),
+                    WinPeCustomImageIsoMastering.CreateArguments(makeWinPeMediaWorkspacePath, preparedOutputPath, preparedWorkspace.UseBootEx),
+                    makeWinPeMediaWorkspacePath, cancellationToken).ConfigureAwait(false);
 
             if (!execution.IsSuccess)
             {
@@ -68,20 +85,20 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                     WinPeErrorCodes.IsoCreateFailed,
                     "Failed to create WinPE ISO media.",
                     "Create ISO media",
-                    "MakeWinPEMedia"));
+                    isoTool));
             }
 
             if (!File.Exists(preparedOutputPath) || new FileInfo(preparedOutputPath).Length == 0)
             {
                 return WinPeResult.Failure(
                     WinPeErrorCodes.IsoCreateFailed,
-                    "MakeWinPEMedia completed without producing the expected ISO artifact.",
+                    $"{isoTool} completed without producing the expected ISO artifact.",
                     execution.ToDiagnosticText(),
                     stage: "Create ISO media",
                     exitCode: execution.ExitCode,
                     failureKind: WinPeFailureKinds.Process,
                     failureReason: WinPeFailureReasons.ArtifactMissing,
-                    toolName: "MakeWinPEMedia");
+                    toolName: isoTool);
             }
 
             currentStage = "Finalize ISO output";
@@ -98,17 +115,17 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                 "Unexpected failure while creating WinPE ISO media.",
                 ex.ToString(),
                 stage: currentStage,
-                failureKind: currentStage == "Run MakeWinPEMedia for ISO"
+                failureKind: currentStage == $"Run {isoTool} for ISO"
                     ? WinPeFailureKinds.Process
                     : WinPeFailureKinds.FileSystem,
                 failureReason: ex switch
                 {
                     UnauthorizedAccessException => WinPeFailureReasons.AccessDenied,
                     IOException => WinPeFailureReasons.IoError,
-                    _ when currentStage == "Run MakeWinPEMedia for ISO" => WinPeFailureReasons.ProcessStartFailed,
+                    _ when currentStage == $"Run {isoTool} for ISO" => WinPeFailureReasons.ProcessStartFailed,
                     _ => WinPeFailureReasons.Unexpected
                 },
-                toolName: currentStage == "Run MakeWinPEMedia for ISO" ? "MakeWinPEMedia" : null,
+                toolName: currentStage == $"Run {isoTool} for ISO" ? isoTool : null,
                 exception: ex);
         }
         finally

@@ -130,6 +130,57 @@ Licențiat sub licența MIT.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Da</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Imaginea implicită există pe mai multe volume conectate. Alegeți explicit volumul sursă.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Catalog Windows</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Imagine personalizată</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Imagine</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Indexul imaginii</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Se inspectează și se verifică imaginea…</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Manifestul imaginilor personalizate lipsește, este deteriorat sau nu corespunde acestui mediu de pornire. Recreați mediul sau alegeți altă sursă.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Imaginea nu poate fi citită sau indexul selectat ori metadatele s-au modificat. Selectați din nou imaginea și reîncercați.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>Imaginea sau indexul implicit configurat nu este disponibil. Alegeți explicit o imagine și un index.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Nu s-au găsit imagini personalizate. Conectați mediul corect sau adăugați un WIM în folderul USB indicat în documentație.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Imaginea personalizată nu este pregătită.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Imaginea personalizată și indexul exact au fost verificate.</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Identificați imaginea personalizată</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Imaginea personalizată a fost identificată pe mediul de implementare.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Sursa imaginii</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Nu se poate confirma că discul sursă este diferit de discul destinație. Selectați altă sursă.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Se verifică imaginea personalizată…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -156,6 +207,45 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Pagina de implementare anulată</value>
+  </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Imagini Windows particularizate</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Scenariu de depanare: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Imagine preferată ambiguă</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Catalog selectat implicit</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Utilizează configurația suportului media</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Imagini particularizate dezactivate</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>Nu sunt disponibile imagini</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Imagine nevalidă</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Imaginea preferată lipsește</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Indexul preferat lipsește</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Imagini cu mai mulți indecși</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Imagine și index preferate</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Imagine cu un singur index</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Pagini de implementare</value>

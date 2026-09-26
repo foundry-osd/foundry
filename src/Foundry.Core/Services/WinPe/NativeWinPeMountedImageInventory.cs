@@ -10,8 +10,8 @@ namespace Foundry.Core.Services.WinPe;
 /// Reads Unicode mounted-image paths without relying on DISM console encoding.
 /// </summary>
 /// <remarks>
-/// The production instance owns DISM for the process lifetime. Reads, buffer release, and shutdown
-/// share a lock because DISM initialization is process-wide and cannot be cancelled mid-call.
+/// The production adapter shares DISM initialization with other native image consumers. Reads,
+/// buffer release, and disposal share a lock so its lifetime lease outlives every native call.
 /// </remarks>
 internal sealed class NativeWinPeMountedImageInventory : IDisposable
 {

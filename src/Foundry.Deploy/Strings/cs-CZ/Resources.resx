@@ -130,6 +130,57 @@ Licencováno pod licencí MIT.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Ano</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Výchozí bitová kopie je na více připojených svazcích. Výslovně vyberte zdrojový svazek.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Katalog Windows</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Vlastní bitová kopie</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Bitová kopie</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Index bitové kopie</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Kontrola a ověřování bitové kopie…</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Manifest vlastních bitových kopií chybí, je poškozen nebo neodpovídá tomuto spouštěcímu médiu. Vytvořte médium znovu nebo vyberte jiný zdroj.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Bitovou kopii nelze přečíst nebo se změnil vybraný index či metadata. Vyberte bitovou kopii znovu a opakujte akci.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>Nastavená výchozí bitová kopie nebo index nejsou dostupné. Výslovně vyberte bitovou kopii a index.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Nebyly nalezeny vlastní bitové kopie. Připojte správné médium nebo přidejte WIM do složky USB uvedené v dokumentaci.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Vlastní bitová kopie není připravena.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Vlastní bitová kopie a přesný index ověřeny.</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Vyhledat vlastní bitovou kopii</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Vlastní bitová kopie nalezena na médiu pro nasazení.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Zdroj bitové kopie</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Nelze potvrdit, že zdrojový disk je odlišný od cílového. Vyberte jiný zdroj.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Ověřování vlastní bitové kopie…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -156,6 +207,45 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Stránka zrušeného nasazení</value>
+  </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Vlastní bitové kopie Windows</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Scénář ladění: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Nejednoznačná preferovaná bitová kopie</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Katalog vybrán ve výchozím nastavení</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Použít konfiguraci média</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Vlastní bitové kopie zakázány</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>Nejsou k dispozici žádné bitové kopie</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Neplatná bitová kopie</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Preferovaná bitová kopie chybí</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Preferovaný index chybí</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Bitové kopie s více indexy</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Preferovaná bitová kopie a index</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Bitová kopie s jedním indexem</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Stránky nasazení</value>

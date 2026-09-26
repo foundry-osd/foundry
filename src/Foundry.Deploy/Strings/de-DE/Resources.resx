@@ -130,6 +130,57 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Ja</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Das Standardabbild befindet sich auf mehreren angeschlossenen Volumes. Wählen Sie das Quellvolume ausdrücklich aus.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Windows-Katalog</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Benutzerdefiniertes Abbild</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Abbild</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Abbildindex</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Abbild wird untersucht und überprüft…</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Das Manifest der benutzerdefinierten Abbilder fehlt, ist beschädigt oder passt nicht zu diesem Startmedium. Erstellen Sie das Medium neu oder wählen Sie eine andere Quelle.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Das Image kann nicht gelesen werden oder der ausgewählte Index bzw. die Metadaten haben sich geändert. Wählen Sie das Image erneut aus und versuchen Sie es noch einmal.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>Das konfigurierte Standardabbild oder der Index ist nicht verfügbar. Wählen Sie ausdrücklich ein Abbild und einen Index aus.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Keine benutzerdefinierten Abbilder gefunden. Schließen Sie das richtige Medium an oder fügen Sie eine WIM-Datei zum dokumentierten USB-Ordner hinzu.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Das benutzerdefinierte Abbild ist nicht bereit.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Benutzerdefiniertes Abbild und genauer Index überprüft.</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Benutzerdefiniertes Abbild ermitteln</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Benutzerdefiniertes Abbild auf dem Bereitstellungsmedium ermittelt.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Abbildquelle</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Es kann nicht bestätigt werden, dass Quell- und Zieldatenträger verschieden sind. Wählen Sie eine andere Quelle.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Benutzerdefiniertes Abbild wird überprüft…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -156,6 +207,45 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Seite für abgebrochene Bereitstellung</value>
+  </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Benutzerdefinierte Windows-Abbilder</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Debugszenario: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Bevorzugtes Abbild nicht eindeutig</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Katalog standardmäßig ausgewählt</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Medienkonfiguration verwenden</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Benutzerdefinierte Abbilder deaktiviert</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>Keine Abbilder verfügbar</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Ungültiges Abbild</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Bevorzugtes Abbild fehlt</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Bevorzugter Index fehlt</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Abbilder mit mehreren Indizes</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Bevorzugtes Abbild und bevorzugter Index</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Abbild mit einem Index</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Bereitstellungsseiten</value>

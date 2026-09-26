@@ -685,6 +685,153 @@ Licensierad under MIT-licensen.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Uppdatera</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Arkitektur</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Tillgänglig</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Bläddra</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Import avbruten</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Foundry-katalog</value>
+  </data>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Rensa standardval</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Anpassade Windows-avbildningar</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Föredragen avbildning</value>
+  </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Välj om Foundry Deploy först visar Foundry-katalogen eller anpassade Windows-avbildningar.</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Standardkälla för avbildningar i Foundry Deploy</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Vald avbildning</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>Det finns redan en avbildning med detta namn i profilen.</value>
+  </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Utgåva</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Inga anpassade Windows-avbildningar. Importera en ISO- eller WIM-fil för att börja.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Aktivera anpassade Windows-avbildningar</value>
+  </data>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Exkludera</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importera ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Inkludera</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Inkluderad</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Föredraget index</value>
+  </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Språk</value>
+  </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Avbildningsbibliotek</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Saknas</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Flera</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Nej</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>Avbildningsåtgärden misslyckades. Kontrollera källan, det lediga utrymmet och Foundry-loggarna.</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Inkludera minst en tillgänglig Windows-avbildning i den här profilen. Återställ saknade inkluderade avbildningar och korrigera eller rensa valet av föredragen avbildning eller index innan du skapar eller uppdaterar medier.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Uppdatera</value>
+  </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Vill du ta bort den här avbildningen från den aktuella profilen och radera dess lokala kopia? Andra profiler som hänvisar till den kommer att visa den som saknad. Originalfiler och befintliga medier förblir oförändrade.</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Ange standardavbildning</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Ange standardindex</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Storlek</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Välj installationsavbildningen i denna ISO.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>ISO- eller WIM-källa</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Import slutförd</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Kopierar avbildning…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Exporterar avbildningsindex…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Läser avbildningsindex…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Verifierar källor för anpassade avbildningar…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Ställ in WSAIFabricSvc på manuell start istället för automatisk start.</value>
   </data>
@@ -2028,6 +2175,12 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Importera Windows-avbildningar från ISO- eller WIM-filer och inkludera dem på distributionsmedier.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Anpassade Windows-avbildningar</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Anpassning</value>

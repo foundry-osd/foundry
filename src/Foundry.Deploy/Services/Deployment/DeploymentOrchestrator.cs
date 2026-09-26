@@ -154,7 +154,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             TargetDiskNumber = context.TargetDiskNumber,
             TargetComputerName = context.TargetComputerName,
             OperatingSystemFileName = context.OperatingSystem.FileName,
-            OperatingSystemUrl = context.OperatingSystem.Url,
+            OperatingSystemUrl = (context.OperatingSystem as OperatingSystemCatalogItem)?.Url ?? string.Empty,
             DriverPackSelectionKind = context.DriverPackSelectionKind,
             DriverPackName = context.DriverPack?.DisplayLabel,
             DriverPackUrl = context.DriverPack?.DownloadUrl,
@@ -484,6 +484,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ["deploy_hardware_vendor"] = NormalizeTelemetryString(hardware?.Manufacturer),
             ["deploy_hardware_model"] = NormalizeTelemetryString(hardware?.Model),
             ["deploy_hardware_virtual_machine"] = hardware?.IsVirtualMachine ?? false,
+            ["deploy_os_source"] = context.OperatingSystem is CustomImageSelection ? "custom" : "catalog",
             ["deploy_os_product"] = ResolveOperatingSystemProduct(context.OperatingSystem),
             ["deploy_os_version"] = NormalizeTelemetryString(context.OperatingSystem.ReleaseId),
             ["deploy_os_build"] = NormalizeTelemetryString(context.OperatingSystem.Build),
@@ -582,7 +583,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             : runtimeState.CurrentStep;
     }
 
-    private static string ResolveOperatingSystemProduct(OperatingSystemCatalogItem operatingSystem)
+    private static string ResolveOperatingSystemProduct(OperatingSystemMetadata operatingSystem)
     {
         return string.IsNullOrWhiteSpace(operatingSystem.WindowsRelease)
             ? "windows"

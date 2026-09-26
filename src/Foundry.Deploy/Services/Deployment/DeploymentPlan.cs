@@ -35,7 +35,7 @@ public static class DeploymentPlan
         if (request.UsesCustomUnattend) names.Add(DeploymentStepNames.ValidateCustomUnattend);
         names.Add(DeploymentStepNames.ValidateTargetConfiguration);
 
-        bool external = usesTargetStorage == false;
+        bool external = usesTargetStorage == false || request.OperatingSystem is CustomImageSelection;
         if (!external) names.Add(DeploymentStepNames.PrepareTargetDiskLayout);
         names.Add(DeploymentStepNames.DownloadOperatingSystemImage);
         names.Add(DeploymentStepNames.CheckWindowsImage);
@@ -118,6 +118,9 @@ public static class DeploymentPlan
         state?.StepOutcomes.Any(outcome => outcome.Name == name) == true;
 
     private static string ResolveLabel(string name, DeploymentContext request) =>
+        name == DeploymentStepNames.DownloadOperatingSystemImage && request.OperatingSystem is CustomImageSelection
+            ? "Resolve custom image"
+            :
         name == DeploymentStepNames.ProvisionAutopilot
             ? request.AutopilotProvisioningMode switch
             {

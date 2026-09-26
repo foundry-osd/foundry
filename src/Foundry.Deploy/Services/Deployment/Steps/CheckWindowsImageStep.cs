@@ -16,6 +16,11 @@ public sealed class CheckWindowsImageStep(
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
+        if (context.Request.OperatingSystem is Models.CustomImageSelection)
+            return context.Preflight?.CustomSourceLease is not null && context.Preflight.Matches(context)
+                ? DeploymentStepResult.Succeeded("Custom image and exact index verified.")
+                : DeploymentStepResult.Failed("Custom image is not ready.", DeploymentFailure.Guard(DeploymentOperationNames.PreflightDeployment,
+                    DeploymentFailureReasons.InvalidState, "preflight_not_ready"));
         try
         {
             DeploymentPreflightState? prepared = context.Preflight;

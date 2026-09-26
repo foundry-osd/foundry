@@ -23,6 +23,70 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentPreflightTests
 {
     [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task CustomImage_PreflightValidatesExactIndexBeforePartitionWithoutNetwork(bool invalidHash)
+    {
+        using var fixture = new PipelineFixture();
+        fixture.CreateCache(fixture.Payload);
+        var index = new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 7, EditionId = "Anything", Architecture = "x86", ExpandedSizeBytes = 4096 };
+        fixture.CustomImage = new CustomImageSelection(new CustomImageAsset
+        {
+            Id = "custom",
+            DisplayName = "Custom",
+            ImagePath = Path.Combine(fixture.CacheRoot, "Cache", "OperatingSystems", "install.esd"),
+            VolumeRoot = fixture.CacheRoot,
+            ExpectedLength = fixture.Payload.Length,
+            ExpectedHash = invalidHash ? new string('0', 64) : Convert.ToHexString(SHA256.HashData(fixture.Payload))
+        }, index);
+        var preflight = new PreflightDeploymentStep(fixture.Storage, new ImageSourceProbe(), new CustomReader(index));
+        DeploymentStepExecutionContext context = fixture.CreateContext();
+        DeploymentStepResult result = await preflight.ExecuteAsync(context, TestContext.Current.CancellationToken);
+        Assert.Equal(invalidHash ? DeploymentStepState.Failed : DeploymentStepState.Succeeded, result.State);
+        Assert.Empty(fixture.Events);
+        if (invalidHash) Assert.Null(context.Preflight);
+        else
+        {
+            Assert.Equal(7, context.Preflight!.Image!.Index);
+            Assert.False(context.Preflight.UsesTargetStorage);
+            Assert.Throws<IOException>(() => File.Delete(fixture.CustomImage.Asset.ImagePath));
+            Assert.Equal(DeploymentStepState.Succeeded, (await fixture.Prepare.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+            Assert.Equal(["partition"], fixture.Events);
+        }
+    }
+
+    [Theory]
+    [InlineData("target_mapping", 4096, 7, 0)]
+    [InlineData("unknown_mapping", 4096, 7, 0)]
+    [InlineData("", 0, 7, 0)]
+    [InlineData("", 4096, 8, 0)]
+    [InlineData("", 4096, 7, 1)]
+    public async Task CustomImage_InvalidSourceOrCapacityNeverPartitions(string failure, long expandedSize, int actualIndex, ulong targetBytes)
+    {
+        using var fixture = new PipelineFixture { Failure = failure, TargetBytes = targetBytes == 0 ? null : targetBytes };
+        fixture.CreateCache(fixture.Payload);
+        var index = new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 7, ExpandedSizeBytes = expandedSize };
+        fixture.CustomImage = new CustomImageSelection(new CustomImageAsset
+        {
+            Id = "manual",
+            DisplayName = "Custom",
+            ImagePath = Path.Combine(fixture.CacheRoot, "Cache", "OperatingSystems", "install.esd"),
+            VolumeRoot = fixture.CacheRoot
+        }, index);
+        var preflight = new PreflightDeploymentStep(fixture.Storage, new ImageSourceProbe(), new CustomReader(index with { Index = actualIndex }));
+        DeploymentStepExecutionContext context = fixture.CreateContext();
+        Assert.Equal(DeploymentStepState.Failed, (await preflight.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.Null(context.Preflight);
+        Assert.Empty(fixture.Events);
+        File.Delete(fixture.CustomImage.Asset.ImagePath);
+    }
+
+    private sealed class CustomReader(Foundry.Core.Models.Configuration.CustomImageIndex index) : Foundry.Core.Services.Images.ICustomImageMetadataReader
+    {
+        public Task<IReadOnlyList<Foundry.Core.Models.Configuration.CustomImageIndex>> ReadAsync(string path, CancellationToken cancellationToken = default)
+            => Task.FromResult<IReadOnlyList<Foundry.Core.Models.Configuration.CustomImageIndex>>([index]);
+    }
+    [Theory]
     [InlineData("iso_cold")]
     [InlineData("usb_cold")]
     [InlineData("usb_warm")]
@@ -456,6 +520,7 @@ public sealed class DeploymentPreflightTests
         public string? OptionalFeatureId { get; init; }
         public bool OptionalFeatureEnable { get; init; } = true;
         public string Failure { get; set; } = "";
+        public CustomImageSelection? CustomImage { get; set; }
         public DeploymentStepExecutionContext? Context { get; private set; }
         private readonly HttpClient _client;
         private readonly CancellationTokenSource _cancellation = new();
@@ -507,7 +572,7 @@ public sealed class DeploymentPreflightTests
                     IsEnabled = OptionalFeatureId is not null,
                     Actions = OptionalFeatureId is null ? [] : [new() { Id = OptionalFeatureId, Enable = OptionalFeatureEnable }]
                 },
-                OperatingSystem = new OperatingSystemCatalogItem
+                OperatingSystem = (OperatingSystemMetadata?)CustomImage ?? new OperatingSystemCatalogItem
                 {
                     Edition = Failure == "unsupported_edition" ? "Unknown" : "Pro",
                     FileName = "install.esd",

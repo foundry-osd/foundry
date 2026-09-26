@@ -33,6 +33,8 @@ public sealed record UsbOutputOptions
     public string? DeployConfigurationJson { get; init; }
     public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = [];
     public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
+    /// <summary>Retains custom image inputs until data publication and BOOT creation complete.</summary>
+    public WinPeCustomImageMediaLease? CustomImages { get; init; }
     public IProgress<WinPeDownloadProgress>? DownloadProgress { get; init; }
     public IProgress<WinPeMediaProgress>? Progress { get; init; }
     public bool PreserveBuildWorkspace { get; init; }

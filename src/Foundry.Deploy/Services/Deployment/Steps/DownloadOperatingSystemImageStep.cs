@@ -10,6 +10,8 @@ using Foundry.Deploy.Services.Http;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Logging;
 
+using Foundry.Deploy.Models;
+
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
 public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
@@ -58,6 +60,11 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
 
     private async Task<DeploymentStepResult> DownloadImageAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
+        if (context.Request.OperatingSystem is CustomImageSelection)
+            return context.Preflight?.CustomSourceLease is not null && context.Preflight.Matches(context)
+                ? DeploymentStepResult.Skipped("Custom image resolved from deployment media.")
+                : DeploymentStepResult.Failed("Custom image is not ready.", DeploymentFailure.Guard(DeploymentOperationNames.PreflightDeployment,
+                    DeploymentFailureReasons.InvalidState, "preflight_not_ready"));
         DeploymentPreflightState? prepared = context.Preflight;
         if (prepared is null || !prepared.MatchesStoragePlan(context))
         {
@@ -79,11 +86,11 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
 
         string fileName = DeploymentStepExecutionContext.ResolveFileName(
             context.Request.OperatingSystem.FileName,
-            context.Request.OperatingSystem.Url);
+            (context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Url ?? string.Empty);
         string destinationPath = Path.Combine(osDirectory, fileName);
         string? expectedOsHash = DeploymentStepExecutionContext.ResolvePreferredHash(
-            context.Request.OperatingSystem.Sha256,
-            context.Request.OperatingSystem.Sha1);
+            (context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Sha256 ?? string.Empty,
+            (context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Sha1 ?? string.Empty);
 
         context.EmitCurrentStepIndeterminate(
             stepMessage,
@@ -94,7 +101,7 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
             DeploymentOperationNames.DownloadOperatingSystemImage);
         ArtifactDownloadResult result = await _artifactDownloadService
             .DownloadAsync(
-                context.Request.OperatingSystem.Url,
+                (context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Url ?? string.Empty,
                 destinationPath,
                 expectedHash: expectedOsHash,
                 expectedSizeBytes: context.Request.OperatingSystem.SizeBytes,
@@ -123,16 +130,21 @@ public sealed class DownloadOperatingSystemImageStep : DeploymentStepBase
 
     protected override async Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
+        if (context.Request.OperatingSystem is CustomImageSelection custom)
+        {
+            context.RuntimeState.DownloadedOperatingSystemPath = custom.Asset.ImagePath;
+            return DeploymentStepResult.Skipped("Custom image resolution simulated.");
+        }
         string osDirectory = context.ResolveOperatingSystemCacheRoot();
         Directory.CreateDirectory(osDirectory);
 
         string fileName = DeploymentStepExecutionContext.ResolveFileName(
             context.Request.OperatingSystem.FileName,
-            context.Request.OperatingSystem.Url);
+            (context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Url ?? string.Empty);
         string simulatedPath = Path.Combine(osDirectory, $"{fileName}.dryrun.txt");
         await File.WriteAllTextAsync(
             simulatedPath,
-            $"Dry-run artifact created at {DateTimeOffset.UtcNow:O}{Environment.NewLine}SourceUrl={context.Request.OperatingSystem.Url}",
+            $"Dry-run artifact created at {DateTimeOffset.UtcNow:O}{Environment.NewLine}SourceUrl={(context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Url ?? string.Empty}",
             cancellationToken).ConfigureAwait(false);
 
         context.RuntimeState.DownloadedOperatingSystemPath = simulatedPath;

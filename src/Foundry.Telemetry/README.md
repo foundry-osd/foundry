@@ -1,4 +1,14 @@
-# Exception delivery diagnostics
+# Telemetry contracts
+
+## Custom Windows images
+
+Custom images extend the existing event taxonomy. `osd:boot_media_finished` includes `boot_media_custom_images_enabled`, `boot_media_custom_images_count`, and `boot_media_default_os_source` (`catalog` or `custom`). The count comes from included images in the operation's captured configuration, is zero when disabled, and represents the intended selection when media creation fails or is cancelled.
+
+`deploy:session_finished` includes `deploy_os_source` (`catalog` or `custom`). OS properties are populated from the selected source's metadata, including the full WIM version and default language. `TelemetryEventPropertyPolicy` validates custom metadata before sending it: known technical values are retained; missing or invalid values become `unknown`. Custom license channel and media update month remain `unknown`. The existing numeric applied index, outcome, duration, and failure fields are retained.
+
+No image names, index names, paths, hashes, or image/profile identifiers are added to Product Analytics. Catalog metadata keeps its existing contract. Import lifecycle messages remain diagnostic logs governed by remote diagnostics consent. The telemetry and debug controls are unchanged; no separate import event is introduced.
+
+## Exception delivery diagnostics
 
 Error Tracking uses the PostHog SDK's in-memory queue. A successful `Capture` means the SDK accepted the event, not that PostHog received it. SDK 2.15.5 can discard an older event while accepting a new one when the queue is full.
 

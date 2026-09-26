@@ -685,6 +685,153 @@ Licencováno pod licencí MIT.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Obnovit</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Architektura</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Dostupné</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Procházet</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Import zrušen</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Katalog Foundry</value>
+  </data>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Zrušit výchozí výběr</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Vlastní bitové kopie Windows</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Preferovaná bitová kopie</value>
+  </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Zvolte, zda má Foundry Deploy nejprve zobrazit katalog Foundry, nebo vlastní bitové kopie Windows.</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Výchozí zdroj bitových kopií ve Foundry Deploy</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Vybraná bitová kopie</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>V tomto profilu již existuje obraz s tímto názvem.</value>
+  </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Edice</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Žádné vlastní bitové kopie Windows. Začněte importem ISO nebo WIM.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Povolit vlastní bitové kopie Windows</value>
+  </data>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Vyloučit</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Importovat ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Zahrnout</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Zahrnuto</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Preferovaný index</value>
+  </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Index</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Indexy</value>
+  </data>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Jazyky</value>
+  </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Knihovna bitových kopií</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Chybí</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Více</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Název</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Ne</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>Operace s bitovou kopií selhala. Zkontrolujte zdroj, volné místo a protokoly Foundry.</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Zahrňte do tohoto profilu alespoň jednu dostupnou bitovou kopii Windows. Před vytvořením nebo aktualizací média obnovte chybějící zahrnuté bitové kopie a opravte nebo zrušte výběr preferované bitové kopie nebo indexu.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Obnovit</value>
+  </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Odebrat tuto bitovou kopii z aktuálního profilu a odstranit její místní kopii? V ostatních profilech, které na ni odkazují, se zobrazí jako chybějící. Původní soubory a existující média zůstanou beze změny.</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Odebrat</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Nastavit výchozí obraz</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Nastavit výchozí index</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Velikost</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Vyberte instalační obraz v tomto souboru ISO.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>Zdroj ISO nebo WIM</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Import dokončen</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Kopírování bitové kopie…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Export indexů bitové kopie…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Čtení indexů bitové kopie…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Ověřování zdrojů vlastní bitové kopie…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Verze</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Ano</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Nastavte WSAIFabricSvc na ruční spuštění namísto automatického spouštění.</value>
   </data>
@@ -2028,6 +2175,12 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Importujte bitové kopie Windows ze souborů ISO nebo WIM a zahrňte je do médií pro nasazení.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Vlastní bitové kopie Windows</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Přizpůsobení</value>

@@ -144,7 +144,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
     /// <param name="request">Effective customization and answer-file ownership shown in the confirmation.</param>
     /// <param name="hasCustomCommands">Whether preserved commands require an overlap warning.</param>
     /// <returns><see langword="true"/> when the user confirms the destructive operation.</returns>
-    private bool ConfirmDestructiveDeployment(TargetDiskInfo targetDisk, OperatingSystemCatalogItem operatingSystem, DeploymentLaunchRequest request, bool hasCustomCommands)
+    private bool ConfirmDestructiveDeployment(TargetDiskInfo targetDisk, OperatingSystemMetadata operatingSystem, DeploymentLaunchRequest request, bool hasCustomCommands)
     {
         string sizeGiB = targetDisk.SizeBytes > 0
             ? $"{(targetDisk.SizeBytes / 1024d / 1024d / 1024d):0.0} GiB"

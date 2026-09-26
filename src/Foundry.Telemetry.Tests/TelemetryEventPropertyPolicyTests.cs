@@ -9,6 +9,99 @@ namespace Foundry.Telemetry.Tests;
 public sealed class TelemetryEventPropertyPolicyTests
 {
     [Theory]
+    [InlineData(true, 256, "custom")]
+    [InlineData(false, 0, "catalog")]
+    public void Sanitize_ForBootMediaFinished_RetainsTypedCustomImageConfiguration(bool enabled, int count, string source)
+    {
+        var properties = new Dictionary<string, object?>
+        {
+            ["boot_media_custom_images_enabled"] = enabled,
+            ["boot_media_custom_images_count"] = count,
+            ["boot_media_default_os_source"] = source,
+            ["boot_media_custom_image_name"] = "Private image",
+            ["boot_media_custom_image_hash"] = "private-hash"
+        };
+
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.OsdBootMediaFinished, properties);
+
+        Assert.Equal(3, result.Count);
+        Assert.Equal(enabled, result["boot_media_custom_images_enabled"]);
+        Assert.Equal(count, result["boot_media_custom_images_count"]);
+        Assert.Equal(source, result["boot_media_default_os_source"]);
+    }
+
+    [Theory]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, "boot_media_custom_images_enabled", "true")]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, "boot_media_custom_images_count", -1)]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, "boot_media_custom_images_count", 257)]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, "boot_media_custom_images_count", "2")]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, "boot_media_default_os_source", "Private image")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_os_source", "Private image")]
+    [InlineData(TelemetryEvents.ConnectSessionReady, "deploy_os_source", "custom")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "boot_media_custom_images_count", 2)]
+    public void Sanitize_DropsInvalidOrMisplacedCustomImageProperties(string eventName, string key, object value)
+    {
+        Assert.Empty(TelemetryEventPropertyPolicy.Sanitize(eventName, new Dictionary<string, object?> { [key] = value }));
+    }
+
+    [Fact]
+    public void Sanitize_ForCustomDeployment_RetainsTechnicalMetadataAndFullBuild()
+    {
+        var properties = new Dictionary<string, object?>
+        {
+            ["deploy_os_source"] = "custom",
+            ["deploy_os_product"] = "windows_11",
+            ["deploy_os_version"] = "25H2",
+            ["deploy_os_build"] = "10.0.26200.9457",
+            ["deploy_os_architecture"] = "x64",
+            ["deploy_os_language"] = "fr-FR",
+            ["deploy_os_edition"] = "EnterpriseSN",
+            ["deploy_os_license_channel"] = "ret",
+            ["deploy_os_update_month"] = "2026-09",
+            ["deploy_os_image_index"] = 2,
+            ["deploy_os_image_name"] = "Private image",
+            ["deploy_os_index_name"] = "Private index",
+            ["deploy_os_content_hash"] = "private-hash",
+            ["deploy_os_image_id"] = "private-id",
+            ["deploy_os_image_path"] = @"D:\Private\image.wim"
+        };
+
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.DeploySessionFinished, properties);
+
+        Assert.Equal(10, result.Count);
+        Assert.Equal("custom", result["deploy_os_source"]);
+        Assert.Equal("windows_11", result["deploy_os_product"]);
+        Assert.Equal("25h2", result["deploy_os_version"]);
+        Assert.Equal("10.0.26200.9457", result["deploy_os_build"]);
+        Assert.Equal("x64", result["deploy_os_architecture"]);
+        Assert.Equal("fr-fr", result["deploy_os_language"]);
+        Assert.Equal("enterprisesn", result["deploy_os_edition"]);
+        Assert.Equal("unknown", result["deploy_os_license_channel"]);
+        Assert.Equal("unknown", result["deploy_os_update_month"]);
+        Assert.Equal(2, result["deploy_os_image_index"]);
+    }
+
+    [Theory]
+    [InlineData("deploy_os_product", "Private organization")]
+    [InlineData("deploy_os_version", "Private release")]
+    [InlineData("deploy_os_build", "10.0.26100.private")]
+    [InlineData("deploy_os_build", "10.0.26100.1742 ")]
+    [InlineData("deploy_os_architecture", "private")]
+    [InlineData("deploy_os_language", "en-US-x-private")]
+    [InlineData("deploy_os_language", "x-private")]
+    [InlineData("deploy_os_edition", "Private edition")]
+    [InlineData("deploy_os_edition", null)]
+    [InlineData("deploy_os_build", 26100)]
+    public void Sanitize_ForCustomDeployment_ReplacesUntrustedMetadataWithUnknown(string key, object? value)
+    {
+        var properties = new Dictionary<string, object?> { ["deploy_os_source"] = "custom", [key] = value };
+
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.DeploySessionFinished, properties);
+
+        Assert.Equal("unknown", result[key]);
+    }
+
+    [Theory]
     [InlineData(TelemetryEvents.OsdBootMediaFinished, "unattend_default_mode", "native")]
     [InlineData(TelemetryEvents.OsdBootMediaFinished, "unattend_default_mode", "custom")]
     [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_unattend_mode", "native")]
@@ -306,6 +399,7 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["deploy_hardware_vendor"] = "dell",
             ["deploy_hardware_model"] = "latitude 5450",
             ["deploy_hardware_virtual_machine"] = false,
+            ["deploy_os_source"] = "catalog",
             ["deploy_os_product"] = "windows_11",
             ["deploy_os_version"] = "24h2",
             ["deploy_os_build"] = "26100",
@@ -346,6 +440,7 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal("-193", result["deploy_session_failure_code"]);
         Assert.Equal("non_zero_exit", result["deploy_session_failure_reason"]);
         Assert.Equal("iso", result["deploy_session_mode"]);
+        Assert.Equal("catalog", result["deploy_os_source"]);
         Assert.Equal("windows_11", result["deploy_os_product"]);
         Assert.Equal("2026-07", result["deploy_os_update_month"]);
         Assert.Equal("pro", result["deploy_os_edition"]);

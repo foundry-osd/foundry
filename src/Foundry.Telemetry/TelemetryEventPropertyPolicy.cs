@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Globalization;
+
 namespace Foundry.Telemetry;
 
 /// <summary>
@@ -9,6 +11,11 @@ namespace Foundry.Telemetry;
 /// </summary>
 public static class TelemetryEventPropertyPolicy
 {
+    private static readonly HashSet<string> KnownLanguageNames = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+        .Where(culture => (culture.CultureTypes & CultureTypes.UserCustomCulture) == 0)
+        .Select(culture => culture.Name)
+        .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
     private static readonly HashSet<string> SensitiveKeys = new(StringComparer.OrdinalIgnoreCase)
     {
         "ssid",
@@ -78,6 +85,9 @@ public static class TelemetryEventPropertyPolicy
                 "boot_media_drivers_dell_enabled",
                 "boot_media_drivers_hp_enabled",
                 "boot_media_drivers_custom_enabled",
+                "boot_media_custom_images_enabled",
+                "boot_media_custom_images_count",
+                "boot_media_default_os_source",
                 "boot_media_connect_runtime_payload_source",
                 "boot_media_deploy_runtime_payload_source",
                 "autopilot_enabled",
@@ -187,6 +197,7 @@ public static class TelemetryEventPropertyPolicy
                 "deploy_hardware_model",
                 "deploy_hardware_virtual_machine",
                 "deploy_os_product",
+                "deploy_os_source",
                 "deploy_os_version",
                 "deploy_os_build",
                 "deploy_os_update_month",
@@ -219,7 +230,7 @@ public static class TelemetryEventPropertyPolicy
     }
 
     /// <summary>
-    /// Returns only properties explicitly allowed for the supplied event.
+    /// Returns only approved properties, limiting custom-image metadata to recognized technical values.
     /// </summary>
     /// <param name="eventName">Stable telemetry event name.</param>
     /// <param name="properties">Candidate event properties before filtering.</param>
@@ -231,10 +242,13 @@ public static class TelemetryEventPropertyPolicy
             return new Dictionary<string, object?>();
         }
 
+        bool isCustomDeployment = eventName == TelemetryEvents.DeploySessionFinished &&
+            properties.TryGetValue("deploy_os_source", out object? source) && source is "custom";
         Dictionary<string, object?> sanitized = new(StringComparer.Ordinal);
         foreach ((string key, object? value) in properties)
         {
-            if (!allowedProperties.Contains(key) || IsSensitiveKey(key) || !IsAllowedUnattendValue(key, value))
+            if (!allowedProperties.Contains(key) || IsSensitiveKey(key) || !IsAllowedUnattendValue(key, value) ||
+                !IsAllowedCustomImageValue(key, value))
             {
                 continue;
             }
@@ -259,7 +273,9 @@ public static class TelemetryEventPropertyPolicy
                 continue;
             }
 
-            sanitized[key] = value;
+            sanitized[key] = isCustomDeployment
+                ? SanitizeCustomImageMetadata(key, value)
+                : value;
         }
 
         return sanitized;
@@ -285,6 +301,49 @@ public static class TelemetryEventPropertyPolicy
         "unattend_file_count" => value is int and >= 0 and <= 100,
         _ => true
     };
+
+    private static bool IsAllowedCustomImageValue(string key, object? value) => key switch
+    {
+        "boot_media_custom_images_enabled" => value is bool,
+        "boot_media_custom_images_count" => value is int and >= 0 and <= 256,
+        "boot_media_default_os_source" or "deploy_os_source" => value is "catalog" or "custom",
+        _ => true
+    };
+
+    private static object? SanitizeCustomImageMetadata(string key, object? value)
+    {
+        string text = value is string metadata ? metadata.ToLowerInvariant() : string.Empty;
+        return key switch
+        {
+            "deploy_os_product" => text is "windows" or "windows_10" or "windows_11" ? text : "unknown",
+            "deploy_os_version" => text.Length == 4 && char.IsAsciiDigit(text[0]) && char.IsAsciiDigit(text[1]) &&
+                text[2] == 'h' && text[3] is '1' or '2' ? text : "unknown",
+            "deploy_os_build" => text.Length <= 64 && text.All(character => char.IsAsciiDigit(character) || character == '.') &&
+                Version.TryParse(text, out _) ? text : "unknown",
+            "deploy_os_architecture" => text is "x86" or "x64" or "arm" or "arm64" ? text : "unknown",
+            "deploy_os_language" => KnownLanguageNames.Contains(text) ? text : "unknown",
+            "deploy_os_edition" => IsKnownWindowsEdition(text) ? text : "unknown",
+            "deploy_os_license_channel" or "deploy_os_update_month" => "unknown",
+            _ => value
+        };
+    }
+
+    private static bool IsKnownWindowsEdition(string value) => value is
+        "core" or "coren" or "corecountryspecific" or "coresinglelanguage" or
+        "professional" or "professionaln" or "professionaleducation" or "professionaleducationn" or
+        "professionalworkstation" or "professionalworkstationn" or
+        "education" or "educationn" or "enterprise" or "enterprisen" or "enterprises" or "enterprisesn" or
+        "enterpriseeval" or "enterpriseneval" or "enterpriseseval" or "enterprisesneval" or
+        "iotenterprise" or "iotenterprises" or "iotenterprisek" or "iotenterprisesk" or
+        "cloud" or "cloudn" or "cloudedition" or "cloudeditionn" or "ppipro" or
+        "starter" or "startern" or "homebasic" or "homebasicn" or "homepremium" or "homepremiumn" or
+        "ultimate" or "ultimaten" or "business" or "businessn" or "embedded" or "embeddedindustry" or
+        "embeddedindustrye" or "embeddedindustrya" or
+        "serverstandard" or "serverstandardcore" or "serverstandardeval" or "serverstandardevalcore" or
+        "serverdatacenter" or "serverdatacentercore" or "serverdatacentereval" or "serverdatacenterevalcore" or
+        "serverdatacenterazureedition" or "serverdatacenterazureeditioncore" or
+        "serversolution" or "serversolutioncore" or "serverenterprise" or "serverenterprisecore" or
+        "serverweb" or "serverwebcore" or "serverhyper" or "azurestackhci";
 
     private static bool IsSensitiveKey(string key)
     {

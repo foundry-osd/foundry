@@ -9,6 +9,24 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class ConfigurationOverviewEvaluatorTests
 {
+    [Theory]
+    [InlineData(false, false, ConfigurationOverviewState.Disabled)]
+    [InlineData(true, true, ConfigurationOverviewState.Configured)]
+    [InlineData(true, false, ConfigurationOverviewState.NeedsAttention)]
+    public void Evaluate_CustomImages_UsesSourceReadiness(bool enabled, bool ready, ConfigurationOverviewState expected)
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            CustomImages = new CustomImagesSettings { IsEnabled = enabled }
+        };
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(
+            CreateContext(configuration) with { IsCustomImagesReady = ready });
+
+        Assert.Equal(expected, evaluation[ConfigurationOverviewItem.CustomImages]);
+        Assert.Equal(expected, ConfigurationOverviewNavigationEvaluator.EvaluateTarget(
+            evaluation, ConfigurationNavigationTarget.CustomImages));
+    }
+
     [Fact]
     public void Evaluate_DefaultAnswerFiles_AreDisabledInOverviewAndNavigation()
     {

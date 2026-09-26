@@ -685,6 +685,153 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>רענן</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>ארכיטקטורה</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>זמינה</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>עיון</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>הייבוא בוטל</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>קטלוג Foundry</value>
+  </data>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>ניקוי ברירת המחדל</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>תמונות Windows מותאמות אישית</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>תמונה מועדפת</value>
+  </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>בחר אם Foundry Deploy יציג בתחילה את קטלוג Foundry או תמונות Windows מותאמות אישית.</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>מקור תמונה המוגדר כברירת מחדל ב-Foundry Deploy</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>התמונה שנבחרה</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>כבר קיימת תמונה בשם זה בפרופיל זה.</value>
+  </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>מהדורה</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>אין תמונות Windows מותאמות אישית. יש לייבא קובץ ISO או WIM כדי להתחיל.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>הפעלת תמונות Windows מותאמות אישית</value>
+  </data>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>החרגה</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>ייבוא ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>הכללה</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>כלולה</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>אינדקס מועדף</value>
+  </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>אינדקס</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>אינדקסים</value>
+  </data>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>שפות</value>
+  </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>ספריית תמונות</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>חסרה</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>מרובים</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>שם</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>לא</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>הפעולה על התמונה נכשלה. יש לבדוק את המקור, את השטח הפנוי ואת יומני Foundry.</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>יש לכלול לפחות תמונת Windows זמינה אחת בפרופיל זה. יש לשחזר תמונות כלולות שחסרות ולתקן או לנקות את בחירת התמונה או האינדקס המועדפים לפני יצירה או עדכון של המדיה.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>רענון</value>
+  </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>להסיר תמונה זו מהפרופיל הנוכחי ולמחוק את העותק המקומי שלה? בפרופילים אחרים המפנים אליה היא תוצג כחסרה. קובצי המקור ואמצעי המדיה הקיימים לא ישתנו.</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>הסרה</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>עריכה</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>שמירה</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>הגדרת תמונת ברירת מחדל</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>הגדרת אינדקס ברירת מחדל</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>גודל</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>בחר את תמונת ההתקנה בקובץ ISO זה.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>קובץ ISO או WIM מקור</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>הייבוא הושלם</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>התמונה מועתקת…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>אינדקסי התמונה מיוצאים…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>אינדקסי התמונה נקראים…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>מקורות התמונות המותאמות אישית נבדקים…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>מצב</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>גרסה</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>כן</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>הגדר את WSAIFabricSvc לאתחול ידני במקום לאתחול אוטומטי.</value>
   </data>
@@ -2028,6 +2175,12 @@
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>ייבוא תמונות Windows מקובצי ISO או WIM והכללתן במדיית הפריסה.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>תמונות Windows מותאמות אישית</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>התאמה אישית</value>

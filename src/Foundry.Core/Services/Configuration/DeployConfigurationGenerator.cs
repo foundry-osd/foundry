@@ -10,6 +10,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Models.Network;
 using Foundry.Core.Services.Autopilot;
+using Foundry.Core.Services.Images;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -58,6 +59,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         OobeAccountSecretState? oobeAccountSecretState)
     {
         ArgumentNullException.ThrowIfNull(document);
+        CustomImageSettingsValidator.ThrowIfInvalid(document.CustomImages);
         UnattendFileService.ValidateSettings(document.Unattend, protectionSettings?.IsEnabled == true);
         AutopilotConfigurationValidator.ThrowIfNotReady(document.Autopilot, DateTimeOffset.UtcNow);
         MachineNamingValidator.ThrowIfInvalid(document.Customization.MachineNaming);
@@ -68,6 +70,15 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         return new FoundryDeployConfigurationDocument
         {
             Protection = protectionSettings ?? new DeployProtectionSettings(),
+            CustomImages = document.CustomImages.IsEnabled
+                ? new DeployCustomImagesSettings
+                {
+                    IsEnabled = true,
+                    DefaultSource = document.CustomImages.DefaultSource,
+                    DefaultImageId = document.CustomImages.DefaultImageId,
+                    DefaultImageIndex = document.CustomImages.DefaultImageIndex
+                }
+                : new DeployCustomImagesSettings(),
             Unattend = document.Unattend.IsEnabled
                 ? new DeployUnattendSettings
                 {

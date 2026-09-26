@@ -23,10 +23,12 @@ public sealed class DeploymentWizardContext : IDisposable
         Preparation = preparation ?? throw new ArgumentNullException(nameof(preparation));
         OperatingSystemCatalog = operatingSystemCatalog ?? throw new ArgumentNullException(nameof(operatingSystemCatalog));
         DriverPackSelection = driverPackSelection ?? throw new ArgumentNullException(nameof(driverPackSelection));
+        CustomImages = new();
 
         Preparation.StateChanged += OnPreparationStateChanged;
         OperatingSystemCatalog.StateChanged += OnOperatingSystemCatalogStateChanged;
         DriverPackSelection.StateChanged += OnDriverPackSelectionStateChanged;
+        CustomImages.StateChanged += OnOperatingSystemCatalogStateChanged;
 
         RefreshDriverPackSelectionContext();
     }
@@ -34,6 +36,8 @@ public sealed class DeploymentWizardContext : IDisposable
     public DeploymentPreparationViewModel Preparation { get; }
     public OperatingSystemCatalogViewModel OperatingSystemCatalog { get; }
     public DriverPackSelectionViewModel DriverPackSelection { get; }
+    public CustomImageSelectionViewModel CustomImages { get; }
+    public OperatingSystemMetadata? SelectedOperatingSystem => CustomImages.IsCustom ? CustomImages.Selection : OperatingSystemCatalog.SelectedOperatingSystem;
     public DeployCompletionSettings Completion { get; private set; } = new();
     public CoreDeployNetworkSettings Network { get; private set; } = new();
     public DeployOobeSettings Oobe { get; private set; } = new();
@@ -99,6 +103,8 @@ public sealed class DeploymentWizardContext : IDisposable
         Preparation.StateChanged -= OnPreparationStateChanged;
         OperatingSystemCatalog.StateChanged -= OnOperatingSystemCatalogStateChanged;
         DriverPackSelection.StateChanged -= OnDriverPackSelectionStateChanged;
+        CustomImages.StateChanged -= OnOperatingSystemCatalogStateChanged;
+        CustomImages.Dispose();
         Preparation.Dispose();
         DriverPackSelection.Dispose();
         _isDisposed = true;
@@ -110,6 +116,7 @@ public sealed class DeploymentWizardContext : IDisposable
     {
         Completion = document.Completion ?? new DeployCompletionSettings();
         OperatingSystemCatalog.ApplyOperatingSystemSelection(document.OperatingSystemSelection);
+        CustomImages.Configure(document.CustomImages ?? new());
         Preparation.ApplyMachineNamingConfiguration(
             document.Customization.MachineNaming ?? new DeployMachineNamingSettings());
         Network = document.Network ?? new CoreDeployNetworkSettings();
@@ -140,10 +147,10 @@ public sealed class DeploymentWizardContext : IDisposable
 
     private void RefreshDriverPackSelectionContext()
     {
-        Preparation.UpdateUnattendContext(OperatingSystemCatalog.SelectedOperatingSystem?.Architecture ?? OperatingSystemCatalog.EffectiveOsArchitecture);
+        Preparation.UpdateUnattendContext(SelectedOperatingSystem?.Architecture ?? OperatingSystemCatalog.EffectiveOsArchitecture);
         DriverPackSelection.UpdateSelectionContext(
             Preparation.DetectedHardware,
-            OperatingSystemCatalog.SelectedOperatingSystem,
+            SelectedOperatingSystem,
             OperatingSystemCatalog.EffectiveOsArchitecture);
     }
 }

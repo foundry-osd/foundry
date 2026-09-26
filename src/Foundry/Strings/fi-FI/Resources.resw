@@ -685,6 +685,153 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>Päivitä</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Arkkitehtuuri</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Saatavilla</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Selaa</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Tuonti peruutettu</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Foundry-luettelo</value>
+  </data>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Tyhjennä oletusvalinta</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Mukautetut Windows-näköistiedostot</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Ensisijainen näköistiedosto</value>
+  </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Valitse, näyttääkö Foundry Deploy aluksi Foundry-luettelon vai mukautetut Windows-näköistiedostot.</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Oletusarvoinen näköistiedostolähde Foundry Deployssa</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Valittu näköistiedosto</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>Tässä profiilissa on jo samanniminen näköistiedosto.</value>
+  </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Tuoteversio</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Ei mukautettuja Windows-näköistiedostoja. Aloita tuomalla ISO- tai WIM-tiedosto.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Ota mukautetut Windows-näköistiedostot käyttöön</value>
+  </data>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Jätä pois</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Tuo ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Sisällytä</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Sisällytetty</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Ensisijainen indeksi</value>
+  </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Indeksi</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Indeksit</value>
+  </data>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Kielet</value>
+  </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Näköistiedostokirjasto</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Puuttuu</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Useita</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Ei</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>Näköistiedostotoiminto epäonnistui. Tarkista lähde, vapaa tila ja Foundry-lokit.</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Sisällytä tähän profiiliin vähintään yksi käytettävissä oleva Windows-näköistiedosto. Palauta puuttuvat sisällytetyt näköistiedostot ja korjaa tai poista ensisijaisen näköistiedoston tai indeksin valinta ennen tietovälineen luomista tai päivittämistä.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Päivitä</value>
+  </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Poistetaanko tämä näköistiedosto nykyisestä profiilista ja sen paikallinen kopio levyltä? Muissa siihen viittaavissa profiileissa se näkyy puuttuvana. Alkuperäiset tiedostot ja olemassa olevat tallennusvälineet säilyvät ennallaan.</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Aseta oletusnäköistiedosto</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Aseta oletusindeksi</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Koko</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Valitse asennusnäköistiedosto tästä ISO-tiedostosta.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>ISO- tai WIM-lähde</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Tuonti valmis</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Kopioidaan näköistiedostoa…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Viedään näköistiedoston indeksejä…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Luetaan näköistiedoston indeksejä…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Tarkistetaan mukautetun näköistiedoston lähteitä…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Versio</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Kyllä</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Aseta WSAIFabricSvc manuaaliseen käynnistykseen automaattisen käynnistyksen sijaan.</value>
   </data>
@@ -2028,6 +2175,12 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Tuo Windows-näköistiedostoja ISO- tai WIM-tiedostoista ja sisällytä ne käyttöönottotietovälineisiin.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Mukautetut Windows-näköistiedostot</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Räätälöinti</value>

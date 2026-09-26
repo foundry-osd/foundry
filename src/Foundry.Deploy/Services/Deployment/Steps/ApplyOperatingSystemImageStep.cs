@@ -122,9 +122,9 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
 
             if (!string.IsNullOrWhiteSpace(appliedEdition))
             {
-                WindowsEditionDefinition? requestedEdition = WindowsEditionCatalog.Find(context.Request.OperatingSystem.Edition);
+                string? requestedEdition = context.Request.OperatingSystem is Models.CustomImageSelection ? metadata.EditionId : WindowsEditionCatalog.Find(context.Request.OperatingSystem.Edition)?.EditionId;
                 DeploymentLogLevel editionLogLevel = requestedEdition is not null &&
-                    requestedEdition.EditionId.Equals(appliedEdition, StringComparison.OrdinalIgnoreCase)
+                    requestedEdition.Equals(appliedEdition, StringComparison.OrdinalIgnoreCase)
                     ? DeploymentLogLevel.Info
                     : DeploymentLogLevel.Warning;
 
@@ -167,7 +167,7 @@ public sealed class ApplyOperatingSystemImageStep : DeploymentStepBase
         string targetFoundryRoot = context.EnsureTargetFoundryRoot();
         string targetRoot = Path.Combine(targetFoundryRoot, "Temp", "Deployment");
         Directory.CreateDirectory(targetRoot);
-        context.RuntimeState.AppliedImageIndex = 1;
+        context.RuntimeState.AppliedImageIndex = context.Request.OperatingSystem is Models.CustomImageSelection custom ? custom.Index.Index : 1;
 
         await File.WriteAllTextAsync(
             Path.Combine(targetRoot, "apply-image.log"),

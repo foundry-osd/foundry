@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-namespace Foundry.Deploy.Services.Deployment;
+namespace Foundry.Utilities.Imaging;
 
 /// <summary>
 /// Provides the native DISM lifetime and buffer ownership boundary for image metadata reads.

@@ -37,6 +37,8 @@ public static class FoundryConfigurationMigration
             ? MigrateMachineNaming(document)
             : document;
 
+        migrated = migrated with { CustomImages = migrated.CustomImages ?? new CustomImagesSettings() };
+
         return migrated.SchemaVersion < FoundryConfigurationDocument.CurrentSchemaVersion
             ? migrated with { SchemaVersion = FoundryConfigurationDocument.CurrentSchemaVersion }
             : migrated;

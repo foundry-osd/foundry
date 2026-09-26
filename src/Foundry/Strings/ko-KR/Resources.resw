@@ -685,6 +685,153 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Common.Refresh" xml:space="preserve">
     <value>새로고침</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>아키텍처</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>사용 가능</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>찾아보기</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>가져오기 취소됨</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Foundry 카탈로그</value>
+  </data>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>기본 선택 지우기</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>사용자 지정 Windows 이미지</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>선호 이미지</value>
+  </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Foundry Deploy에서 처음에 Foundry 카탈로그를 표시할지, 사용자 지정 Windows 이미지를 표시할지 선택합니다.</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Foundry Deploy의 기본 이미지 소스</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>선택한 이미지</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>이 프로필에 같은 이름의 이미지가 이미 있습니다.</value>
+  </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>에디션</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>사용자 지정 Windows 이미지가 없습니다. ISO 또는 WIM을 가져와 시작하세요.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>사용자 지정 Windows 이미지 사용</value>
+  </data>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>제외</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>ISO/WIM 가져오기</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>포함</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>포함됨</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>선호 인덱스</value>
+  </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>인덱스</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>인덱스</value>
+  </data>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>언어</value>
+  </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>이미지 라이브러리</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>누락됨</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>여러 개</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>아니요</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>이미지 작업에 실패했습니다. 원본, 사용 가능한 공간 및 Foundry 로그를 확인하세요.</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>이 프로필에 사용 가능한 Windows 이미지를 하나 이상 포함하세요. 미디어를 만들거나 업데이트하기 전에 포함된 이미지 중 누락된 이미지를 복원하고 선호 이미지 또는 인덱스 선택을 수정하거나 지우세요.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>새로 고침</value>
+  </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>현재 프로필에서 이 이미지를 제거하고 로컬 복사본을 삭제하시겠습니까? 이 이미지를 참조하는 다른 프로필에서는 누락된 것으로 표시됩니다. 원본 파일과 기존 미디어는 변경되지 않습니다.</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>제거</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>편집</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>기본 이미지로 설정</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>기본 인덱스로 설정</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>크기</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>이 ISO에서 설치 이미지를 선택하세요.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>원본 ISO 또는 WIM</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>가져오기 완료</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>이미지 복사 중…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>이미지 인덱스 내보내는 중…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>이미지 인덱스 읽는 중…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>사용자 지정 이미지 원본 확인 중…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>버전</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>예</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>WSAIFabricSvc를 자동 시작 대신 수동 시작으로 설정합니다.</value>
   </data>
@@ -2028,6 +2175,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>제로 터치</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>ISO 또는 WIM 파일에서 Windows 이미지를 가져와 배포 미디어에 포함합니다.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>사용자 지정 Windows 이미지</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>맞춤화</value>

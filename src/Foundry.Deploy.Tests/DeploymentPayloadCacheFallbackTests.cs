@@ -505,7 +505,7 @@ public sealed class DeploymentPayloadCacheFallbackTests
     {
         public Task<MicrosoftUpdateCatalogDriverResult> DownloadAsync(
             HardwareProfile hardwareProfile,
-            OperatingSystemCatalogItem operatingSystem,
+            OperatingSystemMetadata operatingSystem,
             string destinationDirectory,
             Func<long, string, string> resolveCacheDirectory,
             CancellationToken cancellationToken = default,

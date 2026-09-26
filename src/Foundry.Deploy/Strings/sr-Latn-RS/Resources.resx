@@ -130,6 +130,57 @@ Licencirano pod MIT licencom.</value>
   <data name="Common.Yes" xml:space="preserve">
     <value>Da</value>
   </data>
+  <data name="CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Podrazumevana slika postoji na više povezanih volumena. Izričito izaberite izvorni volumen.</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Windows katalog</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Prilagođena slika</value>
+  </data>
+  <data name="CustomImages.Image" xml:space="preserve">
+    <value>Slika</value>
+  </data>
+  <data name="CustomImages.Index" xml:space="preserve">
+    <value>Indeks slike</value>
+  </data>
+  <data name="CustomImages.Inspecting" xml:space="preserve">
+    <value>Pregled i provera slike…</value>
+  </data>
+  <data name="CustomImages.InvalidManifest" xml:space="preserve">
+    <value>Manifest prilagođenih slika nedostaje, oštećen je ili ne odgovara ovom mediju za pokretanje. Ponovo kreirajte medij ili izaberite drugi izvor.</value>
+  </data>
+  <data name="CustomImages.InvalidSource" xml:space="preserve">
+    <value>Sliku nije moguće pročitati ili su izabrani indeks ili metapodaci promenjeni. Ponovo izaberite sliku i pokušajte ponovo.</value>
+  </data>
+  <data name="CustomImages.MissingDefault" xml:space="preserve">
+    <value>Podešena podrazumevana slika ili indeks nisu dostupni. Izričito izaberite sliku i indeks.</value>
+  </data>
+  <data name="CustomImages.NoImages" xml:space="preserve">
+    <value>Nisu pronađene prilagođene slike. Povežite odgovarajući medij ili dodajte WIM u USB fasciklu navedenu u dokumentaciji.</value>
+  </data>
+  <data name="CustomImages.NotReady" xml:space="preserve">
+    <value>Prilagođena slika nije spremna.</value>
+  </data>
+  <data name="CustomImages.Ready" xml:space="preserve">
+    <value>Prilagođena slika i tačan indeks su provereni.</value>
+  </data>
+  <data name="CustomImages.Resolve" xml:space="preserve">
+    <value>Pronađi prilagođenu sliku</value>
+  </data>
+  <data name="CustomImages.Resolved" xml:space="preserve">
+    <value>Prilagođena slika je pronađena na mediju za implementaciju.</value>
+  </data>
+  <data name="CustomImages.Source" xml:space="preserve">
+    <value>Izvor slike</value>
+  </data>
+  <data name="CustomImages.UnsafeSource" xml:space="preserve">
+    <value>Nije moguće potvrditi da se izvorni disk razlikuje od odredišnog diska. Izaberite drugi izvor.</value>
+  </data>
+  <data name="CustomImages.Verifying" xml:space="preserve">
+    <value>Provera prilagođene slike…</value>
+  </data>
   <data name="Debug.Autopilot" xml:space="preserve">
     <value>Autopilot</value>
   </data>
@@ -156,6 +207,45 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Debug.CancelledPageCommand" xml:space="preserve">
     <value>Stranica otkazane primene</value>
+  </data>
+  <data name="Debug.CustomImages" xml:space="preserve">
+    <value>Prilagođene slike sistema Windows</value>
+  </data>
+  <data name="Debug.CustomImages.ActiveScenario" xml:space="preserve">
+    <value>Scenario otklanjanja grešaka: {0}</value>
+  </data>
+  <data name="Debug.CustomImages.AmbiguousDefault" xml:space="preserve">
+    <value>Dvosmislena željena slika</value>
+  </data>
+  <data name="Debug.CustomImages.CatalogDefault" xml:space="preserve">
+    <value>Katalog podrazumevano izabran</value>
+  </data>
+  <data name="Debug.CustomImages.Configured" xml:space="preserve">
+    <value>Koristi konfiguraciju medija</value>
+  </data>
+  <data name="Debug.CustomImages.Disabled" xml:space="preserve">
+    <value>Prilagođene slike onemogućene</value>
+  </data>
+  <data name="Debug.CustomImages.Empty" xml:space="preserve">
+    <value>Nema dostupnih slika</value>
+  </data>
+  <data name="Debug.CustomImages.InvalidImage" xml:space="preserve">
+    <value>Nevažeća slika</value>
+  </data>
+  <data name="Debug.CustomImages.MissingImage" xml:space="preserve">
+    <value>Željena slika nedostaje</value>
+  </data>
+  <data name="Debug.CustomImages.MissingIndex" xml:space="preserve">
+    <value>Željeni indeks nedostaje</value>
+  </data>
+  <data name="Debug.CustomImages.MultipleIndexes" xml:space="preserve">
+    <value>Slike sa više indeksa</value>
+  </data>
+  <data name="Debug.CustomImages.PreferredIndex" xml:space="preserve">
+    <value>Željena slika i indeks</value>
+  </data>
+  <data name="Debug.CustomImages.SingleIndex" xml:space="preserve">
+    <value>Slika sa jednim indeksom</value>
   </data>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Stranice za primenu</value>

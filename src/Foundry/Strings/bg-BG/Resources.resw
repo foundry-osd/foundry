@@ -685,6 +685,153 @@
   <data name="Common.Refresh" xml:space="preserve">
     <value>Опресняване</value>
   </data>
+  <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
+    <value>Архитектура</value>
+  </data>
+  <data name="CustomImages.Available" xml:space="preserve">
+    <value>Наличен</value>
+  </data>
+  <data name="CustomImages.BrowseLabel" xml:space="preserve">
+    <value>Преглед</value>
+  </data>
+  <data name="CustomImages.CancelLabel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="CustomImages.Canceled" xml:space="preserve">
+    <value>Импортирането е отменено</value>
+  </data>
+  <data name="CustomImages.Catalog" xml:space="preserve">
+    <value>Каталог на Foundry</value>
+  </data>
+  <data name="CustomImages.ClearDefaultActionLabel" xml:space="preserve">
+    <value>Изчистване на избора</value>
+  </data>
+  <data name="CustomImages.Custom" xml:space="preserve">
+    <value>Персонализирани образи на Windows</value>
+  </data>
+  <data name="CustomImages.DefaultLabel" xml:space="preserve">
+    <value>Предпочитан образ</value>
+  </data>
+  <data name="CustomImages.DefaultSourceDescription" xml:space="preserve">
+    <value>Изберете дали Foundry Deploy първоначално да показва каталога на Foundry или персонализираните образи на Windows.</value>
+  </data>
+  <data name="CustomImages.DefaultSourceLabel" xml:space="preserve">
+    <value>Източник на образи по подразбиране във Foundry Deploy</value>
+  </data>
+  <data name="CustomImages.DetailsLabel" xml:space="preserve">
+    <value>Избран образ</value>
+  </data>
+  <data name="CustomImages.DuplicateName" xml:space="preserve">
+    <value>В този профил вече съществува образ с това име.</value>
+  </data>
+  <data name="CustomImages.EditionLabel" xml:space="preserve">
+    <value>Издание</value>
+  </data>
+  <data name="CustomImages.EmptyMessage" xml:space="preserve">
+    <value>Няма персонализирани образи на Windows. Импортирайте ISO или WIM, за да започнете.</value>
+  </data>
+  <data name="CustomImages.EnableLabel" xml:space="preserve">
+    <value>Разрешаване на персонализирани образи на Windows</value>
+  </data>
+  <data name="CustomImages.ExcludeActionLabel" xml:space="preserve">
+    <value>Изключване</value>
+  </data>
+  <data name="CustomImages.ImportLabel" xml:space="preserve">
+    <value>Импортиране на ISO/WIM</value>
+  </data>
+  <data name="CustomImages.IncludeActionLabel" xml:space="preserve">
+    <value>Включване</value>
+  </data>
+  <data name="CustomImages.IncludedLabel" xml:space="preserve">
+    <value>Включен</value>
+  </data>
+  <data name="CustomImages.IndexLabel" xml:space="preserve">
+    <value>Предпочитан индекс</value>
+  </data>
+  <data name="CustomImages.IndexNumberLabel" xml:space="preserve">
+    <value>Индекс</value>
+  </data>
+  <data name="CustomImages.IndexesLabel" xml:space="preserve">
+    <value>Индекси</value>
+  </data>
+  <data name="CustomImages.LanguagesLabel" xml:space="preserve">
+    <value>Езици</value>
+  </data>
+  <data name="CustomImages.LibraryLabel" xml:space="preserve">
+    <value>Библиотека с образи</value>
+  </data>
+  <data name="CustomImages.Missing" xml:space="preserve">
+    <value>Липсва</value>
+  </data>
+  <data name="CustomImages.Multiple" xml:space="preserve">
+    <value>Няколко</value>
+  </data>
+  <data name="CustomImages.NameLabel" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="CustomImages.No" xml:space="preserve">
+    <value>Не</value>
+  </data>
+  <data name="CustomImages.OperationFailed" xml:space="preserve">
+    <value>Операцията с образа е неуспешна. Проверете източника, свободното място и регистрационните файлове на Foundry.</value>
+  </data>
+  <data name="CustomImages.ReadinessMessage" xml:space="preserve">
+    <value>Включете поне един наличен образ на Windows в този профил. Възстановете липсващите включени образи и коригирайте или изчистете избора на предпочитан образ или индекс, преди да създадете или актуализирате носител.</value>
+  </data>
+  <data name="CustomImages.RefreshLabel" xml:space="preserve">
+    <value>Обновяване</value>
+  </data>
+  <data name="CustomImages.RemoveDescription" xml:space="preserve">
+    <value>Да се премахне ли този образ от текущия профил и да се изтрие ли локалното му копие? В другите профили, които го използват, той ще се показва като липсващ. Оригиналните файлове и съществуващите носители остават непроменени.</value>
+  </data>
+  <data name="CustomImages.RemoveLabel" xml:space="preserve">
+    <value>Премахване</value>
+  </data>
+  <data name="CustomImages.RenameLabel" xml:space="preserve">
+    <value>Редактиране</value>
+  </data>
+  <data name="CustomImages.SaveLabel" xml:space="preserve">
+    <value>Запазване</value>
+  </data>
+  <data name="CustomImages.SetDefaultLabel" xml:space="preserve">
+    <value>Задаване на образ по подразбиране</value>
+  </data>
+  <data name="CustomImages.SetIndexDefaultLabel" xml:space="preserve">
+    <value>Задаване на индекс по подразбиране</value>
+  </data>
+  <data name="CustomImages.SizeLabel" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="CustomImages.SourceChoiceRequired" xml:space="preserve">
+    <value>Изберете инсталационния образ в този ISO файл.</value>
+  </data>
+  <data name="CustomImages.SourceLabel" xml:space="preserve">
+    <value>Изходен ISO или WIM</value>
+  </data>
+  <data name="CustomImages.StageCompleted" xml:space="preserve">
+    <value>Импортирането е завършено</value>
+  </data>
+  <data name="CustomImages.StageCopying" xml:space="preserve">
+    <value>Копиране на образа…</value>
+  </data>
+  <data name="CustomImages.StageExporting" xml:space="preserve">
+    <value>Експортиране на индексите на образа…</value>
+  </data>
+  <data name="CustomImages.StageInspecting" xml:space="preserve">
+    <value>Прочитане на индексите на образа…</value>
+  </data>
+  <data name="CustomImages.StageVerifying" xml:space="preserve">
+    <value>Проверка на източниците на персонализирания образ…</value>
+  </data>
+  <data name="CustomImages.StatusLabel" xml:space="preserve">
+    <value>Състояние</value>
+  </data>
+  <data name="CustomImages.VersionLabel" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="CustomImages.Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
   <data name="Customization.AiComponentDisableAiServiceAutoStartDescription" xml:space="preserve">
     <value>Задайте WSAIFabricSvc на ръчно стартиране вместо автоматично стартиране.</value>
   </data>
@@ -2028,6 +2175,12 @@
   </data>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
+    <value>Импортирайте образи на Windows от ISO или WIM файлове и ги включете в носители за разполагане.</value>
+  </data>
+  <data name="Nav_CustomImagesKey.Title" xml:space="preserve">
+    <value>Персонализирани образи на Windows</value>
   </data>
   <data name="Nav_CustomizationSection.Title" xml:space="preserve">
     <value>Персонализиране</value>
