@@ -14,6 +14,76 @@ namespace Foundry.Core.Tests;
 public sealed class BootMediaTelemetryPropertyBuilderTests
 {
     [Theory]
+    [InlineData(false, CustomImageSource.Custom, true, 0, "catalog")]
+    [InlineData(true, CustomImageSource.Catalog, true, 2, "catalog")]
+    [InlineData(true, CustomImageSource.Custom, true, 2, "custom")]
+    [InlineData(true, CustomImageSource.Custom, false, 2, "custom")]
+    public void Build_ReportsIncludedCustomImagesWithoutImageMetadata(
+        bool enabled, CustomImageSource defaultSource, bool success, int expectedCount, string expectedSource)
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            CustomImages = new CustomImagesSettings
+            {
+                IsEnabled = enabled,
+                DefaultSource = defaultSource,
+                DefaultImageId = "private-image-id",
+                DefaultImageIndex = 1,
+                Images =
+                [
+                    new CustomImageReference
+                    {
+                        Id = "private-image-id",
+                        ContentHash = "private-image-hash",
+                        DisplayName = "private-image-label",
+                        IsIncluded = true,
+                        Indexes = [new CustomImageIndex { Index = 1, Name = "private-image-index" }]
+                    },
+                    new CustomImageReference { IsIncluded = false },
+                    new CustomImageReference { IsIncluded = true }
+                ]
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document,
+            success,
+            failedStepName: success ? null : "stage_custom_images",
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.Equal(enabled, result["boot_media_custom_images_enabled"]);
+        Assert.Equal(expectedCount, result["boot_media_custom_images_count"]);
+        Assert.Equal(expectedSource, result["boot_media_default_os_source"]);
+        Assert.Equal(enabled, result["customization_any_enabled"]);
+        Assert.DoesNotContain(result.Values, value => value?.ToString()?.Contains("private-image", StringComparison.Ordinal) == true);
+    }
+
+    [Fact]
+    public void Build_MissingCustomImageSettingsReportsCatalogDefaults()
+    {
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            new FoundryConfigurationDocument { CustomImages = null! },
+            success: false,
+            failedStepName: "capture_configuration",
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.Equal(false, result["boot_media_custom_images_enabled"]);
+        Assert.Equal(0, result["boot_media_custom_images_count"]);
+        Assert.Equal("catalog", result["boot_media_default_os_source"]);
+        Assert.Equal(false, result["customization_any_enabled"]);
+    }
+
+    [Theory]
     [InlineData(false, null, "native")]
     [InlineData(false, "private-file-id", "native")]
     [InlineData(true, null, "native")]

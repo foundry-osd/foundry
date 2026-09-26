@@ -468,7 +468,6 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         CancellationToken cancellationToken)
     {
         HardwareProfile? hardware = runtimeState?.HardwareProfile;
-        OperatingSystemCatalogItem? catalogImage = context.OperatingSystem as OperatingSystemCatalogItem;
         DeploymentRebootTelemetryValue rebootPolicy = DeploymentRebootTelemetryValueResolver.Resolve(
             context.Completion.AutomaticRebootEnabled,
             context.Completion.AutomaticRebootDelaySeconds);
@@ -485,16 +484,17 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ["deploy_hardware_vendor"] = NormalizeTelemetryString(hardware?.Manufacturer),
             ["deploy_hardware_model"] = NormalizeTelemetryString(hardware?.Model),
             ["deploy_hardware_virtual_machine"] = hardware?.IsVirtualMachine ?? false,
+            ["deploy_os_source"] = context.OperatingSystem is CustomImageSelection ? "custom" : "catalog",
             ["deploy_os_product"] = ResolveOperatingSystemProduct(context.OperatingSystem),
-            ["deploy_os_version"] = NormalizeTelemetryString(catalogImage?.ReleaseId),
-            ["deploy_os_build"] = NormalizeTelemetryString(catalogImage?.Build),
+            ["deploy_os_version"] = NormalizeTelemetryString(context.OperatingSystem.ReleaseId),
+            ["deploy_os_build"] = NormalizeTelemetryString(context.OperatingSystem.Build),
             ["deploy_os_update_month"] = context.OperatingSystem.MediaDate == default
                 ? "unknown"
                 : context.OperatingSystem.MediaDate.ToString("yyyy-MM", CultureInfo.InvariantCulture),
-            ["deploy_os_architecture"] = NormalizeTelemetryString(catalogImage?.Architecture),
-            ["deploy_os_language"] = NormalizeTelemetryString(catalogImage?.LanguageCode),
-            ["deploy_os_edition"] = NormalizeTelemetryString(catalogImage?.Edition),
-            ["deploy_os_license_channel"] = NormalizeTelemetryString(catalogImage?.LicenseChannel),
+            ["deploy_os_architecture"] = NormalizeTelemetryString(context.OperatingSystem.Architecture),
+            ["deploy_os_language"] = NormalizeTelemetryString(context.OperatingSystem.LanguageCode),
+            ["deploy_os_edition"] = NormalizeTelemetryString(context.OperatingSystem.Edition),
+            ["deploy_os_license_channel"] = NormalizeTelemetryString(context.OperatingSystem.LicenseChannel),
             ["deploy_os_image_index"] = runtimeState?.AppliedImageIndex,
             ["deploy_driver_pack_selection_kind"] = context.DriverPackSelectionKind.ToString().ToLowerInvariant(),
             ["deploy_driver_pack_vendor"] = NormalizeTelemetryString(context.DriverPack?.Manufacturer, "none"),
