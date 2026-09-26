@@ -2239,6 +2239,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS の選択</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Windows のインストール後、OOBE の前にカスタムアクションを実行します。</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>インストール後</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>GitHub のバグ報告フォームをブラウザーで開きます。</value>
   </data>
@@ -2391,6 +2397,111 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows 展開オプション</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>アクションを追加</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>すべてのアーキテクチャ</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>アプリケーション</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>インストーラーの種類</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>引数または MSI プロパティ</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Foundry の組み込みタスクが先に実行されます。以下にカスタムアクションを実行順で追加してください。</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>カスタムアクションの完了後、Foundry が一時的な展開コンテンツを削除します。</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>CMD コマンドライン</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>コマンドのプレビュー</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>パッケージコンテンツ</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>インストール後のコンテンツを検証しました。</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>通常のアクションエラーが発生しても続行</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>要求された再起動を次の再起動アクションまたはシーケンスの終了まで延期</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>アクションを編集</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>編集中に構成が変更されました。アクションをもう一度開いてください。</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>スクリプトまたはインストーラーのパス (コンテンツからの相対パス)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>アクションは SYSTEM としてサイレント実行されます。インストーラー自体による再起動を無効にしてください。コンテンツは一時的なものです。修復や更新にソースが必要な場合は、永続的なソースを別途用意してください。</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>コンテンツのインポートに失敗しました。アクセス権、空き容量、ファイル名、パスの長さを確認してください。</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>ファイルをインポート</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>フォルダーをインポート</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>カスタム応答ファイルと統合</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>名前、コンテンツのパス、コマンド、プロセス設定を確認してください。終了コードのリストは重複不可で、1641 を含められません。タイムアウトは 1–86400 秒で指定してください。</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>下へ移動</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>上へ移動</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>コンテンツはインポートされていません</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>メディアを作成する前に、アクションの設定を確認し、不足しているパッケージコンテンツをインポートしてください。</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>再起動</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>再起動が必要な終了コード (コンマ区切り)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>インストール後のコンテンツを準備しています。</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>成功を示す終了コード (コンマ区切り)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>タイムアウト (秒)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>詳細設定: 展開用コピーに Foundry の起動コマンドを追加します。インポートした元のファイルは変更されません。カスタム設定やコマンドが展開に影響する場合があります。</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>選択した応答ファイルを統合できません。アーキテクチャ、既存の Foundry 起動フック、RunSynchronous の順序を確認するか、変更されたソースを更新してください。</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>展開用コピー: specialize に WillReboot=OnRequest を指定して Foundry コマンドを追加します。既存のコマンドと設定は保持されます。</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>作業ディレクトリ (相対パス。空欄の場合はコンテンツのルート)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>現在の設定</value>

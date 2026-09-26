@@ -2239,6 +2239,12 @@ Licencjonowany na licencji MIT.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Wybór systemu</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Uruchamiaj własne akcje po instalacji systemu Windows i przed OOBE.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Po instalacji</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Otwórz formularz zgłaszania błędów w serwisie GitHub w przeglądarce.</value>
   </data>
@@ -2391,6 +2397,111 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opcje wdrażania systemu Windows</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Dodaj akcję</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Dowolna architektura</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Aplikacja</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Typ instalatora</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumenty lub właściwości MSI</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Wbudowane zadania Foundry są wykonywane jako pierwsze. Dodaj poniżej własne akcje w kolejności wykonania.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry usuwa tymczasową zawartość wdrożenia po zakończeniu własnych akcji.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Wiersz polecenia CMD</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Podgląd polecenia</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Zawartość pakietu</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Zweryfikowano zawartość do działań po instalacji.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Kontynuuj po zwykłym niepowodzeniu akcji</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Odłóż żądany restart do następnej akcji ponownego uruchomienia lub końca sekwencji</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Edytuj akcję</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Konfiguracja zmieniła się podczas edycji. Otwórz akcję ponownie.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Ścieżka skryptu lub instalatora (względem zawartości)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Akcje są wykonywane bez interakcji jako SYSTEM. Zablokuj restarty inicjowane przez instalator. Zawartość jest tymczasowa; zapewnij osobne trwałe źródła, jeśli wymagają ich naprawy lub aktualizacje.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Import zawartości nie powiódł się. Sprawdź dostęp, wolne miejsce, nazwy plików i długość ścieżek.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Importuj plik</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Importuj folder</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Integruj z własnymi plikami odpowiedzi</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Sprawdź nazwę, ścieżkę zawartości, polecenie i ustawienia procesu. Listy kodów wyjścia nie mogą się pokrywać ani zawierać 1641; limit czasu musi wynosić 1–86400 sekund.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Przenieś w dół</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Przenieś w górę</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Nie zaimportowano zawartości</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Sprawdź ustawienia akcji i zaimportuj brakującą zawartość pakietów przed utworzeniem nośnika.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Uruchom ponownie</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Kody wyjścia wymagające ponownego uruchomienia (oddzielone przecinkami)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Przygotowywanie zawartości do działań po instalacji.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Kody wyjścia oznaczające powodzenie (oddzielone przecinkami)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Limit czasu (sekundy)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Zaawansowane: dodaj polecenie uruchomienia Foundry do kopii wdrożeniowej. Zaimportowane oryginały pozostają bez zmian. Własne ustawienia i polecenia mogą wpływać na wdrożenie.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Nie można zintegrować wybranego pliku odpowiedzi. Sprawdź jego architekturę, istniejący mechanizm uruchamiania Foundry i kolejność RunSynchronous lub odśwież zmienione źródło.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Kopia wdrożeniowa: dołącz polecenie Foundry w fazie specialize z WillReboot=OnRequest. Zachowaj istniejące polecenia i ustawienia.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Katalog roboczy (względny; puste pole oznacza katalog główny zawartości)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Bieżące ustawienia</value>

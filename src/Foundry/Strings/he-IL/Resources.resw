@@ -2239,6 +2239,12 @@
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>בחירת מערכת הפעלה</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>הפעל פעולות מותאמות אישית לאחר התקנת Windows ולפני OOBE.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>לאחר ההתקנה</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>פתח את טופס הדיווח על באגים של GitHub בדפדפן שלך.</value>
   </data>
@@ -2391,6 +2397,111 @@
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>אפשרויות פריסת Windows</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>הוסף פעולה</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>כל ארכיטקטורה</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>יישום</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>סוג תוכנית ההתקנה</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>ארגומנטים או מאפייני MSI</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>המשימות המובנות של Foundry מופעלות ראשונות. הוסף למטה פעולות מותאמות אישית לפי סדר הביצוע.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry מנקה את תוכן הפריסה הזמני לאחר סיום הפעולות המותאמות אישית.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>שורת פקודה של CMD</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>תצוגה מקדימה של הפקודה</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>תוכן החבילה</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>התוכן לשלב שלאחר ההתקנה אומת.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>המשך לאחר כשל רגיל של פעולה</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>דחה את ההפעלה מחדש שהתבקשה עד לפעולת ההפעלה מחדש הבאה או לסוף הרצף</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>ערוך פעולה</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>התצורה השתנתה במהלך העריכה. פתח שוב את הפעולה.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>נתיב הסקריפט או תוכנית ההתקנה (יחסית לתוכן)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>הפעולות מופעלות ללא התערבות משתמש כ-SYSTEM. מנע הפעלות מחדש של תוכנית ההתקנה עצמה. התוכן זמני; ספק מקורות קבועים בנפרד אם תיקון או עדכונים דורשים אותם.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>ייבוא התוכן נכשל. בדוק את הגישה, השטח הפנוי, שמות הקבצים ואורכי הנתיבים.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>ייבא קובץ</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>ייבא תיקייה</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>שלב עם קובצי תשובות מותאמים אישית</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>בדוק את השם, נתיב התוכן, הפקודה והגדרות התהליך. רשימות קודי היציאה לא יכולות לחפוף או להכיל 1641; הזמן הקצוב חייב להיות 1–86400 שניות.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>העבר למטה</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>העבר למעלה</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>לא יובא תוכן</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>בדוק את הגדרות הפעולות וייבא תוכן חבילות חסר לפני יצירת המדיה.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>הפעלה מחדש</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>קודי יציאה המחייבים הפעלה מחדש (מופרדים בפסיקים)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>מכין תוכן לשלב שלאחר ההתקנה.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>קודי יציאה להצלחה (מופרדים בפסיקים)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>זמן קצוב (שניות)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>מתקדם: הוסף את פקודת ההפעלה של Foundry לעותק הפריסה. המקור המיובא נשאר ללא שינוי. ההגדרות והפקודות המותאמות אישית עשויות להשפיע על הפריסה.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>לא ניתן לשלב את קובץ התשובות שנבחר. בדוק את הארכיטקטורה שלו, את מנגנון ההפעלה הקיים של Foundry ואת סדר RunSynchronous, או רענן את המקור אם השתנה.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>עותק הפריסה: הוסף את פקודת Foundry בשלב specialize עם WillReboot=OnRequest. שמור על הפקודות וההגדרות הקיימות.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>ספריית עבודה (יחסית; שדה ריק משתמש בשורש התוכן)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>ההגדרות הנוכחיות</value>

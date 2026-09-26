@@ -37,53 +37,16 @@ public sealed class ResourceKeyParityTests
         "TB"
     ];
 
-    private static readonly string[] SupportedCultures =
-    [
-        "ar-SA",
-        "bg-BG",
-        "cs-CZ",
-        "da-DK",
-        "de-DE",
-        "el-GR",
-        "en-GB",
-        "en-US",
-        "es-ES",
-        "es-MX",
-        "et-EE",
-        "fi-FI",
-        "fr-CA",
-        "fr-FR",
-        "he-IL",
-        "hr-HR",
-        "hu-HU",
-        "it-IT",
-        "ja-JP",
-        "ko-KR",
-        "lt-LT",
-        "lv-LV",
-        "nb-NO",
-        "nl-NL",
-        "pl-PL",
-        "pt-BR",
-        "pt-PT",
-        "ro-RO",
-        "ru-RU",
-        "sk-SK",
-        "sl-SI",
-        "sr-Latn-RS",
-        "sv-SE",
-        "th-TH",
-        "tr-TR",
-        "uk-UA",
-        "zh-CN",
-        "zh-TW"
-    ];
+    private static readonly string[] SupportedCultures = FoundrySupportedCultures.CreateCatalog()
+        .CreateOptions(System.Globalization.CultureInfo.GetCultureInfo("en-US"), key => key)
+        .Select(option => option.Code).ToArray();
 
     public static TheoryData<string, string> ResourceSets => new()
     {
         { "Foundry", ".resw" },
         { "Foundry.Connect", ".resx" },
-        { "Foundry.Deploy", ".resx" }
+        { "Foundry.Deploy", ".resx" },
+        { "Foundry.PostInstall", ".resx" }
     };
 
     [Fact]

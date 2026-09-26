@@ -2239,6 +2239,12 @@ Licensed under the MIT License.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS selection</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Run custom actions after Windows installation and before OOBE.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Post-installation</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Open the GitHub bug report form in your browser.</value>
   </data>
@@ -2391,6 +2397,111 @@ Licensed under the MIT License.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>OS selection</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Add action</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Any architecture</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Installer type</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Arguments or MSI properties</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Foundry built-in tasks run first. Add your custom actions below in execution order.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry cleans up temporary deployment content after the custom actions finish.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>CMD command line</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Command preview</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Package content</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Post-installation content verified.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Continue after an ordinary action failure</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Defer requested restart until the next Restart action or sequence end</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Edit action</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>The configuration changed while you were editing. Open the action again.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Script or installer path (relative to content)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Actions run silently as SYSTEM. Suppress installer-owned restarts. Content is temporary; provide durable sources separately if repair or updates require them.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Content import failed. Check access, available space, file names and path lengths.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Import file</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Import folder</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Integrate with custom answer files</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Check the name, content path, command and process settings. Exit-code lists must not overlap or contain 1641; timeout must be 1–86400 seconds.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Move down</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Move up</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>No content imported</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Check the action settings and import any missing package content before creating media.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Restart-required exit codes (comma-separated)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Staging post-installation content.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Success exit codes (comma-separated)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Timeout (seconds)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Advanced: add the Foundry launch command to the deployment copy. Imported originals remain unchanged. Your custom settings and commands can affect deployment.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>The selected answer file cannot be integrated. Check its architecture, existing Foundry hook and RunSynchronous order, or refresh a changed source.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Deployment copy: append the Foundry command in specialize with WillReboot=OnRequest. Preserve existing commands and settings.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Working directory (relative; empty uses content root)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Current settings</value>

@@ -2239,6 +2239,12 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-valinta</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Suorita mukautettuja toimintoja Windowsin asennuksen jälkeen ennen OOBE-vaihetta.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Asennuksen jälkeen</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Avaa GitHubin virheraporttilomake selaimessasi.</value>
   </data>
@@ -2391,6 +2397,111 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windowsin käyttöönottoasetukset</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Lisää toiminto</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Mikä tahansa arkkitehtuuri</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Sovellus</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Asennusohjelman tyyppi</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumentit tai MSI-ominaisuudet</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Foundryn sisäiset tehtävät suoritetaan ensin. Lisää mukautetut toiminnot alle suoritusjärjestyksessä.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry poistaa väliaikaisen käyttöönoton sisällön mukautettujen toimintojen päätyttyä.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>CMD-komentorivi</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Komennon esikatselu</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Paketin sisältö</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Asennuksen jälkeinen sisältö on tarkistettu.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Jatka tavallisen toimintovirheen jälkeen</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Siirrä pyydetty uudelleenkäynnistys seuraavaan uudelleenkäynnistystoimintoon tai sarjan loppuun</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Muokkaa toimintoa</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Määrityksiä muutettiin muokkauksen aikana. Avaa toiminto uudelleen.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Komentosarjan tai asennusohjelman polku (suhteessa sisältöön)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Toiminnot suoritetaan ilman käyttäjän toimia SYSTEM-tilillä. Estä asennusohjelmien omat uudelleenkäynnistykset. Sisältö on väliaikaista; tarjoa pysyvät lähteet erikseen, jos korjaus tai päivitykset tarvitsevat niitä.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Sisällön tuonti epäonnistui. Tarkista käyttöoikeudet, vapaa tila, tiedostonimet ja polkujen pituudet.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Tuo tiedosto</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Tuo kansio</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Yhdistä mukautettuihin vastaustiedostoihin</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Tarkista nimi, sisältöpolku, komento ja prosessin asetukset. Paluukoodiluettelot eivät saa olla päällekkäisiä tai sisältää koodia 1641; aikakatkaisun on oltava 1–86400 sekuntia.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Siirrä alas</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Siirrä ylös</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Sisältöä ei ole tuotu</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Tarkista toimintojen asetukset ja tuo puuttuva pakettisisältö ennen tietovälineen luomista.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Käynnistä uudelleen</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Uudelleenkäynnistyksen vaativat paluukoodit (pilkuilla erotettuina)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Valmistellaan asennuksen jälkeistä sisältöä.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Onnistumisen paluukoodit (pilkuilla erotettuina)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Aikakatkaisu (sekuntia)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Lisäasetus: lisää Foundryn käynnistyskomento käyttöönottokopioon. Tuodut alkuperäiset tiedostot säilyvät ennallaan. Mukautetut asetukset ja komennot voivat vaikuttaa käyttöönottoon.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Valittua vastaustiedostoa ei voi yhdistää. Tarkista sen arkkitehtuuri, nykyinen Foundryn käynnistysmekanismi ja RunSynchronous-järjestys tai päivitä muuttunut lähde.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Käyttöönottokopio: lisää Foundry-komento specialize-vaiheeseen asetuksella WillReboot=OnRequest. Säilytä nykyiset komennot ja asetukset.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Työhakemisto (suhteellinen; tyhjä käyttää sisällön juurihakemistoa)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Nykyiset asetukset</value>

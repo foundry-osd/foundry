@@ -2239,6 +2239,12 @@ Licencirano pod MIT licencom.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Izbor OS-a</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Pokrenite prilagođene radnje posle instalacije sistema Windows i pre OOBE-a.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Posle instalacije</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Otvorite GitHub obrazac za prijavu greške u pretraživaču.</value>
   </data>
@@ -2391,6 +2397,111 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opcije primene operativnog sistema Windows</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Dodaj radnju</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Bilo koja arhitektura</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Aplikacija</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Tip instalacionog programa</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumenti ili MSI svojstva</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Prvo se izvršavaju ugrađeni zadaci Foundry-ja. Ispod dodajte prilagođene radnje po redosledu izvršavanja.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry uklanja privremeni sadržaj primene kada se prilagođene radnje završe.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>CMD komandna linija</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Pregled komande</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Sadržaj paketa</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Sadržaj za fazu posle instalacije je proveren.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Nastavi posle uobičajene greške radnje</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Odloži zahtevano ponovno pokretanje do sledeće radnje ponovnog pokretanja ili kraja niza</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Uredi radnju</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Konfiguracija se promenila tokom uređivanja. Ponovo otvorite radnju.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Putanja skripte ili instalacionog programa (u odnosu na sadržaj)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Radnje se izvršavaju bez korisničke interakcije kao SYSTEM. Onemogućite ponovna pokretanja koja pokreće instalacioni program. Sadržaj je privremen; zasebno obezbedite trajne izvore ako su potrebni za popravku ili ažuriranja.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Uvoz sadržaja nije uspeo. Proverite pristup, slobodan prostor, nazive datoteka i dužine putanja.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Uvezi datoteku</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Uvezi fasciklu</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Integracija sa prilagođenim datotekama odgovora</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Proverite naziv, putanju sadržaja, komandu i postavke procesa. Liste izlaznih kodova ne smeju da se preklapaju niti sadrže 1641; vremensko ograničenje mora biti 1–86400 sekundi.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Pomeri nadole</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Pomeri nagore</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Sadržaj nije uvezen</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Pre pravljenja medijuma proverite postavke radnji i uvezite sadržaj paketa koji nedostaje.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Ponovno pokretanje</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Izlazni kodovi koji zahtevaju ponovno pokretanje (razdvojeni zarezima)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Priprema sadržaja za fazu posle instalacije.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Izlazni kodovi uspeha (razdvojeni zarezima)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Vremensko ograničenje (sekunde)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Napredno: dodajte komandu za pokretanje Foundry-ja u kopiju za primenu. Uvezeni originali ostaju nepromenjeni. Prilagođene postavke i komande mogu uticati na primenu.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Izabrana datoteka odgovora ne može da se integriše. Proverite njenu arhitekturu, postojeći mehanizam pokretanja Foundry-ja i redosled RunSynchronous ili osvežite izmenjeni izvor.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Kopija za primenu: dodajte komandu Foundry-ja u fazi specialize uz WillReboot=OnRequest. Sačuvajte postojeće komande i postavke.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Radni direktorijum (relativan; prazno koristi koren sadržaja)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Trenutna podešavanja</value>

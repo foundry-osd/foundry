@@ -2239,6 +2239,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-selectie</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Voer aangepaste acties uit na de installatie van Windows en vóór OOBE.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Na de installatie</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Open het GitHub-formulier voor bugmeldingen in uw browser.</value>
   </data>
@@ -2391,6 +2397,111 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows-implementatieopties</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Actie toevoegen</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Elke architectuur</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Toepassing</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Type installatieprogramma</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumenten of MSI-eigenschappen</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>De ingebouwde taken van Foundry worden eerst uitgevoerd. Voeg hieronder uw aangepaste acties toe in de gewenste volgorde.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry verwijdert tijdelijke implementatie-inhoud nadat de aangepaste acties zijn voltooid.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>CMD-opdrachtregel</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Opdrachtvoorbeeld</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Pakketinhoud</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Inhoud voor na de installatie geverifieerd.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Doorgaan na een gewone actiefout</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Gevraagde herstart uitstellen tot de volgende herstartactie of het einde van de reeks</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Actie bewerken</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>De configuratie is gewijzigd tijdens het bewerken. Open de actie opnieuw.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Pad naar script of installatieprogramma (relatief aan de inhoud)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Acties worden stil uitgevoerd als SYSTEM. Voorkom dat installatieprogramma's zelf opnieuw opstarten. De inhoud is tijdelijk; zorg apart voor blijvende bronnen als herstel of updates die nodig hebben.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Importeren van inhoud mislukt. Controleer toegang, vrije ruimte, bestandsnamen en padlengten.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Bestand importeren</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Map importeren</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Integreren met aangepaste antwoordbestanden</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Controleer naam, inhoudspad, opdracht en procesinstellingen. Afsluitcodelijsten mogen niet overlappen of 1641 bevatten; de time-out moet 1–86400 seconden zijn.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Omlaag</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Omhoog</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Geen inhoud geïmporteerd</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Controleer de actie-instellingen en importeer ontbrekende pakketinhoud voordat u media maakt.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Opnieuw opstarten</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Afsluitcodes die opnieuw opstarten vereisen (gescheiden door komma's)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Inhoud voor na de installatie wordt klaargezet.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Afsluitcodes voor succes (gescheiden door komma's)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Time-out (seconden)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Geavanceerd: voeg de startopdracht van Foundry toe aan de implementatiekopie. Geïmporteerde originelen blijven ongewijzigd. Uw aangepaste instellingen en opdrachten kunnen de implementatie beïnvloeden.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Het geselecteerde antwoordbestand kan niet worden geïntegreerd. Controleer de architectuur, de bestaande Foundry-starthaak en de RunSynchronous-volgorde, of vernieuw een gewijzigde bron.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Implementatiekopie: voeg de Foundry-opdracht toe in specialize met WillReboot=OnRequest. Behoud bestaande opdrachten en instellingen.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Werkmap (relatief; leeg gebruikt de hoofdmap van de inhoud)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Huidige instellingen</value>

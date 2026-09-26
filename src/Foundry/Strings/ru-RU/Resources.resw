@@ -2239,6 +2239,12 @@
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Выбор ОС</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Выполняйте пользовательские действия после установки Windows и до OOBE.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>После установки</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Откройте форму сообщения об ошибке на GitHub в браузере.</value>
   </data>
@@ -2391,6 +2397,111 @@
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Параметры развертывания Windows</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Добавить действие</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Любая архитектура</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Приложение</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Тип установщика</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Аргументы или свойства MSI</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Сначала выполняются встроенные задачи Foundry. Добавьте ниже пользовательские действия в порядке выполнения.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry удаляет временное содержимое развёртывания после завершения пользовательских действий.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Командная строка CMD</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Предпросмотр команды</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Содержимое пакета</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Содержимое для этапа после установки проверено.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Продолжать после обычного сбоя действия</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Отложить запрошенную перезагрузку до следующего действия перезагрузки или конца последовательности</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Изменить действие</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Конфигурация изменилась во время редактирования. Откройте действие снова.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Путь к скрипту или установщику (относительно содержимого)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Действия выполняются без участия пользователя от имени SYSTEM. Запретите перезагрузки, инициируемые установщиком. Содержимое временное; отдельно предоставьте постоянные источники, если они нужны для восстановления или обновлений.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Не удалось импортировать содержимое. Проверьте доступ, свободное место, имена файлов и длину путей.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Импортировать файл</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Импортировать папку</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Интеграция с пользовательскими файлами ответов</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Проверьте имя, путь к содержимому, команду и параметры процесса. Списки кодов завершения не должны пересекаться или содержать 1641; время ожидания — 1–86400 секунд.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Переместить вниз</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Переместить вверх</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Содержимое не импортировано</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Проверьте параметры действий и импортируйте недостающее содержимое пакетов перед созданием носителя.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Перезагрузка</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Коды завершения, требующие перезагрузки (через запятую)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Подготовка содержимого для этапа после установки.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Коды успешного завершения (через запятую)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Время ожидания (секунды)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Дополнительно: добавьте команду запуска Foundry в копию для развёртывания. Импортированные оригиналы останутся без изменений. Пользовательские параметры и команды могут повлиять на развёртывание.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Не удалось интегрировать выбранный файл ответов. Проверьте его архитектуру, существующий механизм запуска Foundry и порядок RunSynchronous либо обновите изменившийся источник.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Копия для развёртывания: добавьте команду Foundry на этапе specialize с WillReboot=OnRequest. Сохраните существующие команды и параметры.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Рабочий каталог (относительный; пустое поле означает корень содержимого)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Текущие настройки</value>

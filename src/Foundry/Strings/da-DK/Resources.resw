@@ -2239,6 +2239,12 @@ Licenseret under MIT-licensen.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-valg</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Kør tilpassede handlinger efter installation af Windows og før OOBE.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Efter installation</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Åbn GitHubs formular til fejlrapportering i din browser.</value>
   </data>
@@ -2391,6 +2397,111 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Indstillinger for Windows-udrulning</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Tilføj handling</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Enhver arkitektur</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Program</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Installationstype</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumenter eller MSI-egenskaber</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Foundrys indbyggede opgaver køres først. Tilføj dine tilpassede handlinger nedenfor i den ønskede rækkefølge.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry rydder op i midlertidigt udrulningsindhold, når de tilpassede handlinger er afsluttet.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>CMD-kommandolinje</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Forhåndsvisning af kommando</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Pakkeindhold</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Indhold til efter installationen er verificeret.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Fortsæt efter en almindelig handlingsfejl</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Udskyd den anmodede genstart til næste genstartshandling eller slutningen af sekvensen</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Rediger handling</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Konfigurationen blev ændret under redigeringen. Åbn handlingen igen.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Sti til script eller installationsprogram (relativ til indholdet)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Handlinger køres uden brugerinteraktion som SYSTEM. Deaktivér genstarter fra installationsprogrammet. Indholdet er midlertidigt; sørg separat for permanente kilder, hvis reparationer eller opdateringer kræver dem.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Import af indhold mislykkedes. Kontrollér adgang, ledig plads, filnavne og stilængder.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Importér fil</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Importér mappe</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Integrer med tilpassede svarfiler</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Kontrollér navn, indholdssti, kommando og procesindstillinger. Lister over afslutningskoder må ikke overlappe eller indeholde 1641; timeout skal være 1–86400 sekunder.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Flyt ned</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Flyt op</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Intet indhold importeret</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Kontrollér handlingsindstillingerne, og importér manglende pakkeindhold, før du opretter medier.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Genstart</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Afslutningskoder, der kræver genstart (kommaseparerede)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Klargør indhold til efter installationen.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Afslutningskoder for succes (kommaseparerede)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Timeout (sekunder)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Avanceret: føj Foundrys startkommando til udrulningskopien. Importerede originaler forbliver uændrede. Dine tilpassede indstillinger og kommandoer kan påvirke udrulningen.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Den valgte svarfil kan ikke integreres. Kontrollér dens arkitektur, den eksisterende Foundry-startmekanisme og RunSynchronous-rækkefølgen, eller opdater en ændret kilde.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Udrulningskopi: tilføj Foundry-kommandoen i specialize med WillReboot=OnRequest. Bevar eksisterende kommandoer og indstillinger.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Arbejdsmappe (relativ; tom bruger indholdets rodmappe)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Aktuelle indstillinger</value>

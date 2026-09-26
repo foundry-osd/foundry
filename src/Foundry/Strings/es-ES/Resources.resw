@@ -2239,6 +2239,12 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Selección de SO</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Ejecutar acciones personalizadas después de instalar Windows y antes de OOBE.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Posinstalación</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Abra el formulario de GitHub para informar de errores en su navegador.</value>
   </data>
@@ -2391,6 +2397,111 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opciones de implementación de Windows</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Agregar acción</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Cualquier arquitectura</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Aplicación</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Tipo de instalador</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumentos o propiedades MSI</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Las tareas integradas de Foundry se ejecutan primero. Agregue sus acciones debajo en el orden de ejecución.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry elimina el contenido temporal del despliegue cuando terminan las acciones personalizadas.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Línea de comandos CMD</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Vista previa del comando</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Contenido del paquete</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Contenido de posinstalación verificado.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Continuar tras un fallo ordinario de la acción</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Posponer el reinicio solicitado hasta la próxima acción Reiniciar o el final de la secuencia</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Editar acción</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>La configuración cambió mientras editaba. Vuelva a abrir la acción.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Ruta del script o instalador (relativa al contenido)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Las acciones se ejecutan silenciosamente como SYSTEM. Impida los reinicios iniciados por los instaladores. El contenido es temporal; proporcione fuentes permanentes aparte si las reparaciones o actualizaciones las requieren.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>No se pudo importar el contenido. Compruebe el acceso, el espacio disponible, los nombres de archivo y la longitud de las rutas.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Importar archivo</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Importar carpeta</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Integrar con archivos de respuesta personalizados</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Compruebe el nombre, la ruta del contenido, el comando y los ajustes del proceso. Las listas de códigos no deben solaparse ni incluir 1641; el tiempo de espera debe ser de 1–86400 segundos.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Bajar</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Subir</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>No se ha importado contenido</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Compruebe la configuración de las acciones e importe el contenido que falte antes de crear el medio.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Reiniciar</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Códigos que requieren reinicio (separados por comas)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Preparando el contenido de posinstalación.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Códigos de salida correctos (separados por comas)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Tiempo de espera (segundos)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Avanzado: agrega el comando de inicio de Foundry a la copia de despliegue. Los originales importados no cambian. Sus opciones y comandos pueden afectar al despliegue.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>No se puede integrar el archivo de respuesta seleccionado. Compruebe su arquitectura, el enlace de inicio de Foundry existente y el orden de RunSynchronous, o actualice el origen si ha cambiado.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Copia de despliegue: añadir el comando de Foundry en specialize con WillReboot=OnRequest. Conservar los comandos y la configuración existentes.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Directorio de trabajo (relativo; vacío para la raíz del contenido)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Configuración actual</value>

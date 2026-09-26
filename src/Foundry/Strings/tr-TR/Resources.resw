@@ -2239,6 +2239,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>İşletim sistemi seçimi</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Windows kurulumundan sonra ve OOBE'den önce özel eylemler çalıştırın.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Kurulum sonrası</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>GitHub hata bildirim formunu tarayıcınızda açın.</value>
   </data>
@@ -2391,6 +2397,111 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows dağıtım seçenekleri</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Eylem ekle</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Tüm mimariler</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Uygulama</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Yükleyici türü</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Bağımsız değişkenler veya MSI özellikleri</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Önce Foundry'nin yerleşik görevleri çalışır. Özel eylemlerinizi aşağıya yürütme sırasıyla ekleyin.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry, özel eylemler tamamlandıktan sonra geçici dağıtım içeriğini temizler.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>CMD komut satırı</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Komut önizlemesi</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Paket içeriği</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Kurulum sonrası içerik doğrulandı.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Olağan bir eylem hatasından sonra devam et</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>İstenen yeniden başlatmayı sonraki Yeniden başlat eylemine veya dizinin sonuna ertele</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Eylemi düzenle</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Düzenleme sırasında yapılandırma değişti. Eylemi yeniden açın.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Betik veya yükleyici yolu (içeriğe göre)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Eylemler SYSTEM olarak kullanıcı etkileşimi olmadan çalışır. Yükleyicilerin kendi yeniden başlatmalarını engelleyin. İçerik geçicidir; onarım veya güncellemeler gerektiriyorsa kalıcı kaynakları ayrıca sağlayın.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>İçerik içeri aktarılamadı. Erişimi, kullanılabilir alanı, dosya adlarını ve yol uzunluklarını denetleyin.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Dosya içeri aktar</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Klasör içeri aktar</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Özel yanıt dosyalarıyla tümleştir</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Adı, içerik yolunu, komutu ve işlem ayarlarını denetleyin. Çıkış kodu listeleri çakışmamalı veya 1641 içermemelidir; zaman aşımı 1–86400 saniye olmalıdır.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Aşağı taşı</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Yukarı taşı</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>İçerik içeri aktarılmadı</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Medya oluşturmadan önce eylem ayarlarını denetleyin ve eksik paket içeriğini içeri aktarın.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Yeniden başlat</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Yeniden başlatma gerektiren çıkış kodları (virgülle ayrılmış)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Kurulum sonrası içerik hazırlanıyor.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Başarılı çıkış kodları (virgülle ayrılmış)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Zaman aşımı (saniye)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Gelişmiş: Foundry başlatma komutunu dağıtım kopyasına ekleyin. İçeri aktarılan özgün dosyalar değişmez. Özel ayarlarınız ve komutlarınız dağıtımı etkileyebilir.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Seçilen yanıt dosyası tümleştirilemiyor. Mimarisini, mevcut Foundry başlatma mekanizmasını ve RunSynchronous sırasını denetleyin veya değişen kaynağı yenileyin.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Dağıtım kopyası: specialize aşamasına WillReboot=OnRequest ile Foundry komutunu ekleyin. Mevcut komutları ve ayarları koruyun.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Çalışma dizini (göreli; boş bırakılırsa içerik kökü kullanılır)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Geçerli ayarlar</value>

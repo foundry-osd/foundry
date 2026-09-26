@@ -35,6 +35,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private readonly AppSettingsService appSettingsService;
     private readonly ILogger logger;
     private readonly Foundry.Core.Services.Images.CustomImageLibraryService customImageLibrary;
+    private readonly Foundry.Core.Services.Packages.PreOobePackageLibraryService postInstallPackages;
     private UnattendSettings? validatedUnattendSettings;
     private IReadOnlyList<UnattendSourceValidation> unattendSourceValidations = [];
     private readonly List<(UnattendSettings Settings, Task<IReadOnlyList<UnattendSourceValidation>> Read)> unattendSourceReads = [];
@@ -49,7 +50,8 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState,
         AppSettingsService appSettingsService,
         ILogger logger,
-        Foundry.Core.Services.Images.CustomImageLibraryService customImageLibrary)
+        Foundry.Core.Services.Images.CustomImageLibraryService customImageLibrary,
+        Foundry.Core.Services.Packages.PreOobePackageLibraryService postInstallPackages)
     {
         this.foundryConfigurationService = foundryConfigurationService;
         this.deployConfigurationGenerator = deployConfigurationGenerator;
@@ -60,6 +62,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         this.appSettingsService = appSettingsService;
         this.logger = logger.ForContext<FoundryConfigurationStateService>();
         this.customImageLibrary = customImageLibrary;
+        this.postInstallPackages = postInstallPackages;
         FoundryConfigurationDocument loaded = Load(out bool isLegacyMigration);
         loaded = FoundryConfigurationMigration.MigrateDefaultIsoOutput(loaded, Constants.LegacyDefaultIsoPath, Constants.DefaultIsoPath);
         if (isLegacyMigration)
@@ -104,7 +107,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     {
         get
         {
-            if (!IsUnattendConfigurationReady || !IsCustomImagesReady)
+            if (!IsUnattendConfigurationReady || !IsCustomImagesReady || !IsPostInstallationReady)
             {
                 return false;
             }
@@ -387,6 +390,21 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     /// <inheritdoc />
     public void RefreshCustomImageReadiness() => StateChanged?.Invoke(this, EventArgs.Empty);
+
+    /// <inheritdoc />
+    public void UpdatePreOobe(PreOobeSettings settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        Current = Current with { PreOobe = settings };
+        Save();
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <inheritdoc />
+    public bool IsPostInstallationReady => !Current.PreOobe.IsEnabled ||
+        (PreOobeConfigurationValidator.Validate(Current.PreOobe).Count == 0 &&
+        Current.PreOobe.Actions.Where(action => action.IsEnabled && action.Package is not null)
+            .All(action => postInstallPackages.IsAvailable(action.Package!)));
 
     /// <inheritdoc />
     public bool IsCustomImagesReady => !Current.CustomImages.IsEnabled ||

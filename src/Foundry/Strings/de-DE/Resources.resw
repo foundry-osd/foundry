@@ -2239,6 +2239,12 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-Auswahl</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Benutzerdefinierte Aktionen nach der Windows-Installation und vor OOBE ausführen.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Nach der Installation</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Öffnen Sie das GitHub-Formular zum Melden von Fehlern in Ihrem Browser.</value>
   </data>
@@ -2391,6 +2397,111 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows-Bereitstellungsoptionen</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Aktion hinzufügen</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Alle Architekturen</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Anwendung</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Installationstyp</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumente oder MSI-Eigenschaften</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Die integrierten Foundry-Aufgaben werden zuerst ausgeführt. Fügen Sie unten eigene Aktionen in der gewünschten Reihenfolge hinzu.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry entfernt temporäre Bereitstellungsinhalte nach Abschluss der benutzerdefinierten Aktionen.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>CMD-Befehlszeile</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Befehlsvorschau</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Paketinhalt</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Inhalte für die Nachinstallation geprüft.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Nach einem gewöhnlichen Aktionsfehler fortfahren</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Angeforderten Neustart bis zur nächsten Neustartaktion oder zum Sequenzende aufschieben</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Aktion bearbeiten</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Die Konfiguration wurde während der Bearbeitung geändert. Öffnen Sie die Aktion erneut.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Skript- oder Installationspfad (relativ zum Inhalt)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Aktionen werden unbeaufsichtigt als SYSTEM ausgeführt. Unterdrücken Sie Neustarts durch Installationsprogramme. Inhalte sind temporär; stellen Sie bei Bedarf dauerhafte Quellen für Reparaturen oder Updates bereit.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Inhaltsimport fehlgeschlagen. Prüfen Sie Zugriff, freien Speicher, Dateinamen und Pfadlängen.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Datei importieren</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Ordner importieren</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>In benutzerdefinierte Antwortdateien integrieren</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Prüfen Sie Name, Inhaltspfad, Befehl und Prozesseinstellungen. Exitcodelisten dürfen sich nicht überschneiden oder 1641 enthalten; das Zeitlimit muss 1–86400 Sekunden betragen.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Nach unten</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Nach oben</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Keine Inhalte importiert</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Prüfen Sie die Aktionseinstellungen und importieren Sie fehlende Paketinhalte, bevor Sie das Medium erstellen.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Neustart</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Exitcodes für erforderlichen Neustart (durch Kommas getrennt)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Inhalte für die Nachinstallation werden vorbereitet.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Erfolgreiche Exitcodes (durch Kommas getrennt)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Zeitlimit (Sekunden)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Erweitert: Fügt den Foundry-Startbefehl zur Bereitstellungskopie hinzu. Importierte Originale bleiben unverändert. Ihre Einstellungen und Befehle können die Bereitstellung beeinflussen.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Die ausgewählte Antwortdatei kann nicht integriert werden. Prüfen Sie die Architektur, den vorhandenen Foundry-Startaufruf und die RunSynchronous-Reihenfolge, oder aktualisieren Sie eine geänderte Quelle.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Bereitstellungskopie: Foundry-Befehl in specialize mit WillReboot=OnRequest anhängen. Vorhandene Befehle und Einstellungen beibehalten.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Arbeitsverzeichnis (relativ; leer für das Inhaltsstammverzeichnis)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Aktuelle Einstellungen</value>

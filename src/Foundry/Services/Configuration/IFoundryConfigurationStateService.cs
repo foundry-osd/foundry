@@ -150,6 +150,12 @@ public interface IFoundryConfigurationStateService
     /// <summary>Updates portable custom image references and deployment defaults.</summary>
     void UpdateCustomImages(CustomImagesSettings settings);
 
+    /// <summary>Persists the ordered post-installation actions and portable package references.</summary>
+    void UpdatePreOobe(PreOobeSettings settings);
+
+    /// <summary>Checks authoring validity and local availability before media generation.</summary>
+    bool IsPostInstallationReady { get; }
+
     /// <summary>Gets basic custom image availability; full hash verification occurs under build leases.</summary>
     bool IsCustomImagesReady { get; }
 

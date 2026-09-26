@@ -2239,6 +2239,12 @@
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Επιλογή OS</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Εκτελέστε προσαρμοσμένες ενέργειες μετά την εγκατάσταση των Windows και πριν από το OOBE.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Μετά την εγκατάσταση</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Ανοίξτε τη φόρμα αναφοράς σφάλματος του GitHub στο πρόγραμμα περιήγησής σας.</value>
   </data>
@@ -2391,6 +2397,111 @@
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Επιλογές ανάπτυξης Windows</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Προσθήκη ενέργειας</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Οποιαδήποτε αρχιτεκτονική</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Εφαρμογή</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Τύπος προγράμματος εγκατάστασης</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Ορίσματα ή ιδιότητες MSI</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Οι ενσωματωμένες εργασίες του Foundry εκτελούνται πρώτες. Προσθέστε παρακάτω τις προσαρμοσμένες ενέργειές σας με τη σειρά εκτέλεσης.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Το Foundry διαγράφει το προσωρινό περιεχόμενο ανάπτυξης μετά την ολοκλήρωση των προσαρμοσμένων ενεργειών.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Γραμμή εντολών CMD</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Προεπισκόπηση εντολής</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Περιεχόμενο πακέτου</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Το περιεχόμενο για μετά την εγκατάσταση επαληθεύτηκε.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Συνέχεια μετά από συνηθισμένη αποτυχία ενέργειας</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Αναβολή της ζητούμενης επανεκκίνησης μέχρι την επόμενη ενέργεια επανεκκίνησης ή το τέλος της ακολουθίας</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Επεξεργασία ενέργειας</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Η ρύθμιση παραμέτρων άλλαξε κατά την επεξεργασία. Ανοίξτε ξανά την ενέργεια.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Διαδρομή σεναρίου ή προγράμματος εγκατάστασης (σχετική με το περιεχόμενο)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Οι ενέργειες εκτελούνται χωρίς παρέμβαση ως SYSTEM. Αποτρέψτε τις επανεκκινήσεις από το ίδιο το πρόγραμμα εγκατάστασης. Το περιεχόμενο είναι προσωρινό· παρέχετε μόνιμες πηγές ξεχωριστά, εάν απαιτούνται για επιδιόρθωση ή ενημερώσεις.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Η εισαγωγή περιεχομένου απέτυχε. Ελέγξτε την πρόσβαση, τον διαθέσιμο χώρο, τα ονόματα αρχείων και τα μήκη διαδρομών.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Εισαγωγή αρχείου</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Εισαγωγή φακέλου</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Ενσωμάτωση με προσαρμοσμένα αρχεία απαντήσεων</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Ελέγξτε το όνομα, τη διαδρομή περιεχομένου, την εντολή και τις ρυθμίσεις διεργασίας. Οι λίστες κωδικών εξόδου δεν πρέπει να επικαλύπτονται ή να περιέχουν το 1641· το χρονικό όριο πρέπει να είναι 1–86400 δευτερόλεπτα.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Μετακίνηση κάτω</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Μετακίνηση επάνω</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Δεν έχει εισαχθεί περιεχόμενο</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Ελέγξτε τις ρυθμίσεις των ενεργειών και εισαγάγετε το περιεχόμενο πακέτων που λείπει πριν δημιουργήσετε το μέσο.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Επανεκκίνηση</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Κωδικοί εξόδου που απαιτούν επανεκκίνηση (διαχωρισμένοι με κόμμα)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Προετοιμασία περιεχομένου για μετά την εγκατάσταση.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Κωδικοί επιτυχούς εξόδου (διαχωρισμένοι με κόμμα)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Χρονικό όριο (δευτερόλεπτα)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Για προχωρημένους: προσθέστε την εντολή εκκίνησης του Foundry στο αντίγραφο ανάπτυξης. Τα εισαγόμενα πρωτότυπα παραμένουν αμετάβλητα. Οι προσαρμοσμένες ρυθμίσεις και εντολές σας μπορεί να επηρεάσουν την ανάπτυξη.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Δεν είναι δυνατή η ενσωμάτωση του επιλεγμένου αρχείου απαντήσεων. Ελέγξτε την αρχιτεκτονική του, τον υπάρχοντα μηχανισμό εκκίνησης Foundry και τη σειρά RunSynchronous ή ανανεώστε την πηγή εάν έχει αλλάξει.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Αντίγραφο ανάπτυξης: προσθέστε την εντολή Foundry στη φάση specialize με WillReboot=OnRequest. Διατηρήστε τις υπάρχουσες εντολές και ρυθμίσεις.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Κατάλογος εργασίας (σχετικός· κενός χρησιμοποιεί τη ρίζα του περιεχομένου)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Τρέχουσες ρυθμίσεις</value>

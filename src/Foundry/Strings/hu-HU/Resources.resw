@@ -2239,6 +2239,12 @@ Licenc az MIT licenc alatt.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Operációsrendszer-választás</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Egyéni műveletek futtatása a Windows telepítése után, az OOBE előtt.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Telepítés után</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Nyissa meg a GitHub hibabejelentő űrlapját a böngészőjében.</value>
   </data>
@@ -2391,6 +2397,111 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows-telepítési lehetőségek</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Művelet hozzáadása</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Bármely architektúra</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Alkalmazás</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Telepítő típusa</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumentumok vagy MSI-tulajdonságok</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Először a Foundry beépített feladatai futnak le. Adja hozzá az egyéni műveleteket alább, végrehajtási sorrendben.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>A Foundry az egyéni műveletek befejezése után eltávolítja az ideiglenes központi telepítési tartalmat.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>CMD-parancssor</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Parancs előnézete</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Csomag tartalma</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Telepítés utáni tartalom ellenőrizve.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Folytatás szokásos művelethiba után</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>A kért újraindítás halasztása a következő Újraindítás műveletig vagy a sorozat végéig</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Művelet szerkesztése</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>A konfiguráció szerkesztés közben megváltozott. Nyissa meg újra a műveletet.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Parancsfájl vagy telepítő elérési útja (a tartalomhoz képest)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>A műveletek felhasználói beavatkozás nélkül, SYSTEM-ként futnak. Tiltsa le a telepítők saját újraindításait. A tartalom ideiglenes; ha javításhoz vagy frissítéshez szükséges, külön biztosítson tartós forrásokat.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>A tartalom importálása sikertelen. Ellenőrizze a hozzáférést, a szabad helyet, a fájlneveket és az elérési utak hosszát.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Fájl importálása</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Mappa importálása</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Integrálás egyéni válaszfájlokkal</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Ellenőrizze a nevet, a tartalom elérési útját, a parancsot és a folyamat beállításait. A kilépésikód-listák nem fedhetik egymást és nem tartalmazhatnak 1641-et; az időkorlát 1–86400 másodperc legyen.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Mozgatás lefelé</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Mozgatás felfelé</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Nincs importált tartalom</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Az adathordozó létrehozása előtt ellenőrizze a műveletek beállításait, és importálja a hiányzó csomagtartalmat.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Újraindítás</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Újraindítást igénylő kilépési kódok (vesszővel elválasztva)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Telepítés utáni tartalom előkészítése.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Sikeres kilépési kódok (vesszővel elválasztva)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Időkorlát (másodperc)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Speciális: a Foundry indítási parancsának hozzáadása a telepítési példányhoz. Az importált eredetik változatlanok maradnak. Az egyéni beállítások és parancsok befolyásolhatják a telepítést.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>A kiválasztott válaszfájl nem integrálható. Ellenőrizze az architektúráját, a meglévő Foundry-indítómechanizmust és a RunSynchronous sorrendjét, vagy frissítse a megváltozott forrást.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Telepítési példány: a Foundry-parancs hozzáfűzése a specialize fázisban WillReboot=OnRequest beállítással. A meglévő parancsok és beállítások megőrzése.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Munkakönyvtár (relatív; üresen a tartalom gyökere)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Jelenlegi beállítások</value>

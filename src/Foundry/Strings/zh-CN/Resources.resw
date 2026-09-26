@@ -2239,6 +2239,12 @@
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>操作系统选择</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>在 Windows 安装完成后、OOBE 之前运行自定义操作。</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>安装后操作</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>在浏览器中打开 GitHub 错误报告表单。</value>
   </data>
@@ -2391,6 +2397,111 @@
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows 部署选项</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>添加操作</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>任何体系结构</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>应用程序</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>安装程序类型</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>参数或 MSI 属性</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Foundry 内置任务将首先运行。请在下方按执行顺序添加自定义操作。</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>自定义操作完成后，Foundry 将清理临时部署内容。</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>CMD 命令行</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>命令预览</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>程序包内容</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>已验证安装后内容。</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>发生一般操作错误后继续</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>将请求的重启推迟到下一个重启操作或序列结束时</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>编辑操作</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>编辑期间配置已更改。请重新打开该操作。</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>脚本或安装程序路径（相对于内容）</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>操作以 SYSTEM 身份静默运行。请禁止安装程序自行重启。内容仅为临时内容；如果修复或更新需要源文件，请另行提供持久保存的源文件。</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>导入内容失败。请检查访问权限、可用空间、文件名和路径长度。</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>导入文件</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>导入文件夹</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>与自定义应答文件集成</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>请检查名称、内容路径、命令和进程设置。退出代码列表不能重叠或包含 1641；超时必须为 1–86400 秒。</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>下移</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>上移</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>尚未导入内容</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>创建介质前，请检查操作设置并导入缺少的程序包内容。</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>重启</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>需要重启的退出代码（以逗号分隔）</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>正在暂存安装后内容。</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>成功退出代码（以逗号分隔）</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>超时（秒）</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>高级：将 Foundry 启动命令添加到部署副本中。导入的原始文件保持不变。自定义设置和命令可能影响部署。</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>无法集成所选应答文件。请检查其体系结构、现有 Foundry 启动挂钩和 RunSynchronous 顺序，或刷新已更改的源文件。</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>部署副本：在 specialize 阶段追加 Foundry 命令，并设置 WillReboot=OnRequest。保留现有命令和设置。</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>工作目录（相对路径；留空则使用内容根目录）</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>当前设置</value>

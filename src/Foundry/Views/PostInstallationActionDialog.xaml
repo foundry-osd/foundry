@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="Foundry.Views.PostInstallationActionDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="{x:Bind ViewModel.Title}"
+    CloseButtonText="{x:Bind ViewModel.CancelLabel}"
+    DefaultButton="Primary"
+    IsPrimaryButtonEnabled="{x:Bind ViewModel.CanSave, Mode=OneWay}"
+    PrimaryButtonClick="OnPrimaryButtonClick"
+    PrimaryButtonText="{x:Bind ViewModel.SaveLabel}">
+    <ScrollViewer
+        MaxHeight="620"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel
+            MinWidth="360"
+            Spacing="12">
+            <TextBox
+                Header="{x:Bind ViewModel.NameLabel}"
+                Text="{x:Bind ViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <StackPanel
+                Spacing="12"
+                Visibility="{x:Bind ViewModel.IsExecutable}">
+                <TextBlock
+                    Text="{x:Bind ViewModel.ExecutionHelp}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Style="{ThemeResource BodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.ContentLabel}" />
+                <TextBlock
+                    Text="{x:Bind ViewModel.PackageName, Mode=OneWay}"
+                    TextWrapping="Wrap" />
+                <StackPanel
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <Button
+                        Command="{x:Bind ViewModel.ImportFileCommand}"
+                        Content="{x:Bind ViewModel.ImportFileLabel}"
+                        IsEnabled="{x:Bind ViewModel.CanSave, Mode=OneWay}" />
+                    <Button
+                        Command="{x:Bind ViewModel.ImportFolderCommand}"
+                        Content="{x:Bind ViewModel.ImportFolderLabel}"
+                        IsEnabled="{x:Bind ViewModel.CanSave, Mode=OneWay}" />
+                </StackPanel>
+                <ProgressBar
+                    IsIndeterminate="True"
+                    Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+                <ComboBox
+                    HorizontalAlignment="Stretch"
+                    Header="{x:Bind ViewModel.EntryPointLabel}"
+                    IsEditable="True"
+                    ItemsSource="{x:Bind ViewModel.EntryPoints}"
+                    Text="{x:Bind ViewModel.EntryPoint, Mode=TwoWay}"
+                    Visibility="{x:Bind ViewModel.HasEntryPoint}" />
+                <ComboBox
+                    HorizontalAlignment="Stretch"
+                    Header="{x:Bind ViewModel.ApplicationModeLabel}"
+                    SelectedIndex="{x:Bind ViewModel.ApplicationModeIndex, Mode=TwoWay}"
+                    Visibility="{x:Bind ViewModel.IsApplication}">
+                    <ComboBoxItem Content="EXE" />
+                    <ComboBoxItem Content="MSI" />
+                </ComboBox>
+                <TextBox
+                    AcceptsReturn="True"
+                    Header="{x:Bind ViewModel.ArgumentsLabel}"
+                    Text="{x:Bind ViewModel.Arguments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextWrapping="Wrap"
+                    Visibility="{x:Bind ViewModel.HasEntryPoint}" />
+                <TextBox
+                    AcceptsReturn="True"
+                    Header="{x:Bind ViewModel.CommandLabel}"
+                    Text="{x:Bind ViewModel.CommandText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextWrapping="Wrap"
+                    Visibility="{x:Bind ViewModel.IsCommand}" />
+                <TextBox
+                    Header="{x:Bind ViewModel.WorkingDirectoryLabel}"
+                    Text="{x:Bind ViewModel.WorkingDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Header="{x:Bind ViewModel.CommandPreviewLabel}"
+                    IsReadOnly="True"
+                    Text="{x:Bind ViewModel.CommandPreview, Mode=OneWay}"
+                    TextWrapping="Wrap" />
+                <NumberBox
+                    Header="{x:Bind ViewModel.TimeoutLabel}"
+                    Maximum="86400"
+                    Minimum="1"
+                    Value="{x:Bind ViewModel.TimeoutSeconds, Mode=TwoWay}" />
+                <TextBox
+                    Header="{x:Bind ViewModel.SuccessCodesLabel}"
+                    Text="{x:Bind ViewModel.SuccessCodes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Header="{x:Bind ViewModel.RestartCodesLabel}"
+                    Text="{x:Bind ViewModel.RestartCodes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <CheckBox
+                    Content="{x:Bind ViewModel.ContinueLabel}"
+                    IsChecked="{x:Bind ViewModel.ContinueOnError, Mode=TwoWay}" />
+                <CheckBox
+                    Content="{x:Bind ViewModel.DeferRestartLabel}"
+                    IsChecked="{x:Bind ViewModel.DeferRestart, Mode=TwoWay}" />
+                <ComboBox
+                    HorizontalAlignment="Stretch"
+                    Header="{x:Bind ViewModel.ArchitectureLabel}"
+                    SelectedIndex="{x:Bind ViewModel.ArchitectureIndex, Mode=TwoWay}">
+                    <ComboBoxItem Content="{x:Bind ViewModel.AnyArchitectureLabel}" />
+                    <ComboBoxItem Content="x64" />
+                    <ComboBoxItem Content="ARM64" />
+                </ComboBox>
+            </StackPanel>
+            <TextBlock
+                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                Text="{x:Bind ViewModel.Error, Mode=OneWay}"
+                TextWrapping="Wrap" />
+        </StackPanel>
+    </ScrollViewer>
+</ContentDialog>

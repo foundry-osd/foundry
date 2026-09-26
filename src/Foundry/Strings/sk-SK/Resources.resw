@@ -2239,6 +2239,12 @@ Licencované podľa licencie MIT.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Výber OS</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Spúšťajte vlastné akcie po inštalácii Windows a pred OOBE.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Po inštalácii</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Otvorte formulár na hlásenie chýb na GitHube vo svojom prehliadači.</value>
   </data>
@@ -2391,6 +2397,111 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Možnosti nasadenia Windows</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Pridať akciu</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Ľubovoľná architektúra</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Aplikácia</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Typ inštalátora</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumenty alebo vlastnosti MSI</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Najprv sa vykonajú vstavané úlohy Foundry. Nižšie pridajte vlastné akcie v poradí vykonávania.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry odstráni dočasný obsah nasadenia po dokončení vlastných akcií.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Príkazový riadok CMD</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Ukážka príkazu</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Obsah balíka</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Obsah pre fázu po inštalácii bol overený.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Pokračovať po bežnom zlyhaní akcie</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Odložiť požadovaný reštart do ďalšej akcie Reštartovať alebo do konca sekvencie</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Upraviť akciu</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Počas úprav sa konfigurácia zmenila. Otvorte akciu znova.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Cesta k skriptu alebo inštalátoru (relatívna k obsahu)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Akcie sa vykonávajú bez obsluhy pod účtom SYSTEM. Zakážte reštarty vyvolané inštalátorom. Obsah je dočasný; ak opravy alebo aktualizácie vyžadujú zdroje, zabezpečte ich samostatne natrvalo.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Import obsahu zlyhal. Skontrolujte prístup, voľné miesto, názvy súborov a dĺžky ciest.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Importovať súbor</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Importovať priečinok</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Integrovať s vlastnými súbormi odpovedí</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Skontrolujte názov, cestu k obsahu, príkaz a nastavenia procesu. Zoznamy návratových kódov sa nesmú prekrývať ani obsahovať 1641; časový limit musí byť 1–86400 sekúnd.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Presunúť nadol</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Presunúť nahor</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Nebol importovaný žiadny obsah</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Pred vytvorením média skontrolujte nastavenia akcií a importujte chýbajúci obsah balíkov.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Reštartovať</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Návratové kódy vyžadujúce reštart (oddelené čiarkami)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Príprava obsahu pre fázu po inštalácii.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Návratové kódy úspechu (oddelené čiarkami)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Časový limit (sekundy)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Rozšírené: pridajte spúšťací príkaz Foundry do kópie pre nasadenie. Importované originály zostanú nezmenené. Vlastné nastavenia a príkazy môžu ovplyvniť nasadenie.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Vybraný súbor odpovedí nemožno integrovať. Skontrolujte jeho architektúru, existujúci spúšťací mechanizmus Foundry a poradie RunSynchronous, alebo obnovte zmenený zdroj.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Kópia pre nasadenie: pridajte príkaz Foundry vo fáze specialize s WillReboot=OnRequest. Zachovajte existujúce príkazy a nastavenia.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Pracovný adresár (relatívny; prázdna hodnota použije koreň obsahu)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Aktuálne nastavenia</value>

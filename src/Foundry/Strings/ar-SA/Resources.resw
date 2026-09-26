@@ -2239,6 +2239,12 @@
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>اختيار نظام التشغيل</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>شغّل إجراءات مخصصة بعد تثبيت Windows وقبل OOBE.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>ما بعد التثبيت</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>افتح نموذج الإبلاغ عن الأخطاء على GitHub في متصفحك.</value>
   </data>
@@ -2391,6 +2397,111 @@
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>خيارات نشر Windows</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>إضافة إجراء</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>أي بنية</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>تطبيق</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>نوع المثبّت</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>الوسيطات أو خصائص MSI</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>تُنفَّذ مهام Foundry المضمّنة أولاً. أضف إجراءاتك المخصصة أدناه بترتيب التنفيذ.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>ينظف Foundry محتوى النشر المؤقت بعد انتهاء الإجراءات المخصصة.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>سطر أوامر CMD</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>معاينة الأمر</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>محتوى الحزمة</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>تم التحقق من محتوى ما بعد التثبيت.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>المتابعة بعد إخفاق عادي في إجراء</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>تأجيل إعادة التشغيل المطلوبة حتى إجراء إعادة التشغيل التالي أو نهاية التسلسل</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>تحرير الإجراء</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>تغيّر التكوين أثناء التحرير. افتح الإجراء مرة أخرى.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>مسار البرنامج النصي أو المثبّت (بالنسبة إلى المحتوى)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>تُنفَّذ الإجراءات دون تدخل المستخدم بحساب SYSTEM. امنع عمليات إعادة التشغيل التي يبدأها المثبّت نفسه. المحتوى مؤقت؛ وفّر مصادر دائمة بشكل منفصل إذا كان الإصلاح أو التحديث يتطلبها.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>فشل استيراد المحتوى. تحقق من صلاحية الوصول والمساحة المتاحة وأسماء الملفات وأطوال المسارات.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>استيراد ملف</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>استيراد مجلد</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>التكامل مع ملفات إجابات مخصصة</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>تحقق من الاسم ومسار المحتوى والأمر وإعدادات العملية. يجب ألا تتداخل قوائم رموز الخروج أو تتضمن 1641؛ ويجب أن تكون المهلة 1–86400 ثانية.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>نقل لأسفل</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>نقل لأعلى</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>لم يتم استيراد أي محتوى</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>تحقق من إعدادات الإجراءات واستورد أي محتوى حزم مفقود قبل إنشاء الوسائط.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>إعادة التشغيل</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>رموز الخروج التي تتطلب إعادة التشغيل (مفصولة بفواصل)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>جارٍ تجهيز محتوى ما بعد التثبيت.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>رموز خروج النجاح (مفصولة بفواصل)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>المهلة (بالثواني)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>متقدم: أضف أمر تشغيل Foundry إلى نسخة النشر. تبقى النسخ الأصلية المستوردة دون تغيير. قد تؤثر إعداداتك وأوامرك المخصصة على النشر.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>لا يمكن دمج ملف الإجابات المحدد. تحقق من بنيته وآلية بدء Foundry الحالية وترتيب RunSynchronous، أو حدّث المصدر إذا تغيّر.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>نسخة النشر: ألحِق أمر Foundry في specialize مع WillReboot=OnRequest. احتفظ بالأوامر والإعدادات الحالية.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>دليل العمل (نسبي؛ يُستخدم جذر المحتوى إذا تُرك فارغاً)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>الإعدادات الحالية</value>

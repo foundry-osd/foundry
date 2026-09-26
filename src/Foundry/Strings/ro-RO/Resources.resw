@@ -2239,6 +2239,12 @@ Licențiat sub licența MIT.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Selectare sistem de operare</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Executați acțiuni personalizate după instalarea Windows și înainte de OOBE.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>După instalare</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Deschideți formularul GitHub pentru raportarea erorilor în browser.</value>
   </data>
@@ -2391,6 +2397,111 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opțiuni de implementare Windows</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Adăugați o acțiune</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Orice arhitectură</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Aplicație</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Tipul programului de instalare</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumente sau proprietăți MSI</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Sarcinile încorporate Foundry se execută primele. Adăugați mai jos acțiunile personalizate în ordinea executării.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry elimină conținutul temporar al implementării după finalizarea acțiunilor personalizate.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Linie de comandă CMD</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Previzualizarea comenzii</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Conținutul pachetului</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Conținutul pentru etapa de după instalare a fost verificat.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Continuați după o eroare obișnuită a unei acțiuni</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Amânați repornirea solicitată până la următoarea acțiune Repornire sau până la sfârșitul secvenței</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Editați acțiunea</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Configurația s-a modificat în timpul editării. Deschideți din nou acțiunea.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Calea scriptului sau a programului de instalare (relativă la conținut)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Acțiunile se execută fără intervenție ca SYSTEM. Dezactivați repornirile inițiate de programul de instalare. Conținutul este temporar; furnizați separat surse permanente dacă reparațiile sau actualizările le necesită.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Importul conținutului a eșuat. Verificați accesul, spațiul disponibil, numele fișierelor și lungimea căilor.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Importați un fișier</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Importați un folder</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Integrare cu fișiere de răspuns personalizate</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Verificați numele, calea conținutului, comanda și setările procesului. Listele codurilor de ieșire nu trebuie să se suprapună sau să conțină 1641; limita de timp trebuie să fie de 1–86400 de secunde.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Mutați în jos</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Mutați în sus</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Niciun conținut importat</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Verificați setările acțiunilor și importați conținutul lipsă al pachetelor înainte de a crea suportul.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Repornire</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Coduri de ieșire care necesită repornire (separate prin virgulă)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Se pregătește conținutul pentru etapa de după instalare.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Coduri de ieșire pentru succes (separate prin virgulă)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Limită de timp (secunde)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Avansat: adăugați comanda de pornire Foundry în copia pentru implementare. Originalele importate rămân nemodificate. Setările și comenzile personalizate pot afecta implementarea.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Fișierul de răspuns selectat nu poate fi integrat. Verificați arhitectura, mecanismul de pornire Foundry existent și ordinea RunSynchronous sau reîmprospătați sursa dacă s-a modificat.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Copia pentru implementare: adăugați comanda Foundry în specialize cu WillReboot=OnRequest. Păstrați comenzile și setările existente.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Director de lucru (relativ; dacă este gol se utilizează rădăcina conținutului)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Setările curente</value>

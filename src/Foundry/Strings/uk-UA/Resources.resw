@@ -2239,6 +2239,12 @@
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Вибір ОС</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Виконуйте власні дії після інсталяції Windows і перед OOBE.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Після інсталяції</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Відкрийте форму повідомлення про помилку GitHub у браузері.</value>
   </data>
@@ -2391,6 +2397,111 @@
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Параметри розгортання Windows</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Додати дію</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Будь-яка архітектура</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Програма</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Тип інсталятора</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Аргументи або властивості MSI</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Спочатку виконуються вбудовані завдання Foundry. Додайте нижче власні дії в порядку виконання.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry видаляє тимчасовий вміст розгортання після завершення власних дій.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Командний рядок CMD</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Попередній перегляд команди</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Вміст пакета</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Вміст для етапу після інсталяції перевірено.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Продовжувати після звичайної помилки дії</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Відкласти запитане перезавантаження до наступної дії перезавантаження або кінця послідовності</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Редагувати дію</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Конфігурація змінилася під час редагування. Відкрийте дію знову.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Шлях до сценарію або інсталятора (відносно вмісту)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Дії виконуються без участі користувача від імені SYSTEM. Забороніть перезавантаження, ініційовані інсталятором. Вміст тимчасовий; окремо надайте постійні джерела, якщо вони потрібні для відновлення чи оновлення.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Не вдалося імпортувати вміст. Перевірте доступ, вільне місце, імена файлів і довжину шляхів.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Імпортувати файл</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Імпортувати папку</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Інтеграція з власними файлами відповідей</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Перевірте ім’я, шлях до вмісту, команду й параметри процесу. Списки кодів завершення не мають перетинатися чи містити 1641; час очікування має становити 1–86400 секунд.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Перемістити вниз</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Перемістити вгору</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Вміст не імпортовано</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Перевірте параметри дій та імпортуйте відсутній вміст пакетів перед створенням носія.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Перезавантаження</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Коди завершення, що потребують перезавантаження (через кому)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Підготовка вмісту для етапу після інсталяції.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Коди успішного завершення (через кому)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Час очікування (секунди)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Додатково: додайте команду запуску Foundry до копії для розгортання. Імпортовані оригінали залишаться без змін. Власні параметри й команди можуть вплинути на розгортання.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Не вдалося інтегрувати вибраний файл відповідей. Перевірте його архітектуру, наявний механізм запуску Foundry і порядок RunSynchronous або оновіть змінене джерело.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Копія для розгортання: додайте команду Foundry на етапі specialize з WillReboot=OnRequest. Збережіть наявні команди й параметри.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Робочий каталог (відносний; порожнє поле означає корінь вмісту)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Поточні налаштування</value>

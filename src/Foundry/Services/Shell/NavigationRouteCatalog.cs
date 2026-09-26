@@ -43,6 +43,7 @@ public static class NavigationRouteCatalog
         CreatePrimary<UnattendPage>("Nav_UnattendKey", "E8A5", NavigationSection.Customization),
         CreatePrimary<MachineNamingPage>("Nav_MachineNamingKey", "E8AC", NavigationSection.Customization),
         CreatePrimary<OobePage>("Nav_OobeKey", "F133", NavigationSection.Customization),
+        CreatePrimary<PostInstallationPage>("Nav_PostInstallationKey", "E90F", NavigationSection.Customization),
         CreatePrimary<OptionalFeaturesPage>("Nav_OptionalFeaturesKey", "E74C", NavigationSection.Customization),
         CreatePrimary<AppRemovalPage>("Nav_AppRemovalKey", "E7B8", NavigationSection.Customization),
         CreatePrimary<AiComponentsPage>("Nav_AiComponentsKey", "F4A5", NavigationSection.Customization)

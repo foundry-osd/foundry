@@ -2239,6 +2239,12 @@
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>การเลือกระบบปฏิบัติการ</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>เรียกใช้การดำเนินการแบบกำหนดเองหลังติดตั้ง Windows และก่อน OOBE</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>หลังการติดตั้ง</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>เปิดแบบฟอร์มรายงานข้อบกพร่องของ GitHub ในเบราว์เซอร์ของคุณ</value>
   </data>
@@ -2391,6 +2397,111 @@
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>ตัวเลือกการปรับใช้ Windows</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>เพิ่มการดำเนินการ</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>ทุกสถาปัตยกรรม</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>แอปพลิเคชัน</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>ประเภทตัวติดตั้ง</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>อาร์กิวเมนต์หรือคุณสมบัติ MSI</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>งานในตัวของ Foundry จะทำงานก่อน เพิ่มการดำเนินการแบบกำหนดเองด้านล่างตามลำดับการทำงาน</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry จะล้างเนื้อหาการปรับใช้ชั่วคราวหลังจากการดำเนินการแบบกำหนดเองเสร็จสิ้น</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>บรรทัดคำสั่ง CMD</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>ตัวอย่างคำสั่ง</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>เนื้อหาแพ็กเกจ</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>ตรวจสอบเนื้อหาหลังการติดตั้งแล้ว</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>ดำเนินการต่อหลังจากการดำเนินการล้มเหลวตามปกติ</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>เลื่อนการเริ่มระบบใหม่ที่ร้องขอไปจนถึงการดำเนินการเริ่มระบบใหม่ครั้งถัดไปหรือสิ้นสุดลำดับ</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>แก้ไขการดำเนินการ</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>การกำหนดค่าเปลี่ยนแปลงระหว่างการแก้ไข โปรดเปิดการดำเนินการอีกครั้ง</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>เส้นทางสคริปต์หรือตัวติดตั้ง (สัมพันธ์กับเนื้อหา)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>การดำเนินการทำงานแบบไม่มีผู้ใช้โต้ตอบในฐานะ SYSTEM โปรดระงับการเริ่มระบบใหม่โดยตัวติดตั้ง เนื้อหาเป็นแบบชั่วคราว หากการซ่อมแซมหรืออัปเดตต้องใช้แหล่งข้อมูล ให้จัดเตรียมแหล่งข้อมูลถาวรแยกต่างหาก</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>นำเข้าเนื้อหาไม่สำเร็จ ตรวจสอบสิทธิ์เข้าถึง พื้นที่ว่าง ชื่อไฟล์ และความยาวเส้นทาง</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>นำเข้าไฟล์</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>นำเข้าโฟลเดอร์</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>ผสานรวมกับไฟล์คำตอบแบบกำหนดเอง</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>ตรวจสอบชื่อ เส้นทางเนื้อหา คำสั่ง และการตั้งค่ากระบวนการ รายการรหัสออกต้องไม่ซ้ำกันระหว่างรายการหรือมี 1641 และเวลาหมดอายุต้องอยู่ที่ 1–86400 วินาที</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>เลื่อนลง</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>เลื่อนขึ้น</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>ยังไม่ได้นำเข้าเนื้อหา</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>ตรวจสอบการตั้งค่าการดำเนินการและนำเข้าเนื้อหาแพ็กเกจที่ขาดหายไปก่อนสร้างสื่อ</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>เริ่มระบบใหม่</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>รหัสออกที่ต้องเริ่มระบบใหม่ (คั่นด้วยจุลภาค)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>กำลังจัดเตรียมเนื้อหาหลังการติดตั้ง</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>รหัสออกเมื่อสำเร็จ (คั่นด้วยจุลภาค)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>เวลาหมดอายุ (วินาที)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>ขั้นสูง: เพิ่มคำสั่งเริ่ม Foundry ลงในสำเนาสำหรับการปรับใช้ ต้นฉบับที่นำเข้าจะไม่เปลี่ยนแปลง การตั้งค่าและคำสั่งแบบกำหนดเองอาจส่งผลต่อการปรับใช้</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>ไม่สามารถผสานรวมไฟล์คำตอบที่เลือกได้ ตรวจสอบสถาปัตยกรรม กลไกเริ่ม Foundry ที่มีอยู่ และลำดับ RunSynchronous หรือรีเฟรชแหล่งที่มาหากมีการเปลี่ยนแปลง</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>สำเนาสำหรับการปรับใช้: เพิ่มคำสั่ง Foundry ใน specialize พร้อม WillReboot=OnRequest โดยเก็บคำสั่งและการตั้งค่าเดิมไว้</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>ไดเรกทอรีทำงาน (เส้นทางสัมพัทธ์ หากว่างจะใช้รากของเนื้อหา)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>การตั้งค่าปัจจุบัน</value>

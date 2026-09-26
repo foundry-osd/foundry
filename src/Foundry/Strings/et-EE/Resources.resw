@@ -2239,6 +2239,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS valik</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Käivitage kohandatud toiminguid pärast Windowsi installimist ja enne OOBE-d.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Pärast installimist</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Avage GitHubi veateate vorm oma brauseris.</value>
   </data>
@@ -2391,6 +2397,111 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windowsi juurutussuvandid</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Lisa toiming</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Mis tahes arhitektuur</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Rakendus</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Installeri tüüp</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumendid või MSI atribuudid</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Foundry sisseehitatud ülesanded käivitatakse esimesena. Lisage allpool kohandatud toimingud täitmise järjekorras.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry eemaldab ajutise juurutussisu pärast kohandatud toimingute lõppu.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>CMD käsurida</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Käsu eelvaade</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Paketi sisu</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Installimisjärgne sisu on kontrollitud.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Jätka pärast tavalist toimingutõrget</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Lükka taotletud taaskäivitus edasi järgmise taaskäivitustoimingu või jada lõpuni</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Muuda toimingut</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Konfiguratsioon muutus redigeerimise ajal. Avage toiming uuesti.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Skripti või installeri tee (sisu suhtes)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Toimingud käivitatakse kasutaja sekkumiseta kontoga SYSTEM. Keelake installeri enda taaskäivitused. Sisu on ajutine; kui parandamine või värskendused neid vajavad, tagage eraldi püsivad allikad.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Sisu importimine nurjus. Kontrollige juurdepääsu, vaba ruumi, failinimesid ja teede pikkust.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Impordi fail</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Impordi kaust</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Lõimi kohandatud vastusefailidega</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Kontrollige nime, sisu teed, käsku ja protsessi sätteid. Väljumiskoodide loendid ei tohi kattuda ega sisaldada koodi 1641; ajalõpp peab olema 1–86400 sekundit.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Liiguta alla</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Liiguta üles</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Sisu pole imporditud</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Enne andmekandja loomist kontrollige toimingute sätteid ja importige puuduv paketisisu.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Taaskäivitus</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Taaskäivitust nõudvad väljumiskoodid (komadega eraldatud)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Installimisjärgse sisu ettevalmistamine.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Õnnestumise väljumiskoodid (komadega eraldatud)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Ajalõpp (sekundites)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Täpsem: lisage Foundry käivituskäsk juurutuskoopiasse. Imporditud originaalid jäävad muutmata. Kohandatud sätted ja käsud võivad juurutamist mõjutada.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Valitud vastusefaili ei saa lõimida. Kontrollige selle arhitektuuri, olemasolevat Foundry käivitusmehhanismi ja RunSynchronous-järjekorda või värskendage muutunud allikat.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Juurutuskoopia: lisage Foundry käsk etappi specialize sättega WillReboot=OnRequest. Säilitage olemasolevad käsud ja sätted.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Töökataloog (suhteline; tühjana kasutatakse sisu juurkataloogi)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Praegused sätted</value>

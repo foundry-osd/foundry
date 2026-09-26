@@ -2239,6 +2239,12 @@
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Избор на OS</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Изпълнявайте персонализирани действия след инсталирането на Windows и преди OOBE.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>След инсталиране</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Отворете формуляра за докладване на грешки в GitHub в браузъра си.</value>
   </data>
@@ -2391,6 +2397,111 @@
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Опции за разполагане на Windows</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Добавяне на действие</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Всяка архитектура</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Приложение</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Тип на инсталатора</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Аргументи или свойства на MSI</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Първо се изпълняват вградените задачи на Foundry. Добавете по-долу персонализираните действия в реда на изпълнение.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry премахва временното съдържание на разполагането след приключване на персонализираните действия.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Команден ред на CMD</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Преглед на командата</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Съдържание на пакета</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Съдържанието за етапа след инсталиране е проверено.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Продължаване след обикновена грешка в действие</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Отлагане на заявеното рестартиране до следващото действие за рестартиране или края на последователността</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Редактиране на действие</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Конфигурацията се промени по време на редактиране. Отворете действието отново.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Път до скрипта или инсталатора (спрямо съдържанието)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Действията се изпълняват без взаимодействие като SYSTEM. Забранете рестартиранията от самия инсталатор. Съдържанието е временно; осигурете отделно постоянни източници, ако са нужни за поправка или актуализации.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Импортирането на съдържание е неуспешно. Проверете достъпа, свободното място, имената на файловете и дължините на пътищата.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Импортиране на файл</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Импортиране на папка</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Интегриране с персонализирани файлове с отговори</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Проверете името, пътя до съдържанието, командата и настройките на процеса. Списъците с кодове за изход не трябва да се припокриват или да съдържат 1641; времето за изчакване трябва да е 1–86400 секунди.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Преместване надолу</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Преместване нагоре</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Няма импортирано съдържание</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Проверете настройките на действията и импортирайте липсващото съдържание на пакетите, преди да създадете носител.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Рестартиране</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Кодове за изход, изискващи рестартиране (разделени със запетаи)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Подготвяне на съдържанието за етапа след инсталиране.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Кодове за успешен изход (разделени със запетаи)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Време за изчакване (секунди)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Разширени: добавете командата за стартиране на Foundry към копието за разполагане. Импортираните оригинали остават непроменени. Персонализираните настройки и команди могат да повлияят на разполагането.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Избраният файл с отговори не може да бъде интегриран. Проверете архитектурата му, съществуващия механизъм за стартиране на Foundry и реда на RunSynchronous или опреснете променения източник.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Копие за разполагане: добавете командата на Foundry в specialize с WillReboot=OnRequest. Запазете съществуващите команди и настройки.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Работна директория (относителна; празна означава корена на съдържанието)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Текущи настройки</value>

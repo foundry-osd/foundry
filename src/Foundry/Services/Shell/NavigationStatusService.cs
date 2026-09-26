@@ -100,6 +100,11 @@ internal sealed class NavigationStatusService : INavigationStatusService
             return ConfigurationNavigationTarget.CustomImages;
         }
 
+        if (pageType == typeof(PostInstallationPage))
+        {
+            return ConfigurationNavigationTarget.PostInstallation;
+        }
+
         if (pageType == typeof(UnattendPage))
         {
             return ConfigurationNavigationTarget.Unattend;

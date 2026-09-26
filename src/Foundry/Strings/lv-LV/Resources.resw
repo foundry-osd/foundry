@@ -2239,6 +2239,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS atlase</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Izpildiet pielāgotas darbības pēc Windows instalēšanas un pirms OOBE.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Pēc instalēšanas</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Pārlūkprogrammā atveriet GitHub kļūdu ziņojuma veidlapu.</value>
   </data>
@@ -2391,6 +2397,111 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows izvietošanas opcijas</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Pievienot darbību</value>
+  </data>
+  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
+    <value>Jebkura arhitektūra</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Programma</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Instalētāja tips</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumenti vai MSI rekvizīti</value>
+  </data>
+  <data name="PostInstallation.BuiltIns" xml:space="preserve">
+    <value>Vispirms tiek izpildīti Foundry iebūvētie uzdevumi. Tālāk pievienojiet pielāgotās darbības izpildes secībā.</value>
+  </data>
+  <data name="PostInstallation.Cleanup" xml:space="preserve">
+    <value>Foundry dzēš pagaidu izvietošanas saturu pēc pielāgoto darbību pabeigšanas.</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>CMD komandrinda</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Komandas priekšskatījums</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Pakotnes saturs</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Saturs posmam pēc instalēšanas ir pārbaudīts.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Turpināt pēc parastas darbības kļūmes</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Atlikt pieprasīto restartēšanu līdz nākamajai restartēšanas darbībai vai secības beigām</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Rediģēt darbību</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Rediģēšanas laikā konfigurācija tika mainīta. Atveriet darbību vēlreiz.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Skripta vai instalētāja ceļš (attiecībā pret saturu)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Darbības tiek izpildītas bez lietotāja līdzdalības kā SYSTEM. Atspējojiet instalētāja paša veiktās restartēšanas. Saturs ir pagaidu; nodrošiniet pastāvīgus avotus atsevišķi, ja tie vajadzīgi labošanai vai atjauninājumiem.</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Neizdevās importēt saturu. Pārbaudiet piekļuvi, brīvo vietu, failu nosaukumus un ceļu garumus.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Importēt failu</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Importēt mapi</value>
+  </data>
+  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
+    <value>Integrēt ar pielāgotiem atbilžu failiem</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Pārbaudiet nosaukumu, satura ceļu, komandu un procesa iestatījumus. Izejas kodu saraksti nedrīkst pārklāties vai saturēt 1641; noildzei jābūt 1–86400 sekundēm.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Pārvietot lejup</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Pārvietot augšup</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Saturs nav importēts</value>
+  </data>
+  <data name="PostInstallation.Readiness" xml:space="preserve">
+    <value>Pirms datu nesēja izveides pārbaudiet darbību iestatījumus un importējiet trūkstošo pakotņu saturu.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Restartēt</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Izejas kodi, kam nepieciešama restartēšana (atdalīti ar komatiem)</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Tiek sagatavots saturs posmam pēc instalēšanas.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Veiksmīgas pabeigšanas izejas kodi (atdalīti ar komatiem)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Noildze (sekundes)</value>
+  </data>
+  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
+    <value>Papildu opcija: pievienojiet Foundry palaišanas komandu izvietošanas kopijai. Importētie oriģināli netiek mainīti. Pielāgotie iestatījumi un komandas var ietekmēt izvietošanu.</value>
+  </data>
+  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
+    <value>Atlasīto atbilžu failu nevar integrēt. Pārbaudiet tā arhitektūru, esošo Foundry palaišanas mehānismu un RunSynchronous secību vai atsvaidziniet mainīto avotu.</value>
+  </data>
+  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
+    <value>Izvietošanas kopija: pievienojiet Foundry komandu posmā specialize ar WillReboot=OnRequest. Saglabājiet esošās komandas un iestatījumus.</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Darba direktorijs (relatīvs; ja tukšs, izmanto satura sakni)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Pašreizējie iestatījumi</value>
