@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Images;
 using Xunit;
@@ -56,6 +57,103 @@ public sealed class CustomImageLibraryTests : IDisposable
         cancellation.Cancel();
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => library.ImportAsync(new(source, "Image"), cancellationToken: cancellation.Token));
         Assert.Empty(await library.ListAsync(TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task OversizedLibraryMetadataFailsBeforePublishingContent()
+    {
+        Directory.CreateDirectory(root);
+        string source = Path.Combine(root, "source.wim");
+        await File.WriteAllTextAsync(source, "image", TestContext.Current.CancellationToken);
+        string libraryPath = Path.Combine(root, "library");
+        var reader = new MetadataReader
+        {
+            Indexes = Enumerable.Range(1, 600).Select(index => new CustomImageIndex
+            {
+                Index = index,
+                Description = new string('a', 16384)
+            }).ToArray()
+        };
+        var library = new CustomImageLibraryService(libraryPath, reader);
+
+        await Assert.ThrowsAsync<InvalidDataException>(() => library.ImportAsync(new(source, "Image"),
+            cancellationToken: TestContext.Current.CancellationToken));
+
+        Assert.Empty(await library.ListAsync(TestContext.Current.CancellationToken));
+        Assert.False(Directory.Exists(Path.Combine(libraryPath, "content")));
+        Assert.Empty(Directory.GetDirectories(Path.Combine(libraryPath, "pending")));
+        Assert.Equal("image", await File.ReadAllTextAsync(source, TestContext.Current.CancellationToken));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task FailedIndexCommitRemovesOnlyNewContent(bool contentDirectoryAlreadyExists)
+    {
+        Directory.CreateDirectory(root);
+        string source = Path.Combine(root, "source.wim");
+        await File.WriteAllTextAsync(source, "first image", TestContext.Current.CancellationToken);
+        string libraryPath = Path.Combine(root, "library");
+        var library = new CustomImageLibraryService(libraryPath, new MetadataReader());
+        CustomImageReference original = await library.ImportAsync(new(source, "First"), cancellationToken: TestContext.Current.CancellationToken);
+        await File.WriteAllTextAsync(source, "second image", TestContext.Current.CancellationToken);
+        string imageHash = Convert.ToHexStringLower(SHA256.HashData("second image"u8));
+        string contentDirectory = Path.Combine(libraryPath, "content", imageHash);
+        string retainedFile = Path.Combine(contentDirectory, "retained.txt");
+        if (contentDirectoryAlreadyExists)
+        {
+            Directory.CreateDirectory(contentDirectory);
+            await File.WriteAllTextAsync(retainedFile, "retained", TestContext.Current.CancellationToken);
+        }
+
+        using (FileStream indexLease = File.OpenRead(Path.Combine(libraryPath, "library.json")))
+        {
+            Exception? error = await Record.ExceptionAsync(() => library.ImportAsync(new(source, "Second"),
+                cancellationToken: TestContext.Current.CancellationToken));
+            Assert.True(error is IOException or UnauthorizedAccessException, error?.ToString());
+        }
+
+        Assert.Equal(original.Id, Assert.Single(await library.ListAsync(TestContext.Current.CancellationToken)).Id);
+        Assert.Single(Directory.GetFiles(Path.Combine(libraryPath, "content"), "image.wim", SearchOption.AllDirectories));
+        Assert.Equal(contentDirectoryAlreadyExists, Directory.Exists(contentDirectory));
+        if (contentDirectoryAlreadyExists)
+            Assert.Equal("retained", await File.ReadAllTextAsync(retainedFile, TestContext.Current.CancellationToken));
+        Assert.Empty(Directory.GetDirectories(Path.Combine(libraryPath, "pending")));
+        await using CustomImageSourceLease lease = await library.AcquireAsync(original, TestContext.Current.CancellationToken);
+        Assert.Equal("first image", await File.ReadAllTextAsync(lease.ImagePath, TestContext.Current.CancellationToken));
+        Assert.Equal("second image", await File.ReadAllTextAsync(source, TestContext.Current.CancellationToken));
+    }
+
+    [Theory]
+    [InlineData("available")]
+    [InlineData("missing")]
+    [InlineData("corrupted")]
+    public async Task FailedReimportIndexCommitPreservesReferencedContent(string contentState)
+    {
+        Directory.CreateDirectory(root);
+        string source = Path.Combine(root, "source.wim");
+        await File.WriteAllTextAsync(source, "image", TestContext.Current.CancellationToken);
+        string libraryPath = Path.Combine(root, "library");
+        var library = new CustomImageLibraryService(libraryPath, new MetadataReader());
+        CustomImageReference original = await library.ImportAsync(new(source, "Original"), cancellationToken: TestContext.Current.CancellationToken);
+        string imagePath;
+        await using (CustomImageSourceLease lease = await library.AcquireAsync(original, TestContext.Current.CancellationToken)) imagePath = lease.ImagePath;
+        if (contentState == "missing") File.Delete(imagePath);
+        if (contentState == "corrupted") await File.WriteAllTextAsync(imagePath, "corrupt", TestContext.Current.CancellationToken);
+
+        using (FileStream indexLease = File.OpenRead(Path.Combine(libraryPath, "library.json")))
+        {
+            Exception? error = await Record.ExceptionAsync(() => library.ImportAsync(new(source, "Renamed"),
+                cancellationToken: TestContext.Current.CancellationToken));
+            Assert.True(error is IOException or UnauthorizedAccessException, error?.ToString());
+        }
+
+        CustomImageReference persisted = Assert.Single(await library.ListAsync(TestContext.Current.CancellationToken));
+        Assert.Equal(original.Id, persisted.Id);
+        Assert.Equal("Original", persisted.DisplayName);
+        await using CustomImageSourceLease retained = await library.AcquireAsync(original, TestContext.Current.CancellationToken);
+        Assert.Equal("image", await File.ReadAllTextAsync(retained.ImagePath, TestContext.Current.CancellationToken));
+        Assert.Equal("image", await File.ReadAllTextAsync(source, TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -148,9 +246,10 @@ public sealed class CustomImageLibraryTests : IDisposable
     private sealed class MetadataReader : ICustomImageMetadataReader
     {
         public string? Version { get; set; }
+        public IReadOnlyList<CustomImageIndex>? Indexes { get; init; }
 
         public Task<IReadOnlyList<CustomImageIndex>> ReadAsync(string imagePath, CancellationToken cancellationToken = default)
-            => Task.FromResult<IReadOnlyList<CustomImageIndex>>([
+            => Task.FromResult<IReadOnlyList<CustomImageIndex>>(Indexes ?? [
                 new() { Index = 1, Name = "First", EditionId = "UnknownEdition", Architecture = "x86", Version = Version },
                 new() { Index = 4, Name = "Second", EditionId = "UnknownEdition", Architecture = "unknown", Version = Version }
             ]);

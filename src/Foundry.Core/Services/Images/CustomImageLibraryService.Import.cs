@@ -78,24 +78,55 @@ public sealed partial class CustomImageLibraryService
                 }
                 if (existing is null && current.Count >= CustomImageSettingsValidator.MaximumImages)
                     throw new InvalidDataException("The custom image library has reached its image limit.");
+                byte[] indexBytes = SerializeIndex(current.Where(image => image.Id != reference.Id).Append(reference).ToArray());
+                cancellationToken.ThrowIfCancellationRequested();
                 string contentDirectory = OwnedPath($"content/{imageHash}");
+                bool createdContentDirectory = !Directory.Exists(contentDirectory);
                 Directory.CreateDirectory(contentDirectory);
                 string destination = Path.Combine(contentDirectory, "image.wim");
-                if (File.Exists(destination))
+                bool publishedUnreferencedContent = false;
+                try
                 {
-                    try
+                    if (File.Exists(destination))
                     {
-                        await using FileStream existingImage = OpenRead(destination);
-                        await VerifyAsync(existingImage, length, imageHash, cancellationToken).ConfigureAwait(false);
+                        try
+                        {
+                            await using FileStream existingImage = OpenRead(destination);
+                            await VerifyAsync(existingImage, length, imageHash, cancellationToken).ConfigureAwait(false);
+                        }
+                        catch (InvalidDataException)
+                        {
+                            File.Move(stagedWim, destination, overwrite: true);
+                            publishedUnreferencedContent = existing is null;
+                        }
                     }
-                    catch (InvalidDataException)
+                    else
                     {
-                        File.Move(stagedWim, destination, overwrite: true);
+                        File.Move(stagedWim, destination);
+                        publishedUnreferencedContent = existing is null;
                     }
-                }
-                else File.Move(stagedWim, destination);
 
-                await WriteIndexAsync(current.Where(image => image.Id != reference.Id).Append(reference).ToArray(), cancellationToken).ConfigureAwait(false);
+                    await WriteIndexAsync(indexBytes, cancellationToken).ConfigureAwait(false);
+                }
+                catch
+                {
+                    // Roll back only this import's unreferenced content while still holding the library lock.
+                    if (publishedUnreferencedContent)
+                    {
+                        try
+                        {
+                            CustomImagePathPolicy.ValidateNoReparsePoints(destination);
+                            CustomImagePathPolicy.ValidateNoReparsePoints(stagedWim);
+                            File.Move(destination, stagedWim);
+                            if (createdContentDirectory) Directory.Delete(contentDirectory, recursive: false);
+                        }
+                        catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException)
+                        {
+                            Log.ForContext<CustomImageLibraryService>().Warning(exception, "Custom image publication rollback failed.");
+                        }
+                    }
+                    throw;
+                }
             }
             progress?.Report(new("Completed", length, length));
             Log.ForContext<CustomImageLibraryService>().Information("Custom image import completed. IndexCount={IndexCount}, ImageBytes={ImageBytes}", indexes.Count, length);

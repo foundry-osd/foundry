@@ -113,14 +113,23 @@ public sealed partial class CustomImageLibraryService
         return new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 1024 * 1024, FileOptions.Asynchronous | FileOptions.SequentialScan);
     }
 
-    private async Task WriteIndexAsync(IReadOnlyList<CustomImageReference> references, CancellationToken cancellationToken)
+    private static byte[] SerializeIndex(IReadOnlyList<CustomImageReference> references)
+    {
+        byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(references, ConfigurationJsonDefaults.SerializerOptions);
+        if (bytes.Length > MaximumMetadataBytes) throw new InvalidDataException("The custom image library index is too large.");
+        return bytes;
+    }
+
+    private Task WriteIndexAsync(IReadOnlyList<CustomImageReference> references, CancellationToken cancellationToken)
+        => WriteIndexAsync(SerializeIndex(references), cancellationToken);
+
+    private async Task WriteIndexAsync(byte[] bytes, CancellationToken cancellationToken)
     {
         string temporary = OwnedPath($"index-{Guid.NewGuid():N}.tmp");
         try
         {
-            byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(references, ConfigurationJsonDefaults.SerializerOptions);
-            if (bytes.Length > MaximumMetadataBytes) throw new InvalidDataException("The custom image library index is too large.");
             await File.WriteAllBytesAsync(temporary, bytes, cancellationToken).ConfigureAwait(false);
+            cancellationToken.ThrowIfCancellationRequested();
             File.Move(temporary, OwnedPath("library.json"), overwrite: true);
         }
         finally
