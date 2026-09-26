@@ -54,7 +54,7 @@ public sealed class CustomImageConfigurationTests
     [Fact]
     public void OlderAuthoringDocumentsKeepCatalogMode()
     {
-        FoundryConfigurationDocument document = new FoundryConfigurationService().Deserialize("{\"schemaVersion\":16}");
+        FoundryConfigurationDocument document = new FoundryConfigurationService().Deserialize("{\"schemaVersion\":15}");
         Assert.False(document.CustomImages.IsEnabled);
         Assert.Equal(CustomImageSource.Catalog, document.CustomImages.DefaultSource);
         Assert.Empty(document.CustomImages.Images);
