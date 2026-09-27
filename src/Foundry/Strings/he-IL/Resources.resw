@@ -2240,7 +2240,7 @@
     <value>בחירת מערכת הפעלה</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>הפעל פעולות מותאמות אישית לאחר התקנת Windows ולפני OOBE.</value>
+    <value>הפעל פעולות מותאמות אישית לפני OOBE, לאחר המשימות המובנות של Foundry.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>לאחר ההתקנה</value>
@@ -2413,9 +2413,6 @@
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>ארגומנטים או מאפייני MSI</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>המשימות המובנות של Foundry מופעלות ראשונות. הוסף למטה פעולות מותאמות אישית לפי סדר הביצוע.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>שורת פקודה</value>
   </data>
@@ -2430,6 +2427,9 @@
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>תוכן החבילה</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>ייבא קובץ או תיקייה.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>מצב התוכן</value>
@@ -2456,13 +2456,13 @@
     <value>התצורה השתנתה במהלך העריכה. פתח שוב את הפעולה.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>לא נוספו פעולות. בחר הוספת פעולה כדי להגדיר סקריפט, פקודה, התקנת תוכנה או הפעלה מחדש.</value>
+    <value>לא נוספו פעולות.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>נתיב הסקריפט או תוכנית ההתקנה (יחסית לתוכן)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>הפעולות מתבצעות כ-SYSTEM. האחריות לארגומנטים, לביצוע ללא השגחה ולמניעת הפעלות מחדש ביוזמת תוכנית ההתקנה מוטלת עליך. התוכן זמני; יש לספק מקורות קבועים אם תיקונים או עדכונים דורשים אותם.</value>
+    <value>פועל כ-SYSTEM. הגדר ארגומנטים לביצוע ללא השגחה ולהפעלות מחדש מבוקרות.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>הגדרות ביצוע</value>
@@ -2480,7 +2480,31 @@
     <value>ייבא תיקייה</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>בדוק את השם, נתיב התוכן, הפקודה והגדרות התהליך. רשימות קודי היציאה לא יכולות לחפוף או להכיל 1641; הזמן הקצוב חייב להיות 1–86400 שניות.</value>
+    <value>פעולה זו אינה תקינה. בדוק את התצורה שלה.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>הזן שורה אחת באורך של עד 8191 תווים.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>בחר סקריפט או תוכנית התקנה מתוך התוכן שיובא.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>הזן עד 32 קודי יציאה ייחודיים שאינם שליליים, מופרדים בפסיקים. אין להשתמש ב-1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>הזן שם באורך 1–256 תווים ללא תווי בקרה.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>ערוך את "{0}" כדי לתקן את ההגדרות.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>הזן מספר שלם בין 1 ל-86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>הזן תיקייה מתוך התוכן שיובא, או השאר שדה זה ריק.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>ייבא את התוכן החסר עבור "{0}".</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>העבר למטה</value>
@@ -2497,14 +2521,14 @@
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>סדר</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>קוד יציאה להפעלה מחדש אינו יכול להיות גם קוד יציאה להצלחה.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>סקריפט PowerShell (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>ארגומנטים של PowerShell</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>בדוק את הגדרות הפעולות וייבא תוכן חבילות חסר לפני יצירת המדיה.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>הפעלת Windows מחדש</value>

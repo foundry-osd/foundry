@@ -2240,7 +2240,7 @@ Licencováno pod licencí MIT.</value>
     <value>Výběr OS</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Spouštějte vlastní akce po instalaci Windows a před OOBE.</value>
+    <value>Spouštějte vlastní akce před OOBE, po integrovaných úlohách Foundry.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>Po instalaci</value>
@@ -2413,9 +2413,6 @@ Licencováno pod licencí MIT.</value>
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Argumenty nebo vlastnosti MSI</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Nejprve se provedou vestavěné úlohy Foundry. Níže přidejte vlastní akce v pořadí provádění.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Příkazový řádek</value>
   </data>
@@ -2430,6 +2427,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Obsah balíčku</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Importujte soubor nebo složku.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Stav obsahu</value>
@@ -2456,13 +2456,13 @@ Licencováno pod licencí MIT.</value>
     <value>Během úprav se konfigurace změnila. Otevřete akci znovu.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Nebyly přidány žádné akce. Vyberte Přidat akci a nakonfigurujte skript, příkaz, instalaci softwaru nebo restart.</value>
+    <value>Nebyly přidány žádné akce.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Cesta ke skriptu nebo instalátoru (relativní k obsahu)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Akce se spouštějí jako SYSTEM. Odpovídáte za argumenty, bezobslužné spouštění a zabránění restartům vyvolaným instalačním programem. Obsah je dočasný; poskytněte trvalé zdroje, pokud je vyžadují opravy nebo aktualizace.</value>
+    <value>Spouští se jako SYSTEM. Nastavte argumenty pro bezobslužné spouštění a řízené restarty.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Nastavení spouštění</value>
@@ -2480,7 +2480,31 @@ Licencováno pod licencí MIT.</value>
     <value>Importovat složku</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Zkontrolujte název, cestu k obsahu, příkaz a nastavení procesu. Seznamy návratových kódů se nesmí překrývat ani obsahovat 1641; časový limit musí být 1–86400 sekund.</value>
+    <value>Tato akce je neplatná. Zkontrolujte její konfiguraci.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Zadejte jeden řádek o délce nejvýše 8191 znaků.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Vyberte skript nebo instalační program z importovaného obsahu.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Zadejte nejvýše 32 jedinečných nezáporných výstupních kódů oddělených čárkami. Nepoužívejte 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Zadejte název o délce 1–256 znaků bez řídicích znaků.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Upravte „{0}“ a opravte nastavení.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Zadejte celé číslo od 1 do 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Zadejte složku z importovaného obsahu nebo ponechte toto pole prázdné.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Importujte chybějící obsah pro „{0}“.</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Posunout dolů</value>
@@ -2497,14 +2521,14 @@ Licencováno pod licencí MIT.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Pořadí</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Výstupní kód pro restart nemůže být současně výstupním kódem pro úspěch.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Skript PowerShell (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argumenty PowerShellu</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Před vytvořením média zkontrolujte nastavení akcí a importujte chybějící obsah balíčků.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Restartovat Windows</value>

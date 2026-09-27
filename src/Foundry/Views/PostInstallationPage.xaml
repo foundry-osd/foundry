@@ -37,11 +37,6 @@
                         IsOpen="{x:Bind ViewModel.HasStatus, Mode=OneWay}"
                         Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
                         Severity="Error" />
-                    <InfoBar
-                        IsClosable="False"
-                        IsOpen="True"
-                        Message="{x:Bind ViewModel.BuiltInDescription, Mode=OneWay}"
-                        Severity="Informational" />
                     <ScrollViewer
                         HorizontalScrollBarVisibility="Auto"
                         HorizontalScrollMode="Enabled"

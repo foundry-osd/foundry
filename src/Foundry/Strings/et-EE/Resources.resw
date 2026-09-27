@@ -2240,7 +2240,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>OS valik</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Käivitage kohandatud toiminguid pärast Windowsi installimist ja enne OOBE-d.</value>
+    <value>Käivita kohandatud toimingud enne OOBE-d, pärast Foundry sisseehitatud ülesandeid.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>Pärast installimist</value>
@@ -2413,9 +2413,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Argumendid või MSI atribuudid</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Foundry sisseehitatud ülesanded käivitatakse esimesena. Lisage allpool kohandatud toimingud täitmise järjekorras.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Käsurida</value>
   </data>
@@ -2430,6 +2427,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketi sisu</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Impordi fail või kaust.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Sisu olek</value>
@@ -2456,13 +2456,13 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Konfiguratsioon muutus redigeerimise ajal. Avage toiming uuesti.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Toiminguid pole lisatud. Skripti, käsu, tarkvara installimise või taaskäivitamise seadistamiseks vali Lisa toiming.</value>
+    <value>Toiminguid pole lisatud.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Skripti või installeri tee (sisu suhtes)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Toimingud käivitatakse kontoga SYSTEM. Vastutate argumentide, järelevalveta käivitamise ja installiprogrammi algatatud taaskäivituste vältimise eest. Sisu on ajutine; tagage püsivad allikad, kui parandused või värskendused neid vajavad.</value>
+    <value>Käivitatakse kontoga SYSTEM. Seadista argumendid järelevalveta käivitamiseks ja kontrollitud taaskäivitusteks.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Käivitamise sätted</value>
@@ -2480,7 +2480,31 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Impordi kaust</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Kontrollige nime, sisu teed, käsku ja protsessi sätteid. Väljumiskoodide loendid ei tohi kattuda ega sisaldada koodi 1641; ajalõpp peab olema 1–86400 sekundit.</value>
+    <value>See toiming on vigane. Kontrolli selle seadistust.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Sisesta üks kuni 8191 märgi pikkune rida.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Vali imporditud sisust skript või installiprogramm.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Sisesta kuni 32 kordumatut mittenegatiivset väljumiskoodi, eraldades need komadega. Ära kasuta koodi 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Sisesta 1–256 märgi pikkune nimi ilma juhtmärkideta.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Muuda toimingut „{0}”, et parandada selle seadeid.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Sisesta täisarv vahemikus 1–86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Sisesta imporditud sisu kaust või jäta see väli tühjaks.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Impordi puuduv sisu toimingu „{0}” jaoks.</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Liiguta alla</value>
@@ -2497,14 +2521,14 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Järjekord</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Taaskäivituse väljumiskood ei saa olla ka õnnestumise väljumiskood.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShelli skript (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShelli argumendid</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Enne andmekandja loomist kontrollige toimingute sätteid ja importige puuduv paketisisu.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Taaskäivita Windows</value>

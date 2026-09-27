@@ -2240,7 +2240,7 @@ Sous licence MIT.</value>
     <value>Sélection de l'OS</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Exécuter des actions personnalisées après l’installation de Windows et avant OOBE.</value>
+    <value>Exécutez des actions personnalisées avant l’OOBE, après les tâches intégrées de Foundry.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>Post-installation</value>
@@ -2413,9 +2413,6 @@ Sous licence MIT.</value>
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Arguments ou propriétés MSI</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Les tâches intégrées de Foundry s’exécutent d’abord. Ajoutez vos actions ci-dessous dans leur ordre d’exécution.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Ligne de commande</value>
   </data>
@@ -2430,6 +2427,9 @@ Sous licence MIT.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Contenu du package</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Importez un fichier ou un dossier.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>État du contenu</value>
@@ -2456,13 +2456,13 @@ Sous licence MIT.</value>
     <value>La configuration a changé pendant la modification. Rouvrez l’action.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Aucune action ajoutée. Sélectionnez Ajouter une action pour configurer un script, une commande, une installation de logiciel ou un redémarrage.</value>
+    <value>Aucune action ajoutée.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Chemin du script ou du programme d’installation (relatif au contenu)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Les actions s’exécutent sous le compte SYSTEM. Vous êtes responsable des arguments, de l’exécution sans assistance et de la prévention des redémarrages déclenchés par le programme d’installation. Le contenu est temporaire ; fournissez des sources pérennes si les réparations ou les mises à jour les nécessitent.</value>
+    <value>S’exécute sous SYSTEM. Configurez les arguments pour une exécution sans assistance et des redémarrages contrôlés.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Paramètres d’exécution</value>
@@ -2480,7 +2480,31 @@ Sous licence MIT.</value>
     <value>Importer un dossier</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Vérifiez le nom, le chemin du contenu, la commande et les paramètres du processus. Les listes de codes de sortie doivent être distinctes et exclure 1641 ; le délai doit être compris entre 1 et 86400 secondes.</value>
+    <value>Cette action est invalide. Vérifiez sa configuration.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Saisissez une seule ligne de 8191 caractères maximum.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Sélectionnez un script ou un programme d’installation dans le contenu importé.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Saisissez jusqu’à 32 codes de sortie uniques et non négatifs, séparés par des virgules. N’utilisez pas 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Saisissez un nom de 1 à 256 caractères sans caractères de contrôle.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Modifiez « {0} » pour corriger ses paramètres.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Saisissez un nombre entier de 1 à 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Saisissez un dossier du contenu importé, ou laissez ce champ vide.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Importez le contenu manquant pour « {0} ».</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Descendre</value>
@@ -2497,14 +2521,14 @@ Sous licence MIT.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ordre</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Un code de sortie de redémarrage ne peut pas aussi être un code de sortie de réussite.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Script PowerShell (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Arguments PowerShell</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Vérifiez les paramètres des actions et importez le contenu manquant des packages avant de créer le support.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Redémarrer Windows</value>

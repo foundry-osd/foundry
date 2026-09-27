@@ -7,7 +7,7 @@
     CloseButtonText="{x:Bind ViewModel.CancelLabel}"
     CornerRadius="{ThemeResource OverlayCornerRadius}"
     DefaultButton="Primary"
-    IsPrimaryButtonEnabled="{x:Bind ViewModel.CanSave, Mode=OneWay}"
+    IsPrimaryButtonEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
     PrimaryButtonClick="OnPrimaryButtonClick"
     PrimaryButtonStyle="{ThemeResource AccentButtonStyle}"
     PrimaryButtonText="{x:Bind ViewModel.SaveLabel}"
@@ -26,10 +26,20 @@
             VerticalScrollBarVisibility="Auto">
             <StackPanel Spacing="{ThemeResource FoundrySpace24}">
                 <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
-                    <TextBox
-                        Header="{x:Bind ViewModel.NameLabel}"
-                        MaxLength="256"
-                        Text="{x:Bind ViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <StackPanel x:Name="NameGroup"
+                        Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                        <TextBox x:Name="NameInput"
+                            Header="{x:Bind ViewModel.NameLabel}"
+                            MaxLength="256"
+                            Text="{x:Bind ViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock
+                            AutomationProperties.LiveSetting="Polite"
+                            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                            Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                            Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
+                            TextWrapping="WrapWholeWords"
+                            Visibility="{x:Bind ViewModel.ValidationVisibility('Name', ViewModel.InvalidField), Mode=OneWay}" />
+                    </StackPanel>
                     <TextBlock
                         Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.ExecutionHelp}"
@@ -63,58 +73,108 @@
                             Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
                             Text="{x:Bind ViewModel.PackageName, Mode=OneWay}"
                             TextWrapping="WrapWholeWords" />
-                        <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Button
+                        <StackPanel x:Name="PackageNameGroup"
+                            Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="PackageNameInput"
+                                    HorizontalAlignment="Stretch"
+                                    Command="{x:Bind ViewModel.ImportFileCommand}">
+                                    <TextBlock
+                                        Text="{x:Bind ViewModel.ImportFileLabel}"
+                                        TextWrapping="WrapWholeWords" />
+                                </Button>
+                                <Button
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Stretch"
+                                    Command="{x:Bind ViewModel.ImportFolderCommand}">
+                                    <TextBlock
+                                        Text="{x:Bind ViewModel.ImportFolderLabel}"
+                                        TextWrapping="WrapWholeWords" />
+                                </Button>
+                            </Grid>
+                            <TextBlock
+                                AutomationProperties.LiveSetting="Polite"
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.ValidationVisibility('PackageName', ViewModel.InvalidField), Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel x:Name="EntryPointGroup"
+                            Spacing="{ThemeResource FoundryTextGroupSpacing}"
+                            Visibility="{x:Bind ViewModel.HasEntryPoint}">
+                            <ComboBox x:Name="EntryPointInput"
                                 HorizontalAlignment="Stretch"
-                                Command="{x:Bind ViewModel.ImportFileCommand}">
-                                <TextBlock
-                                    Text="{x:Bind ViewModel.ImportFileLabel}"
-                                    TextWrapping="WrapWholeWords" />
-                            </Button>
-                            <Button
-                                Grid.Column="1"
-                                HorizontalAlignment="Stretch"
-                                Command="{x:Bind ViewModel.ImportFolderCommand}">
-                                <TextBlock
-                                    Text="{x:Bind ViewModel.ImportFolderLabel}"
-                                    TextWrapping="WrapWholeWords" />
-                            </Button>
-                        </Grid>
-                        <ComboBox
-                            HorizontalAlignment="Stretch"
-                            Header="{x:Bind ViewModel.EntryPointLabel}"
-                            IsEditable="True"
-                            IsEnabled="{x:Bind ViewModel.HasPackage, Mode=OneWay}"
-                            ItemsSource="{x:Bind ViewModel.EntryPoints}"
-                            Text="{x:Bind ViewModel.EntryPoint, Mode=TwoWay}"
-                            Visibility="{x:Bind ViewModel.HasEntryPoint}" />
+                                Header="{x:Bind ViewModel.EntryPointLabel}"
+                                IsEditable="True"
+                                IsEnabled="{x:Bind ViewModel.HasPackage, Mode=OneWay}"
+                                ItemsSource="{x:Bind ViewModel.EntryPoints}"
+                                Text="{x:Bind ViewModel.EntryPoint, Mode=TwoWay}" />
+                            <TextBlock
+                                AutomationProperties.LiveSetting="Polite"
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.ValidationVisibility('EntryPoint', ViewModel.InvalidField), Mode=OneWay}" />
+                        </StackPanel>
                         <TextBox
                             Header="{x:Bind ViewModel.ApplicationModeLabel}"
                             IsReadOnly="True"
                             Text="{x:Bind ViewModel.InstallerType, Mode=OneWay}"
                             Visibility="{x:Bind ViewModel.IsApplication}" />
-                        <TextBox
-                            Header="{x:Bind ViewModel.WorkingDirectoryLabel}"
-                            IsEnabled="{x:Bind ViewModel.HasPackage, Mode=OneWay}"
-                            Text="{x:Bind ViewModel.WorkingDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBox
-                            MaxHeight="120"
-                            Header="{x:Bind ViewModel.PowerShellArgumentsLabel}"
-                            MaxLength="8191"
-                            Text="{x:Bind ViewModel.PowerShellArguments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            TextWrapping="Wrap"
-                            Visibility="{x:Bind ViewModel.IsPowerShell}" />
-                        <TextBox
-                            MaxHeight="120"
-                            Header="{x:Bind ViewModel.ArgumentsLabel}"
-                            MaxLength="8191"
-                            Text="{x:Bind ViewModel.Arguments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            TextWrapping="Wrap"
-                            Visibility="{x:Bind ViewModel.HasEntryPoint}" />
+                        <StackPanel x:Name="WorkingDirectoryGroup"
+                            Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                            <TextBox x:Name="WorkingDirectoryInput"
+                                Header="{x:Bind ViewModel.WorkingDirectoryLabel}"
+                                IsEnabled="{x:Bind ViewModel.HasPackage, Mode=OneWay}"
+                                Text="{x:Bind ViewModel.WorkingDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock
+                                AutomationProperties.LiveSetting="Polite"
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.ValidationVisibility('WorkingDirectory', ViewModel.InvalidField), Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel x:Name="PowerShellArgumentsGroup"
+                            Spacing="{ThemeResource FoundryTextGroupSpacing}"
+                            Visibility="{x:Bind ViewModel.IsPowerShell}">
+                            <TextBox x:Name="PowerShellArgumentsInput"
+                                MaxHeight="120"
+                                Header="{x:Bind ViewModel.PowerShellArgumentsLabel}"
+                                MaxLength="8191"
+                                Text="{x:Bind ViewModel.PowerShellArguments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                AutomationProperties.LiveSetting="Polite"
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.ValidationVisibility('PowerShellArguments', ViewModel.InvalidField), Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel x:Name="ArgumentsGroup"
+                            Spacing="{ThemeResource FoundryTextGroupSpacing}"
+                            Visibility="{x:Bind ViewModel.HasEntryPoint}">
+                            <TextBox x:Name="ArgumentsInput"
+                                MaxHeight="120"
+                                Header="{x:Bind ViewModel.ArgumentsLabel}"
+                                MaxLength="8191"
+                                Text="{x:Bind ViewModel.Arguments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                AutomationProperties.LiveSetting="Polite"
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.ValidationVisibility('Arguments', ViewModel.InvalidField), Mode=OneWay}" />
+                        </StackPanel>
                         <CheckBox
                             IsChecked="{x:Bind ViewModel.GenerateInstallationLog, Mode=TwoWay}"
                             Visibility="{x:Bind ViewModel.IsMsi, Mode=OneWay}">
@@ -122,13 +182,23 @@
                                 Text="{x:Bind ViewModel.GenerateInstallationLogLabel}"
                                 TextWrapping="WrapWholeWords" />
                         </CheckBox>
-                        <TextBox
-                            MaxHeight="120"
-                            Header="{x:Bind ViewModel.CommandLabel}"
-                            MaxLength="8191"
-                            Text="{x:Bind ViewModel.CommandText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            TextWrapping="Wrap"
-                            Visibility="{x:Bind ViewModel.IsCommand}" />
+                        <StackPanel x:Name="CommandTextGroup"
+                            Spacing="{ThemeResource FoundryTextGroupSpacing}"
+                            Visibility="{x:Bind ViewModel.IsCommand}">
+                            <TextBox x:Name="CommandTextInput"
+                                MaxHeight="120"
+                                Header="{x:Bind ViewModel.CommandLabel}"
+                                MaxLength="8191"
+                                Text="{x:Bind ViewModel.CommandText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                AutomationProperties.LiveSetting="Polite"
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.ValidationVisibility('CommandText', ViewModel.InvalidField), Mode=OneWay}" />
+                        </StackPanel>
                     </StackPanel>
                     <StackPanel x:Name="ExecutionSettingsPanel"
                         Grid.Column="1"
@@ -137,20 +207,50 @@
                             Style="{ThemeResource BodyStrongTextBlockStyle}"
                             Text="{x:Bind ViewModel.ExecutionSettingsLabel}"
                             TextWrapping="WrapWholeWords" />
-                        <NumberBox
-                            Header="{x:Bind ViewModel.TimeoutLabel}"
-                            LargeChange="60"
-                            Maximum="86400"
-                            Minimum="1"
-                            SmallChange="30"
-                            SpinButtonPlacementMode="Compact"
-                            Value="{x:Bind ViewModel.TimeoutSeconds, Mode=TwoWay}" />
-                        <TextBox
-                            Header="{x:Bind ViewModel.SuccessCodesLabel}"
-                            Text="{x:Bind ViewModel.SuccessCodes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBox
-                            Header="{x:Bind ViewModel.RestartCodesLabel}"
-                            Text="{x:Bind ViewModel.RestartCodes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <StackPanel x:Name="TimeoutSecondsGroup"
+                            Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                            <NumberBox x:Name="TimeoutSecondsInput"
+                                Header="{x:Bind ViewModel.TimeoutLabel}"
+                                LargeChange="60"
+                                Maximum="86400"
+                                Minimum="1"
+                                SmallChange="30"
+                                SpinButtonPlacementMode="Compact"
+                                Value="{x:Bind ViewModel.TimeoutSeconds, Mode=TwoWay}" />
+                            <TextBlock
+                                AutomationProperties.LiveSetting="Polite"
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.ValidationVisibility('TimeoutSeconds', ViewModel.InvalidField), Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel x:Name="SuccessCodesGroup"
+                            Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                            <TextBox x:Name="SuccessCodesInput"
+                                Header="{x:Bind ViewModel.SuccessCodesLabel}"
+                                Text="{x:Bind ViewModel.SuccessCodes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock
+                                AutomationProperties.LiveSetting="Polite"
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.ValidationVisibility('SuccessCodes', ViewModel.InvalidField), Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel x:Name="RestartCodesGroup"
+                            Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                            <TextBox x:Name="RestartCodesInput"
+                                Header="{x:Bind ViewModel.RestartCodesLabel}"
+                                Text="{x:Bind ViewModel.RestartCodes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock
+                                AutomationProperties.LiveSetting="Polite"
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.ValidationVisibility('RestartCodes', ViewModel.InvalidField), Mode=OneWay}" />
+                        </StackPanel>
                         <CheckBox
                             VerticalContentAlignment="Top"
                             AutomationProperties.HelpText="{x:Bind ViewModel.ContinueDescription}"

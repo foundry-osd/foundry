@@ -2240,7 +2240,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>OS-valinta</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Suorita mukautettuja toimintoja Windowsin asennuksen jälkeen ennen OOBE-vaihetta.</value>
+    <value>Suorita mukautetut toiminnot ennen OOBE-vaihetta Foundryn sisäisten tehtävien jälkeen.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>Asennuksen jälkeen</value>
@@ -2413,9 +2413,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Argumentit tai MSI-ominaisuudet</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Foundryn sisäiset tehtävät suoritetaan ensin. Lisää mukautetut toiminnot alle suoritusjärjestyksessä.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Komentorivi</value>
   </data>
@@ -2430,6 +2427,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketin sisältö</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Tuo tiedosto tai kansio.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Sisällön tila</value>
@@ -2456,13 +2456,13 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Määrityksiä muutettiin muokkauksen aikana. Avaa toiminto uudelleen.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Toimintoja ei ole lisätty. Valitse Lisää toiminto, jos haluat määrittää komentosarjan, komennon, ohjelmiston asennuksen tai uudelleenkäynnistyksen.</value>
+    <value>Toimintoja ei ole lisätty.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Komentosarjan tai asennusohjelman polku (suhteessa sisältöön)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Toiminnot suoritetaan SYSTEM-tilillä. Vastaat argumenteista, valvomattomasta suorituksesta ja asennusohjelman käynnistämien uudelleenkäynnistysten estämisestä. Sisältö on väliaikaista; tarjoa pysyvät lähteet, jos korjaukset tai päivitykset edellyttävät niitä.</value>
+    <value>Suoritetaan SYSTEM-tilillä. Määritä argumentit valvomattomalle suoritukselle ja hallituille uudelleenkäynnistyksille.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Suoritusasetukset</value>
@@ -2480,7 +2480,31 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tuo kansio</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Tarkista nimi, sisältöpolku, komento ja prosessin asetukset. Paluukoodiluettelot eivät saa olla päällekkäisiä tai sisältää koodia 1641; aikakatkaisun on oltava 1–86400 sekuntia.</value>
+    <value>Tämä toiminto on virheellinen. Tarkista sen määritykset.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Kirjoita yksi enintään 8191 merkin pituinen rivi.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Valitse komentosarja tai asennusohjelma tuodusta sisällöstä.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Anna enintään 32 yksilöllistä, ei-negatiivista poistumiskoodia pilkuilla erotettuina. Älä käytä koodia 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Kirjoita 1–256 merkin pituinen nimi ilman ohjausmerkkejä.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Korjaa toiminnon ”{0}” asetukset muokkaamalla sitä.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Anna kokonaisluku väliltä 1–86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Kirjoita tuodun sisällön kansio tai jätä kenttä tyhjäksi.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Tuo puuttuva sisältö toiminnolle ”{0}”.</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Siirrä alas</value>
@@ -2497,14 +2521,14 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Järjestys</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Uudelleenkäynnistyksen poistumiskoodi ei voi olla myös onnistumisen poistumiskoodi.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell-komentosarja (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumentit</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Tarkista toimintojen asetukset ja tuo puuttuva pakettisisältö ennen tietovälineen luomista.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Käynnistä Windows uudelleen</value>

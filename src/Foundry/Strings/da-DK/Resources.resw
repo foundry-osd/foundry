@@ -2240,7 +2240,7 @@ Licenseret under MIT-licensen.</value>
     <value>OS-valg</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Kør tilpassede handlinger efter installation af Windows og før OOBE.</value>
+    <value>Kør brugerdefinerede handlinger før OOBE, efter Foundrys indbyggede opgaver.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>Efter installation</value>
@@ -2413,9 +2413,6 @@ Licenseret under MIT-licensen.</value>
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Argumenter eller MSI-egenskaber</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Foundrys indbyggede opgaver køres først. Tilføj dine tilpassede handlinger nedenfor i den ønskede rækkefølge.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Kommandolinje</value>
   </data>
@@ -2430,6 +2427,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Pakkeindhold</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Importér en fil eller mappe.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Indholdsstatus</value>
@@ -2456,13 +2456,13 @@ Licenseret under MIT-licensen.</value>
     <value>Konfigurationen blev ændret under redigeringen. Åbn handlingen igen.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Ingen handlinger tilføjet. Vælg Tilføj handling for at konfigurere et script, en kommando, en softwareinstallation eller en genstart.</value>
+    <value>Ingen handlinger tilføjet.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Sti til script eller installationsprogram (relativ til indholdet)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Handlinger køres som SYSTEM. Du er ansvarlig for argumenterne, uovervåget kørsel og for at forhindre genstarter, der startes af installationsprogrammet. Indholdet er midlertidigt; angiv permanente kilder, hvis reparationer eller opdateringer kræver dem.</value>
+    <value>Køres som SYSTEM. Konfigurer argumenter til uovervåget kørsel og kontrollerede genstarter.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Indstillinger for udførelse</value>
@@ -2480,7 +2480,31 @@ Licenseret under MIT-licensen.</value>
     <value>Importér mappe</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Kontrollér navn, indholdssti, kommando og procesindstillinger. Lister over afslutningskoder må ikke overlappe eller indeholde 1641; timeout skal være 1–86400 sekunder.</value>
+    <value>Denne handling er ugyldig. Kontrollér konfigurationen.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Angiv en enkelt linje på højst 8191 tegn.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Vælg et script eller installationsprogram fra det importerede indhold.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Angiv højst 32 entydige, ikke-negative afslutningskoder adskilt af kommaer. Brug ikke 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Angiv et navn på 1–256 tegn uden kontroltegn.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Rediger "{0}" for at rette indstillingerne.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Angiv et heltal fra 1 til 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Angiv en mappe fra det importerede indhold, eller lad feltet være tomt.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Importér det manglende indhold til "{0}".</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Flyt ned</value>
@@ -2497,14 +2521,14 @@ Licenseret under MIT-licensen.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Rækkefølge</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>En afslutningskode for genstart kan ikke også være en afslutningskode for succes.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell-script (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumenter</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Kontrollér handlingsindstillingerne, og importér manglende pakkeindhold, før du opretter medier.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Genstart Windows</value>

@@ -2240,7 +2240,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Operációsrendszer-választás</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Egyéni műveletek futtatása a Windows telepítése után, az OOBE előtt.</value>
+    <value>Egyéni műveletek futtatása az OOBE előtt, a Foundry beépített feladatai után.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>Telepítés után</value>
@@ -2413,9 +2413,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Argumentumok vagy MSI-tulajdonságok</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Először a Foundry beépített feladatai futnak le. Adja hozzá az egyéni műveleteket alább, végrehajtási sorrendben.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Parancssor</value>
   </data>
@@ -2430,6 +2427,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Csomag tartalma</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Importáljon egy fájlt vagy mappát.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Tartalom állapota</value>
@@ -2456,13 +2456,13 @@ Licenc az MIT licenc alatt.</value>
     <value>A konfiguráció szerkesztés közben megváltozott. Nyissa meg újra a műveletet.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Nincsenek hozzáadott műveletek. Válassza a Művelet hozzáadása lehetőséget szkript, parancs, szoftvertelepítés vagy újraindítás beállításához.</value>
+    <value>Nincsenek hozzáadott műveletek.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Parancsfájl vagy telepítő elérési útja (a tartalomhoz képest)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>A műveletek SYSTEM-fiókként futnak. Ön felel az argumentumokért, a felügyelet nélküli végrehajtásért és a telepítő által kezdeményezett újraindítások megakadályozásáért. A tartalom ideiglenes; biztosítson tartós forrásokat, ha a javítások vagy frissítések igénylik azokat.</value>
+    <value>SYSTEM-fiókként fut. Állítsa be az argumentumokat a felügyelet nélküli végrehajtáshoz és a szabályozott újraindításokhoz.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Végrehajtási beállítások</value>
@@ -2480,7 +2480,31 @@ Licenc az MIT licenc alatt.</value>
     <value>Mappa importálása</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Ellenőrizze a nevet, a tartalom elérési útját, a parancsot és a folyamat beállításait. A kilépésikód-listák nem fedhetik egymást és nem tartalmazhatnak 1641-et; az időkorlát 1–86400 másodperc legyen.</value>
+    <value>Ez a művelet érvénytelen. Ellenőrizze a konfigurációját.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Adjon meg egyetlen, legfeljebb 8191 karakter hosszú sort.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Válasszon szkriptet vagy telepítőt az importált tartalomból.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Adjon meg legfeljebb 32 egyedi, nemnegatív kilépési kódot vesszővel elválasztva. Ne használja az 1641 kódot.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Adjon meg egy 1–256 karakter hosszú nevet vezérlőkarakterek nélkül.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Szerkessze a(z) „{0}” elemet a beállítások javításához.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Adjon meg egy egész számot 1 és 86400 között.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Adjon meg egy mappát az importált tartalomból, vagy hagyja üresen ezt a mezőt.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Importálja a(z) „{0}” hiányzó tartalmát.</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Mozgatás lefelé</value>
@@ -2497,14 +2521,14 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Sorrend</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Az újraindítást jelző kilépési kód nem lehet egyben sikert jelző kilépési kód.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell-szkript (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumentumok</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Az adathordozó létrehozása előtt ellenőrizze a műveletek beállításait, és importálja a hiányzó csomagtartalmat.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Windows újraindítása</value>

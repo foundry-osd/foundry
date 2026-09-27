@@ -2240,7 +2240,7 @@
     <value>اختيار نظام التشغيل</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>شغّل إجراءات مخصصة بعد تثبيت Windows وقبل OOBE.</value>
+    <value>نفّذ إجراءات مخصصة قبل OOBE، بعد مهام Foundry المضمنة.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>ما بعد التثبيت</value>
@@ -2413,9 +2413,6 @@
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>الوسيطات أو خصائص MSI</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>تُنفَّذ مهام Foundry المضمّنة أولاً. أضف إجراءاتك المخصصة أدناه بترتيب التنفيذ.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>سطر الأوامر</value>
   </data>
@@ -2430,6 +2427,9 @@
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>محتوى الحزمة</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>استورد ملفًا أو مجلدًا.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>حالة المحتوى</value>
@@ -2456,13 +2456,13 @@
     <value>تغيّر التكوين أثناء التحرير. افتح الإجراء مرة أخرى.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>لم تتم إضافة أي إجراءات. حدد إضافة إجراء لتكوين برنامج نصي أو أمر أو تثبيت برنامج أو إعادة تشغيل.</value>
+    <value>لم تتم إضافة أي إجراءات.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>مسار البرنامج النصي أو المثبّت (بالنسبة إلى المحتوى)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>تُنفَّذ الإجراءات بحساب SYSTEM. أنت مسؤول عن الوسيطات والتنفيذ دون تدخل ومنع عمليات إعادة التشغيل التي يبدأها برنامج التثبيت. المحتوى مؤقت؛ وفّر مصادر دائمة إذا تطلّبتها عمليات الإصلاح أو التحديث.</value>
+    <value>يُنفَّذ بحساب SYSTEM. اضبط الوسيطات للتنفيذ دون تدخل وعمليات إعادة تشغيل مُتحكَّم بها.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>إعدادات التنفيذ</value>
@@ -2480,7 +2480,31 @@
     <value>استيراد مجلد</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>تحقق من الاسم ومسار المحتوى والأمر وإعدادات العملية. يجب ألا تتداخل قوائم رموز الخروج أو تتضمن 1641؛ ويجب أن تكون المهلة 1–86400 ثانية.</value>
+    <value>هذا الإجراء غير صالح. تحقق من تكوينه.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>أدخل سطرًا واحدًا لا يتجاوز 8191 حرفًا.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>حدد برنامجًا نصيًا أو برنامج تثبيت من المحتوى المستورد.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>أدخل حتى 32 رمز خروج فريدًا وغير سالب، مفصولة بفواصل. لا تستخدم 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>أدخل اسمًا من 1 إلى 256 حرفًا دون أحرف تحكم.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>حرّر "{0}" لتصحيح إعداداته.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>أدخل عددًا صحيحًا من 1 إلى 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>أدخل مجلدًا من المحتوى المستورد أو اترك هذا الحقل فارغًا.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>استورد المحتوى المفقود لـ "{0}".</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>نقل لأسفل</value>
@@ -2497,14 +2521,14 @@
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>الترتيب</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>لا يمكن أن يكون رمز خروج إعادة التشغيل رمز خروج نجاح أيضًا.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>برنامج PowerShell نصي (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>وسيطات PowerShell</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>تحقق من إعدادات الإجراءات واستورد أي محتوى حزم مفقود قبل إنشاء الوسائط.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>إعادة تشغيل Windows</value>

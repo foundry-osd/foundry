@@ -2240,7 +2240,7 @@
     <value>การเลือกระบบปฏิบัติการ</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>เรียกใช้การดำเนินการแบบกำหนดเองหลังติดตั้ง Windows และก่อน OOBE</value>
+    <value>เรียกใช้การดำเนินการแบบกำหนดเองก่อน OOBE หลังจากงานในตัวของ Foundry</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>หลังการติดตั้ง</value>
@@ -2413,9 +2413,6 @@
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>อาร์กิวเมนต์หรือคุณสมบัติ MSI</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>งานในตัวของ Foundry จะทำงานก่อน เพิ่มการดำเนินการแบบกำหนดเองด้านล่างตามลำดับการทำงาน</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>บรรทัดคำสั่ง</value>
   </data>
@@ -2430,6 +2427,9 @@
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>เนื้อหาแพ็กเกจ</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>นำเข้าไฟล์หรือโฟลเดอร์</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>สถานะเนื้อหา</value>
@@ -2456,13 +2456,13 @@
     <value>การกำหนดค่าเปลี่ยนแปลงระหว่างการแก้ไข โปรดเปิดการดำเนินการอีกครั้ง</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>ยังไม่มีการเพิ่มการดำเนินการ เลือก เพิ่มการดำเนินการ เพื่อกำหนดค่าสคริปต์ คำสั่ง การติดตั้งซอฟต์แวร์ หรือการเริ่มระบบใหม่</value>
+    <value>ยังไม่มีการเพิ่มการดำเนินการ</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>เส้นทางสคริปต์หรือตัวติดตั้ง (สัมพันธ์กับเนื้อหา)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>การดำเนินการจะทำงานในนาม SYSTEM คุณรับผิดชอบอาร์กิวเมนต์ การทำงานแบบไม่ต้องมีผู้ดูแล และการป้องกันการเริ่มระบบใหม่ที่โปรแกรมติดตั้งเป็นผู้สั่ง เนื้อหาจะถูกเก็บไว้ชั่วคราว โปรดจัดเตรียมแหล่งข้อมูลถาวรหากจำเป็นสำหรับการซ่อมแซมหรืออัปเดต</value>
+    <value>ทำงานในนาม SYSTEM กำหนดค่าอาร์กิวเมนต์สำหรับการทำงานแบบไม่ต้องมีผู้ดูแลและการเริ่มระบบใหม่ที่ควบคุมได้</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>การตั้งค่าการดำเนินการ</value>
@@ -2480,7 +2480,31 @@
     <value>นำเข้าโฟลเดอร์</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>ตรวจสอบชื่อ เส้นทางเนื้อหา คำสั่ง และการตั้งค่ากระบวนการ รายการรหัสออกต้องไม่ซ้ำกันระหว่างรายการหรือมี 1641 และเวลาหมดอายุต้องอยู่ที่ 1–86400 วินาที</value>
+    <value>การดำเนินการนี้ไม่ถูกต้อง ตรวจสอบการกำหนดค่า</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>ป้อนข้อความบรรทัดเดียวที่มีไม่เกิน 8191 อักขระ</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>เลือกสคริปต์หรือโปรแกรมติดตั้งจากเนื้อหาที่นำเข้า</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>ป้อนรหัสออกที่ไม่ซ้ำกันและไม่เป็นค่าลบสูงสุด 32 รหัส คั่นด้วยเครื่องหมายจุลภาค ห้ามใช้ 1641</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>ป้อนชื่อที่มี 1–256 อักขระโดยไม่มีอักขระควบคุม</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>แก้ไข "{0}" เพื่อแก้ไขการตั้งค่าให้ถูกต้อง</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>ป้อนจำนวนเต็มตั้งแต่ 1 ถึง 86400</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>ป้อนโฟลเดอร์จากเนื้อหาที่นำเข้าหรือเว้นว่างไว้</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>นำเข้าเนื้อหาที่ขาดหายไปสำหรับ "{0}"</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>เลื่อนลง</value>
@@ -2497,14 +2521,14 @@
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>ลำดับ</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>รหัสออกสำหรับการเริ่มระบบใหม่ไม่สามารถเป็นรหัสออกสำหรับความสำเร็จด้วยได้</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>สคริปต์ PowerShell (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>อาร์กิวเมนต์ PowerShell</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>ตรวจสอบการตั้งค่าการดำเนินการและนำเข้าเนื้อหาแพ็กเกจที่ขาดหายไปก่อนสร้างสื่อ</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>เริ่ม Windows ใหม่</value>

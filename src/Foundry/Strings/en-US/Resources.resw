@@ -2240,7 +2240,7 @@ Licensed under the MIT License.</value>
     <value>OS selection</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Run custom actions after Windows installation and before OOBE.</value>
+    <value>Run custom actions before OOBE, after Foundry built-in tasks.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>Post-installation</value>
@@ -2413,9 +2413,6 @@ Licensed under the MIT License.</value>
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Arguments or MSI properties</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Foundry built-in tasks run first. Add your custom actions below in execution order.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Command line</value>
   </data>
@@ -2430,6 +2427,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Package content</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Import a file or folder.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Content status</value>
@@ -2456,13 +2456,13 @@ Licensed under the MIT License.</value>
     <value>The configuration changed while you were editing. Open the action again.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>No actions added. Select Add action to configure a script, command, software installation or restart.</value>
+    <value>No actions added.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Script or installer path (relative to content)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Actions run as SYSTEM. You are responsible for the arguments, unattended execution and preventing installer-owned restarts. Content is temporary; provide durable sources if repair or updates require them.</value>
+    <value>Runs as SYSTEM. Configure arguments for unattended execution and controlled restarts.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Execution settings</value>
@@ -2480,7 +2480,31 @@ Licensed under the MIT License.</value>
     <value>Import folder</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Check the name, content path, command and process settings. Exit-code lists must not overlap or contain 1641; timeout must be 1–86400 seconds.</value>
+    <value>This action is invalid. Check its configuration.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Enter a single line of up to 8191 characters.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Select a script or installer from the imported content.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Enter up to 32 unique, nonnegative exit codes separated by commas. Do not use 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Enter a name of 1–256 characters without control characters.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Edit "{0}" to correct its settings.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Enter a whole number from 1 to 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Enter a folder from the imported content, or leave this empty.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Import the missing content for "{0}".</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Move down</value>
@@ -2497,14 +2521,14 @@ Licensed under the MIT License.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Order</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>A restart exit code cannot also be a success exit code.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell script (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell arguments</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Check the action settings and import any missing package content before creating media.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Restart Windows</value>

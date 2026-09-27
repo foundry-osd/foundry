@@ -2240,7 +2240,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>OS pasirinkimas</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Vykdykite pasirinktinius veiksmus po „Windows“ diegimo ir prieš OOBE.</value>
+    <value>Vykdykite pasirinktinius veiksmus prieš OOBE, po integruotųjų Foundry užduočių.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>Po diegimo</value>
@@ -2413,9 +2413,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Argumentai arba MSI ypatybės</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Pirmiausia vykdomos įtaisytosios „Foundry“ užduotys. Toliau pridėkite pasirinktinius veiksmus vykdymo tvarka.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Komandų eilutė</value>
   </data>
@@ -2430,6 +2427,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketo turinys</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Importuokite failą arba aplanką.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Turinio būsena</value>
@@ -2456,13 +2456,13 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Redaguojant konfigūracija pasikeitė. Atidarykite veiksmą dar kartą.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Veiksmų nepridėta. Pasirinkite Pridėti veiksmą, kad sukonfigūruotumėte scenarijų, komandą, programinės įrangos diegimą arba paleidimą iš naujo.</value>
+    <value>Veiksmų nepridėta.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Scenarijaus arba diegimo programos kelias (turinio atžvilgiu)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Veiksmai vykdomi naudojant SYSTEM paskyrą. Jūs atsakote už argumentus, vykdymą be priežiūros ir diegimo programos inicijuojamo paleidimo iš naujo prevenciją. Turinys laikinas; pateikite nuolatinius šaltinius, jei jų reikia taisymui ar naujinimams.</value>
+    <value>Vykdoma naudojant SYSTEM paskyrą. Nustatykite argumentus vykdymui be priežiūros ir valdomiems paleidimams iš naujo.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Vykdymo parametrai</value>
@@ -2480,7 +2480,31 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Importuoti aplanką</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Patikrinkite pavadinimą, turinio kelią, komandą ir proceso parametrus. Užbaigimo kodų sąrašai negali sutapti ar apimti 1641; skirtasis laikas turi būti 1–86400 sekundžių.</value>
+    <value>Šis veiksmas netinkamas. Patikrinkite jo konfigūraciją.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Įveskite vieną eilutę, kurioje ne daugiau kaip 8191 simbolis.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Pasirinkite scenarijų arba diegimo programą iš importuoto turinio.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Įveskite iki 32 unikalių neneigiamų išėjimo kodų, atskirtų kableliais. Nenaudokite 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Įveskite 1–256 simbolių pavadinimą be valdymo simbolių.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Redaguokite „{0}“, kad pataisytumėte nustatymus.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Įveskite sveikąjį skaičių nuo 1 iki 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Įveskite aplanką iš importuoto turinio arba palikite šį lauką tuščią.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Importuokite trūkstamą „{0}“ turinį.</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Perkelti žemyn</value>
@@ -2497,14 +2521,14 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Tvarka</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Paleidimo iš naujo išėjimo kodas negali būti ir sėkmės išėjimo kodas.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell scenarijus (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell argumentai</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Prieš kurdami laikmeną patikrinkite veiksmų parametrus ir importuokite trūkstamą paketų turinį.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Paleisti Windows iš naujo</value>

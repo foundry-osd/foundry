@@ -2240,7 +2240,7 @@
     <value>Выбор ОС</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Выполняйте пользовательские действия после установки Windows и до OOBE.</value>
+    <value>Выполняйте пользовательские действия перед OOBE, после встроенных задач Foundry.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>После установки</value>
@@ -2413,9 +2413,6 @@
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Аргументы или свойства MSI</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Сначала выполняются встроенные задачи Foundry. Добавьте ниже пользовательские действия в порядке выполнения.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Командная строка</value>
   </data>
@@ -2430,6 +2427,9 @@
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Содержимое пакета</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Импортируйте файл или папку.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Состояние содержимого</value>
@@ -2456,13 +2456,13 @@
     <value>Конфигурация изменилась во время редактирования. Откройте действие снова.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Действия не добавлены. Выберите Добавить действие, чтобы настроить скрипт, команду, установку программного обеспечения или перезапуск.</value>
+    <value>Действия не добавлены.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Путь к скрипту или установщику (относительно содержимого)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Действия выполняются от имени SYSTEM. Вы отвечаете за аргументы, выполнение без участия пользователя и предотвращение перезапусков, инициируемых установщиком. Содержимое временное; предоставьте постоянные источники, если они нужны для восстановления или обновлений.</value>
+    <value>Выполняется от имени SYSTEM. Настройте аргументы для выполнения без участия пользователя и управляемых перезапусков.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Параметры выполнения</value>
@@ -2480,7 +2480,31 @@
     <value>Импортировать папку</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Проверьте имя, путь к содержимому, команду и параметры процесса. Списки кодов завершения не должны пересекаться или содержать 1641; время ожидания — 1–86400 секунд.</value>
+    <value>Это действие недопустимо. Проверьте его конфигурацию.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Введите одну строку длиной не более 8191 символа.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Выберите скрипт или установщик из импортированного содержимого.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Введите до 32 уникальных неотрицательных кодов выхода, разделённых запятыми. Не используйте 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Введите имя длиной 1–256 символов без управляющих символов.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Измените «{0}», чтобы исправить настройки.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Введите целое число от 1 до 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Введите папку из импортированного содержимого или оставьте поле пустым.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Импортируйте недостающее содержимое для «{0}».</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Переместить вниз</value>
@@ -2497,14 +2521,14 @@
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Порядок</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Код выхода для перезапуска не может одновременно быть кодом успешного завершения.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Скрипт PowerShell (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Аргументы PowerShell</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Проверьте параметры действий и импортируйте недостающее содержимое пакетов перед созданием носителя.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Перезапустить Windows</value>

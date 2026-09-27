@@ -2240,7 +2240,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>OS の選択</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Windows のインストール後、OOBE の前にカスタムアクションを実行します。</value>
+    <value>Foundry の組み込みタスクの後、OOBE の前にカスタム アクションを実行します。</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>インストール後</value>
@@ -2413,9 +2413,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>引数または MSI プロパティ</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Foundry の組み込みタスクが先に実行されます。以下にカスタムアクションを実行順で追加してください。</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>コマンド ライン</value>
   </data>
@@ -2430,6 +2427,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>パッケージコンテンツ</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>ファイルまたはフォルダーをインポートしてください。</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>コンテンツの状態</value>
@@ -2456,13 +2456,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>編集中に構成が変更されました。アクションをもう一度開いてください。</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>アクションが追加されていません。[アクションの追加] を選択して、スクリプト、コマンド、ソフトウェアのインストール、または再起動を構成してください。</value>
+    <value>アクションが追加されていません。</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>スクリプトまたはインストーラーのパス (コンテンツからの相対パス)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>アクションは SYSTEM として実行されます。引数の指定、無人実行、およびインストーラーによる再起動の防止はユーザーの責任です。コンテンツは一時的なものです。修復や更新で必要になる場合は、永続的なソースを用意してください。</value>
+    <value>SYSTEM として実行されます。無人実行と制御された再起動のための引数を設定してください。</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>実行設定</value>
@@ -2480,7 +2480,31 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>フォルダーをインポート</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>名前、コンテンツのパス、コマンド、プロセス設定を確認してください。終了コードのリストは重複不可で、1641 を含められません。タイムアウトは 1–86400 秒で指定してください。</value>
+    <value>このアクションは無効です。構成を確認してください。</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>8191 文字以内の 1 行を入力してください。</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>インポートしたコンテンツからスクリプトまたはインストーラーを選択してください。</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>0 以上の重複しない終了コードを最大 32 個、コンマ区切りで入力してください。1641 は使用しないでください。</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>制御文字を含まない 1～256 文字の名前を入力してください。</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>「{0}」を編集して設定を修正してください。</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>1～86400 の整数を入力してください。</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>インポートしたコンテンツ内のフォルダーを入力するか、空欄のままにしてください。</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>「{0}」の不足しているコンテンツをインポートしてください。</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>下へ移動</value>
@@ -2497,14 +2521,14 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>順序</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>再起動の終了コードを成功の終了コードとしても指定することはできません。</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell スクリプト (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell の引数</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>メディアを作成する前に、アクションの設定を確認し、不足しているパッケージコンテンツをインポートしてください。</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Windows を再起動</value>

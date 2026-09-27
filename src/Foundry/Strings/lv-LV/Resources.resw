@@ -2240,7 +2240,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>OS atlase</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Izpildiet pielāgotas darbības pēc Windows instalēšanas un pirms OOBE.</value>
+    <value>Izpildiet pielāgotas darbības pirms OOBE, pēc Foundry iebūvētajiem uzdevumiem.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>Pēc instalēšanas</value>
@@ -2413,9 +2413,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Argumenti vai MSI rekvizīti</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Vispirms tiek izpildīti Foundry iebūvētie uzdevumi. Tālāk pievienojiet pielāgotās darbības izpildes secībā.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Komandrinda</value>
   </data>
@@ -2430,6 +2427,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Pakotnes saturs</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Importējiet failu vai mapi.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Satura statuss</value>
@@ -2456,13 +2456,13 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Rediģēšanas laikā konfigurācija tika mainīta. Atveriet darbību vēlreiz.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Nav pievienotu darbību. Atlasiet Pievienot darbību, lai konfigurētu skriptu, komandu, programmatūras instalēšanu vai restartēšanu.</value>
+    <value>Nav pievienotu darbību.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Skripta vai instalētāja ceļš (attiecībā pret saturu)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Darbības tiek izpildītas kā SYSTEM. Jūs esat atbildīgs par argumentiem, neuzraudzītu izpildi un instalēšanas programmas ierosinātas restartēšanas novēršanu. Saturs ir īslaicīgs; nodrošiniet pastāvīgus avotus, ja tie ir nepieciešami labošanai vai atjauninājumiem.</value>
+    <value>Tiek izpildīts kā SYSTEM. Konfigurējiet argumentus neuzraudzītai izpildei un kontrolētai restartēšanai.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Izpildes iestatījumi</value>
@@ -2480,7 +2480,31 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Importēt mapi</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Pārbaudiet nosaukumu, satura ceļu, komandu un procesa iestatījumus. Izejas kodu saraksti nedrīkst pārklāties vai saturēt 1641; noildzei jābūt 1–86400 sekundēm.</value>
+    <value>Šī darbība nav derīga. Pārbaudiet tās konfigurāciju.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Ievadiet vienu rindu ar ne vairāk kā 8191 rakstzīmi.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Atlasiet skriptu vai instalēšanas programmu no importētā satura.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Ievadiet ne vairāk kā 32 unikālus nenegatīvus izejas kodus, atdalot tos ar komatiem. Nelietojiet 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Ievadiet 1–256 rakstzīmes garu nosaukumu bez vadības rakstzīmēm.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Rediģējiet “{0}”, lai labotu tās iestatījumus.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Ievadiet veselu skaitli no 1 līdz 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Ievadiet mapi no importētā satura vai atstājiet šo lauku tukšu.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Importējiet trūkstošo saturu darbībai “{0}”.</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Pārvietot lejup</value>
@@ -2497,14 +2521,14 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Secība</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Restartēšanas izejas kods nevar būt arī veiksmīgas izpildes izejas kods.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell skripts (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell argumenti</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Pirms datu nesēja izveides pārbaudiet darbību iestatījumus un importējiet trūkstošo pakotņu saturu.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Restartēt Windows</value>

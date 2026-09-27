@@ -5,6 +5,7 @@
 using System.Collections.ObjectModel;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
+using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Packages;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
@@ -55,8 +56,18 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     public string RefreshLabel => localization.GetString("Common.Refresh");
     public string ToggleLabel => localization.GetString(SelectedAction?.Action.IsEnabled == true ? "Common.Disable" : "Common.Enable");
     public string EnableLabel => localization.GetString("Common.Enable");
-    public string BuiltInDescription => Text("BuiltIns");
-    public string ReadinessDescription => Text(Actions.Any(action => action.Action.IsEnabled) ? "Readiness" : "ActionRequired");
+    public string ReadinessDescription
+    {
+        get
+        {
+            if (!Actions.Any(action => action.Action.IsEnabled)) return Text("ActionRequired");
+            var missing = Actions.FirstOrDefault(action => action.Action.IsEnabled && !action.IsContentAvailable);
+            if (missing is not null) return localization.FormatString("PostInstallation.MissingContent", missing.Name);
+            var issue = PreOobeConfigurationValidator.Validate(state.Current.PreOobe).FirstOrDefault();
+            var invalid = Actions.FirstOrDefault(action => action.Action.Id == issue?.ActionId);
+            return invalid is not null ? localization.FormatString("PostInstallation.InvalidSettings", invalid.Name) : Text("InvalidAction");
+        }
+    }
     public string EmptyMessage => Text("EmptyMessage");
     public string OrderHeader => Text("OrderHeader");
     public string NameHeader => localization.GetString("CustomImages.NameLabel");

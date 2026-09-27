@@ -2240,7 +2240,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>OS 선택</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Windows 설치 후 OOBE 전에 사용자 지정 작업을 실행합니다.</value>
+    <value>Foundry 기본 작업 후, OOBE 전에 사용자 지정 작업을 실행합니다.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>설치 후 작업</value>
@@ -2413,9 +2413,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>인수 또는 MSI 속성</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Foundry의 기본 제공 작업이 먼저 실행됩니다. 아래에 사용자 지정 작업을 실행 순서대로 추가하세요.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>명령줄</value>
   </data>
@@ -2430,6 +2427,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>패키지 콘텐츠</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>파일 또는 폴더를 가져오세요.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>콘텐츠 상태</value>
@@ -2456,13 +2456,13 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>편집 중에 구성이 변경되었습니다. 작업을 다시 여세요.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>추가된 작업이 없습니다. 작업 추가를 선택하여 스크립트, 명령, 소프트웨어 설치 또는 다시 시작을 구성하세요.</value>
+    <value>추가된 작업이 없습니다.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>스크립트 또는 설치 프로그램 경로(콘텐츠 기준 상대 경로)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>작업은 SYSTEM으로 실행됩니다. 인수 지정, 무인 실행 및 설치 프로그램이 시작하는 다시 시작 방지는 사용자의 책임입니다. 콘텐츠는 임시로 보관됩니다. 복구나 업데이트에 필요한 경우 영구적인 원본을 제공하세요.</value>
+    <value>SYSTEM으로 실행됩니다. 무인 실행 및 제어된 다시 시작을 위한 인수를 구성하세요.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>실행 설정</value>
@@ -2480,7 +2480,31 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>폴더 가져오기</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>이름, 콘텐츠 경로, 명령 및 프로세스 설정을 확인하세요. 종료 코드 목록은 서로 겹치거나 1641을 포함할 수 없으며, 시간 제한은 1–86400초여야 합니다.</value>
+    <value>이 작업이 유효하지 않습니다. 구성을 확인하세요.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>최대 8191자의 한 줄을 입력하세요.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>가져온 콘텐츠에서 스크립트 또는 설치 프로그램을 선택하세요.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>0 이상의 고유한 종료 코드를 최대 32개까지 쉼표로 구분하여 입력하세요. 1641은 사용하지 마세요.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>제어 문자 없이 1~256자의 이름을 입력하세요.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>"{0}"을(를) 편집하여 설정을 수정하세요.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>1~86400 사이의 정수를 입력하세요.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>가져온 콘텐츠의 폴더를 입력하거나 비워 두세요.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>"{0}"의 누락된 콘텐츠를 가져오세요.</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>아래로 이동</value>
@@ -2497,14 +2521,14 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>순서</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>다시 시작 종료 코드는 성공 종료 코드로 동시에 지정할 수 없습니다.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell 스크립트 (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell 인수</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>미디어를 만들기 전에 작업 설정을 확인하고 누락된 패키지 콘텐츠를 가져오세요.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Windows 다시 시작</value>

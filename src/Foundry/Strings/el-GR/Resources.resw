@@ -2240,7 +2240,7 @@
     <value>Επιλογή OS</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Εκτελέστε προσαρμοσμένες ενέργειες μετά την εγκατάσταση των Windows και πριν από το OOBE.</value>
+    <value>Εκτελέστε προσαρμοσμένες ενέργειες πριν από το OOBE, μετά τις ενσωματωμένες εργασίες του Foundry.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>Μετά την εγκατάσταση</value>
@@ -2413,9 +2413,6 @@
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Ορίσματα ή ιδιότητες MSI</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Οι ενσωματωμένες εργασίες του Foundry εκτελούνται πρώτες. Προσθέστε παρακάτω τις προσαρμοσμένες ενέργειές σας με τη σειρά εκτέλεσης.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Γραμμή εντολών</value>
   </data>
@@ -2430,6 +2427,9 @@
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Περιεχόμενο πακέτου</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Εισαγάγετε ένα αρχείο ή έναν φάκελο.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Κατάσταση περιεχομένου</value>
@@ -2456,13 +2456,13 @@
     <value>Η ρύθμιση παραμέτρων άλλαξε κατά την επεξεργασία. Ανοίξτε ξανά την ενέργεια.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Δεν έχουν προστεθεί ενέργειες. Επιλέξτε Προσθήκη ενέργειας για να ρυθμίσετε μια δέσμη ενεργειών, μια εντολή, μια εγκατάσταση λογισμικού ή μια επανεκκίνηση.</value>
+    <value>Δεν έχουν προστεθεί ενέργειες.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Διαδρομή σεναρίου ή προγράμματος εγκατάστασης (σχετική με το περιεχόμενο)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Οι ενέργειες εκτελούνται ως SYSTEM. Είστε υπεύθυνοι για τα ορίσματα, την εκτέλεση χωρίς επίβλεψη και την αποτροπή επανεκκινήσεων που προκαλούνται από το πρόγραμμα εγκατάστασης. Το περιεχόμενο είναι προσωρινό· παρέχετε μόνιμες πηγές αν τις απαιτούν οι επιδιορθώσεις ή οι ενημερώσεις.</value>
+    <value>Εκτελείται ως SYSTEM. Ρυθμίστε τα ορίσματα για εκτέλεση χωρίς επίβλεψη και ελεγχόμενες επανεκκινήσεις.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Ρυθμίσεις εκτέλεσης</value>
@@ -2480,7 +2480,31 @@
     <value>Εισαγωγή φακέλου</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Ελέγξτε το όνομα, τη διαδρομή περιεχομένου, την εντολή και τις ρυθμίσεις διεργασίας. Οι λίστες κωδικών εξόδου δεν πρέπει να επικαλύπτονται ή να περιέχουν το 1641· το χρονικό όριο πρέπει να είναι 1–86400 δευτερόλεπτα.</value>
+    <value>Αυτή η ενέργεια δεν είναι έγκυρη. Ελέγξτε τη διαμόρφωσή της.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Εισαγάγετε μία γραμμή έως 8191 χαρακτήρων.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Επιλέξτε μια δέσμη ενεργειών ή ένα πρόγραμμα εγκατάστασης από το εισαγόμενο περιεχόμενο.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Εισαγάγετε έως 32 μοναδικούς, μη αρνητικούς κωδικούς εξόδου, διαχωρισμένους με κόμματα. Μη χρησιμοποιείτε το 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Εισαγάγετε ένα όνομα 1–256 χαρακτήρων χωρίς χαρακτήρες ελέγχου.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Επεξεργαστείτε το «{0}» για να διορθώσετε τις ρυθμίσεις του.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Εισαγάγετε έναν ακέραιο από 1 έως 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Εισαγάγετε έναν φάκελο από το εισαγόμενο περιεχόμενο ή αφήστε το πεδίο κενό.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Εισαγάγετε το περιεχόμενο που λείπει για το «{0}».</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Μετακίνηση κάτω</value>
@@ -2497,14 +2521,14 @@
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Σειρά</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Ένας κωδικός εξόδου επανεκκίνησης δεν μπορεί να είναι και κωδικός εξόδου επιτυχίας.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Δέσμη ενεργειών PowerShell (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Ορίσματα PowerShell</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Ελέγξτε τις ρυθμίσεις των ενεργειών και εισαγάγετε το περιεχόμενο πακέτων που λείπει πριν δημιουργήσετε το μέσο.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Επανεκκίνηση των Windows</value>

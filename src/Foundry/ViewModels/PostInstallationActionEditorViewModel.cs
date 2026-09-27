@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
@@ -50,23 +51,24 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     public PreOobeSettings Baseline { get; }
     public bool IsNew { get; }
     public ObservableCollection<string> EntryPoints { get; } = [];
-    [ObservableProperty][NotifyPropertyChangedFor(nameof(CanSave))] public partial string Name { get; set; } = string.Empty;
-    [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview), nameof(InstallerType), nameof(IsMsi), nameof(CanSave))] public partial string EntryPoint { get; set; } = string.Empty;
+    [ObservableProperty] public partial string Name { get; set; } = string.Empty;
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview), nameof(InstallerType), nameof(IsMsi))] public partial string EntryPoint { get; set; } = string.Empty;
     [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial string PowerShellArguments { get; set; } = string.Empty;
     [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial bool GenerateInstallationLog { get; set; }
     [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial string Arguments { get; set; } = string.Empty;
-    [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview), nameof(CanSave))] public partial string CommandText { get; set; } = string.Empty;
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial string CommandText { get; set; } = string.Empty;
     [ObservableProperty] public partial string WorkingDirectory { get; set; } = string.Empty;
     [ObservableProperty] public partial double TimeoutSeconds { get; set; }
     [ObservableProperty] public partial string SuccessCodes { get; set; } = "0";
     [ObservableProperty] public partial string RestartCodes { get; set; } = string.Empty;
     [ObservableProperty] public partial bool ContinueOnError { get; set; }
     [ObservableProperty] public partial bool DeferRestart { get; set; }
-    [ObservableProperty][NotifyPropertyChangedFor(nameof(CanSave), nameof(CanEdit), nameof(HasFeedback))] public partial bool IsBusy { get; set; }
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(CanEdit), nameof(HasFeedback))] public partial bool IsBusy { get; set; }
     [ObservableProperty][NotifyPropertyChangedFor(nameof(HasError), nameof(HasFeedback))] public partial string Error { get; set; } = string.Empty;
+    [ObservableProperty] public partial string InvalidField { get; set; } = string.Empty;
+    [ObservableProperty] public partial string ValidationMessage { get; set; } = string.Empty;
+    public Visibility ValidationVisibility(string field, string invalidField) => field == invalidField ? Visibility.Visible : Visibility.Collapsed;
     public bool CanEdit => !IsBusy;
-    public bool CanSave => CanEdit && !string.IsNullOrWhiteSpace(Name) &&
-        (!IsExecutable || (IsCommand ? !string.IsNullOrWhiteSpace(CommandText) : HasPackage && !string.IsNullOrWhiteSpace(EntryPoint)));
     public bool HasError => !string.IsNullOrEmpty(Error);
     public bool HasFeedback => IsBusy || HasError;
     public bool HasPackage => package is not null;
@@ -176,9 +178,13 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
             directories.Clear();
             directories.UnionWith(lease.Manifest.Directories);
             if (HasEntryPoint && !EntryPoints.Contains(EntryPoint)) EntryPoint = EntryPoints.FirstOrDefault() ?? string.Empty;
+            if (InvalidField is nameof(PackageName) or nameof(EntryPoint) or nameof(WorkingDirectory))
+            {
+                InvalidField = string.Empty;
+                ValidationMessage = string.Empty;
+            }
             OnPropertyChanged(nameof(PackageName));
             OnPropertyChanged(nameof(HasPackage));
-            OnPropertyChanged(nameof(CanSave));
         }
         catch (OperationCanceledException) { }
         catch (Exception ex)
@@ -196,56 +202,100 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
         _ => false
     };
 
-    /// <summary>Validates the immutable draft before the dialog is allowed to close.</summary>
+    /// <summary>Validates the draft and identifies the first field that needs attention.</summary>
     public bool TryBuild(out PreOobeActionSettings? result)
     {
         result = null;
         if (IsBusy) return false;
-        try
+        InvalidField = string.Empty;
+        ValidationMessage = string.Empty;
+        Error = string.Empty;
+        if (string.IsNullOrWhiteSpace(Name) || Name.Trim().Length > 256 || Name.Any(char.IsControl))
+            return Invalid(nameof(Name), "InvalidName");
+        var action = original with { Name = Name.Trim() };
+        if (IsExecutable)
         {
-            var action = original with { Name = Name.Trim() };
-            if (IsExecutable)
+            string entryPoint = NormalizedEntryPoint;
+            string? workingDirectory = NullIfEmpty(WorkingDirectory.Trim().Replace('\\', '/'));
+            if (HasEntryPoint && package is null) return Invalid(nameof(PackageName), "ContentRequired");
+            if (HasEntryPoint && !EntryPoints.Contains(entryPoint, StringComparer.OrdinalIgnoreCase))
+                return Invalid(nameof(EntryPoint), "InvalidEntryPoint");
+            if (workingDirectory is not null && !directories.Contains(workingDirectory))
+                return Invalid(nameof(WorkingDirectory), "InvalidWorkingDirectory");
+            if (IsPowerShell && !IsSingleLine(PowerShellArguments)) return Invalid(nameof(PowerShellArguments), "InvalidCommandText");
+            if (HasEntryPoint && !IsSingleLine(Arguments)) return Invalid(nameof(Arguments), "InvalidCommandText");
+            if (IsCommand && (string.IsNullOrWhiteSpace(CommandText) || !IsSingleLine(CommandText)))
+                return Invalid(nameof(CommandText), "InvalidCommandText");
+            if (!double.IsFinite(TimeoutSeconds) || TimeoutSeconds != Math.Truncate(TimeoutSeconds) || TimeoutSeconds is < 1 or > 86400)
+                return Invalid(nameof(TimeoutSeconds), "InvalidTimeout");
+            int[]? successCodes = ParseCodes(SuccessCodes, required: true);
+            if (successCodes is null) return Invalid(nameof(SuccessCodes), "InvalidExitCodes");
+            int[]? restartCodes = ParseCodes(RestartCodes, required: false);
+            if (restartCodes is null) return Invalid(nameof(RestartCodes), "InvalidExitCodes");
+            if (successCodes.Intersect(restartCodes).Any()) return Invalid(nameof(RestartCodes), "OverlappingExitCodes");
+            action = action with
             {
-                string entryPoint = NormalizedEntryPoint;
-                string? workingDirectory = NullIfEmpty(WorkingDirectory.Trim().Replace('\\', '/'));
-                if (HasEntryPoint && !EntryPoints.Contains(entryPoint, StringComparer.OrdinalIgnoreCase)) throw new FormatException();
-                if (workingDirectory is not null && !directories.Contains(workingDirectory)) throw new FormatException();
-                if (!double.IsFinite(TimeoutSeconds) || TimeoutSeconds != Math.Truncate(TimeoutSeconds)) throw new FormatException();
-                action = action with
+                Package = package,
+                EntryPoint = HasEntryPoint ? entryPoint : null,
+                Arguments = HasEntryPoint ? NullIfEmpty(Arguments) : null,
+                PowerShellArguments = IsPowerShell ? NullIfEmpty(PowerShellArguments) : null,
+                GenerateInstallationLog = IsMsi && GenerateInstallationLog,
+                Command = IsCommand ? CommandText : null,
+                WorkingDirectory = workingDirectory,
+                ApplicationMode = ApplicationMode,
+                Process = new()
                 {
-                    Package = package,
-                    EntryPoint = HasEntryPoint ? entryPoint : null,
-                    Arguments = HasEntryPoint ? NullIfEmpty(Arguments) : null,
-                    PowerShellArguments = IsPowerShell ? NullIfEmpty(PowerShellArguments) : null,
-                    GenerateInstallationLog = IsMsi && GenerateInstallationLog,
-                    Command = IsCommand ? CommandText : null,
-                    WorkingDirectory = workingDirectory,
-                    ApplicationMode = ApplicationMode,
-                    Process = new()
-                    {
-                        TimeoutSeconds = checked((int)TimeoutSeconds),
-                        SuccessExitCodes = ParseCodes(SuccessCodes),
-                        RestartExitCodes = ParseCodes(RestartCodes),
-                        ErrorPolicy = ContinueOnError ? PreOobeErrorPolicy.Continue : PreOobeErrorPolicy.Stop,
-                        RestartTiming = DeferRestart ? PreOobeRestartTiming.Deferred : PreOobeRestartTiming.Immediate
-                    }
-                };
-            }
-            if (PreOobeConfigurationValidator.Validate(new PreOobeSettings { IsEnabled = true, Actions = (PreOobeActionSettings[])[action with { IsEnabled = true }] }).Count != 0)
-                throw new FormatException();
-            result = action;
-            Error = string.Empty;
-            return true;
+                    TimeoutSeconds = (int)TimeoutSeconds,
+                    SuccessExitCodes = successCodes,
+                    RestartExitCodes = restartCodes,
+                    ErrorPolicy = ContinueOnError ? PreOobeErrorPolicy.Continue : PreOobeErrorPolicy.Stop,
+                    RestartTiming = DeferRestart ? PreOobeRestartTiming.Deferred : PreOobeRestartTiming.Immediate
+                }
+            };
         }
-        catch (Exception ex) when (ex is FormatException or OverflowException or ArgumentException)
+        if (PreOobeConfigurationValidator.Validate(new PreOobeSettings { IsEnabled = true, Actions = (PreOobeActionSettings[])[action with { IsEnabled = true }] }).Count != 0)
         {
             Error = Text("InvalidAction");
             return false;
         }
+        result = action;
+        return true;
     }
 
-    private static int[] ParseCodes(string value) => string.IsNullOrWhiteSpace(value) ? [] :
-        value.Split(',', StringSplitOptions.TrimEntries).Select(item => int.Parse(item, NumberStyles.Integer, CultureInfo.InvariantCulture)).ToArray();
+    private bool Invalid(string field, string key)
+    {
+        ValidationMessage = Text(key);
+        InvalidField = field;
+        return false;
+    }
+
+    protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+    {
+        base.OnPropertyChanged(args);
+        if (!string.IsNullOrEmpty(InvalidField) && (args.PropertyName == InvalidField ||
+            InvalidField == nameof(RestartCodes) && args.PropertyName == nameof(SuccessCodes)))
+        {
+            InvalidField = string.Empty;
+            ValidationMessage = string.Empty;
+        }
+    }
+
+    private static bool IsSingleLine(string value) => value.Length <= PreOobeConfigurationValidator.MaximumCommandLength && value.IndexOfAny(['\0', '\r', '\n']) < 0;
+
+    private static int[]? ParseCodes(string value, bool required)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return required ? null : [];
+        string[] parts = value.Split(',', StringSplitOptions.TrimEntries);
+        if (parts.Length > 32) return null;
+        var codes = new List<int>();
+        foreach (string part in parts)
+        {
+            if (!int.TryParse(part, NumberStyles.Integer, CultureInfo.InvariantCulture, out int code) || code < 0 || code == 1641 || codes.Contains(code)) return null;
+            codes.Add(code);
+        }
+        return codes.ToArray();
+    }
+
     private static string? NullIfEmpty(string value) => string.IsNullOrWhiteSpace(value) ? null : value;
     public void Dispose() { cancellation.Cancel(); cancellation.Dispose(); }
 }

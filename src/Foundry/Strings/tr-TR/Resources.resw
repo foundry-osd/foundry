@@ -2240,7 +2240,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>İşletim sistemi seçimi</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Windows kurulumundan sonra ve OOBE'den önce özel eylemler çalıştırın.</value>
+    <value>Özel eylemleri OOBE’den önce, Foundry’nin yerleşik görevlerinden sonra çalıştırın.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>Kurulum sonrası</value>
@@ -2413,9 +2413,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Bağımsız değişkenler veya MSI özellikleri</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Önce Foundry'nin yerleşik görevleri çalışır. Özel eylemlerinizi aşağıya yürütme sırasıyla ekleyin.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Komut satırı</value>
   </data>
@@ -2430,6 +2427,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paket içeriği</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Bir dosya veya klasör içeri aktarın.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>İçerik durumu</value>
@@ -2456,13 +2456,13 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Düzenleme sırasında yapılandırma değişti. Eylemi yeniden açın.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Henüz eylem eklenmedi. Betik, komut, yazılım kurulumu veya yeniden başlatma yapılandırmak için Eylem ekle’yi seçin.</value>
+    <value>Henüz eylem eklenmedi.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Betik veya yükleyici yolu (içeriğe göre)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Eylemler SYSTEM olarak çalışır. Bağımsız değişkenlerden, katılımsız yürütmeden ve yükleyicinin başlattığı yeniden başlatmaları önlemekten siz sorumlusunuz. İçerik geçicidir; onarımlar veya güncelleştirmeler gerektiriyorsa kalıcı kaynaklar sağlayın.</value>
+    <value>SYSTEM olarak çalışır. Katılımsız yürütme ve kontrollü yeniden başlatmalar için bağımsız değişkenleri yapılandırın.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Yürütme ayarları</value>
@@ -2480,7 +2480,31 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Klasör içeri aktar</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Adı, içerik yolunu, komutu ve işlem ayarlarını denetleyin. Çıkış kodu listeleri çakışmamalı veya 1641 içermemelidir; zaman aşımı 1–86400 saniye olmalıdır.</value>
+    <value>Bu eylem geçersiz. Yapılandırmasını denetleyin.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>En fazla 8191 karakter içeren tek bir satır girin.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>İçeri aktarılan içerikten bir betik veya yükleyici seçin.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Virgülle ayrılmış en fazla 32 benzersiz, negatif olmayan çıkış kodu girin. 1641 kullanmayın.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Kontrol karakterleri içermeyen, 1–256 karakter uzunluğunda bir ad girin.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Ayarlarını düzeltmek için “{0}” öğesini düzenleyin.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>1 ile 86400 arasında bir tam sayı girin.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>İçeri aktarılan içerikten bir klasör girin veya bu alanı boş bırakın.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>“{0}” için eksik içeriği içeri aktarın.</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Aşağı taşı</value>
@@ -2497,14 +2521,14 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Sıra</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Bir yeniden başlatma çıkış kodu aynı zamanda başarı çıkış kodu olamaz.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell betiği (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell bağımsız değişkenleri</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Medya oluşturmadan önce eylem ayarlarını denetleyin ve eksik paket içeriğini içeri aktarın.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Windows’u yeniden başlat</value>

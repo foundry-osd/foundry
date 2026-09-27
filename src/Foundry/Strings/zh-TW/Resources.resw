@@ -2240,7 +2240,7 @@
     <value>作業系統選擇</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>在 Windows 安裝完成後、OOBE 之前執行自訂動作。</value>
+    <value>在 Foundry 內建工作之後、OOBE 之前執行自訂動作。</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>安裝後作業</value>
@@ -2413,9 +2413,6 @@
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>引數或 MSI 屬性</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Foundry 內建工作會先執行。請在下方依執行順序新增自訂動作。</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>命令列</value>
   </data>
@@ -2430,6 +2427,9 @@
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>套件內容</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>匯入檔案或資料夾。</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>內容狀態</value>
@@ -2456,13 +2456,13 @@
     <value>編輯期間組態已變更。請重新開啟此動作。</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>尚未新增動作。選取「新增動作」以設定指令碼、命令、軟體安裝或重新啟動。</value>
+    <value>尚未新增動作。</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>指令碼或安裝程式路徑（相對於內容）</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>動作以 SYSTEM 身分執行。您負責指定引數、確保自動執行，以及防止安裝程式自行重新啟動。內容僅暫時保留；如果修復或更新需要來源檔案，請提供持續可用的來源。</value>
+    <value>以 SYSTEM 身分執行。請設定引數以自動執行及控制重新啟動。</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>執行設定</value>
@@ -2480,7 +2480,31 @@
     <value>匯入資料夾</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>請檢查名稱、內容路徑、命令與處理序設定。結束代碼清單不得重疊或包含 1641；逾時必須為 1–86400 秒。</value>
+    <value>此動作無效。請檢查其設定。</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>輸入不超過 8191 個字元的單行文字。</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>從匯入的內容中選取指令碼或安裝程式。</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>輸入最多 32 個不重複的非負結束代碼，以逗號分隔。請勿使用 1641。</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>輸入 1–256 個字元的名稱，不得包含控制字元。</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>編輯「{0}」以修正其設定。</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>輸入 1 到 86400 之間的整數。</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>輸入匯入內容中的資料夾，或保留空白。</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>匯入「{0}」缺少的內容。</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>下移</value>
@@ -2497,14 +2521,14 @@
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>順序</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>重新啟動結束代碼不能同時作為成功結束代碼。</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell 指令碼 (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell 引數</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>建立媒體前，請檢查動作設定並匯入缺少的套件內容。</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>重新啟動 Windows</value>

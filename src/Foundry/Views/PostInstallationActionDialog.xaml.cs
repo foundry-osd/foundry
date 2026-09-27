@@ -30,8 +30,15 @@ public sealed partial class PostInstallationActionDialog : ContentDialog
         await ViewModel.InitializeAsync();
     }
 
-    private void OnPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args) =>
+    private void OnPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+    {
         args.Cancel = !ViewModel.TryBuild(out _);
+        if (args.Cancel && !string.IsNullOrEmpty(ViewModel.InvalidField))
+        {
+            if (FindName(ViewModel.InvalidField + "Input") is Control control) control.Focus(FocusState.Programmatic);
+            if (FindName(ViewModel.InvalidField + "Group") is FrameworkElement group) group.StartBringIntoView();
+        }
+    }
 
     private void OnOpened(ContentDialog sender, ContentDialogOpenedEventArgs args) => hostRoot.Changed += OnRootChanged;
 

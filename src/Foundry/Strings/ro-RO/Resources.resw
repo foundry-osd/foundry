@@ -2240,7 +2240,7 @@ Licențiat sub licența MIT.</value>
     <value>Selectare sistem de operare</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Executați acțiuni personalizate după instalarea Windows și înainte de OOBE.</value>
+    <value>Execută acțiuni personalizate înainte de OOBE, după sarcinile integrate ale Foundry.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>După instalare</value>
@@ -2413,9 +2413,6 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Argumente sau proprietăți MSI</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Sarcinile încorporate Foundry se execută primele. Adăugați mai jos acțiunile personalizate în ordinea executării.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Linie de comandă</value>
   </data>
@@ -2430,6 +2427,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Conținutul pachetului</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Importă un fișier sau un folder.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Starea conținutului</value>
@@ -2456,13 +2456,13 @@ Licențiat sub licența MIT.</value>
     <value>Configurația s-a modificat în timpul editării. Deschideți din nou acțiunea.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Nu au fost adăugate acțiuni. Selectează Adaugă acțiune pentru a configura un script, o comandă, o instalare de software sau o repornire.</value>
+    <value>Nu au fost adăugate acțiuni.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Calea scriptului sau a programului de instalare (relativă la conținut)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Acțiunile se execută ca SYSTEM. Ești responsabil pentru argumente, execuția nesupravegheată și prevenirea repornirilor inițiate de programul de instalare. Conținutul este temporar; furnizează surse permanente dacă reparațiile sau actualizările le necesită.</value>
+    <value>Se execută ca SYSTEM. Configurează argumentele pentru execuție nesupravegheată și reporniri controlate.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Setări de execuție</value>
@@ -2480,7 +2480,31 @@ Licențiat sub licența MIT.</value>
     <value>Importați un folder</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Verificați numele, calea conținutului, comanda și setările procesului. Listele codurilor de ieșire nu trebuie să se suprapună sau să conțină 1641; limita de timp trebuie să fie de 1–86400 de secunde.</value>
+    <value>Această acțiune nu este validă. Verifică-i configurația.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Introdu un singur rând de cel mult 8191 de caractere.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Selectează un script sau un program de instalare din conținutul importat.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Introdu cel mult 32 de coduri de ieșire unice, nenegative, separate prin virgulă. Nu folosi 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Introdu un nume de 1–256 de caractere, fără caractere de control.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Editează „{0}” pentru a corecta setările.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Introdu un număr întreg de la 1 la 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Introdu un folder din conținutul importat sau lasă acest câmp gol.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Importă conținutul lipsă pentru „{0}”.</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Mutați în jos</value>
@@ -2497,14 +2521,14 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ordine</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Un cod de ieșire pentru repornire nu poate fi și un cod de ieșire pentru succes.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Script PowerShell (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argumente PowerShell</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Verificați setările acțiunilor și importați conținutul lipsă al pachetelor înainte de a crea suportul.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Repornește Windows</value>

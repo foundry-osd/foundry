@@ -2240,7 +2240,7 @@ Licenciran prema MIT licenci.</value>
     <value>Odabir OS-a</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Pokrenite prilagođene radnje nakon instalacije sustava Windows i prije OOBE-a.</value>
+    <value>Pokrenite prilagođene radnje prije OOBE-a, nakon ugrađenih zadataka programa Foundry.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>Nakon instalacije</value>
@@ -2413,9 +2413,6 @@ Licenciran prema MIT licenci.</value>
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Argumenti ili svojstva MSI-ja</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Prvo se izvršavaju ugrađeni zadaci Foundryja. U nastavku dodajte prilagođene radnje redoslijedom izvršavanja.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Naredbeni redak</value>
   </data>
@@ -2430,6 +2427,9 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Sadržaj paketa</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Uvezite datoteku ili mapu.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Stanje sadržaja</value>
@@ -2456,13 +2456,13 @@ Licenciran prema MIT licenci.</value>
     <value>Konfiguracija se promijenila tijekom uređivanja. Ponovno otvorite radnju.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Nisu dodane radnje. Odaberite Dodaj radnju za konfiguriranje skripte, naredbe, instalacije softvera ili ponovnog pokretanja.</value>
+    <value>Nisu dodane radnje.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Putanja skripte ili instalacijskog programa (u odnosu na sadržaj)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Radnje se izvršavaju kao SYSTEM. Odgovorni ste za argumente, izvršavanje bez nadzora i sprječavanje ponovnih pokretanja koja pokreće instalacijski program. Sadržaj je privremen; osigurajte trajne izvore ako ih zahtijevaju popravci ili ažuriranja.</value>
+    <value>Izvršava se kao SYSTEM. Konfigurirajte argumente za izvršavanje bez nadzora i kontrolirana ponovna pokretanja.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Postavke izvršavanja</value>
@@ -2480,7 +2480,31 @@ Licenciran prema MIT licenci.</value>
     <value>Uvezi mapu</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Provjerite naziv, putanju sadržaja, naredbu i postavke procesa. Popisi izlaznih kodova ne smiju se preklapati ni sadržavati 1641; vremensko ograničenje mora biti 1–86400 sekundi.</value>
+    <value>Ova radnja nije valjana. Provjerite njezinu konfiguraciju.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Unesite jedan redak s najviše 8191 znakom.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Odaberite skriptu ili instalacijski program iz uvezenog sadržaja.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Unesite najviše 32 jedinstvena nenegativna izlazna koda odvojena zarezima. Nemojte koristiti 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Unesite naziv od 1 do 256 znakova bez kontrolnih znakova.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Uredite „{0}” da biste ispravili postavke.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Unesite cijeli broj od 1 do 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Unesite mapu iz uvezenog sadržaja ili ostavite ovo polje praznim.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Uvezite sadržaj koji nedostaje za „{0}”.</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Pomakni dolje</value>
@@ -2497,14 +2521,14 @@ Licenciran prema MIT licenci.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Redoslijed</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Izlazni kod za ponovno pokretanje ne može biti i izlazni kod za uspjeh.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell skripta (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell argumenti</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Prije stvaranja medija provjerite postavke radnji i uvezite sadržaj paketa koji nedostaje.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Ponovno pokreni Windows</value>

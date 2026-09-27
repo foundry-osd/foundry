@@ -2240,7 +2240,7 @@
     <value>Избор на OS</value>
   </data>
   <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
-    <value>Изпълнявайте персонализирани действия след инсталирането на Windows и преди OOBE.</value>
+    <value>Изпълнявайте персонализирани действия преди OOBE, след вградените задачи на Foundry.</value>
   </data>
   <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
     <value>След инсталиране</value>
@@ -2413,9 +2413,6 @@
   <data name="PostInstallation.Arguments" xml:space="preserve">
     <value>Аргументи или свойства на MSI</value>
   </data>
-  <data name="PostInstallation.BuiltIns" xml:space="preserve">
-    <value>Първо се изпълняват вградените задачи на Foundry. Добавете по-долу персонализираните действия в реда на изпълнение.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Команден ред</value>
   </data>
@@ -2430,6 +2427,9 @@
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Съдържание на пакета</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Импортирайте файл или папка.</value>
   </data>
   <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
     <value>Състояние на съдържанието</value>
@@ -2456,13 +2456,13 @@
     <value>Конфигурацията се промени по време на редактиране. Отворете действието отново.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Няма добавени действия. Изберете Добавяне на действие, за да конфигурирате скрипт, команда, инсталиране на софтуер или рестартиране.</value>
+    <value>Няма добавени действия.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Път до скрипта или инсталатора (спрямо съдържанието)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Действията се изпълняват като SYSTEM. Вие отговаряте за аргументите, изпълнението без надзор и предотвратяването на рестартирания, инициирани от инсталатора. Съдържанието е временно; осигурете постоянни източници, ако са необходими за поправки или актуализации.</value>
+    <value>Изпълнява се като SYSTEM. Конфигурирайте аргументите за изпълнение без надзор и контролирани рестартирания.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Настройки за изпълнение</value>
@@ -2480,7 +2480,31 @@
     <value>Импортиране на папка</value>
   </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
-    <value>Проверете името, пътя до съдържанието, командата и настройките на процеса. Списъците с кодове за изход не трябва да се припокриват или да съдържат 1641; времето за изчакване трябва да е 1–86400 секунди.</value>
+    <value>Това действие е невалидно. Проверете конфигурацията му.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Въведете един ред с до 8191 знака.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Изберете скрипт или инсталатор от импортираното съдържание.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Въведете до 32 уникални неотрицателни кода за изход, разделени със запетаи. Не използвайте 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Въведете име от 1 до 256 знака без контролни знаци.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Редактирайте „{0}“, за да коригирате настройките.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Въведете цяло число от 1 до 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Въведете папка от импортираното съдържание или оставете полето празно.</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Импортирайте липсващото съдържание за „{0}“.</value>
   </data>
   <data name="PostInstallation.MoveDown" xml:space="preserve">
     <value>Преместване надолу</value>
@@ -2497,14 +2521,14 @@
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ред</value>
   </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Код за изход за рестартиране не може да бъде и код за успешен изход.</value>
+  </data>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell скрипт (.ps1)</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Аргументи на PowerShell</value>
-  </data>
-  <data name="PostInstallation.Readiness" xml:space="preserve">
-    <value>Проверете настройките на действията и импортирайте липсващото съдържание на пакетите, преди да създадете носител.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Рестартиране на Windows</value>
