@@ -2428,6 +2428,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paket içeriği</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Eylem kaldırıldı, ancak önbelleğe alınmış içeriği silinemedi.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Bir dosya veya klasör içeri aktarın.</value>
   </data>
@@ -2535,6 +2538,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell bağımsız değişkenleri</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Eylem kaldırılamadı. Yeniden deneyin.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Windows’u yeniden başlat</value>

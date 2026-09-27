@@ -2428,6 +2428,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>패키지 콘텐츠</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>작업은 제거되었지만 캐시된 콘텐츠를 삭제하지 못했습니다.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>파일 또는 폴더를 가져오세요.</value>
   </data>
@@ -2535,6 +2538,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell 인수</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>작업을 제거하지 못했습니다. 다시 시도하세요.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Windows 다시 시작</value>

@@ -2428,6 +2428,9 @@
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Съдържание на пакета</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Действието беше премахнато, но кешираното му съдържание не можа да бъде изтрито.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Импортирайте файл или папка.</value>
   </data>
@@ -2535,6 +2538,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Аргументи на PowerShell</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Действието не можа да бъде премахнато. Опитайте отново.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Рестартиране на Windows</value>

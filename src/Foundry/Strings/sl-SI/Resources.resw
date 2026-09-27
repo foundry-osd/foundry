@@ -2428,6 +2428,9 @@ Licencirano pod licenco MIT.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Vsebina paketa</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Dejanje je bilo odstranjeno, vendar njegove vsebine v predpomnilniku ni bilo mogoče izbrisati.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Uvozite datoteko ali mapo.</value>
   </data>
@@ -2535,6 +2538,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argumenti PowerShell</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Dejanja ni bilo mogoče odstraniti. Poskusite znova.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Znova zaženi Windows</value>

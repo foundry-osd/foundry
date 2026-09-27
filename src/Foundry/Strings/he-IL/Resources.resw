@@ -2428,6 +2428,9 @@
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>תוכן החבילה</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>הפעולה הוסרה, אך לא ניתן היה למחוק את התוכן שלה מהמטמון.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>ייבא קובץ או תיקייה.</value>
   </data>
@@ -2535,6 +2538,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>ארגומנטים של PowerShell</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>לא ניתן היה להסיר את הפעולה. נסה שוב.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>הפעלת Windows מחדש</value>

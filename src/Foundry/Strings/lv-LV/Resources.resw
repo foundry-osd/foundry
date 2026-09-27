@@ -2428,6 +2428,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Pakotnes saturs</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Darbība tika noņemta, bet tās kešatmiņā saglabāto saturu neizdevās izdzēst.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Importējiet failu vai mapi.</value>
   </data>
@@ -2535,6 +2538,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell argumenti</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Darbību neizdevās noņemt. Mēģiniet vēlreiz.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Restartēt Windows</value>

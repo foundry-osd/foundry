@@ -2428,6 +2428,9 @@ Licensierad under MIT-licensen.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketinnehåll</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Åtgärden togs bort, men dess cachelagrade innehåll kunde inte raderas.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Importera en fil eller mapp.</value>
   </data>
@@ -2535,6 +2538,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argument</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Åtgärden kunde inte tas bort. Försök igen.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Starta om Windows</value>

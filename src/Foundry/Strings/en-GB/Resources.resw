@@ -2428,6 +2428,9 @@ Licensed under the MIT License.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Package content</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>The action was removed, but its cached content could not be deleted.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Import a file or folder.</value>
   </data>
@@ -2535,6 +2538,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell arguments</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>The action could not be removed. Try again.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Restart Windows</value>

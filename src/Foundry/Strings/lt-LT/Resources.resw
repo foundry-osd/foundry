@@ -2428,6 +2428,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketo turinys</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Veiksmas pašalintas, tačiau nepavyko ištrinti jo turinio iš podėlio.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Importuokite failą arba aplanką.</value>
   </data>
@@ -2535,6 +2538,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell argumentai</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Nepavyko pašalinti veiksmo. Bandykite dar kartą.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Paleisti Windows iš naujo</value>

@@ -19,16 +19,18 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     private readonly PreOobePackageLibraryService library;
     private readonly IFilePickerService picker;
     private readonly IApplicationLocalizationService localization;
+    private readonly DeploymentProfileCoordinator profiles;
     private bool applying;
     private bool disposed;
 
     public PostInstallationViewModel(IFoundryConfigurationStateService state, PreOobePackageLibraryService library,
-        IFilePickerService picker, IApplicationLocalizationService localization)
+        IFilePickerService picker, IApplicationLocalizationService localization, DeploymentProfileCoordinator profiles)
     {
         this.state = state;
         this.library = library;
         this.picker = picker;
         this.localization = localization;
+        this.profiles = profiles;
         state.StateChanged += OnStateChanged;
         localization.LanguageChanged += OnLanguageChanged;
         ApplyState();
@@ -36,12 +38,15 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
 
     public ObservableCollection<PostInstallationActionRow> Actions { get; } = [];
     [ObservableProperty] public partial bool IsEnabled { get; set; }
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(CanConfigure), nameof(CanChangeEnabled))] public partial bool IsBusy { get; set; }
     [ObservableProperty] public partial PostInstallationActionRow? SelectedAction { get; set; }
     [ObservableProperty][NotifyPropertyChangedFor(nameof(HasStatus))] public partial string StatusMessage { get; set; } = string.Empty;
     public bool HasStatus => !string.IsNullOrWhiteSpace(StatusMessage);
     public bool HasActions => Actions.Count > 0;
     public bool IsEmpty => !HasActions;
-    public bool CanEdit => IsEnabled && SelectedAction is not null;
+    public bool CanConfigure => IsEnabled && !IsBusy;
+    public bool CanChangeEnabled => !IsBusy;
+    public bool CanEdit => CanConfigure && SelectedAction is not null;
     public bool CanMoveUp => CanEdit && Actions.IndexOf(SelectedAction!) > 0;
     public bool CanMoveDown => CanEdit && Actions.IndexOf(SelectedAction!) < Actions.Count - 1;
     public bool HasReadinessIssue => !state.IsPostInstallationReady;
@@ -83,8 +88,11 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     partial void OnIsEnabledChanged(bool value)
     {
         if (!applying) state.UpdatePreOobe(state.Current.PreOobe with { IsEnabled = value });
+        OnPropertyChanged(nameof(CanConfigure));
         RaiseSelection();
     }
+
+    partial void OnIsBusyChanged(bool value) => RaiseSelection();
 
     partial void OnSelectedActionChanged(PostInstallationActionRow? value) => RaiseSelection();
 
@@ -99,7 +107,7 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     /// <summary>Rejects an edit if a profile switch or concurrent configuration change replaced its baseline.</summary>
     public bool SaveEditor(PostInstallationActionEditorViewModel editor)
     {
-        if (!ReferenceEquals(editor.Baseline, state.Current.PreOobe) || !editor.TryBuild(out var action))
+        if (IsBusy || !ReferenceEquals(editor.Baseline, state.Current.PreOobe) || !editor.TryBuild(out var action))
         {
             StatusMessage = Text("EditConflict");
             return false;
@@ -113,13 +121,26 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     }
 
     [RelayCommand]
-    private void Remove()
+    private async Task RemoveAsync()
     {
         if (!CanEdit) return;
         int position = Actions.IndexOf(SelectedAction!);
         string id = SelectedAction!.Action.Id;
-        state.UpdatePreOobe(state.Current.PreOobe with { Actions = state.Current.PreOobe.Actions.Where(action => action.Id != id).ToArray() });
-        SelectedAction = Actions.ElementAtOrDefault(Math.Min(position, Actions.Count - 1));
+        IsBusy = true;
+        StatusMessage = string.Empty;
+        try
+        {
+            bool cleaned = await profiles.RemovePostInstallationActionAsync(state.Current.PreOobe, id, library);
+            if (disposed) return;
+            SelectedAction = Actions.ElementAtOrDefault(Math.Min(position, Actions.Count - 1));
+            if (!cleaned) StatusMessage = Text("ContentCleanupFailed");
+        }
+        catch (Exception exception)
+        {
+            Logger.Warning(exception, "Post-installation action could not be removed. ActionId={ActionId}", id);
+            if (!disposed) StatusMessage = Text("RemoveFailed");
+        }
+        finally { IsBusy = false; }
     }
 
     [RelayCommand]

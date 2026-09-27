@@ -151,7 +151,9 @@ public interface IFoundryConfigurationStateService
     void UpdateCustomImages(CustomImagesSettings settings);
 
     /// <summary>Persists the ordered post-installation actions and portable package references.</summary>
-    void UpdatePreOobe(PreOobeSettings settings);
+    /// <param name="settings">The replacement action configuration.</param>
+    /// <param name="requirePersistence">Requires a successful write before publishing the change, for destructive cache cleanup.</param>
+    void UpdatePreOobe(PreOobeSettings settings, bool requirePersistence = false);
 
     /// <summary>Checks authoring validity and local availability before media generation.</summary>
     bool IsPostInstallationReady { get; }

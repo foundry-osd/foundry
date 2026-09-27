@@ -2428,6 +2428,9 @@
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>套件內容</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>該動作已移除，但無法刪除其快取內容。</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>匯入檔案或資料夾。</value>
   </data>
@@ -2535,6 +2538,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell 引數</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>無法移除該動作。請再試一次。</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>重新啟動 Windows</value>

@@ -2428,6 +2428,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Pakkeinnhold</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Handlingen ble fjernet, men det hurtigbufrede innholdet kunne ikke slettes.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Importer en fil eller mappe.</value>
   </data>
@@ -2535,6 +2538,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumenter</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Handlingen kunne ikke fjernes. Prøv igjen.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Start Windows på nytt</value>

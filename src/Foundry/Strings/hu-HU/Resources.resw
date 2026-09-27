@@ -2428,6 +2428,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Csomag tartalma</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>A művelet el lett távolítva, de a gyorsítótárazott tartalmát nem sikerült törölni.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Importáljon egy fájlt vagy mappát.</value>
   </data>
@@ -2535,6 +2538,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumentumok</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>A műveletet nem sikerült eltávolítani. Próbálja újra.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Windows újraindítása</value>

@@ -2428,6 +2428,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketinhalt</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Die Aktion wurde entfernt, aber ihr zwischengespeicherter Inhalt konnte nicht gelöscht werden.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Importieren Sie eine Datei oder einen Ordner.</value>
   </data>
@@ -2535,6 +2538,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-Argumente</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Die Aktion konnte nicht entfernt werden. Versuchen Sie es erneut.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Windows neu starten</value>

@@ -2428,6 +2428,9 @@ Licenseret under MIT-licensen.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Pakkeindhold</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Handlingen blev fjernet, men dens cachelagrede indhold kunne ikke slettes.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Importér en fil eller mappe.</value>
   </data>
@@ -2535,6 +2538,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumenter</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Handlingen kunne ikke fjernes. Prøv igen.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Genstart Windows</value>

@@ -2428,6 +2428,9 @@
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Вміст пакета</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Дію видалено, але не вдалося видалити її кешований вміст.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Імпортуйте файл або папку.</value>
   </data>
@@ -2535,6 +2538,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Аргументи PowerShell</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Не вдалося видалити дію. Спробуйте ще раз.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Перезапустити Windows</value>

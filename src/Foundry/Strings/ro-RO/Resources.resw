@@ -2428,6 +2428,9 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Conținutul pachetului</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Acțiunea a fost eliminată, dar conținutul său din cache nu a putut fi șters.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Importă un fișier sau un folder.</value>
   </data>
@@ -2535,6 +2538,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argumente PowerShell</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Acțiunea nu a putut fi eliminată. Încercați din nou.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Repornește Windows</value>

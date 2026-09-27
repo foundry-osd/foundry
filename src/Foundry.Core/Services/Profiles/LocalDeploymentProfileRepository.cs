@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Collections.Frozen;
 using System.ComponentModel;
 using System.Security.Cryptography;
 using System.Text;
@@ -62,6 +63,57 @@ public sealed class LocalDeploymentProfileRepository
         using FileStream lease = AcquireLock();
         bool recovered = Recover(localId);
         return ReadSnapshot(RequireHead(localId) with { CleanupPending = !recovered });
+    }
+
+    /// <summary>Reads every committed package reference and prevents profile writes until the returned lease is disposed.</summary>
+    /// <remarks>Unreadable profiles, unrecognized profile storage, or incomplete recovery prevent cache cleanup.</remarks>
+    public LocalProfilePackageReferenceLease AcquirePostInstallationPackageReferences()
+    {
+        FileStream lease = AcquireLock();
+        try
+        {
+            var hashes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            string directory = ManagedPath("profiles");
+            Directory.CreateDirectory(directory);
+            foreach (string path in Directory.EnumerateFileSystemEntries(directory))
+            {
+                string name = Path.GetFileName(path);
+                if (!Guid.TryParseExact(name, "N", out Guid id) || id == Guid.Empty || !Directory.Exists(path))
+                    throw new InvalidDataException("Local profile storage contains an unrecognized profile entry.");
+                _ = ManagedPath("profiles", name);
+                EnsureRecovered(id);
+                LocalProfileDescriptor? descriptor = ReadHead(id);
+                if (descriptor is null)
+                {
+                    EnsureEmptyRetiredProfile(id);
+                    continue;
+                }
+                using LocalProfileSnapshot snapshot = ReadSnapshot(descriptor);
+                foreach (var action in snapshot.Profile.Configuration.PreOobe.Actions)
+                {
+                    if (action.Package is { } package) hashes.Add(package.ContentHash);
+                }
+            }
+            return new LocalProfilePackageReferenceLease(lease, hashes.ToFrozenSet(StringComparer.OrdinalIgnoreCase));
+        }
+        catch
+        {
+            lease.Dispose();
+            throw;
+        }
+    }
+
+    private void EnsureEmptyRetiredProfile(Guid localId)
+    {
+        string directory = ManagedPath("profiles", localId.ToString("N"));
+        foreach (string path in Directory.EnumerateFileSystemEntries(directory))
+        {
+            if (!string.Equals(Path.GetFileName(path), "revisions", StringComparison.OrdinalIgnoreCase))
+                throw new InvalidDataException("Local profile storage has no committed metadata for existing content.");
+            string revisions = ManagedPath("profiles", localId.ToString("N"), "revisions");
+            if (!Directory.Exists(revisions) || Directory.EnumerateFileSystemEntries(revisions).Any())
+                throw new InvalidDataException("Local profile storage has uncommitted revisions requiring recovery.");
+        }
     }
 
     /// <summary>Returns an owned remembered enrollment key. No remembered policy returns null; a missing requested key is locked.</summary>

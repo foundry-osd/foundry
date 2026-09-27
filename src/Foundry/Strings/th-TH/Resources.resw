@@ -2428,6 +2428,9 @@
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>เนื้อหาแพ็กเกจ</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>นำการดำเนินการออกแล้ว แต่ไม่สามารถลบเนื้อหาที่แคชไว้ได้</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>นำเข้าไฟล์หรือโฟลเดอร์</value>
   </data>
@@ -2535,6 +2538,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>อาร์กิวเมนต์ PowerShell</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>ไม่สามารถนำการดำเนินการออกได้ ลองอีกครั้ง</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>เริ่ม Windows ใหม่</value>

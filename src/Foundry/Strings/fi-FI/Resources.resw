@@ -2428,6 +2428,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketin sisältö</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Toiminto poistettiin, mutta sen välimuistiin tallennettua sisältöä ei voitu poistaa.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Tuo tiedosto tai kansio.</value>
   </data>
@@ -2535,6 +2538,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumentit</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Toimintoa ei voitu poistaa. Yritä uudelleen.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Käynnistä Windows uudelleen</value>

@@ -2428,6 +2428,9 @@
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>محتوى الحزمة</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>تمت إزالة الإجراء، ولكن تعذر حذف محتواه المخزن مؤقتًا.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>استورد ملفًا أو مجلدًا.</value>
   </data>
@@ -2535,6 +2538,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>وسيطات PowerShell</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>تعذرت إزالة الإجراء. حاول مرة أخرى.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>إعادة تشغيل Windows</value>

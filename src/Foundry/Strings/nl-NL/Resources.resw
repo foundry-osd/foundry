@@ -2428,6 +2428,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Pakketinhoud</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>De actie is verwijderd, maar de bijbehorende inhoud in de cache kon niet worden verwijderd.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Importeer een bestand of map.</value>
   </data>
@@ -2535,6 +2538,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell-argumenten</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>De actie kon niet worden verwijderd. Probeer het opnieuw.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Windows opnieuw starten</value>

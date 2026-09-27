@@ -392,11 +392,12 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public void RefreshCustomImageReadiness() => StateChanged?.Invoke(this, EventArgs.Empty);
 
     /// <inheritdoc />
-    public void UpdatePreOobe(PreOobeSettings settings)
+    public void UpdatePreOobe(PreOobeSettings settings, bool requirePersistence = false)
     {
         ArgumentNullException.ThrowIfNull(settings);
-        Current = Current with { PreOobe = settings };
-        Save();
+        FoundryConfigurationDocument candidate = Current with { PreOobe = settings };
+        Save(SanitizeForPersistence(candidate), throwOnFailure: requirePersistence);
+        Current = candidate;
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 

@@ -2428,6 +2428,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketi sisu</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Toiming eemaldati, kuid selle vahemällu salvestatud sisu ei saanud kustutada.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Impordi fail või kaust.</value>
   </data>
@@ -2535,6 +2538,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShelli argumendid</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Toimingut ei saanud eemaldada. Proovige uuesti.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Taaskäivita Windows</value>

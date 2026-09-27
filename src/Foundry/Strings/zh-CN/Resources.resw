@@ -2428,6 +2428,9 @@
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>程序包内容</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>该操作已移除，但无法删除其缓存内容。</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>导入文件或文件夹。</value>
   </data>
@@ -2535,6 +2538,9 @@
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell 参数</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>无法移除该操作。请重试。</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>重启 Windows</value>

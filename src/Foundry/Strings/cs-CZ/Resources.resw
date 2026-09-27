@@ -2428,6 +2428,9 @@ Licencováno pod licencí MIT.</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Obsah balíčku</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Akce byla odebrána, ale její obsah v mezipaměti se nepodařilo odstranit.</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>Importujte soubor nebo složku.</value>
   </data>
@@ -2535,6 +2538,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>Argumenty PowerShellu</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Akci se nepodařilo odebrat. Zkuste to znovu.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Restartovat Windows</value>

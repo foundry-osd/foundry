@@ -19,13 +19,14 @@
                     <ToggleSwitch
                         behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                         AutomationProperties.Name="{x:Bind ViewModel.EnableLabel, Mode=OneWay}"
+                        IsEnabled="{x:Bind ViewModel.CanChangeEnabled, Mode=OneWay}"
                         IsOn="{x:Bind ViewModel.IsEnabled, Mode=TwoWay}"
                         Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}" />
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
             <ContentControl
                 HorizontalContentAlignment="Stretch"
-                IsEnabled="{x:Bind ViewModel.IsEnabled, Mode=OneWay}">
+                IsEnabled="{x:Bind ViewModel.CanConfigure, Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
                     <InfoBar
                         IsClosable="False"
@@ -58,22 +59,22 @@
                                         <MenuFlyout>
                                             <MenuFlyoutItem
                                                 Click="OnAddClick"
-                                                IsEnabled="{x:Bind ViewModel.IsEnabled, Mode=OneWay}"
+                                                IsEnabled="{x:Bind ViewModel.CanConfigure, Mode=OneWay}"
                                                 Tag="PowerShell"
                                                 Text="{x:Bind ViewModel.PowerShellLabel, Mode=OneWay}" />
                                             <MenuFlyoutItem
                                                 Click="OnAddClick"
-                                                IsEnabled="{x:Bind ViewModel.IsEnabled, Mode=OneWay}"
+                                                IsEnabled="{x:Bind ViewModel.CanConfigure, Mode=OneWay}"
                                                 Tag="Command"
                                                 Text="{x:Bind ViewModel.CommandLabel, Mode=OneWay}" />
                                             <MenuFlyoutItem
                                                 Click="OnAddClick"
-                                                IsEnabled="{x:Bind ViewModel.IsEnabled, Mode=OneWay}"
+                                                IsEnabled="{x:Bind ViewModel.CanConfigure, Mode=OneWay}"
                                                 Tag="Application"
                                                 Text="{x:Bind ViewModel.ApplicationLabel, Mode=OneWay}" />
                                             <MenuFlyoutItem
                                                 Click="OnAddClick"
-                                                IsEnabled="{x:Bind ViewModel.IsEnabled, Mode=OneWay}"
+                                                IsEnabled="{x:Bind ViewModel.CanConfigure, Mode=OneWay}"
                                                 Tag="Restart"
                                                 Text="{x:Bind ViewModel.RestartLabel, Mode=OneWay}" />
                                         </MenuFlyout>

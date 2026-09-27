@@ -6,7 +6,9 @@ using System.ComponentModel;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json.Nodes;
+using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Profiles;
+using Foundry.Core.Services.Packages;
 using Foundry.Core.Services.Profiles;
 using Foundry.Utilities.Security;
 
@@ -367,6 +369,196 @@ public sealed class LocalDeploymentProfileRepositoryTests : IDisposable
 
         Assert.ThrowsAny<CryptographicException>(() => CreateRepository().Read(localId));
     }
+
+    [Fact]
+    public void PackageReferences_IncludeInactiveProfilesAndDisabledActions()
+    {
+        var repository = CreateRepository();
+        string activeHash = new('a', 64);
+        string inactiveHash = new('b', 64);
+        repository.Save(localId, CreatePackageProfile(activeHash, true), false, null);
+        repository.SetActive(localId);
+        repository.Save(Guid.NewGuid(), CreatePackageProfile(inactiveHash, false), false, null);
+
+        using LocalProfilePackageReferenceLease references = repository.AcquirePostInstallationPackageReferences();
+
+        Assert.Equal(2, references.ContentHashes.Count);
+        Assert.Contains(activeHash, references.ContentHashes);
+        Assert.True(references.ContentHashes.Contains(inactiveHash.ToUpperInvariant()));
+    }
+
+    [Fact]
+    public void PackageReferences_HoldRepositoryLockUntilDisposed()
+    {
+        var repository = CreateRepository();
+        DeploymentProfileDocument profile = CreatePackageProfile(new string('a', 64), true);
+        LocalProfileDescriptor descriptor = repository.Save(localId, profile, false, null);
+
+        using (LocalProfilePackageReferenceLease references = repository.AcquirePostInstallationPackageReferences())
+        {
+            Assert.Throws<IOException>(() => CreateRepository().Save(localId, profile, false, descriptor.Revision));
+            Assert.Throws<IOException>(() => CreateRepository().SetActive(localId));
+        }
+
+        LocalProfileDescriptor saved = CreateRepository().Save(localId, profile, false, descriptor.Revision);
+        Assert.NotEqual(descriptor.Revision, saved.Revision);
+    }
+
+    [Fact]
+    public async Task PackageReferences_ProtectSharedCacheUntilLastSavedActionIsRemoved()
+    {
+        CancellationToken cancellation = TestContext.Current.CancellationToken;
+        Directory.CreateDirectory(root);
+        string source = Path.Combine(root, "installer.exe");
+        await File.WriteAllTextAsync(source, "synthetic installer", cancellation);
+        string libraryRoot = Path.Combine(root, "library");
+        var library = new PreOobePackageLibraryService(libraryRoot);
+        PreOobePackageReference package = await library.ImportAsync(source, cancellation);
+        string cachedDirectory = Path.Combine(libraryRoot, "content", package.ContentHash);
+        string cachedFile = Path.Combine(cachedDirectory, "files", "installer.exe");
+        var repository = CreateRepository();
+        DeploymentProfileDocument active = CreatePackageProfile(package.ContentHash, true);
+        active = active with
+        {
+            Configuration = active.Configuration with
+            {
+                PreOobe = active.Configuration.PreOobe with
+                {
+                    Actions = [active.Configuration.PreOobe.Actions[0] with { Package = package }]
+                }
+            }
+        };
+        DeploymentProfileDocument inactive = active with
+        {
+            ProfileId = Guid.NewGuid(),
+            Configuration = active.Configuration with
+            {
+                PreOobe = active.Configuration.PreOobe with
+                {
+                    IsEnabled = false,
+                    Actions = [active.Configuration.PreOobe.Actions[0] with { IsEnabled = false }]
+                }
+            }
+        };
+        LocalProfileDescriptor first = repository.Save(localId, active, false, null);
+        repository.SetActive(localId);
+        Guid inactiveId = Guid.NewGuid();
+        LocalProfileDescriptor other = repository.Save(inactiveId, inactive, false, null);
+        repository.Save(localId, active with { Configuration = active.Configuration with { PreOobe = new() } }, false, first.Revision);
+
+        using (LocalProfilePackageReferenceLease references = repository.AcquirePostInstallationPackageReferences())
+            await Assert.ThrowsAsync<InvalidOperationException>(() => library.DeleteAsync(package.ContentHash, references.ContentHashes, cancellation));
+
+        Assert.True(library.IsAvailable(package));
+        Assert.Equal("synthetic installer", await File.ReadAllTextAsync(cachedFile, cancellation));
+        repository.Save(inactiveId, inactive with { Configuration = inactive.Configuration with { PreOobe = new() } }, false, other.Revision);
+
+        using (LocalProfilePackageReferenceLease references = repository.AcquirePostInstallationPackageReferences())
+            await library.DeleteAsync(package.ContentHash, references.ContentHashes, cancellation);
+
+        Assert.False(Directory.Exists(cachedDirectory));
+        Assert.False(library.IsAvailable(package));
+        Assert.Equal("synthetic installer", await File.ReadAllTextAsync(source, cancellation));
+    }
+
+    [Theory]
+    [InlineData("missing-key")]
+    [InlineData("corrupt-head")]
+    [InlineData("locked-revision")]
+    public void PackageReferences_UnreadableProfileFailsClosedAndReleasesLock(string failure)
+    {
+        var repository = CreateRepository();
+        LocalProfileDescriptor descriptor = repository.Save(localId, CreatePackageProfile(new string('a', 64), false), false, null);
+        FileStream? lockedRevision = null;
+        try
+        {
+            if (failure == "missing-key") credentials.Clear();
+            else if (failure == "corrupt-head") File.WriteAllText(HeadPath, "invalid");
+            else lockedRevision = new FileStream(Path.Combine(Path.GetDirectoryName(HeadPath)!, "revisions", descriptor.Revision.ToString("N") + ".profile"),
+                FileMode.Open, FileAccess.Read, FileShare.None);
+
+            Exception? exception = Record.Exception(() => repository.AcquirePostInstallationPackageReferences());
+            Assert.True(exception is IOException or InvalidDataException);
+            using var availableLock = new FileStream(Path.Combine(root, ".repository.lock"), FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+        }
+        finally { lockedRevision?.Dispose(); }
+    }
+
+    [Fact]
+    public void PackageReferences_PendingRecoveryFailsClosedUntilCleanupSucceeds()
+    {
+        var repository = CreateRepository();
+        DeploymentProfileDocument profile = CreatePackageProfile(new string('a', 64), true);
+        LocalProfileDescriptor descriptor = repository.Save(localId, profile, false, null);
+        credentials.FailDelete = true;
+        Assert.True(repository.Save(localId, profile, false, descriptor.Revision).CleanupPending);
+
+        Assert.Throws<IOException>(() => repository.AcquirePostInstallationPackageReferences());
+
+        credentials.FailDelete = false;
+        using LocalProfilePackageReferenceLease references = repository.AcquirePostInstallationPackageReferences();
+        Assert.Single(references.ContentHashes);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void PackageReferences_UnknownProfileEntryFailsClosedAndReleasesLock(bool isFile)
+    {
+        var repository = CreateRepository();
+        string directory = Path.Combine(root, "profiles");
+        Directory.CreateDirectory(directory);
+        string path = Path.Combine(directory, "unrecognized");
+        if (isFile) File.WriteAllText(path, "unknown");
+        else Directory.CreateDirectory(path);
+
+        Assert.Throws<InvalidDataException>(() => repository.AcquirePostInstallationPackageReferences());
+
+        using var availableLock = new FileStream(Path.Combine(root, ".repository.lock"), FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+    }
+
+    [Fact]
+    public void PackageReferences_MissingHeadWithRemainingRevisionFailsClosed()
+    {
+        var repository = CreateRepository();
+        repository.Save(localId, CreatePackageProfile(new string('a', 64), true), false, null);
+        File.Delete(HeadPath);
+
+        Assert.Throws<InvalidDataException>(() => repository.AcquirePostInstallationPackageReferences());
+
+        using var availableLock = new FileStream(Path.Combine(root, ".repository.lock"), FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+    }
+
+    [Fact]
+    public void PackageReferences_DeletedProfilesDoNotRetainReferences()
+    {
+        var repository = CreateRepository();
+        LocalProfileDescriptor descriptor = repository.Save(localId, CreatePackageProfile(new string('a', 64), true), false, null);
+        Assert.False(repository.Delete(localId, descriptor.Revision));
+
+        using LocalProfilePackageReferenceLease references = repository.AcquirePostInstallationPackageReferences();
+
+        Assert.Empty(references.ContentHashes);
+    }
+
+    private static DeploymentProfileDocument CreatePackageProfile(string hash, bool enabled) => new()
+    {
+        ProfileId = Guid.NewGuid(),
+        DisplayName = "Package profile",
+        Configuration = new()
+        {
+            PreOobe = new()
+            {
+                IsEnabled = enabled,
+                Actions = [PreOobeActionSettings.Create(PreOobeActionKind.Command, "Run command") with
+                {
+                    IsEnabled = enabled,
+                    Command = "echo test",
+                    Package = new() { ContentHash = hash, DisplayName = "Package", FileCount = 1, Length = 1 }
+                }]
+            }
+        }
+    };
 
     private string HeadPath => Path.Combine(root, "profiles", localId.ToString("N"), "head.json");
     private LocalDeploymentProfileRepository CreateRepository() => new(root, credentials, new DeploymentProfilePackageService());

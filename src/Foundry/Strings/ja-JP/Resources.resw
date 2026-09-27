@@ -2428,6 +2428,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>パッケージコンテンツ</value>
   </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>アクションは削除されましたが、キャッシュされたコンテンツを削除できませんでした。</value>
+  </data>
   <data name="PostInstallation.ContentRequired" xml:space="preserve">
     <value>ファイルまたはフォルダーをインポートしてください。</value>
   </data>
@@ -2535,6 +2538,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
     <value>PowerShell の引数</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>アクションを削除できませんでした。もう一度お試しください。</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
     <value>Windows を再起動</value>
