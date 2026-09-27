@@ -2443,11 +2443,17 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>De configuratie is gewijzigd tijdens het bewerken. Open de actie opnieuw.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Er zijn geen acties toegevoegd. Selecteer Actie toevoegen om een script, opdracht, toepassing of herstart te configureren.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Pad naar script of installatieprogramma (relatief aan de inhoud)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Acties worden stil uitgevoerd als SYSTEM. Voorkom dat installatieprogramma's zelf opnieuw opstarten. De inhoud is tijdelijk; zorg apart voor blijvende bronnen als herstel of updates die nodig hebben.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Uitvoeringsinstellingen</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Importeren van inhoud mislukt. Controleer toegang, vrije ruimte, bestandsnamen en padlengten.</value>
@@ -2470,6 +2476,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Geen inhoud geïmporteerd</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Niet vereist</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Volgorde</value>
   </data>
@@ -2481,6 +2490,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Afsluitcodes die opnieuw opstarten vereisen (gescheiden door komma's)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Start Windows opnieuw op en ga daarna verder met de volgende actie.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Inhoud voor na de installatie wordt klaargezet.</value>

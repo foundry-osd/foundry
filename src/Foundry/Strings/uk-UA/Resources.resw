@@ -2443,11 +2443,17 @@
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>Конфігурація змінилася під час редагування. Відкрийте дію знову.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Дії не додано. Виберіть Додати дію, щоб налаштувати сценарій, команду, програму або перезавантаження.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Шлях до сценарію або інсталятора (відносно вмісту)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Дії виконуються без участі користувача від імені SYSTEM. Забороніть перезавантаження, ініційовані інсталятором. Вміст тимчасовий; окремо надайте постійні джерела, якщо вони потрібні для відновлення чи оновлення.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Параметри виконання</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Не вдалося імпортувати вміст. Перевірте доступ, вільне місце, імена файлів і довжину шляхів.</value>
@@ -2470,6 +2476,9 @@
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Вміст не імпортовано</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Не потрібно</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Порядок</value>
   </data>
@@ -2481,6 +2490,9 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Коди завершення, що потребують перезавантаження (через кому)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Перезавантажте Windows, а потім перейдіть до наступної дії.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Підготовка вмісту для етапу після інсталяції.</value>

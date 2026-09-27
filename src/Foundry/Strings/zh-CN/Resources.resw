@@ -2443,11 +2443,17 @@
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>编辑期间配置已更改。请重新打开该操作。</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>尚未添加操作。选择“添加操作”以配置脚本、命令、应用程序或重启。</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>脚本或安装程序路径（相对于内容）</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>操作以 SYSTEM 身份静默运行。请禁止安装程序自行重启。内容仅为临时内容；如果修复或更新需要源文件，请另行提供持久保存的源文件。</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>执行设置</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>导入内容失败。请检查访问权限、可用空间、文件名和路径长度。</value>
@@ -2470,6 +2476,9 @@
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>尚未导入内容</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>不需要</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>顺序</value>
   </data>
@@ -2481,6 +2490,9 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>需要重启的退出代码（以逗号分隔）</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>重启 Windows，然后继续执行下一个操作。</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>正在暂存安装后内容。</value>

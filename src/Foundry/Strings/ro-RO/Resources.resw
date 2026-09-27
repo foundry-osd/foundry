@@ -2443,11 +2443,17 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>Configurația s-a modificat în timpul editării. Deschideți din nou acțiunea.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Nu au fost adăugate acțiuni. Selectați Adăugați o acțiune pentru a configura un script, o comandă, o aplicație sau o repornire.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Calea scriptului sau a programului de instalare (relativă la conținut)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Acțiunile se execută fără intervenție ca SYSTEM. Dezactivați repornirile inițiate de programul de instalare. Conținutul este temporar; furnizați separat surse permanente dacă reparațiile sau actualizările le necesită.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Setări de execuție</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Importul conținutului a eșuat. Verificați accesul, spațiul disponibil, numele fișierelor și lungimea căilor.</value>
@@ -2470,6 +2476,9 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Niciun conținut importat</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Nu este necesar</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ordine</value>
   </data>
@@ -2481,6 +2490,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Coduri de ieșire care necesită repornire (separate prin virgulă)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Reporniți Windows, apoi continuați cu următoarea acțiune.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Se pregătește conținutul pentru etapa de după instalare.</value>

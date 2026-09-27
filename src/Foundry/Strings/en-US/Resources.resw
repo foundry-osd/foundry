@@ -2443,11 +2443,17 @@ Licensed under the MIT License.</value>
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>The configuration changed while you were editing. Open the action again.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>No actions added. Select Add action to configure a script, command, application or restart.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Script or installer path (relative to content)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Actions run silently as SYSTEM. Suppress installer-owned restarts. Content is temporary; provide durable sources separately if repair or updates require them.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Execution settings</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Content import failed. Check access, available space, file names and path lengths.</value>
@@ -2470,6 +2476,9 @@ Licensed under the MIT License.</value>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>No content imported</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Not required</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Order</value>
   </data>
@@ -2481,6 +2490,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Restart-required exit codes (comma-separated)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Restart Windows, then continue with the next action.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Staging post-installation content.</value>

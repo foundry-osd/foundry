@@ -2443,11 +2443,17 @@ Lisensiert under MIT-lisensen.</value>
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>Konfigurasjonen ble endret mens du redigerte. Åpne handlingen på nytt.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Ingen handlinger lagt til. Velg Legg til handling for å konfigurere et skript, en kommando, et program eller en omstart.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Bane til skript eller installasjonsprogram (relativ til innholdet)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Handlinger kjøres uten brukerinteraksjon som SYSTEM. Hindre omstarter fra installasjonsprogrammet. Innholdet er midlertidig; sørg for varige kilder separat dersom reparasjoner eller oppdateringer krever dem.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Innstillinger for kjøring</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Import av innhold mislyktes. Kontroller tilgang, ledig plass, filnavn og banelengder.</value>
@@ -2470,6 +2476,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Intet innhold importert</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Ikke nødvendig</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Rekkefølge</value>
   </data>
@@ -2481,6 +2490,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Avslutningskoder som krever omstart (kommaseparerte)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Start Windows på nytt, og fortsett deretter med neste handling.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Klargjør innhold til etter installasjonen.</value>

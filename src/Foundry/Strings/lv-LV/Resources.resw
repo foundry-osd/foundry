@@ -2443,11 +2443,17 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>Rediģēšanas laikā konfigurācija tika mainīta. Atveriet darbību vēlreiz.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Nav pievienotu darbību. Atlasiet Pievienot darbību, lai konfigurētu skriptu, komandu, lietojumprogrammu vai restartēšanu.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Skripta vai instalētāja ceļš (attiecībā pret saturu)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Darbības tiek izpildītas bez lietotāja līdzdalības kā SYSTEM. Atspējojiet instalētāja paša veiktās restartēšanas. Saturs ir pagaidu; nodrošiniet pastāvīgus avotus atsevišķi, ja tie vajadzīgi labošanai vai atjauninājumiem.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Izpildes iestatījumi</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Neizdevās importēt saturu. Pārbaudiet piekļuvi, brīvo vietu, failu nosaukumus un ceļu garumus.</value>
@@ -2470,6 +2476,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Saturs nav importēts</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Nav nepieciešams</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Secība</value>
   </data>
@@ -2481,6 +2490,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Izejas kodi, kam nepieciešama restartēšana (atdalīti ar komatiem)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Restartējiet Windows un pēc tam turpiniet ar nākamo darbību.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Tiek sagatavots saturs posmam pēc instalēšanas.</value>

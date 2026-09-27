@@ -2443,11 +2443,17 @@
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>編輯期間組態已變更。請重新開啟此動作。</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>尚未新增動作。選取「新增動作」以設定指令碼、命令、應用程式或重新啟動。</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>指令碼或安裝程式路徑（相對於內容）</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>動作會以 SYSTEM 身分無訊息執行。請禁止安裝程式自行重新啟動。內容僅為暫存；若修復或更新需要來源檔案，請另行提供永久保存的來源檔案。</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>執行設定</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>匯入內容失敗。請檢查存取權限、可用空間、檔案名稱與路徑長度。</value>
@@ -2470,6 +2476,9 @@
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>尚未匯入內容</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>不需要</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>順序</value>
   </data>
@@ -2481,6 +2490,9 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>需要重新啟動的結束代碼（以逗號分隔）</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>重新啟動 Windows，然後繼續執行下一個動作。</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>正在暫存安裝後內容。</value>

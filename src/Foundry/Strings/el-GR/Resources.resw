@@ -2443,11 +2443,17 @@
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>Η ρύθμιση παραμέτρων άλλαξε κατά την επεξεργασία. Ανοίξτε ξανά την ενέργεια.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Δεν έχουν προστεθεί ενέργειες. Επιλέξτε Προσθήκη ενέργειας για να ρυθμίσετε μια δέσμη ενεργειών, μια εντολή, μια εφαρμογή ή μια επανεκκίνηση.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Διαδρομή σεναρίου ή προγράμματος εγκατάστασης (σχετική με το περιεχόμενο)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Οι ενέργειες εκτελούνται χωρίς παρέμβαση ως SYSTEM. Αποτρέψτε τις επανεκκινήσεις από το ίδιο το πρόγραμμα εγκατάστασης. Το περιεχόμενο είναι προσωρινό· παρέχετε μόνιμες πηγές ξεχωριστά, εάν απαιτούνται για επιδιόρθωση ή ενημερώσεις.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Ρυθμίσεις εκτέλεσης</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Η εισαγωγή περιεχομένου απέτυχε. Ελέγξτε την πρόσβαση, τον διαθέσιμο χώρο, τα ονόματα αρχείων και τα μήκη διαδρομών.</value>
@@ -2470,6 +2476,9 @@
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Δεν έχει εισαχθεί περιεχόμενο</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Δεν απαιτείται</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Σειρά</value>
   </data>
@@ -2481,6 +2490,9 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Κωδικοί εξόδου που απαιτούν επανεκκίνηση (διαχωρισμένοι με κόμμα)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Επανεκκινήστε τα Windows και συνεχίστε με την επόμενη ενέργεια.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Προετοιμασία περιεχομένου για μετά την εγκατάσταση.</value>

@@ -2443,11 +2443,17 @@
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>Конфигурацията се промени по време на редактиране. Отворете действието отново.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Няма добавени действия. Изберете Добавяне на действие, за да конфигурирате скрипт, команда, приложение или рестартиране.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Път до скрипта или инсталатора (спрямо съдържанието)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Действията се изпълняват без взаимодействие като SYSTEM. Забранете рестартиранията от самия инсталатор. Съдържанието е временно; осигурете отделно постоянни източници, ако са нужни за поправка или актуализации.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Настройки за изпълнение</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Импортирането на съдържание е неуспешно. Проверете достъпа, свободното място, имената на файловете и дължините на пътищата.</value>
@@ -2470,6 +2476,9 @@
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Няма импортирано съдържание</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Не се изисква</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ред</value>
   </data>
@@ -2481,6 +2490,9 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Кодове за изход, изискващи рестартиране (разделени със запетаи)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Рестартирайте Windows, след което продължете със следващото действие.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Подготвяне на съдържанието за етапа след инсталиране.</value>

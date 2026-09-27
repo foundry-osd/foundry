@@ -2443,11 +2443,17 @@
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>Конфигурация изменилась во время редактирования. Откройте действие снова.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Действия не добавлены. Выберите Добавить действие, чтобы настроить сценарий, команду, приложение или перезагрузку.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Путь к скрипту или установщику (относительно содержимого)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Действия выполняются без участия пользователя от имени SYSTEM. Запретите перезагрузки, инициируемые установщиком. Содержимое временное; отдельно предоставьте постоянные источники, если они нужны для восстановления или обновлений.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Параметры выполнения</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Не удалось импортировать содержимое. Проверьте доступ, свободное место, имена файлов и длину путей.</value>
@@ -2470,6 +2476,9 @@
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Содержимое не импортировано</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Не требуется</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Порядок</value>
   </data>
@@ -2481,6 +2490,9 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Коды завершения, требующие перезагрузки (через запятую)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Перезагрузите Windows, затем перейдите к следующему действию.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Подготовка содержимого для этапа после установки.</value>

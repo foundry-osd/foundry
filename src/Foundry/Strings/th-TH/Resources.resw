@@ -2443,11 +2443,17 @@
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>การกำหนดค่าเปลี่ยนแปลงระหว่างการแก้ไข โปรดเปิดการดำเนินการอีกครั้ง</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>ยังไม่ได้เพิ่มการดำเนินการ เลือก เพิ่มการดำเนินการ เพื่อกำหนดค่าสคริปต์ คำสั่ง แอปพลิเคชัน หรือการรีสตาร์ต</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>เส้นทางสคริปต์หรือตัวติดตั้ง (สัมพันธ์กับเนื้อหา)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>การดำเนินการทำงานแบบไม่มีผู้ใช้โต้ตอบในฐานะ SYSTEM โปรดระงับการเริ่มระบบใหม่โดยตัวติดตั้ง เนื้อหาเป็นแบบชั่วคราว หากการซ่อมแซมหรืออัปเดตต้องใช้แหล่งข้อมูล ให้จัดเตรียมแหล่งข้อมูลถาวรแยกต่างหาก</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>การตั้งค่าการดำเนินการ</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>นำเข้าเนื้อหาไม่สำเร็จ ตรวจสอบสิทธิ์เข้าถึง พื้นที่ว่าง ชื่อไฟล์ และความยาวเส้นทาง</value>
@@ -2470,6 +2476,9 @@
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>ยังไม่ได้นำเข้าเนื้อหา</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>ไม่จำเป็น</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>ลำดับ</value>
   </data>
@@ -2481,6 +2490,9 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>รหัสออกที่ต้องเริ่มระบบใหม่ (คั่นด้วยจุลภาค)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>รีสตาร์ต Windows แล้วดำเนินการถัดไปต่อ</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>กำลังจัดเตรียมเนื้อหาหลังการติดตั้ง</value>

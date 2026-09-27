@@ -2443,11 +2443,17 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>編集中に構成が変更されました。アクションをもう一度開いてください。</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>アクションが追加されていません。[アクションを追加] を選択して、スクリプト、コマンド、アプリケーション、または再起動を設定してください。</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>スクリプトまたはインストーラーのパス (コンテンツからの相対パス)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>アクションは SYSTEM としてサイレント実行されます。インストーラー自体による再起動を無効にしてください。コンテンツは一時的なものです。修復や更新にソースが必要な場合は、永続的なソースを別途用意してください。</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>実行設定</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>コンテンツのインポートに失敗しました。アクセス権、空き容量、ファイル名、パスの長さを確認してください。</value>
@@ -2470,6 +2476,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>コンテンツはインポートされていません</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>不要</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>順序</value>
   </data>
@@ -2481,6 +2490,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>再起動が必要な終了コード (コンマ区切り)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Windows を再起動してから、次のアクションに進みます。</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>インストール後のコンテンツを準備しています。</value>

@@ -2443,11 +2443,17 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>A konfiguráció szerkesztés közben megváltozott. Nyissa meg újra a műveletet.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Nincsenek hozzáadott műveletek. Parancsfájl, parancs, alkalmazás vagy újraindítás beállításához válassza a Művelet hozzáadása lehetőséget.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Parancsfájl vagy telepítő elérési útja (a tartalomhoz képest)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>A műveletek felhasználói beavatkozás nélkül, SYSTEM-ként futnak. Tiltsa le a telepítők saját újraindításait. A tartalom ideiglenes; ha javításhoz vagy frissítéshez szükséges, külön biztosítson tartós forrásokat.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Végrehajtási beállítások</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>A tartalom importálása sikertelen. Ellenőrizze a hozzáférést, a szabad helyet, a fájlneveket és az elérési utak hosszát.</value>
@@ -2470,6 +2476,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Nincs importált tartalom</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Nem szükséges</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Sorrend</value>
   </data>
@@ -2481,6 +2490,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Újraindítást igénylő kilépési kódok (vesszővel elválasztva)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Indítsa újra a Windowst, majd folytassa a következő művelettel.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Telepítés utáni tartalom előkészítése.</value>

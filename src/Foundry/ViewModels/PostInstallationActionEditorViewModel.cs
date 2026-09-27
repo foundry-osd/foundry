@@ -50,10 +50,10 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     public PreOobeSettings Baseline { get; }
     public bool IsNew { get; }
     public ObservableCollection<string> EntryPoints { get; } = [];
-    [ObservableProperty] public partial string Name { get; set; } = string.Empty;
-    [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial string EntryPoint { get; set; } = string.Empty;
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(CanSave))] public partial string Name { get; set; } = string.Empty;
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview), nameof(HasCommandPreview), nameof(CanSave))] public partial string EntryPoint { get; set; } = string.Empty;
     [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial string Arguments { get; set; } = string.Empty;
-    [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial string CommandText { get; set; } = string.Empty;
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview), nameof(HasCommandPreview), nameof(CanSave))] public partial string CommandText { get; set; } = string.Empty;
     [ObservableProperty] public partial string WorkingDirectory { get; set; } = string.Empty;
     [ObservableProperty] public partial double TimeoutSeconds { get; set; }
     [ObservableProperty] public partial string SuccessCodes { get; set; } = "0";
@@ -62,10 +62,17 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     [ObservableProperty] public partial bool DeferRestart { get; set; }
     [ObservableProperty] public partial int ArchitectureIndex { get; set; }
     [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial int ApplicationModeIndex { get; set; }
-    [ObservableProperty][NotifyPropertyChangedFor(nameof(CanSave))] public partial bool IsBusy { get; set; }
-    [ObservableProperty] public partial string Error { get; set; } = string.Empty;
-    public bool CanSave => !IsBusy;
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(CanSave), nameof(CanEdit), nameof(HasFeedback))] public partial bool IsBusy { get; set; }
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(HasError), nameof(HasFeedback))] public partial string Error { get; set; } = string.Empty;
+    public bool CanEdit => !IsBusy;
+    public bool CanSave => CanEdit && !string.IsNullOrWhiteSpace(Name) &&
+        (!IsExecutable || (IsCommand ? !string.IsNullOrWhiteSpace(CommandText) : HasPackage && !string.IsNullOrWhiteSpace(EntryPoint)));
+    public bool HasError => !string.IsNullOrEmpty(Error);
+    public bool HasFeedback => IsBusy || HasError;
+    public bool HasPackage => package is not null;
+    public bool HasCommandPreview => IsExecutable && !string.IsNullOrWhiteSpace(IsCommand ? CommandText : EntryPoint);
     public bool IsExecutable => original.Kind != PreOobeActionKind.Restart;
+    public bool IsRestart => !IsExecutable;
     public bool IsCommand => original.Kind == PreOobeActionKind.Command;
     public bool HasEntryPoint => original.Kind is PreOobeActionKind.PowerShell or PreOobeActionKind.Application;
     public bool IsApplication => original.Kind == PreOobeActionKind.Application;
@@ -100,7 +107,16 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     public string AnyArchitectureLabel => Text("AnyArchitecture");
     public string ApplicationModeLabel => Text("ApplicationMode");
     public string ExecutionHelp => Text("ExecutionHelp");
+    public string ExecutionSettingsLabel => Text("ExecutionSettings");
+    public string RestartDescription => Text("RestartDescription");
     public string Text(string key) => localization.GetString("PostInstallation." + key);
+
+    partial void OnEntryPointChanged(string value)
+    {
+        if (!IsApplication) return;
+        if (value.EndsWith(".msi", StringComparison.OrdinalIgnoreCase)) ApplicationModeIndex = (int)PreOobeApplicationMode.Msi;
+        else if (value.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)) ApplicationModeIndex = (int)PreOobeApplicationMode.Exe;
+    }
 
     /// <summary>Loads selectable entry points from the existing immutable package without changing its reference.</summary>
     public async Task InitializeAsync()
@@ -151,6 +167,8 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
             if (HasEntryPoint && !EntryPoints.Contains(EntryPoint)) EntryPoint = EntryPoints.FirstOrDefault() ?? string.Empty;
             if (IsApplication) ApplicationModeIndex = EntryPoint.EndsWith(".msi", StringComparison.OrdinalIgnoreCase) ? 1 : 0;
             OnPropertyChanged(nameof(PackageName));
+            OnPropertyChanged(nameof(HasPackage));
+            OnPropertyChanged(nameof(CanSave));
         }
         catch (OperationCanceledException) { }
         catch (Exception ex)

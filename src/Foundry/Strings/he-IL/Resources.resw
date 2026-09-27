@@ -2443,11 +2443,17 @@
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>התצורה השתנתה במהלך העריכה. פתח שוב את הפעולה.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>לא נוספו פעולות. בחר הוסף פעולה כדי להגדיר סקריפט, פקודה, יישום או הפעלה מחדש.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>נתיב הסקריפט או תוכנית ההתקנה (יחסית לתוכן)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>הפעולות מופעלות ללא התערבות משתמש כ-SYSTEM. מנע הפעלות מחדש של תוכנית ההתקנה עצמה. התוכן זמני; ספק מקורות קבועים בנפרד אם תיקון או עדכונים דורשים אותם.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>הגדרות ביצוע</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>ייבוא התוכן נכשל. בדוק את הגישה, השטח הפנוי, שמות הקבצים ואורכי הנתיבים.</value>
@@ -2470,6 +2476,9 @@
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>לא יובא תוכן</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>לא נדרש</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>סדר</value>
   </data>
@@ -2481,6 +2490,9 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>קודי יציאה המחייבים הפעלה מחדש (מופרדים בפסיקים)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>הפעל מחדש את Windows ולאחר מכן המשך לפעולה הבאה.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>מכין תוכן לשלב שלאחר ההתקנה.</value>

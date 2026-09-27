@@ -36,7 +36,10 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     public ObservableCollection<PostInstallationActionRow> Actions { get; } = [];
     [ObservableProperty] public partial bool IsEnabled { get; set; }
     [ObservableProperty] public partial PostInstallationActionRow? SelectedAction { get; set; }
-    [ObservableProperty] public partial string StatusMessage { get; set; } = string.Empty;
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(HasStatus))] public partial string StatusMessage { get; set; } = string.Empty;
+    public bool HasStatus => !string.IsNullOrWhiteSpace(StatusMessage);
+    public bool HasActions => Actions.Count > 0;
+    public bool IsEmpty => !HasActions;
     public bool CanEdit => IsEnabled && SelectedAction is not null;
     public bool CanMoveUp => CanEdit && Actions.IndexOf(SelectedAction!) > 0;
     public bool CanMoveDown => CanEdit && Actions.IndexOf(SelectedAction!) < Actions.Count - 1;
@@ -54,6 +57,7 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     public string EnableLabel => localization.GetString("Common.Enable");
     public string BuiltInDescription => Text("BuiltIns");
     public string ReadinessDescription => Text("Readiness");
+    public string EmptyMessage => Text("EmptyMessage");
     public string OrderHeader => Text("OrderHeader");
     public string NameHeader => localization.GetString("CustomImages.NameLabel");
     public string TypeHeader => Text("TypeHeader");
@@ -156,10 +160,13 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
                 bool ready = action.Package is null || library.IsAvailable(action.Package);
                 Actions.Add(new(action, Actions.Count + 1, TypeLabel(action.Kind),
                     localization.GetString(action.IsEnabled ? "Common.Enabled" : "Common.Disabled"),
-                    localization.GetString(ready ? "CustomImages.Available" : "CustomImages.Missing")));
+                    action.Package is null ? Text("NoContentRequired") :
+                        localization.GetString(ready ? "CustomImages.Available" : "CustomImages.Missing"), ready));
             }
             SelectedAction = Actions.FirstOrDefault(item => item.Action.Id == selectedId);
             OnPropertyChanged(nameof(HasReadinessIssue));
+            OnPropertyChanged(nameof(HasActions));
+            OnPropertyChanged(nameof(IsEmpty));
             RaiseSelection();
         }
         finally { applying = false; }
@@ -189,7 +196,11 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     }
 }
 
-public sealed record PostInstallationActionRow(PreOobeActionSettings Action, int Position, string Type, string Enabled, string Readiness)
+public sealed record PostInstallationActionRow(PreOobeActionSettings Action, int Position, string Type, string Enabled, string Readiness,
+    bool IsContentAvailable)
 {
     public string Name => Action.Name;
+    public Style EnabledStyle => (Style)Application.Current.Resources[Action.IsEnabled ? "FoundrySuccessTextBlockStyle" : "FoundrySecondaryTextBlockStyle"];
+    public Style ReadinessStyle => (Style)Application.Current.Resources[Action.Package is null ? "FoundrySecondaryTextBlockStyle" :
+        IsContentAvailable ? "FoundrySuccessTextBlockStyle" : "FoundryCriticalTextBlockStyle"];
 }

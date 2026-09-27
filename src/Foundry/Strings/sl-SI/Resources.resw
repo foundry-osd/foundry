@@ -2443,11 +2443,17 @@ Licencirano pod licenco MIT.</value>
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>Konfiguracija se je med urejanjem spremenila. Znova odprite dejanje.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Dodano ni nobeno dejanje. Izberite Dodaj dejanje, da konfigurirate skript, ukaz, aplikacijo ali ponovni zagon.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Pot do skripta ali namestitvenega programa (glede na vsebino)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Dejanja se izvajajo brez uporabniškega posredovanja kot SYSTEM. Preprečite ponovne zagone, ki jih sproži namestitveni program. Vsebina je začasna; ločeno zagotovite trajne vire, če jih zahtevajo popravila ali posodobitve.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Nastavitve izvajanja</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Uvoz vsebine ni uspel. Preverite dostop, prosti prostor, imena datotek in dolžine poti.</value>
@@ -2470,6 +2476,9 @@ Licencirano pod licenco MIT.</value>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Vsebina ni uvožena</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Ni potrebno</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Vrstni red</value>
   </data>
@@ -2481,6 +2490,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Izhodne kode, ki zahtevajo ponovni zagon (ločene z vejicami)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Znova zaženite Windows in nato nadaljujte z naslednjim dejanjem.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Pripravljanje vsebine za fazo po namestitvi.</value>

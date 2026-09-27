@@ -28,9 +28,11 @@
                 IsOpen="{x:Bind ViewModel.HasReadinessIssue, Mode=OneWay}"
                 Message="{x:Bind ViewModel.ReadinessDescription, Mode=OneWay}"
                 Severity="Warning" />
-            <TextBlock
-                Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
-                TextWrapping="Wrap" />
+            <InfoBar
+                IsClosable="False"
+                IsOpen="{x:Bind ViewModel.HasStatus, Mode=OneWay}"
+                Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
+                Severity="Error" />
             <InfoBar
                 IsClosable="False"
                 IsOpen="True"
@@ -115,6 +117,11 @@
                             </CommandBar.PrimaryCommands>
                         </CommandBar>
                     </ScrollViewer>
+                    <TextBlock
+                        Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+                        Text="{x:Bind ViewModel.EmptyMessage, Mode=OneWay}"
+                        TextWrapping="WrapWholeWords"
+                        Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
                     <tv:TableView
                         MaxHeight="{ThemeResource FoundryTableMaxHeight}"
                         AutoGenerateColumns="False"
@@ -130,7 +137,8 @@
                         SelectedItem="{x:Bind ViewModel.SelectedAction, Mode=TwoWay}"
                         SelectionMode="Single"
                         SelectionUnit="Row"
-                        ShowExportOptions="False">
+                        ShowExportOptions="False"
+                        Visibility="{x:Bind ViewModel.HasActions, Mode=OneWay}">
                         <tv:TableView.Columns>
                             <tv:TableViewTextColumn
                                 Binding="{Binding Position}"
@@ -141,12 +149,28 @@
                             <tv:TableViewTextColumn
                                 Binding="{Binding Type}"
                                 Header="{x:Bind ViewModel.TypeHeader, Mode=OneWay}" />
-                            <tv:TableViewTextColumn
-                                Binding="{Binding Enabled}"
-                                Header="{x:Bind ViewModel.EnabledHeader, Mode=OneWay}" />
-                            <tv:TableViewTextColumn
-                                Binding="{Binding Readiness}"
-                                Header="{x:Bind ViewModel.ContentStatusHeader, Mode=OneWay}" />
+                            <tv:TableViewTemplateColumn Header="{x:Bind ViewModel.EnabledHeader, Mode=OneWay}">
+                                <tv:TableViewTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            Margin="12,0,12,0"
+                                            Style="{Binding EnabledStyle}"
+                                            Text="{Binding Enabled}"
+                                            TextTrimming="CharacterEllipsis" />
+                                    </DataTemplate>
+                                </tv:TableViewTemplateColumn.CellTemplate>
+                            </tv:TableViewTemplateColumn>
+                            <tv:TableViewTemplateColumn Header="{x:Bind ViewModel.ContentStatusHeader, Mode=OneWay}">
+                                <tv:TableViewTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            Margin="12,0,12,0"
+                                            Style="{Binding ReadinessStyle}"
+                                            Text="{Binding Readiness}"
+                                            TextTrimming="CharacterEllipsis" />
+                                    </DataTemplate>
+                                </tv:TableViewTemplateColumn.CellTemplate>
+                            </tv:TableViewTemplateColumn>
                         </tv:TableView.Columns>
                     </tv:TableView>
                 </StackPanel>

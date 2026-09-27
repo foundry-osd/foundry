@@ -2443,11 +2443,17 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>Düzenleme sırasında yapılandırma değişti. Eylemi yeniden açın.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Hiçbir eylem eklenmedi. Betik, komut, uygulama veya yeniden başlatma yapılandırmak için Eylem ekle seçeneğini belirleyin.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Betik veya yükleyici yolu (içeriğe göre)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Eylemler SYSTEM olarak kullanıcı etkileşimi olmadan çalışır. Yükleyicilerin kendi yeniden başlatmalarını engelleyin. İçerik geçicidir; onarım veya güncellemeler gerektiriyorsa kalıcı kaynakları ayrıca sağlayın.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Yürütme ayarları</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>İçerik içeri aktarılamadı. Erişimi, kullanılabilir alanı, dosya adlarını ve yol uzunluklarını denetleyin.</value>
@@ -2470,6 +2476,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>İçerik içeri aktarılmadı</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Gerekli değil</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Sıra</value>
   </data>
@@ -2481,6 +2490,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Yeniden başlatma gerektiren çıkış kodları (virgülle ayrılmış)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Windows’u yeniden başlatın, ardından sonraki eylemle devam edin.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Kurulum sonrası içerik hazırlanıyor.</value>

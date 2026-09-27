@@ -2443,11 +2443,17 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>Die Konfiguration wurde während der Bearbeitung geändert. Öffnen Sie die Aktion erneut.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Keine Aktionen hinzugefügt. Wählen Sie Aktion hinzufügen, um ein Skript, einen Befehl, eine Anwendung oder einen Neustart zu konfigurieren.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Skript- oder Installationspfad (relativ zum Inhalt)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Aktionen werden unbeaufsichtigt als SYSTEM ausgeführt. Unterdrücken Sie Neustarts durch Installationsprogramme. Inhalte sind temporär; stellen Sie bei Bedarf dauerhafte Quellen für Reparaturen oder Updates bereit.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Ausführungseinstellungen</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Inhaltsimport fehlgeschlagen. Prüfen Sie Zugriff, freien Speicher, Dateinamen und Pfadlängen.</value>
@@ -2470,6 +2476,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Keine Inhalte importiert</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Nicht erforderlich</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Reihenfolge</value>
   </data>
@@ -2481,6 +2490,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Exitcodes für erforderlichen Neustart (durch Kommas getrennt)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Windows neu starten und anschließend mit der nächsten Aktion fortfahren.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Inhalte für die Nachinstallation werden vorbereitet.</value>

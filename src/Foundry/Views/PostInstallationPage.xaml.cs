@@ -36,7 +36,7 @@ public sealed partial class PostInstallationPage : Page
         try
         {
             using var editor = ViewModel.CreateEditor(kind);
-            var dialog = new PostInstallationActionDialog(editor) { XamlRoot = XamlRoot };
+            var dialog = new PostInstallationActionDialog(editor, XamlRoot);
             if (await dialog.ShowAsync() == ContentDialogResult.Primary) ViewModel.SaveEditor(editor);
         }
         finally { editorOpen = false; }

@@ -2443,11 +2443,17 @@ Licencované podľa licencie MIT.</value>
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>Počas úprav sa konfigurácia zmenila. Otvorte akciu znova.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Nie sú pridané žiadne akcie. Vyberte Pridať akciu a nakonfigurujte skript, príkaz, aplikáciu alebo reštartovanie.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Cesta k skriptu alebo inštalátoru (relatívna k obsahu)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Akcie sa vykonávajú bez obsluhy pod účtom SYSTEM. Zakážte reštarty vyvolané inštalátorom. Obsah je dočasný; ak opravy alebo aktualizácie vyžadujú zdroje, zabezpečte ich samostatne natrvalo.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Nastavenia vykonávania</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Import obsahu zlyhal. Skontrolujte prístup, voľné miesto, názvy súborov a dĺžky ciest.</value>
@@ -2470,6 +2476,9 @@ Licencované podľa licencie MIT.</value>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Nebol importovaný žiadny obsah</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Nevyžaduje sa</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Poradie</value>
   </data>
@@ -2481,6 +2490,9 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Návratové kódy vyžadujúce reštart (oddelené čiarkami)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Reštartujte Windows a potom pokračujte ďalšou akciou.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Príprava obsahu pre fázu po inštalácii.</value>

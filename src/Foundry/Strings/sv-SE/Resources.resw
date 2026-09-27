@@ -2443,11 +2443,17 @@ Licensierad under MIT-licensen.</value>
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>Konfigurationen ändrades medan du redigerade. Öppna åtgärden igen.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Inga åtgärder har lagts till. Välj Lägg till åtgärd för att konfigurera ett skript, ett kommando, ett program eller en omstart.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Sökväg till skript eller installationsprogram (relativ till innehållet)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Åtgärder körs utan användarinteraktion som SYSTEM. Förhindra omstarter från installationsprogrammet. Innehållet är tillfälligt; tillhandahåll beständiga källor separat om reparation eller uppdateringar kräver dem.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Körningsinställningar</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Import av innehåll misslyckades. Kontrollera åtkomst, ledigt utrymme, filnamn och sökvägslängder.</value>
@@ -2470,6 +2476,9 @@ Licensierad under MIT-licensen.</value>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Inget innehåll har importerats</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Krävs inte</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ordning</value>
   </data>
@@ -2481,6 +2490,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Avslutningskoder som kräver omstart (kommaseparerade)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Starta om Windows och fortsätt sedan med nästa åtgärd.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Förbereder innehåll för efter installationen.</value>

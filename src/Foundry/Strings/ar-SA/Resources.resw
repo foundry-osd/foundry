@@ -2443,11 +2443,17 @@
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>تغيّر التكوين أثناء التحرير. افتح الإجراء مرة أخرى.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>لم تتم إضافة أي إجراءات. حدد إضافة إجراء لتكوين برنامج نصي أو أمر أو تطبيق أو إعادة تشغيل.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>مسار البرنامج النصي أو المثبّت (بالنسبة إلى المحتوى)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>تُنفَّذ الإجراءات دون تدخل المستخدم بحساب SYSTEM. امنع عمليات إعادة التشغيل التي يبدأها المثبّت نفسه. المحتوى مؤقت؛ وفّر مصادر دائمة بشكل منفصل إذا كان الإصلاح أو التحديث يتطلبها.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>إعدادات التنفيذ</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>فشل استيراد المحتوى. تحقق من صلاحية الوصول والمساحة المتاحة وأسماء الملفات وأطوال المسارات.</value>
@@ -2470,6 +2476,9 @@
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>لم يتم استيراد أي محتوى</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>غير مطلوب</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>الترتيب</value>
   </data>
@@ -2481,6 +2490,9 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>رموز الخروج التي تتطلب إعادة التشغيل (مفصولة بفواصل)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>أعد تشغيل Windows، ثم تابع إلى الإجراء التالي.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>جارٍ تجهيز محتوى ما بعد التثبيت.</value>

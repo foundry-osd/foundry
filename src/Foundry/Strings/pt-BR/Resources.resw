@@ -2443,11 +2443,17 @@ Licenciado sob a licença MIT.</value>
   <data name="PostInstallation.EditConflict" xml:space="preserve">
     <value>A configuração mudou durante a edição. Abra a ação novamente.</value>
   </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Nenhuma ação adicionada. Selecione Adicionar ação para configurar um script, comando, aplicativo ou reinicialização.</value>
+  </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Caminho do script ou instalador (relativo ao conteúdo)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>As ações são executadas silenciosamente como SYSTEM. Impeça reinicializações pelo próprio instalador. O conteúdo é temporário; forneça fontes permanentes separadamente se reparos ou atualizações precisarem delas.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Configurações de execução</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Falha ao importar conteúdo. Verifique o acesso, o espaço disponível, os nomes de arquivos e o comprimento dos caminhos.</value>
@@ -2470,6 +2476,9 @@ Licenciado sob a licença MIT.</value>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Nenhum conteúdo importado</value>
   </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Não necessário</value>
+  </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ordem</value>
   </data>
@@ -2481,6 +2490,9 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Códigos de saída que exigem reinicialização (separados por vírgulas)</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Reinicie o Windows e continue com a próxima ação.</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Preparando conteúdo de pós-instalação.</value>
