@@ -1038,9 +1038,6 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Uprizoritveni paket...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Uprizarjanje prilagoditev pred OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Pošiljanje zahteve za uvoz na Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@ Ali želite nadaljevati z uvajanjem?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Posodabljanje obstoječe naprave Autopilot...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Posodabljanje namestitvenega skripta prvega zagona...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Posodabljanje oznake skupine Windows Autopilot v Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Vsebina posodobitve vdelane programske opreme ni na voljo.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Skripti za prilagajanje pred OOBE niso potrebni.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Izbran je način paketa gonilnikov OEM, vendar ni bil na voljo noben paket gonilnikov.</value>
   </data>
@@ -1304,12 +1295,6 @@ Ali želite nadaljevati z uvajanjem?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Operacijski sistem URL manjka.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Izvedene prilagoditve pred OOBE.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Izvedene prilagoditve pred OOBE (simulacija).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Pripravljenost na uvajanje je bila preverjena (simulacija).</value>

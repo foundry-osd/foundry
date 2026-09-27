@@ -1038,9 +1038,6 @@ Dağıtıma devam edilsin mi?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Aşama paketi...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>OOBE öncesi özelleştirmeler hazırlanıyor...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>İçe aktarma isteği Microsoft Graph adresine gönderiliyor...</value>
   </data>
@@ -1049,9 +1046,6 @@ Dağıtıma devam edilsin mi?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Mevcut Autopilot cihazı güncelleniyor...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>İlk önyükleme kurulum komut dosyası güncelleniyor...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Microsoft Graph'deki Windows Autopilot grup etiketi güncelleniyor...</value>
@@ -1269,9 +1263,6 @@ Dağıtıma devam edilsin mi?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Ürün yazılımı güncelleme içeriği mevcut değil.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>OOBE öncesi özelleştirme komut dosyalarına gerek yoktur.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>OEM sürücü paketi modu seçildi ancak sürücü paketi sağlanmadı.</value>
   </data>
@@ -1304,12 +1295,6 @@ Dağıtıma devam edilsin mi?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>İşletim sistemi URL eksik.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>OOBE öncesi özelleştirmeler tamamlandı.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>OOBE öncesi özelleştirmeler aşamalı (simülasyon).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Dağıtım hazırlığı denetlendi (simülasyon).</value>

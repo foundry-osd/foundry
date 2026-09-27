@@ -1038,9 +1038,6 @@ Continuer le déploiement?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Forfait de mise en scène...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Mise en scène des personnalisations pré-OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Soumission de la demande d'importation à Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@ Continuer le déploiement?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Mise à jour du périphérique Autopilot existant...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Mise à jour du script de configuration au premier démarrage...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Mise à jour de la balise de groupe Windows Autopilot dans Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@ Continuer le déploiement?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Aucun contenu de mise à jour du micrologiciel n’est disponible.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Aucun script de personnalisation pré-OOBE n'est requis.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Mode pack de pilotes OEM sélectionné mais aucun pack de pilotes n’a été fourni.</value>
   </data>
@@ -1304,12 +1295,6 @@ Continuer le déploiement?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Le système d'exploitation URL est manquant.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Personnalisations pré-OOBE mises en scène.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Personnalisations pré-OOBE mises en scène (simulation).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>L’état de préparation du déploiement a été vérifié (simulation).</value>

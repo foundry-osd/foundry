@@ -1038,9 +1038,6 @@
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Πακέτο σκηνοθεσίας...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Σταδιοποίηση προσαρμογών πριν από το OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Υποβολή αιτήματος εισαγωγής στο Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Ενημέρωση υπάρχουσας συσκευής Autopilot...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Ενημέρωση σεναρίου εγκατάστασης πρώτης εκκίνησης...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Ενημέρωση της ετικέτας ομάδας Windows Autopilot στο Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Δεν υπάρχει διαθέσιμο περιεχόμενο ενημέρωσης υλικολογισμικού.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Δεν απαιτούνται σενάρια προσαρμογής πριν από το OOBE.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Επιλέχθηκε η λειτουργία πακέτου προγράμματος οδήγησης OEM, αλλά δεν παρέχεται πακέτο προγράμματος οδήγησης.</value>
   </data>
@@ -1304,12 +1295,6 @@
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Λείπει το λειτουργικό σύστημα URL.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Οι προσαρμογές πριν από το OOBE πραγματοποιήθηκαν σταδιακά.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Σταδιακές προσαρμογές πριν από το OOBE (προσομοίωση).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Η ετοιμότητα ανάπτυξης ελέγχθηκε (προσομοίωση).</value>

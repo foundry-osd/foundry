@@ -1038,9 +1038,6 @@ Doorgaan met de implementatie?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Staging pakket...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Pre-OOBE-aanpassingen voorbereiden...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Importverzoek indienen bij Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Bestaand Autopilot-apparaat bijwerken...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Installatiescript voor eerste keer opstarten bijwerken...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Windows Autopilot groepstag bijwerken in Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@ Doorgaan met de implementatie?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Er is geen inhoud voor de firmware-update beschikbaar.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Er zijn geen pre-OOBE-aanpassingsscripts vereist.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>OEM-driverpakketmodus geselecteerd, maar er is geen driverpakket geleverd.</value>
   </data>
@@ -1304,12 +1295,6 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Besturingssysteem URL ontbreekt.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Pre-OOBE-aanpassingen geënsceneerd.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Pre-OOBE-aanpassingen geënsceneerd (simulatie).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Er is gecontroleerd of de implementatie gereed is (simulatie).</value>

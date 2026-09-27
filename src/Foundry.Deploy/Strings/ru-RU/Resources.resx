@@ -1038,9 +1038,6 @@
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Промежуточный пакет...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Проведение настроек перед OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Отправка запроса на импорт Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Обновление существующего устройства Autopilot...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Обновление сценария настройки первой загрузки...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Обновление группового тега Windows Autopilot в Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Содержимое обновления прошивки недоступно.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Никакие сценарии настройки перед запуском OOBE не требуются.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Выбран режим пакета OEM-драйверов, но пакет драйверов не предоставлен.</value>
   </data>
@@ -1304,12 +1295,6 @@
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Операционная система URL отсутствует.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Проведены настройки перед OOBE.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Предварительные настройки перед OOBE (моделирование).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Готовность к развертыванию проверена (симуляция).</value>

@@ -1038,9 +1038,6 @@ Vai turpināt izvietošanu?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Iestudējuma pakete...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Pirms OOBE pielāgojumu sagatavošana...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Importēšanas pieprasījuma iesniegšana uz Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Notiek esošās Autopilot ierīces atjaunināšana...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Notiek pirmās sāknēšanas iestatīšanas skripta atjaunināšana...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Notiek Windows Autopilot grupas taga atjaunināšana pakalpojumā Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@ Vai turpināt izvietošanu?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Aparātprogrammatūras atjauninājuma saturs nav pieejams.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Nav nepieciešami pielāgošanas skripti pirms OOBE.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Atlasīts OEM draivera pakotnes režīms, bet draivera pakotne netika nodrošināta.</value>
   </data>
@@ -1304,12 +1295,6 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Trūkst operētājsistēmas URL.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Pielāgojumi pirms OOBE.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Pirms OOBE inscenēti pielāgojumi (simulācija).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Gatavība izvietošanai ir pārbaudīta (simulācija).</value>

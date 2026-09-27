@@ -1038,9 +1038,6 @@ Pokračovať v nasadzovaní?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Inscenačný balík...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Pripravujú sa prispôsobenia pred OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Odosiela sa žiadosť o import na Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@ Pokračovať v nasadzovaní?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Aktualizuje sa existujúce zariadenie Autopilot...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Aktualizuje sa skript nastavenia prvého spustenia...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Aktualizuje sa značka skupiny Windows Autopilot v Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@ Pokračovať v nasadzovaní?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Obsah aktualizácie firmvéru nie je k dispozícii.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Nevyžadujú sa žiadne skripty prispôsobenia pred OOBE.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Bol vybraný režim balíka ovládačov OEM, ale nebol poskytnutý žiadny balík ovládačov.</value>
   </data>
@@ -1304,12 +1295,6 @@ Pokračovať v nasadzovaní?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Operačný systém URL chýba.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Pripravené úpravy pred OOBE.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Pripravené úpravy pred OOBE (simulácia).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Pripravenosť na nasadenie bola overená (simulácia).</value>

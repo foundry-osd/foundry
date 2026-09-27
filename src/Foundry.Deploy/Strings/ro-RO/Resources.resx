@@ -1038,9 +1038,6 @@ Continuați cu implementarea?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Pachet de montaj...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Se realizează personalizări pre-OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Se trimite cererea de import la Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@ Continuați cu implementarea?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Se actualizează dispozitivul Autopilot existent...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Se actualizează scriptul de configurare la prima pornire...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Se actualizează eticheta de grup Windows Autopilot în Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@ Continuați cu implementarea?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Nu este disponibil conținut pentru actualizarea firmware.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Nu sunt necesare scripturi de personalizare pre-OOBE.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Modul pachet de drivere OEM a fost selectat, dar nu a fost furnizat niciun pachet de drivere.</value>
   </data>
@@ -1304,12 +1295,6 @@ Continuați cu implementarea?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Sistemul de operare URL lipsește.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Personalizări pre-OOBE puse în scenă.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Personalizări pre-OOBE puse în scenă (simulare).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Pregătirea pentru implementare a fost verificată (simulare).</value>

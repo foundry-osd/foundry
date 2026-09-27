@@ -1038,9 +1038,6 @@
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Сценичен пакет...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Постановка на персонализации преди OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Изпраща се заявка за импортиране до Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Актуализиране на съществуващо Autopilot устройство...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Скриптът за настройка при първо зареждане се актуализира...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Актуализиране на Windows Autopilot групов таг в Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Няма налично съдържание за фърмуерна актуализация.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Не са необходими скриптове за персонализиране преди OOBE.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Избран е режим на OEM пакет драйвери, но не е предоставен пакет драйвери.</value>
   </data>
@@ -1304,12 +1295,6 @@
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Липсва операционна система URL.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Поетапни персонализации преди OOBE.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Поетапни персонализации преди OOBE (симулация).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Готовността за разполагане е проверена (симулация).</value>

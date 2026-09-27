@@ -158,7 +158,6 @@ public sealed class DeploymentCustomizationScenarioTests
         Assert.Equal(driverBytes, await File.ReadAllBytesAsync(state.DeferredDriverPackagePath!, cancellationToken));
         Assert.True(File.Exists(state.DeploymentSummaryPath));
         Assert.True(File.Exists(state.PreOobeManifestPath));
-        Assert.All(state.PreOobeScriptPaths, path => Assert.True(File.Exists(path), path));
 
         string retainedRoot = Path.Combine(fixture.WindowsRoot, "Windows", "Temp", "Foundry");
         string dataRoot = Path.Combine(retainedRoot, "Payloads");
@@ -170,8 +169,6 @@ public sealed class DeploymentCustomizationScenarioTests
         using JsonDocument executionPlan = JsonDocument.Parse(planText);
         Assert.Equal(new[] { "driver-pack", "network-profile-roaming", "remove-ai-components", "remove-appx", "cleanup" },
             executionPlan.RootElement.GetProperty("actions").EnumerateArray().Select(action => action.GetProperty("id").GetString()));
-        Assert.Empty(state.PreOobeScriptPaths);
-        Assert.Null(state.PreOobeSetupCompletePath);
         string oobe = await File.ReadAllTextAsync(Path.Combine(fixture.WindowsRoot, "Windows", "Setup", "Scripts", "OOBE.cmd"), cancellationToken);
         Assert.Equal(1, oobe.Split("REM >>> FOUNDRY AUTOPILOT REGISTRATION BEGIN", StringSplitOptions.None).Length - 1);
         Assert.True(File.Exists(state.StagedAutopilotConfigurationPath));

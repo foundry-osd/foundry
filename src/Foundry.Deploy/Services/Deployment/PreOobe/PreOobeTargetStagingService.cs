@@ -165,13 +165,11 @@ public sealed class PreOobeTargetStagingService
             new SetupCompleteScriptService().RemoveBlock(setupComplete, "FOUNDRY DRIVERPACK");
             BeforeHookPublication?.Invoke();
             new PreOobeUnattendHookService(_protectDirectory).Publish(partition, context.Request.OperatingSystem.Architecture);
-            // A custom manual hook already exists before staging; arm its journal only after every publication succeeds.
+            // An imported answer file may already contain the launch hook; arm its journal only after every publication succeeds.
             DeploymentFilePublication.WriteAllText(journalPath, JsonSerializer.Serialize(journal with { status = "Pending" }, ConfigurationJsonDefaults.SerializerOptions), new UTF8Encoding(false));
             hookPublished = true;
             context.RuntimeState.PreOobeRunnerPath = Path.Combine(layout.RuntimePreOobe, "Foundry.PostInstall.exe");
             context.RuntimeState.PreOobeManifestPath = planPath;
-            context.RuntimeState.PreOobeSetupCompletePath = null;
-            context.RuntimeState.PreOobeScriptPaths = [];
 
             void AddBuiltIn(string id, PreOobeBuiltInKind kind, object parameters) => actions.Add(new()
             { Id = id, Name = id, BuiltInKind = kind, Parameters = JsonSerializer.SerializeToElement(parameters, ConfigurationJsonDefaults.SerializerOptions) });

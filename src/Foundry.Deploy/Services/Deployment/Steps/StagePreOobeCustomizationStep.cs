@@ -11,7 +11,7 @@ using Foundry.Deploy.Services.Localization;
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
 /// <summary>
-/// Assembles setup scripts after deferred driver payloads and network artifacts have been prepared.
+/// Stages the PostInstall runtime and execution plan after deferred driver payloads and network artifacts have been prepared.
 /// </summary>
 public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
 {
@@ -119,10 +119,8 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
     private static void ApplyDryRunPreOobeResult(DeploymentRuntimeState runtimeState)
     {
         DeploymentStorageLayout layout = DeploymentStorageLayout.FromPartitionRoot(runtimeState.TargetWindowsPartitionRoot!);
-        runtimeState.PreOobeSetupCompletePath = null;
         runtimeState.PreOobeRunnerPath = Path.Combine(layout.RuntimePreOobe, "Foundry.PostInstall.exe");
         runtimeState.PreOobeManifestPath = Path.Combine(layout.StatePreOobe, "plan.json");
-        runtimeState.PreOobeScriptPaths = [];
     }
 
     /// <summary>Preserves automatic OEM activation only for native retail-image deployments.</summary>

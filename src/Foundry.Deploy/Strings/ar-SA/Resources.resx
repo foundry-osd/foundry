@@ -1038,9 +1038,6 @@
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>حزمة التدريج...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>الإعداد المرحلي لتخصيصات ما قبل OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>إرسال طلب الاستيراد إلى Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>جارٍ تحديث الجهاز Autopilot الموجود...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>جارٍ تحديث البرنامج النصي لإعداد التمهيد الأول...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>تحديث علامة المجموعة Windows Autopilot في Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>لا يتوفر محتوى لتحديث البرنامج الثابت.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>ليست هناك حاجة إلى برامج نصية لتخصيص ما قبل OOBE.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>تم تحديد وضع حزمة برنامج تشغيل OEM ولكن لم يتم توفير حزمة برنامج تشغيل.</value>
   </data>
@@ -1304,12 +1295,6 @@
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>نظام التشغيل URL مفقود.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>تم تنظيم تخصيصات ما قبل OOBE.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>تم تنظيم تخصيصات ما قبل OOBE (المحاكاة).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>تم التحقق من الجاهزية للنشر (محاكاة).</value>

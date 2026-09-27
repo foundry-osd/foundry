@@ -1038,9 +1038,6 @@ Vil du fortsette med distribusjonen?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Iscenesettelsespakke...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Iscenesetter pre-OOBE-tilpasninger...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Sender importforespørsel til Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@ Vil du fortsette med distribusjonen?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Oppdaterer eksisterende Autopilot enhet...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Oppdaterer oppsettskript for første oppstart...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Oppdaterer Windows Autopilot gruppetaggen i Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@ Vil du fortsette med distribusjonen?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Innhold for fastvareoppdatering er ikke tilgjengelig.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Ingen pre-OOBE-tilpasningsskript er nødvendig.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>OEM-driverpakkemodus er valgt, men ingen driverpakke ble levert.</value>
   </data>
@@ -1304,12 +1295,6 @@ Vil du fortsette med distribusjonen?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Operativsystem URL mangler.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Pre-OOBE-tilpasninger iscenesatt.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Pre-OOBE-tilpasninger iscenesatt (simulering).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Det er kontrollert om distribusjonen er klar (simulering).</value>

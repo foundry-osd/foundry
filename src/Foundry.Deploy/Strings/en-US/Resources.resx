@@ -1038,9 +1038,6 @@ Continue with deployment?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Staging package...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Staging pre-OOBE customizations...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Submitting import request to Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@ Continue with deployment?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Updating existing Autopilot device...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Updating first-boot setup script...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Updating Windows Autopilot group tag in Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@ Continue with deployment?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>No firmware update content is available.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>No pre-OOBE customization scripts are required.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>OEM driver pack mode selected but no driver pack was provided.</value>
   </data>
@@ -1304,12 +1295,6 @@ Continue with deployment?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Operating system URL is missing.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Pre-OOBE customizations staged.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Pre-OOBE customizations staged (simulation).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Deployment readiness checked (simulation).</value>

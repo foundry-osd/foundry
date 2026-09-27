@@ -128,7 +128,6 @@ public sealed class StagePreOobeCustomizationStepTests
         Assert.Equal(!dryRun, File.Exists(context.RuntimeState.DeferredDriverPackagePath));
         if (!dryRun)
             Assert.Equal(new byte[] { 1, 2, 3 }, await File.ReadAllBytesAsync(context.RuntimeState.DeferredDriverPackagePath!, TestContext.Current.CancellationToken));
-        Assert.Null(context.RuntimeState.PreOobeSetupCompletePath);
         Assert.False(File.Exists(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Setup", "Scripts", "SetupComplete.cmd")));
     }
 
@@ -150,7 +149,6 @@ public sealed class StagePreOobeCustomizationStepTests
 
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
         Assert.Equal(new byte[] { 1, 2, 3 }, await File.ReadAllBytesAsync(stagedPath, TestContext.Current.CancellationToken));
-        Assert.Empty(context.RuntimeState.PreOobeScriptPaths);
         using JsonDocument manifest = JsonDocument.Parse(await File.ReadAllTextAsync(context.RuntimeState.PreOobeManifestPath!, TestContext.Current.CancellationToken));
         Assert.Equal(context.RuntimeState.OperationId, manifest.RootElement.GetProperty("operationId").GetString());
         JsonElement driver = manifest.RootElement.GetProperty("actions").EnumerateArray().Single(script => script.GetProperty("id").GetString() == "driver-pack");
@@ -179,8 +177,6 @@ public sealed class StagePreOobeCustomizationStepTests
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
 
         Assert.Equal(expectsActivation ? DeploymentStepState.Succeeded : DeploymentStepState.Skipped, result.State);
-        Assert.Empty(context.RuntimeState.PreOobeScriptPaths);
-        Assert.Null(context.RuntimeState.PreOobeSetupCompletePath);
         if (expectsActivation && !isDryRun)
         {
             using JsonDocument plan = JsonDocument.Parse(File.ReadAllText(context.RuntimeState.PreOobeManifestPath!));
@@ -201,7 +197,6 @@ public sealed class StagePreOobeCustomizationStepTests
         DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
 
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
-        Assert.Empty(context.RuntimeState.PreOobeScriptPaths);
         Assert.True(File.Exists(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "NetworkProfiles", "wifi-profile.xml")));
         Assert.Contains("network-profile-roaming", File.ReadAllText(context.RuntimeState.PreOobeManifestPath!));
         Assert.Contains("OnRequest", File.ReadAllText(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Panther", "unattend.xml")));
@@ -230,7 +225,6 @@ public sealed class StagePreOobeCustomizationStepTests
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
         Assert.Equal(Path.Combine(tempDirectory.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "Drivers", "driver.exe"), context.RuntimeState.DeferredDriverPackagePath);
         Assert.True(File.Exists(context.RuntimeState.DeferredDriverPackagePath));
-        Assert.Empty(context.RuntimeState.PreOobeScriptPaths);
         using JsonDocument plan = JsonDocument.Parse(File.ReadAllText(context.RuntimeState.PreOobeManifestPath!));
         Assert.Equal(new[] { "driver-pack", "network-profile-roaming", "windows-oem-activation", "cleanup" },
             plan.RootElement.GetProperty("actions").EnumerateArray().Select(action => action.GetProperty("id").GetString()));
@@ -251,8 +245,6 @@ public sealed class StagePreOobeCustomizationStepTests
 
         Assert.Equal(DeploymentStepState.Failed, result.State);
         Assert.Null(context.RuntimeState.DeferredDriverPackagePath);
-        Assert.Null(context.RuntimeState.PreOobeSetupCompletePath);
-        Assert.Empty(context.RuntimeState.PreOobeScriptPaths);
     }
 
     [Fact]
@@ -270,8 +262,6 @@ public sealed class StagePreOobeCustomizationStepTests
 
         Assert.Equal(DeploymentStepState.Failed, result.State);
         Assert.Null(context.RuntimeState.DeferredDriverPackagePath);
-        Assert.Null(context.RuntimeState.PreOobeSetupCompletePath);
-        Assert.Empty(context.RuntimeState.PreOobeScriptPaths);
     }
 
     private static PreOobeNetworkProfileRoamingPayload CreateRoamingPayload()

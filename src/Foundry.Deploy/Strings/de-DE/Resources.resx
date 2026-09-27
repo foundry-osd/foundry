@@ -1038,9 +1038,6 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Staging-Paket...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Staging von Pre-OOBE-Anpassungen...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Importanfrage wird an Microsoft Graph gesendet...</value>
   </data>
@@ -1049,9 +1046,6 @@ Mit der Bereitstellung fortfahren?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Vorhandenes Autopilot Gerät wird aktualisiert...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Das Erststart-Setup-Skript wird aktualisiert...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Windows Autopilot-Gruppen-Tag wird in Microsoft Graph aktualisiert...</value>
@@ -1269,9 +1263,6 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Keine Firmwareupdatedaten verfügbar.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Es sind keine Pre-OOBE-Anpassungsskripte erforderlich.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Der OEM-Treiberpaketmodus wurde ausgewählt, aber es wurde kein Treiberpaket bereitgestellt.</value>
   </data>
@@ -1304,12 +1295,6 @@ Mit der Bereitstellung fortfahren?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Das Betriebssystem URL fehlt.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Vor-OOBE-Anpassungen durchgeführt.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Inszenierte Anpassungen vor der OOBE (Simulation).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Bereitschaft für die Bereitstellung wurde geprüft (Simulation).</value>

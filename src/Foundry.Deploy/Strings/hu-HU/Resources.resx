@@ -1038,9 +1038,6 @@ Folytatja a telepítést?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Üzembe helyezési csomag...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Az OOBE előtti testreszabások ütemezése...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Importálási kérelem benyújtása a Microsoft Graph címre...</value>
   </data>
@@ -1049,9 +1046,6 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Meglévő Autopilot eszköz frissítése...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Az első rendszerindítási beállítási szkript frissítése...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Windows Autopilot csoportcímke frissítése a Microsoft Graph-ban...</value>
@@ -1269,9 +1263,6 @@ Folytatja a telepítést?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Nem érhető el firmware-frissítési tartalom.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Nincs szükség előzetes OOBE testreszabási szkriptekre.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>OEM illesztőprogram-csomag mód kiválasztva, de nem biztosított illesztőprogram-csomag.</value>
   </data>
@@ -1304,12 +1295,6 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>A URL operációs rendszer hiányzik.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Az OOBE előtti testreszabások megtörténtek.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Az OOBE előtti testreszabások szakaszban (szimuláció).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>A telepítési készenlét ellenőrzése megtörtént (szimuláció).</value>

@@ -13,13 +13,3 @@ public sealed record PreOobeActionResult
     public DateTimeOffset? StartedAtUtc { get; init; }
     public DateTimeOffset? CompletedAtUtc { get; init; }
 }
-
-/// <summary>Preserves the terminal sequence outcome independently from the Windows Setup process return code.</summary>
-public sealed record PreOobeExecutionResult
-{
-    public int SchemaVersion { get; init; } = 1;
-    public string OperationId { get; init; } = string.Empty;
-    public string Status { get; init; } = "Pending";
-    public IReadOnlyDictionary<string, PreOobeActionResult> Actions { get; init; } = new Dictionary<string, PreOobeActionResult>();
-    public bool CleanupPending { get; init; }
-}

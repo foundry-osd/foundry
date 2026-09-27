@@ -1038,9 +1038,6 @@
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>แพ็คเกจการแสดงละคร...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>กำลังจัดเตรียมการปรับแต่งก่อน OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>กำลังส่งคำขอนำเข้าไปที่ Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>กำลังอัปเดตอุปกรณ์ Autopilot ที่มีอยู่...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>กำลังอัปเดตสคริปต์การตั้งค่าการบูตครั้งแรก...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>กำลังอัปเดตแท็กกลุ่ม Windows Autopilot ใน Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>ไม่มีเนื้อหาการอัปเดตเฟิร์มแวร์ที่พร้อมใช้งาน</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>ไม่จำเป็นต้องมีสคริปต์การปรับแต่งล่วงหน้า OOBE</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>เลือกโหมดชุดไดรเวอร์ OEM แล้ว แต่ไม่มีชุดไดรเวอร์ให้มา</value>
   </data>
@@ -1304,12 +1295,6 @@
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>ระบบปฏิบัติการ URL หายไป</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>ปรับแต่ง Pre-OOBE เป็นระยะ</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>การปรับแต่ง Pre-OOBE เป็นฉาก (การจำลอง)</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>ตรวจสอบความพร้อมในการปรับใช้แล้ว (การจำลอง)</value>

@@ -1038,9 +1038,6 @@ Tęsti diegimą?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Inscenizacijos paketas...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Išankstinių OOBE tinkinimų nustatymas...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Importavimo užklausa teikiama Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@ Tęsti diegimą?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Esamo Autopilot įrenginio atnaujinimas...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Atnaujinamas pirmojo įkrovos sąrankos scenarijus...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Atnaujinama Windows Autopilot grupės žyma Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@ Tęsti diegimą?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Programinės aparatinės įrangos naujinimo turinys nepasiekiamas.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Nereikia jokių išankstinių OOBE tinkinimo scenarijų.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Pasirinktas OĮG tvarkyklės paketo režimas, bet nebuvo pateiktas joks tvarkyklės paketas.</value>
   </data>
@@ -1304,12 +1295,6 @@ Tęsti diegimą?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Trūksta operacinės sistemos URL.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Surengti pritaikymai prieš OOBE.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Parengti pritaikymai prieš OOBE (modeliavimas).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Pasirengimas diegti patikrintas (modeliavimas).</value>

@@ -1038,9 +1038,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>스테이징 패키지...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>OOBE 이전 사용자 지정 준비 중...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Microsoft Graph에게 가져오기 요청을 제출하는 중...</value>
   </data>
@@ -1049,9 +1046,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>기존 Autopilot 장치 업데이트 중...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>최초 부팅 설정 스크립트 업데이트 중...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Microsoft Graph에서 Windows Autopilot 그룹 태그를 업데이트하는 중...</value>
@@ -1269,9 +1263,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>사용 가능한 펌웨어 업데이트 콘텐츠가 없습니다.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>OOBE 이전 사용자 지정 스크립트는 필요하지 않습니다.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>OEM 드라이버 팩 모드가 선택되었지만 드라이버 팩이 제공되지 않았습니다.</value>
   </data>
@@ -1304,12 +1295,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>URL 운영 체제가 없습니다.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>OOBE 이전 사용자 지정이 준비되었습니다.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>OOBE 이전 사용자 지정이 준비되었습니다(시뮬레이션).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>배포 준비 상태를 확인했습니다(시뮬레이션).</value>

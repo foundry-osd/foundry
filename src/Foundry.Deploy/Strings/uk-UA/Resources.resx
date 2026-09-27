@@ -1038,9 +1038,6 @@ ErrorCode=0x80070005
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Пакет постановок...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Постановка налаштувань до OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Надсилання запиту на імпорт до Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@ ErrorCode=0x80070005
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Оновлення наявного пристрою Autopilot...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Оновлення сценарію налаштування першого завантаження...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Оновлення тегу групи Windows Autopilot у Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@ ErrorCode=0x80070005
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Вміст оновлення мікропрограми недоступний.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Сценарії налаштування до OOBE не потрібні.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Вибрано режим пакета драйверів OEM, але пакет драйверів не надано.</value>
   </data>
@@ -1304,12 +1295,6 @@ ErrorCode=0x80070005
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Операційна система URL відсутня.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Поетапні налаштування до OOBE.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Поетапні налаштування до OOBE (симуляція).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Готовність до розгортання перевірено (симуляція).</value>

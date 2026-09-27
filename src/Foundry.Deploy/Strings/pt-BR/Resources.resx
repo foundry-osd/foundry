@@ -1038,9 +1038,6 @@ Continuar com a implantação?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Pacote de preparação...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Preparando personalizações pré-OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Enviando solicitação de importação para Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@ Continuar com a implantação?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Atualizando dispositivo Autopilot existente...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Atualizando o script de configuração da primeira inicialização...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Atualizando a tag do grupo Windows Autopilot em Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@ Continuar com a implantação?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Nenhum conteúdo de atualização de firmware está disponível.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Nenhum script de personalização pré-OOBE é necessário.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>O modo de pacote de driver OEM foi selecionado, mas nenhum pacote de driver foi fornecido.</value>
   </data>
@@ -1304,12 +1295,6 @@ Continuar com a implantação?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>O sistema operacional URL está faltando.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Personalizações pré-OOBE preparadas.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Customizações pré-OOBE preparadas (simulação).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Prontidão para implantação verificada (simulação).</value>

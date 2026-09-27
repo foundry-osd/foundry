@@ -1038,9 +1038,6 @@ Nastaviti s implementacijom?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Pripremni paket...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Postavljanje prilagodbi prije OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Slanje zahtjeva za uvoz na Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@ Nastaviti s implementacijom?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Ažuriranje postojećeg Autopilot uređaja...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Ažuriranje skripte za postavljanje prvog pokretanja...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Ažuriranje oznake grupe Windows Autopilot u Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@ Nastaviti s implementacijom?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Sadržaj ažuriranja firmvera nije dostupan.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Nisu potrebne skripte za prilagodbu prije OOBE.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Odabran je način rada OEM paketa upravljačkih programa, ali paket upravljačkih programa nije dostavljen.</value>
   </data>
@@ -1304,12 +1295,6 @@ Nastaviti s implementacijom?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Nedostaje operativni sustav URL.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Uvedene prilagodbe prije OOBE-a.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Postupne prilagodbe prije OOBE (simulacija).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Spremnost za implementaciju je provjerena (simulacija).</value>

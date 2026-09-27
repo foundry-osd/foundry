@@ -1038,9 +1038,6 @@ Operativni sistem: {4}
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Paket za postavljanje...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Izrada prilagođavanja pre OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Podnošenje zahteva za uvoz na Microsoft Graph...</value>
   </data>
@@ -1049,9 +1046,6 @@ Operativni sistem: {4}
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Ažuriranje postojećeg Autopilot uređaja...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Ažuriranje skripte za podešavanje prvog pokretanja...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Ažuriranje oznake grupe Windows Autopilot u Microsoft Graph...</value>
@@ -1269,9 +1263,6 @@ Operativni sistem: {4}
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Sadržaj ažuriranja firmvera nije dostupan.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Nisu potrebne skripte za prilagođavanje pre-OOBE.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Izabran je režim OEM paketa drajvera, ali nije obezbeđen paket drajvera.</value>
   </data>
@@ -1304,12 +1295,6 @@ Operativni sistem: {4}
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Nedostaje operativni sistem URL.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Prilagođavanja pre-OOBE su izvedena.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Prilagođavanja pre-OOBE su izvedena (simulacija).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Spremnost za primenu je proverena (simulacija).</value>
