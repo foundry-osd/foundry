@@ -2401,9 +2401,6 @@
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Προσθήκη ενέργειας</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>Οποιαδήποτε αρχιτεκτονική</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>Εφαρμογή</value>
   </data>

@@ -43,7 +43,6 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
         RestartCodes = string.Join(", ", action.Process?.RestartExitCodes ?? []);
         ContinueOnError = action.Process?.ErrorPolicy == PreOobeErrorPolicy.Continue;
         DeferRestart = action.Process?.RestartTiming == PreOobeRestartTiming.Deferred;
-        ArchitectureIndex = (int)(action.Process?.Architecture ?? PreOobeArchitecture.Any);
         ApplicationModeIndex = (int)(action.ApplicationMode ?? PreOobeApplicationMode.Exe);
     }
 
@@ -60,7 +59,6 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     [ObservableProperty] public partial string RestartCodes { get; set; } = string.Empty;
     [ObservableProperty] public partial bool ContinueOnError { get; set; }
     [ObservableProperty] public partial bool DeferRestart { get; set; }
-    [ObservableProperty] public partial int ArchitectureIndex { get; set; }
     [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial int ApplicationModeIndex { get; set; }
     [ObservableProperty][NotifyPropertyChangedFor(nameof(CanSave), nameof(CanEdit), nameof(HasFeedback))] public partial bool IsBusy { get; set; }
     [ObservableProperty][NotifyPropertyChangedFor(nameof(HasError), nameof(HasFeedback))] public partial string Error { get; set; } = string.Empty;
@@ -103,8 +101,6 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     public string RestartCodesLabel => Text("RestartCodes");
     public string ContinueLabel => Text("ContinueOnError");
     public string DeferRestartLabel => Text("DeferRestart");
-    public string ArchitectureLabel => localization.GetString("CustomImages.ArchitectureLabel");
-    public string AnyArchitectureLabel => Text("AnyArchitecture");
     public string ApplicationModeLabel => Text("ApplicationMode");
     public string ExecutionHelp => Text("ExecutionHelp");
     public string ExecutionSettingsLabel => Text("ExecutionSettings");
@@ -215,8 +211,7 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
                         SuccessExitCodes = ParseCodes(SuccessCodes),
                         RestartExitCodes = ParseCodes(RestartCodes),
                         ErrorPolicy = ContinueOnError ? PreOobeErrorPolicy.Continue : PreOobeErrorPolicy.Stop,
-                        RestartTiming = DeferRestart ? PreOobeRestartTiming.Deferred : PreOobeRestartTiming.Immediate,
-                        Architecture = (PreOobeArchitecture)ArchitectureIndex
+                        RestartTiming = DeferRestart ? PreOobeRestartTiming.Deferred : PreOobeRestartTiming.Immediate
                     }
                 };
             }

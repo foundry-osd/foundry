@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Runtime.InteropServices;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Services.Configuration;
@@ -18,14 +17,11 @@ public sealed class CustomAction(string root, string windowsRoot, PreOobeExecuti
         PreOobeProcessSettings policy = settings.Process ?? throw new InvalidDataException("Process policy is missing.");
         if (settings.ApplicationMode == PreOobeApplicationMode.Msi && !PreOobeConfigurationValidator.AreMsiArgumentsSafe(settings.Arguments))
             throw new InvalidDataException("MSI arguments conflict with controlled restart behavior.");
-        if (policy.TimeoutSeconds is < 1 or > 86400 || !Enum.IsDefined(policy.Architecture) ||
+        if (policy.TimeoutSeconds is < 1 or > 86400 ||
             !Enum.IsDefined(policy.ErrorPolicy) || !Enum.IsDefined(policy.RestartTiming) ||
             policy.SuccessExitCodes.Intersect(policy.RestartExitCodes).Any() ||
             policy.SuccessExitCodes.Contains(1641) || policy.RestartExitCodes.Contains(1641))
             throw new InvalidDataException("Process policy is invalid.");
-        if (policy.Architecture == PreOobeArchitecture.X64 && RuntimeInformation.ProcessArchitecture != Architecture.X64 ||
-            policy.Architecture == PreOobeArchitecture.Arm64 && RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
-            return new(false, FailureCode: "architecture_mismatch");
         string work = OwnedPaths.Resolve(root, $"Work/PreOobe/{plan.OperationId}/{action.Id}");
         Directory.CreateDirectory(work);
         string? packageRoot = null;

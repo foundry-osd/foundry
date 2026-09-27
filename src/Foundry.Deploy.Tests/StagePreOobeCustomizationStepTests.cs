@@ -25,7 +25,7 @@ namespace Foundry.Deploy.Tests;
 public sealed class StagePreOobeCustomizationStepTests
 {
     [Fact]
-    public async Task MediaPublisher_OutputIsAcceptedByDeployWithoutNetworkOrWritableCache()
+    public async Task MediaPublisher_OutputWithLegacyActionArchitectureIsAcceptedWithoutNetworkOrWritableCache()
     {
         using var temp = new TemporaryDirectory();
         string source = Path.Combine(temp.RootPath, "hello.ps1");
@@ -36,7 +36,8 @@ public sealed class StagePreOobeCustomizationStepTests
         {
             IsEnabled = true,
             Actions = [new() { Id = Guid.NewGuid().ToString("N"), Name = "Fixture", Kind = Foundry.Core.Models.Configuration.PreOobeActionKind.PowerShell,
-                Package = reference, EntryPoint = "hello.ps1", Process = new() }]
+                Package = reference, EntryPoint = "hello.ps1",
+                Process = JsonSerializer.Deserialize<Foundry.Core.Models.Configuration.PreOobeProcessSettings>("""{"Architecture":2}""") }]
         };
         using var runtime = NativeRuntimeFixture.Create(temp.RootPath);
         var publisher = new Foundry.Core.Services.WinPe.WinPePreOobeMediaService();

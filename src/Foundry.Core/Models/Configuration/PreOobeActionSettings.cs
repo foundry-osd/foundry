@@ -8,7 +8,6 @@ public enum PreOobeActionKind { PowerShell, Command, Application, Restart }
 public enum PreOobeApplicationMode { Exe, Msi }
 public enum PreOobeErrorPolicy { Stop, Continue }
 public enum PreOobeRestartTiming { Immediate, Deferred }
-public enum PreOobeArchitecture { Any, X64, Arm64 }
 
 /// <summary>References immutable imported content; display metadata never determines its identity.</summary>
 public sealed record PreOobePackageReference
@@ -27,7 +26,6 @@ public sealed record PreOobeProcessSettings
     public IReadOnlyList<int> SuccessExitCodes { get; init; } = [0];
     public IReadOnlyList<int> RestartExitCodes { get; init; } = [];
     public PreOobeRestartTiming RestartTiming { get; init; }
-    public PreOobeArchitecture Architecture { get; init; }
 }
 
 /// <summary>Defines one administrator-owned action. Array position determines order; IDs remain stable when reordered.</summary>

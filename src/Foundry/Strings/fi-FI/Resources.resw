@@ -2401,9 +2401,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Lisää toiminto</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>Mikä tahansa arkkitehtuuri</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>Sovellus</value>
   </data>

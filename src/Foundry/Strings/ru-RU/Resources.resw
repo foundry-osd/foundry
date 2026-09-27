@@ -2401,9 +2401,6 @@
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Добавить действие</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>Любая архитектура</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>Приложение</value>
   </data>

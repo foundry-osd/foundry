@@ -2401,9 +2401,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Pridėti veiksmą</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>Bet kuri architektūra</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>Programa</value>
   </data>

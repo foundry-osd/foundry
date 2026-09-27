@@ -2401,9 +2401,6 @@
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>הוסף פעולה</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>כל ארכיטקטורה</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>יישום</value>
   </data>

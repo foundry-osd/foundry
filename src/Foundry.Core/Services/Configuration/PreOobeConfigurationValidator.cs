@@ -41,7 +41,7 @@ public static class PreOobeConfigurationValidator
                 continue;
             }
             if (action.Process is not { } process || process.TimeoutSeconds is < 1 or > 86400 ||
-                !Enum.IsDefined(process.ErrorPolicy) || !Enum.IsDefined(process.RestartTiming) || !Enum.IsDefined(process.Architecture) ||
+                !Enum.IsDefined(process.ErrorPolicy) || !Enum.IsDefined(process.RestartTiming) ||
                 !ValidCodes(process.SuccessExitCodes, required: true) || !ValidCodes(process.RestartExitCodes, required: false) ||
                 process.SuccessExitCodes.Intersect(process.RestartExitCodes).Any())
                 Add("PreOobe.InvalidProcessPolicy");
@@ -94,10 +94,9 @@ public static class PreOobeConfigurationValidator
         return true;
     }
 
-    /// <summary>Disabled actions remain editable; readiness requires only enabled actions whose architecture can run.</summary>
-    public static bool IsReady(PreOobeSettings settings, Func<PreOobePackageReference, bool> isAvailable, PreOobeArchitecture architecture = PreOobeArchitecture.Any) =>
-        !settings.IsEnabled || (Validate(settings).Count == 0 && settings.Actions.Where(action => action.IsEnabled &&
-            (architecture == PreOobeArchitecture.Any || action.Process is null || action.Process.Architecture == PreOobeArchitecture.Any || action.Process.Architecture == architecture))
+    /// <summary>Disabled actions remain editable; all enabled actions require their referenced content.</summary>
+    public static bool IsReady(PreOobeSettings settings, Func<PreOobePackageReference, bool> isAvailable) =>
+        !settings.IsEnabled || (Validate(settings).Count == 0 && settings.Actions.Where(action => action.IsEnabled)
             .All(action => action.Package is null || isAvailable(action.Package)));
 
     private static bool IsRelative(string? value)

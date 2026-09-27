@@ -2401,9 +2401,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Pievienot darbību</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>Jebkura arhitektūra</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>Programma</value>
   </data>

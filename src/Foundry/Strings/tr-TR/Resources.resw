@@ -2401,9 +2401,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Eylem ekle</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>Tüm mimariler</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>Uygulama</value>
   </data>

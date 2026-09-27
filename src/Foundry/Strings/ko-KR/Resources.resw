@@ -2401,9 +2401,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>작업 추가</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>모든 아키텍처</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>애플리케이션</value>
   </data>

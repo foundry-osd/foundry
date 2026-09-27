@@ -2401,9 +2401,6 @@ Licencirano pod MIT licencom.</value>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Dodaj radnju</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>Bilo koja arhitektura</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>Aplikacija</value>
   </data>

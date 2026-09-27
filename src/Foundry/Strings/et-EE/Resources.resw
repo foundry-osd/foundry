@@ -2401,9 +2401,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Lisa toiming</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>Mis tahes arhitektuur</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>Rakendus</value>
   </data>

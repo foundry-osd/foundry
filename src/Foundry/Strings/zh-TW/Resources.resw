@@ -2401,9 +2401,6 @@
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>新增動作</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>任何架構</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>應用程式</value>
   </data>

@@ -39,9 +39,7 @@ public class PreOobeContentResolver(PreOobeRuntimeResolver runtimeResolver, IDep
     };
 
     internal static IEnumerable<PreOobeActionSettings> ApplicableActions(DeploymentContext request) =>
-        request.PreOobe.IsEnabled ? request.PreOobe.Actions.Where(action => action.IsEnabled &&
-            (action.Process?.Architecture is null or PreOobeArchitecture.Any ||
-             action.Process.Architecture == (ResolveRid(request.OperatingSystem.Architecture) == "win-x64" ? PreOobeArchitecture.X64 : PreOobeArchitecture.Arm64))) : [];
+        request.PreOobe.IsEnabled ? request.PreOobe.Actions.Where(action => action.IsEnabled) : [];
 
     internal virtual async Task<PreOobePreparedContent?> PrepareAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {

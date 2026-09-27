@@ -12,6 +12,23 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class PreOobeConfigurationTests
 {
     [Fact]
+    public void LegacyActionArchitectureIsIgnoredWhenLoadingAndGeneratingConfiguration()
+    {
+        var configurationService = new FoundryConfigurationService();
+        var source = configurationService.Deserialize("""
+            {"schemaVersion":16,"preOobe":{"isEnabled":true,"actions":[
+              {"name":"Custom action","kind":1,"command":"echo ready","process":{"architecture":2}}
+            ]}}
+            """);
+        Assert.Single(source.PreOobe.Actions);
+        var generator = new DeployConfigurationGenerator();
+        var generated = generator.Generate(source);
+        Assert.Single(generated.PreOobe.Actions);
+        Assert.DoesNotContain("architecture", JsonSerializer.Serialize(source.PreOobe), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("architecture", JsonSerializer.Serialize(generated.PreOobe), StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public void LegacyIntegrationOptOutIsIgnoredWhenLoadingAndGeneratingConfiguration()
     {
         var configurationService = new FoundryConfigurationService();
@@ -82,16 +99,14 @@ public sealed class PreOobeConfigurationTests
     }
 
     [Fact]
-    public void DisabledAndInapplicableMissingContentDoesNotBlockReadiness()
+    public void MissingContentBlocksEveryEnabledActionButNotDisabledActions()
     {
         var application = PreOobeActionSettings.Create(PreOobeActionKind.Application, "App") with
         {
             Package = new() { ContentHash = new string('a', 64), DisplayName = "App", FileCount = 1, Length = 1 },
-            EntryPoint = "setup.exe",
-            Process = new() { Architecture = PreOobeArchitecture.Arm64 }
+            EntryPoint = "setup.exe"
         };
         Assert.True(PreOobeConfigurationValidator.IsReady(new() { IsEnabled = true, Actions = [application with { IsEnabled = false }] }, _ => false));
-        Assert.True(PreOobeConfigurationValidator.IsReady(new() { IsEnabled = true, Actions = [application] }, _ => false, PreOobeArchitecture.X64));
         Assert.False(PreOobeConfigurationValidator.IsReady(new() { IsEnabled = true, Actions = [application] }, _ => false));
     }
 

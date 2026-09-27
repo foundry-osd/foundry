@@ -2401,9 +2401,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Legg til handling</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>Alle arkitekturer</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>Program</value>
   </data>

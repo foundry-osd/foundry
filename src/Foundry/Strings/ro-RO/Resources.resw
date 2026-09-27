@@ -2401,9 +2401,6 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Adăugați o acțiune</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>Orice arhitectură</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>Aplicație</value>
   </data>

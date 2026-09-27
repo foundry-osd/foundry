@@ -2401,9 +2401,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Művelet hozzáadása</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>Bármely architektúra</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>Alkalmazás</value>
   </data>

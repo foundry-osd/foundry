@@ -2401,9 +2401,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>アクションを追加</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>すべてのアーキテクチャ</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>アプリケーション</value>
   </data>

@@ -139,14 +139,6 @@
                         <TextBox
                             Header="{x:Bind ViewModel.RestartCodesLabel}"
                             Text="{x:Bind ViewModel.RestartCodes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <ComboBox
-                            HorizontalAlignment="Stretch"
-                            Header="{x:Bind ViewModel.ArchitectureLabel}"
-                            SelectedIndex="{x:Bind ViewModel.ArchitectureIndex, Mode=TwoWay}">
-                            <ComboBoxItem Content="{x:Bind ViewModel.AnyArchitectureLabel}" />
-                            <ComboBoxItem Content="x64" />
-                            <ComboBoxItem Content="ARM64" />
-                        </ComboBox>
                         <CheckBox IsChecked="{x:Bind ViewModel.ContinueOnError, Mode=TwoWay}">
                             <TextBlock
                                 Text="{x:Bind ViewModel.ContinueLabel}"

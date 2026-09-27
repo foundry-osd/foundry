@@ -2401,9 +2401,6 @@ Licenciado sob a licença MIT.</value>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Adicionar ação</value>
   </data>
-  <data name="PostInstallation.AnyArchitecture" xml:space="preserve">
-    <value>Qualquer arquitetura</value>
-  </data>
   <data name="PostInstallation.Application" xml:space="preserve">
     <value>Aplicativo</value>
   </data>
