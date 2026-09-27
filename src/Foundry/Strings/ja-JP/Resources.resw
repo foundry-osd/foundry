@@ -2479,6 +2479,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>フォルダーをインポート</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>コンテンツをインポートしています...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>このアクションは無効です。構成を確認してください。</value>
   </data>
@@ -2502,6 +2505,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>インポートしたコンテンツ内のフォルダーを入力するか、空欄のままにしてください。</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>コンテンツを読み込んでいます...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>「{0}」の不足しているコンテンツをインポートしてください。</value>

@@ -2479,6 +2479,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Importer mappe</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Importerer innhold...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Denne handlingen er ugyldig. Kontroller konfigurasjonen.</value>
   </data>
@@ -2502,6 +2505,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>Skriv inn en mappe fra det importerte innholdet, eller la feltet stå tomt.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Laster inn innhold...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importer det manglende innholdet for «{0}».</value>

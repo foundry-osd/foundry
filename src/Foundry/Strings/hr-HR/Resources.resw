@@ -2479,6 +2479,9 @@ Licenciran prema MIT licenci.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Uvezi mapu</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Uvoz sadržaja...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Ova radnja nije valjana. Provjerite njezinu konfiguraciju.</value>
   </data>
@@ -2502,6 +2505,9 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>Unesite mapu iz uvezenog sadržaja ili ostavite ovo polje praznim.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Učitavanje sadržaja...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Uvezite sadržaj koji nedostaje za „{0}”.</value>

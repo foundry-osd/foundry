@@ -52,7 +52,7 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     public bool IsNew { get; }
     public ObservableCollection<string> EntryPoints { get; } = [];
     [ObservableProperty] public partial string Name { get; set; } = string.Empty;
-    [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview), nameof(InstallerType), nameof(IsMsi))] public partial string EntryPoint { get; set; } = string.Empty;
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview), nameof(InstallerType), nameof(HasInstallerType), nameof(IsMsi))] public partial string EntryPoint { get; set; } = string.Empty;
     [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial string PowerShellArguments { get; set; } = string.Empty;
     [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial bool GenerateInstallationLog { get; set; }
     [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial string Arguments { get; set; } = string.Empty;
@@ -63,14 +63,15 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     [ObservableProperty] public partial string RestartCodes { get; set; } = string.Empty;
     [ObservableProperty] public partial bool ContinueOnError { get; set; }
     [ObservableProperty] public partial bool DeferRestart { get; set; }
-    [ObservableProperty][NotifyPropertyChangedFor(nameof(CanEdit), nameof(HasFeedback))] public partial bool IsBusy { get; set; }
-    [ObservableProperty][NotifyPropertyChangedFor(nameof(HasError), nameof(HasFeedback))] public partial string Error { get; set; } = string.Empty;
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(CanEdit))] public partial bool IsBusy { get; set; }
+    [ObservableProperty] public partial bool IsProcessing { get; set; }
+    [ObservableProperty] public partial string ProcessingStatus { get; set; } = string.Empty;
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(HasError))] public partial string Error { get; set; } = string.Empty;
     [ObservableProperty] public partial string InvalidField { get; set; } = string.Empty;
     [ObservableProperty] public partial string ValidationMessage { get; set; } = string.Empty;
     public Visibility ValidationVisibility(string field, string invalidField) => field == invalidField ? Visibility.Visible : Visibility.Collapsed;
     public bool CanEdit => !IsBusy;
     public bool HasError => !string.IsNullOrEmpty(Error);
-    public bool HasFeedback => IsBusy || HasError;
     public bool HasPackage => package is not null;
     public bool IsExecutable => original.Kind != PreOobeActionKind.Restart;
     public bool IsRestart => !IsExecutable;
@@ -95,6 +96,7 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     public string CommandPreviewLabel => Text("CommandPreview");
     public string CommandPreviewPlaceholder => Text("CommandPreviewPlaceholder");
     public string InstallerType => ApplicationMode?.ToString().ToUpperInvariant() ?? string.Empty;
+    public bool HasInstallerType => ApplicationMode is not null;
     private string NormalizedEntryPoint => EntryPoint.Trim().Replace('\\', '/');
     private PreOobeApplicationMode? ApplicationMode => !IsApplication ? null :
         NormalizedEntryPoint.EndsWith(".msi", StringComparison.OrdinalIgnoreCase) ? PreOobeApplicationMode.Msi :
@@ -136,6 +138,8 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     {
         if (package is null) return;
         IsBusy = true;
+        ProcessingStatus = Text("LoadingContent");
+        IsProcessing = true;
         try
         {
             using var lease = await library.AcquireAsync(package.ContentHash, cancellation.Token);
@@ -151,7 +155,7 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
             Logger.Warning(ex, "Post-installation package could not be opened for editing.");
             Error = Text("ImportFailed");
         }
-        finally { IsBusy = false; }
+        finally { IsProcessing = false; IsBusy = false; }
     }
 
     [RelayCommand] private Task ImportFileAsync() => ImportAsync(false);
@@ -168,6 +172,8 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
                 ? await picker.PickFolderAsync(new FolderPickerRequest(ContentLabel))
                 : await picker.PickOpenFileAsync(new FileOpenPickerRequest(ContentLabel, (string[])[".ps1", ".exe", ".msi", ".cmd", ".bat"]));
             if (source is null || cancellation.IsCancellationRequested) return;
+            ProcessingStatus = Text("ImportingContent");
+            IsProcessing = true;
             var imported = await library.ImportAsync(source, cancellation.Token);
             if (cancellation.IsCancellationRequested) return;
             using var lease = await library.AcquireAsync(imported.ContentHash, cancellation.Token);
@@ -192,7 +198,7 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
             Logger.Warning(ex, "Post-installation package import failed.");
             Error = Text("ImportFailed");
         }
-        finally { IsBusy = false; }
+        finally { IsProcessing = false; IsBusy = false; }
     }
 
     private bool IsEntryPoint(string path) => original.Kind switch

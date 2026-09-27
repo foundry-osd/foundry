@@ -2479,6 +2479,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Importuj folder</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Importowanie zawartości...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Ta akcja jest nieprawidłowa. Sprawdź jej konfigurację.</value>
   </data>
@@ -2502,6 +2505,9 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>Wprowadź folder z zaimportowanej zawartości lub pozostaw to pole puste.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Ładowanie zawartości...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Zaimportuj brakującą zawartość dla „{0}”.</value>

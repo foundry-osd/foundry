@@ -2479,6 +2479,9 @@
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Імпортувати папку</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Імпортування вмісту...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Ця дія недійсна. Перевірте її конфігурацію.</value>
   </data>
@@ -2502,6 +2505,9 @@
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>Введіть папку з імпортованого вмісту або залиште це поле порожнім.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Завантаження вмісту...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Імпортуйте відсутній вміст для «{0}».</value>

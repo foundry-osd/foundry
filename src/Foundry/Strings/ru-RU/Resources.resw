@@ -2479,6 +2479,9 @@
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Импортировать папку</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Импорт содержимого...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Это действие недопустимо. Проверьте его конфигурацию.</value>
   </data>
@@ -2502,6 +2505,9 @@
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>Введите папку из импортированного содержимого или оставьте поле пустым.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Загрузка содержимого...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Импортируйте недостающее содержимое для «{0}».</value>

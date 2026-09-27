@@ -2479,6 +2479,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Mappa importálása</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Tartalom importálása...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Ez a művelet érvénytelen. Ellenőrizze a konfigurációját.</value>
   </data>
@@ -2502,6 +2505,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>Adjon meg egy mappát az importált tartalomból, vagy hagyja üresen ezt a mezőt.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Tartalom betöltése...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importálja a(z) „{0}” hiányzó tartalmát.</value>

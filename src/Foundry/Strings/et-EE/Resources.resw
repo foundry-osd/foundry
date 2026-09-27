@@ -2479,6 +2479,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Impordi kaust</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Sisu importimine...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>See toiming on vigane. Kontrolli selle seadistust.</value>
   </data>
@@ -2502,6 +2505,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>Sisesta imporditud sisu kaust või jäta see väli tühjaks.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Sisu laadimine...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Impordi puuduv sisu toimingu „{0}” jaoks.</value>

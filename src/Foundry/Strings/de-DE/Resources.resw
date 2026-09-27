@@ -2479,6 +2479,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Ordner importieren</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Inhalt wird importiert...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Diese Aktion ist ungültig. Prüfen Sie ihre Konfiguration.</value>
   </data>
@@ -2502,6 +2505,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>Geben Sie einen Ordner aus den importierten Inhalten ein oder lassen Sie das Feld leer.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Inhalt wird geladen...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importieren Sie die fehlenden Inhalte für „{0}“.</value>

@@ -2479,6 +2479,9 @@ Licencirano pod licenco MIT.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Uvozi mapo</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Uvažanje vsebine...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>To dejanje ni veljavno. Preverite njegovo konfiguracijo.</value>
   </data>
@@ -2502,6 +2505,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>Vnesite mapo iz uvožene vsebine ali pustite to polje prazno.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Nalaganje vsebine...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Uvozite manjkajočo vsebino za »{0}«.</value>

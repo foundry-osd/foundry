@@ -70,6 +70,11 @@ public sealed partial class PostInstallationActionDialog : ContentDialog
         SettingsGrid.RowSpacing = twoColumns ? 0 : Resource("FoundrySpace24");
         Grid.SetColumn(ExecutionSettingsPanel, twoColumns ? 1 : 0);
         Grid.SetRow(ExecutionSettingsPanel, twoColumns ? 0 : 1);
+        Grid.SetColumn(InstallerTypeInput, twoColumns ? 1 : 0);
+        Grid.SetRow(InstallerTypeInput, twoColumns ? 0 : 1);
+        InstallerTypeInput.Margin = twoColumns
+            ? new Thickness(Resource("FoundrySpace24"), 0, 0, 0)
+            : new Thickness(0, Resource("FoundryContentGroupSpacing"), 0, 0);
     }
 
     private static double Resource(string key) => (double)Application.Current.Resources[key];

@@ -2479,6 +2479,9 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Importați un folder</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Se importă conținutul...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Această acțiune nu este validă. Verifică-i configurația.</value>
   </data>
@@ -2502,6 +2505,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>Introdu un folder din conținutul importat sau lasă acest câmp gol.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Se încarcă conținutul...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importă conținutul lipsă pentru „{0}”.</value>

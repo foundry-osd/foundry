@@ -2479,6 +2479,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Importēt mapi</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Satura importēšana...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Šī darbība nav derīga. Pārbaudiet tās konfigurāciju.</value>
   </data>
@@ -2502,6 +2505,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>Ievadiet mapi no importētā satura vai atstājiet šo lauku tukšu.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Satura ielāde...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importējiet trūkstošo saturu darbībai “{0}”.</value>

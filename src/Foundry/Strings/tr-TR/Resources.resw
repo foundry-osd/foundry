@@ -2479,6 +2479,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Klasör içeri aktar</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>İçerik içe aktarılıyor...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Bu eylem geçersiz. Yapılandırmasını denetleyin.</value>
   </data>
@@ -2502,6 +2505,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>İçeri aktarılan içerikten bir klasör girin veya bu alanı boş bırakın.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>İçerik yükleniyor...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>“{0}” için eksik içeriği içeri aktarın.</value>

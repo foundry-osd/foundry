@@ -2479,6 +2479,9 @@
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Εισαγωγή φακέλου</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Εισαγωγή περιεχομένου...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Αυτή η ενέργεια δεν είναι έγκυρη. Ελέγξτε τη διαμόρφωσή της.</value>
   </data>
@@ -2502,6 +2505,9 @@
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>Εισαγάγετε έναν φάκελο από το εισαγόμενο περιεχόμενο ή αφήστε το πεδίο κενό.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Φόρτωση περιεχομένου...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Εισαγάγετε το περιεχόμενο που λείπει για το «{0}».</value>

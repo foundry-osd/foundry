@@ -2479,6 +2479,9 @@
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>导入文件夹</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>正在导入内容...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>此操作无效。请检查其配置。</value>
   </data>
@@ -2502,6 +2505,9 @@
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>输入导入内容中的文件夹，或留空。</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>正在加载内容...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>导入“{0}”缺失的内容。</value>

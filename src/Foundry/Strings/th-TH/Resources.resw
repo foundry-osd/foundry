@@ -2479,6 +2479,9 @@
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>นำเข้าโฟลเดอร์</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>กำลังนำเข้าเนื้อหา...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>การดำเนินการนี้ไม่ถูกต้อง ตรวจสอบการกำหนดค่า</value>
   </data>
@@ -2502,6 +2505,9 @@
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>ป้อนโฟลเดอร์จากเนื้อหาที่นำเข้าหรือเว้นว่างไว้</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>กำลังโหลดเนื้อหา...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>นำเข้าเนื้อหาที่ขาดหายไปสำหรับ "{0}"</value>

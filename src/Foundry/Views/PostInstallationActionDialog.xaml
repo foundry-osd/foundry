@@ -26,20 +26,37 @@
             VerticalScrollBarVisibility="Auto">
             <StackPanel Spacing="{ThemeResource FoundrySpace24}">
                 <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
-                    <StackPanel x:Name="NameGroup"
-                        Spacing="{ThemeResource FoundryTextGroupSpacing}">
-                        <TextBox x:Name="NameInput"
-                            Header="{x:Bind ViewModel.NameLabel}"
-                            MaxLength="256"
-                            Text="{x:Bind ViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock
-                            AutomationProperties.LiveSetting="Polite"
-                            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                            Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
-                            TextWrapping="WrapWholeWords"
-                            Visibility="{x:Bind ViewModel.ValidationVisibility('Name', ViewModel.InvalidField), Mode=OneWay}" />
-                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <StackPanel x:Name="NameGroup"
+                            Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                            <TextBox x:Name="NameInput"
+                                Header="{x:Bind ViewModel.NameLabel}"
+                                MaxLength="256"
+                                Text="{x:Bind ViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock
+                                AutomationProperties.LiveSetting="Polite"
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.ValidationVisibility('Name', ViewModel.InvalidField), Mode=OneWay}" />
+                        </StackPanel>
+                        <TextBox x:Name="InstallerTypeInput"
+                            Grid.Column="1"
+                            VerticalAlignment="Top"
+                            Header="{x:Bind ViewModel.ApplicationModeLabel}"
+                            IsReadOnly="True"
+                            Text="{x:Bind ViewModel.InstallerType, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.HasInstallerType, Mode=OneWay}" />
+                    </Grid>
                     <TextBlock
                         Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.ExecutionHelp}"
@@ -104,6 +121,18 @@
                                 TextWrapping="WrapWholeWords"
                                 Visibility="{x:Bind ViewModel.ValidationVisibility('PackageName', ViewModel.InvalidField), Mode=OneWay}" />
                         </StackPanel>
+                        <StackPanel
+                            Spacing="{ThemeResource FoundryTextGroupSpacing}"
+                            Visibility="{x:Bind ViewModel.IsProcessing, Mode=OneWay}">
+                            <ProgressBar
+                                AutomationProperties.Name="{x:Bind ViewModel.ProcessingStatus, Mode=OneWay}"
+                                IsIndeterminate="{x:Bind ViewModel.IsProcessing, Mode=OneWay}" />
+                            <TextBlock
+                                AutomationProperties.LiveSetting="Polite"
+                                Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ProcessingStatus, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords" />
+                        </StackPanel>
                         <StackPanel x:Name="EntryPointGroup"
                             Spacing="{ThemeResource FoundryTextGroupSpacing}"
                             Visibility="{x:Bind ViewModel.HasEntryPoint}">
@@ -122,11 +151,6 @@
                                 TextWrapping="WrapWholeWords"
                                 Visibility="{x:Bind ViewModel.ValidationVisibility('EntryPoint', ViewModel.InvalidField), Mode=OneWay}" />
                         </StackPanel>
-                        <TextBox
-                            Header="{x:Bind ViewModel.ApplicationModeLabel}"
-                            IsReadOnly="True"
-                            Text="{x:Bind ViewModel.InstallerType, Mode=OneWay}"
-                            Visibility="{x:Bind ViewModel.IsApplication}" />
                         <StackPanel x:Name="WorkingDirectoryGroup"
                             Spacing="{ThemeResource FoundryTextGroupSpacing}">
                             <TextBox x:Name="WorkingDirectoryInput"
@@ -297,22 +321,14 @@
             Text="{x:Bind ViewModel.CommandPreview, Mode=OneWay}"
             TextWrapping="Wrap"
             Visibility="{x:Bind ViewModel.IsExecutable}" />
-        <StackPanel
+        <InfoBar
             Grid.Row="2"
             Margin="0,12,0,0"
-            Spacing="{ThemeResource FoundryContentGroupSpacing}"
-            Visibility="{x:Bind ViewModel.HasFeedback, Mode=OneWay}">
-            <ProgressBar
-                AutomationProperties.Name="{x:Bind ViewModel.ContentLabel}"
-                IsIndeterminate="True"
-                Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
-            <InfoBar
-                AutomationProperties.LiveSetting="Polite"
-                IsClosable="False"
-                IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
-                Message="{x:Bind ViewModel.Error, Mode=OneWay}"
-                Severity="Error"
-                Visibility="{x:Bind ViewModel.HasError, Mode=OneWay}" />
-        </StackPanel>
+            AutomationProperties.LiveSetting="Polite"
+            IsClosable="False"
+            IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+            Message="{x:Bind ViewModel.Error, Mode=OneWay}"
+            Severity="Error"
+            Visibility="{x:Bind ViewModel.HasError, Mode=OneWay}" />
     </Grid>
 </ContentDialog>

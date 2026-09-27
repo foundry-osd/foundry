@@ -2479,6 +2479,9 @@
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>ייבא תיקייה</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>מייבא תוכן...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>פעולה זו אינה תקינה. בדוק את התצורה שלה.</value>
   </data>
@@ -2502,6 +2505,9 @@
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>הזן תיקייה מתוך התוכן שיובא, או השאר שדה זה ריק.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>טוען תוכן...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>ייבא את התוכן החסר עבור "{0}".</value>

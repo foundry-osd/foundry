@@ -2479,6 +2479,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Importar carpeta</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Importando contenido...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Esta acción no es válida. Revise su configuración.</value>
   </data>
@@ -2502,6 +2505,9 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>Introduzca una carpeta del contenido importado o deje este campo vacío.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Cargando contenido...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Importe el contenido que falta para «{0}».</value>

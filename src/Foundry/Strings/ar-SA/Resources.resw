@@ -2479,6 +2479,9 @@
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>استيراد مجلد</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>جارٍ استيراد المحتوى...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>هذا الإجراء غير صالح. تحقق من تكوينه.</value>
   </data>
@@ -2502,6 +2505,9 @@
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>أدخل مجلدًا من المحتوى المستورد أو اترك هذا الحقل فارغًا.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>جارٍ تحميل المحتوى...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>استورد المحتوى المفقود لـ "{0}".</value>

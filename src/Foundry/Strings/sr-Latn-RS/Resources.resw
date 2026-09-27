@@ -2479,6 +2479,9 @@ Licencirano pod MIT licencom.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Uvezi fasciklu</value>
   </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Uvoz sadržaja...</value>
+  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Ova radnja nije ispravna. Proverite njenu konfiguraciju.</value>
   </data>
@@ -2502,6 +2505,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
     <value>Unesite fasciklu iz uvezenog sadržaja ili ostavite ovo polje prazno.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Učitavanje sadržaja...</value>
   </data>
   <data name="PostInstallation.MissingContent" xml:space="preserve">
     <value>Uvezite sadržaj koji nedostaje za „{0}”.</value>
