@@ -86,14 +86,20 @@
                             Label="{x:Bind ViewModel.ToggleLabel, Mode=OneWay}" />
                         <AppBarButton
                             Command="{x:Bind ViewModel.MoveUpCommand}"
-                            Icon="Up"
                             IsEnabled="{x:Bind ViewModel.CanMoveUp, Mode=OneWay}"
-                            Label="{x:Bind ViewModel.MoveUpLabel, Mode=OneWay}" />
+                            Label="{x:Bind ViewModel.MoveUpLabel, Mode=OneWay}">
+                            <AppBarButton.Icon>
+                                <FontIcon Glyph="&#xE70E;" />
+                            </AppBarButton.Icon>
+                        </AppBarButton>
                         <AppBarButton
                             Command="{x:Bind ViewModel.MoveDownCommand}"
-                            Icon="Down"
                             IsEnabled="{x:Bind ViewModel.CanMoveDown, Mode=OneWay}"
-                            Label="{x:Bind ViewModel.MoveDownLabel, Mode=OneWay}" />
+                            Label="{x:Bind ViewModel.MoveDownLabel, Mode=OneWay}">
+                            <AppBarButton.Icon>
+                                <FontIcon Glyph="&#xE70D;" />
+                            </AppBarButton.Icon>
+                        </AppBarButton>
                         <AppBarButton
                             Command="{x:Bind ViewModel.RefreshCommand}"
                             Icon="Refresh"
