@@ -2416,9 +2416,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Önce Foundry'nin yerleşik görevleri çalışır. Özel eylemlerinizi aşağıya yürütme sırasıyla ekleyin.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry, özel eylemler tamamlandıktan sonra geçici dağıtım içeriğini temizler.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>CMD komut satırı</value>
   </data>
@@ -2427,6 +2424,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paket içeriği</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>İçerik durumu</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Kurulum sonrası içerik doğrulandı.</value>
@@ -2458,9 +2458,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Klasör içeri aktar</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Özel yanıt dosyalarıyla tümleştir</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Adı, içerik yolunu, komutu ve işlem ayarlarını denetleyin. Çıkış kodu listeleri çakışmamalı veya 1641 içermemelidir; zaman aşımı 1–86400 saniye olmalıdır.</value>
   </data>
@@ -2472,6 +2469,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>İçerik içeri aktarılmadı</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Sıra</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Medya oluşturmadan önce eylem ayarlarını denetleyin ve eksik paket içeriğini içeri aktarın.</value>
@@ -2491,14 +2491,8 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Zaman aşımı (saniye)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Gelişmiş: Foundry başlatma komutunu dağıtım kopyasına ekleyin. İçeri aktarılan özgün dosyalar değişmez. Özel ayarlarınız ve komutlarınız dağıtımı etkileyebilir.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>Seçilen yanıt dosyası tümleştirilemiyor. Mimarisini, mevcut Foundry başlatma mekanizmasını ve RunSynchronous sırasını denetleyin veya değişen kaynağı yenileyin.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Dağıtım kopyası: specialize aşamasına WillReboot=OnRequest ile Foundry komutunu ekleyin. Mevcut komutları ve ayarları koruyun.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Tür</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Çalışma dizini (göreli; boş bırakılırsa içerik kökü kullanılır)</value>
@@ -3607,7 +3601,10 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Foundry ayarlarını kullan</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Seçilen dosya, Foundry'nin oluşturduğu yanıt dosyasının yerini alır. Ayarları birleştirilmeden veya eksik değerleri tamamlanmadan olduğu gibi kullanılır. Kayıtlı yapılandırmanızı kullanmak için “Foundry ayarlarını kullan” seçeneğini seçin.</value>
+    <value>Seçilen dosya, Foundry tarafından oluşturulan yanıt dosyasının yerini alır. Foundry dosyanın özel ayarlarını korur ve gerekli kurulum sonrası komutunu dağıtım kopyasına ekler. Kaydedilmiş yapılandırmanızı kullanmak için Foundry ayarlarını kullan seçeneğini belirleyin.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry özgün dosyanızı korur ve gerekli kurulum sonrası komutunu dağıtım kopyasına ekler. Özel ayarlarınız ve komutlarınız sizin sorumluluğunuzda kalır.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Özel dosyalar, Genel yapılandırmada dağıtım medyasının parolayla korunmasını gerektirir. XML, kimlik bilgileri veya betikler içerebilir. Katalog yalnızca kaynak başvurularını kaydeder; önyükleme görüntüsü şifrelenmiş kopyalar içerir.</value>

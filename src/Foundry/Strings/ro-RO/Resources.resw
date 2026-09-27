@@ -2416,9 +2416,6 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Sarcinile încorporate Foundry se execută primele. Adăugați mai jos acțiunile personalizate în ordinea executării.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry elimină conținutul temporar al implementării după finalizarea acțiunilor personalizate.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Linie de comandă CMD</value>
   </data>
@@ -2427,6 +2424,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Conținutul pachetului</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Starea conținutului</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Conținutul pentru etapa de după instalare a fost verificat.</value>
@@ -2458,9 +2458,6 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Importați un folder</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Integrare cu fișiere de răspuns personalizate</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Verificați numele, calea conținutului, comanda și setările procesului. Listele codurilor de ieșire nu trebuie să se suprapună sau să conțină 1641; limita de timp trebuie să fie de 1–86400 de secunde.</value>
   </data>
@@ -2472,6 +2469,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Niciun conținut importat</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Ordine</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Verificați setările acțiunilor și importați conținutul lipsă al pachetelor înainte de a crea suportul.</value>
@@ -2491,14 +2491,8 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Limită de timp (secunde)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Avansat: adăugați comanda de pornire Foundry în copia pentru implementare. Originalele importate rămân nemodificate. Setările și comenzile personalizate pot afecta implementarea.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>Fișierul de răspuns selectat nu poate fi integrat. Verificați arhitectura, mecanismul de pornire Foundry existent și ordinea RunSynchronous sau reîmprospătați sursa dacă s-a modificat.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Copia pentru implementare: adăugați comanda Foundry în specialize cu WillReboot=OnRequest. Păstrați comenzile și setările existente.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Tip</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Director de lucru (relativ; dacă este gol se utilizează rădăcina conținutului)</value>
@@ -3607,7 +3601,10 @@ Parole și chei de acces incluse: {2}</value>
     <value>Folosește setările Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Fișierul selectat înlocuiește fișierul de răspuns generat de Foundry. Setările sale sunt folosite ca atare, fără îmbinare sau completarea valorilor lipsă. Selectați „Folosește setările Foundry” pentru a utiliza configurația salvată.</value>
+    <value>Fișierul selectat înlocuiește fișierul de răspuns generat de Foundry. Foundry păstrează setările personalizate și adaugă comanda obligatorie pentru etapa de după instalare în copia pentru implementare. Selectați Folosește setările Foundry pentru a folosi configurația salvată.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry păstrează fișierul original și adaugă comanda sa obligatorie pentru etapa de după instalare în copia pentru implementare. Rămâneți responsabil pentru setările și comenzile personalizate.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Fișierele personalizate necesită protejarea prin parolă a suportului de implementare în configurația generală. XML-ul poate conține acreditări sau scripturi. Catalogul salvează doar referințe la surse; imaginea de pornire conține copii criptate.</value>

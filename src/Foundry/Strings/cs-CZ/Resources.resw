@@ -2416,9 +2416,6 @@ Licencováno pod licencí MIT.</value>
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Nejprve se provedou vestavěné úlohy Foundry. Níže přidejte vlastní akce v pořadí provádění.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry odstraní dočasný obsah nasazení po dokončení vlastních akcí.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Příkazový řádek CMD</value>
   </data>
@@ -2427,6 +2424,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Obsah balíčku</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Stav obsahu</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Obsah pro fázi po instalaci byl ověřen.</value>
@@ -2458,9 +2458,6 @@ Licencováno pod licencí MIT.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Importovat složku</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Integrovat s vlastními soubory odpovědí</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Zkontrolujte název, cestu k obsahu, příkaz a nastavení procesu. Seznamy návratových kódů se nesmí překrývat ani obsahovat 1641; časový limit musí být 1–86400 sekund.</value>
   </data>
@@ -2472,6 +2469,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Nebyl importován žádný obsah</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Pořadí</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Před vytvořením média zkontrolujte nastavení akcí a importujte chybějící obsah balíčků.</value>
@@ -2491,14 +2491,8 @@ Licencováno pod licencí MIT.</value>
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Časový limit (sekundy)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Pokročilé: přidejte spouštěcí příkaz Foundry do kopie pro nasazení. Importované originály zůstanou beze změny. Vlastní nastavení a příkazy mohou ovlivnit nasazení.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>Vybraný soubor odpovědí nelze integrovat. Zkontrolujte jeho architekturu, stávající spouštěcí mechanismus Foundry a pořadí RunSynchronous, nebo obnovte změněný zdroj.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Kopie pro nasazení: připojte příkaz Foundry ve fázi specialize s WillReboot=OnRequest. Zachovejte stávající příkazy a nastavení.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Typ</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Pracovní adresář (relativní; prázdná hodnota použije kořen obsahu)</value>
@@ -3607,7 +3601,10 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Použít nastavení Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Vybraný soubor nahrazuje soubor odpovědí vygenerovaný Foundry. Jeho nastavení se použijí beze změn, bez slučování nebo doplňování chybějících hodnot. Chcete-li použít uloženou konfiguraci, vyberte Použít nastavení Foundry.</value>
+    <value>Vybraný soubor nahradí soubor odpovědí vygenerovaný Foundry. Foundry zachová jeho vlastní nastavení a přidá požadovaný příkaz pro fázi po instalaci do kopie pro nasazení. Chcete-li použít uloženou konfiguraci, vyberte Použít nastavení Foundry.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry zachová původní soubor a přidá svůj požadovaný příkaz pro fázi po instalaci do kopie pro nasazení. Za vlastní nastavení a příkazy nadále odpovídáte vy.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Vlastní soubory vyžadují ochranu média pro nasazení heslem v obecné konfiguraci. XML může obsahovat přihlašovací údaje nebo skripty. Katalog ukládá pouze odkazy na zdroje. Spouštěcí bitová kopie obsahuje zašifrované kopie.</value>

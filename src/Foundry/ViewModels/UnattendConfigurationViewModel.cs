@@ -111,6 +111,7 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
     public string DefaultLabel => Text("Unattend.DefaultLabel");
     public string DefaultDescription => Text("Unattend.DefaultDescription");
     public string OwnershipDescription => Text("Unattend.OwnershipDescription");
+    public string PostInstallationDescription => Text("Unattend.PostInstallationDescription");
     public string CompatibilityDescription => Text("Unattend.CompatibilityDescription");
     public string ProtectionDescription => Text("Unattend.ProtectionDescription");
 

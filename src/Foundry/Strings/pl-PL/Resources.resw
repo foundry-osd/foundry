@@ -2416,9 +2416,6 @@ Licencjonowany na licencji MIT.</value>
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Wbudowane zadania Foundry są wykonywane jako pierwsze. Dodaj poniżej własne akcje w kolejności wykonania.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry usuwa tymczasową zawartość wdrożenia po zakończeniu własnych akcji.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Wiersz polecenia CMD</value>
   </data>
@@ -2427,6 +2424,9 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Zawartość pakietu</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Stan zawartości</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Zweryfikowano zawartość do działań po instalacji.</value>
@@ -2458,9 +2458,6 @@ Licencjonowany na licencji MIT.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Importuj folder</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Integruj z własnymi plikami odpowiedzi</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Sprawdź nazwę, ścieżkę zawartości, polecenie i ustawienia procesu. Listy kodów wyjścia nie mogą się pokrywać ani zawierać 1641; limit czasu musi wynosić 1–86400 sekund.</value>
   </data>
@@ -2472,6 +2469,9 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Nie zaimportowano zawartości</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Kolejność</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Sprawdź ustawienia akcji i zaimportuj brakującą zawartość pakietów przed utworzeniem nośnika.</value>
@@ -2491,14 +2491,8 @@ Licencjonowany na licencji MIT.</value>
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Limit czasu (sekundy)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Zaawansowane: dodaj polecenie uruchomienia Foundry do kopii wdrożeniowej. Zaimportowane oryginały pozostają bez zmian. Własne ustawienia i polecenia mogą wpływać na wdrożenie.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>Nie można zintegrować wybranego pliku odpowiedzi. Sprawdź jego architekturę, istniejący mechanizm uruchamiania Foundry i kolejność RunSynchronous lub odśwież zmienione źródło.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Kopia wdrożeniowa: dołącz polecenie Foundry w fazie specialize z WillReboot=OnRequest. Zachowaj istniejące polecenia i ustawienia.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Typ</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Katalog roboczy (względny; puste pole oznacza katalog główny zawartości)</value>
@@ -3607,7 +3601,10 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Użyj ustawień Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Wybrany plik zastępuje plik odpowiedzi wygenerowany przez Foundry. Jego ustawienia są używane bez zmian, scalania ani uzupełniania brakujących wartości. Wybierz „Użyj ustawień Foundry”, aby użyć zapisanej konfiguracji.</value>
+    <value>Wybrany plik zastępuje plik odpowiedzi wygenerowany przez Foundry. Foundry zachowuje jego własne ustawienia i dodaje wymagane polecenie działań po instalacji do kopii wdrożeniowej. Wybierz Użyj ustawień Foundry, aby użyć zapisanej konfiguracji.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry zachowuje oryginalny plik i dodaje wymagane polecenie działań po instalacji do kopii wdrożeniowej. Nadal odpowiadasz za własne ustawienia i polecenia.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Pliki niestandardowe wymagają ochrony nośnika wdrożeniowego hasłem w konfiguracji ogólnej. XML może zawierać poświadczenia lub skrypty. Katalog zapisuje tylko odwołania do źródeł. Obraz rozruchowy zawiera zaszyfrowane kopie.</value>

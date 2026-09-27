@@ -2416,9 +2416,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Foundry sisseehitatud ülesanded käivitatakse esimesena. Lisage allpool kohandatud toimingud täitmise järjekorras.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry eemaldab ajutise juurutussisu pärast kohandatud toimingute lõppu.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>CMD käsurida</value>
   </data>
@@ -2427,6 +2424,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketi sisu</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Sisu olek</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Installimisjärgne sisu on kontrollitud.</value>
@@ -2458,9 +2458,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Impordi kaust</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Lõimi kohandatud vastusefailidega</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Kontrollige nime, sisu teed, käsku ja protsessi sätteid. Väljumiskoodide loendid ei tohi kattuda ega sisaldada koodi 1641; ajalõpp peab olema 1–86400 sekundit.</value>
   </data>
@@ -2472,6 +2469,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Sisu pole imporditud</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Järjekord</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Enne andmekandja loomist kontrollige toimingute sätteid ja importige puuduv paketisisu.</value>
@@ -2491,14 +2491,8 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Ajalõpp (sekundites)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Täpsem: lisage Foundry käivituskäsk juurutuskoopiasse. Imporditud originaalid jäävad muutmata. Kohandatud sätted ja käsud võivad juurutamist mõjutada.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>Valitud vastusefaili ei saa lõimida. Kontrollige selle arhitektuuri, olemasolevat Foundry käivitusmehhanismi ja RunSynchronous-järjekorda või värskendage muutunud allikat.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Juurutuskoopia: lisage Foundry käsk etappi specialize sättega WillReboot=OnRequest. Säilitage olemasolevad käsud ja sätted.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Tüüp</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Töökataloog (suhteline; tühjana kasutatakse sisu juurkataloogi)</value>
@@ -3607,7 +3601,10 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Kasuta Foundry sätteid</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Valitud fail asendab Foundry loodud vastusefaili. Selle sätteid kasutatakse muutmata kujul, neid ühendamata ja puuduvaid väärtusi lisamata. Salvestatud konfiguratsiooni kasutamiseks valige Kasuta Foundry sätteid.</value>
+    <value>Valitud fail asendab Foundry loodud vastusefaili. Foundry säilitab selle kohandatud sätted ja lisab juurutuskoopiasse nõutava installimisjärgse käsu. Salvestatud konfiguratsiooni kasutamiseks valige Kasuta Foundry sätteid.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry säilitab algse faili ja lisab juurutuskoopiasse oma nõutava installimisjärgse käsu. Vastutate endiselt oma kohandatud sätete ja käskude eest.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Kohandatud failid nõuavad üldkonfiguratsioonis juurutusandmekandja paroolikaitset. XML võib sisaldada identimisteavet või skripte. Kataloog salvestab ainult allikaviited; alglaadimistõmmis sisaldab krüptitud koopiaid.</value>

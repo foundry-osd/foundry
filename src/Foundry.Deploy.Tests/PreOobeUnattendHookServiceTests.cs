@@ -20,7 +20,7 @@ public sealed class PreOobeUnattendHookServiceTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public void PublicationWritesProtectedHashAuditWithoutSourceValues(bool integrate)
+    public void PublicationWritesProtectedHashAuditWithoutSourceValues(bool existingHook)
     {
         string root = Path.Combine(Path.GetTempPath(), "Foundry.Deploy.Tests", Guid.NewGuid().ToString("N"));
         string answer = Path.Combine(root, "Windows", "Panther", "unattend.xml");
@@ -29,12 +29,12 @@ public sealed class PreOobeUnattendHookServiceTests
         try
         {
             byte[] source = Encoding.UTF8.GetBytes($"<unattend xmlns=\"{Namespace}\"><!-- private-secret --></unattend>");
-            if (!integrate) source = _service.Prepare(source, "x64", true);
+            if (existingHook) source = _service.Prepare(source, "x64");
             File.WriteAllBytes(answer, source);
             bool protectedBeforeAudit = false;
             var service = new PreOobeUnattendHookService(path =>
             { protectedBeforeAudit = !File.Exists(audit); Directory.CreateDirectory(path); });
-            service.Publish(root, "x64", integrate);
+            service.Publish(root, "x64");
             Assert.True(protectedBeforeAudit);
             string auditText = File.ReadAllText(audit);
             Assert.DoesNotContain("private-secret", auditText);
@@ -42,7 +42,10 @@ public sealed class PreOobeUnattendHookServiceTests
             using JsonDocument document = JsonDocument.Parse(auditText);
             Assert.Equal(Convert.ToHexStringLower(SHA256.HashData(source)), document.RootElement.GetProperty("sourceSha256").GetString());
             Assert.Equal(Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(answer))), document.RootElement.GetProperty("derivedSha256").GetString());
-            if (!integrate) Assert.Equal(source, File.ReadAllBytes(answer));
+            Assert.Equal(!existingHook, document.RootElement.GetProperty("modified").GetBoolean());
+            if (existingHook) Assert.Equal(source, File.ReadAllBytes(answer));
+            XNamespace ns = Namespace;
+            Assert.Single(XDocument.Load(answer).Descendants(ns + "RunSynchronousCommand"));
         }
         finally { Directory.Delete(root, recursive: true); }
     }
@@ -60,7 +63,7 @@ public sealed class PreOobeUnattendHookServiceTests
             File.WriteAllBytes(answer, source);
             var service = new PreOobeUnattendHookService(path => Directory.CreateDirectory(path));
             using (var held = new FileStream(answer, FileMode.Open, FileAccess.Read, FileShare.Read))
-                Assert.Throws<IOException>(() => service.Publish(root, "x64", true));
+                Assert.Throws<IOException>(() => service.Publish(root, "x64"));
             Assert.False(File.Exists(audit));
             Assert.Equal(source, File.ReadAllBytes(answer));
         }
@@ -71,24 +74,25 @@ public sealed class PreOobeUnattendHookServiceTests
     public void IntegrationAppendsPreservesForeignCommandsAndIsIdempotent()
     {
         byte[] input = Encoding.UTF8.GetBytes($"<unattend xmlns=\"{Namespace}\"><settings pass=\"specialize\"><component name=\"Microsoft-Windows-Deployment\" processorArchitecture=\"amd64\"><RunSynchronous><RunSynchronousCommand><Order>3</Order><Path>foreign.exe</Path></RunSynchronousCommand></RunSynchronous></component></settings></unattend>");
-        byte[] output = _service.Prepare(input, "x64", true);
-        Assert.Equal(output, _service.Prepare(output, "x64", true));
+        byte[] output = _service.Prepare(input, "x64");
+        Assert.Equal(output, _service.Prepare(output, "x64"));
         XNamespace ns = Namespace;
         XElement[] commands = XDocument.Parse(Encoding.UTF8.GetString(output)).Descendants(ns + "RunSynchronousCommand").ToArray();
         Assert.Equal(2, commands.Length);
         Assert.Equal("foreign.exe", commands[0].Element(ns + "Path")!.Value);
         Assert.Equal("4", commands[1].Element(ns + "Order")!.Value);
         Assert.Equal("OnRequest", commands[1].Element(ns + "WillReboot")!.Value);
-        Assert.Equal(output, _service.Prepare(output, "x64", false));
+        Assert.Equal(output, _service.Prepare(output, "x64"));
     }
 
     [Fact]
-    public void ExactCopyRequiresCanonicalHookAndPreservesBytes()
+    public void AutomaticIntegrationDoesNotRequireManualHookAndPreservesSource()
     {
         byte[] original = Encoding.UTF8.GetBytes($"<unattend xmlns=\"{Namespace}\" />");
-        Assert.Throws<InvalidDataException>(() => _service.Prepare(original, "x64", false));
-        byte[] integrated = _service.Prepare(original, "x64", true);
-        Assert.Equal(integrated, _service.Prepare(integrated, "x64", false));
+        byte[] integrated = _service.Prepare(original, "x64");
+        XNamespace ns = Namespace;
+        Assert.Single(XDocument.Parse(Encoding.UTF8.GetString(integrated)).Descendants(ns + "RunSynchronousCommand"));
+        Assert.Equal(integrated, _service.Prepare(integrated, "x64"));
         Assert.Equal($"<unattend xmlns=\"{Namespace}\" />", Encoding.UTF8.GetString(original));
     }
 
@@ -100,19 +104,19 @@ public sealed class PreOobeUnattendHookServiceTests
     public void InvalidOrExhaustedOrdersAreRejected(string order)
     {
         byte[] input = Encoding.UTF8.GetBytes($"<unattend xmlns=\"{Namespace}\"><settings pass=\"specialize\"><component name=\"Microsoft-Windows-Deployment\" processorArchitecture=\"amd64\"><RunSynchronous><RunSynchronousCommand><Order>{order}</Order><Path>foreign.exe</Path></RunSynchronousCommand></RunSynchronous></component></settings></unattend>");
-        Assert.Throws<InvalidDataException>(() => _service.Prepare(input, "x64", true));
+        Assert.Throws<InvalidDataException>(() => _service.Prepare(input, "x64"));
     }
 
     [Fact]
     public void ArchitectureConflictsAndDuplicateHooksAreRejected()
     {
         byte[] input = Encoding.UTF8.GetBytes($"<unattend xmlns=\"{Namespace}\" />");
-        byte[] integrated = _service.Prepare(input, "arm64", true);
-        Assert.Throws<InvalidDataException>(() => _service.Prepare(integrated, "x64", true));
+        byte[] integrated = _service.Prepare(input, "arm64");
+        Assert.Throws<InvalidDataException>(() => _service.Prepare(integrated, "x64"));
         XDocument document = XDocument.Parse(Encoding.UTF8.GetString(integrated));
         XNamespace ns = Namespace;
         XElement command = document.Descendants(ns + "RunSynchronousCommand").Single();
         command.Parent!.Add(new XElement(command));
-        Assert.Throws<InvalidDataException>(() => _service.Prepare(Encoding.UTF8.GetBytes(document.ToString()), "arm64", true));
+        Assert.Throws<InvalidDataException>(() => _service.Prepare(Encoding.UTF8.GetBytes(document.ToString()), "arm64"));
     }
 }

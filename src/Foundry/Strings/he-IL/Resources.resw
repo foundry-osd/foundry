@@ -2416,9 +2416,6 @@
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>המשימות המובנות של Foundry מופעלות ראשונות. הוסף למטה פעולות מותאמות אישית לפי סדר הביצוע.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry מנקה את תוכן הפריסה הזמני לאחר סיום הפעולות המותאמות אישית.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>שורת פקודה של CMD</value>
   </data>
@@ -2427,6 +2424,9 @@
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>תוכן החבילה</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>מצב התוכן</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>התוכן לשלב שלאחר ההתקנה אומת.</value>
@@ -2458,9 +2458,6 @@
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>ייבא תיקייה</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>שלב עם קובצי תשובות מותאמים אישית</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>בדוק את השם, נתיב התוכן, הפקודה והגדרות התהליך. רשימות קודי היציאה לא יכולות לחפוף או להכיל 1641; הזמן הקצוב חייב להיות 1–86400 שניות.</value>
   </data>
@@ -2472,6 +2469,9 @@
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>לא יובא תוכן</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>סדר</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>בדוק את הגדרות הפעולות וייבא תוכן חבילות חסר לפני יצירת המדיה.</value>
@@ -2491,14 +2491,8 @@
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>זמן קצוב (שניות)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>מתקדם: הוסף את פקודת ההפעלה של Foundry לעותק הפריסה. המקור המיובא נשאר ללא שינוי. ההגדרות והפקודות המותאמות אישית עשויות להשפיע על הפריסה.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>לא ניתן לשלב את קובץ התשובות שנבחר. בדוק את הארכיטקטורה שלו, את מנגנון ההפעלה הקיים של Foundry ואת סדר RunSynchronous, או רענן את המקור אם השתנה.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>עותק הפריסה: הוסף את פקודת Foundry בשלב specialize עם WillReboot=OnRequest. שמור על הפקודות וההגדרות הקיימות.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>סוג</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>ספריית עבודה (יחסית; שדה ריק משתמש בשורש התוכן)</value>
@@ -3607,7 +3601,10 @@
     <value>שימוש בהגדרות Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>הקובץ שנבחר מחליף את קובץ התשובות ש-Foundry יוצר. ההגדרות שלו משמשות כפי שהן, ללא מיזוג או השלמת ערכים חסרים. בחרו שימוש בהגדרות Foundry כדי להשתמש בתצורה השמורה.</value>
+    <value>הקובץ שנבחר מחליף את קובץ התשובות שנוצר על ידי Foundry. Foundry שומר על ההגדרות המותאמות אישית שלו ומוסיף לעותק הפריסה את הפקודה הנדרשת לשלב שלאחר ההתקנה. בחר שימוש בהגדרות Foundry כדי להשתמש בתצורה השמורה.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry שומר על הקובץ המקורי ומוסיף לעותק הפריסה את הפקודה הנדרשת שלו לשלב שלאחר ההתקנה. האחריות להגדרות ולפקודות המותאמות אישית נשארת שלך.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>קבצים מותאמים אישית מחייבים הגנת סיסמה למדיית הפריסה בתצורה הכללית. XML עשוי להכיל אישורים או סקריפטים. הקטלוג שומר רק הפניות למקורות; תמונת האתחול מכילה עותקים מוצפנים.</value>

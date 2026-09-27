@@ -2416,9 +2416,6 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Las tareas integradas de Foundry se ejecutan primero. Agregue sus acciones debajo en el orden de ejecución.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry elimina el contenido temporal del despliegue cuando terminan las acciones personalizadas.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Línea de comandos CMD</value>
   </data>
@@ -2427,6 +2424,9 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Contenido del paquete</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Estado del contenido</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Contenido de posinstalación verificado.</value>
@@ -2458,9 +2458,6 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Importar carpeta</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Integrar con archivos de respuesta personalizados</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Compruebe el nombre, la ruta del contenido, el comando y los ajustes del proceso. Las listas de códigos no deben solaparse ni incluir 1641; el tiempo de espera debe ser de 1–86400 segundos.</value>
   </data>
@@ -2472,6 +2469,9 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>No se ha importado contenido</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Orden</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Compruebe la configuración de las acciones e importe el contenido que falte antes de crear el medio.</value>
@@ -2491,14 +2491,8 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Tiempo de espera (segundos)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Avanzado: agrega el comando de inicio de Foundry a la copia de despliegue. Los originales importados no cambian. Sus opciones y comandos pueden afectar al despliegue.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>No se puede integrar el archivo de respuesta seleccionado. Compruebe su arquitectura, el enlace de inicio de Foundry existente y el orden de RunSynchronous, o actualice el origen si ha cambiado.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Copia de despliegue: añadir el comando de Foundry en specialize con WillReboot=OnRequest. Conservar los comandos y la configuración existentes.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Tipo</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Directorio de trabajo (relativo; vacío para la raíz del contenido)</value>
@@ -3607,7 +3601,10 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Usar la configuración de Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>El archivo seleccionado reemplaza el archivo de respuesta generado por Foundry. Sus opciones se usan tal cual, sin combinarlas ni completar los valores que faltan. Seleccione Usar la configuración de Foundry para utilizar su configuración guardada.</value>
+    <value>El archivo seleccionado reemplaza el archivo de respuesta generado por Foundry. Foundry conserva sus opciones personalizadas y añade el comando de posinstalación requerido a la copia de despliegue. Seleccione Usar la configuración de Foundry para utilizar su configuración guardada.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry conserva el archivo original y añade su comando de posinstalación requerido a la copia de despliegue. Usted sigue siendo responsable de sus opciones y comandos personalizados.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Los archivos personalizados requieren protección mediante contraseña del medio de implementación en la configuración general. El XML puede contener credenciales o scripts. El catálogo solo guarda referencias a los orígenes; la imagen de arranque contiene copias cifradas.</value>

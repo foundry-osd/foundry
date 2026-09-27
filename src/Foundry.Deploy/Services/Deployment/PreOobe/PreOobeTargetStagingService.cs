@@ -164,8 +164,7 @@ public sealed class PreOobeTargetStagingService
             new SetupCompleteScriptService().RemoveBlock(setupComplete, "FOUNDRY PRE-OOBE");
             new SetupCompleteScriptService().RemoveBlock(setupComplete, "FOUNDRY DRIVERPACK");
             BeforeHookPublication?.Invoke();
-            new PreOobeUnattendHookService(_protectDirectory).Publish(partition, context.Request.OperatingSystem.Architecture,
-                !context.Request.UsesCustomUnattend || context.Request.PreOobe.IntegrateCustomUnattend);
+            new PreOobeUnattendHookService(_protectDirectory).Publish(partition, context.Request.OperatingSystem.Architecture);
             // A custom manual hook already exists before staging; arm its journal only after every publication succeeds.
             DeploymentFilePublication.WriteAllText(journalPath, JsonSerializer.Serialize(journal with { status = "Pending" }, ConfigurationJsonDefaults.SerializerOptions), new UTF8Encoding(false));
             hookPublished = true;

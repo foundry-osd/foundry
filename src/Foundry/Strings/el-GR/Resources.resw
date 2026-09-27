@@ -2416,9 +2416,6 @@
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Οι ενσωματωμένες εργασίες του Foundry εκτελούνται πρώτες. Προσθέστε παρακάτω τις προσαρμοσμένες ενέργειές σας με τη σειρά εκτέλεσης.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Το Foundry διαγράφει το προσωρινό περιεχόμενο ανάπτυξης μετά την ολοκλήρωση των προσαρμοσμένων ενεργειών.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Γραμμή εντολών CMD</value>
   </data>
@@ -2427,6 +2424,9 @@
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Περιεχόμενο πακέτου</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Κατάσταση περιεχομένου</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Το περιεχόμενο για μετά την εγκατάσταση επαληθεύτηκε.</value>
@@ -2458,9 +2458,6 @@
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Εισαγωγή φακέλου</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Ενσωμάτωση με προσαρμοσμένα αρχεία απαντήσεων</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Ελέγξτε το όνομα, τη διαδρομή περιεχομένου, την εντολή και τις ρυθμίσεις διεργασίας. Οι λίστες κωδικών εξόδου δεν πρέπει να επικαλύπτονται ή να περιέχουν το 1641· το χρονικό όριο πρέπει να είναι 1–86400 δευτερόλεπτα.</value>
   </data>
@@ -2472,6 +2469,9 @@
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Δεν έχει εισαχθεί περιεχόμενο</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Σειρά</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Ελέγξτε τις ρυθμίσεις των ενεργειών και εισαγάγετε το περιεχόμενο πακέτων που λείπει πριν δημιουργήσετε το μέσο.</value>
@@ -2491,14 +2491,8 @@
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Χρονικό όριο (δευτερόλεπτα)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Για προχωρημένους: προσθέστε την εντολή εκκίνησης του Foundry στο αντίγραφο ανάπτυξης. Τα εισαγόμενα πρωτότυπα παραμένουν αμετάβλητα. Οι προσαρμοσμένες ρυθμίσεις και εντολές σας μπορεί να επηρεάσουν την ανάπτυξη.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>Δεν είναι δυνατή η ενσωμάτωση του επιλεγμένου αρχείου απαντήσεων. Ελέγξτε την αρχιτεκτονική του, τον υπάρχοντα μηχανισμό εκκίνησης Foundry και τη σειρά RunSynchronous ή ανανεώστε την πηγή εάν έχει αλλάξει.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Αντίγραφο ανάπτυξης: προσθέστε την εντολή Foundry στη φάση specialize με WillReboot=OnRequest. Διατηρήστε τις υπάρχουσες εντολές και ρυθμίσεις.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Τύπος</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Κατάλογος εργασίας (σχετικός· κενός χρησιμοποιεί τη ρίζα του περιεχομένου)</value>
@@ -3607,7 +3601,10 @@
     <value>Χρήση των ρυθμίσεων του Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Το επιλεγμένο αρχείο αντικαθιστά το αρχείο απαντήσεων που δημιουργεί το Foundry. Οι ρυθμίσεις του χρησιμοποιούνται ως έχουν, χωρίς συγχώνευση ή συμπλήρωση τιμών που λείπουν. Επιλέξτε «Χρήση των ρυθμίσεων του Foundry» για να χρησιμοποιήσετε την αποθηκευμένη διαμόρφωσή σας.</value>
+    <value>Το επιλεγμένο αρχείο αντικαθιστά το αρχείο απαντήσεων που δημιουργεί το Foundry. Το Foundry διατηρεί τις προσαρμοσμένες ρυθμίσεις του και προσθέτει την απαιτούμενη εντολή για μετά την εγκατάσταση στο αντίγραφο ανάπτυξης. Επιλέξτε Χρήση των ρυθμίσεων του Foundry για να χρησιμοποιήσετε την αποθηκευμένη ρύθμιση παραμέτρων.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Το Foundry διατηρεί το αρχικό αρχείο και προσθέτει την απαιτούμενη εντολή του για μετά την εγκατάσταση στο αντίγραφο ανάπτυξης. Παραμένετε υπεύθυνοι για τις προσαρμοσμένες ρυθμίσεις και εντολές σας.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Τα προσαρμοσμένα αρχεία απαιτούν προστασία του μέσου ανάπτυξης με κωδικό πρόσβασης στις γενικές ρυθμίσεις. Το XML μπορεί να περιέχει διαπιστευτήρια ή σενάρια. Ο κατάλογος αποθηκεύει μόνο αναφορές στα αρχεία προέλευσης. Η εικόνα εκκίνησης περιέχει κρυπτογραφημένα αντίγραφα.</value>

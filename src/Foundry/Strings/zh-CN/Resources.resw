@@ -2416,9 +2416,6 @@
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Foundry 内置任务将首先运行。请在下方按执行顺序添加自定义操作。</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>自定义操作完成后，Foundry 将清理临时部署内容。</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>CMD 命令行</value>
   </data>
@@ -2427,6 +2424,9 @@
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>程序包内容</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>内容状态</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>已验证安装后内容。</value>
@@ -2458,9 +2458,6 @@
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>导入文件夹</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>与自定义应答文件集成</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>请检查名称、内容路径、命令和进程设置。退出代码列表不能重叠或包含 1641；超时必须为 1–86400 秒。</value>
   </data>
@@ -2472,6 +2469,9 @@
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>尚未导入内容</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>顺序</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>创建介质前，请检查操作设置并导入缺少的程序包内容。</value>
@@ -2491,14 +2491,8 @@
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>超时（秒）</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>高级：将 Foundry 启动命令添加到部署副本中。导入的原始文件保持不变。自定义设置和命令可能影响部署。</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>无法集成所选应答文件。请检查其体系结构、现有 Foundry 启动挂钩和 RunSynchronous 顺序，或刷新已更改的源文件。</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>部署副本：在 specialize 阶段追加 Foundry 命令，并设置 WillReboot=OnRequest。保留现有命令和设置。</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>类型</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>工作目录（相对路径；留空则使用内容根目录）</value>
@@ -3607,7 +3601,10 @@
     <value>使用 Foundry 设置</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>选定的文件将替代 Foundry 生成的应答文件。其中的设置将按原样使用，不会合并或补全缺失的值。选择“使用 Foundry 设置”可使用已保存的配置。</value>
+    <value>所选文件将替换 Foundry 生成的应答文件。Foundry 会保留其中的自定义设置，并将必需的安装后命令添加到部署副本中。要使用已保存的配置，请选择“使用 Foundry 设置”。</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry 会保留原始文件，并将其必需的安装后命令添加到部署副本中。您仍需对自定义设置和命令负责。</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>自定义文件要求在“一般”配置中启用部署介质密码保护。XML 可能包含凭据或脚本。目录仅保存源文件引用；启动映像中包含加密副本。</value>

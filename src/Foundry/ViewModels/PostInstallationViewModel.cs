@@ -3,12 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.ObjectModel;
-using System.Security.Cryptography;
-using System.Text;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
-using Foundry.Core.Services.Configuration;
-using Foundry.Core.Services.WinPe;
 using Foundry.Core.Services.Packages;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
@@ -24,8 +20,6 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     private readonly IApplicationLocalizationService localization;
     private bool applying;
     private bool disposed;
-    private readonly CancellationTokenSource lifetime = new();
-    private static readonly SemaphoreSlim PreviewReads = new(2, 2);
 
     public PostInstallationViewModel(IFoundryConfigurationStateService state, PreOobePackageLibraryService library,
         IFilePickerService picker, IApplicationLocalizationService localization)
@@ -34,21 +28,13 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
         this.library = library;
         this.picker = picker;
         this.localization = localization;
-        PreviewArchitectureIndex = state.Current.General.Architecture == WinPeArchitecture.Arm64 ? 1 : 0;
         state.StateChanged += OnStateChanged;
         localization.LanguageChanged += OnLanguageChanged;
         ApplyState();
     }
 
     public ObservableCollection<PostInstallationActionRow> Actions { get; } = [];
-    public ObservableCollection<UnattendDefaultOption> PreviewFiles { get; } = [];
-    [ObservableProperty] public partial UnattendDefaultOption? SelectedPreviewFile { get; set; }
-    [ObservableProperty] public partial int PreviewArchitectureIndex { get; set; }
-    [ObservableProperty] public partial string IntegrationXml { get; set; } = string.Empty;
-    [ObservableProperty] public partial string IntegrationError { get; set; } = string.Empty;
-    [ObservableProperty] public partial bool IsPreviewBusy { get; set; }
     [ObservableProperty] public partial bool IsEnabled { get; set; }
-    [ObservableProperty] public partial bool IntegrateCustomUnattend { get; set; }
     [ObservableProperty] public partial PostInstallationActionRow? SelectedAction { get; set; }
     [ObservableProperty] public partial string StatusMessage { get; set; } = string.Empty;
     public bool CanEdit => IsEnabled && SelectedAction is not null;
@@ -67,14 +53,12 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     public string ToggleLabel => localization.GetString(SelectedAction?.Action.IsEnabled == true ? "Common.Disable" : "Common.Enable");
     public string EnableLabel => localization.GetString("Common.Enable");
     public string BuiltInDescription => Text("BuiltIns");
-    public string CleanupDescription => Text("Cleanup");
     public string ReadinessDescription => Text("Readiness");
-    public string IntegrationLabel => Text("IntegrateUnattend");
-    public string IntegrationDescription => Text("UnattendDescription");
-    public string IntegrationPreview => IntegrateCustomUnattend ? Text("UnattendPreview") : string.Empty;
-    public string PreviewLabel => localization.GetString("MachineNamingPreviewCard.Header");
-    public string PreviewFileLabel => localization.GetString("Unattend.SelectedFileLabel");
-    public string ArchitectureLabel => localization.GetString("CustomImages.ArchitectureLabel");
+    public string OrderHeader => Text("OrderHeader");
+    public string NameHeader => localization.GetString("CustomImages.NameLabel");
+    public string TypeHeader => Text("TypeHeader");
+    public string EnabledHeader => localization.GetString("Common.Enabled");
+    public string ContentStatusHeader => Text("ContentStatusHeader");
     public string PowerShellLabel => "PowerShell";
     public string CommandLabel => "CMD";
     public string ApplicationLabel => Text("Application");
@@ -85,79 +69,6 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     {
         if (!applying) state.UpdatePreOobe(state.Current.PreOobe with { IsEnabled = value });
         RaiseSelection();
-    }
-
-    partial void OnIntegrateCustomUnattendChanged(bool value)
-    {
-        if (!applying) state.UpdatePreOobe(state.Current.PreOobe with { IntegrateCustomUnattend = value });
-        OnPropertyChanged(nameof(IntegrationPreview));
-        ClearPreview();
-    }
-
-    partial void OnSelectedPreviewFileChanged(UnattendDefaultOption? value) => ClearPreview();
-    partial void OnPreviewArchitectureIndexChanged(int value) => ClearPreview();
-
-    private void ClearPreview()
-    {
-        IntegrationXml = string.Empty;
-        IntegrationError = string.Empty;
-    }
-
-    [RelayCommand]
-    private async Task PreviewIntegrationAsync()
-    {
-        if (IsPreviewBusy || disposed) return;
-        ClearPreview();
-        if (!PreviewReads.Wait(0))
-        {
-            IntegrationError = localization.GetString("Unattend.SourceChecksBusyMessage");
-            return;
-        }
-        IsPreviewBusy = true;
-        var configuration = state.Current;
-        var selected = SelectedPreviewFile;
-        int architectureIndex = PreviewArchitectureIndex;
-        bool integrate = selected?.Id is null || IntegrateCustomUnattend;
-        try
-        {
-            var result = await Task.Run(() =>
-            {
-                byte[]? content = null;
-                try
-                {
-                    content = selected?.Id is null
-                        ? Encoding.UTF8.GetBytes("<unattend xmlns=\"urn:schemas-microsoft-com:unattend\" />")
-                        : UnattendFileService.ReadValidated(configuration.Unattend.Files.Single(file => file.Id == selected.Id));
-                    using var preview = new PreOobeUnattendIntegrationService().Evaluate(content, architectureIndex == 1 ? "arm64" : "x64", integrate);
-                    return (Xml: preview.SanitizedPreview, ErrorKey: (string?)null);
-                }
-                catch (Exception error) when (error is IOException or UnauthorizedAccessException)
-                {
-                    return (Xml: string.Empty, ErrorKey: (string?)"Unattend.SourceReadFailedMessage");
-                }
-                catch (Exception error) when (error is InvalidDataException or InvalidOperationException or ArgumentException or NotSupportedException or System.Security.SecurityException or System.Xml.XmlException)
-                {
-                    return (Xml: string.Empty, ErrorKey: (string?)"PostInstallation.UnattendIntegrationFailed");
-                }
-                finally
-                {
-                    if (content is not null) CryptographicOperations.ZeroMemory(content);
-                    PreviewReads.Release();
-                }
-            }).WaitAsync(TimeSpan.FromSeconds(15), lifetime.Token);
-            if (!disposed && ReferenceEquals(configuration, state.Current) && selected == SelectedPreviewFile && architectureIndex == PreviewArchitectureIndex)
-            {
-                IntegrationXml = result.Xml;
-                IntegrationError = result.ErrorKey is null ? string.Empty : localization.GetString(result.ErrorKey);
-            }
-        }
-        catch (TimeoutException)
-        {
-            if (!disposed && ReferenceEquals(configuration, state.Current) && selected == SelectedPreviewFile && architectureIndex == PreviewArchitectureIndex)
-                IntegrationError = localization.GetString("Unattend.SourceTimeoutMessage");
-        }
-        catch (OperationCanceledException) { }
-        finally { IsPreviewBusy = false; }
     }
 
     partial void OnSelectedActionChanged(PostInstallationActionRow? value) => RaiseSelection();
@@ -238,15 +149,7 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
         try
         {
             string? selectedId = SelectedAction?.Action.Id;
-            string? previewId = SelectedPreviewFile is null ? state.Current.Unattend.DefaultFileId : SelectedPreviewFile.Id;
             IsEnabled = state.Current.PreOobe.IsEnabled;
-            IntegrateCustomUnattend = state.Current.PreOobe.IntegrateCustomUnattend;
-            PreviewFiles.Clear();
-            PreviewFiles.Add(new(null, localization.GetString("Unattend.NativeOption")));
-            if (state.Current.Unattend.IsEnabled)
-                foreach (var file in state.Current.Unattend.Files) PreviewFiles.Add(new(file.Id, file.DisplayName));
-            SelectedPreviewFile = PreviewFiles.FirstOrDefault(option => option.Id == previewId) ?? PreviewFiles[0];
-            ClearPreview();
             Actions.Clear();
             foreach (var action in state.Current.PreOobe.Actions)
             {
@@ -281,8 +184,6 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     {
         if (disposed) return;
         disposed = true;
-        lifetime.Cancel();
-        lifetime.Dispose();
         state.StateChanged -= OnStateChanged;
         localization.LanguageChanged -= OnLanguageChanged;
     }

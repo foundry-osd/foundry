@@ -8,7 +8,6 @@ namespace Foundry.Core.Models.Configuration.Deploy;
 public sealed record DeployPreOobeSettings
 {
     public bool IsEnabled { get; init; }
-    public bool IntegrateCustomUnattend { get; init; }
     public IReadOnlyList<PreOobeActionSettings> Actions { get; init; } = [];
     public string? ManifestId { get; init; }
     public string? ManifestHash { get; init; }

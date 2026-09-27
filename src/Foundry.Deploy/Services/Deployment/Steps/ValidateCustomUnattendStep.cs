@@ -23,7 +23,7 @@ public sealed class ValidateCustomUnattendStep(UnattendContentService contentSer
         context.UnattendSnapshot = contentService.Read(context.Request.Unattend, context.Request.OperatingSystem.Architecture,
             context.Request.IsAutopilotEnabled, context.Request.AutopilotProvisioningMode);
         if (PreOobe.PreOobeContentResolver.IsRequired(context.Request))
-            context.UnattendSnapshot.ValidatePostInstallHook(context.Request.OperatingSystem.Architecture, context.Request.PreOobe.IntegrateCustomUnattend);
+            context.UnattendSnapshot.ValidatePostInstallHook(context.Request.OperatingSystem.Architecture);
         if (context.UnattendSnapshot.Inspection.HasCommands)
         {
             await context.AppendLogAsync(DeploymentLogLevel.Warning,

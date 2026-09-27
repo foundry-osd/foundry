@@ -2416,9 +2416,6 @@ Licencirano pod MIT licencom.</value>
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Prvo se izvršavaju ugrađeni zadaci Foundry-ja. Ispod dodajte prilagođene radnje po redosledu izvršavanja.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry uklanja privremeni sadržaj primene kada se prilagođene radnje završe.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>CMD komandna linija</value>
   </data>
@@ -2427,6 +2424,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Sadržaj paketa</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Status sadržaja</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Sadržaj za fazu posle instalacije je proveren.</value>
@@ -2458,9 +2458,6 @@ Licencirano pod MIT licencom.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Uvezi fasciklu</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Integracija sa prilagođenim datotekama odgovora</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Proverite naziv, putanju sadržaja, komandu i postavke procesa. Liste izlaznih kodova ne smeju da se preklapaju niti sadrže 1641; vremensko ograničenje mora biti 1–86400 sekundi.</value>
   </data>
@@ -2472,6 +2469,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Sadržaj nije uvezen</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Redosled</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Pre pravljenja medijuma proverite postavke radnji i uvezite sadržaj paketa koji nedostaje.</value>
@@ -2491,14 +2491,8 @@ Licencirano pod MIT licencom.</value>
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Vremensko ograničenje (sekunde)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Napredno: dodajte komandu za pokretanje Foundry-ja u kopiju za primenu. Uvezeni originali ostaju nepromenjeni. Prilagođene postavke i komande mogu uticati na primenu.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>Izabrana datoteka odgovora ne može da se integriše. Proverite njenu arhitekturu, postojeći mehanizam pokretanja Foundry-ja i redosled RunSynchronous ili osvežite izmenjeni izvor.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Kopija za primenu: dodajte komandu Foundry-ja u fazi specialize uz WillReboot=OnRequest. Sačuvajte postojeće komande i postavke.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Tip</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Radni direktorijum (relativan; prazno koristi koren sadržaja)</value>
@@ -3607,7 +3601,10 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Koristi postavke programa Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Izabrana datoteka zamenjuje datoteku odgovora koju generiše Foundry. Njene postavke se koriste takve kakve jesu, bez spajanja ili dopunjavanja nedostajućih vrednosti. Izaberite „Koristi postavke programa Foundry“ da biste koristili sačuvanu konfiguraciju.</value>
+    <value>Izabrana datoteka zamenjuje datoteku odgovora koju je generisao Foundry. Foundry čuva njene prilagođene postavke i dodaje obaveznu komandu za fazu posle instalacije u kopiju za primenu. Izaberite Koristi postavke programa Foundry da biste koristili sačuvanu konfiguraciju.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry čuva originalnu datoteku i dodaje svoju obaveznu komandu za fazu posle instalacije u kopiju za primenu. I dalje ste odgovorni za prilagođene postavke i komande.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Prilagođene datoteke zahtevaju zaštitu medija za primenu lozinkom u opštoj konfiguraciji. XML može sadržati akreditive ili skripte. Katalog čuva samo reference na izvore; slika za pokretanje sadrži šifrovane kopije.</value>

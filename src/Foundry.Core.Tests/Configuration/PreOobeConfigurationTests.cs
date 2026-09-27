@@ -12,17 +12,31 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class PreOobeConfigurationTests
 {
     [Fact]
+    public void LegacyIntegrationOptOutIsIgnoredWhenLoadingAndGeneratingConfiguration()
+    {
+        var configurationService = new FoundryConfigurationService();
+        var source = configurationService.Deserialize("""
+            {"schemaVersion":16,"preOobe":{"isEnabled":true,"integrateCustomUnattend":false,"actions":[]}}
+            """);
+        Assert.True(source.PreOobe.IsEnabled);
+        Assert.DoesNotContain("integrateCustomUnattend", configurationService.Serialize(source));
+        var generator = new DeployConfigurationGenerator();
+        var generated = generator.Generate(source);
+        Assert.True(generated.PreOobe.IsEnabled);
+        Assert.DoesNotContain("integrateCustomUnattend", generator.Serialize(generated));
+    }
+
+    [Fact]
     public void GenerationKeepsOrderedEnabledActionsAndDetachedPolicyArrays()
     {
         int[] codes = [0];
         var first = Command("First") with { Process = new() { SuccessExitCodes = codes } };
         var second = PreOobeActionSettings.Create(PreOobeActionKind.Restart, "Restart");
-        var settings = new PreOobeSettings { IsEnabled = true, IntegrateCustomUnattend = true, Actions = [first, Command("Disabled") with { IsEnabled = false }, second] };
+        var settings = new PreOobeSettings { IsEnabled = true, Actions = [first, Command("Disabled") with { IsEnabled = false }, second] };
         var generated = new DeployConfigurationGenerator().Generate(new() { PreOobe = settings });
         codes[0] = 9;
         Assert.Equal([first.Id, second.Id], generated.PreOobe.Actions.Select(action => action.Id));
         Assert.Equal(0, Assert.Single(generated.PreOobe.Actions[0].Process!.SuccessExitCodes));
-        Assert.True(generated.PreOobe.IntegrateCustomUnattend);
     }
 
     [Fact]

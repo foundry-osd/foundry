@@ -8,6 +8,5 @@ namespace Foundry.Core.Models.Configuration;
 public sealed record PreOobeSettings
 {
     public bool IsEnabled { get; init; }
-    public bool IntegrateCustomUnattend { get; init; }
     public IReadOnlyList<PreOobeActionSettings> Actions { get; init; } = [];
 }

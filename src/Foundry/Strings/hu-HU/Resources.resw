@@ -2416,9 +2416,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Először a Foundry beépített feladatai futnak le. Adja hozzá az egyéni műveleteket alább, végrehajtási sorrendben.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>A Foundry az egyéni műveletek befejezése után eltávolítja az ideiglenes központi telepítési tartalmat.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>CMD-parancssor</value>
   </data>
@@ -2427,6 +2424,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Csomag tartalma</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Tartalom állapota</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Telepítés utáni tartalom ellenőrizve.</value>
@@ -2458,9 +2458,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Mappa importálása</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Integrálás egyéni válaszfájlokkal</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Ellenőrizze a nevet, a tartalom elérési útját, a parancsot és a folyamat beállításait. A kilépésikód-listák nem fedhetik egymást és nem tartalmazhatnak 1641-et; az időkorlát 1–86400 másodperc legyen.</value>
   </data>
@@ -2472,6 +2469,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Nincs importált tartalom</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Sorrend</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Az adathordozó létrehozása előtt ellenőrizze a műveletek beállításait, és importálja a hiányzó csomagtartalmat.</value>
@@ -2491,14 +2491,8 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Időkorlát (másodperc)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Speciális: a Foundry indítási parancsának hozzáadása a telepítési példányhoz. Az importált eredetik változatlanok maradnak. Az egyéni beállítások és parancsok befolyásolhatják a telepítést.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>A kiválasztott válaszfájl nem integrálható. Ellenőrizze az architektúráját, a meglévő Foundry-indítómechanizmust és a RunSynchronous sorrendjét, vagy frissítse a megváltozott forrást.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Telepítési példány: a Foundry-parancs hozzáfűzése a specialize fázisban WillReboot=OnRequest beállítással. A meglévő parancsok és beállítások megőrzése.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Típus</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Munkakönyvtár (relatív; üresen a tartalom gyökere)</value>
@@ -3607,7 +3601,10 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A Foundry beállításainak használata</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>A kiválasztott fájl felváltja a Foundry által létrehozott válaszfájlt. Beállításai változtatás nélkül érvényesülnek, egyesítés és a hiányzó értékek pótlása nélkül. A mentett konfiguráció használatához válassza A Foundry beállításainak használata lehetőséget.</value>
+    <value>A kiválasztott fájl felváltja a Foundry által létrehozott válaszfájlt. A Foundry megőrzi annak egyéni beállításait, és hozzáadja a szükséges telepítés utáni parancsot a telepítési példányhoz. A mentett konfiguráció használatához válassza a A Foundry beállításainak használata lehetőséget.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>A Foundry megőrzi az eredeti fájlt, és hozzáadja a szükséges telepítés utáni parancsát a telepítési példányhoz. Az egyéni beállításokért és parancsokért továbbra is Ön felel.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Az egyéni fájlok használatához az Általános konfigurációban engedélyezni kell a telepítési adathordozó jelszavas védelmét. Az XML hitelesítő adatokat vagy szkripteket tartalmazhat. A katalógus csak a forráshivatkozásokat menti; a rendszerindító lemezkép titkosított másolatokat tartalmaz.</value>

@@ -2416,9 +2416,6 @@ Licencirano pod licenco MIT.</value>
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Najprej se izvedejo vgrajena opravila Foundry. Spodaj dodajte dejanja po meri v vrstnem redu izvajanja.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry odstrani začasno vsebino uvajanja po zaključku dejanj po meri.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Ukazna vrstica CMD</value>
   </data>
@@ -2427,6 +2424,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Vsebina paketa</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Stanje vsebine</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Vsebina za fazo po namestitvi je preverjena.</value>
@@ -2458,9 +2458,6 @@ Licencirano pod licenco MIT.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Uvozi mapo</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Integracija z datotekami z odgovori po meri</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Preverite ime, pot do vsebine, ukaz in nastavitve procesa. Seznami izhodnih kod se ne smejo prekrivati ali vsebovati 1641; časovna omejitev mora biti 1–86400 sekund.</value>
   </data>
@@ -2472,6 +2469,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Vsebina ni uvožena</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Vrstni red</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Pred ustvarjanjem medija preverite nastavitve dejanj in uvozite manjkajočo vsebino paketov.</value>
@@ -2491,14 +2491,8 @@ Licencirano pod licenco MIT.</value>
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Časovna omejitev (sekunde)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Napredno: dodajte ukaz za zagon Foundry v kopijo za uvajanje. Uvoženi izvirniki ostanejo nespremenjeni. Nastavitve in ukazi po meri lahko vplivajo na uvajanje.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>Izbrane datoteke z odgovori ni mogoče integrirati. Preverite njeno arhitekturo, obstoječi zagonski mehanizem Foundry in vrstni red RunSynchronous ali osvežite spremenjeni vir.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Kopija za uvajanje: dodajte ukaz Foundry v fazi specialize z WillReboot=OnRequest. Ohranite obstoječe ukaze in nastavitve.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Vrsta</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Delovna mapa (relativna; prazno uporabi koren vsebine)</value>
@@ -3607,7 +3601,10 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Uporabi nastavitve Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Izbrana datoteka nadomesti datoteko odgovorov, ki jo ustvari Foundry. Njene nastavitve se uporabijo takšne, kot so, brez združevanja ali dopolnjevanja manjkajočih vrednosti. Za uporabo shranjene konfiguracije izberite »Uporabi nastavitve Foundry«.</value>
+    <value>Izbrana datoteka nadomesti datoteko z odgovori, ki jo ustvari Foundry. Foundry ohrani njene nastavitve po meri in v kopijo za uvajanje doda obvezni ukaz za fazo po namestitvi. Za uporabo shranjene konfiguracije izberite Uporabi nastavitve Foundry.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry ohrani izvirno datoteko in v kopijo za uvajanje doda svoj obvezni ukaz za fazo po namestitvi. Še naprej ste odgovorni za nastavitve in ukaze po meri.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Datoteke po meri zahtevajo zaščito medija za uvajanje z geslom v nastavitvah Splošno. XML lahko vsebuje poverilnice ali skripte. Katalog shrani samo sklice na vire; zagonska slika vsebuje šifrirane kopije.</value>

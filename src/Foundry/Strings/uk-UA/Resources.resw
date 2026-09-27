@@ -2416,9 +2416,6 @@
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Спочатку виконуються вбудовані завдання Foundry. Додайте нижче власні дії в порядку виконання.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry видаляє тимчасовий вміст розгортання після завершення власних дій.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Командний рядок CMD</value>
   </data>
@@ -2427,6 +2424,9 @@
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Вміст пакета</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Стан вмісту</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Вміст для етапу після інсталяції перевірено.</value>
@@ -2458,9 +2458,6 @@
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Імпортувати папку</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Інтеграція з власними файлами відповідей</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Перевірте ім’я, шлях до вмісту, команду й параметри процесу. Списки кодів завершення не мають перетинатися чи містити 1641; час очікування має становити 1–86400 секунд.</value>
   </data>
@@ -2472,6 +2469,9 @@
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Вміст не імпортовано</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Порядок</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Перевірте параметри дій та імпортуйте відсутній вміст пакетів перед створенням носія.</value>
@@ -2491,14 +2491,8 @@
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Час очікування (секунди)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Додатково: додайте команду запуску Foundry до копії для розгортання. Імпортовані оригінали залишаться без змін. Власні параметри й команди можуть вплинути на розгортання.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>Не вдалося інтегрувати вибраний файл відповідей. Перевірте його архітектуру, наявний механізм запуску Foundry і порядок RunSynchronous або оновіть змінене джерело.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Копія для розгортання: додайте команду Foundry на етапі specialize з WillReboot=OnRequest. Збережіть наявні команди й параметри.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Тип</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Робочий каталог (відносний; порожнє поле означає корінь вмісту)</value>
@@ -3607,7 +3601,10 @@
     <value>Використовувати параметри Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Вибраний файл замінює файл відповідей, створений Foundry. Його параметри використовуються як є, без об’єднання чи заповнення відсутніх значень. Виберіть «Використовувати параметри Foundry», щоб застосувати збережену конфігурацію.</value>
+    <value>Вибраний файл замінює файл відповідей, створений Foundry. Foundry зберігає його власні параметри й додає обов’язкову команду етапу після інсталяції до копії для розгортання. Виберіть «Використовувати параметри Foundry», щоб скористатися збереженою конфігурацією.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry зберігає оригінальний файл і додає обов’язкову команду етапу після інсталяції до копії для розгортання. Ви й надалі відповідаєте за власні параметри та команди.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Для власних файлів потрібен захист носія розгортання паролем у загальних налаштуваннях. XML може містити облікові дані або сценарії. Каталог зберігає лише посилання на джерела; завантажувальний образ містить зашифровані копії.</value>

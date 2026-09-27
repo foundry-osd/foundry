@@ -24,7 +24,7 @@ public class PreOobeUnattendPrecedenceService(IProcessRunner processRunner)
             byte[] bytes = await File.ReadAllBytesAsync(answer, cancellationToken).ConfigureAwait(false);
             try
             {
-                byte[] validated = new PreOobeUnattendHookService().Prepare(bytes, architecture, integrate: true);
+                byte[] validated = new PreOobeUnattendHookService().Prepare(bytes, architecture);
                 CryptographicOperations.ZeroMemory(validated);
             }
             finally { CryptographicOperations.ZeroMemory(bytes); }

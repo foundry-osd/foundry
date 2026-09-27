@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Foundry.Core.Services.Configuration;
 
-/// <summary>Validates and previews only the Foundry-owned specialize command without exposing source XML.</summary>
+/// <summary>Adds the Foundry-owned specialize command to a derived answer file while preserving the source.</summary>
 public sealed class PreOobeUnattendIntegrationService
 {
     public const string Description = "Foundry PostInstall";
@@ -17,8 +17,8 @@ public sealed class PreOobeUnattendIntegrationService
     private static readonly XNamespace Ns = "urn:schemas-microsoft-com:unattend";
     private static readonly XNamespace Wcm = "http://schemas.microsoft.com/WMIConfig/2002/State";
 
-    /// <summary>Preserves the source, derives the opted-in copy, and returns only a sanitized structural preview.</summary>
-    public PreOobeUnattendIntegrationResult Evaluate(ReadOnlySpan<byte> source, string architecture, bool integrate)
+    /// <summary>Preserves the source and automatically derives the deployment copy with the required launch hook.</summary>
+    public PreOobeUnattendIntegrationResult Evaluate(ReadOnlySpan<byte> source, string architecture)
     {
         if (source.Length is 0 or > UnattendFileService.MaximumFileSizeBytes)
             throw new InvalidDataException("The answer file exceeds the supported size limit or is empty.");
@@ -34,16 +34,15 @@ public sealed class PreOobeUnattendIntegrationService
                 MaxCharactersFromEntities = 0
             });
             var document = XDocument.Load(reader, LoadOptions.PreserveWhitespace);
-            XElement owned = ValidateOrUpdate(document, architecture, integrate);
-            string preview = BuildPreview(owned, architecture);
-            byte[] derived = integrate ? Serialize(document) : source.ToArray();
+            ValidateOrUpdate(document, architecture);
+            byte[] derived = Serialize(document);
             if (derived.Length > UnattendFileService.MaximumFileSizeBytes)
             {
                 CryptographicOperations.ZeroMemory(derived);
                 throw new InvalidDataException("The derived answer file exceeds the supported size limit.");
             }
             return new(derived, Convert.ToHexStringLower(SHA256.HashData(source)),
-                Convert.ToHexStringLower(SHA256.HashData(derived)), preview, !source.SequenceEqual(derived));
+                Convert.ToHexStringLower(SHA256.HashData(derived)), !source.SequenceEqual(derived));
         }
         catch (XmlException)
         {
@@ -63,19 +62,7 @@ public sealed class PreOobeUnattendIntegrationService
         finally { CryptographicOperations.ZeroMemory(output.GetBuffer().AsSpan(0, checked((int)output.Length))); }
     }
 
-    private static string BuildPreview(XElement owned, string architecture)
-    {
-        var command = new XElement(Ns + "RunSynchronousCommand", new XAttribute(Wcm + "action", "add"),
-            new XElement(Ns + "Order", (string?)owned.Element(Ns + "Order")),
-            new XElement(Ns + "Description", Description), new XElement(Ns + "Path", Command), new XElement(Ns + "WillReboot", "OnRequest"));
-        return new XElement(Ns + "settings", new XAttribute("pass", "specialize"),
-            new XAttribute(XNamespace.Xmlns + "wcm", Wcm.NamespaceName),
-            new XElement(Ns + "component", new XAttribute("name", "Microsoft-Windows-Deployment"),
-                new XAttribute("processorArchitecture", architecture.Equals("arm64", StringComparison.OrdinalIgnoreCase) ? "arm64" : "amd64"),
-                new XElement(Ns + "RunSynchronous", command))).ToString();
-    }
-
-    private static XElement ValidateOrUpdate(XDocument document, string architecture, bool integrate)
+    private static void ValidateOrUpdate(XDocument document, string architecture)
     {
         if (document.Root?.Name != Ns + "unattend") throw new InvalidDataException("The answer file must have an unattend root.");
         string target = architecture.ToLowerInvariant() switch { "x64" or "amd64" => "amd64", "arm64" => "arm64", _ => throw new InvalidDataException("Post-installation requires an x64 or ARM64 Windows image.") };
@@ -106,14 +93,10 @@ public sealed class PreOobeUnattendIntegrationService
             new[] { "Order", "Path", "Description", "WillReboot" }.Any(name => owned.Elements(Ns + name).Count() > 1)))
             throw new InvalidDataException("The Foundry command must use the canonical SYSTEM execution settings.");
         if (owned is not null && owned.Parent != list) throw new InvalidDataException("The Foundry command must belong to the specialize Windows Deployment component.");
-        if (!integrate)
-        {
-            if (owned is null || (string?)owned.Element(Ns + "Path") != Command || (string?)owned.Element(Ns + "WillReboot") != "OnRequest")
-                throw new InvalidDataException("The custom answer file requires the canonical Foundry specialize hook or explicit post-installation integration.");
-            if (owned.Attribute(Wcm + "action") is { } action && action.Value != "add")
-                throw new InvalidDataException("The Foundry command must be added rather than removed or modified.");
-            return owned;
-        }
+        if (owned is not null && ((string?)owned.Element(Ns + "Path") != Command ||
+            (string?)owned.Element(Ns + "WillReboot") != "OnRequest" ||
+            owned.Attribute(Wcm + "action") is { Value: not "add" }))
+            throw new InvalidDataException("The existing Foundry command conflicts with automatic post-installation integration.");
         if (owned is null)
         {
             int order = orders.Count == 0 ? 1 : orders.Max() + 1;
@@ -128,6 +111,5 @@ public sealed class PreOobeUnattendIntegrationService
         if (list.Parent is null) component.Add(list);
         if (component.Parent is null) pass.Add(component);
         if (pass.Parent is null) document.Root.Add(pass);
-        return owned;
     }
 }

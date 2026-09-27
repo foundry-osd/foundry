@@ -77,7 +77,7 @@ public sealed class StagePreOobeCustomizationStepTests
         if (customAnswer)
         {
             originalAnswer = new Foundry.Deploy.Services.Deployment.Unattend.PreOobeUnattendHookService()
-                .Prepare(System.Text.Encoding.UTF8.GetBytes("<unattend xmlns=\"urn:schemas-microsoft-com:unattend\"/>"), "x64", integrate: true);
+                .Prepare(System.Text.Encoding.UTF8.GetBytes("<unattend xmlns=\"urn:schemas-microsoft-com:unattend\"/>"), "x64");
             Directory.CreateDirectory(Path.GetDirectoryName(answerPath)!);
             await File.WriteAllBytesAsync(answerPath, originalAnswer, TestContext.Current.CancellationToken);
         }

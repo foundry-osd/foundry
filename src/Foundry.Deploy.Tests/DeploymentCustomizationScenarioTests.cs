@@ -53,7 +53,7 @@ public sealed class DeploymentCustomizationScenarioTests
             <?xml version="1.0" encoding="utf-8"?>
             <unattend xmlns="urn:schemas-microsoft-com:unattend"><settings pass="specialize"><component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64"><ComputerName>CUSTOM-PC</ComputerName></component></settings><!-- preserve exactly --></unattend>
             """);
-        answer = new PreOobeUnattendHookService().Prepare(answer, "amd64", integrate: true);
+        byte[] originalAnswer = answer.ToArray();
         var request = new DeploymentContext
         {
             Mode = DeploymentMode.Iso,
@@ -152,7 +152,9 @@ public sealed class DeploymentCustomizationScenarioTests
         Assert.Equal(1, windows.AiCalls);
         Assert.Equal(1, windows.FeatureCalls);
         Assert.False(Directory.Exists(transientRoot));
-        Assert.Equal(answer, await File.ReadAllBytesAsync(Path.Combine(fixture.WindowsRoot, "Windows", "Panther", "unattend.xml"), cancellationToken));
+        Assert.Equal(originalAnswer, answer);
+        Assert.Equal(new PreOobeUnattendHookService().Prepare(originalAnswer, "amd64"),
+            await File.ReadAllBytesAsync(Path.Combine(fixture.WindowsRoot, "Windows", "Panther", "unattend.xml"), cancellationToken));
         Assert.Equal(driverBytes, await File.ReadAllBytesAsync(state.DeferredDriverPackagePath!, cancellationToken));
         Assert.True(File.Exists(state.DeploymentSummaryPath));
         Assert.True(File.Exists(state.PreOobeManifestPath));

@@ -71,6 +71,11 @@
                             Severity="Informational" />
                         <InfoBar
                             IsClosable="False"
+                            IsOpen="True"
+                            Message="{x:Bind ViewModel.PostInstallationDescription, Mode=OneWay}"
+                            Severity="Informational" />
+                        <InfoBar
+                            IsClosable="False"
                             IsOpen="{x:Bind ViewModel.HasReadinessIssue, Mode=OneWay}"
                             Message="{x:Bind ViewModel.ReadinessMessage, Mode=OneWay}"
                             Severity="Error" />

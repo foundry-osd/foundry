@@ -74,7 +74,6 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             PreOobe = new DeployPreOobeSettings
             {
                 IsEnabled = document.PreOobe.IsEnabled,
-                IntegrateCustomUnattend = document.PreOobe.IntegrateCustomUnattend,
                 Actions = document.PreOobe.IsEnabled
                     ? document.PreOobe.Actions.Where(action => action.IsEnabled).Select(ClonePreOobeAction).ToArray()
                     : []

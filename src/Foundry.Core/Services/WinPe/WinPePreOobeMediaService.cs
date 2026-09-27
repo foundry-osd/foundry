@@ -108,7 +108,7 @@ public sealed class WinPePreOobeMediaService : IWinPePreOobeMediaPublisher
         DeployPreOobeSettings? settings = configuration?.PreOobe;
         if (settings is null || settings.ManifestId != package.ManifestId || !package.ManifestHash.Equals(settings.ManifestHash, StringComparison.OrdinalIgnoreCase))
             throw new InvalidDataException("PreOobe.InvalidMediaBinding");
-        PreOobeConfigurationValidator.ThrowIfInvalid(new() { IsEnabled = settings.IsEnabled, IntegrateCustomUnattend = settings.IntegrateCustomUnattend, Actions = settings.Actions });
+        PreOobeConfigurationValidator.ThrowIfInvalid(new() { IsEnabled = settings.IsEnabled, Actions = settings.Actions });
         string[] required = settings.Actions.Where(action => settings.IsEnabled && action.IsEnabled && action.Package is not null)
             .Select(action => action.Package!.ContentHash).Distinct(StringComparer.OrdinalIgnoreCase).Order(StringComparer.OrdinalIgnoreCase).ToArray();
         string[] supplied = package.Manifest.Packages.Select(entry => entry.ContentHash).Order(StringComparer.OrdinalIgnoreCase).ToArray();

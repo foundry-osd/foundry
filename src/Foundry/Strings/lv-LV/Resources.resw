@@ -2416,9 +2416,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Vispirms tiek izpildīti Foundry iebūvētie uzdevumi. Tālāk pievienojiet pielāgotās darbības izpildes secībā.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry dzēš pagaidu izvietošanas saturu pēc pielāgoto darbību pabeigšanas.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>CMD komandrinda</value>
   </data>
@@ -2427,6 +2424,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Pakotnes saturs</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Satura statuss</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Saturs posmam pēc instalēšanas ir pārbaudīts.</value>
@@ -2458,9 +2458,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Importēt mapi</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Integrēt ar pielāgotiem atbilžu failiem</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Pārbaudiet nosaukumu, satura ceļu, komandu un procesa iestatījumus. Izejas kodu saraksti nedrīkst pārklāties vai saturēt 1641; noildzei jābūt 1–86400 sekundēm.</value>
   </data>
@@ -2472,6 +2469,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Saturs nav importēts</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Secība</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Pirms datu nesēja izveides pārbaudiet darbību iestatījumus un importējiet trūkstošo pakotņu saturu.</value>
@@ -2491,14 +2491,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Noildze (sekundes)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Papildu opcija: pievienojiet Foundry palaišanas komandu izvietošanas kopijai. Importētie oriģināli netiek mainīti. Pielāgotie iestatījumi un komandas var ietekmēt izvietošanu.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>Atlasīto atbilžu failu nevar integrēt. Pārbaudiet tā arhitektūru, esošo Foundry palaišanas mehānismu un RunSynchronous secību vai atsvaidziniet mainīto avotu.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Izvietošanas kopija: pievienojiet Foundry komandu posmā specialize ar WillReboot=OnRequest. Saglabājiet esošās komandas un iestatījumus.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Tips</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Darba direktorijs (relatīvs; ja tukšs, izmanto satura sakni)</value>
@@ -3607,7 +3601,10 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Izmantot Foundry iestatījumus</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Atlasītais fails aizstāj Foundry ģenerēto atbilžu failu. Tā iestatījumi tiek izmantoti tādi, kādi tie ir, tos neapvienojot un neaizpildot trūkstošās vērtības. Lai izmantotu saglabāto konfigurāciju, atlasiet “Izmantot Foundry iestatījumus”.</value>
+    <value>Atlasītais fails aizstāj Foundry ģenerēto atbilžu failu. Foundry saglabā tā pielāgotos iestatījumus un izvietošanas kopijai pievieno obligāto komandu darbībām pēc instalēšanas. Lai izmantotu saglabāto konfigurāciju, atlasiet Izmantot Foundry iestatījumus.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry saglabā sākotnējo failu un izvietošanas kopijai pievieno savu obligāto komandu darbībām pēc instalēšanas. Jūs joprojām esat atbildīgs par pielāgotajiem iestatījumiem un komandām.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Pielāgotiem failiem nepieciešama izvietošanas datu nesēja aizsardzība ar paroli vispārīgajā konfigurācijā. XML var saturēt akreditācijas datus vai skriptus. Katalogā tiek saglabātas tikai atsauces uz avotiem; sāknēšanas attēlā ir šifrētas kopijas.</value>

@@ -40,71 +40,81 @@
                 HorizontalContentAlignment="Stretch"
                 IsEnabled="{x:Bind ViewModel.IsEnabled, Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
-                    <CommandBar
-                        HorizontalAlignment="Stretch"
-                        DefaultLabelPosition="Right"
-                        IsDynamicOverflowEnabled="True">
-                        <AppBarButton
-                            Icon="Add"
-                            Label="{x:Bind ViewModel.AddLabel, Mode=OneWay}">
-                            <AppBarButton.Flyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem
-                                        Click="OnAddClick"
-                                        Tag="PowerShell"
-                                        Text="{x:Bind ViewModel.PowerShellLabel}" />
-                                    <MenuFlyoutItem
-                                        Click="OnAddClick"
-                                        Tag="Command"
-                                        Text="{x:Bind ViewModel.CommandLabel}" />
-                                    <MenuFlyoutItem
-                                        Click="OnAddClick"
-                                        Tag="Application"
-                                        Text="{x:Bind ViewModel.ApplicationLabel, Mode=OneWay}" />
-                                    <MenuFlyoutItem
-                                        Click="OnAddClick"
-                                        Tag="Restart"
-                                        Text="{x:Bind ViewModel.RestartLabel, Mode=OneWay}" />
-                                </MenuFlyout>
-                            </AppBarButton.Flyout>
-                        </AppBarButton>
-                        <AppBarButton
-                            Click="OnEditClick"
-                            Icon="Edit"
-                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
-                            Label="{x:Bind ViewModel.EditLabel, Mode=OneWay}" />
-                        <AppBarButton
-                            Command="{x:Bind ViewModel.RemoveCommand}"
-                            Icon="Delete"
-                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
-                            Label="{x:Bind ViewModel.RemoveLabel, Mode=OneWay}" />
-                        <AppBarSeparator />
-                        <AppBarButton
-                            Command="{x:Bind ViewModel.ToggleCommand}"
-                            Icon="Accept"
-                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
-                            Label="{x:Bind ViewModel.ToggleLabel, Mode=OneWay}" />
-                        <AppBarButton
-                            Command="{x:Bind ViewModel.MoveUpCommand}"
-                            IsEnabled="{x:Bind ViewModel.CanMoveUp, Mode=OneWay}"
-                            Label="{x:Bind ViewModel.MoveUpLabel, Mode=OneWay}">
-                            <AppBarButton.Icon>
-                                <FontIcon Glyph="&#xE70E;" />
-                            </AppBarButton.Icon>
-                        </AppBarButton>
-                        <AppBarButton
-                            Command="{x:Bind ViewModel.MoveDownCommand}"
-                            IsEnabled="{x:Bind ViewModel.CanMoveDown, Mode=OneWay}"
-                            Label="{x:Bind ViewModel.MoveDownLabel, Mode=OneWay}">
-                            <AppBarButton.Icon>
-                                <FontIcon Glyph="&#xE70D;" />
-                            </AppBarButton.Icon>
-                        </AppBarButton>
-                        <AppBarButton
-                            Command="{x:Bind ViewModel.RefreshCommand}"
-                            Icon="Refresh"
-                            Label="{x:Bind ViewModel.RefreshLabel, Mode=OneWay}" />
-                    </CommandBar>
+                    <ScrollViewer
+                        HorizontalScrollBarVisibility="Auto"
+                        HorizontalScrollMode="Enabled"
+                        IsTabStop="False"
+                        VerticalScrollBarVisibility="Disabled"
+                        VerticalScrollMode="Disabled">
+                        <CommandBar
+                            HorizontalAlignment="Left"
+                            DefaultLabelPosition="Right"
+                            IsDynamicOverflowEnabled="False"
+                            OverflowButtonVisibility="Collapsed">
+                            <CommandBar.PrimaryCommands>
+                                <AppBarButton
+                                    Icon="Add"
+                                    Label="{x:Bind ViewModel.AddLabel, Mode=OneWay}">
+                                    <AppBarButton.Flyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem
+                                                Click="OnAddClick"
+                                                Tag="PowerShell"
+                                                Text="{x:Bind ViewModel.PowerShellLabel}" />
+                                            <MenuFlyoutItem
+                                                Click="OnAddClick"
+                                                Tag="Command"
+                                                Text="{x:Bind ViewModel.CommandLabel}" />
+                                            <MenuFlyoutItem
+                                                Click="OnAddClick"
+                                                Tag="Application"
+                                                Text="{x:Bind ViewModel.ApplicationLabel, Mode=OneWay}" />
+                                            <MenuFlyoutItem
+                                                Click="OnAddClick"
+                                                Tag="Restart"
+                                                Text="{x:Bind ViewModel.RestartLabel, Mode=OneWay}" />
+                                        </MenuFlyout>
+                                    </AppBarButton.Flyout>
+                                </AppBarButton>
+                                <AppBarButton
+                                    Click="OnEditClick"
+                                    Icon="Edit"
+                                    IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
+                                    Label="{x:Bind ViewModel.EditLabel, Mode=OneWay}" />
+                                <AppBarButton
+                                    Command="{x:Bind ViewModel.RemoveCommand}"
+                                    Icon="Delete"
+                                    IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
+                                    Label="{x:Bind ViewModel.RemoveLabel, Mode=OneWay}" />
+                                <AppBarSeparator />
+                                <AppBarButton
+                                    Command="{x:Bind ViewModel.ToggleCommand}"
+                                    Icon="Accept"
+                                    IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
+                                    Label="{x:Bind ViewModel.ToggleLabel, Mode=OneWay}" />
+                                <AppBarButton
+                                    Command="{x:Bind ViewModel.MoveUpCommand}"
+                                    IsEnabled="{x:Bind ViewModel.CanMoveUp, Mode=OneWay}"
+                                    Label="{x:Bind ViewModel.MoveUpLabel, Mode=OneWay}">
+                                    <AppBarButton.Icon>
+                                        <FontIcon Glyph="&#xE70E;" />
+                                    </AppBarButton.Icon>
+                                </AppBarButton>
+                                <AppBarButton
+                                    Command="{x:Bind ViewModel.MoveDownCommand}"
+                                    IsEnabled="{x:Bind ViewModel.CanMoveDown, Mode=OneWay}"
+                                    Label="{x:Bind ViewModel.MoveDownLabel, Mode=OneWay}">
+                                    <AppBarButton.Icon>
+                                        <FontIcon Glyph="&#xE70D;" />
+                                    </AppBarButton.Icon>
+                                </AppBarButton>
+                                <AppBarButton
+                                    Command="{x:Bind ViewModel.RefreshCommand}"
+                                    Icon="Refresh"
+                                    Label="{x:Bind ViewModel.RefreshLabel, Mode=OneWay}" />
+                            </CommandBar.PrimaryCommands>
+                        </CommandBar>
+                    </ScrollViewer>
                     <tv:TableView
                         MaxHeight="{ThemeResource FoundryTableMaxHeight}"
                         AutoGenerateColumns="False"
@@ -114,7 +124,7 @@
                         CanResizeColumns="False"
                         CanSortColumns="False"
                         CornerButtonMode="None"
-                        HeadersVisibility="None"
+                        HeadersVisibility="Columns"
                         IsReadOnly="True"
                         ItemsSource="{x:Bind ViewModel.Actions}"
                         SelectedItem="{x:Bind ViewModel.SelectedAction, Mode=TwoWay}"
@@ -122,58 +132,25 @@
                         SelectionUnit="Row"
                         ShowExportOptions="False">
                         <tv:TableView.Columns>
-                            <tv:TableViewTextColumn Binding="{Binding Position}" />
-                            <tv:TableViewTextColumn Binding="{Binding Name}" />
-                            <tv:TableViewTextColumn Binding="{Binding Type}" />
-                            <tv:TableViewTextColumn Binding="{Binding Enabled}" />
-                            <tv:TableViewTextColumn Binding="{Binding Readiness}" />
+                            <tv:TableViewTextColumn
+                                Binding="{Binding Position}"
+                                Header="{x:Bind ViewModel.OrderHeader, Mode=OneWay}" />
+                            <tv:TableViewTextColumn
+                                Binding="{Binding Name}"
+                                Header="{x:Bind ViewModel.NameHeader, Mode=OneWay}" />
+                            <tv:TableViewTextColumn
+                                Binding="{Binding Type}"
+                                Header="{x:Bind ViewModel.TypeHeader, Mode=OneWay}" />
+                            <tv:TableViewTextColumn
+                                Binding="{Binding Enabled}"
+                                Header="{x:Bind ViewModel.EnabledHeader, Mode=OneWay}" />
+                            <tv:TableViewTextColumn
+                                Binding="{Binding Readiness}"
+                                Header="{x:Bind ViewModel.ContentStatusHeader, Mode=OneWay}" />
                         </tv:TableView.Columns>
                     </tv:TableView>
                 </StackPanel>
             </ContentControl>
-            <InfoBar
-                IsClosable="False"
-                IsOpen="True"
-                Message="{x:Bind ViewModel.CleanupDescription, Mode=OneWay}"
-                Severity="Informational" />
-            <CheckBox
-                Content="{x:Bind ViewModel.IntegrationLabel, Mode=OneWay}"
-                IsChecked="{x:Bind ViewModel.IntegrateCustomUnattend, Mode=TwoWay}" />
-            <TextBlock
-                Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
-                Text="{x:Bind ViewModel.IntegrationDescription, Mode=OneWay}"
-                TextWrapping="Wrap" />
-            <TextBlock
-                Text="{x:Bind ViewModel.IntegrationPreview, Mode=OneWay}"
-                TextWrapping="Wrap" />
-            <ComboBox
-                HorizontalAlignment="Stretch"
-                DisplayMemberPath="DisplayName"
-                Header="{x:Bind ViewModel.PreviewFileLabel, Mode=OneWay}"
-                ItemsSource="{x:Bind ViewModel.PreviewFiles}"
-                SelectedItem="{x:Bind ViewModel.SelectedPreviewFile, Mode=TwoWay}" />
-            <ComboBox
-                Header="{x:Bind ViewModel.ArchitectureLabel, Mode=OneWay}"
-                SelectedIndex="{x:Bind ViewModel.PreviewArchitectureIndex, Mode=TwoWay}">
-                <ComboBoxItem Content="x64" />
-                <ComboBoxItem Content="ARM64" />
-            </ComboBox>
-            <Button
-                Command="{x:Bind ViewModel.PreviewIntegrationCommand}"
-                Content="{x:Bind ViewModel.PreviewLabel, Mode=OneWay}" />
-            <ProgressBar
-                IsIndeterminate="True"
-                Visibility="{x:Bind ViewModel.IsPreviewBusy, Mode=OneWay}" />
-            <TextBlock
-                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                Text="{x:Bind ViewModel.IntegrationError, Mode=OneWay}"
-                TextWrapping="Wrap" />
-            <TextBox
-                AcceptsReturn="True"
-                AutomationProperties.Name="{x:Bind ViewModel.PreviewLabel, Mode=OneWay}"
-                IsReadOnly="True"
-                Text="{x:Bind ViewModel.IntegrationXml, Mode=OneWay}"
-                TextWrapping="Wrap" />
         </StackPanel>
     </ScrollView>
 </Page>

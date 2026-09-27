@@ -2416,9 +2416,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Pirmiausia vykdomos įtaisytosios „Foundry“ užduotys. Toliau pridėkite pasirinktinius veiksmus vykdymo tvarka.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>„Foundry“ pašalina laikiną diegimo turinį, kai pasirinktiniai veiksmai baigiami.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>CMD komandų eilutė</value>
   </data>
@@ -2427,6 +2424,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketo turinys</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Turinio būsena</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Turinys veiksmams po diegimo patikrintas.</value>
@@ -2458,9 +2458,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Importuoti aplanką</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Integruoti su pasirinktiniais atsakymų failais</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Patikrinkite pavadinimą, turinio kelią, komandą ir proceso parametrus. Užbaigimo kodų sąrašai negali sutapti ar apimti 1641; skirtasis laikas turi būti 1–86400 sekundžių.</value>
   </data>
@@ -2472,6 +2469,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Turinys neimportuotas</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Tvarka</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Prieš kurdami laikmeną patikrinkite veiksmų parametrus ir importuokite trūkstamą paketų turinį.</value>
@@ -2491,14 +2491,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Skirtasis laikas (sekundėmis)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Išsamiau: pridėkite „Foundry“ paleidimo komandą prie diegimo kopijos. Importuoti originalai nekeičiami. Pasirinktiniai parametrai ir komandos gali paveikti diegimą.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>Pasirinkto atsakymų failo negalima integruoti. Patikrinkite jo architektūrą, esamą „Foundry“ paleidimo mechanizmą ir RunSynchronous tvarką arba atnaujinkite pasikeitusį šaltinį.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Diegimo kopija: pridėkite „Foundry“ komandą etape specialize su WillReboot=OnRequest. Išsaugokite esamas komandas ir parametrus.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Tipas</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Darbinis katalogas (santykinis; tuščias laukas naudoja turinio šakninį katalogą)</value>
@@ -3607,7 +3601,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Naudoti „Foundry“ parametrus</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Pasirinktas failas pakeičia „Foundry“ sugeneruotą atsakymų failą. Jo parametrai naudojami tokie, kokie yra, jų nesujungiant ir neužpildant trūkstamų reikšmių. Norėdami naudoti išsaugotą konfigūraciją, pasirinkite „Naudoti „Foundry“ parametrus“.</value>
+    <value>Pasirinktas failas pakeičia „Foundry“ sugeneruotą atsakymų failą. „Foundry“ išsaugo jo pasirinktinius parametrus ir į diegimo kopiją įtraukia būtiną komandą, vykdomą po diegimo. Norėdami naudoti išsaugotą konfigūraciją, pasirinkite Naudoti „Foundry“ parametrus.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>„Foundry“ išsaugo originalų failą ir į diegimo kopiją įtraukia savo būtiną komandą, vykdomą po diegimo. Už pasirinktinius parametrus ir komandas ir toliau atsakote jūs.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Pasirinktiniams failams reikia diegimo laikmenos apsaugos slaptažodžiu bendrojoje konfigūracijoje. XML gali būti kredencialų arba scenarijų. Kataloge išsaugomos tik nuorodos į šaltinius; įkrovos atvaizde yra užšifruotos kopijos.</value>

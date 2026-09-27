@@ -2416,9 +2416,6 @@
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>งานในตัวของ Foundry จะทำงานก่อน เพิ่มการดำเนินการแบบกำหนดเองด้านล่างตามลำดับการทำงาน</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry จะล้างเนื้อหาการปรับใช้ชั่วคราวหลังจากการดำเนินการแบบกำหนดเองเสร็จสิ้น</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>บรรทัดคำสั่ง CMD</value>
   </data>
@@ -2427,6 +2424,9 @@
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>เนื้อหาแพ็กเกจ</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>สถานะเนื้อหา</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>ตรวจสอบเนื้อหาหลังการติดตั้งแล้ว</value>
@@ -2458,9 +2458,6 @@
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>นำเข้าโฟลเดอร์</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>ผสานรวมกับไฟล์คำตอบแบบกำหนดเอง</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>ตรวจสอบชื่อ เส้นทางเนื้อหา คำสั่ง และการตั้งค่ากระบวนการ รายการรหัสออกต้องไม่ซ้ำกันระหว่างรายการหรือมี 1641 และเวลาหมดอายุต้องอยู่ที่ 1–86400 วินาที</value>
   </data>
@@ -2472,6 +2469,9 @@
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>ยังไม่ได้นำเข้าเนื้อหา</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>ลำดับ</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>ตรวจสอบการตั้งค่าการดำเนินการและนำเข้าเนื้อหาแพ็กเกจที่ขาดหายไปก่อนสร้างสื่อ</value>
@@ -2491,14 +2491,8 @@
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>เวลาหมดอายุ (วินาที)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>ขั้นสูง: เพิ่มคำสั่งเริ่ม Foundry ลงในสำเนาสำหรับการปรับใช้ ต้นฉบับที่นำเข้าจะไม่เปลี่ยนแปลง การตั้งค่าและคำสั่งแบบกำหนดเองอาจส่งผลต่อการปรับใช้</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>ไม่สามารถผสานรวมไฟล์คำตอบที่เลือกได้ ตรวจสอบสถาปัตยกรรม กลไกเริ่ม Foundry ที่มีอยู่ และลำดับ RunSynchronous หรือรีเฟรชแหล่งที่มาหากมีการเปลี่ยนแปลง</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>สำเนาสำหรับการปรับใช้: เพิ่มคำสั่ง Foundry ใน specialize พร้อม WillReboot=OnRequest โดยเก็บคำสั่งและการตั้งค่าเดิมไว้</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>ประเภท</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>ไดเรกทอรีทำงาน (เส้นทางสัมพัทธ์ หากว่างจะใช้รากของเนื้อหา)</value>
@@ -3607,7 +3601,10 @@
     <value>ใช้การตั้งค่าของ Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>ไฟล์ที่เลือกจะแทนที่ไฟล์คำตอบที่ Foundry สร้างขึ้น การตั้งค่าในไฟล์จะถูกใช้ตามที่ระบุ โดยไม่ผสานหรือเติมค่าที่ขาดหายไป เลือก “ใช้การตั้งค่าของ Foundry” เพื่อใช้การกำหนดค่าที่บันทึกไว้</value>
+    <value>ไฟล์ที่เลือกจะแทนที่ไฟล์คำตอบที่ Foundry สร้างขึ้น Foundry จะเก็บการตั้งค่าแบบกำหนดเองไว้และเพิ่มคำสั่งหลังการติดตั้งที่จำเป็นลงในสำเนาสำหรับการปรับใช้ เลือก ใช้การตั้งค่าของ Foundry เพื่อใช้การกำหนดค่าที่บันทึกไว้</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry จะเก็บไฟล์ต้นฉบับไว้และเพิ่มคำสั่งหลังการติดตั้งที่จำเป็นลงในสำเนาสำหรับการปรับใช้ คุณยังคงรับผิดชอบต่อการตั้งค่าและคำสั่งแบบกำหนดเอง</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>ไฟล์ที่กำหนดเองต้องเปิดใช้การป้องกันสื่อการปรับใช้ด้วยรหัสผ่านในการกำหนดค่าทั่วไป XML อาจมีข้อมูลรับรองหรือสคริปต์ แค็ตตาล็อกจะบันทึกเฉพาะการอ้างอิงไปยังต้นฉบับ ส่วนอิมเมจสำหรับบูตจะมีสำเนาที่เข้ารหัส</value>

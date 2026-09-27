@@ -2416,9 +2416,6 @@
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Сначала выполняются встроенные задачи Foundry. Добавьте ниже пользовательские действия в порядке выполнения.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry удаляет временное содержимое развёртывания после завершения пользовательских действий.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Командная строка CMD</value>
   </data>
@@ -2427,6 +2424,9 @@
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Содержимое пакета</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Состояние содержимого</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Содержимое для этапа после установки проверено.</value>
@@ -2458,9 +2458,6 @@
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Импортировать папку</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Интеграция с пользовательскими файлами ответов</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Проверьте имя, путь к содержимому, команду и параметры процесса. Списки кодов завершения не должны пересекаться или содержать 1641; время ожидания — 1–86400 секунд.</value>
   </data>
@@ -2472,6 +2469,9 @@
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Содержимое не импортировано</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Порядок</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Проверьте параметры действий и импортируйте недостающее содержимое пакетов перед созданием носителя.</value>
@@ -2491,14 +2491,8 @@
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Время ожидания (секунды)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Дополнительно: добавьте команду запуска Foundry в копию для развёртывания. Импортированные оригиналы останутся без изменений. Пользовательские параметры и команды могут повлиять на развёртывание.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>Не удалось интегрировать выбранный файл ответов. Проверьте его архитектуру, существующий механизм запуска Foundry и порядок RunSynchronous либо обновите изменившийся источник.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Копия для развёртывания: добавьте команду Foundry на этапе specialize с WillReboot=OnRequest. Сохраните существующие команды и параметры.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Тип</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Рабочий каталог (относительный; пустое поле означает корень содержимого)</value>
@@ -3607,7 +3601,10 @@
     <value>Использовать параметры Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Выбранный файл заменяет файл ответов, созданный Foundry. Его параметры используются как есть, без объединения или заполнения отсутствующих значений. Выберите «Использовать параметры Foundry», чтобы применить сохранённую конфигурацию.</value>
+    <value>Выбранный файл заменяет файл ответов, созданный Foundry. Foundry сохраняет его пользовательские параметры и добавляет обязательную команду этапа после установки в копию для развёртывания. Выберите «Использовать параметры Foundry», чтобы использовать сохранённую конфигурацию.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry сохраняет исходный файл и добавляет обязательную команду этапа после установки в копию для развёртывания. Вы по-прежнему отвечаете за свои пользовательские параметры и команды.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Для пользовательских файлов требуется защита носителя развёртывания паролем в общих настройках. XML может содержать учётные данные или сценарии. Каталог хранит только ссылки на источники; загрузочный образ содержит зашифрованные копии.</value>

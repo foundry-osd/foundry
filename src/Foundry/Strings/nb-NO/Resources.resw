@@ -2416,9 +2416,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>Foundrys innebygde oppgaver kjøres først. Legg til egendefinerte handlinger nedenfor i ønsket kjørerekkefølge.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry fjerner midlertidig distribusjonsinnhold når de egendefinerte handlingene er fullført.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>CMD-kommandolinje</value>
   </data>
@@ -2427,6 +2424,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Pakkeinnhold</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Innholdsstatus</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Innhold til etter installasjonen er verifisert.</value>
@@ -2458,9 +2458,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Importer mappe</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Integrer med egendefinerte svarfiler</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Kontroller navn, innholdsbane, kommando og prosessinnstillinger. Listene over avslutningskoder må ikke overlappe eller inneholde 1641; tidsavbruddet må være 1–86400 sekunder.</value>
   </data>
@@ -2472,6 +2469,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Intet innhold importert</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Rekkefølge</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Kontroller handlingsinnstillingene og importer manglende pakkeinnhold før du oppretter medier.</value>
@@ -2491,14 +2491,8 @@ Lisensiert under MIT-lisensen.</value>
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Tidsavbrudd (sekunder)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Avansert: legg til Foundrys startkommando i distribusjonskopien. Importerte originaler forblir uendret. Egendefinerte innstillinger og kommandoer kan påvirke distribusjonen.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>Den valgte svarfilen kan ikke integreres. Kontroller arkitekturen, den eksisterende Foundry-startmekanismen og RunSynchronous-rekkefølgen, eller oppdater en endret kilde.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Distribusjonskopi: legg til Foundry-kommandoen i specialize med WillReboot=OnRequest. Behold eksisterende kommandoer og innstillinger.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Arbeidsmappe (relativ; tomt bruker innholdets rotmappe)</value>
@@ -3607,7 +3601,10 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Bruk Foundry-innstillinger</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Den valgte filen erstatter svarfilen som Foundry genererer. Innstillingene brukes som de er, uten sammenslåing eller utfylling av manglende verdier. Velg «Bruk Foundry-innstillinger» for å bruke den lagrede konfigurasjonen.</value>
+    <value>Den valgte filen erstatter svarfilen som Foundry genererer. Foundry bevarer de egendefinerte innstillingene og legger til den påkrevde kommandoen for etter installasjonen i distribusjonskopien. Velg Bruk Foundry-innstillinger for å bruke den lagrede konfigurasjonen.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry bevarer originalfilen din og legger til den påkrevde kommandoen for etter installasjonen i distribusjonskopien. Du er fortsatt ansvarlig for dine egendefinerte innstillinger og kommandoer.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Egendefinerte filer krever passordbeskyttelse av distribusjonsmediet i den generelle konfigurasjonen. XML kan inneholde påloggingsinformasjon eller skript. Katalogen lagrer bare kildereferanser. Oppstartsavbildningen inneholder krypterte kopier.</value>

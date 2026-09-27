@@ -22,10 +22,10 @@ public sealed class UnattendSnapshot : IDisposable
     /// <summary>Gets structural compatibility information without exposing XML content.</summary>
     public UnattendInspection Inspection { get; }
 
-    /// <summary>Checks the manual restart hook without changing the retained source snapshot.</summary>
-    public void ValidatePostInstallHook(string architecture, bool integrate = false)
+    /// <summary>Validates automatic hook integration without changing the retained source snapshot.</summary>
+    public void ValidatePostInstallHook(string architecture)
     {
-        byte[] validated = new PreOobeUnattendHookService().Prepare(_content ?? throw new ObjectDisposedException(nameof(UnattendSnapshot)), architecture, integrate);
+        byte[] validated = new PreOobeUnattendHookService().Prepare(_content ?? throw new ObjectDisposedException(nameof(UnattendSnapshot)), architecture);
         CryptographicOperations.ZeroMemory(validated);
     }
 

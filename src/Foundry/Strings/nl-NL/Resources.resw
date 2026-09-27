@@ -2416,9 +2416,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>De ingebouwde taken van Foundry worden eerst uitgevoerd. Voeg hieronder uw aangepaste acties toe in de gewenste volgorde.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>Foundry verwijdert tijdelijke implementatie-inhoud nadat de aangepaste acties zijn voltooid.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>CMD-opdrachtregel</value>
   </data>
@@ -2427,6 +2424,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Pakketinhoud</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Inhoudsstatus</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>Inhoud voor na de installatie geverifieerd.</value>
@@ -2458,9 +2458,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>Map importeren</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>Integreren met aangepaste antwoordbestanden</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>Controleer naam, inhoudspad, opdracht en procesinstellingen. Afsluitcodelijsten mogen niet overlappen of 1641 bevatten; de time-out moet 1–86400 seconden zijn.</value>
   </data>
@@ -2472,6 +2469,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>Geen inhoud geïmporteerd</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Volgorde</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Controleer de actie-instellingen en importeer ontbrekende pakketinhoud voordat u media maakt.</value>
@@ -2491,14 +2491,8 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>Time-out (seconden)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>Geavanceerd: voeg de startopdracht van Foundry toe aan de implementatiekopie. Geïmporteerde originelen blijven ongewijzigd. Uw aangepaste instellingen en opdrachten kunnen de implementatie beïnvloeden.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>Het geselecteerde antwoordbestand kan niet worden geïntegreerd. Controleer de architectuur, de bestaande Foundry-starthaak en de RunSynchronous-volgorde, of vernieuw een gewijzigde bron.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>Implementatiekopie: voeg de Foundry-opdracht toe in specialize met WillReboot=OnRequest. Behoud bestaande opdrachten en instellingen.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Werkmap (relatief; leeg gebruikt de hoofdmap van de inhoud)</value>
@@ -3607,7 +3601,10 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Foundry-instellingen gebruiken</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Het geselecteerde bestand vervangt het antwoordbestand dat Foundry genereert. De instellingen worden ongewijzigd gebruikt, zonder samenvoeging of aanvulling van ontbrekende waarden. Kies ‘Foundry-instellingen gebruiken’ om uw opgeslagen configuratie te gebruiken.</value>
+    <value>Het geselecteerde bestand vervangt het antwoordbestand dat Foundry genereert. Foundry behoudt de aangepaste instellingen en voegt de vereiste opdracht voor na de installatie toe aan de implementatiekopie. Selecteer Foundry-instellingen gebruiken om uw opgeslagen configuratie te gebruiken.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry behoudt uw oorspronkelijke bestand en voegt de vereiste opdracht voor na de installatie toe aan de implementatiekopie. U blijft verantwoordelijk voor uw aangepaste instellingen en opdrachten.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Aangepaste bestanden vereisen wachtwoordbeveiliging voor implementatiemedia in de algemene configuratie. XML kan aanmeldingsgegevens of scripts bevatten. De catalogus slaat alleen bronverwijzingen op. De opstartimage bevat versleutelde kopieën.</value>

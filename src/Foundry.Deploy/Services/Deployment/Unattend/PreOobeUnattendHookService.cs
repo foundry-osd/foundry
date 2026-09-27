@@ -20,14 +20,14 @@ public sealed class PreOobeUnattendHookService
     public PreOobeUnattendHookService() : this(PreOobeTargetStagingService.ProtectDirectory) { }
     internal PreOobeUnattendHookService(Action<string> protectDirectory) => this.protectDirectory = protectDirectory;
 
-    public byte[] Prepare(ReadOnlySpan<byte> content, string architecture, bool integrate)
+    public byte[] Prepare(ReadOnlySpan<byte> content, string architecture)
     {
-        using var result = new PreOobeUnattendIntegrationService().Evaluate(content, architecture, integrate);
+        using var result = new PreOobeUnattendIntegrationService().Evaluate(content, architecture);
         return result.DerivedContent.ToArray();
     }
 
     /// <summary>Publishes only after executable, plan, journal and permissions have been staged. Source values never enter the audit.</summary>
-    public void Publish(string windowsRoot, string architecture, bool integrate)
+    public void Publish(string windowsRoot, string architecture)
     {
         string path = Path.Combine(windowsRoot, "Windows", "Panther", "unattend.xml");
         if (File.Exists(path) && new FileInfo(path).Length > UnattendFileService.MaximumFileSizeBytes)
@@ -35,7 +35,7 @@ public sealed class PreOobeUnattendHookService
         byte[] content = File.Exists(path) ? File.ReadAllBytes(path) : Encoding.UTF8.GetBytes("<unattend xmlns=\"urn:schemas-microsoft-com:unattend\" />");
         try
         {
-            using var result = new PreOobeUnattendIntegrationService().Evaluate(content, architecture, integrate);
+            using var result = new PreOobeUnattendIntegrationService().Evaluate(content, architecture);
             string stateRoot = DeploymentStorageLayout.FromPartitionRoot(windowsRoot).StatePreOobe;
             protectDirectory(stateRoot);
             string auditPath = Path.Combine(stateRoot, "unattend-integration.json");
@@ -48,16 +48,12 @@ public sealed class PreOobeUnattendHookService
                     schemaVersion = 1,
                     sourceSha256 = result.SourceSha256,
                     derivedSha256 = result.DerivedSha256,
-                    integrated = integrate,
                     modified = result.IsModified
                 });
                 DeploymentFilePublication.WriteAllText(auditPath, audit, new UTF8Encoding(false));
                 auditCreated = true;
-                if (integrate)
-                {
-                    Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-                    DeploymentFilePublication.WriteAllText(path, Encoding.UTF8.GetString(result.DerivedContent.Span), new UTF8Encoding(false));
-                }
+                Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+                DeploymentFilePublication.WriteAllText(path, Encoding.UTF8.GetString(result.DerivedContent.Span), new UTF8Encoding(false));
             }
             catch
             {

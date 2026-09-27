@@ -2416,9 +2416,6 @@
   <data name="PostInstallation.BuiltIns" xml:space="preserve">
     <value>تُنفَّذ مهام Foundry المضمّنة أولاً. أضف إجراءاتك المخصصة أدناه بترتيب التنفيذ.</value>
   </data>
-  <data name="PostInstallation.Cleanup" xml:space="preserve">
-    <value>ينظف Foundry محتوى النشر المؤقت بعد انتهاء الإجراءات المخصصة.</value>
-  </data>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>سطر أوامر CMD</value>
   </data>
@@ -2427,6 +2424,9 @@
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>محتوى الحزمة</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>حالة المحتوى</value>
   </data>
   <data name="PostInstallation.ContentVerified" xml:space="preserve">
     <value>تم التحقق من محتوى ما بعد التثبيت.</value>
@@ -2458,9 +2458,6 @@
   <data name="PostInstallation.ImportFolder" xml:space="preserve">
     <value>استيراد مجلد</value>
   </data>
-  <data name="PostInstallation.IntegrateUnattend" xml:space="preserve">
-    <value>التكامل مع ملفات إجابات مخصصة</value>
-  </data>
   <data name="PostInstallation.InvalidAction" xml:space="preserve">
     <value>تحقق من الاسم ومسار المحتوى والأمر وإعدادات العملية. يجب ألا تتداخل قوائم رموز الخروج أو تتضمن 1641؛ ويجب أن تكون المهلة 1–86400 ثانية.</value>
   </data>
@@ -2472,6 +2469,9 @@
   </data>
   <data name="PostInstallation.NoContent" xml:space="preserve">
     <value>لم يتم استيراد أي محتوى</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>الترتيب</value>
   </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>تحقق من إعدادات الإجراءات واستورد أي محتوى حزم مفقود قبل إنشاء الوسائط.</value>
@@ -2491,14 +2491,8 @@
   <data name="PostInstallation.Timeout" xml:space="preserve">
     <value>المهلة (بالثواني)</value>
   </data>
-  <data name="PostInstallation.UnattendDescription" xml:space="preserve">
-    <value>متقدم: أضف أمر تشغيل Foundry إلى نسخة النشر. تبقى النسخ الأصلية المستوردة دون تغيير. قد تؤثر إعداداتك وأوامرك المخصصة على النشر.</value>
-  </data>
-  <data name="PostInstallation.UnattendIntegrationFailed" xml:space="preserve">
-    <value>لا يمكن دمج ملف الإجابات المحدد. تحقق من بنيته وآلية بدء Foundry الحالية وترتيب RunSynchronous، أو حدّث المصدر إذا تغيّر.</value>
-  </data>
-  <data name="PostInstallation.UnattendPreview" xml:space="preserve">
-    <value>نسخة النشر: ألحِق أمر Foundry في specialize مع WillReboot=OnRequest. احتفظ بالأوامر والإعدادات الحالية.</value>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>النوع</value>
   </data>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>دليل العمل (نسبي؛ يُستخدم جذر المحتوى إذا تُرك فارغاً)</value>
@@ -3607,7 +3601,10 @@
     <value>استخدام إعدادات Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>يحل الملف المحدد محل ملف الإجابات الذي ينشئه Foundry. تُستخدم إعداداته كما هي، دون دمج أو استكمال القيم الناقصة. حدد استخدام إعدادات Foundry لاستخدام التكوين المحفوظ.</value>
+    <value>يحل الملف المحدد محل ملف الإجابات الذي ينشئه Foundry. يحافظ Foundry على إعداداته المخصصة ويضيف الأمر المطلوب لمرحلة ما بعد التثبيت إلى نسخة النشر. اختر استخدام إعدادات Foundry لاستخدام التكوين المحفوظ.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>يحافظ Foundry على الملف الأصلي ويضيف أمره المطلوب لمرحلة ما بعد التثبيت إلى نسخة النشر. وتبقى مسؤولاً عن إعداداتك وأوامرك المخصصة.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>تتطلب الملفات المخصصة حماية وسائط النشر بكلمة مرور في الإعدادات العامة. قد يحتوي XML على بيانات اعتماد أو برامج نصية. يحفظ الكتالوج مراجع المصادر فقط؛ وتحتوي صورة التمهيد على نسخ مشفّرة.</value>

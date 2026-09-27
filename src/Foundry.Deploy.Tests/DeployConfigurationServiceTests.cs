@@ -11,6 +11,27 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeployConfigurationServiceTests
 {
+    [Fact]
+    public void LoadOptional_IgnoresLegacyIntegrationOptOut()
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", """
+            {"schemaVersion":13,"preOobe":{"isEnabled":true,"integrateCustomUnattend":false,"actions":[]}}
+            """);
+        var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.NotNull(result.Document);
+        Assert.True(result.Document.PreOobe.IsEnabled);
+        string serialized = System.Text.Json.JsonSerializer.Serialize(result.Document.PreOobe);
+        Assert.DoesNotContain("IntegrateCustomUnattend", serialized);
+        byte[] original = System.Text.Encoding.UTF8.GetBytes("<unattend xmlns=\"urn:schemas-microsoft-com:unattend\" />");
+        byte[] derived = new Foundry.Deploy.Services.Deployment.Unattend.PreOobeUnattendHookService().Prepare(original, "x64");
+        Assert.Contains("Foundry PostInstall", System.Text.Encoding.UTF8.GetString(derived));
+        Assert.Equal("<unattend xmlns=\"urn:schemas-microsoft-com:unattend\" />", System.Text.Encoding.UTF8.GetString(original));
+    }
+
     [Theory]
     [InlineData("", false)]
     [InlineData(", \"uploadComputerNameToAutopilot\": true", true)]
