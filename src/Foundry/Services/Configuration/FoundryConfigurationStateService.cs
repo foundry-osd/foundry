@@ -401,10 +401,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     }
 
     /// <inheritdoc />
-    public bool IsPostInstallationReady => !Current.PreOobe.IsEnabled ||
-        (PreOobeConfigurationValidator.Validate(Current.PreOobe).Count == 0 &&
-        Current.PreOobe.Actions.Where(action => action.IsEnabled && action.Package is not null)
-            .All(action => postInstallPackages.IsAvailable(action.Package!)));
+    public bool IsPostInstallationReady => PreOobeConfigurationValidator.IsReady(Current.PreOobe, postInstallPackages.IsAvailable);
 
     /// <inheritdoc />
     public bool IsCustomImagesReady => !Current.CustomImages.IsEnabled ||

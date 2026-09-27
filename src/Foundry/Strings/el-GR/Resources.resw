@@ -2398,11 +2398,14 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Επιλογές ανάπτυξης Windows</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Προσθέστε μια ενεργοποιημένη ενέργεια ή απενεργοποιήστε τη διαμόρφωση μετά την εγκατάσταση.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Προσθήκη ενέργειας</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Εφαρμογή</value>
+    <value>Λογισμικό (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Τύπος προγράμματος εγκατάστασης</value>
@@ -2414,10 +2417,16 @@
     <value>Οι ενσωματωμένες εργασίες του Foundry εκτελούνται πρώτες. Προσθέστε παρακάτω τις προσαρμοσμένες ενέργειές σας με τη σειρά εκτέλεσης.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>Γραμμή εντολών CMD</value>
+    <value>Γραμμή εντολών</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Γραμμή εντολών</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Προεπισκόπηση εντολής</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Επιλέξτε μια δέσμη ενεργειών ή ένα πρόγραμμα εγκατάστασης ή πληκτρολογήστε μια εντολή για προεπισκόπηση της γραμμής εντολών.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Περιεχόμενο πακέτου</value>
@@ -2429,10 +2438,16 @@
     <value>Το περιεχόμενο για μετά την εγκατάσταση επαληθεύτηκε.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Συνέχεια μετά από συνηθισμένη αποτυχία ενέργειας</value>
+    <value>Συνέχεια σε περίπτωση σφάλματος</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Συνεχίστε με την επόμενη ενέργεια αν αυτή η ενέργεια αποτύχει. Η εκτέλεση με αβέβαιο αποτέλεσμα εξακολουθεί να διακόπτει την ακολουθία.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Αναβολή της ζητούμενης επανεκκίνησης μέχρι την επόμενη ενέργεια επανεκκίνησης ή το τέλος της ακολουθίας</value>
+    <value>Αναβολή επανεκκίνησης</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Αναβάλετε μια ζητούμενη επανεκκίνηση μέχρι την επόμενη ενέργεια επανεκκίνησης ή το τέλος της ακολουθίας.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Επεξεργασία ενέργειας</value>
@@ -2441,7 +2456,7 @@
     <value>Η ρύθμιση παραμέτρων άλλαξε κατά την επεξεργασία. Ανοίξτε ξανά την ενέργεια.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Δεν έχουν προστεθεί ενέργειες. Επιλέξτε Προσθήκη ενέργειας για να ρυθμίσετε μια δέσμη ενεργειών, μια εντολή, μια εφαρμογή ή μια επανεκκίνηση.</value>
+    <value>Δεν έχουν προστεθεί ενέργειες. Επιλέξτε Προσθήκη ενέργειας για να ρυθμίσετε μια δέσμη ενεργειών, μια εντολή, μια εγκατάσταση λογισμικού ή μια επανεκκίνηση.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Διαδρομή σεναρίου ή προγράμματος εγκατάστασης (σχετική με το περιεχόμενο)</value>
@@ -2479,11 +2494,14 @@
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Σειρά</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>Δέσμη ενεργειών PowerShell (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Ελέγξτε τις ρυθμίσεις των ενεργειών και εισαγάγετε το περιεχόμενο πακέτων που λείπει πριν δημιουργήσετε το μέσο.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Επανεκκίνηση</value>
+    <value>Επανεκκίνηση των Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Κωδικοί εξόδου που απαιτούν επανεκκίνηση (διαχωρισμένοι με κόμμα)</value>

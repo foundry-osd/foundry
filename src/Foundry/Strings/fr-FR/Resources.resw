@@ -2398,11 +2398,14 @@ Sous licence MIT.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Options de déploiement Windows</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Ajoutez une action activée ou désactivez la post-installation.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Ajouter une action</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Application</value>
+    <value>Logiciel (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Type de programme d’installation</value>
@@ -2414,10 +2417,16 @@ Sous licence MIT.</value>
     <value>Les tâches intégrées de Foundry s’exécutent d’abord. Ajoutez vos actions ci-dessous dans leur ordre d’exécution.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>Ligne de commande CMD</value>
+    <value>Ligne de commande</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Ligne de commande</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Aperçu de la commande</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Sélectionnez un script ou un programme d’installation, ou saisissez une commande pour afficher un aperçu de la ligne de commande.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Contenu du package</value>
@@ -2429,10 +2438,16 @@ Sous licence MIT.</value>
     <value>Contenu de post-installation vérifié.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Continuer après l’échec ordinaire d’une action</value>
+    <value>Continuer en cas d’erreur</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Passez à l’action suivante si cette action échoue. Une exécution dont le résultat est incertain arrête toujours la séquence.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Différer le redémarrage demandé jusqu’à la prochaine action Redémarrer ou la fin de la séquence</value>
+    <value>Différer le redémarrage</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Reportez un redémarrage demandé jusqu’à la prochaine action de redémarrage ou à la fin de la séquence.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Modifier l’action</value>
@@ -2441,7 +2456,7 @@ Sous licence MIT.</value>
     <value>La configuration a changé pendant la modification. Rouvrez l’action.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Aucune action ajoutée. Sélectionnez Ajouter une action pour configurer un script, une commande, une application ou un redémarrage.</value>
+    <value>Aucune action ajoutée. Sélectionnez Ajouter une action pour configurer un script, une commande, une installation de logiciel ou un redémarrage.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Chemin du script ou du programme d’installation (relatif au contenu)</value>
@@ -2479,11 +2494,14 @@ Sous licence MIT.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ordre</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>Script PowerShell (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Vérifiez les paramètres des actions et importez le contenu manquant des packages avant de créer le support.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Redémarrer</value>
+    <value>Redémarrer Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Codes de sortie nécessitant un redémarrage (séparés par des virgules)</value>

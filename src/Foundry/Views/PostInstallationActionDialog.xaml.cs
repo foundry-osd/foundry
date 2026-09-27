@@ -8,7 +8,6 @@ public sealed partial class PostInstallationActionDialog : ContentDialog
 {
     private const double WindowMargin = 48;
     private const double DialogChromeWidth = 48;
-    private const double DialogChromeHeight = 160;
     private readonly XamlRoot hostRoot;
 
     public PostInstallationActionEditorViewModel ViewModel { get; }
@@ -49,16 +48,16 @@ public sealed partial class PostInstallationActionDialog : ContentDialog
     /// <summary>Sizes in effective pixels and stacks the form when two readable columns no longer fit.</summary>
     private void ApplyContentLayout()
     {
-        double preferredWidth = Resource(ViewModel.IsExecutable ? "FoundryDialogMaxWidth" : "FoundryWideInputMinWidth");
-        double contentWidth = Math.Min(preferredWidth, Math.Max(0, hostRoot.Size.Width - WindowMargin - DialogChromeWidth));
-        double dialogHeight = Math.Min(Resource("FoundryLargeDialogMaxHeight"), Math.Max(0, hostRoot.Size.Height - WindowMargin));
-        bool twoColumns = ViewModel.IsExecutable && contentWidth >= Resource("FoundryLargeDialogMinWidth");
+        double availableWidth = Math.Max(0, hostRoot.Size.Width - WindowMargin - DialogChromeWidth);
+        double minimumWidth = Math.Min(Resource(ViewModel.IsExecutable ? "FoundryLargeDialogMinWidth" : "FoundryWideInputMinWidth"), availableWidth);
+        double maximumWidth = Math.Min(Resource("FoundryDialogMaxWidth"), availableWidth);
+        bool twoColumns = ViewModel.IsExecutable && minimumWidth >= Resource("FoundryLargeDialogMinWidth");
 
-        Resources["ContentDialogMinWidth"] = contentWidth + DialogChromeWidth;
-        Resources["ContentDialogMaxWidth"] = contentWidth + DialogChromeWidth;
-        Resources["ContentDialogMaxHeight"] = dialogHeight;
-        DialogContentRoot.Width = contentWidth;
-        DialogContentRoot.MaxHeight = Math.Max(0, dialogHeight - DialogChromeHeight);
+        Resources["ContentDialogMinWidth"] = minimumWidth + DialogChromeWidth;
+        Resources["ContentDialogMaxWidth"] = maximumWidth + DialogChromeWidth;
+        Resources["ContentDialogMaxHeight"] = Math.Max(0, hostRoot.Size.Height - WindowMargin);
+        DialogContentRoot.MinWidth = minimumWidth;
+        DialogContentRoot.MaxWidth = maximumWidth;
         ExecutionColumn.Width = twoColumns ? new GridLength(1, GridUnitType.Star) : new GridLength(0);
         SettingsGrid.ColumnSpacing = twoColumns ? Resource("FoundrySpace24") : 0;
         SettingsGrid.RowSpacing = twoColumns ? 0 : Resource("FoundrySpace24");

@@ -2398,11 +2398,14 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Опции за разполагане на Windows</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Добавете разрешено действие или изключете конфигурацията след инсталиране.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Добавяне на действие</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Приложение</value>
+    <value>Софтуер (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Тип на инсталатора</value>
@@ -2414,10 +2417,16 @@
     <value>Първо се изпълняват вградените задачи на Foundry. Добавете по-долу персонализираните действия в реда на изпълнение.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>Команден ред на CMD</value>
+    <value>Команден ред</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Команден ред</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Преглед на командата</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Изберете скрипт или инсталатор или въведете команда, за да прегледате командния ред.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Съдържание на пакета</value>
@@ -2429,10 +2438,16 @@
     <value>Съдържанието за етапа след инсталиране е проверено.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Продължаване след обикновена грешка в действие</value>
+    <value>Продължаване при грешка</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Продължете със следващото действие, ако това действие е неуспешно. Изпълнение с неясен резултат все пак спира последователността.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Отлагане на заявеното рестартиране до следващото действие за рестартиране или края на последователността</value>
+    <value>Отлагане на рестартирането</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Отложете заявено рестартиране до следващото действие за рестартиране или до края на последователността.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Редактиране на действие</value>
@@ -2441,7 +2456,7 @@
     <value>Конфигурацията се промени по време на редактиране. Отворете действието отново.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Няма добавени действия. Изберете Добавяне на действие, за да конфигурирате скрипт, команда, приложение или рестартиране.</value>
+    <value>Няма добавени действия. Изберете Добавяне на действие, за да конфигурирате скрипт, команда, инсталиране на софтуер или рестартиране.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Път до скрипта или инсталатора (спрямо съдържанието)</value>
@@ -2479,11 +2494,14 @@
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ред</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell скрипт (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Проверете настройките на действията и импортирайте липсващото съдържание на пакетите, преди да създадете носител.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Рестартиране</value>
+    <value>Рестартиране на Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Кодове за изход, изискващи рестартиране (разделени със запетаи)</value>

@@ -2398,11 +2398,14 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windowsin käyttöönottoasetukset</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Lisää käytössä oleva toiminto tai poista jälkiasennus käytöstä.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Lisää toiminto</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Sovellus</value>
+    <value>Ohjelmisto (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Asennusohjelman tyyppi</value>
@@ -2414,10 +2417,16 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Foundryn sisäiset tehtävät suoritetaan ensin. Lisää mukautetut toiminnot alle suoritusjärjestyksessä.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>CMD-komentorivi</value>
+    <value>Komentorivi</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Komentorivi</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Komennon esikatselu</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Valitse komentosarja tai asennusohjelma tai kirjoita komento, jotta voit esikatsella komentoriviä.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketin sisältö</value>
@@ -2429,10 +2438,16 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Asennuksen jälkeinen sisältö on tarkistettu.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Jatka tavallisen toimintovirheen jälkeen</value>
+    <value>Jatka virheestä huolimatta</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Jatka seuraavaan toimintoon, jos tämä toiminto epäonnistuu. Suoritus, jonka tulos on epävarma, pysäyttää silti toimintojonon.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Siirrä pyydetty uudelleenkäynnistys seuraavaan uudelleenkäynnistystoimintoon tai sarjan loppuun</value>
+    <value>Lykkää uudelleenkäynnistystä</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Lykkää pyydettyä uudelleenkäynnistystä seuraavaan uudelleenkäynnistystoimintoon tai toimintojonon loppuun.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Muokkaa toimintoa</value>
@@ -2441,7 +2456,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Määrityksiä muutettiin muokkauksen aikana. Avaa toiminto uudelleen.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Toimintoja ei ole lisätty. Määritä komentosarja, komento, sovellus tai uudelleenkäynnistys valitsemalla Lisää toiminto.</value>
+    <value>Toimintoja ei ole lisätty. Valitse Lisää toiminto, jos haluat määrittää komentosarjan, komennon, ohjelmiston asennuksen tai uudelleenkäynnistyksen.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Komentosarjan tai asennusohjelman polku (suhteessa sisältöön)</value>
@@ -2479,11 +2494,14 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Järjestys</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell-komentosarja (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Tarkista toimintojen asetukset ja tuo puuttuva pakettisisältö ennen tietovälineen luomista.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Käynnistä uudelleen</value>
+    <value>Käynnistä Windows uudelleen</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Uudelleenkäynnistyksen vaativat paluukoodit (pilkuilla erotettuina)</value>

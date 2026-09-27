@@ -2398,11 +2398,14 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows dağıtım seçenekleri</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Etkin bir eylem ekleyin veya kurulum sonrası yapılandırmayı devre dışı bırakın.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Eylem ekle</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Uygulama</value>
+    <value>Yazılım (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Yükleyici türü</value>
@@ -2414,10 +2417,16 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Önce Foundry'nin yerleşik görevleri çalışır. Özel eylemlerinizi aşağıya yürütme sırasıyla ekleyin.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>CMD komut satırı</value>
+    <value>Komut satırı</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Komut satırı</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Komut önizlemesi</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Komut satırını önizlemek için bir betik veya yükleyici seçin ya da bir komut girin.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paket içeriği</value>
@@ -2429,10 +2438,16 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Kurulum sonrası içerik doğrulandı.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Olağan bir eylem hatasından sonra devam et</value>
+    <value>Hata durumunda devam et</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Bu eylem başarısız olursa sonraki eylemle devam edin. Sonucu belirsiz bir yürütme yine de diziyi durdurur.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>İstenen yeniden başlatmayı sonraki Yeniden başlat eylemine veya dizinin sonuna ertele</value>
+    <value>Yeniden başlatmayı ertele</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>İstenen yeniden başlatmayı sonraki yeniden başlatma eylemine veya dizinin sonuna kadar erteleyin.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Eylemi düzenle</value>
@@ -2441,7 +2456,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Düzenleme sırasında yapılandırma değişti. Eylemi yeniden açın.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Hiçbir eylem eklenmedi. Betik, komut, uygulama veya yeniden başlatma yapılandırmak için Eylem ekle seçeneğini belirleyin.</value>
+    <value>Henüz eylem eklenmedi. Betik, komut, yazılım kurulumu veya yeniden başlatma yapılandırmak için Eylem ekle’yi seçin.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Betik veya yükleyici yolu (içeriğe göre)</value>
@@ -2479,11 +2494,14 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Sıra</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell betiği (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Medya oluşturmadan önce eylem ayarlarını denetleyin ve eksik paket içeriğini içeri aktarın.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Yeniden başlat</value>
+    <value>Windows’u yeniden başlat</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Yeniden başlatma gerektiren çıkış kodları (virgülle ayrılmış)</value>

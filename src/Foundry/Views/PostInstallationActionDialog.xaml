@@ -16,6 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <ScrollViewer
             HorizontalScrollBarVisibility="Disabled"
@@ -91,14 +92,15 @@
                             ItemsSource="{x:Bind ViewModel.EntryPoints}"
                             Text="{x:Bind ViewModel.EntryPoint, Mode=TwoWay}"
                             Visibility="{x:Bind ViewModel.HasEntryPoint}" />
-                        <ComboBox
-                            HorizontalAlignment="Stretch"
+                        <TextBox
                             Header="{x:Bind ViewModel.ApplicationModeLabel}"
-                            SelectedIndex="{x:Bind ViewModel.ApplicationModeIndex, Mode=TwoWay}"
-                            Visibility="{x:Bind ViewModel.IsApplication}">
-                            <ComboBoxItem Content="EXE" />
-                            <ComboBoxItem Content="MSI" />
-                        </ComboBox>
+                            IsReadOnly="True"
+                            Text="{x:Bind ViewModel.InstallerType, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.IsApplication}" />
+                        <TextBox
+                            Header="{x:Bind ViewModel.WorkingDirectoryLabel}"
+                            IsEnabled="{x:Bind ViewModel.HasPackage, Mode=OneWay}"
+                            Text="{x:Bind ViewModel.WorkingDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBox
                             MaxHeight="120"
                             Header="{x:Bind ViewModel.ArgumentsLabel}"
@@ -113,10 +115,6 @@
                             Text="{x:Bind ViewModel.CommandText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             TextWrapping="Wrap"
                             Visibility="{x:Bind ViewModel.IsCommand}" />
-                        <TextBox
-                            Header="{x:Bind ViewModel.WorkingDirectoryLabel}"
-                            IsEnabled="{x:Bind ViewModel.HasPackage, Mode=OneWay}"
-                            Text="{x:Bind ViewModel.WorkingDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel x:Name="ExecutionSettingsPanel"
                         Grid.Column="1"
@@ -139,29 +137,54 @@
                         <TextBox
                             Header="{x:Bind ViewModel.RestartCodesLabel}"
                             Text="{x:Bind ViewModel.RestartCodes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <CheckBox IsChecked="{x:Bind ViewModel.ContinueOnError, Mode=TwoWay}">
-                            <TextBlock
-                                Text="{x:Bind ViewModel.ContinueLabel}"
-                                TextWrapping="WrapWholeWords" />
+                        <CheckBox
+                            VerticalContentAlignment="Top"
+                            AutomationProperties.HelpText="{x:Bind ViewModel.ContinueDescription}"
+                            AutomationProperties.Name="{x:Bind ViewModel.ContinueLabel}"
+                            IsChecked="{x:Bind ViewModel.ContinueOnError, Mode=TwoWay}">
+                            <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                                <TextBlock
+                                    Text="{x:Bind ViewModel.ContinueLabel}"
+                                    TextWrapping="WrapWholeWords" />
+                                <TextBlock
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                    Text="{x:Bind ViewModel.ContinueDescription}"
+                                    TextWrapping="WrapWholeWords" />
+                            </StackPanel>
                         </CheckBox>
-                        <CheckBox IsChecked="{x:Bind ViewModel.DeferRestart, Mode=TwoWay}">
-                            <TextBlock
-                                Text="{x:Bind ViewModel.DeferRestartLabel}"
-                                TextWrapping="WrapWholeWords" />
+                        <CheckBox
+                            VerticalContentAlignment="Top"
+                            AutomationProperties.HelpText="{x:Bind ViewModel.DeferRestartDescription}"
+                            AutomationProperties.Name="{x:Bind ViewModel.DeferRestartLabel}"
+                            IsChecked="{x:Bind ViewModel.DeferRestart, Mode=TwoWay}">
+                            <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                                <TextBlock
+                                    Text="{x:Bind ViewModel.DeferRestartLabel}"
+                                    TextWrapping="WrapWholeWords" />
+                                <TextBlock
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                    Text="{x:Bind ViewModel.DeferRestartDescription}"
+                                    TextWrapping="WrapWholeWords" />
+                            </StackPanel>
                         </CheckBox>
                     </StackPanel>
                 </Grid>
-                <TextBox
-                    MaxHeight="120"
-                    Header="{x:Bind ViewModel.CommandPreviewLabel}"
-                    IsReadOnly="True"
-                    Text="{x:Bind ViewModel.CommandPreview, Mode=OneWay}"
-                    TextWrapping="Wrap"
-                    Visibility="{x:Bind ViewModel.HasCommandPreview, Mode=OneWay}" />
             </StackPanel>
         </ScrollViewer>
-        <StackPanel
+        <TextBox
             Grid.Row="1"
+            MaxHeight="120"
+            Margin="0,12,0,0"
+            Header="{x:Bind ViewModel.CommandPreviewLabel}"
+            IsReadOnly="True"
+            PlaceholderText="{x:Bind ViewModel.CommandPreviewPlaceholder}"
+            Text="{x:Bind ViewModel.CommandPreview, Mode=OneWay}"
+            TextWrapping="Wrap"
+            Visibility="{x:Bind ViewModel.IsExecutable}" />
+        <StackPanel
+            Grid.Row="2"
             Margin="0,12,0,0"
             Spacing="{ThemeResource FoundryContentGroupSpacing}"
             Visibility="{x:Bind ViewModel.HasFeedback, Mode=OneWay}">

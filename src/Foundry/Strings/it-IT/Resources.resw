@@ -2398,11 +2398,14 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opzioni di distribuzione di Windows</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Aggiungi un’azione abilitata o disabilita la post-installazione.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Aggiungi azione</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Applicazione</value>
+    <value>Software (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Tipo di programma di installazione</value>
@@ -2414,10 +2417,16 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Le attività integrate di Foundry vengono eseguite per prime. Aggiungi le azioni personalizzate qui sotto nell’ordine di esecuzione.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>Riga di comando CMD</value>
+    <value>Riga di comando</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Riga di comando</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Anteprima del comando</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Seleziona uno script o un programma di installazione oppure inserisci un comando per visualizzare l’anteprima della riga di comando.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Contenuto del pacchetto</value>
@@ -2429,10 +2438,16 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Contenuto di post-installazione verificato.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Continua dopo un errore ordinario dell’azione</value>
+    <value>Continua in caso di errore</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Passa all’azione successiva se questa azione non riesce. Un’esecuzione con esito incerto interrompe comunque la sequenza.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Rinvia il riavvio richiesto fino alla prossima azione Riavvio o alla fine della sequenza</value>
+    <value>Posticipa il riavvio</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Posticipa un riavvio richiesto fino alla successiva azione di riavvio o alla fine della sequenza.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Modifica azione</value>
@@ -2441,7 +2456,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>La configurazione è cambiata durante la modifica. Riapri l’azione.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Nessuna azione aggiunta. Seleziona Aggiungi azione per configurare uno script, un comando, un’applicazione o un riavvio.</value>
+    <value>Nessuna azione aggiunta. Seleziona Aggiungi azione per configurare uno script, un comando, un’installazione software o un riavvio.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Percorso dello script o del programma di installazione (relativo al contenuto)</value>
@@ -2479,11 +2494,14 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ordine</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>Script PowerShell (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Verifica le impostazioni delle azioni e importa il contenuto dei pacchetti mancante prima di creare il supporto.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Riavvio</value>
+    <value>Riavvia Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Codici che richiedono riavvio (separati da virgole)</value>

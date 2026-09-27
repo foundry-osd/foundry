@@ -2398,11 +2398,14 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows 部署选项</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>添加一项已启用的操作，或禁用安装后配置。</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>添加操作</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>应用程序</value>
+    <value>软件 (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>安装程序类型</value>
@@ -2414,10 +2417,16 @@
     <value>Foundry 内置任务将首先运行。请在下方按执行顺序添加自定义操作。</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>CMD 命令行</value>
+    <value>命令行</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>命令行</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>命令预览</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>选择脚本或安装程序，或输入命令，以预览命令行。</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>程序包内容</value>
@@ -2429,10 +2438,16 @@
     <value>已验证安装后内容。</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>发生一般操作错误后继续</value>
+    <value>出错时继续</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>如果此操作失败，则继续执行下一项操作。执行结果不确定时，仍会停止序列。</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>将请求的重启推迟到下一个重启操作或序列结束时</value>
+    <value>推迟重启</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>将请求的重启推迟到下一个重启操作或序列结束时。</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>编辑操作</value>
@@ -2441,7 +2456,7 @@
     <value>编辑期间配置已更改。请重新打开该操作。</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>尚未添加操作。选择“添加操作”以配置脚本、命令、应用程序或重启。</value>
+    <value>尚未添加操作。选择“添加操作”以配置脚本、命令、软件安装或重启。</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>脚本或安装程序路径（相对于内容）</value>
@@ -2479,11 +2494,14 @@
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>顺序</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell 脚本 (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>创建介质前，请检查操作设置并导入缺少的程序包内容。</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>重启</value>
+    <value>重启 Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>需要重启的退出代码（以逗号分隔）</value>

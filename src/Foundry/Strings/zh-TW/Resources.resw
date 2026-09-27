@@ -2398,11 +2398,14 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows 部署選項</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>新增一個已啟用的動作，或停用安裝後設定。</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>新增動作</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>應用程式</value>
+    <value>軟體 (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>安裝程式類型</value>
@@ -2414,10 +2417,16 @@
     <value>Foundry 內建工作會先執行。請在下方依執行順序新增自訂動作。</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>CMD 命令列</value>
+    <value>命令列</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>命令列</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>命令預覽</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>選取指令碼或安裝程式，或輸入命令，以預覽命令列。</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>套件內容</value>
@@ -2429,10 +2438,16 @@
     <value>已驗證安裝後內容。</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>發生一般動作失敗後繼續</value>
+    <value>發生錯誤時繼續</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>如果此動作失敗，則繼續執行下一個動作。執行結果不確定時，仍會停止序列。</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>將要求的重新啟動延後至下一個重新啟動動作或序列結束時</value>
+    <value>延後重新啟動</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>將要求的重新啟動延後至下一個重新啟動動作或序列結束時。</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>編輯動作</value>
@@ -2441,7 +2456,7 @@
     <value>編輯期間組態已變更。請重新開啟此動作。</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>尚未新增動作。選取「新增動作」以設定指令碼、命令、應用程式或重新啟動。</value>
+    <value>尚未新增動作。選取「新增動作」以設定指令碼、命令、軟體安裝或重新啟動。</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>指令碼或安裝程式路徑（相對於內容）</value>
@@ -2479,11 +2494,14 @@
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>順序</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell 指令碼 (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>建立媒體前，請檢查動作設定並匯入缺少的套件內容。</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>重新啟動</value>
+    <value>重新啟動 Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>需要重新啟動的結束代碼（以逗號分隔）</value>

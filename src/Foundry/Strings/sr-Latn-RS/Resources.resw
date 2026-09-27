@@ -2398,11 +2398,14 @@ Licencirano pod MIT licencom.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opcije primene operativnog sistema Windows</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Dodajte omogućenu radnju ili onemogućite konfiguraciju nakon instalacije.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Dodaj radnju</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Aplikacija</value>
+    <value>Softver (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Tip instalacionog programa</value>
@@ -2414,10 +2417,16 @@ Licencirano pod MIT licencom.</value>
     <value>Prvo se izvršavaju ugrađeni zadaci Foundry-ja. Ispod dodajte prilagođene radnje po redosledu izvršavanja.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>CMD komandna linija</value>
+    <value>Komandna linija</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Komandna linija</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Pregled komande</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Izaberite skriptu ili instalacioni program ili unesite komandu da biste pregledali komandnu liniju.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Sadržaj paketa</value>
@@ -2429,10 +2438,16 @@ Licencirano pod MIT licencom.</value>
     <value>Sadržaj za fazu posle instalacije je proveren.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Nastavi posle uobičajene greške radnje</value>
+    <value>Nastavi u slučaju greške</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Nastavite sa sledećom radnjom ako ova radnja ne uspe. Izvršavanje sa neizvesnim ishodom i dalje zaustavlja niz.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Odloži zahtevano ponovno pokretanje do sledeće radnje ponovnog pokretanja ili kraja niza</value>
+    <value>Odloži ponovno pokretanje</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Odložite zatraženo ponovno pokretanje do sledeće radnje ponovnog pokretanja ili kraja niza.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Uredi radnju</value>
@@ -2441,7 +2456,7 @@ Licencirano pod MIT licencom.</value>
     <value>Konfiguracija se promenila tokom uređivanja. Ponovo otvorite radnju.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Nema dodatih radnji. Izaberite Dodaj radnju da biste podesili skriptu, komandu, aplikaciju ili ponovno pokretanje.</value>
+    <value>Nema dodatih radnji. Izaberite Dodaj radnju da biste konfigurisali skriptu, komandu, instalaciju softvera ili ponovno pokretanje.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Putanja skripte ili instalacionog programa (u odnosu na sadržaj)</value>
@@ -2479,11 +2494,14 @@ Licencirano pod MIT licencom.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Redosled</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell skripta (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Pre pravljenja medijuma proverite postavke radnji i uvezite sadržaj paketa koji nedostaje.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Ponovno pokretanje</value>
+    <value>Ponovo pokreni Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Izlazni kodovi koji zahtevaju ponovno pokretanje (razdvojeni zarezima)</value>

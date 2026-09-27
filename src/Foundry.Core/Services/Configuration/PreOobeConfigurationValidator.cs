@@ -94,9 +94,9 @@ public static class PreOobeConfigurationValidator
         return true;
     }
 
-    /// <summary>Disabled actions remain editable; all enabled actions require their referenced content.</summary>
+    /// <summary>Enabled customization requires at least one enabled action and available content; incomplete drafts remain editable.</summary>
     public static bool IsReady(PreOobeSettings settings, Func<PreOobePackageReference, bool> isAvailable) =>
-        !settings.IsEnabled || (Validate(settings).Count == 0 && settings.Actions.Where(action => action.IsEnabled)
+        !settings.IsEnabled || (Validate(settings).Count == 0 && settings.Actions.Any(action => action.IsEnabled) && settings.Actions.Where(action => action.IsEnabled)
             .All(action => action.Package is null || isAvailable(action.Package)));
 
     private static bool IsRelative(string? value)

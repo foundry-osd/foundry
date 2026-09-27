@@ -2398,11 +2398,14 @@ Lisensiert under MIT-lisensen.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Alternativer for Windows-utrulling</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Legg til en aktivert handling, eller deaktiver etterinstallasjon.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Legg til handling</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Program</value>
+    <value>Programvare (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Installasjonstype</value>
@@ -2414,10 +2417,16 @@ Lisensiert under MIT-lisensen.</value>
     <value>Foundrys innebygde oppgaver kjøres først. Legg til egendefinerte handlinger nedenfor i ønsket kjørerekkefølge.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>CMD-kommandolinje</value>
+    <value>Kommandolinje</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Kommandolinje</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Forhåndsvisning av kommando</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Velg et skript eller installasjonsprogram, eller skriv inn en kommando, for å forhåndsvise kommandolinjen.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Pakkeinnhold</value>
@@ -2429,10 +2438,16 @@ Lisensiert under MIT-lisensen.</value>
     <value>Innhold til etter installasjonen er verifisert.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Fortsett etter en vanlig handlingsfeil</value>
+    <value>Fortsett ved feil</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Fortsett med neste handling hvis denne handlingen mislykkes. En kjøring med usikkert resultat stopper fortsatt sekvensen.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Utsett forespurt omstart til neste omstartshandling eller slutten av sekvensen</value>
+    <value>Utsett omstart</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Utsett en forespurt omstart til neste omstarthandling eller slutten av sekvensen.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Rediger handling</value>
@@ -2441,7 +2456,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Konfigurasjonen ble endret mens du redigerte. Åpne handlingen på nytt.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Ingen handlinger lagt til. Velg Legg til handling for å konfigurere et skript, en kommando, et program eller en omstart.</value>
+    <value>Ingen handlinger er lagt til. Velg Legg til handling for å konfigurere et skript, en kommando, en programvareinstallasjon eller en omstart.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Bane til skript eller installasjonsprogram (relativ til innholdet)</value>
@@ -2479,11 +2494,14 @@ Lisensiert under MIT-lisensen.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Rekkefølge</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell-skript (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Kontroller handlingsinnstillingene og importer manglende pakkeinnhold før du oppretter medier.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Start på nytt</value>
+    <value>Start Windows på nytt</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Avslutningskoder som krever omstart (kommaseparerte)</value>

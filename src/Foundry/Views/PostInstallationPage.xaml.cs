@@ -31,7 +31,7 @@ public sealed partial class PostInstallationPage : Page
 
     private async Task ShowEditorAsync(PreOobeActionKind? kind)
     {
-        if (editorOpen) return;
+        if (editorOpen || !ViewModel.IsEnabled) return;
         editorOpen = true;
         try
         {

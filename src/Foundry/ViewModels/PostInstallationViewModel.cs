@@ -56,15 +56,15 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     public string ToggleLabel => localization.GetString(SelectedAction?.Action.IsEnabled == true ? "Common.Disable" : "Common.Enable");
     public string EnableLabel => localization.GetString("Common.Enable");
     public string BuiltInDescription => Text("BuiltIns");
-    public string ReadinessDescription => Text("Readiness");
+    public string ReadinessDescription => Text(Actions.Any(action => action.Action.IsEnabled) ? "Readiness" : "ActionRequired");
     public string EmptyMessage => Text("EmptyMessage");
     public string OrderHeader => Text("OrderHeader");
     public string NameHeader => localization.GetString("CustomImages.NameLabel");
     public string TypeHeader => Text("TypeHeader");
     public string EnabledHeader => localization.GetString("Common.Enabled");
     public string ContentStatusHeader => Text("ContentStatusHeader");
-    public string PowerShellLabel => "PowerShell";
-    public string CommandLabel => "CMD";
+    public string PowerShellLabel => Text("PowerShell");
+    public string CommandLabel => Text("CommandLine");
     public string ApplicationLabel => Text("Application");
     public string RestartLabel => Text("Restart");
     public string Text(string key) => localization.GetString("PostInstallation." + key);
@@ -165,6 +165,7 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
             }
             SelectedAction = Actions.FirstOrDefault(item => item.Action.Id == selectedId);
             OnPropertyChanged(nameof(HasReadinessIssue));
+            OnPropertyChanged(nameof(ReadinessDescription));
             OnPropertyChanged(nameof(HasActions));
             OnPropertyChanged(nameof(IsEmpty));
             RaiseSelection();

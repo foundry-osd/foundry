@@ -2398,11 +2398,14 @@ Licențiat sub licența MIT.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opțiuni de implementare Windows</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Adaugă o acțiune activată sau dezactivează post-instalarea.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Adăugați o acțiune</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Aplicație</value>
+    <value>Software (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Tipul programului de instalare</value>
@@ -2414,10 +2417,16 @@ Licențiat sub licența MIT.</value>
     <value>Sarcinile încorporate Foundry se execută primele. Adăugați mai jos acțiunile personalizate în ordinea executării.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>Linie de comandă CMD</value>
+    <value>Linie de comandă</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Linie de comandă</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Previzualizarea comenzii</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Selectează un script sau un program de instalare ori introdu o comandă pentru a previzualiza linia de comandă.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Conținutul pachetului</value>
@@ -2429,10 +2438,16 @@ Licențiat sub licența MIT.</value>
     <value>Conținutul pentru etapa de după instalare a fost verificat.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Continuați după o eroare obișnuită a unei acțiuni</value>
+    <value>Continuă în caz de eroare</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Continuă cu acțiunea următoare dacă această acțiune eșuează. O execuție cu rezultat incert oprește în continuare secvența.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Amânați repornirea solicitată până la următoarea acțiune Repornire sau până la sfârșitul secvenței</value>
+    <value>Amână repornirea</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Amână o repornire solicitată până la următoarea acțiune de repornire sau până la sfârșitul secvenței.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Editați acțiunea</value>
@@ -2441,7 +2456,7 @@ Licențiat sub licența MIT.</value>
     <value>Configurația s-a modificat în timpul editării. Deschideți din nou acțiunea.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Nu au fost adăugate acțiuni. Selectați Adăugați o acțiune pentru a configura un script, o comandă, o aplicație sau o repornire.</value>
+    <value>Nu au fost adăugate acțiuni. Selectează Adaugă acțiune pentru a configura un script, o comandă, o instalare de software sau o repornire.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Calea scriptului sau a programului de instalare (relativă la conținut)</value>
@@ -2479,11 +2494,14 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ordine</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>Script PowerShell (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Verificați setările acțiunilor și importați conținutul lipsă al pachetelor înainte de a crea suportul.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Repornire</value>
+    <value>Repornește Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Coduri de ieșire care necesită repornire (separate prin virgulă)</value>

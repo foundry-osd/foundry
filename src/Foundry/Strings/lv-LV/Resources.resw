@@ -2398,11 +2398,14 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows izvietošanas opcijas</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Pievienojiet iespējotu darbību vai atspējojiet konfigurēšanu pēc instalēšanas.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Pievienot darbību</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Programma</value>
+    <value>Programmatūra (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Instalētāja tips</value>
@@ -2414,10 +2417,16 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Vispirms tiek izpildīti Foundry iebūvētie uzdevumi. Tālāk pievienojiet pielāgotās darbības izpildes secībā.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>CMD komandrinda</value>
+    <value>Komandrinda</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Komandrinda</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Komandas priekšskatījums</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Atlasiet skriptu vai instalēšanas programmu vai ievadiet komandu, lai priekšskatītu komandrindu.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Pakotnes saturs</value>
@@ -2429,10 +2438,16 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Saturs posmam pēc instalēšanas ir pārbaudīts.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Turpināt pēc parastas darbības kļūmes</value>
+    <value>Turpināt kļūdas gadījumā</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Ja šī darbība neizdodas, turpiniet ar nākamo darbību. Izpilde ar nenoteiktu rezultātu joprojām aptur secību.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Atlikt pieprasīto restartēšanu līdz nākamajai restartēšanas darbībai vai secības beigām</value>
+    <value>Atlikt restartēšanu</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Atlieciet pieprasīto restartēšanu līdz nākamajai restartēšanas darbībai vai secības beigām.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Rediģēt darbību</value>
@@ -2441,7 +2456,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Rediģēšanas laikā konfigurācija tika mainīta. Atveriet darbību vēlreiz.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Nav pievienotu darbību. Atlasiet Pievienot darbību, lai konfigurētu skriptu, komandu, lietojumprogrammu vai restartēšanu.</value>
+    <value>Nav pievienotu darbību. Atlasiet Pievienot darbību, lai konfigurētu skriptu, komandu, programmatūras instalēšanu vai restartēšanu.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Skripta vai instalētāja ceļš (attiecībā pret saturu)</value>
@@ -2479,11 +2494,14 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Secība</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell skripts (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Pirms datu nesēja izveides pārbaudiet darbību iestatījumus un importējiet trūkstošo pakotņu saturu.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Restartēt</value>
+    <value>Restartēt Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Izejas kodi, kam nepieciešama restartēšana (atdalīti ar komatiem)</value>

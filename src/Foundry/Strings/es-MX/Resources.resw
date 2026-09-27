@@ -2398,11 +2398,14 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opciones de implementación de Windows</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Agregue una acción habilitada o deshabilite la posinstalación.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Agregar acción</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Aplicación</value>
+    <value>Software (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Tipo de instalador</value>
@@ -2414,10 +2417,16 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Las tareas integradas de Foundry se ejecutan primero. Agregue sus acciones debajo en el orden de ejecución.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>Línea de comandos CMD</value>
+    <value>Línea de comandos</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Línea de comandos</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Vista previa del comando</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Seleccione un script o un instalador, o ingrese un comando, para obtener una vista previa de la línea de comandos.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Contenido del paquete</value>
@@ -2429,10 +2438,16 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Contenido de posinstalación verificado.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Continuar después de una falla común de la acción</value>
+    <value>Continuar en caso de error</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Continúe con la siguiente acción si esta falla. Una ejecución con un resultado incierto seguirá deteniendo la secuencia.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Posponer el reinicio solicitado hasta la próxima acción Reiniciar o el final de la secuencia</value>
+    <value>Posponer el reinicio</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Posponga un reinicio solicitado hasta la siguiente acción de reinicio o el final de la secuencia.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Editar acción</value>
@@ -2441,7 +2456,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>La configuración cambió mientras editaba. Vuelva a abrir la acción.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>No se han agregado acciones. Seleccione Agregar acción para configurar un script, un comando, una aplicación o un reinicio.</value>
+    <value>No se han agregado acciones. Seleccione Agregar acción para configurar un script, un comando, una instalación de software o un reinicio.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Ruta del script o instalador (relativa al contenido)</value>
@@ -2479,11 +2494,14 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Orden</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>Script de PowerShell (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Verifique la configuración de las acciones e importe el contenido de paquetes que falte antes de crear el medio.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Reiniciar</value>
+    <value>Reiniciar Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Códigos que requieren reinicio (separados por comas)</value>

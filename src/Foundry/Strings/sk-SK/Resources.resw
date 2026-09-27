@@ -2398,11 +2398,14 @@ Licencované podľa licencie MIT.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Možnosti nasadenia Windows</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Pridajte povolenú akciu alebo vypnite poinštalačnú konfiguráciu.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Pridať akciu</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Aplikácia</value>
+    <value>Softvér (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Typ inštalátora</value>
@@ -2414,10 +2417,16 @@ Licencované podľa licencie MIT.</value>
     <value>Najprv sa vykonajú vstavané úlohy Foundry. Nižšie pridajte vlastné akcie v poradí vykonávania.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>Príkazový riadok CMD</value>
+    <value>Príkazový riadok</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Príkazový riadok</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Ukážka príkazu</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Vyberte skript alebo inštalačný program, prípadne zadajte príkaz, a zobrazte ukážku príkazového riadka.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Obsah balíka</value>
@@ -2429,10 +2438,16 @@ Licencované podľa licencie MIT.</value>
     <value>Obsah pre fázu po inštalácii bol overený.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Pokračovať po bežnom zlyhaní akcie</value>
+    <value>Pokračovať pri chybe</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Ak táto akcia zlyhá, pokračujte ďalšou akciou. Spustenie s neistým výsledkom naďalej zastaví sekvenciu.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Odložiť požadovaný reštart do ďalšej akcie Reštartovať alebo do konca sekvencie</value>
+    <value>Odložiť reštart</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Odložte požadovaný reštart do ďalšej akcie reštartu alebo do konca sekvencie.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Upraviť akciu</value>
@@ -2441,7 +2456,7 @@ Licencované podľa licencie MIT.</value>
     <value>Počas úprav sa konfigurácia zmenila. Otvorte akciu znova.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Nie sú pridané žiadne akcie. Vyberte Pridať akciu a nakonfigurujte skript, príkaz, aplikáciu alebo reštartovanie.</value>
+    <value>Neboli pridané žiadne akcie. Vyberte Pridať akciu a nakonfigurujte skript, príkaz, inštaláciu softvéru alebo reštart.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Cesta k skriptu alebo inštalátoru (relatívna k obsahu)</value>
@@ -2479,11 +2494,14 @@ Licencované podľa licencie MIT.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Poradie</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>Skript PowerShell (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Pred vytvorením média skontrolujte nastavenia akcií a importujte chýbajúci obsah balíkov.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Reštartovať</value>
+    <value>Reštartovať Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Návratové kódy vyžadujúce reštart (oddelené čiarkami)</value>

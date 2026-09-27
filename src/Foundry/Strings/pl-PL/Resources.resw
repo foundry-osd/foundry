@@ -2398,11 +2398,14 @@ Licencjonowany na licencji MIT.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opcje wdrażania systemu Windows</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Dodaj włączoną akcję lub wyłącz konfigurację poinstalacyjną.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Dodaj akcję</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Aplikacja</value>
+    <value>Oprogramowanie (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Typ instalatora</value>
@@ -2414,10 +2417,16 @@ Licencjonowany na licencji MIT.</value>
     <value>Wbudowane zadania Foundry są wykonywane jako pierwsze. Dodaj poniżej własne akcje w kolejności wykonania.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>Wiersz polecenia CMD</value>
+    <value>Wiersz polecenia</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Wiersz polecenia</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Podgląd polecenia</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Wybierz skrypt lub instalator albo wpisz polecenie, aby wyświetlić podgląd wiersza polecenia.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Zawartość pakietu</value>
@@ -2429,10 +2438,16 @@ Licencjonowany na licencji MIT.</value>
     <value>Zweryfikowano zawartość do działań po instalacji.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Kontynuuj po zwykłym niepowodzeniu akcji</value>
+    <value>Kontynuuj w razie błędu</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Przejdź do następnej akcji, jeśli ta akcja się nie powiedzie. Wykonanie o niepewnym wyniku nadal zatrzymuje sekwencję.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Odłóż żądany restart do następnej akcji ponownego uruchomienia lub końca sekwencji</value>
+    <value>Odrocz ponowne uruchomienie</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Odrocz żądane ponowne uruchomienie do następnej akcji ponownego uruchomienia lub końca sekwencji.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Edytuj akcję</value>
@@ -2441,7 +2456,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Konfiguracja zmieniła się podczas edycji. Otwórz akcję ponownie.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Nie dodano żadnych akcji. Wybierz Dodaj akcję, aby skonfigurować skrypt, polecenie, aplikację lub ponowne uruchomienie.</value>
+    <value>Nie dodano akcji. Wybierz Dodaj akcję, aby skonfigurować skrypt, polecenie, instalację oprogramowania lub ponowne uruchomienie.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Ścieżka skryptu lub instalatora (względem zawartości)</value>
@@ -2479,11 +2494,14 @@ Licencjonowany na licencji MIT.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Kolejność</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>Skrypt PowerShell (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Sprawdź ustawienia akcji i zaimportuj brakującą zawartość pakietów przed utworzeniem nośnika.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Uruchom ponownie</value>
+    <value>Uruchom ponownie Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Kody wyjścia wymagające ponownego uruchomienia (oddzielone przecinkami)</value>

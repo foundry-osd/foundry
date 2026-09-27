@@ -106,8 +106,25 @@ public sealed class PreOobeConfigurationTests
             Package = new() { ContentHash = new string('a', 64), DisplayName = "App", FileCount = 1, Length = 1 },
             EntryPoint = "setup.exe"
         };
-        Assert.True(PreOobeConfigurationValidator.IsReady(new() { IsEnabled = true, Actions = [application with { IsEnabled = false }] }, _ => false));
+        Assert.True(PreOobeConfigurationValidator.IsReady(new() { IsEnabled = true, Actions = [Command("Enabled"), application with { IsEnabled = false }] }, _ => false));
         Assert.False(PreOobeConfigurationValidator.IsReady(new() { IsEnabled = true, Actions = [application] }, _ => false));
+    }
+
+    [Theory]
+    [InlineData(false, false, true)]
+    [InlineData(false, true, true)]
+    [InlineData(true, false, false)]
+    [InlineData(true, true, false)]
+    public void EmptyOrFullyDisabledDraftsAreEditableButNotReadyWhenEnabled(bool enabled, bool hasDisabledAction, bool ready)
+    {
+        var settings = new PreOobeSettings
+        {
+            IsEnabled = enabled,
+            Actions = hasDisabledAction ? [Command("Disabled") with { IsEnabled = false }] : []
+        };
+
+        Assert.Empty(PreOobeConfigurationValidator.Validate(settings));
+        Assert.Equal(ready, PreOobeConfigurationValidator.IsReady(settings, _ => true));
     }
 
     private static PreOobeActionSettings Command(string name) => PreOobeActionSettings.Create(PreOobeActionKind.Command, name) with { Command = "echo ready" };

@@ -2398,11 +2398,14 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>خيارات نشر Windows</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>أضف إجراءً مفعّلًا أو عطّل إعدادات ما بعد التثبيت.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>إضافة إجراء</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>تطبيق</value>
+    <value>برنامج (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>نوع المثبّت</value>
@@ -2414,10 +2417,16 @@
     <value>تُنفَّذ مهام Foundry المضمّنة أولاً. أضف إجراءاتك المخصصة أدناه بترتيب التنفيذ.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>سطر أوامر CMD</value>
+    <value>سطر الأوامر</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>سطر الأوامر</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>معاينة الأمر</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>حدد برنامجًا نصيًا أو برنامج تثبيت، أو أدخل أمرًا، لمعاينة سطر الأوامر.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>محتوى الحزمة</value>
@@ -2429,10 +2438,16 @@
     <value>تم التحقق من محتوى ما بعد التثبيت.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>المتابعة بعد إخفاق عادي في إجراء</value>
+    <value>المتابعة عند حدوث خطأ</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>تابع إلى الإجراء التالي إذا فشل هذا الإجراء. يظل التنفيذ ذو النتيجة غير المؤكدة سببًا لإيقاف التسلسل.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>تأجيل إعادة التشغيل المطلوبة حتى إجراء إعادة التشغيل التالي أو نهاية التسلسل</value>
+    <value>تأجيل إعادة التشغيل</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>أجّل إعادة التشغيل المطلوبة حتى إجراء إعادة التشغيل التالي أو نهاية التسلسل.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>تحرير الإجراء</value>
@@ -2441,7 +2456,7 @@
     <value>تغيّر التكوين أثناء التحرير. افتح الإجراء مرة أخرى.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>لم تتم إضافة أي إجراءات. حدد إضافة إجراء لتكوين برنامج نصي أو أمر أو تطبيق أو إعادة تشغيل.</value>
+    <value>لم تتم إضافة أي إجراءات. حدد إضافة إجراء لتكوين برنامج نصي أو أمر أو تثبيت برنامج أو إعادة تشغيل.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>مسار البرنامج النصي أو المثبّت (بالنسبة إلى المحتوى)</value>
@@ -2479,11 +2494,14 @@
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>الترتيب</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>برنامج PowerShell نصي (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>تحقق من إعدادات الإجراءات واستورد أي محتوى حزم مفقود قبل إنشاء الوسائط.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>إعادة التشغيل</value>
+    <value>إعادة تشغيل Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>رموز الخروج التي تتطلب إعادة التشغيل (مفصولة بفواصل)</value>

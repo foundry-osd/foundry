@@ -2398,11 +2398,14 @@ Licenciran prema MIT licenci.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Mogućnosti implementacije sustava Windows</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Dodajte omogućenu radnju ili onemogućite konfiguraciju nakon instalacije.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Dodaj radnju</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Aplikacija</value>
+    <value>Softver (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Vrsta instalacijskog programa</value>
@@ -2414,10 +2417,16 @@ Licenciran prema MIT licenci.</value>
     <value>Prvo se izvršavaju ugrađeni zadaci Foundryja. U nastavku dodajte prilagođene radnje redoslijedom izvršavanja.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>Naredbeni redak CMD-a</value>
+    <value>Naredbeni redak</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Naredbeni redak</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Pretpregled naredbe</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Odaberite skriptu ili instalacijski program ili unesite naredbu za pretpregled naredbenog retka.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Sadržaj paketa</value>
@@ -2429,10 +2438,16 @@ Licenciran prema MIT licenci.</value>
     <value>Sadržaj za fazu nakon instalacije je provjeren.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Nastavi nakon uobičajene pogreške radnje</value>
+    <value>Nastavi u slučaju pogreške</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Nastavite sa sljedećom radnjom ako ova radnja ne uspije. Izvršavanje s neizvjesnim ishodom i dalje zaustavlja slijed.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Odgodi zatraženo ponovno pokretanje do sljedeće radnje ponovnog pokretanja ili kraja niza</value>
+    <value>Odgodi ponovno pokretanje</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Odgodite zatraženo ponovno pokretanje do sljedeće radnje ponovnog pokretanja ili kraja slijeda.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Uredi radnju</value>
@@ -2441,7 +2456,7 @@ Licenciran prema MIT licenci.</value>
     <value>Konfiguracija se promijenila tijekom uređivanja. Ponovno otvorite radnju.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Nema dodanih radnji. Odaberite Dodaj radnju da biste konfigurirali skriptu, naredbu, aplikaciju ili ponovno pokretanje.</value>
+    <value>Nisu dodane radnje. Odaberite Dodaj radnju za konfiguriranje skripte, naredbe, instalacije softvera ili ponovnog pokretanja.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Putanja skripte ili instalacijskog programa (u odnosu na sadržaj)</value>
@@ -2479,11 +2494,14 @@ Licenciran prema MIT licenci.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Redoslijed</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell skripta (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Prije stvaranja medija provjerite postavke radnji i uvezite sadržaj paketa koji nedostaje.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Ponovno pokretanje</value>
+    <value>Ponovno pokreni Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Izlazni kodovi koji zahtijevaju ponovno pokretanje (odvojeni zarezima)</value>

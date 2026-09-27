@@ -2398,11 +2398,14 @@
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>ตัวเลือกการปรับใช้ Windows</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>เพิ่มการดำเนินการที่เปิดใช้งาน หรือปิดใช้งานการกำหนดค่าหลังการติดตั้ง</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>เพิ่มการดำเนินการ</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>แอปพลิเคชัน</value>
+    <value>ซอฟต์แวร์ (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>ประเภทตัวติดตั้ง</value>
@@ -2414,10 +2417,16 @@
     <value>งานในตัวของ Foundry จะทำงานก่อน เพิ่มการดำเนินการแบบกำหนดเองด้านล่างตามลำดับการทำงาน</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>บรรทัดคำสั่ง CMD</value>
+    <value>บรรทัดคำสั่ง</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>บรรทัดคำสั่ง</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>ตัวอย่างคำสั่ง</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>เลือกสคริปต์หรือโปรแกรมติดตั้ง หรือป้อนคำสั่ง เพื่อดูตัวอย่างบรรทัดคำสั่ง</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>เนื้อหาแพ็กเกจ</value>
@@ -2429,10 +2438,16 @@
     <value>ตรวจสอบเนื้อหาหลังการติดตั้งแล้ว</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>ดำเนินการต่อหลังจากการดำเนินการล้มเหลวตามปกติ</value>
+    <value>ดำเนินการต่อเมื่อเกิดข้อผิดพลาด</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>ดำเนินการต่อด้วยการดำเนินการถัดไปหากการดำเนินการนี้ล้มเหลว การทำงานที่มีผลลัพธ์ไม่แน่นอนจะยังคงหยุดลำดับการดำเนินการ</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>เลื่อนการเริ่มระบบใหม่ที่ร้องขอไปจนถึงการดำเนินการเริ่มระบบใหม่ครั้งถัดไปหรือสิ้นสุดลำดับ</value>
+    <value>เลื่อนการเริ่มระบบใหม่</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>เลื่อนการเริ่มระบบใหม่ที่ร้องขอไปจนถึงการดำเนินการเริ่มระบบใหม่ครั้งถัดไปหรือจนสิ้นสุดลำดับ</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>แก้ไขการดำเนินการ</value>
@@ -2441,7 +2456,7 @@
     <value>การกำหนดค่าเปลี่ยนแปลงระหว่างการแก้ไข โปรดเปิดการดำเนินการอีกครั้ง</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>ยังไม่ได้เพิ่มการดำเนินการ เลือก เพิ่มการดำเนินการ เพื่อกำหนดค่าสคริปต์ คำสั่ง แอปพลิเคชัน หรือการรีสตาร์ต</value>
+    <value>ยังไม่มีการเพิ่มการดำเนินการ เลือก เพิ่มการดำเนินการ เพื่อกำหนดค่าสคริปต์ คำสั่ง การติดตั้งซอฟต์แวร์ หรือการเริ่มระบบใหม่</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>เส้นทางสคริปต์หรือตัวติดตั้ง (สัมพันธ์กับเนื้อหา)</value>
@@ -2479,11 +2494,14 @@
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>ลำดับ</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>สคริปต์ PowerShell (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>ตรวจสอบการตั้งค่าการดำเนินการและนำเข้าเนื้อหาแพ็กเกจที่ขาดหายไปก่อนสร้างสื่อ</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>เริ่มระบบใหม่</value>
+    <value>เริ่ม Windows ใหม่</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>รหัสออกที่ต้องเริ่มระบบใหม่ (คั่นด้วยจุลภาค)</value>

@@ -2398,11 +2398,14 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows-Bereitstellungsoptionen</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Fügen Sie eine aktivierte Aktion hinzu oder deaktivieren Sie die Nachinstallation.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Aktion hinzufügen</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Anwendung</value>
+    <value>Software (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Installationstyp</value>
@@ -2414,10 +2417,16 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Die integrierten Foundry-Aufgaben werden zuerst ausgeführt. Fügen Sie unten eigene Aktionen in der gewünschten Reihenfolge hinzu.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>CMD-Befehlszeile</value>
+    <value>Befehlszeile</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Befehlszeile</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Befehlsvorschau</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Wählen Sie ein Skript oder Installationsprogramm aus oder geben Sie einen Befehl ein, um eine Vorschau der Befehlszeile anzuzeigen.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketinhalt</value>
@@ -2429,10 +2438,16 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Inhalte für die Nachinstallation geprüft.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Nach einem gewöhnlichen Aktionsfehler fortfahren</value>
+    <value>Bei Fehler fortfahren</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Fahren Sie mit der nächsten Aktion fort, wenn diese Aktion fehlschlägt. Eine Ausführung mit ungewissem Ergebnis stoppt die Sequenz weiterhin.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Angeforderten Neustart bis zur nächsten Neustartaktion oder zum Sequenzende aufschieben</value>
+    <value>Neustart verschieben</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Verschieben Sie einen angeforderten Neustart bis zur nächsten Neustartaktion oder bis zum Ende der Sequenz.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Aktion bearbeiten</value>
@@ -2441,7 +2456,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Die Konfiguration wurde während der Bearbeitung geändert. Öffnen Sie die Aktion erneut.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Keine Aktionen hinzugefügt. Wählen Sie Aktion hinzufügen, um ein Skript, einen Befehl, eine Anwendung oder einen Neustart zu konfigurieren.</value>
+    <value>Keine Aktionen hinzugefügt. Wählen Sie Aktion hinzufügen, um ein Skript, einen Befehl, eine Softwareinstallation oder einen Neustart zu konfigurieren.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Skript- oder Installationspfad (relativ zum Inhalt)</value>
@@ -2479,11 +2494,14 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Reihenfolge</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell-Skript (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Prüfen Sie die Aktionseinstellungen und importieren Sie fehlende Paketinhalte, bevor Sie das Medium erstellen.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Neustart</value>
+    <value>Windows neu starten</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Exitcodes für erforderlichen Neustart (durch Kommas getrennt)</value>

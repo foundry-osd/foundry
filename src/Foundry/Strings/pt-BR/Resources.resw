@@ -2398,11 +2398,14 @@ Licenciado sob a licença MIT.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opções de implantação do Windows</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Adicione uma ação habilitada ou desabilite a pós-instalação.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Adicionar ação</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Aplicativo</value>
+    <value>Software (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Tipo de instalador</value>
@@ -2414,10 +2417,16 @@ Licenciado sob a licença MIT.</value>
     <value>As tarefas internas do Foundry são executadas primeiro. Adicione abaixo suas ações personalizadas na ordem de execução.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>Linha de comando CMD</value>
+    <value>Linha de comando</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Linha de comando</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Prévia do comando</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Selecione um script ou instalador, ou insira um comando, para visualizar a linha de comando.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Conteúdo do pacote</value>
@@ -2429,10 +2438,16 @@ Licenciado sob a licença MIT.</value>
     <value>Conteúdo de pós-instalação verificado.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Continuar após uma falha comum de ação</value>
+    <value>Continuar em caso de erro</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Continue com a próxima ação se esta ação falhar. Uma execução com resultado incerto ainda interrompe a sequência.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Adiar a reinicialização solicitada até a próxima ação Reiniciar ou o fim da sequência</value>
+    <value>Adiar reinicialização</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Adie uma reinicialização solicitada até a próxima ação de reinicialização ou o fim da sequência.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Editar ação</value>
@@ -2441,7 +2456,7 @@ Licenciado sob a licença MIT.</value>
     <value>A configuração mudou durante a edição. Abra a ação novamente.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Nenhuma ação adicionada. Selecione Adicionar ação para configurar um script, comando, aplicativo ou reinicialização.</value>
+    <value>Nenhuma ação adicionada. Selecione Adicionar ação para configurar um script, comando, instalação de software ou reinicialização.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Caminho do script ou instalador (relativo ao conteúdo)</value>
@@ -2479,11 +2494,14 @@ Licenciado sob a licença MIT.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ordem</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>Script do PowerShell (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Verifique as configurações das ações e importe o conteúdo de pacote ausente antes de criar a mídia.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Reiniciar</value>
+    <value>Reiniciar o Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Códigos de saída que exigem reinicialização (separados por vírgulas)</value>

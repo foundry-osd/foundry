@@ -2398,11 +2398,14 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windowsi juurutussuvandid</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Lisa lubatud toiming või keela installijärgne seadistus.</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>Lisa toiming</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>Rakendus</value>
+    <value>Tarkvara (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>Installeri tüüp</value>
@@ -2414,10 +2417,16 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Foundry sisseehitatud ülesanded käivitatakse esimesena. Lisage allpool kohandatud toimingud täitmise järjekorras.</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>CMD käsurida</value>
+    <value>Käsurida</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Käsurida</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Käsu eelvaade</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Käsurea eelvaate kuvamiseks vali skript või installiprogramm või sisesta käsk.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketi sisu</value>
@@ -2429,10 +2438,16 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Installimisjärgne sisu on kontrollitud.</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>Jätka pärast tavalist toimingutõrget</value>
+    <value>Jätka vea korral</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Jätka järgmise toiminguga, kui see toiming nurjub. Ebakindla tulemusega käivitamine peatab endiselt toimingujada.</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>Lükka taotletud taaskäivitus edasi järgmise taaskäivitustoimingu või jada lõpuni</value>
+    <value>Lükka taaskäivitamine edasi</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Lükka taotletud taaskäivitamine edasi järgmise taaskäivitustoiminguni või toimingujada lõpuni.</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>Muuda toimingut</value>
@@ -2441,7 +2456,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Konfiguratsioon muutus redigeerimise ajal. Avage toiming uuesti.</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>Ühtegi toimingut pole lisatud. Skripti, käsu, rakenduse või taaskäivituse seadistamiseks valige Lisa toiming.</value>
+    <value>Toiminguid pole lisatud. Skripti, käsu, tarkvara installimise või taaskäivitamise seadistamiseks vali Lisa toiming.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>Skripti või installeri tee (sisu suhtes)</value>
@@ -2479,11 +2494,14 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Järjekord</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShelli skript (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Enne andmekandja loomist kontrollige toimingute sätteid ja importige puuduv paketisisu.</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>Taaskäivitus</value>
+    <value>Taaskäivita Windows</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Taaskäivitust nõudvad väljumiskoodid (komadega eraldatud)</value>

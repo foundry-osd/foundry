@@ -2398,11 +2398,14 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows 展開オプション</value>
   </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>有効なアクションを追加するか、インストール後の構成を無効にしてください。</value>
+  </data>
   <data name="PostInstallation.Add" xml:space="preserve">
     <value>アクションを追加</value>
   </data>
   <data name="PostInstallation.Application" xml:space="preserve">
-    <value>アプリケーション</value>
+    <value>ソフトウェア (.exe/.msi)</value>
   </data>
   <data name="PostInstallation.ApplicationMode" xml:space="preserve">
     <value>インストーラーの種類</value>
@@ -2414,10 +2417,16 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Foundry の組み込みタスクが先に実行されます。以下にカスタムアクションを実行順で追加してください。</value>
   </data>
   <data name="PostInstallation.Command" xml:space="preserve">
-    <value>CMD コマンドライン</value>
+    <value>コマンド ライン</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>コマンド ライン</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>コマンドのプレビュー</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>スクリプトまたはインストーラーを選択するか、コマンドを入力すると、コマンド ラインをプレビューできます。</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>パッケージコンテンツ</value>
@@ -2429,10 +2438,16 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>インストール後のコンテンツを検証しました。</value>
   </data>
   <data name="PostInstallation.ContinueOnError" xml:space="preserve">
-    <value>通常のアクションエラーが発生しても続行</value>
+    <value>エラー時に続行</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>このアクションが失敗した場合は、次のアクションに進みます。実行結果が不確かな場合は、引き続きシーケンスを停止します。</value>
   </data>
   <data name="PostInstallation.DeferRestart" xml:space="preserve">
-    <value>要求された再起動を次の再起動アクションまたはシーケンスの終了まで延期</value>
+    <value>再起動を延期</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>要求された再起動を、次の再起動アクションまたはシーケンスの終了まで延期します。</value>
   </data>
   <data name="PostInstallation.Edit" xml:space="preserve">
     <value>アクションを編集</value>
@@ -2441,7 +2456,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>編集中に構成が変更されました。アクションをもう一度開いてください。</value>
   </data>
   <data name="PostInstallation.EmptyMessage" xml:space="preserve">
-    <value>アクションが追加されていません。[アクションを追加] を選択して、スクリプト、コマンド、アプリケーション、または再起動を設定してください。</value>
+    <value>アクションが追加されていません。[アクションの追加] を選択して、スクリプト、コマンド、ソフトウェアのインストール、または再起動を構成してください。</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
     <value>スクリプトまたはインストーラーのパス (コンテンツからの相対パス)</value>
@@ -2479,11 +2494,14 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>順序</value>
   </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell スクリプト (.ps1)</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>メディアを作成する前に、アクションの設定を確認し、不足しているパッケージコンテンツをインポートしてください。</value>
   </data>
   <data name="PostInstallation.Restart" xml:space="preserve">
-    <value>再起動</value>
+    <value>Windows を再起動</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>再起動が必要な終了コード (コンマ区切り)</value>

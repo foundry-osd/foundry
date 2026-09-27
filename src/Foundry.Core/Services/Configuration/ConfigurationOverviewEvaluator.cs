@@ -148,11 +148,9 @@ public static class ConfigurationOverviewEvaluator
         {
             [ConfigurationOverviewItem.PostInstallation] = !configuration.PreOobe.IsEnabled
                 ? ConfigurationOverviewState.Disabled
-                : !context.IsPostInstallationReady || PreOobeConfigurationValidator.Validate(configuration.PreOobe).Count > 0
+                : !context.IsPostInstallationReady || !PreOobeConfigurationValidator.IsReady(configuration.PreOobe, _ => true)
                     ? ConfigurationOverviewState.NeedsAttention
-                    : configuration.PreOobe.Actions.Any(action => action.IsEnabled)
-                        ? ConfigurationOverviewState.Configured
-                        : ConfigurationOverviewState.NotConfigured,
+                    : ConfigurationOverviewState.Configured,
             [ConfigurationOverviewItem.CustomImages] = !configuration.CustomImages.IsEnabled
                 ? ConfigurationOverviewState.Disabled
                 : context.IsCustomImagesReady
