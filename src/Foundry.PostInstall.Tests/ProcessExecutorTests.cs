@@ -3,11 +3,25 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.PostInstall.Execution;
+using Foundry.Core.Services.Configuration;
 
 namespace Foundry.PostInstall.Tests;
 
 public sealed class ProcessExecutorTests
 {
+    [Fact]
+    public async Task CustomCommandLineExecutesQuotedExecutableAndCompoundCommands()
+    {
+        string executable = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "cmd.exe");
+        string command = "\"" + executable + "\" /c echo quoted-value & exit /b 7";
+        var result = await new PreOobeProcessExecutor().RunAsync(new(executable, [], Path.GetTempPath(), TimeSpan.FromSeconds(10),
+            PreOobeCommandLine.BuildArguments(new() { Kind = Foundry.Core.Models.Configuration.PreOobeActionKind.Command, Command = command }, "", "")),
+            TestContext.Current.CancellationToken);
+        Assert.Equal(7, result.ExitCode);
+        Assert.Contains("quoted-value", result.StandardOutput);
+        Assert.False(result.TerminationUncertain);
+    }
+
     [Fact]
     public async Task DetachedOrdinaryChild_RemainsSupervisedAfterParentExits()
     {

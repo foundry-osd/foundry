@@ -2462,10 +2462,13 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Pad naar script of installatieprogramma (relatief aan de inhoud)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Acties worden stil uitgevoerd als SYSTEM. Voorkom dat installatieprogramma's zelf opnieuw opstarten. De inhoud is tijdelijk; zorg apart voor blijvende bronnen als herstel of updates die nodig hebben.</value>
+    <value>Acties worden uitgevoerd als SYSTEM. U bent verantwoordelijk voor de argumenten, uitvoering zonder toezicht en het voorkomen van herstarts door het installatieprogramma. De inhoud is tijdelijk; zorg voor permanente bronnen als reparaties of updates deze nodig hebben.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Uitvoeringsinstellingen</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Installatielogboek genereren</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Importeren van inhoud mislukt. Controleer toegang, vrije ruimte, bestandsnamen en padlengten.</value>
@@ -2497,6 +2500,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell-script (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell-argumenten</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Controleer de actie-instellingen en importeer ontbrekende pakketinhoud voordat u media maakt.</value>
   </data>
@@ -2508,6 +2514,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Start Windows opnieuw op en ga daarna verder met de volgende actie.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Scriptargumenten</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Inhoud voor na de installatie wordt klaargezet.</value>

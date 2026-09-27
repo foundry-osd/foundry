@@ -2462,10 +2462,13 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Skripta vai instalētāja ceļš (attiecībā pret saturu)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Darbības tiek izpildītas bez lietotāja līdzdalības kā SYSTEM. Atspējojiet instalētāja paša veiktās restartēšanas. Saturs ir pagaidu; nodrošiniet pastāvīgus avotus atsevišķi, ja tie vajadzīgi labošanai vai atjauninājumiem.</value>
+    <value>Darbības tiek izpildītas kā SYSTEM. Jūs esat atbildīgs par argumentiem, neuzraudzītu izpildi un instalēšanas programmas ierosinātas restartēšanas novēršanu. Saturs ir īslaicīgs; nodrošiniet pastāvīgus avotus, ja tie ir nepieciešami labošanai vai atjauninājumiem.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Izpildes iestatījumi</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Izveidot instalēšanas žurnālu</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Neizdevās importēt saturu. Pārbaudiet piekļuvi, brīvo vietu, failu nosaukumus un ceļu garumus.</value>
@@ -2497,6 +2500,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell skripts (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell argumenti</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Pirms datu nesēja izveides pārbaudiet darbību iestatījumus un importējiet trūkstošo pakotņu saturu.</value>
   </data>
@@ -2508,6 +2514,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Restartējiet Windows un pēc tam turpiniet ar nākamo darbību.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Skripta argumenti</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Tiek sagatavots saturs posmam pēc instalēšanas.</value>

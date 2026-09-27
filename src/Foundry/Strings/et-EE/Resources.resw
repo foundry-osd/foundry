@@ -2462,10 +2462,13 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Skripti või installeri tee (sisu suhtes)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Toimingud käivitatakse kasutaja sekkumiseta kontoga SYSTEM. Keelake installeri enda taaskäivitused. Sisu on ajutine; kui parandamine või värskendused neid vajavad, tagage eraldi püsivad allikad.</value>
+    <value>Toimingud käivitatakse kontoga SYSTEM. Vastutate argumentide, järelevalveta käivitamise ja installiprogrammi algatatud taaskäivituste vältimise eest. Sisu on ajutine; tagage püsivad allikad, kui parandused või värskendused neid vajavad.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Käivitamise sätted</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Loo installilogi</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Sisu importimine nurjus. Kontrollige juurdepääsu, vaba ruumi, failinimesid ja teede pikkust.</value>
@@ -2497,6 +2500,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShelli skript (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShelli argumendid</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Enne andmekandja loomist kontrollige toimingute sätteid ja importige puuduv paketisisu.</value>
   </data>
@@ -2508,6 +2514,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Taaskäivitage Windows ja jätkake seejärel järgmise toiminguga.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Skripti argumendid</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Installimisjärgse sisu ettevalmistamine.</value>

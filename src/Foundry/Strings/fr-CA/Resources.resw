@@ -2462,10 +2462,13 @@ Sous licence MIT.</value>
     <value>Chemin du script ou du programme d’installation (relatif au contenu)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Les actions s’exécutent silencieusement sous SYSTEM. Désactivez les redémarrages des programmes d’installation. Le contenu est temporaire ; prévoyez des sources durables si la réparation ou les mises à jour en ont besoin.</value>
+    <value>Les actions s’exécutent sous le compte SYSTEM. Vous êtes responsable des arguments, de l’exécution sans assistance et de la prévention des redémarrages déclenchés par le programme d’installation. Le contenu est temporaire ; fournissez des sources pérennes si les réparations ou les mises à jour les nécessitent.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Paramètres d’exécution</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Générer un journal d’installation</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Échec de l’importation. Vérifiez les droits d’accès, l’espace disponible, les noms de fichiers et la longueur des chemins.</value>
@@ -2497,6 +2500,9 @@ Sous licence MIT.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Script PowerShell (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Arguments PowerShell</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Vérifiez les paramètres des actions et importez le contenu manquant des paquets avant de créer le support.</value>
   </data>
@@ -2508,6 +2514,9 @@ Sous licence MIT.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Redémarrer Windows, puis poursuivre avec l’action suivante.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Arguments du script</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Préparation du contenu de post-installation.</value>

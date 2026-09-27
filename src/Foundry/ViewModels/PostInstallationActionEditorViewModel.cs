@@ -36,6 +36,8 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
         Name = action.Name;
         EntryPoint = action.EntryPoint ?? string.Empty;
         Arguments = action.Arguments ?? string.Empty;
+        PowerShellArguments = action.PowerShellArguments ?? string.Empty;
+        GenerateInstallationLog = action.GenerateInstallationLog;
         CommandText = action.Command ?? string.Empty;
         WorkingDirectory = action.WorkingDirectory ?? string.Empty;
         TimeoutSeconds = action.Process?.TimeoutSeconds ?? 1800;
@@ -49,7 +51,9 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     public bool IsNew { get; }
     public ObservableCollection<string> EntryPoints { get; } = [];
     [ObservableProperty][NotifyPropertyChangedFor(nameof(CanSave))] public partial string Name { get; set; } = string.Empty;
-    [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview), nameof(InstallerType), nameof(CanSave))] public partial string EntryPoint { get; set; } = string.Empty;
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview), nameof(InstallerType), nameof(IsMsi), nameof(CanSave))] public partial string EntryPoint { get; set; } = string.Empty;
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial string PowerShellArguments { get; set; } = string.Empty;
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial bool GenerateInstallationLog { get; set; }
     [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview))] public partial string Arguments { get; set; } = string.Empty;
     [ObservableProperty][NotifyPropertyChangedFor(nameof(CommandPreview), nameof(CanSave))] public partial string CommandText { get; set; } = string.Empty;
     [ObservableProperty] public partial string WorkingDirectory { get; set; } = string.Empty;
@@ -70,6 +74,8 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     public bool IsRestart => !IsExecutable;
     public bool IsCommand => original.Kind == PreOobeActionKind.Command;
     public bool HasEntryPoint => original.Kind is PreOobeActionKind.PowerShell or PreOobeActionKind.Application;
+    public bool IsPowerShell => original.Kind == PreOobeActionKind.PowerShell;
+    public bool IsMsi => ApplicationMode == PreOobeApplicationMode.Msi;
     public bool IsApplication => original.Kind == PreOobeActionKind.Application;
     public string PackageName => package?.DisplayName ?? Text("NoContent");
     public string Title => Text(IsNew ? "Add" : "Edit");
@@ -80,7 +86,9 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     public string ImportFileLabel => Text("ImportFile");
     public string ImportFolderLabel => Text("ImportFolder");
     public string EntryPointLabel => Text("EntryPoint");
-    public string ArgumentsLabel => Text("Arguments");
+    public string ArgumentsLabel => Text(IsPowerShell ? "ScriptArguments" : "Arguments");
+    public string PowerShellArgumentsLabel => Text("PowerShellArguments");
+    public string GenerateInstallationLogLabel => Text("GenerateInstallationLog");
     public string CommandLabel => Text("Command");
     public string CommandPreviewLabel => Text("CommandPreview");
     public string CommandPreviewPlaceholder => Text("CommandPreviewPlaceholder");
@@ -89,15 +97,24 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     private PreOobeApplicationMode? ApplicationMode => !IsApplication ? null :
         NormalizedEntryPoint.EndsWith(".msi", StringComparison.OrdinalIgnoreCase) ? PreOobeApplicationMode.Msi :
         NormalizedEntryPoint.EndsWith(".exe", StringComparison.OrdinalIgnoreCase) ? PreOobeApplicationMode.Exe : null;
-    public string CommandPreview => string.IsNullOrWhiteSpace(IsCommand ? CommandText : EntryPoint) ? string.Empty : original.Kind switch
+    public string CommandPreview
     {
-        PreOobeActionKind.Command => "cmd.exe /d /s /c \"" + CommandText + "\"",
-        PreOobeActionKind.PowerShell => "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"{ContentRoot}\\" + NormalizedEntryPoint + "\" " + Arguments,
-        PreOobeActionKind.Application when ApplicationMode == PreOobeApplicationMode.Msi =>
-            "msiexec.exe /i \"{ContentRoot}\\" + NormalizedEntryPoint + "\" /qn /norestart /l*v \"{LogRoot}\\msi.log\" " + Arguments + " REBOOT=ReallySuppress /qn /norestart",
-        PreOobeActionKind.Application => "\"{ContentRoot}\\" + NormalizedEntryPoint + "\" " + Arguments,
-        _ => string.Empty
-    };
+        get
+        {
+            if (!IsExecutable || string.IsNullOrWhiteSpace(IsCommand ? CommandText : EntryPoint)) return string.Empty;
+            string entryPath = "{ContentRoot}\\" + NormalizedEntryPoint.Replace('/', '\\');
+            string executable = IsCommand ? "cmd.exe" : IsPowerShell ? "powershell.exe" : IsMsi ? "msiexec.exe" : "\"" + entryPath + "\"";
+            string arguments = PreOobeCommandLine.BuildArguments(original with
+            {
+                Arguments = Arguments,
+                PowerShellArguments = PowerShellArguments,
+                GenerateInstallationLog = IsMsi && GenerateInstallationLog,
+                ApplicationMode = ApplicationMode,
+                Command = CommandText
+            }, entryPath, "{LogRoot}");
+            return arguments.Length == 0 ? executable : executable + " " + arguments;
+        }
+    }
     public string WorkingDirectoryLabel => Text("WorkingDirectory");
     public string TimeoutLabel => Text("Timeout");
     public string SuccessCodesLabel => Text("SuccessCodes");
@@ -199,6 +216,8 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
                     Package = package,
                     EntryPoint = HasEntryPoint ? entryPoint : null,
                     Arguments = HasEntryPoint ? NullIfEmpty(Arguments) : null,
+                    PowerShellArguments = IsPowerShell ? NullIfEmpty(PowerShellArguments) : null,
+                    GenerateInstallationLog = IsMsi && GenerateInstallationLog,
                     Command = IsCommand ? CommandText : null,
                     WorkingDirectory = workingDirectory,
                     ApplicationMode = ApplicationMode,

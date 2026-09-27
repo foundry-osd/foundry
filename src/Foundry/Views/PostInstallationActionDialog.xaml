@@ -103,11 +103,25 @@
                             Text="{x:Bind ViewModel.WorkingDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBox
                             MaxHeight="120"
+                            Header="{x:Bind ViewModel.PowerShellArgumentsLabel}"
+                            MaxLength="8191"
+                            Text="{x:Bind ViewModel.PowerShellArguments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            TextWrapping="Wrap"
+                            Visibility="{x:Bind ViewModel.IsPowerShell}" />
+                        <TextBox
+                            MaxHeight="120"
                             Header="{x:Bind ViewModel.ArgumentsLabel}"
                             MaxLength="8191"
                             Text="{x:Bind ViewModel.Arguments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             TextWrapping="Wrap"
                             Visibility="{x:Bind ViewModel.HasEntryPoint}" />
+                        <CheckBox
+                            IsChecked="{x:Bind ViewModel.GenerateInstallationLog, Mode=TwoWay}"
+                            Visibility="{x:Bind ViewModel.IsMsi, Mode=OneWay}">
+                            <TextBlock
+                                Text="{x:Bind ViewModel.GenerateInstallationLogLabel}"
+                                TextWrapping="WrapWholeWords" />
+                        </CheckBox>
                         <TextBox
                             MaxHeight="120"
                             Header="{x:Bind ViewModel.CommandLabel}"

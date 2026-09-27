@@ -2462,10 +2462,13 @@
     <value>指令碼或安裝程式路徑（相對於內容）</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>動作會以 SYSTEM 身分無訊息執行。請禁止安裝程式自行重新啟動。內容僅為暫存；若修復或更新需要來源檔案，請另行提供永久保存的來源檔案。</value>
+    <value>動作以 SYSTEM 身分執行。您負責指定引數、確保自動執行，以及防止安裝程式自行重新啟動。內容僅暫時保留；如果修復或更新需要來源檔案，請提供持續可用的來源。</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>執行設定</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>產生安裝記錄</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>匯入內容失敗。請檢查存取權限、可用空間、檔案名稱與路徑長度。</value>
@@ -2497,6 +2500,9 @@
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell 指令碼 (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell 引數</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>建立媒體前，請檢查動作設定並匯入缺少的套件內容。</value>
   </data>
@@ -2508,6 +2514,9 @@
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>重新啟動 Windows，然後繼續執行下一個動作。</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>指令碼引數</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>正在暫存安裝後內容。</value>

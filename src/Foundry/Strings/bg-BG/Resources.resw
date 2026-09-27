@@ -2462,10 +2462,13 @@
     <value>Път до скрипта или инсталатора (спрямо съдържанието)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Действията се изпълняват без взаимодействие като SYSTEM. Забранете рестартиранията от самия инсталатор. Съдържанието е временно; осигурете отделно постоянни източници, ако са нужни за поправка или актуализации.</value>
+    <value>Действията се изпълняват като SYSTEM. Вие отговаряте за аргументите, изпълнението без надзор и предотвратяването на рестартирания, инициирани от инсталатора. Съдържанието е временно; осигурете постоянни източници, ако са необходими за поправки или актуализации.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Настройки за изпълнение</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Създаване на дневник на инсталирането</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Импортирането на съдържание е неуспешно. Проверете достъпа, свободното място, имената на файловете и дължините на пътищата.</value>
@@ -2497,6 +2500,9 @@
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell скрипт (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Аргументи на PowerShell</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Проверете настройките на действията и импортирайте липсващото съдържание на пакетите, преди да създадете носител.</value>
   </data>
@@ -2508,6 +2514,9 @@
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Рестартирайте Windows, след което продължете със следващото действие.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Аргументи на скрипта</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Подготвяне на съдържанието за етапа след инсталиране.</value>

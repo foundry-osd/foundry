@@ -2462,10 +2462,13 @@
     <value>Шлях до сценарію або інсталятора (відносно вмісту)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Дії виконуються без участі користувача від імені SYSTEM. Забороніть перезавантаження, ініційовані інсталятором. Вміст тимчасовий; окремо надайте постійні джерела, якщо вони потрібні для відновлення чи оновлення.</value>
+    <value>Дії виконуються від імені SYSTEM. Ви відповідаєте за аргументи, виконання без участі користувача та запобігання перезапускам, ініційованим інсталятором. Вміст тимчасовий; надайте постійні джерела, якщо вони потрібні для відновлення або оновлень.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Параметри виконання</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Створювати журнал інсталяції</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Не вдалося імпортувати вміст. Перевірте доступ, вільне місце, імена файлів і довжину шляхів.</value>
@@ -2497,6 +2500,9 @@
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Скрипт PowerShell (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Аргументи PowerShell</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Перевірте параметри дій та імпортуйте відсутній вміст пакетів перед створенням носія.</value>
   </data>
@@ -2508,6 +2514,9 @@
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Перезавантажте Windows, а потім перейдіть до наступної дії.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Аргументи скрипту</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Підготовка вмісту для етапу після інсталяції.</value>

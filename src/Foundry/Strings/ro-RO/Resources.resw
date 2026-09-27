@@ -2462,10 +2462,13 @@ Licențiat sub licența MIT.</value>
     <value>Calea scriptului sau a programului de instalare (relativă la conținut)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Acțiunile se execută fără intervenție ca SYSTEM. Dezactivați repornirile inițiate de programul de instalare. Conținutul este temporar; furnizați separat surse permanente dacă reparațiile sau actualizările le necesită.</value>
+    <value>Acțiunile se execută ca SYSTEM. Ești responsabil pentru argumente, execuția nesupravegheată și prevenirea repornirilor inițiate de programul de instalare. Conținutul este temporar; furnizează surse permanente dacă reparațiile sau actualizările le necesită.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Setări de execuție</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Generează jurnal de instalare</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Importul conținutului a eșuat. Verificați accesul, spațiul disponibil, numele fișierelor și lungimea căilor.</value>
@@ -2497,6 +2500,9 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Script PowerShell (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Argumente PowerShell</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Verificați setările acțiunilor și importați conținutul lipsă al pachetelor înainte de a crea suportul.</value>
   </data>
@@ -2508,6 +2514,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Reporniți Windows, apoi continuați cu următoarea acțiune.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Argumente ale scriptului</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Se pregătește conținutul pentru etapa de după instalare.</value>

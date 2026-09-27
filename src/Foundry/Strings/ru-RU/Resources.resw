@@ -2462,10 +2462,13 @@
     <value>Путь к скрипту или установщику (относительно содержимого)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Действия выполняются без участия пользователя от имени SYSTEM. Запретите перезагрузки, инициируемые установщиком. Содержимое временное; отдельно предоставьте постоянные источники, если они нужны для восстановления или обновлений.</value>
+    <value>Действия выполняются от имени SYSTEM. Вы отвечаете за аргументы, выполнение без участия пользователя и предотвращение перезапусков, инициируемых установщиком. Содержимое временное; предоставьте постоянные источники, если они нужны для восстановления или обновлений.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Параметры выполнения</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Создавать журнал установки</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Не удалось импортировать содержимое. Проверьте доступ, свободное место, имена файлов и длину путей.</value>
@@ -2497,6 +2500,9 @@
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Скрипт PowerShell (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Аргументы PowerShell</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Проверьте параметры действий и импортируйте недостающее содержимое пакетов перед созданием носителя.</value>
   </data>
@@ -2508,6 +2514,9 @@
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Перезагрузите Windows, затем перейдите к следующему действию.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Аргументы скрипта</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Подготовка содержимого для этапа после установки.</value>

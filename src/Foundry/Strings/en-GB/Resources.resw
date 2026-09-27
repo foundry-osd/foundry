@@ -2462,10 +2462,13 @@ Licensed under the MIT License.</value>
     <value>Script or installer path (relative to content)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Actions run silently as SYSTEM. Suppress installer-owned restarts. Content is temporary; provide durable sources separately if repair or updates require them.</value>
+    <value>Actions run as SYSTEM. You are responsible for the arguments, unattended execution and preventing installer-owned restarts. Content is temporary; provide durable sources if repair or updates require them.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Execution settings</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Generate installation log</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Content import failed. Check access, available space, file names and path lengths.</value>
@@ -2497,6 +2500,9 @@ Licensed under the MIT License.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell script (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell arguments</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Check the action settings and import any missing package content before creating media.</value>
   </data>
@@ -2508,6 +2514,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Restart Windows, then continue with the next action.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Script arguments</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Staging post-installation content.</value>

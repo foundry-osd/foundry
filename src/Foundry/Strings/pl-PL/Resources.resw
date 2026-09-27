@@ -2462,10 +2462,13 @@ Licencjonowany na licencji MIT.</value>
     <value>Ścieżka skryptu lub instalatora (względem zawartości)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Akcje są wykonywane bez interakcji jako SYSTEM. Zablokuj restarty inicjowane przez instalator. Zawartość jest tymczasowa; zapewnij osobne trwałe źródła, jeśli wymagają ich naprawy lub aktualizacje.</value>
+    <value>Akcje są wykonywane jako SYSTEM. Użytkownik odpowiada za argumenty, wykonywanie bez nadzoru i zapobieganie ponownym uruchomieniom inicjowanym przez instalator. Zawartość jest tymczasowa; zapewnij trwałe źródła, jeśli wymagają ich naprawy lub aktualizacje.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Ustawienia wykonywania</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Generuj dziennik instalacji</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Import zawartości nie powiódł się. Sprawdź dostęp, wolne miejsce, nazwy plików i długość ścieżek.</value>
@@ -2497,6 +2500,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Skrypt PowerShell (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Argumenty PowerShell</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Sprawdź ustawienia akcji i zaimportuj brakującą zawartość pakietów przed utworzeniem nośnika.</value>
   </data>
@@ -2508,6 +2514,9 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Uruchom ponownie system Windows, a następnie przejdź do kolejnej akcji.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Argumenty skryptu</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Przygotowywanie zawartości do działań po instalacji.</value>

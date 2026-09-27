@@ -13,11 +13,13 @@ namespace Foundry.PostInstall.Tests;
 public sealed class CustomActionTests
 {
     [Theory]
-    [InlineData(PreOobeActionKind.PowerShell, null, "script.ps1", "powershell.exe")]
-    [InlineData(PreOobeActionKind.Application, PreOobeApplicationMode.Msi, "app.msi", "msiexec.exe")]
-    [InlineData(PreOobeActionKind.Application, PreOobeApplicationMode.Exe, "app.exe", "app.exe")]
+    [InlineData(PreOobeActionKind.PowerShell, null, "script.ps1", "powershell.exe", false)]
+    [InlineData(PreOobeActionKind.Application, PreOobeApplicationMode.Msi, "app.msi", "msiexec.exe", false)]
+    [InlineData(PreOobeActionKind.Application, PreOobeApplicationMode.Msi, "app.msi", "msiexec.exe", true)]
+    [InlineData(PreOobeActionKind.Application, PreOobeApplicationMode.Msi, "process-output.msi", "msiexec.exe", true)]
+    [InlineData(PreOobeActionKind.Application, PreOobeApplicationMode.Exe, "app.exe", "app.exe", false)]
     public async Task PackagedAction_IgnoresLegacyArchitectureAndUsesExpectedHostAndRestartClassification(PreOobeActionKind kind, PreOobeApplicationMode? mode,
-        string entryPoint, string host)
+        string entryPoint, string host, bool generateLog)
     {
         string root = Path.Combine(Path.GetTempPath(), "Foundry.PostInstall.Tests", Guid.NewGuid().ToString("N"));
         string package = Path.Combine(root, "Payloads", "package");
@@ -38,6 +40,7 @@ public sealed class CustomActionTests
                     EntryPoint = entryPoint,
                     Package = new() { ContentHash = "hash" },
                     Arguments = "PROPERTY=value",
+                    GenerateInstallationLog = generateLog,
                     Process = JsonSerializer.Deserialize<PreOobeProcessSettings>("""{"Architecture":999,"RestartExitCodes":[3010]}""")
                 }
             };
@@ -47,8 +50,16 @@ public sealed class CustomActionTests
             Assert.True(result.RestartRequested);
             Assert.EndsWith(host, process.Command!.FileName);
             Assert.Equal(package, process.Command.WorkingDirectory);
-            if (mode == PreOobeApplicationMode.Msi) Assert.EndsWith("REBOOT=ReallySuppress /qn /norestart", process.Command.RawArguments);
-            if (kind == PreOobeActionKind.PowerShell) Assert.Contains("-NonInteractive", process.Command.Arguments);
+            Assert.Empty(process.Command.Arguments);
+            if (mode == PreOobeApplicationMode.Msi)
+            {
+                string expected = "/i \"" + Path.Combine(package, entryPoint) + "\" PROPERTY=value";
+                string installationLog = Path.Combine(root, "Logs", "PreOobe", action.Id, Path.GetFileNameWithoutExtension(entryPoint) + ".log");
+                if (generateLog) expected += " /l*v \"" + installationLog + "\"";
+                Assert.Equal(expected, process.Command.RawArguments);
+                Assert.NotEqual(installationLog, process.Command.OutputPath);
+            }
+            if (kind == PreOobeActionKind.PowerShell) Assert.Equal("-File \"" + Path.Combine(package, entryPoint) + "\" PROPERTY=value", process.Command.RawArguments);
         }
         finally { Directory.Delete(root, true); }
     }

@@ -2462,10 +2462,13 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Skript- oder Installationspfad (relativ zum Inhalt)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Aktionen werden unbeaufsichtigt als SYSTEM ausgeführt. Unterdrücken Sie Neustarts durch Installationsprogramme. Inhalte sind temporär; stellen Sie bei Bedarf dauerhafte Quellen für Reparaturen oder Updates bereit.</value>
+    <value>Aktionen werden als SYSTEM ausgeführt. Sie sind für die Argumente, die unbeaufsichtigte Ausführung und das Verhindern von Neustarts durch das Installationsprogramm verantwortlich. Inhalte sind temporär; stellen Sie dauerhafte Quellen bereit, falls Reparaturen oder Updates diese benötigen.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Ausführungseinstellungen</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Installationsprotokoll erstellen</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Inhaltsimport fehlgeschlagen. Prüfen Sie Zugriff, freien Speicher, Dateinamen und Pfadlängen.</value>
@@ -2497,6 +2500,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell-Skript (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell-Argumente</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Prüfen Sie die Aktionseinstellungen und importieren Sie fehlende Paketinhalte, bevor Sie das Medium erstellen.</value>
   </data>
@@ -2508,6 +2514,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Windows neu starten und anschließend mit der nächsten Aktion fortfahren.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Skriptargumente</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Inhalte für die Nachinstallation werden vorbereitet.</value>

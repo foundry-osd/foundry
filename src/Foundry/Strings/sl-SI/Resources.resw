@@ -2462,10 +2462,13 @@ Licencirano pod licenco MIT.</value>
     <value>Pot do skripta ali namestitvenega programa (glede na vsebino)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Dejanja se izvajajo brez uporabniškega posredovanja kot SYSTEM. Preprečite ponovne zagone, ki jih sproži namestitveni program. Vsebina je začasna; ločeno zagotovite trajne vire, če jih zahtevajo popravila ali posodobitve.</value>
+    <value>Dejanja se izvajajo kot SYSTEM. Odgovorni ste za argumente, nenadzorovano izvajanje in preprečevanje ponovnih zagonov, ki jih sproži namestitveni program. Vsebina je začasna; zagotovite trajne vire, če jih zahtevajo popravila ali posodobitve.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Nastavitve izvajanja</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Ustvari dnevnik namestitve</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Uvoz vsebine ni uspel. Preverite dostop, prosti prostor, imena datotek in dolžine poti.</value>
@@ -2497,6 +2500,9 @@ Licencirano pod licenco MIT.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Skript PowerShell (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Argumenti PowerShell</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Pred ustvarjanjem medija preverite nastavitve dejanj in uvozite manjkajočo vsebino paketov.</value>
   </data>
@@ -2508,6 +2514,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Znova zaženite Windows in nato nadaljujte z naslednjim dejanjem.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Argumenti skripta</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Pripravljanje vsebine za fazo po namestitvi.</value>

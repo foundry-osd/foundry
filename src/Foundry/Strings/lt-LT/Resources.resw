@@ -2462,10 +2462,13 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Scenarijaus arba diegimo programos kelias (turinio atžvilgiu)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Veiksmai vykdomi be naudotojo įsikišimo kaip SYSTEM. Uždrauskite diegimo programoms pačioms paleisti sistemą iš naujo. Turinys laikinas; atskirai pateikite nuolatinius šaltinius, jei jų reikia taisymui ar naujinimams.</value>
+    <value>Veiksmai vykdomi naudojant SYSTEM paskyrą. Jūs atsakote už argumentus, vykdymą be priežiūros ir diegimo programos inicijuojamo paleidimo iš naujo prevenciją. Turinys laikinas; pateikite nuolatinius šaltinius, jei jų reikia taisymui ar naujinimams.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Vykdymo parametrai</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Kurti diegimo žurnalą</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Nepavyko importuoti turinio. Patikrinkite prieigą, laisvą vietą, failų pavadinimus ir kelių ilgius.</value>
@@ -2497,6 +2500,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell scenarijus (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell argumentai</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Prieš kurdami laikmeną patikrinkite veiksmų parametrus ir importuokite trūkstamą paketų turinį.</value>
   </data>
@@ -2508,6 +2514,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Paleiskite Windows iš naujo, tada tęskite kitą veiksmą.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Scenarijaus argumentai</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Ruošiamas turinys veiksmams po diegimo.</value>

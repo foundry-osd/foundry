@@ -2462,10 +2462,13 @@ Licencováno pod licencí MIT.</value>
     <value>Cesta ke skriptu nebo instalátoru (relativní k obsahu)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Akce se provádějí bez obsluhy pod účtem SYSTEM. Zakažte restarty vyvolané instalátorem. Obsah je dočasný; pokud opravy nebo aktualizace vyžadují zdroje, zajistěte je samostatně trvale.</value>
+    <value>Akce se spouštějí jako SYSTEM. Odpovídáte za argumenty, bezobslužné spouštění a zabránění restartům vyvolaným instalačním programem. Obsah je dočasný; poskytněte trvalé zdroje, pokud je vyžadují opravy nebo aktualizace.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Nastavení spouštění</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Vytvořit protokol instalace</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Import obsahu se nezdařil. Zkontrolujte přístup, volné místo, názvy souborů a délky cest.</value>
@@ -2497,6 +2500,9 @@ Licencováno pod licencí MIT.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Skript PowerShell (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Argumenty PowerShellu</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Před vytvořením média zkontrolujte nastavení akcí a importujte chybějící obsah balíčků.</value>
   </data>
@@ -2508,6 +2514,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Restartujte Windows a pokračujte další akcí.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Argumenty skriptu</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Příprava obsahu pro fázi po instalaci.</value>

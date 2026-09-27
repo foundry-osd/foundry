@@ -2462,10 +2462,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>スクリプトまたはインストーラーのパス (コンテンツからの相対パス)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>アクションは SYSTEM としてサイレント実行されます。インストーラー自体による再起動を無効にしてください。コンテンツは一時的なものです。修復や更新にソースが必要な場合は、永続的なソースを別途用意してください。</value>
+    <value>アクションは SYSTEM として実行されます。引数の指定、無人実行、およびインストーラーによる再起動の防止はユーザーの責任です。コンテンツは一時的なものです。修復や更新で必要になる場合は、永続的なソースを用意してください。</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>実行設定</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>インストール ログを生成</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>コンテンツのインポートに失敗しました。アクセス権、空き容量、ファイル名、パスの長さを確認してください。</value>
@@ -2497,6 +2500,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell スクリプト (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell の引数</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>メディアを作成する前に、アクションの設定を確認し、不足しているパッケージコンテンツをインポートしてください。</value>
   </data>
@@ -2508,6 +2514,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Windows を再起動してから、次のアクションに進みます。</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>スクリプトの引数</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>インストール後のコンテンツを準備しています。</value>

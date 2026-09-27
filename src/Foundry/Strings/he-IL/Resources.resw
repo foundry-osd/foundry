@@ -2462,10 +2462,13 @@
     <value>נתיב הסקריפט או תוכנית ההתקנה (יחסית לתוכן)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>הפעולות מופעלות ללא התערבות משתמש כ-SYSTEM. מנע הפעלות מחדש של תוכנית ההתקנה עצמה. התוכן זמני; ספק מקורות קבועים בנפרד אם תיקון או עדכונים דורשים אותם.</value>
+    <value>הפעולות מתבצעות כ-SYSTEM. האחריות לארגומנטים, לביצוע ללא השגחה ולמניעת הפעלות מחדש ביוזמת תוכנית ההתקנה מוטלת עליך. התוכן זמני; יש לספק מקורות קבועים אם תיקונים או עדכונים דורשים אותם.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>הגדרות ביצוע</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>יצירת יומן התקנה</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>ייבוא התוכן נכשל. בדוק את הגישה, השטח הפנוי, שמות הקבצים ואורכי הנתיבים.</value>
@@ -2497,6 +2500,9 @@
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>סקריפט PowerShell (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>ארגומנטים של PowerShell</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>בדוק את הגדרות הפעולות וייבא תוכן חבילות חסר לפני יצירת המדיה.</value>
   </data>
@@ -2508,6 +2514,9 @@
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>הפעל מחדש את Windows ולאחר מכן המשך לפעולה הבאה.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>ארגומנטים של הסקריפט</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>מכין תוכן לשלב שלאחר ההתקנה.</value>

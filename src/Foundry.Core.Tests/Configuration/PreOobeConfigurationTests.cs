@@ -4,6 +4,7 @@
 
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Profiles;
 
@@ -11,6 +12,38 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class PreOobeConfigurationTests
 {
+    [Fact]
+    public void AuthoringAndDeploymentRoundTripsPreserveArgumentAndLoggingOptions()
+    {
+        var package = new PreOobePackageReference { ContentHash = new string('a', 64), DisplayName = "Content", FileCount = 1, Length = 1 };
+        var script = PreOobeActionSettings.Create(PreOobeActionKind.PowerShell, "Script") with
+        { Package = package, EntryPoint = "script.ps1", PowerShellArguments = "-NoProfile", Arguments = "-Name Example" };
+        var installer = PreOobeActionSettings.Create(PreOobeActionKind.Application, "Software") with
+        { Package = package, EntryPoint = "app.msi", ApplicationMode = PreOobeApplicationMode.Msi, Arguments = "/quiet", GenerateInstallationLog = true };
+        var service = new FoundryConfigurationService();
+        var source = service.Deserialize(service.Serialize(new() { PreOobe = new() { IsEnabled = true, Actions = [script, installer] } }));
+        var generator = new DeployConfigurationGenerator();
+        var generated = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(generator.Serialize(generator.Generate(source)), ConfigurationJsonDefaults.SerializerOptions)!;
+        Assert.Equal("-NoProfile", generated.PreOobe.Actions[0].PowerShellArguments);
+        Assert.Equal("-Name Example", generated.PreOobe.Actions[0].Arguments);
+        Assert.True(generated.PreOobe.Actions[1].GenerateInstallationLog);
+        Assert.Equal("/quiet", generated.PreOobe.Actions[1].Arguments);
+    }
+
+    [Theory]
+    [InlineData("-NoProfile\n-Command test")]
+    [InlineData("-NoProfile\0")]
+    public void PowerShellHostArgumentsRejectUnsupportedControlCharacters(string arguments)
+    {
+        var action = PreOobeActionSettings.Create(PreOobeActionKind.PowerShell, "Script") with
+        {
+            Package = new() { ContentHash = new string('a', 64), DisplayName = "Content", FileCount = 1, Length = 1 },
+            EntryPoint = "script.ps1",
+            PowerShellArguments = arguments
+        };
+        Assert.Contains(PreOobeConfigurationValidator.Validate(new() { Actions = [action] }), issue => issue.Code == "PreOobe.InvalidCommand");
+    }
+
     [Fact]
     public void LegacyActionArchitectureIsIgnoredWhenLoadingAndGeneratingConfiguration()
     {
@@ -130,16 +163,16 @@ public sealed class PreOobeConfigurationTests
     private static PreOobeActionSettings Command(string name) => PreOobeActionSettings.Create(PreOobeActionKind.Command, name) with { Command = "echo ready" };
 
     [Theory]
-    [InlineData("/forcerestart", false)]
-    [InlineData("-forcerestart", false)]
-    [InlineData("\"/promptrestart\"", false)]
-    [InlineData("REBOOT=Force", false)]
-    [InlineData("reboot=\"Suppress\"", false)]
-    [InlineData("\"REBOOT=Force\"", false)]
-    [InlineData("TRANSFORMS=\"unfinished", false)]
+    [InlineData("/forcerestart", true)]
+    [InlineData("-forcerestart", true)]
+    [InlineData("\"/promptrestart\"", true)]
+    [InlineData("REBOOT=Force", true)]
+    [InlineData("reboot=\"Suppress\"", true)]
+    [InlineData("\"REBOOT=Force\"", true)]
+    [InlineData("TRANSFORMS=\"unfinished", true)]
     [InlineData("TRANSFORMS=\"Company settings.mst\" REBOOT=ReallySuppress", true)]
     [InlineData("INSTALLDIR=\"C:\\Program Files\\Example\" /norestart", true)]
-    public void MsiRestartArgumentsCannotOverrideControlledRestartPolicy(string arguments, bool valid)
+    public void MsiArgumentsRemainAdministratorOwned(string arguments, bool valid)
     {
         var action = PreOobeActionSettings.Create(PreOobeActionKind.Application, "Installer") with
         {

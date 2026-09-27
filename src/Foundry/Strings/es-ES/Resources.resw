@@ -2462,10 +2462,13 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Ruta del script o instalador (relativa al contenido)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Las acciones se ejecutan silenciosamente como SYSTEM. Impida los reinicios iniciados por los instaladores. El contenido es temporal; proporcione fuentes permanentes aparte si las reparaciones o actualizaciones las requieren.</value>
+    <value>Las acciones se ejecutan como SYSTEM. Usted es responsable de los argumentos, la ejecución desatendida y la prevención de reinicios iniciados por el instalador. El contenido es temporal; proporcione fuentes permanentes si las reparaciones o actualizaciones las requieren.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Configuración de ejecución</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Generar registro de instalación</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>No se pudo importar el contenido. Compruebe el acceso, el espacio disponible, los nombres de archivo y la longitud de las rutas.</value>
@@ -2497,6 +2500,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Script de PowerShell (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Argumentos de PowerShell</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Compruebe la configuración de las acciones e importe el contenido que falte antes de crear el medio.</value>
   </data>
@@ -2508,6 +2514,9 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Reiniciar Windows y continuar con la siguiente acción.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Argumentos del script</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Preparando el contenido de posinstalación.</value>

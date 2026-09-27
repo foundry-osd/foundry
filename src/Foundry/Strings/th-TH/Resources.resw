@@ -2462,10 +2462,13 @@
     <value>เส้นทางสคริปต์หรือตัวติดตั้ง (สัมพันธ์กับเนื้อหา)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>การดำเนินการทำงานแบบไม่มีผู้ใช้โต้ตอบในฐานะ SYSTEM โปรดระงับการเริ่มระบบใหม่โดยตัวติดตั้ง เนื้อหาเป็นแบบชั่วคราว หากการซ่อมแซมหรืออัปเดตต้องใช้แหล่งข้อมูล ให้จัดเตรียมแหล่งข้อมูลถาวรแยกต่างหาก</value>
+    <value>การดำเนินการจะทำงานในนาม SYSTEM คุณรับผิดชอบอาร์กิวเมนต์ การทำงานแบบไม่ต้องมีผู้ดูแล และการป้องกันการเริ่มระบบใหม่ที่โปรแกรมติดตั้งเป็นผู้สั่ง เนื้อหาจะถูกเก็บไว้ชั่วคราว โปรดจัดเตรียมแหล่งข้อมูลถาวรหากจำเป็นสำหรับการซ่อมแซมหรืออัปเดต</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>การตั้งค่าการดำเนินการ</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>สร้างบันทึกการติดตั้ง</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>นำเข้าเนื้อหาไม่สำเร็จ ตรวจสอบสิทธิ์เข้าถึง พื้นที่ว่าง ชื่อไฟล์ และความยาวเส้นทาง</value>
@@ -2497,6 +2500,9 @@
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>สคริปต์ PowerShell (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>อาร์กิวเมนต์ PowerShell</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>ตรวจสอบการตั้งค่าการดำเนินการและนำเข้าเนื้อหาแพ็กเกจที่ขาดหายไปก่อนสร้างสื่อ</value>
   </data>
@@ -2508,6 +2514,9 @@
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>รีสตาร์ต Windows แล้วดำเนินการถัดไปต่อ</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>อาร์กิวเมนต์ของสคริปต์</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>กำลังจัดเตรียมเนื้อหาหลังการติดตั้ง</value>

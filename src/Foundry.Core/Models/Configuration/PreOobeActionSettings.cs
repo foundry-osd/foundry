@@ -38,6 +38,8 @@ public sealed record PreOobeActionSettings
     public PreOobePackageReference? Package { get; init; }
     public string? EntryPoint { get; init; }
     public string? Arguments { get; init; }
+    public string? PowerShellArguments { get; init; }
+    public bool GenerateInstallationLog { get; init; }
     public string? Command { get; init; }
     /// <summary>Null selects the package root; a supplied directory is package-relative.</summary>
     public string? WorkingDirectory { get; init; }

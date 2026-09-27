@@ -2462,10 +2462,13 @@ Licencované podľa licencie MIT.</value>
     <value>Cesta k skriptu alebo inštalátoru (relatívna k obsahu)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Akcie sa vykonávajú bez obsluhy pod účtom SYSTEM. Zakážte reštarty vyvolané inštalátorom. Obsah je dočasný; ak opravy alebo aktualizácie vyžadujú zdroje, zabezpečte ich samostatne natrvalo.</value>
+    <value>Akcie sa spúšťajú ako SYSTEM. Zodpovedáte za argumenty, bezobslužné spúšťanie a zabránenie reštartom vyvolaným inštalačným programom. Obsah je dočasný; poskytnite trvalé zdroje, ak ich vyžadujú opravy alebo aktualizácie.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Nastavenia vykonávania</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Vytvoriť denník inštalácie</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Import obsahu zlyhal. Skontrolujte prístup, voľné miesto, názvy súborov a dĺžky ciest.</value>
@@ -2497,6 +2500,9 @@ Licencované podľa licencie MIT.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Skript PowerShell (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Argumenty PowerShellu</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Pred vytvorením média skontrolujte nastavenia akcií a importujte chýbajúci obsah balíkov.</value>
   </data>
@@ -2508,6 +2514,9 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Reštartujte Windows a potom pokračujte ďalšou akciou.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Argumenty skriptu</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Príprava obsahu pre fázu po inštalácii.</value>

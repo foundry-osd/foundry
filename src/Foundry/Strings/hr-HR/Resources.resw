@@ -2462,10 +2462,13 @@ Licenciran prema MIT licenci.</value>
     <value>Putanja skripte ili instalacijskog programa (u odnosu na sadržaj)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Radnje se izvršavaju bez korisničke interakcije kao SYSTEM. Onemogućite ponovna pokretanja koja pokreće instalacijski program. Sadržaj je privremen; zasebno osigurajte trajne izvore ako su potrebni za popravak ili ažuriranja.</value>
+    <value>Radnje se izvršavaju kao SYSTEM. Odgovorni ste za argumente, izvršavanje bez nadzora i sprječavanje ponovnih pokretanja koja pokreće instalacijski program. Sadržaj je privremen; osigurajte trajne izvore ako ih zahtijevaju popravci ili ažuriranja.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Postavke izvršavanja</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Izradi zapisnik instalacije</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Uvoz sadržaja nije uspio. Provjerite pristup, slobodan prostor, nazive datoteka i duljine putanja.</value>
@@ -2497,6 +2500,9 @@ Licenciran prema MIT licenci.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell skripta (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell argumenti</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Prije stvaranja medija provjerite postavke radnji i uvezite sadržaj paketa koji nedostaje.</value>
   </data>
@@ -2508,6 +2514,9 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Ponovno pokrenite Windows, a zatim nastavite sa sljedećom radnjom.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Argumenti skripte</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Priprema sadržaja za fazu nakon instalacije.</value>

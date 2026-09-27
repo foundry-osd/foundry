@@ -4,7 +4,6 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Packages;
-using System.Text.RegularExpressions;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -31,7 +30,10 @@ public static class PreOobeConfigurationValidator
             if (!Enum.IsDefined(action.Kind)) { Add("PreOobe.InvalidActionKind"); continue; }
             if (action.Package is not null && !IsValidReference(action.Package)) Add("PreOobe.InvalidPackageReference");
             if (!IsRelative(action.EntryPoint) || !IsRelative(action.WorkingDirectory)) Add("PreOobe.InvalidPackagePath");
-            if (!IsBoundedText(action.Arguments) || !IsBoundedText(action.Command)) Add("PreOobe.InvalidCommand");
+            if (!IsBoundedText(action.Arguments) || !IsBoundedText(action.Command) || !IsBoundedText(action.PowerShellArguments)) Add("PreOobe.InvalidCommand");
+
+            if (action.PowerShellArguments is not null && action.Kind != PreOobeActionKind.PowerShell) Add("PreOobe.InvalidPowerShellAction");
+            if (action.GenerateInstallationLog && (action.Kind != PreOobeActionKind.Application || action.ApplicationMode != PreOobeApplicationMode.Msi)) Add("PreOobe.InvalidApplicationAction");
 
             if (action.Kind == PreOobeActionKind.Restart)
             {
@@ -57,8 +59,7 @@ public static class PreOobeConfigurationValidator
                 if (action.Kind == PreOobeActionKind.PowerShell && (action.ApplicationMode is not null || !HasExtension(action.EntryPoint, ".ps1")))
                     Add("PreOobe.InvalidPowerShellAction");
                 if (action.Kind == PreOobeActionKind.Application && (!action.ApplicationMode.HasValue || !Enum.IsDefined(action.ApplicationMode.Value) ||
-                    !HasExtension(action.EntryPoint, action.ApplicationMode == PreOobeApplicationMode.Msi ? ".msi" : ".exe") ||
-                    action.ApplicationMode == PreOobeApplicationMode.Msi && !AreMsiArgumentsSafe(action.Arguments)))
+                    !HasExtension(action.EntryPoint, action.ApplicationMode == PreOobeApplicationMode.Msi ? ".msi" : ".exe")))
                     Add("PreOobe.InvalidApplicationAction");
             }
             void Add(string code) => issues.Add(new(code, action.Id));
@@ -75,24 +76,6 @@ public static class PreOobeConfigurationValidator
     public static bool IsValidReference(PreOobePackageReference reference) =>
         PreOobePackagePathPolicy.IsValidHash(reference.ContentHash) && reference.Length >= 0 && reference.FileCount is > 0 and <= 10_000 &&
         !string.IsNullOrWhiteSpace(reference.DisplayName) && reference.DisplayName.Length <= 256 && !reference.DisplayName.Any(char.IsControl);
-
-    /// <summary>Rejects MSI restart overrides and unbalanced quoting before generated suppression arguments are appended.</summary>
-    public static bool AreMsiArgumentsSafe(string? arguments)
-    {
-        if (arguments is null) return true;
-        if (!IsBoundedText(arguments) || arguments.Count(character => character == '"') % 2 != 0) return false;
-        foreach (Match match in Regex.Matches(arguments, "(?:[^\\s\"]|\"[^\"]*\")+", RegexOptions.CultureInvariant, TimeSpan.FromSeconds(1)))
-        {
-            string token = match.Value.Replace("\"", string.Empty);
-            if (token.StartsWith('-')) token = "/" + token[1..];
-            if (token.Equals("/forcerestart", StringComparison.OrdinalIgnoreCase) ||
-                token.Equals("/promptrestart", StringComparison.OrdinalIgnoreCase) ||
-                token.Equals("/restart", StringComparison.OrdinalIgnoreCase)) return false;
-            if (token.StartsWith("REBOOT=", StringComparison.OrdinalIgnoreCase) &&
-                !token.Equals("REBOOT=ReallySuppress", StringComparison.OrdinalIgnoreCase)) return false;
-        }
-        return true;
-    }
 
     /// <summary>Enabled customization requires at least one enabled action and available content; incomplete drafts remain editable.</summary>
     public static bool IsReady(PreOobeSettings settings, Func<PreOobePackageReference, bool> isAvailable) =>

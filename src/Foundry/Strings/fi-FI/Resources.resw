@@ -2462,10 +2462,13 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Komentosarjan tai asennusohjelman polku (suhteessa sisältöön)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Toiminnot suoritetaan ilman käyttäjän toimia SYSTEM-tilillä. Estä asennusohjelmien omat uudelleenkäynnistykset. Sisältö on väliaikaista; tarjoa pysyvät lähteet erikseen, jos korjaus tai päivitykset tarvitsevat niitä.</value>
+    <value>Toiminnot suoritetaan SYSTEM-tilillä. Vastaat argumenteista, valvomattomasta suorituksesta ja asennusohjelman käynnistämien uudelleenkäynnistysten estämisestä. Sisältö on väliaikaista; tarjoa pysyvät lähteet, jos korjaukset tai päivitykset edellyttävät niitä.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Suoritusasetukset</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Luo asennusloki</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Sisällön tuonti epäonnistui. Tarkista käyttöoikeudet, vapaa tila, tiedostonimet ja polkujen pituudet.</value>
@@ -2497,6 +2500,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell-komentosarja (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell-argumentit</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Tarkista toimintojen asetukset ja tuo puuttuva pakettisisältö ennen tietovälineen luomista.</value>
   </data>
@@ -2508,6 +2514,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Käynnistä Windows uudelleen ja jatka sitten seuraavaan toimintoon.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Komentosarjan argumentit</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Valmistellaan asennuksen jälkeistä sisältöä.</value>

@@ -2462,10 +2462,13 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Percorso dello script o del programma di installazione (relativo al contenuto)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Le azioni vengono eseguite in modalità silenziosa come SYSTEM. Impedisci i riavvii avviati dai programmi di installazione. Il contenuto è temporaneo; fornisci separatamente fonti permanenti se necessarie per riparazioni o aggiornamenti.</value>
+    <value>Le azioni vengono eseguite come SYSTEM. Sei responsabile degli argomenti, dell’esecuzione automatica e della prevenzione dei riavvii avviati dal programma di installazione. Il contenuto è temporaneo; fornisci origini permanenti se richieste da riparazioni o aggiornamenti.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Impostazioni di esecuzione</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Genera registro di installazione</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Importazione del contenuto non riuscita. Verifica accesso, spazio disponibile, nomi dei file e lunghezza dei percorsi.</value>
@@ -2497,6 +2500,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Script PowerShell (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Argomenti PowerShell</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Verifica le impostazioni delle azioni e importa il contenuto dei pacchetti mancante prima di creare il supporto.</value>
   </data>
@@ -2508,6 +2514,9 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Riavvia Windows, quindi continua con l’azione successiva.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Argomenti dello script</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Preparazione del contenuto di post-installazione.</value>

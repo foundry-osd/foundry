@@ -2462,10 +2462,13 @@ Lisensiert under MIT-lisensen.</value>
     <value>Bane til skript eller installasjonsprogram (relativ til innholdet)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Handlinger kjøres uten brukerinteraksjon som SYSTEM. Hindre omstarter fra installasjonsprogrammet. Innholdet er midlertidig; sørg for varige kilder separat dersom reparasjoner eller oppdateringer krever dem.</value>
+    <value>Handlinger kjøres som SYSTEM. Du er ansvarlig for argumentene, uovervåket kjøring og for å forhindre omstarter som startes av installasjonsprogrammet. Innholdet er midlertidig; oppgi permanente kilder hvis reparasjoner eller oppdateringer krever dem.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Innstillinger for kjøring</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Generer installasjonslogg</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Import av innhold mislyktes. Kontroller tilgang, ledig plass, filnavn og banelengder.</value>
@@ -2497,6 +2500,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell-skript (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell-argumenter</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Kontroller handlingsinnstillingene og importer manglende pakkeinnhold før du oppretter medier.</value>
   </data>
@@ -2508,6 +2514,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Start Windows på nytt, og fortsett deretter med neste handling.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Skriptargumenter</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Klargjør innhold til etter installasjonen.</value>

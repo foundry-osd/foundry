@@ -15,8 +15,6 @@ public sealed class CustomAction(string root, string windowsRoot, PreOobeExecuti
     {
         PreOobeActionSettings settings = action.CustomAction ?? throw new InvalidDataException("Custom action is missing.");
         PreOobeProcessSettings policy = settings.Process ?? throw new InvalidDataException("Process policy is missing.");
-        if (settings.ApplicationMode == PreOobeApplicationMode.Msi && !PreOobeConfigurationValidator.AreMsiArgumentsSafe(settings.Arguments))
-            throw new InvalidDataException("MSI arguments conflict with controlled restart behavior.");
         if (policy.TimeoutSeconds is < 1 or > 86400 ||
             !Enum.IsDefined(policy.ErrorPolicy) || !Enum.IsDefined(policy.RestartTiming) ||
             policy.SuccessExitCodes.Intersect(policy.RestartExitCodes).Any() ||
@@ -38,14 +36,14 @@ public sealed class CustomAction(string root, string windowsRoot, PreOobeExecuti
         TimeSpan timeout = TimeSpan.FromSeconds(policy.TimeoutSeconds);
         string logs = OwnedPaths.Resolve(root, "Logs/PreOobe/" + action.Id);
         Directory.CreateDirectory(logs);
-        string output = Path.Combine(logs, "process-output.log");
+        string output = Path.Combine(logs, "Process", "output.log");
         ProcessCommand command;
         if (settings.Kind == PreOobeActionKind.Command)
         {
             if (string.IsNullOrWhiteSpace(settings.Command) || settings.Command.IndexOfAny(['\r', '\n', '\0']) >= 0)
                 throw new InvalidDataException("Command is invalid.");
             command = new(Path.Combine(system, "cmd.exe"), [], directory, timeout,
-                RawArguments: "/d /s /c \"" + settings.Command + "\"", OutputPath: output);
+                RawArguments: PreOobeCommandLine.BuildArguments(settings, string.Empty, logs), OutputPath: output);
         }
         else
         {
@@ -53,18 +51,19 @@ public sealed class CustomAction(string root, string windowsRoot, PreOobeExecuti
                 settings.EntryPoint ?? throw new InvalidDataException("Entry point is required."));
             if (!File.Exists(entry)) return new(false, FailureCode: "entry_point_missing");
             if (settings.Arguments?.IndexOfAny(['\r', '\n', '\0']) >= 0) throw new InvalidDataException("Arguments are invalid.");
+            if (settings.PowerShellArguments?.IndexOfAny(['\r', '\n', '\0']) >= 0) throw new InvalidDataException("PowerShell arguments are invalid.");
+            string arguments = PreOobeCommandLine.BuildArguments(settings, entry, logs);
             command = settings.Kind switch
             {
                 PreOobeActionKind.PowerShell when Path.GetExtension(entry).Equals(".ps1", StringComparison.OrdinalIgnoreCase) =>
                     new(Path.Combine(system, "WindowsPowerShell", "v1.0", "powershell.exe"),
-                        ["-NoLogo", "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", entry], directory, timeout, settings.Arguments, output),
+                        [], directory, timeout, arguments, output),
                 PreOobeActionKind.Application when settings.ApplicationMode == PreOobeApplicationMode.Msi &&
                     Path.GetExtension(entry).Equals(".msi", StringComparison.OrdinalIgnoreCase) =>
-                    new(Path.Combine(system, "msiexec.exe"), ["/i", entry, "/qn", "/norestart", "/l*v", Path.Combine(logs, "msi.log")],
-                        directory, timeout, settings.Arguments + " REBOOT=ReallySuppress /qn /norestart", output),
+                    new(Path.Combine(system, "msiexec.exe"), [], directory, timeout, arguments, output),
                 PreOobeActionKind.Application when settings.ApplicationMode == PreOobeApplicationMode.Exe &&
                     Path.GetExtension(entry).Equals(".exe", StringComparison.OrdinalIgnoreCase) =>
-                    new(entry, [], directory, timeout, settings.Arguments, output),
+                    new(entry, [], directory, timeout, arguments, output),
                 _ => throw new InvalidDataException("Unsupported custom action.")
             };
         }

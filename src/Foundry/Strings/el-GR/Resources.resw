@@ -2462,10 +2462,13 @@
     <value>Διαδρομή σεναρίου ή προγράμματος εγκατάστασης (σχετική με το περιεχόμενο)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>Οι ενέργειες εκτελούνται χωρίς παρέμβαση ως SYSTEM. Αποτρέψτε τις επανεκκινήσεις από το ίδιο το πρόγραμμα εγκατάστασης. Το περιεχόμενο είναι προσωρινό· παρέχετε μόνιμες πηγές ξεχωριστά, εάν απαιτούνται για επιδιόρθωση ή ενημερώσεις.</value>
+    <value>Οι ενέργειες εκτελούνται ως SYSTEM. Είστε υπεύθυνοι για τα ορίσματα, την εκτέλεση χωρίς επίβλεψη και την αποτροπή επανεκκινήσεων που προκαλούνται από το πρόγραμμα εγκατάστασης. Το περιεχόμενο είναι προσωρινό· παρέχετε μόνιμες πηγές αν τις απαιτούν οι επιδιορθώσεις ή οι ενημερώσεις.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Ρυθμίσεις εκτέλεσης</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Δημιουργία αρχείου καταγραφής εγκατάστασης</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Η εισαγωγή περιεχομένου απέτυχε. Ελέγξτε την πρόσβαση, τον διαθέσιμο χώρο, τα ονόματα αρχείων και τα μήκη διαδρομών.</value>
@@ -2497,6 +2500,9 @@
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Δέσμη ενεργειών PowerShell (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Ορίσματα PowerShell</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Ελέγξτε τις ρυθμίσεις των ενεργειών και εισαγάγετε το περιεχόμενο πακέτων που λείπει πριν δημιουργήσετε το μέσο.</value>
   </data>
@@ -2508,6 +2514,9 @@
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Επανεκκινήστε τα Windows και συνεχίστε με την επόμενη ενέργεια.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Ορίσματα δέσμης ενεργειών</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Προετοιμασία περιεχομένου για μετά την εγκατάσταση.</value>

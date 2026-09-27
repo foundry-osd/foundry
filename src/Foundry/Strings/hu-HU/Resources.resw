@@ -2462,10 +2462,13 @@ Licenc az MIT licenc alatt.</value>
     <value>Parancsfájl vagy telepítő elérési útja (a tartalomhoz képest)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>A műveletek felhasználói beavatkozás nélkül, SYSTEM-ként futnak. Tiltsa le a telepítők saját újraindításait. A tartalom ideiglenes; ha javításhoz vagy frissítéshez szükséges, külön biztosítson tartós forrásokat.</value>
+    <value>A műveletek SYSTEM-fiókként futnak. Ön felel az argumentumokért, a felügyelet nélküli végrehajtásért és a telepítő által kezdeményezett újraindítások megakadályozásáért. A tartalom ideiglenes; biztosítson tartós forrásokat, ha a javítások vagy frissítések igénylik azokat.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Végrehajtási beállítások</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Telepítési napló létrehozása</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>A tartalom importálása sikertelen. Ellenőrizze a hozzáférést, a szabad helyet, a fájlneveket és az elérési utak hosszát.</value>
@@ -2497,6 +2500,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>PowerShell-szkript (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell-argumentumok</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Az adathordozó létrehozása előtt ellenőrizze a műveletek beállításait, és importálja a hiányzó csomagtartalmat.</value>
   </data>
@@ -2508,6 +2514,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Indítsa újra a Windowst, majd folytassa a következő művelettel.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Szkriptargumentumok</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>Telepítés utáni tartalom előkészítése.</value>

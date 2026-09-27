@@ -2462,10 +2462,13 @@ Licenciado sob a licença MIT.</value>
     <value>Caminho do script ou instalador (relativo ao conteúdo)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
-    <value>As ações são executadas silenciosamente como SYSTEM. Impeça reinícios pelo próprio instalador. O conteúdo é temporário; disponibilize origens permanentes separadamente se forem necessárias para reparações ou atualizações.</value>
+    <value>As ações são executadas como SYSTEM. É responsável pelos argumentos, pela execução sem assistência e por impedir reinícios iniciados pelo instalador. O conteúdo é temporário; forneça origens permanentes se as reparações ou atualizações precisarem delas.</value>
   </data>
   <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
     <value>Definições de execução</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Gerar registo de instalação</value>
   </data>
   <data name="PostInstallation.ImportFailed" xml:space="preserve">
     <value>Falha ao importar conteúdo. Verifique o acesso, o espaço disponível, os nomes dos ficheiros e o comprimento dos caminhos.</value>
@@ -2497,6 +2500,9 @@ Licenciado sob a licença MIT.</value>
   <data name="PostInstallation.PowerShell" xml:space="preserve">
     <value>Script do PowerShell (.ps1)</value>
   </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Argumentos do PowerShell</value>
+  </data>
   <data name="PostInstallation.Readiness" xml:space="preserve">
     <value>Verifique as definições das ações e importe o conteúdo de pacote em falta antes de criar o suporte de dados.</value>
   </data>
@@ -2508,6 +2514,9 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Reinicie o Windows e continue com a ação seguinte.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Argumentos do script</value>
   </data>
   <data name="PostInstallation.StagingContent" xml:space="preserve">
     <value>A preparar conteúdo de pós-instalação.</value>
