@@ -19,14 +19,6 @@ public sealed partial class CustomImageImportDialog : ContentDialog
         ViewModel.PropertyChanged += OnViewModelPropertyChanged;
     }
 
-    /// <summary>Keeps the native dialog buttons at their content width, grouped on the right.</summary>
-    protected override void OnApplyTemplate()
-    {
-        base.OnApplyTemplate();
-        if (GetTemplateChild("CommandSpace") is FrameworkElement commands)
-            commands.HorizontalAlignment = HorizontalAlignment.Right;
-    }
-
     private async void OnPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
     {
         // Keep the close button usable while the view model disables editing and performs the import.
