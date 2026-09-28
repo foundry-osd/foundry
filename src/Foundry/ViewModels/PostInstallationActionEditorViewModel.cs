@@ -202,7 +202,7 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
             {
                 string file = lease.Files[0].RelativePath;
                 if (file.EndsWith(".cmd", StringComparison.OrdinalIgnoreCase) || file.EndsWith(".bat", StringComparison.OrdinalIgnoreCase))
-                    CommandText = "\"" + file.Replace('/', '\\') + "\"";
+                    CommandText = file.Replace('/', '\\');
             }
             if (InvalidField is nameof(PackageName) or nameof(EntryPoint) or nameof(WorkingDirectory))
             {
