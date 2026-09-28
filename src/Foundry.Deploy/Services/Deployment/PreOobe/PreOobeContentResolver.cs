@@ -140,7 +140,7 @@ public class PreOobeContentResolver(PreOobeRuntimeResolver runtimeResolver, IDep
                     prepared.Files.Add((candidate, await OpenVerifiedAsync(candidate, asset.ArchiveLength, asset.ArchiveSha256, cancellationToken).ConfigureAwait(false)));
                     return prepared;
                 }
-                catch (Exception exception) when (exception is IOException or UnauthorizedAccessException) { }
+                catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException) { }
             }
             string writable = Path.Combine(context.Request.CacheRootPath, "PreOobe", "Runtimes", rid, asset.ArchiveSha256);
             long required = checked(asset.ArchiveLength + asset.ExpandedLength + DeploymentCapacityPolicy.ScratchAndHeadroomBytes);
