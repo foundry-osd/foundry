@@ -2585,7 +2585,7 @@
     <value>รหัสออกเมื่อสำเร็จ (คั่นด้วยจุลภาค)</value>
   </data>
   <data name="PostInstallation.Timeout" xml:space="preserve">
-    <value>เวลาหมดอายุ (วินาที)</value>
+    <value>ระยะเวลาสูงสุดในการทำงาน (วินาที)</value>
   </data>
   <data name="PostInstallation.TypeHeader" xml:space="preserve">
     <value>ประเภท</value>

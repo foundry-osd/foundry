@@ -2474,7 +2474,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Keine Aktionen hinzugefügt.</value>
   </data>
   <data name="PostInstallation.EntryPoint" xml:space="preserve">
-    <value>Skript- oder Installationspfad (relativ zum Inhalt)</value>
+    <value>Pfad zum Skript oder Installationsprogramm (relativ zum Inhalt)</value>
   </data>
   <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
     <value>Wird als SYSTEM ausgeführt. Konfigurieren Sie Argumente für unbeaufsichtigte Ausführung und kontrollierte Neustarts.</value>
