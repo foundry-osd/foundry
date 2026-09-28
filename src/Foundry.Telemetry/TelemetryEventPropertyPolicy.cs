@@ -135,6 +135,13 @@ public static class TelemetryEventPropertyPolicy
                 "customization_ai_disable_paint_ai_enabled",
                 "customization_ai_disable_notepad_ai_enabled",
                 "customization_ai_component_removal_option_count",
+                "customization_post_installation_enabled",
+                "customization_post_installation_configured_action_count",
+                "customization_post_installation_enabled_action_count",
+                "customization_post_installation_powershell_count",
+                "customization_post_installation_command_count",
+                "customization_post_installation_software_count",
+                "customization_post_installation_restart_count",
                 "os_selection_enabled",
                 "os_selection_any_configured",
                 "os_selection_allowed_languages_count",
@@ -230,7 +237,7 @@ public static class TelemetryEventPropertyPolicy
     }
 
     /// <summary>
-    /// Returns only approved properties, limiting custom-image metadata to recognized technical values.
+    /// Returns only approved properties, validating bounded configuration values and custom-image metadata.
     /// </summary>
     /// <param name="eventName">Stable telemetry event name.</param>
     /// <param name="properties">Candidate event properties before filtering.</param>
@@ -248,7 +255,7 @@ public static class TelemetryEventPropertyPolicy
         foreach ((string key, object? value) in properties)
         {
             if (!allowedProperties.Contains(key) || IsSensitiveKey(key) || !IsAllowedUnattendValue(key, value) ||
-                !IsAllowedCustomImageValue(key, value))
+                !IsAllowedCustomImageValue(key, value) || !IsAllowedPostInstallationValue(key, value))
             {
                 continue;
             }
@@ -307,6 +314,18 @@ public static class TelemetryEventPropertyPolicy
         "boot_media_custom_images_enabled" => value is bool,
         "boot_media_custom_images_count" => value is int and >= 0 and <= 256,
         "boot_media_default_os_source" or "deploy_os_source" => value is "catalog" or "custom",
+        _ => true
+    };
+
+    private static bool IsAllowedPostInstallationValue(string key, object? value) => key switch
+    {
+        "customization_post_installation_enabled" => value is bool,
+        "customization_post_installation_configured_action_count" or
+        "customization_post_installation_enabled_action_count" or
+        "customization_post_installation_powershell_count" or
+        "customization_post_installation_command_count" or
+        "customization_post_installation_software_count" or
+        "customization_post_installation_restart_count" => value is int and >= 0 and <= 1000,
         _ => true
     };
 

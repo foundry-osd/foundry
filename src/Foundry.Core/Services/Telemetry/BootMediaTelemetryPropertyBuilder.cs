@@ -47,6 +47,7 @@ public static class BootMediaTelemetryPropertyBuilder
 
         UnattendSettings unattend = document.Unattend ?? new UnattendSettings();
         CustomImagesSettings customImages = document.CustomImages ?? new CustomImagesSettings();
+        PreOobeSettings postInstallation = document.PreOobe ?? new PreOobeSettings();
         DeploymentRebootTelemetryValue rebootPolicy = DeploymentRebootTelemetryValueResolver.Resolve(
             document.General.AutomaticRebootEnabled,
             document.General.AutomaticRebootDelaySeconds);
@@ -99,13 +100,32 @@ public static class BootMediaTelemetryPropertyBuilder
         }
 
         AddCustomizationTelemetryProperties(properties, document.Customization);
+        AddPostInstallationTelemetryProperties(properties, postInstallation);
         AddOperatingSystemSelectionTelemetryProperties(properties, document.OperatingSystemSelection);
         properties["customization_any_enabled"] =
-            (bool)properties["customization_any_enabled"]! || document.OperatingSystemSelection.IsEnabled || unattend.IsEnabled || customImages.IsEnabled;
+            (bool)properties["customization_any_enabled"]! || document.OperatingSystemSelection.IsEnabled || unattend.IsEnabled || customImages.IsEnabled || postInstallation.IsEnabled;
         AddLocalizationTelemetryProperties(properties, document.Localization);
         AddNetworkTelemetryProperties(properties, document.Network, options.AreRequiredSecretsReady);
 
         return properties;
+    }
+
+    private static void AddPostInstallationTelemetryProperties(
+        IDictionary<string, object?> properties,
+        PreOobeSettings settings)
+    {
+        IReadOnlyList<PreOobeActionSettings> actions = settings.Actions ?? [];
+        PreOobeActionSettings[] enabledActions = settings.IsEnabled
+            ? actions.Where(action => action.IsEnabled).ToArray()
+            : [];
+
+        properties["customization_post_installation_enabled"] = settings.IsEnabled;
+        properties["customization_post_installation_configured_action_count"] = Math.Clamp(actions.Count, 0, 1000);
+        properties["customization_post_installation_enabled_action_count"] = Math.Clamp(enabledActions.Length, 0, 1000);
+        properties["customization_post_installation_powershell_count"] = Math.Clamp(enabledActions.Count(action => action.Kind == PreOobeActionKind.PowerShell), 0, 1000);
+        properties["customization_post_installation_command_count"] = Math.Clamp(enabledActions.Count(action => action.Kind == PreOobeActionKind.Command), 0, 1000);
+        properties["customization_post_installation_software_count"] = Math.Clamp(enabledActions.Count(action => action.Kind == PreOobeActionKind.Application), 0, 1000);
+        properties["customization_post_installation_restart_count"] = Math.Clamp(enabledActions.Count(action => action.Kind == PreOobeActionKind.Restart), 0, 1000);
     }
 
     private static void AddCustomizationTelemetryProperties(

@@ -14,6 +14,108 @@ namespace Foundry.Core.Tests;
 public sealed class BootMediaTelemetryPropertyBuilderTests
 {
     [Theory]
+    [InlineData(true, true)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(false, false)]
+    public void Build_ReportsPostInstallationCountsWithoutActionContent(bool enabled, bool success)
+    {
+        var privateAction = new PreOobeActionSettings
+        {
+            Id = "private-action-id",
+            Name = "private-action-name",
+            Kind = PreOobeActionKind.PowerShell,
+            Package = new() { ContentHash = "private-hash", DisplayName = "private-file" },
+            EntryPoint = "private-script.ps1",
+            Arguments = "private-arguments",
+            PowerShellArguments = "private-host-arguments",
+            Command = "private-command",
+            WorkingDirectory = "private-directory"
+        };
+        var settings = new PreOobeSettings
+        {
+            IsEnabled = enabled,
+            Actions =
+            [
+                privateAction,
+                privateAction with { IsEnabled = false },
+                new() { Kind = PreOobeActionKind.Command },
+                new() { Kind = PreOobeActionKind.Application, ApplicationMode = PreOobeApplicationMode.Exe },
+                new() { Kind = PreOobeActionKind.Application, ApplicationMode = PreOobeApplicationMode.Msi },
+                new() { Kind = PreOobeActionKind.Restart }
+            ]
+        };
+
+        IReadOnlyDictionary<string, object?> result = BuildPostInstallationProperties(settings, success);
+
+        Assert.Equal(enabled, result["customization_post_installation_enabled"]);
+        Assert.Equal(6, result["customization_post_installation_configured_action_count"]);
+        Assert.Equal(enabled ? 5 : 0, result["customization_post_installation_enabled_action_count"]);
+        Assert.Equal(enabled ? 1 : 0, result["customization_post_installation_powershell_count"]);
+        Assert.Equal(enabled ? 1 : 0, result["customization_post_installation_command_count"]);
+        Assert.Equal(enabled ? 2 : 0, result["customization_post_installation_software_count"]);
+        Assert.Equal(enabled ? 1 : 0, result["customization_post_installation_restart_count"]);
+        Assert.Equal(enabled, result["customization_any_enabled"]);
+        Assert.DoesNotContain(result.Values, value => value?.ToString()?.Contains("private-", StringComparison.Ordinal) == true);
+    }
+
+    [Fact]
+    public void Build_DisabledPostInstallationActionsRemainConfiguredButNotIncluded()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildPostInstallationProperties(new()
+        {
+            IsEnabled = true,
+            Actions = Enum.GetValues<PreOobeActionKind>()
+                .Select(kind => new PreOobeActionSettings { Kind = kind, IsEnabled = false })
+                .ToArray()
+        });
+
+        Assert.Equal(4, result["customization_post_installation_configured_action_count"]);
+        Assert.Equal(true, result["customization_post_installation_enabled"]);
+        Assert.All(result.Where(property => property.Key.StartsWith("customization_post_installation_", StringComparison.Ordinal)
+            && property.Key != "customization_post_installation_enabled"
+            && property.Key != "customization_post_installation_configured_action_count"), property => Assert.Equal(0, property.Value));
+    }
+
+    [Fact]
+    public void Build_MissingPostInstallationSettingsReportsDisabledAndZeroCounts()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildPostInstallationProperties(null);
+
+        Assert.Equal(false, result["customization_post_installation_enabled"]);
+        Assert.Equal(false, result["customization_any_enabled"]);
+        Assert.Equal(7, result.Count(property => property.Key.StartsWith("customization_post_installation_", StringComparison.Ordinal)));
+        Assert.All(result.Where(property => property.Key.StartsWith("customization_post_installation_", StringComparison.Ordinal)
+            && property.Key != "customization_post_installation_enabled"), property => Assert.Equal(0, property.Value));
+    }
+
+    [Fact]
+    public void Build_PostInstallationCountsAreBoundedForInvalidConfiguration()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildPostInstallationProperties(new()
+        {
+            IsEnabled = true,
+            Actions = Enumerable.Range(0, 1001).Select(_ => new PreOobeActionSettings { Kind = PreOobeActionKind.Command }).ToArray()
+        }, success: false);
+
+        Assert.Equal(1000, result["customization_post_installation_configured_action_count"]);
+        Assert.Equal(1000, result["customization_post_installation_enabled_action_count"]);
+        Assert.Equal(1000, result["customization_post_installation_command_count"]);
+    }
+
+    private static IReadOnlyDictionary<string, object?> BuildPostInstallationProperties(PreOobeSettings? settings, bool success = true) =>
+        BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            new FoundryConfigurationDocument { PreOobe = settings! },
+            success,
+            failedStepName: success ? null : "stage_post_installation",
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+    [Theory]
     [InlineData(false, CustomImageSource.Custom, true, 0, "catalog")]
     [InlineData(true, CustomImageSource.Catalog, true, 2, "catalog")]
     [InlineData(true, CustomImageSource.Custom, true, 2, "custom")]
