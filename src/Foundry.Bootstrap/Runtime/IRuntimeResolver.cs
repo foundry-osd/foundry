@@ -4,7 +4,7 @@
 
 namespace Foundry.Bootstrap.Runtime;
 
-/// <summary>Resolves Connect and Deploy payloads without launching them.</summary>
+/// <summary>Resolves Connect, Deploy, and PostInstall payloads without launching them.</summary>
 internal interface IRuntimeResolver
 {
     /// <summary>Resolves an executable, preserving explicit override failures and permitted offline fallback.</summary>

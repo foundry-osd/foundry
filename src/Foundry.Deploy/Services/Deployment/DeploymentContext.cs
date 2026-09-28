@@ -15,6 +15,9 @@ namespace Foundry.Deploy.Services.Deployment;
 /// </summary>
 public sealed record DeploymentContext
 {
+    /// <summary>Gets ordered post-installation actions and their authenticated media binding.</summary>
+    public Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings PreOobe { get; init; } = new();
+
     /// <summary>Gets the selected custom file; null retains native Foundry customization.</summary>
     public UnattendSelection? Unattend { get; init; }
 

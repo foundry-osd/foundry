@@ -31,7 +31,8 @@ public enum ConfigurationOverviewItem
     Oobe,
     OptionalFeatures,
     AppxRemoval,
-    AiComponents
+    AiComponents,
+    PostInstallation
 }
 
 /// <summary>
@@ -94,6 +95,9 @@ public sealed record ConfigurationOverviewContext
 
     /// <summary>Gets whether included custom image sources and explicit defaults are available.</summary>
     public bool IsCustomImagesReady { get; init; } = true;
+
+    /// <summary>Gets whether enabled post-installation actions have usable local content and valid settings.</summary>
+    public bool IsPostInstallationReady { get; init; } = true;
 }
 
 /// <summary>
@@ -142,6 +146,11 @@ public static class ConfigurationOverviewEvaluator
 
         var states = new Dictionary<ConfigurationOverviewItem, ConfigurationOverviewState>
         {
+            [ConfigurationOverviewItem.PostInstallation] = !configuration.PreOobe.IsEnabled
+                ? ConfigurationOverviewState.Disabled
+                : !context.IsPostInstallationReady || !PreOobeConfigurationValidator.IsReady(configuration.PreOobe, _ => true)
+                    ? ConfigurationOverviewState.NeedsAttention
+                    : ConfigurationOverviewState.Configured,
             [ConfigurationOverviewItem.CustomImages] = !configuration.CustomImages.IsEnabled
                 ? ConfigurationOverviewState.Disabled
                 : context.IsCustomImagesReady

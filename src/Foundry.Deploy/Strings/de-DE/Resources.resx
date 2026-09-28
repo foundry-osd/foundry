@@ -543,6 +543,24 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Betriebssystem</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Es sind keine Aufgaben nach der Installation erforderlich.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Die Vorbereitung der Nachinstallation ist fehlgeschlagen. Details finden Sie im Bereitstellungsprotokoll.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Vorbereitung der Nachinstallation abgeschlossen (Simulation).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Laufzeit, Inhalte und neustartfähiger Startaufruf für die Nachinstallation wurden bereitgestellt.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Laufzeit und Inhalte für die Nachinstallation werden vorbereitet...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Vorbereitung der Nachinstallation fehlgeschlagen. Prüfen Sie Laufzeit, Nutzdaten und Windows-Antwortdatei vor einem erneuten Versuch.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Der Abbildcache kann nicht vorbereitet werden. Prüfen Sie den freien Speicherplatz und den Schreibzugriff auf den Cache.</value>
   </data>
@@ -1020,9 +1038,6 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Staging-Paket...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Staging von Pre-OOBE-Anpassungen...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Importanfrage wird an Microsoft Graph gesendet...</value>
   </data>
@@ -1031,9 +1046,6 @@ Mit der Bereitstellung fortfahren?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Vorhandenes Autopilot Gerät wird aktualisiert...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Das Erststart-Setup-Skript wird aktualisiert...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Windows Autopilot-Gruppen-Tag wird in Microsoft Graph aktualisiert...</value>
@@ -1251,9 +1263,6 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Keine Firmwareupdatedaten verfügbar.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Es sind keine Pre-OOBE-Anpassungsskripte erforderlich.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Der OEM-Treiberpaketmodus wurde ausgewählt, aber es wurde kein Treiberpaket bereitgestellt.</value>
   </data>
@@ -1286,12 +1295,6 @@ Mit der Bereitstellung fortfahren?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Das Betriebssystem URL fehlt.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Vor-OOBE-Anpassungen durchgeführt.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Inszenierte Anpassungen vor der OOBE (Simulation).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Bereitschaft für die Bereitstellung wurde geprüft (Simulation).</value>

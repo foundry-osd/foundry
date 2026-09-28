@@ -543,6 +543,24 @@ Pokračovat v nasazování?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operační systém</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Nejsou vyžadovány žádné úlohy po instalaci.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Příprava fáze po instalaci selhala. Podrobnosti najdete v protokolu nasazení.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Příprava fáze po instalaci byla dokončena (simulace).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Běhové prostředí, obsah a spouštěcí mechanismus s podporou restartů pro fázi po instalaci byly připraveny.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Příprava běhového prostředí a obsahu pro fázi po instalaci...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Příprava fáze po instalaci se nezdařila. Před dalším pokusem ověřte běhové prostředí, obsah a soubor odpovědí Windows.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Mezipaměť bitové kopie nelze připravit. Zkontrolujte v ní volné místo a oprávnění k zápisu.</value>
   </data>
@@ -1020,9 +1038,6 @@ Pokračovat v nasazování?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Inscenační balíček...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Probíhá příprava přizpůsobení před OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Odesílání požadavku na import na Microsoft Graph...</value>
   </data>
@@ -1031,9 +1046,6 @@ Pokračovat v nasazování?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Aktualizace stávajícího zařízení Autopilot...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Aktualizace skriptu nastavení prvního spuštění...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Aktualizace značky skupiny Windows Autopilot v Microsoft Graph...</value>
@@ -1251,9 +1263,6 @@ Pokračovat v nasazování?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Obsah aktualizace firmwaru není k dispozici.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Nejsou vyžadovány žádné skripty pro přizpůsobení před OOBE.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Byl vybrán režim balíčku ovladačů OEM, ale nebyl poskytnut žádný balíček ovladače.</value>
   </data>
@@ -1286,12 +1295,6 @@ Pokračovat v nasazování?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Chybí operační systém URL.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Připravené úpravy před OOBE.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Připravené úpravy před OOBE (simulace).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Připravenost k nasazení byla ověřena (simulace).</value>

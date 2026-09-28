@@ -37,6 +37,11 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
+            if (PreOobe.PreOobeContentResolver.IsRequired(context.Request))
+            {
+                if (context.PostInstallContent is null) throw new InvalidDataException("Post-installation readiness is missing.");
+                await PreOobe.PreOobeContentResolver.RevalidateAsync(context, context.PostInstallContent, cancellationToken).ConfigureAwait(false);
+            }
             if (preflight.UsesTargetStorage)
             {
                 context.EmitCurrentStepIndeterminate("Checking deployment readiness...", "Checking source access...", DeploymentOperationNames.ProbeOperatingSystemSource);
@@ -64,7 +69,7 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
         {
             return DeploymentStepResult.Failed(exception.Message, exception.Failure);
         }
-        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or OverflowException)
+        catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException or OverflowException)
         {
             return DeploymentStepResult.Failed(
                 Foundry.Deploy.Services.Localization.LocalizationText.GetString("Preflight.NotReady"),

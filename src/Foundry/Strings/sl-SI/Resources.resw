@@ -2239,6 +2239,12 @@ Licencirano pod licenco MIT.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Izbira OS</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Izvedite dejanja po meri pred OOBE, po vgrajenih opravilih programa Foundry.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Po namestitvi</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>V brskalniku odprite obrazec GitHub za prijavo napak.</value>
   </data>
@@ -2391,6 +2397,201 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Možnosti uvajanja sistema Windows</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Dodajte omogočeno dejanje ali onemogočite konfiguracijo po namestitvi.</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Dodaj dejanje</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Programska oprema (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Vrsta namestitvenega programa</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumenti ali lastnosti MSI</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Ukazna vrstica</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Uvozite datoteke, ki jih ukaz potrebuje. Nato spodaj vnesite ukaz.</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Ukazna vrstica</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent ali reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Predogled ukaza</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Izberite skript ali namestitveni program ali vnesite ukaz za predogled ukazne vrstice.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Vnesite ukaz za zagon.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Pustite prazno za zagon iz mape z uvoženo vsebino.</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Vsebina paketa</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Dejanje je bilo odstranjeno, vendar njegove vsebine v predpomnilniku ni bilo mogoče izbrisati.</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Uvozite datoteko ali mapo.</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Stanje vsebine</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Vsebina za fazo po namestitvi je preverjena.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Nadaljuj ob napaki</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Če to dejanje ne uspe, nadaljujte z naslednjim dejanjem. Izvajanje z negotovim izidom še vedno ustavi zaporedje.</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Odloži ponovni zagon</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Odložite zahtevani ponovni zagon do naslednjega dejanja ponovnega zagona ali konca zaporedja.</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Uredi dejanje</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Konfiguracija se je med urejanjem spremenila. Znova odprite dejanje.</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Ni dodanih dejanj.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Pot do skripta ali namestitvenega programa (glede na vsebino)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Izvaja se kot SYSTEM. Nastavite argumente za nenadzorovano izvajanje in nadzorovane ponovne zagone.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Nastavitve izvajanja</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Ustvari dnevnik namestitve</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Uvoz vsebine ni uspel. Preverite dostop, prosti prostor, imena datotek in dolžine poti.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Uvozi datoteko</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Uvozi mapo</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Uvažanje vsebine...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>To dejanje ni veljavno. Preverite njegovo konfiguracijo.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Vnesite eno vrstico z največ 8191 znaki.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Izberite skript ali namestitveni program iz uvožene vsebine.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Vnesite največ 32 enoličnih nenegativnih izhodnih kod, ločenih z vejicami. Ne uporabite 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Vnesite ime z 1–256 znaki brez kontrolnih znakov.</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Vnesite celo število od 0 do 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Uredite »{0}«, da popravite nastavitve.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Vnesite celo število od 1 do 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Vnesite mapo iz uvožene vsebine ali pustite to polje prazno.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Nalaganje vsebine...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Uvozite manjkajočo vsebino za »{0}«.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Premakni navzdol</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Premakni navzgor</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Vsebina ni uvožena</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Ni potrebno</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Vsebina paketa (izbirno)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Vrstni red</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Izhodna koda za ponovni zagon ne more biti hkrati izhodna koda za uspeh.</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>Skript PowerShell (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Argumenti PowerShell</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Dejanja ni bilo mogoče odstraniti. Poskusite znova.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Znova zaženi Windows</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Izhodne kode, ki zahtevajo ponovni zagon (ločene z vejicami)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Zakasnitev pred ponovnim zagonom (sekunde)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Uporabite 0 za takojšnji ponovni zagon.</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Znova zaženite Windows in nato nadaljujte z naslednjim dejanjem.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Argumenti skripta</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Pripravljanje vsebine za fazo po namestitvi.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Izhodne kode uspeha (ločene z vejicami)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Časovna omejitev (sekunde)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Vrsta</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Delovna mapa (relativna; prazno uporabi koren vsebine)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Trenutne nastavitve</value>
@@ -3496,7 +3697,10 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Uporabi nastavitve Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Izbrana datoteka nadomesti datoteko odgovorov, ki jo ustvari Foundry. Njene nastavitve se uporabijo takšne, kot so, brez združevanja ali dopolnjevanja manjkajočih vrednosti. Za uporabo shranjene konfiguracije izberite »Uporabi nastavitve Foundry«.</value>
+    <value>Izbrana datoteka nadomesti datoteko z odgovori, ki jo ustvari Foundry. Foundry ohrani njene nastavitve po meri in v kopijo za uvajanje doda obvezni ukaz za fazo po namestitvi. Za uporabo shranjene konfiguracije izberite Uporabi nastavitve Foundry.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry ohrani izvirno datoteko in v kopijo za uvajanje doda svoj obvezni ukaz za fazo po namestitvi. Še naprej ste odgovorni za nastavitve in ukaze po meri.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Datoteke po meri zahtevajo zaščito medija za uvajanje z geslom v nastavitvah Splošno. XML lahko vsebuje poverilnice ali skripte. Katalog shrani samo sklice na vire; zagonska slika vsebuje šifrirane kopije.</value>

@@ -1,0 +1,239 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using System.Collections.ObjectModel;
+using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Application;
+using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Packages;
+using Foundry.Services.Configuration;
+using Foundry.Services.Localization;
+
+namespace Foundry.ViewModels;
+
+/// <summary>Edits ordered custom actions without exposing Foundry's protected built-in sequence.</summary>
+public sealed partial class PostInstallationViewModel : ObservableObject, IDisposable
+{
+    private readonly IFoundryConfigurationStateService state;
+    private readonly PreOobePackageLibraryService library;
+    private readonly IFilePickerService picker;
+    private readonly IApplicationLocalizationService localization;
+    private readonly DeploymentProfileCoordinator profiles;
+    private bool applying;
+    private bool disposed;
+
+    public PostInstallationViewModel(IFoundryConfigurationStateService state, PreOobePackageLibraryService library,
+        IFilePickerService picker, IApplicationLocalizationService localization, DeploymentProfileCoordinator profiles)
+    {
+        this.state = state;
+        this.library = library;
+        this.picker = picker;
+        this.localization = localization;
+        this.profiles = profiles;
+        state.StateChanged += OnStateChanged;
+        localization.LanguageChanged += OnLanguageChanged;
+        ApplyState();
+    }
+
+    public ObservableCollection<PostInstallationActionRow> Actions { get; } = [];
+    [ObservableProperty] public partial bool IsEnabled { get; set; }
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(CanConfigure), nameof(CanChangeEnabled))] public partial bool IsBusy { get; set; }
+    [ObservableProperty] public partial PostInstallationActionRow? SelectedAction { get; set; }
+    [ObservableProperty][NotifyPropertyChangedFor(nameof(HasStatus))] public partial string StatusMessage { get; set; } = string.Empty;
+    public bool HasStatus => !string.IsNullOrWhiteSpace(StatusMessage);
+    public bool HasActions => Actions.Count > 0;
+    public bool IsEmpty => !HasActions;
+    public bool CanConfigure => IsEnabled && !IsBusy;
+    public bool CanChangeEnabled => !IsBusy;
+    public bool CanEdit => CanConfigure && SelectedAction is not null;
+    public bool CanMoveUp => CanEdit && Actions.IndexOf(SelectedAction!) > 0;
+    public bool CanMoveDown => CanEdit && Actions.IndexOf(SelectedAction!) < Actions.Count - 1;
+    public bool HasReadinessIssue => !state.IsPostInstallationReady;
+    public string PageTitle => localization.GetString("Nav_PostInstallationKey.Title");
+    public string PageDescription => localization.GetString("Nav_PostInstallationKey.Description");
+    public string DocumentationUrl => FoundryApplicationInfo.DocumentationUrl + "/foundry-osd/customization/post-installation";
+    public string AddLabel => Text("Add");
+    public string EditLabel => Text("Edit");
+    public string RemoveLabel => localization.GetString("CustomImages.RemoveLabel");
+    public string MoveUpLabel => Text("MoveUp");
+    public string MoveDownLabel => Text("MoveDown");
+    public string RefreshLabel => localization.GetString("Common.Refresh");
+    public string ToggleLabel => localization.GetString(SelectedAction?.Action.IsEnabled == true ? "Common.Disable" : "Common.Enable");
+    public string EnableLabel => localization.GetString("Common.Enable");
+    public string ReadinessDescription
+    {
+        get
+        {
+            if (!Actions.Any(action => action.Action.IsEnabled)) return Text("ActionRequired");
+            var missing = Actions.FirstOrDefault(action => action.Action.IsEnabled && !action.IsContentAvailable);
+            if (missing is not null) return localization.FormatString("PostInstallation.MissingContent", missing.Name);
+            var issue = PreOobeConfigurationValidator.Validate(state.Current.PreOobe).FirstOrDefault();
+            var invalid = Actions.FirstOrDefault(action => action.Action.Id == issue?.ActionId);
+            return invalid is not null ? localization.FormatString("PostInstallation.InvalidSettings", invalid.Name) : Text("InvalidAction");
+        }
+    }
+    public string EmptyMessage => Text("EmptyMessage");
+    public string OrderHeader => Text("OrderHeader");
+    public string NameHeader => localization.GetString("CustomImages.NameLabel");
+    public string TypeHeader => Text("TypeHeader");
+    public string EnabledHeader => localization.GetString("Common.Enabled");
+    public string ContentStatusHeader => Text("ContentStatusHeader");
+    public string PowerShellLabel => Text("PowerShell");
+    public string CommandLabel => Text("CommandLine");
+    public string ApplicationLabel => Text("Application");
+    public string RestartLabel => Text("Restart");
+    public string Text(string key) => localization.GetString("PostInstallation." + key);
+
+    partial void OnIsEnabledChanged(bool value)
+    {
+        if (!applying) state.UpdatePreOobe(state.Current.PreOobe with { IsEnabled = value });
+        OnPropertyChanged(nameof(CanConfigure));
+        RaiseSelection();
+    }
+
+    partial void OnIsBusyChanged(bool value) => RaiseSelection();
+
+    partial void OnSelectedActionChanged(PostInstallationActionRow? value) => RaiseSelection();
+
+    public PostInstallationActionEditorViewModel CreateEditor(PreOobeActionKind? kind = null)
+    {
+        PreOobeActionSettings action = kind.HasValue
+            ? PreOobeActionSettings.Create(kind.Value, TypeLabel(kind.Value))
+            : SelectedAction!.Action;
+        return new(action, state.Current.PreOobe, kind.HasValue, library, picker, localization);
+    }
+
+    /// <summary>Rejects an edit if a profile switch or concurrent configuration change replaced its baseline.</summary>
+    public bool SaveEditor(PostInstallationActionEditorViewModel editor)
+    {
+        if (IsBusy || !ReferenceEquals(editor.Baseline, state.Current.PreOobe) || !editor.TryBuild(out var action))
+        {
+            StatusMessage = Text("EditConflict");
+            return false;
+        }
+        var actions = editor.IsNew ? state.Current.PreOobe.Actions.Append(action!).ToArray()
+            : state.Current.PreOobe.Actions.Select(item => item.Id == action!.Id ? action : item).ToArray();
+        state.UpdatePreOobe(state.Current.PreOobe with { Actions = actions! });
+        SelectedAction = Actions.FirstOrDefault(item => item.Action.Id == action!.Id);
+        StatusMessage = string.Empty;
+        return true;
+    }
+
+    [RelayCommand]
+    private async Task RemoveAsync()
+    {
+        if (!CanEdit) return;
+        int position = Actions.IndexOf(SelectedAction!);
+        string id = SelectedAction!.Action.Id;
+        IsBusy = true;
+        StatusMessage = string.Empty;
+        try
+        {
+            bool cleaned = await profiles.RemovePostInstallationActionAsync(state.Current.PreOobe, id, library);
+            if (disposed) return;
+            SelectedAction = Actions.ElementAtOrDefault(Math.Min(position, Actions.Count - 1));
+            if (!cleaned) StatusMessage = Text("ContentCleanupFailed");
+        }
+        catch (Exception exception)
+        {
+            Logger.Warning(exception, "Post-installation action could not be removed. ActionId={ActionId}", id);
+            if (!disposed) StatusMessage = Text("RemoveFailed");
+        }
+        finally { IsBusy = false; }
+    }
+
+    [RelayCommand]
+    private void Toggle()
+    {
+        if (!CanEdit) return;
+        string id = SelectedAction!.Action.Id;
+        state.UpdatePreOobe(state.Current.PreOobe with
+        {
+            Actions = state.Current.PreOobe.Actions.Select(action => action.Id == id ? action with { IsEnabled = !action.IsEnabled } : action).ToArray()
+        });
+    }
+
+    [RelayCommand] private void MoveUp() => Move(-1);
+    [RelayCommand] private void MoveDown() => Move(1);
+    [RelayCommand] private void Refresh() => state.RefreshPostInstallationReadiness();
+
+    private void Move(int delta)
+    {
+        if (!CanEdit) return;
+        int index = Actions.IndexOf(SelectedAction!);
+        int destination = index + delta;
+        if (destination < 0 || destination >= Actions.Count) return;
+        var actions = state.Current.PreOobe.Actions.ToList();
+        var action = actions[index];
+        actions.RemoveAt(index);
+        actions.Insert(destination, action);
+        state.UpdatePreOobe(state.Current.PreOobe with { Actions = actions });
+    }
+
+    private string TypeLabel(PreOobeActionKind kind) => kind switch
+    {
+        PreOobeActionKind.PowerShell => PowerShellLabel,
+        PreOobeActionKind.Command => CommandLabel,
+        PreOobeActionKind.Application => ApplicationLabel,
+        _ => RestartLabel
+    };
+
+    private void ApplyState()
+    {
+        applying = true;
+        try
+        {
+            string? selectedId = SelectedAction?.Action.Id;
+            IsEnabled = state.Current.PreOobe.IsEnabled;
+            Actions.Clear();
+            foreach (var action in state.Current.PreOobe.Actions)
+            {
+                bool ready = action.Package is null || library.IsAvailable(action.Package);
+                Actions.Add(new(action, Actions.Count + 1, TypeLabel(action.Kind),
+                    localization.GetString(action.IsEnabled ? "Common.Enabled" : "Common.Disabled"),
+                    action.Package is null ? Text("NoContentRequired") :
+                        localization.GetString(ready ? "CustomImages.Available" : "CustomImages.Missing"), ready));
+            }
+            SelectedAction = Actions.FirstOrDefault(item => item.Action.Id == selectedId);
+            OnPropertyChanged(nameof(HasReadinessIssue));
+            OnPropertyChanged(nameof(ReadinessDescription));
+            OnPropertyChanged(nameof(HasActions));
+            OnPropertyChanged(nameof(IsEmpty));
+            RaiseSelection();
+        }
+        finally { applying = false; }
+    }
+
+    private void RaiseSelection()
+    {
+        OnPropertyChanged(nameof(CanEdit));
+        OnPropertyChanged(nameof(CanMoveUp));
+        OnPropertyChanged(nameof(CanMoveDown));
+        OnPropertyChanged(nameof(ToggleLabel));
+    }
+
+    private void OnStateChanged(object? sender, EventArgs args) => ApplyState();
+    private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs args)
+    {
+        ApplyState();
+        OnPropertyChanged(string.Empty);
+    }
+
+    public void Dispose()
+    {
+        if (disposed) return;
+        disposed = true;
+        state.StateChanged -= OnStateChanged;
+        localization.LanguageChanged -= OnLanguageChanged;
+    }
+}
+
+public sealed record PostInstallationActionRow(PreOobeActionSettings Action, int Position, string Type, string Enabled, string Readiness,
+    bool IsContentAvailable)
+{
+    public string Name => Action.Name;
+    public Style EnabledStyle => (Style)Application.Current.Resources[Action.IsEnabled ? "FoundrySuccessTextBlockStyle" : "FoundrySecondaryTextBlockStyle"];
+    public Style ReadinessStyle => (Style)Application.Current.Resources[Action.Package is null ? "FoundrySecondaryTextBlockStyle" :
+        IsContentAvailable ? "FoundrySuccessTextBlockStyle" : "FoundryCriticalTextBlockStyle"];
+}

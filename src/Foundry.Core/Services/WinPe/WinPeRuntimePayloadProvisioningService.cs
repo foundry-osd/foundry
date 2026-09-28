@@ -62,13 +62,15 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             {
                 Bootstrap = await PrepareLocalApplicationAsync("Foundry.Bootstrap", options.Bootstrap, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
                 Connect = await PrepareLocalApplicationAsync("Foundry.Connect", options.Connect, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
-                Deploy = await PrepareLocalApplicationAsync("Foundry.Deploy", options.Deploy, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false)
+                Deploy = await PrepareLocalApplicationAsync("Foundry.Deploy", options.Deploy, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
+                PostInstall = await PrepareLocalApplicationAsync("Foundry.PostInstall", options.PostInstall, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false)
             };
             var releaseApplications = new[]
             {
                 (Name: "Foundry.Bootstrap", Options: options.Bootstrap),
                 (Name: "Foundry.Connect", Options: options.Connect),
-                (Name: "Foundry.Deploy", Options: options.Deploy)
+                (Name: "Foundry.Deploy", Options: options.Deploy),
+                (Name: "Foundry.PostInstall", Options: options.PostInstall)
             }.Where(application => application.Options.IsEnabled &&
                 application.Options.ProvisioningSource == WinPeProvisioningSource.Release &&
                 string.IsNullOrWhiteSpace(application.Options.ArchivePath)).ToArray();
@@ -95,7 +97,8 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                     {
                         "Foundry.Bootstrap" => options with { Bootstrap = preparedApplication },
                         "Foundry.Connect" => options with { Connect = preparedApplication },
-                        _ => options with { Deploy = preparedApplication }
+                        "Foundry.Deploy" => options with { Deploy = preparedApplication },
+                        _ => options with { PostInstall = preparedApplication }
                     };
                 }
             }
@@ -214,10 +217,13 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 runtimeIdentifier,
                 cancellationToken).ConfigureAwait(false);
 
+            await ProvisionApplicationAsync("Foundry.PostInstall", options.PostInstall, options,
+                runtimeIdentifier, cancellationToken).ConfigureAwait(false);
+
             if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
             {
                 RuntimePayloadTrust.WriteManifest(Path.Combine(Path.GetFullPath(options.MountedImagePath), "Foundry"),
-                    new[] { (Name: "Foundry.Connect", Options: options.Connect), (Name: "Foundry.Deploy", Options: options.Deploy) }
+                    new[] { (Name: "Foundry.Connect", Options: options.Connect), (Name: "Foundry.Deploy", Options: options.Deploy), (Name: "Foundry.PostInstall", Options: options.PostInstall) }
                         .Where(application => application.Options.IsEnabled)
                         .Select(application => new RuntimePayloadArchiveTrust(application.Name, runtimeIdentifier, application.Options.ArchiveSha256)));
             }
@@ -311,6 +317,13 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             !capability.TryGetInt32(out int version) || version != 1)
         {
             throw new InvalidDataException("Bootstrap archive runtime trust capability is unsupported or malformed.");
+        }
+        if (root.EnumerateObject().Count(property => property.Name == "postInstallVersion") != 1 ||
+            !root.TryGetProperty("postInstallVersion", out JsonElement postInstall) ||
+            postInstall.ValueKind != JsonValueKind.Number ||
+            !postInstall.TryGetInt32(out int postInstallVersion) || postInstallVersion != 1)
+        {
+            throw new InvalidDataException("Bootstrap archive does not support post-installation runtime preparation. Use an updated Bootstrap release or local build.");
         }
     }
 
@@ -429,6 +442,23 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 toolName: "dotnet"));
         }
 
+        if (applicationName == "Foundry.PostInstall")
+        {
+            var files = new List<Models.PreOobe.PreOobePackageFile>();
+            foreach (string name in new[] { "Foundry.PostInstall.exe", "Launch.cmd" })
+            {
+                string path = Path.Combine(publishDirectory, name);
+                files.Add(new()
+                {
+                    RelativePath = name,
+                    Length = new FileInfo(path).Length,
+                    Sha256 = (await FileHash.ComputeSha256Async(path, cancellationToken).ConfigureAwait(false)).ToLowerInvariant()
+                });
+            }
+            var manifest = new Models.PreOobe.PostInstallRuntimeManifest { RuntimeIdentifier = runtimeIdentifier, Files = files };
+            await File.WriteAllTextAsync(Path.Combine(publishDirectory, Models.PreOobe.PostInstallRuntimeManifest.FileName),
+                JsonSerializer.Serialize(manifest, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }), cancellationToken).ConfigureAwait(false);
+        }
         ZipFile.CreateFromDirectory(publishDirectory, archivePath, CompressionLevel.Optimal, includeBaseDirectory: false);
         return archivePath;
     }
@@ -506,6 +536,8 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             ("Foundry.Connect", "win-arm64") => "Foundry.Connect-win-arm64.zip",
             ("Foundry.Deploy", "win-x64") => "Foundry.Deploy-win-x64.zip",
             ("Foundry.Deploy", "win-arm64") => "Foundry.Deploy-win-arm64.zip",
+            ("Foundry.PostInstall", "win-x64") => "Foundry.PostInstall-win-x64.zip",
+            ("Foundry.PostInstall", "win-arm64") => "Foundry.PostInstall-win-arm64.zip",
             _ => throw new InvalidOperationException($"No release asset mapping exists for {applicationName} and runtime '{runtimeIdentifier}'.")
         };
     }
@@ -712,12 +744,12 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 "Provide a non-null WinPeRuntimePayloadProvisioningOptions instance.");
         }
 
-        if (options.Bootstrap is null || options.Connect is null || options.Deploy is null)
+        if (options.Bootstrap is null || options.Connect is null || options.Deploy is null || options.PostInstall is null)
         {
             return new WinPeDiagnostic(
                 WinPeErrorCodes.ValidationFailed,
                 "Runtime payload application options are required.",
-                "Provide non-null Bootstrap, Connect, and Deploy options.");
+                "Provide non-null Bootstrap, Connect, Deploy, and PostInstall options.");
         }
 
         if (!Enum.IsDefined(options.Architecture))

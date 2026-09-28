@@ -183,12 +183,7 @@ public sealed record DeploymentRuntimeState
     public string? DeferredDriverPackagePath { get; set; }
 
     /// <summary>
-    /// Gets or sets the offline SetupComplete.cmd path used to launch the pre-OOBE runner.
-    /// </summary>
-    public string? PreOobeSetupCompletePath { get; set; }
-
-    /// <summary>
-    /// Gets or sets the offline path to the generated pre-OOBE PowerShell runner.
+    /// Gets or sets the offline path to the staged Foundry.PostInstall executable.
     /// </summary>
     public string? PreOobeRunnerPath { get; set; }
 
@@ -196,11 +191,6 @@ public sealed record DeploymentRuntimeState
     /// Gets or sets the offline path to the generated pre-OOBE execution manifest.
     /// </summary>
     public string? PreOobeManifestPath { get; set; }
-
-    /// <summary>
-    /// Gets or sets the offline paths to staged pre-OOBE PowerShell scripts.
-    /// </summary>
-    public IReadOnlyList<string> PreOobeScriptPaths { get; set; } = [];
 
     /// <summary>
     /// Gets or sets a value indicating whether firmware updates should be applied.

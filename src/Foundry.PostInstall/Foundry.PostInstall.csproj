@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Update="Launch.cmd" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="10.0.0" />
+    <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj" />
+    <ProjectReference Include="..\Foundry.Utilities\Foundry.Utilities.csproj" />
+    <InternalsVisibleTo Include="Foundry.PostInstall.Tests" />
+  </ItemGroup>
+</Project>

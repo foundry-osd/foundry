@@ -68,7 +68,10 @@ public sealed class BootstrapCoordinatorTests
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(BootstrapOutcome.Succeeded, result.Outcome);
         Assert.Equal(["network", "clock", "Foundry.Connect:False", "connect", "system", "Foundry.Connect:Refresh",
-            "Foundry.Deploy:False", "deploy", "persist"], fixture.Calls);
+            "Foundry.Deploy:False", "Foundry.PostInstall:False", "deploy", "persist"], fixture.Calls);
+        Assert.Equal("Foundry.PostInstall.exe", fixture.DeployEnvironment!["FOUNDRY_POSTINSTALL_PATH"]);
+        Assert.Equal("TEST", fixture.DeployEnvironment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
+        Assert.False(fixture.Context.ChildEnvironment.ContainsKey("FOUNDRY_POSTINSTALL_PATH"));
     }
 
     [Fact]
@@ -80,6 +83,25 @@ public sealed class BootstrapCoordinatorTests
         Assert.DoesNotContain("Foundry.Connect:False", fixture.Calls);
         Assert.DoesNotContain("Foundry.Connect:Refresh", fixture.Calls);
         Assert.Contains("Foundry.Deploy:True", fixture.Calls);
+        Assert.Contains("Foundry.PostInstall:True", fixture.Calls);
+        Assert.DoesNotContain("Foundry.PostInstall:False", fixture.Calls);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task PostInstallPreparationFailurePreventsDeploymentAndPersistsLogs(bool debug)
+    {
+        using var fixture = new Fixture { PostInstallFails = true };
+        fixture.Context = fixture.Context with { DeployIsDebug = debug };
+
+        BootstrapResult result = await fixture.RunAsync();
+
+        Assert.Equal(BootstrapOutcome.Failed, result.Outcome);
+        Assert.Equal(BootstrapStage.DeploymentPreparation, result.Stage);
+        Assert.Contains($"Foundry.PostInstall:{debug}", fixture.Calls);
+        Assert.DoesNotContain("deploy", fixture.Calls);
+        Assert.Equal("persist", fixture.Calls[^1]);
     }
 
     [Fact]
@@ -151,6 +173,8 @@ public sealed class BootstrapCoordinatorTests
         internal bool PersistenceFails { get; init; }
         internal bool CancelConnect { get; init; }
         internal bool DeployFails { get; init; }
+        internal bool PostInstallFails { get; init; }
+        internal IReadOnlyDictionary<string, string?>? DeployEnvironment { get; private set; }
         internal bool ConnectTimeout { get; init; }
         internal bool ObserveDiagnostics { get; init; }
         internal bool EarlyClockFails { get; init; }
@@ -164,6 +188,10 @@ public sealed class BootstrapCoordinatorTests
         public Task<string> ResolveAsync(string applicationName, bool skipReleaseLookup, CancellationToken cancellationToken)
         {
             Calls.Add($"{applicationName}:{skipReleaseLookup}");
+            if (PostInstallFails && applicationName == "Foundry.PostInstall")
+            {
+                throw new InvalidDataException("No authenticated PostInstall runtime is available.");
+            }
             if (MissingConnectCache && applicationName == "Foundry.Connect" && skipReleaseLookup)
             {
                 throw new FileNotFoundException();
@@ -203,6 +231,7 @@ public sealed class BootstrapCoordinatorTests
         public Task<ApplicationLaunchResult> StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
         {
             Calls.Add("deploy");
+            DeployEnvironment = environment;
             if (DeployFails) { throw new IOException(); }
             return Task.FromResult(new ApplicationLaunchResult(true, ReadinessConfirmed: true));
         }

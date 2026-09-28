@@ -2239,6 +2239,12 @@
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>作業系統選擇</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>在 Foundry 內建工作之後、OOBE 之前執行自訂動作。</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>安裝後作業</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>在瀏覽器中開啟 GitHub 錯誤回報表單。</value>
   </data>
@@ -2391,6 +2397,201 @@
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows 部署選項</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>新增一個已啟用的動作，或停用安裝後設定。</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>新增動作</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>軟體 (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>安裝程式類型</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>引數或 MSI 屬性</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>命令列</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>匯入命令所需的檔案，然後在下方輸入命令。</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>命令列</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent 或 reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>命令預覽</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>選取指令碼或安裝程式，或輸入命令，以預覽命令列。</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>輸入要執行的命令。</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>留空以從匯入的內容資料夾執行。</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>套件內容</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>該動作已移除，但無法刪除其快取內容。</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>匯入檔案或資料夾。</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>內容狀態</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>已驗證安裝後內容。</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>發生錯誤時繼續</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>如果此動作失敗，則繼續執行下一個動作。執行結果不確定時，仍會停止序列。</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>延後重新啟動</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>將要求的重新啟動延後至下一個重新啟動動作或序列結束時。</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>編輯動作</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>編輯期間組態已變更。請重新開啟此動作。</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>尚未新增動作。</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>指令碼或安裝程式路徑（相對於內容）</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>以 SYSTEM 身分執行。請設定引數以自動執行及控制重新啟動。</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>執行設定</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>產生安裝記錄</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>匯入內容失敗。請檢查存取權限、可用空間、檔案名稱與路徑長度。</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>匯入檔案</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>匯入資料夾</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>正在匯入內容...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>此動作無效。請檢查其設定。</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>輸入不超過 8191 個字元的單行文字。</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>從匯入的內容中選取指令碼或安裝程式。</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>輸入最多 32 個不重複的非負結束代碼，以逗號分隔。請勿使用 1641。</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>輸入 1–256 個字元的名稱，不得包含控制字元。</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>請輸入 0 到 86400 之間的整數。</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>編輯「{0}」以修正其設定。</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>輸入 1 到 86400 之間的整數。</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>輸入匯入內容中的資料夾，或保留空白。</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>正在載入內容...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>匯入「{0}」缺少的內容。</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>下移</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>上移</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>尚未匯入內容</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>不需要</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>套件內容（選用）</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>順序</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>重新啟動結束代碼不能同時作為成功結束代碼。</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell 指令碼 (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell 引數</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>無法移除該動作。請再試一次。</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>重新啟動 Windows</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>需要重新啟動的結束代碼（以逗號分隔）</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>重新啟動延遲（秒）</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>使用 0 可立即重新啟動。</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>重新啟動 Windows，然後繼續執行下一個動作。</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>指令碼引數</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>正在暫存安裝後內容。</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>成功結束代碼（以逗號分隔）</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>逾時（秒）</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>工作目錄（相對路徑；留空則使用內容根目錄）</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>目前的設定</value>
@@ -3496,7 +3697,10 @@
     <value>使用 Foundry 設定</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>選取的檔案會取代 Foundry 產生的回應檔案。其中的設定將依原樣使用，不會合併或補上缺少的值。選取「使用 Foundry 設定」即可使用已儲存的組態。</value>
+    <value>所選檔案會取代 Foundry 產生的回應檔案。Foundry 會保留其中的自訂設定，並將必要的安裝後命令新增至部署副本。若要使用已儲存的組態，請選取「使用 Foundry 設定」。</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry 會保留原始檔案，並將其必要的安裝後命令新增至部署副本。您仍須對自訂設定與命令負責。</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>自訂檔案需要在「一般」設定中啟用部署媒體密碼保護。XML 可能包含認證或指令碼。目錄僅儲存來源參照；開機映像包含加密副本。</value>

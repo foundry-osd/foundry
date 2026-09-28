@@ -543,6 +543,24 @@ Folytatja a telepítést?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operációs rendszer</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Nincs szükség telepítés utáni feladatokra.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>A telepítés utáni szakasz előkészítése sikertelen. A részleteket az üzembe helyezési naplóban találja.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>A telepítés utáni előkészítés befejeződött (szimuláció).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>A telepítés utáni futtatókörnyezet, tartalom és újraindításokat kezelő indítómechanizmus előkészítve.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Telepítés utáni futtatókörnyezet és tartalom előkészítése...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>A telepítés utáni előkészítés sikertelen. Újrapróbálkozás előtt ellenőrizze a futtatókörnyezetet, a tartalmat és a Windows válaszfájlját.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>A lemezkép gyorsítótára nem készíthető elő. Ellenőrizze a szabad helyet és az írási jogosultságokat.</value>
   </data>
@@ -1020,9 +1038,6 @@ Folytatja a telepítést?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Üzembe helyezési csomag...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Az OOBE előtti testreszabások ütemezése...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Importálási kérelem benyújtása a Microsoft Graph címre...</value>
   </data>
@@ -1031,9 +1046,6 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Meglévő Autopilot eszköz frissítése...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Az első rendszerindítási beállítási szkript frissítése...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Windows Autopilot csoportcímke frissítése a Microsoft Graph-ban...</value>
@@ -1251,9 +1263,6 @@ Folytatja a telepítést?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Nem érhető el firmware-frissítési tartalom.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Nincs szükség előzetes OOBE testreszabási szkriptekre.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>OEM illesztőprogram-csomag mód kiválasztva, de nem biztosított illesztőprogram-csomag.</value>
   </data>
@@ -1286,12 +1295,6 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>A URL operációs rendszer hiányzik.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Az OOBE előtti testreszabások megtörténtek.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Az OOBE előtti testreszabások szakaszban (szimuláció).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>A telepítési készenlét ellenőrzése megtörtént (szimuláció).</value>

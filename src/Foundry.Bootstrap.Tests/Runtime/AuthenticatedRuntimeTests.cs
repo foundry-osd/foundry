@@ -59,6 +59,8 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     [Theory]
     [InlineData("win-x64", "Foundry.Connect")]
     [InlineData("win-arm64", "Foundry.Deploy")]
+    [InlineData("win-x64", "Foundry.PostInstall")]
+    [InlineData("win-arm64", "Foundry.PostInstall")]
     public async Task OriginalArchiveAuthenticatesAllFilesWithoutImportingLooseCacheContent(string rid, string application)
     {
         string original = SeedOriginal(application, rid);
@@ -123,6 +125,37 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         Assert.Contains(warnings, warning => warning.Contains("original", StringComparison.OrdinalIgnoreCase));
         Assert.NotEqual(updatedExecutable, offlineExecutable);
         Assert.True(File.Exists(updatedExecutable));
+    }
+
+    [Theory]
+    [InlineData("win-x64")]
+    [InlineData("win-arm64")]
+    public async Task PostInstallUpdatesAndReusesItsOwnCacheAndRequiresAuthenticatedOriginalOffline(string rid)
+    {
+        const string application = "Foundry.PostInstall";
+        string original = SeedOriginal(application, rid);
+        string current = Path.Combine(CacheRoot, application, rid, "current.zip");
+        byte[] update = ArchiveBytes("updated", application);
+        environment["FOUNDRY_DEPLOY_RELEASE_TAG"] = "must-not-select-deploy-release";
+        using var online = Client(Release(Hash(update), application: application, rid: rid), Payload(update),
+            Release(Hash(update), application: application, rid: rid));
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        for (int attempt = 0; attempt < 2; attempt++)
+        {
+            string executable = await Resolver(online, logger, rid).ResolveAsync(application, false, TestContext.Current.CancellationToken);
+            Assert.Equal("updated", File.ReadAllText(executable));
+        }
+
+        Assert.Equal(update, File.ReadAllBytes(current));
+        Assert.Equal(2, requests.Count(request => request.AbsolutePath.EndsWith("/releases/latest", StringComparison.Ordinal)));
+        Assert.Equal(1, requests.Count(request => request.Host == "example.test"));
+        using var offline = Client();
+        string fallback = await Resolver(offline, logger, rid).ResolveAsync(application, false, TestContext.Current.CancellationToken);
+        Assert.Equal("original", File.ReadAllText(fallback));
+        File.Delete(original);
+        await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(offline, logger, rid).ResolveAsync(
+            application, false, TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -221,22 +254,24 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         Assert.Empty(requests);
     }
 
-    [Fact]
-    public async Task ExplicitOverrideRequiresItsOwnExpectedHashAndNeverFallsBack()
+    [Theory]
+    [InlineData("Foundry.Connect", "FOUNDRY_CONNECT")]
+    [InlineData("Foundry.PostInstall", "FOUNDRY_POSTINSTALL")]
+    public async Task ExplicitOverrideRequiresItsOwnExpectedHashAndNeverFallsBack(string application, string prefix)
     {
-        SeedOriginal();
+        SeedOriginal(application);
         string archive = Path.Combine(root, "custom.zip");
-        File.WriteAllBytes(archive, ArchiveBytes("custom"));
-        environment["FOUNDRY_CONNECT_ARCHIVE"] = archive;
+        File.WriteAllBytes(archive, ArchiveBytes("custom", application));
+        environment[prefix + "_ARCHIVE"] = archive;
         using var client = Client();
         using var logger = new LoggerConfiguration().CreateLogger();
 
         await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger).ResolveAsync(
-            "Foundry.Connect", true, TestContext.Current.CancellationToken));
+            application, true, TestContext.Current.CancellationToken));
         Assert.Empty(requests);
 
-        environment["FOUNDRY_CONNECT_ARCHIVE_SHA256"] = Hash(archive);
-        string executable = await Resolver(client, logger).ResolveAsync("Foundry.Connect", true, TestContext.Current.CancellationToken);
+        environment[prefix + "_ARCHIVE_SHA256"] = Hash(archive);
+        string executable = await Resolver(client, logger).ResolveAsync(application, true, TestContext.Current.CancellationToken);
         Assert.Equal("custom", File.ReadAllText(executable));
         Assert.Empty(requests);
     }
@@ -273,18 +308,20 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         AssertNoPreparedPayload();
     }
 
-    [Fact]
-    public async Task SpecificReleaseTagTakesPrecedenceOverTheGlobalTag()
+    [Theory]
+    [InlineData("Foundry.Connect", "FOUNDRY_CONNECT")]
+    [InlineData("Foundry.PostInstall", "FOUNDRY_POSTINSTALL")]
+    public async Task SpecificReleaseTagTakesPrecedenceOverTheGlobalTag(string application, string prefix)
     {
-        SeedOriginal();
-        byte[] update = ArchiveBytes("updated");
-        File.WriteAllBytes(CurrentArchive, update);
-        environment["FOUNDRY_CONNECT_RELEASE_TAG"] = " v-specific ";
+        string original = SeedOriginal(application);
+        byte[] update = ArchiveBytes("updated", application);
+        File.WriteAllBytes(Path.Combine(Path.GetDirectoryName(original)!, "current.zip"), update);
+        environment[prefix + "_RELEASE_TAG"] = " v-specific ";
         environment["FOUNDRY_RELEASE_TAG"] = "v-global";
-        using var client = Client(Release(Hash(update)));
+        using var client = Client(Release(Hash(update), application: application));
         using var logger = new LoggerConfiguration().CreateLogger();
 
-        string executable = await Resolver(client, logger).ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
+        string executable = await Resolver(client, logger).ResolveAsync(application, false, TestContext.Current.CancellationToken);
 
         Assert.Equal("updated", File.ReadAllText(executable));
         Assert.EndsWith("/tags/v-specific", Assert.Single(requests).AbsoluteUri);
@@ -373,12 +410,12 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     private static string Hash(string file) => Hash(File.ReadAllBytes(file));
     private static string Hash(byte[] bytes) => Convert.ToHexString(SHA256.HashData(bytes));
 
-    private static HttpResponseMessage Release(string? digest, bool addPrefix = true) => new(HttpStatusCode.OK)
+    private static HttpResponseMessage Release(string? digest, bool addPrefix = true, string application = "Foundry.Connect", string rid = "win-x64") => new(HttpStatusCode.OK)
     {
         Content = new StringContent(JsonSerializer.Serialize(new
         {
             tag_name = "v1.2.3",
-            assets = new[] { new { name = "Foundry.Connect-win-x64.zip", digest = addPrefix ? "sha256:" + digest : digest, browser_download_url = "https://example.test/payload.zip" } }
+            assets = new[] { new { name = $"{application}-{rid}.zip", digest = addPrefix ? "sha256:" + digest : digest, browser_download_url = "https://example.test/payload.zip" } }
         }))
     };
 

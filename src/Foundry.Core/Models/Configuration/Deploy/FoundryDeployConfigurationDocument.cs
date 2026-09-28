@@ -40,6 +40,9 @@ public sealed record FoundryDeployConfigurationDocument
     /// <summary>Gets custom image defaults and external media manifest binding.</summary>
     public DeployCustomImagesSettings CustomImages { get; init; } = new();
 
+    /// <summary>Gets post-installation actions bound to external media content.</summary>
+    public DeployPreOobeSettings PreOobe { get; init; } = new();
+
     /// <summary>
     /// Gets localization settings read by the WinPE bootstrap before deployment starts.
     /// </summary>

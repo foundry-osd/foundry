@@ -17,6 +17,7 @@ body:
         - Foundry Bootstrap
         - Foundry Connect
         - Foundry Deploy
+        - Foundry PostInstall
         - Documentation
         - Other or not sure
     validations:

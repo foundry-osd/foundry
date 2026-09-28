@@ -2239,6 +2239,12 @@
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>การเลือกระบบปฏิบัติการ</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>เรียกใช้การดำเนินการแบบกำหนดเองก่อน OOBE หลังจากงานในตัวของ Foundry</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>หลังการติดตั้ง</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>เปิดแบบฟอร์มรายงานข้อบกพร่องของ GitHub ในเบราว์เซอร์ของคุณ</value>
   </data>
@@ -2391,6 +2397,201 @@
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>ตัวเลือกการปรับใช้ Windows</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>เพิ่มการดำเนินการที่เปิดใช้งาน หรือปิดใช้งานการกำหนดค่าหลังการติดตั้ง</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>เพิ่มการดำเนินการ</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>ซอฟต์แวร์ (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>ประเภทตัวติดตั้ง</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>อาร์กิวเมนต์หรือคุณสมบัติ MSI</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>บรรทัดคำสั่ง</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>นำเข้าไฟล์ที่คำสั่งต้องใช้ จากนั้นป้อนคำสั่งด้านล่าง</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>บรรทัดคำสั่ง</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent หรือ reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>ตัวอย่างคำสั่ง</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>เลือกสคริปต์หรือโปรแกรมติดตั้ง หรือป้อนคำสั่ง เพื่อดูตัวอย่างบรรทัดคำสั่ง</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>ป้อนคำสั่งที่จะเรียกใช้</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>เว้นว่างไว้เพื่อเรียกใช้จากโฟลเดอร์เนื้อหาที่นำเข้า</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>เนื้อหาแพ็กเกจ</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>นำการดำเนินการออกแล้ว แต่ไม่สามารถลบเนื้อหาที่แคชไว้ได้</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>นำเข้าไฟล์หรือโฟลเดอร์</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>สถานะเนื้อหา</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>ตรวจสอบเนื้อหาหลังการติดตั้งแล้ว</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>ดำเนินการต่อเมื่อเกิดข้อผิดพลาด</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>ดำเนินการต่อด้วยการดำเนินการถัดไปหากการดำเนินการนี้ล้มเหลว การทำงานที่มีผลลัพธ์ไม่แน่นอนจะยังคงหยุดลำดับการดำเนินการ</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>เลื่อนการเริ่มระบบใหม่</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>เลื่อนการเริ่มระบบใหม่ที่ร้องขอไปจนถึงการดำเนินการเริ่มระบบใหม่ครั้งถัดไปหรือจนสิ้นสุดลำดับ</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>แก้ไขการดำเนินการ</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>การกำหนดค่าเปลี่ยนแปลงระหว่างการแก้ไข โปรดเปิดการดำเนินการอีกครั้ง</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>ยังไม่มีการเพิ่มการดำเนินการ</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>เส้นทางสคริปต์หรือตัวติดตั้ง (สัมพันธ์กับเนื้อหา)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>ทำงานในนาม SYSTEM กำหนดค่าอาร์กิวเมนต์สำหรับการทำงานแบบไม่ต้องมีผู้ดูแลและการเริ่มระบบใหม่ที่ควบคุมได้</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>การตั้งค่าการดำเนินการ</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>สร้างบันทึกการติดตั้ง</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>นำเข้าเนื้อหาไม่สำเร็จ ตรวจสอบสิทธิ์เข้าถึง พื้นที่ว่าง ชื่อไฟล์ และความยาวเส้นทาง</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>นำเข้าไฟล์</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>นำเข้าโฟลเดอร์</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>กำลังนำเข้าเนื้อหา...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>การดำเนินการนี้ไม่ถูกต้อง ตรวจสอบการกำหนดค่า</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>ป้อนข้อความบรรทัดเดียวที่มีไม่เกิน 8191 อักขระ</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>เลือกสคริปต์หรือโปรแกรมติดตั้งจากเนื้อหาที่นำเข้า</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>ป้อนรหัสออกที่ไม่ซ้ำกันและไม่เป็นค่าลบสูงสุด 32 รหัส คั่นด้วยเครื่องหมายจุลภาค ห้ามใช้ 1641</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>ป้อนชื่อที่มี 1–256 อักขระโดยไม่มีอักขระควบคุม</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>ป้อนจำนวนเต็มตั้งแต่ 0 ถึง 86400</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>แก้ไข "{0}" เพื่อแก้ไขการตั้งค่าให้ถูกต้อง</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>ป้อนจำนวนเต็มตั้งแต่ 1 ถึง 86400</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>ป้อนโฟลเดอร์จากเนื้อหาที่นำเข้าหรือเว้นว่างไว้</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>กำลังโหลดเนื้อหา...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>นำเข้าเนื้อหาที่ขาดหายไปสำหรับ "{0}"</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>เลื่อนลง</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>เลื่อนขึ้น</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>ยังไม่ได้นำเข้าเนื้อหา</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>ไม่จำเป็น</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>เนื้อหาแพ็กเกจ (ไม่บังคับ)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>ลำดับ</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>รหัสออกสำหรับการเริ่มระบบใหม่ไม่สามารถเป็นรหัสออกสำหรับความสำเร็จด้วยได้</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>สคริปต์ PowerShell (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>อาร์กิวเมนต์ PowerShell</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>ไม่สามารถนำการดำเนินการออกได้ ลองอีกครั้ง</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>เริ่ม Windows ใหม่</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>รหัสออกที่ต้องเริ่มระบบใหม่ (คั่นด้วยจุลภาค)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>เวลาหน่วงก่อนเริ่มระบบใหม่ (วินาที)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>ใช้ 0 เพื่อเริ่มระบบใหม่ทันที</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>รีสตาร์ต Windows แล้วดำเนินการถัดไปต่อ</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>อาร์กิวเมนต์ของสคริปต์</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>กำลังจัดเตรียมเนื้อหาหลังการติดตั้ง</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>รหัสออกเมื่อสำเร็จ (คั่นด้วยจุลภาค)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>ระยะเวลาสูงสุดในการทำงาน (วินาที)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>ประเภท</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>ไดเรกทอรีทำงาน (เส้นทางสัมพัทธ์ หากว่างจะใช้รากของเนื้อหา)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>การตั้งค่าปัจจุบัน</value>
@@ -3496,7 +3697,10 @@
     <value>ใช้การตั้งค่าของ Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>ไฟล์ที่เลือกจะแทนที่ไฟล์คำตอบที่ Foundry สร้างขึ้น การตั้งค่าในไฟล์จะถูกใช้ตามที่ระบุ โดยไม่ผสานหรือเติมค่าที่ขาดหายไป เลือก “ใช้การตั้งค่าของ Foundry” เพื่อใช้การกำหนดค่าที่บันทึกไว้</value>
+    <value>ไฟล์ที่เลือกจะแทนที่ไฟล์คำตอบที่ Foundry สร้างขึ้น Foundry จะเก็บการตั้งค่าแบบกำหนดเองไว้และเพิ่มคำสั่งหลังการติดตั้งที่จำเป็นลงในสำเนาสำหรับการปรับใช้ เลือก ใช้การตั้งค่าของ Foundry เพื่อใช้การกำหนดค่าที่บันทึกไว้</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry จะเก็บไฟล์ต้นฉบับไว้และเพิ่มคำสั่งหลังการติดตั้งที่จำเป็นลงในสำเนาสำหรับการปรับใช้ คุณยังคงรับผิดชอบต่อการตั้งค่าและคำสั่งแบบกำหนดเอง</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>ไฟล์ที่กำหนดเองต้องเปิดใช้การป้องกันสื่อการปรับใช้ด้วยรหัสผ่านในการกำหนดค่าทั่วไป XML อาจมีข้อมูลรับรองหรือสคริปต์ แค็ตตาล็อกจะบันทึกเฉพาะการอ้างอิงไปยังต้นฉบับ ส่วนอิมเมจสำหรับบูตจะมีสำเนาที่เข้ารหัส</value>

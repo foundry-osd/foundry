@@ -12,6 +12,7 @@ using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Images;
+using Foundry.Core.Services.Packages;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Services.Profiles;
 using Foundry.Core.Services.Telemetry;
@@ -44,6 +45,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeIsoMediaService isoMediaService;
     private readonly IWinPeUsbMediaService usbMediaService;
     private readonly CustomImageLibraryService customImageLibrary;
+    private readonly PreOobePackageLibraryService postInstallPackages;
     private readonly IFilePickerService filePickerService;
     private readonly IFoundryConfigurationStateService foundryConfigurationStateService;
     private readonly IConfigurationOverviewService configurationOverviewService;
@@ -82,6 +84,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeIsoMediaService isoMediaService,
         IWinPeUsbMediaService usbMediaService,
         CustomImageLibraryService customImageLibrary,
+        PreOobePackageLibraryService postInstallPackages,
         IFilePickerService filePickerService,
         IFoundryConfigurationStateService foundryConfigurationStateService,
         IConfigurationOverviewService configurationOverviewService,
@@ -105,6 +108,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.isoMediaService = isoMediaService;
         this.usbMediaService = usbMediaService;
         this.customImageLibrary = customImageLibrary;
+        this.postInstallPackages = postInstallPackages;
         this.filePickerService = filePickerService;
         this.foundryConfigurationStateService = foundryConfigurationStateService;
         this.configurationOverviewService = configurationOverviewService;
@@ -777,13 +781,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 {
                     PreparedWorkspace = workspace.PreparedWorkspace,
                     CustomImages = workspace.CustomImages,
+                    PostInstallation = workspace.PostInstallation,
                     DeployConfigurationJson = workspace.DeployConfigurationJson,
                     OutputIsoPath = options.IsoOutputPath,
                     IsoTempDirectoryPath = Path.Combine(workspace.Lease.OperationDirectoryPath, "Scratch", "Iso"),
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
                         new Progress<WinPeMediaProgress>(ReportFinalMediaProgress))
                 },
-                workspace.CustomImages is null ? CancellationToken.None : cancellationToken);
+                cancellationToken);
 
             EnsureSuccess(result);
             cancellationToken.ThrowIfCancellationRequested();
@@ -793,6 +798,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         finally
         {
             workspace?.CustomImages?.Dispose();
+            workspace?.PostInstallation.Dispose();
             CleanupPreparedWorkspace(workspace?.Lease);
         }
     }
@@ -846,6 +852,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     FormatMode = options.UsbFormatMode,
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
                     CustomImages = workspace.CustomImages,
+                    PostInstallation = workspace.PostInstallation,
                     DeployConfigurationJson = workspace.DeployConfigurationJson,
                     DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
                         new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
@@ -868,6 +875,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         finally
         {
             workspace?.CustomImages?.Dispose();
+            workspace?.PostInstallation.Dispose();
             CleanupPreparedWorkspace(workspace?.Lease);
         }
     }
@@ -919,6 +927,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     FormatMode = options.UsbFormatMode,
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
                     CustomImages = workspace.CustomImages,
+                    PostInstallation = workspace.PostInstallation,
                     DeployConfigurationJson = workspace.DeployConfigurationJson,
                     DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
                         new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
@@ -941,6 +950,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         finally
         {
             workspace?.CustomImages?.Dispose();
+            workspace?.PostInstallation.Dispose();
             CleanupPreparedWorkspace(workspace?.Lease);
         }
     }
@@ -955,6 +965,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     {
         WinPeWorkspaceLease? operationLease = null;
         WinPeCustomImageMediaLease? customImages = null;
+        WinPePreOobeMediaLease? postInstallation = null;
 
         try
         {
@@ -1040,6 +1051,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             EnsureSuccess(runtimePreparation);
             artifactRuntimePayloadProvisioning = runtimePreparation.Value!;
 
+            postInstallation = await new WinPePreOobeMediaService().PrepareAsync(postInstallPackages,
+                snapshot.Configuration.PreOobe, cancellationToken);
+
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.GenerateProvisioningPayloads);
             FoundryConnectProvisioningBundle connectBundle = snapshot.CreateConnectProvisioningBundle(
                 Path.Combine(operationLease.OperationDirectoryPath, "Provisioning"),
@@ -1061,7 +1075,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             try
             {
                 assetProvisioning = CreateAssetProvisioningOptions(options, snapshot, tools, connectBundle,
-                    deploymentProtectionMaterial, runtimePayloadProvisioning, deployTelemetrySettings, customImages);
+                    deploymentProtectionMaterial, runtimePayloadProvisioning, deployTelemetrySettings, customImages, postInstallation);
                 preparationResult = await workspacePreparationService.PrepareAsync(
                     new WinPeWorkspacePreparationOptions
                     {
@@ -1113,11 +1127,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     UsbCacheRootPath = string.Empty
                 },
                 customImages,
+                postInstallation,
                 assetProvisioning.DeployConfigurationJson!);
         }
         catch
         {
             customImages?.Dispose();
+            postInstallation?.Dispose();
             CleanupPreparedWorkspace(operationLease);
             throw;
         }
@@ -1131,7 +1147,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning,
         TelemetrySettings deployTelemetrySettings,
-        WinPeCustomImageMediaLease? customImages)
+        WinPeCustomImageMediaLease? customImages,
+        WinPePreOobeMediaLease postInstallation)
     {
         bool isHardwareHashMode = options.IsAutopilotEnabled &&
                                   options.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
@@ -1149,6 +1166,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             deployConfigurationJson = WinPeCustomImageMediaService.BindConfiguration(customImages, deployConfigurationJson);
         }
+        deployConfigurationJson = WinPePreOobeMediaService.BindConfiguration(postInstallation, deployConfigurationJson);
 
         return new WinPeMountedImageAssetProvisioningOptions
         {
@@ -1408,6 +1426,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             "Creating ISO media." => "StartMedia.Operation.CreatingIso",
             "Staging custom Windows images." => "CustomImages.StageCopying",
             "Custom Windows images verified." => "CustomImages.StageVerifying",
+            "Staging post-installation content." => "PostInstallation.StagingContent",
+            "Post-installation content verified." => "PostInstallation.ContentVerified",
             "Running MakeWinPEMedia for ISO." => "StartMedia.Operation.RunningMakeWinPeMediaIso",
             "Finalizing ISO output." => "StartMedia.Operation.FinalizingIsoOutput",
             "ISO media completed." => "StartMedia.Operation.IsoMediaCompleted",
@@ -2009,6 +2029,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             CreateOverviewItem(ConfigurationOverviewItem.CustomImages, overview, "Nav_CustomImagesKey.Title",
                 localizationService.GetString("Nav_CustomImagesKey.Description"),
                 ConfigurationNavigationTarget.CustomImages),
+            CreateOverviewItem(ConfigurationOverviewItem.PostInstallation, overview, "Nav_PostInstallationKey.Title",
+                localizationService.GetString("Nav_PostInstallationKey.Description"),
+                ConfigurationNavigationTarget.PostInstallation),
             CreateOverviewItem(ConfigurationOverviewItem.Unattend, overview, "Nav_UnattendKey.Title",
                 localizationService.GetString("Nav_UnattendKey.Description"),
                 ConfigurationNavigationTarget.Unattend),
@@ -2653,5 +2676,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeToolPaths Tools,
         WinPeRuntimePayloadProvisioningOptions RuntimePayloadProvisioning,
         WinPeCustomImageMediaLease? CustomImages,
+        WinPePreOobeMediaLease PostInstallation,
         string DeployConfigurationJson);
 }

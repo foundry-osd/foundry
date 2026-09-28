@@ -34,9 +34,6 @@ public sealed class DeploymentStorageLayout
     /// <summary>Gets the NetworkProfiles payloads directory.</summary>
     public string PayloadsNetworkProfiles => Path.Combine(Root, "Payloads", "NetworkProfiles");
 
-    /// <summary>Gets the Customization payloads directory.</summary>
-    public string PayloadsCustomization => Path.Combine(Root, "Payloads", "Customization");
-
     /// <summary>Gets the Deployment state directory.</summary>
     public string StateDeployment => Path.Combine(Root, "State", "Deployment");
 

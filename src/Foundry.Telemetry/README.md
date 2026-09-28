@@ -8,6 +8,24 @@ Custom images extend the existing event taxonomy. `osd:boot_media_finished` incl
 
 No image names, index names, paths, hashes, or image/profile identifiers are added to Product Analytics. Catalog metadata keeps its existing contract. Import lifecycle messages remain diagnostic logs governed by remote diagnostics consent. The telemetry and debug controls are unchanged; no separate import event is introduced.
 
+## Post-installation configuration
+
+`osd:boot_media_finished` includes a snapshot of the media operation's post-installation configuration:
+
+| Property | Value |
+| --- | --- |
+| `customization_post_installation_enabled` | Boolean state of the Post-installation page. |
+| `customization_post_installation_configured_action_count` | All configured actions, including disabled entries and entries on a disabled page. |
+| `customization_post_installation_enabled_action_count` | Enabled actions when the page is enabled; otherwise zero. |
+| `customization_post_installation_powershell_count` | Enabled PowerShell actions when the page is enabled; otherwise zero. |
+| `customization_post_installation_command_count` | Enabled command actions when the page is enabled; otherwise zero. |
+| `customization_post_installation_software_count` | Enabled software installation actions when the page is enabled; otherwise zero. |
+| `customization_post_installation_restart_count` | Enabled restart actions when the page is enabled; otherwise zero. |
+
+Each count is an integer capped at 1,000. The event describes the captured configuration, including when media creation fails or is cancelled, and does not report runtime execution. The property policy accepts only a Boolean enabled value and integer counts from zero through 1,000; it rejects invalid types, out-of-range values, and these properties on unrelated events.
+
+Commands, arguments, action or software names and identifiers, hashes, paths, and script content are excluded. Existing telemetry consent and debug controls are unchanged. No PostInstall runtime events are introduced.
+
 ## Exception delivery diagnostics
 
 Error Tracking uses the PostHog SDK's in-memory queue. A successful `Capture` means the SDK accepted the event, not that PostHog received it. SDK 2.15.5 can discard an older event while accepting a new one when the queue is full.

@@ -10,6 +10,31 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class ConfigurationOverviewEvaluatorTests
 {
     [Theory]
+    [InlineData(false, 0, true, ConfigurationOverviewState.Disabled)]
+    [InlineData(true, 0, true, ConfigurationOverviewState.NeedsAttention)]
+    [InlineData(true, 1, true, ConfigurationOverviewState.NeedsAttention)]
+    [InlineData(true, 2, true, ConfigurationOverviewState.Configured)]
+    [InlineData(true, 2, false, ConfigurationOverviewState.NeedsAttention)]
+    public void Evaluate_PostInstallation_RequiresEnabledActionsAndContent(bool enabled, int actionState, bool contentReady, ConfigurationOverviewState expected)
+    {
+        var action = PreOobeActionSettings.Create(PreOobeActionKind.Command, "Command") with
+        {
+            IsEnabled = actionState == 2,
+            Command = "echo ready"
+        };
+        var configuration = new FoundryConfigurationDocument
+        {
+            PreOobe = new() { IsEnabled = enabled, Actions = actionState == 0 ? [] : [action] }
+        };
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(
+            CreateContext(configuration) with { IsPostInstallationReady = contentReady });
+
+        Assert.Equal(expected, evaluation[ConfigurationOverviewItem.PostInstallation]);
+        Assert.Equal(expected, ConfigurationOverviewNavigationEvaluator.EvaluateTarget(
+            evaluation, ConfigurationNavigationTarget.PostInstallation));
+    }
+
+    [Theory]
     [InlineData(false, false, ConfigurationOverviewState.Disabled)]
     [InlineData(true, true, ConfigurationOverviewState.Configured)]
     [InlineData(true, false, ConfigurationOverviewState.NeedsAttention)]

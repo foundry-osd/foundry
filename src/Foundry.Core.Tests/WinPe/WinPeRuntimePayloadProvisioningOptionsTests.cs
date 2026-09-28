@@ -15,6 +15,7 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
         string bootstrapProjectPath = root.CreateProject("Foundry.Bootstrap");
         string connectProjectPath = root.CreateProject("Foundry.Connect");
         string deployProjectPath = root.CreateProject("Foundry.Deploy");
+        string postInstallProjectPath = root.CreateProject("Foundry.PostInstall");
 
         WinPeRuntimePayloadProvisioningOptions options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
             WinPeArchitecture.X64,
@@ -34,6 +35,9 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
         Assert.Equal(bootstrapProjectPath, options.Bootstrap.ProjectPath);
         Assert.Equal(connectProjectPath, options.Connect.ProjectPath);
         Assert.Equal(deployProjectPath, options.Deploy.ProjectPath);
+        Assert.True(options.PostInstall.IsEnabled);
+        Assert.Equal(WinPeProvisioningSource.Debug, options.PostInstall.ProvisioningSource);
+        Assert.Equal(postInstallProjectPath, options.PostInstall.ProjectPath);
     }
 
     [Fact]
@@ -56,6 +60,7 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
         Assert.False(options.Bootstrap.IsEnabled);
         Assert.False(options.Connect.IsEnabled);
         Assert.False(options.Deploy.IsEnabled);
+        Assert.False(options.PostInstall.IsEnabled);
     }
 
     [Fact]
@@ -127,6 +132,7 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
         Assert.Empty(options.Bootstrap.ProjectPath);
         Assert.False(options.Connect.IsEnabled);
         Assert.False(options.Deploy.IsEnabled);
+        Assert.False(options.PostInstall.IsEnabled);
     }
 
     private sealed class TempProjectRoot : IDisposable

@@ -543,6 +543,24 @@ ErrorCode=0x80070005
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>מערכת הפעלה</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>אין צורך במשימות לאחר ההתקנה.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>הכנת השלב שלאחר ההתקנה נכשלה. לפרטים, בדוק את יומן הפריסה.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>הכנת השלב שלאחר ההתקנה הושלמה (הדמיה).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>סביבת הריצה, התוכן ומנגנון ההפעלה התומך בהפעלות מחדש הוכנו.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>מכין את סביבת הריצה ואת התוכן לשלב שלאחר ההתקנה...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>הכנת השלב שלאחר ההתקנה נכשלה. בדוק את סביבת הריצה, התכנים וקובץ התשובות של Windows לפני ניסיון נוסף.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>לא ניתן להכין את המטמון של קובץ התמונה. יש לבדוק את השטח הפנוי בו ואת הרשאות הכתיבה אליו.</value>
   </data>
@@ -1020,9 +1038,6 @@ ErrorCode=0x80070005
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>חבילת בימוי...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>ביצוע התאמות אישיות לפני OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>שולח בקשת יבוא אל Microsoft Graph...</value>
   </data>
@@ -1031,9 +1046,6 @@ ErrorCode=0x80070005
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>מעדכן מכשיר Autopilot קיים...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>מעדכן את סקריפט ההתקנה של האתחול הראשון...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>מעדכן את תג הקבוצה Windows Autopilot ב-Microsoft Graph...</value>
@@ -1251,9 +1263,6 @@ ErrorCode=0x80070005
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>אין תוכן זמין לעדכון קושחה.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>אין צורך בתסריטים להתאמה אישית של OOBE.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>מצב חבילת מנהלי התקן OEM נבחר אך לא סופקה חבילת מנהלי התקן.</value>
   </data>
@@ -1286,12 +1295,6 @@ ErrorCode=0x80070005
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>מערכת ההפעלה URL חסרה.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>בוצעו התאמות אישיות לפני OOBE.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>התאמות אישיות לפני OOBE בשלבים (סימולציה).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>המוכנות לפריסה נבדקה (הדמיה).</value>

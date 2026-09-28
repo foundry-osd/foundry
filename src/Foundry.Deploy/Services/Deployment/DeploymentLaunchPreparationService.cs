@@ -123,6 +123,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             AutopilotHardwareHashUpload = request.AutopilotHardwareHashUpload,
             Network = request.Network,
             Oobe = request.UsesCustomUnattend ? new DeployOobeSettings() : request.Oobe,
+            PreOobe = request.PreOobe,
             AppxRemoval = request.AppxRemoval,
             AiComponentRemoval = request.AiComponentRemoval,
             WindowsOptionalFeatures = request.WindowsOptionalFeatures,

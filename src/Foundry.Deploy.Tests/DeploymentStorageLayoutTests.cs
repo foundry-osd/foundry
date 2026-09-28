@@ -14,7 +14,7 @@ public sealed class DeploymentStorageLayoutTests
     {
         var layout = DeploymentStorageLayout.FromPartitionRoot(@"R:\");
         string[] paths = [layout.RuntimePreOobe, layout.RuntimeAutopilotRegistration,
-            layout.PayloadsDrivers, layout.PayloadsNetworkProfiles, layout.PayloadsCustomization,
+            layout.PayloadsDrivers, layout.PayloadsNetworkProfiles,
             layout.StateDeployment, layout.StatePreOobe, layout.StateAutopilotRegistration,
             layout.LogsDeployment, layout.LogsPreOobe, layout.LogsAutopilotRegistration, layout.LogsAutopilotHash];
         Assert.All(paths, path => Assert.StartsWith(@"R:\Windows\Temp\Foundry\", path));

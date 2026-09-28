@@ -429,3 +429,9 @@ obj/
 !src/Foundry/Assets/7z/[xX]64/**
 !src/Foundry/Assets/7z/[aA][rR][mM]64/
 !src/Foundry/Assets/7z/[aA][rR][mM]64/**
+
+# Application package library source is not a NuGet packages directory.
+!src/Foundry.Core/Services/Packages/
+!src/Foundry.Core/Services/Packages/**
+!src/Foundry.Core.Tests/Packages/
+!src/Foundry.Core.Tests/Packages/**

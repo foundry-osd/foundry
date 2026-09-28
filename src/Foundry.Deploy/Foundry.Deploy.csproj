@@ -194,12 +194,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Assets\PreOobe\*.ps1">
-      <LogicalName>Foundry.Deploy.PreOobe.%(Filename)%(Extension)</LogicalName>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="Assets\AutopilotRegistration\*.ps1">
       <LogicalName>Foundry.Deploy.AutopilotRegistration.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>

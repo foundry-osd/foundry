@@ -2239,6 +2239,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS の選択</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Foundry の組み込みタスクの後、OOBE の前にカスタム アクションを実行します。</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>インストール後</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>GitHub のバグ報告フォームをブラウザーで開きます。</value>
   </data>
@@ -2391,6 +2397,201 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows 展開オプション</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>有効なアクションを追加するか、インストール後の構成を無効にしてください。</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>アクションを追加</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>ソフトウェア (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>インストーラーの種類</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>引数または MSI プロパティ</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>コマンド ライン</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>コマンドに必要なファイルをインポートしてください。次に、以下にコマンドを入力してください。</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>コマンド ライン</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent または reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>コマンドのプレビュー</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>スクリプトまたはインストーラーを選択するか、コマンドを入力すると、コマンド ラインをプレビューできます。</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>実行するコマンドを入力してください。</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>インポートしたコンテンツのフォルダーから実行する場合は、空欄にしてください。</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>パッケージコンテンツ</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>アクションは削除されましたが、キャッシュされたコンテンツを削除できませんでした。</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>ファイルまたはフォルダーをインポートしてください。</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>コンテンツの状態</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>インストール後のコンテンツを検証しました。</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>エラー時に続行</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>このアクションが失敗した場合は、次のアクションに進みます。実行結果が不確かな場合は、引き続きシーケンスを停止します。</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>再起動を延期</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>要求された再起動を、次の再起動アクションまたはシーケンスの終了まで延期します。</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>アクションを編集</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>編集中に構成が変更されました。アクションをもう一度開いてください。</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>アクションが追加されていません。</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>スクリプトまたはインストーラーのパス (コンテンツからの相対パス)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>SYSTEM として実行されます。無人実行と制御された再起動のための引数を設定してください。</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>実行設定</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>インストール ログを生成</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>コンテンツのインポートに失敗しました。アクセス権、空き容量、ファイル名、パスの長さを確認してください。</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>ファイルをインポート</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>フォルダーをインポート</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>コンテンツをインポートしています...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>このアクションは無効です。構成を確認してください。</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>8191 文字以内の 1 行を入力してください。</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>インポートしたコンテンツからスクリプトまたはインストーラーを選択してください。</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>0 以上の重複しない終了コードを最大 32 個、コンマ区切りで入力してください。1641 は使用しないでください。</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>制御文字を含まない 1～256 文字の名前を入力してください。</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>0 から 86400 までの整数を入力してください。</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>「{0}」を編集して設定を修正してください。</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>1～86400 の整数を入力してください。</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>インポートしたコンテンツ内のフォルダーを入力するか、空欄のままにしてください。</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>コンテンツを読み込んでいます...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>「{0}」の不足しているコンテンツをインポートしてください。</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>下へ移動</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>上へ移動</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>コンテンツはインポートされていません</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>不要</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>パッケージコンテンツ (省略可能)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>順序</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>再起動の終了コードを成功の終了コードとしても指定することはできません。</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell スクリプト (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell の引数</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>アクションを削除できませんでした。もう一度お試しください。</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Windows を再起動</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>再起動が必要な終了コード (コンマ区切り)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>再起動までの待機時間 (秒)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>すぐに再起動するには 0 を指定します。</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Windows を再起動してから、次のアクションに進みます。</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>スクリプトの引数</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>インストール後のコンテンツを準備しています。</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>成功を示す終了コード (コンマ区切り)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>タイムアウト (秒)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>種類</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>作業ディレクトリ (相対パス。空欄の場合はコンテンツのルート)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>現在の設定</value>
@@ -3496,7 +3697,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Foundry の設定を使用する</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>選択したファイルは、Foundry が生成する応答ファイルを置き換えます。設定の結合や不足する値の補完は行わず、そのまま使用します。保存済みの構成を使用するには、「Foundry の設定を使用する」を選択してください。</value>
+    <value>選択したファイルは Foundry が生成する応答ファイルを置き換えます。Foundry はそのカスタム設定を保持し、必要なインストール後のコマンドを展開用コピーに追加します。保存済みの構成を使用するには、「Foundry の設定を使用する」を選択してください。</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry は元のファイルを保持し、必要なインストール後のコマンドを展開用コピーに追加します。カスタム設定とコマンドの責任は引き続きユーザーにあります。</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>カスタムファイルを使用するには、「全般構成」で展開メディアのパスワード保護を有効にする必要があります。XML には資格情報やスクリプトが含まれている場合があります。カタログにはソースへの参照のみが保存され、ブートイメージには暗号化されたコピーが含まれます。</value>

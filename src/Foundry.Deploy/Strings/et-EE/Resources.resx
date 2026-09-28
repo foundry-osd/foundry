@@ -543,6 +543,24 @@ Kas jätkata juurutamisega?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operatsioonisüsteem</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Installimisjärgseid ülesandeid pole vaja.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Installimisjärgse etapi ettevalmistamine nurjus. Lisateavet leiate juurutuslogist.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Installimisjärgne ettevalmistamine on lõpetatud (simulatsioon).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Installimisjärgne käituskeskkond, sisu ja taaskäivitusi toetav käivitusmehhanism on ette valmistatud.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Installimisjärgse käituskeskkonna ja sisu ettevalmistamine...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Installimisjärgne ettevalmistamine nurjus. Enne uuesti proovimist kontrollige käituskeskkonda, sisu ja Windowsi vastusefaili.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Tõmmise vahemälu ei saa ette valmistada. Kontrolli selle vaba ruumi ja kirjutusõigusi.</value>
   </data>
@@ -1020,9 +1038,6 @@ Kas jätkata juurutamisega?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Lavastuspakett...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>OOBE-eelsete kohandamiste lavastamine...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Imporditaotluse esitamine aadressile Microsoft Graph...</value>
   </data>
@@ -1031,9 +1046,6 @@ Kas jätkata juurutamisega?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Olemasoleva Autopilot seadme värskendamine...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Esimese alglaadimise seadistusskripti värskendamine...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Grupi Windows Autopilot märgendi värskendamine Microsoft Graph...</value>
@@ -1251,9 +1263,6 @@ Kas jätkata juurutamisega?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Püsivarauuenduse sisu pole saadaval.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>OOBE-eelseid kohandamisskripte pole vaja.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>OEM-i draiveripaketi režiim on valitud, kuid draiveripaketti ei pakutud.</value>
   </data>
@@ -1286,12 +1295,6 @@ Kas jätkata juurutamisega?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Operatsioonisüsteem URL puudub.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>OOBE-eelsed kohandused on tehtud.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>OOBE-eelsed kohandused on lavastatud (simulatsioon).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Juurutusvalmidus on kontrollitud (simulatsioon).</value>

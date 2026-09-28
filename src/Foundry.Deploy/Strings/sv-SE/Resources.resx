@@ -543,6 +543,24 @@ Fortsätt med implementeringen?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Operativsystem</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Inga uppgifter efter installationen krävs.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Förberedelsen av fasen efter installationen misslyckades. Se distributionsloggen för mer information.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Förberedelserna för efter installationen har slutförts (simulering).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Körmiljö, innehåll och startmekanism med stöd för omstarter har förberetts.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Förbereder körmiljö och innehåll för efter installationen...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Förberedelserna för efter installationen misslyckades. Kontrollera körmiljön, innehållet och Windows-svarsfilen innan du försöker igen.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Avbildningscachen kan inte förberedas. Kontrollera ledigt utrymme och skrivåtkomst till cachen.</value>
   </data>
@@ -1020,9 +1038,6 @@ Fortsätt med implementeringen?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Staging paket...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Iscensätter anpassningar före OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Skickar importförfrågan till Microsoft Graph...</value>
   </data>
@@ -1031,9 +1046,6 @@ Fortsätt med implementeringen?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Uppdaterar befintlig Autopilot enhet...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Uppdaterar installationsskript för första start...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Uppdaterar Windows Autopilot grupptaggen i Microsoft Graph...</value>
@@ -1251,9 +1263,6 @@ Fortsätt med implementeringen?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Inget innehåll för uppdatering av inbyggd programvara är tillgängligt.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Inga pre-OOBE-anpassningsskript krävs.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>OEM-drivrutinpaketet har valts men inget drivrutinspaket tillhandahölls.</value>
   </data>
@@ -1286,12 +1295,6 @@ Fortsätt med implementeringen?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Operativsystem URL saknas.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Pre-OOBE-anpassningar genomförda.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Pre-OOBE-anpassningar stegvis (simulering).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Det har kontrollerats om distributionen är redo (simulering).</value>

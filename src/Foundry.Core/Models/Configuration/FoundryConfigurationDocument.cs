@@ -39,6 +39,9 @@ public sealed record FoundryConfigurationDocument
     /// <summary>Gets portable custom image references and deployment source defaults.</summary>
     public CustomImagesSettings CustomImages { get; init; } = new();
 
+    /// <summary>Gets ordered post-installation actions and portable package references.</summary>
+    public PreOobeSettings PreOobe { get; init; } = new();
+
     /// <summary>
     /// Gets user-authored localization settings used when deployment configuration is generated.
     /// </summary>

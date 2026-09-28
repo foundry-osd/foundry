@@ -47,6 +47,7 @@ Operating system, driver pack, firmware, and WinPE metadata come from the mainta
 - **Deployment content** — Windows release, language, edition, licensing channel, drivers, and optional firmware.
 - **Windows setup** — localization, OOBE, privacy, optional features, AppX packages, and offline component choices.
 - **Computer naming** — compose names from device data or enter them manually. Numeric-only names are rejected before deployment; use a prefix such as `PC-` with numeric serial numbers.
+- **Post-installation** — order PowerShell scripts, CMD commands, EXE/MSI packages and controlled restarts before OOBE. Content stays outside the boot image and is staged locally for the resumable .NET runtime. This workflow is unreleased; see [Post-installation](https://docs.foundryosd.com/foundry-osd/customization/post-installation).
 - **Custom answer files** — [import and select an Unattend file](https://docs.foundryosd.com/foundry-osd/customization/unattend) to configure Windows beyond the options exposed in Foundry, within the supported setup passes.
 - **Network readiness** — Ethernet, Wi-Fi, and enterprise 802.1X settings for WinPE.
 - **Provisioning and protection** — Windows Autopilot options and optional protection for deployment media and embedded configuration.

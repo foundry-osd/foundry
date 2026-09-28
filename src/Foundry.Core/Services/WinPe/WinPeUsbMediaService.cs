@@ -19,6 +19,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
     private readonly IWinPeProcessRunner _processRunner;
     private readonly IWinPeRuntimePayloadProvisioningService _runtimePayloadProvisioningService;
     private readonly IWinPeCustomImageMediaPublisher _customImagePublisher;
+    private readonly IWinPePreOobeMediaPublisher _postInstallationPublisher;
 
     public WinPeUsbMediaService()
         : this(new WinPeProcessRunner(), new WinPeRuntimePayloadProvisioningService())
@@ -33,11 +34,13 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
     internal WinPeUsbMediaService(
         IWinPeProcessRunner processRunner,
         IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService,
-        IWinPeCustomImageMediaPublisher? customImagePublisher = null)
+        IWinPeCustomImageMediaPublisher? customImagePublisher = null,
+        IWinPePreOobeMediaPublisher? postInstallationPublisher = null)
     {
         _processRunner = processRunner;
         _runtimePayloadProvisioningService = runtimePayloadProvisioningService;
         _customImagePublisher = customImagePublisher ?? new WinPeCustomImageMediaService();
+        _postInstallationPublisher = postInstallationPublisher ?? new WinPePreOobeMediaService();
     }
 
     public async Task<WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>> GetUsbCandidatesAsync(

@@ -2239,6 +2239,12 @@ Licenciado sob a licença MIT.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Seleção do SO</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Execute ações personalizadas antes da OOBE, após as tarefas integradas do Foundry.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Pós-instalação</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Abra o formulário de relatório de bugs do GitHub no navegador.</value>
   </data>
@@ -2391,6 +2397,201 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Opções de implantação do Windows</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Adicione uma ação habilitada ou desabilite a pós-instalação.</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Adicionar ação</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Software (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Tipo de instalador</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumentos ou propriedades MSI</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Linha de comando</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importe os arquivos necessários para o comando. Em seguida, insira o comando abaixo.</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Linha de comando</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent ou reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Prévia do comando</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Selecione um script ou instalador, ou insira um comando, para visualizar a linha de comando.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Insira o comando a ser executado.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Deixe em branco para executar a partir da pasta do conteúdo importado.</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Conteúdo do pacote</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>A ação foi removida, mas não foi possível excluir seu conteúdo em cache.</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Importe um arquivo ou uma pasta.</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Status do conteúdo</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Conteúdo de pós-instalação verificado.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Continuar em caso de erro</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Continue com a próxima ação se esta ação falhar. Uma execução com resultado incerto ainda interrompe a sequência.</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Adiar reinicialização</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Adie uma reinicialização solicitada até a próxima ação de reinicialização ou o fim da sequência.</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Editar ação</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>A configuração mudou durante a edição. Abra a ação novamente.</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Nenhuma ação adicionada.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Caminho do script ou instalador (relativo ao conteúdo)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Executado como SYSTEM. Configure os argumentos para execução não assistida e reinicializações controladas.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Configurações de execução</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Gerar log de instalação</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Falha ao importar conteúdo. Verifique o acesso, o espaço disponível, os nomes de arquivos e o comprimento dos caminhos.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Importar arquivo</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Importar pasta</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Importando conteúdo...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Esta ação é inválida. Verifique sua configuração.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Insira uma única linha com até 8191 caracteres.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Selecione um script ou instalador do conteúdo importado.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Insira até 32 códigos de saída exclusivos e não negativos, separados por vírgulas. Não use 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Insira um nome de 1 a 256 caracteres sem caracteres de controle.</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Insira um número inteiro entre 0 e 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Edite "{0}" para corrigir suas configurações.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Insira um número inteiro de 1 a 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Insira uma pasta do conteúdo importado ou deixe este campo vazio.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Carregando conteúdo...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Importe o conteúdo ausente para "{0}".</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Mover para baixo</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Mover para cima</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Nenhum conteúdo importado</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Não necessário</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Conteúdo do pacote (opcional)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Ordem</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Um código de saída de reinicialização não pode ser também um código de saída de sucesso.</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>Script do PowerShell (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Argumentos do PowerShell</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Não foi possível remover a ação. Tente novamente.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Reiniciar o Windows</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Códigos de saída que exigem reinicialização (separados por vírgulas)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Atraso antes de reiniciar (segundos)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Use 0 para reiniciar imediatamente.</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Reinicie o Windows e continue com a próxima ação.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Argumentos do script</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Preparando conteúdo de pós-instalação.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Códigos de saída de sucesso (separados por vírgulas)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Tempo limite (segundos)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Diretório de trabalho (relativo; vazio usa a raiz do conteúdo)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Configurações atuais</value>
@@ -3496,7 +3697,10 @@ Senhas e chaves de acesso incluídas: {2}</value>
     <value>Usar configurações do Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>O arquivo selecionado substitui o arquivo de resposta gerado pelo Foundry. Suas configurações são usadas como estão, sem mesclar ou preencher valores ausentes. Selecione “Usar configurações do Foundry” para usar sua configuração salva.</value>
+    <value>O arquivo selecionado substitui o arquivo de resposta gerado pelo Foundry. O Foundry preserva as configurações personalizadas e adiciona o comando obrigatório de pós-instalação à cópia de implantação. Selecione Usar configurações do Foundry para usar sua configuração salva.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>O Foundry preserva o arquivo original e adiciona seu comando obrigatório de pós-instalação à cópia de implantação. Você continua responsável por suas configurações e comandos personalizados.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Arquivos personalizados exigem proteção por senha da mídia de implantação na configuração geral. O XML pode conter credenciais ou scripts. O catálogo salva apenas referências às origens. A imagem de inicialização contém cópias criptografadas.</value>

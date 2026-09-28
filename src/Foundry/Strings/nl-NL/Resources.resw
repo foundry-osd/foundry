@@ -2239,6 +2239,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-selectie</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Voer aangepaste acties uit vóór OOBE, na de ingebouwde Foundry-taken.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Na de installatie</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Open het GitHub-formulier voor bugmeldingen in uw browser.</value>
   </data>
@@ -2391,6 +2397,201 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows-implementatieopties</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Voeg een ingeschakelde actie toe of schakel de na-installatie uit.</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Actie toevoegen</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Software (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Type installatieprogramma</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumenten of MSI-eigenschappen</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Opdrachtregel</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importeer de bestanden die uw opdracht nodig heeft. Voer vervolgens hieronder de opdracht in.</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Opdrachtregel</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent of reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Opdrachtvoorbeeld</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Selecteer een script of installatieprogramma, of voer een opdracht in, om een voorbeeld van de opdrachtregel te bekijken.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Voer de opdracht in die u wilt uitvoeren.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Laat dit leeg om vanuit de map met geïmporteerde inhoud uit te voeren.</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Pakketinhoud</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>De actie is verwijderd, maar de bijbehorende inhoud in de cache kon niet worden verwijderd.</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Importeer een bestand of map.</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Inhoudsstatus</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Inhoud voor na de installatie geverifieerd.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Doorgaan bij fouten</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Ga door met de volgende actie als deze actie mislukt. Een uitvoering met een onzekere uitkomst stopt de reeks nog steeds.</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Opnieuw starten uitstellen</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Stel een aangevraagde herstart uit tot de volgende herstartactie of het einde van de reeks.</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Actie bewerken</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>De configuratie is gewijzigd tijdens het bewerken. Open de actie opnieuw.</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Geen acties toegevoegd.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Pad naar script of installatieprogramma (relatief aan de inhoud)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Wordt uitgevoerd als SYSTEM. Configureer argumenten voor uitvoering zonder toezicht en gecontroleerde herstarts.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Uitvoeringsinstellingen</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Installatielogboek genereren</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Importeren van inhoud mislukt. Controleer toegang, vrije ruimte, bestandsnamen en padlengten.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Bestand importeren</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Map importeren</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Inhoud importeren...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Deze actie is ongeldig. Controleer de configuratie.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Voer één regel van maximaal 8191 tekens in.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Selecteer een script of installatieprogramma uit de geïmporteerde inhoud.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Voer maximaal 32 unieke, niet-negatieve afsluitcodes in, gescheiden door komma’s. Gebruik geen 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Voer een naam van 1–256 tekens zonder besturingstekens in.</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Voer een geheel getal tussen 0 en 86400 in.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Bewerk '{0}' om de instellingen te corrigeren.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Voer een geheel getal van 1 tot 86400 in.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Voer een map uit de geïmporteerde inhoud in of laat dit veld leeg.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Inhoud laden...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Importeer de ontbrekende inhoud voor '{0}'.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Omlaag</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Omhoog</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Geen inhoud geïmporteerd</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Niet vereist</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Pakketinhoud (optioneel)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Volgorde</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Een afsluitcode voor herstart kan niet ook een afsluitcode voor succes zijn.</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell-script (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell-argumenten</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>De actie kon niet worden verwijderd. Probeer het opnieuw.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Windows opnieuw starten</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Afsluitcodes die opnieuw opstarten vereisen (gescheiden door komma's)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Vertraging vóór opnieuw opstarten (seconden)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Gebruik 0 om onmiddellijk opnieuw op te starten.</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Start Windows opnieuw op en ga daarna verder met de volgende actie.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Scriptargumenten</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Inhoud voor na de installatie wordt klaargezet.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Afsluitcodes voor succes (gescheiden door komma's)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Time-out (seconden)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Werkmap (relatief; leeg gebruikt de hoofdmap van de inhoud)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Huidige instellingen</value>
@@ -3496,7 +3697,10 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Foundry-instellingen gebruiken</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Het geselecteerde bestand vervangt het antwoordbestand dat Foundry genereert. De instellingen worden ongewijzigd gebruikt, zonder samenvoeging of aanvulling van ontbrekende waarden. Kies ‘Foundry-instellingen gebruiken’ om uw opgeslagen configuratie te gebruiken.</value>
+    <value>Het geselecteerde bestand vervangt het antwoordbestand dat Foundry genereert. Foundry behoudt de aangepaste instellingen en voegt de vereiste opdracht voor na de installatie toe aan de implementatiekopie. Selecteer Foundry-instellingen gebruiken om uw opgeslagen configuratie te gebruiken.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry behoudt uw oorspronkelijke bestand en voegt de vereiste opdracht voor na de installatie toe aan de implementatiekopie. U blijft verantwoordelijk voor uw aangepaste instellingen en opdrachten.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Aangepaste bestanden vereisen wachtwoordbeveiliging voor implementatiemedia in de algemene configuratie. XML kan aanmeldingsgegevens of scripts bevatten. De catalogus slaat alleen bronverwijzingen op. De opstartimage bevat versleutelde kopieën.</value>

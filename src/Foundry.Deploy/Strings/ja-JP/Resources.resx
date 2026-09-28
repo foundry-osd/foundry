@@ -543,6 +543,24 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>オペレーティングシステム</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>インストール後のタスクは必要ありません。</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>インストール後の処理の準備に失敗しました。詳細については、展開ログを確認してください。</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>インストール後の準備が完了しました (シミュレーション)。</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>インストール後のランタイム、コンテンツ、再起動に対応した起動フックを配置しました。</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>インストール後のランタイムとコンテンツを準備しています...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>インストール後の準備に失敗しました。再試行する前に、ランタイム、ペイロード、Windows 応答ファイルを確認してください。</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>イメージキャッシュを準備できません。キャッシュの空き容量と書き込み権限を確認してください。</value>
   </data>
@@ -1020,9 +1038,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>ステージングパッケージ...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>OOBE 前のカスタマイズをステージングしています...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>インポート リクエストを Microsoft Graph に送信しています...</value>
   </data>
@@ -1031,9 +1046,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>既存の Autopilot デバイスを更新しています...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>初回起動セットアップ スクリプトを更新しています...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Microsoft Graph の Windows Autopilot グループ タグを更新しています...</value>
@@ -1251,9 +1263,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>利用可能なファームウェア更新コンテンツがありません。</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>OOBE 前のカスタマイズ スクリプトは必要ありません。</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>OEM ドライバー パック モードが選択されましたが、ドライバー パックが提供されていませんでした。</value>
   </data>
@@ -1286,12 +1295,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>オペレーティング システム URL がありません。</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>OOBE 前のカスタマイズが段階的に行われました。</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>OOBE 前のカスタマイズが段階的に行われました (シミュレーション)。</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>展開の準備状況を確認しました（シミュレーション）。</value>

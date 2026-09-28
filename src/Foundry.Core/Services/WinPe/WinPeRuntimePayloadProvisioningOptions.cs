@@ -30,7 +30,7 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     public string UsbCacheRootPath { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets whether original Connect and Deploy archives enter the image. Trust anchors always enter the image.
+    /// Gets whether original Connect, Deploy, and PostInstall archives enter the image. Trust anchors always enter the image.
     /// </summary>
     public bool IncludePayloadsInImage { get; init; } = true;
 
@@ -54,6 +54,9 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     /// </summary>
     public WinPeRuntimePayloadApplicationOptions Deploy { get; init; } = new();
 
+    /// <summary>Gets Foundry.PostInstall payload options, following the Deploy debug selection.</summary>
+    public WinPeRuntimePayloadApplicationOptions PostInstall { get; init; } = new();
+
     /// <summary>
     /// Creates development-time payload options from debugger state and environment variables.
     /// </summary>
@@ -76,7 +79,7 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     {
         getEnvironmentVariable ??= Environment.GetEnvironmentVariable;
 
-        return new WinPeRuntimePayloadProvisioningOptions
+        var options = new WinPeRuntimePayloadProvisioningOptions
         {
             Architecture = architecture,
             WorkingDirectoryPath = workingDirectoryPath,
@@ -107,6 +110,18 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
                 isDebuggerAttached,
                 getEnvironmentVariable,
                 projectDiscoveryStartPath)
+        };
+        if (!options.Deploy.IsEnabled) return options;
+        string? discoveryPath = string.IsNullOrWhiteSpace(options.Deploy.ProjectPath)
+            ? projectDiscoveryStartPath : Path.GetDirectoryName(Path.GetFullPath(options.Deploy.ProjectPath));
+        return options with
+        {
+            PostInstall = CreateApplicationOptions(
+                "Foundry.PostInstall",
+                WinPeRuntimePayloadEnvironmentVariables.DebugDeployEnable,
+                WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallArchive,
+                WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallProject,
+                true, getEnvironmentVariable, discoveryPath, requireLocalSourceWhenDebugging: true)
         };
     }
 

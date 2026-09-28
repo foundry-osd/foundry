@@ -543,6 +543,24 @@ Continuare con la distribuzione?</value>
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Sistema operativo</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Non sono necessarie attività di post-installazione.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Preparazione della fase successiva all’installazione non riuscita. Consultare il registro di distribuzione per i dettagli.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Preparazione della post-installazione completata (simulazione).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Runtime, contenuto e comando di avvio con gestione dei riavvii preparati.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Preparazione del runtime e del contenuto di post-installazione...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Preparazione della post-installazione non riuscita. Verifica runtime, file e file di risposte di Windows prima di riprovare.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Impossibile preparare la cache dell’immagine. Controllare lo spazio libero e l’accesso in scrittura alla cache.</value>
   </data>
@@ -1020,9 +1038,6 @@ Continuare con la distribuzione?</value>
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Pacchetto di allestimento...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Preparazione delle personalizzazioni pre-OOBE in corso...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Invio della richiesta di importazione a Microsoft Graph...</value>
   </data>
@@ -1031,9 +1046,6 @@ Continuare con la distribuzione?</value>
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Aggiornamento del dispositivo Autopilot esistente...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Aggiornamento dello script di installazione al primo avvio in corso...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Aggiornamento del tag del gruppo Windows Autopilot in Microsoft Graph...</value>
@@ -1251,9 +1263,6 @@ Continuare con la distribuzione?</value>
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Nessun contenuto di aggiornamento firmware disponibile.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Non sono richiesti script di personalizzazione pre-OOBE.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Modalità pacchetto driver OEM selezionata ma non è stato fornito alcun pacchetto driver.</value>
   </data>
@@ -1286,12 +1295,6 @@ Continuare con la distribuzione?</value>
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Manca il sistema operativo URL.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Personalizzazioni pre-OOBE organizzate.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Personalizzazioni pre-OOBE organizzate (simulazione).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Stato di preparazione alla distribuzione verificato (simulazione).</value>

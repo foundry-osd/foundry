@@ -77,13 +77,13 @@ public static class DeploymentPlan
         if (request.WindowsOptionalFeatures.IsEnabled && request.WindowsOptionalFeatures.Actions.Count > 0)
             names.Add(DeploymentStepNames.ConfigureWindowsOptionalFeatures);
 
-        bool setupTasks = PreOobeScriptDefinitionBuilder.HasScripts(
+        bool setupTasks = PreOobeContentResolver.HasBuiltInTasks(
             request.AppxRemoval,
             request.AiComponentRemoval,
             hasDrivers && driverMode == DriverPackInstallMode.DeferredSetupComplete,
             hasNetworkPayload || (!networkResolved && request.Network.ProfileRoaming.IsAnyEnabled),
             StagePreOobeCustomizationStep.ShouldActivateWindowsOem(request));
-        if (setupTasks) names.Add(DeploymentStepNames.StagePreOobeCustomization);
+        if (setupTasks || request.PreOobe.IsEnabled && request.PreOobe.Actions.Any(action => action.IsEnabled)) names.Add(DeploymentStepNames.StagePreOobeCustomization);
         names.Add(DeploymentStepNames.ConfigureRecoveryEnvironment);
         if (hasDrivers && driverMode == DriverPackInstallMode.OfflineInf) names.Add(DeploymentStepNames.ApplyRecoveryDrivers);
         names.Add(DeploymentStepNames.SealRecoveryPartition);

@@ -2239,6 +2239,12 @@
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>操作系统选择</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>在 Foundry 内置任务之后、OOBE 之前运行自定义操作。</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>安装后操作</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>在浏览器中打开 GitHub 错误报告表单。</value>
   </data>
@@ -2391,6 +2397,201 @@
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows 部署选项</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>添加一项已启用的操作，或禁用安装后配置。</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>添加操作</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>软件 (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>安装程序类型</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>参数或 MSI 属性</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>命令行</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>导入命令所需的文件，然后在下方输入命令。</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>命令行</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent 或 reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>命令预览</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>选择脚本或安装程序，或输入命令，以预览命令行。</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>输入要运行的命令。</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>留空以从导入的内容文件夹运行。</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>程序包内容</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>该操作已移除，但无法删除其缓存内容。</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>导入文件或文件夹。</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>内容状态</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>已验证安装后内容。</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>出错时继续</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>如果此操作失败，则继续执行下一项操作。执行结果不确定时，仍会停止序列。</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>推迟重启</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>将请求的重启推迟到下一个重启操作或序列结束时。</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>编辑操作</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>编辑期间配置已更改。请重新打开该操作。</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>尚未添加操作。</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>脚本或安装程序路径（相对于内容）</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>以 SYSTEM 身份运行。请配置参数以实现无人值守执行和受控重启。</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>执行设置</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>生成安装日志</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>导入内容失败。请检查访问权限、可用空间、文件名和路径长度。</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>导入文件</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>导入文件夹</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>正在导入内容...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>此操作无效。请检查其配置。</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>输入不超过 8191 个字符的单行文本。</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>从导入的内容中选择脚本或安装程序。</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>输入最多 32 个不重复的非负退出代码，以逗号分隔。请勿使用 1641。</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>输入 1–256 个字符的名称，不得包含控制字符。</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>请输入 0 到 86400 之间的整数。</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>编辑“{0}”以修正其设置。</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>输入 1 到 86400 之间的整数。</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>输入导入内容中的文件夹，或留空。</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>正在加载内容...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>导入“{0}”缺失的内容。</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>下移</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>上移</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>尚未导入内容</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>不需要</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>程序包内容（可选）</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>顺序</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>重启退出代码不能同时作为成功退出代码。</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell 脚本 (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell 参数</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>无法移除该操作。请重试。</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>重启 Windows</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>需要重启的退出代码（以逗号分隔）</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>重启延迟（秒）</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>使用 0 可立即重启。</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>重启 Windows，然后继续执行下一个操作。</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>脚本参数</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>正在暂存安装后内容。</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>成功退出代码（以逗号分隔）</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>超时（秒）</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>工作目录（相对路径；留空则使用内容根目录）</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>当前设置</value>
@@ -3496,7 +3697,10 @@
     <value>使用 Foundry 设置</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>选定的文件将替代 Foundry 生成的应答文件。其中的设置将按原样使用，不会合并或补全缺失的值。选择“使用 Foundry 设置”可使用已保存的配置。</value>
+    <value>所选文件将替换 Foundry 生成的应答文件。Foundry 会保留其中的自定义设置，并将必需的安装后命令添加到部署副本中。要使用已保存的配置，请选择“使用 Foundry 设置”。</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry 会保留原始文件，并将其必需的安装后命令添加到部署副本中。您仍需对自定义设置和命令负责。</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>自定义文件要求在“一般”配置中启用部署介质密码保护。XML 可能包含凭据或脚本。目录仅保存源文件引用；启动映像中包含加密副本。</value>

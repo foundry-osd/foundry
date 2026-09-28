@@ -2239,6 +2239,12 @@
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Выбор ОС</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Выполняйте пользовательские действия перед OOBE, после встроенных задач Foundry.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>После установки</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Откройте форму сообщения об ошибке на GitHub в браузере.</value>
   </data>
@@ -2391,6 +2397,201 @@
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Параметры развертывания Windows</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Добавьте включённое действие или отключите настройку после установки.</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Добавить действие</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Программное обеспечение (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Тип установщика</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Аргументы или свойства MSI</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Командная строка</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Импортируйте файлы, необходимые для команды. Затем введите команду ниже.</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Командная строка</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent или reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Предпросмотр команды</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Выберите скрипт или установщик либо введите команду для предварительного просмотра командной строки.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Введите команду для выполнения.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Оставьте поле пустым для запуска из папки импортированного содержимого.</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Содержимое пакета</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Действие удалено, но не удалось удалить его кэшированное содержимое.</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Импортируйте файл или папку.</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Состояние содержимого</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Содержимое для этапа после установки проверено.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Продолжать при ошибке</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Перейти к следующему действию, если это действие завершится ошибкой. Выполнение с неопределённым результатом по-прежнему останавливает последовательность.</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Отложить перезапуск</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Отложить запрошенный перезапуск до следующего действия перезапуска или завершения последовательности.</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Изменить действие</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Конфигурация изменилась во время редактирования. Откройте действие снова.</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Действия не добавлены.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Путь к скрипту или установщику (относительно содержимого)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Выполняется от имени SYSTEM. Настройте аргументы для выполнения без участия пользователя и управляемых перезапусков.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Параметры выполнения</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Создавать журнал установки</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Не удалось импортировать содержимое. Проверьте доступ, свободное место, имена файлов и длину путей.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Импортировать файл</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Импортировать папку</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Импорт содержимого...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Это действие недопустимо. Проверьте его конфигурацию.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Введите одну строку длиной не более 8191 символа.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Выберите скрипт или установщик из импортированного содержимого.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Введите до 32 уникальных неотрицательных кодов выхода, разделённых запятыми. Не используйте 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Введите имя длиной 1–256 символов без управляющих символов.</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Введите целое число от 0 до 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Измените «{0}», чтобы исправить настройки.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Введите целое число от 1 до 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Введите папку из импортированного содержимого или оставьте поле пустым.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Загрузка содержимого...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Импортируйте недостающее содержимое для «{0}».</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Переместить вниз</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Переместить вверх</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Содержимое не импортировано</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Не требуется</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Содержимое пакета (необязательно)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Порядок</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Код выхода для перезапуска не может одновременно быть кодом успешного завершения.</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>Скрипт PowerShell (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Аргументы PowerShell</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Не удалось удалить действие. Повторите попытку.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Перезапустить Windows</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Коды завершения, требующие перезагрузки (через запятую)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Задержка перед перезагрузкой (секунды)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Укажите 0 для немедленной перезагрузки.</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Перезагрузите Windows, затем перейдите к следующему действию.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Аргументы скрипта</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Подготовка содержимого для этапа после установки.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Коды успешного завершения (через запятую)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Время ожидания (секунды)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Рабочий каталог (относительный; пустое поле означает корень содержимого)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Текущие настройки</value>
@@ -3496,7 +3697,10 @@
     <value>Использовать параметры Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Выбранный файл заменяет файл ответов, созданный Foundry. Его параметры используются как есть, без объединения или заполнения отсутствующих значений. Выберите «Использовать параметры Foundry», чтобы применить сохранённую конфигурацию.</value>
+    <value>Выбранный файл заменяет файл ответов, созданный Foundry. Foundry сохраняет его пользовательские параметры и добавляет обязательную команду этапа после установки в копию для развёртывания. Выберите «Использовать параметры Foundry», чтобы использовать сохранённую конфигурацию.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry сохраняет исходный файл и добавляет обязательную команду этапа после установки в копию для развёртывания. Вы по-прежнему отвечаете за свои пользовательские параметры и команды.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Для пользовательских файлов требуется защита носителя развёртывания паролем в общих настройках. XML может содержать учётные данные или сценарии. Каталог хранит только ссылки на источники; загрузочный образ содержит зашифрованные копии.</value>

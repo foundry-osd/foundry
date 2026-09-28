@@ -71,14 +71,21 @@
                             Severity="Informational" />
                         <InfoBar
                             IsClosable="False"
+                            IsOpen="True"
+                            Message="{x:Bind ViewModel.PostInstallationDescription, Mode=OneWay}"
+                            Severity="Informational" />
+                        <InfoBar
+                            IsClosable="False"
                             IsOpen="{x:Bind ViewModel.HasReadinessIssue, Mode=OneWay}"
                             Message="{x:Bind ViewModel.ReadinessMessage, Mode=OneWay}"
-                            Severity="Error" />
+                            Severity="Error"
+                            Visibility="{x:Bind ViewModel.HasReadinessIssue, Mode=OneWay}" />
                         <InfoBar
                             IsClosable="False"
                             IsOpen="{x:Bind ViewModel.IsStatusOpen, Mode=OneWay}"
                             Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
-                            Severity="Warning" />
+                            Severity="Warning"
+                            Visibility="{x:Bind ViewModel.IsStatusOpen, Mode=OneWay}" />
 
                         <wct:SettingsCard
                             HorizontalContentAlignment="Stretch"

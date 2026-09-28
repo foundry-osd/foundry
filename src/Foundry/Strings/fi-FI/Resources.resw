@@ -2239,6 +2239,12 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-valinta</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Suorita mukautetut toiminnot ennen OOBE-vaihetta Foundryn sisäisten tehtävien jälkeen.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Asennuksen jälkeen</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Avaa GitHubin virheraporttilomake selaimessasi.</value>
   </data>
@@ -2391,6 +2397,201 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windowsin käyttöönottoasetukset</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Lisää käytössä oleva toiminto tai poista jälkiasennus käytöstä.</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Lisää toiminto</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Ohjelmisto (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Asennusohjelman tyyppi</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumentit tai MSI-ominaisuudet</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Komentorivi</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Tuo komennon tarvitsemat tiedostot. Anna sitten komento alla.</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Komentorivi</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent tai reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Komennon esikatselu</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Valitse komentosarja tai asennusohjelma tai kirjoita komento, jotta voit esikatsella komentoriviä.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Anna suoritettava komento.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Jätä tyhjäksi, jos haluat suorittaa komennon tuodun sisällön kansiosta.</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Paketin sisältö</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Toiminto poistettiin, mutta sen välimuistiin tallennettua sisältöä ei voitu poistaa.</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Tuo tiedosto tai kansio.</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Sisällön tila</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Asennuksen jälkeinen sisältö on tarkistettu.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Jatka virheestä huolimatta</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Jatka seuraavaan toimintoon, jos tämä toiminto epäonnistuu. Suoritus, jonka tulos on epävarma, pysäyttää silti toimintojonon.</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Lykkää uudelleenkäynnistystä</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Lykkää pyydettyä uudelleenkäynnistystä seuraavaan uudelleenkäynnistystoimintoon tai toimintojonon loppuun.</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Muokkaa toimintoa</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Määrityksiä muutettiin muokkauksen aikana. Avaa toiminto uudelleen.</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Toimintoja ei ole lisätty.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Komentosarjan tai asennusohjelman polku (suhteessa sisältöön)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Suoritetaan SYSTEM-tilillä. Määritä argumentit valvomattomalle suoritukselle ja hallituille uudelleenkäynnistyksille.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Suoritusasetukset</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Luo asennusloki</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Sisällön tuonti epäonnistui. Tarkista käyttöoikeudet, vapaa tila, tiedostonimet ja polkujen pituudet.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Tuo tiedosto</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Tuo kansio</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Tuodaan sisältöä...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Tämä toiminto on virheellinen. Tarkista sen määritykset.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Kirjoita yksi enintään 8191 merkin pituinen rivi.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Valitse komentosarja tai asennusohjelma tuodusta sisällöstä.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Anna enintään 32 yksilöllistä, ei-negatiivista poistumiskoodia pilkuilla erotettuina. Älä käytä koodia 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Kirjoita 1–256 merkin pituinen nimi ilman ohjausmerkkejä.</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Anna kokonaisluku väliltä 0–86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Korjaa toiminnon ”{0}” asetukset muokkaamalla sitä.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Anna kokonaisluku väliltä 1–86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Kirjoita tuodun sisällön kansio tai jätä kenttä tyhjäksi.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Ladataan sisältöä...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Tuo puuttuva sisältö toiminnolle ”{0}”.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Siirrä alas</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Siirrä ylös</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Sisältöä ei ole tuotu</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Ei tarvita</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Paketin sisältö (valinnainen)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Järjestys</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Uudelleenkäynnistyksen poistumiskoodi ei voi olla myös onnistumisen poistumiskoodi.</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell-komentosarja (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell-argumentit</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Toimintoa ei voitu poistaa. Yritä uudelleen.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Käynnistä Windows uudelleen</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Uudelleenkäynnistyksen vaativat paluukoodit (pilkuilla erotettuina)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Uudelleenkäynnistyksen viive (sekuntia)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Käytä arvoa 0, jos haluat käynnistää uudelleen heti.</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Käynnistä Windows uudelleen ja jatka sitten seuraavaan toimintoon.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Komentosarjan argumentit</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Valmistellaan asennuksen jälkeistä sisältöä.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Onnistumisen paluukoodit (pilkuilla erotettuina)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Aikakatkaisu (sekuntia)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Tyyppi</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Työhakemisto (suhteellinen; tyhjä käyttää sisällön juurihakemistoa)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Nykyiset asetukset</value>
@@ -3496,7 +3697,10 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Käytä Foundryn asetuksia</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Valittu tiedosto korvaa Foundryn luoman vastaustiedoston. Sen asetuksia käytetään sellaisinaan yhdistämättä niitä tai täydentämättä puuttuvia arvoja. Valitse Käytä Foundryn asetuksia, jos haluat käyttää tallennettua kokoonpanoasi.</value>
+    <value>Valittu tiedosto korvaa Foundryn luoman vastaustiedoston. Foundry säilyttää tiedoston mukautetut asetukset ja lisää tarvittavan asennuksen jälkeisen komennon käyttöönottokopioon. Valitse Käytä Foundryn asetuksia, jos haluat käyttää tallennettua kokoonpanoa.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry säilyttää alkuperäisen tiedostosi ja lisää tarvittavan asennuksen jälkeisen komennon käyttöönottokopioon. Olet edelleen vastuussa mukautetuista asetuksistasi ja komennoistasi.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Mukautetut tiedostot edellyttävät käyttöönottotietovälineen salasanasuojausta yleisissä asetuksissa. XML voi sisältää tunnistetietoja tai komentosarjoja. Luettelo tallentaa vain lähdeviitteet; käynnistysnäköistiedosto sisältää salatut kopiot.</value>

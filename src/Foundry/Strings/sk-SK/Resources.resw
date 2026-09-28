@@ -2239,6 +2239,12 @@ Licencované podľa licencie MIT.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Výber OS</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Spúšťajte vlastné akcie pred OOBE, po vstavaných úlohách Foundry.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Po inštalácii</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Otvorte formulár na hlásenie chýb na GitHube vo svojom prehliadači.</value>
   </data>
@@ -2391,6 +2397,201 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Možnosti nasadenia Windows</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Pridajte povolenú akciu alebo vypnite poinštalačnú konfiguráciu.</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Pridať akciu</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Softvér (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Typ inštalátora</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumenty alebo vlastnosti MSI</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Príkazový riadok</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importujte súbory, ktoré príkaz potrebuje. Potom zadajte príkaz nižšie.</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Príkazový riadok</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent alebo reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Ukážka príkazu</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Vyberte skript alebo inštalačný program, prípadne zadajte príkaz, a zobrazte ukážku príkazového riadka.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Zadajte príkaz na spustenie.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Ponechajte prázdne na spustenie z priečinka s importovaným obsahom.</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Obsah balíka</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Akcia bola odstránená, ale jej obsah vo vyrovnávacej pamäti sa nepodarilo odstrániť.</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Importujte súbor alebo priečinok.</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Stav obsahu</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Obsah pre fázu po inštalácii bol overený.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Pokračovať pri chybe</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Ak táto akcia zlyhá, pokračujte ďalšou akciou. Spustenie s neistým výsledkom naďalej zastaví sekvenciu.</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Odložiť reštart</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Odložte požadovaný reštart do ďalšej akcie reštartu alebo do konca sekvencie.</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Upraviť akciu</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Počas úprav sa konfigurácia zmenila. Otvorte akciu znova.</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Neboli pridané žiadne akcie.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Cesta k skriptu alebo inštalátoru (relatívna k obsahu)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Spúšťa sa ako SYSTEM. Nastavte argumenty pre bezobslužné spúšťanie a riadené reštarty.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Nastavenia vykonávania</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Vytvoriť denník inštalácie</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Import obsahu zlyhal. Skontrolujte prístup, voľné miesto, názvy súborov a dĺžky ciest.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Importovať súbor</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Importovať priečinok</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Importuje sa obsah...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Táto akcia je neplatná. Skontrolujte jej konfiguráciu.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Zadajte jeden riadok s dĺžkou najviac 8191 znakov.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Vyberte skript alebo inštalačný program z importovaného obsahu.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Zadajte najviac 32 jedinečných nezáporných výstupných kódov oddelených čiarkami. Nepoužívajte 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Zadajte názov s dĺžkou 1–256 znakov bez riadiacich znakov.</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Zadajte celé číslo od 0 do 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Upravte „{0}“ a opravte nastavenia.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Zadajte celé číslo od 1 do 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Zadajte priečinok z importovaného obsahu alebo nechajte toto pole prázdne.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Načítava sa obsah...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Importujte chýbajúci obsah pre „{0}“.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Presunúť nadol</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Presunúť nahor</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Nebol importovaný žiadny obsah</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Nevyžaduje sa</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Obsah balíka (voliteľné)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Poradie</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Výstupný kód pre reštart nemôže byť zároveň výstupným kódom pre úspech.</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>Skript PowerShell (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Argumenty PowerShellu</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Akciu sa nepodarilo odstrániť. Skúste to znova.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Reštartovať Windows</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Návratové kódy vyžadujúce reštart (oddelené čiarkami)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Oneskorenie pred reštartovaním (sekundy)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Na okamžité reštartovanie použite 0.</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Reštartujte Windows a potom pokračujte ďalšou akciou.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Argumenty skriptu</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Príprava obsahu pre fázu po inštalácii.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Návratové kódy úspechu (oddelené čiarkami)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Časový limit (sekundy)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Pracovný adresár (relatívny; prázdna hodnota použije koreň obsahu)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Aktuálne nastavenia</value>
@@ -3496,7 +3697,10 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Použiť nastavenia Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Vybraný súbor nahrádza súbor odpovedí vytvorený nástrojom Foundry. Jeho nastavenia sa použijú bez zmien, zlučovania či dopĺňania chýbajúcich hodnôt. Ak chcete použiť uloženú konfiguráciu, vyberte „Použiť nastavenia Foundry“.</value>
+    <value>Vybraný súbor nahradí súbor odpovedí vygenerovaný Foundry. Foundry zachová jeho vlastné nastavenia a pridá požadovaný príkaz pre fázu po inštalácii do kópie pre nasadenie. Ak chcete použiť uloženú konfiguráciu, vyberte Použiť nastavenia Foundry.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry zachová pôvodný súbor a pridá svoj požadovaný príkaz pre fázu po inštalácii do kópie pre nasadenie. Za vlastné nastavenia a príkazy naďalej zodpovedáte vy.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Vlastné súbory vyžadujú ochranu média nasadenia heslom vo všeobecnej konfigurácii. XML môže obsahovať prihlasovacie údaje alebo skripty. Katalóg ukladá iba odkazy na zdroje; zavádzací obraz obsahuje šifrované kópie.</value>

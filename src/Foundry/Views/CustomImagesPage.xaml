@@ -34,12 +34,14 @@
                         IsClosable="False"
                         IsOpen="{x:Bind ViewModel.HasReadinessIssue, Mode=OneWay}"
                         Message="{x:Bind ViewModel.ReadinessMessage, Mode=OneWay}"
-                        Severity="Warning" />
+                        Severity="Warning"
+                        Visibility="{x:Bind ViewModel.HasReadinessIssue, Mode=OneWay}" />
                     <InfoBar
                         IsClosable="False"
                         IsOpen="{x:Bind ViewModel.HasStatus, Mode=OneWay}"
                         Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
-                        Severity="Error" />
+                        Severity="Error"
+                        Visibility="{x:Bind ViewModel.HasStatus, Mode=OneWay}" />
                     <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
                         <ScrollViewer
                             HorizontalScrollBarVisibility="Auto"

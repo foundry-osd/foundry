@@ -31,7 +31,7 @@ public static class RuntimePayloadTrust
     /// Reads a matching archive hash, validating the entire manifest before trusting any entry.
     /// </summary>
     /// <param name="winPeRoot">The boot-owned Foundry directory.</param>
-    /// <param name="applicationName">The Connect or Deploy application name.</param>
+    /// <param name="applicationName">The Connect, Deploy, or PostInstall application name.</param>
     /// <param name="runtimeIdentifier">The target Windows runtime identifier.</param>
     /// <returns>The normalized SHA256, or null when the manifest or entry is absent.</returns>
     /// <exception cref="InvalidDataException">The identity or manifest is malformed, duplicated, or unsupported.</exception>
@@ -87,7 +87,7 @@ public static class RuntimePayloadTrust
 
     /// <summary>Resolves the original archive beneath an image or USB runtime root.</summary>
     /// <param name="runtimeRoot">The Runtime directory.</param>
-    /// <param name="applicationName">The Connect or Deploy application name.</param>
+    /// <param name="applicationName">The Connect, Deploy, or PostInstall application name.</param>
     /// <param name="runtimeIdentifier">The target Windows runtime identifier.</param>
     /// <returns>The complete original archive path.</returns>
     public static string GetBaselineArchivePath(string runtimeRoot, string applicationName, string runtimeIdentifier)
@@ -121,7 +121,7 @@ public static class RuntimePayloadTrust
 
     private static void ValidateIdentity(string application, string runtime)
     {
-        if (application is not ("Foundry.Connect" or "Foundry.Deploy") || runtime is not ("win-x64" or "win-arm64"))
+        if (application is not ("Foundry.Connect" or "Foundry.Deploy" or "Foundry.PostInstall") || runtime is not ("win-x64" or "win-arm64"))
         {
             throw new InvalidDataException("Runtime trust archive application or runtime identifier is unsupported.");
         }

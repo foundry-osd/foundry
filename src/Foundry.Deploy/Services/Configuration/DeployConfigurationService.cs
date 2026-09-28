@@ -71,6 +71,8 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
             Foundry.Deploy.Services.Deployment.Unattend.UnattendCatalog.Validate(document.Unattend, document.Protection?.IsEnabled == true);
 
             document = DeployConfigurationMigration.ApplySchemaMigrations(document);
+            Foundry.Core.Services.Configuration.PreOobeConfigurationValidator.ThrowIfInvalid(new Foundry.Core.Models.Configuration.PreOobeSettings
+            { IsEnabled = document.PreOobe.IsEnabled, Actions = document.PreOobe.Actions });
 
             if (document.SchemaVersion > ConfigurationSchemaVersions.DeployCurrent)
             {

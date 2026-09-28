@@ -543,6 +543,24 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Λειτουργικό σύστημα</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Δεν απαιτούνται εργασίες μετά την εγκατάσταση.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Η προετοιμασία της φάσης μετά την εγκατάσταση απέτυχε. Ελέγξτε το αρχείο καταγραφής ανάπτυξης για λεπτομέρειες.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Η προετοιμασία για μετά την εγκατάσταση ολοκληρώθηκε (προσομοίωση).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Το περιβάλλον εκτέλεσης, το περιεχόμενο και ο μηχανισμός εκκίνησης με υποστήριξη επανεκκινήσεων προετοιμάστηκαν.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Προετοιμασία περιβάλλοντος εκτέλεσης και περιεχομένου για μετά την εγκατάσταση...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Η προετοιμασία για μετά την εγκατάσταση απέτυχε. Ελέγξτε το περιβάλλον εκτέλεσης, το περιεχόμενο και το αρχείο απαντήσεων των Windows πριν δοκιμάσετε ξανά.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Δεν είναι δυνατή η προετοιμασία της προσωρινής μνήμης του ειδώλου. Ελέγξτε τον ελεύθερο χώρο και την πρόσβαση εγγραφής σε αυτήν.</value>
   </data>
@@ -1020,9 +1038,6 @@
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Πακέτο σκηνοθεσίας...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Σταδιοποίηση προσαρμογών πριν από το OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Υποβολή αιτήματος εισαγωγής στο Microsoft Graph...</value>
   </data>
@@ -1031,9 +1046,6 @@
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Ενημέρωση υπάρχουσας συσκευής Autopilot...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Ενημέρωση σεναρίου εγκατάστασης πρώτης εκκίνησης...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Ενημέρωση της ετικέτας ομάδας Windows Autopilot στο Microsoft Graph...</value>
@@ -1251,9 +1263,6 @@
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Δεν υπάρχει διαθέσιμο περιεχόμενο ενημέρωσης υλικολογισμικού.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Δεν απαιτούνται σενάρια προσαρμογής πριν από το OOBE.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Επιλέχθηκε η λειτουργία πακέτου προγράμματος οδήγησης OEM, αλλά δεν παρέχεται πακέτο προγράμματος οδήγησης.</value>
   </data>
@@ -1286,12 +1295,6 @@
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Λείπει το λειτουργικό σύστημα URL.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Οι προσαρμογές πριν από το OOBE πραγματοποιήθηκαν σταδιακά.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Σταδιακές προσαρμογές πριν από το OOBE (προσομοίωση).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Η ετοιμότητα ανάπτυξης ελέγχθηκε (προσομοίωση).</value>

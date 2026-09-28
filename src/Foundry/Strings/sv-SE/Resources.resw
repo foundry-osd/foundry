@@ -2239,6 +2239,12 @@ Licensierad under MIT-licensen.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS-val</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Kör anpassade åtgärder före OOBE, efter Foundrys inbyggda uppgifter.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Efter installation</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Öppna GitHubs formulär för felrapportering i webbläsaren.</value>
   </data>
@@ -2391,6 +2397,201 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Distributionsalternativ för Windows</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Lägg till en aktiverad åtgärd eller inaktivera efterinstallationen.</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Lägg till åtgärd</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Programvara (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Typ av installationsprogram</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argument eller MSI-egenskaper</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Kommandorad</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importera de filer som kommandot behöver. Ange sedan kommandot nedan.</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Kommandorad</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent eller reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Förhandsgranskning av kommando</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Välj ett skript eller installationsprogram, eller ange ett kommando, för att förhandsgranska kommandoraden.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Ange kommandot som ska köras.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Lämna tomt för att köra från mappen med det importerade innehållet.</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Paketinnehåll</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Åtgärden togs bort, men dess cachelagrade innehåll kunde inte raderas.</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Importera en fil eller mapp.</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Innehållsstatus</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Innehåll för efter installationen har verifierats.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Fortsätt vid fel</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Fortsätt med nästa åtgärd om den här åtgärden misslyckas. En körning med osäkert resultat stoppar fortfarande sekvensen.</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Skjut upp omstart</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Skjut upp en begärd omstart till nästa omstartsåtgärd eller slutet av sekvensen.</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Redigera åtgärd</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Konfigurationen ändrades medan du redigerade. Öppna åtgärden igen.</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Inga åtgärder har lagts till.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Sökväg till skript eller installationsprogram (relativ till innehållet)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Körs som SYSTEM. Konfigurera argument för obevakad körning och kontrollerade omstarter.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Körningsinställningar</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Skapa installationslogg</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Import av innehåll misslyckades. Kontrollera åtkomst, ledigt utrymme, filnamn och sökvägslängder.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Importera fil</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Importera mapp</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Importerar innehåll...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Den här åtgärden är ogiltig. Kontrollera konfigurationen.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Ange en enda rad med högst 8191 tecken.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Välj ett skript eller installationsprogram från det importerade innehållet.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Ange högst 32 unika, icke-negativa avslutningskoder åtskilda med kommatecken. Använd inte 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Ange ett namn med 1–256 tecken utan kontrolltecken.</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Ange ett heltal mellan 0 och 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Redigera ”{0}” för att korrigera inställningarna.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Ange ett heltal från 1 till 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Ange en mapp från det importerade innehållet eller lämna fältet tomt.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Läser in innehåll...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Importera det saknade innehållet för ”{0}”.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Flytta ned</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Flytta upp</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Inget innehåll har importerats</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Krävs inte</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Paketinnehåll (valfritt)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Ordning</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>En avslutningskod för omstart kan inte också vara en avslutningskod för lyckat resultat.</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell-skript (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell-argument</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Åtgärden kunde inte tas bort. Försök igen.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Starta om Windows</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Avslutningskoder som kräver omstart (kommaseparerade)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Fördröjning före omstart (sekunder)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Använd 0 för att starta om direkt.</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Starta om Windows och fortsätt sedan med nästa åtgärd.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Skriptargument</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Förbereder innehåll för efter installationen.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Avslutningskoder för lyckat resultat (kommaseparerade)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Tidsgräns (sekunder)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Arbetskatalog (relativ; tomt använder innehållets rotkatalog)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Aktuella inställningar</value>
@@ -3496,7 +3697,10 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Använd Foundry-inställningar</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Den valda filen ersätter svarsfilen som Foundry genererar. Inställningarna används som de är, utan sammanslagning eller ifyllning av saknade värden. Välj ”Använd Foundry-inställningar” för att använda din sparade konfiguration.</value>
+    <value>Den valda filen ersätter svarsfilen som Foundry genererar. Foundry bevarar dess anpassade inställningar och lägger till det obligatoriska kommandot för efter installationen i distributionskopian. Välj Använd Foundry-inställningar för att använda din sparade konfiguration.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry bevarar din originalfil och lägger till sitt obligatoriska kommando för efter installationen i distributionskopian. Du ansvarar fortfarande för dina anpassade inställningar och kommandon.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Egna filer kräver lösenordsskydd för distributionsmediet under Allmänt. XML kan innehålla autentiseringsuppgifter eller skript. Katalogen sparar endast referenser till källorna; startavbildningen innehåller krypterade kopior.</value>

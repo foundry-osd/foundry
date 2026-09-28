@@ -2239,6 +2239,12 @@ Licencováno pod licencí MIT.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Výběr OS</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Spouštějte vlastní akce před OOBE, po integrovaných úlohách Foundry.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Po instalaci</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Otevřete formulář pro hlášení chyb na GitHubu ve svém prohlížeči.</value>
   </data>
@@ -2391,6 +2397,201 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Možnosti nasazení Windows</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Přidejte povolenou akci nebo zakažte poinstalační konfiguraci.</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Přidat akci</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Software (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Typ instalátoru</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumenty nebo vlastnosti MSI</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Příkazový řádek</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importujte soubory, které příkaz potřebuje. Poté zadejte příkaz níže.</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Příkazový řádek</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent nebo reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Náhled příkazu</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Vyberte skript nebo instalační program nebo zadejte příkaz a zobrazte náhled příkazového řádku.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Zadejte příkaz ke spuštění.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Ponechte prázdné pro spuštění ze složky s importovaným obsahem.</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Obsah balíčku</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Akce byla odebrána, ale její obsah v mezipaměti se nepodařilo odstranit.</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Importujte soubor nebo složku.</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Stav obsahu</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Obsah pro fázi po instalaci byl ověřen.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Pokračovat při chybě</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Pokud tato akce selže, pokračujte další akcí. Spuštění s nejistým výsledkem sekvenci nadále zastaví.</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Odložit restart</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Odložte požadovaný restart do další akce restartu nebo do konce sekvence.</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Upravit akci</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Během úprav se konfigurace změnila. Otevřete akci znovu.</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Nebyly přidány žádné akce.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Cesta ke skriptu nebo instalátoru (relativní k obsahu)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Spouští se jako SYSTEM. Nastavte argumenty pro bezobslužné spouštění a řízené restarty.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Nastavení spouštění</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Vytvořit protokol instalace</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Import obsahu se nezdařil. Zkontrolujte přístup, volné místo, názvy souborů a délky cest.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Importovat soubor</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Importovat složku</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Importování obsahu...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Tato akce je neplatná. Zkontrolujte její konfiguraci.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Zadejte jeden řádek o délce nejvýše 8191 znaků.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Vyberte skript nebo instalační program z importovaného obsahu.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Zadejte nejvýše 32 jedinečných nezáporných výstupních kódů oddělených čárkami. Nepoužívejte 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Zadejte název o délce 1–256 znaků bez řídicích znaků.</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Zadejte celé číslo od 0 do 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Upravte „{0}“ a opravte nastavení.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Zadejte celé číslo od 1 do 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Zadejte složku z importovaného obsahu nebo ponechte toto pole prázdné.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Načítání obsahu...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Importujte chybějící obsah pro „{0}“.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Posunout dolů</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Posunout nahoru</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Nebyl importován žádný obsah</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Není vyžadováno</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Obsah balíčku (volitelné)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Pořadí</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Výstupní kód pro restart nemůže být současně výstupním kódem pro úspěch.</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>Skript PowerShell (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Argumenty PowerShellu</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Akci se nepodařilo odebrat. Zkuste to znovu.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Restartovat Windows</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Návratové kódy vyžadující restart (oddělené čárkami)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Prodleva před restartováním (sekundy)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Pro okamžité restartování použijte 0.</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Restartujte Windows a pokračujte další akcí.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Argumenty skriptu</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Příprava obsahu pro fázi po instalaci.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Návratové kódy úspěchu (oddělené čárkami)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Časový limit (sekundy)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Pracovní adresář (relativní; prázdná hodnota použije kořen obsahu)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Aktuální nastavení</value>
@@ -3496,7 +3697,10 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Použít nastavení Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Vybraný soubor nahrazuje soubor odpovědí vygenerovaný Foundry. Jeho nastavení se použijí beze změn, bez slučování nebo doplňování chybějících hodnot. Chcete-li použít uloženou konfiguraci, vyberte Použít nastavení Foundry.</value>
+    <value>Vybraný soubor nahradí soubor odpovědí vygenerovaný Foundry. Foundry zachová jeho vlastní nastavení a přidá požadovaný příkaz pro fázi po instalaci do kopie pro nasazení. Chcete-li použít uloženou konfiguraci, vyberte Použít nastavení Foundry.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry zachová původní soubor a přidá svůj požadovaný příkaz pro fázi po instalaci do kopie pro nasazení. Za vlastní nastavení a příkazy nadále odpovídáte vy.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Vlastní soubory vyžadují ochranu média pro nasazení heslem v obecné konfiguraci. XML může obsahovat přihlašovací údaje nebo skripty. Katalog ukládá pouze odkazy na zdroje. Spouštěcí bitová kopie obsahuje zašifrované kopie.</value>

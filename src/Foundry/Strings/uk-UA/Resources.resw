@@ -2239,6 +2239,12 @@
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Вибір ОС</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Виконуйте власні дії перед OOBE, після вбудованих завдань Foundry.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Після інсталяції</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Відкрийте форму повідомлення про помилку GitHub у браузері.</value>
   </data>
@@ -2391,6 +2397,201 @@
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Параметри розгортання Windows</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Додайте ввімкнену дію або вимкніть налаштування після інсталяції.</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Додати дію</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Програмне забезпечення (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Тип інсталятора</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Аргументи або властивості MSI</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Командний рядок</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Імпортуйте файли, потрібні для команди. Потім введіть команду нижче.</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Командний рядок</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent або reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Попередній перегляд команди</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Виберіть скрипт чи інсталятор або введіть команду для попереднього перегляду командного рядка.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Введіть команду для виконання.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Залиште поле порожнім для запуску з папки імпортованого вмісту.</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Вміст пакета</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Дію видалено, але не вдалося видалити її кешований вміст.</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Імпортуйте файл або папку.</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Стан вмісту</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Вміст для етапу після інсталяції перевірено.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Продовжувати в разі помилки</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Перейти до наступної дії, якщо ця дія завершиться помилкою. Виконання з невизначеним результатом усе одно зупиняє послідовність.</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Відкласти перезапуск</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Відкласти запитаний перезапуск до наступної дії перезапуску або завершення послідовності.</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Редагувати дію</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Конфігурація змінилася під час редагування. Відкрийте дію знову.</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Дії не додано.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Шлях до сценарію або інсталятора (відносно вмісту)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Виконується від імені SYSTEM. Налаштуйте аргументи для виконання без участі користувача та керованих перезапусків.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Параметри виконання</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Створювати журнал інсталяції</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Не вдалося імпортувати вміст. Перевірте доступ, вільне місце, імена файлів і довжину шляхів.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Імпортувати файл</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Імпортувати папку</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Імпортування вмісту...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Ця дія недійсна. Перевірте її конфігурацію.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Введіть один рядок завдовжки до 8191 символа.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Виберіть скрипт або інсталятор з імпортованого вмісту.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Введіть до 32 унікальних невід’ємних кодів виходу, розділених комами. Не використовуйте 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Введіть ім’я завдовжки 1–256 символів без керівних символів.</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Введіть ціле число від 0 до 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Відредагуйте «{0}», щоб виправити налаштування.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Введіть ціле число від 1 до 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Введіть папку з імпортованого вмісту або залиште це поле порожнім.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Завантаження вмісту...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Імпортуйте відсутній вміст для «{0}».</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Перемістити вниз</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Перемістити вгору</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Вміст не імпортовано</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Не потрібно</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Вміст пакета (необов’язково)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Порядок</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Код виходу для перезапуску не може одночасно бути кодом успішного завершення.</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>Скрипт PowerShell (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Аргументи PowerShell</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Не вдалося видалити дію. Спробуйте ще раз.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Перезапустити Windows</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Коди завершення, що потребують перезавантаження (через кому)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Затримка перед перезавантаженням (секунди)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Укажіть 0 для негайного перезавантаження.</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Перезавантажте Windows, а потім перейдіть до наступної дії.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Аргументи скрипту</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Підготовка вмісту для етапу після інсталяції.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Коди успішного завершення (через кому)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Час очікування (секунди)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Робочий каталог (відносний; порожнє поле означає корінь вмісту)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Поточні налаштування</value>
@@ -3496,7 +3697,10 @@
     <value>Використовувати параметри Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Вибраний файл замінює файл відповідей, створений Foundry. Його параметри використовуються як є, без об’єднання чи заповнення відсутніх значень. Виберіть «Використовувати параметри Foundry», щоб застосувати збережену конфігурацію.</value>
+    <value>Вибраний файл замінює файл відповідей, створений Foundry. Foundry зберігає його власні параметри й додає обов’язкову команду етапу після інсталяції до копії для розгортання. Виберіть «Використовувати параметри Foundry», щоб скористатися збереженою конфігурацією.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry зберігає оригінальний файл і додає обов’язкову команду етапу після інсталяції до копії для розгортання. Ви й надалі відповідаєте за власні параметри та команди.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Для власних файлів потрібен захист носія розгортання паролем у загальних налаштуваннях. XML може містити облікові дані або сценарії. Каталог зберігає лише посилання на джерела; завантажувальний образ містить зашифровані копії.</value>

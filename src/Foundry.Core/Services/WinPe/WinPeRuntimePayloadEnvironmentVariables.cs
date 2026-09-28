@@ -15,4 +15,6 @@ public static class WinPeRuntimePayloadEnvironmentVariables
     public const string DebugDeployEnable = "FOUNDRY_WINPE_DEBUG_DEPLOY";
     public const string DebugDeployArchive = "FOUNDRY_WINPE_DEBUG_DEPLOY_ARCHIVE";
     public const string DebugDeployProject = "FOUNDRY_WINPE_DEBUG_DEPLOY_PROJECT";
+    public const string DebugPostInstallArchive = "FOUNDRY_WINPE_DEBUG_POSTINSTALL_ARCHIVE";
+    public const string DebugPostInstallProject = "FOUNDRY_WINPE_DEBUG_POSTINSTALL_PROJECT";
 }

@@ -2239,6 +2239,12 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS pasirinkimas</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Vykdykite pasirinktinius veiksmus prieš OOBE, po integruotųjų Foundry užduočių.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Po diegimo</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Atidarykite „GitHub“ klaidos pranešimo formą naršyklėje.</value>
   </data>
@@ -2391,6 +2397,201 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows diegimo parinktys</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Pridėkite įjungtą veiksmą arba išjunkite konfigūravimą po diegimo.</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Pridėti veiksmą</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Programinė įranga (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Diegimo programos tipas</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumentai arba MSI ypatybės</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Komandų eilutė</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importuokite komandai reikalingus failus. Tada toliau įveskite komandą.</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Komandų eilutė</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent arba reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Komandos peržiūra</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Pasirinkite scenarijų ar diegimo programą arba įveskite komandą, kad peržiūrėtumėte komandų eilutę.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Įveskite komandą, kurią norite vykdyti.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Palikite tuščią, kad būtų vykdoma iš importuoto turinio aplanko.</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Paketo turinys</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Veiksmas pašalintas, tačiau nepavyko ištrinti jo turinio iš podėlio.</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Importuokite failą arba aplanką.</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Turinio būsena</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Turinys veiksmams po diegimo patikrintas.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Tęsti įvykus klaidai</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Jei šis veiksmas nepavyksta, tęskite kitą veiksmą. Vykdymas, kurio rezultatas neaiškus, vis tiek sustabdo seką.</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Atidėti paleidimą iš naujo</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Atidėkite prašomą paleidimą iš naujo iki kito paleidimo iš naujo veiksmo arba sekos pabaigos.</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Redaguoti veiksmą</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Redaguojant konfigūracija pasikeitė. Atidarykite veiksmą dar kartą.</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Veiksmų nepridėta.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Scenarijaus arba diegimo programos kelias (turinio atžvilgiu)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Vykdoma naudojant SYSTEM paskyrą. Nustatykite argumentus vykdymui be priežiūros ir valdomiems paleidimams iš naujo.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Vykdymo parametrai</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Kurti diegimo žurnalą</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Nepavyko importuoti turinio. Patikrinkite prieigą, laisvą vietą, failų pavadinimus ir kelių ilgius.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Importuoti failą</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Importuoti aplanką</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Importuojamas turinys...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Šis veiksmas netinkamas. Patikrinkite jo konfigūraciją.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Įveskite vieną eilutę, kurioje ne daugiau kaip 8191 simbolis.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Pasirinkite scenarijų arba diegimo programą iš importuoto turinio.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Įveskite iki 32 unikalių neneigiamų išėjimo kodų, atskirtų kableliais. Nenaudokite 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Įveskite 1–256 simbolių pavadinimą be valdymo simbolių.</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Įveskite sveikąjį skaičių nuo 0 iki 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Redaguokite „{0}“, kad pataisytumėte nustatymus.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Įveskite sveikąjį skaičių nuo 1 iki 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Įveskite aplanką iš importuoto turinio arba palikite šį lauką tuščią.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Įkeliamas turinys...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Importuokite trūkstamą „{0}“ turinį.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Perkelti žemyn</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Perkelti aukštyn</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Turinys neimportuotas</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Nereikia</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Paketo turinys (neprivaloma)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Tvarka</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Paleidimo iš naujo išėjimo kodas negali būti ir sėkmės išėjimo kodas.</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell scenarijus (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell argumentai</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Nepavyko pašalinti veiksmo. Bandykite dar kartą.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Paleisti Windows iš naujo</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Užbaigimo kodai, reikalaujantys paleisti iš naujo (atskirti kableliais)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Delsa prieš paleidžiant iš naujo (sekundės)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Naudokite 0, kad paleistumėte iš naujo iš karto.</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Paleiskite Windows iš naujo, tada tęskite kitą veiksmą.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Scenarijaus argumentai</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Ruošiamas turinys veiksmams po diegimo.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Sėkmingo užbaigimo kodai (atskirti kableliais)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Skirtasis laikas (sekundėmis)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Tipas</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Darbinis katalogas (santykinis; tuščias laukas naudoja turinio šakninį katalogą)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Dabartiniai nustatymai</value>
@@ -3496,7 +3697,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Naudoti „Foundry“ parametrus</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Pasirinktas failas pakeičia „Foundry“ sugeneruotą atsakymų failą. Jo parametrai naudojami tokie, kokie yra, jų nesujungiant ir neužpildant trūkstamų reikšmių. Norėdami naudoti išsaugotą konfigūraciją, pasirinkite „Naudoti „Foundry“ parametrus“.</value>
+    <value>Pasirinktas failas pakeičia „Foundry“ sugeneruotą atsakymų failą. „Foundry“ išsaugo jo pasirinktinius parametrus ir į diegimo kopiją įtraukia būtiną komandą, vykdomą po diegimo. Norėdami naudoti išsaugotą konfigūraciją, pasirinkite Naudoti „Foundry“ parametrus.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>„Foundry“ išsaugo originalų failą ir į diegimo kopiją įtraukia savo būtiną komandą, vykdomą po diegimo. Už pasirinktinius parametrus ir komandas ir toliau atsakote jūs.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Pasirinktiniams failams reikia diegimo laikmenos apsaugos slaptažodžiu bendrojoje konfigūracijoje. XML gali būti kredencialų arba scenarijų. Kataloge išsaugomos tik nuorodos į šaltinius; įkrovos atvaizde yra užšifruotos kopijos.</value>

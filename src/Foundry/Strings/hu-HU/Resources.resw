@@ -2239,6 +2239,12 @@ Licenc az MIT licenc alatt.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Operációsrendszer-választás</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Egyéni műveletek futtatása az OOBE előtt, a Foundry beépített feladatai után.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Telepítés után</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Nyissa meg a GitHub hibabejelentő űrlapját a böngészőjében.</value>
   </data>
@@ -2391,6 +2397,201 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Windows-telepítési lehetőségek</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Adjon hozzá egy engedélyezett műveletet, vagy tiltsa le a telepítés utáni konfigurációt.</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Művelet hozzáadása</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Szoftver (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Telepítő típusa</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Argumentumok vagy MSI-tulajdonságok</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Parancssor</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importálja a parancshoz szükséges fájlokat. Ezután adja meg alább a parancsot.</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Parancssor</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent vagy reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Parancs előnézete</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>A parancssor előnézetéhez válasszon szkriptet vagy telepítőt, vagy írjon be egy parancsot.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Adja meg a futtatandó parancsot.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Hagyja üresen az importált tartalom mappájából történő futtatáshoz.</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Csomag tartalma</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>A művelet el lett távolítva, de a gyorsítótárazott tartalmát nem sikerült törölni.</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Importáljon egy fájlt vagy mappát.</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Tartalom állapota</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Telepítés utáni tartalom ellenőrizve.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Folytatás hiba esetén</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Ha ez a művelet sikertelen, folytassa a következő művelettel. A bizonytalan kimenetelű végrehajtás továbbra is leállítja a sorozatot.</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Újraindítás elhalasztása</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Halassza el a kért újraindítást a következő újraindítási műveletig vagy a sorozat végéig.</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Művelet szerkesztése</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>A konfiguráció szerkesztés közben megváltozott. Nyissa meg újra a műveletet.</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Nincsenek hozzáadott műveletek.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Parancsfájl vagy telepítő elérési útja (a tartalomhoz képest)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>SYSTEM-fiókként fut. Állítsa be az argumentumokat a felügyelet nélküli végrehajtáshoz és a szabályozott újraindításokhoz.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Végrehajtási beállítások</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Telepítési napló létrehozása</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>A tartalom importálása sikertelen. Ellenőrizze a hozzáférést, a szabad helyet, a fájlneveket és az elérési utak hosszát.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Fájl importálása</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Mappa importálása</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Tartalom importálása...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Ez a művelet érvénytelen. Ellenőrizze a konfigurációját.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Adjon meg egyetlen, legfeljebb 8191 karakter hosszú sort.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Válasszon szkriptet vagy telepítőt az importált tartalomból.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Adjon meg legfeljebb 32 egyedi, nemnegatív kilépési kódot vesszővel elválasztva. Ne használja az 1641 kódot.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Adjon meg egy 1–256 karakter hosszú nevet vezérlőkarakterek nélkül.</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Adjon meg egy 0 és 86400 közötti egész számot.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Szerkessze a(z) „{0}” elemet a beállítások javításához.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Adjon meg egy egész számot 1 és 86400 között.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Adjon meg egy mappát az importált tartalomból, vagy hagyja üresen ezt a mezőt.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Tartalom betöltése...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Importálja a(z) „{0}” hiányzó tartalmát.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Mozgatás lefelé</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Mozgatás felfelé</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Nincs importált tartalom</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Nem szükséges</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Csomag tartalma (nem kötelező)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Sorrend</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Az újraindítást jelző kilépési kód nem lehet egyben sikert jelző kilépési kód.</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell-szkript (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell-argumentumok</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>A műveletet nem sikerült eltávolítani. Próbálja újra.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Windows újraindítása</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Újraindítást igénylő kilépési kódok (vesszővel elválasztva)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Újraindítás késleltetése (másodperc)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Az azonnali újraindításhoz használjon 0-t.</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Indítsa újra a Windowst, majd folytassa a következő művelettel.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Szkriptargumentumok</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Telepítés utáni tartalom előkészítése.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Sikeres kilépési kódok (vesszővel elválasztva)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Időkorlát (másodperc)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Típus</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Munkakönyvtár (relatív; üresen a tartalom gyökere)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Jelenlegi beállítások</value>
@@ -3496,7 +3697,10 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A Foundry beállításainak használata</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>A kiválasztott fájl felváltja a Foundry által létrehozott válaszfájlt. Beállításai változtatás nélkül érvényesülnek, egyesítés és a hiányzó értékek pótlása nélkül. A mentett konfiguráció használatához válassza A Foundry beállításainak használata lehetőséget.</value>
+    <value>A kiválasztott fájl felváltja a Foundry által létrehozott válaszfájlt. A Foundry megőrzi annak egyéni beállításait, és hozzáadja a szükséges telepítés utáni parancsot a telepítési példányhoz. A mentett konfiguráció használatához válassza „A Foundry beállításainak használata” lehetőséget.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>A Foundry megőrzi az eredeti fájlt, és hozzáadja a szükséges telepítés utáni parancsát a telepítési példányhoz. Az egyéni beállításokért és parancsokért továbbra is Ön felel.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Az egyéni fájlok használatához az Általános konfigurációban engedélyezni kell a telepítési adathordozó jelszavas védelmét. Az XML hitelesítő adatokat vagy szkripteket tartalmazhat. A katalógus csak a forráshivatkozásokat menti; a rendszerindító lemezkép titkosított másolatokat tartalmaz.</value>

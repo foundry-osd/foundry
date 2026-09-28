@@ -2239,6 +2239,12 @@
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>Избор на OS</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Изпълнявайте персонализирани действия преди OOBE, след вградените задачи на Foundry.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>След инсталиране</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Отворете формуляра за докладване на грешки в GitHub в браузъра си.</value>
   </data>
@@ -2391,6 +2397,201 @@
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>Опции за разполагане на Windows</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Добавете разрешено действие или изключете конфигурацията след инсталиране.</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Добавяне на действие</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Софтуер (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Тип на инсталатора</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Аргументи или свойства на MSI</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Команден ред</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Импортирайте файловете, необходими за командата. След това въведете командата по-долу.</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Команден ред</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent или reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Преглед на командата</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Изберете скрипт или инсталатор или въведете команда, за да прегледате командния ред.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Въведете командата за изпълнение.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Оставете празно, за да се изпълнява от папката с импортираното съдържание.</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Съдържание на пакета</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>Действието беше премахнато, но кешираното му съдържание не можа да бъде изтрито.</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Импортирайте файл или папка.</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Състояние на съдържанието</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Съдържанието за етапа след инсталиране е проверено.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Продължаване при грешка</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Продължете със следващото действие, ако това действие е неуспешно. Изпълнение с неясен резултат все пак спира последователността.</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Отлагане на рестартирането</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Отложете заявено рестартиране до следващото действие за рестартиране или до края на последователността.</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Редактиране на действие</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>Конфигурацията се промени по време на редактиране. Отворете действието отново.</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>Няма добавени действия.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Път до скрипта или инсталатора (спрямо съдържанието)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Изпълнява се като SYSTEM. Конфигурирайте аргументите за изпълнение без надзор и контролирани рестартирания.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Настройки за изпълнение</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Създаване на дневник на инсталирането</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Импортирането на съдържание е неуспешно. Проверете достъпа, свободното място, имената на файловете и дължините на пътищата.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Импортиране на файл</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Импортиране на папка</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Импортиране на съдържание...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>Това действие е невалидно. Проверете конфигурацията му.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Въведете един ред с до 8191 знака.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Изберете скрипт или инсталатор от импортираното съдържание.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Въведете до 32 уникални неотрицателни кода за изход, разделени със запетаи. Не използвайте 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Въведете име от 1 до 256 знака без контролни знаци.</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Въведете цяло число от 0 до 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Редактирайте „{0}“, за да коригирате настройките.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Въведете цяло число от 1 до 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Въведете папка от импортираното съдържание или оставете полето празно.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Зареждане на съдържание...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Импортирайте липсващото съдържание за „{0}“.</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Преместване надолу</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Преместване нагоре</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>Няма импортирано съдържание</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Не се изисква</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Съдържание на пакета (по избор)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Ред</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>Код за изход за рестартиране не може да бъде и код за успешен изход.</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell скрипт (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>Аргументи на PowerShell</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>Действието не можа да бъде премахнато. Опитайте отново.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Рестартиране на Windows</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Кодове за изход, изискващи рестартиране (разделени със запетаи)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Забавяне преди рестартиране (секунди)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Използвайте 0 за незабавно рестартиране.</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Рестартирайте Windows, след което продължете със следващото действие.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Аргументи на скрипта</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Подготвяне на съдържанието за етапа след инсталиране.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Кодове за успешен изход (разделени със запетаи)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Време за изчакване (секунди)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Работна директория (относителна; празна означава корена на съдържанието)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Текущи настройки</value>
@@ -3496,7 +3697,10 @@
     <value>Използване на настройките на Foundry</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>Избраният файл заменя файла с отговори, генериран от Foundry. Настройките му се използват без промени, без обединяване или попълване на липсващи стойности. Изберете „Използване на настройките на Foundry“, за да използвате запазената си конфигурация.</value>
+    <value>Избраният файл заменя файла с отговори, генериран от Foundry. Foundry запазва персонализираните му настройки и добавя задължителната команда за етапа след инсталиране към копието за разполагане. Изберете Използване на настройките на Foundry, за да използвате запазената конфигурация.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry запазва оригиналния файл и добавя задължителната си команда за етапа след инсталиране към копието за разполагане. Вие оставате отговорни за персонализираните настройки и команди.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Потребителските файлове изискват защита с парола на носителя за разполагане в общите настройки. XML може да съдържа идентификационни данни или скриптове. Каталогът запазва само препратки към източниците; образът за зареждане съдържа шифровани копия.</value>

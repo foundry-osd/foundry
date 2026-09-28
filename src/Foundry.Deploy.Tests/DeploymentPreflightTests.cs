@@ -10,6 +10,8 @@ using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Deployment.Steps;
+using Foundry.Deploy.Services.Deployment.PreOobe;
+using Foundry.Deploy.Services.Deployment.Unattend;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.System;
@@ -22,6 +24,20 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentPreflightTests
 {
+    [Theory]
+    [InlineData(DeploymentMode.Iso)]
+    [InlineData(DeploymentMode.Usb)]
+    public async Task MissingPostInstallContent_PreventsBothDestructiveBranches(DeploymentMode mode)
+    {
+        using var fixture = new PipelineFixture { Mode = mode, DeferredDriver = true, Failure = "missing_postinstall" };
+        DeploymentStepResult result = await fixture.RunAsync();
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("postinstall_preflight_failed", result.Failure?.Code);
+        Assert.Empty(fixture.Events);
+        Assert.Equal(DeploymentStepState.Failed, (await fixture.Prepare.ExecuteAsync(fixture.Context!, TestContext.Current.CancellationToken)).State);
+        Assert.Empty(fixture.Events);
+    }
+
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
@@ -291,8 +307,8 @@ public sealed class DeploymentPreflightTests
     }
 
     [Theory]
-    [InlineData(DeploymentMode.Usb, 6736052333UL, false)]
-    [InlineData(DeploymentMode.Iso, 6736052437UL, true)]
+    [InlineData(DeploymentMode.Usb, 6736052347UL, false)]
+    [InlineData(DeploymentMode.Iso, 6736052451UL, true)]
     public async Task DeferredDriverPackage_BudgetsTargetCopyAndTargetResidentArchive(DeploymentMode mode, ulong targetBytes, bool partitionsBeforeFullCheck)
     {
         using var fixture = new PipelineFixture { Mode = mode, TargetBytes = targetBytes, DeferredDriver = true };
@@ -302,10 +318,10 @@ public sealed class DeploymentPreflightTests
     }
 
     [Theory]
-    [InlineData("Lenovo", "https://example.test/drivers.exe?version=1", 6736052334UL, DeploymentStepState.Succeeded)]
-    [InlineData("Lenovo", "https://example.test/drivers.exe?version=1", 6736052333UL, DeploymentStepState.Failed)]
-    [InlineData("Microsoft", "https://example.test/surface.msi?version=1", 6736052334UL, DeploymentStepState.Succeeded)]
-    [InlineData("Microsoft", "https://example.test/surface.msi?version=1", 6736052333UL, DeploymentStepState.Failed)]
+    [InlineData("Lenovo", "https://example.test/drivers.exe?version=1", 6736052348UL, DeploymentStepState.Succeeded)]
+    [InlineData("Lenovo", "https://example.test/drivers.exe?version=1", 6736052347UL, DeploymentStepState.Failed)]
+    [InlineData("Microsoft", "https://example.test/surface.msi?version=1", 6736052348UL, DeploymentStepState.Succeeded)]
+    [InlineData("Microsoft", "https://example.test/surface.msi?version=1", 6736052347UL, DeploymentStepState.Failed)]
     public async Task DeferredDriverWithoutFileName_UsesSourceUrlAndBudgetsTargetCopy(
         string manufacturer, string sourceUrl, ulong targetBytes, DeploymentStepState expected)
     {
@@ -538,12 +554,12 @@ public sealed class DeploymentPreflightTests
             var artifact = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, _client);
             var windows = new PipelineWindows(this);
             var probe = new ImageSourceProbe(_client);
-            Preflight = new PreflightDeploymentStep(Storage, probe);
+            Preflight = new PreflightDeploymentStep(Storage, probe, postInstallResolver: new FixturePostInstall(this));
             Prepare = new PrepareTargetDiskLayoutStep(windows, probe);
             Download = new DownloadOperatingSystemImageStep(artifact);
             CheckImage = new CheckWindowsImageStep(windows, Storage);
             Boot = new ConfigureWindowsBootStep(windows);
-            _apply = new ApplyOperatingSystemImageStep(windows, Storage);
+            _apply = new ApplyOperatingSystemImageStep(windows, Storage, new FixturePrecedence());
         }
 
         public void CreateCache(byte[] bytes)
@@ -574,6 +590,7 @@ public sealed class DeploymentPreflightTests
                 },
                 OperatingSystem = (OperatingSystemMetadata?)CustomImage ?? new OperatingSystemCatalogItem
                 {
+                    Architecture = "x64",
                     Edition = Failure == "unsupported_edition" ? "Unknown" : "Pro",
                     FileName = "install.esd",
                     Url = Failure == "invalid_url" ? "file:///image" : "https://example.test/image",
@@ -631,6 +648,20 @@ public sealed class DeploymentPreflightTests
                 }
             };
             return await orchestrator.RunAsync(CreateRequest() with { ApplyFirmwareUpdates = false }, _cancellation.Token);
+        }
+
+        private sealed class FixturePostInstall(PipelineFixture fixture) : PreOobeContentResolver
+        {
+            internal override Task<PreOobePreparedContent?> PrepareAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+            {
+                if (fixture.Failure == "missing_postinstall") throw new InvalidDataException("Required package or runtime is unavailable.");
+                return Task.FromResult<PreOobePreparedContent?>(IsRequired(context.Request) ? NativeRuntimeFixture.Create(fixture.Root) : null);
+            }
+        }
+
+        private sealed class FixturePrecedence() : PreOobeUnattendPrecedenceService(null!)
+        {
+            public override Task ValidateAsync(string partition, string architecture, CancellationToken cancellationToken) => Task.CompletedTask;
         }
 
         private sealed class CapturingPreflightStep(PipelineFixture fixture) : IDeploymentStep

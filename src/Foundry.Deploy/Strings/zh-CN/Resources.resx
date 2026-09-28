@@ -543,6 +543,24 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>操作系统</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>无需执行安装后任务。</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>安装后阶段准备失败。请查看部署日志以了解详细信息。</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>安装后暂存已完成（模拟）。</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>已暂存安装后运行时、内容及支持重启的启动挂钩。</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>正在准备安装后运行时和内容...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>安装后暂存失败。重试前，请验证运行时、有效负载和 Windows 应答文件。</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>无法准备映像缓存。请检查其可用空间和写入权限。</value>
   </data>
@@ -1020,9 +1038,6 @@
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>暂存包...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>进行 OOBE 前定制...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>正在向Microsoft Graph提交导入请求...</value>
   </data>
@@ -1031,9 +1046,6 @@
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>正在更新现有Autopilot设备...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>正在更新首次启动设置脚本...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>正在更新Microsoft Graph中的Windows Autopilot组标签...</value>
@@ -1251,9 +1263,6 @@
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>没有可用的固件更新内容。</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>不需要 OOBE 前的自定义脚本。</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>选择了 OEM 驱动程序包模式，但未提供驱动程序包。</value>
   </data>
@@ -1286,12 +1295,6 @@
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>操作系统URL 丢失。</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>预 OOBE 定制已上演。</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>预 OOBE 定制已上演（模拟）。</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>已检查部署准备情况（模拟）。</value>

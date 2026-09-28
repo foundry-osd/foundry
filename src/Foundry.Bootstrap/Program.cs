@@ -82,7 +82,7 @@ internal static class Program
             BootstrapContext context = BootstrapEnvironment.Create(WinPeRoot, sessionId,
                 RuntimeInformation.OSArchitecture, volumes,
                 path => File.Exists(path) ? File.ReadAllText(path) : null);
-            Log.Information("Bootstrap runtime initialized. Version={Version}; runtime {RuntimeIdentifier}; Connect source {ConnectSource}; Deploy source {DeploySource}; persistent logs {HasPersistentLogs}",
+            Log.Information("Bootstrap runtime initialized. Version={Version}; runtime {RuntimeIdentifier}; Connect source {ConnectSource}; Deploy and PostInstall source {DeploySource}; persistent logs {HasPersistentLogs}",
                 typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
                 context.RuntimeIdentifier, context.ConnectIsDebug ? "Debug" : "Release", context.DeployIsDebug ? "Debug" : "Release",
                 context.PersistenceDirectory is not null);

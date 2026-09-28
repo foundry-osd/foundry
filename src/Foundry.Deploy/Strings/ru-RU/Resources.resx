@@ -543,6 +543,24 @@
   <data name="OperatingSystem.Title" xml:space="preserve">
     <value>Операционная система</value>
   </data>
+  <data name="PostInstall.NoTasks" xml:space="preserve">
+    <value>Задачи после установки не требуются.</value>
+  </data>
+  <data name="PostInstall.PreflightFailed" xml:space="preserve">
+    <value>Не удалось подготовить этап после установки. Подробности см. в журнале развертывания.</value>
+  </data>
+  <data name="PostInstall.Simulated" xml:space="preserve">
+    <value>Подготовка этапа после установки завершена (симуляция).</value>
+  </data>
+  <data name="PostInstall.Staged" xml:space="preserve">
+    <value>Среда выполнения, содержимое и механизм запуска с поддержкой перезагрузок подготовлены.</value>
+  </data>
+  <data name="PostInstall.Staging" xml:space="preserve">
+    <value>Подготовка среды выполнения и содержимого для этапа после установки...</value>
+  </data>
+  <data name="PostInstall.StagingFailed" xml:space="preserve">
+    <value>Не удалось подготовить этап после установки. Перед повторной попыткой проверьте среду выполнения, содержимое и файл ответов Windows.</value>
+  </data>
   <data name="Preflight.CacheUnavailable" xml:space="preserve">
     <value>Не удается подготовить кэш образа. Проверьте свободное место и доступ на запись в кэш.</value>
   </data>
@@ -1020,9 +1038,6 @@
   <data name="StepMessage.StagingPackage" xml:space="preserve">
     <value>Промежуточный пакет...</value>
   </data>
-  <data name="StepMessage.StagingPreOobeCustomizations" xml:space="preserve">
-    <value>Проведение настроек перед OOBE...</value>
-  </data>
   <data name="StepMessage.SubmittingMicrosoftGraphImport" xml:space="preserve">
     <value>Отправка запроса на импорт Microsoft Graph...</value>
   </data>
@@ -1031,9 +1046,6 @@
   </data>
   <data name="StepMessage.UpdatingExistingAutopilotDevice" xml:space="preserve">
     <value>Обновление существующего устройства Autopilot...</value>
-  </data>
-  <data name="StepMessage.UpdatingSetupCompleteHook" xml:space="preserve">
-    <value>Обновление сценария настройки первой загрузки...</value>
   </data>
   <data name="StepMessage.UpdatingWindowsAutopilotGroupTag" xml:space="preserve">
     <value>Обновление группового тега Windows Autopilot в Microsoft Graph...</value>
@@ -1251,9 +1263,6 @@
   <data name="StepResult.NoFirmwareUpdatePayload" xml:space="preserve">
     <value>Содержимое обновления прошивки недоступно.</value>
   </data>
-  <data name="StepResult.NoPreOobeCustomizationScriptsRequired" xml:space="preserve">
-    <value>Никакие сценарии настройки перед запуском OOBE не требуются.</value>
-  </data>
   <data name="StepResult.OemDriverPackMissing" xml:space="preserve">
     <value>Выбран режим пакета OEM-драйверов, но пакет драйверов не предоставлен.</value>
   </data>
@@ -1286,12 +1295,6 @@
   </data>
   <data name="StepResult.OperatingSystemUrlMissing" xml:space="preserve">
     <value>Операционная система URL отсутствует.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStaged" xml:space="preserve">
-    <value>Проведены настройки перед OOBE.</value>
-  </data>
-  <data name="StepResult.PreOobeCustomizationsStagedSimulation" xml:space="preserve">
-    <value>Предварительные настройки перед OOBE (моделирование).</value>
   </data>
   <data name="StepResult.PreflightSimulation" xml:space="preserve">
     <value>Готовность к развертыванию проверена (симуляция).</value>

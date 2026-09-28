@@ -30,7 +30,13 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
         string originalArchive = RuntimePayloadTrust.GetBaselineArchivePath(runtimeRoot, applicationName, runtimeIdentifier);
         string currentArchive = Path.Combine(Path.GetDirectoryName(originalArchive)!, "current.zip");
         var preparation = new RuntimePayloadPreparation(winPeRoot, transfer, logger, progress, activity, retainPayload);
-        string prefix = applicationName == "Foundry.Connect" ? "FOUNDRY_CONNECT" : "FOUNDRY_DEPLOY";
+        string prefix = applicationName switch
+        {
+            "Foundry.Connect" => "FOUNDRY_CONNECT",
+            "Foundry.Deploy" => "FOUNDRY_DEPLOY",
+            "Foundry.PostInstall" => "FOUNDRY_POSTINSTALL",
+            _ => throw new ArgumentOutOfRangeException(nameof(applicationName))
+        };
         string archiveOverride = ReadEnvironment(prefix + "_ARCHIVE");
         if (archiveOverride.Length > 0)
         {

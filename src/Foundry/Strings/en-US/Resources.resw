@@ -2239,6 +2239,12 @@ Licensed under the MIT License.</value>
   <data name="Nav_OsSelectionKey.Title" xml:space="preserve">
     <value>OS selection</value>
   </data>
+  <data name="Nav_PostInstallationKey.Description" xml:space="preserve">
+    <value>Run custom actions before OOBE, after Foundry built-in tasks.</value>
+  </data>
+  <data name="Nav_PostInstallationKey.Title" xml:space="preserve">
+    <value>Post-installation</value>
+  </data>
   <data name="Nav_ReportBugKey.Description" xml:space="preserve">
     <value>Open the GitHub bug report form in your browser.</value>
   </data>
@@ -2391,6 +2397,201 @@ Licensed under the MIT License.</value>
   </data>
   <data name="OsSelectionPageHeader.Title" xml:space="preserve">
     <value>OS selection</value>
+  </data>
+  <data name="PostInstallation.ActionRequired" xml:space="preserve">
+    <value>Add an enabled action or disable Post-installation.</value>
+  </data>
+  <data name="PostInstallation.Add" xml:space="preserve">
+    <value>Add action</value>
+  </data>
+  <data name="PostInstallation.Application" xml:space="preserve">
+    <value>Software (.exe/.msi)</value>
+  </data>
+  <data name="PostInstallation.ApplicationMode" xml:space="preserve">
+    <value>Installer type</value>
+  </data>
+  <data name="PostInstallation.Arguments" xml:space="preserve">
+    <value>Arguments or MSI properties</value>
+  </data>
+  <data name="PostInstallation.Command" xml:space="preserve">
+    <value>Command line</value>
+  </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Import files your command needs. Then enter the command below.</value>
+  </data>
+  <data name="PostInstallation.CommandLine" xml:space="preserve">
+    <value>Command line</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent or reg import settings.reg</value>
+  </data>
+  <data name="PostInstallation.CommandPreview" xml:space="preserve">
+    <value>Command preview</value>
+  </data>
+  <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
+    <value>Select a script or installer, or enter a command, to preview the command line.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Enter the command to run.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Leave empty to run from the imported content folder.</value>
+  </data>
+  <data name="PostInstallation.Content" xml:space="preserve">
+    <value>Package content</value>
+  </data>
+  <data name="PostInstallation.ContentCleanupFailed" xml:space="preserve">
+    <value>The action was removed, but its cached content could not be deleted.</value>
+  </data>
+  <data name="PostInstallation.ContentRequired" xml:space="preserve">
+    <value>Import a file or folder.</value>
+  </data>
+  <data name="PostInstallation.ContentStatusHeader" xml:space="preserve">
+    <value>Content status</value>
+  </data>
+  <data name="PostInstallation.ContentVerified" xml:space="preserve">
+    <value>Post-installation content verified.</value>
+  </data>
+  <data name="PostInstallation.ContinueOnError" xml:space="preserve">
+    <value>Continue on error</value>
+  </data>
+  <data name="PostInstallation.ContinueOnErrorDescription" xml:space="preserve">
+    <value>Continue with the next action if this action fails. Execution with an uncertain outcome still stops the sequence.</value>
+  </data>
+  <data name="PostInstallation.DeferRestart" xml:space="preserve">
+    <value>Defer restart</value>
+  </data>
+  <data name="PostInstallation.DeferRestartDescription" xml:space="preserve">
+    <value>Postpone a requested restart until the next Restart action or the end of the sequence.</value>
+  </data>
+  <data name="PostInstallation.Edit" xml:space="preserve">
+    <value>Edit action</value>
+  </data>
+  <data name="PostInstallation.EditConflict" xml:space="preserve">
+    <value>The configuration changed while you were editing. Open the action again.</value>
+  </data>
+  <data name="PostInstallation.EmptyMessage" xml:space="preserve">
+    <value>No actions added.</value>
+  </data>
+  <data name="PostInstallation.EntryPoint" xml:space="preserve">
+    <value>Script or installer path (relative to content)</value>
+  </data>
+  <data name="PostInstallation.ExecutionHelp" xml:space="preserve">
+    <value>Runs as SYSTEM. Configure arguments for unattended execution and controlled restarts.</value>
+  </data>
+  <data name="PostInstallation.ExecutionSettings" xml:space="preserve">
+    <value>Execution settings</value>
+  </data>
+  <data name="PostInstallation.GenerateInstallationLog" xml:space="preserve">
+    <value>Generate installation log</value>
+  </data>
+  <data name="PostInstallation.ImportFailed" xml:space="preserve">
+    <value>Content import failed. Check access, available space, file names and path lengths.</value>
+  </data>
+  <data name="PostInstallation.ImportFile" xml:space="preserve">
+    <value>Import file</value>
+  </data>
+  <data name="PostInstallation.ImportFolder" xml:space="preserve">
+    <value>Import folder</value>
+  </data>
+  <data name="PostInstallation.ImportingContent" xml:space="preserve">
+    <value>Importing content...</value>
+  </data>
+  <data name="PostInstallation.InvalidAction" xml:space="preserve">
+    <value>This action is invalid. Check its configuration.</value>
+  </data>
+  <data name="PostInstallation.InvalidCommandText" xml:space="preserve">
+    <value>Enter a single line of up to 8191 characters.</value>
+  </data>
+  <data name="PostInstallation.InvalidEntryPoint" xml:space="preserve">
+    <value>Select a script or installer from the imported content.</value>
+  </data>
+  <data name="PostInstallation.InvalidExitCodes" xml:space="preserve">
+    <value>Enter up to 32 unique, nonnegative exit codes separated by commas. Do not use 1641.</value>
+  </data>
+  <data name="PostInstallation.InvalidName" xml:space="preserve">
+    <value>Enter a name of 1–256 characters without control characters.</value>
+  </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Enter a whole number from 0 to 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidSettings" xml:space="preserve">
+    <value>Edit "{0}" to correct its settings.</value>
+  </data>
+  <data name="PostInstallation.InvalidTimeout" xml:space="preserve">
+    <value>Enter a whole number from 1 to 86400.</value>
+  </data>
+  <data name="PostInstallation.InvalidWorkingDirectory" xml:space="preserve">
+    <value>Enter a folder from the imported content, or leave this empty.</value>
+  </data>
+  <data name="PostInstallation.LoadingContent" xml:space="preserve">
+    <value>Loading content...</value>
+  </data>
+  <data name="PostInstallation.MissingContent" xml:space="preserve">
+    <value>Import the missing content for "{0}".</value>
+  </data>
+  <data name="PostInstallation.MoveDown" xml:space="preserve">
+    <value>Move down</value>
+  </data>
+  <data name="PostInstallation.MoveUp" xml:space="preserve">
+    <value>Move up</value>
+  </data>
+  <data name="PostInstallation.NoContent" xml:space="preserve">
+    <value>No content imported</value>
+  </data>
+  <data name="PostInstallation.NoContentRequired" xml:space="preserve">
+    <value>Not required</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Package content (optional)</value>
+  </data>
+  <data name="PostInstallation.OrderHeader" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="PostInstallation.OverlappingExitCodes" xml:space="preserve">
+    <value>A restart exit code cannot also be a success exit code.</value>
+  </data>
+  <data name="PostInstallation.PowerShell" xml:space="preserve">
+    <value>PowerShell script (.ps1)</value>
+  </data>
+  <data name="PostInstallation.PowerShellArguments" xml:space="preserve">
+    <value>PowerShell arguments</value>
+  </data>
+  <data name="PostInstallation.RemoveFailed" xml:space="preserve">
+    <value>The action could not be removed. Try again.</value>
+  </data>
+  <data name="PostInstallation.Restart" xml:space="preserve">
+    <value>Restart Windows</value>
+  </data>
+  <data name="PostInstallation.RestartCodes" xml:space="preserve">
+    <value>Restart-required exit codes (comma-separated)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Restart delay (seconds)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Use 0 to restart immediately.</value>
+  </data>
+  <data name="PostInstallation.RestartDescription" xml:space="preserve">
+    <value>Restart Windows, then continue with the next action.</value>
+  </data>
+  <data name="PostInstallation.ScriptArguments" xml:space="preserve">
+    <value>Script arguments</value>
+  </data>
+  <data name="PostInstallation.StagingContent" xml:space="preserve">
+    <value>Staging post-installation content.</value>
+  </data>
+  <data name="PostInstallation.SuccessCodes" xml:space="preserve">
+    <value>Success exit codes (comma-separated)</value>
+  </data>
+  <data name="PostInstallation.Timeout" xml:space="preserve">
+    <value>Timeout (seconds)</value>
+  </data>
+  <data name="PostInstallation.TypeHeader" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
+    <value>Working directory (relative; empty uses content root)</value>
   </data>
   <data name="Profiles.Active" xml:space="preserve">
     <value>Current settings</value>
@@ -3496,7 +3697,10 @@ Passwords and access keys included: {2}</value>
     <value>Use Foundry settings</value>
   </data>
   <data name="Unattend.OwnershipDescription" xml:space="preserve">
-    <value>The selected file replaces the answer file generated by Foundry. Its settings are used as-is, without merging or filling in missing values. Select Use Foundry settings to use your saved configuration.</value>
+    <value>The selected file replaces the answer file generated by Foundry. Foundry preserves its custom settings and adds the required post-installation command to the deployment copy. Select Use Foundry settings to use your saved configuration.</value>
+  </data>
+  <data name="Unattend.PostInstallationDescription" xml:space="preserve">
+    <value>Foundry preserves your original file and adds its required post-installation command to the deployment copy. You remain responsible for your custom settings and commands.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
     <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. The catalog saves source references only; the boot image contains encrypted copies.</value>

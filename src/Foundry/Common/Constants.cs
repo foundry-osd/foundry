@@ -41,6 +41,7 @@ namespace Foundry.Common
         public static readonly string WorkspacesDirectoryPath = Path.Combine(RootDirectoryPath, "Workspaces");
         public static readonly string ConfigurationWorkspaceDirectoryPath = Path.Combine(UserRootDirectoryPath, "Configuration");
         public static readonly string CustomImagesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Images", "Custom");
+        public static readonly string PostInstallPackagesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Packages", "PreOobe");
         public static readonly string DeploymentProfilesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Profiles");
         public static readonly string LegacyFoundryConfigurationStatePath = Path.Combine(WorkspacesDirectoryPath, "Configuration", "foundry.config.json");
         public static readonly string LegacyDefaultIsoPath = Path.Combine(WorkspacesDirectoryPath, "Iso", "Foundry.iso");

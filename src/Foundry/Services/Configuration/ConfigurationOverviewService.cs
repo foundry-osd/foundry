@@ -66,6 +66,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
                 IsOobeAccountConfigurationReady = oobeAccountSecretStateService.Validate(configuration.Customization.Oobe).IsValid,
                 IsAutopilotConfigurationReady = configurationStateService.IsAutopilotConfigurationReady,
                 IsCustomImagesReady = configurationStateService.IsCustomImagesReady,
+                IsPostInstallationReady = configurationStateService.IsPostInstallationReady,
                 IsUnattendConfigurationReady = configurationStateService.IsUnattendConfigurationReady
             });
             return cachedEvaluation;

@@ -30,7 +30,7 @@ internal static class DeploymentCapacityPolicy
     internal static void EnsureTargetCapacity(DeploymentStepExecutionContext context, WindowsImageMetadata? image,
         long targetArchiveBytes, long targetDriverBytes)
     {
-        long required = checked(LayoutReserveBytes + RequiredWindowsBytes(image, targetArchiveBytes, targetDriverBytes,
+        long required = checked(LayoutReserveBytes + (context.PostInstallContent?.TargetBytes ?? 0) + RequiredWindowsBytes(image, targetArchiveBytes, targetDriverBytes,
             NeedsOptionalFeatureSource(context)));
         ulong knownSize = context.Request.TargetDiskIdentity?.SizeBytes ?? 0;
         if (knownSize > 0 && (ulong)required > knownSize)

@@ -38,6 +38,7 @@ public sealed class DeploymentWizardContext : IDisposable
     public DriverPackSelectionViewModel DriverPackSelection { get; }
     public CustomImageSelectionViewModel CustomImages { get; }
     public OperatingSystemMetadata? SelectedOperatingSystem => CustomImages.IsCustom ? CustomImages.Selection : OperatingSystemCatalog.SelectedOperatingSystem;
+    public Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings PreOobe { get; private set; } = new();
     public DeployCompletionSettings Completion { get; private set; } = new();
     public CoreDeployNetworkSettings Network { get; private set; } = new();
     public DeployOobeSettings Oobe { get; private set; } = new();
@@ -114,6 +115,7 @@ public sealed class DeploymentWizardContext : IDisposable
         FoundryDeployConfigurationDocument document,
         IReadOnlyList<AutopilotProfileCatalogItem> autopilotProfiles)
     {
+        PreOobe = document.PreOobe ?? new();
         Completion = document.Completion ?? new DeployCompletionSettings();
         OperatingSystemCatalog.ApplyOperatingSystemSelection(document.OperatingSystemSelection);
         CustomImages.Configure(document.CustomImages ?? new());

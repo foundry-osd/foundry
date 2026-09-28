@@ -8,6 +8,95 @@ namespace Foundry.Telemetry.Tests;
 
 public sealed class TelemetryEventPropertyPolicyTests
 {
+    private static readonly string[] PostInstallationCountKeys =
+    [
+        "customization_post_installation_configured_action_count",
+        "customization_post_installation_enabled_action_count",
+        "customization_post_installation_powershell_count",
+        "customization_post_installation_command_count",
+        "customization_post_installation_software_count",
+        "customization_post_installation_restart_count"
+    ];
+
+    [Theory]
+    [InlineData(true, 0)]
+    [InlineData(false, 1)]
+    [InlineData(true, 1000)]
+    public void Sanitize_ForBootMediaFinished_RetainsTypedPostInstallationConfiguration(bool enabled, int count)
+    {
+        Dictionary<string, object?> properties = PostInstallationCountKeys.ToDictionary(key => key, _ => (object?)count);
+        properties["customization_post_installation_enabled"] = enabled;
+
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.OsdBootMediaFinished, properties);
+
+        Assert.Equal(7, result.Count);
+        Assert.Equal(enabled, Assert.IsType<bool>(result["customization_post_installation_enabled"]));
+        foreach (string key in PostInstallationCountKeys)
+        {
+            Assert.Equal(count, Assert.IsType<int>(result[key]));
+        }
+    }
+
+    [Fact]
+    public void Sanitize_ForBootMediaFinished_DropsInvalidPostInstallationCounts()
+    {
+        object?[] invalidValues = [null, "1", new[] { 1 }, 1.0, 1L, true, -1, 1001];
+        foreach (object? value in invalidValues)
+        {
+            Dictionary<string, object?> properties = PostInstallationCountKeys.ToDictionary(key => key, _ => value);
+
+            Assert.Empty(TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.OsdBootMediaFinished, properties));
+        }
+    }
+
+    [Fact]
+    public void Sanitize_ForBootMediaFinished_DropsInvalidPostInstallationEnabledValues()
+    {
+        object?[] invalidValues = [null, "true", new[] { true }, 1.0, 1, -1, 1001];
+        foreach (object? value in invalidValues)
+        {
+            Assert.Empty(TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.OsdBootMediaFinished,
+                new Dictionary<string, object?> { ["customization_post_installation_enabled"] = value }));
+        }
+    }
+
+    [Theory]
+    [InlineData(TelemetryEvents.AppDailyActive)]
+    [InlineData(TelemetryEvents.BootstrapFailed)]
+    [InlineData(TelemetryEvents.ConnectSessionReady)]
+    [InlineData(TelemetryEvents.DeploySessionFinished)]
+    [InlineData("post_installation:finished")]
+    public void Sanitize_ForUnrelatedEvents_DropsPostInstallationConfiguration(string eventName)
+    {
+        Dictionary<string, object?> properties = PostInstallationCountKeys.ToDictionary(key => key, _ => (object?)1);
+        properties["customization_post_installation_enabled"] = true;
+
+        Assert.Empty(TelemetryEventPropertyPolicy.Sanitize(eventName, properties));
+    }
+
+    [Fact]
+    public void Sanitize_ForBootMediaFinished_DropsPostInstallationSensitiveMetadata()
+    {
+        var properties = new Dictionary<string, object?>
+        {
+            ["customization_post_installation_enabled"] = true,
+            ["customization_post_installation_command"] = "private.exe",
+            ["customization_post_installation_arguments"] = "--token private",
+            ["customization_post_installation_action_name"] = "Private action",
+            ["customization_post_installation_action_id"] = "private-id",
+            ["customization_post_installation_software_name"] = "Private software",
+            ["customization_post_installation_software_id"] = "private-software-id",
+            ["customization_post_installation_content_hash"] = "private-hash",
+            ["customization_post_installation_source_path"] = @"C:\Private\setup.ps1",
+            ["customization_post_installation_script_content"] = "Write-Output 'private'"
+        };
+
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.OsdBootMediaFinished, properties);
+
+        Assert.Single(result);
+        Assert.True(Assert.IsType<bool>(result["customization_post_installation_enabled"]));
+    }
+
     [Theory]
     [InlineData(true, 256, "custom")]
     [InlineData(false, 0, "catalog")]

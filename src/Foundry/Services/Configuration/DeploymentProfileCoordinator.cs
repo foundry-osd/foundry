@@ -487,6 +487,7 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
         !ReferenceEquals(previous.Localization, current.Localization) ||
         !ReferenceEquals(previous.Customization, current.Customization) ||
         !ReferenceEquals(previous.CustomImages, current.CustomImages) ||
+        !ReferenceEquals(previous.PreOobe, current.PreOobe) ||
         !ReferenceEquals(previous.Unattend, current.Unattend) ||
         !ReferenceEquals(previous.Autopilot, current.Autopilot) ||
         previous.General with
