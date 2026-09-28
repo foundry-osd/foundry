@@ -30,6 +30,7 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
     private int paintedRows;
     private int? setupSecondsRemaining;
     private string? reportedActivity;
+    private string? reportedHeading;
 
     internal PostInstallConsole(PreOobeExecutionPlan plan, string logPath, TextWriter? output = null)
     {
@@ -43,6 +44,7 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
             {
                 if (!System.Console.IsOutputRedirected)
                 {
+                    System.Console.Title = "Foundry Post-installation";
                     originalColor = System.Console.ForegroundColor;
                     originalCursorVisible = System.Console.CursorVisible;
                     System.Console.Clear();
@@ -128,13 +130,16 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
             WriteLine("Resuming after restart");
             resumeReported = true;
         }
+        string heading = ActionHeading();
+        if (reportedHeading != heading) WriteLine(heading);
+        reportedHeading = heading;
         for (int index = 0; index < current.Actions.Count; index++)
         {
             PostInstallActionProgress action = current.Actions[index];
             var state = (action.Status, action.ExitCode);
             if (reportedActions.TryGetValue(action.Id, out var previous) && state == previous) continue;
             reportedActions[action.Id] = state;
-            if (action.Status != "Waiting") WriteLine($"{index + 1}/{current.Actions.Count}  {ActionText(action)}");
+            if (action.Status != "Waiting") WriteLine(ActionText(action));
         }
         string activity = Activity();
         if (reportedActivity != activity) WriteLine(activity);
@@ -164,12 +169,43 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
         $"Failed: {current.Actions.Count(action => action.Status is "Failed" or "Interrupted")}  " +
         $"Skipped: {current.Actions.Count(action => action.Status == "Skipped")}";
 
-    private string ActionText(PostInstallActionProgress action)
+    private int ActiveActionIndex()
     {
-        string elapsed = ElapsedText(action);
-        string exitCode = action.ExitCode is int code ? $" (exit {code})" : string.Empty;
-        return $"[{action.Status}] {action.Name}{(elapsed.Length > 0 ? "  " + elapsed : string.Empty)}{exitCode}";
+        int running = current.Actions.ToList().FindIndex(action => action.Status == "Running");
+        if (running >= 0) return running;
+        if (current.Status == "AwaitingRestart")
+            return Math.Max(0, current.Actions.ToList().FindLastIndex(action => action.Status != "Waiting"));
+        int waiting = current.Actions.ToList().FindIndex(action => action.Status == "Waiting");
+        return waiting >= 0 ? waiting : Math.Max(0, current.Actions.Count - 1);
     }
+
+    private string ActionHeading()
+    {
+        int total = current.Actions.Count;
+        if (total == 0) return "No actions";
+        if (current.Status is "Succeeded" or "CompletedWithErrors" or "Failed" or "Interrupted" or "Unavailable")
+        {
+            int completed = current.Actions.Count(action => action.Status is "Succeeded" or "Failed" or "Skipped" or "Interrupted");
+            return $"Actions completed: {completed} of {total}";
+        }
+        return current.Status == "Verifying" ? $"Actions ({total})" : $"Action {ActiveActionIndex() + 1} of {total}";
+    }
+
+    private string ActionText(PostInstallActionProgress action, int width = 120)
+    {
+        int statusWidth = Math.Max(13, current.Actions.Max(value => value.Status.Length) + 2);
+        int durationWidth = Math.Max(5, current.Actions.Max(value => ElapsedText(value).Length));
+        int exitWidth = current.Actions.Max(value => ExitText(value).Length);
+        int nameWidth = Math.Min(current.Actions.Max(value => OneLine(value.Name).Length),
+            Math.Max(1, width - statusWidth - durationWidth - exitWidth - 7));
+        string status = $"[{action.Status}]".PadRight(statusWidth);
+        string name = Shorten(OneLine(action.Name), nameWidth).PadRight(nameWidth);
+        string elapsed = ElapsedText(action);
+        return $"- {status} {name}  {elapsed.PadRight(durationWidth)}{ExitText(action)}".TrimEnd();
+    }
+
+    private static string ExitText(PostInstallActionProgress action) => action.Status is "Failed" or "Interrupted" && action.ExitCode is int code
+        ? $"  (exit {code})" : string.Empty;
 
     private string ElapsedText(PostInstallActionProgress action)
     {
@@ -186,33 +222,33 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
         {
             int width = Math.Min(System.Console.WindowWidth, System.Console.BufferWidth) - 1;
             int height = Math.Min(System.Console.WindowHeight, System.Console.BufferHeight) - 1;
-            if (width < 60 || height < 12) throw new IOException("Console is too small for the progress screen.");
+            if (width < 60 || height < 16) throw new IOException("Console is too small for the progress screen.");
             var lines = new List<(string Text, ConsoleColor Color)>();
             void Add(string text, ConsoleColor color = ConsoleColor.Gray) => lines.Add((OneLine(text), color));
             Add("Foundry Post-installation", ConsoleColor.White);
             Add(current.IsResuming ? "Resuming after restart" : "Preparing Windows before OOBE");
             Add("");
-            int capacity = height - 10;
-            int active = current.Actions.ToList().FindIndex(action => action.Status == "Running");
-            if (active < 0) active = current.Actions.ToList().FindIndex(action => action.Status == "Waiting");
-            if (active < 0) active = Math.Max(0, current.Actions.Count - 1);
+            int capacity = height - 13;
+            int active = ActiveActionIndex();
             int first = Math.Clamp(active - capacity / 2, 0, Math.Max(0, current.Actions.Count - capacity));
             int last = Math.Min(first + capacity, current.Actions.Count);
-            Add(current.Actions.Count == 0 ? "No actions" : $"Actions {first + 1}-{last} of {current.Actions.Count}");
+            Add(ActionHeading());
+            Add("");
             for (int index = first; index < last; index++)
             {
                 PostInstallActionProgress action = current.Actions[index];
-                string prefix = $"{index + 1}. [{action.Status}] ";
-                string elapsed = ElapsedText(action);
-                string suffix = elapsed.Length > 0 ? $"  {elapsed}" : string.Empty;
-                if (action.ExitCode is int code) suffix += $" (exit {code})";
-                string name = Shorten(OneLine(action.Name), Math.Max(1, width - prefix.Length - suffix.Length));
-                Add(prefix + name + suffix, StatusColor(action.Status));
+                Add(ActionText(action, width), StatusColor(action.Status));
             }
             Add("");
+            Add("");
             Add(Activity(), StatusColor(current.Status));
-            Add(result is not null ? Summary() : "");
-            Add(setupSecondsRemaining is not null ? HandoffText() : "", ConsoleColor.Yellow);
+            if (result is not null) Add(Summary());
+            if (setupSecondsRemaining is not null)
+            {
+                Add("");
+                Add(HandoffText(), ConsoleColor.Yellow);
+            }
+            Add("");
             Add($"Log: {logPath}");
             int rows = Math.Min(height, Math.Max(paintedRows, lines.Count));
             for (int row = 0; row < rows; row++)
@@ -246,7 +282,8 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
         _ => ConsoleColor.Gray
     };
 
-    private static string Shorten(string value, int width) => value.Length <= width ? value : value[..Math.Max(0, width - 3)] + "...";
+    private static string Shorten(string value, int width) => value.Length <= width ? value
+        : width <= 3 ? value[..width] : value[..(width - 3)] + "...";
 
     private static string OneLine(string value) => string.Concat(value.Select(character =>
         char.IsControl(character) || char.GetUnicodeCategory(character) is UnicodeCategory.Format or
