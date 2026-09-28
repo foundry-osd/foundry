@@ -405,6 +405,9 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public bool IsPostInstallationReady => PreOobeConfigurationValidator.IsReady(Current.PreOobe, postInstallPackages.IsAvailable);
 
     /// <inheritdoc />
+    public void RefreshPostInstallationReadiness() => StateChanged?.Invoke(this, EventArgs.Empty);
+
+    /// <inheritdoc />
     public bool IsCustomImagesReady => !Current.CustomImages.IsEnabled ||
         (Foundry.Core.Services.Images.CustomImageSettingsValidator.Validate(Current.CustomImages, requireIncludedImage: true).Count == 0 &&
         Current.CustomImages.Images.Where(image => image.IsIncluded).All(customImageLibrary.IsAvailable));

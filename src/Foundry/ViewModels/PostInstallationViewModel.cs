@@ -156,7 +156,7 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
 
     [RelayCommand] private void MoveUp() => Move(-1);
     [RelayCommand] private void MoveDown() => Move(1);
-    [RelayCommand] private void Refresh() => ApplyState();
+    [RelayCommand] private void Refresh() => state.RefreshPostInstallationReadiness();
 
     private void Move(int delta)
     {

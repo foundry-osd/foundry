@@ -158,6 +158,9 @@ public interface IFoundryConfigurationStateService
     /// <summary>Checks authoring validity and local availability before media generation.</summary>
     bool IsPostInstallationReady { get; }
 
+    /// <summary>Invalidates overview readiness after local package content changes without changing the profile.</summary>
+    void RefreshPostInstallationReadiness();
+
     /// <summary>Gets basic custom image availability; full hash verification occurs under build leases.</summary>
     bool IsCustomImagesReady { get; }
 
