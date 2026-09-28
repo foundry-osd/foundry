@@ -14,7 +14,10 @@ using Foundry.Utilities.Storage;
 
 namespace Foundry.Core.Services.WinPe;
 
-/// <summary>Publishes complete post-installation generations outside boot.wim without pruning other generations.</summary>
+/// <summary>
+/// Publishes complete post-installation generations outside boot.wim without pruning other generations.
+/// Temporary media staging supports long host paths; installer path limits apply separately to package imports and target staging.
+/// </summary>
 public sealed class WinPePreOobeMediaService : IWinPePreOobeMediaPublisher
 {
     internal const long ReserveBytes = 64L * 1024 * 1024;
@@ -129,7 +132,7 @@ public sealed class WinPePreOobeMediaService : IWinPePreOobeMediaPublisher
         package.ThrowIfDisposed();
         long required = checked(ReserveBytes + package.ManifestBytes.LongLength);
         foreach (WinPePreOobeMediaFile file in package.Files)
-            if (!await MatchesAsync(Resolve(root, file.RelativePath), file.Length, file.ContentHash, cancellationToken).ConfigureAwait(false))
+            if (!await MatchesAsync(CustomImagePathPolicy.ResolveRelativePath(root, file.RelativePath), file.Length, file.ContentHash, cancellationToken).ConfigureAwait(false))
                 required = checked(required + file.Length);
         return required;
     }
@@ -145,11 +148,11 @@ public sealed class WinPePreOobeMediaService : IWinPePreOobeMediaPublisher
         IProgress<WinPeMediaProgress>? progress = null)
     {
         await ValidateSourcesAsync(package, cancellationToken).ConfigureAwait(false);
-        string ownedRoot = Resolve(root, "Cache/PreOobe");
+        string ownedRoot = CustomImagePathPolicy.ResolveRelativePath(root, "Cache/PreOobe");
         Directory.CreateDirectory(ownedRoot);
-        using var publicationLock = new FileStream(Resolve(ownedRoot, ".publish.lock"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+        using var publicationLock = new FileStream(CustomImagePathPolicy.ResolveRelativePath(ownedRoot, ".publish.lock"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
         await ValidateCapacityAsync(package, root, 0, cancellationToken).ConfigureAwait(false);
-        string pending = Resolve(ownedRoot, ".pending-" + Guid.NewGuid().ToString("N"));
+        string pending = CustomImagePathPolicy.ResolveRelativePath(ownedRoot, ".pending-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(pending);
         try
         {
@@ -158,7 +161,7 @@ public sealed class WinPePreOobeMediaService : IWinPePreOobeMediaPublisher
             foreach (WinPePreOobeMediaFile file in package.Files)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                string destination = Resolve(root, file.RelativePath);
+                string destination = CustomImagePathPolicy.ResolveRelativePath(root, file.RelativePath);
                 if (!await MatchesAsync(destination, file.Length, file.ContentHash, cancellationToken).ConfigureAwait(false))
                 {
                     string temporary = Path.Combine(pending, Guid.NewGuid().ToString("N"));
@@ -175,7 +178,7 @@ public sealed class WinPePreOobeMediaService : IWinPePreOobeMediaPublisher
                 completed = checked(completed + file.Length);
                 progress?.Report(new() { Percent = (int)(completed * 90.0 / Math.Max(1, package.TotalBytes)), Status = "Staging post-installation content." });
             }
-            foreach (string directory in package.Directories) Directory.CreateDirectory(Resolve(root, directory));
+            foreach (string directory in package.Directories) Directory.CreateDirectory(CustomImagePathPolicy.ResolveRelativePath(root, directory));
             foreach ((string temporary, string destination) in copied)
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -183,7 +186,7 @@ public sealed class WinPePreOobeMediaService : IWinPePreOobeMediaPublisher
                 Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
                 File.Move(temporary, destination, overwrite: true);
             }
-            string manifest = Resolve(root, package.ManifestRelativePath);
+            string manifest = CustomImagePathPolicy.ResolveRelativePath(root, package.ManifestRelativePath);
             if (File.Exists(manifest))
             {
                 if (!await MatchesAsync(manifest, package.ManifestBytes.Length, package.ManifestHash, cancellationToken).ConfigureAwait(false))
@@ -214,13 +217,6 @@ public sealed class WinPePreOobeMediaService : IWinPePreOobeMediaPublisher
             }
             Directory.Delete(pending, recursive: false);
         }
-    }
-
-    private static string Resolve(string root, string relative)
-    {
-        string resolved = CustomImagePathPolicy.ResolveRelativePath(root, relative);
-        if (resolved.Length > PreOobePackagePathPolicy.MaximumFullPathLength) throw new InvalidDataException("PreOobe.InvalidPackagePath");
-        return resolved;
     }
 
     private static async Task<bool> MatchesAsync(string path, long length, string hash, CancellationToken cancellationToken)

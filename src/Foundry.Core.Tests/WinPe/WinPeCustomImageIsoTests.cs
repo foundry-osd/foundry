@@ -207,7 +207,7 @@ public sealed class WinPeCustomImageIsoTests : IDisposable
             PostInstallation = post,
             DeployConfigurationJson = config,
             OutputIsoPath = output,
-            IsoTempDirectoryPath = Path.Combine(root, "scratch"),
+            IsoTempDirectoryPath = Path.Combine(root, "Workspaces", Guid.NewGuid().ToString("N"), "Scratch", "Iso"),
             PreparedWorkspace = new()
             {
                 Artifact = new() { WorkingDirectoryPath = work, MediaDirectoryPath = media },

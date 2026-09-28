@@ -18,6 +18,26 @@ public sealed class WinPePreOobeMediaTests : IDisposable
     private CancellationToken Cancellation => TestContext.Current.CancellationToken;
 
     [Fact]
+    public async Task PublicationAllowsLongHostStagingPathsAndReusesVerifiedContent()
+    {
+        var (library, settings, archives) = await InputsAsync();
+        var publisher = new WinPePreOobeMediaService(_ => long.MaxValue);
+        using var package = await publisher.PrepareAsync(library, settings, archives, Cancellation);
+        string media = Path.Combine(root, "Workspaces", Guid.NewGuid().ToString("N"), "Scratch", "Iso",
+            "custom-iso-" + Guid.NewGuid().ToString("N"), "media");
+        Assert.All(package.Files, file => Assert.True(Path.Combine(media, file.RelativePath).Length > PreOobePackagePathPolicy.MaximumFullPathLength));
+
+        await publisher.PublishAsync(package, media, Cancellation);
+
+        Assert.All(package.Files, file => Assert.Equal(File.ReadAllBytes(file.SourcePath), File.ReadAllBytes(Path.Combine(media, file.RelativePath))));
+        Assert.True(Directory.Exists(Path.Combine(media, package.Manifest.Packages[0].RelativePath, "empty")));
+        Assert.Equal(package.ManifestBytes, await File.ReadAllBytesAsync(Path.Combine(media, package.ManifestRelativePath), Cancellation));
+        Assert.Equal(WinPePreOobeMediaService.ReserveBytes + package.ManifestBytes.Length,
+            await publisher.GetRequiredBytesAsync(package, media, Cancellation));
+        Assert.Empty(Directory.GetDirectories(Path.Combine(media, "Cache", "PreOobe"), ".pending-*"));
+    }
+
+    [Fact]
     public async Task GenerationDeduplicatesPackagesPreservesEmptyDirectoriesAndPinsBothRuntimes()
     {
         var (library, settings, archives) = await InputsAsync();
