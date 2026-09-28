@@ -23,6 +23,12 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     private readonly CancellationTokenSource cancellation = new();
     private readonly HashSet<string> directories = new(StringComparer.OrdinalIgnoreCase);
     private PreOobePackageReference? package;
+    private string[] FileTypeFilters => original.Kind switch
+    {
+        PreOobeActionKind.PowerShell => [".ps1"],
+        PreOobeActionKind.Application => [".exe", ".msi"],
+        _ => ["*"]
+    };
 
     public PostInstallationActionEditorViewModel(PreOobeActionSettings action, PreOobeSettings baseline, bool isNew,
         PreOobePackageLibraryService library, IFilePickerService picker, IApplicationLocalizationService localization)
@@ -170,8 +176,13 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
         {
             string? source = folder
                 ? await picker.PickFolderAsync(new FolderPickerRequest(ContentLabel))
-                : await picker.PickOpenFileAsync(new FileOpenPickerRequest(ContentLabel, (string[])[".ps1", ".exe", ".msi", ".cmd", ".bat"]));
+                : await picker.PickOpenFileAsync(new FileOpenPickerRequest(ContentLabel, FileTypeFilters));
             if (source is null || cancellation.IsCancellationRequested) return;
+            if (!folder && HasEntryPoint && !IsEntryPoint(source))
+            {
+                Error = Text("InvalidEntryPoint");
+                return;
+            }
             ProcessingStatus = Text("ImportingContent");
             IsProcessing = true;
             var imported = await library.ImportAsync(source, cancellation.Token);
