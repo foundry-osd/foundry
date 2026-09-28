@@ -547,7 +547,7 @@
     <value>无需执行安装后任务。</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>安装后就绪检查失败。请确认匹配的运行时和所需程序包位于独立介质上且可用。</value>
+    <value>安装后阶段准备失败。请查看部署日志以了解详细信息。</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>安装后暂存已完成（模拟）。</value>

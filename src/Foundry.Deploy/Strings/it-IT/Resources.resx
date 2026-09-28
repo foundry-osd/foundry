@@ -547,7 +547,7 @@ Continuare con la distribuzione?</value>
     <value>Non sono necessarie attività di post-installazione.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>La post-installazione non è pronta. Verifica che il runtime corrispondente e i pacchetti richiesti siano disponibili su un supporto separato.</value>
+    <value>Preparazione della fase successiva all’installazione non riuscita. Consultare il registro di distribuzione per i dettagli.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Preparazione della post-installazione completata (simulazione).</value>

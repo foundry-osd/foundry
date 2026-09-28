@@ -11,26 +11,15 @@ namespace Foundry.Deploy.Services.Deployment.PreOobe;
 internal sealed class PreOobePreparedContent : IDisposable
 {
     public required string RuntimeIdentifier { get; init; }
-    public required PreOobeRuntimeAsset RuntimeAsset { get; init; }
-    public string RuntimeArchivePath { get; set; } = string.Empty;
-    public string? TemporaryRuntimeDirectory { get; set; }
+    public required string RuntimeDirectory { get; init; }
+    public required PostInstallRuntimeManifest RuntimeManifest { get; init; }
     public List<PreOobePreparedPackage> Packages { get; } = [];
     public List<(string Path, FileStream Stream)> Files { get; } = [];
-    public long TargetBytes => checked(RuntimeAsset.ExpandedLength + Packages.Sum(package => package.Manifest.Files.Sum(file => file.Length)));
+    public long TargetBytes => checked(RuntimeManifest.Files.Sum(file => file.Length) + Packages.Sum(package => package.Manifest.Files.Sum(file => file.Length)));
 
     public void Dispose()
     {
         foreach (var file in Files) file.Stream.Dispose();
-        if (TemporaryRuntimeDirectory is not null)
-        {
-            string path = Path.GetFullPath(TemporaryRuntimeDirectory);
-            string root = Path.GetFullPath(@"X:\Foundry\Temp\PostInstall") + Path.DirectorySeparatorChar;
-            if (path.StartsWith(root, StringComparison.OrdinalIgnoreCase) && Directory.Exists(path))
-            {
-                try { Foundry.Core.Services.Packages.PreOobePackagePathPolicy.ValidateNoReparsePoints(path); Directory.Delete(path, recursive: true); }
-                catch (Exception exception) when (exception is IOException or UnauthorizedAccessException) { }
-            }
-        }
     }
 }
 

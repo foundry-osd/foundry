@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
-using System.IO.Compression;
 using System.Security.AccessControl;
 using System.Security.Cryptography;
 using System.Security.Principal;
@@ -44,20 +43,16 @@ public sealed class PreOobeTargetStagingService
             string journalPath = Path.Combine(layout.StatePreOobe, "execution-result.json");
             if (File.Exists(planPath) || File.Exists(journalPath)) throw new InvalidDataException("An existing post-installation operation cannot be overwritten.");
             await PreOobeContentResolver.RevalidateAsync(context, content, cancellationToken).ConfigureAwait(false);
-            await PreOobeRuntimeResolver.VerifyAsync(content.RuntimeArchivePath, content.RuntimeAsset, cancellationToken).ConfigureAwait(false);
-            using (var archive = ZipFile.OpenRead(content.RuntimeArchivePath))
+            foreach (var file in content.RuntimeManifest.Files)
             {
-                PreOobeRuntimeResolver.ValidateEntries(archive, content.RuntimeAsset);
-                foreach (var entry in archive.Entries)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                    string destination = Path.Combine(layout.RuntimePreOobe, entry.FullName.Replace('/', Path.DirectorySeparatorChar));
-                    if (entry.Name.Length == 0) { _protectDirectory(destination); continue; }
-                    _protectDirectory(Path.GetDirectoryName(destination)!);
-                    await using var source = entry.Open();
-                    await using var target = new FileStream(destination, FileMode.CreateNew, FileAccess.Write, FileShare.None);
-                    await PreOobeRuntimeResolver.CopyBoundedAsync(source, target, entry.Length, cancellationToken).ConfigureAwait(false);
-                }
+                cancellationToken.ThrowIfCancellationRequested();
+                string sourcePath = PreOobePackagePathPolicy.Resolve(content.RuntimeDirectory, file.RelativePath);
+                string destination = PreOobePackagePathPolicy.Resolve(layout.RuntimePreOobe, file.RelativePath);
+                _protectDirectory(Path.GetDirectoryName(destination)!);
+                await using (var source = await PreOobeContentResolver.OpenVerifiedAsync(sourcePath, file.Length, file.Sha256, cancellationToken).ConfigureAwait(false))
+                await using (var target = new FileStream(destination, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+                    await PostInstallRuntimeSource.CopyBoundedAsync(source, target, file.Length, cancellationToken).ConfigureAwait(false);
+                await using var verified = await PreOobeContentResolver.OpenVerifiedAsync(destination, file.Length, file.Sha256, cancellationToken).ConfigureAwait(false);
             }
             var actions = new List<PreOobeExecutionAction>();
             var owned = new List<PreOobeOwnedPayload>();
@@ -74,7 +69,7 @@ public sealed class PreOobeTargetStagingService
                 foreach (var file in context.NetworkProfileRoamingPayload.DataFiles)
                 {
                     string relative = "Payloads/" + file.FileName.Replace('\\', '/');
-                    PreOobeRuntimeResolver.ValidateRelativePath(relative);
+                    PreOobePackagePathPolicy.ValidateRelativePath(relative);
                     string destination = Path.Combine(layout.Root, relative.Replace('/', Path.DirectorySeparatorChar));
                     _protectDirectory(Path.GetDirectoryName(destination)!);
                     byte[] bytes = file.Bytes ?? Encoding.UTF8.GetBytes(file.Content);

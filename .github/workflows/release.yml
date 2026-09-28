@@ -295,8 +295,6 @@ jobs:
           New-Item -Path $releaseRoot -ItemType Directory -Force | Out-Null
           New-Item -Path $publishRoot -ItemType Directory -Force | Out-Null
 
-          $postInstallAssets = @()
-
           foreach ($runtimeIdentifier in @('win-x64', 'win-arm64')) {
               $platform = if ($runtimeIdentifier -eq 'win-x64') { 'x64' } else { 'ARM64' }
 
@@ -316,6 +314,9 @@ jobs:
               if (-not (Test-Path -Path $deployExecutable -PathType Leaf)) {
                   throw "Expected Foundry.Deploy executable not found: '$deployExecutable'."
               }
+
+              $deployAssetPath = Join-Path $releaseRoot "Foundry.Deploy-$runtimeIdentifier.zip"
+              Compress-Archive -Path (Join-Path $deployPublishPath '*') -DestinationPath $deployAssetPath -CompressionLevel Optimal -Force
 
               $connectPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Connect' $runtimeIdentifier)
               Invoke-Publish -ProjectPath $connectProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $connectPublishPath
@@ -347,37 +348,15 @@ jobs:
                   throw "Expected Foundry.PostInstall executable not found: '$postInstallExecutable'."
               }
 
+              $postInstallFiles = @('Foundry.PostInstall.exe', 'Launch.cmd' | ForEach-Object {
+                  $path = Join-Path $postInstallPublishPath $_
+                  [ordered]@{ relativePath = $_; length = (Get-Item -LiteralPath $path).Length; sha256 = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() }
+              })
+              $postInstallManifest = [ordered]@{ schemaVersion = 1; contractVersion = 1; runtimeIdentifier = $runtimeIdentifier; files = $postInstallFiles } | ConvertTo-Json -Depth 10
+              Set-Content -LiteralPath (Join-Path $postInstallPublishPath 'foundry.postinstall.json') -Value $postInstallManifest -Encoding utf8NoBOM
+
               $postInstallAssetPath = Join-Path $releaseRoot "Foundry.PostInstall-$runtimeIdentifier.zip"
               Compress-Archive -Path (Join-Path $postInstallPublishPath '*') -DestinationPath $postInstallAssetPath -CompressionLevel Optimal -Force
-
-              $postInstallFiles = @(Get-ChildItem -LiteralPath $postInstallPublishPath -File -Recurse)
-              $postInstallAsset = [ordered]@{
-                  runtimeIdentifier = $runtimeIdentifier
-                  assetName = Split-Path -Leaf $postInstallAssetPath
-                  archiveSha256 = (Get-FileHash -LiteralPath $postInstallAssetPath -Algorithm SHA256).Hash.ToLowerInvariant()
-                  archiveLength = (Get-Item -LiteralPath $postInstallAssetPath).Length
-                  expandedLength = [long]($postInstallFiles | Measure-Object -Property Length -Sum).Sum
-                  entryCount = $postInstallFiles.Count
-              }
-              if ($postInstallAsset.archiveLength -gt 256MB -or $postInstallAsset.expandedLength -gt 512MB -or $postInstallAsset.entryCount -gt 1024) {
-                  throw 'PostInstall runtime exceeds authenticated archive limits.'
-              }
-              $postInstallAssets += $postInstallAsset
-          }
-
-          $postInstallDescriptor = [ordered]@{
-              schemaVersion = 1
-              releaseTag = '${{ needs.prepare-release.outputs.release_tag }}'
-              contractVersion = 1
-              assets = $postInstallAssets
-          } | ConvertTo-Json -Depth 10
-
-          foreach ($runtimeIdentifier in @('win-x64', 'win-arm64')) {
-              $deployPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Deploy' $runtimeIdentifier)
-              Set-Content -LiteralPath (Join-Path $deployPublishPath 'foundry.postinstall-runtime.json') -Value $postInstallDescriptor -Encoding utf8NoBOM
-
-              $deployAssetPath = Join-Path $releaseRoot "Foundry.Deploy-$runtimeIdentifier.zip"
-              Compress-Archive -Path (Join-Path $deployPublishPath '*') -DestinationPath $deployAssetPath -CompressionLevel Optimal -Force
           }
 
       - name: Upload release assets

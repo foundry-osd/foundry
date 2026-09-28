@@ -547,7 +547,7 @@ Folytatja a telepítést?</value>
     <value>Nincs szükség telepítés utáni feladatokra.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>A telepítés utáni készenlét ellenőrzése sikertelen. Ellenőrizze, hogy a megfelelő futtatókörnyezet és a szükséges csomagok külön adathordozón elérhetők-e.</value>
+    <value>A telepítés utáni szakasz előkészítése sikertelen. A részleteket az üzembe helyezési naplóban találja.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>A telepítés utáni előkészítés befejeződött (szimuláció).</value>

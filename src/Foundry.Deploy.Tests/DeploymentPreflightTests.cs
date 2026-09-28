@@ -650,7 +650,7 @@ public sealed class DeploymentPreflightTests
             return await orchestrator.RunAsync(CreateRequest() with { ApplyFirmwareUpdates = false }, _cancellation.Token);
         }
 
-        private sealed class FixturePostInstall(PipelineFixture fixture) : PreOobeContentResolver(new(), fixture.Storage)
+        private sealed class FixturePostInstall(PipelineFixture fixture) : PreOobeContentResolver
         {
             internal override Task<PreOobePreparedContent?> PrepareAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
             {

@@ -547,7 +547,7 @@ Fortsätt med implementeringen?</value>
     <value>Inga uppgifter efter installationen krävs.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Kontrollen av beredskap för efter installationen misslyckades. Kontrollera att motsvarande körmiljö och nödvändiga paket finns på separata media.</value>
+    <value>Förberedelsen av fasen efter installationen misslyckades. Se distributionsloggen för mer information.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Förberedelserna för efter installationen har slutförts (simulering).</value>

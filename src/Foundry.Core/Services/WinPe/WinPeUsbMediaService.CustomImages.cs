@@ -22,15 +22,15 @@ public sealed partial class WinPeUsbMediaService
             long runtimeBytes = 0;
             if (options.RuntimePayloadProvisioning is { } runtime)
             {
-                foreach (WinPeRuntimePayloadApplicationOptions application in new[] { runtime.Bootstrap, runtime.Connect, runtime.Deploy })
+                foreach (WinPeRuntimePayloadApplicationOptions application in new[] { runtime.Bootstrap, runtime.Connect, runtime.Deploy, runtime.PostInstall })
                 {
                     if (!application.IsEnabled) continue;
                     if (string.IsNullOrWhiteSpace(application.ArchivePath))
                         throw new InvalidDataException("Runtime payloads must be prepared before custom-image USB creation.");
                     sourcePaths.Add(application.ArchivePath);
                 }
-                // Bootstrap is already embedded in boot.wim; only Connect and Deploy use data-volume space.
-                runtimeBytes = new[] { runtime.Connect, runtime.Deploy }
+                // Bootstrap is already embedded in boot.wim; the other runtimes use data-volume space.
+                runtimeBytes = new[] { runtime.Connect, runtime.Deploy, runtime.PostInstall }
                     .Where(application => application.IsEnabled)
                     .Sum(application => new FileInfo(application.ArchivePath).Length);
             }

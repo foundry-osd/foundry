@@ -547,7 +547,7 @@ Pokračovat v nasazování?</value>
     <value>Nejsou vyžadovány žádné úlohy po instalaci.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Kontrola připravenosti fáze po instalaci selhala. Ověřte, zda jsou odpovídající běhové prostředí a požadované balíčky dostupné na samostatném médiu.</value>
+    <value>Příprava fáze po instalaci selhala. Podrobnosti najdete v protokolu nasazení.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Příprava fáze po instalaci byla dokončena (simulace).</value>

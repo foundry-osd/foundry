@@ -547,7 +547,7 @@
     <value>ไม่จำเป็นต้องมีงานหลังการติดตั้ง</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>ตรวจสอบความพร้อมหลังการติดตั้งไม่สำเร็จ ตรวจสอบว่ารันไทม์ที่ตรงกันและแพ็กเกจที่จำเป็นพร้อมใช้งานบนสื่อแยกต่างหาก</value>
+    <value>เตรียมขั้นตอนหลังการติดตั้งไม่สำเร็จ ดูรายละเอียดในบันทึกการปรับใช้</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>จัดเตรียมขั้นตอนหลังการติดตั้งเสร็จแล้ว (การจำลอง)</value>

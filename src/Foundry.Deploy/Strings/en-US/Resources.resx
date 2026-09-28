@@ -547,7 +547,7 @@ Continue with deployment?</value>
     <value>No post-installation tasks are required.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Post-installation readiness failed. Verify the matching runtime and required packages are available on separate media.</value>
+    <value>Post-installation preparation failed. Check the deployment log for details.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Post-installation staging completed (simulation).</value>

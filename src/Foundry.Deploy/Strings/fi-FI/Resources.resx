@@ -547,7 +547,7 @@ Jatketaanko käyttöönottoa?</value>
     <value>Asennuksen jälkeisiä tehtäviä ei tarvita.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Asennuksen jälkeisen vaiheen valmiustarkistus epäonnistui. Varmista, että vastaava suoritusympäristö ja tarvittavat paketit ovat saatavilla erillisellä tietovälineellä.</value>
+    <value>Asennuksen jälkeisen vaiheen valmistelu epäonnistui. Katso lisätietoja käyttöönottolokista.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Asennuksen jälkeisen vaiheen valmistelu valmistui (simulaatio).</value>

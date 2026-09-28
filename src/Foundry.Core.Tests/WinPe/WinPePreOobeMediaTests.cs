@@ -20,9 +20,9 @@ public sealed class WinPePreOobeMediaTests : IDisposable
     [Fact]
     public async Task PublicationAllowsLongHostStagingPathsAndReusesVerifiedContent()
     {
-        var (library, settings, archives) = await InputsAsync();
+        var (library, settings) = await InputsAsync();
         var publisher = new WinPePreOobeMediaService(_ => long.MaxValue);
-        using var package = await publisher.PrepareAsync(library, settings, archives, Cancellation);
+        using var package = await publisher.PrepareAsync(library, settings, Cancellation);
         string media = Path.Combine(root, "Workspaces", Guid.NewGuid().ToString("N"), "Scratch", "Iso",
             "custom-iso-" + Guid.NewGuid().ToString("N"), "media");
         Assert.All(package.Files, file => Assert.True(Path.Combine(media, file.RelativePath).Length > PreOobePackagePathPolicy.MaximumFullPathLength));
@@ -38,36 +38,34 @@ public sealed class WinPePreOobeMediaTests : IDisposable
     }
 
     [Fact]
-    public async Task GenerationDeduplicatesPackagesPreservesEmptyDirectoriesAndPinsBothRuntimes()
+    public async Task GenerationDeduplicatesPackagesPreservesEmptyDirectories()
     {
-        var (library, settings, archives) = await InputsAsync();
+        var (library, settings) = await InputsAsync();
         var publisher = new WinPePreOobeMediaService(_ => long.MaxValue);
-        using var package = await publisher.PrepareAsync(library, settings with { Actions = [settings.Actions[0], settings.Actions[0] with { Id = Guid.NewGuid().ToString("N") }] }, archives, Cancellation);
+        using var package = await publisher.PrepareAsync(library, settings with { Actions = [settings.Actions[0], settings.Actions[0] with { Id = Guid.NewGuid().ToString("N") }] }, Cancellation);
         string media = Path.Combine(root, "media");
         await publisher.PublishAsync(package, media, Cancellation);
         Assert.Single(package.Manifest.Packages);
         Assert.Equal($"Cache/PreOobe/Packages/{settings.Actions[0].Package!.ContentHash}/files", package.Manifest.Packages[0].RelativePath);
-        Assert.Equal(2, package.Manifest.Runtimes.Count);
-        Assert.Equal(3, package.Files.Count);
+        Assert.Single(package.Files);
         Assert.True(File.Exists(Path.Combine(media, package.ManifestRelativePath)));
         Assert.True(Directory.Exists(Path.Combine(media, package.Manifest.Packages[0].RelativePath, "empty")));
         Assert.All(package.Files, file => Assert.True(File.Exists(Path.Combine(media, file.RelativePath))));
         long reused = await publisher.GetRequiredBytesAsync(package, media, Cancellation);
         Assert.Equal(WinPePreOobeMediaService.ReserveBytes + package.ManifestBytes.Length, reused);
-        Assert.Throws<IOException>(() => File.Open(archives["win-x64"], FileMode.Open, FileAccess.Write, FileShare.ReadWrite));
     }
 
     [Fact]
     public async Task CancellationKeepsPriorGenerationAndUnmanagedContent()
     {
-        var (library, settings, archives) = await InputsAsync();
+        var (library, settings) = await InputsAsync();
         var publisher = new WinPePreOobeMediaService(_ => long.MaxValue);
-        using var prior = await publisher.PrepareAsync(library, settings, archives, Cancellation);
+        using var prior = await publisher.PrepareAsync(library, settings, Cancellation);
         string media = Path.Combine(root, "media");
         await publisher.PublishAsync(prior, media, Cancellation);
         string manual = Path.Combine(media, "Cache", "PreOobe", "operator.txt");
         await File.WriteAllTextAsync(manual, "preserve", Cancellation);
-        using var next = await publisher.PrepareAsync(library, settings, archives, Cancellation);
+        using var next = await publisher.PrepareAsync(library, settings, Cancellation);
         using var canceled = CancellationTokenSource.CreateLinkedTokenSource(Cancellation);
         var progress = new CallbackProgress(_ => canceled.Cancel());
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => publisher.PublishAsync(next, media, canceled.Token, progress));
@@ -80,9 +78,9 @@ public sealed class WinPePreOobeMediaTests : IDisposable
     [Fact]
     public async Task CapacityAndConfigurationFailuresOccurBeforePublication()
     {
-        var (library, settings, archives) = await InputsAsync();
+        var (library, settings) = await InputsAsync();
         var publisher = new WinPePreOobeMediaService(_ => 0);
-        using var package = await publisher.PrepareAsync(library, settings, archives, Cancellation);
+        using var package = await publisher.PrepareAsync(library, settings, Cancellation);
         string config = new DeployConfigurationGenerator().Serialize(new DeployConfigurationGenerator().Generate(new() { PreOobe = settings }));
         string bound = WinPePreOobeMediaService.BindConfiguration(package, config);
         WinPePreOobeMediaService.ValidateConfigurationBinding(package, bound);
@@ -95,27 +93,26 @@ public sealed class WinPePreOobeMediaTests : IDisposable
     [Fact]
     public async Task MissingEntryPointIsRejectedAndDisabledContentIsNotImported()
     {
-        var (library, settings, archives) = await InputsAsync();
+        var (library, settings) = await InputsAsync();
         var publisher = new WinPePreOobeMediaService(_ => long.MaxValue);
         await Assert.ThrowsAsync<InvalidDataException>(() => publisher.PrepareAsync(library,
-            settings with { Actions = [settings.Actions[0] with { EntryPoint = "missing.ps1" }] }, archives, Cancellation));
-        using var package = await publisher.PrepareAsync(library, settings with { Actions = [settings.Actions[0] with { IsEnabled = false }] }, archives, Cancellation);
+            settings with { Actions = [settings.Actions[0] with { EntryPoint = "missing.ps1" }] }, Cancellation));
+        using var package = await publisher.PrepareAsync(library, settings with { Actions = [settings.Actions[0] with { IsEnabled = false }] }, Cancellation);
         Assert.Empty(package.Manifest.Packages);
-        Assert.Equal(2, package.Files.Count);
+        Assert.Empty(package.Files);
     }
 
     [Fact]
     public async Task ManifestBytesContainTheSameIdentityBoundToConfiguration()
     {
-        var (library, settings, archives) = await InputsAsync();
-        using var package = await new WinPePreOobeMediaService().PrepareAsync(library, settings, archives, Cancellation);
+        var (library, settings) = await InputsAsync();
+        using var package = await new WinPePreOobeMediaService().PrepareAsync(library, settings, Cancellation);
         var decoded = JsonSerializer.Deserialize<PreOobeMediaManifest>(package.ManifestBytes, ConfigurationJsonDefaults.SerializerOptions)!;
         Assert.Equal(package.ManifestId, decoded.Id);
         Assert.Equal(settings.Actions[0].Package!.ContentHash, Assert.Single(decoded.Packages).ContentHash);
-        Assert.All(decoded.Runtimes, runtime => Assert.Equal($"Cache/PreOobe/Runtimes/{runtime.RuntimeIdentifier}/{runtime.ArchiveSha256}/runtime.zip", runtime.RelativePath));
     }
 
-    private async Task<(PreOobePackageLibraryService Library, PreOobeSettings Settings, Dictionary<string, string> Archives)> InputsAsync()
+    private async Task<(PreOobePackageLibraryService Library, PreOobeSettings Settings)> InputsAsync()
     {
         string source = Path.Combine(root, "source");
         Directory.CreateDirectory(Path.Combine(source, "empty"));
@@ -123,14 +120,7 @@ public sealed class WinPePreOobeMediaTests : IDisposable
         var library = new PreOobePackageLibraryService(Path.Combine(root, "library"));
         var reference = await library.ImportAsync(source, Cancellation);
         var action = PreOobeActionSettings.Create(PreOobeActionKind.PowerShell, "Setup") with { Package = reference, EntryPoint = "setup.ps1" };
-        Dictionary<string, string> archives = [];
-        foreach (string rid in new[] { "win-x64", "win-arm64" })
-        {
-            string path = Path.Combine(root, rid + ".zip");
-            await File.WriteAllTextAsync(path, rid + " verified archive fixture", Cancellation);
-            archives.Add(rid, path);
-        }
-        return (library, new() { IsEnabled = true, Actions = [action] }, archives);
+        return (library, new() { IsEnabled = true, Actions = [action] });
     }
 
     private sealed class CallbackProgress(Action<WinPeMediaProgress> callback) : IProgress<WinPeMediaProgress>

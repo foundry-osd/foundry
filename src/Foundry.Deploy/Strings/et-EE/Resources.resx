@@ -547,7 +547,7 @@ Kas jätkata juurutamisega?</value>
     <value>Installimisjärgseid ülesandeid pole vaja.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Installimisjärgne valmisolekukontroll nurjus. Veenduge, et sobiv käituskeskkond ja vajalikud paketid on eraldi andmekandjal saadaval.</value>
+    <value>Installimisjärgse etapi ettevalmistamine nurjus. Lisateavet leiate juurutuslogist.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Installimisjärgne ettevalmistamine on lõpetatud (simulatsioon).</value>

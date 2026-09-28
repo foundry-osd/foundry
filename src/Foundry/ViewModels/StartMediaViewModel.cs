@@ -1051,10 +1051,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             EnsureSuccess(runtimePreparation);
             artifactRuntimePayloadProvisioning = runtimePreparation.Value!;
 
-            IReadOnlyDictionary<string, string> postInstallArchives = await runtimePayloadProvisioningService
-                .PreparePostInstallArchivesAsync(artifactRuntimePayloadProvisioning, cancellationToken);
             postInstallation = await new WinPePreOobeMediaService().PrepareAsync(postInstallPackages,
-                snapshot.Configuration.PreOobe, postInstallArchives, cancellationToken);
+                snapshot.Configuration.PreOobe, cancellationToken);
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.GenerateProvisioningPayloads);
             FoundryConnectProvisioningBundle connectBundle = snapshot.CreateConnectProvisioningBundle(

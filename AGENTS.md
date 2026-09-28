@@ -101,7 +101,7 @@ Configuration schema rules:
 - Update the affected constant in `src/Foundry.Core/Models/Configuration/ConfigurationSchemaVersions.cs`; generated and runtime configurations share these constants
 - Verify the affected authoring, generator, runtime, and compatibility behavior when changing a schema contract
 - When bumping any schema, update the smallest relevant tests and compatibility warning expectations
-- Treat PostInstall execution plans, checkpoints, and companion runtime descriptors as separately versioned contracts; keep Core/Deploy producers and PostInstall consumers compatible and preserve checkpoint-to-plan binding
+- Treat PostInstall execution plans, checkpoints, and runtime manifests as separately versioned contracts; keep Core/Deploy producers and PostInstall consumers compatible and preserve checkpoint-to-plan binding
 
 Unit testing rules:
 - Add unit tests only when they provide clear business value

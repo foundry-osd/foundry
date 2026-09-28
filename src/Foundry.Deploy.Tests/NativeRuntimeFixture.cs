@@ -2,36 +2,35 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.IO.Compression;
 using System.Security.Cryptography;
+using System.Text.Json;
 using Foundry.Core.Models.PreOobe;
+using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 
 namespace Foundry.Deploy.Tests;
 
 internal static class NativeRuntimeFixture
 {
-    public static PreOobePreparedContent Create(string root)
+    public static PreOobePreparedContent Create(string root) =>
+        PostInstallRuntimeSource.AcquireAsync(CreateFiles(root), "win-x64", CancellationToken.None).GetAwaiter().GetResult();
+
+    public static string CreateFiles(string root)
     {
-        string archivePath = Path.Combine(root, "runtime.zip");
-        using (var archive = ZipFile.Open(archivePath, ZipArchiveMode.Create))
+        string directory = Path.Combine(root, "postinstall-runtime");
+        Directory.CreateDirectory(directory);
+        var files = new List<PreOobePackageFile>();
+        foreach (string name in new[] { "Foundry.PostInstall.exe", "Launch.cmd" })
         {
-            using (var writer = new StreamWriter(archive.CreateEntry("Foundry.PostInstall.exe").Open())) writer.Write("fixture");
-            using (var writer = new StreamWriter(archive.CreateEntry("Launch.cmd").Open())) writer.Write("fixture");
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes("fixture");
+            File.WriteAllBytes(Path.Combine(directory, name), bytes);
+            files.Add(new() { RelativePath = name, Length = bytes.Length, Sha256 = Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant() });
         }
-        return new PreOobePreparedContent
-        {
-            RuntimeIdentifier = "win-x64",
-            RuntimeArchivePath = archivePath,
-            RuntimeAsset = new PreOobeRuntimeAsset
-            {
-                RuntimeIdentifier = "win-x64",
-                AssetName = "Foundry.PostInstall-win-x64.zip",
-                ArchiveLength = new FileInfo(archivePath).Length,
-                ArchiveSha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(archivePath))).ToLowerInvariant(),
-                ExpandedLength = 14,
-                EntryCount = 2
-            }
-        };
+        WriteManifest(directory, new() { RuntimeIdentifier = "win-x64", Files = files });
+        return Path.Combine(directory, "Foundry.PostInstall.exe");
     }
+
+    public static void WriteManifest(string directory, PostInstallRuntimeManifest manifest) =>
+        File.WriteAllText(Path.Combine(directory, PostInstallRuntimeManifest.FileName),
+            JsonSerializer.Serialize(manifest, ConfigurationJsonDefaults.SerializerOptions));
 }

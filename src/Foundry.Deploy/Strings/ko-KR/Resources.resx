@@ -547,7 +547,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>설치 후 작업이 필요하지 않습니다.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>설치 후 준비 상태 확인에 실패했습니다. 일치하는 런타임과 필요한 패키지를 별도 미디어에서 사용할 수 있는지 확인하세요.</value>
+    <value>설치 후 단계 준비에 실패했습니다. 자세한 내용은 배포 로그를 확인하세요.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>설치 후 준비가 완료되었습니다(시뮬레이션).</value>

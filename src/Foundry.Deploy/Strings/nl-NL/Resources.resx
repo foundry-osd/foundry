@@ -547,7 +547,7 @@ Doorgaan met de implementatie?</value>
     <value>Er zijn geen taken na de installatie nodig.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Controle op gereedheid voor na de installatie mislukt. Controleer of de bijbehorende runtime en vereiste pakketten beschikbaar zijn op afzonderlijke media.</value>
+    <value>De voorbereiding van de fase na de installatie is mislukt. Raadpleeg het implementatielogboek voor meer informatie.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Klaarzetten voor na de installatie voltooid (simulatie).</value>

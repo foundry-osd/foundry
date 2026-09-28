@@ -184,17 +184,17 @@ public sealed class WinPeCustomImageIsoTests : IDisposable
         File.WriteAllText(Path.Combine(media, "sources", "boot.wim"), "boot");
         File.WriteAllText(Path.Combine(work, "bootbins", "efisys.bin"), "efi");
         File.WriteAllText(Path.Combine(work, "bootbins", "bootmgfw.efi"), "manager");
-        string source = Path.Combine(root, "runtime.zip");
-        File.WriteAllText(source, "verified runtime");
-        string hash = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes("verified runtime")));
-        string relative = $"Cache/PreOobe/Runtimes/win-x64/{hash}/runtime.zip";
+        string source = Path.Combine(root, "setup.ps1");
+        File.WriteAllText(source, "verified script!");
+        string hash = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes("verified script!")));
+        string relative = $"Cache/PreOobe/Packages/{hash}/files/setup.ps1";
         using var post = new WinPePreOobeMediaLease(new PreOobeMediaManifest { Id = "generation" }, Encoding.UTF8.GetBytes("{}"),
             [new(source, relative, 16, hash)], [], []);
         string config = WinPePreOobeMediaService.BindConfiguration(post, "{}");
         using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
         var runner = new IsoRunner((staging, output) =>
         {
-            Assert.Equal("verified runtime", File.ReadAllText(Path.Combine(staging, "media", relative)));
+            Assert.Equal("verified script!", File.ReadAllText(Path.Combine(staging, "media", relative)));
             Assert.True(File.Exists(Path.Combine(staging, "media", post.ManifestRelativePath)));
             Assert.False(Directory.Exists(Path.Combine(media, "Cache", "PreOobe")));
             File.WriteAllText(output, "new ISO");

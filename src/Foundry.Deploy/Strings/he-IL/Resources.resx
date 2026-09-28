@@ -547,7 +547,7 @@ ErrorCode=0x80070005
     <value>אין צורך במשימות לאחר ההתקנה.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>בדיקת המוכנות לשלב שלאחר ההתקנה נכשלה. ודא שסביבת הריצה המתאימה והחבילות הנדרשות זמינות במדיה נפרדת.</value>
+    <value>הכנת השלב שלאחר ההתקנה נכשלה. לפרטים, בדוק את יומן הפריסה.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>הכנת השלב שלאחר ההתקנה הושלמה (הדמיה).</value>

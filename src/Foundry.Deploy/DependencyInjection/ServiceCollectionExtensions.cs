@@ -118,7 +118,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IWindowsImageInfoReader, NativeDismImageInfoReader>();
         services.AddSingleton<IWindowsDeploymentService, WindowsDeploymentService>();
         services.AddSingleton<ISetupCompleteScriptService, SetupCompleteScriptService>();
-        services.AddSingleton<PreOobeRuntimeResolver>();
         services.AddSingleton<PreOobeContentResolver>();
         services.AddSingleton<PreOobeTargetStagingService>();
         services.AddSingleton<Foundry.Deploy.Services.Deployment.Unattend.PreOobeUnattendPrecedenceService>();

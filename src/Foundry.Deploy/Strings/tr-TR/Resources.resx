@@ -547,7 +547,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Kurulum sonrası görev gerekmiyor.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Kurulum sonrası hazır olma denetimi başarısız oldu. Eşleşen çalışma zamanının ve gerekli paketlerin ayrı bir medyada bulunduğunu doğrulayın.</value>
+    <value>Kurulum sonrası aşama hazırlığı başarısız oldu. Ayrıntılar için dağıtım günlüğünü kontrol edin.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Kurulum sonrası hazırlık tamamlandı (benzetim).</value>

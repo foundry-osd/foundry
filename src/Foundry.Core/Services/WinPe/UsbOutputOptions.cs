@@ -35,7 +35,7 @@ public sealed record UsbOutputOptions
     public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
     /// <summary>Retains custom image inputs until data publication and BOOT creation complete.</summary>
     public WinPeCustomImageMediaLease? CustomImages { get; init; }
-    /// <summary>Retains verified post-installation content and companion runtimes outside boot.wim.</summary>
+    /// <summary>Retains verified custom post-installation packages outside boot.wim.</summary>
     public WinPePreOobeMediaLease? PostInstallation { get; init; }
     public IProgress<WinPeDownloadProgress>? DownloadProgress { get; init; }
     public IProgress<WinPeMediaProgress>? Progress { get; init; }

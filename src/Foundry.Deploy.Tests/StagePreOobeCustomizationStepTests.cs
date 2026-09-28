@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.Json;
-using System.IO.Compression;
 using System.Security.Cryptography;
 using Foundry.Core.Models.PreOobe;
 using Foundry.Deploy.Models;
@@ -25,7 +24,7 @@ namespace Foundry.Deploy.Tests;
 public sealed class StagePreOobeCustomizationStepTests
 {
     [Fact]
-    public async Task MediaPublisher_OutputIsAcceptedWithoutNetworkOrWritableCache()
+    public async Task MediaPublisher_PackagesAreCombinedWithBootstrapRuntimeAndRemainLocked()
     {
         using var temp = new TemporaryDirectory();
         string source = Path.Combine(temp.RootPath, "hello.ps1");
@@ -41,27 +40,18 @@ public sealed class StagePreOobeCustomizationStepTests
         };
         using var runtime = NativeRuntimeFixture.Create(temp.RootPath);
         var publisher = new Foundry.Core.Services.WinPe.WinPePreOobeMediaService();
-        using var media = await publisher.PrepareAsync(library, settings, new Dictionary<string, string> { ["win-x64"] = runtime.RuntimeArchivePath }, TestContext.Current.CancellationToken);
+        using var media = await publisher.PrepareAsync(library, settings, TestContext.Current.CancellationToken);
         string mediaRoot = Path.Combine(temp.RootPath, "media");
         Directory.CreateDirectory(mediaRoot);
         await publisher.PublishAsync(media, mediaRoot, TestContext.Current.CancellationToken);
-        string descriptorPath = Path.Combine(temp.RootPath, "descriptor.json");
-        await File.WriteAllTextAsync(descriptorPath, JsonSerializer.Serialize(new PreOobeRuntimeDescriptor { ReleaseTag = "local", Assets = [runtime.RuntimeAsset, runtime.RuntimeAsset with { RuntimeIdentifier = "win-arm64", AssetName = "Foundry.PostInstall-win-arm64.zip" }] },
-            Foundry.Deploy.Services.Configuration.ConfigurationJsonDefaults.SerializerOptions), TestContext.Current.CancellationToken);
         using DeploymentStepExecutionContext context = CreateContext(temp, postInstall: new()
         { IsEnabled = true, Actions = settings.Actions, ManifestId = media.ManifestId, ManifestHash = media.ManifestHash });
-        var resolver = new PreOobeContentResolver(new(), new ReadOnlyStorage()) { DescriptorPath = descriptorPath, MediaRoots = () => [mediaRoot] };
+        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = Path.Combine(runtime.RuntimeDirectory, "Foundry.PostInstall.exe"), MediaRoots = () => [mediaRoot] };
         using var prepared = await resolver.PrepareAsync(context, TestContext.Current.CancellationToken);
         Assert.NotNull(prepared);
         Assert.Equal(reference.ContentHash, Assert.Single(prepared.Packages).ContentHash);
-        Assert.StartsWith(mediaRoot, prepared.RuntimeArchivePath, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal(runtime.RuntimeDirectory, prepared.RuntimeDirectory);
         Assert.Throws<IOException>(() => File.Delete(Path.Combine(prepared.Packages[0].SourceRoot, "hello.ps1")));
-    }
-
-    private sealed class ReadOnlyStorage : IDeploymentStorageService
-    {
-        public long? GetAvailableBytes(string path) => throw new InvalidOperationException("An intact offline generation needs no writable runtime cache.");
-        public bool CanWriteDirectory(string path, string? existingFilePath = null) => false;
     }
 
     [Theory]
@@ -114,7 +104,7 @@ public sealed class StagePreOobeCustomizationStepTests
     public async Task StageDriverInstaller_StagesOnlyPayloadWithoutSetupHook(bool dryRun)
     {
         using var tempDirectory = new TemporaryDirectory();
-        DeploymentStepExecutionContext context = CreateContext(tempDirectory, isDryRun: dryRun);
+        using DeploymentStepExecutionContext context = CreateContext(tempDirectory, isDryRun: dryRun);
         string source = Path.Combine(tempDirectory.RootPath, "driver.exe");
         await File.WriteAllBytesAsync(source, [1, 2, 3], TestContext.Current.CancellationToken);
         context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
@@ -135,7 +125,7 @@ public sealed class StagePreOobeCustomizationStepTests
     public async Task ExecuteAsync_WhenDriverInstallerWasStaged_DoesNotRequireOrCopyOriginalDownload()
     {
         using var tempDirectory = new TemporaryDirectory();
-        DeploymentStepExecutionContext context = CreateContext(tempDirectory);
+        using DeploymentStepExecutionContext context = CreateContext(tempDirectory);
         string stagedPath = Path.Combine(tempDirectory.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "Drivers", "driver.exe");
         Directory.CreateDirectory(Path.GetDirectoryName(stagedPath)!);
         await File.WriteAllBytesAsync(stagedPath, [1, 2, 3], TestContext.Current.CancellationToken);
@@ -181,7 +171,12 @@ public sealed class StagePreOobeCustomizationStepTests
         {
             using JsonDocument plan = JsonDocument.Parse(File.ReadAllText(context.RuntimeState.PreOobeManifestPath!));
             Assert.Contains(plan.RootElement.GetProperty("actions").EnumerateArray(), action => action.GetProperty("id").GetString() == "windows-oem-activation");
-            Assert.True(File.Exists(context.RuntimeState.PreOobeRunnerPath));
+            string stagedRuntime = Path.GetDirectoryName(context.RuntimeState.PreOobeRunnerPath)!;
+            foreach (var file in context.PostInstallContent!.RuntimeManifest.Files)
+            {
+                Assert.Equal(File.ReadAllBytes(Path.Combine(context.PostInstallContent.RuntimeDirectory, file.RelativePath)),
+                    File.ReadAllBytes(Path.Combine(stagedRuntime, file.RelativePath)));
+            }
         }
     }
 
@@ -189,7 +184,7 @@ public sealed class StagePreOobeCustomizationStepTests
     public async Task StagePreOobeCustomizationStep_WhenRoamingPayloadExists_StagesImporterAndCleanup()
     {
         using var tempDirectory = new TemporaryDirectory();
-        DeploymentStepExecutionContext context = CreateContext(tempDirectory);
+        using DeploymentStepExecutionContext context = CreateContext(tempDirectory);
         var step = new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(),
             new PreOobeTargetStagingService(path => Directory.CreateDirectory(path)));
         context.NetworkProfileRoamingPayload = CreateRoamingPayload();
@@ -211,7 +206,7 @@ public sealed class StagePreOobeCustomizationStepTests
         using var tempDirectory = new TemporaryDirectory();
         string driverPackagePath = Path.Combine(tempDirectory.RootPath, "driver.exe");
         File.WriteAllBytes(driverPackagePath, [1, 2, 3]);
-        DeploymentStepExecutionContext context = CreateContext(tempDirectory, licenseChannel: "RET");
+        using DeploymentStepExecutionContext context = CreateContext(tempDirectory, licenseChannel: "RET");
         context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
         context.RuntimeState.DownloadedDriverPackPath = driverPackagePath;
         await new StageDriverInstallerStep(new FakeDriverPackStrategyResolver())
@@ -236,7 +231,7 @@ public sealed class StagePreOobeCustomizationStepTests
     public async Task StagePreOobeCustomizationStep_WhenDeferredDriverPayloadIsMissing_FailsWithoutStaging()
     {
         using var tempDirectory = new TemporaryDirectory();
-        DeploymentStepExecutionContext context = CreateContext(tempDirectory);
+        using DeploymentStepExecutionContext context = CreateContext(tempDirectory);
         context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
         var step = new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(),
             new PreOobeTargetStagingService(path => Directory.CreateDirectory(path)));
@@ -253,7 +248,7 @@ public sealed class StagePreOobeCustomizationStepTests
         using var tempDirectory = new TemporaryDirectory();
         string driverPackagePath = Path.Combine(tempDirectory.RootPath, "driver.exe");
         File.WriteAllBytes(driverPackagePath, [1, 2, 3]);
-        DeploymentStepExecutionContext context = CreateContext(tempDirectory);
+        using DeploymentStepExecutionContext context = CreateContext(tempDirectory);
         context.RuntimeState.DriverPackInstallMode = DriverPackInstallMode.DeferredSetupComplete;
         context.RuntimeState.DownloadedDriverPackPath = driverPackagePath;
         var step = new StageDriverInstallerStep(new FakeDriverPackStrategyResolver(DeferredDriverPackageCommandKind.None));

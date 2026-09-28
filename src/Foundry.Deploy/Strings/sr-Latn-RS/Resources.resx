@@ -547,7 +547,7 @@ Operativni sistem: {4}
     <value>Nisu potrebni zadaci posle instalacije.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Provera spremnosti faze posle instalacije nije uspela. Proverite da li su odgovarajuće izvršno okruženje i potrebni paketi dostupni na zasebnom medijumu.</value>
+    <value>Priprema faze posle instalacije nije uspela. Detalje potražite u evidenciji primene.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Priprema faze posle instalacije je završena (simulacija).</value>

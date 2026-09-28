@@ -547,7 +547,7 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Opravila po namestitvi niso potrebna.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Preverjanje pripravljenosti faze po namestitvi ni uspelo. Preverite, ali so ustrezno izvajalno okolje in zahtevani paketi na voljo na ločenem mediju.</value>
+    <value>Priprava faze po namestitvi ni uspela. Podrobnosti si oglejte v dnevniku uvajanja.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Priprava faze po namestitvi je končana (simulacija).</value>

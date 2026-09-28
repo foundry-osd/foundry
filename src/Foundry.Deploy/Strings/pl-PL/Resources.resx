@@ -547,7 +547,7 @@ Kontynuować wdrażanie?</value>
     <value>Nie są wymagane zadania po instalacji.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Weryfikacja gotowości działań po instalacji nie powiodła się. Sprawdź, czy zgodne środowisko wykonawcze i wymagane pakiety są dostępne na osobnym nośniku.</value>
+    <value>Przygotowanie etapu po instalacji nie powiodło się. Szczegóły znajdziesz w dzienniku wdrażania.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Zakończono przygotowanie działań po instalacji (symulacja).</value>

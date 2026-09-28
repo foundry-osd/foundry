@@ -7,6 +7,7 @@ using Foundry.Bootstrap.Diagnostics;
 using Foundry.Bootstrap.Processes;
 using Foundry.Bootstrap.Runtime;
 using Foundry.Bootstrap.SystemPreparation;
+using Foundry.Core.Models.PreOobe;
 using Serilog;
 
 namespace Foundry.Bootstrap;
@@ -116,11 +117,17 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         }
 
         string deploy = await runtime.ResolveAsync("Foundry.Deploy", context.DeployIsDebug, cancellationToken).ConfigureAwait(false);
-        Report(BootstrapStatus.Completed, "Deployment application prepared");
+        Report(BootstrapStatus.Running, "Preparing Foundry PostInstall");
+        string postInstall = await runtime.ResolveAsync("Foundry.PostInstall", context.DeployIsDebug, cancellationToken).ConfigureAwait(false);
+        var deployEnvironment = new Dictionary<string, string?>(context.ChildEnvironment)
+        {
+            [PostInstallRuntimeManifest.ExecutableEnvironmentVariable] = postInstall
+        };
+        Report(BootstrapStatus.Completed, "Deployment applications prepared");
         stage = BootstrapStage.Deploy;
         Report(BootstrapStatus.Running, "Starting Foundry Deploy");
         cancellationToken.ThrowIfCancellationRequested();
-        ApplicationLaunchResult deployResult = await launcher.StartDeployAsync(deploy, context.ChildEnvironment, cancellationToken).ConfigureAwait(false);
+        ApplicationLaunchResult deployResult = await launcher.StartDeployAsync(deploy, deployEnvironment, cancellationToken).ConfigureAwait(false);
         return new BootstrapResult(deployResult.Succeeded ? BootstrapOutcome.Succeeded : BootstrapOutcome.Failed, stage,
             deployResult.ExitCode, deployResult.FailureCategory, deployResult.LastStage, deployResult.ReadinessConfirmed);
     }

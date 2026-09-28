@@ -547,7 +547,7 @@ Continuați cu implementarea?</value>
     <value>Nu sunt necesare sarcini după instalare.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Verificarea pregătirii etapei de după instalare a eșuat. Verificați dacă mediul de execuție corespunzător și pachetele necesare sunt disponibile pe un suport separat.</value>
+    <value>Pregătirea etapei de după instalare a eșuat. Consultați jurnalul de implementare pentru detalii.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Pregătirea etapei de după instalare s-a încheiat (simulare).</value>

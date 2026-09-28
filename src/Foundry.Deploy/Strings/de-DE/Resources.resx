@@ -547,7 +547,7 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Es sind keine Aufgaben nach der Installation erforderlich.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Die Nachinstallation ist nicht bereit. Prüfen Sie, ob die passende Laufzeit und die erforderlichen Pakete auf einem separaten Medium verfügbar sind.</value>
+    <value>Die Vorbereitung der Nachinstallation ist fehlgeschlagen. Details finden Sie im Bereitstellungsprotokoll.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Vorbereitung der Nachinstallation abgeschlossen (Simulation).</value>

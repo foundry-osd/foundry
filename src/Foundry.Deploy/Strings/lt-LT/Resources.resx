@@ -547,7 +547,7 @@ Tęsti diegimą?</value>
     <value>Užduočių po diegimo nereikia.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Etapo po diegimo parengties patikra nepavyko. Patikrinkite, ar atitinkama vykdymo aplinka ir reikalingi paketai pasiekiami atskiroje laikmenoje.</value>
+    <value>Nepavyko pasirengti etapui po diegimo. Išsamesnės informacijos ieškokite diegimo žurnale.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Etapo po diegimo paruošimas baigtas (imitavimas).</value>

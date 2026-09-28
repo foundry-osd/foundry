@@ -547,7 +547,7 @@ Vai turpināt izvietošanu?</value>
     <value>Uzdevumi pēc instalēšanas nav nepieciešami.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Posma pēc instalēšanas gatavības pārbaude neizdevās. Pārbaudiet, vai atbilstošā izpildlaika vide un nepieciešamās pakotnes ir pieejamas atsevišķā datu nesējā.</value>
+    <value>Neizdevās sagatavoties posmam pēc instalēšanas. Detalizētu informāciju skatiet izvietošanas žurnālā.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Posma pēc instalēšanas sagatavošana ir pabeigta (simulācija).</value>

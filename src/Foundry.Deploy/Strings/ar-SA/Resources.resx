@@ -547,7 +547,7 @@
     <value>لا توجد مهام مطلوبة بعد التثبيت.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>فشل التحقق من جاهزية مرحلة ما بعد التثبيت. تأكد من توفر بيئة التشغيل المطابقة والحزم المطلوبة على وسائط منفصلة.</value>
+    <value>فشل التحضير لمرحلة ما بعد التثبيت. راجع سجل النشر للحصول على التفاصيل.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>اكتمل تجهيز مرحلة ما بعد التثبيت (محاكاة).</value>

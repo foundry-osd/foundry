@@ -32,7 +32,7 @@ public sealed class PreflightDeploymentStep(
             context.PostInstallContent?.Dispose();
             try
             {
-                context.PostInstallContent = await (postInstallResolver ?? new PreOobe.PreOobeContentResolver(new(), storageService))
+                context.PostInstallContent = await (postInstallResolver ?? new PreOobe.PreOobeContentResolver())
                     .PrepareAsync(context, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException or InvalidOperationException or HttpRequestException)

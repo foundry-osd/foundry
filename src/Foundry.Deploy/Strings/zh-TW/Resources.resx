@@ -547,7 +547,7 @@
     <value>不需要執行安裝後工作。</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>安裝後就緒檢查失敗。請確認相符的執行階段與所需套件可在獨立媒體上取得。</value>
+    <value>安裝後階段準備失敗。請查看部署記錄以取得詳細資訊。</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>安裝後暫存已完成（模擬）。</value>

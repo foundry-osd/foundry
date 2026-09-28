@@ -49,7 +49,7 @@ Keep WinUI 3 concerns in `Foundry` and WPF concerns in their owning runtime. `Fo
 
 Configuration files used by Foundry OSD, Foundry Connect, and Foundry Deploy are separate compatibility contracts. Bump only a contract whose persisted or generated behavior changes. Use the latest published release as the production baseline and update the matching generator, runtime, and compatibility tests together.
 
-Foundry.PostInstall execution plans, checkpoints, and companion runtime descriptors also have versioned contracts. Keep Core, Deploy, and PostInstall compatible when changing these contracts; preserve the binding between a checkpoint and its exact execution plan.
+Foundry.PostInstall execution plans, checkpoints, and runtime manifests also have versioned contracts. Keep Core, Deploy, and PostInstall compatible when changing these contracts; preserve the binding between a checkpoint and its exact execution plan.
 
 ## Validate the change
 
@@ -84,7 +84,7 @@ CI treats build warnings as errors. Existing targeted suppressions remain in eff
 
 Foundry OSD publishes without trimming or Native AOT, matching its Velopack packaging settings, and keeps ReadyToRun enabled in Release. Foundry.Connect and Foundry.Deploy retain their self-contained WPF publication without trimming or Native AOT. Foundry.Bootstrap is published as a self-contained console application using the same single-file release settings for x64 and ARM64.
 
-Foundry.PostInstall is also published as self-contained single-file x64 and ARM64 archives through `scripts/Publish-FoundryPostInstall.ps1`. Each Deploy archive includes the companion descriptor pinning the matching PostInstall assets. Verify both architectures when changing this publication contract.
+Foundry.PostInstall is also published as self-contained single-file x64 and ARM64 archives through `scripts/Publish-FoundryPostInstall.ps1`. Bootstrap resolves it independently using the same release lookup, archive verification, and cache rules as Connect and Deploy, then passes the prepared runtime to Deploy for target staging. PostInstall follows Deploy's debug selection and media storage conventions. Its archive includes its own runtime manifest; Deploy checks the execution contract and target architecture before disk preparation. Verify both architectures when changing this publication contract.
 
 `Foundry.PostInstall.Tests` covers runtime actions, process supervision, checkpoints, restart/resume, and cleanup. Real Windows Setup/OOBE, native servicing, vendor hardware, and ARM64 execution require separate acceptance checks; unit tests do not replace them.
 

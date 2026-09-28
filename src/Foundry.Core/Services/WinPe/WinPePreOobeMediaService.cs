@@ -28,20 +28,16 @@ public sealed class WinPePreOobeMediaService : IWinPePreOobeMediaPublisher
     public WinPePreOobeMediaService() : this(WindowsVolumeStorage.GetAvailableBytes) { }
     internal WinPePreOobeMediaService(Func<string, long> availableBytes) => this.availableBytes = availableBytes;
 
-    /// <summary>Freezes enabled package versions and already authenticated companion archives before boot configuration is generated.</summary>
+    /// <summary>Freezes enabled package versions before boot configuration is generated.</summary>
     public async Task<WinPePreOobeMediaLease> PrepareAsync(PreOobePackageLibraryService library, PreOobeSettings settings,
-        IReadOnlyDictionary<string, string> runtimeArchives, CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(library);
-        ArgumentNullException.ThrowIfNull(runtimeArchives);
         PreOobeConfigurationValidator.ThrowIfInvalid(settings);
-        if (runtimeArchives.Count is 0 or > 2 || runtimeArchives.Keys.Any(rid => rid is not ("win-x64" or "win-arm64")))
-            throw new InvalidDataException("PreOobe.InvalidRuntimeDescriptor");
         List<IDisposable> leases = [];
         try
         {
             List<PreOobeMediaPackage> packages = [];
-            List<PreOobeMediaRuntime> runtimes = [];
             List<WinPePreOobeMediaFile> files = [];
             List<string> directories = [];
             long manifestBudget = 4096;
@@ -69,21 +65,7 @@ public sealed class WinPePreOobeMediaService : IWinPePreOobeMediaPublisher
                     (action.WorkingDirectory is not null && !package.Manifest.Directories.Contains(action.WorkingDirectory, StringComparer.OrdinalIgnoreCase)))
                     throw new InvalidDataException("PreOobe.MissingEntryPoint");
             }
-            foreach ((string rid, string archivePath) in runtimeArchives.OrderBy(pair => pair.Key, StringComparer.Ordinal))
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                CustomImagePathPolicy.ValidateNoReparsePoints(archivePath);
-                var stream = new FileStream(archivePath, FileMode.Open, FileAccess.Read, FileShare.Read, 128 * 1024,
-                    FileOptions.Asynchronous | FileOptions.SequentialScan);
-                leases.Add(stream);
-                if (stream.Length is <= 0 or > 256L * 1024 * 1024) throw new InvalidDataException("PreOobe.InvalidRuntimeArchive");
-                string hash = Convert.ToHexStringLower(await SHA256.HashDataAsync(stream, cancellationToken).ConfigureAwait(false));
-                stream.Position = 0;
-                string relative = $"Cache/PreOobe/Runtimes/{rid}/{hash}/runtime.zip";
-                files.Add(new(archivePath, relative, stream.Length, hash));
-                runtimes.Add(new() { RuntimeIdentifier = rid, RelativePath = relative, ArchiveSha256 = hash });
-            }
-            var manifest = new PreOobeMediaManifest { Id = Guid.NewGuid().ToString("N"), Packages = packages, Runtimes = runtimes };
+            var manifest = new PreOobeMediaManifest { Id = Guid.NewGuid().ToString("N"), Packages = packages };
             byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(manifest, MediaJsonOptions);
             if (bytes.Length > MaximumManifestBytes) throw new InvalidDataException("PreOobe.MediaManifestTooLarge");
             return new(manifest, bytes, files, directories, leases);

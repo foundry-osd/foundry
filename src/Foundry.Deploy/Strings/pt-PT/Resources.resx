@@ -547,7 +547,7 @@ Continuar com a implantação?</value>
     <value>Não são necessárias tarefas de pós-instalação.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Falha na verificação de preparação da pós-instalação. Verifique se o ambiente de execução correspondente e os pacotes necessários estão disponíveis num suporte de dados separado.</value>
+    <value>Falha na preparação da pós-instalação. Consulte o registo de implementação para obter detalhes.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Preparação da pós-instalação concluída (simulação).</value>

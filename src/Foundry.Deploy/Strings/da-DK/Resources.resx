@@ -547,7 +547,7 @@ Vil du fortsætte med implementeringen?</value>
     <value>Der kræves ingen opgaver efter installationen.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Kontrol af parathed til efter installationen mislykkedes. Kontrollér, at det tilsvarende kørselsmiljø og de nødvendige pakker er tilgængelige på separate medier.</value>
+    <value>Forberedelsen af fasen efter installationen mislykkedes. Se installationsloggen for detaljer.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Klargøring til efter installationen er afsluttet (simulering).</value>

@@ -547,7 +547,7 @@ Sistema operativo: {4}
     <value>No se necesitan tareas de posinstalación.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>La posinstalación no está lista. Verifique que el ejecutor correspondiente y los paquetes necesarios estén disponibles en un medio separado.</value>
+    <value>Error al preparar la posinstalación. Consulte el registro de implementación para obtener más información.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Preparación de posinstalación completada (simulación).</value>

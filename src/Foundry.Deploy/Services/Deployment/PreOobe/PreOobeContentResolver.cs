@@ -15,11 +15,9 @@ using Foundry.Deploy.Services.Deployment.Steps;
 namespace Foundry.Deploy.Services.Deployment.PreOobe;
 
 /// <summary>Freezes applicable external content and runtime identity before either destructive deployment branch.</summary>
-public class PreOobeContentResolver(PreOobeRuntimeResolver runtimeResolver, IDeploymentStorageService storage)
+public class PreOobeContentResolver
 {
-    // IncludeAllContentForSelfExtract redirects BaseDirectory away from the executable's companion files.
-    internal string DescriptorPath { get; init; } = Path.Combine(
-        Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory, PreOobeRuntimeResolver.DescriptorFileName);
+    internal string? RuntimeExecutablePath { get; init; } = Environment.GetEnvironmentVariable(PostInstallRuntimeManifest.ExecutableEnvironmentVariable);
     internal Func<string[]> MediaRoots { get; init; } = () => DriveInfo.GetDrives().Where(drive => drive.IsReady).Select(drive => drive.RootDirectory.FullName).ToArray();
 
     internal static bool IsRequired(DeploymentContext request) =>
@@ -49,20 +47,17 @@ public class PreOobeContentResolver(PreOobeRuntimeResolver runtimeResolver, IDep
         { IsEnabled = context.Request.PreOobe.IsEnabled, Actions = context.Request.PreOobe.Actions });
         if (!IsRequired(context.Request)) return null;
         string rid = ResolveRid(context.Request.OperatingSystem.Architecture);
-        PreOobeRuntimeDescriptor descriptor = PreOobeRuntimeResolver.ReadDescriptor(DescriptorPath);
-        var asset = descriptor.Assets.SingleOrDefault(item => item.RuntimeIdentifier == rid)
-            ?? throw new InvalidDataException("The authenticated Deploy release does not contain the required target runtime.");
-        var prepared = new PreOobePreparedContent { RuntimeIdentifier = rid, RuntimeAsset = asset };
+        var prepared = await PostInstallRuntimeSource.AcquireAsync(RuntimeExecutablePath, rid, cancellationToken).ConfigureAwait(false);
         try
         {
+            await RequireRuntimeSourceAsync(context, prepared.RuntimeDirectory, cancellationToken).ConfigureAwait(false);
             string[] roots = MediaRoots();
             var settings = context.Request.PreOobe;
             var packages = ApplicableActions(context.Request).Where(action => action.Package is not null)
                 .Select(action => action.Package!).GroupBy(package => package.ContentHash, StringComparer.OrdinalIgnoreCase).Select(group => group.First()).ToArray();
-            var runtimeCandidates = new List<string>();
             if (settings.ManifestId is not null || settings.ManifestHash is not null)
             {
-                if (!Guid.TryParseExact(settings.ManifestId, "N", out _) || !PreOobeRuntimeResolver.IsHash(settings.ManifestHash))
+                if (!Guid.TryParseExact(settings.ManifestId, "N", out _) || !PreOobePackagePathPolicy.IsValidHash(settings.ManifestHash))
                     throw new InvalidDataException("Post-installation media binding is invalid.");
                 (string Root, PreOobeMediaManifest Manifest)? media = null;
                 foreach (string root in roots)
@@ -104,26 +99,15 @@ public class PreOobeContentResolver(PreOobeRuntimeResolver runtimeResolver, IDep
                         PreOobePackagePathPolicy.Resolve($@"C:\Windows\Temp\Foundry\Payloads\PostInstall\{new string('0', 32)}\{package.ContentHash}", relative);
                     foreach (var file in item.Manifest.Files)
                     {
-                        PreOobeRuntimeResolver.ValidateRelativePath(file.RelativePath);
+                        PreOobePackagePathPolicy.ValidateRelativePath(file.RelativePath);
                         string filePath = PreOobePackagePathPolicy.Resolve(source, file.RelativePath);
                         await RequireSeparateSourceAsync(context, filePath, cancellationToken).ConfigureAwait(false);
                         prepared.Files.Add((filePath, await OpenVerifiedAsync(filePath, file.Length, file.Sha256, cancellationToken).ConfigureAwait(false)));
                     }
                     prepared.Packages.Add(new(package.ContentHash, source, item.Manifest));
                 }
-                foreach (var runtime in media.Value.Manifest.Runtimes.Where(item => item.RuntimeIdentifier == rid && item.ArchiveSha256.Equals(asset.ArchiveSha256, StringComparison.OrdinalIgnoreCase)))
-                {
-                    if (runtime.RelativePath != $"Cache/PreOobe/Runtimes/{rid}/{asset.ArchiveSha256}/runtime.zip")
-                        throw new InvalidDataException("Runtime content is outside the canonical media cache.");
-                    runtimeCandidates.Add(Path.Combine(media.Value.Root, runtime.RelativePath.Replace('/', Path.DirectorySeparatorChar)));
-                }
             }
             else if (packages.Length != 0) throw new InvalidDataException("Package actions require an authenticated external media manifest.");
-            foreach (string root in roots)
-            {
-                string path = Path.Combine(root, "Cache", "PreOobe", "Runtimes", rid, asset.ArchiveSha256, "runtime.zip");
-                if (File.Exists(path)) { await RequireSeparateSourceAsync(context, path, cancellationToken).ConfigureAwait(false); runtimeCandidates.Add(path); }
-            }
             byte[] planInputs = JsonSerializer.SerializeToUtf8Bytes(new
             {
                 actions = ApplicableActions(context.Request).ToArray(),
@@ -133,29 +117,6 @@ public class PreOobeContentResolver(PreOobeRuntimeResolver runtimeResolver, IDep
             }, ConfigurationJsonDefaults.SerializerOptions);
             if (planInputs.Length > 7 * 1024 * 1024)
                 throw new InvalidDataException("Post-installation inputs exceed the bounded execution-plan budget.");
-            foreach (string candidate in runtimeCandidates.Distinct(StringComparer.OrdinalIgnoreCase))
-            {
-                try
-                {
-                    await PreOobeRuntimeResolver.VerifyAsync(candidate, asset, cancellationToken).ConfigureAwait(false);
-                    prepared.RuntimeArchivePath = candidate;
-                    prepared.Files.Add((candidate, await OpenVerifiedAsync(candidate, asset.ArchiveLength, asset.ArchiveSha256, cancellationToken).ConfigureAwait(false)));
-                    return prepared;
-                }
-                catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException) { }
-            }
-            string writable = Path.Combine(context.Request.CacheRootPath, "PreOobe", "Runtimes", rid, asset.ArchiveSha256);
-            long required = checked(asset.ArchiveLength + asset.ExpandedLength + DeploymentCapacityPolicy.ScratchAndHeadroomBytes);
-            if (!await context.IsExternalStorageAsync(writable, cancellationToken).ConfigureAwait(false) ||
-                storage.GetAvailableBytes(writable) is not long free || free < required || !storage.CanWriteDirectory(writable))
-            {
-                writable = Path.Combine(@"X:\Foundry\Temp\PostInstall", Guid.NewGuid().ToString("N"));
-                if (storage.GetAvailableBytes(writable) is not long ramAvailable || ramAvailable < required)
-                    throw new InvalidDataException("There is insufficient reserved WinPE storage for the matching post-installation runtime.");
-                prepared.TemporaryRuntimeDirectory = writable;
-            }
-            prepared.RuntimeArchivePath = await runtimeResolver.ResolveAsync(descriptor, asset, runtimeCandidates, writable, cancellationToken).ConfigureAwait(false);
-            prepared.Files.Add((prepared.RuntimeArchivePath, await OpenVerifiedAsync(prepared.RuntimeArchivePath, asset.ArchiveLength, asset.ArchiveSha256, cancellationToken).ConfigureAwait(false)));
             return prepared;
         }
         catch { prepared.Dispose(); throw; }
@@ -163,13 +124,19 @@ public class PreOobeContentResolver(PreOobeRuntimeResolver runtimeResolver, IDep
 
     internal static async Task RevalidateAsync(DeploymentStepExecutionContext context, PreOobePreparedContent content, CancellationToken cancellationToken)
     {
+        await RequireRuntimeSourceAsync(context, content.RuntimeDirectory, cancellationToken).ConfigureAwait(false);
         foreach (var file in content.Files)
         {
             if (!file.Stream.CanRead || !File.Exists(file.Path)) throw new InvalidDataException("Post-installation source is no longer available.");
-            if (content.TemporaryRuntimeDirectory is null || !file.Path.StartsWith(content.TemporaryRuntimeDirectory + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+            if (!file.Path.StartsWith(content.RuntimeDirectory + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
                 await RequireSeparateSourceAsync(context, file.Path, cancellationToken).ConfigureAwait(false);
         }
     }
+
+    private static Task RequireRuntimeSourceAsync(DeploymentStepExecutionContext context, string path, CancellationToken cancellationToken) =>
+        string.Equals(Path.GetPathRoot(path), @"X:\", StringComparison.OrdinalIgnoreCase)
+            ? Task.CompletedTask
+            : RequireSeparateSourceAsync(context, path, cancellationToken);
 
     private static async Task RequireSeparateSourceAsync(DeploymentStepExecutionContext context, string path, CancellationToken cancellationToken)
     {
@@ -182,7 +149,7 @@ public class PreOobeContentResolver(PreOobeRuntimeResolver runtimeResolver, IDep
 
     internal static async Task<FileStream> OpenVerifiedAsync(string path, long length, string hash, CancellationToken cancellationToken)
     {
-        if (length < 0 || !PreOobeRuntimeResolver.IsHash(hash)) throw new InvalidDataException("Invalid package file metadata.");
+        if (length < 0 || !PreOobePackagePathPolicy.IsValidHash(hash)) throw new InvalidDataException("Invalid package file metadata.");
         CustomImageSourceLease.EnsureRegularPath(path);
         var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 81920, FileOptions.Asynchronous);
         try

@@ -14,6 +14,7 @@ using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.Deployment.Unattend;
 using Foundry.Deploy.Services.DriverPacks;
+using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Network;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -99,7 +100,7 @@ public sealed class DeploymentCustomizationScenarioTests
         };
         using var context = new DeploymentStepExecutionContext(request, state, [],
             new DriverApplicationOperationProgressService(), new DeploymentLogService(),
-            new DriverApplicationTargetDiskService(), _ => { });
+            new ScenarioDiskService(fixture.WorkspaceRoot, fixture.WindowsRoot), _ => { });
         // Start at the validated snapshot boundary; encryption validation has its own adversarial tests.
         context.PostInstallContent = NativeRuntimeFixture.Create(fixture.WorkspaceRoot);
         context.UnattendSnapshot = new UnattendSnapshot(answer.ToArray(), UnattendFileService.Inspect(answer, "amd64"));
@@ -174,6 +175,20 @@ public sealed class DeploymentCustomizationScenarioTests
         Assert.True(File.Exists(state.StagedAutopilotConfigurationPath));
         foreach (string file in new[] { "Start-FoundryAutopilotRegistration.ps1", "Start-FoundryAutopilotRegistrationOobe.cmd", "Wait-FoundryAutopilotRegistrationOobe.ps1", "Start-FoundryAutopilotRegistrationForeground.ps1", "ServiceUI.exe" })
             Assert.True(File.Exists(Path.Combine(retainedRoot, "Runtime", "AutopilotRegistration", file)), file);
+    }
+
+    private sealed class ScenarioDiskService(string workspaceRoot, string windowsRoot) : ITargetDiskService
+    {
+        public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default, bool includeExcludedDisks = false) =>
+            Task.FromResult<IReadOnlyList<TargetDiskInfo>>([]);
+
+        public Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default)
+        {
+            string fullPath = Path.GetFullPath(path);
+            int? disk = fullPath.StartsWith(workspaceRoot + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) ? 0
+                : fullPath.StartsWith(windowsRoot + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) ? 1 : null;
+            return Task.FromResult(disk);
+        }
     }
 
     private sealed class RecordingCustomizationService : RecordingDriverApplicationService, IWindowsDeploymentService

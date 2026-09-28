@@ -547,7 +547,7 @@ Pokračovať v nasadzovaní?</value>
     <value>Nie sú potrebné žiadne úlohy po inštalácii.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>Kontrola pripravenosti fázy po inštalácii zlyhala. Overte, či sú zodpovedajúce prostredie na spúšťanie a požadované balíky dostupné na samostatnom médiu.</value>
+    <value>Príprava fázy po inštalácii zlyhala. Podrobnosti nájdete v denníku nasadenia.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Príprava fázy po inštalácii bola dokončená (simulácia).</value>

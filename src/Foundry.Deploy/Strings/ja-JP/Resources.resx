@@ -547,7 +547,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>インストール後のタスクは必要ありません。</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>インストール後の準備状況の確認に失敗しました。対応するランタイムと必要なパッケージが別のメディアにあることを確認してください。</value>
+    <value>インストール後の処理の準備に失敗しました。詳細については、展開ログを確認してください。</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>インストール後の準備が完了しました (シミュレーション)。</value>

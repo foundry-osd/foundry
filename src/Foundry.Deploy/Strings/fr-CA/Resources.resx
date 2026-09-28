@@ -547,7 +547,7 @@ Continuer le déploiement?</value>
     <value>Aucune tâche de post-installation n’est nécessaire.</value>
   </data>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
-    <value>La post-installation n’est pas prête. Vérifiez que le programme correspondant et les paquets nécessaires sont disponibles sur un support distinct.</value>
+    <value>La préparation de la post-installation a échoué. Consultez le journal de déploiement pour plus de détails.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Préparation de la post-installation terminée (simulation).</value>
