@@ -2512,6 +2512,9 @@ Licensed under the MIT License.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Enter a name of 1–256 characters without control characters.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Enter a whole number from 0 to 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Edit "{0}" to correct its settings.</value>
   </data>
@@ -2562,6 +2565,12 @@ Licensed under the MIT License.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Restart-required exit codes (comma-separated)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Restart delay (seconds)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Use 0 to restart immediately.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Restart Windows, then continue with the next action.</value>

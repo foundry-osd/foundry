@@ -2512,6 +2512,9 @@
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Введите имя длиной 1–256 символов без управляющих символов.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Введите целое число от 0 до 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Измените «{0}», чтобы исправить настройки.</value>
   </data>
@@ -2562,6 +2565,12 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Коды завершения, требующие перезагрузки (через запятую)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Задержка перед перезагрузкой (секунды)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Укажите 0 для немедленной перезагрузки.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Перезагрузите Windows, затем перейдите к следующему действию.</value>

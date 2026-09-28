@@ -15,6 +15,7 @@ public static class PreOobeConfigurationValidator
 {
     public const int MaximumActions = 1000;
     public const int MaximumCommandLength = 8191;
+    public const int MaximumRestartDelaySeconds = 86400;
 
     public static IReadOnlyList<PreOobeValidationIssue> Validate(PreOobeSettings? settings)
     {
@@ -34,6 +35,8 @@ public static class PreOobeConfigurationValidator
 
             if (action.PowerShellArguments is not null && action.Kind != PreOobeActionKind.PowerShell) Add("PreOobe.InvalidPowerShellAction");
             if (action.GenerateInstallationLog && (action.Kind != PreOobeActionKind.Application || action.ApplicationMode != PreOobeApplicationMode.Msi)) Add("PreOobe.InvalidApplicationAction");
+            if (action.RestartDelaySeconds is < 0 or > MaximumRestartDelaySeconds ||
+                (action.Kind != PreOobeActionKind.Restart && action.RestartDelaySeconds != 0)) Add("PreOobe.InvalidRestartAction");
 
             if (action.Kind == PreOobeActionKind.Restart)
             {

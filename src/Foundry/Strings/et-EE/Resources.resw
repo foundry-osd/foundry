@@ -2512,6 +2512,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Sisesta 1–256 märgi pikkune nimi ilma juhtmärkideta.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Sisestage täisarv vahemikus 0 kuni 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Muuda toimingut „{0}”, et parandada selle seadeid.</value>
   </data>
@@ -2562,6 +2565,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Taaskäivitust nõudvad väljumiskoodid (komadega eraldatud)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Taaskäivituse viivitus (sekundites)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Koheseks taaskäivitamiseks kasutage väärtust 0.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Taaskäivitage Windows ja jätkake seejärel järgmise toiminguga.</value>

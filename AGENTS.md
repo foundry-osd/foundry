@@ -55,6 +55,7 @@ Project dependency rules:
 - Put runtime-specific behavior in the runtime project that owns it.
 - Do not move Connect- or Deploy-specific workflows into `Foundry.Core` solely for reuse convenience.
 - Use `Foundry.Localization` for shared localization behavior instead of creating application-specific replacements.
+- Bootstrap and PostInstall console messages use English; keep Foundry OSD authoring controls translated in every supported culture.
 - Use `Foundry.Telemetry` for shared telemetry behavior instead of creating application-specific telemetry implementations.
 - `Foundry.Utilities` is a leaf project and must not reference another Foundry project.
 - `Foundry.Core`, `Foundry`, `Foundry.Bootstrap`, `Foundry.Connect`, `Foundry.Deploy`, `Foundry.PostInstall`, `Foundry.Localization`, and `Foundry.Telemetry` may consume `Foundry.Utilities` when a capability has a stable cross-project contract.

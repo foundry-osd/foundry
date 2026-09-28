@@ -2512,6 +2512,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Wprowadź nazwę o długości 1–256 znaków, bez znaków sterujących.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Wprowadź liczbę całkowitą od 0 do 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Edytuj „{0}”, aby poprawić ustawienia.</value>
   </data>
@@ -2562,6 +2565,12 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Kody wyjścia wymagające ponownego uruchomienia (oddzielone przecinkami)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Opóźnienie ponownego uruchomienia (sekundy)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Użyj 0, aby natychmiast uruchomić ponownie.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Uruchom ponownie system Windows, a następnie przejdź do kolejnej akcji.</value>

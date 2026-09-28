@@ -1,0 +1,285 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using System.Diagnostics;
+using System.Globalization;
+using Foundry.Core.Models.PreOobe;
+using Foundry.PostInstall.Execution;
+
+namespace Foundry.PostInstall.Console;
+
+/// <summary>Shows best-effort setup progress, falling back to plain output when console rendering is unavailable.</summary>
+internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisposable
+{
+    private readonly object gate = new();
+    private readonly TextWriter output;
+    private readonly string logPath;
+    private readonly Timer heartbeat;
+    private readonly Dictionary<string, (string Status, int? ExitCode)> reportedActions = [];
+    private PostInstallProgress current;
+    private OrchestrationOutcome? result;
+    private long snapshotAt = Stopwatch.GetTimestamp();
+    private long lastOutputAt = Stopwatch.GetTimestamp();
+    private bool interactive;
+    private bool disposed;
+    private bool resumeReported;
+    private bool handoffStarted;
+    private bool? originalCursorVisible;
+    private ConsoleColor originalColor;
+    private int paintedRows;
+    private int? setupSecondsRemaining;
+    private string? reportedActivity;
+
+    internal PostInstallConsole(PreOobeExecutionPlan plan, string logPath, TextWriter? output = null)
+    {
+        this.output = output ?? System.Console.Out;
+        this.logPath = logPath;
+        current = new(plan.Actions.Select(action => new PostInstallActionProgress(action.Id,
+            PostInstallProgress.GetActionName(action), "Waiting")).ToArray(), "Verifying");
+        if (output is null)
+        {
+            try
+            {
+                if (!System.Console.IsOutputRedirected)
+                {
+                    originalColor = System.Console.ForegroundColor;
+                    originalCursorVisible = System.Console.CursorVisible;
+                    System.Console.Clear();
+                    System.Console.CursorVisible = false;
+                    interactive = true;
+                }
+            }
+            catch (Exception error) when (IsConsoleFailure(error)) { RestoreConsole(); }
+        }
+        if (!Render())
+        {
+            WriteLine("Foundry Post-installation");
+            WriteLine(Activity());
+        }
+        heartbeat = new Timer(_ => Refresh(), null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+    }
+
+    public void Report(PostInstallProgress value)
+    {
+        lock (gate)
+        {
+            if (disposed || result is not null) return;
+            current = value;
+            snapshotAt = Stopwatch.GetTimestamp();
+            if (!Render()) WriteChanges();
+            lastOutputAt = Stopwatch.GetTimestamp();
+        }
+    }
+
+    internal void Complete(OrchestrationOutcome value)
+    {
+        lock (gate)
+        {
+            if (disposed || result is not null) return;
+            result = value;
+            current = current with { Status = value.Status, RestartSecondsRemaining = null };
+            if (!Render())
+            {
+                WriteChanges();
+                WriteLine(Summary());
+                WriteLine($"Log: {logPath}");
+            }
+        }
+    }
+
+    /// <summary>Keeps terminal results visible before returning success to Setup; restart and failure exits are not delayed.</summary>
+    internal async Task WaitForSetupAsync(Func<TimeSpan, Task>? delay = null)
+    {
+        lock (gate)
+        {
+            if (disposed || handoffStarted || result is not { ExitCode: 0 }) return;
+            handoffStarted = true;
+        }
+        delay ??= duration => Task.Delay(duration);
+        for (int seconds = 10; seconds >= 0; seconds--)
+        {
+            lock (gate)
+            {
+                if (disposed) return;
+                setupSecondsRemaining = seconds;
+                if (!Render()) WriteLine(HandoffText());
+            }
+            if (seconds > 0) await delay(TimeSpan.FromSeconds(1)).ConfigureAwait(false);
+        }
+    }
+
+    private void Refresh()
+    {
+        lock (gate)
+        {
+            if (disposed || result is not null) return;
+            if (Render() || Stopwatch.GetElapsedTime(lastOutputAt) < TimeSpan.FromSeconds(15)) return;
+            PostInstallActionProgress? running = current.Actions.FirstOrDefault(action => action.Status == "Running");
+            WriteLine(running is null ? Activity() : ActionText(running));
+            lastOutputAt = Stopwatch.GetTimestamp();
+        }
+    }
+
+    private void WriteChanges()
+    {
+        if (current.IsResuming && !resumeReported)
+        {
+            WriteLine("Resuming after restart");
+            resumeReported = true;
+        }
+        for (int index = 0; index < current.Actions.Count; index++)
+        {
+            PostInstallActionProgress action = current.Actions[index];
+            var state = (action.Status, action.ExitCode);
+            if (reportedActions.TryGetValue(action.Id, out var previous) && state == previous) continue;
+            reportedActions[action.Id] = state;
+            if (action.Status != "Waiting") WriteLine($"{index + 1}/{current.Actions.Count}  {ActionText(action)}");
+        }
+        string activity = Activity();
+        if (reportedActivity != activity) WriteLine(activity);
+        reportedActivity = activity;
+    }
+
+    private string Activity() => current.RestartSecondsRemaining switch
+    {
+        > 0 => $"Restarting in {current.RestartSecondsRemaining} seconds...",
+        0 => "Restarting now...",
+        _ => current.Status switch
+        {
+            "Verifying" => "Verifying post-installation content...",
+            "Succeeded" => "Post-installation completed.",
+            "CompletedWithErrors" => "Post-installation completed with warnings. Review the execution result and logs.",
+            "AwaitingRestart" => "Waiting for a Windows Setup restart.",
+            "Failed" or "Interrupted" or "Unavailable" => "Post-installation stopped. Review the execution result and logs before continuing Windows Setup.",
+            "Completing" => "Finishing cleanup...",
+            _ => "Running post-installation actions..."
+        }
+    };
+
+    private string HandoffText() => setupSecondsRemaining > 0
+        ? $"Continuing Windows Setup in {setupSecondsRemaining} seconds..." : "Continuing Windows Setup...";
+
+    private string Summary() => $"Succeeded: {current.Actions.Count(action => action.Status == "Succeeded")}  " +
+        $"Failed: {current.Actions.Count(action => action.Status is "Failed" or "Interrupted")}  " +
+        $"Skipped: {current.Actions.Count(action => action.Status == "Skipped")}";
+
+    private string ActionText(PostInstallActionProgress action)
+    {
+        string elapsed = ElapsedText(action);
+        string exitCode = action.ExitCode is int code ? $" (exit {code})" : string.Empty;
+        return $"[{action.Status}] {action.Name}{(elapsed.Length > 0 ? "  " + elapsed : string.Empty)}{exitCode}";
+    }
+
+    private string ElapsedText(PostInstallActionProgress action)
+    {
+        if (action.Elapsed is null && action.Status != "Running") return string.Empty;
+        TimeSpan duration = action.Elapsed ?? TimeSpan.Zero;
+        if (action.Status == "Running" && result is null) duration += Stopwatch.GetElapsedTime(snapshotAt);
+        return $"{(int)duration.TotalMinutes:00}:{duration.Seconds:00}";
+    }
+
+    private bool Render()
+    {
+        if (!interactive) return false;
+        try
+        {
+            int width = Math.Min(System.Console.WindowWidth, System.Console.BufferWidth) - 1;
+            int height = Math.Min(System.Console.WindowHeight, System.Console.BufferHeight) - 1;
+            if (width < 60 || height < 12) throw new IOException("Console is too small for the progress screen.");
+            var lines = new List<(string Text, ConsoleColor Color)>();
+            void Add(string text, ConsoleColor color = ConsoleColor.Gray) => lines.Add((OneLine(text), color));
+            Add("Foundry Post-installation", ConsoleColor.White);
+            Add(current.IsResuming ? "Resuming after restart" : "Preparing Windows before OOBE");
+            Add("");
+            int capacity = height - 10;
+            int active = current.Actions.ToList().FindIndex(action => action.Status == "Running");
+            if (active < 0) active = current.Actions.ToList().FindIndex(action => action.Status == "Waiting");
+            if (active < 0) active = Math.Max(0, current.Actions.Count - 1);
+            int first = Math.Clamp(active - capacity / 2, 0, Math.Max(0, current.Actions.Count - capacity));
+            int last = Math.Min(first + capacity, current.Actions.Count);
+            Add(current.Actions.Count == 0 ? "No actions" : $"Actions {first + 1}-{last} of {current.Actions.Count}");
+            for (int index = first; index < last; index++)
+            {
+                PostInstallActionProgress action = current.Actions[index];
+                string prefix = $"{index + 1}. [{action.Status}] ";
+                string elapsed = ElapsedText(action);
+                string suffix = elapsed.Length > 0 ? $"  {elapsed}" : string.Empty;
+                if (action.ExitCode is int code) suffix += $" (exit {code})";
+                string name = Shorten(OneLine(action.Name), Math.Max(1, width - prefix.Length - suffix.Length));
+                Add(prefix + name + suffix, StatusColor(action.Status));
+            }
+            Add("");
+            Add(Activity(), StatusColor(current.Status));
+            Add(result is not null ? Summary() : "");
+            Add(setupSecondsRemaining is not null ? HandoffText() : "", ConsoleColor.Yellow);
+            Add($"Log: {logPath}");
+            int rows = Math.Min(height, Math.Max(paintedRows, lines.Count));
+            for (int row = 0; row < rows; row++)
+            {
+                System.Console.SetCursorPosition(0, row);
+                var line = row < lines.Count ? lines[row] : (string.Empty, ConsoleColor.Gray);
+                System.Console.ForegroundColor = line.Item2;
+                output.Write(Shorten(line.Item1, width).PadRight(width));
+            }
+            System.Console.SetCursorPosition(0, rows);
+            System.Console.ForegroundColor = originalColor;
+            paintedRows = rows;
+            return true;
+        }
+        catch (Exception error) when (IsConsoleFailure(error))
+        {
+            interactive = false;
+            RestoreConsole();
+            WriteLine("");
+            WriteLine("Foundry Post-installation");
+            return false;
+        }
+    }
+
+    private static ConsoleColor StatusColor(string status) => status switch
+    {
+        "Running" or "Verifying" or "Completing" => ConsoleColor.Cyan,
+        "Succeeded" => ConsoleColor.Green,
+        "CompletedWithErrors" or "AwaitingRestart" => ConsoleColor.Yellow,
+        "Failed" or "Interrupted" or "Unavailable" => ConsoleColor.Red,
+        _ => ConsoleColor.Gray
+    };
+
+    private static string Shorten(string value, int width) => value.Length <= width ? value : value[..Math.Max(0, width - 3)] + "...";
+
+    private static string OneLine(string value) => string.Concat(value.Select(character =>
+        char.IsControl(character) || char.GetUnicodeCategory(character) is UnicodeCategory.Format or
+            UnicodeCategory.LineSeparator or UnicodeCategory.ParagraphSeparator ? ' ' : character));
+
+    private void WriteLine(string message)
+    {
+        try { output.WriteLine(OneLine(message)); }
+        catch (Exception error) when (IsConsoleFailure(error)) { }
+    }
+
+    private static bool IsConsoleFailure(Exception error) => error is IOException or InvalidOperationException or
+        ArgumentException or NotSupportedException or System.Security.SecurityException;
+
+    private void RestoreConsole()
+    {
+        try
+        {
+            if (originalCursorVisible is null) return;
+            System.Console.ForegroundColor = originalColor;
+            System.Console.CursorVisible = originalCursorVisible.Value;
+        }
+        catch (Exception error) when (IsConsoleFailure(error)) { }
+    }
+
+    public void Dispose()
+    {
+        lock (gate)
+        {
+            if (disposed) return;
+            disposed = true;
+            heartbeat.Dispose();
+            RestoreConsole();
+        }
+    }
+}

@@ -2512,6 +2512,9 @@ Licencirano pod MIT licencom.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Unesite naziv od 1 do 256 znakova bez kontrolnih znakova.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Unesite ceo broj od 0 do 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Izmenite „{0}” da biste ispravili podešavanja.</value>
   </data>
@@ -2562,6 +2565,12 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Izlazni kodovi koji zahtevaju ponovno pokretanje (razdvojeni zarezima)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Odlaganje ponovnog pokretanja (sekunde)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Koristite 0 za trenutno ponovno pokretanje.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Ponovo pokrenite Windows, a zatim nastavite sa sledećom radnjom.</value>

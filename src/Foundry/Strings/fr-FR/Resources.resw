@@ -2512,6 +2512,9 @@ Sous licence MIT.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Saisissez un nom de 1 à 256 caractères sans caractères de contrôle.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Saisissez un nombre entier compris entre 0 et 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Modifiez « {0} » pour corriger ses paramètres.</value>
   </data>
@@ -2562,6 +2565,12 @@ Sous licence MIT.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Codes de sortie nécessitant un redémarrage (séparés par des virgules)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Délai avant redémarrage (secondes)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Utilisez 0 pour redémarrer immédiatement.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Redémarrer Windows, puis poursuivre avec l’action suivante.</value>

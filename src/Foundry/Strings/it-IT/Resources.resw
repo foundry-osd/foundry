@@ -2512,6 +2512,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Inserisci un nome da 1 a 256 caratteri senza caratteri di controllo.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Immettere un numero intero compreso tra 0 e 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Modifica "{0}" per correggerne le impostazioni.</value>
   </data>
@@ -2562,6 +2565,12 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Codici che richiedono riavvio (separati da virgole)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Ritardo prima del riavvio (secondi)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Usare 0 per riavviare immediatamente.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Riavvia Windows, quindi continua con l’azione successiva.</value>

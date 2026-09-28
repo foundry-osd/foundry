@@ -45,8 +45,7 @@ public sealed class ResourceKeyParityTests
     {
         { "Foundry", ".resw" },
         { "Foundry.Connect", ".resx" },
-        { "Foundry.Deploy", ".resx" },
-        { "Foundry.PostInstall", ".resx" }
+        { "Foundry.Deploy", ".resx" }
     };
 
     [Fact]

@@ -125,7 +125,6 @@ public sealed class PreOobeTargetStagingService
                 OperationId = operationId,
                 AttemptId = Guid.NewGuid().ToString("N"),
                 DiagnosticSessionId = Foundry.Utilities.Diagnostics.DiagnosticSessionContext.CurrentSessionId,
-                UiCulture = global::System.Globalization.CultureInfo.CurrentUICulture.Name,
                 Actions = actions,
                 Packages = staged,
                 OwnedPayloads = owned

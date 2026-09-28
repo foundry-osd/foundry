@@ -2512,6 +2512,9 @@
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Εισαγάγετε ένα όνομα 1–256 χαρακτήρων χωρίς χαρακτήρες ελέγχου.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Εισαγάγετε έναν ακέραιο αριθμό από 0 έως 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Επεξεργαστείτε το «{0}» για να διορθώσετε τις ρυθμίσεις του.</value>
   </data>
@@ -2562,6 +2565,12 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Κωδικοί εξόδου που απαιτούν επανεκκίνηση (διαχωρισμένοι με κόμμα)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Καθυστέρηση επανεκκίνησης (δευτερόλεπτα)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Χρησιμοποιήστε 0 για άμεση επανεκκίνηση.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Επανεκκινήστε τα Windows και συνεχίστε με την επόμενη ενέργεια.</value>

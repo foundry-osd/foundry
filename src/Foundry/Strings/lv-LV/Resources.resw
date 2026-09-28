@@ -2512,6 +2512,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Ievadiet 1–256 rakstzīmes garu nosaukumu bez vadības rakstzīmēm.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Ievadiet veselu skaitli no 0 līdz 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Rediģējiet “{0}”, lai labotu tās iestatījumus.</value>
   </data>
@@ -2562,6 +2565,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Izejas kodi, kam nepieciešama restartēšana (atdalīti ar komatiem)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Aizkave pirms restartēšanas (sekundes)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Izmantojiet 0, lai restartētu nekavējoties.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Restartējiet Windows un pēc tam turpiniet ar nākamo darbību.</value>

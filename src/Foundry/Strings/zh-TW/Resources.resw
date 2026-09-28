@@ -2512,6 +2512,9 @@
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>輸入 1–256 個字元的名稱，不得包含控制字元。</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>請輸入 0 到 86400 之間的整數。</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>編輯「{0}」以修正其設定。</value>
   </data>
@@ -2562,6 +2565,12 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>需要重新啟動的結束代碼（以逗號分隔）</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>重新啟動延遲（秒）</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>使用 0 可立即重新啟動。</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>重新啟動 Windows，然後繼續執行下一個動作。</value>

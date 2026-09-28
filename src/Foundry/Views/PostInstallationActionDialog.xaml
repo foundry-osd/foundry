@@ -68,6 +68,29 @@
                         TextWrapping="WrapWholeWords"
                         Visibility="{x:Bind ViewModel.IsRestart}" />
                 </StackPanel>
+                <StackPanel x:Name="RestartDelaySecondsGroup"
+                    Spacing="{ThemeResource FoundryTextGroupSpacing}"
+                    Visibility="{x:Bind ViewModel.IsRestart}">
+                    <NumberBox x:Name="RestartDelaySecondsInput"
+                        Header="{x:Bind ViewModel.RestartDelayLabel}"
+                        LargeChange="60"
+                        Maximum="{x:Bind ViewModel.MaximumRestartDelaySeconds}"
+                        Minimum="0"
+                        SmallChange="1"
+                        SpinButtonPlacementMode="Compact"
+                        Value="{x:Bind ViewModel.RestartDelaySeconds, Mode=TwoWay}" />
+                    <TextBlock
+                        Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+                        Text="{x:Bind ViewModel.RestartDelayDescription}"
+                        TextWrapping="WrapWholeWords" />
+                    <TextBlock
+                        AutomationProperties.LiveSetting="Polite"
+                        Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                        Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                        Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
+                        TextWrapping="WrapWholeWords"
+                        Visibility="{x:Bind ViewModel.ValidationVisibility('RestartDelaySeconds', ViewModel.InvalidField), Mode=OneWay}" />
+                </StackPanel>
                 <Grid x:Name="SettingsGrid"
                     ColumnSpacing="{ThemeResource FoundrySpace24}"
                     RowSpacing="{ThemeResource FoundrySpace24}"

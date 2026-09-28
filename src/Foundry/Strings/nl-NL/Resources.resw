@@ -2512,6 +2512,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Voer een naam van 1–256 tekens zonder besturingstekens in.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Voer een geheel getal tussen 0 en 86400 in.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Bewerk '{0}' om de instellingen te corrigeren.</value>
   </data>
@@ -2562,6 +2565,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Afsluitcodes die opnieuw opstarten vereisen (gescheiden door komma's)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Vertraging vóór opnieuw opstarten (seconden)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Gebruik 0 om onmiddellijk opnieuw op te starten.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Start Windows opnieuw op en ga daarna verder met de volgende actie.</value>

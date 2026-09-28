@@ -79,10 +79,6 @@ public sealed class CustomActionTests
         finally { Directory.Delete(root, true); }
     }
 
-    [Fact]
-    public void Localization_ResolvesNeutralResources() =>
-        Assert.Equal("Post-installation completed.", LocalizationText.Create("en-US").GetString("PostInstall.Succeeded"));
-
     private sealed class Recorder(ProcessOutcome result) : IPreOobeProcessExecutor
     {
         public ProcessCommand? Command { get; private set; }

@@ -2512,6 +2512,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>制御文字を含まない 1～256 文字の名前を入力してください。</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>0 から 86400 までの整数を入力してください。</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>「{0}」を編集して設定を修正してください。</value>
   </data>
@@ -2562,6 +2565,12 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>再起動が必要な終了コード (コンマ区切り)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>再起動までの待機時間 (秒)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>すぐに再起動するには 0 を指定します。</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Windows を再起動してから、次のアクションに進みます。</value>

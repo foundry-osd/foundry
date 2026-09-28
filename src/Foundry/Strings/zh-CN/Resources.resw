@@ -2512,6 +2512,9 @@
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>输入 1–256 个字符的名称，不得包含控制字符。</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>请输入 0 到 86400 之间的整数。</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>编辑“{0}”以修正其设置。</value>
   </data>
@@ -2562,6 +2565,12 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>需要重启的退出代码（以逗号分隔）</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>重启延迟（秒）</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>使用 0 可立即重启。</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>重启 Windows，然后继续执行下一个操作。</value>

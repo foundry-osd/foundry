@@ -12,6 +12,93 @@ namespace Foundry.PostInstall.Tests;
 
 public sealed class OrchestratorTests
 {
+    [Theory]
+    [InlineData(0)]
+    [InlineData(3)]
+    public async Task RestartCountdown_CommitsBeforeWaitingAndResumesAtNextAction(int seconds)
+    {
+        using var fixture = new Fixture("first", "restart", "last");
+        fixture.SetRestartDelay(seconds);
+        var progress = new ProgressRecorder();
+        int waits = 0;
+        Task Delay(TimeSpan duration, CancellationToken cancellationToken)
+        {
+            Assert.Equal(TimeSpan.FromSeconds(1), duration);
+            var checkpoint = fixture.Journal.Read();
+            Assert.Equal("AwaitingRestart", checkpoint.Status);
+            Assert.Equal(2, checkpoint.Cursor);
+            Assert.Equal(1, checkpoint.RestartCount);
+            Assert.Equal("Succeeded", checkpoint.Actions["restart"].Status);
+            Assert.Equal(["first"], fixture.Executed);
+            waits++;
+            return Task.CompletedTask;
+        }
+
+        Assert.Equal(2, await fixture.Run("boot-one", progress, Delay));
+        Assert.Equal(seconds, waits);
+        Assert.Equal(Enumerable.Range(0, seconds + 1).Reverse(), progress.Values
+            .Where(value => value.RestartSecondsRemaining.HasValue).Select(value => value.RestartSecondsRemaining!.Value));
+        Assert.Equal(0, await fixture.Run("boot-two", progress, Delay));
+        Assert.Equal(["first", "last"], fixture.Executed);
+        Assert.Equal(seconds, waits);
+        Assert.Contains(progress.Values, value => value.IsResuming && value.Actions[0].Status == "Succeeded");
+        Assert.Equal("Succeeded", progress.Values[^1].Status);
+    }
+
+    [Fact]
+    public async Task CancelledCountdown_PreservesCheckpointWithoutRunningNextAction()
+    {
+        using var fixture = new Fixture("restart", "last");
+        fixture.SetRestartDelay(3);
+        using var cancellation = new CancellationTokenSource();
+        Task Delay(TimeSpan duration, CancellationToken cancellationToken)
+        {
+            cancellation.Cancel();
+            return Task.FromCanceled(cancellationToken);
+        }
+        var outcome = await new PreOobeOrchestrator(fixture.Root, fixture.Hash, fixture.Journal,
+            fixture, () => "boot-one", delay: Delay).RunAsync(fixture.Plan, cancellation.Token);
+        Assert.Equal(3, outcome.ExitCode);
+        Assert.Equal("AwaitingRestart", fixture.Journal.Read().Status);
+        Assert.Empty(fixture.Executed);
+        Assert.Equal(0, await fixture.Run("boot-two"));
+        Assert.Equal(["last"], fixture.Executed);
+    }
+
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(86401)]
+    public async Task InvalidRestartDelay_IsRejectedBeforeAnyAction(int seconds)
+    {
+        using var fixture = new Fixture("first", "restart");
+        fixture.SetRestartDelay(seconds);
+        Assert.Equal(3, await fixture.Run("boot"));
+        Assert.Empty(fixture.Executed);
+    }
+
+    [Fact]
+    public async Task Progress_ReportsFailureContinuationCleanupAndFinalOutcome()
+    {
+        using var fixture = new Fixture("first", "last", "cleanup");
+        fixture.Outcome = new(false, 42, "test_failure");
+        var progress = new ProgressRecorder();
+        Assert.Equal(0, await fixture.Run("boot", progress));
+        Assert.Contains(progress.Values, value => value.Actions[0].Status == "Running");
+        Assert.Contains(progress.Values, value => value.Actions[0].Status == "Failed" && value.Actions[0].ExitCode == 42);
+        Assert.Contains(progress.Values, value => value.Actions[^1].Status == "Running");
+        Assert.Equal("CompletedWithErrors", progress.Values[^1].Status);
+        Assert.Equal("Succeeded", progress.Values[^1].Actions[^1].Status);
+        Assert.Equal("Cleanup", progress.Values[^1].Actions[^1].Name);
+    }
+
+    [Fact]
+    public async Task BrokenProgressOutput_DoesNotChangeExecution()
+    {
+        using var fixture = new Fixture("first", "last");
+        Assert.Equal(0, await fixture.Run("boot", new ProgressRecorder { Fail = true }));
+        Assert.Equal(["first", "last"], fixture.Executed);
+    }
+
     [Fact]
     public async Task PlannedRestarts_ResumeWithoutReplayingCompletedActions()
     {
@@ -74,8 +161,8 @@ public sealed class OrchestratorTests
         public string Root { get; } = Path.Combine(Path.GetTempPath(), "Foundry.PostInstall.Tests", Guid.NewGuid().ToString("N"));
         public List<string> Executed { get; } = [];
         public ExecutionJournal Journal { get; }
-        public PreOobeExecutionPlan Plan { get; }
-        public string Hash { get; }
+        public PreOobeExecutionPlan Plan { get; private set; }
+        public string Hash { get; private set; }
         public ActionStepOutcome? Outcome { get; set; }
 
         public Fixture(params string[] ids)
@@ -89,7 +176,8 @@ public sealed class OrchestratorTests
                 {
                     Id = id,
                     Name = id,
-                    CustomAction = new PreOobeActionSettings
+                    BuiltInKind = id == "cleanup" ? PreOobeBuiltInKind.Cleanup : null,
+                    CustomAction = id == "cleanup" ? null : new PreOobeActionSettings
                     {
                         Id = id,
                         Name = id,
@@ -104,8 +192,22 @@ public sealed class OrchestratorTests
             Journal.Seed(Plan, Hash);
         }
 
-        public async Task<int> Run(string boot) => (await new PreOobeOrchestrator(
-            Root, Hash, Journal, this, () => boot).RunAsync(Plan, TestContext.Current.CancellationToken)).ExitCode;
+        public void SetRestartDelay(int seconds)
+        {
+            Plan = Plan with
+            {
+                Actions = Plan.Actions.Select(action => action.CustomAction?.Kind == PreOobeActionKind.Restart
+                ? action with { CustomAction = action.CustomAction with { RestartDelaySeconds = seconds } } : action).ToArray()
+            };
+            Hash = Convert.ToHexStringLower(SHA256.HashData(JsonSerializer.SerializeToUtf8Bytes(Plan)));
+            var state = Journal.Read();
+            state.PlanHash = Hash;
+            Journal.Write(state);
+        }
+
+        public async Task<int> Run(string boot, IProgress<PostInstallProgress>? progress = null,
+            Func<TimeSpan, CancellationToken, Task>? delay = null) => (await new PreOobeOrchestrator(
+            Root, Hash, Journal, this, () => boot, progress, delay).RunAsync(Plan, TestContext.Current.CancellationToken)).ExitCode;
 
         public Task<ActionStepOutcome> ExecuteAsync(PreOobeExecutionAction action, int substep, CancellationToken cancellationToken)
         {
@@ -114,5 +216,16 @@ public sealed class OrchestratorTests
         }
 
         public void Dispose() => Directory.Delete(Root, true);
+    }
+
+    private sealed class ProgressRecorder : IProgress<PostInstallProgress>
+    {
+        public List<PostInstallProgress> Values { get; } = [];
+        public bool Fail { get; init; }
+        public void Report(PostInstallProgress value)
+        {
+            if (Fail) throw new IOException("Console unavailable.");
+            Values.Add(value);
+        }
     }
 }

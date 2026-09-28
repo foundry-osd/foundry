@@ -42,6 +42,7 @@ Keep WinUI 3 concerns in `Foundry` and WPF concerns in their owning runtime. `Fo
 
 - Create a focused branch and keep unrelated changes out of the pull request.
 - Follow existing architecture, localization, logging, and nullable-reference patterns.
+- Bootstrap and PostInstall console messages use English. Keep Foundry OSD authoring controls translated in every supported culture.
 - Put reusable business rules in the appropriate non-UI project and add the smallest valuable tests.
 - Do not add automated tests for views, bindings, code-behind, or framework behavior unless the change specifically warrants it.
 - Update repository documentation when behavior, packaging, install paths, release assets, or user-facing workflows change.

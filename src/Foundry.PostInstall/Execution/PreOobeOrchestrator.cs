@@ -11,8 +11,12 @@ using Serilog;
 namespace Foundry.PostInstall.Execution;
 
 public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJournal journal,
-    IPreOobeActionExecutor executor, Func<string> bootIdentity)
+    IPreOobeActionExecutor executor, Func<string> bootIdentity, IProgress<PostInstallProgress>? progress = null,
+    Func<TimeSpan, CancellationToken, Task>? delay = null)
 {
+    private IProgress<PostInstallProgress>? progress = progress;
+    private readonly Func<TimeSpan, CancellationToken, Task> delay = delay ?? Task.Delay;
+    private bool isResuming;
     private const int MaximumRestarts = 1024;
     public async Task<OrchestrationOutcome> RunAsync(PreOobeExecutionPlan plan, CancellationToken cancellationToken)
     {
@@ -34,6 +38,8 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                 boot = bootIdentity();
                 if (string.IsNullOrWhiteSpace(boot)) throw new InvalidDataException("Boot identity is unavailable.");
                 validated = true;
+                isResuming = state.RestartCount > 0 && state.BootIdentity != boot;
+                Report(plan, state);
                 if (state.Status is "Succeeded" or "CompletedWithErrors" or "Failed" or "Interrupted")
                     return await FinishWithBuiltInCleanupAsync(plan, state, boot, cleanup).ConfigureAwait(false);
                 if (state.Status == "Completing")
@@ -53,7 +59,11 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                     journal.Write(state);
                     return await FinishWithBuiltInCleanupAsync(plan, state, boot, cleanup).ConfigureAwait(false);
                 }
-                else await VerifyPackagesAsync(plan, cancellationToken).ConfigureAwait(false);
+                else
+                {
+                    Report(plan, state, "Verifying");
+                    await VerifyPackagesAsync(plan, cancellationToken).ConfigureAwait(false);
+                }
                 state.BootIdentity = boot;
                 state.Status = "Running";
                 journal.Write(state);
@@ -64,14 +74,16 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                     if (action.BuiltInKind == PreOobeBuiltInKind.Cleanup) break;
                     if (action.CustomAction?.Kind == PreOobeActionKind.Restart)
                     {
-                        state.Actions[action.Id] = new() { Status = "Succeeded", CompletedAtUtc = DateTimeOffset.UtcNow };
+                        DateTimeOffset now = DateTimeOffset.UtcNow;
+                        state.Actions[action.Id] = new() { Status = "Succeeded", StartedAtUtc = now, CompletedAtUtc = now };
                         state.Cursor++;
-                        return Checkpoint(state);
+                        return await RequestRestartAsync(plan, state, action.CustomAction.RestartDelaySeconds, cancellationToken).ConfigureAwait(false);
                     }
                     state.Actions[action.Id] = new() { Status = "Running", StartedAtUtc = DateTimeOffset.UtcNow };
                     foreach (PreOobeOwnedPayload payload in plan.OwnedPayloads.Where(payload => payload.IsSensitive && payload.ConsumerActionIds.Contains(action.Id)))
                         state.PayloadDispositions[payload.RelativePath] = "DisposalRequired";
                     journal.Write(state);
+                    Report(plan, state);
                     Log.Information("Executing post-installation action {ActionId}; substep {Substep}", action.Id, state.Substep);
                     actionInFlight = true;
                     ActionStepOutcome outcome = await executor.ExecuteAsync(action, state.Substep, cancellationToken).ConfigureAwait(false);
@@ -87,7 +99,7 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                     {
                         if (next <= state.Substep || next > 10000) throw new InvalidDataException("Invalid internal cursor.");
                         state.Substep = next;
-                        if (outcome.RestartRequested) return Checkpoint(state);
+                        if (outcome.RestartRequested) return await RequestRestartAsync(plan, state, 0, cancellationToken).ConfigureAwait(false);
                         journal.Write(state);
                         continue;
                     }
@@ -101,6 +113,9 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                     state.Cursor++;
                     state.Substep = 0;
                     journal.Write(state);
+                    Report(plan, state);
+                    Log.Information("Post-installation action {ActionId} finished with {Status}; exit code {ExitCode}",
+                        action.Id, state.Actions[action.Id].Status, outcome.ExitCode);
                     if (!cleanup.Dispose(plan, state, false, boot)) throw new IOException("Sensitive input disposal failed.");
                     bool mayContinue = action.CustomAction?.Process?.ErrorPolicy == PreOobeErrorPolicy.Continue ||
                         action.BuiltInKind is PreOobeBuiltInKind.Activation;
@@ -114,10 +129,10 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                     {
                         if (action.CustomAction?.Process?.RestartTiming == PreOobeRestartTiming.Deferred)
                         { state.DeferredRestart = true; journal.Write(state); }
-                        else return Checkpoint(state);
+                        else return await RequestRestartAsync(plan, state, 0, cancellationToken).ConfigureAwait(false);
                     }
                 }
-                if (state.DeferredRestart) return Checkpoint(state);
+                if (state.DeferredRestart) return await RequestRestartAsync(plan, state, 0, cancellationToken).ConfigureAwait(false);
                 state.Status = state.HasWarnings || state.Actions.Values.Any(result => result.Status == "Failed")
                     ? "CompletedWithErrors" : "Succeeded";
                 return await FinishWithBuiltInCleanupAsync(plan, state, boot, cleanup).ConfigureAwait(false);
@@ -135,18 +150,37 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                     state.Status = "Failed";
                     try { journal.Write(state); } catch (Exception error) when (error is IOException or UnauthorizedAccessException) { }
                     cleanup.Dispose(plan, state, true, boot);
+                    Report(plan, state);
                 }
                 return new("Failed", 3);
             }
         }
     }
 
-    private OrchestrationOutcome Checkpoint(JournalState state)
+    /// <summary>Commits the next cursor before waiting; cancelling the display delay must not invalidate a durable restart.</summary>
+    private async Task<OrchestrationOutcome> RequestRestartAsync(PreOobeExecutionPlan plan, JournalState state,
+        int seconds, CancellationToken cancellationToken)
     {
         if (++state.RestartCount > MaximumRestarts) throw new InvalidDataException("Restart budget exceeded.");
         state.DeferredRestart = false;
         state.Status = "AwaitingRestart";
         journal.Write(state);
+        Log.Information("Post-installation checkpoint saved for restart {RestartCount}; delay {DelaySeconds} seconds",
+            state.RestartCount, seconds);
+        try
+        {
+            for (int remaining = seconds; remaining > 0; remaining--)
+            {
+                Report(plan, state, restartSecondsRemaining: remaining);
+                await delay(TimeSpan.FromSeconds(1), cancellationToken).ConfigureAwait(false);
+            }
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            Report(plan, state);
+            return new("AwaitingRestart", 3);
+        }
+        Report(plan, state, restartSecondsRemaining: 0);
         return new("AwaitingRestart", 2);
     }
 
@@ -161,6 +195,9 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
             foreach (PreOobeExecutionAction action in plan.Actions.Where(action => action.BuiltInKind == PreOobeBuiltInKind.Cleanup))
             {
                 if (state.Actions.GetValueOrDefault(action.Id)?.Status == "Succeeded") continue;
+                state.Actions[action.Id] = new() { Status = "Running", StartedAtUtc = DateTimeOffset.UtcNow };
+                journal.Write(state);
+                Report(plan, state);
                 ActionStepOutcome result = await executor.ExecuteAsync(action, 0, CancellationToken.None).ConfigureAwait(false);
                 if (result.TerminationUncertain)
                 {
@@ -168,7 +205,13 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                     state.UnsafeActionId = null;
                     state.CompletionStatus = "Failed";
                 }
-                state.Actions[action.Id] = new() { Status = result.Succeeded ? "Succeeded" : "Failed", FailureCode = result.FailureCode };
+                state.Actions[action.Id] = state.Actions[action.Id] with
+                {
+                    Status = result.Succeeded ? "Succeeded" : "Failed",
+                    FailureCode = result.FailureCode,
+                    ExitCode = result.ExitCode,
+                    CompletedAtUtc = DateTimeOffset.UtcNow
+                };
                 state.HasWarnings |= !result.Succeeded || result.HasWarnings;
                 journal.Write(state);
             }
@@ -185,7 +228,32 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
         if (state.Status == "Succeeded" && state.HasWarnings) state.Status = "CompletedWithErrors";
         state.CompletionStatus = null;
         journal.Write(state);
+        Report(plan, state);
         return new(state.Status, state.Status is "Succeeded" or "CompletedWithErrors" ? 0 : 3);
+    }
+
+    private void Report(PreOobeExecutionPlan plan, JournalState state, string? status = null, int? restartSecondsRemaining = null)
+    {
+        if (progress is null) return;
+        try
+        {
+            DateTimeOffset now = DateTimeOffset.UtcNow;
+            PostInstallActionProgress[] actions = plan.Actions.Select(action =>
+            {
+                var result = state.Actions.GetValueOrDefault(action.Id);
+                string actionStatus = result?.Status ?? "Waiting";
+                if (actionStatus == "Running" && state.Status is "Failed" or "Interrupted") actionStatus = "Interrupted";
+                TimeSpan? elapsed = result?.StartedAtUtc is { } start ? (result.CompletedAtUtc ?? now) - start : null;
+                if (elapsed < TimeSpan.Zero) elapsed = TimeSpan.Zero;
+                return new PostInstallActionProgress(action.Id, PostInstallProgress.GetActionName(action), actionStatus, elapsed, result?.ExitCode);
+            }).ToArray();
+            progress.Report(new(actions, status ?? state.Status, isResuming, restartSecondsRemaining));
+        }
+        catch (Exception error) when (error is not OutOfMemoryException and not StackOverflowException)
+        {
+            progress = null;
+            Log.Warning("Post-installation progress display is unavailable; failure type {FailureType}", error.GetType().Name);
+        }
     }
 
     private static void ValidatePlan(PreOobeExecutionPlan plan)
@@ -208,6 +276,10 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                 throw new InvalidDataException("The execution action is invalid.");
             sawCustom |= action.CustomAction is not null;
             sawCleanup |= action.BuiltInKind == PreOobeBuiltInKind.Cleanup;
+            if (action.CustomAction is { } custom &&
+                (custom.RestartDelaySeconds is < 0 or > PreOobeConfigurationValidator.MaximumRestartDelaySeconds ||
+                 custom.Kind != PreOobeActionKind.Restart && custom.RestartDelaySeconds != 0))
+                throw new InvalidDataException("The restart delay is invalid.");
         }
         foreach (PreOobeOwnedPayload payload in plan.OwnedPayloads)
             if (!(payload.RelativePath.Replace('/', '\\').StartsWith("Payloads\\", StringComparison.OrdinalIgnoreCase) ||

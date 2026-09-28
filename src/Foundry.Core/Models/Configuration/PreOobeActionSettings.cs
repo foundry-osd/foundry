@@ -35,6 +35,8 @@ public sealed record PreOobeActionSettings
     public string Name { get; init; } = string.Empty;
     public bool IsEnabled { get; init; } = true;
     public PreOobeActionKind Kind { get; init; }
+    /// <summary>Delays an explicit Restart action after its checkpoint is saved; zero restarts immediately.</summary>
+    public int RestartDelaySeconds { get; init; }
     public PreOobePackageReference? Package { get; init; }
     public string? EntryPoint { get; init; }
     public string? Arguments { get; init; }

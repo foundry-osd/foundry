@@ -2512,6 +2512,9 @@
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Въведете име от 1 до 256 знака без контролни знаци.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Въведете цяло число от 0 до 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Редактирайте „{0}“, за да коригирате настройките.</value>
   </data>
@@ -2562,6 +2565,12 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Кодове за изход, изискващи рестартиране (разделени със запетаи)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Забавяне преди рестартиране (секунди)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Използвайте 0 за незабавно рестартиране.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Рестартирайте Windows, след което продължете със следващото действие.</value>

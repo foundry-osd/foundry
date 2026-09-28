@@ -18,7 +18,6 @@ public sealed record PreOobeExecutionPlan
     public string OperationId { get; init; } = string.Empty;
     public string DiagnosticSessionId { get; init; } = string.Empty;
     public string AttemptId { get; init; } = string.Empty;
-    public string UiCulture { get; init; } = "en-US";
     public IReadOnlyList<PreOobeExecutionAction> Actions { get; init; } = [];
     public IReadOnlyList<PreOobeStagedPackage> Packages { get; init; } = [];
     public IReadOnlyList<PreOobeOwnedPayload> OwnedPayloads { get; init; } = [];

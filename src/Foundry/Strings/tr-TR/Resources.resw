@@ -2512,6 +2512,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Kontrol karakterleri içermeyen, 1–256 karakter uzunluğunda bir ad girin.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>0 ile 86400 arasında bir tam sayı girin.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Ayarlarını düzeltmek için “{0}” öğesini düzenleyin.</value>
   </data>
@@ -2562,6 +2565,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Yeniden başlatma gerektiren çıkış kodları (virgülle ayrılmış)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Yeniden başlatma gecikmesi (saniye)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Hemen yeniden başlatmak için 0 kullanın.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Windows’u yeniden başlatın, ardından sonraki eylemle devam edin.</value>

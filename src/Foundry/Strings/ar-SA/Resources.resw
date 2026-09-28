@@ -2512,6 +2512,9 @@
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>أدخل اسمًا من 1 إلى 256 حرفًا دون أحرف تحكم.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>أدخل عددًا صحيحًا من 0 إلى 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>حرّر "{0}" لتصحيح إعداداته.</value>
   </data>
@@ -2562,6 +2565,12 @@
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>رموز الخروج التي تتطلب إعادة التشغيل (مفصولة بفواصل)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>مهلة إعادة التشغيل (بالثواني)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>استخدم 0 لإعادة التشغيل فورًا.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>أعد تشغيل Windows، ثم تابع إلى الإجراء التالي.</value>

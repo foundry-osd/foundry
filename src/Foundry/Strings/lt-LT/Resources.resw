@@ -2512,6 +2512,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Įveskite 1–256 simbolių pavadinimą be valdymo simbolių.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Įveskite sveikąjį skaičių nuo 0 iki 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Redaguokite „{0}“, kad pataisytumėte nustatymus.</value>
   </data>
@@ -2562,6 +2565,12 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Užbaigimo kodai, reikalaujantys paleisti iš naujo (atskirti kableliais)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Delsa prieš paleidžiant iš naujo (sekundės)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Naudokite 0, kad paleistumėte iš naujo iš karto.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Paleiskite Windows iš naujo, tada tęskite kitą veiksmą.</value>

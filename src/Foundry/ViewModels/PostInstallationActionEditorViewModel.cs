@@ -52,6 +52,7 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
         RestartCodes = string.Join(", ", action.Process?.RestartExitCodes ?? []);
         ContinueOnError = action.Process?.ErrorPolicy == PreOobeErrorPolicy.Continue;
         DeferRestart = action.Process?.RestartTiming == PreOobeRestartTiming.Deferred;
+        RestartDelaySeconds = action.RestartDelaySeconds;
     }
 
     public PreOobeSettings Baseline { get; }
@@ -69,6 +70,7 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     [ObservableProperty] public partial string RestartCodes { get; set; } = string.Empty;
     [ObservableProperty] public partial bool ContinueOnError { get; set; }
     [ObservableProperty] public partial bool DeferRestart { get; set; }
+    [ObservableProperty] public partial double RestartDelaySeconds { get; set; }
     [ObservableProperty][NotifyPropertyChangedFor(nameof(CanEdit))] public partial bool IsBusy { get; set; }
     [ObservableProperty] public partial bool IsProcessing { get; set; }
     [ObservableProperty] public partial string ProcessingStatus { get; set; } = string.Empty;
@@ -140,6 +142,9 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     public string ExecutionHelp => Text("ExecutionHelp");
     public string ExecutionSettingsLabel => Text("ExecutionSettings");
     public string RestartDescription => Text("RestartDescription");
+    public string RestartDelayLabel => Text("RestartDelay");
+    public string RestartDelayDescription => Text("RestartDelayDescription");
+    public int MaximumRestartDelaySeconds => PreOobeConfigurationValidator.MaximumRestartDelaySeconds;
     public string Text(string key) => localization.GetString("PostInstallation." + key);
 
     /// <summary>Loads selectable entry points from the existing immutable package without changing its reference.</summary>
@@ -239,6 +244,13 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
         if (string.IsNullOrWhiteSpace(Name) || Name.Trim().Length > 256 || Name.Any(char.IsControl))
             return Invalid(nameof(Name), "InvalidName");
         var action = original with { Name = Name.Trim() };
+        if (IsRestart)
+        {
+            if (!double.IsFinite(RestartDelaySeconds) || RestartDelaySeconds != Math.Truncate(RestartDelaySeconds) ||
+                RestartDelaySeconds < 0 || RestartDelaySeconds > MaximumRestartDelaySeconds)
+                return Invalid(nameof(RestartDelaySeconds), "InvalidRestartDelay");
+            action = action with { RestartDelaySeconds = (int)RestartDelaySeconds };
+        }
         if (IsExecutable)
         {
             string entryPoint = NormalizedEntryPoint;

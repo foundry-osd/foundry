@@ -2512,6 +2512,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Geben Sie einen Namen mit 1–256 Zeichen ohne Steuerzeichen ein.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Geben Sie eine ganze Zahl zwischen 0 und 86400 ein.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Bearbeiten Sie „{0}“, um die Einstellungen zu korrigieren.</value>
   </data>
@@ -2562,6 +2565,12 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Exitcodes für erforderlichen Neustart (durch Kommas getrennt)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Neustartverzögerung (Sekunden)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Verwenden Sie 0, um sofort neu zu starten.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Windows neu starten und anschließend mit der nächsten Aktion fortfahren.</value>

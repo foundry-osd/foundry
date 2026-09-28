@@ -2512,6 +2512,9 @@ Licencováno pod licencí MIT.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Zadejte název o délce 1–256 znaků bez řídicích znaků.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Zadejte celé číslo od 0 do 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Upravte „{0}“ a opravte nastavení.</value>
   </data>
@@ -2562,6 +2565,12 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Návratové kódy vyžadující restart (oddělené čárkami)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Prodleva před restartováním (sekundy)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Pro okamžité restartování použijte 0.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Restartujte Windows a pokračujte další akcí.</value>

@@ -2512,6 +2512,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Kirjoita 1–256 merkin pituinen nimi ilman ohjausmerkkejä.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Anna kokonaisluku väliltä 0–86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Korjaa toiminnon ”{0}” asetukset muokkaamalla sitä.</value>
   </data>
@@ -2562,6 +2565,12 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Uudelleenkäynnistyksen vaativat paluukoodit (pilkuilla erotettuina)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Uudelleenkäynnistyksen viive (sekuntia)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Käytä arvoa 0, jos haluat käynnistää uudelleen heti.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Käynnistä Windows uudelleen ja jatka sitten seuraavaan toimintoon.</value>

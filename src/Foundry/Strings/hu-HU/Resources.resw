@@ -2512,6 +2512,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Adjon meg egy 1–256 karakter hosszú nevet vezérlőkarakterek nélkül.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Adjon meg egy 0 és 86400 közötti egész számot.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Szerkessze a(z) „{0}” elemet a beállítások javításához.</value>
   </data>
@@ -2562,6 +2565,12 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Újraindítást igénylő kilépési kódok (vesszővel elválasztva)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Újraindítás késleltetése (másodperc)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Az azonnali újraindításhoz használjon 0-t.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Indítsa újra a Windowst, majd folytassa a következő művelettel.</value>

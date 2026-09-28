@@ -12,6 +12,33 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class PreOobeConfigurationTests
 {
+    [Theory]
+    [InlineData(0)]
+    [InlineData(30)]
+    [InlineData(86400)]
+    public void RestartDelaySurvivesAuthoringAndDeploymentRoundTrips(int seconds)
+    {
+        var action = PreOobeActionSettings.Create(PreOobeActionKind.Restart, "Restart") with { RestartDelaySeconds = seconds };
+        var service = new FoundryConfigurationService();
+        var source = service.Deserialize(service.Serialize(new() { PreOobe = new() { IsEnabled = true, Actions = [action] } }));
+        var generator = new DeployConfigurationGenerator();
+        using var generated = JsonDocument.Parse(generator.Serialize(generator.Generate(source)));
+        Assert.True(generated.RootElement.GetProperty("preOobe").GetProperty("actions")[0].TryGetProperty("restartDelaySeconds", out var delay));
+        Assert.Equal(seconds, delay.GetInt32());
+        Assert.Empty(PreOobeConfigurationValidator.Validate(source.PreOobe));
+    }
+
+    [Theory]
+    [InlineData(PreOobeActionKind.Restart, -1)]
+    [InlineData(PreOobeActionKind.Restart, 86401)]
+    [InlineData(PreOobeActionKind.Command, 30)]
+    public void InvalidRestartDelaysAreRejected(PreOobeActionKind kind, int seconds)
+    {
+        var action = kind == PreOobeActionKind.Command ? Command("Command") : PreOobeActionSettings.Create(kind, "Restart");
+        action = action with { RestartDelaySeconds = seconds };
+        Assert.Contains(PreOobeConfigurationValidator.Validate(new() { Actions = [action] }), issue => issue.Code == "PreOobe.InvalidRestartAction");
+    }
+
     [Fact]
     public void AuthoringAndDeploymentRoundTripsPreserveArgumentAndLoggingOptions()
     {
@@ -75,7 +102,8 @@ public sealed class PreOobeConfigurationTests
     [Fact]
     public void RestartHasNoProcessSettingsAndRepeatedKindsRemainValid()
     {
-        var restart = PreOobeActionSettings.Create(PreOobeActionKind.Restart, "Restart");
+        var restart = JsonSerializer.Deserialize<PreOobeActionSettings>("""{"kind":3,"name":"Restart"}""", ConfigurationJsonDefaults.SerializerOptions)!;
+        Assert.Equal(0, restart.RestartDelaySeconds);
         Assert.Empty(PreOobeConfigurationValidator.Validate(new() { Actions = [Command("One"), Command("Two"), restart] }));
         Assert.Contains(PreOobeConfigurationValidator.Validate(new() { Actions = [restart with { Process = new() }] }), issue => issue.Code == "PreOobe.InvalidRestartAction");
     }

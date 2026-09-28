@@ -2512,6 +2512,9 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Introdu un nume de 1–256 de caractere, fără caractere de control.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Introduceți un număr întreg între 0 și 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Editează „{0}” pentru a corecta setările.</value>
   </data>
@@ -2562,6 +2565,12 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Coduri de ieșire care necesită repornire (separate prin virgulă)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Întârziere înainte de repornire (secunde)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Utilizați 0 pentru a reporni imediat.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Reporniți Windows, apoi continuați cu următoarea acțiune.</value>

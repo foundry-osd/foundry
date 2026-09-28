@@ -2512,6 +2512,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="PostInstallation.InvalidName" xml:space="preserve">
     <value>Skriv inn et navn på 1–256 tegn uten kontrolltegn.</value>
   </data>
+  <data name="PostInstallation.InvalidRestartDelay" xml:space="preserve">
+    <value>Angi et heltall mellom 0 og 86400.</value>
+  </data>
   <data name="PostInstallation.InvalidSettings" xml:space="preserve">
     <value>Rediger «{0}» for å korrigere innstillingene.</value>
   </data>
@@ -2562,6 +2565,12 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="PostInstallation.RestartCodes" xml:space="preserve">
     <value>Avslutningskoder som krever omstart (kommaseparerte)</value>
+  </data>
+  <data name="PostInstallation.RestartDelay" xml:space="preserve">
+    <value>Forsinkelse før omstart (sekunder)</value>
+  </data>
+  <data name="PostInstallation.RestartDelayDescription" xml:space="preserve">
+    <value>Bruk 0 for å starte på nytt umiddelbart.</value>
   </data>
   <data name="PostInstallation.RestartDescription" xml:space="preserve">
     <value>Start Windows på nytt, og fortsett deretter med neste handling.</value>
