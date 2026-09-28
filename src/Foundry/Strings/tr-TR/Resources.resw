@@ -2416,14 +2416,26 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Komut satırı</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Komutunuzun ihtiyaç duyduğu dosyaları içeri aktarın. Ardından komutu aşağıya girin.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Komut satırı</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent veya reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Komut önizlemesi</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Komut satırını önizlemek için bir betik veya yükleyici seçin ya da bir komut girin.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Çalıştırılacak komutu girin.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>İçeri aktarılan içerik klasöründen çalıştırmak için boş bırakın.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paket içeriği</value>
@@ -2526,6 +2538,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Gerekli değil</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Paket içeriği (isteğe bağlı)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Sıra</value>

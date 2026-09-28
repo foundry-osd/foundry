@@ -2416,14 +2416,26 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Linie de comandă</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importă fișierele necesare comenzii. Apoi introdu comanda mai jos.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Linie de comandă</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent sau reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Previzualizarea comenzii</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Selectează un script sau un program de instalare ori introdu o comandă pentru a previzualiza linia de comandă.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Introdu comanda de executat.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Lasă necompletat pentru a executa din folderul conținutului importat.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Conținutul pachetului</value>
@@ -2526,6 +2538,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Nu este necesar</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Conținutul pachetului (opțional)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ordine</value>

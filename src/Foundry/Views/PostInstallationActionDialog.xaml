@@ -88,6 +88,11 @@
                             TextWrapping="WrapWholeWords" />
                         <TextBlock
                             Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+                            Text="{x:Bind ViewModel.CommandContentDescription}"
+                            TextWrapping="WrapWholeWords"
+                            Visibility="{x:Bind ViewModel.IsCommand}" />
+                        <TextBlock
+                            Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
                             Text="{x:Bind ViewModel.PackageName, Mode=OneWay}"
                             TextWrapping="WrapWholeWords" />
                         <StackPanel x:Name="PackageNameGroup"
@@ -151,12 +156,35 @@
                                 TextWrapping="WrapWholeWords"
                                 Visibility="{x:Bind ViewModel.ValidationVisibility('EntryPoint', ViewModel.InvalidField), Mode=OneWay}" />
                         </StackPanel>
+                        <StackPanel x:Name="CommandTextGroup"
+                            Spacing="{ThemeResource FoundryTextGroupSpacing}"
+                            Visibility="{x:Bind ViewModel.IsCommand}">
+                            <TextBox x:Name="CommandTextInput"
+                                MaxHeight="120"
+                                Header="{x:Bind ViewModel.CommandLabel}"
+                                MaxLength="8191"
+                                PlaceholderText="{x:Bind ViewModel.CommandPlaceholder}"
+                                Text="{x:Bind ViewModel.CommandText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                AutomationProperties.LiveSetting="Polite"
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.ValidationVisibility('CommandText', ViewModel.InvalidField), Mode=OneWay}" />
+                        </StackPanel>
                         <StackPanel x:Name="WorkingDirectoryGroup"
                             Spacing="{ThemeResource FoundryTextGroupSpacing}">
                             <TextBox x:Name="WorkingDirectoryInput"
                                 Header="{x:Bind ViewModel.WorkingDirectoryLabel}"
                                 IsEnabled="{x:Bind ViewModel.HasPackage, Mode=OneWay}"
                                 Text="{x:Bind ViewModel.WorkingDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock
+                                Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+                                Text="{x:Bind ViewModel.CommandWorkingDirectoryDescription}"
+                                TextWrapping="WrapWholeWords"
+                                Visibility="{x:Bind ViewModel.IsCommand}" />
                             <TextBlock
                                 AutomationProperties.LiveSetting="Polite"
                                 Foreground="{ThemeResource SystemFillColorCriticalBrush}"
@@ -206,23 +234,6 @@
                                 Text="{x:Bind ViewModel.GenerateInstallationLogLabel}"
                                 TextWrapping="WrapWholeWords" />
                         </CheckBox>
-                        <StackPanel x:Name="CommandTextGroup"
-                            Spacing="{ThemeResource FoundryTextGroupSpacing}"
-                            Visibility="{x:Bind ViewModel.IsCommand}">
-                            <TextBox x:Name="CommandTextInput"
-                                MaxHeight="120"
-                                Header="{x:Bind ViewModel.CommandLabel}"
-                                MaxLength="8191"
-                                Text="{x:Bind ViewModel.CommandText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                TextWrapping="Wrap" />
-                            <TextBlock
-                                AutomationProperties.LiveSetting="Polite"
-                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                                Text="{x:Bind ViewModel.ValidationMessage, Mode=OneWay}"
-                                TextWrapping="WrapWholeWords"
-                                Visibility="{x:Bind ViewModel.ValidationVisibility('CommandText', ViewModel.InvalidField), Mode=OneWay}" />
-                        </StackPanel>
                     </StackPanel>
                     <StackPanel x:Name="ExecutionSettingsPanel"
                         Grid.Column="1"

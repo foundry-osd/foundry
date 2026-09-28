@@ -2416,14 +2416,26 @@ Licensed under the MIT License.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Command line</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Import files your command needs. Then enter the command below.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Command line</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent or reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Command preview</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Select a script or installer, or enter a command, to preview the command line.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Enter the command to run.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Leave empty to run from the imported content folder.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Package content</value>
@@ -2526,6 +2538,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Not required</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Package content (optional)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Order</value>

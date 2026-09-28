@@ -91,7 +91,10 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     public string NameLabel => localization.GetString("CustomImages.NameLabel");
     public string SaveLabel => localization.GetString("CustomImages.SaveLabel");
     public string CancelLabel => localization.GetString("Common.Cancel");
-    public string ContentLabel => Text("Content");
+    public string ContentLabel => Text(IsCommand ? "OptionalContent" : "Content");
+    public string CommandContentDescription => Text("CommandContentDescription");
+    public string CommandPlaceholder => Text("CommandPlaceholder");
+    public string CommandWorkingDirectoryDescription => Text("CommandWorkingDirectoryDescription");
     public string ImportFileLabel => Text("ImportFile");
     public string ImportFolderLabel => Text("ImportFolder");
     public string EntryPointLabel => Text("EntryPoint");
@@ -195,6 +198,12 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
             directories.Clear();
             directories.UnionWith(lease.Manifest.Directories);
             if (HasEntryPoint && !EntryPoints.Contains(EntryPoint)) EntryPoint = EntryPoints.FirstOrDefault() ?? string.Empty;
+            if (IsCommand && !folder && string.IsNullOrWhiteSpace(CommandText) && lease.Files.Count == 1)
+            {
+                string file = lease.Files[0].RelativePath;
+                if (file.EndsWith(".cmd", StringComparison.OrdinalIgnoreCase) || file.EndsWith(".bat", StringComparison.OrdinalIgnoreCase))
+                    CommandText = "\"" + file.Replace('/', '\\') + "\"";
+            }
             if (InvalidField is nameof(PackageName) or nameof(EntryPoint) or nameof(WorkingDirectory))
             {
                 InvalidField = string.Empty;
@@ -237,12 +246,12 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
             if (HasEntryPoint && package is null) return Invalid(nameof(PackageName), "ContentRequired");
             if (HasEntryPoint && !EntryPoints.Contains(entryPoint, StringComparer.OrdinalIgnoreCase))
                 return Invalid(nameof(EntryPoint), "InvalidEntryPoint");
+            if (IsCommand && string.IsNullOrWhiteSpace(CommandText)) return Invalid(nameof(CommandText), "CommandRequired");
+            if (IsCommand && !IsSingleLine(CommandText)) return Invalid(nameof(CommandText), "InvalidCommandText");
             if (workingDirectory is not null && !directories.Contains(workingDirectory))
                 return Invalid(nameof(WorkingDirectory), "InvalidWorkingDirectory");
             if (IsPowerShell && !IsSingleLine(PowerShellArguments)) return Invalid(nameof(PowerShellArguments), "InvalidCommandText");
             if (HasEntryPoint && !IsSingleLine(Arguments)) return Invalid(nameof(Arguments), "InvalidCommandText");
-            if (IsCommand && (string.IsNullOrWhiteSpace(CommandText) || !IsSingleLine(CommandText)))
-                return Invalid(nameof(CommandText), "InvalidCommandText");
             if (!double.IsFinite(TimeoutSeconds) || TimeoutSeconds != Math.Truncate(TimeoutSeconds) || TimeoutSeconds is < 1 or > 86400)
                 return Invalid(nameof(TimeoutSeconds), "InvalidTimeout");
             int[]? successCodes = ParseCodes(SuccessCodes, required: true);

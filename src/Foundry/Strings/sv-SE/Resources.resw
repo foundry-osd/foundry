@@ -2416,14 +2416,26 @@ Licensierad under MIT-licensen.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Kommandorad</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importera de filer som kommandot behöver. Ange sedan kommandot nedan.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Kommandorad</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent eller reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Förhandsgranskning av kommando</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Välj ett skript eller installationsprogram, eller ange ett kommando, för att förhandsgranska kommandoraden.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Ange kommandot som ska köras.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Lämna tomt för att köra från mappen med det importerade innehållet.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketinnehåll</value>
@@ -2526,6 +2538,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Krävs inte</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Paketinnehåll (valfritt)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ordning</value>

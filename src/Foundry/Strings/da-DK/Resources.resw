@@ -2416,14 +2416,26 @@ Licenseret under MIT-licensen.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Kommandolinje</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importér de filer, som kommandoen skal bruge. Indtast derefter kommandoen nedenfor.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Kommandolinje</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent eller reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Forhåndsvisning af kommando</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Vælg et script eller installationsprogram, eller indtast en kommando, for at få vist kommandolinjen.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Indtast den kommando, der skal køres.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Lad feltet være tomt for at køre fra mappen med det importerede indhold.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Pakkeindhold</value>
@@ -2526,6 +2538,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Ikke påkrævet</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Pakkeindhold (valgfrit)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Rækkefølge</value>

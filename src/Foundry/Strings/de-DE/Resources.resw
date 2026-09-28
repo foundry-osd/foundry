@@ -2416,14 +2416,26 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Befehlszeile</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importieren Sie die Dateien, die Ihr Befehl benötigt. Geben Sie dann unten den Befehl ein.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Befehlszeile</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent oder reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Befehlsvorschau</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Wählen Sie ein Skript oder Installationsprogramm aus oder geben Sie einen Befehl ein, um eine Vorschau der Befehlszeile anzuzeigen.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Geben Sie den auszuführenden Befehl ein.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Lassen Sie das Feld leer, um den Befehl im Ordner mit den importierten Inhalten auszuführen.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketinhalt</value>
@@ -2526,6 +2538,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Nicht erforderlich</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Paketinhalt (optional)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Reihenfolge</value>

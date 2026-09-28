@@ -2416,14 +2416,26 @@ Licencirano pod licenco MIT.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Ukazna vrstica</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Uvozite datoteke, ki jih ukaz potrebuje. Nato spodaj vnesite ukaz.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Ukazna vrstica</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent ali reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Predogled ukaza</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Izberite skript ali namestitveni program ali vnesite ukaz za predogled ukazne vrstice.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Vnesite ukaz za zagon.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Pustite prazno za zagon iz mape z uvoženo vsebino.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Vsebina paketa</value>
@@ -2526,6 +2538,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Ni potrebno</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Vsebina paketa (izbirno)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Vrstni red</value>

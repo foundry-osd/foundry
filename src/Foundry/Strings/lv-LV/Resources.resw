@@ -2416,14 +2416,26 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Komandrinda</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importējiet komandai nepieciešamos failus. Pēc tam tālāk ievadiet komandu.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Komandrinda</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent vai reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Komandas priekšskatījums</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Atlasiet skriptu vai instalēšanas programmu vai ievadiet komandu, lai priekšskatītu komandrindu.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Ievadiet izpildāmo komandu.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Atstājiet tukšu, lai palaistu no importētā satura mapes.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Pakotnes saturs</value>
@@ -2526,6 +2538,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Nav nepieciešams</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Pakotnes saturs (neobligāti)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Secība</value>

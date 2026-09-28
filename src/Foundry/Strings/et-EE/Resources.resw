@@ -2416,14 +2416,26 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Käsurida</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Impordi käsu jaoks vajalikud failid. Seejärel sisesta allpool käsk.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Käsurida</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent või reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Käsu eelvaade</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Käsurea eelvaate kuvamiseks vali skript või installiprogramm või sisesta käsk.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Sisesta käivitatav käsk.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Jäta tühjaks, et käivitada imporditud sisu kaustast.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketi sisu</value>
@@ -2526,6 +2538,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Pole vajalik</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Paketi sisu (valikuline)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Järjekord</value>

@@ -2416,14 +2416,26 @@ Licencováno pod licencí MIT.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Příkazový řádek</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importujte soubory, které příkaz potřebuje. Poté zadejte příkaz níže.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Příkazový řádek</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent nebo reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Náhled příkazu</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Vyberte skript nebo instalační program nebo zadejte příkaz a zobrazte náhled příkazového řádku.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Zadejte příkaz ke spuštění.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Ponechte prázdné pro spuštění ze složky s importovaným obsahem.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Obsah balíčku</value>
@@ -2526,6 +2538,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Není vyžadováno</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Obsah balíčku (volitelné)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Pořadí</value>

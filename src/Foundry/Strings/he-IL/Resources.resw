@@ -2416,14 +2416,26 @@
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>שורת פקודה</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>ייבא את הקבצים הדרושים לפקודה. לאחר מכן הזן את הפקודה למטה.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>שורת פקודה</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent או reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>תצוגה מקדימה של הפקודה</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>בחר סקריפט או תוכנית התקנה, או הזן פקודה, כדי להציג תצוגה מקדימה של שורת הפקודה.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>הזן את הפקודה להפעלה.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>השאר ריק כדי להפעיל מתיקיית התוכן המיובא.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>תוכן החבילה</value>
@@ -2526,6 +2538,9 @@
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>לא נדרש</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>תוכן החבילה (אופציונלי)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>סדר</value>

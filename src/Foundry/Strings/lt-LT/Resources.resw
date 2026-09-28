@@ -2416,14 +2416,26 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Komandų eilutė</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importuokite komandai reikalingus failus. Tada toliau įveskite komandą.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Komandų eilutė</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent arba reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Komandos peržiūra</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Pasirinkite scenarijų ar diegimo programą arba įveskite komandą, kad peržiūrėtumėte komandų eilutę.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Įveskite komandą, kurią norite vykdyti.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Palikite tuščią, kad būtų vykdoma iš importuoto turinio aplanko.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketo turinys</value>
@@ -2526,6 +2538,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Nereikia</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Paketo turinys (neprivaloma)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Tvarka</value>

@@ -2416,14 +2416,26 @@
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Командний рядок</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Імпортуйте файли, потрібні для команди. Потім введіть команду нижче.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Командний рядок</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent або reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Попередній перегляд команди</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Виберіть скрипт чи інсталятор або введіть команду для попереднього перегляду командного рядка.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Введіть команду для виконання.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Залиште поле порожнім для запуску з папки імпортованого вмісту.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Вміст пакета</value>
@@ -2526,6 +2538,9 @@
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Не потрібно</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Вміст пакета (необов’язково)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Порядок</value>

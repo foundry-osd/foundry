@@ -2416,14 +2416,26 @@ Licencjonowany na licencji MIT.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Wiersz polecenia</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Zaimportuj pliki wymagane przez polecenie. Następnie wpisz polecenie poniżej.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Wiersz polecenia</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent lub reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Podgląd polecenia</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Wybierz skrypt lub instalator albo wpisz polecenie, aby wyświetlić podgląd wiersza polecenia.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Wpisz polecenie do uruchomienia.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Pozostaw puste, aby uruchomić z folderu zaimportowanej zawartości.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Zawartość pakietu</value>
@@ -2526,6 +2538,9 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Niewymagane</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Zawartość pakietu (opcjonalnie)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Kolejność</value>

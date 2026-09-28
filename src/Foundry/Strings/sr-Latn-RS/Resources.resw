@@ -2416,14 +2416,26 @@ Licencirano pod MIT licencom.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Komandna linija</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Uvezite datoteke potrebne komandi. Zatim unesite komandu ispod.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Komandna linija</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent ili reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Pregled komande</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Izaberite skriptu ili instalacioni program ili unesite komandu da biste pregledali komandnu liniju.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Unesite komandu za pokretanje.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Ostavite prazno za pokretanje iz fascikle sa uvezenim sadržajem.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Sadržaj paketa</value>
@@ -2526,6 +2538,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Nije potrebno</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Sadržaj paketa (opciono)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Redosled</value>

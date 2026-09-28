@@ -2416,14 +2416,26 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Riga di comando</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importa i file necessari al comando. Quindi inserisci il comando qui sotto.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Riga di comando</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent o reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Anteprima del comando</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Seleziona uno script o un programma di installazione oppure inserisci un comando per visualizzare l’anteprima della riga di comando.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Inserisci il comando da eseguire.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Lascia vuoto per eseguire dalla cartella del contenuto importato.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Contenuto del pacchetto</value>
@@ -2526,6 +2538,9 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Non necessario</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Contenuto del pacchetto (facoltativo)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Ordine</value>

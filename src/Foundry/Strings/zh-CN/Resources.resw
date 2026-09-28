@@ -2416,14 +2416,26 @@
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>命令行</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>导入命令所需的文件，然后在下方输入命令。</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>命令行</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent 或 reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>命令预览</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>选择脚本或安装程序，或输入命令，以预览命令行。</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>输入要运行的命令。</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>留空以从导入的内容文件夹运行。</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>程序包内容</value>
@@ -2526,6 +2538,9 @@
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>不需要</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>程序包内容（可选）</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>顺序</value>

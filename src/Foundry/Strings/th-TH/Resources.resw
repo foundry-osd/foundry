@@ -2416,14 +2416,26 @@
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>บรรทัดคำสั่ง</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>นำเข้าไฟล์ที่คำสั่งต้องใช้ จากนั้นป้อนคำสั่งด้านล่าง</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>บรรทัดคำสั่ง</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent หรือ reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>ตัวอย่างคำสั่ง</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>เลือกสคริปต์หรือโปรแกรมติดตั้ง หรือป้อนคำสั่ง เพื่อดูตัวอย่างบรรทัดคำสั่ง</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>ป้อนคำสั่งที่จะเรียกใช้</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>เว้นว่างไว้เพื่อเรียกใช้จากโฟลเดอร์เนื้อหาที่นำเข้า</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>เนื้อหาแพ็กเกจ</value>
@@ -2526,6 +2538,9 @@
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>ไม่จำเป็น</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>เนื้อหาแพ็กเกจ (ไม่บังคับ)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>ลำดับ</value>

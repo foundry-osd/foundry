@@ -2416,14 +2416,26 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Komentorivi</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Tuo komennon tarvitsemat tiedostot. Anna sitten komento alla.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Komentorivi</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent tai reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Komennon esikatselu</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Valitse komentosarja tai asennusohjelma tai kirjoita komento, jotta voit esikatsella komentoriviä.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Anna suoritettava komento.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Jätä tyhjäksi, jos haluat suorittaa komennon tuodun sisällön kansiosta.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Paketin sisältö</value>
@@ -2526,6 +2538,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Ei tarvita</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Paketin sisältö (valinnainen)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Järjestys</value>

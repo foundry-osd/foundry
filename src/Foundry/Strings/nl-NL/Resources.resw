@@ -2416,14 +2416,26 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Opdrachtregel</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Importeer de bestanden die uw opdracht nodig heeft. Voer vervolgens hieronder de opdracht in.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Opdrachtregel</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent of reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Opdrachtvoorbeeld</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Selecteer een script of installatieprogramma, of voer een opdracht in, om een voorbeeld van de opdrachtregel te bekijken.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Voer de opdracht in die u wilt uitvoeren.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Laat dit leeg om vanuit de map met geïmporteerde inhoud uit te voeren.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Pakketinhoud</value>
@@ -2526,6 +2538,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Niet vereist</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Pakketinhoud (optioneel)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Volgorde</value>

@@ -2416,14 +2416,26 @@
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>سطر الأوامر</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>استورد الملفات التي يحتاجها الأمر. ثم أدخل الأمر أدناه.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>سطر الأوامر</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent أو reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>معاينة الأمر</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>حدد برنامجًا نصيًا أو برنامج تثبيت، أو أدخل أمرًا، لمعاينة سطر الأوامر.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>أدخل الأمر المراد تشغيله.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>اترك الحقل فارغًا للتشغيل من مجلد المحتوى المستورد.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>محتوى الحزمة</value>
@@ -2526,6 +2538,9 @@
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>غير مطلوب</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>محتوى الحزمة (اختياري)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>الترتيب</value>

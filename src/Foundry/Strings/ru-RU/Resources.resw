@@ -2416,14 +2416,26 @@
   <data name="PostInstallation.Command" xml:space="preserve">
     <value>Командная строка</value>
   </data>
+  <data name="PostInstallation.CommandContentDescription" xml:space="preserve">
+    <value>Импортируйте файлы, необходимые для команды. Затем введите команду ниже.</value>
+  </data>
   <data name="PostInstallation.CommandLine" xml:space="preserve">
     <value>Командная строка</value>
+  </data>
+  <data name="PostInstallation.CommandPlaceholder" xml:space="preserve">
+    <value>setup.cmd /silent или reg import settings.reg</value>
   </data>
   <data name="PostInstallation.CommandPreview" xml:space="preserve">
     <value>Предпросмотр команды</value>
   </data>
   <data name="PostInstallation.CommandPreviewPlaceholder" xml:space="preserve">
     <value>Выберите скрипт или установщик либо введите команду для предварительного просмотра командной строки.</value>
+  </data>
+  <data name="PostInstallation.CommandRequired" xml:space="preserve">
+    <value>Введите команду для выполнения.</value>
+  </data>
+  <data name="PostInstallation.CommandWorkingDirectoryDescription" xml:space="preserve">
+    <value>Оставьте поле пустым для запуска из папки импортированного содержимого.</value>
   </data>
   <data name="PostInstallation.Content" xml:space="preserve">
     <value>Содержимое пакета</value>
@@ -2526,6 +2538,9 @@
   </data>
   <data name="PostInstallation.NoContentRequired" xml:space="preserve">
     <value>Не требуется</value>
+  </data>
+  <data name="PostInstallation.OptionalContent" xml:space="preserve">
+    <value>Содержимое пакета (необязательно)</value>
   </data>
   <data name="PostInstallation.OrderHeader" xml:space="preserve">
     <value>Порядок</value>
