@@ -37,6 +37,7 @@ public sealed class PreflightDeploymentStep(
             }
             catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException or InvalidOperationException or HttpRequestException)
             {
+                Serilog.Log.ForContext<PreflightDeploymentStep>().Error(exception, "Post-installation readiness validation failed.");
                 return Failed("PostInstall.PreflightFailed", "postinstall_preflight_failed");
             }
             if (context.Request.OperatingSystem is CustomImageSelection custom)

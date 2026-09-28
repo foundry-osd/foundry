@@ -17,7 +17,9 @@ namespace Foundry.Deploy.Services.Deployment.PreOobe;
 /// <summary>Freezes applicable external content and runtime identity before either destructive deployment branch.</summary>
 public class PreOobeContentResolver(PreOobeRuntimeResolver runtimeResolver, IDeploymentStorageService storage)
 {
-    internal string DescriptorPath { get; init; } = Path.Combine(AppContext.BaseDirectory, PreOobeRuntimeResolver.DescriptorFileName);
+    // IncludeAllContentForSelfExtract redirects BaseDirectory away from the executable's companion files.
+    internal string DescriptorPath { get; init; } = Path.Combine(
+        Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory, PreOobeRuntimeResolver.DescriptorFileName);
     internal Func<string[]> MediaRoots { get; init; } = () => DriveInfo.GetDrives().Where(drive => drive.IsReady).Select(drive => drive.RootDirectory.FullName).ToArray();
 
     internal static bool IsRequired(DeploymentContext request) =>

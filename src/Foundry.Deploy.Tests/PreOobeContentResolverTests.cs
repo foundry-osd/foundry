@@ -15,6 +15,14 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class PreOobeContentResolverTests
 {
+    [Fact]
+    public void DefaultDescriptorPath_UsesExecutableDirectoryForSelfExtractingApplications()
+    {
+        var resolver = new PreOobeContentResolver(new(), new ReadOnlyStorage());
+        Assert.Equal(Path.Combine(Path.GetDirectoryName(Environment.ProcessPath)!, PreOobeRuntimeResolver.DescriptorFileName),
+            resolver.DescriptorPath);
+    }
+
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
