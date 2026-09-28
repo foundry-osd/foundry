@@ -24,14 +24,6 @@ public sealed partial class PostInstallationActionDialog : ContentDialog
         Closed += OnClosed;
     }
 
-    /// <summary>Keeps the native dialog buttons at their content width, grouped on the right.</summary>
-    protected override void OnApplyTemplate()
-    {
-        base.OnApplyTemplate();
-        if (GetTemplateChild("CommandSpace") is FrameworkElement commands)
-            commands.HorizontalAlignment = HorizontalAlignment.Right;
-    }
-
     private async void OnLoaded(object sender, RoutedEventArgs args)
     {
         Loaded -= OnLoaded;
