@@ -14,8 +14,6 @@ namespace Foundry.Deploy.Services.Deployment.Unattend;
 /// <summary>Publishes the shared validated hook and a protected local source/derived hash audit.</summary>
 public sealed class PreOobeUnattendHookService
 {
-    public const string Description = PreOobeUnattendIntegrationService.Description;
-    public const string Command = PreOobeUnattendIntegrationService.Command;
     private readonly Action<string> protectDirectory;
     public PreOobeUnattendHookService() : this(PreOobeTargetStagingService.ProtectDirectory) { }
     internal PreOobeUnattendHookService(Action<string> protectDirectory) => this.protectDirectory = protectDirectory;

@@ -154,7 +154,7 @@ public sealed class PreOobePackageLibraryService
         finally { foreach (FileStream handle in deleteHandles) handle.Dispose(); }
     }
 
-    /// <summary>Checks real media/target prefixes before copying; no destination relies solely on import-time path checks.</summary>
+    /// <summary>Checks actual library and target prefixes against installer path limits before copying.</summary>
     public static void ValidateDestination(PreOobePackageManifest manifest, string destinationRoot)
     {
         PreOobePackageManifestCodec.Validate(manifest);

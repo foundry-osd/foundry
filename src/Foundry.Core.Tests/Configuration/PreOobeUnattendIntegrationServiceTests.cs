@@ -42,6 +42,7 @@ public sealed class PreOobeUnattendIntegrationServiceTests
         XElement command = commands[1];
         Assert.Equal("20", (string?)command.Element(ns + "Order"));
         Assert.Equal(PreOobeUnattendIntegrationService.Command, (string?)command.Element(ns + "Path"));
+        Assert.Equal("OnRequest", (string?)command.Element(ns + "WillReboot"));
         Assert.Contains("private-password", Encoding.UTF8.GetString(result.DerivedContent.Span));
     }
 

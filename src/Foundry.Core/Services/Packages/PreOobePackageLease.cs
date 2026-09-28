@@ -27,7 +27,6 @@ public sealed class PreOobePackageLease : IDisposable, IAsyncDisposable
     public PreOobePackageManifest Manifest { get; }
     public string ContentDirectoryPath { get; }
     public IReadOnlyList<PreOobePackageSourceFile> Files { get; }
-    public void ThrowIfDisposed() => ObjectDisposedException.ThrowIf(disposed, this);
 
     public void Dispose()
     {

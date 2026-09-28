@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.PreOobe;
 using Foundry.PostInstall.Actions;
@@ -18,7 +17,7 @@ public sealed class CustomActionTests
     [InlineData(PreOobeActionKind.Application, PreOobeApplicationMode.Msi, "app.msi", "msiexec.exe", true)]
     [InlineData(PreOobeActionKind.Application, PreOobeApplicationMode.Msi, "process-output.msi", "msiexec.exe", true)]
     [InlineData(PreOobeActionKind.Application, PreOobeApplicationMode.Exe, "app.exe", "app.exe", false)]
-    public async Task PackagedAction_IgnoresLegacyArchitectureAndUsesExpectedHostAndRestartClassification(PreOobeActionKind kind, PreOobeApplicationMode? mode,
+    public async Task PackagedAction_UsesExpectedHostAndRestartClassification(PreOobeActionKind kind, PreOobeApplicationMode? mode,
         string entryPoint, string host, bool generateLog)
     {
         string root = Path.Combine(Path.GetTempPath(), "Foundry.PostInstall.Tests", Guid.NewGuid().ToString("N"));
@@ -41,7 +40,7 @@ public sealed class CustomActionTests
                     Package = new() { ContentHash = "hash" },
                     Arguments = "PROPERTY=value",
                     GenerateInstallationLog = generateLog,
-                    Process = JsonSerializer.Deserialize<PreOobeProcessSettings>("""{"Architecture":999,"RestartExitCodes":[3010]}""")
+                    Process = new() { RestartExitCodes = [3010] }
                 }
             };
             ActionStepOutcome result = await new CustomAction(root, Environment.GetFolderPath(Environment.SpecialFolder.Windows), plan, process)

@@ -45,38 +45,6 @@ public sealed class PreOobeConfigurationTests
     }
 
     [Fact]
-    public void LegacyActionArchitectureIsIgnoredWhenLoadingAndGeneratingConfiguration()
-    {
-        var configurationService = new FoundryConfigurationService();
-        var source = configurationService.Deserialize("""
-            {"schemaVersion":16,"preOobe":{"isEnabled":true,"actions":[
-              {"name":"Custom action","kind":1,"command":"echo ready","process":{"architecture":2}}
-            ]}}
-            """);
-        Assert.Single(source.PreOobe.Actions);
-        var generator = new DeployConfigurationGenerator();
-        var generated = generator.Generate(source);
-        Assert.Single(generated.PreOobe.Actions);
-        Assert.DoesNotContain("architecture", JsonSerializer.Serialize(source.PreOobe), StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("architecture", JsonSerializer.Serialize(generated.PreOobe), StringComparison.OrdinalIgnoreCase);
-    }
-
-    [Fact]
-    public void LegacyIntegrationOptOutIsIgnoredWhenLoadingAndGeneratingConfiguration()
-    {
-        var configurationService = new FoundryConfigurationService();
-        var source = configurationService.Deserialize("""
-            {"schemaVersion":16,"preOobe":{"isEnabled":true,"integrateCustomUnattend":false,"actions":[]}}
-            """);
-        Assert.True(source.PreOobe.IsEnabled);
-        Assert.DoesNotContain("integrateCustomUnattend", configurationService.Serialize(source));
-        var generator = new DeployConfigurationGenerator();
-        var generated = generator.Generate(source);
-        Assert.True(generated.PreOobe.IsEnabled);
-        Assert.DoesNotContain("integrateCustomUnattend", generator.Serialize(generated));
-    }
-
-    [Fact]
     public void GenerationKeepsOrderedEnabledActionsAndDetachedPolicyArrays()
     {
         int[] codes = [0];

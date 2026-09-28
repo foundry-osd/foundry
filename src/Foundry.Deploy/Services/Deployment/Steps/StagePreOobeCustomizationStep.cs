@@ -111,8 +111,7 @@ public sealed class StagePreOobeCustomizationStep : DeploymentStepBase
 
         return (new PreOobeDriverPackScriptSettings
         {
-            CommandKind = plan.DeferredCommandKind,
-            RuntimePackagePath = DeploymentStorageLayout.RuntimePath(Path.Combine("Payloads", "Drivers", Path.GetFileName(stagedPath)))
+            CommandKind = plan.DeferredCommandKind
         }, null);
     }
 

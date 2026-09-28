@@ -70,32 +70,6 @@ public sealed class PreOobeUnattendHookServiceTests
         finally { Directory.Delete(root, recursive: true); }
     }
 
-    [Fact]
-    public void IntegrationAppendsPreservesForeignCommandsAndIsIdempotent()
-    {
-        byte[] input = Encoding.UTF8.GetBytes($"<unattend xmlns=\"{Namespace}\"><settings pass=\"specialize\"><component name=\"Microsoft-Windows-Deployment\" processorArchitecture=\"amd64\"><RunSynchronous><RunSynchronousCommand><Order>3</Order><Path>foreign.exe</Path></RunSynchronousCommand></RunSynchronous></component></settings></unattend>");
-        byte[] output = _service.Prepare(input, "x64");
-        Assert.Equal(output, _service.Prepare(output, "x64"));
-        XNamespace ns = Namespace;
-        XElement[] commands = XDocument.Parse(Encoding.UTF8.GetString(output)).Descendants(ns + "RunSynchronousCommand").ToArray();
-        Assert.Equal(2, commands.Length);
-        Assert.Equal("foreign.exe", commands[0].Element(ns + "Path")!.Value);
-        Assert.Equal("4", commands[1].Element(ns + "Order")!.Value);
-        Assert.Equal("OnRequest", commands[1].Element(ns + "WillReboot")!.Value);
-        Assert.Equal(output, _service.Prepare(output, "x64"));
-    }
-
-    [Fact]
-    public void AutomaticIntegrationDoesNotRequireManualHookAndPreservesSource()
-    {
-        byte[] original = Encoding.UTF8.GetBytes($"<unattend xmlns=\"{Namespace}\" />");
-        byte[] integrated = _service.Prepare(original, "x64");
-        XNamespace ns = Namespace;
-        Assert.Single(XDocument.Parse(Encoding.UTF8.GetString(integrated)).Descendants(ns + "RunSynchronousCommand"));
-        Assert.Equal(integrated, _service.Prepare(integrated, "x64"));
-        Assert.Equal($"<unattend xmlns=\"{Namespace}\" />", Encoding.UTF8.GetString(original));
-    }
-
     [Theory]
     [InlineData("500")]
     [InlineData("0")]

@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Diagnostics;
-using System.Text.Json;
 
 namespace Foundry.Deploy.Tests;
 
@@ -83,25 +82,6 @@ public sealed class AutopilotAtomicPublicationTests
                 }
             }
         }
-
-        public JsonDocument ReadResult() => JsonDocument.Parse(Read(@"Temp\Foundry\State\PreOobe\execution-result.json"));
-
-        public FileStream AcquireLease() => File.Open(Path.Combine(WindowsRoot, @"Temp\Foundry\State\PreOobe\runner.lease"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
-
-        public void Write(string name, string content)
-        {
-            string path = Path.Combine(WindowsRoot, name);
-            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-            File.WriteAllText(path, content);
-        }
-
-        public void CreateDirectory(string name) => Directory.CreateDirectory(Path.Combine(WindowsRoot, name));
-
-        public bool DirectoryExists(string name) => Directory.Exists(Path.Combine(WindowsRoot, name));
-
-        public bool Exists(string name) => File.Exists(Path.Combine(WindowsRoot, name));
-
-        public string Read(string name) => File.ReadAllText(Path.Combine(WindowsRoot, name));
 
         public void Dispose() => Directory.Delete(_root, recursive: true);
     }

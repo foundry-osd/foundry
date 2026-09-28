@@ -66,7 +66,7 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                     {
                         state.Actions[action.Id] = new() { Status = "Succeeded", CompletedAtUtc = DateTimeOffset.UtcNow };
                         state.Cursor++;
-                        return Checkpoint(state, plan);
+                        return Checkpoint(state);
                     }
                     state.Actions[action.Id] = new() { Status = "Running", StartedAtUtc = DateTimeOffset.UtcNow };
                     foreach (PreOobeOwnedPayload payload in plan.OwnedPayloads.Where(payload => payload.IsSensitive && payload.ConsumerActionIds.Contains(action.Id)))
@@ -87,7 +87,7 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                     {
                         if (next <= state.Substep || next > 10000) throw new InvalidDataException("Invalid internal cursor.");
                         state.Substep = next;
-                        if (outcome.RestartRequested) return Checkpoint(state, plan);
+                        if (outcome.RestartRequested) return Checkpoint(state);
                         journal.Write(state);
                         continue;
                     }
@@ -114,10 +114,10 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                     {
                         if (action.CustomAction?.Process?.RestartTiming == PreOobeRestartTiming.Deferred)
                         { state.DeferredRestart = true; journal.Write(state); }
-                        else return Checkpoint(state, plan);
+                        else return Checkpoint(state);
                     }
                 }
-                if (state.DeferredRestart) return Checkpoint(state, plan);
+                if (state.DeferredRestart) return Checkpoint(state);
                 state.Status = state.HasWarnings || state.Actions.Values.Any(result => result.Status == "Failed")
                     ? "CompletedWithErrors" : "Succeeded";
                 return await FinishWithBuiltInCleanupAsync(plan, state, boot, cleanup).ConfigureAwait(false);
@@ -141,7 +141,7 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
         }
     }
 
-    private OrchestrationOutcome Checkpoint(JournalState state, PreOobeExecutionPlan plan)
+    private OrchestrationOutcome Checkpoint(JournalState state)
     {
         if (++state.RestartCount > MaximumRestarts) throw new InvalidDataException("Restart budget exceeded.");
         state.DeferredRestart = false;

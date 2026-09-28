@@ -8,13 +8,11 @@ namespace Foundry.PostInstall.Execution;
 
 public sealed class OwnedPayloadCleanup(string root, ExecutionJournal journal)
 {
-    public bool Dispose(PreOobeExecutionPlan plan, JournalState state, bool terminal, string boot,
-        bool sensitiveOnly = false)
+    public bool Dispose(PreOobeExecutionPlan plan, JournalState state, bool terminal, string boot)
     {
         bool sensitiveFailure = false;
         foreach (PreOobeOwnedPayload payload in plan.OwnedPayloads)
         {
-            if (sensitiveOnly && !payload.IsSensitive) continue;
             if (state.PayloadDispositions.GetValueOrDefault(payload.RelativePath) == "Disposed") continue;
             bool consumed = payload.ConsumerActionIds.Count > 0 && payload.ConsumerActionIds.All(id =>
                 state.Actions.TryGetValue(id, out var result) && result.Status is "Succeeded" or "Failed" or "Skipped");
