@@ -89,16 +89,41 @@ public sealed class LifecycleSafetyTests
         static PreOobeExecutionAction Command(string id) => new() { Id = id, CustomAction = new() { Kind = PreOobeActionKind.Command, Process = new() } };
     }
 
-    [Fact]
-    public async Task PrivateSubstepCheckpoint_ResumesAtRemainingWork()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task PrivateSubsteps_PreserveActionStartThroughCompletionAndRestart(bool restart)
     {
         using var fixture = new Fixture();
+        fixture.Plan = fixture.Plan with
+        {
+            Actions = [new() { Id = "action", BuiltInKind = PreOobeBuiltInKind.Appx }]
+        };
         var calls = new List<int>();
-        fixture.Handler = (_, substep) => { calls.Add(substep); return substep == 0 ? new(true, 3010, RestartRequested: true, NextSubstep: 1) : new(true); };
-        Assert.Equal(2, await fixture.Run("a"));
-        Assert.Equal(1, fixture.Journal.Read().Substep);
-        Assert.Equal(0, await fixture.Run("b"));
-        Assert.Equal([0, 1], calls);
+        var starts = new List<DateTimeOffset?>();
+        fixture.Handler = (_, substep) =>
+        {
+            calls.Add(substep);
+            starts.Add(fixture.Journal.Read().Actions["action"].StartedAtUtc);
+            return substep switch
+            {
+                0 => new(true, RestartRequested: restart, NextSubstep: 1),
+                1 => new(true, NextSubstep: 2),
+                _ => new(true)
+            };
+        };
+        Assert.Equal(restart ? 2 : 0, await fixture.Run("a"));
+        if (restart)
+        {
+            Assert.Equal(1, fixture.Journal.Read().Substep);
+            Assert.Equal(0, await fixture.Run("b"));
+        }
+        Assert.Equal([0, 1, 2], calls);
+        Assert.NotNull(starts[0]);
+        Assert.All(starts, started => Assert.Equal(starts[0], started));
+        var completed = fixture.Journal.Read().Actions["action"];
+        Assert.Equal(starts[0], completed.StartedAtUtc);
+        Assert.True(completed.CompletedAtUtc >= starts[0]);
     }
 
     [Fact]

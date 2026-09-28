@@ -79,7 +79,12 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
                         state.Cursor++;
                         return await RequestRestartAsync(plan, state, action.CustomAction.RestartDelaySeconds, cancellationToken).ConfigureAwait(false);
                     }
-                    state.Actions[action.Id] = new() { Status = "Running", StartedAtUtc = DateTimeOffset.UtcNow };
+                    // One wall-clock interval covers all private substeps, including a planned restart.
+                    state.Actions[action.Id] = new()
+                    {
+                        Status = "Running",
+                        StartedAtUtc = state.Actions.GetValueOrDefault(action.Id)?.StartedAtUtc ?? DateTimeOffset.UtcNow
+                    };
                     foreach (PreOobeOwnedPayload payload in plan.OwnedPayloads.Where(payload => payload.IsSensitive && payload.ConsumerActionIds.Contains(action.Id)))
                         state.PayloadDispositions[payload.RelativePath] = "DisposalRequired";
                     journal.Write(state);

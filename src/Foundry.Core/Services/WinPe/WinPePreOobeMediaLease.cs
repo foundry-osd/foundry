@@ -7,7 +7,7 @@ using Foundry.Core.Models.PreOobe;
 
 namespace Foundry.Core.Services.WinPe;
 
-/// <summary>Retains immutable package sources and runner archives until external media publication completes.</summary>
+/// <summary>Retains immutable package sources until external media publication completes.</summary>
 public sealed class WinPePreOobeMediaLease : IDisposable
 {
     private readonly IReadOnlyList<IDisposable> leases;
