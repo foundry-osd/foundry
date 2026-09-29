@@ -13,6 +13,65 @@ namespace Foundry.Deploy.Tests;
 public sealed class OperatingSystemCatalogViewModelTests
 {
     [Theory]
+    [InlineData("99H1", true, "26H2")]
+    [InlineData("99H1", false, "25H2")]
+    [InlineData("26H2", false, "25H2")]
+    [InlineData("24H2", true, "24H2")]
+    public void ApplyCatalog_WhenConfiguredReleaseIsUnavailable_PrefersCurrentDefaultThenNewestRelease(
+        string configuredDefault, bool includeCurrentDefault, string expectedRelease)
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+        viewModel.ApplyOperatingSystemSelection(new DeployOperatingSystemSelectionSettings
+        {
+            IsEnabled = true,
+            AllowedReleaseIds = ["99H1"],
+            DefaultReleaseId = configuredDefault
+        });
+        OperatingSystemCatalogItem[] catalog =
+        [
+            CreateOperatingSystem("en-US", releaseId: "99H1"),
+            CreateOperatingSystem("en-US", releaseId: "24H2"),
+            CreateOperatingSystem("en-US", releaseId: "25H2")
+        ];
+
+        viewModel.ApplyCatalog(includeCurrentDefault
+            ? [.. catalog, CreateOperatingSystem("en-US", releaseId: "26H2")]
+            : catalog);
+
+        Assert.Equal(expectedRelease, viewModel.SelectedReleaseId);
+        Assert.Equal(expectedRelease, viewModel.SelectedOperatingSystem?.ReleaseId);
+        Assert.DoesNotContain("99H1", viewModel.ReleaseIdFilters);
+        Assert.True(viewModel.IsReleaseIdSelectionEnabled);
+        Assert.True(viewModel.IsReadyForNavigation());
+    }
+
+    [Fact]
+    public void ApplyCatalog_WhenAllowedReleasesPartiallySurvive_PreservesRestrictionAndOperatorSelection()
+    {
+        var viewModel = new OperatingSystemCatalogViewModel(NullLogger.Instance, "x64");
+        viewModel.ApplyOperatingSystemSelection(new DeployOperatingSystemSelectionSettings
+        {
+            IsEnabled = true,
+            AllowedReleaseIds = ["99H1", "24H2", "25H2"],
+            DefaultReleaseId = "99H1"
+        });
+        OperatingSystemCatalogItem[] catalog =
+        [
+            CreateOperatingSystem("en-US", releaseId: "24H2"),
+            CreateOperatingSystem("en-US", releaseId: "25H2"),
+            CreateOperatingSystem("en-US", releaseId: "26H2")
+        ];
+        viewModel.ApplyCatalog(catalog);
+        Assert.Equal("25H2", viewModel.SelectedReleaseId);
+        Assert.Equal(["24H2", "25H2"], viewModel.ReleaseIdFilters);
+
+        viewModel.SelectedReleaseId = "24H2";
+        viewModel.ApplyCatalog(catalog);
+
+        Assert.Equal("24H2", viewModel.SelectedReleaseId);
+    }
+
+    [Theory]
     [InlineData("x64")]
     [InlineData("arm64")]
     public void ApplyCatalog_ForRetailMedia_DoesNotOfferEnterprise(string architecture)
@@ -214,8 +273,8 @@ public sealed class OperatingSystemCatalogViewModelTests
         viewModel.ApplyOperatingSystemSelection(new DeployOperatingSystemSelectionSettings
         {
             IsEnabled = true,
-            AllowedReleaseIds = ["23H2"],
-            DefaultReleaseId = "23H2",
+            AllowedReleaseIds = ["99H1"],
+            DefaultReleaseId = "99H1",
             AllowedLicenseChannels = ["VOL"],
             DefaultLicenseChannel = "VOL",
             AllowedEditions = ["Datacenter"],

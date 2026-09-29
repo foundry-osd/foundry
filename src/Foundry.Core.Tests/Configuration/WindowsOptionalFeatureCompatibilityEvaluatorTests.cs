@@ -97,6 +97,7 @@ public sealed class WindowsOptionalFeatureCompatibilityEvaluatorTests
 
     [Theory]
     [InlineData("25H2", WindowsOptionalFeatureCompatibility.Available)]
+    [InlineData("26H2", WindowsOptionalFeatureCompatibility.Available)]
     [InlineData("unknown", WindowsOptionalFeatureCompatibility.RuntimeVerificationRequired)]
     public void Evaluate_NetFx3_UsesKnownReleaseBuild(
         string releaseId,

@@ -876,7 +876,7 @@ public sealed class DeployConfigurationGeneratorTests
                 AllowedLanguageCodes = [" fr_fr ", "EN-us", "fr-FR", ""],
                 DefaultLanguageCode = "de-DE",
                 AllowedReleaseIds = ["25h2", "24H2", "25H2", ""],
-                DefaultReleaseId = "23H2",
+                DefaultReleaseId = "26H2",
                 AllowedLicenseChannels = ["retail", "VOL", "ret", ""],
                 DefaultLicenseChannel = "volume",
                 AllowedEditions = [" enterprise ", "Pro", "Enterprise", ""],

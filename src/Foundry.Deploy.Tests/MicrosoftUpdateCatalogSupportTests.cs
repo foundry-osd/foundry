@@ -14,7 +14,7 @@ public sealed class MicrosoftUpdateCatalogSupportTests
     {
         string[] order = MicrosoftUpdateCatalogSupport.BuildReleaseSearchOrder("24H2");
 
-        Assert.Equal(["24H2", "25H2", "23H2"], order);
+        Assert.Equal(["24H2", "26H2", "25H2"], order);
     }
 
     [Fact]

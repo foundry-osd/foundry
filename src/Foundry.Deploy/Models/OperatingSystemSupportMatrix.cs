@@ -10,18 +10,11 @@ namespace Foundry.Deploy.Models;
 internal static class OperatingSystemSupportMatrix
 {
     public const string SupportedWindowsRelease = "11";
-    public const string DefaultReleaseId = "25H2";
+    public const string DefaultReleaseId = OperatingSystemSelectionCatalog.DefaultReleaseId;
     public const string DefaultLicenseChannel = "RET";
     public const string DefaultEdition = "Pro";
 
-    private static readonly string[] SupportedReleaseIdOrder =
-    [
-        "25H2",
-        "24H2",
-        "23H2"
-    ];
-
-    private static readonly HashSet<string> SupportedReleaseIds = new(SupportedReleaseIdOrder, StringComparer.OrdinalIgnoreCase);
+    private static readonly HashSet<string> SupportedReleaseIds = new(OperatingSystemSelectionCatalog.SupportedReleaseIds, StringComparer.OrdinalIgnoreCase);
 
     private static readonly string[] SupportedLicenseChannelOrder =
     [
@@ -29,7 +22,7 @@ internal static class OperatingSystemSupportMatrix
         "VOL"
     ];
 
-    public static IReadOnlyList<string> ReleaseSearchOrder => SupportedReleaseIdOrder;
+    public static IReadOnlyList<string> ReleaseSearchOrder => OperatingSystemSelectionCatalog.SupportedReleaseIds;
 
     public static IReadOnlyList<string> LicenseChannelOrder => SupportedLicenseChannelOrder;
 

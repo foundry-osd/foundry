@@ -27,6 +27,7 @@ public static class FoundryConfigurationMigration
     }
 
     private const int StructuredMachineNamingSchemaVersion = 14;
+    private const int SupportedOperatingSystemReleasesSchemaVersion = 17;
     private const int LegacyRandomLength = 6;
 
     public static FoundryConfigurationDocument ApplySchemaMigrations(FoundryConfigurationDocument document)
@@ -39,6 +40,19 @@ public static class FoundryConfigurationMigration
 
         migrated = migrated with { CustomImages = migrated.CustomImages ?? new CustomImagesSettings() };
         migrated = migrated with { PreOobe = migrated.PreOobe ?? new PreOobeSettings() };
+
+        if (migrated.SchemaVersion < SupportedOperatingSystemReleasesSchemaVersion)
+        {
+            OperatingSystemSelectionSettings normalized = OperatingSystemSelectionSettingsNormalizer.Normalize(migrated.OperatingSystemSelection);
+            migrated = migrated with
+            {
+                OperatingSystemSelection = migrated.OperatingSystemSelection with
+                {
+                    AllowedReleaseIds = normalized.AllowedReleaseIds,
+                    DefaultReleaseId = normalized.DefaultReleaseId
+                }
+            };
+        }
 
         return migrated.SchemaVersion < FoundryConfigurationDocument.CurrentSchemaVersion
             ? migrated with { SchemaVersion = FoundryConfigurationDocument.CurrentSchemaVersion }

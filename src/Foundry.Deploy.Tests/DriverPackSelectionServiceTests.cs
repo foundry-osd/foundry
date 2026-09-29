@@ -88,8 +88,10 @@ public sealed class DriverPackSelectionServiceTests
         Assert.Equal("No model exact match; selected newest compatible manufacturer candidate.", result.SelectionReason);
     }
 
-    [Fact]
-    public void SelectBest_WhenTargetReleaseIsUnavailable_PrefersNewestCompatibleExactModelRelease()
+    [Theory]
+    [InlineData("25H2")]
+    [InlineData("26H2")]
+    public void SelectBest_WhenTargetReleaseIsUnavailable_PrefersNewestCompatibleExactModelRelease(string targetRelease)
     {
         var service = new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance);
         HardwareProfile hardware = new()
@@ -101,7 +103,7 @@ public sealed class DriverPackSelectionServiceTests
         OperatingSystemCatalogItem operatingSystem = new()
         {
             WindowsRelease = "11",
-            ReleaseId = "25H2",
+            ReleaseId = targetRelease,
             Architecture = "x64"
         };
         DateTimeOffset catalogDate = new(2024, 06, 13, 0, 0, 0, TimeSpan.Zero);
@@ -120,17 +122,17 @@ public sealed class DriverPackSelectionServiceTests
             architecture: "x64",
             releaseDate: catalogDate,
             modelNames: ["ThinkPad X13 Yoga Gen 3 Type 21AW 21AX"]);
-        DriverPackCatalogItem win11_23H2 = CreateCatalogItem(
-            id: "23h2",
+        DriverPackCatalogItem win11_24H2 = CreateCatalogItem(
+            id: "24h2",
             manufacturer: "Lenovo",
-            releaseId: "23H2",
+            releaseId: "24H2",
             architecture: "x64",
             releaseDate: catalogDate,
             modelNames: ["ThinkPad X13 Yoga Gen 3 Type 21AW 21AX"]);
 
-        DriverPackSelectionResult result = service.SelectBest([win11_21H2, win11_22H2, win11_23H2], hardware, operatingSystem);
+        DriverPackSelectionResult result = service.SelectBest([win11_21H2, win11_22H2, win11_24H2], hardware, operatingSystem);
 
-        Assert.Equal("23h2", result.DriverPack?.Id);
+        Assert.Equal("24h2", result.DriverPack?.Id);
         Assert.Equal("Matched by hardware model/product and compatible OS release.", result.SelectionReason);
     }
 
@@ -152,23 +154,23 @@ public sealed class DriverPackSelectionServiceTests
         };
 
         DriverPackCatalogItem exactModel = CreateCatalogItem(
-            id: "exact-23h2",
+            id: "exact-24h2",
             manufacturer: "Lenovo",
-            releaseId: "23H2",
+            releaseId: "24H2",
             architecture: "x64",
             releaseDate: new DateTimeOffset(2024, 06, 13, 0, 0, 0, TimeSpan.Zero),
             modelNames: ["ThinkPad X13 Yoga Gen 3 Type 21AW 21AX"]);
         DriverPackCatalogItem otherModel = CreateCatalogItem(
-            id: "other-24h2",
+            id: "other-25h2",
             manufacturer: "Lenovo",
-            releaseId: "24H2",
+            releaseId: "25H2",
             architecture: "x64",
             releaseDate: new DateTimeOffset(2025, 01, 01, 0, 0, 0, TimeSpan.Zero),
             modelNames: ["ThinkPad T14 Gen 5"]);
 
         DriverPackSelectionResult result = service.SelectBest([exactModel, otherModel], hardware, operatingSystem);
 
-        Assert.Equal("exact-23h2", result.DriverPack?.Id);
+        Assert.Equal("exact-24h2", result.DriverPack?.Id);
         Assert.Equal("Matched by hardware model/product and compatible OS release.", result.SelectionReason);
     }
 

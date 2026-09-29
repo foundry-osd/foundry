@@ -21,9 +21,9 @@ public sealed class OperatingSystemSelectionCatalogTests
     }
 
     [Theory]
-    [InlineData("23H2", 22631)]
     [InlineData("24H2", 26100)]
     [InlineData("25H2", 26200)]
+    [InlineData("26H2", 26300)]
     public void FindRelease_KnownRelease_ReturnsBuild(string releaseId, int expectedBuild)
     {
         OperatingSystemReleaseDefinition release = Assert.IsType<OperatingSystemReleaseDefinition>(

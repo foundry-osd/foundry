@@ -16,15 +16,15 @@ public static class OperatingSystemSelectionCatalog
 {
     private static readonly OperatingSystemReleaseDefinition[] Releases =
     [
+        new("26H2", 26300),
         new("25H2", 26200),
-        new("24H2", 26100),
-        new("23H2", 22631)
+        new("24H2", 26100)
     ];
 
     /// <summary>
     /// Gets the default Windows release offered to deployment operators.
     /// </summary>
-    public const string DefaultReleaseId = "25H2";
+    public const string DefaultReleaseId = "26H2";
 
     /// <summary>
     /// Gets the default license channel offered to deployment operators.
