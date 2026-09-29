@@ -549,6 +549,12 @@ Continuer le déploiement?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>La préparation de la post-installation a échoué. Consultez le journal de déploiement pour plus de détails.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Préparation des composants de post-installation...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>Les composants de post-installation n’ont pas pu être préparés. Vérifiez votre connexion et réessayez, ou recréez le support de démarrage. Consultez le journal de déploiement pour plus de détails.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Préparation de la post-installation terminée (simulation).</value>
   </data>

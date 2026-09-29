@@ -549,6 +549,12 @@
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Η προετοιμασία της φάσης μετά την εγκατάσταση απέτυχε. Ελέγξτε το αρχείο καταγραφής ανάπτυξης για λεπτομέρειες.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Προετοιμασία στοιχείων για εργασίες μετά την εγκατάσταση...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η προετοιμασία των στοιχείων για εργασίες μετά την εγκατάσταση. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά ή δημιουργήστε ξανά το μέσο εκκίνησης. Ανατρέξτε στο αρχείο καταγραφής ανάπτυξης για λεπτομέρειες.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Η προετοιμασία για μετά την εγκατάσταση ολοκληρώθηκε (προσομοίωση).</value>
   </data>

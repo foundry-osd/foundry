@@ -18,6 +18,7 @@ namespace Foundry.Deploy.Services.Deployment.PreOobe;
 public class PreOobeContentResolver
 {
     internal string? RuntimeExecutablePath { get; init; } = Environment.GetEnvironmentVariable(PostInstallRuntimeManifest.ExecutableEnvironmentVariable);
+    internal PostInstallRuntimeRecovery RuntimeRecovery { get; init; } = new();
     internal Func<string[]> MediaRoots { get; init; } = () => DriveInfo.GetDrives().Where(drive => drive.IsReady).Select(drive => drive.RootDirectory.FullName).ToArray();
 
     internal static bool IsRequired(DeploymentContext request) =>
@@ -47,7 +48,20 @@ public class PreOobeContentResolver
         { IsEnabled = context.Request.PreOobe.IsEnabled, Actions = context.Request.PreOobe.Actions });
         if (!IsRequired(context.Request)) return null;
         string rid = ResolveRid(context.Request.OperatingSystem.Architecture);
-        var prepared = await PostInstallRuntimeSource.AcquireAsync(RuntimeExecutablePath, rid, cancellationToken).ConfigureAwait(false);
+        PreOobePreparedContent prepared;
+        if (string.IsNullOrWhiteSpace(RuntimeExecutablePath))
+        {
+            string message = Services.Localization.LocalizationText.GetString("PostInstall.RuntimePreparing");
+            context.EmitCurrentStepIndeterminate(message, message, DeploymentOperationNames.PreflightDeployment);
+            string? cacheRoot = context.Request.Mode == Models.DeploymentMode.Usb ? context.RuntimeState.ResolvedCache?.RootPath : null;
+            if (cacheRoot is not null && !await context.IsExternalStorageAsync(cacheRoot, cancellationToken).ConfigureAwait(false)) cacheRoot = null;
+            prepared = await RuntimeRecovery.AcquireAsync(rid, cacheRoot, cancellationToken,
+                context.CreateDownloadProgressReporter("Foundry.PostInstall", DeploymentOperationNames.PreflightDeployment)).ConfigureAwait(false);
+        }
+        else
+        {
+            prepared = await PostInstallRuntimeSource.AcquireAsync(RuntimeExecutablePath, rid, cancellationToken).ConfigureAwait(false);
+        }
         try
         {
             await RequireRuntimeSourceAsync(context, prepared.RuntimeDirectory, cancellationToken).ConfigureAwait(false);

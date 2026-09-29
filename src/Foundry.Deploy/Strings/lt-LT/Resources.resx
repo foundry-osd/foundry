@@ -549,6 +549,12 @@ Tęsti diegimą?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Nepavyko pasirengti etapui po diegimo. Išsamesnės informacijos ieškokite diegimo žurnale.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Ruošiami komponentai užduotims po diegimo...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>Nepavyko paruošti komponentų užduotims po diegimo. Patikrinkite ryšį ir bandykite dar kartą arba iš naujo sukurkite paleidimo laikmeną. Išsamios informacijos rasite diegimo žurnale.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Etapo po diegimo paruošimas baigtas (imitavimas).</value>
   </data>

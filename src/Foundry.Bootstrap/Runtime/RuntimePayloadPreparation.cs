@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Security.Cryptography;
+using Foundry.Utilities.IO;
 using Serilog;
 
 namespace Foundry.Bootstrap.Runtime;

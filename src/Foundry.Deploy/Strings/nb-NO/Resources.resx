@@ -549,6 +549,12 @@ Vil du fortsette med distribusjonen?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Klargjøring av fasen etter installasjonen mislyktes. Se distribusjonsloggen for detaljer.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Klargjør komponenter for oppgaver etter installasjonen...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>Komponentene for oppgaver etter installasjonen kunne ikke klargjøres. Kontroller tilkoblingen og prøv igjen, eller opprett oppstartsmediet på nytt. Se distribusjonsloggen for detaljer.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Klargjøring til etter installasjonen er fullført (simulering).</value>
   </data>

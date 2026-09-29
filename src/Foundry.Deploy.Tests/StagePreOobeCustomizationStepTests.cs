@@ -24,6 +24,31 @@ namespace Foundry.Deploy.Tests;
 public sealed class StagePreOobeCustomizationStepTests
 {
     [Fact]
+    public async Task MissingBootstrapRuntime_IsRecoveredForBuiltInOemActivation()
+    {
+        using var temp = new TemporaryDirectory();
+        using var recovery = new PostInstallRuntimeRecoveryTests.Fixture();
+        using var context = CreateContext(temp, licenseChannel: "RET");
+        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = null, RuntimeRecovery = recovery.Recovery, MediaRoots = () => [] };
+        using var prepared = await resolver.PrepareAsync(context, TestContext.Current.CancellationToken);
+        Assert.NotNull(prepared);
+        Assert.Equal(2, recovery.Requests.Count);
+        Assert.True(File.Exists(Path.Combine(prepared.RuntimeDirectory, "Foundry.PostInstall.exe")));
+        Assert.False(File.Exists(recovery.CacheArchive));
+    }
+
+    [Fact]
+    public async Task NoPostInstallTasks_DoesNotResolveRuntime()
+    {
+        using var temp = new TemporaryDirectory();
+        using var recovery = new PostInstallRuntimeRecoveryTests.Fixture();
+        using var context = CreateContext(temp);
+        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = null, RuntimeRecovery = recovery.Recovery };
+        Assert.Null(await resolver.PrepareAsync(context, TestContext.Current.CancellationToken));
+        Assert.Empty(recovery.Requests);
+    }
+
+    [Fact]
     public async Task MediaPublisher_PackagesAreCombinedWithBootstrapRuntimeAndRemainLocked()
     {
         using var temp = new TemporaryDirectory();
@@ -39,6 +64,7 @@ public sealed class StagePreOobeCustomizationStepTests
                 Process = new() }]
         };
         using var runtime = NativeRuntimeFixture.Create(temp.RootPath);
+        using var recovery = new PostInstallRuntimeRecoveryTests.Fixture();
         var publisher = new Foundry.Core.Services.WinPe.WinPePreOobeMediaService();
         using var media = await publisher.PrepareAsync(library, settings, TestContext.Current.CancellationToken);
         string mediaRoot = Path.Combine(temp.RootPath, "media");
@@ -46,11 +72,12 @@ public sealed class StagePreOobeCustomizationStepTests
         await publisher.PublishAsync(media, mediaRoot, TestContext.Current.CancellationToken);
         using DeploymentStepExecutionContext context = CreateContext(temp, postInstall: new()
         { IsEnabled = true, Actions = settings.Actions, ManifestId = media.ManifestId, ManifestHash = media.ManifestHash });
-        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = Path.Combine(runtime.RuntimeDirectory, "Foundry.PostInstall.exe"), MediaRoots = () => [mediaRoot] };
+        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = Path.Combine(runtime.RuntimeDirectory, "Foundry.PostInstall.exe"), RuntimeRecovery = recovery.Recovery, MediaRoots = () => [mediaRoot] };
         using var prepared = await resolver.PrepareAsync(context, TestContext.Current.CancellationToken);
         Assert.NotNull(prepared);
         Assert.Equal(reference.ContentHash, Assert.Single(prepared.Packages).ContentHash);
         Assert.Equal(runtime.RuntimeDirectory, prepared.RuntimeDirectory);
+        Assert.Empty(recovery.Requests);
         Assert.Throws<IOException>(() => File.Delete(Path.Combine(prepared.Packages[0].SourceRoot, "hello.ps1")));
     }
 

@@ -2,10 +2,10 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Bootstrap.Runtime;
+using Foundry.Utilities.IO;
 using Xunit;
 
-namespace Foundry.Bootstrap.Tests.Runtime;
+namespace Foundry.Utilities.Tests.IO;
 
 public sealed class RuntimeArchiveCacheTests : IDisposable
 {
