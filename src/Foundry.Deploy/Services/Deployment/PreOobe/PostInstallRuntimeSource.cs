@@ -11,7 +11,7 @@ using Foundry.Deploy.Services.Images;
 
 namespace Foundry.Deploy.Services.Deployment.PreOobe;
 
-/// <summary>Checks and holds the authenticated runtime prepared by Bootstrap until target staging.</summary>
+/// <summary>Checks and holds the authenticated runtime prepared by Bootstrap or Deploy until target staging.</summary>
 internal static class PostInstallRuntimeSource
 {
     internal static async Task<PreOobePreparedContent> AcquireAsync(string? executablePath, string expectedRid, CancellationToken cancellationToken)

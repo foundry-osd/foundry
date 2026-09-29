@@ -549,6 +549,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>설치 후 단계 준비에 실패했습니다. 자세한 내용은 배포 로그를 확인하세요.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>설치 후 작업에 필요한 구성 요소 준비 중...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>설치 후 작업에 필요한 구성 요소를 준비하지 못했습니다. 연결을 확인하고 다시 시도하거나 부팅 미디어를 다시 만드세요. 자세한 내용은 배포 로그를 확인하세요.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>설치 후 준비가 완료되었습니다(시뮬레이션).</value>
   </data>

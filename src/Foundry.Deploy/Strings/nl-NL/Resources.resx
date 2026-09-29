@@ -549,6 +549,12 @@ Doorgaan met de implementatie?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>De voorbereiding van de fase na de installatie is mislukt. Raadpleeg het implementatielogboek voor meer informatie.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Onderdelen voor taken na de installatie voorbereiden...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>De onderdelen voor taken na de installatie konden niet worden voorbereid. Controleer uw verbinding en probeer het opnieuw, of maak het opstartmedium opnieuw aan. Raadpleeg het implementatielogboek voor meer informatie.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Klaarzetten voor na de installatie voltooid (simulatie).</value>
   </data>

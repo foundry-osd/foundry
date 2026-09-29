@@ -549,6 +549,12 @@ Dağıtıma devam edilsin mi?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Kurulum sonrası aşama hazırlığı başarısız oldu. Ayrıntılar için dağıtım günlüğünü kontrol edin.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Kurulum sonrası bileşenler hazırlanıyor...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>Kurulum sonrası bileşenler hazırlanamadı. Bağlantınızı kontrol edip yeniden deneyin veya önyükleme medyasını yeniden oluşturun. Ayrıntılar için dağıtım günlüğüne bakın.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Kurulum sonrası hazırlık tamamlandı (benzetim).</value>
   </data>

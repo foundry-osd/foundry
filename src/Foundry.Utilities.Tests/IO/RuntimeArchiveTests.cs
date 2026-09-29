@@ -3,10 +3,10 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO.Compression;
-using Foundry.Bootstrap.Runtime;
+using Foundry.Utilities.IO;
 using Xunit;
 
-namespace Foundry.Bootstrap.Tests.Runtime;
+namespace Foundry.Utilities.Tests.IO;
 
 public sealed class RuntimeArchiveTests : IDisposable
 {

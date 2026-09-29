@@ -549,6 +549,12 @@ Vil du fortsætte med implementeringen?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Forberedelsen af fasen efter installationen mislykkedes. Se installationsloggen for detaljer.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Forbereder komponenter til opgaver efter installationen...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>Komponenterne til opgaver efter installationen kunne ikke forberedes. Kontrollér forbindelsen, og prøv igen, eller opret startmediet igen. Se udrulningsloggen for at få flere oplysninger.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Klargøring til efter installationen er afsluttet (simulering).</value>
   </data>

@@ -549,6 +549,12 @@
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>เตรียมขั้นตอนหลังการติดตั้งไม่สำเร็จ ดูรายละเอียดในบันทึกการปรับใช้</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>กำลังเตรียมส่วนประกอบสำหรับงานหลังการติดตั้ง...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>ไม่สามารถเตรียมส่วนประกอบสำหรับงานหลังการติดตั้งได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง หรือสร้างสื่อสำหรับบูตใหม่ ดูรายละเอียดในบันทึกการปรับใช้</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>จัดเตรียมขั้นตอนหลังการติดตั้งเสร็จแล้ว (การจำลอง)</value>
   </data>

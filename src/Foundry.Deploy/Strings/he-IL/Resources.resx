@@ -549,6 +549,12 @@ ErrorCode=0x80070005
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>הכנת השלב שלאחר ההתקנה נכשלה. לפרטים, בדוק את יומן הפריסה.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>מכין רכיבים לפעולות לאחר ההתקנה...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>לא ניתן היה להכין את הרכיבים לפעולות לאחר ההתקנה. יש לבדוק את החיבור ולנסות שוב, או ליצור מחדש את מדיית האתחול. לפרטים, יש לעיין ביומן הפריסה.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>הכנת השלב שלאחר ההתקנה הושלמה (הדמיה).</value>
   </data>

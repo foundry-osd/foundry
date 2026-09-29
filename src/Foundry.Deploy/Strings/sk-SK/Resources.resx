@@ -549,6 +549,12 @@ Pokračovať v nasadzovaní?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Príprava fázy po inštalácii zlyhala. Podrobnosti nájdete v denníku nasadenia.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Príprava súčastí pre úlohy po inštalácii...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>Nepodarilo sa pripraviť súčasti pre úlohy po inštalácii. Skontrolujte pripojenie a skúste to znova alebo znova vytvorte zavádzacie médium. Podrobnosti nájdete v denníku nasadenia.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Príprava fázy po inštalácii bola dokončená (simulácia).</value>
   </data>

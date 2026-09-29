@@ -549,6 +549,12 @@ Continue with deployment?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Post-installation preparation failed. Check the deployment log for details.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Preparing post-installation components...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>The post-installation components could not be prepared. Check your connection and retry, or recreate the boot media. See the deployment log for details.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Post-installation staging completed (simulation).</value>
   </data>

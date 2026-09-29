@@ -35,6 +35,11 @@ public sealed class PreflightDeploymentStep(
                 context.PostInstallContent = await (postInstallResolver ?? new PreOobe.PreOobeContentResolver())
                     .PrepareAsync(context, cancellationToken).ConfigureAwait(false);
             }
+            catch (PreOobe.PostInstallRuntimeUnavailableException exception)
+            {
+                Serilog.Log.ForContext<PreflightDeploymentStep>().Error(exception, "Post-installation runtime recovery failed.");
+                return Failed("PostInstall.RuntimeUnavailable", "postinstall_runtime_unavailable");
+            }
             catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException or InvalidOperationException or HttpRequestException)
             {
                 Serilog.Log.ForContext<PreflightDeploymentStep>().Error(exception, "Post-installation readiness validation failed.");

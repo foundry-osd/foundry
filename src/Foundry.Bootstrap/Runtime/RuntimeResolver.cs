@@ -4,6 +4,7 @@
 
 using System.Text.Json;
 using Foundry.Core.Services.Runtime;
+using Foundry.Utilities.IO;
 using Serilog;
 
 namespace Foundry.Bootstrap.Runtime;
@@ -57,15 +58,8 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
             using var lookupDeadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             if (applicationName == "Foundry.Connect") lookupDeadline.CancelAfter(TimeSpan.FromSeconds(5));
             using JsonDocument release = await transfer.ReadReleaseAsync(releaseUrl, lookupDeadline.Token).ConfigureAwait(false);
-            string assetName = $"{applicationName}-{runtimeIdentifier}.zip";
-            JsonElement[] assets = release.RootElement.GetProperty("assets").EnumerateArray()
-                .Where(item => string.Equals(item.GetProperty("name").GetString(), assetName, StringComparison.Ordinal)).ToArray();
-            if (assets.Length != 1) throw new InvalidDataException($"Release must contain exactly one '{assetName}' asset.");
-            JsonElement asset = assets[0];
-            string? digest = asset.TryGetProperty("digest", out JsonElement value) && value.ValueKind == JsonValueKind.String
-                ? value.GetString() : null;
-            string expectedHash = RuntimePayloadPreparation.RequireHash(
-                digest?.StartsWith("sha256:", StringComparison.OrdinalIgnoreCase) == true ? digest[7..] : null);
+            RuntimeReleaseAsset asset = RuntimeReleaseAsset.Parse(release.RootElement, applicationName, runtimeIdentifier);
+            string expectedHash = asset.Sha256;
 
             if (File.Exists(currentArchive))
             {
@@ -81,10 +75,7 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
                 }
             }
 
-            string? downloadUrl = asset.GetProperty("browser_download_url").GetString();
-            if (!Uri.TryCreate(downloadUrl, UriKind.Absolute, out Uri? uri) || uri.Scheme != Uri.UriSchemeHttps)
-                throw new InvalidDataException("Runtime release asset must use HTTPS.");
-            return await preparation.PrepareAsync(downloadUrl!, expectedHash, applicationName, cancellationToken,
+            return await preparation.PrepareAsync(asset.DownloadUrl, expectedHash, applicationName, cancellationToken,
                 archive => PersistUpdateAsync(archive, currentArchive, applicationName, cancellationToken)).ConfigureAwait(false);
         }
         catch (Exception exception) when (CanFallBack(exception, cancellationToken))

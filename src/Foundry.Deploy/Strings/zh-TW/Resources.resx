@@ -549,6 +549,12 @@
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>安裝後階段準備失敗。請查看部署記錄以取得詳細資訊。</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>正在準備安裝後處理元件...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>無法準備安裝後處理元件。請檢查連線並重試，或重新建立開機媒體。如需詳細資訊，請參閱部署記錄。</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>安裝後暫存已完成（模擬）。</value>
   </data>

@@ -2,12 +2,13 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-namespace Foundry.Bootstrap.Runtime;
+namespace Foundry.Utilities.IO;
 
 /// <summary>Publishes an optional verified update archive without replacing the original media payload.</summary>
-internal static class RuntimeArchiveCache
+public static class RuntimeArchiveCache
 {
-    internal static async Task StoreAsync(string source, string destination, CancellationToken cancellationToken)
+    /// <summary>Atomically replaces a cached archive with an already verified source, retaining the previous archive on failure.</summary>
+    public static async Task StoreAsync(string source, string destination, CancellationToken cancellationToken)
     {
         string directory = Path.GetDirectoryName(Path.GetFullPath(destination))!;
         RejectReparsePoints(directory);

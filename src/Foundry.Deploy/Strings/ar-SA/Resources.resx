@@ -549,6 +549,12 @@
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>فشل التحضير لمرحلة ما بعد التثبيت. راجع سجل النشر للحصول على التفاصيل.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>جارٍ إعداد مكونات ما بعد التثبيت...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>تعذر إعداد مكونات ما بعد التثبيت. تحقق من الاتصال وأعد المحاولة، أو أعد إنشاء وسائط التمهيد. راجع سجل النشر للحصول على التفاصيل.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>اكتمل تجهيز مرحلة ما بعد التثبيت (محاكاة).</value>
   </data>
