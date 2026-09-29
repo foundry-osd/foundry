@@ -10,6 +10,44 @@ namespace Foundry.Telemetry.Tests;
 public sealed class PostHogExceptionTrackerTests
 {
     [Fact]
+    public void Track_PreservesSanitizedAdkDiagnosticsAfterPersistence()
+    {
+        LogEvent source = RemoteDiagnosticsTestData.LogEvent(LogEventLevel.Error,
+            "ADK operation failed. OperationKind={OperationKind}, FailureReason={FailureReason}, ExitCode={ExitCode}",
+            new InvalidOperationException("private installer path C:\\Users\\alice\\setup.exe"),
+            ("OperationId", "operation-1"), ("OperationKind", "AdkInstall"),
+            ("FailureKind", "adk_setup"), ("FailureReason", "installer_exit_failed"),
+            ("FailedOperationName", "install_adk"), ("ExitCode", -2146889721),
+            ("ExitCodeHex", "0x80091007"), ("NativeErrorCode", 5),
+            ("InstallerVersion", "10.1.26100.2454"), ("InstallerName", "adksetup.exe"),
+            ("SetupLogId", "setup-1"), ("SetupLogPath", "C:\\Users\\alice\\setup.log"),
+            ("SetupLogContent", "private installer output"));
+
+        RemoteDiagnosticRecord record = RemoteDiagnosticPropertyPolicy.SanitizePersistedRecord(
+            RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, RemoteDiagnosticsTestData.Context()));
+        var client = new RecordingPostHogEventClient();
+        new PostHogExceptionTracker(client, "install-1").Track(record);
+
+        CapturedPostHogEvent captured = Assert.Single(client.Events);
+        Assert.Equal("operation-1", captured.Properties["operation.id"]);
+        Assert.Equal("AdkInstall", captured.Properties["operation.kind"]);
+        Assert.Equal("adk_setup", captured.Properties["failure.kind"]);
+        Assert.Equal("installer_exit_failed", captured.Properties["failure.reason"]);
+        Assert.Equal("install_adk", captured.Properties["failure.operation"]);
+        Assert.Equal(-2146889721, captured.Properties["process.exit_code"]);
+        Assert.Equal("0x80091007", captured.Properties["process.exit_code_hex"]);
+        Assert.Equal(5, captured.Properties["process.native_error_code"]);
+        Assert.Equal("10.1.26100.2454", captured.Properties["installer.version"]);
+        Assert.Equal("adksetup.exe", captured.Properties["installer.name"]);
+        Assert.Equal("setup-1", captured.Properties["installer.log_id"]);
+        Assert.Contains("installer_exit_failed", Assert.IsType<string>(captured.Properties["$exception_message"]));
+        Assert.DoesNotContain("alice", captured.SerializedProperties);
+        Assert.DoesNotContain("private", captured.SerializedProperties);
+        Assert.DoesNotContain("SetupLogPath", captured.SerializedProperties);
+        Assert.DoesNotContain("SetupLogContent", captured.SerializedProperties);
+    }
+
+    [Fact]
     public void Track_OrdersEachExceptionStackFromEntryPointToCrashSite()
     {
         var client = new RecordingPostHogEventClient();

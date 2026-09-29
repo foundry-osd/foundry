@@ -10,6 +10,22 @@ namespace Foundry.Telemetry.Tests;
 
 public sealed class RemoteDiagnosticPropertyPolicyTests
 {
+    [Theory]
+    [InlineData("InstallerName", "installer.name")]
+    [InlineData("InstallerVersion", "installer.version")]
+    [InlineData("SetupLogId", "installer.log_id")]
+    public void CreateSanitizedRecord_SanitizesInstallerMetadata(string sourceName, string remoteName)
+    {
+        LogEvent source = CreateLogEvent(LogEventLevel.Error, "Installer failure", null,
+            (sourceName, "C:\\Users\\alice\\setup.exe token=private-token"));
+
+        RemoteDiagnosticRecord record = RemoteDiagnosticPropertyPolicy.CreateSanitizedRecord(source, CreateContext());
+
+        string value = Assert.IsType<string>(record.Attributes[remoteName]);
+        Assert.DoesNotContain("alice", value);
+        Assert.DoesNotContain("private-token", value);
+    }
+
     [Fact]
     public void CreateSanitizedRecord_RemovesUnknownAndSensitiveProperties()
     {

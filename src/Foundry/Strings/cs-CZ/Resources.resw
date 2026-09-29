@@ -97,6 +97,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Možnost vytváření médií</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Operace Windows ADK byla zrušena.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>Operace ADK dokončena</value>
   </data>

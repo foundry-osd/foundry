@@ -97,6 +97,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Δυνατότητα δημιουργίας πολυμέσων</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Η λειτουργία του Windows ADK ακυρώθηκε.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>Η λειτουργία ADK ολοκληρώθηκε</value>
   </data>

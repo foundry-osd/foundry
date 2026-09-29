@@ -97,6 +97,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Multivides izveides iespēja</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Windows ADK darbība ir atcelta.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK darbība pabeigta</value>
   </data>
