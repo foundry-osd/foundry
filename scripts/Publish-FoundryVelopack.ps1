@@ -9,7 +9,7 @@ param(
     [ValidateSet('Release', 'Debug')]
     [string]$Configuration = 'Release',
 
-    [string]$VpkVersion = '1.2.158',
+    [string]$VpkVersion = '1.2.161',
 
     [string]$VelopackFeedUrl = 'https://github.com/foundry-osd/foundry',
 
