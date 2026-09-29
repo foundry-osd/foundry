@@ -313,8 +313,8 @@ public sealed class WinPeBootImagePreparationServiceTests
                                     </Item>
                                     <Item>
                                       <WindowsRelease>11</WindowsRelease>
-                                      <ReleaseId>23H2</ReleaseId>
-                                      <BuildMajor>22631</BuildMajor>
+                                      <ReleaseId>25H2</ReleaseId>
+                                      <BuildMajor>26200</BuildMajor>
                                       <BuildUbr>5337</BuildUbr>
                                       <Architecture>x64</Architecture>
                                       <LanguageCode>fr-fr</LanguageCode>

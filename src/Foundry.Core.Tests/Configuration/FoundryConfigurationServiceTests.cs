@@ -10,6 +10,51 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class FoundryConfigurationServiceTests
 {
+    [Theory]
+    [InlineData("[\"99H1\"]", null)]
+    [InlineData("[]", null)]
+    [InlineData("[\"99H1\",\"24H2\"]", "24H2")]
+    [InlineData("[\"26H2\"]", "26H2")]
+    public void Deserialize_PublishedConfiguration_MigratesUnavailableReleasePolicy(string allowedReleases, string? expectedDefault)
+    {
+        var service = new FoundryConfigurationService();
+        string json = $$$"""
+            {
+              "schemaVersion":16,
+              "operatingSystemSelection":{
+                "isEnabled":true,
+                "allowedReleaseIds":{{{allowedReleases}}},
+                "defaultReleaseId":"99H1",
+                "allowedLanguageCodes":["fr-FR"],
+                "defaultLanguageCode":"fr-FR",
+                "defaultMediaOffset":2,
+                "allowedLicenseChannels":["VOL"],
+                "defaultLicenseChannel":"VOL",
+                "allowedEditions":["Enterprise"],
+                "defaultEdition":"Enterprise"
+              }
+            }
+            """;
+
+        FoundryConfigurationDocument document = service.Deserialize(json);
+        var generated = new DeployConfigurationGenerator().Generate(document);
+
+        Assert.Equal(17, document.SchemaVersion);
+        Assert.Equal(14, generated.SchemaVersion);
+        Assert.Equal(expectedDefault is null ? [] : new[] { expectedDefault }, document.OperatingSystemSelection.AllowedReleaseIds);
+        Assert.Equal(expectedDefault, document.OperatingSystemSelection.DefaultReleaseId);
+        Assert.Equal(["fr-FR"], document.OperatingSystemSelection.AllowedLanguageCodes);
+        Assert.Equal("fr-FR", document.OperatingSystemSelection.DefaultLanguageCode);
+        Assert.Equal(2, document.OperatingSystemSelection.DefaultMediaOffset);
+        Assert.Equal(["VOL"], document.OperatingSystemSelection.AllowedLicenseChannels);
+        Assert.Equal("VOL", document.OperatingSystemSelection.DefaultLicenseChannel);
+        Assert.Equal(["Enterprise"], document.OperatingSystemSelection.AllowedEditions);
+        Assert.Equal("Enterprise", document.OperatingSystemSelection.DefaultEdition);
+        Assert.Equal(document.OperatingSystemSelection.AllowedReleaseIds, generated.OperatingSystemSelection.AllowedReleaseIds);
+        Assert.Equal(expectedDefault, generated.OperatingSystemSelection.DefaultReleaseId);
+        Assert.True(generated.OperatingSystemSelection.IsEnabled);
+    }
+
     [Fact]
     public void DefaultConfiguration_DisablesNetworkProfileRoaming()
     {

@@ -12,9 +12,9 @@ namespace Foundry.Deploy.Tests;
 public sealed class CustomImageSelectionTests
 {
     [Theory]
-    [InlineData(22631, "23H2")]
     [InlineData(26100, "24H2")]
     [InlineData(26200, "25H2")]
+    [InlineData(26300, "26H2")]
     public void Selection_RecognizedClientBuildUsesCatalogDriverRelease(int build, string release)
     {
         var selection = CreateSelection(new CustomImageIndex { Index = 1, Build = build, ProductType = "WinNT" });
@@ -30,6 +30,7 @@ public sealed class CustomImageSelectionTests
     [InlineData("", 26100)]
     [InlineData("Unknown", 26100)]
     [InlineData("WinNT", 99999)]
+    [InlineData("WinNT", 22631)]
     public void Selection_ServerOrUnknownMetadataDoesNotInheritClientDriverRelease(string productType, int build)
     {
         var selection = CreateSelection(new CustomImageIndex { Index = 1, Build = build, ProductType = productType });
@@ -40,15 +41,15 @@ public sealed class CustomImageSelectionTests
     }
 
     [Theory]
-    [InlineData(true, "24H2")]
-    [InlineData(false, "23H2")]
-    public void Selection_Custom24H2UsesSameDriverPreferenceAndFallbackAsCatalog(bool hasExactRelease, string expectedRelease)
+    [InlineData(true, "25H2")]
+    [InlineData(false, "24H2")]
+    public void Selection_Custom25H2UsesSameDriverPreferenceAndFallbackAsCatalog(bool hasExactRelease, string expectedRelease)
     {
         var service = new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance);
         var hardware = new HardwareProfile { Manufacturer = "Dell", Model = "Latitude 5450", Product = "Latitude 5450" };
-        var custom = CreateSelection(new CustomImageIndex { Index = 2, Build = 26100, ProductType = "WinNT", Architecture = "x64" });
-        var catalog = new OperatingSystemCatalogItem { WindowsRelease = "11", ReleaseId = "24H2", Architecture = "x64" };
-        string[] releases = hasExactRelease ? ["25H2", "24H2", "23H2"] : ["25H2", "23H2"];
+        var custom = CreateSelection(new CustomImageIndex { Index = 2, Build = 26200, ProductType = "WinNT", Architecture = "x64" });
+        var catalog = new OperatingSystemCatalogItem { WindowsRelease = "11", ReleaseId = "25H2", Architecture = "x64" };
+        string[] releases = hasExactRelease ? ["26H2", "25H2", "24H2"] : ["26H2", "24H2"];
         DriverPackCatalogItem[] packs = releases.Select(release => new DriverPackCatalogItem
         {
             Id = release,
@@ -58,7 +59,7 @@ public sealed class CustomImageSelectionTests
             OsReleaseId = release,
             OsArchitecture = "x64",
             ModelNames = ["Latitude 5450"],
-            ReleaseDate = release == "25H2" ? new DateTimeOffset(2026, 1, 1, 0, 0, 0, TimeSpan.Zero) : new DateTimeOffset(2025, 1, 1, 0, 0, 0, TimeSpan.Zero)
+            ReleaseDate = release == "26H2" ? new DateTimeOffset(2026, 1, 1, 0, 0, 0, TimeSpan.Zero) : new DateTimeOffset(2025, 1, 1, 0, 0, 0, TimeSpan.Zero)
         }).ToArray();
 
         Assert.Equal(expectedRelease, service.SelectBest(packs, hardware, catalog).DriverPack?.Id);

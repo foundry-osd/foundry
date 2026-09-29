@@ -44,7 +44,7 @@ public sealed class DriverPackSelectionService : IDriverPackSelectionService
             {
                 DriverPack = null,
                 SelectionReason =
-                    $"Unsupported operating system selection. Foundry.Deploy supports Windows {OperatingSystemSupportMatrix.SupportedWindowsRelease} 23H2, 24H2, and 25H2 only."
+                    $"Unsupported operating system selection. Foundry.Deploy supports Windows {OperatingSystemSupportMatrix.SupportedWindowsRelease} catalog releases {string.Join(", ", OperatingSystemSupportMatrix.ReleaseSearchOrder)} only."
             };
         }
 

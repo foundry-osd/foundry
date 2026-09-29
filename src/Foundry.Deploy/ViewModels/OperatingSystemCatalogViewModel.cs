@@ -257,17 +257,13 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
                 "release IDs",
                 ref _hasLoggedUnavailableConfiguredReleaseIds,
                 out _isReleaseIdRestrictedToSingleOption);
-            SelectedReleaseId = UpdateFilterSelection(
-                ReleaseIdFilters,
-                effectiveReleaseValues,
-                previousReleaseId,
-                _configuredDefaultReleaseId ?? DefaultReleaseId,
-                selectFirstWhenNoMatch: true);
+            SelectedReleaseId = UpdateReleaseFilterSelection(effectiveReleaseValues, previousReleaseId);
             LogUnavailableDefault(
                 _configuredDefaultReleaseId,
                 ReleaseIdFilters,
                 "release ID",
-                ref _hasLoggedUnavailableDefaultReleaseId);
+                ref _hasLoggedUnavailableDefaultReleaseId,
+                SelectedReleaseId);
 
             IEnumerable<OperatingSystemCatalogItem> mediaScope = ApplyReleaseIdFilter(releaseScope);
             OperatingSystemMediaOption[] mediaOptions = BuildMediaOptions(mediaScope);
@@ -304,7 +300,8 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
                 _configuredDefaultEdition,
                 EditionFilters,
                 "edition",
-                ref _hasLoggedUnavailableDefaultEdition);
+                ref _hasLoggedUnavailableDefaultEdition,
+                SelectedEdition);
 
             IEnumerable<OperatingSystemCatalogItem> licenseScope = ApplyEditionMediaFilter(editionScope);
             IEnumerable<string> effectiveLicenseChannelValues = BuildEffectiveFilterValues(
@@ -323,7 +320,8 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
                 _configuredDefaultLicenseChannel,
                 LicenseChannelFilters,
                 "license channel",
-                ref _hasLoggedUnavailableDefaultLicenseChannel);
+                ref _hasLoggedUnavailableDefaultLicenseChannel,
+                SelectedLicenseChannel);
             _isLicenseChannelRestrictedToSingleOption = LicenseChannelFilters.Count == 1;
         }
         finally
@@ -532,9 +530,10 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         {
             string configuredValues = string.Join(", ", configuredAllowedValues.OrderBy(value => value, StringComparer.OrdinalIgnoreCase));
             _logger.LogWarning(
-                "Configured operating system {SelectorName} [{ConfiguredValues}] do not match the current catalog scope. Falling back to the catalog values.",
+                "Configured operating system {SelectorName} [{ConfiguredValues}] do not match the current catalog scope. Falling back to available catalog values [{AvailableValues}].",
                 selectorName,
-                configuredValues);
+                configuredValues,
+                string.Join(", ", available));
             hasLoggedUnavailableValues = true;
         }
 
@@ -650,7 +649,7 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         ResetConfiguredValues(_configuredAllowedEditions, settings.AllowedEditions, static value => value.Trim());
 
         _configuredDefaultLanguageCode = NormalizeOptionalLanguageCode(settings.DefaultLanguageCode);
-        _configuredDefaultReleaseId = NormalizeOptionalKnownValue(settings.DefaultReleaseId, OperatingSystemSupportMatrix.ReleaseSearchOrder, static value => value.Trim());
+        _configuredDefaultReleaseId = settings.DefaultReleaseId?.Trim();
         _configuredDefaultMediaOffset = Math.Clamp(settings.DefaultMediaOffset, 0, 11);
         _configuredDefaultLicenseChannel = NormalizeOptionalKnownValue(settings.DefaultLicenseChannel, OperatingSystemSupportMatrix.LicenseChannelOrder, NormalizeLicenseChannel);
         _configuredDefaultEdition = NormalizeOptionalKnownValue(settings.DefaultEdition, OperatingSystemSupportMatrix.EditionOrder, static value => value.Trim());
@@ -740,6 +739,22 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         return true;
     }
 
+    private string UpdateReleaseFilterSelection(IEnumerable<string> values, string previousSelection)
+    {
+        UpdateFilterCollection(ReleaseIdFilters, values);
+        IEnumerable<string?> candidates = new[] { previousSelection, _configuredDefaultReleaseId, DefaultReleaseId }
+            .Concat(OperatingSystemSupportMatrix.ReleaseSearchOrder);
+        foreach (string? candidate in candidates)
+        {
+            if (TryGetFilterSelection(candidate, ReleaseIdFilters, out string selected))
+            {
+                return selected;
+            }
+        }
+
+        return string.Empty;
+    }
+
     private static string UpdateFilterSelection(
         ObservableCollection<string> target,
         IEnumerable<string> values,
@@ -812,7 +827,8 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         string? configuredDefault,
         ObservableCollection<string> options,
         string selectorName,
-        ref bool hasLoggedUnavailableDefault)
+        ref bool hasLoggedUnavailableDefault,
+        string selectedValue)
     {
         if (hasLoggedUnavailableDefault ||
             string.IsNullOrWhiteSpace(configuredDefault) ||
@@ -823,9 +839,10 @@ public sealed partial class OperatingSystemCatalogViewModel : ObservableObject
         }
 
         _logger.LogWarning(
-            "Configured default operating system {SelectorName} '{ConfiguredDefault}' is not available in the current catalog scope and was ignored.",
+            "Configured default operating system {SelectorName} '{ConfiguredDefault}' is not available in the current catalog scope. Selected '{SelectedValue}' instead.",
             selectorName,
-            configuredDefault);
+            configuredDefault,
+            selectedValue);
         hasLoggedUnavailableDefault = true;
     }
 

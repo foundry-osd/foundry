@@ -7,7 +7,7 @@
 <p>
   <a href="https://github.com/foundry-osd/foundry/releases/latest"><img src="https://img.shields.io/github/v/release/foundry-osd/foundry?display_name=tag&sort=semver&style=flat&label=Latest%20Release&labelColor=24292F&color=2563EB" alt="Latest release"></a>
   <a href="https://github.com/foundry-osd/foundry/releases"><img src="https://img.shields.io/github/downloads/foundry-osd/foundry/total?style=flat&label=Downloads&labelColor=24292F&color=22A06B" alt="Total downloads"></a>
-  <a href="https://docs.foundryosd.com/reference/supported-versions"><img src="https://img.shields.io/badge/OS%20Scope-Windows%2011%2023H2%20%7C%2024H2%20%7C%2025H2-2563EB?style=flat&logo=windows11&logoColor=white&labelColor=24292F" alt="Windows 11 23H2, 24H2, and 25H2"></a>
+  <a href="https://docs.foundryosd.com/reference/supported-versions"><img src="https://img.shields.io/badge/OS%20Scope-Windows%2011%2024H2%20%7C%2025H2%20%7C%2026H2-2563EB?style=flat&logo=windows11&logoColor=white&labelColor=24292F" alt="Windows 11 24H2, 25H2, and 26H2"></a>
   <img src="https://img.shields.io/badge/Architecture-x64%20%7C%20ARM64-2563EB?style=flat&labelColor=24292F" alt="Architecture x64 and ARM64">
   <a href="LICENSE"><img src="https://img.shields.io/github/license/foundry-osd/foundry?style=flat&label=License&labelColor=24292F&color=2563EB" alt="MIT license"></a>
 </p>
