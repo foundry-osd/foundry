@@ -106,9 +106,9 @@ public static class FoundryApplicationInfo
     public const string RepositoryUrl = Constants.RepositoryUrl;
 
     /// <summary>
-    /// Gets the GitHub contributors API endpoint.
+    /// Gets the GitHub commits API endpoint for author and coauthor credits.
     /// </summary>
-    public const string ContributorsApiUrl = "https://api.github.com/repos/foundry-osd/foundry/contributors";
+    public const string CommitsApiUrl = "https://api.github.com/repos/foundry-osd/foundry/commits";
 
     /// <summary>
     /// Gets the issue tracker URL.
