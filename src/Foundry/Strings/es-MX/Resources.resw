@@ -97,6 +97,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Capacidad de creación de medios</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Operación de Windows ADK cancelada.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK operación completada</value>
   </data>

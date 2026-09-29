@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Diagnostics;
 using Foundry.Core.Services.Adk;
 using Foundry.Core.Services.Storage;
 using Foundry.Services.Localization;
@@ -85,30 +84,40 @@ internal sealed class AdkService(
         // ADK setup changes machine-level state and may show UAC, so only one install or upgrade can run at a time.
         await operationLock.WaitAsync(cancellationToken);
         string terminalStatus = string.Empty;
+        string operationId = Guid.NewGuid().ToString("N");
+        string stage = "download_adk";
+        ILogger operationLogger = logger.ForContext("OperationId", operationId)
+            .ForContext("OperationKind", operationKind);
 
         try
         {
             operationProgressService.Start(operationKind, GetOperationStartText(operationKind));
+            operationLogger.Information("ADK operation started. OperationKind={OperationKind}", operationKind);
             Directory.CreateDirectory(Constants.InstallerCacheDirectoryPath);
 
             await using CachedArtifactLease adkSetup = await DownloadInstallerAsync(AdkSetupUrl, AdkSetupFileName, uninstallFirst ? 35 : 20, cancellationToken);
+            stage = "download_winpe";
             await using CachedArtifactLease winPeSetup = await DownloadInstallerAsync(WinPeSetupUrl, WinPeSetupFileName, uninstallFirst ? 45 : 40, cancellationToken);
             if (uninstallFirst)
             {
-                await UninstallExistingBundlesAsync(cancellationToken);
+                stage = "uninstall";
+                await UninstallExistingBundlesAsync(operationId, operationLogger, cancellationToken);
             }
 
+            stage = "install_adk";
             operationProgressService.Report(uninstallFirst ? 70 : 55, localizationService.GetString("Adk.Operation.InstallingAdk"));
-            await RunElevatedProcessAsync(adkSetup.Path, AdkInstallArguments, cancellationToken);
+            await RunSetupAsync(adkSetup.Path, AdkInstallArguments, operationId, stage, operationLogger, cancellationToken);
 
+            stage = "install_winpe";
             operationProgressService.Report(uninstallFirst ? 88 : 80, localizationService.GetString("Adk.Operation.InstallingWinPe"));
-            await RunElevatedProcessAsync(winPeSetup.Path, WinPeInstallArguments, cancellationToken);
+            await RunSetupAsync(winPeSetup.Path, WinPeInstallArguments, operationId, stage, operationLogger, cancellationToken);
 
+            stage = "verify";
             operationProgressService.Report(95, localizationService.GetString("Adk.Operation.Verifying"));
             AdkInstallationStatus status = await RefreshStatusAsync(cancellationToken);
             terminalStatus = localizationService.GetString(status.CanCreateMedia ? "Adk.Operation.Completed" : "Adk.Operation.NeedsAttention");
             operationProgressService.Complete(terminalStatus);
-            logger.Information(
+            operationLogger.ForContext("Outcome", status.CanCreateMedia ? "succeeded" : "needs_attention").Information(
                 "ADK operation completed. OperationKind={OperationKind}, IsCompatible={IsCompatible}, InstalledVersion={InstalledVersion}",
                 operationKind,
                 status.IsCompatible,
@@ -116,9 +125,34 @@ internal sealed class AdkService(
 
             return status;
         }
+        catch (AdkSetupException ex) when (ex.Reason == "elevation_cancelled")
+        {
+            CreateSetupFailureLogger(operationLogger, ex, stage)
+                .ForContext("Cancelled", true).ForContext("Outcome", "cancelled")
+                .Warning("ADK operation canceled. FailureReason={FailureReason}", ex.Reason);
+            terminalStatus = localizationService.GetString("Adk.Operation.Cancelled");
+            operationProgressService.Report(100, terminalStatus);
+            throw;
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            operationLogger.ForContext("FailedOperationName", stage)
+                .ForContext("Cancelled", true).ForContext("Outcome", "cancelled")
+                .Warning("ADK operation canceled. FailureReason={FailureReason}", "operation_cancelled");
+            terminalStatus = localizationService.GetString("Adk.Operation.Cancelled");
+            operationProgressService.Report(100, terminalStatus);
+            throw;
+        }
         catch (Exception ex)
         {
-            logger.Error(ex, "ADK operation failed. OperationKind={OperationKind}", operationKind);
+            AdkSetupException? setupException = ex as AdkSetupException;
+            ILogger failureLogger = setupException is not null
+                ? CreateSetupFailureLogger(operationLogger, setupException, stage)
+                : operationLogger.ForContext("FailedOperationName", stage).ForContext("FailureKind", "adk");
+            failureLogger.ForContext("Outcome", "failed").Error(ex,
+                "ADK operation failed. OperationKind={OperationKind}, FailureReason={FailureReason}, ExitCode={ExitCode}, NativeErrorCode={NativeErrorCode}",
+                operationKind, setupException?.Reason ?? "operation_failed",
+                setupException?.ExitCode, setupException?.NativeErrorCode);
             terminalStatus = localizationService.GetString("Adk.Operation.Failed");
             operationProgressService.Report(100, terminalStatus);
             throw;
@@ -159,7 +193,7 @@ internal sealed class AdkService(
             TargetAdkVersion, lease.CacheHit, "CompletedVersionedTransfer");
         return lease;
     }
-    private async Task UninstallExistingBundlesAsync(CancellationToken cancellationToken)
+    private async Task UninstallExistingBundlesAsync(string operationId, ILogger operationLogger, CancellationToken cancellationToken)
     {
         // Upgrade uses the registered uninstall commands instead of assuming a fixed ADK install location.
         IReadOnlyList<AdkUninstallCommand> uninstallCommands = AdkUninstallCommandSelector.SelectBundleUninstallCommands(
@@ -178,35 +212,54 @@ internal sealed class AdkService(
                     ? localizationService.GetString("Adk.Operation.UninstallingWinPe")
                     : localizationService.GetString("Adk.Operation.UninstallingAdk"));
 
-            logger.Information(
+            operationLogger.Information(
                 "Uninstalling existing ADK bundle. DisplayName={DisplayName}, FileName={FileName}",
                 command.DisplayName,
                 Path.GetFileName(command.FileName));
-            await RunElevatedProcessAsync(command.FileName, command.Arguments, cancellationToken);
+            string stage = GetUninstallStage(command.FileName);
+            await RunSetupAsync(command.FileName, command.Arguments, operationId, stage, operationLogger, cancellationToken);
         }
     }
 
-    private static async Task RunElevatedProcessAsync(string setupPath, string arguments, CancellationToken cancellationToken)
+    private static async Task RunSetupAsync(
+        string setupPath, string arguments, string operationId, string stage,
+        ILogger operationLogger, CancellationToken cancellationToken)
     {
-        if (!File.Exists(setupPath))
-        {
-            throw new FileNotFoundException("ADK setup executable was not found.", setupPath);
-        }
+        string logId = $"{operationId}-{stage}";
+        string logPath = Path.Combine(Constants.LogDirectoryPath, "Adk", $"{logId}.log");
+        ILogger setupLogger = operationLogger.ForContext("Stage", stage)
+            .ForContext("InstallerName", Path.GetFileName(setupPath))
+            .ForContext("SetupLogId", logId).ForContext("SetupLogPath", logPath);
+        if (stage is "install_adk" or "install_winpe")
+            setupLogger = setupLogger.ForContext("InstallerVersion", TargetAdkVersion);
 
-        using Process process = Process.Start(new ProcessStartInfo
-        {
-            FileName = setupPath,
-            Arguments = arguments,
-            UseShellExecute = true,
-            Verb = "runas"
-        }) ?? throw new InvalidOperationException($"Unable to start '{setupPath}'.");
-
-        await process.WaitForExitAsync(cancellationToken);
-        if (process.ExitCode is not 0 and not 3010)
-        {
-            throw new InvalidOperationException($"'{Path.GetFileName(setupPath)}' exited with code {process.ExitCode}.");
-        }
+        setupLogger.Information("ADK setup starting. Stage={Stage}, SetupLogId={SetupLogId}", stage, logId);
+        int exitCode = await new AdkSetupRunner().RunAsync(setupPath, arguments, logPath, cancellationToken);
+        setupLogger.ForContext("ExitCode", exitCode).ForContext("ExitCodeHex", $"0x{exitCode:X8}")
+            .Information("ADK setup completed. Stage={Stage}, ExitCode={ExitCode}", stage, exitCode);
     }
+
+    /// <summary>Preserves native failure details without putting machine paths in Error Tracking fields.</summary>
+    private static ILogger CreateSetupFailureLogger(ILogger operationLogger, AdkSetupException exception, string stage)
+    {
+        if (stage == "uninstall") stage = GetUninstallStage(exception.SetupPath);
+        ILogger failureLogger = operationLogger.ForContext("FailureKind", "adk_setup")
+            .ForContext("FailedOperationName", stage)
+            .ForContext("InstallerName", Path.GetFileName(exception.SetupPath))
+            .ForContext("SetupLogId", Path.GetFileNameWithoutExtension(exception.LogPath))
+            .ForContext("SetupLogPath", exception.LogPath);
+        if (stage is "install_adk" or "install_winpe")
+            failureLogger = failureLogger.ForContext("InstallerVersion", TargetAdkVersion);
+        if (exception.ExitCode is int exitCode)
+            failureLogger = failureLogger.ForContext("ExitCode", exitCode).ForContext("ExitCodeHex", $"0x{exitCode:X8}");
+        if (exception.NativeErrorCode is int nativeErrorCode)
+            failureLogger = failureLogger.ForContext("NativeErrorCode", nativeErrorCode);
+        return failureLogger;
+    }
+
+    private static string GetUninstallStage(string setupPath) =>
+        setupPath.EndsWith("adkwinpesetup.exe", StringComparison.OrdinalIgnoreCase)
+            ? "uninstall_winpe" : "uninstall_adk";
 
     private string GetOperationStartText(OperationKind operationKind)
     {

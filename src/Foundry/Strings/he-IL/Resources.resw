@@ -97,6 +97,9 @@
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>יכולת יצירת מדיה</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>פעולת Windows ADK בוטלה.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>הפעולה ADK הושלמה</value>
   </data>

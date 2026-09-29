@@ -97,6 +97,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Médiakészítési lehetőség</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>A Windows ADK-művelet megszakítva.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK művelet befejeződött</value>
   </data>

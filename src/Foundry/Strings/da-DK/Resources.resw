@@ -97,6 +97,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Adk.MediaCapability.Title" xml:space="preserve">
     <value>Mulighed for at skabe medier</value>
   </data>
+  <data name="Adk.Operation.Cancelled" xml:space="preserve">
+    <value>Windows ADK-handlingen blev annulleret.</value>
+  </data>
   <data name="Adk.Operation.Completed" xml:space="preserve">
     <value>ADK handling afsluttet</value>
   </data>
