@@ -25,14 +25,16 @@ namespace Foundry.Deploy.Tests;
 public sealed class DeploymentPreflightTests
 {
     [Theory]
-    [InlineData(DeploymentMode.Iso)]
-    [InlineData(DeploymentMode.Usb)]
-    public async Task MissingPostInstallContent_PreventsBothDestructiveBranches(DeploymentMode mode)
+    [InlineData(DeploymentMode.Iso, false)]
+    [InlineData(DeploymentMode.Usb, false)]
+    [InlineData(DeploymentMode.Iso, true)]
+    [InlineData(DeploymentMode.Usb, true)]
+    public async Task MissingPostInstallContent_PreventsBothDestructiveBranches(DeploymentMode mode, bool recoveryFailed)
     {
-        using var fixture = new PipelineFixture { Mode = mode, DeferredDriver = true, Failure = "missing_postinstall" };
+        using var fixture = new PipelineFixture { Mode = mode, DeferredDriver = true, Failure = recoveryFailed ? "runtime_unavailable" : "missing_postinstall" };
         DeploymentStepResult result = await fixture.RunAsync();
         Assert.Equal(DeploymentStepState.Failed, result.State);
-        Assert.Equal("postinstall_preflight_failed", result.Failure?.Code);
+        Assert.Equal(recoveryFailed ? "postinstall_runtime_unavailable" : "postinstall_preflight_failed", result.Failure?.Code);
         Assert.Empty(fixture.Events);
         Assert.Equal(DeploymentStepState.Failed, (await fixture.Prepare.ExecuteAsync(fixture.Context!, TestContext.Current.CancellationToken)).State);
         Assert.Empty(fixture.Events);
@@ -655,6 +657,7 @@ public sealed class DeploymentPreflightTests
             internal override Task<PreOobePreparedContent?> PrepareAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
             {
                 if (fixture.Failure == "missing_postinstall") throw new InvalidDataException("Required package or runtime is unavailable.");
+                if (fixture.Failure == "runtime_unavailable") throw new PostInstallRuntimeUnavailableException(new HttpRequestException("Release unavailable."));
                 return Task.FromResult<PreOobePreparedContent?>(IsRequired(context.Request) ? NativeRuntimeFixture.Create(fixture.Root) : null);
             }
         }

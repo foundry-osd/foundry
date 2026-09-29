@@ -549,6 +549,12 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Priprava faze po namestitvi ni uspela. Podrobnosti si oglejte v dnevniku uvajanja.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Pripravljanje komponent za opravila po namestitvi...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>Komponent za opravila po namestitvi ni bilo mogoče pripraviti. Preverite povezavo in poskusite znova ali znova ustvarite zagonski medij. Podrobnosti najdete v dnevniku uvajanja.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Priprava faze po namestitvi je končana (simulacija).</value>
   </data>

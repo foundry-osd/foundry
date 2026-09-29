@@ -549,6 +549,12 @@ Folytatja a telepítést?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>A telepítés utáni szakasz előkészítése sikertelen. A részleteket az üzembe helyezési naplóban találja.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Telepítés utáni összetevők előkészítése...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>Nem sikerült előkészíteni a telepítés utáni összetevőket. Ellenőrizze a kapcsolatot, és próbálja újra, vagy hozza létre újra a rendszerindító adathordozót. A részleteket az üzembe helyezési naplóban találja.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>A telepítés utáni előkészítés befejeződött (szimuláció).</value>
   </data>

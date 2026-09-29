@@ -549,6 +549,12 @@ Continuați cu implementarea?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Pregătirea etapei de după instalare a eșuat. Consultați jurnalul de implementare pentru detalii.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Se pregătesc componentele post-instalare...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>Componentele post-instalare nu au putut fi pregătite. Verificați conexiunea și reîncercați sau creați din nou suportul de pornire. Consultați jurnalul de implementare pentru detalii.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Pregătirea etapei de după instalare s-a încheiat (simulare).</value>
   </data>

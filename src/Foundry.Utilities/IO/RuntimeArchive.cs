@@ -4,14 +4,16 @@
 
 using System.IO.Compression;
 
-namespace Foundry.Bootstrap.Runtime;
+namespace Foundry.Utilities.IO;
 
 /// <summary>Extracts validated ZIP entries into a fresh staging directory.</summary>
-internal static class RuntimeArchive
+public static class RuntimeArchive
 {
     private static readonly uint[] Crc32Table = CreateCrc32Table();
 
-    internal static async Task ExtractAsync(string archive, string destination, CancellationToken cancellationToken,
+    /// <summary>Rejects unsafe entries and validates their size and CRC before extraction completes.</summary>
+    /// <remarks>The caller owns a fresh staging directory and must remove partial output after failure.</remarks>
+    public static async Task ExtractAsync(string archive, string destination, CancellationToken cancellationToken,
         Action<long, long>? progress = null)
     {
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);

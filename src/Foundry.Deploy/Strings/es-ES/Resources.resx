@@ -549,6 +549,12 @@ Sistema operativo: {4}
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Error al preparar la posinstalación. Consulte el registro de implementación para obtener más información.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Preparando los componentes de posinstalación...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>No se pudieron preparar los componentes de posinstalación. Compruebe su conexión y vuelva a intentarlo, o vuelva a crear el medio de arranque. Consulte el registro de implementación para obtener más información.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Preparación de posinstalación completada (simulación).</value>
   </data>

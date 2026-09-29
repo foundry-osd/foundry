@@ -549,6 +549,12 @@ Continuar com a implantação?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Falha na preparação da pós-instalação. Consulte o log de implantação para obter detalhes.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Preparando os componentes de pós-instalação...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>Não foi possível preparar os componentes de pós-instalação. Verifique sua conexão e tente novamente ou recrie a mídia de inicialização. Consulte o log de implantação para obter detalhes.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Preparação da pós-instalação concluída (simulação).</value>
   </data>

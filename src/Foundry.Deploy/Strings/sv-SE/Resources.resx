@@ -549,6 +549,12 @@ Fortsätt med implementeringen?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Förberedelsen av fasen efter installationen misslyckades. Se distributionsloggen för mer information.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Förbereder komponenter för uppgifter efter installationen...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>Komponenterna för uppgifter efter installationen kunde inte förberedas. Kontrollera anslutningen och försök igen, eller skapa startmediet på nytt. Se distributionsloggen för mer information.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Förberedelserna för efter installationen har slutförts (simulering).</value>
   </data>

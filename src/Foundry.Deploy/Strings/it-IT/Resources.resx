@@ -549,6 +549,12 @@ Continuare con la distribuzione?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Preparazione della fase successiva all’installazione non riuscita. Consultare il registro di distribuzione per i dettagli.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Preparazione dei componenti post-installazione...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>Impossibile preparare i componenti post-installazione. Verificare la connessione e riprovare oppure ricreare il supporto di avvio. Consultare il registro di distribuzione per i dettagli.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Preparazione della post-installazione completata (simulazione).</value>
   </data>

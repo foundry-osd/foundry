@@ -549,6 +549,12 @@ Kontynuować wdrażanie?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Przygotowanie etapu po instalacji nie powiodło się. Szczegóły znajdziesz w dzienniku wdrażania.</value>
   </data>
+  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
+    <value>Przygotowywanie składników poinstalacyjnych...</value>
+  </data>
+  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
+    <value>Nie udało się przygotować składników poinstalacyjnych. Sprawdź połączenie i spróbuj ponownie lub ponownie utwórz nośnik rozruchowy. Szczegóły znajdziesz w dzienniku wdrażania.</value>
+  </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Zakończono przygotowanie działań po instalacji (symulacja).</value>
   </data>
