@@ -203,10 +203,11 @@ namespace Foundry.ViewModels
                     int rowIndex = 0;
                     foreach (GitHubRepositoryContributor contributor in contributors)
                     {
+                        string initialsSource = contributor.Login.Length > 0 ? contributor.Login : contributor.DisplayName ?? string.Empty;
                         ContributorItems.Add(new ContributorItemViewModel(
                             CreateContributorDisplayName(contributor),
                             localizationService.FormatString("AboutDialog.ContributionCountFormat", contributor.Contributions),
-                            contributor.Login.Length >= 2 ? contributor.Login[..2].ToUpperInvariant() : contributor.Login.ToUpperInvariant(),
+                            initialsSource.Length >= 2 ? initialsSource[..2].ToUpperInvariant() : initialsSource.ToUpperInvariant(),
                             localizationService.GetString("AboutDialog.OpenProfile"),
                             contributor.ProfileUri,
                             contributor.AvatarUri,
@@ -241,6 +242,11 @@ namespace Foundry.ViewModels
 
         private static string CreateContributorDisplayName(GitHubRepositoryContributor contributor)
         {
+            if (contributor.Login.Length == 0)
+            {
+                return contributor.DisplayName ?? string.Empty;
+            }
+
             return string.IsNullOrWhiteSpace(contributor.DisplayName)
                 ? $"@{contributor.Login}"
                 : $"{contributor.DisplayName} (@{contributor.Login})";
@@ -282,7 +288,10 @@ namespace Foundry.ViewModels
         string Role,
         string Initials,
         string LinkText,
-        Uri ProfileUri,
-        Uri AvatarUri,
-        bool IsAlternate);
+        Uri? ProfileUri,
+        Uri? AvatarUri,
+        bool IsAlternate)
+    {
+        public Visibility ProfileVisibility => ProfileUri is null ? Visibility.Collapsed : Visibility.Visible;
+    }
 }

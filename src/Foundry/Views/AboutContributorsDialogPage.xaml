@@ -73,7 +73,8 @@
                                     <HyperlinkButton
                                         Grid.Column="2"
                                         Content="{Binding LinkText}"
-                                        NavigateUri="{Binding ProfileUri}" />
+                                        NavigateUri="{Binding ProfileUri}"
+                                        Visibility="{Binding ProfileVisibility}" />
                                 </Grid>
                             </Border>
                         </DataTemplate>
