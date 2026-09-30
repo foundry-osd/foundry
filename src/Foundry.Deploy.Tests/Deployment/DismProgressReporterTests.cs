@@ -9,12 +9,12 @@ namespace Foundry.Deploy.Tests.Deployment;
 public sealed class DismProgressReporterTests
 {
     [Fact]
-    public void HandleOutput_ReportsIncreasingPercentageAndOrdinalProgress()
+    public void HandleOutput_ReportsIncreasingEsdApplicationPercentage()
     {
         var progress = new CollectingProgress<double>();
         var reporter = new DismProgressReporter(progress);
 
-        reporter.HandleOutput("1 of 4 operations completed");
+        reporter.HandleOutput("[==== 25.0% ====]");
         reporter.HandleOutput("50.5%");
         reporter.HandleOutput("40%");
         reporter.HandleOutput("50.5%");
@@ -24,14 +24,16 @@ public sealed class DismProgressReporterTests
     }
 
     [Fact]
-    public void HandleOutput_PrefersPercentageWhenBothFormatsArePresent()
+    public void HandleOutput_IgnoresOutputWithoutAnImageApplicationPercentage()
     {
         var progress = new CollectingProgress<double>();
         var reporter = new DismProgressReporter(progress);
 
-        reporter.HandleOutput("1 of 4 operations completed: 50%");
+        reporter.HandleOutput("Deployment Image Servicing and Management tool");
+        reporter.HandleOutput("The operation completed successfully.");
 
-        Assert.Equal(50d, Assert.Single(progress.Reports));
+        Assert.Empty(progress.Reports);
+        Assert.False(reporter.HasReportedProgress);
     }
 
     private sealed class CollectingProgress<T> : IProgress<T>

@@ -29,6 +29,36 @@ public sealed class DeploymentPreflightTests
     [InlineData(DeploymentMode.Usb, false)]
     [InlineData(DeploymentMode.Iso, true)]
     [InlineData(DeploymentMode.Usb, true)]
+    public async Task MissingNativeApi_PreventsPartitionForCatalogAndCustomImages(DeploymentMode mode, bool custom)
+    {
+        using var fixture = new PipelineFixture { Mode = mode };
+        fixture.NativeService.Unavailable = true;
+        if (custom)
+        {
+            fixture.CustomImage = new CustomImageSelection(new CustomImageAsset
+            {
+                Id = "custom",
+                DisplayName = "Custom",
+                ImagePath = Path.Combine(fixture.CacheRoot, "install.wim"),
+                VolumeRoot = fixture.CacheRoot
+            }, new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 1, EditionId = "Professional", Architecture = "x64", ExpandedSizeBytes = 4096 });
+        }
+
+        DeploymentStepResult result = await fixture.RunAsync();
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("native_api_unavailable", result.Failure?.Code);
+        Assert.Equal(1, fixture.NativeService.Calls);
+        Assert.Equal(custom, fixture.NativeService.RequiresWim);
+        Assert.DoesNotContain("partition", fixture.Events);
+        Assert.Null(fixture.Context!.Preflight);
+    }
+
+    [Theory]
+    [InlineData(DeploymentMode.Iso, false)]
+    [InlineData(DeploymentMode.Usb, false)]
+    [InlineData(DeploymentMode.Iso, true)]
+    [InlineData(DeploymentMode.Usb, true)]
     public async Task MissingPostInstallContent_PreventsBothDestructiveBranches(DeploymentMode mode, bool recoveryFailed)
     {
         using var fixture = new PipelineFixture { Mode = mode, DeferredDriver = true, Failure = recoveryFailed ? "runtime_unavailable" : "missing_postinstall" };
@@ -503,7 +533,9 @@ public sealed class DeploymentPreflightTests
     public async Task DryRun_DoesNotTransferInspectOrPartition()
     {
         using var fixture = new PipelineFixture { IsDryRun = true };
+        fixture.NativeService.Unavailable = true;
         Assert.Equal(DeploymentStepState.Succeeded, (await fixture.RunAsync()).State);
+        Assert.Equal(0, fixture.NativeService.Calls);
         Assert.Empty(fixture.Events);
     }
 
@@ -530,6 +562,7 @@ public sealed class DeploymentPreflightTests
         public List<string> Events { get; } = [];
         public List<DeploymentStepProgress> Progress { get; } = [];
         public FakeStorage Storage { get; } = new();
+        public NativeReadinessStub NativeService { get; } = new();
         public DeploymentMode Mode { get; init; } = DeploymentMode.Usb;
         public bool IsDryRun { get; init; }
         public ulong? TargetBytes { get; init; }
@@ -556,7 +589,7 @@ public sealed class DeploymentPreflightTests
             var artifact = new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, _client);
             var windows = new PipelineWindows(this);
             var probe = new ImageSourceProbe(_client);
-            Preflight = new PreflightDeploymentStep(Storage, probe, postInstallResolver: new FixturePostInstall(this));
+            Preflight = new PreflightDeploymentStep(Storage, probe, postInstallResolver: new FixturePostInstall(this), nativeService: NativeService);
             Prepare = new PrepareTargetDiskLayoutStep(windows, probe);
             Download = new DownloadOperatingSystemImageStep(artifact);
             CheckImage = new CheckWindowsImageStep(windows, Storage);
@@ -798,6 +831,28 @@ public sealed class DeploymentPreflightTests
             }
         }
 
+    }
+
+    private sealed class NativeReadinessStub : IWindowsNativeDeploymentService
+    {
+        public bool Unavailable { get; set; }
+        public int Calls { get; private set; }
+        public bool RequiresWim { get; private set; }
+        public Task EnsureAvailableAsync(bool requiresWim, string workingDirectory, CancellationToken cancellationToken = default)
+        {
+            Calls++;
+            RequiresWim = requiresWim;
+            if (Unavailable) throw new DeploymentOperationException(
+                DeploymentFailure.Guard(DeploymentOperationNames.PreflightDeployment, DeploymentFailureReasons.MissingResource, "native_api_unavailable"), "Native API unavailable");
+            return Task.CompletedTask;
+        }
+        public Task<IReadOnlyDictionary<string, OfflineWindowsFeatureState>> ReadFeatureStatesAsync(string windowsRoot, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+        public Task DisableFeatureAsync(string windowsRoot, string featureName, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+        public Task AddDriversAsync(string windowsRoot, string driverRoot, string scratchDirectory, string workingDirectory, IProgress<double>? progress, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+        public Task MountImageAsync(string imagePath, string mountPath, string scratchDirectory, string workingDirectory, IProgress<double>? progress, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+        public Task UnmountImageAsync(string mountPath, bool commit, string scratchDirectory, string workingDirectory, IProgress<double>? progress, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+        public Task<bool> IsMountedAsync(string mountPath, string scratchDirectory, string workingDirectory, CancellationToken cancellationToken = default) => throw new NotSupportedException();
+        public Task ApplyWimAsync(string imagePath, int imageIndex, string windowsRoot, string scratchDirectory, string workingDirectory, IProgress<double>? progress, CancellationToken cancellationToken = default) => throw new NotSupportedException();
     }
 
     private sealed class FakeStorage : IDeploymentStorageService
