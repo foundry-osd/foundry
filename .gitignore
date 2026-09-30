@@ -425,10 +425,10 @@ obj/
 *.lscache
 
 # Keep bundled 7-Zip architecture folders tracked.
-!src/Foundry/Assets/7z/[xX]64/
-!src/Foundry/Assets/7z/[xX]64/**
-!src/Foundry/Assets/7z/[aA][rR][mM]64/
-!src/Foundry/Assets/7z/[aA][rR][mM]64/**
+!src/Foundry.Core/Assets/7z/[xX]64/
+!src/Foundry.Core/Assets/7z/[xX]64/**
+!src/Foundry.Core/Assets/7z/[aA][rR][mM]64/
+!src/Foundry.Core/Assets/7z/[aA][rR][mM]64/**
 
 # Application package library source is not a NuGet packages directory.
 !src/Foundry.Core/Services/Packages/
