@@ -4,7 +4,7 @@
 
 Canceled WinPE processes produce one structured diagnostic log before cancellation is propagated. Reviewed tools retain bounded, redacted error output through the existing process-output policy; arbitrary output, command arguments and working directories are excluded. DISM additionally records the last available numeric progress percentage, operation, duration, and whether the root process exit was confirmed. A known root exit code does not confirm descendant termination or successful image cleanup.
 
-An unsuccessful source-image discard is reported as `WINPE_WIM_UNMOUNT_FAILED`. Source fallback occurs only after the mounted image has been successfully released, including any disposal retry. An uncertain cleanup preserves its workspace and marker, and a later media creation checks retained owned operations before starting new servicing. No automatic mount recovery or global DISM cleanup is performed.
+A source-image discard attempt has a finite 15-minute deadline independent of caller cancellation, so cleanup can prolong the wait after cancellation. An unsuccessful discard is reported as `WINPE_WIM_UNMOUNT_FAILED`. Source fallback occurs only after the mounted image has been successfully released, including any disposal retry. An uncertain cleanup preserves its workspace and marker, and a later media creation checks retained owned operations before starting new servicing. No automatic mount recovery or global DISM cleanup is performed.
 
 ## Custom Windows images
 

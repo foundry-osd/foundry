@@ -31,7 +31,7 @@ public sealed class WinPeMountSession : IAsyncDisposable
     /// </summary>
     internal const string CleanupMarkerPattern = ".foundry-mount-cleanup-*.pending";
 
-    private static readonly TimeSpan CleanupTimeout = TimeSpan.FromMinutes(5);
+    private static readonly TimeSpan CleanupTimeout = TimeSpan.FromMinutes(15);
     private readonly IWinPeProcessRunner _processRunner;
     private readonly string _dismPath;
     private readonly string _workingDirectory;

@@ -268,7 +268,9 @@ public sealed class WinPeMountSessionTests
         try
         {
             string marker = Assert.Single(Directory.GetFiles(directory.Path, ".foundry-mount-cleanup-*.pending"));
-            clock.Advance(TimeSpan.FromMinutes(4));
+            clock.Advance(TimeSpan.FromMinutes(5));
+            Assert.False(cleanupToken.IsCancellationRequested);
+            clock.Advance(TimeSpan.FromMinutes(9));
             Assert.False(cleanupToken.IsCancellationRequested);
             clock.Advance(TimeSpan.FromMinutes(1));
             Assert.True(cleanupToken.IsCancellationRequested);
