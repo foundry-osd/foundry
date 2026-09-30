@@ -3411,6 +3411,12 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO-mediet ble opprettet.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Det er ikke nok diskplass til å opprette oppstartsavbildningen. Det kreves minst {0} ledig plass på {2}. Tilgjengelig: {1}. Frigjør plass og prøv igjen.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Den tilgjengelige diskplassen til å opprette oppstartsavbildningen kunne ikke bekreftes på {0}. Kontroller at plasseringen er tilgjengelig, og prøv igjen.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Monteringsstøvelbilde.</value>
   </data>

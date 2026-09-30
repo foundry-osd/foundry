@@ -3411,6 +3411,12 @@
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>تم إنشاء الوسائط ISO بنجاح.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>لا توجد مساحة كافية على القرص لإنشاء صورة التمهيد. يلزم توفر {0} على الأقل من المساحة الحرة على {2}. المساحة المتاحة: {1}. حرّر مساحة وحاول مرة أخرى.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>تعذّر التحقق من مساحة القرص المتاحة لإنشاء صورة التمهيد على {0}. تأكد من إمكانية الوصول إلى الموقع وحاول مرة أخرى.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>تركيب صورة التمهيد.</value>
   </data>

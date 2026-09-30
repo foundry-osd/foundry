@@ -3411,6 +3411,12 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO laikmena sėkmingai sukurta.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Nepakanka vietos diske įkrovos vaizdui sukurti. Vietoje {2} reikia bent {0} laisvos vietos. Laisva vieta: {1}. Atlaisvinkite vietos ir bandykite dar kartą.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Nepavyko patikrinti įkrovos vaizdui kurti prieinamos vietos diske vietoje {0}. Patikrinkite, ar ši vieta pasiekiama, ir bandykite dar kartą.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Montavimo įkrovos vaizdas.</value>
   </data>

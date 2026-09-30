@@ -3411,6 +3411,12 @@ Passwords and access keys included: {2}</value>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>The ISO media was created successfully.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Not enough disk space to create the boot image. At least {0} of free space is required on {2}. Available: {1}. Free up space and try again.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>The available disk space for boot image creation could not be verified on {0}. Check that the location is accessible and try again.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Mounting boot image.</value>
   </data>

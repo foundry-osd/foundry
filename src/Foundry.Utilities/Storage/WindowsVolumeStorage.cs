@@ -8,14 +8,14 @@ using System.Runtime.InteropServices;
 
 namespace Foundry.Utilities.Storage;
 
-/// <summary>Queries local drives and UNC share roots without requiring a mapped drive letter.</summary>
+/// <summary>Queries destination directories and UNC shares without requiring a mapped drive letter.</summary>
 public static class WindowsVolumeStorage
 {
-    /// <summary>Returns free bytes available to the caller, including any per-user quota restrictions.</summary>
+    /// <summary>Returns caller-available free bytes on the nearest existing destination directory, including quota restrictions.</summary>
     public static long GetAvailableBytes(string path)
     {
-        string root = GetRoot(path);
-        if (!GetDiskFreeSpaceEx(root, out ulong availableBytes, out _, out _))
+        string directory = GetExistingDirectory(path);
+        if (!GetDiskFreeSpaceEx(directory, out ulong availableBytes, out _, out _))
             throw QueryFailure("Available volume space could not be determined.");
         return checked((long)availableBytes);
     }
@@ -29,6 +29,31 @@ public static class WindowsVolumeStorage
             throw QueryFailure("The volume filesystem could not be determined.");
         int terminator = Array.IndexOf(fileSystem, '\0');
         return new string(fileSystem, 0, terminator >= 0 ? terminator : fileSystem.Length);
+    }
+
+    /// <summary>Retains existing directory paths so native free-space queries follow mounted volumes and reparse targets.</summary>
+    internal static string GetExistingDirectory(string path)
+    {
+        string directory = Path.GetFullPath(path);
+        string root = GetRoot(directory);
+        while (directory.Length > root.Length)
+        {
+            try
+            {
+                if (File.GetAttributes(directory).HasFlag(FileAttributes.Directory)) break;
+            }
+            catch (Exception exception) when (exception is FileNotFoundException or DirectoryNotFoundException)
+            {
+            }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+            {
+                // Keep inaccessible targets for the native query instead of reporting an ancestor's free space.
+                break;
+            }
+
+            directory = Path.GetDirectoryName(Path.TrimEndingDirectorySeparator(directory)) ?? root;
+        }
+        return Path.EndsInDirectorySeparator(directory) ? directory : directory + Path.DirectorySeparatorChar;
     }
 
     private static string GetRoot(string path)

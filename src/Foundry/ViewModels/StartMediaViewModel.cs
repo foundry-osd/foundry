@@ -529,6 +529,37 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 DriverVendors = options.DriverVendors.ToArray(),
                 AvailableWinPeLanguages = options.AvailableWinPeLanguages.ToArray()
             };
+            var storagePaths = new List<string>
+            {
+                Constants.WorkspacesDirectoryPath,
+                Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots"),
+                Path.GetTempPath(),
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "Temp")
+            };
+            if (options.BootImageSource == WinPeBootImageSource.WinReWifi || options.Architecture == WinPeArchitecture.Arm64)
+                storagePaths.Add(Constants.WindowsSourceCacheDirectoryPath);
+            if (options.DriverVendors.Count > 0 || options.BootImageSource == WinPeBootImageSource.WinReWifi)
+                storagePaths.Add(Constants.WinPeDriverCacheDirectoryPath);
+            if (target == FinalMediaTarget.Iso)
+                storagePaths.Add(options.IsoOutputPath);
+
+            WinPeResult localSpaceResult = await Task.Run(
+                () => WinPeLocalStorageCapacityPolicy.Validate(storagePaths, cancellationToken), cancellationToken);
+            if (!localSpaceResult.IsSuccess)
+            {
+                shouldTrackMedia = false;
+                WinPeDiagnostic diagnostic = localSpaceResult.Error!;
+                logger.Warning(
+                    "Boot media creation was blocked by local storage validation. FailureCode={FailureCode}, StoragePath={StoragePath}, RequiredBytes={RequiredBytes}, AvailableBytes={AvailableBytes}",
+                    diagnostic.Code, diagnostic.StoragePath, diagnostic.RequiredBytes, diagnostic.AvailableBytes);
+                string message = diagnostic.Code == WinPeErrorCodes.LocalSpaceInsufficient
+                    ? FormatMediaCapacityFailure("StartMedia.Operation.LocalSpaceInsufficient", diagnostic)
+                    : string.Format(CultureInfo.CurrentCulture,
+                        localizationService.GetString("StartMedia.Operation.LocalSpaceUnknown"), diagnostic.StoragePath);
+                await ShowBlockedDialogAsync(target == FinalMediaTarget.Iso
+                    ? "StartMedia.CreateIso.BlockedTitle" : "StartMedia.CreateUsb.BlockedTitle", message);
+                return;
+            }
             if (target == FinalMediaTarget.Usb && !await ConfirmUsbFormattingAsync(options.SelectedUsbDisk!))
             {
                 shouldTrackMedia = false;
@@ -1514,6 +1545,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ? localizationService.GetString("StartMedia.Operation.Failed")
             : string.Join(Environment.NewLine, reasons.Select(reason => $"- {GetBlockingReasonText(reason)}"));
 
+        await ShowBlockedDialogAsync(titleResourceKey, message);
+    }
+
+    private async Task ShowBlockedDialogAsync(string titleResourceKey, string message)
+    {
         await dialogService.ShowMessageAsync(new DialogRequest(
             localizationService.GetString(titleResourceKey),
             message,
@@ -2516,7 +2552,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             CultureInfo.CurrentCulture,
             localizationService.GetString(resourceKey),
             required,
-            available);
+            available,
+            diagnostic.StoragePath);
     }
 
     private string FormatByteSize(ulong bytes)

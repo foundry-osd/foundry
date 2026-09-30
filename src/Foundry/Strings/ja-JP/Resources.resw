@@ -3411,6 +3411,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO メディアが正常に作成されました。</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>ブートイメージを作成するためのディスク空き容量が不足しています。{2} には少なくとも {0} の空き容量が必要です。使用可能な容量: {1}。空き容量を増やしてから、もう一度お試しください。</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>{0} でブートイメージの作成に使用できるディスク空き容量を確認できませんでした。その場所にアクセスできることを確認してから、もう一度お試しください。</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>ブートイメージをマウントしています。</value>
   </data>

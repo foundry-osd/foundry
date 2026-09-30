@@ -3411,6 +3411,12 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Das ISO-Medium wurde erfolgreich erstellt.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Nicht genügend Speicherplatz zum Erstellen des Startabbilds. Auf {2} müssen mindestens {0} frei sein. Verfügbar: {1}. Geben Sie Speicherplatz frei und versuchen Sie es erneut.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Der verfügbare Speicherplatz zum Erstellen des Startabbilds konnte für {0} nicht überprüft werden. Prüfen Sie, ob der Speicherort zugänglich ist, und versuchen Sie es erneut.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Boot-Image wird gemountet.</value>
   </data>

@@ -9,6 +9,8 @@ public static class WinPeErrorCodes
     public const string ValidationFailed = "WINPE_VALIDATION_FAILED";
     public const string CustomImageMediaFailed = "WINPE_CUSTOM_IMAGE_MEDIA_FAILED";
     public const string CustomDriversTooLarge = "WINPE_CUSTOM_DRIVERS_TOO_LARGE";
+    public const string LocalSpaceInsufficient = "WINPE_LOCAL_SPACE_INSUFFICIENT";
+    public const string LocalSpaceUnknown = "WINPE_LOCAL_SPACE_UNKNOWN";
     public const string UsbBootCapacityInsufficient = "WINPE_USB_BOOT_CAPACITY_INSUFFICIENT";
     public const string UsbBootCapacityUnknown = "WINPE_USB_BOOT_CAPACITY_UNKNOWN";
     public const string UsbBootFileTooLarge = "WINPE_USB_BOOT_FILE_TOO_LARGE";

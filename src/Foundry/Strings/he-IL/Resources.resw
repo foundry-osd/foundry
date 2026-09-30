@@ -3411,6 +3411,12 @@
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>המדיה ISO נוצרה בהצלחה.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>אין מספיק שטח דיסק ליצירת תמונת האתחול. נדרש שטח פנוי של לפחות {0} ב-{2}. זמין: {1}. פנו מקום ונסו שוב.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>לא ניתן היה לאמת את שטח הדיסק הזמין ליצירת תמונת האתחול ב-{0}. בדקו שהמיקום נגיש ונסו שוב.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>תמונת אתחול הרכבה.</value>
   </data>

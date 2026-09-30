@@ -3411,6 +3411,12 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Media ISO a fost creată cu succes.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Spațiu insuficient pe disc pentru crearea imaginii de pornire. Sunt necesari cel puțin {0} de spațiu liber în {2}. Disponibil: {1}. Eliberați spațiu și încercați din nou.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Nu s-a putut verifica spațiul disponibil pe disc pentru crearea imaginii de pornire în {0}. Verificați dacă locația este accesibilă și încercați din nou.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Montarea imaginii boot.</value>
   </data>

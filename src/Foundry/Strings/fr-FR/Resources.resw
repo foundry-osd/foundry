@@ -3411,6 +3411,12 @@ Mots de passe et clés d’accès inclus : {2}</value>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Le média ISO a été créé avec succès.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Espace disque insuffisant pour créer l'image de démarrage. Au moins {0} d'espace libre sont nécessaires sur {2}. Espace disponible : {1}. Libérez de l'espace et réessayez.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>L'espace disque disponible pour créer l'image de démarrage n'a pas pu être vérifié sur {0}. Vérifiez que l'emplacement est accessible et réessayez.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Montage de l'image de démarrage.</value>
   </data>
