@@ -188,7 +188,7 @@ public sealed class WinPeBootImagePreparationServiceTests
         var service = CreateService(runner, client, new WinPeWorkspaceCleanupService(() => []));
         try
         {
-            await Assert.ThrowsAsync<OperationCanceledException>(() => service.PrepareAsync(new WinPeBootImagePreparationOptions
+            OperationCanceledException observed = await Assert.ThrowsAsync<OperationCanceledException>(() => service.PrepareAsync(new WinPeBootImagePreparationOptions
             {
                 Artifact = new WinPeBuildArtifact { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(root, "boot.wim"), WorkingDirectoryPath = root },
                 Tools = new WinPeToolPaths { DismPath = "dism.exe" },
@@ -196,6 +196,7 @@ public sealed class WinPeBootImagePreparationServiceTests
                 CacheDirectoryPath = cache,
                 BootImageSource = WinPeBootImageSource.WinReWifi
             }, cancellation.Token));
+            Assert.Equal(cancellation.Token, observed.CancellationToken);
             Assert.Equal(expectsDiscard, runner.Executions.Any(execution => execution.Arguments.Contains("/Discard", StringComparison.Ordinal)));
             Assert.False(File.Exists(Path.Combine(root, "boot.wim")));
         }
@@ -203,6 +204,58 @@ public sealed class WinPeBootImagePreparationServiceTests
         {
             Directory.Delete(root, recursive: true);
         }
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task PrepareAsync_WhenCancelledAfterMountAndCleanupFails_ReturnsFinalCleanupFailure(bool exitUnconfirmed)
+    {
+        using var directory = new TestUtilities.TemporaryDirectory();
+        using var cancellation = new CancellationTokenSource();
+        int discards = 0;
+        var runner = new FakeWinPeProcessRunner
+        {
+            FailingOperation = "/Discard",
+            ExitCode = 9,
+            OnRun = (arguments, token) =>
+            {
+                if (arguments.Contains("/Mount-Image", StringComparison.Ordinal)) cancellation.Cancel();
+                if (arguments.Contains("/Discard", StringComparison.Ordinal))
+                {
+                    discards++;
+                    Assert.False(token.IsCancellationRequested);
+                    if (exitUnconfirmed) throw new OperationCanceledException("DISM cleanup exit remains unconfirmed.");
+                }
+            }
+        };
+        using var client = new HttpClient(new StaticCatalogHandler(CreateFallbackCatalogXml(), Encoding.UTF8.GetBytes("source")));
+        var service = CreateService(runner, client, new WinPeWorkspaceCleanupService(() => []));
+        WinPeResult<WinPeBootImagePreparationResult>? result = null;
+
+        Exception? observed = await Record.ExceptionAsync(async () => result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
+        {
+            Artifact = new() { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(directory.Path, "boot.wim"), WorkingDirectoryPath = directory.Path },
+            Tools = new() { DismPath = "dism.exe" },
+            WinPeLanguage = "en-US",
+            CacheDirectoryPath = Path.Combine(directory.Path, "cache")
+        }, cancellation.Token));
+
+        Assert.Null(observed);
+        Assert.NotNull(result);
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.WimUnmountFailed, result.Error?.Code);
+        Assert.Equal(exitUnconfirmed ? WinPeMountCleanupStatus.ExitUnconfirmed : WinPeMountCleanupStatus.Failed, result.Error?.MountCleanupStatus);
+        Assert.Contains("cancel", result.Error?.Details, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal(1, discards);
+        Assert.Single(runner.Executions, execution => execution.Arguments.Contains("/Mount-Image", StringComparison.Ordinal));
+        if (exitUnconfirmed)
+        {
+            Assert.Null(result.Error?.ExitCode);
+            Assert.Contains("exit remains unconfirmed", result.Error?.Details, StringComparison.Ordinal);
+            Assert.Single(Directory.GetFiles(directory.Path, ".foundry-mount-cleanup-*.pending"));
+        }
+        else Assert.Equal(9, result.Error?.ExitCode);
     }
 
     [Theory]
@@ -534,6 +587,7 @@ public sealed class WinPeBootImagePreparationServiceTests
     [Theory]
     [InlineData(null, 0, true)]
     [InlineData("/Export-Image", 2, true)]
+    [InlineData("/Mount-Image", 5, true)]
     [InlineData(null, 0, false)]
     public async Task PrepareAsync_ValidatesProcessResultsAndExportedImage(string? failingOperation, int exitCode, bool createExport)
     {
@@ -584,6 +638,7 @@ public sealed class WinPeBootImagePreparationServiceTests
                 Assert.Equal(exitCode, result.Error?.ExitCode);
                 Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
                 Assert.Equal("dism.exe", result.Error?.ToolName);
+                if (failingOperation == "/Mount-Image") Assert.Equal(WinPeErrorCodes.WimMountFailed, result.Error?.Code);
                 return;
             }
             Assert.True(result.IsSuccess, result.Error?.Details);
@@ -625,6 +680,95 @@ public sealed class WinPeBootImagePreparationServiceTests
         Assert.Equal(2, runner.Executions.Count(execution => execution.Arguments.Contains("/Discard", StringComparison.Ordinal)));
     }
 
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(true, true)]
+    public async Task PrepareAsync_WhenFinalSourceCleanupIsUnsafe_StopsCandidateFallback(bool missingWinRe, bool exitUnconfirmed)
+    {
+        using var directory = new TestUtilities.TemporaryDirectory();
+        int discards = 0;
+        var runner = new FakeWinPeProcessRunner
+        {
+            FailingOperation = "/Discard",
+            ExitCode = 9,
+            IncludeWirelessSupport = !missingWinRe,
+            OnRun = (arguments, _) =>
+            {
+                if (arguments.Contains("/Discard", StringComparison.Ordinal) && ++discards == 2 && exitUnconfirmed)
+                    throw new OperationCanceledException("DISM cleanup exit remains unconfirmed.");
+            }
+        };
+        using var client = new HttpClient(new StaticCatalogHandler(CreateFallbackCatalogXml(), Encoding.UTF8.GetBytes("source")));
+        var service = CreateService(runner, client, new WinPeWorkspaceCleanupService(() => []));
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
+        {
+            Artifact = new() { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(directory.Path, "boot.wim"), WorkingDirectoryPath = directory.Path },
+            Tools = new() { DismPath = "dism.exe" },
+            WinPeLanguage = "en-US",
+            CacheDirectoryPath = Path.Combine(directory.Path, "cache"),
+            BootImageSource = WinPeBootImageSource.WinReWifi
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.WimUnmountFailed, result.Error?.Code);
+        Assert.Equal(exitUnconfirmed ? WinPeMountCleanupStatus.ExitUnconfirmed : WinPeMountCleanupStatus.Failed, result.Error?.MountCleanupStatus);
+        Assert.Single(runner.Executions, execution => execution.Arguments.Contains("/Mount-Image", StringComparison.Ordinal));
+        Assert.Equal(2, discards);
+        if (missingWinRe) Assert.Contains("does not contain winre.wim", result.Error?.Details, StringComparison.Ordinal);
+        if (exitUnconfirmed)
+        {
+            Assert.Null(result.Error?.ExitCode);
+            Assert.Contains("exit remains unconfirmed", result.Error?.Details, StringComparison.Ordinal);
+            Assert.Single(Directory.GetFiles(directory.Path, ".foundry-mount-cleanup-*.pending"));
+        }
+        else Assert.Equal(9, result.Error?.ExitCode);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task PrepareAsync_WhenSourceContentFailsAndCleanupCompletes_TriesCandidateFallback(bool discardRetry)
+    {
+        using var directory = new TestUtilities.TemporaryDirectory();
+        int mounts = 0;
+        var runner = new FakeWinPeProcessRunner
+        {
+            MissingWinReForFirstMount = true,
+            FailingOperation = discardRetry ? "/Discard" : null,
+            ExitCode = 9,
+            DiscardFailuresBeforeSuccess = 1,
+            OnRun = (arguments, _) =>
+            {
+                if (arguments.Contains("/Mount-Image", StringComparison.Ordinal)) mounts++;
+            }
+        };
+        using var client = new HttpClient(new StaticCatalogHandler(CreateFallbackCatalogXml(), Encoding.UTF8.GetBytes("source")));
+        var service = CreateService(runner, client, new WinPeWorkspaceCleanupService(() => []));
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
+        {
+            Artifact = new() { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(directory.Path, "boot.wim"), WorkingDirectoryPath = directory.Path },
+            Tools = new() { DismPath = "dism.exe" },
+            WinPeLanguage = "en-US",
+            CacheDirectoryPath = Path.Combine(directory.Path, "cache")
+        }, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(2, mounts);
+    }
+
+    private static string CreateFallbackCatalogXml()
+    {
+        string catalog = CreateCatalogXml(string.Empty);
+        string fallback = catalog.Replace("<Catalog>", "", StringComparison.Ordinal).Replace("</Catalog>", "", StringComparison.Ordinal)
+            .Replace("Professional", "Enterprise", StringComparison.Ordinal).Replace("CLIENTCONSUMER", "CLIENTBUSINESS", StringComparison.Ordinal)
+            .Replace("source.esd", "enterprise.esd", StringComparison.Ordinal);
+        return catalog.Replace("</Catalog>", fallback + "</Catalog>", StringComparison.Ordinal);
+    }
+
     private static string CreateCatalogXml(string hash)
     {
         return $$"""
@@ -654,7 +798,8 @@ public sealed class WinPeBootImagePreparationServiceTests
         WinPeWorkspaceCleanupService? cleanup = null,
         Func<string, CancellationToken, Task<IReadOnlyList<WindowsImageMetadata>>>? readImageInfo = null)
         => new(runner, client, cleanup ?? new WinPeWorkspaceCleanupService(() => []),
-            readImageInfo ?? ((_, _) => Task.FromResult<IReadOnlyList<WindowsImageMetadata>>([Image(6, "Professional")])));
+            readImageInfo ?? ((path, _) => Task.FromResult<IReadOnlyList<WindowsImageMetadata>>(
+                Path.GetFileName(path) == "enterprise.esd" ? [Image(7, "Enterprise")] : [Image(6, "Professional")])));
 
     [Fact]
     public async Task PrepareAsync_WhenPreviousSourceIsMounted_DoesNotRecreateItsDirectory()
@@ -717,6 +862,8 @@ public sealed class WinPeBootImagePreparationServiceTests
         public string? InvalidGraphicsFile { get; init; }
         public bool WrongGraphicsArchitecture { get; init; }
         public bool IncludeWirelessSupport { get; init; } = true;
+        public bool MissingWinReForFirstMount { get; init; }
+        public int? DiscardFailuresBeforeSuccess { get; init; }
 
         public Task<WinPeProcessExecution> RunAsync(
             string fileName,
@@ -726,9 +873,12 @@ public sealed class WinPeBootImagePreparationServiceTests
             IReadOnlyDictionary<string, string>? environmentOverrides = null)
         {
             OnRun?.Invoke(arguments, cancellationToken);
+            bool discardRecovered = arguments.Contains("/Discard", StringComparison.Ordinal) &&
+                DiscardFailuresBeforeSuccess.HasValue && Executions.Count(execution =>
+                    execution.Arguments.Contains("/Discard", StringComparison.Ordinal)) >= DiscardFailuresBeforeSuccess.Value;
             var execution = new WinPeProcessExecution
             {
-                ExitCode = FailingOperation is not null && arguments.Contains(FailingOperation, StringComparison.Ordinal) ? ExitCode : 0,
+                ExitCode = !discardRecovered && FailingOperation is not null && arguments.Contains(FailingOperation, StringComparison.Ordinal) ? ExitCode : 0,
                 FileName = fileName,
                 Arguments = arguments,
                 WorkingDirectory = workingDirectory,
@@ -778,7 +928,8 @@ public sealed class WinPeBootImagePreparationServiceTests
                 string system32Path = Path.Combine(mountDirectory, "Windows", "System32");
                 Directory.CreateDirectory(recoveryPath);
                 Directory.CreateDirectory(system32Path);
-                if (IncludeWirelessSupport)
+                if (IncludeWirelessSupport && (!MissingWinReForFirstMount ||
+                    Executions.Count(execution => execution.Arguments.Contains("/Mount-Image", StringComparison.Ordinal)) > 1))
                 {
                     File.WriteAllText(Path.Combine(recoveryPath, "winre.wim"), "winre");
                     File.WriteAllText(Path.Combine(system32Path, "dmcmnutils.dll"), "dm");

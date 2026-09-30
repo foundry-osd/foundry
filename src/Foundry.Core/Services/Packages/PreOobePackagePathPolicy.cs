@@ -35,12 +35,20 @@ public static class PreOobePackagePathPolicy
     /// <summary>Checks the actual destination again, because a valid relative path may exceed a longer host prefix.</summary>
     public static string Resolve(string root, string relativePath)
     {
+        string resolved = ResolveLexically(root, relativePath);
+        ValidateNoReparsePoints(resolved);
+        return resolved;
+    }
+
+    /// <summary>Validates future path layout and length without inspecting the filesystem.</summary>
+    /// <remarks>Use <see cref="Resolve"/> for actual source and staging paths so reparse points are still rejected.</remarks>
+    public static string ResolveLexically(string root, string relativePath)
+    {
         ValidateRelativePath(relativePath);
         string fullRoot = Path.TrimEndingDirectorySeparator(Path.GetFullPath(root));
         string resolved = Path.GetFullPath(Path.Combine(fullRoot, relativePath.Replace('/', Path.DirectorySeparatorChar)));
         if (!resolved.StartsWith(fullRoot + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) || resolved.Length > MaximumFullPathLength)
             throw new InvalidDataException("PreOobe.InvalidPackagePath");
-        ValidateNoReparsePoints(resolved);
         return resolved;
     }
 
