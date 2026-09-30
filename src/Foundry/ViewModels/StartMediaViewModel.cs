@@ -1042,6 +1042,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.CleanStaleWorkspaces);
             CleanupStaleWinPeWorkspaces();
+            EnsureSuccess(workspaceCleanupService.EnsureServicingCanStart(Constants.WorkspacesDirectoryPath));
             operationLease = WinPeWorkspaceLease.Create(Constants.WorkspacesDirectoryPath);
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.BuildWinPeWorkspace);

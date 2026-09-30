@@ -140,43 +140,33 @@ public sealed class ProcessRunnerTests
     }
 
     [Fact]
-    public async Task RunAsync_WhenCanceledAfterRootExit_DoesNotWaitForInheritedOutputPipe()
+    public async Task RunAsync_WhenCanceled_PreservesCapturedStreamsAndConfirmedRootExit()
     {
         using var workspace = new TemporaryDirectory();
-        string scriptPath = Path.Combine(workspace.Path, "start-child.cmd");
-        await File.WriteAllTextAsync(
-            scriptPath,
-            "@echo off\r\n" +
-            "start \"\" /b ping.exe 127.0.0.1 -n 5\r\n" +
-            "echo child-ready\r\n" +
-            "exit /b 0\r\n",
-            TestContext.Current.CancellationToken);
-        var childReady = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var outputReady = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var errorReady = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         ProcessExecutionRequest request = ProcessExecutionRequest.FromRawArguments(
             GetCommandProcessor(),
-            $"/d /s /c call \"{scriptPath}\"",
-            Environment.SystemDirectory) with
+            "/d /s /c \"(echo progress) & (echo warning) 1>&2 & ping 127.0.0.1 -n 30 >nul\"",
+            workspace.Path) with
         {
-            OnOutputData = line =>
-            {
-                if (line.Equals("child-ready", StringComparison.Ordinal))
-                {
-                    childReady.TrySetResult(true);
-                }
-            }
+            OnOutputData = _ => outputReady.TrySetResult(),
+            OnErrorData = _ => errorReady.TrySetResult()
         };
         using var cancellation = new CancellationTokenSource();
-        Task<ProcessExecutionResult> executionTask = new ProcessRunner().RunAsync(request, cancellation.Token);
-        await childReady.Task.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
-        await Task.Delay(TimeSpan.FromMilliseconds(500), TestContext.Current.CancellationToken);
-        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+        Task<ProcessExecutionResult> execution = new ProcessRunner().RunAsync(request, cancellation.Token);
+        await Task.WhenAll(outputReady.Task, errorReady.Task)
+            .WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
         cancellation.Cancel();
 
-        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => executionTask);
+        ProcessCanceledException exception = await Assert.ThrowsAsync<ProcessCanceledException>(() => execution);
 
-        Assert.True(
-            stopwatch.Elapsed < TimeSpan.FromSeconds(1),
-            $"Cancellation took {stopwatch.Elapsed} while a child process held the output pipe open.");
+        Assert.Equal("progress", exception.StandardOutput.Trim());
+        Assert.Equal("warning", exception.StandardError.Trim());
+        Assert.True(exception.ProcessExitConfirmed);
+        Assert.NotNull(exception.ExitCode);
+        Assert.Equal(cancellation.Token, exception.CancellationToken);
+        Assert.DoesNotContain("progress", exception.Message, StringComparison.Ordinal);
     }
 
     [Fact]

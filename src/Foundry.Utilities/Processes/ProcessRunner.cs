@@ -73,21 +73,38 @@ public sealed class ProcessRunner
         };
         var stdoutBuilder = new StringBuilder();
         var stderrBuilder = new StringBuilder();
+        var outputGate = new object();
+        var stdoutClosed = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var stderrClosed = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
 
         process.OutputDataReceived += (_, args) =>
         {
             if (args.Data is not null)
             {
-                stdoutBuilder.AppendLine(args.Data);
+                lock (outputGate)
+                {
+                    stdoutBuilder.AppendLine(args.Data);
+                }
                 InvokeCallback(request.OnOutputData, args.Data);
+            }
+            else
+            {
+                stdoutClosed.TrySetResult();
             }
         };
         process.ErrorDataReceived += (_, args) =>
         {
             if (args.Data is not null)
             {
-                stderrBuilder.AppendLine(args.Data);
+                lock (outputGate)
+                {
+                    stderrBuilder.AppendLine(args.Data);
+                }
                 InvokeCallback(request.OnErrorData, args.Data);
+            }
+            else
+            {
+                stderrClosed.TrySetResult();
             }
         };
 
@@ -100,10 +117,30 @@ public sealed class ProcessRunner
         {
             await process.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
         }
-        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        catch (OperationCanceledException exception) when (cancellationToken.IsCancellationRequested)
         {
             TryKill(process);
-            throw;
+            int? exitCode = TryConfirmExit(process);
+            if (exitCode.HasValue)
+            {
+                try
+                {
+                    // A descendant may keep either pipe open after the root has exited.
+                    await Task.WhenAll(stdoutClosed.Task, stderrClosed.Task)
+                        .WaitAsync(TimeSpan.FromMilliseconds(200)).ConfigureAwait(false);
+                }
+                catch (TimeoutException)
+                {
+                    // Preserve the available output without making cancellation wait for descendants.
+                }
+            }
+
+            lock (outputGate)
+            {
+                throw new ProcessCanceledException(request, argumentsDisplay,
+                    stdoutBuilder.ToString(), stderrBuilder.ToString(), exitCode,
+                    exception, cancellationToken);
+            }
         }
 
         return new ProcessExecutionResult
@@ -241,6 +278,19 @@ public sealed class ProcessRunner
         catch
         {
             // Process termination is best effort during cancellation.
+        }
+    }
+
+    private static int? TryConfirmExit(Process process)
+    {
+        try
+        {
+            // The finite overload confirms root exit without waiting for redirected output handlers.
+            return process.WaitForExit(1000) ? process.ExitCode : null;
+        }
+        catch (Exception exception) when (exception is InvalidOperationException or Win32Exception)
+        {
+            return null;
         }
     }
 

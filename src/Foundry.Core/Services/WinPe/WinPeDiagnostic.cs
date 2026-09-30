@@ -43,6 +43,9 @@ public sealed record WinPeDiagnostic
     public int RetryCount { get; init; }
     public Exception? Exception { get; init; }
 
+    /// <summary>Gets final mount cleanup safety independently of the primary failure classification.</summary>
+    public WinPeMountCleanupStatus? MountCleanupStatus { get; init; }
+
     /// <summary>Gets the measured, estimated, or minimum bytes required by a capacity validation.</summary>
     public ulong? RequiredBytes { get; init; }
 
