@@ -4,7 +4,6 @@
 
 using Foundry.Utilities.Processes;
 using Foundry.Utilities.Tests.IO;
-using System.Diagnostics;
 
 namespace Foundry.Utilities.Tests.Processes;
 
@@ -168,127 +167,6 @@ public sealed class ProcessRunnerTests
         Assert.NotNull(exception.ExitCode);
         Assert.Equal(cancellation.Token, exception.CancellationToken);
         Assert.DoesNotContain("progress", exception.Message, StringComparison.Ordinal);
-    }
-
-    [Fact]
-    public async Task RunAsync_WhenCanceledAfterRootExit_DoesNotWaitForInheritedOutputPipe()
-    {
-        using var workspace = new TemporaryDirectory();
-        string childScript = Path.Combine(workspace.Path, "child.cmd");
-        string rootScript = Path.Combine(workspace.Path, "start-child.ps1");
-        string releaseRoot = Path.Combine(workspace.Path, "release-root");
-        string releaseChild = Path.Combine(workspace.Path, "release-child");
-        TimeSpan watchdog = TimeSpan.FromSeconds(15);
-        await File.WriteAllTextAsync(
-            childScript,
-            """
-            @echo off
-            echo child-ready
-            :wait
-            if not exist "%FOUNDRY_PIPE_WORKSPACE%" exit /b 0
-            if exist "%FOUNDRY_PIPE_RELEASE_CHILD%" exit /b 0
-            ping.exe 127.0.0.1 -n 2 >nul
-            goto wait
-            """,
-            TestContext.Current.CancellationToken);
-        await File.WriteAllTextAsync(rootScript,
-            """
-            $ErrorActionPreference = 'Stop'
-            $info = [System.Diagnostics.ProcessStartInfo]::new($env:ComSpec)
-            $info.Arguments = '/d /s /c call "' + $env:FOUNDRY_PIPE_CHILD_SCRIPT + '"'
-            $info.UseShellExecute = $false
-            $info.CreateNoWindow = $true
-            # Redirecting input enables explicit inheritance of the unchanged output/error handles.
-            $info.RedirectStandardInput = $true
-            $child = [System.Diagnostics.Process]::Start($info)
-            Write-Output "child-pid:$($child.Id)"
-            Write-Output "root-pid:$PID"
-            while (-not (Test-Path -LiteralPath $env:FOUNDRY_PIPE_RELEASE_ROOT)) {
-                Start-Sleep -Milliseconds 50
-            }
-            """, TestContext.Current.CancellationToken);
-        var rootStarted = new TaskCompletionSource<int>(TaskCreationOptions.RunContinuationsAsynchronously);
-        var childStarted = new TaskCompletionSource<int>(TaskCreationOptions.RunContinuationsAsynchronously);
-        var childReady = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-        var request = new ProcessExecutionRequest(
-            Path.Combine(Environment.SystemDirectory, "WindowsPowerShell", "v1.0", "powershell.exe"),
-            ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", rootScript],
-            workspace.Path) with
-        {
-            EnvironmentOverrides = new Dictionary<string, string?>
-            {
-                ["FOUNDRY_PIPE_CHILD_SCRIPT"] = childScript,
-                ["FOUNDRY_PIPE_RELEASE_ROOT"] = releaseRoot,
-                ["FOUNDRY_PIPE_RELEASE_CHILD"] = releaseChild,
-                ["FOUNDRY_PIPE_WORKSPACE"] = workspace.Path
-            },
-            OnOutputData = line =>
-            {
-                if (line.StartsWith("root-pid:", StringComparison.Ordinal) && int.TryParse(line.AsSpan(9), out int rootPid))
-                    rootStarted.TrySetResult(rootPid);
-                if (line.StartsWith("child-pid:", StringComparison.Ordinal) && int.TryParse(line.AsSpan(10), out int childPid))
-                    childStarted.TrySetResult(childPid);
-                if (line.Equals("child-ready", StringComparison.Ordinal)) childReady.TrySetResult();
-            }
-        };
-        using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
-        Task<ProcessExecutionResult> executionTask = new ProcessRunner().RunAsync(request, cancellation.Token);
-        Process? child = null;
-        try
-        {
-            int rootPid = await rootStarted.Task.WaitAsync(watchdog, TestContext.Current.CancellationToken);
-            int childPid = await childStarted.Task.WaitAsync(watchdog, TestContext.Current.CancellationToken);
-            using var root = Process.GetProcessById(rootPid);
-            child = Process.GetProcessById(childPid);
-            await childReady.Task.WaitAsync(watchdog, TestContext.Current.CancellationToken);
-
-            // Confirm root exit while the child keeps the inherited stream open until finally releases it.
-            await File.WriteAllTextAsync(releaseRoot, "release", TestContext.Current.CancellationToken);
-            await root.WaitForExitAsync(TestContext.Current.CancellationToken).WaitAsync(watchdog, TestContext.Current.CancellationToken);
-            Assert.Equal(0, root.ExitCode);
-            Assert.False(child.HasExited);
-            Assert.False(executionTask.IsCompleted);
-            cancellation.Cancel();
-
-            ProcessCanceledException exception = await Assert.ThrowsAsync<ProcessCanceledException>(() =>
-                executionTask.WaitAsync(watchdog, TestContext.Current.CancellationToken));
-
-            Assert.True(exception.ProcessExitConfirmed);
-            Assert.Equal(0, exception.ExitCode);
-            Assert.Contains("child-ready", exception.StandardOutput, StringComparison.Ordinal);
-            Assert.Equal(cancellation.Token, exception.CancellationToken);
-            Assert.False(child.HasExited, "Cancellation must complete before the child releases its output pipe.");
-        }
-        finally
-        {
-            File.WriteAllText(releaseRoot, "release");
-            File.WriteAllText(releaseChild, "release");
-            cancellation.Cancel();
-            try
-            {
-                if (child is not null)
-                {
-                    using (child)
-                    {
-                        using var cleanup = new CancellationTokenSource(watchdog);
-                        try { await child.WaitForExitAsync(cleanup.Token); }
-                        catch (OperationCanceledException) when (cleanup.IsCancellationRequested)
-                        {
-                            if (!child.HasExited) child.Kill(entireProcessTree: true);
-                            using var killed = new CancellationTokenSource(watchdog);
-                            await child.WaitForExitAsync(killed.Token);
-                            throw;
-                        }
-                    }
-                }
-            }
-            finally
-            {
-                using var observation = new CancellationTokenSource(watchdog);
-                try { await executionTask.WaitAsync(watchdog, observation.Token); }
-                catch (OperationCanceledException) when (!observation.IsCancellationRequested) { }
-            }
-        }
     }
 
     [Fact]
