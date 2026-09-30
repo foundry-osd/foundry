@@ -10,6 +10,39 @@ namespace Foundry.Utilities.Tests.Storage;
 
 public sealed class WindowsVolumeStorageTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void IsoDestination_DisplaysItsVolumeInsteadOfTheFilename(bool existingFile)
+    {
+        using var directory = new TemporaryDirectory();
+        string path = Path.Combine(directory.Path, "boot.iso");
+        if (existingFile) File.WriteAllText(path, "existing output");
+        var drive = new DriveInfo(Path.GetPathRoot(directory.Path)!);
+        string location = drive.Name.TrimEnd(Path.DirectorySeparatorChar);
+        string expected = string.IsNullOrWhiteSpace(drive.VolumeLabel)
+            ? location : $"{location} ({drive.VolumeLabel})";
+
+        Assert.Equal(expected, WindowsVolumeStorage.GetDisplayName(path));
+    }
+
+    [Fact]
+    public void UnavailableDestination_DisplaysItsShareRootWithoutThrowing()
+    {
+        string share = @"\\localhost\FoundryMissingShare-" + Guid.NewGuid().ToString("N");
+
+        Assert.Equal(share, WindowsVolumeStorage.GetDisplayName(Path.Combine(share, "future", "boot.iso")));
+    }
+
+    [Fact]
+    public void InvalidDestination_DoesNotReplaceTheCapacityFailureWithAnException()
+    {
+        string displayName = WindowsVolumeStorage.GetDisplayName("G:\\invalid\0boot.iso");
+
+        Assert.NotEmpty(displayName);
+        Assert.DoesNotContain("boot.iso", displayName, StringComparison.Ordinal);
+    }
+
     [Fact]
     public void LocalVolume_ReturnsFilesystemAndUsableCapacity()
     {

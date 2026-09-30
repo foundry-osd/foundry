@@ -11,6 +11,33 @@ namespace Foundry.Utilities.Storage;
 /// <summary>Queries destination directories and UNC shares without requiring a mapped drive letter.</summary>
 public static class WindowsVolumeStorage
 {
+    /// <summary>Identifies the resolved destination volume and label, using its root or a neutral placeholder when unavailable.</summary>
+    public static string GetDisplayName(string path)
+    {
+        string root = "—";
+        try
+        {
+            root = GetRoot(path);
+            string directory = GetExistingDirectory(path);
+            var volumePath = new char[Math.Max(directory.Length + 1, 261)];
+            if (!GetVolumePathName(directory, volumePath, (uint)volumePath.Length))
+                return root.TrimEnd(Path.DirectorySeparatorChar);
+
+            root = ReadNativeString(volumePath);
+            string location = root.TrimEnd(Path.DirectorySeparatorChar);
+            var volumeLabel = new char[261];
+            if (!GetVolumeInformation(root, volumeLabel, (uint)volumeLabel.Length, nint.Zero, nint.Zero, nint.Zero, nint.Zero, 0))
+                return location;
+
+            string label = ReadNativeString(volumeLabel);
+            return string.IsNullOrWhiteSpace(label) ? location : $"{location} ({label})";
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException or NotSupportedException)
+        {
+            return root.TrimEnd(Path.DirectorySeparatorChar);
+        }
+    }
+
     /// <summary>Returns caller-available free bytes on the nearest existing destination directory, including quota restrictions.</summary>
     public static long GetAvailableBytes(string path)
     {
@@ -27,8 +54,7 @@ public static class WindowsVolumeStorage
         var fileSystem = new char[261];
         if (!GetVolumeInformation(root, nint.Zero, 0, nint.Zero, nint.Zero, nint.Zero, fileSystem, (uint)fileSystem.Length))
             throw QueryFailure("The volume filesystem could not be determined.");
-        int terminator = Array.IndexOf(fileSystem, '\0');
-        return new string(fileSystem, 0, terminator >= 0 ? terminator : fileSystem.Length);
+        return ReadNativeString(fileSystem);
     }
 
     /// <summary>Retains existing directory paths so native free-space queries follow mounted volumes and reparse targets.</summary>
@@ -64,6 +90,17 @@ public static class WindowsVolumeStorage
 
     private static IOException QueryFailure(string message) => new(message, new Win32Exception(Marshal.GetLastWin32Error()));
 
+    private static string ReadNativeString(char[] buffer)
+    {
+        int terminator = Array.IndexOf(buffer, '\0');
+        return new string(buffer, 0, terminator >= 0 ? terminator : buffer.Length);
+    }
+
+    [DllImport("kernel32.dll", EntryPoint = "GetVolumePathNameW", ExactSpelling = true, CharSet = CharSet.Unicode, SetLastError = true)]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool GetVolumePathName(string path, [Out] char[] volumePath, uint bufferLength);
+
     [DllImport("kernel32.dll", EntryPoint = "GetDiskFreeSpaceExW", ExactSpelling = true, CharSet = CharSet.Unicode, SetLastError = true)]
     [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
     [return: MarshalAs(UnmanagedType.Bool)]
@@ -74,4 +111,10 @@ public static class WindowsVolumeStorage
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool GetVolumeInformation(string root, nint volumeName, uint volumeNameLength,
         nint serialNumber, nint maximumComponentLength, nint flags, [Out] char[] fileSystem, uint fileSystemLength);
+
+    [DllImport("kernel32.dll", EntryPoint = "GetVolumeInformationW", ExactSpelling = true, CharSet = CharSet.Unicode, SetLastError = true)]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool GetVolumeInformation(string root, [Out] char[] volumeName, uint volumeNameLength,
+        nint serialNumber, nint maximumComponentLength, nint flags, nint fileSystem, uint fileSystemLength);
 }

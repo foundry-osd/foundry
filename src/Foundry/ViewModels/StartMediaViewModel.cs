@@ -24,6 +24,7 @@ using Foundry.Services.Operations;
 using Foundry.Services.Settings;
 using Foundry.Services.Shell;
 using Foundry.Telemetry;
+using Foundry.Utilities.Storage;
 using Serilog;
 using Serilog.Context;
 
@@ -552,10 +553,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 logger.Warning(
                     "Boot media creation was blocked by local storage validation. FailureCode={FailureCode}, StoragePath={StoragePath}, RequiredBytes={RequiredBytes}, AvailableBytes={AvailableBytes}",
                     diagnostic.Code, diagnostic.StoragePath, diagnostic.RequiredBytes, diagnostic.AvailableBytes);
+                string storageVolume = await Task.Run(
+                    () => WindowsVolumeStorage.GetDisplayName(diagnostic.StoragePath!), cancellationToken);
                 string message = diagnostic.Code == WinPeErrorCodes.LocalSpaceInsufficient
-                    ? FormatMediaCapacityFailure("StartMedia.Operation.LocalSpaceInsufficient", diagnostic)
+                    ? FormatMediaCapacityFailure("StartMedia.Operation.LocalSpaceInsufficient", diagnostic, storageVolume)
                     : string.Format(CultureInfo.CurrentCulture,
-                        localizationService.GetString("StartMedia.Operation.LocalSpaceUnknown"), diagnostic.StoragePath);
+                        localizationService.GetString("StartMedia.Operation.LocalSpaceUnknown"), storageVolume);
                 await ShowBlockedDialogAsync(target == FinalMediaTarget.Iso
                     ? "StartMedia.CreateIso.BlockedTitle" : "StartMedia.CreateUsb.BlockedTitle", message);
                 return;
@@ -2538,7 +2541,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         return localizationService.GetString($"StartMedia.DriverVendor.{vendor}");
     }
 
-    private string FormatMediaCapacityFailure(string resourceKey, WinPeDiagnostic diagnostic)
+    private string FormatMediaCapacityFailure(string resourceKey, WinPeDiagnostic diagnostic, string? storageVolume = null)
     {
         string required = diagnostic.RequiredBytes is ulong requiredBytes ? FormatByteSize(requiredBytes) : "—";
         string available = diagnostic.AvailableBytes is ulong availableBytes ? FormatByteSize(availableBytes) : "—";
@@ -2554,7 +2557,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             localizationService.GetString(resourceKey),
             required,
             available,
-            diagnostic.StoragePath);
+            storageVolume);
     }
 
     private string FormatByteSize(ulong bytes)
