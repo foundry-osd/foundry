@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Utilities.Processes;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -13,6 +14,42 @@ namespace Foundry.Telemetry;
 /// </summary>
 public static partial class RemoteProcessDiagnostics
 {
+    /// <summary>Filters cancellation output using the same reviewed-tool privacy contract as completed failures.</summary>
+    public static IReadOnlyDictionary<string, object> CreateCancellationProperties(ProcessCanceledException exception, TimeSpan duration)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+        var properties = new Dictionary<string, object>(CreateProperties(new ProcessExecutionResult
+        {
+            FileName = exception.FileName,
+            Arguments = exception.Arguments,
+            ExitCode = exception.ExitCode.GetValueOrDefault(),
+            StandardOutput = exception.StandardOutput,
+            StandardError = exception.StandardError
+        }, duration), StringComparer.Ordinal)
+        {
+            ["ProcessExitConfirmed"] = exception.ProcessExitConfirmed,
+            ["FailureKind"] = "process",
+            ["FailureReason"] = "cancelled"
+        };
+        if (!exception.ExitCode.HasValue)
+        {
+            properties.Remove("ExitCode");
+        }
+        if (Path.GetFileName(exception.FileName).Equals("dism.exe", StringComparison.OrdinalIgnoreCase))
+        {
+            // Export only a numeric progress value; headers and arbitrary partial output remain private.
+            foreach (Match match in DismProgressPattern().Matches(exception.StandardOutput.Replace('\r', '\n')))
+            {
+                if (double.TryParse(match.Groups[1].Value, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture,
+                    out double percent) && percent is >= 0 and <= 100)
+                {
+                    properties["ProcessProgressPercent"] = percent;
+                }
+            }
+        }
+        return properties;
+    }
+
     public static IReadOnlyDictionary<string, object> CreateStartFailureProperties(ProcessStartException exception, TimeSpan duration)
     {
         ArgumentNullException.ThrowIfNull(exception);
@@ -105,6 +142,9 @@ public static partial class RemoteProcessDiagnostics
 
     [GeneratedRegex("(?:^|\\s)/(Get-ImageInfo|Apply-Image|Mount-Image|Unmount-Image|Export-Image|Get-Features|Enable-Feature|Disable-Feature|Add-Driver|Add-Package|Cleanup-Image|Set-AllIntl|Set-InputLocale)(?=\\s|$)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex DismOperationPattern();
+
+    [GeneratedRegex("^[ \\t]*\\[[= \\t]*([0-9]+(?:\\.[0-9]+)?)%[= \\t]*\\][ \\t]*$", RegexOptions.Multiline | RegexOptions.CultureInvariant)]
+    private static partial Regex DismProgressPattern();
 
     // Only error paragraphs are exported: image names, archive members, machine headers,
     // and volume inventories are not diagnostic text and may contain identifying values.
