@@ -5,6 +5,7 @@
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using Foundry.Core.Services.Packages;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Cache;
@@ -24,6 +25,55 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentPreflightTests
 {
+    [Theory]
+    [InlineData(DeploymentMode.Iso, false)]
+    [InlineData(DeploymentMode.Usb, false)]
+    [InlineData(DeploymentMode.Iso, true)]
+    [InlineData(DeploymentMode.Usb, true)]
+    public async Task PostInstallPackage_ActualSourceMustRemainReadableBeforeDiskPreparation(DeploymentMode mode, bool sourceLocked)
+    {
+        using var fixture = new PipelineFixture { Mode = mode };
+        string script = Path.Combine(fixture.Root, "script.ps1");
+        await File.WriteAllTextAsync(script, "exit 0", TestContext.Current.CancellationToken);
+        var library = new PreOobePackageLibraryService(Path.Combine(fixture.Root, "library"));
+        var reference = await library.ImportAsync(script, TestContext.Current.CancellationToken);
+        var settings = new Foundry.Core.Models.Configuration.PreOobeSettings
+        {
+            IsEnabled = true,
+            Actions = [new() { Id = Guid.NewGuid().ToString("N"), Name = "Fixture", Kind = Foundry.Core.Models.Configuration.PreOobeActionKind.PowerShell,
+                Package = reference, EntryPoint = "script.ps1", Process = new() }]
+        };
+        var publisher = new Foundry.Core.Services.WinPe.WinPePreOobeMediaService();
+        using var media = await publisher.PrepareAsync(library, settings, TestContext.Current.CancellationToken);
+        Directory.CreateDirectory(fixture.CacheRoot);
+        await publisher.PublishAsync(media, fixture.CacheRoot, TestContext.Current.CancellationToken);
+        fixture.PostInstall = new() { IsEnabled = true, Actions = settings.Actions, ManifestId = media.ManifestId, ManifestHash = media.ManifestHash };
+        var resolver = new PreOobeContentResolver
+        {
+            RuntimeExecutablePath = NativeRuntimeFixture.CreateFiles(fixture.Root),
+            MediaRoots = () => [fixture.CacheRoot]
+        };
+        string source = Path.Combine(fixture.CacheRoot, "Cache", "PreOobe", "Packages", reference.ContentHash, "files", "script.ps1");
+        using FileStream? sourceLock = sourceLocked ? new FileStream(source, FileMode.Open, FileAccess.ReadWrite, FileShare.None) : null;
+        DeploymentStepExecutionContext context = fixture.CreateContext();
+
+        DeploymentStepResult result = await fixture.CreatePostInstallPreflight(resolver).ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(sourceLocked ? DeploymentStepState.Failed : DeploymentStepState.Succeeded, result.State);
+        if (sourceLocked)
+        {
+            Assert.Equal("postinstall_preflight_failed", result.Failure?.Code);
+            Assert.Null(context.Preflight);
+            Assert.Equal(DeploymentStepState.Failed, (await fixture.Prepare.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        }
+        else
+        {
+            Assert.NotNull(context.Preflight);
+            Assert.Single(context.PostInstallContent!.Packages);
+        }
+        Assert.DoesNotContain("partition", fixture.Events);
+    }
+
     [Theory]
     [InlineData(DeploymentMode.Iso, false)]
     [InlineData(DeploymentMode.Usb, false)]
@@ -539,6 +589,7 @@ public sealed class DeploymentPreflightTests
         public bool OptionalFeatureEnable { get; init; } = true;
         public string Failure { get; set; } = "";
         public CustomImageSelection? CustomImage { get; set; }
+        public Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings PostInstall { get; set; } = new();
         public DeploymentStepExecutionContext? Context { get; private set; }
         private readonly HttpClient _client;
         private readonly CancellationTokenSource _cancellation = new();
@@ -571,6 +622,9 @@ public sealed class DeploymentPreflightTests
             File.WriteAllBytes(path, bytes);
         }
 
+        public PreflightDeploymentStep CreatePostInstallPreflight(PreOobeContentResolver resolver) =>
+            new(Storage, new ImageSourceProbe(_client), postInstallResolver: resolver);
+
         private DeploymentContext CreateRequest()
         {
             if (Failure == "unknown_space") Storage.AvailableBytes = null;
@@ -582,6 +636,7 @@ public sealed class DeploymentPreflightTests
                 TargetDiskNumber = 1,
                 TargetDiskIdentity = Identity,
                 TargetComputerName = "LAB01",
+                PreOobe = PostInstall,
                 IsDryRun = IsDryRun,
                 DriverPackSelectionKind = DeferredDriver || DriverPackOverride is not null ? DriverPackSelectionKind.OemCatalog : DriverPackSelectionKind.None,
                 DriverPack = DriverPackOverride ?? (DeferredDriver ? new DriverPackCatalogItem { Manufacturer = "Lenovo", FileName = "drivers.exe", SizeBytes = 100 } : null),

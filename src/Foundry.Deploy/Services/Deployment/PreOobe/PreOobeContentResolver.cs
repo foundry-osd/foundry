@@ -110,7 +110,7 @@ public class PreOobeContentResolver
                     if (item.Manifest.SchemaVersion != 1 || item.Manifest.Files.Count != package.FileCount || item.Manifest.Files.Sum(file => file.Length) != package.Length)
                         throw new InvalidDataException("Post-installation package identity does not match its reference.");
                     foreach (string relative in item.Manifest.Files.Select(file => file.RelativePath).Concat(item.Manifest.Directories))
-                        PreOobePackagePathPolicy.Resolve($@"C:\Windows\Temp\Foundry\Payloads\PostInstall\{new string('0', 32)}\{package.ContentHash}", relative);
+                        PreOobePackagePathPolicy.ResolveLexically($@"C:\Windows\Temp\Foundry\Payloads\PostInstall\{new string('0', 32)}\{package.ContentHash}", relative);
                     foreach (var file in item.Manifest.Files)
                     {
                         PreOobePackagePathPolicy.ValidateRelativePath(file.RelativePath);
