@@ -3411,6 +3411,12 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Het ISO medium is succesvol aangemaakt.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Er is onvoldoende schijfruimte om de opstartimage te maken. Op {2} is minimaal {0} vrije ruimte nodig. Beschikbaar: {1}. Maak ruimte vrij en probeer het opnieuw.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>De beschikbare schijfruimte voor het maken van de opstartimage kon op {0} niet worden gecontroleerd. Controleer of de locatie toegankelijk is en probeer het opnieuw.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Installatie-bootimage.</value>
   </data>

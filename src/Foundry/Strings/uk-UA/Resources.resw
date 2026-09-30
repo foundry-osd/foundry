@@ -3411,6 +3411,12 @@
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Носій ISO створено успішно.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Недостатньо місця на диску для створення завантажувального образу. У розташуванні {2} потрібно щонайменше {0} вільного місця. Доступно: {1}. Звільніть місце та спробуйте ще раз.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Не вдалося перевірити доступне місце на диску для створення завантажувального образу в розташуванні {0}. Переконайтеся, що розташування доступне, і спробуйте ще раз.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Монтаж завантажувального образу.</value>
   </data>

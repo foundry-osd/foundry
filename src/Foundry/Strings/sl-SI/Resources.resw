@@ -3411,6 +3411,12 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Medij ISO je bil uspešno ustvarjen.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Na disku ni dovolj prostora za ustvarjanje zagonske slike. Na mestu {2} je potrebnih vsaj {0} prostega prostora. Na voljo: {1}. Sprostite prostor in poskusite znova.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Razpoložljivega prostora na disku za ustvarjanje zagonske slike na mestu {0} ni bilo mogoče preveriti. Preverite, ali je mesto dostopno, in poskusite znova.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Namestitev zagonske slike.</value>
   </data>

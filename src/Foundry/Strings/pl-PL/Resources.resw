@@ -3411,6 +3411,12 @@ Dołączone hasła i klucze dostępu: {2}</value>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>Nośnik ISO został pomyślnie utworzony.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Za mało miejsca na dysku, aby utworzyć obraz rozruchowy. W lokalizacji {2} wymagane jest co najmniej {0} wolnego miejsca. Dostępne: {1}. Zwolnij miejsce i spróbuj ponownie.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Nie udało się sprawdzić dostępnego miejsca na dysku do utworzenia obrazu rozruchowego w lokalizacji {0}. Sprawdź, czy lokalizacja jest dostępna, i spróbuj ponownie.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Montowanie obrazu rozruchowego.</value>
   </data>

@@ -3411,6 +3411,12 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>ISO ortamı başarıyla oluşturuldu.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Önyükleme görüntüsünü oluşturmak için yeterli disk alanı yok. {2} konumunda en az {0} boş alan gerekiyor. Kullanılabilir: {1}. Yer açıp yeniden deneyin.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Önyükleme görüntüsü oluşturmak için kullanılabilir disk alanı {0} konumunda doğrulanamadı. Konumun erişilebilir olduğunu kontrol edip yeniden deneyin.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Önyükleme görüntüsünün montajı.</value>
   </data>

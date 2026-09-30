@@ -3411,6 +3411,12 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>A ISO adathordozó sikeresen létrejött.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Nincs elég lemezterület a rendszerindító lemezkép létrehozásához. A(z) {2} helyen legalább {0} szabad terület szükséges. Elérhető: {1}. Szabadítson fel helyet, és próbálja újra.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Nem sikerült ellenőrizni a rendszerindító lemezkép létrehozásához rendelkezésre álló lemezterületet a(z) {0} helyen. Ellenőrizze, hogy a hely elérhető-e, és próbálja újra.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Szerelési rendszerindító kép.</value>
   </data>

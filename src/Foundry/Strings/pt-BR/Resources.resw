@@ -3411,6 +3411,12 @@ Senhas e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.IsoSuccessMessage" xml:space="preserve">
     <value>A mídia ISO foi criada com sucesso.</value>
   </data>
+  <data name="StartMedia.Operation.LocalSpaceInsufficient" xml:space="preserve">
+    <value>Não há espaço em disco suficiente para criar a imagem de inicialização. É necessário pelo menos {0} de espaço livre em {2}. Disponível: {1}. Libere espaço e tente novamente.</value>
+  </data>
+  <data name="StartMedia.Operation.LocalSpaceUnknown" xml:space="preserve">
+    <value>Não foi possível verificar o espaço em disco disponível para criar a imagem de inicialização em {0}. Verifique se o local está acessível e tente novamente.</value>
+  </data>
   <data name="StartMedia.Operation.MountingBootImage" xml:space="preserve">
     <value>Montando imagem de inicialização.</value>
   </data>
