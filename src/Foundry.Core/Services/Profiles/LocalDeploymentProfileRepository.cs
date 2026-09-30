@@ -4,6 +4,8 @@
 
 using System.Collections.Frozen;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.ExceptionServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -34,6 +36,18 @@ public sealed class LocalDeploymentProfileRepository
     public IReadOnlyList<LocalProfileDescriptor> List()
     {
         using FileStream lease = AcquireLock();
+        return ListUnderLock();
+    }
+
+    /// <summary>Lists committed metadata after waiting up to two seconds for repository contention to end.</summary>
+    public async Task<IReadOnlyList<LocalProfileDescriptor>> ListAsync(CancellationToken cancellationToken)
+    {
+        using FileStream lease = await AcquireLockAsync(cancellationToken).ConfigureAwait(false);
+        return ListUnderLock();
+    }
+
+    private IReadOnlyList<LocalProfileDescriptor> ListUnderLock()
+    {
         var descriptors = new List<LocalProfileDescriptor>();
         string directory = ManagedPath("profiles");
         if (!Directory.Exists(directory))
@@ -61,6 +75,20 @@ public sealed class LocalDeploymentProfileRepository
     {
         ValidateId(localId);
         using FileStream lease = AcquireLock();
+        return ReadUnderLock(localId);
+    }
+
+    /// <summary>Reads an owned snapshot after waiting up to two seconds for repository contention to end.</summary>
+    /// <remarks>Cancellation stops lock acquisition; an acquired lease remains owned until the read completes.</remarks>
+    public async Task<LocalProfileSnapshot> ReadAsync(Guid localId, CancellationToken cancellationToken)
+    {
+        ValidateId(localId);
+        using FileStream lease = await AcquireLockAsync(cancellationToken).ConfigureAwait(false);
+        return ReadUnderLock(localId);
+    }
+
+    private LocalProfileSnapshot ReadUnderLock(Guid localId)
+    {
         bool recovered = Recover(localId);
         return ReadSnapshot(RequireHead(localId) with { CleanupPending = !recovered });
     }
@@ -192,6 +220,18 @@ public sealed class LocalDeploymentProfileRepository
     public Guid? GetActive()
     {
         using FileStream lease = AcquireLock();
+        return GetActiveUnderLock();
+    }
+
+    /// <summary>Reads the active selection after waiting up to two seconds for repository contention to end.</summary>
+    public async Task<Guid?> GetActiveAsync(CancellationToken cancellationToken)
+    {
+        using FileStream lease = await AcquireLockAsync(cancellationToken).ConfigureAwait(false);
+        return GetActiveUnderLock();
+    }
+
+    private Guid? GetActiveUnderLock()
+    {
         Guid? id = ReadActive();
         return id is { } localId && ReadHead(localId) is not null ? id : null;
     }
@@ -447,6 +487,43 @@ public sealed class LocalDeploymentProfileRepository
         _ = ManagedPath();
         Directory.CreateDirectory(root);
         return new FileStream(ManagedPath(".repository.lock"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+    }
+
+    private async Task<FileStream> AcquireLockAsync(CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        _ = ManagedPath();
+        Directory.CreateDirectory(root);
+        long started = Stopwatch.GetTimestamp();
+        TimeSpan budget = TimeSpan.FromSeconds(2);
+        TimeSpan retryDelay = TimeSpan.FromMilliseconds(50);
+        ExceptionDispatchInfo? contention = null;
+        while (true)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (contention is not null && Stopwatch.GetElapsedTime(started) >= budget)
+            {
+                contention.Throw();
+            }
+
+            // Revalidate paths outside the retry boundary; only opening the exclusive lease may retry.
+            string path = ManagedPath(".repository.lock");
+            try
+            {
+                return new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException exception) when ((exception.HResult & 0xffff) is 32 or 33)
+            {
+                contention ??= ExceptionDispatchInfo.Capture(exception);
+            }
+
+            TimeSpan remaining = budget - Stopwatch.GetElapsedTime(started);
+            if (remaining <= TimeSpan.Zero)
+            {
+                contention.Throw();
+            }
+            await Task.Delay(remaining < retryDelay ? remaining : retryDelay, cancellationToken).ConfigureAwait(false);
+        }
     }
 
     private void EnsureProfileDirectory(Guid localId)
