@@ -19,4 +19,11 @@
     <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="..\Foundry.Core\Assets\7z\x64\7za.exe" Link="Assets\7z\x64\7za.exe" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\Foundry.Core\Assets\7z\arm64\7za.exe" Link="Assets\7z\arm64\7za.exe" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\Foundry.Core\Assets\7z\License.txt" Link="Assets\7z\License.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\Foundry.Core\Assets\7z\readme.txt" Link="Assets\7z\readme.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
