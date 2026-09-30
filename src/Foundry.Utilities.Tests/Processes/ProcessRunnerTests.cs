@@ -140,6 +140,36 @@ public sealed class ProcessRunnerTests
     }
 
     [Fact]
+    public async Task RunAsync_WhenCanceled_PreservesCapturedStreamsAndConfirmedRootExit()
+    {
+        using var workspace = new TemporaryDirectory();
+        var outputReady = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var errorReady = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        ProcessExecutionRequest request = ProcessExecutionRequest.FromRawArguments(
+            GetCommandProcessor(),
+            "/d /s /c \"(echo progress) & (echo warning) 1>&2 & ping 127.0.0.1 -n 30 >nul\"",
+            workspace.Path) with
+        {
+            OnOutputData = _ => outputReady.TrySetResult(),
+            OnErrorData = _ => errorReady.TrySetResult()
+        };
+        using var cancellation = new CancellationTokenSource();
+        Task<ProcessExecutionResult> execution = new ProcessRunner().RunAsync(request, cancellation.Token);
+        await Task.WhenAll(outputReady.Task, errorReady.Task)
+            .WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
+        cancellation.Cancel();
+
+        ProcessCanceledException exception = await Assert.ThrowsAsync<ProcessCanceledException>(() => execution);
+
+        Assert.Equal("progress", exception.StandardOutput.Trim());
+        Assert.Equal("warning", exception.StandardError.Trim());
+        Assert.True(exception.ProcessExitConfirmed);
+        Assert.NotNull(exception.ExitCode);
+        Assert.Equal(cancellation.Token, exception.CancellationToken);
+        Assert.DoesNotContain("progress", exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public async Task RunAsync_WhenCanceledAfterRootExit_DoesNotWaitForInheritedOutputPipe()
     {
         using var workspace = new TemporaryDirectory();
@@ -172,7 +202,11 @@ public sealed class ProcessRunnerTests
         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
         cancellation.Cancel();
 
-        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => executionTask);
+        ProcessCanceledException exception = await Assert.ThrowsAsync<ProcessCanceledException>(() => executionTask);
+
+        Assert.True(exception.ProcessExitConfirmed);
+        Assert.Equal(0, exception.ExitCode);
+        Assert.Contains("child-ready", exception.StandardOutput, StringComparison.Ordinal);
 
         Assert.True(
             stopwatch.Elapsed < TimeSpan.FromSeconds(1),

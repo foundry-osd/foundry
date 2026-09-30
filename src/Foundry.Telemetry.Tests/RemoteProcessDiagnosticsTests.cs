@@ -3,11 +3,80 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Utilities.Processes;
+using Serilog.Events;
+using Serilog.Parsing;
 
 namespace Foundry.Telemetry.Tests;
 
 public sealed class RemoteProcessDiagnosticsTests
 {
+    [Fact]
+    public void CreateCancellationProperties_PreservesDismProgressAndFiltersPrivateContext()
+    {
+        var request = ProcessExecutionRequest.FromRawArguments("dism.exe",
+            "/English /Unmount-Image /MountDir:\"C:\\private\\mount\" /Discard", @"C:\private");
+        var exception = new ProcessCanceledException(request, request.RawArguments!,
+            "Name: PRIVATE-HOST\r\n[==== 10.0% ====]\r\n[======= 100.0% =======]\r\n",
+            "Error: 5\r\nAccess is denied. C:\\private\\mount\r\nPassword=secret",
+            1, new OperationCanceledException(), CancellationToken.None);
+
+        IReadOnlyDictionary<string, object> properties = RemoteProcessDiagnostics.CreateCancellationProperties(
+            exception, TimeSpan.FromMinutes(5));
+
+        Assert.Equal(true, properties["ProcessExitConfirmed"]);
+        Assert.Equal(100d, properties["ProcessProgressPercent"]);
+        Assert.Equal("Unmount-Image", properties["ProcessOperation"]);
+        Assert.Equal(1, properties["ExitCode"]);
+        Assert.Contains("Access is denied", properties["ProcessStderr"].ToString());
+        string json = System.Text.Json.JsonSerializer.Serialize(properties);
+        Assert.DoesNotContain("PRIVATE-HOST", json);
+        Assert.DoesNotContain("private", json);
+        Assert.DoesNotContain("secret", json);
+
+        var logEvent = new LogEvent(DateTimeOffset.UtcNow, LogEventLevel.Warning, null,
+            new MessageTemplateParser().Parse("External process execution was canceled. ProcessExitConfirmed={ProcessExitConfirmed}"),
+            properties.Select(property => new LogEventProperty(property.Key, new ScalarValue(property.Value))));
+        RemoteDiagnosticRecord record = LogRecordFactory.Create(logEvent, RemoteDiagnosticsTestData.Context());
+        RemoteDiagnosticRecord persisted = LogRecordFactory.SanitizePersistedRecord(record);
+
+        Assert.Equal(true, persisted.Attributes["ProcessExitConfirmed"]);
+        Assert.Equal(100L, persisted.Attributes["ProcessProgressPercent"]);
+        Assert.Contains("True", persisted.Body, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("Access is denied", persisted.Attributes["process.stderr"].ToString());
+        Assert.DoesNotContain("secret", System.Text.Json.JsonSerializer.Serialize(persisted));
+    }
+
+    [Fact]
+    public void CreateCancellationProperties_LeavesUnknownExitUnspecifiedAndOmitsUnreviewedOutput()
+    {
+        var request = ProcessExecutionRequest.FromRawArguments("custom.exe", "secret", @"C:\private");
+        var exception = new ProcessCanceledException(request, request.RawArguments!, "private-payload", "secret",
+            null, new OperationCanceledException(), CancellationToken.None);
+
+        IReadOnlyDictionary<string, object> properties = RemoteProcessDiagnostics.CreateCancellationProperties(exception, TimeSpan.Zero);
+
+        Assert.Equal(false, properties["ProcessExitConfirmed"]);
+        Assert.Equal(true, properties["ProcessOutputOmitted"]);
+        Assert.False(properties.ContainsKey("ExitCode"));
+        Assert.False(properties.ContainsKey("ProcessProgressPercent"));
+        Assert.DoesNotContain("secret", System.Text.Json.JsonSerializer.Serialize(properties));
+        Assert.DoesNotContain("private", System.Text.Json.JsonSerializer.Serialize(properties));
+    }
+
+    [Theory]
+    [InlineData("private path 42%")]
+    [InlineData("[==== 101.0% ====]")]
+    public void CreateCancellationProperties_DoesNotInterpretArbitraryOutputAsDismProgress(string output)
+    {
+        var request = ProcessExecutionRequest.FromRawArguments("dism.exe", "/Discard", @"C:\work");
+        var exception = new ProcessCanceledException(request, request.RawArguments!, output, string.Empty,
+            null, new OperationCanceledException(), CancellationToken.None);
+
+        IReadOnlyDictionary<string, object> properties = RemoteProcessDiagnostics.CreateCancellationProperties(exception, TimeSpan.Zero);
+
+        Assert.False(properties.ContainsKey("ProcessProgressPercent"));
+    }
+
     [Fact]
     public async Task CreateStartFailureProperties_PreservesNativeCodeWithoutPrivateContext()
     {
