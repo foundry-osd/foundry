@@ -30,6 +30,8 @@ public static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        if (Services.Deployment.Native.NativeDeploymentWorker.IsWorkerInvocation(args))
+            return Services.Deployment.Native.NativeDeploymentWorker.Run(args);
         DiagnosticClock.Current.InitializeRuntime(Environment.GetEnvironmentVariable(DiagnosticClock.EnvironmentVariableName));
         string startupLogFilePath = "<unavailable>";
         IHost? host = null;
