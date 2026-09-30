@@ -6,6 +6,19 @@ using Serilog;
 
 namespace Foundry.Core.Services.WinPe;
 
+/// <summary>Tracks whether a mounted image permits another servicing operation.</summary>
+public enum WinPeMountCleanupStatus
+{
+    /// <summary>The session still owns a mounted image and has not completed cleanup.</summary>
+    Mounted,
+    /// <summary>DISM confirmed a successful commit or discard.</summary>
+    Completed,
+    /// <summary>Cleanup failed with known process exit or before process start; the image remains mounted.</summary>
+    Failed,
+    /// <summary>Cleanup process exit is uncertain; further servicing is blocked.</summary>
+    ExitUnconfirmed
+}
+
 /// <summary>
 /// Owns a mounted image until DISM confirms a successful commit or discard.
 /// A completed cleanup failure can be retried; an uncertain process exit blocks further servicing.
@@ -45,6 +58,12 @@ public sealed class WinPeMountSession : IAsyncDisposable
 
     public string BootWimPath { get; }
     public string MountDirectoryPath { get; }
+
+    /// <summary>Gets the latest cleanup outcome independently of the primary operation failure.</summary>
+    public WinPeMountCleanupStatus CleanupStatus { get; private set; } = WinPeMountCleanupStatus.Mounted;
+
+    /// <summary>Gets the latest unsuccessful cleanup attempt for final orchestration diagnostics.</summary>
+    internal WinPeDiagnostic? CleanupFailure { get; private set; }
 
     public static Task<WinPeResult<WinPeMountSession>> MountAsync(
         IWinPeProcessRunner processRunner,
@@ -128,6 +147,8 @@ public sealed class WinPeMountSession : IAsyncDisposable
         if (commitResult.IsSuccess)
         {
             _isMounted = false;
+            CleanupStatus = WinPeMountCleanupStatus.Completed;
+            CleanupFailure = null;
             return WinPeResult.Success();
         }
 
@@ -146,7 +167,7 @@ public sealed class WinPeMountSession : IAsyncDisposable
             "Failed to commit mounted boot.wim changes.",
             stage: "Commit boot image changes",
             toolName: "dism.exe") with
-        { Details = details });
+        { Details = details, MountCleanupStatus = CleanupStatus });
     }
 
     /// <summary>
@@ -187,14 +208,19 @@ public sealed class WinPeMountSession : IAsyncDisposable
             if (discardResult.IsSuccess)
             {
                 _isMounted = false;
+                CleanupStatus = WinPeMountCleanupStatus.Completed;
+                CleanupFailure = null;
                 return WinPeResult.Success();
             }
 
-            return WinPeResult.Failure(discardResult.ToFailureDiagnostic(
+            CleanupStatus = WinPeMountCleanupStatus.Failed;
+            CleanupFailure = discardResult.ToFailureDiagnostic(
                 WinPeErrorCodes.WimUnmountFailed,
                 "Failed to discard mounted boot.wim changes.",
                 stage: "Discard boot image changes",
-                toolName: "dism.exe"));
+                toolName: "dism.exe") with
+            { MountCleanupStatus = CleanupStatus };
+            return WinPeResult.Failure(CleanupFailure);
         }
         catch (Exception exception)
         {
@@ -206,6 +232,7 @@ public sealed class WinPeMountSession : IAsyncDisposable
             {
                 details = $"{details}{Environment.NewLine}Cleanup is unresolved. Further servicing is blocked. Retained cleanup marker: '{markerPath}'.";
             }
+            CleanupStatus = markerCreated ? WinPeMountCleanupStatus.ExitUnconfirmed : WinPeMountCleanupStatus.Failed;
             var diagnostic = new WinPeDiagnostic(
                 WinPeErrorCodes.WimUnmountFailed,
                 "Failed to discard mounted boot.wim changes.",
@@ -214,7 +241,9 @@ public sealed class WinPeMountSession : IAsyncDisposable
                 failureKind: timedOut ? WinPeFailureKinds.Process : null,
                 failureReason: timedOut ? WinPeFailureReasons.Timeout : null,
                 toolName: "dism.exe",
-                exception: exception);
+                exception: exception) with
+            { MountCleanupStatus = CleanupStatus };
+            CleanupFailure = diagnostic;
             if (markerCreated)
             {
                 _unresolvedCleanupFailure = diagnostic;

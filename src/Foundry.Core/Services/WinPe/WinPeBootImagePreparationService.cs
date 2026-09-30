@@ -4,6 +4,7 @@
 
 using System.Globalization;
 using System.Reflection.PortableExecutable;
+using System.Runtime.ExceptionServices;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -91,7 +92,9 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 cancellationToken).ConfigureAwait(false);
 
             // Preserve a completed servicing failure when cancellation prevents trying another source.
-            if (result.IsSuccess || cancellationToken.IsCancellationRequested)
+            if (result.IsSuccess || cancellationToken.IsCancellationRequested ||
+                result.Error?.MountCleanupStatus is WinPeMountCleanupStatus.Failed or WinPeMountCleanupStatus.ExitUnconfirmed ||
+                result.Error?.Code == WinPeErrorCodes.WimUnmountFailed && result.Error?.MountCleanupStatus != WinPeMountCleanupStatus.Completed)
             {
                 return result;
             }
@@ -101,7 +104,6 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
 
         return WinPeResult<WinPeBootImagePreparationResult>.Failure(failures[^1] with
         {
-            Code = WinPeErrorCodes.WinReExtractionFailed,
             Message = "Failed to prepare boot image dependencies from every matching operating system source.",
             Details = string.Join(Environment.NewLine + Environment.NewLine,
                 failures.Select(failure => string.Join(Environment.NewLine, failure.Message, failure.Details)))
@@ -365,158 +367,206 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
         string installWimPath = Path.Combine(exportDirectory, "install.wim");
 
         WinPeMountSession? session = null;
+        WinPeResult<WinPeBootImagePreparationResult> result;
+        ExceptionDispatchInfo? cancellationFailure = null;
         try
         {
-            WinPeResult cleanup = _workspaceCleanup.Delete(sourceDirectory);
-            if (!cleanup.IsSuccess) return WinPeResult<WinPeBootImagePreparationResult>.Failure(cleanup.Error!);
-            Directory.CreateDirectory(sourceDirectory);
-            Directory.CreateDirectory(exportDirectory);
-            ReportProgress(options.Progress, 5, "Preparing Windows source package.");
-
-            WinPeResult<CachedArtifactLease> sourcePathResult = await EnsureDownloadedAsync(
-                options.CacheDirectoryPath,
-                candidate.Source,
-                options.DownloadProgress,
-                cancellationToken, options.LegacyCacheDirectoryPath).ConfigureAwait(false);
-
-            if (!sourcePathResult.IsSuccess)
-            {
-                return WinPeResult<WinPeBootImagePreparationResult>.Failure(sourcePathResult.Error!);
-            }
-
-            await using CachedArtifactLease sourceLease = sourcePathResult.Value!;
-            ReportProgress(options.Progress, 16, "Resolving Windows image index.");
-            WinPeResult<int> indexResult = await ResolveImageIndexAsync(
-                options.Tools.DismPath,
-                sourceLease.Path,
-                candidate.RequestedEdition,
-                options.Artifact.WorkingDirectoryPath,
-                CreateDismProgress(options.Progress, 16, "Resolving Windows image index."),
-                cancellationToken).ConfigureAwait(false);
-
-            if (!indexResult.IsSuccess)
-            {
-                return WinPeResult<WinPeBootImagePreparationResult>.Failure(indexResult.Error!);
-            }
-
-            ReportProgress(options.Progress, 19, "Exporting Windows image for boot image preparation.");
-            cancellationToken.ThrowIfCancellationRequested();
-            WinPeProcessExecution exportResult = await WinPeDismProcessRunner.RunAsync(
-                _processRunner,
-                options.Tools.DismPath,
-                $"/Export-Image /SourceImageFile:{WinPeProcessRunner.Quote(sourceLease.Path)} /SourceIndex:{indexResult.Value} /DestinationImageFile:{WinPeProcessRunner.Quote(installWimPath)} /Compress:max /CheckIntegrity",
-                options.Artifact.WorkingDirectoryPath,
-                "Exporting Windows image with DISM.",
-                CreateDismProgress(options.Progress, 19, "Exporting Windows image for boot image preparation."),
-                CancellationToken.None).ConfigureAwait(false);
-
-            if (!exportResult.IsSuccess)
-            {
-                return WinPeResult<WinPeBootImagePreparationResult>.Failure(exportResult.ToFailureDiagnostic(
-                    WinPeErrorCodes.WinReExtractionFailed,
-                    $"Failed to export the {candidate.RequestedEdition} image from the Windows source package.",
-                    stage: "Export Windows source image",
-                    toolName: "dism.exe"));
-            }
-            cancellationToken.ThrowIfCancellationRequested();
-
-            if (!File.Exists(installWimPath))
-            {
-                return WinPeResult<WinPeBootImagePreparationResult>.Failure(new WinPeDiagnostic(
-                    WinPeErrorCodes.WinReExtractionFailed,
-                    "DISM completed without producing the exported Windows image.",
-                    exportResult.ToDiagnosticText(),
-                    stage: "Export Windows source image",
-                    exitCode: exportResult.ExitCode,
-                    failureKind: WinPeFailureKinds.Process,
-                    failureReason: WinPeFailureReasons.ArtifactMissing,
-                    toolName: "dism.exe"));
-            }
-
-            ReportProgress(options.Progress, 24, "Mounting Windows source image.");
-            cancellationToken.ThrowIfCancellationRequested();
-            WinPeResult<WinPeMountSession> mountResult = await WinPeMountSession.MountAsync(
-                _processRunner,
-                options.Tools.DismPath,
-                installWimPath,
-                mountDirectory,
-                options.Artifact.WorkingDirectoryPath,
-                CancellationToken.None,
-                CreateDismProgress(options.Progress, 24, "Mounting Windows source image.")).ConfigureAwait(false);
-
-            if (!mountResult.IsSuccess)
-            {
-                return WinPeResult<WinPeBootImagePreparationResult>.Failure(mountResult.Error!);
-            }
-
-            session = mountResult.Value!;
-            cancellationToken.ThrowIfCancellationRequested();
-            string winRePath = Path.Combine(mountDirectory, "Windows", "System32", "Recovery", "winre.wim");
-            if (options.BootImageSource == WinPeBootImageSource.WinReWifi && !File.Exists(winRePath))
-            {
-                return await FailWithDiscardAsync(
-                    new WinPeDiagnostic(
-                        WinPeErrorCodes.WinReExtractionFailed,
-                        "The selected operating system image does not contain winre.wim.",
-                        $"Expected path: '{winRePath}'."),
-                    session).ConfigureAwait(false);
-            }
-
-            ReportProgress(options.Progress, 27, "Staging boot image dependencies.");
-            WinPeResult<WinPeBootImagePreparationResult> dependencyResult = PrepareDependencyFiles(
-                mountDirectory,
-                dependencyDirectory,
-                options.Artifact.Architecture,
-                options.BootImageSource);
-
-            if (!dependencyResult.IsSuccess)
-            {
-                return await FailWithDiscardAsync(dependencyResult.Error!, session).ConfigureAwait(false);
-            }
-
-            if (options.BootImageSource == WinPeBootImageSource.WinReWifi)
-            {
-                ReportProgress(options.Progress, 29, "Replacing boot image with WinRE.");
-                Directory.CreateDirectory(Path.GetDirectoryName(options.Artifact.BootWimPath)!);
-                File.Copy(winRePath, options.Artifact.BootWimPath, overwrite: true);
-            }
-
-            WinPeResult discardResult = await session.DiscardAsync().ConfigureAwait(false);
-            if (!discardResult.IsSuccess)
-            {
-                return WinPeResult<WinPeBootImagePreparationResult>.Failure(discardResult.Error!);
-            }
-            cancellationToken.ThrowIfCancellationRequested();
-
-            TryDeleteDirectory(exportDirectory);
-            TryDeleteDirectory(mountDirectory);
-            ReportProgress(options.Progress, 30, "Boot image dependencies are ready.");
-            return dependencyResult;
+            result = await PrepareCandidateAsync().ConfigureAwait(false);
         }
-        catch (Exception ex) when (ex is not OperationCanceledException)
+        catch (OperationCanceledException exception) when (session is not null)
         {
-            if (session is not null)
-            {
-                return await FailWithDiscardAsync(
-                    new WinPeDiagnostic(
-                        WinPeErrorCodes.WinReExtractionFailed,
-                        "Failed to prepare boot image dependencies from the Windows source image.",
-                        ex.Message,
-                        exception: ex),
-                    session).ConfigureAwait(false);
-            }
-
-            return WinPeResult<WinPeBootImagePreparationResult>.Failure(new WinPeDiagnostic(
-                WinPeErrorCodes.WinReExtractionFailed,
-                "Failed to prepare boot image dependencies from the Windows source image.",
-                ex.Message,
-                exception: ex));
+            cancellationFailure = ExceptionDispatchInfo.Capture(exception);
+            result = WinPeResult<WinPeBootImagePreparationResult>.Failure(new WinPeDiagnostic(
+                WinPeErrorCodes.OperationCancelled,
+                "Boot image preparation was cancelled.",
+                exception.Message,
+                exception: exception));
         }
         finally
         {
             if (session is not null)
             {
                 await session.DisposeAsync().ConfigureAwait(false);
+            }
+        }
+
+        // Dispose can retry a completed unmount failure. Settle that final attempt before
+        // deciding whether another candidate can safely start servicing.
+        if (session?.CleanupStatus == WinPeMountCleanupStatus.Completed)
+        {
+            cancellationFailure?.Throw();
+        }
+
+        if (session is null || result.IsSuccess)
+        {
+            return result;
+        }
+
+        WinPeDiagnostic diagnostic = result.Error!;
+        if (session.CleanupStatus is WinPeMountCleanupStatus.Failed or WinPeMountCleanupStatus.ExitUnconfirmed)
+        {
+            WinPeDiagnostic cleanupFailure = session.CleanupFailure!;
+            diagnostic = cleanupFailure with
+            {
+                Details = string.Join(Environment.NewLine,
+                    "Preparation diagnostics:", diagnostic.Message, diagnostic.Details,
+                    "Final cleanup diagnostics:", cleanupFailure.Message, cleanupFailure.Details)
+            };
+        }
+
+        return WinPeResult<WinPeBootImagePreparationResult>.Failure(diagnostic with
+        {
+            MountCleanupStatus = session.CleanupStatus
+        });
+
+        async Task<WinPeResult<WinPeBootImagePreparationResult>> PrepareCandidateAsync()
+        {
+            try
+            {
+                WinPeResult cleanup = _workspaceCleanup.Delete(sourceDirectory);
+                if (!cleanup.IsSuccess) return WinPeResult<WinPeBootImagePreparationResult>.Failure(cleanup.Error!);
+                Directory.CreateDirectory(sourceDirectory);
+                Directory.CreateDirectory(exportDirectory);
+                ReportProgress(options.Progress, 5, "Preparing Windows source package.");
+
+                WinPeResult<CachedArtifactLease> sourcePathResult = await EnsureDownloadedAsync(
+                    options.CacheDirectoryPath,
+                    candidate.Source,
+                    options.DownloadProgress,
+                    cancellationToken, options.LegacyCacheDirectoryPath).ConfigureAwait(false);
+
+                if (!sourcePathResult.IsSuccess)
+                {
+                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(sourcePathResult.Error!);
+                }
+
+                await using CachedArtifactLease sourceLease = sourcePathResult.Value!;
+                ReportProgress(options.Progress, 16, "Resolving Windows image index.");
+                WinPeResult<int> indexResult = await ResolveImageIndexAsync(
+                    options.Tools.DismPath,
+                    sourceLease.Path,
+                    candidate.RequestedEdition,
+                    options.Artifact.WorkingDirectoryPath,
+                    CreateDismProgress(options.Progress, 16, "Resolving Windows image index."),
+                    cancellationToken).ConfigureAwait(false);
+
+                if (!indexResult.IsSuccess)
+                {
+                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(indexResult.Error!);
+                }
+
+                ReportProgress(options.Progress, 19, "Exporting Windows image for boot image preparation.");
+                cancellationToken.ThrowIfCancellationRequested();
+                WinPeProcessExecution exportResult = await WinPeDismProcessRunner.RunAsync(
+                    _processRunner,
+                    options.Tools.DismPath,
+                    $"/Export-Image /SourceImageFile:{WinPeProcessRunner.Quote(sourceLease.Path)} /SourceIndex:{indexResult.Value} /DestinationImageFile:{WinPeProcessRunner.Quote(installWimPath)} /Compress:max /CheckIntegrity",
+                    options.Artifact.WorkingDirectoryPath,
+                    "Exporting Windows image with DISM.",
+                    CreateDismProgress(options.Progress, 19, "Exporting Windows image for boot image preparation."),
+                    CancellationToken.None).ConfigureAwait(false);
+
+                if (!exportResult.IsSuccess)
+                {
+                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(exportResult.ToFailureDiagnostic(
+                        WinPeErrorCodes.WinReExtractionFailed,
+                        $"Failed to export the {candidate.RequestedEdition} image from the Windows source package.",
+                        stage: "Export Windows source image",
+                        toolName: "dism.exe"));
+                }
+                cancellationToken.ThrowIfCancellationRequested();
+
+                if (!File.Exists(installWimPath))
+                {
+                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(new WinPeDiagnostic(
+                        WinPeErrorCodes.WinReExtractionFailed,
+                        "DISM completed without producing the exported Windows image.",
+                        exportResult.ToDiagnosticText(),
+                        stage: "Export Windows source image",
+                        exitCode: exportResult.ExitCode,
+                        failureKind: WinPeFailureKinds.Process,
+                        failureReason: WinPeFailureReasons.ArtifactMissing,
+                        toolName: "dism.exe"));
+                }
+
+                ReportProgress(options.Progress, 24, "Mounting Windows source image.");
+                cancellationToken.ThrowIfCancellationRequested();
+                WinPeResult<WinPeMountSession> mountResult = await WinPeMountSession.MountAsync(
+                    _processRunner,
+                    options.Tools.DismPath,
+                    installWimPath,
+                    mountDirectory,
+                    options.Artifact.WorkingDirectoryPath,
+                    CancellationToken.None,
+                    CreateDismProgress(options.Progress, 24, "Mounting Windows source image.")).ConfigureAwait(false);
+
+                if (!mountResult.IsSuccess)
+                {
+                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(mountResult.Error!);
+                }
+
+                session = mountResult.Value!;
+                cancellationToken.ThrowIfCancellationRequested();
+                string winRePath = Path.Combine(mountDirectory, "Windows", "System32", "Recovery", "winre.wim");
+                if (options.BootImageSource == WinPeBootImageSource.WinReWifi && !File.Exists(winRePath))
+                {
+                    return await FailWithDiscardAsync(
+                        new WinPeDiagnostic(
+                            WinPeErrorCodes.WinReExtractionFailed,
+                            "The selected operating system image does not contain winre.wim.",
+                            $"Expected path: '{winRePath}'."),
+                        session).ConfigureAwait(false);
+                }
+
+                ReportProgress(options.Progress, 27, "Staging boot image dependencies.");
+                WinPeResult<WinPeBootImagePreparationResult> dependencyResult = PrepareDependencyFiles(
+                    mountDirectory,
+                    dependencyDirectory,
+                    options.Artifact.Architecture,
+                    options.BootImageSource);
+
+                if (!dependencyResult.IsSuccess)
+                {
+                    return await FailWithDiscardAsync(dependencyResult.Error!, session).ConfigureAwait(false);
+                }
+
+                if (options.BootImageSource == WinPeBootImageSource.WinReWifi)
+                {
+                    ReportProgress(options.Progress, 29, "Replacing boot image with WinRE.");
+                    Directory.CreateDirectory(Path.GetDirectoryName(options.Artifact.BootWimPath)!);
+                    File.Copy(winRePath, options.Artifact.BootWimPath, overwrite: true);
+                }
+
+                WinPeResult discardResult = await session.DiscardAsync().ConfigureAwait(false);
+                if (!discardResult.IsSuccess)
+                {
+                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(discardResult.Error!);
+                }
+                cancellationToken.ThrowIfCancellationRequested();
+
+                TryDeleteDirectory(exportDirectory);
+                TryDeleteDirectory(mountDirectory);
+                ReportProgress(options.Progress, 30, "Boot image dependencies are ready.");
+                return dependencyResult;
+            }
+            catch (Exception ex) when (ex is not OperationCanceledException)
+            {
+                if (session is not null)
+                {
+                    return await FailWithDiscardAsync(
+                        new WinPeDiagnostic(
+                            WinPeErrorCodes.WinReExtractionFailed,
+                            "Failed to prepare boot image dependencies from the Windows source image.",
+                            ex.Message,
+                            exception: ex),
+                        session).ConfigureAwait(false);
+                }
+
+                return WinPeResult<WinPeBootImagePreparationResult>.Failure(new WinPeDiagnostic(
+                    WinPeErrorCodes.WinReExtractionFailed,
+                    "Failed to prepare boot image dependencies from the Windows source image.",
+                    ex.Message,
+                    exception: ex));
             }
         }
     }

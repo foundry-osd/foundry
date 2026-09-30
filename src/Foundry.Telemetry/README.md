@@ -1,5 +1,11 @@
 # Telemetry contracts
 
+## Interrupted WinPE servicing
+
+Canceled WinPE processes produce one structured diagnostic log before cancellation is propagated. Reviewed tools retain bounded, redacted error output through the existing process-output policy; arbitrary output, command arguments and working directories are excluded. DISM additionally records the last available numeric progress percentage, operation, duration, and whether the root process exit was confirmed. A known root exit code does not confirm descendant termination or successful image cleanup.
+
+An unsuccessful source-image discard is reported as `WINPE_WIM_UNMOUNT_FAILED`. Source fallback occurs only after the mounted image has been successfully released, including any disposal retry. An uncertain cleanup preserves its workspace and marker, and a later media creation checks retained owned operations before starting new servicing. No automatic mount recovery or global DISM cleanup is performed.
+
 ## Custom Windows images
 
 Custom images extend the existing event taxonomy. `osd:boot_media_finished` includes `boot_media_custom_images_enabled`, `boot_media_custom_images_count`, and `boot_media_default_os_source` (`catalog` or `custom`). The count comes from included images in the operation's captured configuration, is zero when disabled, and represents the intended selection when media creation fails or is cancelled.
