@@ -6,6 +6,8 @@ Foundry is maintained as an open-source project. Support is provided by the comm
 
 Start with the [documentation](https://docs.foundryosd.com) and [troubleshooting guides](https://docs.foundryosd.com/troubleshooting). Search [existing issues](https://github.com/foundry-osd/foundry/issues) before opening a new one.
 
+After updating Foundry OSD, recreate ISO or USB media to pick up Bootstrap fixes for insufficient space on the WinPE `X:` drive. Runtime updates do not replace Bootstrap embedded in existing boot media. Bootstrap releases Connect's verified executable and extracted files after Connect exits. USB media retains verified update archives on its persistent cache volume; ISO media avoids retaining duplicate update archives on `X:`.
+
 ## Choose the right channel
 
 - **Reproducible bug:** use the [bug report form](https://github.com/foundry-osd/foundry/issues/new?template=bug-report.yml).
