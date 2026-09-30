@@ -5,10 +5,12 @@
 using System.Globalization;
 using System.Reflection.PortableExecutable;
 using System.Text.Json;
-using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Images;
 using Foundry.Core.Services.Storage;
 using Foundry.Utilities.IO;
+using Foundry.Utilities.Imaging;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Progress;
 
@@ -42,18 +44,22 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
     private readonly IWinPeProcessRunner _processRunner;
     private readonly HttpClient _httpClient;
     private readonly WinPeWorkspaceCleanupService _workspaceCleanup;
+    private readonly Func<string, CancellationToken, Task<IReadOnlyList<WindowsImageMetadata>>> _readImageInfo;
 
     public WinPeBootImagePreparationService()
         : this(new WinPeProcessRunner(), new HttpClient())
     {
     }
 
+    /// <summary>Uses the shared native DISM reader unless an isolated metadata boundary is supplied.</summary>
     internal WinPeBootImagePreparationService(IWinPeProcessRunner processRunner, HttpClient httpClient,
-        WinPeWorkspaceCleanupService? workspaceCleanup = null)
+        WinPeWorkspaceCleanupService? workspaceCleanup = null,
+        Func<string, CancellationToken, Task<IReadOnlyList<WindowsImageMetadata>>>? readImageInfo = null)
     {
         _processRunner = processRunner;
         _httpClient = httpClient;
         _workspaceCleanup = workspaceCleanup ?? new WinPeWorkspaceCleanupService();
+        _readImageInfo = readImageInfo ?? NativeCustomImageMetadataReader.ReadNativeAsync;
     }
 
     /// <inheritdoc />
@@ -217,31 +223,30 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             $"Expected SHA256={normalizedExpectedHash}; Actual SHA256={actualHash}.");
     }
 
-    internal static WinPeResult<int> ResolveImageIndexFromOutput(string output, string requestedEdition)
+    /// <summary>Resolves one exact canonical edition from native metadata, independently of localized image names.</summary>
+    internal static WinPeResult<int> ResolveImageIndexFromMetadata(IReadOnlyList<WindowsImageMetadata> images, string requestedEdition)
     {
-        string normalizedRequestedEdition = NormalizeToken(requestedEdition);
-        if (normalizedRequestedEdition.Length == 0)
+        WindowsEditionDefinition? definition = WindowsEditionCatalog.Find(requestedEdition);
+        if (definition is null)
         {
             return WinPeResult<int>.Failure(
                 WinPeErrorCodes.ValidationFailed,
-                "Requested Windows edition is required.");
+                "A supported Windows edition is required.");
         }
 
-        ImageIndexDescriptor? match = ParseImageDescriptors(output)
-            .FirstOrDefault(descriptor =>
-                ContainsNormalized(descriptor.Name, normalizedRequestedEdition) ||
-                ContainsNormalized(descriptor.Edition, normalizedRequestedEdition) ||
-                ContainsNormalized(descriptor.EditionId, normalizedRequestedEdition));
+        WindowsImageMetadata[] matches = images
+            .Where(image => image.EditionId.Equals(definition.EditionId, StringComparison.OrdinalIgnoreCase))
+            .ToArray();
 
-        if (match is null)
+        if (matches.Length != 1 || matches[0].Index < 1)
         {
             return WinPeResult<int>.Failure(
                 WinPeErrorCodes.WinReIndexResolutionFailed,
-                $"Could not resolve a Windows image index for edition '{requestedEdition}'.",
-                output);
+                $"Could not resolve a unique Windows image index for edition '{requestedEdition}'.",
+                $"RequestedEditionId={definition.EditionId}; MatchCount={matches.Length}; AvailableEditionIds={string.Join(", ", images.Select(image => $"{image.Index}: {image.EditionId}"))}");
         }
 
-        return WinPeResult<int>.Success(match.Index);
+        return WinPeResult<int>.Success(matches[0].Index);
     }
 
     /// <summary>
@@ -387,11 +392,8 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             await using CachedArtifactLease sourceLease = sourcePathResult.Value!;
             ReportProgress(options.Progress, 16, "Resolving Windows image index.");
             WinPeResult<int> indexResult = await ResolveImageIndexAsync(
-                options.Tools.DismPath,
                 sourceLease.Path,
                 candidate.RequestedEdition,
-                options.Artifact.WorkingDirectoryPath,
-                CreateDismProgress(options.Progress, 16, "Resolving Windows image index."),
                 cancellationToken).ConfigureAwait(false);
 
             if (!indexResult.IsSuccess)
@@ -630,32 +632,24 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
     }
 
     private async Task<WinPeResult<int>> ResolveImageIndexAsync(
-        string dismPath,
         string sourceImagePath,
         string requestedEdition,
-        string workingDirectory,
-        IProgress<WinPeDismProgress>? dismProgress,
         CancellationToken cancellationToken)
     {
-        WinPeProcessExecution imageInfoResult = await WinPeDismProcessRunner.RunAsync(
-            _processRunner,
-            dismPath,
-            $"/Get-ImageInfo /ImageFile:{WinPeProcessRunner.Quote(sourceImagePath)}",
-            workingDirectory,
-            "Resolving Windows image index with DISM.",
-            dismProgress,
-            cancellationToken).ConfigureAwait(false);
-
-        if (!imageInfoResult.IsSuccess)
+        try
         {
-            return WinPeResult<int>.Failure(imageInfoResult.ToFailureDiagnostic(
-                WinPeErrorCodes.WinReIndexResolutionFailed,
-                "Failed to inspect the Windows source package image indexes.",
-                stage: "Inspect Windows source image",
-                toolName: "dism.exe"));
+            IReadOnlyList<WindowsImageMetadata> images = await _readImageInfo(sourceImagePath, cancellationToken).ConfigureAwait(false);
+            return ResolveImageIndexFromMetadata(images, requestedEdition);
         }
-
-        return ResolveImageIndexFromOutput(imageInfoResult.StandardOutput, requestedEdition);
+        catch (Exception ex) when (ex is not OperationCanceledException)
+        {
+            return WinPeResult<int>.Failure(new WinPeDiagnostic(
+                WinPeErrorCodes.WinReIndexResolutionFailed,
+                "Failed to inspect the Windows source package image indexes with native DISM.",
+                ex.Message,
+                stage: "Inspect Windows source image",
+                exception: ex));
+        }
     }
 
     private static WinPeDiagnostic? ValidateOptions(WinPeBootImagePreparationOptions? options)
@@ -890,103 +884,4 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 : 99;
     }
 
-    private static IReadOnlyList<ImageIndexDescriptor> ParseImageDescriptors(string output)
-    {
-        if (string.IsNullOrWhiteSpace(output))
-        {
-            return [];
-        }
-
-        var descriptors = new List<ImageIndexDescriptor>();
-        ImageIndexDescriptor? current = null;
-
-        foreach (string line in output.Split(["\r\n", "\n"], StringSplitOptions.None))
-        {
-            Match indexMatch = Regex.Match(line, @"^\s*Index\s*:\s*(\d+)\s*$", RegexOptions.IgnoreCase);
-            if (indexMatch.Success)
-            {
-                if (current is not null)
-                {
-                    descriptors.Add(current);
-                }
-
-                current = new ImageIndexDescriptor
-                {
-                    Index = int.Parse(indexMatch.Groups[1].Value, CultureInfo.InvariantCulture),
-                    Name = string.Empty,
-                    Edition = string.Empty,
-                    EditionId = string.Empty
-                };
-
-                continue;
-            }
-
-            if (current is null)
-            {
-                continue;
-            }
-
-            Match nameMatch = Regex.Match(line, @"^\s*Name\s*:\s*(.+)\s*$", RegexOptions.IgnoreCase);
-            if (nameMatch.Success)
-            {
-                current = current with { Name = nameMatch.Groups[1].Value.Trim() };
-                continue;
-            }
-
-            Match editionMatch = Regex.Match(line, @"^\s*Edition\s*:\s*(.+)\s*$", RegexOptions.IgnoreCase);
-            if (editionMatch.Success)
-            {
-                current = current with { Edition = editionMatch.Groups[1].Value.Trim() };
-                continue;
-            }
-
-            Match editionIdMatch = Regex.Match(line, @"^\s*Edition\s+ID\s*:\s*(.+)\s*$", RegexOptions.IgnoreCase);
-            if (editionIdMatch.Success)
-            {
-                current = current with { EditionId = editionIdMatch.Groups[1].Value.Trim() };
-            }
-        }
-
-        if (current is not null)
-        {
-            descriptors.Add(current);
-        }
-
-        return descriptors;
-    }
-
-    private static bool ContainsNormalized(string source, string expected)
-    {
-        string normalized = NormalizeToken(source);
-        if (normalized.Length == 0 || expected.Length == 0)
-        {
-            return false;
-        }
-
-        return normalized.Contains(expected, StringComparison.OrdinalIgnoreCase) ||
-               expected.Contains(normalized, StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static string NormalizeToken(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return string.Empty;
-        }
-
-        char[] filtered = value
-            .ToLowerInvariant()
-            .Where(char.IsLetterOrDigit)
-            .ToArray();
-
-        return new string(filtered);
-    }
-
-    private sealed record ImageIndexDescriptor
-    {
-        public required int Index { get; init; }
-        public required string Name { get; init; }
-        public required string Edition { get; init; }
-        public required string EditionId { get; init; }
-    }
 }
