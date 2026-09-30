@@ -92,6 +92,17 @@ public sealed class WinPeProcessRunner : IWinPeProcessOutputRunner
             }
             return WinPeProcessExecution.FromProcessExecutionResult(result);
         }
+        catch (ProcessCanceledException ex)
+        {
+            ILogger logger = Log.ForContext<WinPeProcessRunner>();
+            foreach ((string name, object value) in RemoteProcessDiagnostics.CreateCancellationProperties(ex, stopwatch.Elapsed))
+            {
+                logger = logger.ForContext(name, value);
+            }
+            logger.Warning("External process execution was canceled. ToolName={ToolName}, ProcessExitConfirmed={ProcessExitConfirmed}",
+                Path.GetFileName(ex.FileName), ex.ProcessExitConfirmed);
+            throw;
+        }
         catch (ProcessStartException ex)
         {
             ILogger logger = Log.ForContext<WinPeProcessRunner>();

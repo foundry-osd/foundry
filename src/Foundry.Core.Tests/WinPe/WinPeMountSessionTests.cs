@@ -139,11 +139,13 @@ public sealed class WinPeMountSessionTests
         WinPeResult result = commit
             ? await session.CommitAsync(TestContext.Current.CancellationToken)
             : await session.DiscardAsync();
+        Assert.Equal(WinPeMountCleanupStatus.Failed, session.CleanupStatus);
         Assert.Empty(Directory.GetFiles(directory.Path, ".foundry-mount-cleanup-*.pending"));
         await session.DisposeAsync();
         await session.DisposeAsync();
 
         Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeMountCleanupStatus.Completed, session.CleanupStatus);
         Assert.Equal(commit ? 7 : 9, result.Error?.ExitCode);
         Assert.Equal(2, runner.Executions.Count(execution => execution.Arguments.Contains("/Discard", StringComparison.Ordinal)));
     }
@@ -266,7 +268,9 @@ public sealed class WinPeMountSessionTests
         try
         {
             string marker = Assert.Single(Directory.GetFiles(directory.Path, ".foundry-mount-cleanup-*.pending"));
-            clock.Advance(TimeSpan.FromMinutes(4));
+            clock.Advance(TimeSpan.FromMinutes(5));
+            Assert.False(cleanupToken.IsCancellationRequested);
+            clock.Advance(TimeSpan.FromMinutes(9));
             Assert.False(cleanupToken.IsCancellationRequested);
             clock.Advance(TimeSpan.FromMinutes(1));
             Assert.True(cleanupToken.IsCancellationRequested);
@@ -277,6 +281,8 @@ public sealed class WinPeMountSessionTests
             Assert.False(result.IsSuccess);
             Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
             Assert.Equal(WinPeFailureReasons.Timeout, result.Error?.FailureReason);
+            Assert.Equal(WinPeMountCleanupStatus.ExitUnconfirmed, session.CleanupStatus);
+            Assert.Equal(WinPeMountCleanupStatus.ExitUnconfirmed, result.Error?.MountCleanupStatus);
             Assert.True(File.Exists(marker));
             Assert.Contains(marker, result.Error?.Details, StringComparison.Ordinal);
             await session.DisposeAsync();

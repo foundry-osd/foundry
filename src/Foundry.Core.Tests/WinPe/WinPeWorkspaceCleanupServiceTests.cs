@@ -10,6 +10,81 @@ namespace Foundry.Core.Tests.WinPe;
 public sealed class WinPeWorkspaceCleanupServiceTests
 {
     [Theory]
+    [InlineData(false, false)]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    public void EnsureServicingCanStart_WhenOwnedOperationHasPendingCleanup_BlocksNewServicing(bool markerInOperationRoot, bool operationIsActive)
+    {
+        using var temp = new TemporaryDirectory();
+        using var previous = WinPeWorkspaceLease.Create(temp.Path);
+        Directory.CreateDirectory(previous.WinPeDirectoryPath);
+        string marker = Path.Combine(markerInOperationRoot ? previous.OperationDirectoryPath : previous.WinPeDirectoryPath,
+            ".foundry-mount-cleanup-test.pending");
+        File.WriteAllText(marker, "execution not confirmed complete");
+        if (!operationIsActive) previous.Dispose();
+        var service = new WinPeWorkspaceCleanupService(() => []);
+
+        WinPeResult result = service.EnsureServicingCanStart(temp.Path);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.WimUnmountFailed, result.Error?.Code);
+        Assert.Equal([previous.OperationDirectoryPath], Directory.GetDirectories(temp.Path));
+        Assert.Equal("execution not confirmed complete", File.ReadAllText(marker));
+        Assert.True(File.Exists(Path.Combine(previous.OperationDirectoryPath, ".lease")));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void EnsureServicingCanStart_WhenUnownedDirectoryContainsPendingMarker_PreservesItWithoutGrantingCleanup(bool directoryHasGuidName)
+    {
+        using var temp = new TemporaryDirectory();
+        string unowned = Path.Combine(temp.Path, directoryHasGuidName ? Guid.NewGuid().ToString("N") : "legacy");
+        string winPe = Path.Combine(unowned, "WinPe");
+        Directory.CreateDirectory(winPe);
+        string marker = Path.Combine(winPe, ".foundry-mount-cleanup-test.pending");
+        File.WriteAllText(marker, "unowned state");
+        var service = new WinPeWorkspaceCleanupService(() => []);
+
+        WinPeResult result = service.EnsureServicingCanStart(temp.Path);
+        WinPeResult cleanup = service.DeleteOwnedOperation(temp.Path, unowned);
+
+        Assert.True(result.IsSuccess);
+        Assert.False(cleanup.IsSuccess);
+        Assert.Equal("unowned state", File.ReadAllText(marker));
+    }
+
+    [Fact]
+    public void EnsureServicingCanStart_WhenOwnedPreviousOperationHasNoCleanupMarker_AllowsNewServicing()
+    {
+        using var temp = new TemporaryDirectory();
+        using var previous = WinPeWorkspaceLease.Create(temp.Path);
+        Directory.CreateDirectory(previous.WinPeDirectoryPath);
+        var service = new WinPeWorkspaceCleanupService(() => []);
+
+        WinPeResult result = service.EnsureServicingCanStart(temp.Path);
+
+        Assert.True(result.IsSuccess);
+        Assert.Equal([previous.OperationDirectoryPath], Directory.GetDirectories(temp.Path));
+    }
+
+    [Fact]
+    public void EnsureServicingCanStart_WhenOwnedOperationStateCannotBeRead_BlocksNewServicing()
+    {
+        using var temp = new TemporaryDirectory();
+        using var previous = WinPeWorkspaceLease.Create(temp.Path);
+        File.WriteAllText(Path.Combine(previous.OperationDirectoryPath, "operation.json"), "{invalid");
+        var service = new WinPeWorkspaceCleanupService(() => []);
+
+        WinPeResult result = service.EnsureServicingCanStart(temp.Path);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.WimUnmountFailed, result.Error?.Code);
+        Assert.True(Directory.Exists(previous.OperationDirectoryPath));
+    }
+
+    [Theory]
     [InlineData(@"\\?\")]
     [InlineData(@"\\.\")]
     [InlineData("//?/")]
@@ -42,6 +117,44 @@ public sealed class WinPeWorkspaceCleanupServiceTests
         Assert.False(service.Delete(markerInParent ? nested : temp.Path).IsSuccess);
         Assert.True(File.Exists(marker));
         Assert.True(Directory.Exists(nested));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void Delete_WhenTargetIsMissingAndAncestorCleanupIsUnresolved_BlocksNewSource(bool intermediateDirectoryMissing)
+    {
+        using var temp = new TemporaryDirectory();
+        string source = intermediateDirectoryMissing
+            ? Path.Combine(temp.Path, "missing", "windows-source-Enterprise")
+            : Path.Combine(temp.Path, "windows-source-Enterprise");
+        string marker = Path.Combine(temp.Path, ".foundry-mount-cleanup-test.pending");
+        File.WriteAllText(marker, "execution not confirmed complete");
+        var service = new WinPeWorkspaceCleanupService(() => []);
+
+        WinPeResult result = service.Delete(source);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.WimUnmountFailed, result.Error?.Code);
+        Assert.Equal("execution not confirmed complete", File.ReadAllText(marker));
+        Assert.False(Directory.Exists(source));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void Delete_WhenTargetIsMissingWithoutCleanupMarkers_Succeeds(bool intermediateDirectoryMissing)
+    {
+        using var temp = new TemporaryDirectory();
+        string source = intermediateDirectoryMissing
+            ? Path.Combine(temp.Path, "missing", "windows-source-Enterprise")
+            : Path.Combine(temp.Path, "windows-source-Enterprise");
+        var service = new WinPeWorkspaceCleanupService(() => []);
+
+        WinPeResult result = service.Delete(source);
+
+        Assert.True(result.IsSuccess);
+        Assert.False(Directory.Exists(source));
     }
 
     [Theory]
