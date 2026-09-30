@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Collections.Concurrent;
 using System.Text.Json;
 using Foundry.Core.Services.Runtime;
 using Foundry.Utilities.IO;
@@ -16,6 +17,8 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
 {
     private readonly RuntimeTransfer transfer = new(httpClient, progress);
     private readonly Func<string, string?> environment = getEnvironmentVariable ?? Environment.GetEnvironmentVariable;
+    private readonly bool usePersistentCache = !IsBootOwnedRuntime(winPeRoot, runtimeRoot);
+    private readonly ConcurrentDictionary<string, string> preparedWorkspaces = new(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>Returns a complete authenticated payload in boot-owned storage, retained for the child's lifetime.</summary>
     public Task<string> ResolveAsync(string applicationName, bool skipReleaseLookup, CancellationToken cancellationToken) =>
@@ -25,12 +28,24 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
     public async Task RefreshAsync(string applicationName, CancellationToken cancellationToken) =>
         await ResolveCoreAsync(applicationName, skipReleaseLookup: false, retainPayload: false, cancellationToken).ConfigureAwait(false);
 
+    /// <summary>Best-effort deletion of this resolver's registered workspace, including bundle extraction, after the child exits.</summary>
+    internal void Release(string executable)
+    {
+        if (string.IsNullOrEmpty(executable) || !preparedWorkspaces.TryRemove(executable, out string? workspace)) return;
+        try { Directory.Delete(workspace, recursive: true); }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            logger.Warning(exception, "Could not remove exited runtime workspace {RuntimeWorkspace}", workspace);
+        }
+    }
+
     private async Task<string> ResolveCoreAsync(string applicationName, bool skipReleaseLookup, bool retainPayload, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         string originalArchive = RuntimePayloadTrust.GetBaselineArchivePath(runtimeRoot, applicationName, runtimeIdentifier);
         string currentArchive = Path.Combine(Path.GetDirectoryName(originalArchive)!, "current.zip");
-        var preparation = new RuntimePayloadPreparation(winPeRoot, transfer, logger, progress, activity, retainPayload);
+        var preparation = new RuntimePayloadPreparation(winPeRoot, transfer, logger, progress, activity,
+            retainPayload ? (executable, workspace) => preparedWorkspaces.TryAdd(executable, workspace) : null);
         string prefix = applicationName switch
         {
             "Foundry.Connect" => "FOUNDRY_CONNECT",
@@ -61,7 +76,7 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
             RuntimeReleaseAsset asset = RuntimeReleaseAsset.Parse(release.RootElement, applicationName, runtimeIdentifier);
             string expectedHash = asset.Sha256;
 
-            if (File.Exists(currentArchive))
+            if (usePersistentCache && File.Exists(currentArchive))
             {
                 try
                 {
@@ -76,7 +91,7 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
             }
 
             return await preparation.PrepareAsync(asset.DownloadUrl, expectedHash, applicationName, cancellationToken,
-                archive => PersistUpdateAsync(archive, currentArchive, applicationName, cancellationToken)).ConfigureAwait(false);
+                usePersistentCache ? archive => PersistUpdateAsync(archive, currentArchive, applicationName, cancellationToken) : null).ConfigureAwait(false);
         }
         catch (Exception exception) when (CanFallBack(exception, cancellationToken))
         {
@@ -101,6 +116,15 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
     }
 
     private string ReadEnvironment(string name) => environment(name)?.Trim() ?? "";
+
+    private static bool IsBootOwnedRuntime(string winPeRoot, string runtimeRoot)
+    {
+        string bootRoot = Path.TrimEndingDirectorySeparator(Path.GetFullPath(winPeRoot));
+        string cacheRoot = Path.TrimEndingDirectorySeparator(Path.GetFullPath(runtimeRoot));
+        string bootDirectory = Path.EndsInDirectorySeparator(bootRoot) ? bootRoot : bootRoot + Path.DirectorySeparatorChar;
+        return string.Equals(cacheRoot, bootRoot, StringComparison.OrdinalIgnoreCase) ||
+            cacheRoot.StartsWith(bootDirectory, StringComparison.OrdinalIgnoreCase);
+    }
 
     private async Task PersistUpdateAsync(string source, string destination, string applicationName, CancellationToken cancellationToken)
     {

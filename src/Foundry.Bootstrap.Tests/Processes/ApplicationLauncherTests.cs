@@ -11,6 +11,116 @@ namespace Foundry.Bootstrap.Tests.Processes;
 
 public sealed class ApplicationLauncherTests
 {
+    [Theory]
+    [InlineData(0)]
+    [InlineData(20)]
+    [InlineData(22)]
+    public async Task CompletedConnectReleasesItsPayloadAfterProcessExit(int exitCode)
+    {
+        string directory = Directory.CreateTempSubdirectory("FoundryPayloadExit-").FullName;
+        string executable = Path.Combine(directory, "Foundry.Connect.exe");
+        try
+        {
+            File.WriteAllText(executable, "prepared payload");
+            using var logger = new LoggerConfiguration().CreateLogger();
+            Process? launchedProcess = null;
+            var launcher = new ApplicationLauncher(logger,
+                startProcess: _ => launchedProcess = Process.Start(new ProcessStartInfo(
+                    Environment.GetEnvironmentVariable("ComSpec")!, $"/d /c exit {exitCode}")
+                {
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                }),
+                releasePayload: path =>
+                {
+                    Assert.True(launchedProcess!.HasExited);
+                    File.Delete(path);
+                });
+
+            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable, "missing.json",
+                new Dictionary<string, string?>(), deadline.Token);
+
+            Assert.Equal(exitCode, result.ExitCode);
+            Assert.Equal(exitCode == 0, result.Succeeded);
+            Assert.False(File.Exists(executable));
+        }
+        finally { Directory.Delete(directory, recursive: true); }
+    }
+
+    [Fact]
+    public async Task CancellingConnectRetainsTheRunningChildPayload()
+    {
+        string directory = Directory.CreateTempSubdirectory("FoundryPayloadExit-").FullName;
+        string executable = Path.Combine(directory, "Foundry.Connect.exe");
+        using Process child = Process.Start(new ProcessStartInfo("ping.exe", "-n 30 127.0.0.1")
+        {
+            UseShellExecute = false,
+            CreateNoWindow = true
+        })!;
+        try
+        {
+            File.WriteAllText(executable, "prepared payload");
+            using var logger = new LoggerConfiguration().CreateLogger();
+            using var cancellation = new CancellationTokenSource();
+            var launcher = new ApplicationLauncher(logger,
+                startProcess: _ =>
+                {
+                    Process observed = Process.GetProcessById(child.Id);
+                    cancellation.Cancel();
+                    return observed;
+                },
+                releasePayload: File.Delete);
+
+            await Assert.ThrowsAnyAsync<OperationCanceledException>(() => launcher.RunConnectAsync(
+                executable, "missing.json", new Dictionary<string, string?>(), cancellation.Token));
+
+            Assert.False(child.HasExited);
+            Assert.True(File.Exists(executable));
+        }
+        finally
+        {
+            if (!child.HasExited) { child.Kill(); }
+            await child.WaitForExitAsync(CancellationToken.None);
+            Directory.Delete(directory, recursive: true);
+        }
+    }
+
+    [Fact]
+    public async Task PayloadCleanupFailureDoesNotReplaceConnectOutcome()
+    {
+        string directory = Directory.CreateTempSubdirectory("FoundryPayloadExit-").FullName;
+        string executable = Path.Combine(directory, "Foundry.Connect.exe");
+        string cleanupAttempt = Path.Combine(directory, "cleanup-attempt.txt");
+        try
+        {
+            File.WriteAllText(executable, "prepared payload");
+            using var logger = new LoggerConfiguration().CreateLogger();
+            var launcher = new ApplicationLauncher(logger,
+                startProcess: _ => Process.Start(new ProcessStartInfo(Environment.GetEnvironmentVariable("ComSpec")!, "/d /c exit 0")
+                {
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                }),
+                releasePayload: _ =>
+                {
+                    File.WriteAllText(cleanupAttempt, "attempted");
+                    throw new IOException("Payload is still locked.");
+                });
+
+            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable, "missing.json",
+                new Dictionary<string, string?>(), deadline.Token);
+
+            Assert.True(result.Succeeded);
+            Assert.Equal(0, result.ExitCode);
+            Assert.True(File.Exists(executable));
+            Assert.True(File.Exists(cleanupAttempt));
+            Assert.Equal("attempted", File.ReadAllText(cleanupAttempt));
+        }
+        finally { Directory.Delete(directory, recursive: true); }
+    }
+
     [Fact]
     public async Task NonzeroChildExitCodeIsReturned()
     {
@@ -161,6 +271,8 @@ public sealed class ApplicationLauncherTests
         try
         {
             File.WriteAllText(Path.Combine(directory, "foundry.startup.json"), "{\"protocolVersions\":[1]}");
+            string executable = Path.Combine(directory, "Foundry.Deploy.exe");
+            File.WriteAllText(executable, "prepared payload");
             using var logger = new LoggerConfiguration().CreateLogger();
             var launcher = new ApplicationLauncher(logger, Path.Combine(directory, "session"),
                 recoverFailure: (_, _, _) =>
@@ -186,6 +298,10 @@ public sealed class ApplicationLauncherTests
                         timestampUtc = DateTimeOffset.UtcNow
                     }));
                     return child;
+                }, releasePayload: path =>
+                {
+                    Assert.True(recovered);
+                    File.Delete(path);
                 });
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
             ApplicationLaunchResult result = await launcher.StartDeployAsync(Path.Combine(directory, "Foundry.Deploy.exe"),
@@ -195,6 +311,7 @@ public sealed class ApplicationLauncherTests
             Assert.Equal(exitsDuringGrace, recovered);
             Assert.Equal(exitsDuringGrace, fixture!.HasExited);
             Assert.Equal(exitsDuringGrace ? 0 : (int?)null, result.ExitCode);
+            Assert.Equal(!exitsDuringGrace, File.Exists(executable));
         }
         finally
         {
@@ -221,6 +338,7 @@ public sealed class ApplicationLauncherTests
         {
             string application = connect ? "Foundry.Connect" : "Foundry.Deploy";
             string executable = Path.Combine(directory, application + ".exe");
+            File.WriteAllText(executable, "prepared payload");
             File.WriteAllText(Path.Combine(directory, "foundry.startup.json"), "{\"protocolVersions\":[1]}");
             using var logger = new LoggerConfiguration().CreateLogger();
             var launcher = new ApplicationLauncher(logger, Path.Combine(directory, "session"), startProcess: start =>
@@ -249,7 +367,7 @@ public sealed class ApplicationLauncherTests
                 Process? child = Process.Start(start);
                 if (child is not null) { fixture = Process.GetProcessById(child.Id); }
                 return child;
-            });
+            }, releasePayload: File.Delete);
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
             var environment = new Dictionary<string, string?> { ["FOUNDRY_DIAGNOSTIC_SESSION_ID"] = "TEST" };
             ApplicationLaunchResult result = connect
@@ -258,6 +376,7 @@ public sealed class ApplicationLauncherTests
             Assert.True(result.Succeeded);
             Assert.True(result.ReadinessConfirmed);
             Assert.Equal("ui_ready", result.LastStage);
+            Assert.Equal(!connect, File.Exists(executable));
         }
         finally
         {

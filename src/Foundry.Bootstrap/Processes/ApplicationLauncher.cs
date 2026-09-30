@@ -11,10 +11,10 @@ using Serilog;
 
 namespace Foundry.Bootstrap.Processes;
 
-/// <summary>Observes application lifetimes without owning their termination or buffering their output.</summary>
+/// <summary>Observes application lifetimes and releases exited payloads without terminating children or buffering their output.</summary>
 internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirectory = null,
     Action<string>? warning = null, Action<string, Guid, string>? recoverFailure = null,
-    Func<ProcessStartInfo, Process?>? startProcess = null) : IApplicationLauncher
+    Func<ProcessStartInfo, Process?>? startProcess = null, Action<string>? releasePayload = null) : IApplicationLauncher
 {
     public Task<ApplicationLaunchResult> RunConnectAsync(string executable, string configurationPath,
         IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
@@ -109,10 +109,15 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
         finally
         {
             // The child owns its failure file until process exit; timeout and cancellation never terminate it.
-            if (supported && process.HasExited)
+            if (process.HasExited)
             {
-                try { recoverFailure?.Invoke(directory, launchId, application); }
-                catch (Exception exception) { logger.Warning(exception, "Child startup diagnostics could not be recovered"); }
+                if (supported)
+                {
+                    try { recoverFailure?.Invoke(directory, launchId, application); }
+                    catch (Exception exception) { logger.Warning(exception, "Child startup diagnostics could not be recovered"); }
+                }
+                try { releasePayload?.Invoke(executable); }
+                catch (Exception exception) { logger.Warning(exception, "Exited runtime payload could not be released for {Component}", application); }
             }
         }
     }

@@ -11,6 +11,8 @@ using Foundry.Bootstrap.Processes;
 using Foundry.Bootstrap.Runtime;
 using Foundry.Bootstrap.SystemPreparation;
 using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 using Xunit;
 
 namespace Foundry.Bootstrap.Tests.Runtime;
@@ -182,6 +184,134 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         Assert.Equal("updated", File.ReadAllText(executable));
         Assert.Single(requests);
         Assert.Equal("api.github.com", requests[0].Host);
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("Runtime")]
+    [InlineData("Runtime/../Runtime")]
+    public async Task OnlineIsoUpdateDoesNotCreateACurrentArchive(string relativeRuntimeRoot)
+    {
+        string runtimeRoot = Path.Combine(BootRoot, relativeRuntimeRoot);
+        string original = SeedOriginal(runtimeRoot: runtimeRoot);
+        byte[] update = ArchiveBytes("updated");
+        using var client = Client(Release(Hash(update)), Payload(update));
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        string executable = await Resolver(client, logger, runtimeRoot: runtimeRoot).ResolveAsync(
+            "Foundry.Connect", false, TestContext.Current.CancellationToken);
+
+        Assert.Equal("updated", File.ReadAllText(executable));
+        Assert.False(File.Exists(Path.Combine(runtimeRoot, "Foundry.Connect", "win-x64", "current.zip")));
+        Assert.Equal("original", ReadArchiveEntry(original, "Foundry.Connect.exe"));
+        Assert.Empty(Directory.EnumerateFiles(Path.Combine(BootRoot, "Execution"), "*.zip", SearchOption.AllDirectories));
+    }
+
+    [Fact]
+    public async Task OnlineIsoUpdateDoesNotReadAnExistingCurrentArchive()
+    {
+        string runtimeRoot = Path.Combine(BootRoot, "Runtime");
+        SeedOriginal(runtimeRoot: runtimeRoot);
+        string current = Path.Combine(runtimeRoot, "Foundry.Connect", "win-x64", "current.zip");
+        byte[] update = ArchiveBytes("updated");
+        File.WriteAllBytes(current, update);
+        using var client = Client(Release(Hash(update)), Payload(update));
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        string executable = await Resolver(client, logger, runtimeRoot: runtimeRoot).ResolveAsync(
+            "Foundry.Connect", false, TestContext.Current.CancellationToken);
+
+        Assert.Equal("updated", File.ReadAllText(executable));
+        Assert.Equal(2, requests.Count);
+        Assert.Equal("example.test", requests[1].Host);
+    }
+
+    [Fact]
+    public async Task RuntimeCacheBesideWinPeRootRemainsPersistentAndReusable()
+    {
+        string runtimeRoot = BootRoot + "-Usb";
+        SeedOriginal(runtimeRoot: runtimeRoot);
+        byte[] update = ArchiveBytes("updated");
+        using var client = Client(Release(Hash(update)), Payload(update), Release(Hash(update)));
+        using var logger = new LoggerConfiguration().CreateLogger();
+        var resolver = Resolver(client, logger, runtimeRoot: runtimeRoot);
+
+        for (int attempt = 0; attempt < 2; attempt++)
+        {
+            string executable = await resolver.ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
+            Assert.Equal("updated", File.ReadAllText(executable));
+        }
+
+        Assert.Equal(update, File.ReadAllBytes(Path.Combine(runtimeRoot, "Foundry.Connect", "win-x64", "current.zip")));
+        Assert.Equal(1, requests.Count(request => request.Host == "example.test"));
+    }
+
+    [Fact]
+    public async Task ReleaseRemovesOnlyItsPreparedWorkspaceAndBundleWhilePreservingArchives()
+    {
+        string original = SeedOriginal();
+        byte[] originalBytes = File.ReadAllBytes(original);
+        byte[] update = ArchiveBytes("updated");
+        File.WriteAllBytes(CurrentArchive, update);
+        using var client = Client(Release(Hash(update)));
+        using var logger = new LoggerConfiguration().CreateLogger();
+        var resolver = Resolver(client, logger);
+        string executable = await resolver.ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
+        string otherExecutable = await resolver.ResolveAsync("Foundry.Connect", true, TestContext.Current.CancellationToken);
+        string payload = Path.GetDirectoryName(executable)!;
+        string workspace = Directory.GetParent(payload)!.FullName;
+        string bundle = Path.Combine(payload, ".bundle", "launch", "native.dll");
+        Directory.CreateDirectory(Path.GetDirectoryName(bundle)!);
+        File.WriteAllText(bundle, "native runtime fixture");
+
+        resolver.Release(executable);
+        resolver.Release(executable);
+
+        Assert.False(Directory.Exists(workspace));
+        Assert.True(File.Exists(otherExecutable));
+        Assert.Equal(originalBytes, File.ReadAllBytes(original));
+        Assert.Equal(update, File.ReadAllBytes(CurrentArchive));
+    }
+
+    [Fact]
+    public async Task ReleaseIgnoresPathsThatAreNotItsRegisteredExecutables()
+    {
+        SeedOriginal();
+        using var client = Client();
+        using var logger = new LoggerConfiguration().CreateLogger();
+        var resolver = Resolver(client, logger);
+        string executable = await resolver.ResolveAsync("Foundry.Connect", true, TestContext.Current.CancellationToken);
+        string otherExecutable = await Resolver(client, logger).ResolveAsync("Foundry.Connect", true, TestContext.Current.CancellationToken);
+        string dependency = Path.Combine(Path.GetDirectoryName(executable)!, "Foundry.Core.dll");
+        string unrelated = Path.Combine(root, "unrelated.exe");
+        File.WriteAllText(unrelated, "unrelated executable");
+
+        resolver.Release(otherExecutable);
+        resolver.Release(dependency);
+        resolver.Release(unrelated);
+
+        Assert.True(File.Exists(executable));
+        Assert.True(File.Exists(otherExecutable));
+        Assert.Equal("trusted dependency", File.ReadAllText(dependency));
+        Assert.Equal("unrelated executable", File.ReadAllText(unrelated));
+    }
+
+    [Fact]
+    public async Task ReleaseLogsLockedWorkspaceCleanupWithoutThrowing()
+    {
+        SeedOriginal();
+        using var client = Client();
+        var sink = new CollectingSink();
+        using var logger = new LoggerConfiguration().WriteTo.Sink(sink).CreateLogger();
+        var resolver = Resolver(client, logger);
+        string executable = await resolver.ResolveAsync("Foundry.Connect", true, TestContext.Current.CancellationToken);
+        using var lockedExecutable = new FileStream(executable, FileMode.Open, FileAccess.Read, FileShare.None);
+
+        resolver.Release(executable);
+
+        Assert.True(File.Exists(executable));
+        Assert.Contains(sink.Events, entry => entry.Level == LogEventLevel.Warning &&
+            entry.Exception is IOException or UnauthorizedAccessException);
     }
 
     [Theory]
@@ -368,9 +498,9 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         Assert.Empty(requests);
     }
 
-    private string SeedOriginal(string application = "Foundry.Connect", string rid = "win-x64")
+    private string SeedOriginal(string application = "Foundry.Connect", string rid = "win-x64", string? runtimeRoot = null)
     {
-        string path = Path.Combine(CacheRoot, application, rid, "original.zip");
+        string path = Path.Combine(runtimeRoot ?? CacheRoot, application, rid, "original.zip");
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
         File.WriteAllBytes(path, ArchiveBytes("original", application));
         Directory.CreateDirectory(Path.Combine(BootRoot, "Config"));
@@ -402,7 +532,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     }
 
     private RuntimeResolver Resolver(HttpClient client, Serilog.ILogger logger, string rid = "win-x64",
-        List<string>? warnings = null, Action<RuntimeDownloadProgress>? progress = null) => new(BootRoot, CacheRoot, rid, client,
+        List<string>? warnings = null, Action<RuntimeDownloadProgress>? progress = null, string? runtimeRoot = null) => new(BootRoot, runtimeRoot ?? CacheRoot, rid, client,
         logger, progress, key => environment.GetValueOrDefault(key), warning: value => warnings?.Add(value));
 
     private HttpClient Client(params HttpResponseMessage[] responses) => new(new Handler(requests, new(responses)));
@@ -446,6 +576,12 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
             await Task.Delay(Timeout.Infinite, cancellationToken);
             throw new InvalidOperationException("The metadata deadline should cancel this request.");
         }
+    }
+
+    private sealed class CollectingSink : ILogEventSink
+    {
+        internal List<LogEvent> Events { get; } = [];
+        public void Emit(LogEvent logEvent) => Events.Add(logEvent);
     }
 
     private sealed class ConnectBoundary : ISystemPreparation, IApplicationLauncher, IBootstrapLogPersistence
