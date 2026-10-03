@@ -21,15 +21,16 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
     private const string WifiCertificateFolder = @"Network\Certificates\Wifi";
 
     /// <inheritdoc />
-    public FoundryConnectConfigurationDocument Generate(FoundryConfigurationDocument document, string stagingDirectoryPath)
+    public FoundryConnectConfigurationDocument Generate(FoundryConfigurationDocument document, string stagingDirectoryPath, string? authoringVersion = null)
     {
-        return CreateProvisioningBundle(document, stagingDirectoryPath).Configuration;
+        return CreateProvisioningBundle(document, stagingDirectoryPath, authoringVersion).Configuration;
     }
 
     /// <inheritdoc />
     public FoundryConnectProvisioningBundle CreateProvisioningBundle(
         FoundryConfigurationDocument document,
-        string stagingDirectoryPath)
+        string stagingDirectoryPath,
+        string? authoringVersion = null)
     {
         ArgumentNullException.ThrowIfNull(document);
         ArgumentException.ThrowIfNullOrWhiteSpace(stagingDirectoryPath);
@@ -80,6 +81,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         // The generated document uses media-relative asset paths; source file paths stay outside the runtime JSON.
         FoundryConnectConfigurationDocument configuration = new()
         {
+            AuthoringVersion = authoringVersion,
             Capabilities = new ConnectNetworkCapabilitiesSettings
             {
                 WifiProvisioned = network.WifiProvisioned

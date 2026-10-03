@@ -77,7 +77,7 @@ public sealed class SharedProfileLoggingTests : IDisposable
         using var secrets = new OobeAccountSecretState();
         var document = new FoundryConfigurationDocument { General = new() { CustomDriverDirectoryPath = drivers } };
 
-        await Assert.ThrowsAsync<CustomDriverSizeLimitException>(() => DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], Path.Combine(workspace.Path, "snapshots"), TestContext.Current.CancellationToken));
+        await Assert.ThrowsAsync<CustomDriverSizeLimitException>(() => DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], Path.Combine(workspace.Path, "snapshots"), null, TestContext.Current.CancellationToken));
 
         LogEvent failure = Assert.Single(sink.Events, entry => entry.Level >= LogEventLevel.Warning);
         Assert.Equal(LogEventLevel.Warning, failure.Level);
@@ -105,7 +105,7 @@ public sealed class SharedProfileLoggingTests : IDisposable
         using var secrets = new OobeAccountSecretState();
         var document = new FoundryConfigurationDocument { General = new() { CustomDriverDirectoryPath = drivers } };
 
-        CustomDriverSizeLimitException exception = await Assert.ThrowsAsync<CustomDriverSizeLimitException>(() => DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], snapshots, TestContext.Current.CancellationToken));
+        CustomDriverSizeLimitException exception = await Assert.ThrowsAsync<CustomDriverSizeLimitException>(() => DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], snapshots, null, TestContext.Current.CancellationToken));
 
         Assert.Equal(2_147_483_649L, exception.ActualBytes);
         Assert.Empty(Directory.EnumerateDirectories(snapshots));

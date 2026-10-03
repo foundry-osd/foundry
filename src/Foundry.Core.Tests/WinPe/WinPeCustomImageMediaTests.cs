@@ -170,7 +170,9 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
         Assert.Equal(4, Assert.Single(manifest.Images[0].Reference.Indexes).Index);
         Assert.DoesNotContain(root, Encoding.UTF8.GetString(package.ManifestBytes));
         Assert.Throws<IOException>(() => File.Open(package.Files[0].SourcePath, FileMode.Open, FileAccess.Write, FileShare.ReadWrite));
-        string bound = WinPeCustomImageMediaService.BindConfiguration(package, """{"customImages":{"isEnabled":true}}""");
+        string bound = WinPeCustomImageMediaService.BindConfiguration(package, """{"authoringVersion":"26.10.3.1","customImages":{"isEnabled":true}}""");
+        using JsonDocument boundJson = JsonDocument.Parse(bound);
+        Assert.Equal("26.10.3.1", boundJson.RootElement.GetProperty("authoringVersion").GetString());
         WinPeCustomImageMediaService.ValidateConfigurationBinding(package, bound);
         Assert.Throws<InvalidDataException>(() => WinPeCustomImageMediaService.ValidateConfigurationBinding(package,
             bound.Replace(package.ManifestHash, new string('0', 64), StringComparison.Ordinal)));

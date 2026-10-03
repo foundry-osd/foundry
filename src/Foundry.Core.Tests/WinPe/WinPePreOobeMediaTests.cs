@@ -81,8 +81,11 @@ public sealed class WinPePreOobeMediaTests : IDisposable
         var (library, settings) = await InputsAsync();
         var publisher = new WinPePreOobeMediaService(_ => 0);
         using var package = await publisher.PrepareAsync(library, settings, Cancellation);
-        string config = new DeployConfigurationGenerator().Serialize(new DeployConfigurationGenerator().Generate(new() { PreOobe = settings }));
+        var generator = new DeployConfigurationGenerator();
+        string config = generator.Serialize(generator.Generate(new() { PreOobe = settings }, null, null, null, "26.10.3.1"));
         string bound = WinPePreOobeMediaService.BindConfiguration(package, config);
+        using JsonDocument boundJson = JsonDocument.Parse(bound);
+        Assert.Equal("26.10.3.1", boundJson.RootElement.GetProperty("authoringVersion").GetString());
         WinPePreOobeMediaService.ValidateConfigurationBinding(package, bound);
         Assert.Throws<InvalidDataException>(() => WinPePreOobeMediaService.ValidateConfigurationBinding(package, config));
         string media = Path.Combine(root, "media");
