@@ -46,11 +46,14 @@
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>يتعذر تحديد إصدار Foundry OSD المستخدم لإنشاء وسائط التمهيد هذه. حدّث Foundry OSD أولاً على الكمبيوتر المستخدم لإنشاء الوسائط، ثم أعد إنشاء ملف ISO أو حدّث وسائط تمهيد USB.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>يوصى بإعادة إنشاء صورة التمهيد</value>
+    <value>حدّث Foundry OSD، ثم أعد إنشاء وسائط التمهيد</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>تستخدم صورة التمهيد هذه تنسيق تكوين أقدم لـ Foundry OSD. أعد إنشاءها لضمان التوافق مع أحدث الميزات.</value>
+    <value>تم إنشاء وسائط التمهيد هذه باستخدام إصدار أقدم من Foundry OSD. حدّث Foundry OSD أولاً على الكمبيوتر المستخدم لإنشاء الوسائط، ثم أعد إنشاء ملف ISO أو حدّث وسائط تمهيد USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>الهندسة المعمارية: {0}</value>

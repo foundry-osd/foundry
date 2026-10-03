@@ -6,10 +6,11 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Connect.Models.Configuration;
-using ConfigurationSchemaVersions = Foundry.Core.Models.Configuration.ConfigurationSchemaVersions;
-using CoreConnectNetworkSettings = Foundry.Core.Models.Configuration.ConnectNetworkSettings;
 using Foundry.Connect.Services.Runtime;
+using Foundry.Core.Services.Runtime;
 using Microsoft.Extensions.Logging;
+using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
+using CoreConnectNetworkSettings = Foundry.Core.Models.Configuration.ConnectNetworkSettings;
 
 namespace Foundry.Connect.Services.Configuration;
 
@@ -28,6 +29,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
     private readonly string[] _args;
     private readonly ILogger<ConnectConfigurationService> _logger;
+    private readonly BootMediaRuntimeContext _runtimeContext;
 
     /// <summary>
     /// Initializes a configuration service.
@@ -35,7 +37,14 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     /// <param name="args">Command-line arguments used to resolve configuration.</param>
     /// <param name="logger">The logger used for configuration diagnostics.</param>
     public ConnectConfigurationService(string[] args, ILogger<ConnectConfigurationService> logger)
+        : this(args, logger, BootMediaRuntimeContext.Capture())
     {
+    }
+
+    /// <summary>Uses captured runtime evidence so release-age evaluation is deterministic.</summary>
+    internal ConnectConfigurationService(string[] args, ILogger<ConnectConfigurationService> logger, BootMediaRuntimeContext runtimeContext)
+    {
+        _runtimeContext = runtimeContext;
         _args = args ?? Array.Empty<string>();
         _logger = logger;
     }
@@ -47,17 +56,20 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     public bool IsLoadedFromDisk { get; private set; }
 
     /// <inheritdoc />
-    public bool IsBootMediaUpdateRecommended { get; private set; }
+    public bool IsBootMediaUpdateRecommended => BootMediaUpdateReason != BootMediaUpdateReason.None;
+
+    /// <inheritdoc />
+    public BootMediaUpdateReason BootMediaUpdateReason { get; private set; }
 
     /// <inheritdoc />
     public FoundryConnectConfiguration Load()
     {
+        BootMediaUpdateReason = BootMediaUpdateReason.None;
         ConfigurationResolution resolution = ResolveConfigurationPath(_args);
         ConfigurationPath = resolution.Path;
         if (string.IsNullOrWhiteSpace(ConfigurationPath))
         {
             IsLoadedFromDisk = false;
-            ResetSchemaCompatibilityState();
             _logger.LogInformation("No Foundry.Connect configuration file was resolved. Using built-in defaults.");
             return Normalize(new FoundryConnectConfiguration());
         }
@@ -69,7 +81,6 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             {
                 ConfigurationPath = null;
                 IsLoadedFromDisk = false;
-                ResetSchemaCompatibilityState();
                 _logger.LogInformation("Foundry.Connect configuration file was not found. Using built-in defaults. ConfigurationPath={ConfigurationPath}", fullPath);
                 return Normalize(new FoundryConnectConfiguration());
             }
@@ -87,12 +98,16 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
                 throw new FoundryConnectConfigurationException($"Configuration file is empty or invalid: {fullPath}");
             }
 
-            ApplySchemaCompatibilityState(configuration.SchemaVersion);
-            configuration = DecryptEmbeddedSecrets(configuration, fullPath);
+            configuration = Normalize(DecryptEmbeddedSecrets(configuration, fullPath));
+            BootMediaUpdateReason = BootMediaFreshnessPolicy.Evaluate(
+                configuration.AuthoringVersion,
+                _runtimeContext.RuntimeVersion,
+                _runtimeContext.IsEligible(ReadProvisioningSource(fullPath)) &&
+                _runtimeContext.IsEligible(configuration.Telemetry?.RuntimePayloadSource));
             ConfigurationPath = fullPath;
             IsLoadedFromDisk = true;
             _logger.LogInformation("Loaded Foundry.Connect configuration from disk. ConfigurationPath={ConfigurationPath}", fullPath);
-            return Normalize(configuration);
+            return configuration;
         }
         catch (FoundryConnectConfigurationException)
         {
@@ -101,25 +116,6 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         catch (Exception ex)
         {
             throw new FoundryConnectConfigurationException($"Configuration file could not be parsed: {fullPath}", ex);
-        }
-    }
-
-    private void ResetSchemaCompatibilityState()
-    {
-        IsBootMediaUpdateRecommended = false;
-    }
-
-    private void ApplySchemaCompatibilityState(int schemaVersion)
-    {
-        IsBootMediaUpdateRecommended = ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(
-            schemaVersion,
-            ConfigurationSchemaVersions.ConnectCurrent);
-        if (IsBootMediaUpdateRecommended)
-        {
-            _logger.LogWarning(
-                "Foundry.Connect configuration uses schema version {SchemaVersion}, older than current schema version {CurrentSchemaVersion}. Boot media update is recommended.",
-                schemaVersion,
-                ConfigurationSchemaVersions.ConnectCurrent);
         }
     }
 
@@ -170,6 +166,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
         return new FoundryConnectConfiguration
         {
+            AuthoringVersion = configuration.AuthoringVersion,
             SchemaVersion = configuration.SchemaVersion <= 0
                 ? FoundryConnectConfiguration.CurrentSchemaVersion
                 : configuration.SchemaVersion,
@@ -231,6 +228,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
         return new FoundryConnectConfiguration
         {
+            AuthoringVersion = configuration.AuthoringVersion,
             SchemaVersion = configuration.SchemaVersion,
             Capabilities = configuration.Capabilities,
             Network = configuration.Network,
@@ -278,4 +276,17 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     }
 
     internal readonly record struct ConfigurationResolution(string? Path, bool IsRequired);
+
+    private static string? ReadProvisioningSource(string configurationPath)
+    {
+        string markerPath = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(configurationPath))!, "foundry.connect.provisioning-source.txt");
+        try
+        {
+            return File.ReadAllText(markerPath);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            return null;
+        }
+    }
 }

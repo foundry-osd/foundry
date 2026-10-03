@@ -40,11 +40,14 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>De versie van Foundry OSD waarmee dit opstartmedium is gemaakt, kan niet worden bepaald. Werk eerst Foundry OSD bij op uw aanmaak-pc en maak daarna de ISO opnieuw of werk het USB-opstartmedium bij.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Update van opstartmedium aanbevolen</value>
+    <value>Werk Foundry OSD bij en maak het opstartmedium opnieuw</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Dit opstartmedium is gegenereerd met een ouder Foundry OSD-configuratieformaat. Werk het opstartmedium bij om compatibiliteit met de nieuwste functies te garanderen.</value>
+    <value>Dit opstartmedium is gemaakt met een oudere versie van Foundry OSD. Werk eerst Foundry OSD bij op uw aanmaak-pc en maak daarna de ISO opnieuw of werk het USB-opstartmedium bij.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Annuleren</value>

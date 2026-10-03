@@ -4,9 +4,12 @@
 
 using System.IO;
 using System.Text.Json;
+using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Models.Configuration;
-using ConfigurationSchemaVersions = Foundry.Core.Models.Configuration.ConfigurationSchemaVersions;
+using Foundry.Deploy.Services.Runtime;
 using Microsoft.Extensions.Logging;
+using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
+using ConfigurationSchemaVersions = Foundry.Core.Models.Configuration.ConfigurationSchemaVersions;
 
 namespace Foundry.Deploy.Services.Configuration;
 
@@ -15,6 +18,7 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
     public const string DefaultConfigurationPath = @"X:\Foundry\Config\foundry.deploy.config.json";
 
     private readonly ILogger<DeployConfigurationService> _logger;
+    private readonly BootMediaRuntimeContext _runtimeContext;
     private readonly string _configurationPath;
 
     public DeployConfigurationService(ILogger<DeployConfigurationService> logger)
@@ -23,7 +27,14 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
     }
 
     internal DeployConfigurationService(ILogger<DeployConfigurationService> logger, string configurationPath)
+        : this(logger, configurationPath, BootMediaRuntimeContext.Capture())
     {
+    }
+
+    /// <summary>Uses captured runtime evidence so release-age evaluation is deterministic.</summary>
+    internal DeployConfigurationService(ILogger<DeployConfigurationService> logger, string configurationPath, BootMediaRuntimeContext runtimeContext)
+    {
+        _runtimeContext = runtimeContext;
         _logger = logger;
         _configurationPath = string.IsNullOrWhiteSpace(configurationPath)
             ? DefaultConfigurationPath
@@ -83,17 +94,11 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
                     ConfigurationSchemaVersions.DeployCurrent);
             }
 
-            bool isBootMediaUpdateRecommended = ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(
-                document.SchemaVersion,
-                ConfigurationSchemaVersions.DeployCurrent);
-            if (isBootMediaUpdateRecommended)
-            {
-                _logger.LogWarning(
-                    "Deploy configuration at '{ConfigurationPath}' uses schema version {SchemaVersion}, older than current schema version {CurrentSchemaVersion}. Boot media update is recommended.",
-                    _configurationPath,
-                    document.SchemaVersion,
-                    ConfigurationSchemaVersions.DeployCurrent);
-            }
+            BootMediaUpdateReason reason = BootMediaFreshnessPolicy.Evaluate(
+                document.AuthoringVersion,
+                _runtimeContext.RuntimeVersion,
+                _runtimeContext.IsEligible(ReadProvisioningSource(_configurationPath)) &&
+                _runtimeContext.IsEligible(document.Telemetry?.RuntimePayloadSource));
 
             _logger.LogInformation(
                 "Loaded deploy configuration from '{ConfigurationPath}' (SchemaVersion={SchemaVersion}).",
@@ -105,7 +110,7 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
                 ConfigurationPath = _configurationPath,
                 Exists = true,
                 Document = document,
-                IsBootMediaUpdateRecommended = isBootMediaUpdateRecommended
+                BootMediaUpdateReason = reason
             };
         }
         catch (Exception ex) when (ex is InvalidDataException or IOException or UnauthorizedAccessException or JsonException or InvalidOperationException or ArgumentException)
@@ -122,6 +127,19 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
                 FailureMessage = ex.Message,
                 FailureException = ex
             };
+        }
+    }
+
+    private static string? ReadProvisioningSource(string configurationPath)
+    {
+        string markerPath = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(configurationPath))!, "foundry.deploy.provisioning-source.txt");
+        try
+        {
+            return File.ReadAllText(markerPath);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            return null;
         }
     }
 }

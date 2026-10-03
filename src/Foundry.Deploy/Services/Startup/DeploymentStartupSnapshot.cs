@@ -4,6 +4,7 @@
 
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
+using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.System;
 
@@ -18,7 +19,11 @@ public sealed record DeploymentStartupSnapshot
 
     public required string CacheRootPath { get; init; }
     public required FoundryDeployConfigurationDocument? DeployConfigurationDocument { get; init; }
-    public required bool IsBootMediaUpdateRecommended { get; init; }
+
+    /// <summary>Gets why rebuilding this boot media is recommended.</summary>
+    public BootMediaUpdateReason BootMediaUpdateReason { get; init; }
+
+    public bool IsBootMediaUpdateRecommended => BootMediaUpdateReason != BootMediaUpdateReason.None;
     public required IReadOnlyList<AutopilotProfileCatalogItem> AutopilotProfiles { get; init; }
     public required MachineNamePreparationResult MachineNamePreparation { get; init; }
     public required HardwareProfile? DetectedHardware { get; init; }

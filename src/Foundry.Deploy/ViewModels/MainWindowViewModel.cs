@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.ObjectModel;
+using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -47,6 +48,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly DeploymentWizardContext _wizardContext;
     private readonly DeploymentWizardNavigationState _wizardNavigationState;
     private DebugAutopilotMode _debugAutopilotMode = DebugAutopilotMode.None;
+    private BootMediaUpdateReason _bootMediaUpdateReason;
     private bool _isInitialized;
     private bool _isDisposed;
     private Task? _initializationTask;
@@ -104,7 +106,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public string WindowTitle => GetString("App.WindowTitle");
     public string VersionDisplay => Format("Common.VersionFormat", FoundryDeployApplicationInfo.Version);
     public string BootMediaUpdateRecommendedText => GetString("BootMedia.UpdateRecommended");
-    public string BootMediaUpdateRecommendedToolTip => GetString("BootMedia.UpdateRecommendedToolTip");
+    public string BootMediaUpdateRecommendedToolTip => GetString(
+        _bootMediaUpdateReason == BootMediaUpdateReason.UnknownAuthoringVersion
+            ? "BootMedia.UnknownAuthoringVersionToolTip"
+            : "BootMedia.UpdateRecommendedToolTip");
     public string OperatingSystemArchitectureDisplay => Format("Catalog.ArchitectureFormat", OperatingSystemCatalog.EffectiveOsArchitecture);
     public string SummaryTargetDiskText => Preparation.SelectedTargetDisk?.DisplayLabel ?? GetString("Summary.NoDiskSelected");
     public string SummaryOperatingSystemText => SelectedOperatingSystem is null
@@ -895,7 +900,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         ArgumentNullException.ThrowIfNull(startupSnapshot);
 
         _wizardContext.ApplyStartupSnapshot(startupSnapshot);
+        _bootMediaUpdateReason = startupSnapshot.BootMediaUpdateReason;
         IsBootMediaUpdateRecommended = startupSnapshot.IsBootMediaUpdateRecommended;
+        OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));
         Session.ConfigureRebootPolicy(DeploymentRebootPolicy.Create(_wizardContext.Completion));
         Session.SetComputerName(Preparation.EffectiveComputerName);
         Session.CompleteStartupInitialization();

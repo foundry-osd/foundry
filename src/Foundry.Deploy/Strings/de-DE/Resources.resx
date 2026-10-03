@@ -46,11 +46,14 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Die zur Erstellung dieses Startmediums verwendete Foundry OSD-Version kann nicht ermittelt werden. Aktualisieren Sie zuerst Foundry OSD auf Ihrem Erstellungs-PC und erstellen Sie anschließend die ISO-Datei neu oder aktualisieren Sie das USB-Startmedium.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Neuerstellung des Startabbilds empfohlen</value>
+    <value>Foundry OSD aktualisieren, dann Startmedium neu erstellen</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Dieses Startabbild verwendet ein älteres Foundry OSD-Konfigurationsformat. Erstellen Sie es neu, um die Kompatibilität mit den neuesten Funktionen sicherzustellen.</value>
+    <value>Dieses Startmedium wurde mit einer älteren Version von Foundry OSD erstellt. Aktualisieren Sie zuerst Foundry OSD auf Ihrem Erstellungs-PC und erstellen Sie anschließend die ISO-Datei neu oder aktualisieren Sie das USB-Startmedium.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Architektur: {0}</value>

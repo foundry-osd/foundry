@@ -40,11 +40,14 @@ Licencirano pod licenco MIT.</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Različice Foundry OSD, uporabljene za ustvarjanje tega zagonskega medija, ni mogoče določiti. Najprej posodobite Foundry OSD v računalniku za ustvarjanje medijev, nato znova ustvarite ISO ali posodobite zagonski medij USB.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Priporočena je posodobitev zagonskega medija</value>
+    <value>Posodobite Foundry OSD in nato znova ustvarite zagonski medij</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Ta zagonski medij je bil ustvarjen s starejšo obliko konfiguracije Foundry OSD. Posodobite zagonski medij, da zagotovite združljivost z najnovejšimi funkcijami.</value>
+    <value>Ta zagonski medij je bil ustvarjen s starejšo različico Foundry OSD. Najprej posodobite Foundry OSD v računalniku za ustvarjanje medijev, nato znova ustvarite ISO ali posodobite zagonski medij USB.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Prekliči</value>

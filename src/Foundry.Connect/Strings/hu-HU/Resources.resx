@@ -40,11 +40,14 @@ Licenc az MIT licenc alatt.</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Nem állapítható meg, melyik Foundry OSD-verzióval készült ez a rendszerindító adathordozó. Először frissítse a Foundry OSD-t az adathordozó készítésére használt számítógépen, majd készítse el újra az ISO-t vagy frissítse az USB-s rendszerindító adathordozót.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>A rendszerindító adathordozó frissítése ajánlott</value>
+    <value>Frissítse a Foundry OSD-t, majd hozza létre újra a rendszerindító adathordozót</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Ez a rendszerindító adathordozó egy régebbi Foundry OSD konfigurációs formátummal készült. Frissítse a rendszerindító adathordozót a legújabb funkciókkal való kompatibilitás biztosításához.</value>
+    <value>Ez a rendszerindító adathordozó a Foundry OSD egy régebbi verziójával készült. Először frissítse a Foundry OSD-t az adathordozó készítésére használt számítógépen, majd készítse el újra az ISO-t vagy frissítse az USB-s rendszerindító adathordozót.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Mégse</value>

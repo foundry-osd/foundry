@@ -46,11 +46,14 @@ Licencirano pod licenco MIT.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Različice Foundry OSD, uporabljene za ustvarjanje tega zagonskega medija, ni mogoče določiti. Najprej posodobite Foundry OSD v računalniku za ustvarjanje medijev, nato znova ustvarite ISO ali posodobite zagonski medij USB.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Priporočeno je ponovno ustvarjanje zagonske slike</value>
+    <value>Posodobite Foundry OSD in nato znova ustvarite zagonski medij</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Ta zagonska slika uporablja starejšo obliko konfiguracije Foundry OSD. Znova jo ustvarite, da zagotovite združljivost z najnovejšimi funkcijami.</value>
+    <value>Ta zagonski medij je bil ustvarjen s starejšo različico Foundry OSD. Najprej posodobite Foundry OSD v računalniku za ustvarjanje medijev, nato znova ustvarite ISO ali posodobite zagonski medij USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Arhitektura: {0}</value>

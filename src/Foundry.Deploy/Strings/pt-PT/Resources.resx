@@ -46,11 +46,14 @@ Licenciado sob a licença MIT.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Não é possível determinar a versão do Foundry OSD utilizada para criar este suporte de arranque. Atualize primeiro o Foundry OSD no PC de criação e depois recrie a ISO ou atualize o suporte de arranque USB.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Regeneração da imagem de arranque recomendada</value>
+    <value>Atualize o Foundry OSD e recrie o suporte de arranque</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Esta imagem de arranque utiliza um formato de configuração Foundry OSD mais antigo. Regenere-a para garantir compatibilidade com as funcionalidades mais recentes.</value>
+    <value>Este suporte de arranque foi criado com uma versão anterior do Foundry OSD. Atualize primeiro o Foundry OSD no PC de criação e depois recrie a ISO ou atualize o suporte de arranque USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Arquitetura: {0}</value>

@@ -46,11 +46,14 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Nepavyksta nustatyti Foundry OSD versijos, naudotos šiai įkrovos laikmenai sukurti. Pirmiausia atnaujinkite Foundry OSD laikmenų kūrimo kompiuteryje, tada iš naujo sukurkite ISO arba atnaujinkite USB įkrovos laikmeną.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Rekomenduojama iš naujo sugeneruoti įkrovos atvaizdą</value>
+    <value>Atnaujinkite Foundry OSD, tada iš naujo sukurkite įkrovos laikmeną</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Šis įkrovos atvaizdas naudoja senesnį Foundry OSD konfigūracijos formatą. Sugeneruokite jį iš naujo, kad užtikrintumėte suderinamumą su naujausiomis funkcijomis.</value>
+    <value>Ši įkrovos laikmena sukurta naudojant senesnę Foundry OSD versiją. Pirmiausia atnaujinkite Foundry OSD laikmenų kūrimo kompiuteryje, tada iš naujo sukurkite ISO arba atnaujinkite USB įkrovos laikmeną.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Architektūra: {0}</value>

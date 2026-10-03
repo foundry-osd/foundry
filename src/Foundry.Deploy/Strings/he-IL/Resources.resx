@@ -46,11 +46,14 @@
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>לא ניתן לקבוע איזו גרסה של Foundry OSD שימשה ליצירת מדיית אתחול זו. עדכן תחילה את Foundry OSD במחשב המשמש ליצירת המדיה, ואז צור מחדש את ה-ISO או עדכן את מדיית האתחול מסוג USB.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>מומלץ ליצור מחדש את תמונת האתחול</value>
+    <value>עדכן את Foundry OSD, ואז צור מחדש את מדיית האתחול</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>תמונת האתחול הזו משתמשת בתבנית תצורה ישנה יותר של Foundry OSD. צור אותה מחדש כדי להבטיח תאימות לתכונות העדכניות ביותר.</value>
+    <value>מדיית אתחול זו נוצרה באמצעות גרסה ישנה יותר של Foundry OSD. עדכן תחילה את Foundry OSD במחשב המשמש ליצירת המדיה, ואז צור מחדש את ה-ISO או עדכן את מדיית האתחול מסוג USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>ארכיטקטורה: {0}</value>

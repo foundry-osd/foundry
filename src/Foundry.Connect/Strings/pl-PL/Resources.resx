@@ -40,11 +40,14 @@ Licencjonowany na licencji MIT.</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Nie można ustalić wersji Foundry OSD użytej do utworzenia tego nośnika rozruchowego. Najpierw zaktualizuj Foundry OSD na komputerze używanym do tworzenia nośników, a następnie utwórz ponownie obraz ISO lub zaktualizuj nośnik rozruchowy USB.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Zalecana aktualizacja nośnika rozruchowego</value>
+    <value>Zaktualizuj Foundry OSD, a następnie utwórz ponownie nośnik rozruchowy</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Ten nośnik rozruchowy został wygenerowany przy użyciu starszego formatu konfiguracji Foundry OSD. Zaktualizuj nośnik rozruchowy, aby zapewnić zgodność z najnowszymi funkcjami.</value>
+    <value>Ten nośnik rozruchowy utworzono za pomocą starszej wersji Foundry OSD. Najpierw zaktualizuj Foundry OSD na komputerze używanym do tworzenia nośników, a następnie utwórz ponownie obraz ISO lub zaktualizuj nośnik rozruchowy USB.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Anuluj</value>

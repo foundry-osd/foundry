@@ -40,11 +40,14 @@ Licencované podľa licencie MIT.</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Verziu Foundry OSD použitú na vytvorenie tohto zavádzacieho média nemožno určiť. Najprv aktualizujte Foundry OSD na počítači na tvorbu médií a potom znova vytvorte ISO alebo aktualizujte zavádzacie médium USB.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Odporúča sa aktualizovať zavádzacie médium</value>
+    <value>Aktualizujte Foundry OSD a potom znova vytvorte zavádzacie médium</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Toto zavádzacie médium bolo vygenerované pomocou staršieho formátu konfigurácie Foundry OSD. Aktualizujte zavádzacie médium, aby ste zabezpečili kompatibilitu s najnovšími funkciami.</value>
+    <value>Toto zavádzacie médium bolo vytvorené staršou verziou Foundry OSD. Najprv aktualizujte Foundry OSD na počítači na tvorbu médií a potom znova vytvorte ISO alebo aktualizujte zavádzacie médium USB.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Zrušiť</value>

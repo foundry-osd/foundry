@@ -4,6 +4,8 @@
 
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
+using Foundry.Deploy.Services.Runtime;
+using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -11,6 +13,22 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeployConfigurationServiceTests
 {
+    private static readonly BootMediaRuntimeContext ProductionRuntime = new("26.10.3.2", true, false, false);
+
+    [Fact]
+    public void Load_DoesNotRecommendRebuildWithoutConfiguration()
+    {
+        using var directory = new TemporaryDirectory();
+        var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance,
+            System.IO.Path.Combine(directory.Path, "missing.json"), ProductionRuntime);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.False(result.Exists);
+        Assert.Null(result.Document);
+        Assert.Equal(BootMediaUpdateReason.None, result.BootMediaUpdateReason);
+    }
+
     [Theory]
     [InlineData("", false)]
     [InlineData(", \"uploadComputerNameToAutopilot\": true", true)]
@@ -32,11 +50,12 @@ public sealed class DeployConfigurationServiceTests
     {
         using var directory = new TemporaryDirectory();
         string path = CreateJsonFile(directory.Path, "invalid.json", "{invalid}");
-        var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path);
+        var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path, ProductionRuntime);
 
         DeployConfigurationLoadResult result = service.LoadOptional();
 
         Assert.Null(result.Document);
+        Assert.Equal(BootMediaUpdateReason.None, result.BootMediaUpdateReason);
         var exception = Assert.IsType<System.Text.Json.JsonException>(result.FailureException);
         Assert.NotEmpty(exception.StackTrace!);
         Assert.Equal(exception.Message, result.FailureMessage);
@@ -76,55 +95,90 @@ public sealed class DeployConfigurationServiceTests
     }
 
     [Fact]
-    public void LoadOptional_WhenSchemaIsOlderThanCurrent_RecommendsBootMediaUpdate()
+    public void Load_RecommendsRebuildForOlderAuthoringReleaseWithCurrentSchema()
     {
-        using var tempDirectory = new TemporaryDirectory();
-        string configurationPath = CreateJsonFile(
-            tempDirectory.Path,
-            "foundry.deploy.config.json",
-            $$"""
-            {
-              "schemaVersion": {{Foundry.Core.Models.Configuration.ConfigurationSchemaVersions.DeployCurrent - 1}}
-            }
-            """);
-
-        var logger = new RecordingLogger<DeployConfigurationService>();
-        var service = new DeployConfigurationService(logger, configurationPath);
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":15,"authoringVersion":"26.10.3.1"}""");
+        var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path, ProductionRuntime);
 
         DeployConfigurationLoadResult result = service.LoadOptional();
 
+        Assert.Equal(BootMediaUpdateReason.NewerRelease, result.BootMediaUpdateReason);
         Assert.True(result.IsBootMediaUpdateRecommended);
-        Assert.Contains(
-            logger.Entries,
-            entry =>
-                entry.LogLevel == LogLevel.Warning &&
-                entry.Message.Contains("current schema version", StringComparison.Ordinal) &&
-                entry.Message.Contains(Foundry.Core.Models.Configuration.ConfigurationSchemaVersions.DeployCurrent.ToString(), StringComparison.Ordinal));
     }
 
     [Fact]
-    public void LoadOptional_WhenSchemaIsCurrent_DoesNotRecommendBootMediaUpdate()
+    public void Load_UsesLegacyFallbackWithoutAuthoringMetadata()
     {
-        using var tempDirectory = new TemporaryDirectory();
-        string configurationPath = CreateJsonFile(
-            tempDirectory.Path,
-            "foundry.deploy.config.json",
-            $$"""
-            {
-              "schemaVersion": {{FoundryDeployConfigurationDocument.CurrentSchemaVersion}}
-            }
-            """);
-
-        var service = new DeployConfigurationService(
-            NullLogger<DeployConfigurationService>.Instance,
-            configurationPath);
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":15}""");
+        var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path, ProductionRuntime);
 
         DeployConfigurationLoadResult result = service.LoadOptional();
 
-        Assert.True(result.Exists);
-        Assert.NotNull(result.Document);
-        Assert.Equal(FoundryDeployConfigurationDocument.CurrentSchemaVersion, result.Document.SchemaVersion);
+        Assert.Equal(BootMediaUpdateReason.UnknownAuthoringVersion, result.BootMediaUpdateReason);
+        Assert.True(result.IsBootMediaUpdateRecommended);
+    }
+
+    [Theory]
+    [InlineData("26.10.3.2", false, false, false, "release")]
+    [InlineData("26.10.3.2", true, true, false, "release")]
+    [InlineData("26.10.3.2", true, false, true, "release")]
+    [InlineData("1.0.0.0", true, false, false, "release")]
+    [InlineData("26.10.3.2", true, false, false, " Debug ")]
+    public void Load_SuppressesAdviceOutsideProductionWinPe(string version, bool winPe, bool debugger, bool debugBuild, string source)
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":15,"authoringVersion":"26.10.3.1"}""");
+        File.WriteAllText(System.IO.Path.Combine(directory.Path, "foundry.deploy.provisioning-source.txt"), source);
+        var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path, new BootMediaRuntimeContext(version, winPe, debugger, debugBuild));
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.Equal(BootMediaUpdateReason.None, result.BootMediaUpdateReason);
         Assert.False(result.IsBootMediaUpdateRecommended);
+    }
+
+    [Theory]
+    [InlineData("debug", BootMediaUpdateReason.None)]
+    [InlineData("unknown", BootMediaUpdateReason.UnknownAuthoringVersion)]
+    public void Load_OnlyExplicitDebugTelemetrySuppressesLegacyAdvice(string source, BootMediaUpdateReason expected)
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", $$$"""{"telemetry":{"runtimePayloadSource":"{{{source}}}"}}""");
+        var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path, ProductionRuntime);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.Equal(expected, result.BootMediaUpdateReason);
+    }
+
+    [Theory]
+    [InlineData("26.10.3.2")]
+    [InlineData("26.10.4.1")]
+    public void Load_DoesNotRecommendRebuildForSameOrNewerAuthor(string author)
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", $$"""{"schemaVersion":15,"authoringVersion":"{{author}}"}""");
+        var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path, ProductionRuntime);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.Equal(BootMediaUpdateReason.None, result.BootMediaUpdateReason);
+        Assert.False(result.IsBootMediaUpdateRecommended);
+    }
+
+    [Fact]
+    public void Load_UsesLegacyFallbackWhenProvisioningMarkerIsUnreadable()
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":15}""");
+        Directory.CreateDirectory(System.IO.Path.Combine(directory.Path, "foundry.deploy.provisioning-source.txt"));
+        var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path, ProductionRuntime);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.Equal(BootMediaUpdateReason.UnknownAuthoringVersion, result.BootMediaUpdateReason);
     }
 
     [Fact]
@@ -161,6 +215,7 @@ public sealed class DeployConfigurationServiceTests
             """
             {
               "schemaVersion": 11,
+              "authoringVersion": "26.10.3.1",
               "customization": {
                 "machineNaming": {
                   "isEnabled": true,
@@ -178,6 +233,7 @@ public sealed class DeployConfigurationServiceTests
 
         DeployConfigurationLoadResult result = service.LoadOptional();
 
+        Assert.Equal("26.10.3.1", result.Document!.AuthoringVersion);
         DeployMachineNamingSettings naming = Assert.IsType<FoundryDeployConfigurationDocument>(result.Document)
             .Customization.MachineNaming;
         Assert.Equal(Foundry.Core.Models.Configuration.MachineNamingMode.Composed, naming.Mode);

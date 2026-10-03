@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Connect.Models.Configuration;
+using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Connect.Services.Configuration;
 
@@ -25,6 +26,9 @@ public interface IConnectConfigurationService
     /// Gets whether the loaded boot media should be updated for best compatibility.
     /// </summary>
     bool IsBootMediaUpdateRecommended { get; }
+
+    /// <summary>Gets why rebuilding this boot media is recommended.</summary>
+    BootMediaUpdateReason BootMediaUpdateReason { get; }
 
     /// <summary>
     /// Loads configuration from command-line, environment, or WinPE media locations.

@@ -12,8 +12,4 @@ public static class ConfigurationSchemaVersions
 
     public const int DeployCurrent = 15;
 
-    public static bool IsBootMediaUpdateRecommended(int schemaVersion, int currentSchemaVersion)
-    {
-        return schemaVersion < currentSchemaVersion;
-    }
 }

@@ -46,11 +46,14 @@ Sous licence MIT.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>La version de Foundry OSD utilisée pour créer ce support de démarrage ne peut pas être déterminée. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le support de démarrage USB.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Régénération de l’image de démarrage recommandée</value>
+    <value>Mettez à jour Foundry OSD, puis recréez le support de démarrage</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Cette image de démarrage utilise un ancien format de configuration Foundry OSD. Régénérez-la pour garantir la compatibilité avec les dernières fonctionnalités.</value>
+    <value>Ce support de démarrage a été créé avec une ancienne version de Foundry OSD. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le support de démarrage USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Architecture: {0}</value>

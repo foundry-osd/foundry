@@ -40,11 +40,14 @@
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>無法判斷製作此開機媒體時使用的 Foundry OSD 版本。請先在製作媒體的電腦上更新 Foundry OSD，然後重新製作 ISO 或更新 USB 開機媒體。</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>建議更新開機媒體</value>
+    <value>先更新 Foundry OSD，再重新製作開機媒體</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>此開機媒體是使用較舊的 Foundry OSD 設定格式產生的。請更新開機媒體，以確保與最新功能相容。</value>
+    <value>此開機媒體是使用較舊版本的 Foundry OSD 製作的。請先在製作媒體的電腦上更新 Foundry OSD，然後重新製作 ISO 或更新 USB 開機媒體。</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>取消</value>
