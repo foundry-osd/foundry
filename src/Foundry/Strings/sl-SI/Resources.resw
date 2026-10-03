@@ -259,9 +259,6 @@ Licencirano pod licenco MIT.</value>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Preverite posodobitve</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Posodobite in znova zaženite</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Opombe ob izdaji</value>
   </data>
@@ -3756,17 +3753,17 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Vir je preverjen.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Uporabi posodobitev</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Prenesi posodobitev</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Poskusi znova</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Novo</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD bo prenesel posodobitev in znova zagnal, da jo uporabi.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Posodobite in znova zaženite</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Posodobi Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Razpoložljiva različica</value>
@@ -3780,26 +3777,32 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Najnovejša različica</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Prenašanje posodobitve. Foundry OSD se bo znova zagnal, ko bo pripravljen.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Prenašanje: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Napredek prenosa</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Posodobitev se prenaša v ozadju. Odprite nastavitve posodobitev za ogled napredka.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Prenašanje posodobitve</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Različica {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Uporabite posodobitev in znova zaženite Foundry OSD. Samodejno se bo namestila tudi, ko zaprete aplikacijo.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ni preverjeno</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>livarna-osd/livarna</value>
+    <value>Ogled izdaj repozitorija</value>
+  </data>
+  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
+    <value>Opombe ob izdaji za to posodobitev niso na voljo.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Preverjanje posodobitev</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Prenos posodobitve ni uspel: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Prenašanje posodobitve</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Preverjanje posodobitve ni uspelo: {0}</value>
@@ -3820,7 +3823,7 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Na voljo je posodobitev Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Posodobite, ko boste pripravljeni. Foundry OSD se bo znova zagnal, da ga dokonča.</value>
+    <value>Prenesite posodobitev, ko boste pripravljeni.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} je na voljo.</value>

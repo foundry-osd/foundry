@@ -259,9 +259,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Suchen Sie nach Updates</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Aktualisieren und neu starten</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Versionshinweise</value>
   </data>
@@ -3756,17 +3753,17 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Quelle validiert.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Update anwenden</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Update herunterladen</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Erneut versuchen</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Neu</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD lädt das Update herunter und startet neu, um es anzuwenden.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Aktualisieren und neu starten</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Aktualisieren Sie Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Verfügbare Version</value>
@@ -3780,26 +3777,32 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Neueste Version</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Herunterladen des Updates. Foundry OSD wird neu gestartet, wenn es bereit ist.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Download: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Download-Fortschritt</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Das Update wird im Hintergrund heruntergeladen. Öffnen Sie die Updateeinstellungen, um den Fortschritt anzuzeigen.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Update wird heruntergeladen</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Version {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Wenden Sie das Update an und starten Sie Foundry OSD neu. Es wird auch automatisch installiert, wenn Sie die Anwendung schließen.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nicht geprüft</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Gießerei-OSD/Gießerei</value>
+    <value>Repositoryversionen anzeigen</value>
+  </data>
+  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
+    <value>Für dieses Update sind keine Versionshinweise verfügbar.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Suche nach Updates</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Download des Updates fehlgeschlagen: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Update wird heruntergeladen</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Update-Prüfung fehlgeschlagen: {0}</value>
@@ -3820,7 +3823,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Ein Foundry OSD Update ist verfügbar.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Aktualisieren Sie, wenn Sie bereit sind. Foundry OSD wird neu gestartet, um die Anwendung abzuschließen.</value>
+    <value>Laden Sie das Update herunter, wenn Sie bereit sind.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} ist verfügbar.</value>

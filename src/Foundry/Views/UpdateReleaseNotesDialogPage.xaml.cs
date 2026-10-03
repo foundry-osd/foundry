@@ -3,8 +3,10 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Common;
+using Foundry.Services.Updates;
 using Microsoft.Web.WebView2.Core;
 using Serilog;
+using System.Net;
 
 namespace Foundry.Views;
 
@@ -27,9 +29,10 @@ public sealed partial class UpdateReleaseNotesDialogPage : Page
 
     protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
-        DataContext = e.Parameter;
+        UpdateReleaseNotesDialog? dialog = e.Parameter as UpdateReleaseNotesDialog;
+        DataContext = dialog?.ViewModel;
         base.OnNavigatedTo(e);
-        await InitializeReleaseNotesWebViewAsync(e.Parameter as AppUpdateSettingViewModel);
+        await InitializeReleaseNotesWebViewAsync(dialog?.ReleaseNotes);
     }
 
     /// <summary>
@@ -55,6 +58,12 @@ public sealed partial class UpdateReleaseNotesDialogPage : Page
 
     private void ReleaseNotesWebView_NavigationStarting(WebView2 sender, CoreWebView2NavigationStartingEventArgs args)
     {
+        if (!string.Equals(args.Uri, "about:blank", StringComparison.OrdinalIgnoreCase))
+        {
+            args.Cancel = true;
+            return;
+        }
+
         ReleaseNotesLoadingPanel.Visibility = Visibility.Visible;
         ReleaseNotesErrorPanel.Visibility = Visibility.Collapsed;
     }
@@ -78,11 +87,13 @@ public sealed partial class UpdateReleaseNotesDialogPage : Page
         ReleaseNotesLoadingPanel.Visibility = Visibility.Collapsed;
     }
 
-    private async Task InitializeReleaseNotesWebViewAsync(AppUpdateSettingViewModel? viewModel)
+    private async Task InitializeReleaseNotesWebViewAsync(ApplicationUpdateCheckResult? releaseNotes)
     {
-        if (viewModel is null)
+        if (releaseNotes is null || (string.IsNullOrWhiteSpace(releaseNotes.NotesHtml) && string.IsNullOrWhiteSpace(releaseNotes.NotesMarkdown)))
         {
-            ShowReleaseNotesError();
+            ReleaseNotesLoadingPanel.Visibility = Visibility.Collapsed;
+            ReleaseNotesWebView.Visibility = Visibility.Collapsed;
+            ReleaseNotesUnavailablePanel.Visibility = Visibility.Visible;
             return;
         }
 
@@ -106,7 +117,19 @@ public sealed partial class UpdateReleaseNotesDialogPage : Page
                 return;
             }
 
-            ReleaseNotesWebView.Source = viewModel.ReleasesUri;
+            CoreWebView2Settings settings = ReleaseNotesWebView.CoreWebView2.Settings;
+            settings.IsScriptEnabled = false;
+            settings.AreHostObjectsAllowed = false;
+            settings.IsWebMessageEnabled = false;
+            settings.AreDefaultScriptDialogsEnabled = false;
+            string content = !string.IsNullOrWhiteSpace(releaseNotes.NotesHtml)
+                ? releaseNotes.NotesHtml
+                : $"<pre>{WebUtility.HtmlEncode(releaseNotes.NotesMarkdown)}</pre>";
+            ReleaseNotesWebView.NavigateToString(
+                "<!doctype html><html><head><meta charset=\"utf-8\">"
+                + "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'\">"
+                + "<style>body{font-family:system-ui,sans-serif;margin:24px;overflow-wrap:anywhere}pre{white-space:pre-wrap;font-family:inherit}</style>"
+                + "</head><body>" + content + "</body></html>");
         }
         catch (Exception ex)
         {

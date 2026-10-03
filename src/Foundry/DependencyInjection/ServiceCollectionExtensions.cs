@@ -152,7 +152,9 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IAppNavigationService, AppNavigationService>();
         services.AddSingleton<INavigationStatusService, NavigationStatusService>();
         services.AddSingleton<IWindowsStartupService, WindowsStartupService>();
-        services.AddSingleton<IApplicationLifetimeService, WinUiApplicationLifetimeService>();
+        services.AddSingleton<WinUiApplicationLifetimeService>();
+        services.AddSingleton<IApplicationLifetimeService>(sp => sp.GetRequiredService<WinUiApplicationLifetimeService>());
+        services.AddSingleton<IApplicationUpdateRestartService>(sp => sp.GetRequiredService<WinUiApplicationLifetimeService>());
         services.AddSingleton<IAppDispatcher, WinUiAppDispatcher>();
         services.AddSingleton<IDialogService, WinUiDialogService>();
         services.AddSingleton<IExternalProcessLauncher, WinUiExternalProcessLauncher>();

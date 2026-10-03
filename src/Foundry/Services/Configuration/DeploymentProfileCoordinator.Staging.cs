@@ -11,7 +11,22 @@ public sealed partial class DeploymentProfileCoordinator
 {
     private const string StagingLeaseFileName = ".lease";
     private readonly List<StagingLease> stagingDirectories = [];
+    private bool deferStagingCleanup;
     private static string StagingRoot => Path.Combine(Constants.DeploymentProfilesDirectoryPath, "Staging");
+
+    /// <summary>Preserves materialized inputs after successful updater handoff for abandoned cleanup on the next launch.</summary>
+    /// <remarks>Call only after successful handoff; disposal releases leases without deleting private staged files.</remarks>
+    public void DeferStagingCleanupUntilNextLaunch() => deferStagingCleanup = true;
+
+    private void ReleaseStagingLeases()
+    {
+        foreach (StagingLease entry in stagingDirectories)
+        {
+            entry.Lease?.Dispose();
+            entry.Lease = null;
+        }
+        stagingDirectories.Clear();
+    }
 
     private string CreateStagingDirectory()
     {
@@ -61,6 +76,7 @@ public sealed partial class DeploymentProfileCoordinator
 
     private void ClearStagingDirectories(bool releaseFailedLeases = false)
     {
+        if (deferStagingCleanup) return;
         try
         {
             using FileStream rootLease = AcquireStagingRootLease();

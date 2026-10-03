@@ -36,7 +36,20 @@
                 TextWrapping="WrapWholeWords" />
             <HyperlinkButton
                 Content="{Binding ReleaseNotesRepositoryText}"
-                NavigateUri="{Binding ReleasesUri}" />
+                NavigateUri="{Binding RepositoryReleasesUri}" />
+        </StackPanel>
+
+        <StackPanel x:Name="ReleaseNotesUnavailablePanel"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Spacing="{ThemeResource FoundryContentGroupSpacing}"
+            Visibility="Collapsed">
+            <TextBlock
+                Text="{Binding ReleaseNotesUnavailableText}"
+                TextWrapping="WrapWholeWords" />
+            <HyperlinkButton
+                Content="{Binding ReleaseNotesRepositoryText}"
+                NavigateUri="{Binding RepositoryReleasesUri}" />
         </StackPanel>
     </Grid>
 </Page>

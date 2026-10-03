@@ -259,9 +259,6 @@
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>检查更新</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>更新并重启</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>发行说明</value>
   </data>
@@ -3756,17 +3753,17 @@
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>源文件已验证。</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>应用更新</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>下载更新</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>重试</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>新</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD 将下载更新并重新启动以应用它。</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>更新并重启</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>更新Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>可用版本</value>
@@ -3780,26 +3777,32 @@
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>最新版本</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>正在下载更新。 Foundry OSD 准备就绪后将重新启动。</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>正在下载：{0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>下载进度</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>更新正在后台下载。打开更新设置以查看进度。</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>正在下载更新</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>版本{0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>应用更新并重新启动 Foundry OSD。关闭应用程序时也会自动安装更新。</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未检查</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>铸造厂-osd/铸造厂</value>
+    <value>查看仓库发行版</value>
+  </data>
+  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
+    <value>此更新的发行说明不可用。</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>检查更新</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>更新下载失败：{0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>正在下载更新</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>更新检查失败：{0}</value>
@@ -3820,7 +3823,7 @@
     <value>Foundry OSD 更新可用。</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>准备好后更新。 Foundry OSD 将重新启动以完成应用。</value>
+    <value>准备好后下载更新。</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} 可用。</value>

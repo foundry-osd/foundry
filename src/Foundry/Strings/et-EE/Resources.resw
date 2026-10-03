@@ -259,9 +259,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Kontrollige värskendusi</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Värskendage ja taaskäivitage</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Väljalaske märkmed</value>
   </data>
@@ -3756,17 +3753,17 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Allikas valideeritud.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Rakenda värskendus</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Laadi värskendus alla</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Proovi uuesti</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Uus</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD laadib värskenduse alla ja taaskäivitab selle rakendamiseks.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Värskendage ja taaskäivitage</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Värskenda Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Saadaval versioon</value>
@@ -3780,26 +3777,32 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Uusim versioon</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Värskenduse allalaadimine. Foundry OSD taaskäivitub, kui see on valmis.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Allalaadimine: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Allalaadimise edenemine</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Värskendus laaditakse alla taustal. Edenemise vaatamiseks avage värskendussätted.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Värskenduse allalaadimine</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Versioon {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Rakendage värskendus ja taaskäivitage Foundry OSD. See installitakse automaatselt ka rakenduse sulgemisel.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Pole kontrollitud</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>valukoda/valukoda</value>
+    <value>Vaata hoidla väljalaskeid</value>
+  </data>
+  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
+    <value>Selle värskenduse väljalaskemärkmed pole saadaval.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Värskenduste otsimine</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Värskenduse allalaadimine nurjus: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Värskenduse allalaadimine</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Värskenduskontroll ebaõnnestus: {0}</value>
@@ -3820,7 +3823,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Saadaval on Foundry OSD värskendus.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Värskendage, kui olete valmis. Foundry OSD taaskäivitub selle rakendamise lõpetamiseks.</value>
+    <value>Laadige värskendus alla, kui olete valmis.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} on saadaval.</value>

@@ -2,10 +2,12 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Services.Updates;
+
 namespace Foundry.Views;
 
 /// <summary>
-/// Displays the Foundry release notes repository in a modal WebView2 dialog.
+/// Displays release notes captured with an update target in a modal WebView2 dialog.
 /// </summary>
 public sealed partial class UpdateReleaseNotesDialog : ContentDialog
 {
@@ -16,10 +18,12 @@ public sealed partial class UpdateReleaseNotesDialog : ContentDialog
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateReleaseNotesDialog"/> class.
     /// </summary>
-    /// <param name="viewModel">The update settings view model that provides the release notes URL and localized strings.</param>
-    public UpdateReleaseNotesDialog(AppUpdateSettingViewModel viewModel)
+    /// <param name="viewModel">The update settings view model that provides localized strings.</param>
+    /// <param name="releaseNotes">The target snapshot whose notes remain fixed for the lifetime of this dialog.</param>
+    public UpdateReleaseNotesDialog(AppUpdateSettingViewModel viewModel, ApplicationUpdateCheckResult releaseNotes)
     {
         ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
+        ReleaseNotes = releaseNotes ?? throw new ArgumentNullException(nameof(releaseNotes));
         InitializeComponent();
         DataContext = ViewModel;
         ApplyContentLayout();
@@ -32,11 +36,16 @@ public sealed partial class UpdateReleaseNotesDialog : ContentDialog
     /// </summary>
     public AppUpdateSettingViewModel ViewModel { get; }
 
+    /// <summary>
+    /// Gets the captured target, independent of later update checks or progress publications.
+    /// </summary>
+    public ApplicationUpdateCheckResult ReleaseNotes { get; }
+
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         if (ContentFrame.Content is null)
         {
-            ContentFrame.Navigate(typeof(UpdateReleaseNotesDialogPage), ViewModel);
+            ContentFrame.Navigate(typeof(UpdateReleaseNotesDialogPage), this);
         }
     }
 

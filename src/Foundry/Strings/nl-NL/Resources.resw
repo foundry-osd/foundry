@@ -259,9 +259,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Controleer op updates</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Updaten en opnieuw opstarten</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Release-opmerkingen</value>
   </data>
@@ -3756,17 +3753,17 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Bron gevalideerd.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Update toepassen</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Update downloaden</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Opnieuw proberen</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Nieuw</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD zal de update downloaden en opnieuw opstarten om deze toe te passen.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Updaten en opnieuw opstarten</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Update Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Beschikbare versie</value>
@@ -3780,26 +3777,32 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Nieuwste versie</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>De update downloaden. Foundry OSD zal opnieuw opstarten als het klaar is.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Downloaden: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Voortgang downloaden</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>De update wordt op de achtergrond gedownload. Open de update-instellingen om de voortgang te bekijken.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Update downloaden</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Versie {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Pas de update toe en start Foundry OSD opnieuw. De update wordt ook automatisch geïnstalleerd wanneer u de toepassing sluit.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Niet gecontroleerd</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>gieterij-osd/gieterij</value>
+    <value>Repositoryreleases bekijken</value>
+  </data>
+  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
+    <value>Er zijn geen releaseopmerkingen beschikbaar voor deze update.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Controleren op updates</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Downloaden van update mislukt: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Update downloaden</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Updatecontrole mislukt: {0}</value>
@@ -3820,7 +3823,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Er is een Foundry OSD-update beschikbaar.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Update wanneer u klaar bent. Foundry OSD zal opnieuw opstarten om het toepassen ervan te voltooien.</value>
+    <value>Download de update wanneer u klaar bent.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} is beschikbaar.</value>

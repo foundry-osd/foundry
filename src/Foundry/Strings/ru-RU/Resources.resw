@@ -259,9 +259,6 @@
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Проверьте наличие обновлений</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Обновить и перезапустить</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Примечания к выпуску</value>
   </data>
@@ -3756,17 +3753,17 @@
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Источник проверен.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Применить обновление</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Скачать обновление</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Повторить</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Новый</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD загрузит обновление и перезапустится, чтобы применить его.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Обновить и перезапустить</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Обновление Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Доступная версия</value>
@@ -3780,26 +3777,32 @@
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Последняя версия</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Скачиваем обновление. Foundry OSD перезапустится, когда будет готов.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Загрузка: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Прогресс загрузки</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Обновление загружается в фоновом режиме. Откройте настройки обновлений, чтобы увидеть ход загрузки.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Загрузка обновления</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Версия {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Примените обновление и перезапустите Foundry OSD. Оно также установится автоматически при закрытии приложения.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Не проверено</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Foundry-OSD/литейный завод</value>
+    <value>Посмотреть выпуски репозитория</value>
+  </data>
+  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
+    <value>Примечания к выпуску для этого обновления недоступны.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Проверка обновлений</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Не удалось скачать обновление: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Загрузка обновления</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Проверка обновлений не удалась: {0}</value>
@@ -3820,7 +3823,7 @@
     <value>Доступно обновление Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Обновите, когда будете готовы. Foundry OSD перезапустится, чтобы завершить его применение.</value>
+    <value>Скачайте обновление, когда будете готовы.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} доступен.</value>

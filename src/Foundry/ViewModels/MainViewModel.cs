@@ -19,6 +19,7 @@ namespace Foundry.ViewModels
         private readonly IAppDispatcher appDispatcher;
         private readonly ILogger logger;
         private ApplicationUpdateCheckResult? currentUpdateResult;
+        private bool isDisposed;
 
         [ObservableProperty]
         public partial bool IsUpdateFooterItemVisible { get; set; }
@@ -28,6 +29,31 @@ namespace Foundry.ViewModels
 
         [ObservableProperty]
         public partial string UpdateFooterToolTip { get; set; }
+
+        [ObservableProperty]
+        public partial int UpdateDownloadProgress { get; set; }
+
+        [ObservableProperty]
+        public partial bool IsUpdateDownloading { get; set; }
+
+        [ObservableProperty]
+        public partial string UpdateFooterGlyph { get; set; }
+
+        [ObservableProperty]
+        public partial string UpdateFooterAutomationName { get; set; }
+
+        [ObservableProperty]
+        public partial string UpdateFooterItemStatus { get; set; }
+
+        [ObservableProperty]
+        public partial string UpdateFooterHelpText { get; set; }
+
+        /// <summary>
+        /// Occurs once after a visible target changes lifecycle, excluding progress and localization refreshes.
+        /// </summary>
+        public event EventHandler<string>? UpdateFooterStatusChanged;
+
+        public bool IsUpdateReadyToApply => currentUpdateResult?.IsReadyToApply == true;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel"/> class.
@@ -45,6 +71,10 @@ namespace Foundry.ViewModels
 
             UpdateFooterTitle = localizationService.GetString("UpdateFooter.Title");
             UpdateFooterToolTip = localizationService.GetString("Update.Status.UpdateAvailable");
+            UpdateFooterGlyph = "\uEBD3";
+            UpdateFooterAutomationName = UpdateFooterTitle;
+            UpdateFooterItemStatus = UpdateFooterToolTip;
+            UpdateFooterHelpText = UpdateFooterToolTip;
 
             updateStateService.StateChanged += OnUpdateStateChanged;
             localizationService.LanguageChanged += OnLanguageChanged;
@@ -54,13 +84,14 @@ namespace Foundry.ViewModels
         /// <inheritdoc />
         public void Dispose()
         {
+            isDisposed = true;
             updateStateService.StateChanged -= OnUpdateStateChanged;
             localizationService.LanguageChanged -= OnLanguageChanged;
         }
 
         private void OnUpdateStateChanged(object? sender, ApplicationUpdateStateChangedEventArgs e)
         {
-            if (!appDispatcher.TryEnqueue(() => ApplyUpdateState(e.CurrentResult)))
+            if (!appDispatcher.TryEnqueue(() => ApplyUpdateState(e.CurrentResult, announceLifecycle: true)))
             {
                 logger.Warning(
                     "Failed to enqueue update footer state refresh. Status={Status}, Version={Version}",
@@ -80,23 +111,45 @@ namespace Foundry.ViewModels
             }
         }
 
-        private void ApplyUpdateState(ApplicationUpdateCheckResult? result)
+        private void ApplyUpdateState(ApplicationUpdateCheckResult? result, bool announceLifecycle = false)
         {
-            currentUpdateResult = result;
-            UpdateFooterTitle = localizationService.GetString("UpdateFooter.Title");
-
-            if (result?.IsUpdateAvailable == true)
+            if (isDisposed)
             {
-                UpdateFooterToolTip = result.Version is not null
-                    ? localizationService.FormatString("Update.Status.UpdateAvailableWithVersion", result.Version)
-                    : localizationService.GetString("Update.Status.UpdateAvailable");
-
-                IsUpdateFooterItemVisible = true;
                 return;
             }
 
-            UpdateFooterToolTip = localizationService.GetString("Update.Status.UpdateAvailable");
-            IsUpdateFooterItemVisible = false;
+            bool lifecycleChanged = currentUpdateResult?.Status != result?.Status
+                || currentUpdateResult?.Version != result?.Version;
+            currentUpdateResult = result;
+            UpdateDownloadProgress = Math.Clamp(result?.DownloadProgress ?? 0, 0, 100);
+            IsUpdateDownloading = result?.Status == ApplicationUpdateStatus.Downloading;
+            UpdateFooterTitle = IsUpdateDownloading
+                ? localizationService.FormatString("Update.Footer.DownloadingFormat", UpdateDownloadProgress)
+                : localizationService.GetString(IsUpdateReadyToApply ? "Update.Action.Apply" : "UpdateFooter.Title");
+            UpdateFooterGlyph = IsUpdateReadyToApply ? "\uE8FB" : "\uEBD3";
+            UpdateFooterAutomationName = IsUpdateDownloading
+                ? localizationService.GetString("Update.Status.Downloading")
+                : UpdateFooterTitle;
+            UpdateFooterToolTip = IsUpdateReadyToApply
+                ? localizationService.GetString("Update.Footer.ReadyToolTip")
+                : IsUpdateDownloading
+                    ? UpdateFooterTitle
+                    : result?.Version is not null
+                        ? localizationService.FormatString("Update.Status.UpdateAvailableWithVersion", result.Version)
+                        : localizationService.GetString("Update.Status.UpdateAvailable");
+            UpdateFooterHelpText = IsUpdateDownloading
+                ? localizationService.GetString("Update.Footer.DownloadingHelp")
+                : UpdateFooterToolTip;
+            UpdateFooterItemStatus = result?.Status == ApplicationUpdateStatus.Failed
+                ? localizationService.FormatString("Update.Status.DownloadFailedFormat", result.FailureMessage ?? result.Message)
+                : IsUpdateReadyToApply ? UpdateFooterTitle : UpdateFooterToolTip;
+            IsUpdateFooterItemVisible = result?.HasKnownUpdate == true;
+            OnPropertyChanged(nameof(IsUpdateReadyToApply));
+
+            if (announceLifecycle && lifecycleChanged && IsUpdateFooterItemVisible)
+            {
+                UpdateFooterStatusChanged?.Invoke(this, UpdateFooterItemStatus);
+            }
         }
     }
 }

@@ -259,9 +259,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Güncellemeleri kontrol edin</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Güncelle ve yeniden başlat</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Sürüm notları</value>
   </data>
@@ -3756,17 +3753,17 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Kaynak doğrulandı.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Güncellemeyi uygula</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Güncellemeyi indir</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Yeniden dene</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Yeni</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD güncellemeyi indirecek ve uygulamak için yeniden başlatacaktır.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Güncelle ve yeniden başlat</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Foundry OSD güncelle</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Mevcut sürüm</value>
@@ -3780,26 +3777,32 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>En son sürüm</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Güncelleme indiriliyor. Foundry OSD hazır olduğunda yeniden başlatılacaktır.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>İndiriliyor: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>İndirme ilerlemesi</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Güncelleme arka planda indiriliyor. İlerlemeyi görmek için güncelleme ayarlarını açın.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Güncelleme indiriliyor</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Sürüm {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Güncellemeyi uygulayın ve Foundry OSD’yi yeniden başlatın. Uygulamayı kapattığınızda da otomatik olarak yüklenecektir.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>İşaretlenmedi</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>dökümhane-osd/dökümhane</value>
+    <value>Depo sürümlerini görüntüle</value>
+  </data>
+  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
+    <value>Bu güncellemenin sürüm notları mevcut değil.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Güncellemeler kontrol ediliyor</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Güncelleme indirilemedi: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Güncelleme indiriliyor</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Güncelleme kontrolü başarısız oldu: {0}</value>
@@ -3820,7 +3823,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Bir Foundry OSD güncellemesi mevcut.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Hazır olduğunuzda güncelleyin. Foundry OSD uygulamayı tamamlamak için yeniden başlatılacaktır.</value>
+    <value>Hazır olduğunuzda güncellemeyi indirin.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} kullanılabilir.</value>

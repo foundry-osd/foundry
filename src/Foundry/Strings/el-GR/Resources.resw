@@ -259,9 +259,6 @@
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Ελέγξτε για ενημερώσεις</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Ενημέρωση και επανεκκίνηση</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Σημειώσεις έκδοσης</value>
   </data>
@@ -3756,17 +3753,17 @@
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Το αρχείο προέλευσης επικυρώθηκε.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Εφαρμογή ενημέρωσης</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Λήψη ενημέρωσης</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Επανάληψη</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Νέο</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Το Foundry OSD θα κατεβάσει την ενημέρωση και θα κάνει επανεκκίνηση για να την εφαρμόσει.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Ενημέρωση και επανεκκίνηση</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Ενημέρωση Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Διαθέσιμη έκδοση</value>
@@ -3780,26 +3777,32 @@
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Τελευταία έκδοση</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Λήψη της ενημέρωσης. Το Foundry OSD θα επανεκκινήσει όταν είναι έτοιμο.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Λήψη: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Πρόοδος λήψης</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Η ενημέρωση λαμβάνεται στο παρασκήνιο. Ανοίξτε τις ρυθμίσεις ενημερώσεων για να δείτε την πρόοδο.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Λήψη ενημέρωσης</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Έκδοση {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Εφαρμόστε την ενημέρωση και επανεκκινήστε το Foundry OSD. Θα εγκατασταθεί επίσης αυτόματα όταν κλείσετε την εφαρμογή.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Δεν έχει ελεγχθεί</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>χυτήριο-osd/χυτήριο</value>
+    <value>Προβολή εκδόσεων αποθετηρίου</value>
+  </data>
+  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
+    <value>Οι σημειώσεις έκδοσης δεν είναι διαθέσιμες για αυτήν την ενημέρωση.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Έλεγχος για ενημερώσεις</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Η λήψη της ενημέρωσης απέτυχε: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Λήψη ενημέρωσης</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Ο έλεγχος ενημέρωσης απέτυχε: {0}</value>
@@ -3820,7 +3823,7 @@
     <value>Μια ενημέρωση Foundry OSD είναι διαθέσιμη.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Ενημερώστε όταν είστε έτοιμοι. Το Foundry OSD θα επανεκκινήσει για να ολοκληρωθεί η εφαρμογή του.</value>
+    <value>Κάντε λήψη της ενημέρωσης όταν είστε έτοιμοι.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Το Foundry OSD {0} είναι διαθέσιμο.</value>

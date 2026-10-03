@@ -7,9 +7,11 @@ using Foundry.Services.Application;
 using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Foundry.Services.Shell;
+using Foundry.Services.Updates;
 using System.ComponentModel;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml.Automation;
+using Microsoft.UI.Xaml.Automation.Peers;
 using Serilog;
 
 namespace Foundry.Views
@@ -29,7 +31,15 @@ namespace Foundry.Views
         private const string AboutNavigationTag = "Foundry.External.About";
         private const string UpdateNavigationTag = "Foundry.Navigation.UpdateAvailable";
         private const string BugReportNavigationGlyph = "\uEBE8";
-        private const string UpdateNavigationGlyph = "\uEBD3";
+        private Grid? updateFooterContentRoot;
+        private Microsoft.UI.Xaml.Controls.ProgressRing? updateFooterProgressRing;
+        private FontIcon? updateFooterGlyph;
+        private TextBlock? updateFooterLabel;
+        private long paneOpenCallbackToken;
+        private long paneDisplayModeCallbackToken;
+        private string? pendingUpdateAnnouncement;
+        private bool hasAnnouncedUpdateStatus;
+        private bool isClosed;
         private ContentDialog? operationDialog;
         private TextBlock? operationStatusText;
         private ProgressBar? operationProgressBar;
@@ -83,6 +93,10 @@ namespace Foundry.Views
             operationProgressService.StateChanged += OnOperationProgressChanged;
             shellNavigationGuardService.StateChanged += OnShellNavigationStateChanged;
             ViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            ViewModel.UpdateFooterStatusChanged += OnUpdateFooterStatusChanged;
+            NavView.DisplayModeChanged += OnNavigationDisplayModeChanged;
+            paneOpenCallbackToken = NavView.RegisterPropertyChangedCallback(NavigationView.IsPaneOpenProperty, OnNavigationLayoutChanged);
+            paneDisplayModeCallbackToken = NavView.RegisterPropertyChangedCallback(NavigationView.PaneDisplayModeProperty, OnNavigationLayoutChanged);
             AppTitleBar.PaneToggleRequested += OnTitleBarPaneToggleRequested;
             Closed += OnClosed;
         }
@@ -123,10 +137,16 @@ namespace Foundry.Views
 
         private void OnClosed(object sender, WindowEventArgs args)
         {
+            isClosed = true;
+            pendingUpdateAnnouncement = null;
             localizationService.LanguageChanged -= OnLanguageChanged;
             operationProgressService.StateChanged -= OnOperationProgressChanged;
             shellNavigationGuardService.StateChanged -= OnShellNavigationStateChanged;
             ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
+            ViewModel.UpdateFooterStatusChanged -= OnUpdateFooterStatusChanged;
+            NavView.DisplayModeChanged -= OnNavigationDisplayModeChanged;
+            NavView.UnregisterPropertyChangedCallback(NavigationView.IsPaneOpenProperty, paneOpenCallbackToken);
+            NavView.UnregisterPropertyChangedCallback(NavigationView.PaneDisplayModeProperty, paneDisplayModeCallbackToken);
             NavigationService.StateChanged -= OnNavigationStateChanged;
             AppTitleBar.PaneToggleRequested -= OnTitleBarPaneToggleRequested;
             Closed -= OnClosed;
@@ -137,7 +157,12 @@ namespace Foundry.Views
         {
             if (e.PropertyName is nameof(MainViewModel.IsUpdateFooterItemVisible)
                 or nameof(MainViewModel.UpdateFooterTitle)
-                or nameof(MainViewModel.UpdateFooterToolTip))
+                or nameof(MainViewModel.UpdateFooterToolTip)
+                or nameof(MainViewModel.UpdateFooterAutomationName)
+                or nameof(MainViewModel.UpdateFooterItemStatus)
+                or nameof(MainViewModel.UpdateFooterHelpText)
+                or nameof(MainViewModel.IsUpdateDownloading)
+                or nameof(MainViewModel.IsUpdateReadyToApply))
             {
                 RefreshUpdateFooterItem();
             }
@@ -181,7 +206,14 @@ namespace Foundry.Views
             switch (args.InvokedItemContainer?.Tag as string)
             {
                 case UpdateNavigationTag:
-                    NavigateToUpdateSettingsPage();
+                    if (ViewModel.IsUpdateReadyToApply)
+                    {
+                        await App.GetService<IApplicationUpdateRestartService>().ApplyUpdateAsync();
+                    }
+                    else
+                    {
+                        NavigationService.NavigateToUpdateSettings();
+                    }
                     return;
                 case DocumentationNavigationTag:
                     await OpenDocumentationAsync();
@@ -490,27 +522,127 @@ namespace Foundry.Views
                 item = new()
                 {
                     Tag = UpdateNavigationTag,
-                    Icon = new FontIcon { Glyph = UpdateNavigationGlyph },
-                    InfoBadge = NavigationInfoBadgeFactory.Create(NavigationInfoBadgeSeverity.Attention)
+                    ContentTemplate = (DataTemplate)RootGrid.Resources["UpdateFooterContentTemplate"],
+                    SelectsOnInvoked = false
                 };
                 NavView.FooterMenuItems.Insert(0, item);
             }
-            else
+            if (!Equals(item.Content, ViewModel.UpdateFooterAutomationName))
             {
-                int currentIndex = NavView.FooterMenuItems.IndexOf(item);
-                if (currentIndex > 0)
-                {
-                    NavView.FooterMenuItems.RemoveAt(currentIndex);
-                    NavView.FooterMenuItems.Insert(0, item);
-                }
+                item.Content = ViewModel.UpdateFooterAutomationName;
             }
 
-            item.Content = ViewModel.UpdateFooterTitle;
+            bool showAttentionBadge = !ViewModel.IsUpdateDownloading && !ViewModel.IsUpdateReadyToApply;
+            if (showAttentionBadge && item.InfoBadge is null)
+            {
+                item.InfoBadge = NavigationInfoBadgeFactory.Create(NavigationInfoBadgeSeverity.Attention);
+            }
+            else if (!showAttentionBadge)
+            {
+                item.InfoBadge = null;
+            }
+
             ToolTipService.SetToolTip(item, ViewModel.UpdateFooterToolTip);
-            AutomationProperties.SetName(item, ViewModel.UpdateFooterTitle);
-            AutomationProperties.SetHelpText(item, ViewModel.UpdateFooterToolTip);
-            AutomationProperties.SetItemStatus(item, ViewModel.UpdateFooterToolTip);
+            AutomationProperties.SetName(item, ViewModel.UpdateFooterAutomationName);
+            AutomationProperties.SetHelpText(item, ViewModel.UpdateFooterHelpText);
+            AutomationProperties.SetItemStatus(item, ViewModel.UpdateFooterItemStatus);
             item.IsEnabled = shellNavigationGuardService.State is not (ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending);
+            UpdateFooterLayout();
+        }
+
+        private void OnUpdateFooterContentLoaded(object sender, RoutedEventArgs e)
+        {
+            if (isClosed || sender is not Grid root)
+            {
+                return;
+            }
+
+            root.DataContext = ViewModel;
+            updateFooterContentRoot = root;
+            updateFooterProgressRing = root.FindName("UpdateFooterProgressRing") as Microsoft.UI.Xaml.Controls.ProgressRing;
+            updateFooterGlyph = root.FindName("UpdateFooterGlyph") as FontIcon;
+            updateFooterLabel = root.FindName("UpdateFooterLabel") as TextBlock;
+            UpdateFooterLayout();
+            if (!hasAnnouncedUpdateStatus && pendingUpdateAnnouncement is null)
+            {
+                pendingUpdateAnnouncement = ViewModel.UpdateFooterItemStatus;
+            }
+
+            if (pendingUpdateAnnouncement is not null)
+            {
+                DispatcherQueue.TryEnqueue(() =>
+                {
+                    if (pendingUpdateAnnouncement is { } message)
+                    {
+                        AnnounceUpdateFooterStatus(message);
+                    }
+                });
+            }
+        }
+
+        private void OnUpdateFooterContentUnloaded(object sender, RoutedEventArgs e)
+        {
+            if (!ReferenceEquals(sender, updateFooterContentRoot))
+            {
+                return;
+            }
+
+            updateFooterContentRoot.DataContext = null;
+            updateFooterContentRoot = null;
+            updateFooterProgressRing = null;
+            updateFooterGlyph = null;
+            updateFooterLabel = null;
+        }
+
+        private void OnNavigationLayoutChanged(DependencyObject sender, DependencyProperty property) => UpdateFooterLayout();
+
+        private void OnNavigationDisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args) => UpdateFooterLayout();
+
+        private void UpdateFooterLayout()
+        {
+            if (updateFooterProgressRing is not null)
+            {
+                updateFooterProgressRing.Visibility = ViewModel.IsUpdateDownloading ? Visibility.Visible : Visibility.Collapsed;
+            }
+
+            if (updateFooterGlyph is not null)
+            {
+                updateFooterGlyph.Visibility = ViewModel.IsUpdateDownloading ? Visibility.Collapsed : Visibility.Visible;
+            }
+
+            if (updateFooterLabel is not null)
+            {
+                updateFooterLabel.Visibility = NavView.IsPaneOpen || NavView.PaneDisplayMode == NavigationViewPaneDisplayMode.Top
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
+            }
+        }
+
+        private void OnUpdateFooterStatusChanged(object? sender, string message) => AnnounceUpdateFooterStatus(message);
+
+        private void AnnounceUpdateFooterStatus(string message)
+        {
+            if (isClosed)
+            {
+                return;
+            }
+
+            NavigationViewItem? item = FindNavigationItem(NavView.FooterMenuItems, UpdateNavigationTag);
+            if (item is null || !item.IsLoaded)
+            {
+                pendingUpdateAnnouncement = message;
+                return;
+            }
+
+            AutomationPeer? peer = FrameworkElementAutomationPeer.FromElement(item)
+                ?? FrameworkElementAutomationPeer.CreatePeerForElement(item);
+            peer?.RaiseNotificationEvent(
+                AutomationNotificationKind.Other,
+                AutomationNotificationProcessing.MostRecent,
+                message,
+                "Foundry.ApplicationUpdate");
+            pendingUpdateAnnouncement = null;
+            hasAnnouncedUpdateStatus = true;
         }
 
         private void RemoveUpdateFooterItem()
@@ -564,22 +696,6 @@ namespace Foundry.Views
             AutomationProperties.SetName(item, item.Content?.ToString() ?? string.Empty);
             AutomationProperties.SetHelpText(item, description);
             item.IsEnabled = shellNavigationGuardService.State is not (ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending);
-        }
-
-        private void NavigateToUpdateSettingsPage()
-        {
-            if (shellNavigationGuardService.State is ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending)
-            {
-                return;
-            }
-
-            if (NavFrame.CurrentSourcePageType == typeof(AppUpdateSettingPage))
-            {
-                return;
-            }
-
-            NavigationService.NavigateTo(typeof(SettingsPage));
-            NavigationService.NavigateTo(typeof(AppUpdateSettingPage));
         }
 
         internal async Task OpenDocumentationAsync()

@@ -259,9 +259,6 @@ Licenciado sob a licença MIT.</value>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Verifique se há atualizações</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Atualizar e reiniciar</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Notas de lançamento</value>
   </data>
@@ -3756,17 +3753,17 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Origem validada.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Aplicar atualização</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Transferir atualização</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Tentar novamente</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Novo</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD irá baixar a atualização e reiniciar para aplicá-la.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Atualizar e reiniciar</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Atualizar Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Versão disponível</value>
@@ -3780,26 +3777,32 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Versão mais recente</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Baixando a atualização. Foundry OSD irá reiniciar quando estiver pronto.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>A transferir: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Progresso do download</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>A atualização está a ser transferida em segundo plano. Abra as definições de atualização para ver o progresso.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Baixando atualização</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Versão {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Aplique a atualização e reinicie o Foundry OSD. Também será instalada automaticamente quando fechar a aplicação.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Não verificado</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>fundição-osd/fundição</value>
+    <value>Ver versões do repositório</value>
+  </data>
+  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
+    <value>As notas de versão não estão disponíveis para esta atualização.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Verificando atualizações</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Falha ao transferir a atualização: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>A transferir atualização</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Falha na verificação de atualização: {0}</value>
@@ -3820,7 +3823,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Uma atualização Foundry OSD está disponível.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Atualize quando estiver pronto. Foundry OSD irá reiniciar para terminar de aplicá-lo.</value>
+    <value>Transfira a atualização quando estiver pronto.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} está disponível.</value>

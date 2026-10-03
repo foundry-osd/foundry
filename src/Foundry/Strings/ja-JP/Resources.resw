@@ -259,9 +259,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>アップデートをチェックする</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>アップデートして再起動する</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>リリースノート</value>
   </data>
@@ -3756,17 +3753,17 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>ソースを検証しました。</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>更新を適用</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>更新をダウンロード</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>再試行</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>新しい</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD はアップデートをダウンロードし、再起動して適用します。</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>アップデートして再起動する</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Foundry OSD を更新します</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>利用可能なバージョン</value>
@@ -3780,26 +3777,32 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>最新バージョン</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>アップデートをダウンロードしています。 Foundry OSD は準備ができたら再起動します。</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>ダウンロード中: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>ダウンロードの進行状況</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>更新はバックグラウンドでダウンロードされています。更新設定を開いて進行状況を確認してください。</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>アップデートをダウンロードしています</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>バージョン {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>更新を適用して Foundry OSD を再起動します。アプリケーションを閉じたときにも自動的にインストールされます。</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未チェック</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>ファウンドリ-OSD/ファウンドリ</value>
+    <value>リポジトリのリリースを表示</value>
+  </data>
+  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
+    <value>この更新のリリースノートは利用できません。</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>アップデートをチェックしています</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>更新のダウンロードに失敗しました: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>更新をダウンロード中</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>更新チェックに失敗しました: {0}</value>
@@ -3820,7 +3823,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Foundry OSD アップデートが利用可能です。</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>準備ができたら更新してください。 Foundry OSD は適用を完了するために再起動されます。</value>
+    <value>準備ができたら更新をダウンロードしてください。</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} が利用可能です。</value>

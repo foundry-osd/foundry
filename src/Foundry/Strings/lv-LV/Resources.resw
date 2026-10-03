@@ -259,9 +259,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Pārbaudiet, vai nav atjauninājumu</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Atjauniniet un restartējiet</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Izlaiduma piezīmes</value>
   </data>
@@ -3756,17 +3753,17 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Avots validēts.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Lietot atjauninājumu</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Lejupielādēt atjauninājumu</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Mēģināt vēlreiz</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Jauns</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD lejupielādēs atjauninājumu un restartēs, lai to lietotu.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Atjauniniet un restartējiet</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Atjaunināt Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Pieejamā versija</value>
@@ -3780,26 +3777,32 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Jaunākā versija</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Notiek atjauninājuma lejupielāde. Foundry OSD tiks restartēts, kad tas būs gatavs.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Lejupielāde: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Lejupielādes norise</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Atjauninājums tiek lejupielādēts fonā. Atveriet atjauninājumu iestatījumus, lai skatītu norisi.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Notiek atjauninājuma lejupielāde</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Versija {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Lietojiet atjauninājumu un restartējiet Foundry OSD. Tas tiks automātiski instalēts arī tad, kad aizvērsiet lietotni.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nav pārbaudīts</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>lietuve-osd/lietuve</value>
+    <value>Skatīt repozitorija laidienus</value>
+  </data>
+  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
+    <value>Šim atjauninājumam nav pieejamas piezīmes par laidienu.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Notiek atjauninājumu pārbaude</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Atjauninājuma lejupielāde neizdevās: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Atjauninājuma lejupielāde</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Atjaunināšanas pārbaude neizdevās: {0}</value>
@@ -3820,7 +3823,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Ir pieejams Foundry OSD atjauninājums.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Atjauniniet, kad esat gatavs. Foundry OSD tiks restartēts, lai pabeigtu tā lietošanu.</value>
+    <value>Lejupielādējiet atjauninājumu, kad būsiet gatavs.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} ir pieejams.</value>

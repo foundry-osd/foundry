@@ -259,9 +259,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Ellenőrizze a frissítéseket</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Frissítés és újraindítás</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Kiadási megjegyzések</value>
   </data>
@@ -3756,17 +3753,17 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>A forrás ellenőrizve.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Frissítés alkalmazása</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Frissítés letöltése</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Újrapróbálkozás</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Új</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>A Foundry OSD letölti a frissítést, és újraindítja az alkalmazáshoz.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Frissítés és újraindítás</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Frissítés Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Elérhető verzió</value>
@@ -3780,26 +3777,32 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Legújabb verzió</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>A frissítés letöltése. A Foundry OSD újraindul, ha készen áll.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Letöltés: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Letöltés folyamata</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>A frissítés letöltése a háttérben történik. A folyamat megtekintéséhez nyissa meg a frissítési beállításokat.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Frissítés letöltése</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Verzió {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Alkalmazza a frissítést, és indítsa újra a Foundry OSD-t. A frissítés az alkalmazás bezárásakor is automatikusan települ.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nincs bejelölve</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>öntöde-osd/öntöde</value>
+    <value>Az adattár kiadásainak megtekintése</value>
+  </data>
+  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
+    <value>Ehhez a frissítéshez nem érhetők el kiadási megjegyzések.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Frissítések keresése</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>A frissítés letöltése sikertelen: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Frissítés letöltése</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>A frissítés ellenőrzése sikertelen: {0}</value>
@@ -3820,7 +3823,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Foundry OSD frissítés elérhető.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Frissítse, ha készen áll. A Foundry OSD újraindul az alkalmazás befejezéséhez.</value>
+    <value>Töltse le a frissítést, amikor készen áll.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} elérhető.</value>

@@ -8,6 +8,36 @@
     mc:Ignorable="d">
     <Grid x:Name="RootGrid">
         <Grid.Resources>
+            <DataTemplate x:Key="UpdateFooterContentTemplate">
+                <Grid x:Name="UpdateFooterContentRoot"
+                    Loaded="OnUpdateFooterContentLoaded"
+                    Unloaded="OnUpdateFooterContentUnloaded">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ProgressRing x:Name="UpdateFooterProgressRing"
+                        Width="20"
+                        Height="20"
+                        AutomationProperties.AccessibilityView="Raw"
+                        IsActive="True"
+                        IsIndeterminate="False"
+                        IsTabStop="False"
+                        Maximum="100"
+                        Minimum="0"
+                        Value="{Binding UpdateDownloadProgress, Mode=OneWay}" />
+                    <FontIcon x:Name="UpdateFooterGlyph"
+                        AutomationProperties.AccessibilityView="Raw"
+                        FontSize="20"
+                        Glyph="{Binding UpdateFooterGlyph, Mode=OneWay}" />
+                    <TextBlock x:Name="UpdateFooterLabel"
+                        Grid.Column="1"
+                        Margin="12,0,0,0"
+                        VerticalAlignment="Center"
+                        AutomationProperties.AccessibilityView="Raw"
+                        Text="{Binding UpdateFooterTitle, Mode=OneWay}" />
+                </Grid>
+            </DataTemplate>
             <DataTemplate x:Key="OperationIndicatorTemplate">
                 <Grid
                     Width="56"

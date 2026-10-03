@@ -259,9 +259,6 @@ Licenseret under MIT-licensen.</value>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Se efter opdateringer</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Opdater og genstart</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Udgivelsesbemærkninger</value>
   </data>
@@ -3756,17 +3753,17 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Kilden er valideret.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Anvend opdatering</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Download opdatering</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Prøv igen</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Ny</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD vil downloade opdateringen og genstarte for at anvende den.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Opdater og genstart</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Opdater Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Tilgængelig version</value>
@@ -3780,26 +3777,32 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Seneste version</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Downloader opdateringen. Foundry OSD genstarter, når den er klar.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Downloader: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Download fremskridt</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Opdateringen downloades i baggrunden. Åbn opdateringsindstillingerne for at se status.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Downloader opdatering</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Version {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Anvend opdateringen, og genstart Foundry OSD. Den installeres også automatisk, når du lukker programmet.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ikke kontrolleret</value>
   </data>
   <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>støberi-osd/støberi</value>
+    <value>Se udgivelser i lageret</value>
+  </data>
+  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
+    <value>Versionsnoter er ikke tilgængelige for denne opdatering.</value>
   </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Søger efter opdateringer</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Download af opdatering mislykkedes: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Downloader opdatering</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Opdateringstjek mislykkedes: {0}</value>
@@ -3820,7 +3823,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>En Foundry OSD opdatering er tilgængelig.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Opdater, når du er klar. Foundry OSD genstarter for at afslutte anvendelsen.</value>
+    <value>Download opdateringen, når du er klar.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} er tilgængelig.</value>

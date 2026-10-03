@@ -18,6 +18,11 @@ public interface IAppNavigationService
 
     bool NavigateTo(Type pageType);
 
+    /// <summary>
+    /// Opens application update settings through the Settings route, preserving shell guards and breadcrumbs.
+    /// </summary>
+    bool NavigateToUpdateSettings();
+
     bool NavigateToBreadcrumb(BreadcrumbEntry entry);
 
     bool RefreshCurrentPage();
