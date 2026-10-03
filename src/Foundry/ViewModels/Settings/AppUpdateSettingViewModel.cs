@@ -258,6 +258,8 @@ namespace Foundry.ViewModels
             return result.Status switch
             {
                 ApplicationUpdateStatus.NoUpdate => localizationService.GetString("Update.Status.NoUpdate"),
+                ApplicationUpdateStatus.UpdateAvailable when result.FailureMessage is not null =>
+                    localizationService.FormatString("Update.Status.FailedFormat", result.FailureMessage),
                 ApplicationUpdateStatus.UpdateAvailable => localizationService.GetString("Update.Status.UpdateAvailableActionHint"),
                 ApplicationUpdateStatus.Checking => localizationService.GetString("Update.Status.Checking"),
                 ApplicationUpdateStatus.Downloading => DownloadProgressText,
@@ -279,6 +281,7 @@ namespace Foundry.ViewModels
                 ApplicationUpdateStatus.Downloading => localizationService.GetString("Update.Status.Downloading"),
                 ApplicationUpdateStatus.ReadyToApply => localizationService.GetString("Update.Action.Apply"),
                 ApplicationUpdateStatus.Failed when result.HasKnownUpdate => localizationService.GetString("Update.Action.Retry"),
+                ApplicationUpdateStatus.UpdateAvailable when result.FailureMessage is not null => localizationService.GetString("Update.StatusTitle.Failed"),
                 ApplicationUpdateStatus.UpdateAvailable when result.Version is not null =>
                     localizationService.FormatString("Update.StatusTitle.UpdateAvailableFormat", result.Version),
                 ApplicationUpdateStatus.UpdateAvailable => localizationService.GetString("Update.StatusTitle.UpdateAvailable"),

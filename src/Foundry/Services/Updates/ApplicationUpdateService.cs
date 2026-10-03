@@ -283,7 +283,16 @@ internal sealed class ApplicationUpdateService(
                 return GetCurrentResult();
             }
 
-            PublishResult(new ApplicationUpdateCheckResult(ApplicationUpdateStatus.Checking, "Checking for Foundry updates."), operation.Generation);
+            UpdateSelection? knownTarget;
+            lock (stateLock)
+            {
+                knownTarget = selection;
+            }
+
+            ApplicationUpdateCheckResult checking = knownTarget is null
+                ? new ApplicationUpdateCheckResult(ApplicationUpdateStatus.Checking, "Checking for Foundry updates.")
+                : CreateSelectionResult(knownTarget, ApplicationUpdateStatus.Checking, "Checking for Foundry updates.");
+            PublishResult(checking, operation.Generation);
             logger.Information(
                 "Checking for Foundry updates. IsStartupCheck={IsStartupCheck}, SourceKind={SourceKind}, FeedSource={FeedSource}, Channel={Channel}",
                 isStartupCheck,

@@ -24,10 +24,11 @@ public sealed record ApplicationUpdateCheckResult(
     string? NotesHtml = null)
 {
     /// <summary>
-    /// Gets a value indicating whether a target is known, including a failed download that can be retried.
+    /// Gets a value indicating whether a target is known, including during a refresh or after a failed download.
     /// </summary>
     public bool HasKnownUpdate => !string.IsNullOrWhiteSpace(Version)
         && Status is ApplicationUpdateStatus.UpdateAvailable
+            or ApplicationUpdateStatus.Checking
             or ApplicationUpdateStatus.Downloading
             or ApplicationUpdateStatus.ReadyToApply
             or ApplicationUpdateStatus.Failed;
