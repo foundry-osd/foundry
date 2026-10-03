@@ -49,6 +49,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly DeploymentWizardNavigationState _wizardNavigationState;
     private DebugAutopilotMode _debugAutopilotMode = DebugAutopilotMode.None;
     private BootMediaUpdateReason _bootMediaUpdateReason;
+    private BootMediaUpdateReason? _debugBootMediaUpdateReasonOverride;
     private bool _isInitialized;
     private bool _isDisposed;
     private Task? _initializationTask;
@@ -74,6 +75,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [NotifyCanExecuteChangedFor(nameof(ShowDebugErrorPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(ShowDebugCancelledPageCommand))]
     [NotifyCanExecuteChangedFor(nameof(SetDebugAutopilotModeCommand))]
+    [NotifyCanExecuteChangedFor(nameof(ToggleDebugBootMediaUpdateReasonCommand))]
     [NotifyCanExecuteChangedFor(nameof(SetDebugCustomImageScenarioCommand))]
     [NotifyCanExecuteChangedFor(nameof(CancelDeploymentCommand))]
     private bool isDeploymentRunning;
@@ -85,9 +87,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CancelDeploymentCommand))]
     private bool isCompletionStarting;
-
-    [ObservableProperty]
-    private bool isBootMediaUpdateRecommended;
 
     public DeploymentPreparationViewModel Preparation { get; }
     public DeploymentSessionViewModel Session { get; }
@@ -105,14 +104,32 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public OperatingSystemMetadata? SelectedOperatingSystem => _wizardContext.SelectedOperatingSystem;
     public string WindowTitle => GetString("App.WindowTitle");
     public string VersionDisplay => Format("Common.VersionFormat", FoundryDeployApplicationInfo.Version);
+
+    /// <summary>Indicates whether the startup reason or active Debug preview displays the boot media banner.</summary>
+    public bool IsBootMediaUpdateRecommended => EffectiveBootMediaUpdateReason != BootMediaUpdateReason.None;
+
+    /// <summary>Gets the localized caption for the displayed boot media reason.</summary>
     public string BootMediaUpdateRecommendedText => GetString(
-        _bootMediaUpdateReason == BootMediaUpdateReason.NewerRelease
+        EffectiveBootMediaUpdateReason == BootMediaUpdateReason.NewerRelease
             ? "BootMedia.UpdateAvailable"
             : "BootMedia.UpdateRecommended");
+
+    /// <summary>Gets the localized explanation for the displayed boot media reason.</summary>
     public string BootMediaUpdateRecommendedToolTip => GetString(
-        _bootMediaUpdateReason == BootMediaUpdateReason.UnknownAuthoringVersion
+        EffectiveBootMediaUpdateReason == BootMediaUpdateReason.UnknownAuthoringVersion
             ? "BootMedia.UnknownAuthoringVersionToolTip"
             : "BootMedia.UpdateRecommendedToolTip");
+
+    /// <summary>Indicates whether the newer release banner choice is active in Debug safe mode.</summary>
+    public bool IsDebugBootMediaUpdateAvailable => IsDebugSafeMode && EffectiveBootMediaUpdateReason == BootMediaUpdateReason.NewerRelease;
+
+    /// <summary>Indicates whether the unknown authoring version banner choice is active in Debug safe mode.</summary>
+    public bool IsDebugBootMediaUpdateRecommended => IsDebugSafeMode && EffectiveBootMediaUpdateReason == BootMediaUpdateReason.UnknownAuthoringVersion;
+
+    private BootMediaUpdateReason EffectiveBootMediaUpdateReason => IsDebugSafeMode
+        ? _debugBootMediaUpdateReasonOverride ?? _bootMediaUpdateReason
+        : _bootMediaUpdateReason;
+
     public string OperatingSystemArchitectureDisplay => Format("Catalog.ArchitectureFormat", OperatingSystemCatalog.EffectiveOsArchitecture);
     public string SummaryTargetDiskText => Preparation.SelectedTargetDisk?.DisplayLabel ?? GetString("Summary.NoDiskSelected");
     public string SummaryOperatingSystemText => SelectedOperatingSystem is null
@@ -276,6 +293,20 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     private bool CanUseCustomImageDebugTools() => CanUseDebugTools() && Session.IsStartupReady;
+
+    [RelayCommand(CanExecute = nameof(CanUseDebugTools))]
+    private void ToggleDebugBootMediaUpdateReason(BootMediaUpdateReason reason)
+    {
+        if (!CanUseDebugTools() || reason is not (BootMediaUpdateReason.NewerRelease or BootMediaUpdateReason.UnknownAuthoringVersion))
+        {
+            return;
+        }
+
+        _debugBootMediaUpdateReasonOverride = EffectiveBootMediaUpdateReason == reason
+            ? BootMediaUpdateReason.None
+            : reason;
+        RaiseBootMediaUpdatePropertiesChanged();
+    }
 
     [RelayCommand(CanExecute = nameof(CanUseDebugTools))]
     private void SetDebugAutopilotMode(DebugAutopilotMode mode)
@@ -521,6 +552,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private bool CanUseDebugTools()
     {
         return IsDebugSafeMode && !IsDeploymentRunning;
+    }
+
+    private void RaiseBootMediaUpdatePropertiesChanged()
+    {
+        OnPropertyChanged(nameof(IsBootMediaUpdateRecommended));
+        OnPropertyChanged(nameof(BootMediaUpdateRecommendedText));
+        OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));
+        OnPropertyChanged(nameof(IsDebugBootMediaUpdateAvailable));
+        OnPropertyChanged(nameof(IsDebugBootMediaUpdateRecommended));
     }
 
     private bool IsDebugAutopilotMode(DebugAutopilotMode mode)
@@ -904,9 +944,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         _wizardContext.ApplyStartupSnapshot(startupSnapshot);
         _bootMediaUpdateReason = startupSnapshot.BootMediaUpdateReason;
-        IsBootMediaUpdateRecommended = startupSnapshot.IsBootMediaUpdateRecommended;
-        OnPropertyChanged(nameof(BootMediaUpdateRecommendedText));
-        OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));
+        RaiseBootMediaUpdatePropertiesChanged();
         Session.ConfigureRebootPolicy(DeploymentRebootPolicy.Create(_wizardContext.Completion));
         Session.SetComputerName(Preparation.EffectiveComputerName);
         Session.CompleteStartupInitialization();
