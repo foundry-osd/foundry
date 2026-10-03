@@ -44,10 +44,10 @@ Licenseret under MIT-licensen.</value>
     <value>Den version af Foundry OSD, der blev brugt til at oprette dette startmedie, kan ikke fastslås. Opdater først Foundry OSD på din oprettelses-pc, og opret derefter ISO-filen igen eller opdater USB-startmediet.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>En ny version er tilgængelig. Opdater Foundry OSD, og opret derefter startmediet igen.</value>
+    <value>En ny version er tilgængelig. Opdater Foundry OSD og opret startmediet igen.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Opdater Foundry OSD, og opret derefter startmediet igen.</value>
+    <value>Opdater Foundry OSD og opret startmediet igen.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Dette startmedie blev oprettet med en ældre version af Foundry OSD. Opdater først Foundry OSD på din oprettelses-pc, og opret derefter ISO-filen igen eller opdater USB-startmediet.</value>

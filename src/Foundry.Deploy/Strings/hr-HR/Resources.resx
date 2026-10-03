@@ -50,10 +50,10 @@ Licenciran prema MIT licenci.</value>
     <value>Nije moguće utvrditi verziju aplikacije Foundry OSD korištenu za izradu ovog medija za pokretanje. Najprije ažurirajte Foundry OSD na računalu za izradu medija, zatim ponovno izradite ISO ili ažurirajte USB medij za pokretanje.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Dostupna je nova verzija. Ažurirajte Foundry OSD, zatim ponovno izradite medij za pokretanje.</value>
+    <value>Dostupna je nova verzija. Ažurirajte Foundry OSD i ponovno izradite medij za pokretanje.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Ažurirajte Foundry OSD, zatim ponovno izradite medij za pokretanje.</value>
+    <value>Ažurirajte Foundry OSD i ponovno izradite medij za pokretanje.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Ovaj medij za pokretanje izrađen je starijom verzijom aplikacije Foundry OSD. Najprije ažurirajte Foundry OSD na računalu za izradu medija, zatim ponovno izradite ISO ili ažurirajte USB medij za pokretanje.</value>

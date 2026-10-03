@@ -44,10 +44,10 @@
     <value>يتعذر تحديد إصدار Foundry OSD المستخدم لإنشاء وسائط التمهيد هذه. حدّث Foundry OSD أولاً على الكمبيوتر المستخدم لإنشاء الوسائط، ثم أعد إنشاء ملف ISO أو حدّث وسائط تمهيد USB.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>يتوفر إصدار جديد. حدّث Foundry OSD، ثم أعد إنشاء وسائط التمهيد.</value>
+    <value>يتوفر إصدار جديد. حدّث Foundry OSD وأعد إنشاء وسائط التمهيد.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>حدّث Foundry OSD، ثم أعد إنشاء وسائط التمهيد.</value>
+    <value>حدّث Foundry OSD وأعد إنشاء وسائط التمهيد.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>تم إنشاء وسائط التمهيد هذه باستخدام إصدار أقدم من Foundry OSD. حدّث Foundry OSD أولاً على الكمبيوتر المستخدم لإنشاء الوسائط، ثم أعد إنشاء ملف ISO أو حدّث وسائط تمهيد USB.</value>

@@ -50,10 +50,10 @@
     <value>Неможливо визначити версію Foundry OSD, використану для створення цього завантажувального носія. Спочатку оновіть Foundry OSD на комп’ютері для створення носіїв, потім створіть ISO заново або оновіть завантажувальний USB-носій.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Доступна нова версія. Оновіть Foundry OSD, потім створіть завантажувальний носій заново.</value>
+    <value>Доступна нова версія. Оновіть Foundry OSD і створіть завантажувальний носій заново.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Оновіть Foundry OSD, потім створіть завантажувальний носій заново.</value>
+    <value>Оновіть Foundry OSD і створіть завантажувальний носій заново.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Цей завантажувальний носій створено за допомогою старішої версії Foundry OSD. Спочатку оновіть Foundry OSD на комп’ютері для створення носіїв, потім створіть ISO заново або оновіть завантажувальний USB-носій.</value>

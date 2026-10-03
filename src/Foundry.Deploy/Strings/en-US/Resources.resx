@@ -50,10 +50,10 @@ Licensed under the MIT License.</value>
     <value>The Foundry OSD version used to create this boot media cannot be determined. Update Foundry OSD on your authoring PC first, then recreate the ISO or update the USB boot media.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>New version available. Update Foundry OSD, then rebuild boot media.</value>
+    <value>New version available. Update Foundry OSD and rebuild boot media.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Update Foundry OSD, then rebuild boot media.</value>
+    <value>Update Foundry OSD and rebuild boot media.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>This boot media was created with an older version of Foundry OSD. Update Foundry OSD on your authoring PC first, then recreate the ISO or update the USB boot media.</value>

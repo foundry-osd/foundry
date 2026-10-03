@@ -50,10 +50,10 @@
     <value>Версията на Foundry OSD, използвана за създаване на този носител за стартиране, не може да бъде определена. Първо актуализирайте Foundry OSD на компютъра за създаване на носители, след това създайте отново ISO файла или актуализирайте USB носителя за стартиране.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Налична е нова версия. Актуализирайте Foundry OSD, след това създайте отново носителя за стартиране.</value>
+    <value>Налична е нова версия. Актуализирайте Foundry OSD и създайте отново носителя за стартиране.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Актуализирайте Foundry OSD, след това създайте отново носителя за стартиране.</value>
+    <value>Актуализирайте Foundry OSD и създайте отново носителя за стартиране.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Този носител за стартиране е създаден с по-стара версия на Foundry OSD. Първо актуализирайте Foundry OSD на компютъра за създаване на носители, след това създайте отново ISO файла или актуализирайте USB носителя за стартиране.</value>

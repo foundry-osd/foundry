@@ -44,10 +44,10 @@ Sous licence MIT.</value>
     <value>La version de Foundry OSD utilisée pour créer ce support de démarrage ne peut pas être déterminée. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le support de démarrage USB.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Une nouvelle version est disponible. Mettez à jour Foundry OSD, puis recréez le support de démarrage.</value>
+    <value>Une nouvelle version est disponible. Mettez à jour Foundry OSD et recréez le support de démarrage.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Mettez à jour Foundry OSD, puis recréez le support de démarrage.</value>
+    <value>Mettez à jour Foundry OSD et recréez le support de démarrage.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Ce support de démarrage a été créé avec une ancienne version de Foundry OSD. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le support de démarrage USB.</value>

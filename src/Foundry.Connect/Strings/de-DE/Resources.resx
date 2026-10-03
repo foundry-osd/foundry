@@ -44,10 +44,10 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Die zur Erstellung dieses Startmediums verwendete Foundry OSD-Version kann nicht ermittelt werden. Aktualisieren Sie zuerst Foundry OSD auf Ihrem Erstellungs-PC und erstellen Sie anschließend die ISO-Datei neu oder aktualisieren Sie das USB-Startmedium.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Eine neue Version ist verfügbar. Foundry OSD aktualisieren, dann Startmedium neu erstellen.</value>
+    <value>Eine neue Version ist verfügbar. Foundry OSD aktualisieren und Startmedium neu erstellen.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Foundry OSD aktualisieren, dann Startmedium neu erstellen.</value>
+    <value>Foundry OSD aktualisieren und Startmedium neu erstellen.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Dieses Startmedium wurde mit einer älteren Version von Foundry OSD erstellt. Aktualisieren Sie zuerst Foundry OSD auf Ihrem Erstellungs-PC und erstellen Sie anschließend die ISO-Datei neu oder aktualisieren Sie das USB-Startmedium.</value>
