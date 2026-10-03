@@ -3556,7 +3556,12 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Crea comunque</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>Questo supporto verrà generato con Foundry OSD {0}. È disponibile la versione {1}. Applica prima l’aggiornamento, quindi crea o aggiorna il supporto di avvio. L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
+    <value>Questo supporto verrà generato con Foundry OSD {0}.
+È disponibile la versione {1}.
+
+Applica prima l’aggiornamento, quindi crea o aggiorna il supporto di avvio.
+
+L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Aggiorna Foundry OSD prima di creare il supporto di avvio</value>

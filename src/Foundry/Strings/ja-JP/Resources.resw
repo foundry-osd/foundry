@@ -3556,7 +3556,12 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>このまま作成</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>このメディアは Foundry OSD {0} を使用して生成されます。バージョン {1} が利用可能です。先に更新を適用してから、ブートメディアを作成または更新してください。更新を適用すると Foundry OSD が再起動します。</value>
+    <value>このメディアは Foundry OSD {0} を使用して生成されます。
+バージョン {1} が利用可能です。
+
+先に更新を適用してから、ブートメディアを作成または更新してください。
+
+更新を適用すると Foundry OSD が再起動します。</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>ブートメディアを作成する前に Foundry OSD を更新</value>

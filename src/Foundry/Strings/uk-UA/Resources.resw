@@ -3556,7 +3556,12 @@
     <value>Усе одно створити</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>Цей носій буде створено за допомогою Foundry OSD {0}. Доступна версія {1}. Спочатку застосуйте оновлення, а потім створіть або оновіть завантажувальний носій. Застосування оновлення перезапускає Foundry OSD.</value>
+    <value>Цей носій буде створено за допомогою Foundry OSD {0}.
+Доступна версія {1}.
+
+Спочатку застосуйте оновлення, а потім створіть або оновіть завантажувальний носій.
+
+Застосування оновлення перезапускає Foundry OSD.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Оновіть Foundry OSD перед створенням завантажувального носія</value>

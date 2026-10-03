@@ -3556,7 +3556,12 @@ Mots de passe et clés d’accès inclus : {2}</value>
     <value>Créer quand même</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>Ce support sera généré avec Foundry OSD {0}. La version {1} est disponible. Appliquez d’abord la mise à jour, puis créez ou mettez à jour votre support de démarrage. L’application de la mise à jour redémarre Foundry OSD.</value>
+    <value>Ce support sera généré avec Foundry OSD {0}.
+La version {1} est disponible.
+
+Appliquez d’abord la mise à jour, puis créez ou mettez à jour votre support de démarrage.
+
+L’application de la mise à jour redémarre Foundry OSD.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Mettre à jour Foundry OSD avant de créer le support de démarrage</value>

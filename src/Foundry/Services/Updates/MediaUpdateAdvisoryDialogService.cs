@@ -13,35 +13,61 @@ namespace Foundry.Services.Updates;
 /// </summary>
 internal sealed class MediaUpdateAdvisoryDialogService(IApplicationLocalizationService localizationService) : IMediaUpdateAdvisoryDialogService
 {
+    private const double DesiredDialogWidth = 720;
+    private const double WindowMargin = 48;
+    private const double DialogChromeWidth = 48;
+
     /// <inheritdoc />
     public async Task<MediaUpdateAdvisoryChoice> ShowAsync(string currentVersion, string availableVersion, bool canApplyUpdate)
     {
+        var hostRoot = App.MainWindow.Content.XamlRoot;
+        var body = new TextBlock
+        {
+            Text = string.Format(CultureInfo.CurrentCulture,
+                localizationService.GetString("StartMedia.UpdateAdvisory.Message"), currentVersion, availableVersion),
+            TextWrapping = TextWrapping.Wrap,
+            Margin = new Thickness(0, 4, 0, 8)
+        };
         var dialog = new ContentDialog
         {
             Title = localizationService.GetString("StartMedia.UpdateAdvisory.Title"),
-            Content = new TextBlock
-            {
-                Text = string.Format(CultureInfo.CurrentCulture,
-                    localizationService.GetString("StartMedia.UpdateAdvisory.Message"), currentVersion, availableVersion),
-                TextWrapping = TextWrapping.Wrap,
-                MinWidth = 360,
-                MaxWidth = 520,
-                Margin = new Thickness(0, 4, 0, 8)
-            },
+            Content = body,
             PrimaryButtonText = localizationService.GetString(canApplyUpdate ? "Update.Action.Apply" : "StartMedia.UpdateAdvisory.ViewUpdate"),
             SecondaryButtonText = localizationService.GetString("StartMedia.UpdateAdvisory.CreateAnyway"),
             CloseButtonText = localizationService.GetString("Common.Cancel"),
             DefaultButton = ContentDialogButton.Primary,
             Style = ContentDialogStyleProvider.DefaultStyle,
-            XamlRoot = App.MainWindow.Content.XamlRoot
+            XamlRoot = hostRoot
         };
 
-        ContentDialogResult result = await dialog.ShowAsync();
-        return result switch
+        ApplyContentLayout(dialog, body, hostRoot);
+        void OnRootChanged(XamlRoot sender, XamlRootChangedEventArgs args) => ApplyContentLayout(dialog, body, hostRoot);
+        hostRoot.Changed += OnRootChanged;
+        try
         {
-            ContentDialogResult.Primary => canApplyUpdate ? MediaUpdateAdvisoryChoice.ApplyUpdate : MediaUpdateAdvisoryChoice.ViewUpdate,
-            ContentDialogResult.Secondary => MediaUpdateAdvisoryChoice.CreateAnyway,
-            _ => MediaUpdateAdvisoryChoice.Cancel
-        };
+            ContentDialogResult result = await dialog.ShowAsync();
+            return result switch
+            {
+                ContentDialogResult.Primary => canApplyUpdate ? MediaUpdateAdvisoryChoice.ApplyUpdate : MediaUpdateAdvisoryChoice.ViewUpdate,
+                ContentDialogResult.Secondary => MediaUpdateAdvisoryChoice.CreateAnyway,
+                _ => MediaUpdateAdvisoryChoice.Cancel
+            };
+        }
+        finally
+        {
+            hostRoot.Changed -= OnRootChanged;
+        }
+    }
+
+    private static void ApplyContentLayout(ContentDialog dialog, TextBlock body, XamlRoot hostRoot)
+    {
+        double dialogWidth = Math.Min(DesiredDialogWidth, Math.Max(0, hostRoot.Size.Width - WindowMargin));
+        double bodyWidth = Math.Max(0, dialogWidth - DialogChromeWidth);
+
+        dialog.Resources["ContentDialogMinWidth"] = dialogWidth;
+        dialog.Resources["ContentDialogMaxWidth"] = dialogWidth;
+        dialog.Resources["ContentDialogMaxHeight"] = Math.Max(0, hostRoot.Size.Height - WindowMargin);
+        body.MinWidth = bodyWidth;
+        body.MaxWidth = bodyWidth;
     }
 }

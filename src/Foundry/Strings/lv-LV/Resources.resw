@@ -3556,7 +3556,12 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Izveidot tik un tā</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>Šis datu nesējs tiks izveidots ar Foundry OSD {0}. Ir pieejama versija {1}. Vispirms lietojiet atjauninājumu un pēc tam izveidojiet vai atjauniniet sāknēšanas datu nesēju. Atjauninājuma lietošana restartē Foundry OSD.</value>
+    <value>Šis datu nesējs tiks izveidots ar Foundry OSD {0}.
+Ir pieejama versija {1}.
+
+Vispirms lietojiet atjauninājumu un pēc tam izveidojiet vai atjauniniet sāknēšanas datu nesēju.
+
+Atjauninājuma lietošana restartē Foundry OSD.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Atjauniniet Foundry OSD pirms sāknēšanas datu nesēja izveides</value>

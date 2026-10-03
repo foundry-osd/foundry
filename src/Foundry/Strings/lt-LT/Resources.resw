@@ -3556,7 +3556,12 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Vis tiek kurti</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>Ši laikmena bus sukurta naudojant Foundry OSD {0}. Yra versija {1}. Pirmiausia pritaikykite naujinimą, tada sukurkite arba atnaujinkite paleidimo laikmeną. Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
+    <value>Ši laikmena bus sukurta naudojant Foundry OSD {0}.
+Yra versija {1}.
+
+Pirmiausia pritaikykite naujinimą, tada sukurkite arba atnaujinkite paleidimo laikmeną.
+
+Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Atnaujinkite Foundry OSD prieš kurdami paleidimo laikmeną</value>

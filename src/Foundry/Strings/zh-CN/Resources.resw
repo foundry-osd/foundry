@@ -3556,7 +3556,12 @@
     <value>仍然创建</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>此介质将使用 Foundry OSD {0} 生成。版本 {1} 已可用。请先应用更新，再创建或更新启动介质。应用更新将重启 Foundry OSD。</value>
+    <value>此介质将使用 Foundry OSD {0} 生成。
+版本 {1} 已可用。
+
+请先应用更新，再创建或更新启动介质。
+
+应用更新将重启 Foundry OSD。</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>创建启动介质前更新 Foundry OSD</value>

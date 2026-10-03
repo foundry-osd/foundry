@@ -3556,7 +3556,12 @@ Passwords and access keys included: {2}</value>
     <value>Create anyway</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>This media will be generated using Foundry OSD {0}. Version {1} is available. Apply the update first, then create or update your boot media. Applying the update restarts Foundry OSD.</value>
+    <value>This media will be generated using Foundry OSD {0}.
+Version {1} is available.
+
+Apply the update first, then create or update your boot media.
+
+Applying the update restarts Foundry OSD.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Update Foundry OSD before creating boot media</value>

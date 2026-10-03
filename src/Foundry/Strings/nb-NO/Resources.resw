@@ -3556,7 +3556,12 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Opprett likevel</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>Dette mediet genereres med Foundry OSD {0}. Versjon {1} er tilgjengelig. Bruk oppdateringen først, og opprett eller oppdater deretter oppstartsmediet. Oppdateringen starter Foundry OSD på nytt.</value>
+    <value>Dette mediet genereres med Foundry OSD {0}.
+Versjon {1} er tilgjengelig.
+
+Bruk oppdateringen først, og opprett eller oppdater deretter oppstartsmediet.
+
+Oppdateringen starter Foundry OSD på nytt.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Oppdater Foundry OSD før du oppretter oppstartsmedier</value>

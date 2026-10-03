@@ -3556,7 +3556,12 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Napriek tomu vytvoriť</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>Toto médium sa vytvorí pomocou Foundry OSD {0}. Je dostupná verzia {1}. Najprv použite aktualizáciu a potom vytvorte alebo aktualizujte spúšťacie médium. Použitie aktualizácie reštartuje Foundry OSD.</value>
+    <value>Toto médium sa vytvorí pomocou Foundry OSD {0}.
+Je dostupná verzia {1}.
+
+Najprv použite aktualizáciu a potom vytvorte alebo aktualizujte spúšťacie médium.
+
+Použitie aktualizácie reštartuje Foundry OSD.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Aktualizujte Foundry OSD pred vytvorením spúšťacieho média</value>

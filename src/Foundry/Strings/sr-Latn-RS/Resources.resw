@@ -3556,7 +3556,12 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Ipak napravi</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>Ovaj medij će biti napravljen pomoću Foundry OSD-a {0}. Verzija {1} je dostupna. Prvo primenite ažuriranje, a zatim napravite ili ažurirajte medij za pokretanje. Primena ažuriranja ponovo pokreće Foundry OSD.</value>
+    <value>Ovaj medij će biti napravljen pomoću Foundry OSD-a {0}.
+Verzija {1} je dostupna.
+
+Prvo primenite ažuriranje, a zatim napravite ili ažurirajte medij za pokretanje.
+
+Primena ažuriranja ponovo pokreće Foundry OSD.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Ažurirajte Foundry OSD pre pravljenja medija za pokretanje</value>

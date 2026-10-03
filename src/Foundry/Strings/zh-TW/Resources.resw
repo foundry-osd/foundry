@@ -3556,7 +3556,12 @@
     <value>仍然建立</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>此媒體將使用 Foundry OSD {0} 產生。版本 {1} 已可用。請先套用更新，再建立或更新開機媒體。套用更新將重新啟動 Foundry OSD。</value>
+    <value>此媒體將使用 Foundry OSD {0} 產生。
+版本 {1} 已可用。
+
+請先套用更新，再建立或更新開機媒體。
+
+套用更新將重新啟動 Foundry OSD。</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>建立開機媒體前更新 Foundry OSD</value>

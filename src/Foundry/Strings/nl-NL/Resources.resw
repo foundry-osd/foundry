@@ -3556,7 +3556,12 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Toch maken</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>Deze media worden gegenereerd met Foundry OSD {0}. Versie {1} is beschikbaar. Pas eerst de update toe en maak daarna uw opstartmedia of werk ze bij. Het toepassen van de update start Foundry OSD opnieuw.</value>
+    <value>Deze media worden gegenereerd met Foundry OSD {0}.
+Versie {1} is beschikbaar.
+
+Pas eerst de update toe en maak daarna uw opstartmedia of werk ze bij.
+
+Het toepassen van de update start Foundry OSD opnieuw.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Werk Foundry OSD bij voordat u opstartmedia maakt</value>

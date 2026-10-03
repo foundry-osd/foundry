@@ -3556,7 +3556,12 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Trotzdem erstellen</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>Dieses Medium wird mit Foundry OSD {0} erstellt. Version {1} ist verfügbar. Wenden Sie zuerst das Update an und erstellen oder aktualisieren Sie anschließend Ihr Startmedium. Das Anwenden des Updates startet Foundry OSD neu.</value>
+    <value>Dieses Medium wird mit Foundry OSD {0} erstellt.
+Version {1} ist verfügbar.
+
+Wenden Sie zuerst das Update an und erstellen oder aktualisieren Sie anschließend Ihr Startmedium.
+
+Das Anwenden des Updates startet Foundry OSD neu.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Foundry OSD vor dem Erstellen des Startmediums aktualisieren</value>

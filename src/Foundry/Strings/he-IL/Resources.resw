@@ -3556,7 +3556,12 @@
     <value>צור בכל זאת</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>מדיה זו תיווצר באמצעות Foundry OSD {0}. גרסה {1} זמינה. החל תחילה את העדכון, ולאחר מכן צור או עדכן את מדיית האתחול. החלת העדכון מפעילה מחדש את Foundry OSD.</value>
+    <value>מדיה זו תיווצר באמצעות Foundry OSD {0}.
+גרסה {1} זמינה.
+
+החל תחילה את העדכון, ולאחר מכן צור או עדכן את מדיית האתחול.
+
+החלת העדכון מפעילה מחדש את Foundry OSD.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>עדכן את Foundry OSD לפני יצירת מדיית אתחול</value>

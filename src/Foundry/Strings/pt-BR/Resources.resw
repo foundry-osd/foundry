@@ -3556,7 +3556,12 @@ Senhas e chaves de acesso incluídas: {2}</value>
     <value>Criar mesmo assim</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>Esta mídia será gerada com o Foundry OSD {0}. A versão {1} está disponível. Aplique a atualização primeiro e depois crie ou atualize a mídia de inicialização. A aplicação da atualização reinicia o Foundry OSD.</value>
+    <value>Esta mídia será gerada com o Foundry OSD {0}.
+A versão {1} está disponível.
+
+Aplique a atualização primeiro e depois crie ou atualize a mídia de inicialização.
+
+A aplicação da atualização reinicia o Foundry OSD.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Atualizar o Foundry OSD antes de criar a mídia de inicialização</value>

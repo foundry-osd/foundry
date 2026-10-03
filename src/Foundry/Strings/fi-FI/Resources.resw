@@ -3556,7 +3556,12 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Luo silti</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>Tämä media luodaan Foundry OSD -versiolla {0}. Versio {1} on saatavilla. Asenna ensin päivitys ja luo tai päivitä sitten käynnistysmedia. Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
+    <value>Tämä media luodaan Foundry OSD -versiolla {0}.
+Versio {1} on saatavilla.
+
+Asenna ensin päivitys ja luo tai päivitä sitten käynnistysmedia.
+
+Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Päivitä Foundry OSD ennen käynnistysmedian luomista</value>

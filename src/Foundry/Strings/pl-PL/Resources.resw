@@ -3556,7 +3556,12 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Utwórz mimo to</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>Ten nośnik zostanie wygenerowany przy użyciu Foundry OSD {0}. Dostępna jest wersja {1}. Najpierw zastosuj aktualizację, a następnie utwórz lub zaktualizuj nośnik rozruchowy. Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
+    <value>Ten nośnik zostanie wygenerowany przy użyciu Foundry OSD {0}.
+Dostępna jest wersja {1}.
+
+Najpierw zastosuj aktualizację, a następnie utwórz lub zaktualizuj nośnik rozruchowy.
+
+Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Zaktualizuj Foundry OSD przed utworzeniem nośnika rozruchowego</value>

@@ -3556,7 +3556,12 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Loo ikkagi</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
-    <value>See kandja luuakse Foundry OSD versiooniga {0}. Versioon {1} on saadaval. Rakendage esmalt värskendus ning seejärel looge või värskendage alglaadimiskandjat. Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
+    <value>See kandja luuakse Foundry OSD versiooniga {0}.
+Versioon {1} on saadaval.
+
+Rakendage esmalt värskendus ning seejärel looge või värskendage alglaadimiskandjat.
+
+Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
   </data>
   <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
     <value>Värskendage Foundry OSD-d enne alglaadimiskandja loomist</value>
