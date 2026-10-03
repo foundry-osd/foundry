@@ -212,7 +212,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     public string VersionDisplay => Format("Common.VersionFormat", FoundryConnectApplicationInfo.Version);
     public bool IsBootMediaUpdateRecommended => _configurationService.IsBootMediaUpdateRecommended;
-    public string BootMediaUpdateRecommendedText => GetString("BootMedia.UpdateRecommended");
+    public string BootMediaUpdateRecommendedText => GetString(
+        _configurationService.BootMediaUpdateReason == BootMediaUpdateReason.NewerRelease
+            ? "BootMedia.UpdateAvailable"
+            : "BootMedia.UpdateRecommended");
     public string BootMediaUpdateRecommendedToolTip => GetString(
         _configurationService.BootMediaUpdateReason == BootMediaUpdateReason.UnknownAuthoringVersion
             ? "BootMedia.UnknownAuthoringVersionToolTip"

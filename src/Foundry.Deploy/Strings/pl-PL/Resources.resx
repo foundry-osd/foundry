@@ -49,8 +49,11 @@ Licencjonowany na licencji MIT.</value>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
     <value>Nie można ustalić wersji Foundry OSD użytej do utworzenia tego nośnika rozruchowego. Najpierw zaktualizuj Foundry OSD na komputerze używanym do tworzenia nośników, a następnie utwórz ponownie obraz ISO lub zaktualizuj nośnik rozruchowy USB.</value>
   </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Dostępna jest nowa wersja. Zaktualizuj Foundry OSD, a następnie utwórz ponownie nośnik rozruchowy.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Zaktualizuj Foundry OSD, a następnie utwórz ponownie nośnik rozruchowy</value>
+    <value>Zaktualizuj Foundry OSD, a następnie utwórz ponownie nośnik rozruchowy.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Ten nośnik rozruchowy utworzono za pomocą starszej wersji Foundry OSD. Najpierw zaktualizuj Foundry OSD na komputerze używanym do tworzenia nośników, a następnie utwórz ponownie obraz ISO lub zaktualizuj nośnik rozruchowy USB.</value>

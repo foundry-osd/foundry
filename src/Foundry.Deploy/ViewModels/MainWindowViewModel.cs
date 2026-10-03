@@ -105,7 +105,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public OperatingSystemMetadata? SelectedOperatingSystem => _wizardContext.SelectedOperatingSystem;
     public string WindowTitle => GetString("App.WindowTitle");
     public string VersionDisplay => Format("Common.VersionFormat", FoundryDeployApplicationInfo.Version);
-    public string BootMediaUpdateRecommendedText => GetString("BootMedia.UpdateRecommended");
+    public string BootMediaUpdateRecommendedText => GetString(
+        _bootMediaUpdateReason == BootMediaUpdateReason.NewerRelease
+            ? "BootMedia.UpdateAvailable"
+            : "BootMedia.UpdateRecommended");
     public string BootMediaUpdateRecommendedToolTip => GetString(
         _bootMediaUpdateReason == BootMediaUpdateReason.UnknownAuthoringVersion
             ? "BootMedia.UnknownAuthoringVersionToolTip"
@@ -902,6 +905,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _wizardContext.ApplyStartupSnapshot(startupSnapshot);
         _bootMediaUpdateReason = startupSnapshot.BootMediaUpdateReason;
         IsBootMediaUpdateRecommended = startupSnapshot.IsBootMediaUpdateRecommended;
+        OnPropertyChanged(nameof(BootMediaUpdateRecommendedText));
         OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));
         Session.ConfigureRebootPolicy(DeploymentRebootPolicy.Create(_wizardContext.Completion));
         Session.SetComputerName(Preparation.EffectiveComputerName);

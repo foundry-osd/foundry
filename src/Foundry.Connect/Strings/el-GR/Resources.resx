@@ -43,8 +43,11 @@
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
     <value>Δεν μπορεί να προσδιοριστεί η έκδοση του Foundry OSD που χρησιμοποιήθηκε για τη δημιουργία αυτού του μέσου εκκίνησης. Ενημερώστε πρώτα το Foundry OSD στον υπολογιστή δημιουργίας και μετά δημιουργήστε ξανά το ISO ή ενημερώστε το μέσο εκκίνησης USB.</value>
   </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Διατίθεται νέα έκδοση. Ενημερώστε το Foundry OSD και μετά δημιουργήστε ξανά το μέσο εκκίνησης.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Ενημερώστε το Foundry OSD και μετά δημιουργήστε ξανά το μέσο εκκίνησης</value>
+    <value>Ενημερώστε το Foundry OSD και μετά δημιουργήστε ξανά το μέσο εκκίνησης.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Αυτό το μέσο εκκίνησης δημιουργήθηκε με παλαιότερη έκδοση του Foundry OSD. Ενημερώστε πρώτα το Foundry OSD στον υπολογιστή δημιουργίας και μετά δημιουργήστε ξανά το ISO ή ενημερώστε το μέσο εκκίνησης USB.</value>

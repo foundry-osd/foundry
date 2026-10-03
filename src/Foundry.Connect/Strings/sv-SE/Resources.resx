@@ -43,8 +43,11 @@ Licensierad under MIT-licensen.</value>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
     <value>Versionen av Foundry OSD som användes för att skapa det här startmediet kan inte fastställas. Uppdatera först Foundry OSD på datorn där du skapar medier och skapa sedan ISO-filen på nytt eller uppdatera USB-startmediet.</value>
   </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>En ny version finns tillgänglig. Uppdatera Foundry OSD och skapa sedan startmediet på nytt.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Uppdatera Foundry OSD och skapa sedan startmediet på nytt</value>
+    <value>Uppdatera Foundry OSD och skapa sedan startmediet på nytt.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Det här startmediet skapades med en äldre version av Foundry OSD. Uppdatera först Foundry OSD på datorn där du skapar medier och skapa sedan ISO-filen på nytt eller uppdatera USB-startmediet.</value>

@@ -43,8 +43,11 @@ Licencované podľa licencie MIT.</value>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
     <value>Verziu Foundry OSD použitú na vytvorenie tohto zavádzacieho média nemožno určiť. Najprv aktualizujte Foundry OSD na počítači na tvorbu médií a potom znova vytvorte ISO alebo aktualizujte zavádzacie médium USB.</value>
   </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>K dispozícii je nová verzia. Aktualizujte Foundry OSD a potom znova vytvorte zavádzacie médium.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Aktualizujte Foundry OSD a potom znova vytvorte zavádzacie médium</value>
+    <value>Aktualizujte Foundry OSD a potom znova vytvorte zavádzacie médium.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
     <value>Toto zavádzacie médium bolo vytvorené staršou verziou Foundry OSD. Najprv aktualizujte Foundry OSD na počítači na tvorbu médií a potom znova vytvorte ISO alebo aktualizujte zavádzacie médium USB.</value>
