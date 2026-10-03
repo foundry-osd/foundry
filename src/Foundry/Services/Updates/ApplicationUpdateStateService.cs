@@ -7,7 +7,7 @@ using Serilog;
 namespace Foundry.Services.Updates;
 
 /// <summary>
-/// Stores the latest update check result and broadcasts it to shell subscribers.
+/// Stores the latest update lifecycle result and broadcasts it to shell and settings subscribers.
 /// </summary>
 internal sealed class ApplicationUpdateStateService(ILogger logger) : IApplicationUpdateStateService
 {

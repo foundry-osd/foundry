@@ -273,7 +273,7 @@ internal sealed class ApplicationUpdateService(
                     "Update check skipped because Foundry is not running from a Velopack installation."), operation);
             }
 
-            if (TryRecoverPreparedUpdate(manager, feedUrl, channel, operation, out ApplicationUpdateCheckResult? recovered))
+            if (TryRecoverPreparedUpdate(manager, operation, out ApplicationUpdateCheckResult? recovered))
             {
                 return recovered!;
             }
@@ -312,7 +312,7 @@ internal sealed class ApplicationUpdateService(
                     $"{FoundryApplicationInfo.AppName} is up to date."), operation, checkedAt: DateTimeOffset.Now);
             }
 
-            UpdateSelection target = CreateSelection(manager, updateInfo, updateInfo.TargetFullRelease, feedUrl, channel);
+            UpdateSelection target = CreateSelection(manager, updateInfo, updateInfo.TargetFullRelease);
             logger.Information("Foundry update available. Version={Version}, FileName={FileName}, IsStartupCheck={IsStartupCheck}, ElapsedMilliseconds={ElapsedMilliseconds}",
                 target.Version, target.Asset.FileName, isStartupCheck, stopwatch.ElapsedMilliseconds);
             return PublishSelectionResult(target, CreateSelectionResult(target, ApplicationUpdateStatus.UpdateAvailable,
@@ -386,8 +386,6 @@ internal sealed class ApplicationUpdateService(
 
     private bool TryRecoverPreparedUpdate(
         UpdateManager manager,
-        string feedUrl,
-        string channel,
         UpdateOperation operation,
         out ApplicationUpdateCheckResult? result)
     {
@@ -399,7 +397,7 @@ internal sealed class ApplicationUpdateService(
         }
 
         // This is the SDK's local preparation lookup, not an independent package hash verification.
-        UpdateSelection target = CreateSelection(manager, null, asset, feedUrl, channel);
+        UpdateSelection target = CreateSelection(manager, null, asset);
         logger.Information("Recovered prepared Foundry update. Version={Version}", target.Version);
         result = PublishSelectionResult(target, CreateSelectionResult(target, ApplicationUpdateStatus.ReadyToApply,
             "A downloaded update is ready to apply.", downloadProgress: 100), operation, isPrepared: true);
@@ -551,9 +549,9 @@ internal sealed class ApplicationUpdateService(
         return new UpdateManager(source, options, locator: null);
     }
 
-    private static UpdateSelection CreateSelection(UpdateManager manager, Velopack.UpdateInfo? plan, VelopackAsset asset, string feedUrl, string channel)
+    private static UpdateSelection CreateSelection(UpdateManager manager, Velopack.UpdateInfo? plan, VelopackAsset asset)
     {
-        return new UpdateSelection(manager, plan, asset, feedUrl, channel,
+        return new UpdateSelection(manager, plan, asset,
             FormatDisplayVersion(asset.Version?.ToString()));
     }
 
@@ -616,14 +614,12 @@ internal sealed class ApplicationUpdateService(
     }
 
     /// <summary>
-    /// Captures the SDK manager, target, and source metadata together so downloads and handoff use the same selection.
+    /// Captures the SDK manager, download plan, and target so downloads and handoff use the same selection.
     /// </summary>
     private sealed record UpdateSelection(
         UpdateManager Manager,
         Velopack.UpdateInfo? Plan,
         VelopackAsset Asset,
-        string FeedUrl,
-        string Channel,
         string Version);
 
     /// <summary>
