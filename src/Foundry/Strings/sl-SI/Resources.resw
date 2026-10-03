@@ -3552,6 +3552,18 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Elementi, ki zahtevajo pozornost:</value>
   </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Vseeno ustvari</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Ta medij bo ustvarjen s programom Foundry OSD {0}. Na voljo je različica {1}. Najprej uporabite posodobitev, nato ustvarite ali posodobite zagonski medij. Uporaba posodobitve znova zažene Foundry OSD.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Posodobite Foundry OSD pred ustvarjanjem zagonskega medija</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Ogled posodobitve</value>
+  </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>Posodobi USB</value>
   </data>

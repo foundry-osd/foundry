@@ -3552,6 +3552,18 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Elementi che richiedono attenzione:</value>
   </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Crea comunque</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Questo supporto verrà generato con Foundry OSD {0}. È disponibile la versione {1}. Applica prima l’aggiornamento, quindi crea o aggiorna il supporto di avvio. L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Aggiorna Foundry OSD prima di creare il supporto di avvio</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Visualizza aggiornamento</value>
+  </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>Aggiorna USB</value>
   </data>

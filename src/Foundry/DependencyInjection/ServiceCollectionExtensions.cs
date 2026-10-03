@@ -145,6 +145,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IApplicationLocalizationService, ApplicationLocalizationService>();
         services.AddSingleton<IApplicationUpdateStateService, ApplicationUpdateStateService>();
         services.AddSingleton<IApplicationUpdateService, ApplicationUpdateService>();
+        services.AddSingleton<IMediaUpdateAdvisoryDialogService, MediaUpdateAdvisoryDialogService>();
         services.AddSingleton<IStartupReadinessService, StartupReadinessService>();
         services.AddSingleton<IGitHubRepositoryContributorService, GitHubRepositoryContributorService>();
 

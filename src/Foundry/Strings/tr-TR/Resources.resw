@@ -3552,6 +3552,18 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Dikkat edilmesi gereken öğeler:</value>
   </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Yine de oluştur</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Bu medya Foundry OSD {0} kullanılarak oluşturulacak. {1} sürümü kullanılabilir. Önce güncellemeyi uygulayın, ardından önyükleme medyanızı oluşturun veya güncelleyin. Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Önyükleme medyası oluşturmadan önce Foundry OSD’yi güncelleyin</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Güncellemeyi görüntüle</value>
+  </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>USB güncelle</value>
   </data>

@@ -3552,6 +3552,18 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Daiktai, kuriems reikia dėmesio:</value>
   </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Vis tiek kurti</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Ši laikmena bus sukurta naudojant Foundry OSD {0}. Yra versija {1}. Pirmiausia pritaikykite naujinimą, tada sukurkite arba atnaujinkite paleidimo laikmeną. Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Atnaujinkite Foundry OSD prieš kurdami paleidimo laikmeną</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Peržiūrėti naujinimą</value>
+  </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>Atnaujinti USB</value>
   </data>

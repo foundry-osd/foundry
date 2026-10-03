@@ -3552,6 +3552,18 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Itens que precisam de atenção:</value>
   </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Criar mesmo assim</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Este suporte será gerado com o Foundry OSD {0}. A versão {1} está disponível. Aplique primeiro a atualização e depois crie ou atualize o suporte de arranque. A aplicação da atualização reinicia o Foundry OSD.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Atualizar o Foundry OSD antes de criar o suporte de arranque</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Ver atualização</value>
+  </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>Atualizar USB</value>
   </data>

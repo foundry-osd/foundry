@@ -3552,6 +3552,18 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Punten die aandacht behoeven:</value>
   </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Toch maken</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Deze media worden gegenereerd met Foundry OSD {0}. Versie {1} is beschikbaar. Pas eerst de update toe en maak daarna uw opstartmedia of werk ze bij. Het toepassen van de update start Foundry OSD opnieuw.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Werk Foundry OSD bij voordat u opstartmedia maakt</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Update bekijken</value>
+  </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>USB bijwerken</value>
   </data>

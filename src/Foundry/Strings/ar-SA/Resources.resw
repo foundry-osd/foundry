@@ -3552,6 +3552,18 @@
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>العناصر التي تحتاج إلى الاهتمام:</value>
   </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>إنشاء على أي حال</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>سيتم إنشاء هذه الوسائط باستخدام Foundry OSD {0}. الإصدار {1} متاح. طبّق التحديث أولاً، ثم أنشئ وسائط الإقلاع أو حدّثها. يؤدي تطبيق التحديث إلى إعادة تشغيل Foundry OSD.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>حدّث Foundry OSD قبل إنشاء وسائط الإقلاع</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>عرض التحديث</value>
+  </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>تحديث USB</value>
   </data>

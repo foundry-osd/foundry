@@ -3552,6 +3552,18 @@
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>需要注意的事项：</value>
   </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>仍然创建</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>此介质将使用 Foundry OSD {0} 生成。版本 {1} 已可用。请先应用更新，再创建或更新启动介质。应用更新将重启 Foundry OSD。</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>创建启动介质前更新 Foundry OSD</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>查看更新</value>
+  </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>更新 USB</value>
   </data>

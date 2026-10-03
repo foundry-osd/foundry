@@ -3552,6 +3552,18 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>注意が必要な項目:</value>
   </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>このまま作成</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>このメディアは Foundry OSD {0} を使用して生成されます。バージョン {1} が利用可能です。先に更新を適用してから、ブートメディアを作成または更新してください。更新を適用すると Foundry OSD が再起動します。</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>ブートメディアを作成する前に Foundry OSD を更新</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>更新を表示</value>
+  </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>USB を更新</value>
   </data>
