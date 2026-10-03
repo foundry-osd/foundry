@@ -40,11 +40,17 @@ Sous licence MIT.</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>La version de Foundry OSD utilisée pour créer ce support de démarrage ne peut pas être déterminée. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le support de démarrage USB.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Nouvelle version disponible. Mettez à jour Foundry OSD et recréez le support de démarrage.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Mise à jour du support de démarrage recommandée</value>
+    <value>Mettez à jour Foundry OSD et recréez le support de démarrage.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Ce support de démarrage a été généré avec un ancien format de configuration Foundry OSD. Mettez à jour le support de démarrage pour garantir la compatibilité avec les dernières fonctionnalités.</value>
+    <value>Ce support de démarrage a été créé avec une ancienne version de Foundry OSD. Mettez d’abord à jour Foundry OSD sur votre PC de création, puis recréez l’ISO ou mettez à jour le support de démarrage USB.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Annuler</value>

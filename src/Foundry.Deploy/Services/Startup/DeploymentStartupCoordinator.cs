@@ -98,7 +98,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
             ConfigurationFailureMessage = deployConfigLoadResult.FailureMessage,
             CacheRootPath = cacheRootPath,
             DeployConfigurationDocument = deployConfigurationDocument,
-            IsBootMediaUpdateRecommended = deployConfigLoadResult.IsBootMediaUpdateRecommended,
+            BootMediaUpdateReason = deployConfigLoadResult.BootMediaUpdateReason,
             AutopilotProfiles = autopilotProfiles,
             MachineNamePreparation = machineName,
             DetectedHardware = hardwareTask.Result.Profile,

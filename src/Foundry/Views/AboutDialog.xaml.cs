@@ -11,11 +11,13 @@ public sealed partial class AboutDialog : ContentDialog
     private const double DialogChromeWidth = 64;
     private const double FallbackContentWidth = 920;
     private const double FallbackContentHeight = 600;
+    private readonly int initialSelectedIndex;
     private int previousSelectedIndex;
 
-    public AboutDialog(AboutUsSettingViewModel viewModel)
+    public AboutDialog(AboutUsSettingViewModel viewModel, bool showReleaseNotes = false)
     {
         ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
+        initialSelectedIndex = showReleaseNotes ? 3 : 0;
         InitializeComponent();
         DataContext = ViewModel;
         ApplyContentLayout();
@@ -27,11 +29,11 @@ public sealed partial class AboutDialog : ContentDialog
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        previousSelectedIndex = 0;
-        SectionSelector.SelectedItem = SectionSelector.Items[0];
+        previousSelectedIndex = initialSelectedIndex;
+        SectionSelector.SelectedItem = SectionSelector.Items[initialSelectedIndex];
         if (ContentFrame.Content is null)
         {
-            NavigateToSection(0);
+            NavigateToSection(initialSelectedIndex);
         }
     }
 

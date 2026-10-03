@@ -9,19 +9,11 @@ namespace Foundry.Core.Tests.Configuration;
 public sealed class ConfigurationSchemaVersionsTests
 {
     [Fact]
-    public void IsBootMediaUpdateRecommended_UsesCurrentSchemaVersion()
-    {
-        Assert.False(ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(4, 3));
-        Assert.False(ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(3, 3));
-        Assert.True(ConfigurationSchemaVersions.IsBootMediaUpdateRecommended(2, 3));
-    }
-
-    [Fact]
     public void CurrentSchemaVersions_MatchNextPublishedContractVersions()
     {
         Assert.Equal(17, ConfigurationSchemaVersions.FoundryCurrent);
-        Assert.Equal(14, ConfigurationSchemaVersions.DeployCurrent);
-        Assert.Equal(4, ConfigurationSchemaVersions.ConnectCurrent);
+        Assert.Equal(15, ConfigurationSchemaVersions.DeployCurrent);
+        Assert.Equal(5, ConfigurationSchemaVersions.ConnectCurrent);
     }
 
 }

@@ -40,11 +40,17 @@ Lisensiert under MIT-lisensen.</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Versjonen av Foundry OSD som ble brukt til å opprette dette oppstartsmediet, kan ikke fastslås. Oppdater først Foundry OSD på PC-en der du oppretter medier, og opprett deretter ISO-filen på nytt eller oppdater USB-oppstartsmediet.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Ny versjon tilgjengelig. Oppdater Foundry OSD og opprett oppstartsmediet på nytt.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Oppdatering av oppstartsmediet anbefales</value>
+    <value>Oppdater Foundry OSD og opprett oppstartsmediet på nytt.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Dette oppstartsmediet ble generert med et eldre Foundry OSD-konfigurasjonsformat. Oppdater oppstartsmediet for å sikre kompatibilitet med de nyeste funksjonene.</value>
+    <value>Dette oppstartsmediet ble opprettet med en eldre versjon av Foundry OSD. Oppdater først Foundry OSD på PC-en der du oppretter medier, og opprett deretter ISO-filen på nytt eller oppdater USB-oppstartsmediet.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Avbryt</value>

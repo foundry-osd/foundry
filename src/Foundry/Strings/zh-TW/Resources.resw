@@ -259,9 +259,6 @@
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>檢查更新</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>更新並重啟</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>發行說明</value>
   </data>
@@ -3555,6 +3552,23 @@
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>需要注意的事項：</value>
   </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>仍然建立</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>此媒體將使用 Foundry OSD {0} 產生。
+版本 {1} 已可用。
+
+請先套用更新，再建立或更新開機媒體。
+
+套用更新將重新啟動 Foundry OSD。</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>建立開機媒體前更新 Foundry OSD</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>檢視更新</value>
+  </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>更新 USB</value>
   </data>
@@ -3756,17 +3770,17 @@
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>來源已驗證。</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>套用更新</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>下載更新</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>重試</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>新</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD 將下載更新並重新啟動以應用它。</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>更新並重啟</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>更新Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>可用版本</value>
@@ -3780,26 +3794,26 @@
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>最新版本</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>正在下載更新。 Foundry OSD 準備好後將重新啟動。</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>正在下載：{0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>下載進度</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>更新正在背景下載。開啟更新設定以檢視進度。</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>正在下載更新</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>版本{0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>套用更新並重新啟動 Foundry OSD。關閉應用程式時也會自動安裝更新。</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未檢查</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>鑄造廠-osd/鑄造廠</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>檢查更新</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>更新下載失敗：{0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>正在下載更新</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>更新檢查失敗：{0}</value>
@@ -3820,7 +3834,7 @@
     <value>Foundry OSD 更新可用。</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>準備好後更新。 Foundry OSD 將重新啟動以完成應用。</value>
+    <value>準備好後下載更新。</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} 可用。</value>

@@ -5,7 +5,7 @@
 namespace Foundry.Services.Updates;
 
 /// <summary>
-/// Describes update states emitted by the update service or synthesized by update UI workflows.
+/// Describes update states owned and published by the update service.
 /// </summary>
 public enum ApplicationUpdateStatus
 {
@@ -45,9 +45,9 @@ public enum ApplicationUpdateStatus
     Downloading,
 
     /// <summary>
-    /// An update has been downloaded and can be applied by restarting.
+    /// An update has completed SDK preparation and can be applied after application exit.
     /// </summary>
-    ReadyToRestart,
+    ReadyToApply,
 
     /// <summary>
     /// The latest update operation failed.

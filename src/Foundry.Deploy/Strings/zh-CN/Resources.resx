@@ -46,11 +46,17 @@
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>无法确定制作此启动介质时使用的 Foundry OSD 版本。请先在制作介质的电脑上更新 Foundry OSD，然后重新制作 ISO 或更新 USB 启动介质。</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>有新版本可用。更新 Foundry OSD 并重新制作启动介质。</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>建议重新生成启动映像</value>
+    <value>更新 Foundry OSD 并重新制作启动介质。</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>此启动映像使用较旧的 Foundry OSD 配置格式。请重新生成，以确保与最新功能兼容。</value>
+    <value>此启动介质是使用较旧版本的 Foundry OSD 制作的。请先在制作介质的电脑上更新 Foundry OSD，然后重新制作 ISO 或更新 USB 启动介质。</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>建筑：{0}</value>

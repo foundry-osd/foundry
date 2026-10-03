@@ -16,16 +16,18 @@ public interface IConnectConfigurationGenerator
     /// </summary>
     /// <param name="document">The Foundry configuration source document.</param>
     /// <param name="stagingDirectoryPath">The directory whose FoundryConnectAssets child is deleted and recreated for copied assets.</param>
+    /// <param name="authoringVersion">Optional OSD release captured for this media build.</param>
     /// <returns>The generated Foundry.Connect configuration document.</returns>
-    FoundryConnectConfigurationDocument Generate(FoundryConfigurationDocument document, string stagingDirectoryPath);
+    FoundryConnectConfigurationDocument Generate(FoundryConfigurationDocument document, string stagingDirectoryPath, string? authoringVersion = null);
 
     /// <summary>
     /// Creates a complete provisioning bundle for Foundry.Connect media and restages its copied assets.
     /// </summary>
     /// <param name="document">The Foundry configuration source document.</param>
     /// <param name="stagingDirectoryPath">The directory whose FoundryConnectAssets child is deleted and recreated for copied assets.</param>
+    /// <param name="authoringVersion">Optional OSD release captured for this media build.</param>
     /// <returns>The generated configuration, serialized JSON, media secret key, and asset files.</returns>
-    FoundryConnectProvisioningBundle CreateProvisioningBundle(FoundryConfigurationDocument document, string stagingDirectoryPath);
+    FoundryConnectProvisioningBundle CreateProvisioningBundle(FoundryConfigurationDocument document, string stagingDirectoryPath, string? authoringVersion = null);
 
     /// <summary>
     /// Serializes a Foundry.Connect configuration document to JSON.

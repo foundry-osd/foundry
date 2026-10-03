@@ -23,6 +23,7 @@ using Foundry.Services.Localization;
 using Foundry.Services.Operations;
 using Foundry.Services.Settings;
 using Foundry.Services.Shell;
+using Foundry.Services.Updates;
 using Foundry.Telemetry;
 using Foundry.Utilities.Storage;
 using Serilog;
@@ -54,6 +55,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly ITelemetryService telemetryService;
     private readonly IOperationProgressService operationProgressService;
     private readonly IShellNavigationGuardService shellNavigationGuardService;
+    private readonly IApplicationUpdateStateService applicationUpdateStateService;
+    private readonly IMediaUpdateAdvisoryDialogService mediaUpdateAdvisoryDialogService;
+    private readonly IApplicationUpdateRestartService applicationUpdateRestartService;
+    private readonly IAppNavigationService appNavigationService;
     private readonly IDialogService dialogService;
     private readonly IApplicationLocalizationService localizationService;
     private readonly IAppDispatcher appDispatcher;
@@ -68,6 +73,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private string? lastFinalMediaLogStatus;
     private int lastFinalMediaLogBucket = -1;
     private bool isRefreshingUnattendSources;
+    private bool isUpdateAdvisoryPending;
     private bool isDisposed;
 
     /// <summary>
@@ -93,6 +99,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         ITelemetryService telemetryService,
         IOperationProgressService operationProgressService,
         IShellNavigationGuardService shellNavigationGuardService,
+        IApplicationUpdateStateService applicationUpdateStateService,
+        IMediaUpdateAdvisoryDialogService mediaUpdateAdvisoryDialogService,
+        IApplicationUpdateRestartService applicationUpdateRestartService,
+        IAppNavigationService appNavigationService,
         IDialogService dialogService,
         IApplicationLocalizationService localizationService,
         IAppDispatcher appDispatcher,
@@ -117,6 +127,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.telemetryService = telemetryService;
         this.operationProgressService = operationProgressService;
         this.shellNavigationGuardService = shellNavigationGuardService;
+        this.applicationUpdateStateService = applicationUpdateStateService;
+        this.mediaUpdateAdvisoryDialogService = mediaUpdateAdvisoryDialogService;
+        this.applicationUpdateRestartService = applicationUpdateRestartService;
+        this.appNavigationService = appNavigationService;
         this.dialogService = dialogService;
         this.localizationService = localizationService;
         this.appDispatcher = appDispatcher;
@@ -409,7 +423,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task CreateIsoAsync()
     {
-        if (IsMediaOperationRunning || isRefreshingUnattendSources || shellNavigationGuardService.State != ShellNavigationState.Ready)
+        if (isDisposed || IsMediaOperationRunning || isUpdateAdvisoryPending || isRefreshingUnattendSources || shellNavigationGuardService.State != ShellNavigationState.Ready)
         {
             return;
         }
@@ -419,8 +433,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             return;
         }
-
-        SynchronizeRuntimeTelemetrySettings();
 
         MediaPreflightOptions options = CreatePreflightOptions();
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
@@ -439,7 +451,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task CreateUsbAsync()
     {
-        if (IsMediaOperationRunning || isRefreshingUnattendSources || shellNavigationGuardService.State != ShellNavigationState.Ready)
+        if (isDisposed || IsMediaOperationRunning || isUpdateAdvisoryPending || isRefreshingUnattendSources || shellNavigationGuardService.State != ShellNavigationState.Ready)
         {
             return;
         }
@@ -449,8 +461,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             return;
         }
-
-        SynchronizeRuntimeTelemetrySettings();
 
         MediaPreflightOptions options = CreatePreflightOptions();
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
@@ -464,7 +474,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return;
         }
 
-        if (IsSelectedUsbFoundryMedia)
+        if (options.SelectedUsbDisk.IsFoundryMedia)
         {
             await RunFinalMediaOperationAsync(FinalMediaTarget.UsbUpdate, options);
             return;
@@ -473,13 +483,101 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         await RunFinalMediaOperationAsync(FinalMediaTarget.Usb, options);
     }
 
+    private async Task<bool> ConfirmUpdateBeforeMediaAsync()
+    {
+        ApplicationUpdateCheckResult? update = applicationUpdateStateService.CurrentResult;
+        if (update?.HasKnownUpdate != true)
+        {
+            return true;
+        }
+
+        ShellNavigationState previousState = shellNavigationGuardService.State;
+        bool ownsNavigationGuard = false;
+        MediaUpdateAdvisoryChoice choice;
+        isUpdateAdvisoryPending = true;
+        try
+        {
+            RefreshEvaluation();
+            shellNavigationGuardService.SetState(ShellNavigationState.InteractionPending);
+            ownsNavigationGuard = true;
+            choice = await mediaUpdateAdvisoryDialogService.ShowAsync(
+                FoundryApplicationInfo.Version, update.Version!, update.IsReadyToApply);
+        }
+        finally
+        {
+            if (ownsNavigationGuard && shellNavigationGuardService.State == ShellNavigationState.InteractionPending)
+            {
+                shellNavigationGuardService.SetState(previousState);
+            }
+
+            isUpdateAdvisoryPending = false;
+            if (!isDisposed)
+            {
+                RefreshEvaluation();
+            }
+        }
+
+        if (isDisposed || shellNavigationGuardService.State != ShellNavigationState.Ready)
+        {
+            return false;
+        }
+
+        switch (choice)
+        {
+            case MediaUpdateAdvisoryChoice.CreateAnyway:
+                return true;
+            case MediaUpdateAdvisoryChoice.ViewUpdate:
+                appNavigationService.NavigateToUpdateSettings();
+                return false;
+            case MediaUpdateAdvisoryChoice.ApplyUpdate:
+                await applicationUpdateRestartService.ApplyUpdateAsync();
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    private static DiskIdentity GetUsbDiskIdentity(WinPeUsbDiskCandidate disk) =>
+        new(disk.DiskNumber, disk.UniqueId, disk.SerialNumber, disk.FriendlyName, disk.BusType, disk.SizeBytes);
+
     private async Task RunFinalMediaOperationAsync(FinalMediaTarget target, MediaPreflightOptions options)
     {
-        if (IsMediaOperationRunning || shellNavigationGuardService.State != ShellNavigationState.Ready)
+        if (isDisposed || IsMediaOperationRunning || isUpdateAdvisoryPending || shellNavigationGuardService.State != ShellNavigationState.Ready)
         {
             return;
         }
 
+        if (!await ConfirmUpdateBeforeMediaAsync() || isDisposed || shellNavigationGuardService.State != ShellNavigationState.Ready)
+        {
+            return;
+        }
+
+        MediaPreflightOptions currentOptions = CreatePreflightOptions();
+        if (target != FinalMediaTarget.Iso &&
+            (options.SelectedUsbDisk is null || currentOptions.SelectedUsbDisk is null ||
+             options.SelectedUsbDisk.IsFoundryMedia != currentOptions.SelectedUsbDisk.IsFoundryMedia ||
+             !GetUsbDiskIdentity(options.SelectedUsbDisk).Matches(GetUsbDiskIdentity(currentOptions.SelectedUsbDisk))))
+        {
+            await ShowBlockedDialogAsync("StartMedia.CreateUsb.BlockedTitle",
+                localizationService.GetString("StartMedia.Operation.DiskIdentityCannotBeConfirmed"));
+            return;
+        }
+
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(currentOptions);
+        if (target == FinalMediaTarget.Iso ? !evaluation.CanCreateIso : !evaluation.CanCreateUsb)
+        {
+            await ShowBlockedDialogAsync(target == FinalMediaTarget.Iso ? "StartMedia.CreateIso.BlockedTitle" : "StartMedia.CreateUsb.BlockedTitle",
+                target == FinalMediaTarget.Iso ? evaluation.IsoBlockingReasons : evaluation.UsbBlockingReasons);
+            return;
+        }
+
+        if (isDisposed || shellNavigationGuardService.State != ShellNavigationState.Ready)
+        {
+            return;
+        }
+
+        options = currentOptions;
+        SynchronizeRuntimeTelemetrySettings();
         IsMediaOperationRunning = true;
         using var operationCancellation = new CancellationTokenSource();
         CancellationToken cancellationToken = operationCancellation.Token;
@@ -1682,8 +1780,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         CanGenerateIsoSummary = evaluation.CanGenerateIsoSummary;
         CanGenerateUsbSummary = evaluation.CanGenerateUsbSummary;
         CanSelectUsbDisk = UsbCandidates.Count > 0 && !IsRefreshingUsbCandidates;
-        CanCreateIso = evaluation.CanCreateIso && !IsMediaOperationRunning && !isRefreshingUnattendSources;
-        CanCreateUsb = evaluation.CanCreateUsb && !IsMediaOperationRunning && !isRefreshingUnattendSources;
+        CanCreateIso = evaluation.CanCreateIso && !IsMediaOperationRunning && !isUpdateAdvisoryPending && !isRefreshingUnattendSources;
+        CanCreateUsb = evaluation.CanCreateUsb && !IsMediaOperationRunning && !isUpdateAdvisoryPending && !isRefreshingUnattendSources;
         FinalExecutionStatus = options.IsFinalExecutionEnabled
             ? localizationService.GetString("StartMedia.FinalExecution.Ready")
             : localizationService.GetString("StartMedia.FinalExecution.Deferred");

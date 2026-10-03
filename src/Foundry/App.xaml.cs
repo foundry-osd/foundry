@@ -4,13 +4,16 @@
 
 using Foundry.DependencyInjection;
 using Foundry.Core.Services.Profiles;
+using Foundry.Core.Services.Application;
 using Foundry.Services.Configuration;
+using Foundry.Services.Application;
 using Foundry.Services.Appearance;
 using Foundry.Services.Localization;
 using Foundry.Services.Networking;
 using Foundry.Services.Settings;
 using Foundry.Services.Shell;
 using Foundry.Services.Startup;
+using Foundry.Services.Updates;
 using Foundry.Telemetry;
 using Microsoft.UI.Xaml;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +29,8 @@ namespace Foundry
         private static readonly ILogger AppLogger = Log.ForContext<App>();
         private static readonly TimeSpan RemoteDiagnosticsShutdownTimeout = TimeSpan.FromSeconds(2);
         private bool isShuttingDown;
+        private WindowsSessionEndingMonitor? sessionEndingMonitor;
+        private long sessionChangeVersion;
 
         /// <summary>
         /// Gets the active Foundry application instance.
@@ -101,6 +106,8 @@ namespace Foundry
                 MainWindow = mainWindow;
                 mainWindow.Closed += OnMainWindowClosed;
                 mainWindow.AppWindow.Closing += OnMainWindowClosing;
+                sessionEndingMonitor = new WindowsSessionEndingMonitor(WinRT.Interop.WindowNative.GetWindowHandle(mainWindow));
+                sessionEndingMonitor.StateChanged += OnSessionEndingStateChanged;
 
                 mainWindow.Title = mainWindow.AppWindow.Title = FoundryApplicationInfo.AppNameAndVersion;
                 mainWindow.AppWindow.SetIcon("Assets/AppIcon.ico");
@@ -171,43 +178,144 @@ namespace Foundry
 
         private async void OnMainWindowClosing(Microsoft.UI.Windowing.AppWindow sender, Microsoft.UI.Windowing.AppWindowClosingEventArgs args)
         {
-            if (closeApproved) return;
+            if (closeApproved || sessionEndingMonitor?.IsSessionEnding == true) return;
             args.Cancel = true;
-            if (GetService<IShellNavigationGuardService>().State is ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending) return;
-            if (closePending) return;
+            await RequestCloseAsync(restartForUpdate: false);
+        }
+
+        /// <summary>
+        /// Saves and protects the active profile before ordinary exit or an explicit prepared-update restart.
+        /// </summary>
+        /// <param name="restartForUpdate">Whether closing requires a prepared update and a successful visible restart handoff.</param>
+        /// <returns>Whether application closing was committed.</returns>
+        internal async Task<bool> RequestCloseAsync(bool restartForUpdate)
+        {
+            if (!MainWindow.DispatcherQueue.HasThreadAccess)
+            {
+                var completion = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+                if (!MainWindow.DispatcherQueue.TryEnqueue(async () =>
+                    {
+                        try { completion.SetResult(await RequestCloseAsync(restartForUpdate)); }
+                        catch (Exception ex) { completion.SetException(ex); }
+                    }))
+                {
+                    return false;
+                }
+                return await completion.Task;
+            }
+
+            if (closeApproved || closePending || isShuttingDown || sessionEndingMonitor?.IsSessionEnding == true) return false;
+            IShellNavigationGuardService navigationGuard = GetService<IShellNavigationGuardService>();
+            if (navigationGuard.State is ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending) return false;
+            if (restartForUpdate && !IsPreparedUpdateReady()) return false;
+
             closePending = true;
+            long closeSessionVersion = sessionChangeVersion;
+            IApplicationUpdateService updates = GetService<IApplicationUpdateService>();
+            IDisposable? activationSuspension = null;
+            bool shutdownStarted = false;
             try
             {
-                var coordinator = GetService<DeploymentProfileCoordinator>();
-                using (coordinator.SuspendActivation())
+                DeploymentProfileCoordinator coordinator = GetService<DeploymentProfileCoordinator>();
+                activationSuspension = coordinator.SuspendActivation();
+                bool saved;
+                try { saved = await coordinator.FlushBeforeCloseAsync().WaitAsync(TimeSpan.FromSeconds(10)); }
+                catch (TimeoutException) { saved = false; }
+                if (!CanFinishClose(coordinator, closeSessionVersion)) return false;
+                if (!saved)
                 {
-                    bool saved;
-                    try { saved = await coordinator.FlushBeforeCloseAsync().WaitAsync(TimeSpan.FromSeconds(10)); }
-                    catch (TimeoutException) { saved = false; }
-                    if (!saved)
+                    var localization = GetService<IApplicationLocalizationService>();
+                    var dialog = new ContentDialog
                     {
-                        var localization = GetService<Foundry.Services.Localization.IApplicationLocalizationService>();
-                        var dialog = new ContentDialog
-                        {
-                            Style = Foundry.Services.Application.ContentDialogStyleProvider.DefaultStyle,
-                            XamlRoot = ((FrameworkElement)MainWindow.Content).XamlRoot,
-                            Title = localization.GetString("Profiles.Heading"),
-                            Content = localization.GetString(coordinator.StatusKey == "Profiles.Incomplete" ? "Profiles.Incomplete" : "Profiles.Failed"),
-                            PrimaryButtonText = localization.GetString("Common.Close"),
-                            CloseButtonText = localization.GetString("Common.Cancel"),
-                            DefaultButton = ContentDialogButton.Close
-                        };
-                        if (await dialog.ShowAsync() != ContentDialogResult.Primary) return;
-                    }
+                        Style = ContentDialogStyleProvider.DefaultStyle,
+                        XamlRoot = ((FrameworkElement)MainWindow.Content).XamlRoot,
+                        Title = localization.GetString("Profiles.Heading"),
+                        Content = localization.GetString(coordinator.StatusKey == "Profiles.Incomplete" ? "Profiles.Incomplete" : "Profiles.Failed"),
+                        PrimaryButtonText = localization.GetString("Common.Close"),
+                        CloseButtonText = localization.GetString("Common.Cancel"),
+                        DefaultButton = ContentDialogButton.Close
+                    };
+                    if (await dialog.ShowAsync() != ContentDialogResult.Primary) return false;
                 }
+
+                if (!CanFinishClose(coordinator, closeSessionVersion)) return false;
+                if (restartForUpdate && !IsPreparedUpdateReady()) return false;
+
+                updates.BeginShutdown();
+                shutdownStarted = true;
+                if (sessionEndingMonitor?.IsSessionEnding == true) return false;
+                bool scheduled = false;
+                try
+                {
+                    scheduled = updates.TrySchedulePreparedUpdate(restartForUpdate);
+                }
+                catch (Exception ex)
+                {
+                    if (restartForUpdate)
+                    {
+                        if (sessionEndingMonitor?.IsSessionEnding != true)
+                        {
+                            updates.CancelShutdown();
+                            shutdownStarted = false;
+                            await ShowUpdateHandoffFailureAsync(ex);
+                        }
+                        return false;
+                    }
+
+                    AppLogger.Warning(ex, "Prepared update could not be scheduled during ordinary close. Closing without applying it.");
+                }
+
+                if (restartForUpdate && !scheduled) return false;
+                if (scheduled) coordinator.DeferStagingCleanupUntilNextLaunch();
                 closeApproved = true;
                 MainWindow.Close();
+                return true;
             }
             catch (Exception ex)
             {
-                AppLogger.Warning(ex, "Unable to finish saving the active profile before closing.");
+                AppLogger.Warning(ex, "Unable to finish the protected application close. RestartForUpdate={RestartForUpdate}", restartForUpdate);
+                return false;
             }
-            finally { closePending = false; }
+            finally
+            {
+                if (shutdownStarted && !closeApproved && sessionEndingMonitor?.IsSessionEnding != true)
+                {
+                    updates.CancelShutdown();
+                }
+                activationSuspension?.Dispose();
+                closePending = false;
+            }
+        }
+
+        private bool CanFinishClose(DeploymentProfileCoordinator coordinator, long closeSessionVersion)
+        {
+            return !isShuttingDown && sessionEndingMonitor?.IsSessionEnding != true && sessionChangeVersion == closeSessionVersion
+                && GetService<IShellNavigationGuardService>().State == ShellNavigationState.InteractionPending
+                && coordinator.ActivationNavigationState is not (ShellNavigationState.OperationRunning or ShellNavigationState.InteractionPending);
+        }
+
+        private static bool IsPreparedUpdateReady() => GetService<IApplicationUpdateStateService>().CurrentResult?.IsReadyToApply == true;
+
+        private static Task ShowUpdateHandoffFailureAsync(Exception exception)
+        {
+            IApplicationLocalizationService localization = GetService<IApplicationLocalizationService>();
+            return GetService<IDialogService>().ShowMessageAsync(new DialogRequest(
+                localization.GetString("Update.StatusTitle.Failed"),
+                localization.FormatString("Update.Status.FailedFormat", exception.Message),
+                localization.GetString("Common.Close")));
+        }
+
+        private void OnSessionEndingStateChanged(object? sender, EventArgs args)
+        {
+            sessionChangeVersion++;
+            bool sessionEnding = sessionEndingMonitor?.IsSessionEnding == true;
+            MainWindow.DispatcherQueue.TryEnqueue(() =>
+            {
+                if (isShuttingDown || closeApproved) return;
+                IApplicationUpdateService updates = GetService<IApplicationUpdateService>();
+                if (sessionEnding) updates.BeginShutdown();
+                else updates.CancelShutdown();
+            });
         }
 
         private void OnMainWindowClosed(object sender, WindowEventArgs args)
@@ -218,6 +326,12 @@ namespace Foundry
             }
 
             isShuttingDown = true;
+            GetService<IApplicationUpdateService>().BeginShutdown();
+            if (sessionEndingMonitor is not null)
+            {
+                sessionEndingMonitor.StateChanged -= OnSessionEndingStateChanged;
+                sessionEndingMonitor.Dispose();
+            }
             AppLogger.Information("Foundry WinUI shutdown started.");
             AppLogger.Debug("Flushing Foundry telemetry events.");
             GetService<ITelemetryService>().FlushAsync().GetAwaiter().GetResult();

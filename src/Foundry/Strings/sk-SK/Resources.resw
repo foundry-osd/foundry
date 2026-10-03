@@ -259,9 +259,6 @@ Licencované podľa licencie MIT.</value>
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>Skontrolujte aktualizácie</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>Aktualizujte a reštartujte</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Poznámky k vydaniu</value>
   </data>
@@ -3555,6 +3552,23 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>Položky vyžadujúce pozornosť:</value>
   </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>Napriek tomu vytvoriť</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>Toto médium sa vytvorí pomocou Foundry OSD {0}.
+Je dostupná verzia {1}.
+
+Najprv použite aktualizáciu a potom vytvorte alebo aktualizujte spúšťacie médium.
+
+Použitie aktualizácie reštartuje Foundry OSD.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>Aktualizujte Foundry OSD pred vytvorením spúšťacieho média</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>Zobraziť aktualizáciu</value>
+  </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>Aktualizovať USB</value>
   </data>
@@ -3756,17 +3770,17 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>Zdroj bol overený.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>Použiť aktualizáciu</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>Stiahnuť aktualizáciu</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>Skúsiť znova</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>Nové</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD stiahne aktualizáciu a reštartuje ju, aby ju použil.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>Aktualizujte a reštartujte</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>Aktualizovať Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>Dostupná verzia</value>
@@ -3780,26 +3794,26 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>Najnovšia verzia</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>Sťahovanie aktualizácie. Foundry OSD sa reštartuje, keď bude pripravený.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>Sťahovanie: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>Priebeh sťahovania</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>Aktualizácia sa sťahuje na pozadí. Priebeh zobrazíte v nastaveniach aktualizácií.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>Sťahuje sa aktualizácia</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>Verzia {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>Použite aktualizáciu a reštartujte Foundry OSD. Aktualizácia sa tiež automaticky nainštaluje pri zatvorení aplikácie.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nekontrolované</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>zlieváreň-osd/zlieváreň</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Kontrolujú sa aktualizácie</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>Stiahnutie aktualizácie zlyhalo: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>Sťahovanie aktualizácie</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>Kontrola aktualizácie zlyhala: {0}</value>
@@ -3820,7 +3834,7 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>K dispozícii je aktualizácia Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>Aktualizujte, keď budete pripravení. Foundry OSD sa reštartuje, aby sa dokončila aplikácia.</value>
+    <value>Stiahnite aktualizáciu, keď budete pripravení.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} je k dispozícii.</value>

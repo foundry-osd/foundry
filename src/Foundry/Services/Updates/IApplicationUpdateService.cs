@@ -5,15 +5,15 @@
 namespace Foundry.Services.Updates;
 
 /// <summary>
-/// Coordinates application update discovery, download, and restart handoff.
+/// Coordinates application update discovery, preparation, and application handoff.
 /// </summary>
 public interface IApplicationUpdateService
 {
     /// <summary>
-    /// Logs update settings and starts the optional startup check without blocking application launch.
-    /// The startup check runs in the background and is not canceled by the initialization token after it starts.
+    /// Initializes once and recovers prepared updates in the background without blocking application launch.
+    /// When enabled, startup work checks and downloads without requesting restart.
     /// </summary>
-    /// <param name="cancellationToken">Token that cancels initialization before the background check is scheduled.</param>
+    /// <param name="cancellationToken">Token that cancels initialization before background work is scheduled.</param>
     Task InitializeAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -25,16 +25,27 @@ public interface IApplicationUpdateService
     Task<ApplicationUpdateCheckResult> CheckForUpdatesAsync(bool isStartupCheck = false, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Downloads the update discovered by the last successful check.
+    /// Downloads the captured update and publishes its progress and readiness to update state.
     /// </summary>
-    /// <param name="progress">Optional progress receiver for download percentage updates.</param>
     /// <param name="cancellationToken">Token that cancels the download.</param>
     /// <returns>The download result.</returns>
-    Task<ApplicationUpdateDownloadResult> DownloadUpdateAsync(IProgress<int>? progress = null, CancellationToken cancellationToken = default);
+    Task<ApplicationUpdateDownloadResult> DownloadUpdateAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Applies the pending downloaded update and requests application shutdown so Velopack can complete the handoff.
+    /// Schedules the captured prepared update for application after process exit without exiting the application.
     /// </summary>
-    /// <remarks>The call logs and returns when no pending update exists, and rethrows apply failures.</remarks>
-    void ApplyUpdateAndRestart();
+    /// <param name="restart">Whether to show update progress and restart after application, rather than apply silently on close.</param>
+    /// <returns>Whether a prepared update was scheduled or had already been scheduled.</returns>
+    /// <remarks>Returns false without a prepared target and propagates handoff failures while retaining readiness.</remarks>
+    bool TrySchedulePreparedUpdate(bool restart);
+
+    /// <summary>
+    /// Immediately snapshots confirmed readiness, cancels unfinished work, and invalidates queued operation callbacks.
+    /// </summary>
+    void BeginShutdown();
+
+    /// <summary>
+    /// Reopens update requests after a canceled close without reviving invalidated callbacks.
+    /// </summary>
+    void CancelShutdown();
 }

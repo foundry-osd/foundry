@@ -40,11 +40,17 @@
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Δεν μπορεί να προσδιοριστεί η έκδοση του Foundry OSD που χρησιμοποιήθηκε για τη δημιουργία αυτού του μέσου εκκίνησης. Ενημερώστε πρώτα το Foundry OSD στον υπολογιστή δημιουργίας και μετά δημιουργήστε ξανά το ISO ή ενημερώστε το μέσο εκκίνησης USB.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Διατίθεται νέα έκδοση. Ενημερώστε το Foundry OSD και δημιουργήστε ξανά το μέσο εκκίνησης.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Συνιστάται ενημέρωση του μέσου εκκίνησης</value>
+    <value>Ενημερώστε το Foundry OSD και δημιουργήστε ξανά το μέσο εκκίνησης.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Αυτό το μέσο εκκίνησης δημιουργήθηκε με παλαιότερη μορφή ρύθμισης παραμέτρων Foundry OSD. Ενημερώστε το μέσο εκκίνησης για να διασφαλίσετε τη συμβατότητα με τις πιο πρόσφατες δυνατότητες.</value>
+    <value>Αυτό το μέσο εκκίνησης δημιουργήθηκε με παλαιότερη έκδοση του Foundry OSD. Ενημερώστε πρώτα το Foundry OSD στον υπολογιστή δημιουργίας και μετά δημιουργήστε ξανά το ISO ή ενημερώστε το μέσο εκκίνησης USB.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Ακύρωση</value>

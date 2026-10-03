@@ -444,6 +444,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         string privateRootDirectory,
         CancellationToken cancellationToken = default)
     {
+        string? authoringVersion = typeof(FoundryApplicationInfo).Assembly.GetName().Version?.ToString(4);
         FoundryConfigurationDocument document = CreateDocumentForDeployGeneration(telemetryOverride: null) with
         {
             Network = networkSecretStateService.ApplyRequiredSecrets(Current.Network)
@@ -455,7 +456,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         try
         {
             return DeploymentBuildSnapshot.CaptureAsync(
-                document, accountSecrets, password, privateRootDirectory, cancellationToken);
+                document, accountSecrets, password, privateRootDirectory, authoringVersion, cancellationToken);
         }
         finally
         {

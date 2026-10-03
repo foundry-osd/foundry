@@ -46,11 +46,17 @@
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Δεν μπορεί να προσδιοριστεί η έκδοση του Foundry OSD που χρησιμοποιήθηκε για τη δημιουργία αυτού του μέσου εκκίνησης. Ενημερώστε πρώτα το Foundry OSD στον υπολογιστή δημιουργίας και μετά δημιουργήστε ξανά το ISO ή ενημερώστε το μέσο εκκίνησης USB.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Διατίθεται νέα έκδοση. Ενημερώστε το Foundry OSD και δημιουργήστε ξανά το μέσο εκκίνησης.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Συνιστάται η εκ νέου δημιουργία του ειδώλου εκκίνησης</value>
+    <value>Ενημερώστε το Foundry OSD και δημιουργήστε ξανά το μέσο εκκίνησης.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Αυτό το είδωλο εκκίνησης χρησιμοποιεί παλαιότερη μορφή ρύθμισης παραμέτρων Foundry OSD. Δημιουργήστε το ξανά για να διασφαλίσετε τη συμβατότητα με τις πιο πρόσφατες δυνατότητες.</value>
+    <value>Αυτό το μέσο εκκίνησης δημιουργήθηκε με παλαιότερη έκδοση του Foundry OSD. Ενημερώστε πρώτα το Foundry OSD στον υπολογιστή δημιουργίας και μετά δημιουργήστε ξανά το ISO ή ενημερώστε το μέσο εκκίνησης USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Αρχιτεκτονική: {0}</value>

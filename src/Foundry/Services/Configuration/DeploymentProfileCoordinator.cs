@@ -37,9 +37,13 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
     private ShellNavigationState suspendedNavigationState;
     private bool ownsNavigationGuard;
 
+    /// <summary>Gets the effective shell state while accounting for this coordinator's interaction guard.</summary>
+    internal ShellNavigationState ActivationNavigationState => ownsNavigationGuard && navigationGuard.State == ShellNavigationState.InteractionPending
+        ? suspendedNavigationState : navigationGuard.State;
+
     public bool IsSettingsOpen { get; set; }
 
-    /// <summary>Defers automatic activation while the Settings card is collecting an operator decision.</summary>
+    /// <summary>Defers automatic activation and blocks shell navigation while a profile interaction owns an operator decision.</summary>
     public IDisposable SuspendActivation()
     {
         if (activationSuspensions > 0) throw new InvalidOperationException("Another profile interaction is already active.");
@@ -609,11 +613,20 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
 
     public void Dispose()
     {
+        // A close scope may outlive host disposal; it must not re-enable the destroyed shell.
+        ownsNavigationGuard = false;
         lifetime.Cancel();
         debounce?.Cancel();
         debounce?.Dispose();
         ClearSharedKey();
-        ClearStagingDirectories(releaseFailedLeases: true);
+        if (deferStagingCleanup)
+        {
+            ReleaseStagingLeases();
+        }
+        else
+        {
+            ClearStagingDirectories(releaseFailedLeases: true);
+        }
         lifetime.Dispose();
     }
 
@@ -628,7 +641,10 @@ public sealed partial class DeploymentProfileCoordinator : IDisposable
             if (owner.activationSuspensions == 0 && owner.ownsNavigationGuard)
             {
                 owner.ownsNavigationGuard = false;
-                owner.navigationGuard.SetState(owner.suspendedNavigationState);
+                if (owner.navigationGuard.State == ShellNavigationState.InteractionPending)
+                {
+                    owner.navigationGuard.SetState(owner.suspendedNavigationState);
+                }
             }
         }
     }

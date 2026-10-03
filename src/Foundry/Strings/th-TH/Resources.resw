@@ -259,9 +259,6 @@
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>ตรวจสอบการอัปเดต</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>อัปเดตและรีสตาร์ท</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>บันทึกประจำรุ่น</value>
   </data>
@@ -3555,6 +3552,23 @@
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>รายการที่ต้องให้ความสนใจ:</value>
   </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>สร้างต่อไป</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>สื่อนี้จะสร้างโดยใช้ Foundry OSD {0}
+มีเวอร์ชัน {1} พร้อมใช้งาน
+
+โปรดใช้การอัปเดตก่อน แล้วจึงสร้างหรืออัปเดตสื่อสำหรับบูต
+
+การใช้การอัปเดตจะเริ่ม Foundry OSD ใหม่</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>อัปเดต Foundry OSD ก่อนสร้างสื่อสำหรับบูต</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>ดูการอัปเดต</value>
+  </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>อัปเดต USB</value>
   </data>
@@ -3756,17 +3770,17 @@
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>ตรวจสอบต้นฉบับแล้ว</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>ใช้การอัปเดต</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>ดาวน์โหลดการอัปเดต</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>ลองอีกครั้ง</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>ใหม่</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>Foundry OSD จะดาวน์โหลดอัปเดตและรีสตาร์ทเพื่อใช้งาน</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>อัปเดตและรีสตาร์ท</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>อัพเดท Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>รุ่นที่มีจำหน่าย</value>
@@ -3780,26 +3794,26 @@
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>เวอร์ชันล่าสุด</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>กำลังดาวน์โหลดการอัพเดต Foundry OSD จะรีสตาร์ทเมื่อพร้อม</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>กำลังดาวน์โหลด: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>ดาวน์โหลดความคืบหน้า</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>กำลังดาวน์โหลดการอัปเดตในเบื้องหลัง เปิดการตั้งค่าการอัปเดตเพื่อดูความคืบหน้า</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>กำลังดาวน์โหลดอัปเดต</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>เวอร์ชั่น {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>ใช้การอัปเดตและเริ่ม Foundry OSD ใหม่ การอัปเดตจะติดตั้งโดยอัตโนมัติเมื่อคุณปิดแอปพลิเคชันด้วย</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>ไม่ได้ตรวจสอบ</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>โรงหล่อ-osd/โรงหล่อ</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>กำลังตรวจสอบการอัปเดต</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>ดาวน์โหลดการอัปเดตไม่สำเร็จ: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>กำลังดาวน์โหลดการอัปเดต</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>การตรวจสอบการอัปเดตล้มเหลว: {0}</value>
@@ -3820,7 +3834,7 @@
     <value>มีการอัปเดต Foundry OSD แล้ว</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>อัปเดตเมื่อคุณพร้อม Foundry OSD จะรีสตาร์ทเพื่อสิ้นสุดการใช้งาน</value>
+    <value>ดาวน์โหลดการอัปเดตเมื่อคุณพร้อม</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} ว่างแล้ว</value>

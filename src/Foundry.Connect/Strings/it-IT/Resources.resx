@@ -40,11 +40,17 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="App.WindowTitle" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Non è possibile determinare la versione di Foundry OSD usata per creare questo supporto di avvio. Aggiorna prima Foundry OSD sul PC di creazione, poi ricrea l’ISO o aggiorna il supporto di avvio USB.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Nuova versione disponibile. Aggiorna Foundry OSD e ricrea il supporto di avvio.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Aggiornamento del supporto di avvio consigliato</value>
+    <value>Aggiorna Foundry OSD e ricrea il supporto di avvio.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Questo supporto di avvio è stato generato con un formato di configurazione Foundry OSD precedente. Aggiorna il supporto di avvio per garantire la compatibilità con le funzionalità più recenti.</value>
+    <value>Questo supporto di avvio è stato creato con una versione precedente di Foundry OSD. Aggiorna prima Foundry OSD sul PC di creazione, poi ricrea l’ISO o aggiorna il supporto di avvio USB.</value>
   </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Annulla</value>

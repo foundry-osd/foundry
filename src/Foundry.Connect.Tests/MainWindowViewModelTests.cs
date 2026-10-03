@@ -535,6 +535,7 @@ public sealed class MainWindowViewModelTests
         public bool IsLoadedFromDisk => false;
 
         public bool IsBootMediaUpdateRecommended => false;
+        public Foundry.Core.Models.Configuration.BootMediaUpdateReason BootMediaUpdateReason => Foundry.Core.Models.Configuration.BootMediaUpdateReason.None;
 
         public FoundryConnectConfiguration Load()
         {

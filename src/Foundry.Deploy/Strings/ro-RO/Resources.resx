@@ -46,11 +46,17 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Versiunea Foundry OSD folosită pentru a crea acest suport de pornire nu poate fi determinată. Actualizați mai întâi Foundry OSD pe PC-ul de creare, apoi recreați ISO-ul sau actualizați suportul de pornire USB.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Versiune nouă disponibilă. Actualizați Foundry OSD și recreați suportul de pornire.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Se recomandă regenerarea imaginii de pornire</value>
+    <value>Actualizați Foundry OSD și recreați suportul de pornire.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Această imagine de pornire utilizează un format de configurare Foundry OSD mai vechi. Regenerați-o pentru a asigura compatibilitatea cu cele mai recente caracteristici.</value>
+    <value>Acest suport de pornire a fost creat cu o versiune mai veche de Foundry OSD. Actualizați mai întâi Foundry OSD pe PC-ul de creare, apoi recreați ISO-ul sau actualizați suportul de pornire USB.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Arhitectură: {0}</value>

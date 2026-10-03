@@ -40,7 +40,7 @@ public sealed class FoundryConfigurationServiceTests
         var generated = new DeployConfigurationGenerator().Generate(document);
 
         Assert.Equal(17, document.SchemaVersion);
-        Assert.Equal(14, generated.SchemaVersion);
+        Assert.Equal(ConfigurationSchemaVersions.DeployCurrent, generated.SchemaVersion);
         Assert.Equal(expectedDefault is null ? [] : new[] { expectedDefault }, document.OperatingSystemSelection.AllowedReleaseIds);
         Assert.Equal(expectedDefault, document.OperatingSystemSelection.DefaultReleaseId);
         Assert.Equal(["fr-FR"], document.OperatingSystemSelection.AllowedLanguageCodes);

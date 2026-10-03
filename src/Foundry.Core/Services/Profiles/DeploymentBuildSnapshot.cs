@@ -31,13 +31,15 @@ public sealed class DeploymentBuildSnapshot : IDisposable
     private readonly char[]? autopilotCertificatePassword;
     private readonly string privateRootDirectory;
     private readonly string privateDirectory;
+    private readonly string? authoringVersion;
     private FoundryConfigurationDocument configuration;
     private bool isDisposed;
     private FileStream? directoryLease;
 
-    private DeploymentBuildSnapshot(FoundryConfigurationDocument source, ReadOnlySpan<char> password, string root)
+    private DeploymentBuildSnapshot(FoundryConfigurationDocument source, ReadOnlySpan<char> password, string root, string? authoringVersion)
     {
         configuration = CloneConfiguration(source);
+        this.authoringVersion = authoringVersion;
         deploymentPassword = password.ToArray();
         wifiPassphrase = source.Network.Wifi.Passphrase?.ToCharArray();
         wiredCertificatePassword = source.Network.Dot1x.CertificatePfxPassword?.ToCharArray();
@@ -63,12 +65,13 @@ public sealed class DeploymentBuildSnapshot : IDisposable
         OobeAccountSecretState accountSecrets,
         ReadOnlySpan<char> deploymentPassword,
         string privateRootDirectory,
+        string? authoringVersion,
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(configuration);
         ArgumentNullException.ThrowIfNull(accountSecrets);
         ArgumentException.ThrowIfNullOrWhiteSpace(privateRootDirectory);
-        var snapshot = new DeploymentBuildSnapshot(configuration, deploymentPassword, privateRootDirectory);
+        var snapshot = new DeploymentBuildSnapshot(configuration, deploymentPassword, privateRootDirectory, authoringVersion);
         try
         {
             snapshot.CopyAccountSecrets(accountSecrets);
@@ -85,7 +88,7 @@ public sealed class DeploymentBuildSnapshot : IDisposable
     public FoundryConnectProvisioningBundle CreateConnectProvisioningBundle(string stagingDirectoryPath, TelemetrySettings? telemetryOverride = null)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
-        return new ConnectConfigurationGenerator().CreateProvisioningBundle(CreateGenerationDocument(telemetryOverride), stagingDirectoryPath);
+        return new ConnectConfigurationGenerator().CreateProvisioningBundle(CreateGenerationDocument(telemetryOverride), stagingDirectoryPath, authoringVersion);
     }
 
     /// <summary>Retains existing Deploy protection and account validation rules while using captured session material.</summary>
@@ -97,7 +100,7 @@ public sealed class DeploymentBuildSnapshot : IDisposable
             throw new InvalidOperationException("OOBE local account password confirmation is invalid.");
         }
         var generator = new DeployConfigurationGenerator();
-        return generator.Serialize(generator.Generate(CreateGenerationDocument(telemetryOverride), deploymentSecretsKey, protectionSettings, accountSecrets));
+        return generator.Serialize(generator.Generate(CreateGenerationDocument(telemetryOverride), deploymentSecretsKey, protectionSettings, accountSecrets, authoringVersion));
     }
 
     /// <summary>Creates fresh per-media protection using the confirmed password captured before preparation began.</summary>

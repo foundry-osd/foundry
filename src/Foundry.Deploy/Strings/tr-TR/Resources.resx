@@ -46,11 +46,17 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Bu önyükleme medyasını oluşturmak için kullanılan Foundry OSD sürümü belirlenemiyor. Önce medya oluşturma bilgisayarınızda Foundry OSD’yi güncelleyin, ardından ISO’yu yeniden oluşturun veya USB önyükleme medyasını güncelleyin.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Yeni sürüm mevcut. Foundry OSD’yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Önyükleme görüntüsünün yeniden oluşturulması önerilir</value>
+    <value>Foundry OSD’yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Bu önyükleme görüntüsü daha eski bir Foundry OSD yapılandırma biçimi kullanıyor. En son özelliklerle uyumluluğu sağlamak için yeniden oluşturun.</value>
+    <value>Bu önyükleme medyası Foundry OSD’nin eski bir sürümüyle oluşturuldu. Önce medya oluşturma bilgisayarınızda Foundry OSD’yi güncelleyin, ardından ISO’yu yeniden oluşturun veya USB önyükleme medyasını güncelleyin.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Mimarlık: {0}</value>

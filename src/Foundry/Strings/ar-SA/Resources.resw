@@ -259,9 +259,6 @@
   <data name="AppUpdate_CheckButton.Content" xml:space="preserve">
     <value>التحقق من وجود تحديثات</value>
   </data>
-  <data name="AppUpdate_DownloadRestartButton.Content" xml:space="preserve">
-    <value>التحديث وإعادة التشغيل</value>
-  </data>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>ملاحظات الإصدار</value>
   </data>
@@ -3555,6 +3552,23 @@
   <data name="StartMedia.Summary.BlockingReasons" xml:space="preserve">
     <value>العناصر التي تحتاج إلى الاهتمام:</value>
   </data>
+  <data name="StartMedia.UpdateAdvisory.CreateAnyway" xml:space="preserve">
+    <value>إنشاء على أي حال</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Message" xml:space="preserve">
+    <value>سيتم إنشاء هذه الوسائط باستخدام Foundry OSD {0}.
+الإصدار {1} متاح.
+
+طبّق التحديث أولاً، ثم أنشئ وسائط الإقلاع أو حدّثها.
+
+يؤدي تطبيق التحديث إلى إعادة تشغيل Foundry OSD.</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.Title" xml:space="preserve">
+    <value>حدّث Foundry OSD قبل إنشاء وسائط الإقلاع</value>
+  </data>
+  <data name="StartMedia.UpdateAdvisory.ViewUpdate" xml:space="preserve">
+    <value>عرض التحديث</value>
+  </data>
   <data name="StartMedia.UpdateUsbButton" xml:space="preserve">
     <value>تحديث USB</value>
   </data>
@@ -3756,17 +3770,17 @@
   <data name="Unattend.ValidSource" xml:space="preserve">
     <value>تم التحقق من المصدر.</value>
   </data>
+  <data name="Update.Action.Apply" xml:space="preserve">
+    <value>تطبيق التحديث</value>
+  </data>
+  <data name="Update.Action.Download" xml:space="preserve">
+    <value>تنزيل التحديث</value>
+  </data>
+  <data name="Update.Action.Retry" xml:space="preserve">
+    <value>إعادة المحاولة</value>
+  </data>
   <data name="Update.Badge.New" xml:space="preserve">
     <value>جديد</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Message" xml:space="preserve">
-    <value>سيقوم Foundry OSD بتنزيل التحديث وإعادة التشغيل لتطبيقه.</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.PrimaryButton" xml:space="preserve">
-    <value>التحديث وإعادة التشغيل</value>
-  </data>
-  <data name="Update.ConfirmDownloadRestart.Title" xml:space="preserve">
-    <value>تحديث Foundry OSD</value>
   </data>
   <data name="Update.Field.AvailableVersion" xml:space="preserve">
     <value>النسخة المتاحة</value>
@@ -3780,26 +3794,26 @@
   <data name="Update.Field.LatestVersion" xml:space="preserve">
     <value>أحدث نسخة</value>
   </data>
-  <data name="Update.InstallProgressDialog.Message" xml:space="preserve">
-    <value>جارٍ تنزيل التحديث. سيتم إعادة تشغيل Foundry OSD عندما يصبح جاهزًا.</value>
+  <data name="Update.Footer.DownloadingFormat" xml:space="preserve">
+    <value>جارٍ التنزيل: {0}%</value>
   </data>
-  <data name="Update.InstallProgressDialog.ProgressLabel" xml:space="preserve">
-    <value>تقدم التنزيل</value>
+  <data name="Update.Footer.DownloadingHelp" xml:space="preserve">
+    <value>يتم تنزيل التحديث في الخلفية. افتح إعدادات التحديث لعرض التقدم.</value>
   </data>
-  <data name="Update.InstallProgressDialog.Title" xml:space="preserve">
-    <value>جارٍ تنزيل التحديث</value>
-  </data>
-  <data name="Update.InstallProgressDialog.VersionFormat" xml:space="preserve">
-    <value>الإصدار {0}</value>
+  <data name="Update.Footer.ReadyToolTip" xml:space="preserve">
+    <value>طبّق التحديث وأعد تشغيل Foundry OSD. سيتم تثبيته تلقائيًا أيضًا عند إغلاق التطبيق.</value>
   </data>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>لم يتم التحقق منها</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>مسبك-OSD/مسبك</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>التحقق من وجود تحديثات</value>
+  </data>
+  <data name="Update.Status.DownloadFailedFormat" xml:space="preserve">
+    <value>فشل تنزيل التحديث: {0}</value>
+  </data>
+  <data name="Update.Status.Downloading" xml:space="preserve">
+    <value>جارٍ تنزيل التحديث</value>
   </data>
   <data name="Update.Status.FailedFormat" xml:space="preserve">
     <value>فشل التحقق من التحديث: {0}</value>
@@ -3820,7 +3834,7 @@
     <value>يتوفر تحديث Foundry OSD.</value>
   </data>
   <data name="Update.Status.UpdateAvailableActionHint" xml:space="preserve">
-    <value>قم بالتحديث عندما تكون جاهزًا. سيتم إعادة تشغيل Foundry OSD لإنهاء تطبيقه.</value>
+    <value>نزّل التحديث عندما تكون جاهزًا.</value>
   </data>
   <data name="Update.Status.UpdateAvailableWithVersion" xml:space="preserve">
     <value>Foundry OSD {0} متاح.</value>

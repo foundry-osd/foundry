@@ -46,11 +46,17 @@
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Версията на Foundry OSD, използвана за създаване на този носител за стартиране, не може да бъде определена. Първо актуализирайте Foundry OSD на компютъра за създаване на носители, след това създайте отново ISO файла или актуализирайте USB носителя за стартиране.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Налична нова версия. Актуализирайте Foundry OSD и създайте отново носителя за стартиране.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Препоръчва се повторно генериране на образа за стартиране</value>
+    <value>Актуализирайте Foundry OSD и създайте отново носителя за стартиране.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Този образ за стартиране използва по-стар формат за конфигурация на Foundry OSD. Генерирайте го отново, за да осигурите съвместимост с най-новите функции.</value>
+    <value>Този носител за стартиране е създаден с по-стара версия на Foundry OSD. Първо актуализирайте Foundry OSD на компютъра за създаване на носители, след това създайте отново ISO файла или актуализирайте USB носителя за стартиране.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Архитектура: {0}</value>

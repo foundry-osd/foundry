@@ -26,6 +26,9 @@ public sealed record FoundryDeployConfigurationDocument
     /// </summary>
     public int SchemaVersion { get; init; } = CurrentSchemaVersion;
 
+    /// <summary>Gets the OSD release that authored this media, when recorded.</summary>
+    public string? AuthoringVersion { get; init; }
+
     /// <summary>
     /// Gets the protected answer-file manifest without authoring paths or XML content.
     /// </summary>

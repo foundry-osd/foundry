@@ -46,11 +46,17 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Selle alglaadimismeediumi loomiseks kasutatud Foundry OSD versiooni ei saa kindlaks teha. Uuendage esmalt Foundry OSD-d meediumi loomise arvutis, seejärel looge ISO uuesti või uuendage USB-alglaadimismeediumi.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Uus versioon saadaval. Uuendage Foundry OSD-d ja looge alglaadimismeedium uuesti.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>Soovitatav on alglaadimistõmmis uuesti luua</value>
+    <value>Uuendage Foundry OSD-d ja looge alglaadimismeedium uuesti.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>See alglaadimistõmmis kasutab vanemat Foundry OSD konfiguratsioonivormingut. Looge see uuesti, et tagada ühilduvus uusimate funktsioonidega.</value>
+    <value>See alglaadimismeedium loodi Foundry OSD vanema versiooniga. Uuendage esmalt Foundry OSD-d meediumi loomise arvutis, seejärel looge ISO uuesti või uuendage USB-alglaadimismeediumi.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Arhitektuur: {0}</value>

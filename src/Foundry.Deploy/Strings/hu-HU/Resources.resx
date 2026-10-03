@@ -46,11 +46,17 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>Nem állapítható meg, melyik Foundry OSD-verzióval készült ez a rendszerindító adathordozó. Először frissítse a Foundry OSD-t az adathordozó készítésére használt számítógépen, majd készítse el újra az ISO-t vagy frissítse az USB-s rendszerindító adathordozót.</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>Új verzió érhető el. Frissítse a Foundry OSD-t és hozza létre újra a rendszerindító adathordozót.</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>A rendszerindító lemezkép újbóli létrehozása ajánlott</value>
+    <value>Frissítse a Foundry OSD-t és hozza létre újra a rendszerindító adathordozót.</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>Ez a rendszerindító lemezkép egy régebbi Foundry OSD konfigurációs formátumot használ. Hozza létre újra a legújabb funkciókkal való kompatibilitás biztosításához.</value>
+    <value>Ez a rendszerindító adathordozó a Foundry OSD egy régebbi verziójával készült. Először frissítse a Foundry OSD-t az adathordozó készítésére használt számítógépen, majd készítse el újra az ISO-t vagy frissítse az USB-s rendszerindító adathordozót.</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>Építészet: {0}</value>

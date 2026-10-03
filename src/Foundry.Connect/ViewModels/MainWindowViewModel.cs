@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.ObjectModel;
+using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -211,8 +212,14 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     public string VersionDisplay => Format("Common.VersionFormat", FoundryConnectApplicationInfo.Version);
     public bool IsBootMediaUpdateRecommended => _configurationService.IsBootMediaUpdateRecommended;
-    public string BootMediaUpdateRecommendedText => GetString("BootMedia.UpdateRecommended");
-    public string BootMediaUpdateRecommendedToolTip => GetString("BootMedia.UpdateRecommendedToolTip");
+    public string BootMediaUpdateRecommendedText => GetString(
+        _configurationService.BootMediaUpdateReason == BootMediaUpdateReason.NewerRelease
+            ? "BootMedia.UpdateAvailable"
+            : "BootMedia.UpdateRecommended");
+    public string BootMediaUpdateRecommendedToolTip => GetString(
+        _configurationService.BootMediaUpdateReason == BootMediaUpdateReason.UnknownAuthoringVersion
+            ? "BootMedia.UnknownAuthoringVersionToolTip"
+            : "BootMedia.UpdateRecommendedToolTip");
 
     /// <summary>
     /// Gets the configuration source text shown in the footer.

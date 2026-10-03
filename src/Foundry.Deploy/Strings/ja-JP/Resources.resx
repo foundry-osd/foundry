@@ -46,11 +46,17 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Autopilot.Title" xml:space="preserve">
     <value>Autopilot</value>
   </data>
+  <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
+    <value>このブートメディアの作成に使用された Foundry OSD のバージョンを特定できません。まずメディア作成用 PC で Foundry OSD を更新してから、ISO を再作成するか USB ブートメディアを更新してください。</value>
+  </data>
+  <data name="BootMedia.UpdateAvailable" xml:space="preserve">
+    <value>新しいバージョンを利用できます。Foundry OSD を更新し、ブートメディアを再作成してください。</value>
+  </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
-    <value>ブート イメージの再生成を推奨</value>
+    <value>Foundry OSD を更新し、ブートメディアを再作成してください。</value>
   </data>
   <data name="BootMedia.UpdateRecommendedToolTip" xml:space="preserve">
-    <value>このブート イメージは古い Foundry OSD 構成形式を使用しています。最新機能との互換性を確保するため、再生成してください。</value>
+    <value>このブートメディアは古いバージョンの Foundry OSD で作成されました。まずメディア作成用 PC で Foundry OSD を更新してから、ISO を再作成するか USB ブートメディアを更新してください。</value>
   </data>
   <data name="Catalog.ArchitectureFormat" xml:space="preserve">
     <value>アーキテクチャ: {0}</value>
