@@ -10,7 +10,6 @@ using Foundry.Connect.Services.Runtime;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using CoreConfiguration = Foundry.Core.Models.Configuration;
 
@@ -717,32 +716,4 @@ public sealed class ConnectConfigurationServiceTests
             }
         }
     }
-
-    private sealed class RecordingLogger<T> : ILogger<T>
-    {
-        public List<LogEntry> Entries { get; } = [];
-
-        public IDisposable? BeginScope<TState>(TState state)
-            where TState : notnull
-        {
-            return null;
-        }
-
-        public bool IsEnabled(LogLevel logLevel)
-        {
-            return true;
-        }
-
-        public void Log<TState>(
-            LogLevel logLevel,
-            EventId eventId,
-            TState state,
-            Exception? exception,
-            Func<TState, Exception?, string> formatter)
-        {
-            Entries.Add(new LogEntry(logLevel, formatter(state, exception)));
-        }
-    }
-
-    private sealed record LogEntry(LogLevel LogLevel, string Message);
 }
