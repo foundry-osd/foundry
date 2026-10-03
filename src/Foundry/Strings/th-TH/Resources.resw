@@ -3806,12 +3806,6 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>ไม่ได้ตรวจสอบ</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>ดูรุ่นที่เผยแพร่ในที่เก็บ</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>ไม่มีบันทึกประจำรุ่นสำหรับการอัปเดตนี้</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>กำลังตรวจสอบการอัปเดต</value>
   </data>

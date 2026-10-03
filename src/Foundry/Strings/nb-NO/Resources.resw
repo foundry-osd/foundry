@@ -3806,12 +3806,6 @@ Oppdateringen starter Foundry OSD på nytt.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ikke sjekket</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Se utgivelser i kodelageret</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Versjonsmerknader er ikke tilgjengelige for denne oppdateringen.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Ser etter oppdateringer</value>
   </data>

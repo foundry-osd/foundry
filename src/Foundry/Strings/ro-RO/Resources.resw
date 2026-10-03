@@ -3806,12 +3806,6 @@ Aplicarea actualizării repornește Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nu este verificat</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Vezi versiunile din depozit</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Notele de lansare nu sunt disponibile pentru această actualizare.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Se verifică actualizări</value>
   </data>

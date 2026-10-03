@@ -3806,12 +3806,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未チェック</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>リポジトリのリリースを表示</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>この更新のリリースノートは利用できません。</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>アップデートをチェックしています</value>
   </data>

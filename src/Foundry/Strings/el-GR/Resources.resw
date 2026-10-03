@@ -3806,12 +3806,6 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Δεν έχει ελεγχθεί</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Προβολή εκδόσεων αποθετηρίου</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Οι σημειώσεις έκδοσης δεν είναι διαθέσιμες για αυτήν την ενημέρωση.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Έλεγχος για ενημερώσεις</value>
   </data>

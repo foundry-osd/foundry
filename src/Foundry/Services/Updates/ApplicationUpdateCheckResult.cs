@@ -12,16 +12,12 @@ namespace Foundry.Services.Updates;
 /// <param name="Version">Available release version, when an update exists.</param>
 /// <param name="DownloadProgress">Actual SDK download percentage, from zero to one hundred.</param>
 /// <param name="FailureMessage">Actionable error from the latest failed operation, when present.</param>
-/// <param name="NotesMarkdown">Markdown release notes captured with the target.</param>
-/// <param name="NotesHtml">HTML release notes captured with the target.</param>
 public sealed record ApplicationUpdateCheckResult(
     ApplicationUpdateStatus Status,
     string Message,
     string? Version = null,
     int DownloadProgress = 0,
-    string? FailureMessage = null,
-    string? NotesMarkdown = null,
-    string? NotesHtml = null)
+    string? FailureMessage = null)
 {
     /// <summary>
     /// Gets a value indicating whether a target is known, including during a refresh or after a failed download.

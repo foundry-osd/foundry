@@ -3806,12 +3806,6 @@ Applying the update restarts Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Not checked</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>View repository releases</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Release notes are unavailable for this update.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Checking for updates</value>
   </data>

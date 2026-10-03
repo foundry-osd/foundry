@@ -3806,12 +3806,6 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nije provereno</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Prikaži izdanja repozitorijuma</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Beleške o izdanju nisu dostupne za ovo ažuriranje.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Proveravam ažuriranja</value>
   </data>

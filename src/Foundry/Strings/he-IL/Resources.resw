@@ -3806,12 +3806,6 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>לא נבדק</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>הצג גרסאות במאגר</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>הערות הגרסה אינן זמינות עבור עדכון זה.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>מחפש עדכונים</value>
   </data>

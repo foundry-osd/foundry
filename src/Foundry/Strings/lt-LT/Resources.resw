@@ -3806,12 +3806,6 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nepatikrintas</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Peržiūrėti saugyklos laidas</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Šio naujinimo laidos pastabos nepasiekiamos.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Tikrinama, ar nėra atnaujinimų</value>
   </data>

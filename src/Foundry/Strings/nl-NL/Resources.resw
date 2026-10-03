@@ -3806,12 +3806,6 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Niet gecontroleerd</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Repositoryreleases bekijken</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Er zijn geen releaseopmerkingen beschikbaar voor deze update.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Controleren op updates</value>
   </data>

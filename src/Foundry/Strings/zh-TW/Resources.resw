@@ -3806,12 +3806,6 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>未檢查</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>檢視存放庫版本</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>無法取得此更新的版本資訊。</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>檢查更新</value>
   </data>

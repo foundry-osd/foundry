@@ -32,12 +32,7 @@ namespace Foundry.Views
 
         private async void ReleaseNotesLink_Click(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.CurrentReleaseNotes is not { } releaseNotes)
-            {
-                return;
-            }
-
-            UpdateReleaseNotesDialog dialog = new(ViewModel, releaseNotes)
+            AboutDialog dialog = new(App.GetService<AboutUsSettingViewModel>(), showReleaseNotes: true)
             {
                 XamlRoot = XamlRoot,
                 RequestedTheme = ActualTheme

@@ -3806,12 +3806,6 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nicht geprüft</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Repositoryversionen anzeigen</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Für dieses Update sind keine Versionshinweise verfügbar.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Suche nach Updates</value>
   </data>

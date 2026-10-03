@@ -3806,12 +3806,6 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ni preverjeno</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Ogled izdaj repozitorija</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Opombe ob izdaji za to posodobitev niso na voljo.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Preverjanje posodobitev</value>
   </data>

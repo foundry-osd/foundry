@@ -3806,12 +3806,6 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Não verificado</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Ver versões do repositório</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>As notas de versão não estão disponíveis para esta atualização.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Verificando atualizações</value>
   </data>

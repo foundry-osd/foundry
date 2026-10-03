@@ -3806,12 +3806,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>체크하지 않음</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>저장소 릴리스 보기</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>이 업데이트의 릴리스 노트를 사용할 수 없습니다.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>업데이트 확인 중</value>
   </data>

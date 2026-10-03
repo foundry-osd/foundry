@@ -3806,12 +3806,6 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Niesprawdzone</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Wyświetl wydania repozytorium</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Informacje o wydaniu tej aktualizacji są niedostępne.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Sprawdzanie aktualizacji</value>
   </data>

@@ -3806,12 +3806,6 @@ Güncellemeyi uygulamak Foundry OSD’yi yeniden başlatır.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>İşaretlenmedi</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Depo sürümlerini görüntüle</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Bu güncellemenin sürüm notları mevcut değil.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Güncellemeler kontrol ediliyor</value>
   </data>

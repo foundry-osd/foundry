@@ -3806,12 +3806,6 @@ L’applicazione dell’aggiornamento riavvia Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Non controllato</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Visualizza le versioni del repository</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Le note di rilascio non sono disponibili per questo aggiornamento.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Controllo degli aggiornamenti</value>
   </data>

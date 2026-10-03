@@ -3806,12 +3806,6 @@
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Не проверено</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Посмотреть выпуски репозитория</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Примечания к выпуску для этого обновления недоступны.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Проверка обновлений</value>
   </data>

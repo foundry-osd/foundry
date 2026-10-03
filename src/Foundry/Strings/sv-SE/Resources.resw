@@ -3806,12 +3806,6 @@ Uppdateringen startar om Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ej kontrollerat</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Visa utgåvor i kodarkivet</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Versionsinformation saknas för denna uppdatering.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Söker efter uppdateringar</value>
   </data>

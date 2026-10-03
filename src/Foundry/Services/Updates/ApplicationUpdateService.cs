@@ -554,7 +554,7 @@ internal sealed class ApplicationUpdateService(
     private static UpdateSelection CreateSelection(UpdateManager manager, Velopack.UpdateInfo? plan, VelopackAsset asset, string feedUrl, string channel)
     {
         return new UpdateSelection(manager, plan, asset, feedUrl, channel,
-            FormatDisplayVersion(asset.Version?.ToString()), asset.NotesMarkdown, asset.NotesHTML);
+            FormatDisplayVersion(asset.Version?.ToString()));
     }
 
     private static ApplicationUpdateCheckResult CreateSelectionResult(
@@ -564,8 +564,7 @@ internal sealed class ApplicationUpdateService(
         int downloadProgress = 0,
         string? failureMessage = null)
     {
-        return new ApplicationUpdateCheckResult(status, message, target.Version, downloadProgress,
-            failureMessage, target.NotesMarkdown, target.NotesHtml);
+        return new ApplicationUpdateCheckResult(status, message, target.Version, downloadProgress, failureMessage);
     }
 
     private static bool IsGitHubRepositoryUrl(string feedUrl)
@@ -625,9 +624,7 @@ internal sealed class ApplicationUpdateService(
         VelopackAsset Asset,
         string FeedUrl,
         string Channel,
-        string Version,
-        string? NotesMarkdown,
-        string? NotesHtml);
+        string Version);
 
     /// <summary>
     /// Associates a serialized request with its shutdown generation and linked cancellation lifetime.

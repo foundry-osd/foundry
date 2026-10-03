@@ -3806,12 +3806,6 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Pole kontrollitud</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Vaata hoidla väljalaskeid</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Selle värskenduse väljalaskemärkmed pole saadaval.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Värskenduste otsimine</value>
   </data>

@@ -77,19 +77,8 @@ namespace Foundry.ViewModels
             : localizationService.GetString("Update.Field.AvailableVersion");
         public string LastUpdateCheckLabel => localizationService.GetString("Update.Field.LastUpdateCheck");
         public string UpdateNewBadgeText => localizationService.GetString("Update.Badge.New");
-        public string CloseText => localizationService.GetString("Common.Close");
-        public string ReleaseNotesLoadingText => localizationService.GetString("AboutDialog.ReleaseNotesLoading");
-        public string ReleaseNotesErrorText => localizationService.GetString("AboutDialog.ReleaseNotesError");
-        public string ReleaseNotesRepositoryText => localizationService.GetString("Update.ReleaseNotesRepository");
-        public string ReleaseNotesUnavailableText => localizationService.GetString("Update.ReleaseNotesUnavailable");
         public string ApplyActionText => localizationService.GetString("Update.Action.Apply");
         public string DownloadProgressText => localizationService.FormatString("Update.Footer.DownloadingFormat", DownloadProgress);
-        public Uri RepositoryReleasesUri { get; } = new(FoundryApplicationInfo.ReleasesUrl);
-
-        /// <summary>
-        /// Gets the immutable target snapshot to capture when opening its release notes.
-        /// </summary>
-        public ApplicationUpdateCheckResult? CurrentReleaseNotes => currentCheckResult?.HasKnownUpdate == true ? currentCheckResult : null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppUpdateSettingViewModel"/> class.
@@ -184,11 +173,6 @@ namespace Foundry.ViewModels
                 OnPropertyChanged(nameof(AvailableVersionLabel));
                 OnPropertyChanged(nameof(LastUpdateCheckLabel));
                 OnPropertyChanged(nameof(UpdateNewBadgeText));
-                OnPropertyChanged(nameof(CloseText));
-                OnPropertyChanged(nameof(ReleaseNotesLoadingText));
-                OnPropertyChanged(nameof(ReleaseNotesErrorText));
-                OnPropertyChanged(nameof(ReleaseNotesRepositoryText));
-                OnPropertyChanged(nameof(ReleaseNotesUnavailableText));
                 OnPropertyChanged(nameof(ApplyActionText));
                 OnPropertyChanged(nameof(DownloadProgressText));
                 ApplyCurrentUpdateState(currentCheckResult);

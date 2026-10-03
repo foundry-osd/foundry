@@ -3806,12 +3806,6 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Ei tarkistettu</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Näytä tietovaraston julkaisut</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Tämän päivityksen julkaisutietoja ei ole saatavilla.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Tarkistetaan päivityksiä</value>
   </data>

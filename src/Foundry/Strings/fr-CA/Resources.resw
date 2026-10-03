@@ -3806,12 +3806,6 @@ L’application de la mise à jour redémarre Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Non vérifié</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Voir les versions du dépôt</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Les notes de version de cette mise à jour ne sont pas disponibles.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Vérification des mises à jour</value>
   </data>

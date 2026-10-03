@@ -3806,12 +3806,6 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nincs bejelölve</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Az adattár kiadásainak megtekintése</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Ehhez a frissítéshez nem érhetők el kiadási megjegyzések.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Frissítések keresése</value>
   </data>

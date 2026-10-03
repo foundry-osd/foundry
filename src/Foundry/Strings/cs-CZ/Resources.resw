@@ -3806,12 +3806,6 @@ Použití aktualizace restartuje Foundry OSD.</value>
   <data name="Update.NotChecked" xml:space="preserve">
     <value>Nekontrolováno</value>
   </data>
-  <data name="Update.ReleaseNotesRepository" xml:space="preserve">
-    <value>Zobrazit vydání repozitáře</value>
-  </data>
-  <data name="Update.ReleaseNotesUnavailable" xml:space="preserve">
-    <value>Poznámky k vydání této aktualizace nejsou dostupné.</value>
-  </data>
   <data name="Update.Status.Checking" xml:space="preserve">
     <value>Kontrola aktualizací</value>
   </data>
