@@ -16,17 +16,7 @@
                         <ColumnDefinition Width="20" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <ProgressRing x:Name="UpdateFooterProgressRing"
-                        Width="20"
-                        Height="20"
-                        AutomationProperties.AccessibilityView="Raw"
-                        IsActive="True"
-                        IsIndeterminate="False"
-                        IsTabStop="False"
-                        Maximum="100"
-                        Minimum="0"
-                        Value="{Binding UpdateDownloadProgress, Mode=OneWay}" />
-                    <FontIcon x:Name="UpdateFooterGlyph"
+                    <FontIcon
                         AutomationProperties.AccessibilityView="Raw"
                         FontSize="20"
                         Glyph="{Binding UpdateFooterGlyph, Mode=OneWay}" />

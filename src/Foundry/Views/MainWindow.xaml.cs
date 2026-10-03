@@ -32,8 +32,6 @@ namespace Foundry.Views
         private const string UpdateNavigationTag = "Foundry.Navigation.UpdateAvailable";
         private const string BugReportNavigationGlyph = "\uEBE8";
         private Grid? updateFooterContentRoot;
-        private Microsoft.UI.Xaml.Controls.ProgressRing? updateFooterProgressRing;
-        private FontIcon? updateFooterGlyph;
         private TextBlock? updateFooterLabel;
         private long paneOpenCallbackToken;
         private long paneDisplayModeCallbackToken;
@@ -559,8 +557,6 @@ namespace Foundry.Views
 
             root.DataContext = ViewModel;
             updateFooterContentRoot = root;
-            updateFooterProgressRing = root.FindName("UpdateFooterProgressRing") as Microsoft.UI.Xaml.Controls.ProgressRing;
-            updateFooterGlyph = root.FindName("UpdateFooterGlyph") as FontIcon;
             updateFooterLabel = root.FindName("UpdateFooterLabel") as TextBlock;
             UpdateFooterLayout();
             if (!hasAnnouncedUpdateStatus && pendingUpdateAnnouncement is null)
@@ -589,8 +585,6 @@ namespace Foundry.Views
 
             updateFooterContentRoot.DataContext = null;
             updateFooterContentRoot = null;
-            updateFooterProgressRing = null;
-            updateFooterGlyph = null;
             updateFooterLabel = null;
         }
 
@@ -600,16 +594,6 @@ namespace Foundry.Views
 
         private void UpdateFooterLayout()
         {
-            if (updateFooterProgressRing is not null)
-            {
-                updateFooterProgressRing.Visibility = ViewModel.IsUpdateDownloading ? Visibility.Visible : Visibility.Collapsed;
-            }
-
-            if (updateFooterGlyph is not null)
-            {
-                updateFooterGlyph.Visibility = ViewModel.IsUpdateDownloading ? Visibility.Collapsed : Visibility.Visible;
-            }
-
             if (updateFooterLabel is not null)
             {
                 updateFooterLabel.Visibility = NavView.IsPaneOpen || NavView.PaneDisplayMode == NavigationViewPaneDisplayMode.Top
