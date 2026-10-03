@@ -67,6 +67,14 @@ Operating system, driver pack, firmware, and WinPE metadata come from the mainta
 > [!IMPORTANT]
 > Creating USB media erases the selected USB device. Deploying Windows can erase or repartition the selected target disk. Validate your configuration and test it on representative hardware before production use.
 
+## Keep Foundry and boot media current
+
+Installed Foundry OSD checks for and downloads updates automatically when startup checking is enabled. The navigation footer shows download progress, then **Apply update**. Choose it to install and restart. A ready update also installs silently on a normal close, leaving Foundry OSD closed.
+
+When a newer version is known, creating an ISO or creating or updating USB media shows an advisory. Apply the update first, or view its download status. **Create anyway** continues with the current Foundry OSD version; **Cancel** ends the request. After applying an update, start media creation again.
+
+Connect and Deploy compare the media's authoring version with their running production release. Older media and legacy media with an unknown authoring version show rebuild guidance. Update Foundry OSD on the authoring PC first, then recreate the ISO or update the USB media. Rebuilding with the same old Foundry OSD can leave the warning in place.
+
 ## Learn more
 
 - [Configure networking](https://docs.foundryosd.com/foundry-osd/network)
