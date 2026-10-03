@@ -50,7 +50,7 @@ Licencováno pod licencí MIT.</value>
     <value>Verzi Foundry OSD použitou k vytvoření tohoto spouštěcího média nelze určit. Nejprve aktualizujte Foundry OSD na počítači pro tvorbu médií a potom znovu vytvořte ISO nebo aktualizujte spouštěcí médium USB.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Je k dispozici nová verze. Aktualizujte Foundry OSD a znovu vytvořte spouštěcí médium.</value>
+    <value>Nová verze k dispozici. Aktualizujte Foundry OSD a znovu vytvořte spouštěcí médium.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
     <value>Aktualizujte Foundry OSD a znovu vytvořte spouštěcí médium.</value>

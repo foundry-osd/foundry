@@ -50,7 +50,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>De versie van Foundry OSD waarmee dit opstartmedium is gemaakt, kan niet worden bepaald. Werk eerst Foundry OSD bij op uw aanmaak-pc en maak daarna de ISO opnieuw of werk het USB-opstartmedium bij.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Er is een nieuwe versie beschikbaar. Werk Foundry OSD bij en maak het opstartmedium opnieuw.</value>
+    <value>Nieuwe versie beschikbaar. Werk Foundry OSD bij en maak het opstartmedium opnieuw.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
     <value>Werk Foundry OSD bij en maak het opstartmedium opnieuw.</value>

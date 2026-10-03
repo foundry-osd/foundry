@@ -50,7 +50,7 @@ Licenciado sob a licença MIT.</value>
     <value>Não é possível determinar a versão do Foundry OSD utilizada para criar este suporte de arranque. Atualize primeiro o Foundry OSD no PC de criação e depois recrie a ISO ou atualize o suporte de arranque USB.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Uma nova versão está disponível. Atualize o Foundry OSD e recrie o suporte de arranque.</value>
+    <value>Nova versão disponível. Atualize o Foundry OSD e recrie o suporte de arranque.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
     <value>Atualize o Foundry OSD e recrie o suporte de arranque.</value>

@@ -50,7 +50,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Bu önyükleme medyasını oluşturmak için kullanılan Foundry OSD sürümü belirlenemiyor. Önce medya oluşturma bilgisayarınızda Foundry OSD’yi güncelleyin, ardından ISO’yu yeniden oluşturun veya USB önyükleme medyasını güncelleyin.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Yeni bir sürüm mevcut. Foundry OSD’yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>
+    <value>Yeni sürüm mevcut. Foundry OSD’yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
     <value>Foundry OSD’yi güncelleyin ve önyükleme medyasını yeniden oluşturun.</value>

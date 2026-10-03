@@ -50,7 +50,7 @@ Licencirano pod licenco MIT.</value>
     <value>Različice Foundry OSD, uporabljene za ustvarjanje tega zagonskega medija, ni mogoče določiti. Najprej posodobite Foundry OSD v računalniku za ustvarjanje medijev, nato znova ustvarite ISO ali posodobite zagonski medij USB.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Na voljo je nova različica. Posodobite Foundry OSD in znova ustvarite zagonski medij.</value>
+    <value>Na voljo nova različica. Posodobite Foundry OSD in znova ustvarite zagonski medij.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
     <value>Posodobite Foundry OSD in znova ustvarite zagonski medij.</value>

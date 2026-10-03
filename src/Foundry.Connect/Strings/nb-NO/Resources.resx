@@ -44,7 +44,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Versjonen av Foundry OSD som ble brukt til å opprette dette oppstartsmediet, kan ikke fastslås. Oppdater først Foundry OSD på PC-en der du oppretter medier, og opprett deretter ISO-filen på nytt eller oppdater USB-oppstartsmediet.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>En ny versjon er tilgjengelig. Oppdater Foundry OSD og opprett oppstartsmediet på nytt.</value>
+    <value>Ny versjon tilgjengelig. Oppdater Foundry OSD og opprett oppstartsmediet på nytt.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
     <value>Oppdater Foundry OSD og opprett oppstartsmediet på nytt.</value>

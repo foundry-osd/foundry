@@ -50,7 +50,7 @@ Licențiat sub licența MIT.</value>
     <value>Versiunea Foundry OSD folosită pentru a crea acest suport de pornire nu poate fi determinată. Actualizați mai întâi Foundry OSD pe PC-ul de creare, apoi recreați ISO-ul sau actualizați suportul de pornire USB.</value>
   </data>
   <data name="BootMedia.UpdateAvailable" xml:space="preserve">
-    <value>Este disponibilă o versiune nouă. Actualizați Foundry OSD și recreați suportul de pornire.</value>
+    <value>Versiune nouă disponibilă. Actualizați Foundry OSD și recreați suportul de pornire.</value>
   </data>
   <data name="BootMedia.UpdateRecommended" xml:space="preserve">
     <value>Actualizați Foundry OSD și recreați suportul de pornire.</value>
