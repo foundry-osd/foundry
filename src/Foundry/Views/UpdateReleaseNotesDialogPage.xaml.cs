@@ -16,6 +16,8 @@ namespace Foundry.Views;
 public sealed partial class UpdateReleaseNotesDialogPage : Page
 {
     private static readonly ILogger Logger = Log.ForContext<UpdateReleaseNotesDialogPage>();
+    private ulong? currentNavigationId;
+    private string? releaseNotesVersion;
     private bool isClosed;
 
     /// <summary>
@@ -41,6 +43,11 @@ public sealed partial class UpdateReleaseNotesDialogPage : Page
     public void CloseWebView()
     {
         isClosed = true;
+        currentNavigationId = null;
+
+        ReleaseNotesWebView.NavigationStarting -= ReleaseNotesWebView_NavigationStarting;
+        ReleaseNotesWebView.NavigationCompleted -= ReleaseNotesWebView_NavigationCompleted;
+        ReleaseNotesWebView.CoreWebView2Initialized -= ReleaseNotesWebView_CoreWebView2Initialized;
 
         if (ReleaseNotesWebView.CoreWebView2 is not null)
         {
@@ -58,25 +65,65 @@ public sealed partial class UpdateReleaseNotesDialogPage : Page
 
     private void ReleaseNotesWebView_NavigationStarting(WebView2 sender, CoreWebView2NavigationStartingEventArgs args)
     {
-        if (!string.Equals(args.Uri, "about:blank", StringComparison.OrdinalIgnoreCase))
+        if (isClosed)
         {
             args.Cancel = true;
             return;
         }
 
+        if (!string.Equals(args.Uri, "about:blank", StringComparison.OrdinalIgnoreCase))
+        {
+            args.Cancel = true;
+
+            if (currentNavigationId is null)
+            {
+                string uriScheme = Uri.TryCreate(args.Uri, UriKind.Absolute, out Uri? uri) ? uri.Scheme : "unknown";
+                Logger.Warning(
+                    "Blocked initial update release notes navigation. Version={Version}, NavigationId={NavigationId}, UriScheme={UriScheme}",
+                    releaseNotesVersion,
+                    args.NavigationId,
+                    uriScheme);
+                ShowReleaseNotesError();
+            }
+
+            if (currentNavigationId == args.NavigationId)
+            {
+                // A blocked redirect can retain the accepted document's navigation ID.
+                currentNavigationId = null;
+                ReleaseNotesLoadingPanel.Visibility = Visibility.Collapsed;
+            }
+
+            return;
+        }
+
+        currentNavigationId = args.NavigationId;
         ReleaseNotesLoadingPanel.Visibility = Visibility.Visible;
         ReleaseNotesErrorPanel.Visibility = Visibility.Collapsed;
     }
 
     private void ReleaseNotesWebView_NavigationCompleted(WebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
     {
+        if (isClosed || currentNavigationId != args.NavigationId)
+        {
+            return;
+        }
+
         ReleaseNotesLoadingPanel.Visibility = Visibility.Collapsed;
         ReleaseNotesErrorPanel.Visibility = args.IsSuccess ? Visibility.Collapsed : Visibility.Visible;
+
+        if (!args.IsSuccess)
+        {
+            Logger.Warning(
+                "Failed to load update release notes document. Version={Version}, NavigationId={NavigationId}, WebErrorStatus={WebErrorStatus}",
+                releaseNotesVersion,
+                args.NavigationId,
+                args.WebErrorStatus);
+        }
     }
 
     private void ReleaseNotesWebView_CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
     {
-        if (args.Exception is null && sender.CoreWebView2 is not null)
+        if (!isClosed && args.Exception is null && sender.CoreWebView2 is not null)
         {
             sender.CoreWebView2.DOMContentLoaded += CoreWebView2_DOMContentLoaded;
         }
@@ -84,11 +131,23 @@ public sealed partial class UpdateReleaseNotesDialogPage : Page
 
     private void CoreWebView2_DOMContentLoaded(CoreWebView2 sender, CoreWebView2DOMContentLoadedEventArgs args)
     {
+        if (isClosed || currentNavigationId != args.NavigationId)
+        {
+            return;
+        }
+
         ReleaseNotesLoadingPanel.Visibility = Visibility.Collapsed;
     }
 
     private async Task InitializeReleaseNotesWebViewAsync(ApplicationUpdateCheckResult? releaseNotes)
     {
+        if (isClosed)
+        {
+            return;
+        }
+
+        releaseNotesVersion = releaseNotes?.Version;
+
         if (releaseNotes is null || (string.IsNullOrWhiteSpace(releaseNotes.NotesHtml) && string.IsNullOrWhiteSpace(releaseNotes.NotesMarkdown)))
         {
             ReleaseNotesLoadingPanel.Visibility = Visibility.Collapsed;
@@ -143,6 +202,11 @@ public sealed partial class UpdateReleaseNotesDialogPage : Page
 
     private void ShowReleaseNotesError()
     {
+        if (isClosed)
+        {
+            return;
+        }
+
         ReleaseNotesLoadingPanel.Visibility = Visibility.Collapsed;
         ReleaseNotesErrorPanel.Visibility = Visibility.Visible;
     }
