@@ -21,6 +21,10 @@ internal sealed record DomainJoinBinding(PreOobeExecutionAction JoinAction, Doma
         var checks = plan.Actions.Where(a => a.BuiltInKind == PreOobeBuiltInKind.VerifyDomainMembership).ToArray();
         if (joins.Length != 1 || checks.Length != 1 || Array.IndexOf(plan.Actions.ToArray(), joins[0]) >= Array.IndexOf(plan.Actions.ToArray(), checks[0]))
             throw new InvalidDataException("Domain action pairing is invalid.");
+        int joinIndex = Array.IndexOf(plan.Actions.ToArray(), joins[0]);
+        if (plan.Actions[joinIndex + 1] != checks[0] || plan.Actions.Skip(joinIndex + 1).Any(action =>
+            action.BuiltInKind is PreOobeBuiltInKind.Driver or PreOobeBuiltInKind.Network))
+            throw new InvalidDataException("Domain action order is invalid.");
         var parameters = joins[0].Parameters?.Deserialize<DomainJoinActionParameters>(ExecutionJournal.JsonOptions)
             ?? throw new InvalidDataException("Domain parameters are missing.");
         var verification = checks[0].Parameters?.Deserialize<DomainMembershipVerificationParameters>(ExecutionJournal.JsonOptions)
@@ -34,7 +38,8 @@ internal sealed record DomainJoinBinding(PreOobeExecutionAction JoinAction, Doma
         var payloads = plan.OwnedPayloads.Where(p => p.RelativePath.Replace('\\', '/').Equals(expected, StringComparison.OrdinalIgnoreCase)).ToArray();
         if (payloads.Length != 1 || payloads[0].RelativePath != expected || !payloads[0].IsSensitive || payloads[0].IsDirectory ||
             payloads[0].ConsumerActionIds.Count != 1 || payloads[0].ConsumerActionIds[0] != joins[0].Id ||
-            plan.OwnedPayloads.Any(p => p != payloads[0] && (p.ConsumerActionIds.Contains(joins[0].Id) || p.ConsumerActionIds.Contains(checks[0].Id))))
+            plan.OwnedPayloads.Any(p => p != payloads[0] && (p.ConsumerActionIds.Contains(joins[0].Id) || p.ConsumerActionIds.Contains(checks[0].Id) ||
+                expected.StartsWith(p.RelativePath.Replace('\\', '/').TrimEnd('/') + "/", StringComparison.OrdinalIgnoreCase))))
             throw new InvalidDataException("Domain credential ownership is invalid.");
         return new(joins[0], parameters, checks[0]);
     }
@@ -55,11 +60,13 @@ internal sealed record DomainJoinBinding(PreOobeExecutionAction JoinAction, Doma
         ValidateHash(hash);
         ValidateBoot(boot);
         PreOobePlanValidator.ValidatePlan(plan);
+        var binding = Validate(plan);
         JournalState state = new ExecutionJournal(root).Read();
         PreOobePlanValidator.ValidateState(plan, state, hash);
         if (state.Status != "Running" || state.BootIdentity != boot || state.Cursor >= plan.Actions.Count || state.Substep != 0 ||
             plan.Actions[state.Cursor].Id != actionId || state.Actions.GetValueOrDefault(actionId)?.Status != "Running" ||
-            state.UnsafePayloadBootIdentity == boot)
+            state.UnsafePayloadBootIdentity == boot && !(binding.VerificationAction.Id == actionId &&
+                state.UnsafeActionId == binding.JoinAction.Id))
             throw new InvalidDataException("The worker is not the active action.");
         return state;
     }

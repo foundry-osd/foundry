@@ -26,38 +26,14 @@ internal sealed class DomainJoinAction(string root, PreOobeExecutionPlan plan, s
             throw new InvalidDataException("Domain results already exist.");
         ProcessOutcome process;
         try { process = await processes.RunAsync(new(executablePath, ["--domain-join-worker"], root, TimeSpan.FromSeconds(300)), token).ConfigureAwait(false); }
+        catch (System.ComponentModel.Win32Exception) { process = new(null, string.Empty); }
         catch (Exception error) when (DomainJoinWorker.Recoverable(error)) { process = new(null, string.Empty, TerminationUncertain: true); }
-        DomainJoinPhaseResult join;
-        DomainJoinPhaseResult placement;
-        bool restart = false;
-        bool uncertain = process.TerminationUncertain || process.TimedOut;
-        Guid? guid = null;
-        try
-        {
-            var receipt = phases.Read();
-            if (receipt.OriginatingBootId is not null && receipt.OriginatingBootId != boot) throw new InvalidDataException("Domain receipt boot changed.");
-            join = receipt.Join; placement = receipt.Placement; restart = receipt.RestartRequired; guid = receipt.ComputerObjectGuid;
-            var code = process.TimedOut ? DomainJoinFailureCode.WorkerTimeout : DomainJoinFailureCode.Interrupted;
-            if (receipt.Phase == DomainJoinReceiptPhase.JoinStarted) join = DomainJoinWorker.Failure(DomainJoinPhaseState.Unknown, code);
-            if (receipt.Phase == DomainJoinReceiptPhase.Prepared) join = DomainJoinWorker.Failure(DomainJoinPhaseState.Failed, code);
-            if (receipt.Phase == DomainJoinReceiptPhase.PlacementStarted) placement = DomainJoinWorker.Failure(DomainJoinPhaseState.Unknown, code);
-            if (placement.State == DomainJoinPhaseState.NotStarted)
-                placement = join.State == DomainJoinPhaseState.Succeeded ? DomainJoinWorker.Failure(DomainJoinPhaseState.Unverified, code) : new() { State = DomainJoinPhaseState.Skipped };
-        }
-        catch (Exception error) when (DomainJoinWorker.Recoverable(error))
-        {
-            join = DomainJoinWorker.Failure(DomainJoinPhaseState.Unknown, DomainJoinFailureCode.InvalidResult);
-            placement = new() { State = DomainJoinPhaseState.Skipped }; uncertain = true;
-        }
-        reports.Write(report with
-        {
-            OriginatingBootId = boot,
-            Join = join,
-            Placement = placement,
-            ComputerObjectGuid = guid,
-            Restart = restart ? DomainJoinRestartState.Required : DomainJoinRestartState.NotRequired
-        });
-        bool warning = uncertain || join.State != DomainJoinPhaseState.Succeeded || placement.State is not (DomainJoinPhaseState.Succeeded or DomainJoinPhaseState.Skipped);
-        return new(true, FailureCode: warning ? "domain_join_warning" : null, RestartRequested: restart, TerminationUncertain: uncertain, HasWarnings: warning);
+        var receipt = phases.Read();
+        report = reports.Reconcile(receipt, boot, process.TimedOut ? DomainJoinFailureCode.WorkerTimeout : DomainJoinFailureCode.Interrupted,
+            workerUnsettled: process.TerminationUncertain);
+        bool uncertain = process.TerminationUncertain;
+        bool warning = uncertain || DomainJoinResultStore.HasWarnings(report);
+        return new(true, FailureCode: warning ? "domain_join_warning" : null,
+            RestartRequested: report.Restart == DomainJoinRestartState.Required, TerminationUncertain: uncertain, HasWarnings: warning);
     }
 }

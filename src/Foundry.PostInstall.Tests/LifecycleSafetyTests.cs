@@ -11,6 +11,16 @@ namespace Foundry.PostInstall.Tests;
 public sealed class LifecycleSafetyTests
 {
     [Fact]
+    public async Task LockedUnrelatedSensitivePayload_StillStopsContinuation()
+    {
+        using var fixture = new Fixture(sensitive: true);
+        using var locked = new FileStream(fixture.Payload, FileMode.Open, FileAccess.Read, FileShare.None);
+        Assert.Equal(3, await fixture.Run("boot"));
+        Assert.Equal("Failed", fixture.Journal.Read().Status);
+        Assert.Equal("CleanupPending", fixture.Journal.Read().PayloadDispositions["Payloads/secret.bin"]);
+    }
+
+    [Fact]
     public async Task UncommittedStagingJournal_CannotStartThroughExistingManualHook()
     {
         using var fixture = new Fixture();

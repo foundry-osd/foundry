@@ -20,7 +20,9 @@ internal sealed class DomainMembershipVerificationAction(string root, PreOobeExe
         var report = store.Read();
         DomainJoinPhaseResult membership;
         bool laterBoot = report.OriginatingBootId.Length > 0 && report.OriginatingBootId != boot;
-        if (!laterBoot) membership = DomainJoinWorker.Failure(DomainJoinPhaseState.Unverified, DomainJoinFailureCode.MembershipUnverified);
+        if (report.Join.State is DomainJoinPhaseState.Failed or DomainJoinPhaseState.Skipped)
+            membership = new() { State = DomainJoinPhaseState.Skipped };
+        else if (!laterBoot) membership = DomainJoinWorker.Failure(DomainJoinPhaseState.Unverified, DomainJoinFailureCode.MembershipUnverified);
         else
         {
             try
@@ -43,7 +45,7 @@ internal sealed class DomainMembershipVerificationAction(string root, PreOobeExe
             Membership = membership,
             Restart = laterBoot && report.Restart is DomainJoinRestartState.Required or DomainJoinRestartState.Requested ? DomainJoinRestartState.Completed : report.Restart
         });
-        bool warning = membership.State != DomainJoinPhaseState.Succeeded;
+        bool warning = membership.State is not (DomainJoinPhaseState.Succeeded or DomainJoinPhaseState.Skipped);
         return new(true, FailureCode: warning ? "domain_membership_warning" : null, HasWarnings: warning);
     }
 }

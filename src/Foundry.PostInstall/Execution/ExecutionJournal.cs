@@ -21,6 +21,8 @@ public sealed class JournalState
     public string? BootIdentity { get; set; }
     public int RestartCount { get; set; }
     public bool DeferredRestart { get; set; }
+    public string? DomainRestartBootIdentity { get; set; }
+    public long? DomainReceiptGeneration { get; set; }
     public Dictionary<string, PreOobeActionResult> Actions { get; set; } = new(StringComparer.Ordinal);
     public Dictionary<string, string> PayloadDispositions { get; set; } = new(StringComparer.OrdinalIgnoreCase);
     public string? UnsafePayloadBootIdentity { get; set; }

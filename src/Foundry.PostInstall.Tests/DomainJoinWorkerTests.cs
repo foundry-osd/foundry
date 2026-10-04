@@ -207,7 +207,7 @@ internal sealed class DomainFixture : IDisposable
     public string Hash { get; }
     public FakeNative Native { get; } = new();
     public FakeDirectory Directory { get; } = new();
-    public DomainFixture(bool target = true)
+    public DomainFixture(bool target = true, Func<PreOobeExecutionPlan, PreOobeExecutionPlan>? configure = null)
     {
         string operation = Guid.NewGuid().ToString("N");
         Parameters = new("example.test", "PC-01", target ? Directory.Target.DistinguishedName : null, $"Payloads/DomainJoin/{operation}/credentials.bin");
@@ -220,6 +220,7 @@ internal sealed class DomainFixture : IDisposable
                 new() { Id = "verify", BuiltInKind = PreOobeBuiltInKind.VerifyDomainMembership, Parameters = JsonSerializer.SerializeToElement(new DomainMembershipVerificationParameters("example.test", "PC-01", "join"), ExecutionJournal.JsonOptions) }],
             OwnedPayloads = [new() { RelativePath = Parameters.CredentialPayloadPath, IsSensitive = true, ConsumerActionIds = ["join"] }]
         };
+        if (configure is not null) Plan = configure(Plan);
         System.IO.Directory.CreateDirectory(Path.Combine(Root, "State", "PreOobe"));
         byte[] planBytes = JsonSerializer.SerializeToUtf8Bytes(Plan, ExecutionJournal.JsonOptions);
         File.WriteAllBytes(Path.Combine(Root, "State", "PreOobe", "plan.json"), planBytes);

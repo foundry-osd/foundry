@@ -31,6 +31,7 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
     private int? setupSecondsRemaining;
     private string? reportedActivity;
     private string? reportedHeading;
+    private string? reportedDomain;
 
     internal PostInstallConsole(PreOobeExecutionPlan plan, string logPath, TextWriter? output = null)
     {
@@ -144,6 +145,9 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
         string activity = Activity();
         if (reportedActivity != activity) WriteLine(activity);
         reportedActivity = activity;
+        string domain = DomainText();
+        if (reportedDomain != domain && domain.Length > 0) WriteLine(domain);
+        reportedDomain = domain;
     }
 
     private string Activity() => current.RestartSecondsRemaining switch
@@ -167,7 +171,13 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
 
     private string Summary() => $"Succeeded: {current.Actions.Count(action => action.Status == "Succeeded")}  " +
         $"Failed: {current.Actions.Count(action => action.Status is "Failed" or "Interrupted")}  " +
-        $"Skipped: {current.Actions.Count(action => action.Status == "Skipped")}";
+        $"Skipped: {current.Actions.Count(action => action.Status == "Skipped")}  Warnings: {current.WarningCount}";
+
+    private string DomainText() => current.DomainResult is not { } domain ? string.Empty :
+        $"Domain - Join: {domain.Join.State}; Placement: {domain.Placement.State}; Membership: {domain.Membership.State}; " +
+        $"Restart: {domain.Restart}; Cleanup: {domain.Cleanup}" +
+        (domain.Join.State == DomainJoinPhaseState.Succeeded && domain.Placement.State == DomainJoinPhaseState.Failed
+            ? ". Domain joined; target OU placement failed" : string.Empty);
 
     private int ActiveActionIndex()
     {
@@ -228,7 +238,7 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
             Add("Foundry Post-installation", ConsoleColor.White);
             Add(current.IsResuming ? "Resuming after restart" : "Preparing Windows before OOBE");
             Add("");
-            int capacity = height - 13;
+            int capacity = Math.Max(1, height - 16);
             int active = ActiveActionIndex();
             int first = Math.Clamp(active - capacity / 2, 0, Math.Max(0, current.Actions.Count - capacity));
             int last = Math.Min(first + capacity, current.Actions.Count);
@@ -242,6 +252,13 @@ internal sealed class PostInstallConsole : IProgress<PostInstallProgress>, IDisp
             Add("");
             Add("");
             Add(Activity(), StatusColor(current.Status));
+            if (current.DomainResult is { } domain)
+            {
+                Add($"Domain - Join: {domain.Join.State}; Placement: {domain.Placement.State}; Membership: {domain.Membership.State}");
+                Add($"Restart: {domain.Restart}; Cleanup: {domain.Cleanup}");
+                if (domain.Join.State == DomainJoinPhaseState.Succeeded && domain.Placement.State == DomainJoinPhaseState.Failed)
+                    Add("Domain joined; target OU placement failed", ConsoleColor.Yellow);
+            }
             if (result is not null) Add(Summary());
             if (setupSecondsRemaining is not null)
             {

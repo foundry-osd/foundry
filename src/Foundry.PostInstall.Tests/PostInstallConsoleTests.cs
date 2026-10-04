@@ -11,6 +11,34 @@ namespace Foundry.PostInstall.Tests;
 public sealed class PostInstallConsoleTests
 {
     [Fact]
+    public void DomainOutcomes_ShowIndependentPhasesAndPlacementWarning()
+    {
+        using var f = new DomainFixture();
+        var report = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); report.Seed();
+        report.Write(report.Read() with
+        {
+            OriginatingBootId = "installed-boot",
+            Join = new() { State = DomainJoinPhaseState.Succeeded },
+            Placement = new() { State = DomainJoinPhaseState.Failed, FailureCode = DomainJoinFailureCode.PlacementFailed },
+            Restart = DomainJoinRestartState.Required
+        });
+        var journal = new ExecutionJournal(f.Root); var state = journal.Read(); state.Cursor = 1; state.Status = "CompletedWithErrors";
+        state.Actions["join"] = new() { Status = "Failed" }; journal.Write(state);
+        using var output = new StringWriter();
+        using var console = new PostInstallConsole(f.Plan, "test.log", output);
+        console.Report(new([], "CompletedWithErrors", DomainResult: report.Read(), WarningCount: 1));
+        console.Complete(new("CompletedWithErrors", 0));
+        string text = output.ToString();
+        Assert.Contains("Domain joined; target OU placement failed", text);
+        Assert.Contains("Join: Succeeded", text);
+        Assert.Contains("Placement: Failed", text);
+        Assert.Contains("Membership: NotStarted", text);
+        Assert.Contains("Restart: Required", text);
+        Assert.Contains("Cleanup: Pending", text);
+        Assert.Contains("Warnings: 1", text);
+    }
+
+    [Fact]
     public void RedirectedOutput_ReportsResumedResultsAndOnlyChangedActions()
     {
         using var output = new StringWriter();

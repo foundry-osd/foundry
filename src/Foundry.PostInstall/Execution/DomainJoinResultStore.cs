@@ -30,6 +30,46 @@ internal sealed class DomainJoinResultStore(string root, PreOobeExecutionPlan pl
     {
         var value = DomainStateFile.Read<DomainJoinResult>(root, path); Validate(value); return value;
     }
+    public DomainJoinResult Reconcile(DomainJoinPhaseReceipt receipt, string origin,
+        DomainJoinFailureCode interruption = DomainJoinFailureCode.Interrupted, bool workerUnsettled = false)
+    {
+        var report = Read();
+        if (receipt.OriginatingBootId is { } recorded && recorded != origin ||
+            report.OriginatingBootId.Length > 0 && report.OriginatingBootId != origin ||
+            report.Join.State == DomainJoinPhaseState.Succeeded && receipt.Join.State != DomainJoinPhaseState.Succeeded)
+            throw new InvalidDataException("Domain receipt origin does not match the operation.");
+        var join = receipt.Phase switch
+        {
+            DomainJoinReceiptPhase.Prepared => new() { State = workerUnsettled ? DomainJoinPhaseState.Unknown : DomainJoinPhaseState.Failed, FailureCode = interruption },
+            DomainJoinReceiptPhase.JoinStarted => new() { State = DomainJoinPhaseState.Unknown, FailureCode = interruption },
+            _ => receipt.Join
+        };
+        var placement = receipt.Phase == DomainJoinReceiptPhase.PlacementStarted
+            ? new() { State = DomainJoinPhaseState.Unknown, FailureCode = interruption } : receipt.Placement;
+        if (placement.State == DomainJoinPhaseState.NotStarted)
+            placement = join.State == DomainJoinPhaseState.Succeeded && report.TargetOuDn is not null
+                ? new() { State = DomainJoinPhaseState.Unverified, FailureCode = interruption }
+                : new() { State = DomainJoinPhaseState.Skipped };
+        // Later observations cannot prove the outcome of an uncertain mutation.
+        if (report.Join.State != DomainJoinPhaseState.NotStarted) join = report.Join;
+        if (report.Placement.State != DomainJoinPhaseState.NotStarted) placement = report.Placement;
+        var value = report with
+        {
+            OriginatingBootId = origin,
+            Join = join,
+            Placement = placement,
+            ComputerObjectGuid = report.ComputerObjectGuid ?? receipt.ComputerObjectGuid,
+            Restart = report.Restart == DomainJoinRestartState.NotRequired && join.State is DomainJoinPhaseState.Succeeded or DomainJoinPhaseState.Unknown
+                ? DomainJoinRestartState.Required : report.Restart
+        };
+        Write(value);
+        return value;
+    }
+
+    public static bool HasWarnings(DomainJoinResult report) => report.Join.State is DomainJoinPhaseState.Failed or DomainJoinPhaseState.Unknown ||
+        report.Placement.State is DomainJoinPhaseState.Failed or DomainJoinPhaseState.Unknown or DomainJoinPhaseState.Unverified ||
+        report.Membership.State is DomainJoinPhaseState.Failed or DomainJoinPhaseState.Unknown or DomainJoinPhaseState.Unverified;
+
     public void Write(DomainJoinResult value)
     {
         Validate(value);

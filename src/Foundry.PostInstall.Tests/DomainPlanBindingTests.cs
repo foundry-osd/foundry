@@ -90,6 +90,41 @@ public sealed class DomainPlanBindingTests
         var result = await f.Run();
         Assert.Equal(DomainJoinPhaseState.Succeeded, result.Join.State);
     }
+    [Theory]
+    [InlineData("nonadjacent")]
+    [InlineData("network-after")]
+    [InlineData("overlapping-ownership")]
+    public void RecoveryBinding_RejectsAmbiguousSequenceAndPayloadOwnership(string fault)
+    {
+        using var f = new DomainFixture();
+        var plan = fault switch
+        {
+            "nonadjacent" => f.Plan with { Actions = [f.Plan.Actions[0], new() { Id = "appx", BuiltInKind = PreOobeBuiltInKind.Appx }, f.Plan.Actions[1]] },
+            "network-after" => f.Plan with { Actions = [.. f.Plan.Actions, new() { Id = "network", BuiltInKind = PreOobeBuiltInKind.Network }] },
+            _ => f.Plan with { OwnedPayloads = [.. f.Plan.OwnedPayloads, new() { RelativePath = "Payloads/DomainJoin", IsDirectory = true }] }
+        };
+        Assert.Throws<InvalidDataException>(() => PreOobePlanValidator.ValidatePlan(plan));
+    }
+
+    [Fact]
+    public void RecoveryBinding_AcceptsStagedSequenceAndIndependentPayloads()
+    {
+        using var f = new DomainFixture();
+        var plan = f.Plan with
+        {
+            Actions = [new() { Id = "driver", BuiltInKind = PreOobeBuiltInKind.Driver },
+                new() { Id = "network", BuiltInKind = PreOobeBuiltInKind.Network }, .. f.Plan.Actions,
+                new() { Id = "custom", CustomAction = new() { Kind = Foundry.Core.Models.Configuration.PreOobeActionKind.Command, Process = new() } },
+                new() { Id = "cleanup", BuiltInKind = PreOobeBuiltInKind.Cleanup }],
+            OwnedPayloads = [.. f.Plan.OwnedPayloads,
+                new() { RelativePath = "Payloads/Network/profile.xml", IsSensitive = true, ConsumerActionIds = ["network"] },
+                new() { RelativePath = "Payloads/Drivers", IsDirectory = true, ConsumerActionIds = ["driver"] },
+                new() { RelativePath = "Work/PreOobe/" + f.Plan.OperationId, IsDirectory = true, ConsumerActionIds = ["custom"] }]
+        };
+        PreOobePlanValidator.ValidatePlan(plan);
+        Assert.Equal(f.Parameters, DomainJoinBinding.Validate(plan).Parameters);
+    }
+
     private sealed class Executor : IPreOobeActionExecutor
     {
         public Task<ActionStepOutcome> ExecuteAsync(PreOobeExecutionAction action, int substep, CancellationToken token) => Task.FromResult(new ActionStepOutcome(true));
