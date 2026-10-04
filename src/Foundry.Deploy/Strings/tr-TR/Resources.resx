@@ -367,7 +367,7 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
     <value>Varsayılan etki alanı hedefi</value>
   </data>
   <data name="DomainJoin.Description" xml:space="preserve">
-    <value>Dağıtım kimlik bilgilerini ve hedefi girin. Etki alanına katılma, yüklü Windows&apos;ta çalışır.</value>
+    <value>Dağıtım kimlik bilgilerini ve hedefi girin. Etki alanına katılma, yüklü Windows'ta çalışır.</value>
   </data>
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Kuruluş birimi</value>
