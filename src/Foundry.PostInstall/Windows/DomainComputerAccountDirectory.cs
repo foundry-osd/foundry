@@ -108,11 +108,18 @@ internal sealed class DomainComputerAccountDirectory : IDomainComputerAccountDir
             liveComputer.DistinguishedName != computer.DistinguishedName || liveTarget.DistinguishedName != destination.DistinguishedName)
             throw new DomainDirectoryException(rejected: true);
         if (liveComputer.ParentGuid == liveTarget.Guid) return;
-        if (!DistinguishedNameRules.TryParse(liveComputer.DistinguishedName, out var parsed) || parsed.Parent is null) throw new DomainDirectoryException(rejected: true);
-        string rdn = liveComputer.DistinguishedName[..^(parsed.Parent.Length + 1)];
+        var request = CreateMoveRequest(liveComputer.DistinguishedName, liveTarget.DistinguishedName);
         token.ThrowIfCancellationRequested();
         moveStarted = true;
-        await SendAsync(new ModifyDNRequest(liveComputer.DistinguishedName, liveTarget.DistinguishedName, rdn) { DeleteOldRdn = true }, token).ConfigureAwait(false);
+        await SendAsync(request, token).ConfigureAwait(false);
+    }
+
+    /// <summary>Constructs the move after caller identity checks, preserving the complete original escaped RDN.</summary>
+    internal static ModifyDNRequest CreateMoveRequest(string sourceDn, string destinationDn)
+    {
+        if (!DistinguishedNameRules.TryParse(sourceDn, out var parsed) || parsed.Parent is null) throw new DomainDirectoryException(rejected: true);
+        string rdn = sourceDn[..^(parsed.Parent.Length + 1)];
+        return new ModifyDNRequest(sourceDn, destinationDn, rdn) { DeleteOldRdn = true };
     }
 
     private async Task<DomainDirectoryObject> ReadGuidAsync(Guid guid, string objectClass, CancellationToken token)

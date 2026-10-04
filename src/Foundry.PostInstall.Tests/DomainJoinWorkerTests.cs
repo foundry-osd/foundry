@@ -26,7 +26,7 @@ public sealed class DomainJoinWorkerTests
         Assert.True(result.RestartRequired);
     }
     [Fact]
-    public async Task ExistingAccount_MovesSameGuidAndOriginalEscapedRdnAfterDurableJoin()
+    public async Task ExistingAccount_MovesSameGuidAfterJoin()
     {
         using var f = new DomainFixture();
         f.Directory.Existing = f.Directory.Computer;
@@ -35,6 +35,22 @@ public sealed class DomainJoinWorkerTests
         Assert.Equal(1, f.Directory.Moves);
         Assert.Equal(f.Directory.Computer.Guid, result.ComputerObjectGuid);
         Assert.Equal(DomainJoinPhaseState.Succeeded, result.Placement.State);
+    }
+    [Theory]
+    [InlineData(@"CN=Original\, RDN")]
+    [InlineData(@"CN=Original\2C RDN")]
+    [InlineData(@"CN=Original\, RDN+UID=Serial\+42")]
+    public void MoveRequest_PreservesSourceDestinationAndCompleteEscapedRdn(string originalRdn)
+    {
+        string sourceDn = originalRdn + ",OU=Old,DC=example,DC=test";
+        const string destinationDn = "OU=Workstations,DC=example,DC=test";
+
+        var request = DomainComputerAccountDirectory.CreateMoveRequest(sourceDn, destinationDn);
+
+        Assert.Equal(sourceDn, request.DistinguishedName);
+        Assert.Equal(destinationDn, request.NewParentDistinguishedName);
+        Assert.Equal(originalRdn, request.NewName);
+        Assert.True(request.DeleteOldRdn);
     }
     [Theory]
     [InlineData(true)]
