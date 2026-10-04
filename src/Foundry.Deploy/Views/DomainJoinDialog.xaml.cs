@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
+using Foundry.Core.Services.Configuration;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Localization;
 
@@ -18,26 +19,21 @@ public partial class DomainJoinDialog : Window
 {
     private readonly DeployDomainJoinSettings settings;
     private readonly bool requiresCredentials;
+    private readonly ILocalizationService localization;
     private DomainJoinDialogResult? result;
 
     public DomainJoinDialog(DeployDomainJoinSettings settings, bool requiresCredentials, ILocalizationService localization)
     {
         this.settings = settings;
         this.requiresCredentials = requiresCredentials;
+        this.localization = localization;
         InitializeComponent();
         DataContext = localization.Strings;
         Title = localization.Strings["DomainJoin.Title"];
         DomainInput.Text = settings.DomainName ?? "";
         DomainInput.IsReadOnly = !requiresCredentials;
         CredentialsPanel.Visibility = requiresCredentials ? Visibility.Visible : Visibility.Collapsed;
-        DestinationPanel.Visibility = settings.AllowOuSelectionDuringDeployment ? Visibility.Visible : Visibility.Collapsed;
-        DestinationInput.ItemsSource = new[] { new DomainJoinOrganizationalUnitSettings
-            { Id = "", DisplayName = localization.Strings["DomainJoin.DefaultDestination"], DistinguishedName = "" } }
-            .Concat(settings.OrganizationalUnits).ToArray();
-        DestinationInput.SelectedIndex = 0;
-        if (settings.DefaultOuId is { } id)
-            DestinationInput.SelectedItem = DestinationInput.Items.Cast<DomainJoinOrganizationalUnitSettings>()
-                .FirstOrDefault(unit => string.Equals(unit.Id, id, StringComparison.OrdinalIgnoreCase));
+        DestinationInput.ItemsSource = settings.OrganizationalUnits;
         RefreshDestinations();
         Closed += (_, _) => PasswordInput.Clear();
         Loaded += (_, _) => (requiresCredentials ? (Control)DomainInput : DestinationInput).Focus();
@@ -45,20 +41,43 @@ public partial class DomainJoinDialog : Window
 
     internal DomainJoinDialogResult? TakeResult() => Interlocked.Exchange(ref result, null);
 
-    private void DomainInput_OnTextChanged(object sender, TextChangedEventArgs e) => RefreshDestinations();
+    private void DomainInput_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (OptionalDestinationInput is not null) OptionalDestinationInput.Clear();
+        RefreshDestinations();
+    }
 
     private void RefreshDestinations()
     {
-        if (DestinationInput is null) return;
-        bool compatible = DomainJoinCredentialContext.IsValidDomainName(DomainInput.Text) &&
-            string.Equals(DomainJoinCredentialContext.CanonicalizeDomainName(DomainInput.Text),
-                DomainJoinCredentialContext.CanonicalizeDomainName(settings.OuCatalogDomain ?? ""), StringComparison.Ordinal);
+        if (DestinationInput is null || OptionalDestinationPanel is null || DestinationError is null) return;
+        bool compatible = DomainJoinPreparationService.HasCompatibleCatalog(settings, DomainInput.Text);
+        DestinationPanel.Visibility = compatible && settings.AllowOuSelectionDuringDeployment ? Visibility.Visible : Visibility.Collapsed;
+        OptionalDestinationPanel.Visibility = requiresCredentials && !compatible ? Visibility.Visible : Visibility.Collapsed;
         DestinationInput.IsEnabled = compatible;
-        if (!compatible) DestinationInput.SelectedIndex = 0;
+        DestinationInput.SelectedItem = compatible && settings.DefaultOuId is { } id
+            ? settings.OrganizationalUnits.FirstOrDefault(unit => string.Equals(unit.Id, id, StringComparison.OrdinalIgnoreCase))
+            : null;
+        DestinationError.Visibility = Visibility.Collapsed;
     }
 
     private void ContinueButton_OnClick(object sender, RoutedEventArgs e)
     {
+        if (DestinationPanel.IsVisible && DestinationInput.SelectedItem is not DomainJoinOrganizationalUnitSettings)
+        {
+            DestinationError.Text = localization.Strings["DomainJoin.DestinationRequired"];
+            DestinationError.Visibility = Visibility.Visible;
+            DestinationInput.Focus();
+            return;
+        }
+        string? destinationDn = OptionalDestinationPanel.IsVisible && !string.IsNullOrWhiteSpace(OptionalDestinationInput.Text)
+            ? OptionalDestinationInput.Text : null;
+        if (destinationDn is not null && !DistinguishedNameRules.IsWithinDomain(destinationDn, DomainInput.Text))
+        {
+            DestinationError.Text = localization.Strings["DomainJoin.DestinationInvalid"];
+            DestinationError.Visibility = Visibility.Visible;
+            OptionalDestinationInput.Focus();
+            return;
+        }
         using var password = PasswordInput.SecurePassword;
         char[] characters = new char[requiresCredentials ? password.Length : 0];
         IntPtr plaintext = IntPtr.Zero;
@@ -70,7 +89,7 @@ public partial class DomainJoinDialog : Window
                 if (characters.Length > 0) Marshal.Copy(plaintext, characters, 0, characters.Length);
             }
             string? id = (DestinationInput.SelectedItem as DomainJoinOrganizationalUnitSettings)?.Id;
-            result = new(DomainInput.Text, requiresCredentials ? AccountInput.Text : "", string.IsNullOrEmpty(id) ? null : id, characters);
+            result = new(DomainInput.Text, requiresCredentials ? AccountInput.Text : "", id, characters, destinationDn);
             DialogResult = true;
         }
         finally

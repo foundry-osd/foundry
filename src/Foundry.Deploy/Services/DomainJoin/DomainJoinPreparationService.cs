@@ -43,7 +43,7 @@ public sealed class DomainJoinPreparationService(IDomainJoinDialogService dialog
     {
         using DomainJoinDialogResult? submitted = dialogs.Show(settings, requiresCredentials: true);
         if (submitted is null) return DomainJoinPreparationResult.Canceled();
-        string? destination = ResolveDestination(settings, submitted.DomainName, submitted.SelectedOuId);
+        string? destination = ResolveDestination(settings, submitted.DomainName, submitted.SelectedOuId, submitted.DestinationDn);
         return DomainJoinPreparationResult.Ready(new(new(submitted.DomainName, submitted.AccountName),
             computerName, destination, submitted.Password.Span));
     }
@@ -75,25 +75,38 @@ public sealed class DomainJoinPreparationService(IDomainJoinDialogService dialog
         using (payload)
         {
             string? selectedId = settings.DefaultOuId;
+            string? destinationDn = null;
             if (settings.AllowOuSelectionDuringDeployment)
             {
                 using DomainJoinDialogResult? submitted = dialogs.Show(settings, requiresCredentials: false);
                 if (submitted is null) return DomainJoinPreparationResult.Canceled();
                 selectedId = submitted.SelectedOuId;
+                destinationDn = submitted.DestinationDn;
             }
             return DomainJoinPreparationResult.Ready(new(payload.Context, computerName,
-                ResolveDestination(settings, settings.DomainName!, selectedId), payload.Password.Span));
+                ResolveDestination(settings, settings.DomainName!, selectedId, destinationDn), payload.Password.Span));
         }
     }
 
-    private static string? ResolveDestination(DeployDomainJoinSettings settings, string domain, string? selectedId)
+    /// <summary>Determines whether authored destinations can be offered for the submitted domain.</summary>
+    internal static bool HasCompatibleCatalog(DeployDomainJoinSettings settings, string domain) =>
+        settings.OrganizationalUnits.Count > 0 && DomainJoinCredentialContext.IsValidDomainName(domain) &&
+        string.Equals(DomainJoinCredentialContext.CanonicalizeDomainName(domain),
+            DomainJoinCredentialContext.CanonicalizeDomainName(settings.OuCatalogDomain ?? ""), StringComparison.Ordinal);
+
+    private static string? ResolveDestination(DeployDomainJoinSettings settings, string domain, string? selectedId, string? destinationDn)
     {
-        if (settings.OrganizationalUnits.Count == 0 ||
-            !string.Equals(DomainJoinCredentialContext.CanonicalizeDomainName(domain),
-                DomainJoinCredentialContext.CanonicalizeDomainName(settings.OuCatalogDomain ?? ""), StringComparison.Ordinal))
-            return null;
+        bool hasTypedDestination = !string.IsNullOrWhiteSpace(destinationDn);
+        if (!HasCompatibleCatalog(settings, domain))
+        {
+            if (settings.Mode == DomainJoinMode.Automatic && hasTypedDestination)
+                throw new InvalidDataException("An automatic domain destination must come from the catalog.");
+            return hasTypedDestination ? destinationDn : null;
+        }
+        if (hasTypedDestination)
+            throw new InvalidDataException("The domain destination must come from the compatible catalog.");
         string? id = settings.AllowOuSelectionDuringDeployment ? selectedId : settings.DefaultOuId;
-        if (id is null) return null;
+        if (id is null && !settings.AllowOuSelectionDuringDeployment) return null;
         return settings.OrganizationalUnits.FirstOrDefault(unit =>
             string.Equals(unit.Id, id, StringComparison.OrdinalIgnoreCase))?.DistinguishedName
             ?? throw new InvalidDataException("The selected domain destination is invalid.");

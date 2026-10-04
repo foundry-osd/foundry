@@ -18,6 +18,55 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentLaunchPreparationServiceTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void MissingCatalogSelectionStopsBeforeDestructiveConfirmation(bool automatic)
+    {
+        using var keys = new DeploymentSecretKeySession();
+        byte[] key = new byte[32];
+        keys.SetKey(key);
+        var shell = new FakeApplicationShellService();
+        DeployDomainJoinSettings settings = DomainJoinPreparationServiceTests.WithCatalog(automatic
+            ? DomainJoinPreparationServiceTests.Automatic(new("corp.test", "CORP\\join"), key) : new() { IsEnabled = true });
+        var service = new DeploymentLaunchPreparationService(shell, domainJoinPreparationService: new DomainJoinPreparationService(
+            new DomainJoinPreparationServiceTests.Dialog(new("corp.test", "CORP\\join", null, "secret".AsSpan())), keys));
+
+        using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(CreateDisk()), settings);
+
+        Assert.False(result.IsReadyToStart);
+        Assert.Null(result.Context);
+        Assert.Null(result.TakeDomainJoinInput());
+        Assert.Equal(0, shell.ConfirmationCallCount);
+    }
+
+    [Theory]
+    [InlineData("OU=Field,DC=corp,DC=test", true)]
+    [InlineData("OU=Field,DC=other,DC=test", false)]
+    public void OptionalDestinationIsValidatedBeforeDestructiveConfirmation(string destinationDn, bool valid)
+    {
+        using var keys = new DeploymentSecretKeySession();
+        var shell = new FakeApplicationShellService();
+        var service = new DeploymentLaunchPreparationService(shell, domainJoinPreparationService: new DomainJoinPreparationService(
+            new DomainJoinPreparationServiceTests.Dialog(new("corp.test", "CORP\\join", null, "secret".AsSpan(), destinationDn)), keys));
+
+        using DeploymentLaunchPreparationResult result = service.Prepare(CreateRequest(CreateDisk()), new() { IsEnabled = true });
+
+        Assert.Equal(valid, result.IsReadyToStart);
+        Assert.Equal(valid ? 1 : 0, shell.ConfirmationCallCount);
+        if (valid)
+        {
+            Assert.Equal(destinationDn, result.Context!.DomainJoinIntent!.TargetOuDn);
+            Assert.DoesNotContain("CORP", JsonSerializer.Serialize(result.Context));
+            Assert.DoesNotContain("secret", JsonSerializer.Serialize(result.Context));
+        }
+        else
+        {
+            Assert.Null(result.Context);
+            Assert.Null(result.TakeDomainJoinInput());
+        }
+    }
+
     [Fact]
     public void ManualOnUnprotectedMediaPromptsBeforeErase()
     {

@@ -48,6 +48,23 @@
                 AutomationProperties.Name="{Binding [DomainJoin.Destination]}"
                 DisplayMemberPath="DisplayName" />
         </StackPanel>
+        <StackPanel x:Name="OptionalDestinationPanel">
+            <Label
+                Margin="0,12,0,0"
+                Content="{Binding [DomainJoin.OptionalDestinationDn]}"
+                Target="{Binding ElementName=OptionalDestinationInput}" />
+            <TextBox x:Name="OptionalDestinationInput"
+                AutomationProperties.Name="{Binding [DomainJoin.OptionalDestinationDn]}"
+                MaxLength="4096" />
+            <TextBlock
+                Margin="0,4,0,0"
+                Text="{Binding [DomainJoin.OptionalDestinationHint]}"
+                TextWrapping="Wrap" />
+        </StackPanel>
+        <TextBlock x:Name="DestinationError"
+            Margin="0,12,0,0"
+            TextWrapping="Wrap"
+            Visibility="Collapsed" />
         <StackPanel
             Margin="0,24,0,0"
             HorizontalAlignment="Right"

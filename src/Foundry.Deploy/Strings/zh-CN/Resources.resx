@@ -372,11 +372,23 @@
   <data name="DomainJoin.Destination" xml:space="preserve">
     <value>Organizational unit</value>
   </data>
+  <data name="DomainJoin.DestinationInvalid" xml:space="preserve">
+    <value>Enter a valid OU distinguished name in the specified domain, or leave it empty.</value>
+  </data>
+  <data name="DomainJoin.DestinationRequired" xml:space="preserve">
+    <value>Select an organizational unit from the catalog.</value>
+  </data>
   <data name="DomainJoin.Domain" xml:space="preserve">
     <value>Domain DNS name</value>
   </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>The domain join input is invalid or unavailable. Deployment has not started.</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationDn" xml:space="preserve">
+    <value>OU distinguished name (optional)</value>
+  </data>
+  <data name="DomainJoin.OptionalDestinationHint" xml:space="preserve">
+    <value>Leave empty to use the default domain destination.</value>
   </data>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Password</value>
