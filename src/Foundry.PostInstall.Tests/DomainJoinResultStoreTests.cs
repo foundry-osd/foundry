@@ -11,6 +11,54 @@ namespace Foundry.PostInstall.Tests;
 public sealed class DomainJoinResultStoreTests
 {
     [Theory]
+    [InlineData("schemaVersion")]
+    [InlineData("operationId")]
+    [InlineData("attemptId")]
+    [InlineData("planHash")]
+    [InlineData("originatingBootId")]
+    [InlineData("expectedComputerName")]
+    [InlineData("expectedDomainName")]
+    [InlineData("targetOuDn")]
+    [InlineData("join")]
+    [InlineData("placement")]
+    [InlineData("membership")]
+    [InlineData("restart")]
+    [InlineData("cleanup")]
+    [InlineData("computerObjectGuid")]
+    public void MissingAuthoritativeReportField_RejectsDefaultSubstitution(string field)
+    {
+        using var f = new DomainFixture(target: false);
+        var store = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); store.Seed();
+        string path = Path.Combine(f.Root, "State", "PreOobe", "domain-join-result.json");
+        var value = JsonNode.Parse(File.ReadAllText(path))!.AsObject();
+        Assert.True(value.Remove(field));
+        File.WriteAllText(path, value.ToJsonString());
+        Assert.Throws<JsonException>(() => store.Read());
+    }
+
+    [Theory]
+    [InlineData("nativeErrorCode")]
+    [InlineData("ldapErrorCode")]
+    [InlineData("directoryResultCode")]
+    public void OptionalNumericReportDiagnostics_RemainCompatibleWhenOmitted(string field)
+    {
+        using var f = new DomainFixture();
+        var store = new DomainJoinResultStore(f.Root, f.Plan, f.Hash); store.Seed();
+        store.Write(store.Read() with
+        {
+            OriginatingBootId = "installed-boot",
+            Join = new() { State = DomainJoinPhaseState.Failed, FailureCode = DomainJoinFailureCode.JoinFailed }
+        });
+        string path = Path.Combine(f.Root, "State", "PreOobe", "domain-join-result.json");
+        var value = JsonNode.Parse(File.ReadAllText(path))!.AsObject();
+        foreach (string phase in new[] { "join", "placement", "membership" })
+            Assert.True(value[phase]!.AsObject().Remove(field));
+        File.WriteAllText(path, value.ToJsonString());
+        Assert.Equal(DomainJoinPhaseState.Failed, store.Read().Join.State);
+        Assert.Equal(DomainJoinFailureCode.JoinFailed, store.Read().Join.FailureCode);
+    }
+
+    [Theory]
     [InlineData("phase")]
     [InlineData("generation")]
     [InlineData("originatingBootId")]

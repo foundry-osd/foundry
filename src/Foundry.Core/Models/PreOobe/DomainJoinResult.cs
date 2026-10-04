@@ -39,18 +39,32 @@ public sealed record DomainJoinPhaseResult
 public sealed record DomainJoinResult
 {
     public const int CurrentSchemaVersion = 1;
+    [JsonRequired]
     public int SchemaVersion { get; init; } = CurrentSchemaVersion;
+    [JsonRequired]
     public string OperationId { get; init; } = string.Empty;
+    [JsonRequired]
     public string AttemptId { get; init; } = string.Empty;
+    [JsonRequired]
     public string PlanHash { get; init; } = string.Empty;
+    [JsonRequired]
     public string OriginatingBootId { get; init; } = string.Empty;
+    [JsonRequired]
     public string ExpectedComputerName { get; init; } = string.Empty;
+    [JsonRequired]
     public string ExpectedDomainName { get; init; } = string.Empty;
+    [JsonRequired]
     public string? TargetOuDn { get; init; }
+    [JsonRequired]
     public DomainJoinPhaseResult Join { get; init; } = new();
+    [JsonRequired]
     public DomainJoinPhaseResult Placement { get; init; } = new();
+    [JsonRequired]
     public DomainJoinPhaseResult Membership { get; init; } = new();
+    [JsonRequired]
     public DomainJoinRestartState Restart { get; init; }
+    [JsonRequired]
     public DomainJoinCleanupState Cleanup { get; init; }
+    [JsonRequired]
     public Guid? ComputerObjectGuid { get; init; }
 }

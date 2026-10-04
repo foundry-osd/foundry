@@ -13,6 +13,80 @@ namespace Foundry.PostInstall.Tests;
 public sealed class DomainJoinRecoveryTests
 {
     [Theory]
+    [InlineData("join")]
+    [InlineData("placement")]
+    [InlineData("membership")]
+    public async Task MissingReportPhase_RejectsContinuationAfterRestart(string phase)
+    {
+        using var f = new RecoveryFixture();
+        f.Domain.Directory.Existing = f.Domain.Directory.Computer;
+        f.Domain.Directory.StaleGuid = true;
+        Assert.Equal(2, await f.Run());
+        string path = Path.Combine(f.Domain.Root, "State", "PreOobe", "domain-join-result.json");
+        var value = JsonNode.Parse(File.ReadAllText(path))!.AsObject();
+        Assert.True(value.Remove(phase));
+        File.WriteAllText(path, value.ToJsonString());
+        Assert.Equal(3, await f.Run("next-boot"));
+        Assert.Equal(["join"], f.Executed);
+        Assert.False(JsonNode.Parse(File.ReadAllText(path))!.AsObject().ContainsKey(phase));
+    }
+
+    [Fact]
+    public async Task CompletedReportWithoutMembership_IsRejectedBeforeTerminalCleanup()
+    {
+        using var f = new RecoveryFixture();
+        Assert.Equal(2, await f.Run());
+        Assert.Equal(0, await f.Run("next-boot"));
+        Assert.Equal(DomainJoinPhaseState.Succeeded, f.Report.Read().Membership.State);
+        string[] executed = [.. f.Executed];
+        string path = Path.Combine(f.Domain.Root, "State", "PreOobe", "domain-join-result.json");
+        var value = JsonNode.Parse(File.ReadAllText(path))!.AsObject();
+        Assert.True(value.Remove("membership"));
+        File.WriteAllText(path, value.ToJsonString());
+        Assert.Equal(3, await f.Run("next-boot"));
+        Assert.Equal(executed, f.Executed);
+        Assert.False(JsonNode.Parse(File.ReadAllText(path))!.AsObject().ContainsKey("membership"));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task UnknownPlacement_LateSuccessfulReceiptCannotReplaceMissingReportEvidence(bool omitPlacement)
+    {
+        using var f = new RecoveryFixture();
+        f.PrepareCrash(DomainJoinReceiptPhase.PlacementStarted, false, "Running");
+        Assert.Equal(2, await f.Run());
+        Assert.Equal(DomainJoinPhaseState.Unknown, f.Report.Read().Placement.State);
+        var phases = new DomainJoinPhaseStore(f.Domain.Root, f.Domain.Plan, f.Domain.Hash);
+        var receipt = phases.Read();
+        phases.Write(receipt = receipt with
+        {
+            Generation = receipt.Generation + 1,
+            Phase = DomainJoinReceiptPhase.PlacementReturned,
+            Placement = new() { State = DomainJoinPhaseState.Succeeded }
+        });
+        phases.Write(receipt with { Generation = receipt.Generation + 1, Phase = DomainJoinReceiptPhase.Finished });
+        string path = Path.Combine(f.Domain.Root, "State", "PreOobe", "domain-join-result.json");
+        if (omitPlacement)
+        {
+            var value = JsonNode.Parse(File.ReadAllText(path))!.AsObject();
+            Assert.True(value.Remove("placement"));
+            File.WriteAllText(path, value.ToJsonString());
+        }
+        Assert.Equal(omitPlacement ? 3 : 0, await f.Run("next-boot"));
+        if (omitPlacement)
+        {
+            Assert.Empty(f.Executed);
+            Assert.False(JsonNode.Parse(File.ReadAllText(path))!.AsObject().ContainsKey("placement"));
+        }
+        else
+        {
+            Assert.Equal(DomainJoinPhaseState.Unknown, f.Report.Read().Placement.State);
+            Assert.Equal(DomainJoinPhaseState.Succeeded, f.Report.Read().Membership.State);
+        }
+    }
+
+    [Theory]
     [InlineData(false)]
     [InlineData(true)]
     public async Task FailedPlacement_RestartsThenVerifiesAndContinues(bool aggregateFailure)
