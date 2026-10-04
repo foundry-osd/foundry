@@ -1994,7 +1994,7 @@ Licenciran prema MIT licenci.</value>
     <value>Ukloni</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Obavezno za Zero Touch i katalog OU-a. Neobavezno za interaktivnu implementaciju bez kataloga.</value>
+    <value>Obavezno za Zero-touch i katalog OU-a. Neobavezno za interaktivnu implementaciju bez kataloga.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>Ciljna DNS domena</value>
@@ -4098,6 +4098,6 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Ugradite vjerodajnice domene pomoću postojeće lozinke medija postavljene na stranici općih postavki („General”).</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Pridruživanje domeni Zero Touch</value>
+    <value>Pridruživanje domeni Zero-touch</value>
   </data>
 </root>

@@ -1994,7 +1994,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Eltávolítás</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Zero Touch és OU-katalógus esetén kötelező. Katalógus nélküli interaktív telepítés esetén nem kötelező.</value>
+    <value>Zero-touch és OU-katalógus esetén kötelező. Katalógus nélküli interaktív telepítés esetén nem kötelező.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>Cél DNS-tartomány</value>
@@ -4098,6 +4098,6 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Ágyazza be a tartományi hitelesítő adatokat az általános beállítások oldalán („tábornok”) beállított meglévő adathordozójelszó használatával.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Zero Touch tartományhoz csatlakozás</value>
+    <value>Zero-touch tartományhoz csatlakozás</value>
   </data>
 </root>

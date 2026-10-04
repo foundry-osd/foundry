@@ -1994,7 +1994,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Poista</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Pakollinen Zero Touch -tilassa ja OU-luettelossa. Valinnainen vuorovaikutteisessa käyttöönotossa ilman luetteloa.</value>
+    <value>Pakollinen Zero-touch-tilassa ja OU-luettelossa. Valinnainen vuorovaikutteisessa käyttöönotossa ilman luetteloa.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>DNS-kohdetoimialue</value>
@@ -4098,6 +4098,6 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Upota toimialueen tunnistetiedot käyttämällä sivulla ”Kenraali” määritettyä olemassa olevaa median salasanaa.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Zero Touch -toimialueeseen liittyminen</value>
+    <value>Zero-touch-toimialueeseen liittyminen</value>
   </data>
 </root>

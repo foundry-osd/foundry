@@ -1994,7 +1994,7 @@ Licencováno pod licencí MIT.</value>
     <value>Odebrat</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Vyžadováno pro Zero Touch a katalog OU. Volitelné pro interaktivní nasazení bez katalogu.</value>
+    <value>Vyžadováno pro Zero-touch a katalog OU. Volitelné pro interaktivní nasazení bez katalogu.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>Cílová doména DNS</value>
@@ -4098,6 +4098,6 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Vložit přihlašovací údaje k doméně s použitím stávajícího hesla média nastaveného na stránce „Generál“.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Připojení k doméně Zero Touch</value>
+    <value>Připojení k doméně Zero-touch</value>
   </data>
 </root>

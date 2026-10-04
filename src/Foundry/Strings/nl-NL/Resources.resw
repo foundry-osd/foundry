@@ -1994,7 +1994,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Verwijderen</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Vereist voor Zero Touch en een OU-catalogus. Optioneel voor interactieve implementatie zonder catalogus.</value>
+    <value>Vereist voor Zero-touch en een OU-catalogus. Optioneel voor interactieve implementatie zonder catalogus.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>DNS-doeldomein</value>
@@ -4098,6 +4098,6 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Sluit domeinreferenties in met het bestaande mediumwachtwoord dat op de pagina Algemeen is ingesteld.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Zero Touch-domeintoetreding</value>
+    <value>Zero-touch-domeintoetreding</value>
   </data>
 </root>

@@ -1994,7 +1994,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Usuń</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Wymagana dla trybu Zero Touch i katalogu OU. Opcjonalna przy interaktywnym wdrażaniu bez katalogu.</value>
+    <value>Wymagana dla trybu bezobsługowego i katalogu OU. Opcjonalna przy interaktywnym wdrażaniu bez katalogu.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>Docelowa domena DNS</value>
@@ -4098,6 +4098,6 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
     <value>Osadź poświadczenia domeny przy użyciu istniejącego hasła nośnika skonfigurowanego na stronie ustawień ogólnych („Generał”).</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Dołączanie do domeny Zero Touch</value>
+    <value>Bezobsługowe dołączanie do domeny</value>
   </data>
 </root>

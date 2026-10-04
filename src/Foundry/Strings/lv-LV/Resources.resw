@@ -1994,7 +1994,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Noņemt</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Obligāts Zero Touch režīmam un OU katalogam. Neobligāts interaktīvai izvietošanai bez kataloga.</value>
+    <value>Obligāts Zero-touch režīmam un OU katalogam. Neobligāts interaktīvai izvietošanai bez kataloga.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>Mērķa DNS domēns</value>
@@ -4098,6 +4098,6 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Ieguliet domēna akreditācijas datus, izmantojot esošo datu nesēja paroli, kas iestatīta vispārīgo iestatījumu lapā („Ģenerālis”).</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Pievienošanās domēnam Zero Touch režīmā</value>
+    <value>Pievienošanās domēnam Zero-touch režīmā</value>
   </data>
 </root>

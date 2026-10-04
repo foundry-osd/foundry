@@ -1994,7 +1994,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Eemalda</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Nõutav Zero Touchi ja OU-kataloogi jaoks. Valikuline interaktiivsel juurutamisel ilma kataloogita.</value>
+    <value>Nõutav Zero-touchi ja OU-kataloogi jaoks. Valikuline interaktiivsel juurutamisel ilma kataloogita.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>Siht-DNS-domeen</value>
@@ -4098,6 +4098,6 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Manustage domeeni identimisteave, kasutades lehel „Kindral“ seadistatud olemasolevat andmekandja parooli.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Zero Touchi domeeniga liitumine</value>
+    <value>Zero-touchi domeeniga liitumine</value>
   </data>
 </root>

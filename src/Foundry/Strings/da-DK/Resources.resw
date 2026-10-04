@@ -1994,7 +1994,7 @@ Licenseret under MIT-licensen.</value>
     <value>Fjern</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Påkrævet til Zero Touch og et OU-katalog. Valgfrit ved interaktiv udrulning uden et katalog.</value>
+    <value>Påkrævet til Zero-touch og et OU-katalog. Valgfrit ved interaktiv udrulning uden et katalog.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>DNS-måldomæne</value>
@@ -4098,6 +4098,6 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Integrér domænelegitimationsoplysninger med den eksisterende medieadgangskode, der er konfigureret på siden Generelt.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Zero Touch-domænetilslutning</value>
+    <value>Zero-touch-domænetilslutning</value>
   </data>
 </root>

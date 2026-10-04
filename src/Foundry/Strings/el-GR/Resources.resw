@@ -1994,7 +1994,7 @@
     <value>Κατάργηση</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Απαιτείται για το Zero Touch και έναν κατάλογο OU. Προαιρετικό για διαδραστική ανάπτυξη χωρίς κατάλογο.</value>
+    <value>Απαιτείται για το Zero-touch και έναν κατάλογο OU. Προαιρετικό για διαδραστική ανάπτυξη χωρίς κατάλογο.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>Τομέας DNS προορισμού</value>
@@ -4098,6 +4098,6 @@
     <value>Ενσωματώστε διαπιστευτήρια τομέα χρησιμοποιώντας τον υπάρχοντα κωδικό πρόσβασης μέσου που έχει οριστεί στη σελίδα «Στρατηγός».</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Σύνδεση σε τομέα Zero Touch</value>
+    <value>Σύνδεση σε τομέα Zero-touch</value>
   </data>
 </root>

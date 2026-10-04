@@ -1994,7 +1994,7 @@
     <value>Премахване</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Задължително за Zero Touch и каталог с OU. Незадължително за интерактивно разполагане без каталог.</value>
+    <value>Задължително за Zero-touch и каталог с OU. Незадължително за интерактивно разполагане без каталог.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>Целеви DNS домейн</value>
@@ -4098,6 +4098,6 @@
     <value>Вграждане на идентификационни данни за домейна чрез съществуващата парола за носителя, зададена на страницата „генерал“.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Присъединяване към домейн Zero Touch</value>
+    <value>Присъединяване към домейн Zero-touch</value>
   </data>
 </root>

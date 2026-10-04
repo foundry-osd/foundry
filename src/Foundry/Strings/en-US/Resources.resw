@@ -1994,7 +1994,7 @@ Licensed under the MIT License.</value>
     <value>Remove</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Required for Zero Touch and an OU catalog. Optional for interactive deployment without a catalog.</value>
+    <value>Required for Zero-touch and an OU catalog. Optional for interactive deployment without a catalog.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>Target DNS domain</value>
@@ -4098,6 +4098,6 @@ Applying the update restarts Foundry OSD.</value>
     <value>Embed domain credentials using the existing media password configured on the General page.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Zero Touch Domain Join</value>
+    <value>Zero-touch Domain Join</value>
   </data>
 </root>

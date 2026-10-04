@@ -1994,7 +1994,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Quitar</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Obligatorio para Zero Touch y un catálogo de OU. Opcional para la implementación interactiva sin catálogo.</value>
+    <value>Obligatorio para zero-touch y un catálogo de OU. Opcional para la implementación interactiva sin catálogo.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>Dominio DNS de destino</value>
@@ -4098,6 +4098,6 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Integre las credenciales de dominio con la contraseña del medio existente configurada en la página General.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>Unión al dominio Zero Touch</value>
+    <value>Unión al dominio zero-touch</value>
   </data>
 </root>

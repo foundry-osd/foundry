@@ -1994,7 +1994,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Entfernen</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>Für Zero Touch und einen OU-Katalog erforderlich. Für interaktive Bereitstellung ohne Katalog optional.</value>
+    <value>Für Zero-Touch und einen OU-Katalog erforderlich. Für interaktive Bereitstellung ohne Katalog optional.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>DNS-Zieldomäne</value>

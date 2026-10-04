@@ -1994,7 +1994,7 @@
     <value>إزالة</value>
   </data>
   <data name="DomainJoinTargetDomain.Description" xml:space="preserve">
-    <value>مطلوب لوضع Zero Touch وكتالوج OU. اختياري للنشر التفاعلي بدون كتالوج.</value>
+    <value>مطلوب لوضع Zero-touch وكتالوج OU. اختياري للنشر التفاعلي بدون كتالوج.</value>
   </data>
   <data name="DomainJoinTargetDomain.Header" xml:space="preserve">
     <value>نطاق DNS المستهدف</value>
@@ -4098,6 +4098,6 @@
     <value>تضمين بيانات اعتماد النطاق باستخدام كلمة مرور الوسائط الموجودة والمكوّنة في صفحة عام.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
-    <value>الانضمام إلى النطاق بوضع Zero Touch</value>
+    <value>الانضمام إلى النطاق بوضع Zero-touch</value>
   </data>
 </root>
