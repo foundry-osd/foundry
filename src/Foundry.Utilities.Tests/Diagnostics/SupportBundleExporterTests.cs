@@ -11,6 +11,78 @@ namespace Foundry.Utilities.Tests.Diagnostics;
 
 public sealed class SupportBundleExporterTests
 {
+    [Theory]
+    [InlineData(SupportBundlePrivacyMode.Sanitized, "credentials.bin", true, false)]
+    [InlineData(SupportBundlePrivacyMode.Raw, "CrEdEnTiAlS.BiN", true, false)]
+    [InlineData(SupportBundlePrivacyMode.Sanitized, "credentials.bin", true, true)]
+    [InlineData(SupportBundlePrivacyMode.Raw, "CrEdEnTiAlS.BiN", true, true)]
+    [InlineData(SupportBundlePrivacyMode.Sanitized, "CrEdEnTiAlS.BiN", false, false)]
+    [InlineData(SupportBundlePrivacyMode.Raw, "credentials.bin", false, false)]
+    public async Task ExportAsync_ExplicitDomainCredentialCandidateIsOmittedBeforeReading(
+        SupportBundlePrivacyMode privacyMode, string fileName, bool exists, bool locked)
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string payloadDirectory = Path.Combine(tempDirectory.Path, "Payloads", "DomainJoin", "private-operation");
+        Directory.CreateDirectory(payloadDirectory);
+        string credentialPath = Path.Combine(payloadDirectory, fileName);
+        if (exists)
+        {
+            await File.WriteAllTextAsync(credentialPath, "payload-canary", TestContext.Current.CancellationToken);
+        }
+        string logPath = Path.Combine(tempDirectory.Path, "Foundry.log");
+        await File.WriteAllTextAsync(logPath, "Ordinary log", TestContext.Current.CancellationToken);
+        using FileStream? lockedPayload = locked ? new FileStream(credentialPath, FileMode.Open, FileAccess.Read, FileShare.None) : null;
+
+        SupportBundleResult result = await new SupportBundleExporter().ExportAsync(new SupportBundleRequest
+        {
+            ApplicationName = "Foundry",
+            ApplicationVersion = "1.0.0",
+            SessionId = "ABC12345",
+            DestinationDirectoryPath = Path.Combine(tempDirectory.Path, "export"),
+            LogFilePaths = [credentialPath, logPath],
+            PrivacyMode = privacyMode
+        }, TestContext.Current.CancellationToken);
+
+        using ZipArchive archive = ZipFile.OpenRead(result.ArchivePath);
+        Assert.Equal("Ordinary log", await ReadEntryAsync(archive, "logs/Foundry.log"));
+        Assert.Single(archive.Entries, entry => entry.FullName.StartsWith("logs/", StringComparison.Ordinal));
+        string manifestJson = await ReadEntryAsync(archive, "manifest.json");
+        Assert.DoesNotContain("payload-canary", manifestJson, StringComparison.Ordinal);
+        Assert.DoesNotContain("private-operation", manifestJson, StringComparison.Ordinal);
+        using JsonDocument manifest = JsonDocument.Parse(manifestJson);
+        JsonElement omission = Assert.Single(manifest.RootElement.GetProperty("omittedFiles").EnumerateArray());
+        Assert.Equal(1, omission.GetProperty("sourceIndex").GetInt32());
+        Assert.Equal(fileName, omission.GetProperty("fileName").GetString());
+        Assert.Equal("SensitiveCredentialPayload", omission.GetProperty("reason").GetString());
+        Assert.Equal(2, Assert.Single(manifest.RootElement.GetProperty("includedFiles").EnumerateArray()).GetProperty("sourceIndex").GetInt32());
+    }
+
+    [Fact]
+    public async Task ExportAsync_SanitizedQuotedCredentialsNeverReachLogsOrSummary()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string logPath = Path.Combine(tempDirectory.Path, "Foundry.log");
+        const string text = """{"DomainJoinPassword":"prefix\"bundle-canary","Domain":"corp.example.test"}""";
+        await File.WriteAllTextAsync(logPath, text, TestContext.Current.CancellationToken);
+        SupportBundleResult result = await new SupportBundleExporter().ExportAsync(new SupportBundleRequest
+        {
+            ApplicationName = "Foundry",
+            ApplicationVersion = "1.0.0",
+            SessionId = "ABC12345",
+            DestinationDirectoryPath = Path.Combine(tempDirectory.Path, "export"),
+            LogFilePaths = [logPath],
+            Summary = new Dictionary<string, string> { ["Output"] = text }
+        }, TestContext.Current.CancellationToken);
+
+        using ZipArchive archive = ZipFile.OpenRead(result.ArchivePath);
+        foreach (ZipArchiveEntry entry in archive.Entries)
+        {
+            string content = await ReadEntryAsync(archive, entry.FullName);
+            Assert.DoesNotContain("bundle-canary", content, StringComparison.Ordinal);
+            Assert.DoesNotContain("prefix", content, StringComparison.Ordinal);
+        }
+    }
+
     [Fact]
     public async Task ExportAsync_SanitizedModeRedactsSensitiveLogContent()
     {

@@ -32,13 +32,33 @@ public static partial class LogSecretMasker
     /// <summary>Removes explicit credentials embedded in free text without truncating diagnostic content.</summary>
     public static string Mask(string text)
     {
-        string result = PrivateKey().Replace(text, Redacted);
+        string result = MaskJsonCredentials(text);
+        result = PrivateKey().Replace(result, Redacted);
         result = CookieHeader().Replace(result, "$1" + Redacted);
         result = CredentialArgument().Replace(result, "$1" + Redacted);
         result = Authorization().Replace(result, "$1" + Redacted);
         result = CredentialAssignment().Replace(result, "$1" + Redacted);
         return UrlCredentials().Replace(result, "$1" + Redacted + "@");
     }
+
+    /// <summary>Masks complete credential values in JSON text and a single JSON-escaped representation.</summary>
+    internal static string MaskJsonCredentials(string text)
+    {
+        string result = EscapedJsonCredential().Replace(text, static match => IsSecretName(match.Groups["name"].Value)
+            ? match.Groups["prefix"].Value + Redacted + "\\\"" : match.Value);
+        return JsonCredential().Replace(result, static match => IsSecretName(match.Groups["name"].Value)
+            ? match.Groups["prefix"].Value + Redacted + "\"" : match.Value);
+    }
+
+    [GeneratedRegex("""
+        (?<prefix>"(?<name>[^"\\]+)"\s*:\s*")(?:\\.|[^"\\])*"
+        """, RegexOptions.CultureInvariant)]
+    private static partial Regex JsonCredential();
+
+    [GeneratedRegex("""
+        (?<prefix>\\"(?<name>[^"\\]+)\\"\s*:\s*\\")(?:\\\\(?:\\.|[^\\])|[^"\\])*\\"
+        """, RegexOptions.CultureInvariant)]
+    private static partial Regex EscapedJsonCredential();
 
     /// <summary>Recognizes placeholders whose surrounding template labels their value as a credential.</summary>
     internal static HashSet<string> GetSecretTemplateProperties(string template)
