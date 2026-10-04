@@ -30,7 +30,14 @@ public static class FoundryConfigurationMigration
     private const int SupportedOperatingSystemReleasesSchemaVersion = 17;
     private const int LegacyRandomLength = 6;
 
-    public static FoundryConfigurationDocument ApplySchemaMigrations(FoundryConfigurationDocument document)
+    /// <summary>Migrates a machine-local authoring draft, allowing only a retained catalog/target domain mismatch awaiting repair.</summary>
+    public static FoundryConfigurationDocument ApplyLocalAuthoringDraftSchemaMigrations(FoundryConfigurationDocument document) =>
+        ApplySchemaMigrations(document, allowCatalogDomainMismatch: true);
+
+    public static FoundryConfigurationDocument ApplySchemaMigrations(FoundryConfigurationDocument document) =>
+        ApplySchemaMigrations(document, allowCatalogDomainMismatch: false);
+
+    private static FoundryConfigurationDocument ApplySchemaMigrations(FoundryConfigurationDocument document, bool allowCatalogDomainMismatch)
     {
         ArgumentNullException.ThrowIfNull(document);
 
@@ -42,7 +49,8 @@ public static class FoundryConfigurationMigration
         migrated = migrated with { PreOobe = migrated.PreOobe ?? new PreOobeSettings() };
         migrated = migrated with { DomainJoin = migrated.DomainJoin ?? new DomainJoinSettings() };
         DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(migrated.Autopilot, migrated.DomainJoin);
-        if (!DomainJoinConfigurationValidator.ValidateMetadata(migrated.DomainJoin).IsValid)
+        DomainJoinValidationResult metadata = DomainJoinConfigurationValidator.ValidateMetadata(migrated.DomainJoin);
+        if (metadata.Issues.Any(issue => !allowCatalogDomainMismatch || issue.Code != DomainJoinValidationCode.CatalogDomainMismatch))
         {
             throw new InvalidOperationException("Domain join metadata is invalid.");
         }

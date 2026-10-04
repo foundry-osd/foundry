@@ -10,6 +10,111 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class FoundryConfigurationServiceTests
 {
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void DeserializeLocalAuthoringDraft_PreservesDomainChangeAndPartialRemoval(bool removeFirstRow)
+    {
+        var service = new FoundryConfigurationService();
+        FoundryConfigurationDocument draft = DomainChangedDraft();
+        if (removeFirstRow) draft = draft with { DomainJoin = DomainJoinOrganizationalUnitCatalog.Remove(draft.DomainJoin, "devices") };
+
+        string json = service.Serialize(draft);
+        FoundryConfigurationDocument loaded = service.DeserializeLocalAuthoringDraft(json);
+
+        Assert.Equal("fabrikam.test", loaded.DomainJoin.DomainName);
+        Assert.Equal("contoso.test", loaded.DomainJoin.OuCatalogDomain);
+        Assert.Equal(removeFirstRow ? ["servers"] : new[] { "devices", "servers" }, loaded.DomainJoin.OrganizationalUnits.Select(unit => unit.Id));
+        Assert.Equal(removeFirstRow ? ["Servers"] : new[] { "Devices", "Servers" }, loaded.DomainJoin.OrganizationalUnits.Select(unit => unit.DisplayName));
+        Assert.Equal(removeFirstRow ? ["OU=Servers,DC=contoso,DC=test"] : new[] { "OU=Devices,DC=contoso,DC=test", "OU=Servers,DC=contoso,DC=test" },
+            loaded.DomainJoin.OrganizationalUnits.Select(unit => unit.DistinguishedName));
+        Assert.Null(loaded.DomainJoin.DefaultOuId);
+        Assert.False(loaded.DomainJoin.AllowOuSelectionDuringDeployment);
+        Assert.Equal(@"E:\Media\retained.iso", loaded.General.IsoOutputPath);
+        Assert.Equal("fr-FR", loaded.General.WinPeLanguage);
+        Assert.True(loaded.General.IncludeDellDrivers);
+        Assert.Equal("retained-wifi", loaded.Network.Wifi.Ssid);
+        Assert.Equal("retained-machine", loaded.Customization.MachineNaming.ManualInitialValue);
+        Assert.Throws<InvalidOperationException>(() => service.Deserialize(json));
+        Assert.Throws<InvalidOperationException>(() => FoundryConfigurationMigration.ApplySchemaMigrations(loaded));
+        Assert.Throws<InvalidOperationException>(() => Foundry.Core.Services.Profiles.DeploymentProfileProjection.CreatePortable(loaded));
+        DomainJoinValidationResult readiness = DomainJoinConfigurationValidator.EvaluateReadiness(loaded.DomainJoin, true, true);
+        Assert.False(readiness.IsValid);
+        Assert.Contains(readiness.Issues,
+            issue => issue.Code == DomainJoinValidationCode.CatalogDomainMismatch);
+    }
+
+    [Fact]
+    public void LocalAuthoringMigration_RetainsInactiveCatalogAndValidDefault()
+    {
+        FoundryConfigurationDocument draft = DomainChangedDraft();
+        draft = draft with
+        {
+            Autopilot = draft.Autopilot with { IsEnabled = true },
+            DomainJoin = draft.DomainJoin with { IsEnabled = false, DefaultOuId = "servers", AllowOuSelectionDuringDeployment = true }
+        };
+        FoundryConfigurationDocument migrated = FoundryConfigurationMigration.ApplyLocalAuthoringDraftSchemaMigrations(draft);
+        Assert.True(migrated.Autopilot.IsEnabled);
+        Assert.False(migrated.DomainJoin.IsEnabled);
+        Assert.Equal("servers", migrated.DomainJoin.DefaultOuId);
+        Assert.True(migrated.DomainJoin.AllowOuSelectionDuringDeployment);
+        Assert.Equal(2, migrated.DomainJoin.OrganizationalUnits.Count);
+        Assert.Equal(@"E:\Media\retained.iso", migrated.General.IsoOutputPath);
+    }
+
+    [Theory]
+    [InlineData("malformed-dn")]
+    [InlineData("foreign-dn")]
+    [InlineData("duplicate-id")]
+    [InlineData("duplicate-dn")]
+    [InlineData("missing-default")]
+    [InlineData("oversized-label")]
+    [InlineData("overflow")]
+    [InlineData("provisioning-conflict")]
+    public void DeserializeLocalAuthoringDraft_RejectsMalformedCatalogAndProvisioningConflict(string corruption)
+    {
+        FoundryConfigurationDocument draft = DomainChangedDraft();
+        DomainJoinSettings settings = draft.DomainJoin;
+        DomainJoinOrganizationalUnitSettings first = settings.OrganizationalUnits[0];
+        DomainJoinOrganizationalUnitSettings second = settings.OrganizationalUnits[1];
+        settings = corruption switch
+        {
+            "malformed-dn" => settings with { OrganizationalUnits = [first with { DistinguishedName = "invalid" }, second] },
+            "foreign-dn" => settings with { OrganizationalUnits = [first with { DistinguishedName = "OU=Devices,DC=fabrikam,DC=test" }, second] },
+            "duplicate-id" => settings with { OrganizationalUnits = [first, second with { Id = "devices" }] },
+            "duplicate-dn" => settings with { OrganizationalUnits = [first, second with { DistinguishedName = "OU=Devices,DC=contoso,DC=test" }] },
+            "missing-default" => settings with { DefaultOuId = "missing" },
+            "oversized-label" => settings with { OrganizationalUnits = [first with { DisplayName = new string('x', 121) }, second] },
+            "overflow" => settings with
+            {
+                OrganizationalUnits = Enumerable.Range(0, 1025).Select(index => first with
+                { Id = index.ToString(), DistinguishedName = $"OU=Devices{index},DC=contoso,DC=test" }).ToArray()
+            },
+            _ => settings
+        };
+        draft = draft with { DomainJoin = settings, Autopilot = draft.Autopilot with { IsEnabled = corruption == "provisioning-conflict" } };
+        var service = new FoundryConfigurationService();
+        Assert.Throws<InvalidOperationException>(() => service.DeserializeLocalAuthoringDraft(service.Serialize(draft)));
+    }
+
+    private static FoundryConfigurationDocument DomainChangedDraft() => new()
+    {
+        General = new() { IsoOutputPath = @"E:\Media\retained.iso", WinPeLanguage = "fr-FR", IncludeDellDrivers = true },
+        Network = new() { Wifi = new() { Ssid = "retained-wifi" } },
+        Customization = new() { MachineNaming = new() { IsEnabled = true, Mode = MachineNamingMode.Manual, ManualInitialValue = "retained-machine" } },
+        DomainJoin = new()
+        {
+            IsEnabled = true,
+            DomainName = "fabrikam.test",
+            OuCatalogDomain = "contoso.test",
+            OrganizationalUnits =
+            [
+                new() { Id = "devices", DisplayName = "Devices", DistinguishedName = "OU=Devices,DC=contoso,DC=test" },
+                new() { Id = "servers", DisplayName = "Servers", DistinguishedName = "OU=Servers,DC=contoso,DC=test" }
+            ]
+        }
+    };
+
     [Fact]
     public void OldConfigurationDisablesDomainJoin()
     {

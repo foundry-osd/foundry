@@ -43,7 +43,7 @@
                         <StackPanel Spacing="{ThemeResource FoundrySpace8}">
                             <ComboBox
                                 x:Uid="DomainJoinDefaultOu"
-                                DisplayMemberPath="DisplayName"
+                                DisplayMemberPath="Hierarchy"
                                 ItemsSource="{x:Bind ViewModel.OrganizationalUnits}"
                                 SelectedItem="{x:Bind ViewModel.SelectedDefaultOu, Mode=TwoWay}" />
                             <Button

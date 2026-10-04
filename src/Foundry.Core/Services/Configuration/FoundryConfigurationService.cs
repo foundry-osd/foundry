@@ -9,19 +9,26 @@ namespace Foundry.Core.Services.Configuration;
 
 public sealed class FoundryConfigurationService : IFoundryConfigurationService
 {
+    /// <inheritdoc />
+    public FoundryConfigurationDocument DeserializeLocalAuthoringDraft(string json) =>
+        FoundryConfigurationMigration.ApplyLocalAuthoringDraftSchemaMigrations(DeserializeDocument(json));
+
     public string Serialize(FoundryConfigurationDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
         return JsonSerializer.Serialize(document, ConfigurationJsonDefaults.SerializerOptions);
     }
 
-    public FoundryConfigurationDocument Deserialize(string json)
+    public FoundryConfigurationDocument Deserialize(string json) =>
+        FoundryConfigurationMigration.ApplySchemaMigrations(DeserializeDocument(json));
+
+    private static FoundryConfigurationDocument DeserializeDocument(string json)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(json);
         FoundryConfigurationDocument document = JsonSerializer.Deserialize<FoundryConfigurationDocument>(
                 json,
                 ConfigurationJsonDefaults.SerializerOptions)
             ?? new FoundryConfigurationDocument();
-        return FoundryConfigurationMigration.ApplySchemaMigrations(document);
+        return document;
     }
 }

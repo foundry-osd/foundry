@@ -537,7 +537,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
                 throw new NotSupportedException("The saved configuration requires a newer version of Foundry.");
             }
 
-            FoundryConfigurationDocument document = foundryConfigurationService.Deserialize(json);
+            FoundryConfigurationDocument document = foundryConfigurationService.DeserializeLocalAuthoringDraft(json);
             isLegacyMigration = string.Equals(sourcePath, Constants.LegacyFoundryConfigurationStatePath, StringComparison.OrdinalIgnoreCase);
             logger.Information("Foundry configuration state loaded from disk.");
             return document;
