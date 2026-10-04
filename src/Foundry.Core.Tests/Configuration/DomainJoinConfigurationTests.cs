@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text.Json;
+using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
 
@@ -9,6 +11,30 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class DomainJoinConfigurationTests
 {
+    [Fact]
+    public void PreparedReceipt_RoundTripsExplicitUnassignedSeedAndPreservesExistingNumericKinds()
+    {
+        var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+        var seed = JsonSerializer.Deserialize<DomainJoinPhaseReceipt>(JsonSerializer.Serialize(new DomainJoinPhaseReceipt
+        { OperationId = "a", AttemptId = "b", PlanHash = "c", ActionId = "join" }, options), options)!;
+        Assert.Equal(DomainJoinReceiptPhase.Prepared, seed.Phase); Assert.Null(seed.OriginatingBootId);
+        Assert.Equal(DomainJoinPhaseState.NotStarted, seed.Join.State); Assert.Equal(DomainJoinPhaseState.NotStarted, seed.Placement.State);
+        Assert.Equal(PreOobeBuiltInKind.Cleanup, JsonSerializer.Deserialize<PreOobeBuiltInKind>("5"));
+        Assert.Equal(PreOobeBuiltInKind.DomainJoinAndPlacement, JsonSerializer.Deserialize<PreOobeBuiltInKind>("6"));
+        Assert.Equal(PreOobeBuiltInKind.VerifyDomainMembership, JsonSerializer.Deserialize<PreOobeBuiltInKind>("7"));
+    }
+
+    [Fact]
+    public void PhaseResults_PreserveNumericErrorFamilyAndAcceptOmittedServerCode()
+    {
+        var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+        var legacy = JsonSerializer.Deserialize<DomainJoinPhaseResult>("""{"state":2,"failureCode":4,"ldapErrorCode":49}""", options)!;
+        Assert.Equal(49, legacy.LdapErrorCode); Assert.Null(legacy.DirectoryResultCode);
+        var server = legacy with { LdapErrorCode = null, DirectoryResultCode = 50 };
+        var restored = JsonSerializer.Deserialize<DomainJoinPhaseResult>(JsonSerializer.Serialize(server, options), options)!;
+        Assert.Equal(50, restored.DirectoryResultCode); Assert.Null(restored.LdapErrorCode); Assert.Null(restored.NativeErrorCode);
+    }
+
     [Fact]
     public void OmittedPasswordIsValidButAutomaticNotReady()
     {

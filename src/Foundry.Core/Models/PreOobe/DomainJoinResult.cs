@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text.Json.Serialization;
+
 namespace Foundry.Core.Models.PreOobe;
 
 /// <summary>Distinguishes observed success from failure, interrupted mutation and unverified membership.</summary>
@@ -24,10 +26,13 @@ public enum DomainJoinFailureCode
 /// <summary>Reports one independent phase and an optional native or LDAP numeric diagnostic.</summary>
 public sealed record DomainJoinPhaseResult
 {
+    [JsonRequired]
     public DomainJoinPhaseState State { get; init; } = DomainJoinPhaseState.NotStarted;
     public DomainJoinFailureCode? FailureCode { get; init; }
     public int? NativeErrorCode { get; init; }
     public int? LdapErrorCode { get; init; }
+    /// <summary>Preserves an LDAP server result separately from transport/client and native error families.</summary>
+    public int? DirectoryResultCode { get; init; }
 }
 
 /// <summary>Binds password-free results to one deployment attempt, immutable plan and originating boot.</summary>

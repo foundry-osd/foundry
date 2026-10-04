@@ -7,7 +7,7 @@ using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Core.Models.PreOobe;
 
-public enum PreOobeBuiltInKind { Driver, Network, Appx, AiRemoval, Activation, Cleanup }
+public enum PreOobeBuiltInKind { Driver, Network, Appx, AiRemoval, Activation, Cleanup, DomainJoinAndPlacement, VerifyDomainMembership }
 
 /// <summary>Immutable installed-Windows input; its serialized bytes are bound to the seeded execution journal.</summary>
 public sealed record PreOobeExecutionPlan

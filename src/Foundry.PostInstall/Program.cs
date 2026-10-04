@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Core.Models.PreOobe;
 using Foundry.PostInstall.Actions;
@@ -24,7 +23,7 @@ internal static class Program
             System.Console.WriteLine(typeof(Program).Assembly.GetName().Version?.ToString());
             return 0;
         }
-        if (args is not (["--setup"] or ["--activation-worker"]))
+        if (args is not (["--setup"] or ["--activation-worker"] or ["--domain-join-worker"]))
         { WriteError("Foundry.PostInstall --setup | --version"); return 3; }
         try
         {
@@ -39,20 +38,26 @@ internal static class Program
             string windows = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
             string root = Path.Combine(windows, "Temp", "Foundry");
             OwnedPaths.RejectReparsePoints(windows, root);
-            string path = OwnedPaths.Resolve(root, "State/PreOobe/plan.json");
-            if (new FileInfo(path).Length > 8 * 1024 * 1024) return 3;
-            byte[] bytes = await File.ReadAllBytesAsync(path).ConfigureAwait(false);
-            var plan = JsonSerializer.Deserialize<PreOobeExecutionPlan>(bytes, ExecutionJournal.JsonOptions)
-                ?? throw new InvalidDataException("The execution plan is empty.");
+            var snapshot = await PreOobePlanLoader.LoadAsync(root, CancellationToken.None).ConfigureAwait(false);
+            var plan = snapshot.Plan;
+            string hash = snapshot.Hash;
+            if (args[0] == "--domain-join-worker")
+            {
+                var binding = DomainJoinBinding.Validate(plan);
+                string boot = BootIdentityProvider.Read();
+                DomainJoinBinding.RequireRunning(root, plan, hash, boot, binding.JoinAction.Id);
+                var workerResult = await new DomainJoinWorker(root, plan, hash, boot, new NativeDomainJoin(), new DomainComputerAccountDirectory())
+                    .RunAsync(binding.Parameters, CancellationToken.None).ConfigureAwait(false);
+                return workerResult.Join.State == DomainJoinPhaseState.Succeeded ? 0 : 10;
+            }
             string logs = OwnedPaths.Resolve(root, "Logs/PreOobe");
             Directory.CreateDirectory(logs);
             Log.Logger = FoundryLogConfiguration.CreateFileLogger(Path.Combine(logs, "Foundry.PostInstall.log"), "Foundry.PostInstall",
                 plan.DiagnosticSessionId, LogEventLevel.Verbose, 5);
-            string hash = Convert.ToHexStringLower(SHA256.HashData(bytes));
             Log.Information("Post-installation started with {ActionCount} actions", plan.Actions.Count);
             using var console = new PostInstallConsole(plan, Path.Combine(logs, "Foundry.PostInstall.log"));
             var executor = new PreOobeActionExecutor(root, windows, plan, new PreOobeProcessExecutor(),
-                new CertificateImporter(), Environment.ProcessPath ?? throw new InvalidDataException("Runtime path is unavailable."));
+                new CertificateImporter(), Environment.ProcessPath ?? throw new InvalidDataException("Runtime path is unavailable."), hash);
             OrchestrationOutcome result = await new PreOobeOrchestrator(root, hash, new ExecutionJournal(root), executor,
                 BootIdentityProvider.Read, console).RunAsync(plan, CancellationToken.None).ConfigureAwait(false);
             Log.Information("Post-installation ended with {Status}; host exit code {HostExitCode}", result.Status, result.ExitCode);
