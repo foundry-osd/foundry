@@ -45,7 +45,8 @@
                 Content="{Binding [DomainJoin.Destination]}"
                 Target="{Binding ElementName=DestinationInput}" />
             <ComboBox x:Name="DestinationInput"
-                AutomationProperties.Name="{Binding [DomainJoin.Destination]}">
+                AutomationProperties.Name="{Binding [DomainJoin.Destination]}"
+                TextSearch.TextPath="DisplayName">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel MaxWidth="400">
