@@ -21,9 +21,9 @@ public sealed class UnattendContentService(IDeploymentSecretKeySession keySessio
 
     /// <summary>Returns a disposable snapshot only after integrity, architecture and enrollment checks pass.</summary>
     public UnattendSnapshot Read(UnattendSelection selection, string? architecture,
-        bool isAutopilotEnabled, AutopilotProvisioningMode autopilotMode)
+        bool isAutopilotEnabled, AutopilotProvisioningMode autopilotMode, bool requiresDomainJoin = false)
     {
-        UnattendSnapshot snapshot = ReadValidated(selection, architecture);
+        UnattendSnapshot snapshot = ReadValidated(selection, architecture, requiresDomainJoin);
         if (isAutopilotEnabled && autopilotMode != AutopilotProvisioningMode.HardwareHashUpload && snapshot.Inspection.ConflictsWithAutopilot)
         {
             snapshot.Dispose();
@@ -32,7 +32,7 @@ public sealed class UnattendContentService(IDeploymentSecretKeySession keySessio
         return snapshot;
     }
 
-    private UnattendSnapshot ReadValidated(UnattendSelection selection, string? architecture)
+    private UnattendSnapshot ReadValidated(UnattendSelection selection, string? architecture, bool requiresDomainJoin)
     {
         byte[]? key = null;
         byte[]? content = null;
@@ -60,7 +60,7 @@ public sealed class UnattendContentService(IDeploymentSecretKeySession keySessio
             {
                 throw new InvalidDataException();
             }
-            UnattendInspection inspection = UnattendFileService.Inspect(content, architecture);
+            UnattendInspection inspection = UnattendFileService.Inspect(content, architecture, requiresDomainJoin);
             var snapshot = new UnattendSnapshot(content, inspection);
             content = null;
             return snapshot;

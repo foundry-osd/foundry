@@ -12,6 +12,52 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeployConfigurationServiceTests
 {
+    [Theory]
+    [InlineData("""{"isEnabled":true,"mode":1,"domainName":"corp.test","accountName":"CORP\\join","encryptedCredentials":{}}""")]
+    [InlineData("""{"isEnabled":true,"mode":0,"encryptedCredentials":{}}""")]
+    [InlineData("""{"isEnabled":true,"mode":0,"domainName":"invalid domain"}""")]
+    [InlineData("""{"isEnabled":true,"organizationalUnits":null}""")]
+    public void LoadOptional_RejectsUnprotectedAutomaticOrMalformedDomainMetadata(string domain)
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", "{\"domainJoin\":" + domain + "}");
+        DeployConfigurationLoadResult result = new DeployConfigurationService(
+            NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
+        Assert.Null(result.Document);
+        Assert.NotEmpty(result.FailureMessage!);
+        Assert.DoesNotContain("CORP", result.FailureMessage);
+    }
+
+    [Fact]
+    public void LoadOptional_PreservesInteractiveSettingsOnUnprotectedMedia()
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json",
+            """{"domainJoin":{"isEnabled":true,"mode":0,"domainName":"corp.test"}}""");
+        DeployConfigurationLoadResult result = new DeployConfigurationService(
+            NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
+        Assert.NotNull(result.Document);
+        Assert.True(result.Document.DomainJoin.IsEnabled);
+        Assert.Equal("corp.test", result.Document.DomainJoin.DomainName);
+        Assert.Null(result.Document.DomainJoin.AccountName);
+        Assert.Null(result.Document.DomainJoin.EncryptedCredentials);
+        Assert.False(result.Document.Protection.IsEnabled);
+    }
+
+    [Fact]
+    public void LoadOptional_RejectsConflictingDomainAndAutopilotBeforeLaunch()
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json",
+            """{"domainJoin":{"isEnabled":true},"autopilot":{"isEnabled":true}}""");
+        var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path);
+
+        DeployConfigurationLoadResult result = service.LoadOptional();
+
+        Assert.Null(result.Document);
+        Assert.NotEmpty(result.FailureMessage!);
+    }
+
     private static readonly BootMediaRuntimeContext ProductionRuntime = new("26.10.3.2", true, false, false);
 
     [Fact]

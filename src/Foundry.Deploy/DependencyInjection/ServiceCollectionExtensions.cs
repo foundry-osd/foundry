@@ -93,6 +93,10 @@ public static class ServiceCollectionExtensions
                 logger);
         });
         services.AddSingleton<IDeploymentLaunchPreparationService, DeploymentLaunchPreparationService>();
+        services.AddSingleton<Foundry.Deploy.Services.DomainJoin.IDomainJoinDialogService, Foundry.Deploy.Services.DomainJoin.DomainJoinDialogService>();
+        services.AddSingleton<Foundry.Deploy.Services.DomainJoin.DomainJoinPreparationService>();
+        services.AddSingleton<Foundry.Deploy.Services.DomainJoin.IDomainJoinPreparationService>(provider =>
+            provider.GetRequiredService<Foundry.Deploy.Services.DomainJoin.DomainJoinPreparationService>());
         services.AddSingleton<IDeploymentExecutionService, DeploymentExecutionService>();
         services.AddSingleton<UtilityProcessRunner>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();

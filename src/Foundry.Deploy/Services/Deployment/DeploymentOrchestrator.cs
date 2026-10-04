@@ -88,7 +88,22 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     }
 
     /// <inheritdoc />
-    public async Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default)
+    public Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default) =>
+        RunAsync(context, null, cancellationToken);
+
+    /// <inheritdoc />
+    public async Task<DeploymentResult> RunAsync(DeploymentContext context, DomainJoin.DomainJoinPreparedInput? domainJoinInput,
+        CancellationToken cancellationToken = default)
+    {
+        using var ownedInput = domainJoinInput;
+        ArgumentNullException.ThrowIfNull(context);
+        if (!DomainJoin.DomainJoinPreparedInput.IsValidFor(context, domainJoinInput))
+            return new DeploymentResult { IsSuccess = false, Message = "The prepared domain input is unavailable or inconsistent." };
+        return await RunOwnedAsync(context, domainJoinInput, cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<DeploymentResult> RunOwnedAsync(DeploymentContext context, DomainJoin.DomainJoinPreparedInput? domainJoinInput,
+        CancellationToken cancellationToken)
     {
         Stopwatch stopwatch = Stopwatch.StartNew();
         string operationId = Guid.NewGuid().ToString("N", CultureInfo.InvariantCulture);
@@ -206,7 +221,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 _operationProgressService,
                 _deploymentLogService,
                 _targetDiskService,
-                progress => StepProgressChanged?.Invoke(this, progress));
+                progress => StepProgressChanged?.Invoke(this, progress), domainJoinInput: domainJoinInput);
             await DeploymentRunContextLogger.AppendRunContextAsync(executionContext, cancellationToken).ConfigureAwait(false);
 
             for (int i = 0; i < plan.Count; i++)

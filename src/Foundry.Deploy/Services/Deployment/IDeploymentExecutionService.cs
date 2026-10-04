@@ -10,4 +10,7 @@ public interface IDeploymentExecutionService
     /// Executes an authorized deployment, observing cancellation only after active mutation and cleanup finish safely.
     /// </summary>
     Task<DeploymentExecutionRunResult> ExecuteAsync(DeploymentContext context, CancellationToken cancellationToken = default);
+    /// <summary>Accepts ownership of domain credentials on every exit, including authorization denial.</summary>
+    Task<DeploymentExecutionRunResult> ExecuteAsync(DeploymentContext context, DomainJoin.DomainJoinPreparedInput? domainJoinInput,
+        CancellationToken cancellationToken = default);
 }

@@ -25,6 +25,18 @@ namespace Foundry.Deploy.Tests;
 
 public sealed class DeploymentPreflightTests
 {
+    [Fact]
+    public async Task MissingPreparedDomainInputNeverErasesDisk()
+    {
+        using var fixture = new PipelineFixture();
+        fixture.DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive,
+            Foundry.Deploy.Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
+        fixture.DomainJoinIntent = new("corp.test", "LAB01", null);
+        DeploymentResult result = await fixture.RunOrchestratedAsync();
+        Assert.False(result.IsSuccess);
+        Assert.DoesNotContain("partition", fixture.Events);
+    }
+
     [Theory]
     [InlineData(DeploymentMode.Iso, false)]
     [InlineData(DeploymentMode.Usb, false)]
@@ -590,6 +602,8 @@ public sealed class DeploymentPreflightTests
         public string Failure { get; set; } = "";
         public CustomImageSelection? CustomImage { get; set; }
         public Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings PostInstall { get; set; } = new();
+        public Foundry.Deploy.Services.DomainJoin.DomainJoinDeploymentRequest? DomainJoinRequest { get; set; }
+        public Foundry.Deploy.Services.DomainJoin.DomainJoinDeploymentIntent? DomainJoinIntent { get; set; }
         public DeploymentStepExecutionContext? Context { get; private set; }
         private readonly HttpClient _client;
         private readonly CancellationTokenSource _cancellation = new();
@@ -637,6 +651,8 @@ public sealed class DeploymentPreflightTests
                 TargetDiskIdentity = Identity,
                 TargetComputerName = "LAB01",
                 PreOobe = PostInstall,
+                DomainJoinRequest = DomainJoinRequest,
+                DomainJoinIntent = DomainJoinIntent,
                 IsDryRun = IsDryRun,
                 DriverPackSelectionKind = DeferredDriver || DriverPackOverride is not null ? DriverPackSelectionKind.OemCatalog : DriverPackSelectionKind.None,
                 DriverPack = DriverPackOverride ?? (DeferredDriver ? new DriverPackCatalogItem { Manufacturer = "Lenovo", FileName = "drivers.exe", SizeBytes = 100 } : null),

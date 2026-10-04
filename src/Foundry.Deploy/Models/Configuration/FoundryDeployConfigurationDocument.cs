@@ -13,6 +13,8 @@ namespace Foundry.Deploy.Models.Configuration;
 /// </summary>
 public sealed record FoundryDeployConfigurationDocument
 {
+    /// <summary>Gets runtime domain metadata and preparation-only encrypted credentials.</summary>
+    public Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings DomainJoin { get; init; } = new();
     /// <summary>Gets ordered post-installation actions and their authenticated media binding.</summary>
     public Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings PreOobe { get; init; } = new();
 

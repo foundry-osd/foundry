@@ -373,7 +373,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _logger.LogInformation("Start deployment requested.");
         DriverPackSelectionKind effectiveDriverPackKind = DriverPackSelection.EffectiveSelectionKind;
         DriverPackCatalogItem? effectiveDriverPack = DriverPackSelection.ResolveEffectiveSelection();
-        DeploymentLaunchPreparationResult launchPreparation = _deploymentLaunchPreparationService.Prepare(
+        using DeploymentLaunchPreparationResult launchPreparation = _deploymentLaunchPreparationService.Prepare(
             new DeploymentLaunchRequest
             {
                 Mode = _deploymentRuntimeContext.Mode,
@@ -398,9 +398,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 WindowsOptionalFeatures = _wizardContext.WindowsOptionalFeatures,
                 Completion = _wizardContext.Completion,
                 IsDryRun = IsDebugSafeMode
-            });
+            }, _wizardContext.DomainJoin);
 
-        if (!string.Equals(Preparation.TargetComputerName, launchPreparation.NormalizedComputerName, StringComparison.Ordinal))
+        if (!Preparation.UsesCustomUnattend &&
+            !string.Equals(Preparation.TargetComputerName, launchPreparation.NormalizedComputerName, StringComparison.Ordinal))
         {
             Preparation.TargetComputerName = launchPreparation.NormalizedComputerName;
         }
@@ -424,7 +425,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         try
         {
             DeploymentExecutionRunResult executionRunResult = await _deploymentExecutionService
-                .ExecuteAsync(launchPreparation.Context, _deploymentCancellation!.Token)
+                .ExecuteAsync(launchPreparation.Context, launchPreparation.TakeDomainJoinInput(), _deploymentCancellation!.Token)
                 .ConfigureAwait(false);
 
             RunOnUi(() => Session.ApplyExecutionRunResult(executionRunResult));
@@ -784,6 +785,14 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         ];
         if (Preparation.HasUnattendWarning)
             rows.Add(new(GetString("Summary.WarningDetails"), Preparation.UnattendWarning));
+        if (_wizardContext.DomainJoin.IsEnabled)
+        {
+            rows.Add(DeploymentSummaryRowViewModel.Section(GetString("DomainJoin.Title")));
+            rows.Add(new(GetString("DomainJoin.Domain"), _wizardContext.DomainJoin.DomainName ?? GetString("DomainJoin.PromptAtLaunch")));
+            string? destination = _wizardContext.DomainJoin.OrganizationalUnits.FirstOrDefault(unit =>
+                string.Equals(unit.Id, _wizardContext.DomainJoin.DefaultOuId, StringComparison.OrdinalIgnoreCase))?.DistinguishedName;
+            rows.Add(new(GetString("DomainJoin.Destination"), destination ?? GetString("DomainJoin.DefaultDestination")));
+        }
         if (Preparation.HasUnattendValidationError)
             rows.Add(new(GetString("Summary.Status"), Preparation.UnattendValidationMessage));
         return rows;

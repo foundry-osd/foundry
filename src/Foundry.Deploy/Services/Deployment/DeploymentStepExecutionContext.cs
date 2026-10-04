@@ -23,6 +23,8 @@ namespace Foundry.Deploy.Services.Deployment;
 /// </summary>
 public sealed class DeploymentStepExecutionContext : IDisposable
 {
+    /// <summary>Owns prepared domain input only in memory; target staging must dispose and clear it.</summary>
+    internal DomainJoin.DomainJoinPreparedInput? DomainJoinInput { get; set; }
     /// <summary>Holds captured network data only for the active deployment, outside persisted diagnostics.</summary>
     internal PreOobe.PreOobeNetworkProfileRoamingPayload? NetworkProfileRoamingPayload { get; set; }
 
@@ -68,6 +70,8 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     /// <summary>Releases sensitive answer-file content on every terminal deployment outcome.</summary>
     public void Dispose()
     {
+        DomainJoinInput?.Dispose();
+        DomainJoinInput = null;
         UnattendSnapshot?.Dispose();
         UnattendSnapshot = null;
         Preflight?.Dispose();
@@ -113,9 +117,12 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         IDeploymentLogService deploymentLogService,
         ITargetDiskService targetDiskService,
         Action<DeploymentStepProgress> emitStepProgress,
-        IDeploymentStorageService? storageService = null)
+        IDeploymentStorageService? storageService = null,
+        DomainJoin.DomainJoinPreparedInput? domainJoinInput = null)
     {
         Request = request ?? throw new ArgumentNullException(nameof(request));
+        if (!DomainJoin.DomainJoinPreparedInput.IsValidFor(request, domainJoinInput))
+            throw new InvalidOperationException("The prepared domain input is unavailable or inconsistent.");
         RuntimeState = runtimeState ?? throw new ArgumentNullException(nameof(runtimeState));
         PlannedSteps = plannedSteps ?? throw new ArgumentNullException(nameof(plannedSteps));
         _operationProgressService = operationProgressService ?? throw new ArgumentNullException(nameof(operationProgressService));
@@ -126,6 +133,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
 
         EnsureWorkspaceFolders();
         LogSession = _deploymentLogService.Initialize(RuntimeState.WorkspaceRoot);
+        DomainJoinInput = domainJoinInput;
     }
 
     /// <summary>

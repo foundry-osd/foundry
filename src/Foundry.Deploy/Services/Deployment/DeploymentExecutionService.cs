@@ -28,8 +28,14 @@ public sealed class DeploymentExecutionService : IDeploymentExecutionService
         _logger = logger;
     }
 
-    public async Task<DeploymentExecutionRunResult> ExecuteAsync(DeploymentContext context, CancellationToken cancellationToken = default)
+    public Task<DeploymentExecutionRunResult> ExecuteAsync(DeploymentContext context, CancellationToken cancellationToken = default) =>
+        ExecuteAsync(context, null, cancellationToken);
+
+    /// <inheritdoc />
+    public async Task<DeploymentExecutionRunResult> ExecuteAsync(DeploymentContext context, DomainJoin.DomainJoinPreparedInput? domainJoinInput,
+        CancellationToken cancellationToken = default)
     {
+        using var ownedInput = domainJoinInput;
         ArgumentNullException.ThrowIfNull(context);
 
         try
@@ -50,7 +56,7 @@ public sealed class DeploymentExecutionService : IDeploymentExecutionService
             }
 
             DeploymentResult result = await _deploymentOrchestrator
-                .RunAsync(context, cancellationToken)
+                .RunAsync(context, domainJoinInput, cancellationToken)
                 .ConfigureAwait(false);
 
             _logger.LogInformation(

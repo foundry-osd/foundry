@@ -357,6 +357,42 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="Disk.WarningSuffixFormat" xml:space="preserve">
     <value>| {0}</value>
   </data>
+  <data name="DomainJoin.Account" xml:space="preserve">
+    <value>Account (DOMAIN\user or user@domain)</value>
+  </data>
+  <data name="DomainJoin.Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="DomainJoin.DefaultDestination" xml:space="preserve">
+    <value>Default domain destination</value>
+  </data>
+  <data name="DomainJoin.Description" xml:space="preserve">
+    <value>Enter the deployment credentials and destination. Domain joining runs in installed Windows.</value>
+  </data>
+  <data name="DomainJoin.Destination" xml:space="preserve">
+    <value>Organizational unit</value>
+  </data>
+  <data name="DomainJoin.Domain" xml:space="preserve">
+    <value>Domain DNS name</value>
+  </data>
+  <data name="DomainJoin.Invalid" xml:space="preserve">
+    <value>The domain join input is invalid or unavailable. Deployment has not started.</value>
+  </data>
+  <data name="DomainJoin.Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="DomainJoin.PromptAtLaunch" xml:space="preserve">
+    <value>Provided before deployment</value>
+  </data>
+  <data name="DomainJoin.ReviewFormat" xml:space="preserve">
+    <value>Domain: {0}. Destination: {1}.</value>
+  </data>
+  <data name="DomainJoin.Title" xml:space="preserve">
+    <value>Domain join</value>
+  </data>
+  <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
+    <value>This Windows edition does not support domain joining. Windows installation will continue without domain joining.</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

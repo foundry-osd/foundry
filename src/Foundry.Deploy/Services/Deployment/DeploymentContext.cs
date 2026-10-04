@@ -15,6 +15,11 @@ namespace Foundry.Deploy.Services.Deployment;
 /// </summary>
 public sealed record DeploymentContext
 {
+    /// <summary>Gets requested mode/disposition even when credentials were intentionally bypassed.</summary>
+    public DomainJoin.DomainJoinDeploymentRequest? DomainJoinRequest { get; init; }
+
+    /// <summary>Gets frozen domain/name/destination metadata without an account, key or password.</summary>
+    public DomainJoin.DomainJoinDeploymentIntent? DomainJoinIntent { get; init; }
     /// <summary>Gets ordered post-installation actions and their authenticated media binding.</summary>
     public Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings PreOobe { get; init; } = new();
 

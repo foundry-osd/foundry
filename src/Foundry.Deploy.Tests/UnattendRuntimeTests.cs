@@ -25,11 +25,116 @@ using Foundry.Utilities.Processes;
 using Microsoft.Extensions.Logging.Abstractions;
 using CoreFile = Foundry.Core.Models.Configuration.Deploy.DeployUnattendFile;
 using CoreSettings = Foundry.Core.Models.Configuration.Deploy.DeployUnattendSettings;
+using Foundry.Deploy.Services.DomainJoin;
 
 namespace Foundry.Deploy.Tests;
 
 public sealed class UnattendRuntimeTests
 {
+    [Theory]
+    [InlineData("<ComputerName>*</ComputerName>")]
+    [InlineData("<ComputerName>CUSTOM-PC</ComputerName><ComputerName>OTHER-PC</ComputerName>")]
+    [InlineData("<ComputerName>CUSTOM-PC</ComputerName></component><component name='Microsoft-Windows-UnattendedJoin' processorArchitecture='amd64'><Identification><JoinDomain>corp.test</JoinDomain></Identification>")]
+    public void DomainCompatibilityRejectsOwnedNamingOrJoinConflicts(string settings)
+    {
+        using var fixture = new Fixture(settings);
+        Assert.Throws<InvalidDataException>(() => fixture.Service.Read(fixture.Selection, "amd64", false,
+            AutopilotProvisioningMode.JsonProfile, requiresDomainJoin: true));
+        Assert.False(Directory.Exists(fixture.Target));
+    }
+
+    [Fact]
+    public async Task CustomNameIsFrozenWithoutXmlRewrite()
+    {
+        using var fixture = new Fixture("<ComputerName>custom-Pc</ComputerName>");
+        var service = new DeploymentLaunchPreparationService(new Shell(), fixture.Service,
+            new DomainJoinPreparationService(new DomainJoinPreparationServiceTests.Dialog(new("corp.test", "CORP\\join", null, "domain-password-marker".AsSpan())), fixture.Session));
+        using DeploymentLaunchPreparationResult launch = service.Prepare(fixture.CreateLaunchRequest(), new() { IsEnabled = true });
+        Assert.True(launch.IsReadyToStart);
+        Assert.Equal("custom-Pc", launch.Context!.DomainJoinIntent!.ComputerName);
+        Assert.Equal("", launch.Context.TargetComputerName);
+        using DomainJoinPreparedInput? input = launch.TakeDomainJoinInput();
+        var logs = new Logs();
+        using DeploymentStepExecutionContext execution = fixture.CreateContext(requestOverride: launch.Context, domainInput: input, logs: logs);
+        Assert.Equal(DeploymentStepState.Succeeded,
+            (await new ValidateCustomUnattendStep(fixture.Service).ExecuteAsync(execution, TestContext.Current.CancellationToken)).State);
+        await execution.UnattendSnapshot!.StageAsync(fixture.Target, TestContext.Current.CancellationToken);
+        Assert.Equal(fixture.Content, File.ReadAllBytes(Path.Combine(fixture.Target, "Windows", "Panther", "unattend.xml")));
+        await DeploymentRunContextLogger.AppendRunContextAsync(execution, TestContext.Current.CancellationToken);
+        await execution.TrySaveRuntimeStateAsync(TestContext.Current.CancellationToken);
+        Assert.NotEmpty(logs.Messages);
+        Assert.NotEmpty(logs.States);
+        string diagnostics = string.Join("\n", logs.Messages.Concat(logs.States)) + JsonSerializer.Serialize(execution.Request);
+        Assert.DoesNotContain("CORP", diagnostics);
+        Assert.DoesNotContain("domain-password-marker", diagnostics);
+        Assert.DoesNotContain("encryptedCredentials", diagnostics, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task DirectConflictingDomainAndAutopilotRequestNeverExecutesSteps()
+    {
+        using var fixture = new Fixture();
+        using DeploymentStepExecutionContext template = fixture.CreateContext();
+        DeploymentContext request = template.Request with
+        {
+            IsAutopilotEnabled = true,
+            DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, DomainJoinDeploymentDisposition.Ready),
+            DomainJoinIntent = new("corp.test", "CUSTOM-PC", null)
+        };
+        var input = new DomainJoinPreparedInput(new("corp.test", "CORP\\join"), "CUSTOM-PC", null, "secret".AsSpan());
+        ReadOnlyMemory<char> password = input.Password;
+        bool executed = false;
+        IDeploymentStep[] steps = DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)new CallbackStep(name, _ => executed = true)).ToArray();
+        var orchestrator = new DeploymentOrchestrator(new OperationProgressService(), new Logs(), new Disks(), steps,
+            new Foundry.Telemetry.NullTelemetryService(), NullLogger<DeploymentOrchestrator>.Instance);
+        DeploymentResult result = await orchestrator.RunAsync(request, input, TestContext.Current.CancellationToken);
+        Assert.False(result.IsSuccess);
+        Assert.False(executed);
+        Assert.All(password.ToArray(), value => Assert.Equal('\0', value));
+    }
+
+    [Fact]
+    public async Task ExecutionRejectsCustomNameDifferentFromFrozenIntent()
+    {
+        using var fixture = new Fixture();
+        using var input = new DomainJoinPreparedInput(new("corp.test", "CORP\\join"), "DIFFERENT-PC", null, "secret".AsSpan());
+        using DeploymentStepExecutionContext template = fixture.CreateContext();
+        DeploymentContext request = template.Request with
+        {
+            DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, DomainJoinDeploymentDisposition.Ready),
+            DomainJoinIntent = new("corp.test", "DIFFERENT-PC", null)
+        };
+        using DeploymentStepExecutionContext execution = fixture.CreateContext(requestOverride: request, domainInput: input);
+        DeploymentStepResult result = await new ValidateCustomUnattendStep(fixture.Service).ExecuteAsync(execution, TestContext.Current.CancellationToken);
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.False(Directory.Exists(fixture.Target));
+    }
+
+    [Theory]
+    [InlineData("busy")]
+    [InlineData("constructor")]
+    public async Task OrchestratorDisposesDomainInputBeforeEarlyExit(string failure)
+    {
+        using var fixture = new Fixture();
+        var operations = new OperationProgressService();
+        if (failure == "busy") Assert.True(operations.TryStart(OperationKind.Deploy, "Busy", 0));
+        using DeploymentStepExecutionContext template = fixture.CreateContext();
+        DeploymentContext request = template.Request with
+        {
+            DomainJoinRequest = new(Foundry.Core.Models.Configuration.DomainJoinMode.Interactive, DomainJoinDeploymentDisposition.Ready),
+            DomainJoinIntent = new("corp.test", "CUSTOM-PC", null)
+        };
+        var input = new DomainJoinPreparedInput(new("corp.test", "CORP\\join"), "CUSTOM-PC", null, "secret".AsSpan());
+        ReadOnlyMemory<char> password = input.Password;
+        IDeploymentStep[] steps = DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)new CallbackStep(name, _ => { })).ToArray();
+        var orchestrator = new DeploymentOrchestrator(operations, new Logs(failure == "constructor"), new Disks(), steps,
+            new Foundry.Telemetry.NullTelemetryService(), NullLogger<DeploymentOrchestrator>.Instance);
+        DeploymentResult result = await orchestrator.RunAsync(request, input, TestContext.Current.CancellationToken);
+        Assert.False(result.IsSuccess);
+        Assert.All(password.ToArray(), value => Assert.Equal('\0', value));
+        Assert.False(Directory.Exists(fixture.Target));
+    }
+
     [Fact]
     public async Task Snapshot_WhenMediaChanges_StagesOriginalBytesAndCannotBeReusedAfterDisposal()
     {
@@ -445,10 +550,10 @@ public sealed class UnattendRuntimeTests
             CryptographicOperations.ZeroMemory(key);
             Service = new UnattendContentService(Session);
         }
-        public DeploymentStepExecutionContext CreateContext(bool dryRun = false)
+        public DeploymentStepExecutionContext CreateContext(bool dryRun = false, DeploymentContext? requestOverride = null, DomainJoinPreparedInput? domainInput = null, Logs? logs = null)
         {
             var request = new DeploymentContext { Unattend = Selection, Mode = DeploymentMode.Iso, CacheRootPath = Root, TargetDiskNumber = 0, TargetComputerName = "", OperatingSystem = new OperatingSystemCatalogItem { Architecture = "amd64" }, DriverPackSelectionKind = DriverPackSelectionKind.None, IsDryRun = dryRun };
-            return new DeploymentStepExecutionContext(request, new DeploymentRuntimeState { WorkspaceRoot = Root, TargetWindowsPartitionRoot = Target, TargetFoundryRoot = Path.Combine(Target, "Foundry"), IsDryRun = dryRun }, DeploymentStepNames.ExecutionOrder, new OperationProgressService(), new Logs(), new Disks(), _ => { });
+            return new DeploymentStepExecutionContext(requestOverride ?? request, new DeploymentRuntimeState { WorkspaceRoot = Root, TargetWindowsPartitionRoot = Target, TargetFoundryRoot = Path.Combine(Target, "Foundry"), IsDryRun = dryRun }, DeploymentStepNames.ExecutionOrder, new OperationProgressService(), logs ?? new Logs(), new Disks(), _ => { }, domainJoinInput: domainInput);
         }
         public DeploymentLaunchRequest CreateLaunchRequest() => new()
         {
@@ -474,11 +579,16 @@ public sealed class UnattendRuntimeTests
         public void Dispose() { Session.Dispose(); CryptographicOperations.ZeroMemory(Content); Directory.Delete(Root, true); }
     }
 
-    private sealed class Logs : IDeploymentLogService
+    private sealed class Logs(bool failInitialization = false) : IDeploymentLogService
     {
-        public DeploymentLogSession Initialize(string rootPath) => new() { RootPath = rootPath, LogsDirectoryPath = Path.Combine(rootPath, "Logs"), StateDirectoryPath = Path.Combine(rootPath, "State"), StateFilePath = Path.Combine(rootPath, "State", "state.json") };
-        public Task AppendAsync(DeploymentLogSession session, DeploymentLogLevel level, string message, CancellationToken cancellationToken = default) => Task.CompletedTask;
-        public Task SaveStateAsync<TState>(DeploymentLogSession session, TState state, CancellationToken cancellationToken = default) => Task.CompletedTask;
+        public List<string> Messages { get; } = [];
+        public List<string> States { get; } = [];
+        public DeploymentLogSession Initialize(string rootPath) => failInitialization ? throw new IOException("Synthetic initialization failure.") :
+            new() { RootPath = rootPath, LogsDirectoryPath = Path.Combine(rootPath, "Logs"), StateDirectoryPath = Path.Combine(rootPath, "State"), StateFilePath = Path.Combine(rootPath, "State", "state.json") };
+        public Task AppendAsync(DeploymentLogSession session, DeploymentLogLevel level, string message, CancellationToken cancellationToken = default)
+        { Messages.Add(message); return Task.CompletedTask; }
+        public Task SaveStateAsync<TState>(DeploymentLogSession session, TState state, CancellationToken cancellationToken = default)
+        { States.Add(JsonSerializer.Serialize(state)); return Task.CompletedTask; }
     }
     private sealed class Disks : ITargetDiskService
     {

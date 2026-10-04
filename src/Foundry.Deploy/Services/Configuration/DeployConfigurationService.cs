@@ -80,6 +80,7 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
             }
 
             Foundry.Deploy.Services.Deployment.Unattend.UnattendCatalog.Validate(document.Unattend, document.Protection?.IsEnabled == true);
+            ValidateDomainJoin(document);
 
             document = DeployConfigurationMigration.ApplySchemaMigrations(document);
             Foundry.Core.Services.Configuration.PreOobeConfigurationValidator.ThrowIfInvalid(new Foundry.Core.Models.Configuration.PreOobeSettings
@@ -141,5 +142,18 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
         {
             return null;
         }
+    }
+
+    private static void ValidateDomainJoin(FoundryDeployConfigurationDocument document)
+    {
+        var settings = document.DomainJoin;
+        if (settings is null || settings.OrganizationalUnits is null ||
+            document.Autopilot?.IsEnabled == true && settings.IsEnabled ||
+            !Foundry.Core.Services.Configuration.DomainJoinConfigurationValidator.EvaluateReadiness(
+                Foundry.Deploy.Services.DomainJoin.DomainJoinPreparationService.ToAuthored(settings),
+                settings.EncryptedCredentials is not null, document.Protection?.IsEnabled == true).IsValid ||
+            settings.IsEnabled && settings.Mode == Foundry.Core.Models.Configuration.DomainJoinMode.Interactive &&
+                (settings.AccountName is not null || settings.EncryptedCredentials is not null))
+            throw new InvalidDataException("The domain join configuration is invalid.");
     }
 }

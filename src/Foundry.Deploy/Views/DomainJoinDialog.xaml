@@ -1,0 +1,68 @@
+﻿<Window x:Class="Foundry.Deploy.Views.DomainJoinDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Icon="/Assets/Icons/app.ico"
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    SizeToContent="WidthAndHeight"
+    WindowStartupLocation="CenterOwner">
+    <StackPanel
+        Width="460"
+        Margin="32">
+        <TextBlock
+            Style="{DynamicResource TitleTextBlockStyle}"
+            Text="{Binding [DomainJoin.Title]}" />
+        <TextBlock
+            Margin="0,8,0,16"
+            Text="{Binding [DomainJoin.Description]}"
+            TextWrapping="Wrap" />
+        <Label
+            Content="{Binding [DomainJoin.Domain]}"
+            Target="{Binding ElementName=DomainInput}" />
+        <TextBox x:Name="DomainInput"
+            AutomationProperties.Name="{Binding [DomainJoin.Domain]}"
+            MaxLength="253"
+            TextChanged="DomainInput_OnTextChanged" />
+        <StackPanel x:Name="CredentialsPanel">
+            <Label
+                Margin="0,12,0,0"
+                Content="{Binding [DomainJoin.Account]}"
+                Target="{Binding ElementName=AccountInput}" />
+            <TextBox x:Name="AccountInput"
+                AutomationProperties.Name="{Binding [DomainJoin.Account]}"
+                MaxLength="512" />
+            <Label
+                Margin="0,12,0,0"
+                Content="{Binding [DomainJoin.Password]}"
+                Target="{Binding ElementName=PasswordInput}" />
+            <PasswordBox x:Name="PasswordInput"
+                AutomationProperties.Name="{Binding [DomainJoin.Password]}"
+                MaxLength="2560" />
+        </StackPanel>
+        <StackPanel x:Name="DestinationPanel">
+            <Label
+                Margin="0,12,0,0"
+                Content="{Binding [DomainJoin.Destination]}"
+                Target="{Binding ElementName=DestinationInput}" />
+            <ComboBox x:Name="DestinationInput"
+                AutomationProperties.Name="{Binding [DomainJoin.Destination]}"
+                DisplayMemberPath="DisplayName" />
+        </StackPanel>
+        <StackPanel
+            Margin="0,24,0,0"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+            <Button
+                MinWidth="96"
+                Content="{Binding [Common.Cancel]}"
+                IsCancel="True" />
+            <Button
+                MinWidth="96"
+                Margin="8,0,0,0"
+                Click="ContinueButton_OnClick"
+                Content="{Binding [DomainJoin.Continue]}"
+                IsDefault="True"
+                Style="{DynamicResource AccentButtonStyle}" />
+        </StackPanel>
+    </StackPanel>
+</Window>

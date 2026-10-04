@@ -7,4 +7,7 @@ namespace Foundry.Deploy.Services.Deployment;
 public interface IDeploymentLaunchPreparationService
 {
     DeploymentLaunchPreparationResult Prepare(DeploymentLaunchRequest request);
+    /// <summary>Consumes domain runtime settings only during pre-confirmation input preparation.</summary>
+    DeploymentLaunchPreparationResult Prepare(DeploymentLaunchRequest request,
+        Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings? domainJoin);
 }
