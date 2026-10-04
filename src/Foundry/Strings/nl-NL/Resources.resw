@@ -1828,17 +1828,11 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Documentatie kon niet worden geopend</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Activeren</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>Controleer het DNS-doeldomein, het bestemmingslabel en de DN-naam. Bestemmingen moeten tot het catalogusdomein behoren, met maximaal 1.024 vermeldingen.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Voer een geldig DNS-doeldomein en een gekwalificeerd account in voordat u een wachtwoord instelt. Wachtwoorden moeten binnen de ondersteunde grootte vallen en mogen geen NUL-tekens bevatten.</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Deactiveren</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>Bestemmingen zoeken in het AD-domein van deze computer...</value>
@@ -2402,7 +2396,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Vraag tijdens de implementatie om domeinreferenties en selecteer optioneel een bestemmings-OU.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Interactieve domeintoetreding</value>
+    <value>Interactief</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Configureer namen van geïmplementeerde apparaten.</value>
@@ -2468,7 +2462,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Treed toe met ingesloten referenties die zijn beveiligd met het mediumwachtwoord op de pagina Algemeen.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Zero Touch-domeintoetreding</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Actieve provisioningsmodus</value>

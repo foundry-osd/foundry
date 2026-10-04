@@ -2005,10 +2005,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             BuildAutopilotOverview(options, overview));
         IsDomainJoinOverviewExpanded = ReplaceOverviewItems(DomainJoinOverviewItems,
         (StartConfigurationOverviewItemViewModel[])[
-            CreateOverviewItem(ConfigurationOverviewItem.DomainJoinInteractive, overview, "Nav_InteractiveDomainJoinKey.Title",
-                localizationService.GetString("Nav_InteractiveDomainJoinKey.Description"), ConfigurationNavigationTarget.DomainJoinInteractive),
             CreateOverviewItem(ConfigurationOverviewItem.DomainJoinAutomatic, overview, "Nav_ZeroTouchDomainJoinKey.Title",
-                localizationService.GetString("Nav_ZeroTouchDomainJoinKey.Description"), ConfigurationNavigationTarget.DomainJoinAutomatic)
+                localizationService.GetString("Nav_ZeroTouchDomainJoinKey.Description"), ConfigurationNavigationTarget.DomainJoinAutomatic),
+            CreateOverviewItem(ConfigurationOverviewItem.DomainJoinInteractive, overview, "Nav_InteractiveDomainJoinKey.Title",
+                localizationService.GetString("Nav_InteractiveDomainJoinKey.Description"), ConfigurationNavigationTarget.DomainJoinInteractive)
         ]);
         IsCustomizationOverviewExpanded = ReplaceOverviewItems(
             CustomizationOverviewItems,

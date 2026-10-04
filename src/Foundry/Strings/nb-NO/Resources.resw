@@ -1828,17 +1828,11 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentasjonen kunne ikke åpnes</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Aktiver</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>Kontroller DNS-måldomenet, destinasjonsetiketten og det unike navnet. Destinasjoner må tilhøre katalogdomenet, med maksimalt 1 024 oppføringer.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Angi et gyldig DNS-måldomene og et kvalifisert kontonavn før du angir et passord. Passord må være innenfor den støttede størrelsen og kan ikke inneholde NUL-tegn.</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Deaktiver</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>Søker etter destinasjoner i denne datamaskinens AD-domene...</value>
@@ -2402,7 +2396,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Be om domenelegitimasjon under distribusjon og velg eventuelt en destinasjons-OU.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Interaktiv domenetilknytning</value>
+    <value>Interaktiv</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigurer navn på distribuerte enheter.</value>
@@ -2468,7 +2462,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Knytt til domenet med innebygd legitimasjon beskyttet av mediepassordet på siden Generelt.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Zero Touch-domenetilknytning</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktiv klargjøringsmodus</value>

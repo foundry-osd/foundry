@@ -1828,17 +1828,11 @@
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>文件無法開啟</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>啟用</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>請檢查目標 DNS 網域、目的地標籤和辨別名稱。所有目的地都必須屬於目錄中的網域，且最多可有 1,024 個項目。</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>設定密碼前，請輸入有效的目標 DNS 網域和含網域資訊的帳戶名稱。密碼必須符合支援的長度限制，且不能包含 NUL 字元。</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>停用</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>正在從此電腦的 AD 網域探索目的地...</value>
@@ -2402,7 +2396,7 @@
     <value>在部署期間要求網域認證，並可選取目的地 OU。</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>互動式網域加入</value>
+    <value>互動式</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>設定已部署裝置的名稱。</value>
@@ -2468,7 +2462,7 @@
     <value>使用由「一般」頁面的媒體密碼保護的內嵌認證加入網域。</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>零接觸網域加入</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>使用中的配置模式</value>

@@ -1828,17 +1828,11 @@
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>ไม่สามารถเปิดเอกสารได้</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>เปิดใช้งาน</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>ตรวจสอบโดเมน DNS เป้าหมาย ป้ายชื่อและชื่อเฉพาะของปลายทาง ปลายทางต้องอยู่ในโดเมนของแค็ตตาล็อก และมีได้ไม่เกิน 1,024 รายการ</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>ป้อนโดเมน DNS เป้าหมายที่ถูกต้องและชื่อบัญชีแบบระบุโดเมนก่อนตั้งรหัสผ่าน รหัสผ่านต้องมีขนาดตามที่รองรับและไม่มีอักขระ NUL</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>ปิดใช้งาน</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>กำลังค้นหาปลายทางจากโดเมน AD ของคอมพิวเตอร์เครื่องนี้...</value>
@@ -2402,7 +2396,7 @@
     <value>ขอข้อมูลรับรองโดเมนระหว่างการปรับใช้ และเลือก OU ปลายทางได้ตามต้องการ</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>การเข้าร่วมโดเมนแบบโต้ตอบ</value>
+    <value>แบบโต้ตอบ</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>กำหนดค่าชื่ออุปกรณ์ที่ปรับใช้</value>
@@ -2468,7 +2462,7 @@
     <value>เข้าร่วมโดยใช้ข้อมูลรับรองที่ฝังไว้และป้องกันด้วยรหัสผ่านสื่อในหน้าทั่วไป</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>การเข้าร่วมโดเมนแบบอัตโนมัติโดยไม่ต้องดำเนินการ</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>โหมดการจัดสรรที่ใช้งานอยู่</value>

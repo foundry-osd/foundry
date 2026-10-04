@@ -1828,17 +1828,11 @@ Licenciado sob a licença MIT.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Não foi possível abrir a documentação</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Ativar</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>Verifique o domínio DNS de destino, a etiqueta e o nome distinto do destino. Os destinos têm de pertencer ao domínio do catálogo, com um máximo de 1 024 entradas.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Introduza um domínio DNS de destino válido e uma conta qualificada antes de definir uma palavra-passe. As palavras-passe têm de respeitar o tamanho suportado e não podem conter carateres NUL.</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Desativar</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>A detetar destinos no domínio AD deste computador...</value>
@@ -2402,7 +2396,7 @@ Licenciado sob a licença MIT.</value>
     <value>Solicite as credenciais do domínio durante a implementação e, opcionalmente, selecione uma OU de destino.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Associação interativa ao domínio</value>
+    <value>Interativo</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Configure os nomes dos dispositivos implementados.</value>
@@ -2468,7 +2462,7 @@ Licenciado sob a licença MIT.</value>
     <value>Associe ao domínio com credenciais incorporadas protegidas pela palavra-passe do suporte da página Geral.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Associação ao domínio sem intervenção</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Modo de aprovisionamento ativo</value>

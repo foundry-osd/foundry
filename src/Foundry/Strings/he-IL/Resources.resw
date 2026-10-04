@@ -1828,17 +1828,11 @@
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>לא ניתן היה לפתוח את התיעוד</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>הפעלה</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>בדוק את תחום ה-DNS של היעד, את תווית היעד ואת השם המובחן. היעדים חייבים להשתייך לתחום הקטלוג, עם עד 1,024 רשומות.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>הזן תחום DNS תקין של יעד ושם חשבון הכולל תחום לפני הגדרת סיסמה. הסיסמאות חייבות לעמוד במגבלת הגודל הנתמכת ולא להכיל תווי NUL.</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>השבתה</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>מאתר יעדים בתחום ה-AD של מחשב זה...</value>
@@ -2402,7 +2396,7 @@
     <value>בקש פרטי כניסה לתחום במהלך הפריסה ובחר OU של יעד לפי הצורך.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>הצטרפות אינטראקטיבית לתחום</value>
+    <value>אינטראקטיבי</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>הגדר שמות למכשירים שנפרסו.</value>
@@ -2468,7 +2462,7 @@
     <value>הצטרף באמצעות פרטי כניסה מוטמעים המוגנים בסיסמת המדיה שבעמוד כללי.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>הצטרפות לתחום ללא מגע</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>מצב הקצאה פעיל</value>

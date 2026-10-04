@@ -1828,17 +1828,11 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Belgeler açılamadı</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Etkinleştir</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>Hedef DNS etki alanını, hedef etiketini ve ayırt edici adı kontrol edin. Hedefler katalog etki alanına ait olmalıdır ve en fazla 1.024 giriş olabilir.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Parola belirlemeden önce geçerli bir hedef DNS etki alanı ve etki alanıyla birlikte belirtilmiş bir hesap girin. Parolalar desteklenen boyutta olmalı ve NUL karakteri içermemelidir.</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Devre dışı bırak</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>Bu bilgisayarın AD etki alanındaki hedefler keşfediliyor...</value>
@@ -2402,7 +2396,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Dağıtım sırasında etki alanı kimlik bilgilerini isteyin ve isteğe bağlı olarak hedef OU seçin.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Etkileşimli etki alanına katılma</value>
+    <value>Etkileşimli</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Dağıtılan cihaz adlarını yapılandırın.</value>
@@ -2468,7 +2462,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Genel sayfasındaki medya parolasıyla korunan gömülü kimlik bilgilerini kullanarak katılın.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Müdahalesiz etki alanına katılma</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Etkin temel hazırlık modu</value>

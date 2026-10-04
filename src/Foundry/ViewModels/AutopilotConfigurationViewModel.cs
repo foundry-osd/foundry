@@ -1046,7 +1046,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     {
         string currentMode = configurationStateService.Current.DomainJoin.IsEnabled
             ? localizationService.GetString(configurationStateService.Current.DomainJoin.Mode == DomainJoinMode.Interactive
-                ? "Nav_InteractiveDomainJoinKey.Title" : "Nav_ZeroTouchDomainJoinKey.Title")
+                ? "InteractiveDomainJoinPageHeader.Title" : "ZeroTouchDomainJoinPageHeader.Title")
             : GetProvisioningModeDisplayName(provisioningMode);
         string requestedModeName = GetProvisioningModeDisplayName(requestedMode);
         return await dialogService.ConfirmAsync(new ConfirmationDialogRequest(

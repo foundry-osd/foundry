@@ -1828,17 +1828,11 @@ Licencirano pod licenco MIT.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentacije ni bilo mogoče odpreti</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Aktiviraj</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>Preverite ciljno domeno DNS, oznako in razločevalno ime cilja. Cilji morajo pripadati domeni kataloga, ki lahko vsebuje največ 1.024 vnosov.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Pred nastavitvijo gesla vnesite veljavno ciljno domeno DNS in polno ime računa. Gesla morajo ustrezati podprti velikosti in ne smejo vsebovati znakov NUL.</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Deaktiviraj</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>Odkrivanje ciljev v domeni AD tega računalnika...</value>
@@ -2402,7 +2396,7 @@ Licencirano pod licenco MIT.</value>
     <value>Med uvajanjem zahtevajte poverilnice domene in po želji izberite ciljno OU.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Interaktivna pridružitev domeni</value>
+    <value>Interaktivno</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigurirajte imena nameščenih naprav.</value>
@@ -2468,7 +2462,7 @@ Licencirano pod licenco MIT.</value>
     <value>Pridružite se z vdelanimi poverilnicami, zaščitenimi z geslom medija na strani Splošno.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Pridružitev domeni brez posredovanja</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktivni način zagotavljanja</value>

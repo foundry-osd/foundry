@@ -1828,17 +1828,11 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>문서를 열 수 없습니다.</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>활성화</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>대상 DNS 도메인, 대상 표시 이름 및 고유 이름을 확인하세요. 대상은 카탈로그 도메인에 속해야 하며 항목은 최대 1,024개까지 허용됩니다.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>암호를 설정하기 전에 유효한 대상 DNS 도메인과 도메인이 포함된 계정 이름을 입력하세요. 암호는 지원되는 길이 범위 내에 있어야 하며 NUL 문자를 포함할 수 없습니다.</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>비활성화</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>이 컴퓨터의 AD 도메인에서 대상을 검색하는 중...</value>
@@ -2402,7 +2396,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>배포 중 도메인 자격 증명을 요청하고 필요에 따라 대상 OU를 선택합니다.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>대화형 도메인 가입</value>
+    <value>대화형</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>배포된 장치 이름을 구성합니다.</value>
@@ -2468,7 +2462,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>일반 페이지의 미디어 암호로 보호되는 내장 자격 증명을 사용하여 가입합니다.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>제로 터치 도메인 가입</value>
+    <value>제로 터치</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>활성 프로비저닝 모드</value>

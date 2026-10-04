@@ -52,7 +52,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     /// <summary>Gets the bounded read-only directory preview with explicit per-row import selection.</summary>
     public ObservableCollection<DomainJoinOrganizationalUnitEntryViewModel> PreviewUnits { get; } = [];
     public bool IsActive => configuration.Current.DomainJoin.IsEnabled && configuration.Current.DomainJoin.Mode == pageMode;
-    public string ActionText => Text(IsActive ? "Deactivate" : "Activate");
+    public string ActionText => localization.GetString(IsActive ? "Common.Disable" : "Common.Enable");
     public string DocumentationUrl => pageMode == DomainJoinMode.Interactive
         ? FoundryApplicationInfo.InteractiveDomainJoinDocumentationUrl : FoundryApplicationInfo.ZeroTouchDomainJoinDocumentationUrl;
     public bool CanDiscover => !IsDiscovering && IsActive;
@@ -110,7 +110,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             _ => throw new ArgumentOutOfRangeException(nameof(pageMode))
         };
         ProvisioningSelectionDecision decision = ProvisioningModeSelectionEvaluator.Evaluate(baseline.Autopilot, baseline.DomainJoin, requested);
-        if (decision.RequiresReplacementConfirmation && !await dialogs.ConfirmAsync(new(Text("ReplacementTitle"), Text("ReplacementMessage"), Text("Activate"), localization.GetString("Common.Cancel"), true))) return;
+        if (decision.RequiresReplacementConfirmation && !await dialogs.ConfirmAsync(new(Text("ReplacementTitle"), Text("ReplacementMessage"), localization.GetString("Common.Enable"), localization.GetString("Common.Cancel"), true))) return;
         if (disposed || !ReferenceEquals(baseline, configuration.Current)) return;
         configuration.UpdateProvisioningSelection(baseline.Autopilot with { IsEnabled = false },
             baseline.DomainJoin with { IsEnabled = decision.Next == requested, Mode = pageMode });

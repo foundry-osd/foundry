@@ -1828,17 +1828,11 @@
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Не вдалося відкрити документацію</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Активувати</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>Перевірте цільовий домен DNS, мітку та розрізнювальне ім’я призначення. Призначення мають належати до домену каталогу; дозволено щонайбільше 1 024 записи.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Перш ніж задавати пароль, введіть дійсний цільовий домен DNS і повне ім’я облікового запису. Паролі мають відповідати підтримуваному розміру й не містити символів NUL.</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Деактивувати</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>Пошук призначень у домені AD цього комп’ютера...</value>
@@ -2402,7 +2396,7 @@
     <value>Запитувати облікові дані домену під час розгортання з можливістю вибору цільової OU.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Інтерактивне приєднання до домену</value>
+    <value>Інтерактивно</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Налаштуйте імена розгорнутих пристроїв.</value>
@@ -2468,7 +2462,7 @@
     <value>Приєднувати за допомогою вбудованих облікових даних, захищених паролем носія зі сторінки «Загальний».</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Приєднання до домену без втручання</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Активний режим ініціалізації</value>

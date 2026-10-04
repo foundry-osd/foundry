@@ -1828,17 +1828,11 @@ Licencjonowany na licencji MIT.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Nie można otworzyć dokumentacji</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Aktywuj</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>Sprawdź docelową domenę DNS, etykietę lokalizacji docelowej i nazwę wyróżniającą. Lokalizacje docelowe muszą należeć do domeny katalogu, a liczba wpisów nie może przekraczać 1024.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Przed ustawieniem hasła wprowadź prawidłową docelową domenę DNS i kwalifikowaną nazwę konta. Hasła muszą mieścić się w obsługiwanym limicie rozmiaru i nie mogą zawierać znaków NUL.</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Dezaktywuj</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>Wyszukiwanie lokalizacji docelowych w domenie AD tego komputera...</value>
@@ -2402,7 +2396,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Żądaj poświadczeń domeny podczas wdrażania i opcjonalnie wybierz docelową OU.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Interaktywne dołączanie do domeny</value>
+    <value>Interaktywnie</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Skonfiguruj nazwy wdrożonych urządzeń.</value>
@@ -2468,7 +2462,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Dołączaj przy użyciu osadzonych poświadczeń chronionych hasłem nośnika ze strony ustawień ogólnych („Generał”).</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Dołączanie do domeny Zero Touch</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktywny tryb aprowizacji</value>

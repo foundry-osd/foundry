@@ -1828,17 +1828,11 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>No se pudo abrir la documentación</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Activar</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>Compruebe el dominio DNS de destino, la etiqueta de destino y el nombre distintivo. Los destinos deben pertenecer al dominio del catálogo, con un máximo de 1024 entradas.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Introduzca un dominio DNS de destino y una cuenta cualificada válidos antes de establecer una contraseña. Las contraseñas deben respetar el tamaño admitido y no contener caracteres NUL.</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Desactivar</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>Buscando destinos en el dominio AD de este equipo...</value>
@@ -2402,7 +2396,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Solicite credenciales de dominio durante la implementación y seleccione opcionalmente una OU de destino.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Unión interactiva al dominio</value>
+    <value>Interactivo</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Configure los nombres de dispositivos implementados.</value>
@@ -2468,7 +2462,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Una el equipo al dominio con credenciales integradas protegidas por la contraseña del medio de la página General.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Unión al dominio Zero Touch</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Modo de aprovisionamiento activo</value>

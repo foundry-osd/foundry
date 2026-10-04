@@ -1828,17 +1828,11 @@
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Документацията не можа да бъде отворена</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Активиране</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>Проверете целевия DNS домейн, етикета на местоназначението и отличителното име. Местоназначенията трябва да принадлежат към домейна на каталога, с най-много 1024 записа.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Въведете валиден целеви DNS домейн и акаунт с указана принадлежност към домейн, преди да зададете парола. Паролите трябва да са в поддържаните граници за размер и да не съдържат знаци NUL.</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Деактивиране</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>Търсене на местоназначения в AD домейна на този компютър...</value>
@@ -2402,7 +2396,7 @@
     <value>Изискване на идентификационни данни за домейна по време на разполагането и незадължителен избор на целева OU.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Интерактивно присъединяване към домейн</value>
+    <value>Интерактивно</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Конфигурирайте имената на внедрените устройства.</value>
@@ -2468,7 +2462,7 @@
     <value>Присъединяване с вградени идентификационни данни, защитени с паролата за носителя от страницата „генерал“.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Присъединяване към домейн Zero Touch</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Активен режим на зaсигуряване</value>

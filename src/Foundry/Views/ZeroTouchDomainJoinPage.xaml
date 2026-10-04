@@ -14,7 +14,7 @@
             <controls:PageHeader
                 x:Uid="ZeroTouchDomainJoinPageHeader"
                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
-                IconGlyph="&#xE902;">
+                IconGlyph="&#xF003;">
                 <controls:PageHeader.ActionContent>
                     <Button
                         Command="{x:Bind ViewModel.ToggleModeCommand}"

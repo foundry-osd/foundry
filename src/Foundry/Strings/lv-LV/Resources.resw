@@ -1828,17 +1828,11 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Dokumentāciju nevarēja atvērt</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Aktivizēt</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>Pārbaudiet mērķa DNS domēnu, galamērķa etiķeti un atšķirīgo nosaukumu. Galamērķiem jāatrodas kataloga domēnā; atļauti ne vairāk kā 1024 ieraksti.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Pirms paroles iestatīšanas ievadiet derīgu mērķa DNS domēnu un konta nosaukumu ar domēnu. Parolēm jāiekļaujas atbalstītajā izmērā, un tajās nedrīkst būt NUL rakstzīmes.</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Deaktivizēt</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>Tiek meklēti galamērķi šī datora AD domēnā...</value>
@@ -2402,7 +2396,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Izvietošanas laikā pieprasīt domēna akreditācijas datus un pēc izvēles atlasīt galamērķa OU.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Interaktīva pievienošanās domēnam</value>
+    <value>Interaktīvi</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigurējiet izvietoto ierīču nosaukumus.</value>
@@ -2468,7 +2462,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pievienoties, izmantojot iegultus akreditācijas datus, kurus aizsargā vispārīgo iestatījumu lapā („Ģenerālis”) iestatītā datu nesēja parole.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Pievienošanās domēnam Zero Touch režīmā</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktīvais nodrošināšanas režīms</value>

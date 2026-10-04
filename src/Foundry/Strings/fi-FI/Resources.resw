@@ -1828,17 +1828,11 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Asiakirjoja ei voitu avata</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Aktivoi</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>Tarkista DNS-kohdetoimialue, kohteen nimi ja yksilöivä nimi. Kohteiden on kuuluttava luettelon toimialueeseen, ja merkintöjä saa olla enintään 1 024.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Anna kelvollinen DNS-kohdetoimialue ja toimialuetiedon sisältävä tili ennen salasanan asettamista. Salasanojen on noudatettava tuettua kokoa, eivätkä ne saa sisältää NUL-merkkejä.</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Poista käytöstä</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>Etsitään kohteita tämän tietokoneen AD-toimialueesta...</value>
@@ -2402,7 +2396,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Pyydä toimialueen tunnistetiedot käyttöönoton aikana ja valitse halutessasi kohde-OU.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Vuorovaikutteinen toimialueeseen liittyminen</value>
+    <value>Interaktiivinen</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Määritä käyttöön otettujen laitteiden nimet.</value>
@@ -2468,7 +2462,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Liity käyttämällä upotettuja tunnistetietoja, jotka on suojattu sivulla ”Kenraali” määritetyllä median salasanalla.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Zero Touch -toimialueeseen liittyminen</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktiivinen käyttöönotto-tila</value>

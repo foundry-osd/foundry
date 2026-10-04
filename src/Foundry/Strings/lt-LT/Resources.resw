@@ -1828,17 +1828,11 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Documentation.ExternalLaunchFailed.Title" xml:space="preserve">
     <value>Nepavyko atidaryti dokumentų</value>
   </data>
-  <data name="DomainJoin.Activate" xml:space="preserve">
-    <value>Suaktyvinti</value>
-  </data>
   <data name="DomainJoin.CatalogInputInvalid" xml:space="preserve">
     <value>Patikrinkite paskirties DNS domeną, paskirties žymą ir skiriamąjį vardą. Paskirtys turi priklausyti katalogo domenui; leidžiama ne daugiau kaip 1 024 įrašai.</value>
   </data>
   <data name="DomainJoin.CredentialInputInvalid" xml:space="preserve">
     <value>Prieš nustatydami slaptažodį įveskite tinkamą paskirties DNS domeną ir paskyros vardą su domenu. Slaptažodžiai turi neviršyti palaikomo dydžio ir negali turėti NUL simbolių.</value>
-  </data>
-  <data name="DomainJoin.Deactivate" xml:space="preserve">
-    <value>Išaktyvinti</value>
   </data>
   <data name="DomainJoin.Discovering" xml:space="preserve">
     <value>Ieškoma paskirčių šio kompiuterio AD domene...</value>
@@ -2402,7 +2396,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Diegimo metu prašyti domeno prisijungimo duomenų ir pasirinktinai pasirinkti paskirties OU.</value>
   </data>
   <data name="Nav_InteractiveDomainJoinKey.Title" xml:space="preserve">
-    <value>Interaktyvus prisijungimas prie domeno</value>
+    <value>Interaktyvus</value>
   </data>
   <data name="Nav_MachineNamingKey.Description" xml:space="preserve">
     <value>Konfigūruokite įdiegtų įrenginių pavadinimus.</value>
@@ -2468,7 +2462,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Prisijungti naudojant įterptus prisijungimo duomenis, apsaugotus bendrųjų nuostatų puslapyje („Generolas“) nustatytu laikmenos slaptažodžiu.</value>
   </data>
   <data name="Nav_ZeroTouchDomainJoinKey.Title" xml:space="preserve">
-    <value>Prisijungimas prie domeno be įsikišimo</value>
+    <value>Zero-Touch</value>
   </data>
   <data name="NavigationStatus.ActiveProvisioningMode" xml:space="preserve">
     <value>Aktyvus parengimo režimas</value>
