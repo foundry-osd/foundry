@@ -230,8 +230,28 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
         if (state.Cursor < joinIndex) throw new InvalidDataException("Domain cursor precedes its recorded execution.");
         if (join.Status == "Running")
         {
-            state.UnsafePayloadBootIdentity = origin;
-            state.UnsafeActionId = domainBinding.JoinAction.Id;
+            bool settledPrepared = workerLease is not null && receipt.Phase == DomainJoinReceiptPhase.Prepared &&
+                domainReport.Join.State == DomainJoinPhaseState.Failed;
+            if (settledPrepared)
+            {
+                if (state.UnsafePayloadBootIdentity == origin && state.UnsafeActionId == domainBinding.JoinAction.Id)
+                {
+                    state.UnsafePayloadBootIdentity = null;
+                    state.UnsafeActionId = null;
+                }
+                else if (state.UnsafePayloadBootIdentity == boot)
+                {
+                    state.Status = "Failed";
+                    state.CompletionStatus = null;
+                    journal.Write(state);
+                    return false;
+                }
+            }
+            else if (state.UnsafePayloadBootIdentity != boot || state.UnsafeActionId == domainBinding.JoinAction.Id)
+            {
+                state.UnsafePayloadBootIdentity = origin;
+                state.UnsafeActionId = domainBinding.JoinAction.Id;
+            }
             state.Actions[domainBinding.JoinAction.Id] = join with
             {
                 Status = warning ? "Failed" : "Succeeded",

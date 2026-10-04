@@ -236,6 +236,61 @@ public sealed class DomainJoinRecoveryTests
     }
 
     [Fact]
+    public async Task SettledPreparedRecovery_ExecutesIndependentCleanupOnSameBoot()
+    {
+        using var f = new RecoveryFixture();
+        f.PrepareCrash(DomainJoinReceiptPhase.Prepared, false, "Running");
+        Assert.Equal(0, await f.Run());
+        Assert.Equal(["verify", "custom", "cleanup"], f.Executed);
+        Assert.Equal("Succeeded", f.Journal.Read().Actions["cleanup"].Status);
+        Assert.False(File.Exists(f.Credentials));
+        Assert.Null(f.Journal.Read().UnsafePayloadBootIdentity);
+        Assert.Equal(0, f.Journal.Read().RestartCount);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task SettledPreparedRecovery_PreservesOrdinaryCustomContinuePolicy(bool previousDomainMarker)
+    {
+        using var f = new RecoveryFixture(continueCustomFailures: true) { OrdinaryCustomFailure = true };
+        f.PrepareCrash(DomainJoinReceiptPhase.Prepared, false, "Running");
+        if (previousDomainMarker)
+        {
+            var state = f.Journal.Read();
+            state.UnsafePayloadBootIdentity = "installed-boot";
+            state.UnsafeActionId = "join";
+            f.Journal.Write(state);
+        }
+        Assert.Equal(0, await f.Run());
+        Assert.Equal("CompletedWithErrors", f.Journal.Read().Status);
+        Assert.Equal("Failed", f.Journal.Read().Actions["custom"].Status);
+        Assert.Equal("Succeeded", f.Journal.Read().Actions["cleanup"].Status);
+        Assert.Null(f.Journal.Read().UnsafePayloadBootIdentity);
+        Assert.Equal(DomainJoinPhaseState.Failed, f.Report.Read().Join.State);
+        Assert.Equal(DomainJoinPhaseState.Skipped, f.Report.Read().Membership.State);
+        Assert.Equal(0, f.Journal.Read().RestartCount);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("custom")]
+    public async Task SettledPreparedRecovery_PreservesUnrelatedUnsafeOwnership(string? unsafeAction)
+    {
+        using var f = new RecoveryFixture();
+        f.PrepareCrash(DomainJoinReceiptPhase.Prepared, false, "Running");
+        var state = f.Journal.Read();
+        state.UnsafePayloadBootIdentity = "installed-boot";
+        state.UnsafeActionId = unsafeAction;
+        f.Journal.Write(state);
+        Assert.Equal(3, await f.Run());
+        Assert.Equal("Failed", f.Journal.Read().Status);
+        Assert.Equal("installed-boot", f.Journal.Read().UnsafePayloadBootIdentity);
+        Assert.Equal(unsafeAction, f.Journal.Read().UnsafeActionId);
+        Assert.Empty(f.Executed);
+    }
+
+    [Fact]
     public async Task LostNativeReturn_ContinuesAfterRestartWithoutRepeatingJoin()
     {
         using var f = new RecoveryFixture();
@@ -304,14 +359,15 @@ public sealed class DomainJoinRecoveryTests
         public bool LiveWorker;
         public bool PendingAtCustom;
         public bool UncertainCustom;
+        public bool OrdinaryCustomFailure;
         public bool AggregateJoinFailure;
         private string boot = "installed-boot";
-        public RecoveryFixture(string? fault = null, bool targetOu = true)
+        public RecoveryFixture(string? fault = null, bool targetOu = true, bool continueCustomFailures = false)
         {
             Domain = new(targetOu, configure: plan => plan with
             {
                 Actions = [.. plan.Actions,
-                new() { Id = "custom", CustomAction = new() { Kind = PreOobeActionKind.Command, Process = new() } },
+                new() { Id = "custom", CustomAction = new() { Kind = PreOobeActionKind.Command, Process = new() { ErrorPolicy = continueCustomFailures ? PreOobeErrorPolicy.Continue : PreOobeErrorPolicy.Stop } } },
                 new() { Id = "cleanup", BuiltInKind = PreOobeBuiltInKind.Cleanup }]
             });
             Journal = fault is null ? new ExecutionJournal(Domain.Root) : new FaultJournal(Domain.Root, fault);
@@ -337,6 +393,7 @@ public sealed class DomainJoinRecoveryTests
             {
                 PendingAtCustom = Report.Read().Cleanup == DomainJoinCleanupState.Pending;
                 if (UncertainCustom) return new(false, TerminationUncertain: true);
+                if (OrdinaryCustomFailure) return new(false, ExitCode: 42, FailureCode: "custom_failure");
             }
             return new(true);
         }
